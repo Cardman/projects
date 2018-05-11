@@ -20,7 +20,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
-import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableElResult;
@@ -1464,7 +1463,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$classchoice$pkg$Ex$$exmeth(6i)", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$classchoice$pkg.Ex$$exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(15,(Number) res_);
@@ -1485,7 +1484,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$classchoice$pkg$Ex$$inst;;;", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$classchoice$pkg.Ex$$inst;;;", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(2,(Number) res_);
@@ -2586,7 +2585,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2617,7 +2616,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2648,7 +2647,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2679,7 +2678,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2711,7 +2710,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2743,7 +2742,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2775,7 +2774,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2807,7 +2806,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2838,7 +2837,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2870,7 +2869,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2904,7 +2903,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2938,7 +2937,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -2970,7 +2969,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -3004,7 +3003,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -3040,7 +3039,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -3077,7 +3076,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -3114,7 +3113,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -3151,7 +3150,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -3177,7 +3176,7 @@ public final class ElRenderUtilTest {
         String el_ = elr_.substring(0);
         ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
         Argument argGl_ = ctx_.getLastPage().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
@@ -3543,7 +3542,7 @@ public final class ElRenderUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "2i", "=",cont_);
+        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "2i", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertTrue(res_ instanceof Integer);
@@ -3573,8 +3572,8 @@ public final class ElRenderUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "2i", "=",cont_);
-        processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "v;.", "=",cont_);
+        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "2i", "=",cont_);
+        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "v;.", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertNull(res_);
@@ -3687,22 +3686,20 @@ public final class ElRenderUtilTest {
         context_.setAnalyzing(null);
         CustList<OperationNode> left_ = members_.getLeft();
         SettableElResult set_ = ExpressionLanguage.getSettable(left_);
+        if (set_ == null) {
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(un_);
+            context_.setException(new StdStruct(new CustomError(), _conf.getStandards().getErrorEl()));
+            return;
+        }
         set_.setVariable(true);
         LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
         String res_ = set_.getResultClass().getName();
         if (set_.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {
             set_.setCatenizeStrings();
-        }
-        if (set_ instanceof ConstantOperation) {
-            if (((ConstantOperation)set_).isImmutablePart()) {
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                context_.setException(new StdStruct(new CustomError(), _conf.getStandards().getErrorEl()));
-                return;
-            }
         }
         CustList<OperationNode> right_ = members_.getRight();
         ElRenderUtil.tryToCalculateAffect(left_, context_, right_, _oper);
@@ -3894,7 +3891,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","$classchoice$pkg$Ex$$inst;;;", "v;.", "=",cont_);
+        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "v;.", "=",cont_);
         assertNotNull(cont_.getContext().getException());
     }
 

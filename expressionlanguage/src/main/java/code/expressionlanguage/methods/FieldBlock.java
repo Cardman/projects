@@ -18,7 +18,9 @@ import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.ArrayFieldOperation;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.ChoiceFctOperation;
 import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -28,6 +30,7 @@ import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PrimitiveBoolOperation;
 import code.expressionlanguage.opers.SemiAffectationOperation;
+import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.TernaryOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -318,7 +321,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 continue;
             }
             if (o instanceof ConstantOperation) {
-                ConstantOperation cst_ = (ConstantOperation) o;
+                continue;
+            }
+            if (o instanceof ArrayFieldOperation) {
+                continue;
+            }
+            if (o instanceof SettableAbstractFieldOperation) {
+                SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) o;
                 if (cst_.getFieldMetaInfo().isEnumField()) {
                     return false;
                 }
@@ -344,6 +353,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (o instanceof TernaryOperation) {
                 continue;
             }
+            if (o instanceof ChoiceFctOperation) {
+                return false;
+            }
             if (o instanceof FctOperation) {
                 FctOperation fct_ = (FctOperation) o;
                 if (fct_.isConstCall()) {
@@ -357,10 +369,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public EqList<ClassField> getStaticConstantDependencies(Analyzable _an) {
         EqList<ClassField> eq_ = new EqList<ClassField>();
         for (OperationNode o: opValue) {
-            if (!(o instanceof ConstantOperation)) {
+            if (!(o instanceof SettableAbstractFieldOperation)) {
                 continue;
             }
-            ConstantOperation cst_ = (ConstantOperation) o;
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) o;
             ClassField key_ = cst_.getFieldId();
             if (key_ == null) {
                 continue;

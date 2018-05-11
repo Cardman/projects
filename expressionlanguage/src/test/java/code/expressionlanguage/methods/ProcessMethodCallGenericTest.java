@@ -141,7 +141,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
-        xml_.append(" $public $int ance=inst;;;$classchoice$pkg$ExTwo$$get():\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice$pkg.ExTwo$$get():\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -181,7 +181,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
-        xml_.append(" $public $int ance=inst;;;$classchoice$pkg$ExTwo<java$lang$Number>$$get(8I):\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice$pkg.ExTwo<java.lang.Number>$$get(8I):\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -222,7 +222,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
-        xml_.append(" $public $int ance=inst;;;$classchoice$pkg$ExTwo$$get(8I):\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice$pkg.ExTwo$$get(8I):\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -263,7 +263,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
-        xml_.append(" $public $int ance=inst;;;$classchoice$pkg$ExTwo$$get(1I):\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice$pkg.ExTwo$$get(1I):\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -510,7 +510,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
         xml_.append(" $public java.lang.Number ance:\n");
         xml_.append(" {\n");
-        xml_.append("  inst;;;$classchoice$pkg$ExThree$$get;;;=3i:\n");
+        xml_.append("  inst;;;$classchoice$pkg.ExThree$$get;;;=3i:\n");
         xml_.append("  inst;;;get;;;=1i:\n");
         xml_.append("  ance;;;=inst;;;getter():\n");
         xml_.append(" }\n");
@@ -557,7 +557,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
         xml_.append(" $public java.lang.Number ance:\n");
         xml_.append(" {\n");
-        xml_.append("  inst;;;$classchoice$pkg$ExThree$$get;;;=3i:\n");
+        xml_.append("  inst;;;$classchoice$pkg.ExThree$$get;;;=3i:\n");
         xml_.append("  inst;;;get;;;=1i:\n");
         xml_.append("  ance;;;=inst;;;getter():\n");
         xml_.append(" }\n");
@@ -605,7 +605,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
         xml_.append(" $public java.lang.Number ance:\n");
         xml_.append(" {\n");
-        xml_.append("  inst;;;$classchoice$pkg$ExThree$$get;;;=3i:\n");
+        xml_.append("  inst;;;$classchoice$pkg.ExThree$$get;;;=3i:\n");
         xml_.append("  inst;;;get;;;=1i:\n");
         xml_.append("  ance;;;=inst;;;getter():\n");
         xml_.append(" }\n");

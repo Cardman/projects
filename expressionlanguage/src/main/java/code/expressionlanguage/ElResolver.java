@@ -335,38 +335,6 @@ public final class ElResolver {
                         d_.setBadOffset(i_+1);
                         return d_;
                     }
-                    if (procWordFirstChar(_string, i_ + 1, VALUE_OF, len_)) {
-                        int j_ = i_ + 1;
-                        while (j_ < len_) {
-                            if (_string.charAt(j_) == PAR_LEFT) {
-                                hatMethod_ = false;
-                                break;
-                            }
-                            j_++;
-                        }
-                        if (j_ >= len_) {
-                            d_.setBadOffset(len_ - 1);
-                            return d_;
-                        }
-                        i_ = j_;
-                        continue;
-                    }
-                    if (procWordFirstChar(_string, i_ + 1, VALUES, len_)) {
-                        int j_ = i_ + 1;
-                        while (j_ < len_) {
-                            if (_string.charAt(j_) == PAR_LEFT) {
-                                hatMethod_ = false;
-                                break;
-                            }
-                            j_++;
-                        }
-                        if (j_ >= len_) {
-                            d_.setBadOffset(len_ - 1);
-                            return d_;
-                        }
-                        i_ = j_;
-                        continue;
-                    }
                     if (procWordFirstChar(_string, i_ + 1, INSTANCE, len_)) {
                         int j_ = i_ + 1;
                         while (j_ < len_) {
@@ -627,7 +595,7 @@ public final class ElResolver {
                     if (foundValue_) {
                         continue;
                     }
-                    for (String s: StringList.wrapStringArray(VAR_ARG,FIRST_OPT,CLASS,INSTANCEOF,BOOLEAN)) {
+                    for (String s: StringList.wrapStringArray(VAR_ARG,FIRST_OPT,CLASS,INSTANCEOF,BOOLEAN,VALUE_OF,VALUES)) {
                         if (procWordFirstChar(_string, i_ + 1, s, len_)) {
                             int index_ = processPredefinedMethod(_string, i_, s, len_);
                             if (index_ < 0) {
@@ -1200,10 +1168,11 @@ public final class ElResolver {
         if (afterSuper_ >= _max) {
             return -afterSuper_;
         }
-        if (_string.charAt(afterSuper_) != PAR_LEFT) {
+        int index_ = _string.indexOf(PAR_LEFT,afterSuper_);
+        if (index_ < 0 || !_string.substring(afterSuper_, index_).trim().isEmpty()) {
             return -afterSuper_;
         }
-        return afterSuper_;
+        return index_;
     }
 
     private static boolean isNumber(int _start, int _max, String _string) {
@@ -2042,13 +2011,14 @@ public final class ElResolver {
         return increment_;
     }
 
-    static boolean procWordFirstChar(String _string, int _i, String _word, int _max) {
+    public static boolean procWordFirstChar(String _string, int _i, String _word, int _max) {
         int len_ = _max;
         int wordLength_ = _word.length();
         if (_i + wordLength_ <= len_) {
             boolean process_ = true;
             if (_i + wordLength_ < len_) {
-                if (StringList.isWordChar(_string.charAt(_i + wordLength_))) {
+                char ch_ = _string.charAt(_i + wordLength_);
+                if (StringList.isWordChar(ch_)) {
                     process_ = false;
                 }
             }

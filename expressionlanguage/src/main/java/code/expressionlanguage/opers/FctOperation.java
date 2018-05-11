@@ -31,7 +31,6 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.VarargError;
@@ -131,8 +130,7 @@ public final class FctOperation extends InvokingOperation {
                 setSimpleArgument(new Argument());
                 return;
             }
-            OperationNode opFirst_ = m_.getFirstChild();
-            if (!isFirstChild() && !(opFirst_ instanceof StaticInitOperation && opFirst_.getNextSibling() == this)) {
+            if (!isFirstChild()) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
                 varg_.setRc(_conf.getCurrentLocation());
@@ -226,8 +224,7 @@ public final class FctOperation extends InvokingOperation {
                 setSimpleArgument(new Argument());
                 return;
             }
-            OperationNode opFirst_ = m_.getFirstChild();
-            if (isFirstChild() ||(opFirst_ instanceof StaticInitOperation && opFirst_.getNextSibling() == this)) {
+            if (isFirstChild()) {
                 VarargError varg_ = new VarargError();
                 varg_.setFileName(_conf.getCurrentFileName());
                 varg_.setRc(_conf.getCurrentLocation());
@@ -597,32 +594,10 @@ public final class FctOperation extends InvokingOperation {
             }
             clCurName_ = clCur_.getName();
         }
-        if (StringList.quickEq(clCurName_, stds_.getAliasVoid())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(clCurName_);
-            mapping_.setParam(stds_.getAliasObject());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(cast_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        if (hasVoidPrevious(clCurName_, _conf)) {
             return;
         }
-        String objectClassName_ = stds_.getAliasObject();
-        StringList bounds_ = new StringList();
-        if (clCurName_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            String glClass_ = _conf.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(glClass_).first();
-            GeneType gl_ = _conf.getClassBody(curClassBase_);
-            StringMap<StringList> mapping_ = new StringMap<StringList>();
-            for (TypeVar t: gl_.getParamTypes()) {
-                mapping_.put(t.getName(), t.getConstraints());
-            }
-            bounds_.addAllElts(Mapping.getAllUpperBounds(mapping_, clCurName_.substring(1), objectClassName_));
-        } else {
-            bounds_.add(clCurName_);
-        }
+        StringList bounds_ = getBounds(clCurName_, _conf);
         analyzeCustomClass(_conf, bounds_);
 //        if (firstArgs_.isEmpty()) {
 //            if (StringList.quickEq(trimMeth_, GET_CLASS)) {
@@ -640,29 +615,7 @@ public final class FctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
-        int indexChild_ = -1;
-        boolean void_ = false;
-        for (ClassArgumentMatching c:firstArgs_) {
-            indexChild_++;
-            if (c.matchVoid(_conf)) {
-                void_ = true;
-                if (indexChild_ < chidren_.size()) {
-                    OperationNode op_ = chidren_.get(indexChild_);
-                    op_.setRelativeOffsetPossibleAnalyzable(op_.getIndexInEl()+off_, _conf);
-                } else {
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-                }
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(stds_.getAliasVoid());
-                mapping_.setParam(stds_.getAliasObject());
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(cast_);
-            }
-        }
-        if (void_) {
+        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -727,50 +680,7 @@ public final class FctOperation extends InvokingOperation {
         superAccessMethod = superAccessMethod_;
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = clMeth_.isStaticMethod();
-        if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
-            int i_ = CustList.FIRST_INDEX;
-            for (OperationNode o: chidren_) {
-                if (o.isVararg()) {
-                    i_++;
-                    continue;
-                }
-                if (o.isFirstOptArg()) {
-                    break;
-                }
-                String param_ = realId.getParametersTypes().get(i_-1);
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    o.getResultClass().setUnwrapObject(param_);
-                }
-                i_++;
-            }
-        } else if (naturalVararg > -1) {
-            int lenCh_ = firstArgs_.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = firstArgs_.get(i);
-                if (i >= naturalVararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                        a_.setUnwrapObject(lastType);
-                    }
-                } else {
-                    String param_ = realId.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                        a_.setUnwrapObject(param_);
-                    }
-                }
-            }
-        } else {
-            int lenCh_ = firstArgs_.size();
-            for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = firstArgs_.get(i);
-                String param_ = realId.getParametersTypes().get(i);
-                if (i + 1 == lenCh_ && realId.isVararg()) {
-                    param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    a_.setUnwrapObject(param_);
-                }
-            }
-        }
+        unwrapArgsFct(chidren_, realId, naturalVararg, lastType, firstArgs_, _conf);
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
     }
 

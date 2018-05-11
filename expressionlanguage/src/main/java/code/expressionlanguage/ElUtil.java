@@ -61,7 +61,7 @@ public final class ElUtil {
         }
         _conf.setAnalyzingRoot(false);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
-        OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
+        OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_, _conf);
         if (opLeft_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(dLeft_.getBadOffset());
@@ -85,7 +85,7 @@ public final class ElUtil {
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
-        OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
+        OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_, _conf);
         if (opRight_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(dRight_.getBadOffset());
@@ -253,7 +253,7 @@ public final class ElUtil {
         }
         _conf.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
         if (op_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(d_.getBadOffset());
@@ -420,7 +420,7 @@ public final class ElUtil {
             }
         }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context);
         if (op_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(offset_);
@@ -454,7 +454,7 @@ public final class ElUtil {
         d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
         if (op_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(offset_);

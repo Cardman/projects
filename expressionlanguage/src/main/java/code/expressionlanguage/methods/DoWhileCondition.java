@@ -14,10 +14,11 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.AffectationOperation;
-import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SemiAffectationOperation;
+import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
+import code.expressionlanguage.opers.VariableOperation;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -387,11 +388,11 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             }
             AffectationOperation aff_ = (AffectationOperation) f.getKey();
             SettableElResult set_ = aff_.getSettable();
-            if (!(set_ instanceof ConstantOperation)) {
+            if (!(set_ instanceof SettableAbstractFieldOperation)) {
                 continue;
             }
-            ConstantOperation cst_ = (ConstantOperation) set_;
-            if (cst_.getFieldId() != _field) {
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) set_;
+            if (!cst_.getFieldId().eq(_field)) {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
@@ -418,10 +419,10 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             }
             AffectationOperation aff_ = (AffectationOperation) f.getKey();
             SettableElResult set_ = aff_.getSettable();
-            if (!(set_ instanceof ConstantOperation)) {
+            if (!(set_ instanceof VariableOperation)) {
                 continue;
             }
-            ConstantOperation cst_ = (ConstantOperation) set_;
+            VariableOperation cst_ = (VariableOperation) set_;
             OperationsSequence op_ = cst_.getOperations();
             if (op_.getConstType() != ConstType.LOC_VAR) {
                 continue;

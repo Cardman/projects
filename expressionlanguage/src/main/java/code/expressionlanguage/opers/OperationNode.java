@@ -101,6 +101,7 @@ public abstract class OperationNode {
     protected static final String FIRST_OPT = "firstopt";
 
     protected static final String CLASS_CHOICE_PREF = "$classchoice$";
+    protected static final String CLASS_CHOICE = "classchoice";
 
     protected static final String FCT = "(";
 
@@ -206,12 +207,73 @@ public abstract class OperationNode {
     }
 
     public static OperationNode createOperationNode(int _index,
-            int _indexChild, MethodOperation _m, OperationsSequence _op) {
+            int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
         if (_op.getOperators().isEmpty()) {
-            if (_op.getConstType() == ConstType.STATIC_ACCESS) {
+            ConstType ct_ = _op.getConstType();
+            if (ct_ == ConstType.STATIC_ACCESS) {
                 return new StaticAccessOperation(_index, _indexChild, _m, _op);
             }
-            return new ConstantOperation(_index, _indexChild, _m, _op);
+            if (ct_ == ConstType.NUMBER) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.CHARACTER) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.STRING) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.STRING) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.THIS_KEYWORD) {
+                return new ThisOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.TRUE_CST) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.FALSE_CST) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.NULL_CST) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.CUST_FIELD) {
+                return new StandardFieldOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.CLASSCHOICE_KEYWORD) {
+                return new ChoiceFieldOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.SUPER_KEYWORD) {
+                return new SuperFieldOperation(_index, _indexChild, _m, _op);
+            }
+            if (!(ct_.isVariable() || _m instanceof AffectationOperation && _m.getParent() == null && _an.isMerged())) {
+                if (_m instanceof DotOperation) {
+                    OperationNode ch_ = _m.getFirstChild();
+                    if (ch_ == null) {
+                        return new StandardFieldOperation(_index, _indexChild, _m, _op);
+                    }
+                    while (ch_.getNextSibling() != null) {
+                        ch_ = ch_.getNextSibling();
+                    }
+                    if (ch_.getResultClass().isArray()) {
+                        return new ArrayFieldOperation(_indexChild, _index, _m, _op);
+                    }
+                }
+                return new StandardFieldOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.PARAM) {
+                return new FinalVariableOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.CATCH_VAR) {
+                return new FinalVariableOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.LOOP_INDEX) {
+                return new FinalVariableOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.LOOP_VAR) {
+                return new FinalVariableOperation(_index, _indexChild, _m, _op);
+            }
+            return new VariableOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
             String fctName_ = _op.getFctName().trim();
@@ -229,6 +291,9 @@ public abstract class OperationNode {
             }
             if (fctName_.startsWith(prefixFunction(INSTANCE))) {
                 return new InstanceOperation(_index, _indexChild, _m, _op);
+            }
+            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE), fctName_.length())) {
+                return new ChoiceFctOperation(_index, _indexChild, _m, _op);
             }
             return new FctOperation(_index, _indexChild, _m, _op);
         }
@@ -276,6 +341,13 @@ public abstract class OperationNode {
     }
 
     final boolean isFirstChild() {
+        MethodOperation par_ = getParent();
+        if (par_ == null) {
+            return true;
+        }
+        if (par_.getFirstChild() instanceof StaticInitOperation) {
+            return getIndexChild() == CustList.SECOND_INDEX;
+        }
         return getIndexChild() == CustList.FIRST_INDEX;
     }
 
@@ -578,19 +650,6 @@ public abstract class OperationNode {
     static ClassMethodIdReturn getDeclaredCustMethod(Analyzable _conf, int _varargOnly,
     boolean _staticContext, StringList _classes, String _name,
     boolean _superClass, boolean _accessFromSuper, ClassArgumentMatching... _argsClass) {
-        LgNames stds_ = _conf.getStandards();
-        for (ClassArgumentMatching c:_argsClass) {
-            if (c.matchVoid(_conf)) {
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(stds_.getAliasVoid());
-                mapping_.setParam(stds_.getAliasObject());
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(cast_);
-            }
-        }
         ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext,_varargOnly, _accessFromSuper, _superClass, _classes, _name, _argsClass);
         ClassMethodIdResult res_= getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);

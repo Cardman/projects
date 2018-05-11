@@ -13,10 +13,10 @@ import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -160,7 +160,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         }
         if (opValue.last().getArgument() == null) {
             OperationNode last_ = opValue.last();
-            if (!(last_ instanceof ConstantOperation)) {
+            if (!(last_ instanceof SettableAbstractFieldOperation)) {
                 if (!(last_ instanceof DotOperation)) {
                     UnexpectedTypeError un_ = new UnexpectedTypeError();
                     un_.setFileName(getFile().getFileName());
@@ -178,7 +178,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                     _cont.getClasses().getErrorsDet().add(un_);
                     return;
                 }
-                if (!(d_.getFirstChild().getNextSibling() instanceof ConstantOperation)) {
+                if (!(d_.getFirstChild().getNextSibling() instanceof SettableAbstractFieldOperation)) {
                     UnexpectedTypeError un_ = new UnexpectedTypeError();
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
@@ -188,7 +188,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 }
                 last_ = d_.getFirstChild().getNextSibling();
             }
-            ConstantOperation cst_ = (ConstantOperation) last_;
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) last_;
             ClassField clField_ = cst_.getFieldId();
             if (clField_ == null) {
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -221,12 +221,12 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
 
     public ClassField getFieldId() {
         OperationNode last_ = opValue.last();
-        if (!(last_ instanceof ConstantOperation)) {
+        if (!(last_ instanceof SettableAbstractFieldOperation)) {
             DotOperation d_ = (DotOperation) last_;
             last_ = d_.getFirstChild().getNextSibling();
-            return ((ConstantOperation)last_).getFieldId();
+            return ((SettableAbstractFieldOperation)last_).getFieldId();
         }
-        return ((ConstantOperation)last_).getFieldId();
+        return ((SettableAbstractFieldOperation)last_).getFieldId();
     }
     public CustList<OperationNode> getOpValue() {
         return opValue;

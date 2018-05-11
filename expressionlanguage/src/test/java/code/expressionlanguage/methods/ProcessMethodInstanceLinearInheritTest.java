@@ -1605,7 +1605,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $classchoice$pkg$ExTwo$$getter():\n");
+        xml_.append("  $return $classchoice$pkg.ExTwo$$getter():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");
@@ -1649,7 +1649,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $classchoice$pkg$ExTwo$$getter():\n");
+        xml_.append("  $return $classchoice$pkg.ExTwo$$getter():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");
@@ -1697,7 +1697,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $classchoice$pkg$ExTwo$$getter():\n");
+        xml_.append("  $return $classchoice$pkg.ExTwo$$getter():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int absgetter(){\n");
         xml_.append("  $return 9i:\n");
@@ -1742,7 +1742,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $classchoice$pkg$ExTwo$$getter():\n");
+        xml_.append("  $return $classchoice$pkg.ExTwo$$getter():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");
@@ -1801,7 +1801,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $classchoice$pkg$ExTwo$$getter():\n");
+        xml_.append("  $return $classchoice$pkg.ExTwo$$getter():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");

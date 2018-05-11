@@ -77,16 +77,6 @@ public final class AffectationOperation extends MethodOperation {
         if (settable.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {
             settable.setCatenizeStrings();
         }
-        if (elt_ instanceof ConstantOperation) {
-            if (((ConstantOperation)elt_).isImmutablePart()) {
-                root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                return;
-            }
-        }
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = root_.getResultClass();
         root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
@@ -243,8 +233,8 @@ public final class AffectationOperation extends MethodOperation {
         vars_.getVariables().put(this, variablesAfter_);
         boolean procField_ = false;
         boolean procFinalField_ = false;
-        if (firstChild_ instanceof ConstantOperation) {
-            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+        if (firstChild_ instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             if (cl_ != null) {
                 procFinalField_ = true;
@@ -270,7 +260,7 @@ public final class AffectationOperation extends MethodOperation {
             }
         }
         if (procFinalField_) {
-            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 if (!e.getValue().isUnassignedAfter() && cl_.eq(e.getKey())) {
@@ -287,7 +277,7 @@ public final class AffectationOperation extends MethodOperation {
             }
         }
         if (procField_) {
-            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 if (cl_.eq(e.getKey()) || e.getValue().isAssignedAfter()) {

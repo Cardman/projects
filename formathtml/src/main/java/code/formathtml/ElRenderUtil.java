@@ -17,7 +17,6 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
-import code.expressionlanguage.opers.ConstantOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableElResult;
@@ -94,7 +93,7 @@ public final class ElRenderUtil {
         _conf.setNextIndex(d_.getIndexEnd()+2);
         context_.setAnalyzingRoot(false);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, context_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         if (op_ == null) {
             _conf.setOffset(d_.getBadOffset());
             BadElRender badEl_ = new BadElRender();
@@ -147,7 +146,7 @@ public final class ElRenderUtil {
         String el_ = _el.substring(_index);
         context_.setAnalyzingRoot(false);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, context_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_);
+        OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
         if (op_ == null) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -201,7 +200,7 @@ public final class ElRenderUtil {
         }
         _conf.setAnalyzingRoot(false);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
-        OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_);
+        OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_, _conf);
         if (opLeft_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(dLeft_.getBadOffset());
@@ -227,7 +226,7 @@ public final class ElRenderUtil {
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
-        OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_);
+        OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_, _conf);
         if (opRight_ == null) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(dRight_.getBadOffset());
@@ -242,21 +241,19 @@ public final class ElRenderUtil {
         page_.setProcessingAttribute(_attrLeft);
         page_.setOffset(0);
         SettableElResult set_ = ExpressionLanguage.getSettable(allLeft_);
+        if (set_ == null) {
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(un_);
+            return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+        }
         set_.setVariable(true);
         LgNames stds_ = _conf.getStandards();
         String stringType_ = stds_.getAliasString();
         String res_ = set_.getResultClass().getName();
         if (set_.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {
             set_.setCatenizeStrings();
-        }
-        if (set_ instanceof ConstantOperation) {
-            if (((ConstantOperation)set_).isImmutablePart()) {
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
-            }
         }
         page_.setProcessingAttribute(_attrRight);
         page_.setOffset(0);

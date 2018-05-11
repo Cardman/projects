@@ -8,9 +8,9 @@ public enum ConstType {
     CUST_FIELD,WORD,CLASSCHOICE_KEYWORD,SUPER_KEYWORD,
     THIS_KEYWORD,TRUE_CST,NULL_CST,FALSE_CST,
     NOTHING;
-    private boolean variable;
+    private final boolean variable;
     ConstType(){
-        
+        variable = false;
     }
     ConstType(boolean _variable){
         variable = _variable;

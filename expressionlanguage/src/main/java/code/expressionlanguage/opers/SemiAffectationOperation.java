@@ -159,8 +159,8 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
         }
         vars_.getVariables().put(this, variablesAfter_);
         boolean procField_ = false;
-        if (firstChild_ instanceof ConstantOperation) {
-            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+        if (firstChild_ instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             if (cl_ != null) {
                 if (cst_.isFirstChild()) {
@@ -185,7 +185,7 @@ public final class SemiAffectationOperation extends PrimitiveBoolOperation {
             }
         }
         if (procField_) {
-            ConstantOperation cst_ = (ConstantOperation)firstChild_;
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 if (!e.getValue().isUnassignedAfter()) {
