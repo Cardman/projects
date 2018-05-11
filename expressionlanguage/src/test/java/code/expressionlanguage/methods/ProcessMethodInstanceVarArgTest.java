@@ -732,7 +732,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $super$inst;;;.intValue():\n");
+        xml_.append("  $return $super$inst.intValue():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");
@@ -775,7 +775,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $super$inst;;;+0i:\n");
+        xml_.append("  $return $super$inst+0i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");
@@ -820,7 +820,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $int ance=$classchoice$pkg.Ex$$inst;;;+0i:\n");
+        xml_.append(" $public $int ance=$classchoice(pkg.Ex)inst+0i:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();
@@ -848,7 +848,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $int ance=$classchoice$pkg.Ex$$inst;;;.intValue():\n");
+        xml_.append(" $public $int ance=$classchoice(pkg.Ex)inst.intValue():\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();

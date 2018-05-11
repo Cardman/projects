@@ -405,7 +405,7 @@ public abstract class SettableAbstractFieldOperation extends
     @Override
     public final void tryCalculateNode(ContextEl _conf,
             EqList<SortedClassField> _list, SortedClassField _current) {
-        if (fieldMetaInfo.isStaticField()) {
+        if (fieldId != null && fieldMetaInfo.isStaticField()) {
             int index_ = _list.indexOfObj(new SortedClassField(fieldId));
             if (index_ < 0) {
                 ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId);
@@ -430,7 +430,7 @@ public abstract class SettableAbstractFieldOperation extends
         if (isCalculated()) {
             return;
         }
-        if (fieldMetaInfo.isStaticField()) {
+        if (fieldId != null && fieldMetaInfo.isStaticField()) {
             Classes cl_ = _conf.getClasses();
             if (!cl_.isCustomType(fieldId.getClassName())) {
                 ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId);

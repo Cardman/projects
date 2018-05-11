@@ -416,17 +416,11 @@ public final class ElResolver {
                                     d_.setBadOffset(afterSuper_);
                                     return d_;
                                 }
-                                hatMethod_ = false;
                                 break;
                             }
                             afterSuper_++;
                         }
-                        while (afterSuper_ < len_) {
-                            if (_string.charAt(afterSuper_) != GET_VAR) {
-                                break;
-                            }
-                            afterSuper_++;
-                        }
+                        hatMethod_ = false;
                         if (afterSuper_ < len_) {
                             if (_string.charAt(afterSuper_) != PAR_LEFT) {
                                 d_.getDelKeyWordSuper().add(i_);
@@ -443,7 +437,7 @@ public final class ElResolver {
                         int afterClassChoice_ = i_ + 1 + CLASS_CHOICE.length();
                         boolean foundHat_ = false;
                         while (afterClassChoice_ < len_) {
-                            if (_string.charAt(afterClassChoice_) == EXTERN_CLASS) {
+                            if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
                                 foundHat_ = true;
                                 break;
                             }
@@ -461,72 +455,55 @@ public final class ElResolver {
                             d_.setBadOffset(afterClassChoice_);
                             return d_;
                         }
-                        boolean foundHats_ = false;
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == PAR_RIGHT) {
+                                break;
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
                         afterClassChoice_++;
                         while (afterClassChoice_ < len_) {
-                            if (_string.charAt(afterClassChoice_) == EXTERN_CLASS) {
-                                if (afterClassChoice_ + 1 >= len_) {
-                                    d_.setBadOffset(afterClassChoice_);
-                                    return d_;
-                                }
-                                if (_string.charAt(afterClassChoice_ + 1) == EXTERN_CLASS) {
-                                    hatMethod_ = false;
-                                    foundHats_ = true;
-                                    //afterClassChoice_ + 1 < _string.length()
+                            char loc_ = _string.charAt(afterClassChoice_);
+                            if (!Character.isWhitespace(loc_)) {
+                                break;
+                            }
+                            afterClassChoice_++;
+                        }
+                        boolean pass_ = false;
+                        while (afterClassChoice_ < len_) {
+                            char loc_ = _string.charAt(afterClassChoice_);
+                            if (!StringList.isWordChar(loc_)) {
+                                if (loc_ != EXTERN_CLASS) {
                                     break;
                                 }
                             }
+                            pass_ = true;
                             afterClassChoice_++;
                         }
-                        if (!foundHats_) {
-                            d_.setBadOffset(len_ - 1);
-                            return d_;
-                        }
-                        if (afterClassChoice_ + 2 >= len_) {
+                        hatMethod_ = false;
+                        if (!pass_) {
                             d_.setBadOffset(afterClassChoice_);
                             return d_;
-                        }
-                        //afterClassChoice_ + 2 < len_
-                        if (_string.charAt(afterClassChoice_ + 2) == EXTERN_CLASS) {
-                            d_.setBadOffset(afterClassChoice_);
-                            return d_;
-                        }
-                        afterClassChoice_++;
-                        afterClassChoice_++;
-                        //afterClassChoice_ < len_
-                        while (afterClassChoice_ < len_) {
-                            if (!StringList.isWordChar(_string.charAt(afterClassChoice_))) {
-                                break;
-                            }
-                            afterClassChoice_++;
                         }
                         if (afterClassChoice_ >= len_) {
-                            d_.setBadOffset(afterClassChoice_ - 1);
-                            return d_;
-                        }
-                        int nbSuffix_ = 0;
-                        while (afterClassChoice_ < len_) {
-                            if (_string.charAt(afterClassChoice_) != GET_VAR) {
-                                break;
-                            }
-                            nbSuffix_++;
-                            afterClassChoice_++;
-                        }
-                        if (afterClassChoice_ >= len_ || _string.charAt(afterClassChoice_) != PAR_LEFT) {
-                            if (nbSuffix_ != GET_FIELD.length()) {
-                                d_.setBadOffset(afterClassChoice_ - 1);
-                                return d_;
-                            }
-                        }
-                        if (afterClassChoice_ < len_) {
-                            if (_string.charAt(afterClassChoice_) != PAR_LEFT) {
-                                d_.getDelKeyWordClassChoice().add(i_);
-                                d_.getDelKeyWordClassChoice().add(afterClassChoice_);
-                            }
-                        } else {
+                            //field
                             d_.getDelKeyWordClassChoice().add(i_);
                             d_.getDelKeyWordClassChoice().add(afterClassChoice_);
+                            i_ = afterClassChoice_;
+                            continue;
                         }
+                        if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
+                            //fct
+                            i_ = afterClassChoice_;
+                            continue;
+                        }
+                      //field
+                        d_.getDelKeyWordClassChoice().add(i_);
+                        d_.getDelKeyWordClassChoice().add(afterClassChoice_);
                         i_ = afterClassChoice_;
                         continue;
                     }
@@ -1585,7 +1562,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.SUPER_KEYWORD);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string.substring(firstPrintChar_+SUPER.length() + 2, lastPrintChar_ - GET_FIELD.length() + 1), firstPrintChar_);
+                op_.setValue(_string.substring(firstPrintChar_+SUPER.length() + 2, lastPrintChar_ + 1), firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -1595,7 +1572,7 @@ public final class ElResolver {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
                 op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ - GET_FIELD.length() + 1),firstPrintChar_);
+                op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }

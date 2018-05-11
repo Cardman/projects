@@ -251,7 +251,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice$pkg.ExTwo$$get(\"\"):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get(\"\"):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
         xml_.append("   ance;;;=2i:\n");
@@ -427,7 +427,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public java.lang.Number ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   inst;;;$classchoice$pkg.ExThree$$get;;;=\"\":\n");
+        xml_.append("   inst;;;$classchoice(pkg.ExThree)get=\"\":\n");
         xml_.append("   inst;;;get;;;=1i:\n");
         xml_.append("   ance;;;=inst;;;getter():\n");
         xml_.append("  }\n");

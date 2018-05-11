@@ -911,7 +911,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int ance:\n");
         xml_.append(" $public ($int i){\n");
         xml_.append("  pkg.Int3 k=$new pkg.Ex():\n");
-        xml_.append("  ance;;;=k;.$classchoice$pkg.Int3$$doubleValue():\n");
+        xml_.append("  ance;;;=k;.$classchoice(pkg.Int3)doubleValue():\n");
         xml_.append("  ance;;;+=i;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -968,7 +968,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int ance:\n");
         xml_.append(" $public ($int i){\n");
         xml_.append("  pkg.Int3 k=$new pkg.Ex():\n");
-        xml_.append("  ance;;;=k;.$classchoice$pkg.Int3$$doubleValue():\n");
+        xml_.append("  ance;;;=k;.$classchoice(pkg.Int3)doubleValue():\n");
         xml_.append("  ance;;;+=i;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1029,7 +1029,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int ance:\n");
         xml_.append(" $public ($int i){\n");
         xml_.append("  pkg.Int3 k=$new pkg.Ex():\n");
-        xml_.append("  ance;;;=k;.$classchoice$pkg.Int3$$doubleValue():\n");
+        xml_.append("  ance;;;=k;.$classchoice(pkg.Int3)doubleValue():\n");
         xml_.append("  ance;;;+=i;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1143,7 +1143,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $int ance=$classchoice$pkg.Ex$$inst;;;:\n");
+        xml_.append(" $public $int ance=$classchoice(pkg.Ex)inst:\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextEl();

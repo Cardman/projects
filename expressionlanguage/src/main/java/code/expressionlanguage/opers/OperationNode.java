@@ -96,11 +96,9 @@ public abstract class OperationNode {
     protected static final char MIN_ENCODE_UPP_LETTER = 'A';
     protected static final char MAX_ENCODE_UPP_LETTER = 'F';
     protected static final String CURRENT_INTANCE = "$this";
-    protected static final String STATIC_CALL = "$$";
     protected static final String VAR_ARG = "vararg";
     protected static final String FIRST_OPT = "firstopt";
 
-    protected static final String CLASS_CHOICE_PREF = "$classchoice$";
     protected static final String CLASS_CHOICE = "classchoice";
 
     protected static final String FCT = "(";
@@ -210,6 +208,14 @@ public abstract class OperationNode {
             int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
         if (_op.getOperators().isEmpty()) {
             ConstType ct_ = _op.getConstType();
+            if (_op.getValues().isEmpty()) {
+                return new EmptyPartOperation(_index, _indexChild, _m, _op);
+            }
+            String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
+            String str_ = originalStr_.trim();
+            if (str_.isEmpty()) {
+                return new EmptyPartOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.STATIC_ACCESS) {
                 return new StaticAccessOperation(_index, _indexChild, _m, _op);
             }

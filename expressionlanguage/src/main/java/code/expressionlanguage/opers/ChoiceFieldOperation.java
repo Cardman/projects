@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.BadFormatPathError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -21,33 +20,11 @@ public final class ChoiceFieldOperation extends
     ClassArgumentMatching getFrom(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
-        StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
-        if (classMethod_.size() != 2) {
-            BadFormatPathError badFormat_ = new BadFormatPathError();
-            badFormat_.setPath(str_);
-            badFormat_.setFileName(_conf.getCurrentFileName());
-            badFormat_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badFormat_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return null;
-        }
-        String className_ = classMethod_.first();
-        if (!className_.startsWith(CLASS_CHOICE_PREF)) {
-            BadFormatPathError badFormat_ = new BadFormatPathError();
-            badFormat_.setPath(str_);
-            badFormat_.setFileName(_conf.getCurrentFileName());
-            badFormat_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badFormat_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return null;
-        }
-        int lenPref_ = CLASS_CHOICE_PREF.length();
+        String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
+        int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         className_ = StringList.removeAllSpaces(className_);
-        className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
         if (className_.contains(Templates.TEMPLATE_BEGIN)) {
             if (!checkCorrect(_conf, className_, true, lenPref_)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -68,7 +45,7 @@ public final class ChoiceFieldOperation extends
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         str_ = StringList.removeAllSpaces(str_);
-        StringList classMethod_ = StringList.splitStrings(str_, STATIC_CALL);
+        StringList classMethod_ = StringList.splitChars(str_, PAR_RIGHT);
         return classMethod_.last();
     }
 

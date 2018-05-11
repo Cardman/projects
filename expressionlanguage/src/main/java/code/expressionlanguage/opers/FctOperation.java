@@ -26,7 +26,6 @@ import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessConstructor;
-import code.expressionlanguage.methods.util.BadFormatPathError;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -75,9 +74,6 @@ public final class FctOperation extends InvokingOperation {
     private boolean otherConstructorClass;
 
     private boolean staticChoiceMethod;
-    private boolean staticChoiceMethodTemplate;
-
-    private boolean superAccessMethod;
 
     private boolean correctTemplate = true;
 
@@ -543,57 +539,16 @@ public final class FctOperation extends InvokingOperation {
             setStaticAccess(_conf.isStaticContext());
         }
         String clCurName_;
-        if (trimMeth_.contains(STATIC_CALL)) {
-            StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
-            if (classMethod_.size() != 2) {
-                BadFormatPathError badFormat_ = new BadFormatPathError();
-                badFormat_.setPath(trimMeth_);
-                badFormat_.setFileName(_conf.getCurrentFileName());
-                badFormat_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(badFormat_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-            String className_ = classMethod_.first();
-            if (!className_.startsWith(CLASS_CHOICE_PREF)) {
-                BadFormatPathError badFormat_ = new BadFormatPathError();
-                badFormat_.setPath(trimMeth_);
-                badFormat_.setFileName(_conf.getCurrentFileName());
-                badFormat_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(badFormat_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-            int lenPref_ = CLASS_CHOICE_PREF.length();
-            className_ = className_.substring(lenPref_);
-            className_ = StringList.removeAllSpaces(className_);
-            className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
-            if (className_.contains(Templates.TEMPLATE_BEGIN)) {
-                staticChoiceMethodTemplate = true;
-                if (!checkCorrect(_conf, className_, true, getIndexInEl()+off_ + lenPref_)) {
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-            } else {
-                if (!checkExistBase(_conf, false, className_, true, getIndexInEl()+off_ + lenPref_)) {
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-            }
-            clCurName_ = className_;
-            trimMeth_ = classMethod_.last();
-            staticChoiceMethod = true;
-        } else {
-            if (clCur_ == null || clCur_.getName() == null) {
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(static_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-            clCurName_ = clCur_.getName();
+
+        if (clCur_ == null || clCur_.getName() == null) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(static_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
         }
+        clCurName_ = clCur_.getName();
         if (hasVoidPrevious(clCurName_, _conf)) {
             return;
         }
@@ -620,27 +575,18 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        
-        boolean superClassAccess_ = true;
+
         boolean staticChoiceMethod_ = false;
-        boolean superAccessMethod_ = false;
         boolean accessFromSuper_ = false;
-        if (trimMeth_.contains(STATIC_CALL)) {
-            StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
-            trimMeth_ = classMethod_.last();
-            staticChoiceMethod_ = true;
-            superClassAccess_ = false;
-        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(EXTERN_CLASS))))) {
+        if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(EXTERN_CLASS))))) {
             trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
             staticChoiceMethod_ = true;
-            superAccessMethod_ = true;
             accessFromSuper_ = true;
         } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(CURRENT, String.valueOf(EXTERN_CLASS))))) {
             trimMeth_ = trimMeth_.substring(CURRENT.length() + 2);
             staticChoiceMethod_ = true;
-            superAccessMethod_ = true;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), _subTypes, trimMeth_, superClassAccess_, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), _subTypes, trimMeth_, true, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
@@ -657,27 +603,17 @@ public final class FctOperation extends InvokingOperation {
                 setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;
             }
-            if (superAccessMethod_) {
-                String foundClass_ = clMeth_.getRealClass();
-                foundClass_ = StringList.getAllTypes(foundClass_).first();
-                MethodId id_ = clMeth_.getRealId();
-                classMethodId = new ClassMethodId(foundClass_, id_);
-            } else {
-                classMethodId = clMeth_.getId();
-            }
-        } else {
-            String foundClass_ = clMeth_.getRealClass();
-            foundClass_ = StringList.getAllTypes(foundClass_).first();
-            MethodId id_ = clMeth_.getRealId();
-            classMethodId = new ClassMethodId(foundClass_, id_);
         }
+        String foundClass_ = clMeth_.getRealClass();
+        foundClass_ = StringList.getAllTypes(foundClass_).first();
+        MethodId id_ = clMeth_.getRealId();
+        classMethodId = new ClassMethodId(foundClass_, id_);
         realId = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
             StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        superAccessMethod = superAccessMethod_;
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = clMeth_.isStaticMethod();
         unwrapArgsFct(chidren_, realId, naturalVararg, lastType, firstArgs_, _conf);
@@ -1154,63 +1090,11 @@ public final class FctOperation extends InvokingOperation {
             }
             if (staticChoiceMethod) {
                 classNameFound_ = classMethodId.getClassName();
-                if (!superAccessMethod) {
-                    String argClassName_ = arg_.getObjectClassName(_conf);
-                    if (staticChoiceMethodTemplate) {
-                        classNameFound_ = Templates.format(argClassName_, classNameFound_, _conf);
-                        Mapping map_ = new Mapping();
-                        map_.setArg(argClassName_);
-                        map_.setParam(classNameFound_);
-                        if (!Templates.isCorrect(map_, _conf)) {
-                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
-                            Argument a_ = new Argument();
-                            return ArgumentCall.newArgument(a_);
-                        }
-                        String base_ = StringList.getAllTypes(classNameFound_).first();
-                        String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-                        lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
-                        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                    } else {
-                        classNameFound_ = StringList.getAllTypes(classNameFound_).first();
-                        String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
-                        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, baseArgClassName_, _conf)) {
-                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            _conf.setException(new StdStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
-                            Argument a_ = new Argument();
-                            return ArgumentCall.newArgument(a_);
-                        }
-                        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-                        methodId_ = realId.format(classNameFound_, _conf);
-                        if (!methodId_.isVararg()) {
-                            lastType_ = EMPTY_STRING;
-                            naturalVararg_ = -1;
-                        } else {
-                            if (methodId_.getParametersTypes().size() != _arguments.size()) {
-                                lastType_ = methodId_.getParametersTypes().last();
-                                naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                            } else {
-                                Mapping map_ = new Mapping();
-                                String param_ = methodId_.getParametersTypes().last();
-                                param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                                String argClass_ = _arguments.last().getObjectClassName(_conf);
-                                map_.setArg(argClass_);
-                                map_.setParam(param_);
-                                if (argClass_ != null && !Templates.isCorrect(map_, _conf)) {
-                                    lastType_ = methodId_.getParametersTypes().last();
-                                    naturalVararg_ = methodId_.getParametersTypes().size() - 1;
-                                }
-                            }
-                        }
-                        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                    }
-                } else {
-                    String base_ = StringList.getAllTypes(classNameFound_).first();
-                    String argClassName_ = arg_.getObjectClassName(_conf);
-                    String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-                    lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
-                    firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
-                }
+                String base_ = StringList.getAllTypes(classNameFound_).first();
+                String argClassName_ = arg_.getObjectClassName(_conf);
+                String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
+                lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
+                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = realId;
             } else {
                 classNameFound_ = classMethodId.getClassName();

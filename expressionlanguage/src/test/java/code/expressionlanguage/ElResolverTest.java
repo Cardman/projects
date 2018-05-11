@@ -2847,16 +2847,16 @@ public class ElResolverTest {
     public void getOperationsSequence165Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$$math$$abs()";
+        String el_ = "$classchoice($math)abs()";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(23));
-        assertEq(")", opers_.getVal(24));
+        assertEq("(", opers_.getVal(22));
+        assertEq(")", opers_.getVal(23));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("$classchoice$$math$$abs", values_.getVal(0));
+        assertEq("$classchoice($math)abs", values_.getVal(0));
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -2895,6 +2895,82 @@ public class ElResolverTest {
         assertEq(1, values_.size());
         assertEq("v", values_.getVal(0));
         assertEq(ElResolver.POST_INCR_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence168Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice($math)abs";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("$classchoice($math)abs", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence169Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$classchoice($math)abs$.field";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq(".", opers_.getVal(23));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$classchoice($math)abs$", values_.getVal(0));
+        assertEq("field", values_.getVal(24));
+        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence170Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$this()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(5));
+        assertEq(")", opers_.getVal(6));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("$this", values_.getVal(0));
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence171Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$this ()";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(6));
+        assertEq(")", opers_.getVal(7));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("$this ", values_.getVal(0));
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence172Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$this";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(0, opers_.size());
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("$this", values_.getVal(0));
+        assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
     @Test
     public void checkSyntaxDelimiters1Test() {
@@ -3634,39 +3710,39 @@ public class ElResolverTest {
     public void checkSyntax81FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$$";
-        assertEq(13, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice$($math";
+        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax82FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$math$$";
-        assertEq(17, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice($math$$";
+        assertEq(20, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax83FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$math$abs$$";
-        assertEq(21, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice(";
+        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax84FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$math$abs$";
-        assertEq(21, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice($math$abs$";
+        assertEq(23, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax85FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$$math$abs$";
+        String el_ = "$classchoice($math$abs)";
         assertEq(22, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
@@ -3674,24 +3750,24 @@ public class ElResolverTest {
     public void checkSyntax86FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$$math$abs$$$";
-        assertEq(22, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice($math$abs) ";
+        assertEq(24, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax87FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$math$abs$abs()";
-        assertEq(26, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice ";
+        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax88FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$math$abs$$abs";
-        assertEq(25, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$this$";
+        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -3731,7 +3807,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "$classchoice$math$abs$$abs;";
-        assertEq(26, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     private static void addImportingPage(ContextEl _conf, boolean _rendering) {

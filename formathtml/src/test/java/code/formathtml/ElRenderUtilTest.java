@@ -1463,7 +1463,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$classchoice$pkg.Ex$$exmeth(6i)", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$classchoice(pkg.Ex)exmeth(6i)", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(15,(Number) res_);
@@ -1484,7 +1484,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$classchoice$pkg.Ex$$inst;;;", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$classchoice(pkg.Ex)inst", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(2,(Number) res_);
@@ -3542,7 +3542,7 @@ public final class ElRenderUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "2i", "=",cont_);
+        processAffect("","","","$classchoice(pkg.Ex)inst", "2i", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertTrue(res_ instanceof Integer);
@@ -3572,8 +3572,8 @@ public final class ElRenderUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "2i", "=",cont_);
-        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "v;.", "=",cont_);
+        processAffect("","","","$classchoice(pkg.Ex)inst", "2i", "=",cont_);
+        processAffect("","","","$classchoice(pkg.Ex)inst", "v;.", "=",cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertNull(res_);
@@ -3887,11 +3887,11 @@ public final class ElRenderUtilTest {
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(null);
+        lv_.setStruct(NullStruct.NULL_VALUE);
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","$classchoice$pkg.Ex$$inst;;;", "v;.", "=",cont_);
+        processAffect("","","","$classchoice(pkg.Ex)inst", "v;.", "=",cont_);
         assertNotNull(cont_.getContext().getException());
     }
 

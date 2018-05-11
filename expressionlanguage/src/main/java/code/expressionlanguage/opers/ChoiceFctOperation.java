@@ -21,7 +21,6 @@ import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadFormatPathError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -115,30 +114,10 @@ public final class ChoiceFctOperation extends InvokingOperation {
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
         }
-        StringList classMethod_ = StringList.splitStrings(trimMeth_, STATIC_CALL);
-        if (classMethod_.size() != 2) {
-            BadFormatPathError badFormat_ = new BadFormatPathError();
-            badFormat_.setPath(trimMeth_);
-            badFormat_.setFileName(_conf.getCurrentFileName());
-            badFormat_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badFormat_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
-        String className_ = classMethod_.first();
-        if (!className_.startsWith(CLASS_CHOICE_PREF)) {
-            BadFormatPathError badFormat_ = new BadFormatPathError();
-            badFormat_.setPath(trimMeth_);
-            badFormat_.setFileName(_conf.getCurrentFileName());
-            badFormat_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badFormat_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
-        int lenPref_ = CLASS_CHOICE_PREF.length();
+        String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
+        int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         className_ = StringList.removeAllSpaces(className_);
-        className_ = className_.replace(EXTERN_CLASS, DOT_VAR);
         if (className_.contains(Templates.TEMPLATE_BEGIN)) {
             staticChoiceMethodTemplate = true;
             if (!checkCorrect(_conf, className_, true, getIndexInEl()+off_ + lenPref_)) {
@@ -152,7 +131,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
             }
         }
         String clCurName_ = className_;
-        trimMeth_ = classMethod_.last();
         if (hasVoidPrevious(clCurName_, _conf)) {
             return;
         }
@@ -164,7 +142,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
 
-        trimMeth_ = classMethod_.last();
+        trimMeth_ = StringList.removeAllSpaces(methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1));
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
@@ -314,10 +292,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String trimMeth_ = methodName.trim();
-        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            return ArgumentCall.newArgument(_arguments.first());
-        }
         LgNames stds_ = _conf.getStandards();
         String null_;
         String cast_;
