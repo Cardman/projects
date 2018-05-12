@@ -11,7 +11,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -20,26 +19,11 @@ import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringMap;
 
-public final class IdOperation extends MethodOperation {
+public final class IdOperation extends AbstractUnaryOperation {
 
     public IdOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
-
-    @Override
-    public ConstructorId getConstId() {
-        return null;
-    }
-
-    @Override
-    public boolean isSuperConstructorCall() {
-        return false;
     }
 
     @Override

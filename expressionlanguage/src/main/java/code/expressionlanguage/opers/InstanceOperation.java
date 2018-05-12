@@ -321,14 +321,14 @@ public final class InstanceOperation extends InvokingOperation {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        if (!filter_.isEmpty() && filter_.first().isVararg()) {
+        if (!filter_.isEmpty() && filter_.first() instanceof VarargOperation) {
             int i_ = CustList.FIRST_INDEX;
             for (OperationNode o: filter_) {
-                if (o.isVararg()) {
+                if (o instanceof VarargOperation) {
                     i_++;
                     continue;
                 }
-                if (o.isFirstOptArg()) {
+                if (o instanceof FirstOptOperation) {
                     break;
                 }
                 String param_ = constId.getParametersTypes().get(i_-1);

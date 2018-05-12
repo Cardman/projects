@@ -309,6 +309,20 @@ public final class ElResolver {
                         d_.setBadOffset(i_+1);
                         return d_;
                     }
+                    if (procWordFirstChar(_string, i_ + 1, VAR_ARG, len_)) {
+                        //vararg
+                        int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
+                        int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+                        if (indexParRight_ < 0) {
+                            d_.setBadOffset(len_);
+                            return d_;
+                        }
+                        hatMethod_ = false;
+                        d_.getDelVararg().add(i_);
+                        d_.getDelVararg().add(indexParRight_);
+                        i_ = indexParRight_ + 1;
+                        continue;
+                    }
                     if (procWordFirstChar(_string, i_ + 1, INSTANCEOF, len_)) {
                         int next_ = i_ + 1 + INSTANCEOF.length();
                         if (Character.isWhitespace(_string.charAt(next_))) {
@@ -652,7 +666,7 @@ public final class ElResolver {
                     if (foundValue_) {
                         continue;
                     }
-                    for (String s: StringList.wrapStringArray(VAR_ARG,FIRST_OPT,BOOLEAN,VALUE_OF,VALUES)) {
+                    for (String s: StringList.wrapStringArray(FIRST_OPT,BOOLEAN,VALUE_OF,VALUES)) {
                         if (procWordFirstChar(_string, i_ + 1, s, len_)) {
                             int index_ = processPredefinedMethod(_string, i_, s, len_);
                             if (index_ < 0) {
@@ -1597,6 +1611,16 @@ public final class ElResolver {
         if (_string.charAt(i_) == EXTERN_CLASS) {
             int begin_;
             int end_;
+            begin_ = _d.getDelVararg().indexOfObj(_offset + firstPrintChar_);
+            end_ = _d.getDelVararg().indexOfObj(_offset + lastPrintChar_);
+            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.VARARG);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setValue(_string, firstPrintChar_);
+                op_.setDelimiter(_d);
+                return op_;
+            }
             begin_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
             end_ = _d.getDelKeyWordStatic().indexOfObj(_offset + strLen_);
             if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {

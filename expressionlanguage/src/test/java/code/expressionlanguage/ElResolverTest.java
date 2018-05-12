@@ -69,16 +69,16 @@ public class ElResolverTest {
     public void getOperationsSequence4Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"[$int\"),4+3).abs(4,3)";
+        String el_ = "abs($vararg([$int),4+3).abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(25));
+        assertEq(".", opers_.getVal(23));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg(\"[$int\"),4+3)", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(26));
+        assertEq("abs($vararg([$int),4+3)", values_.getVal(0));
+        assertEq("abs(4,3)", values_.getVal(24));
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -86,16 +86,16 @@ public class ElResolverTest {
     public void getOperationsSequence5Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"[$int\"),'[').abs(4,3)";
+        String el_ = "abs($vararg([$int),'[').abs(4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(25));
+        assertEq(".", opers_.getVal(23));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg(\"[$int\"),'[')", values_.getVal(0));
-        assertEq("abs(4,3)", values_.getVal(26));
+        assertEq("abs($vararg([$int),'[')", values_.getVal(0));
+        assertEq("abs(4,3)", values_.getVal(24));
         assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
     }
 
@@ -103,16 +103,16 @@ public class ElResolverTest {
     public void getOperationsSequence6Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"[$int\"),'[').abs(4,3)+8";
+        String el_ = "abs($vararg([$int),'[').abs(4,3)+8";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("+", opers_.getVal(34));
+        assertEq("+", opers_.getVal(32));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg(\"[$int\"),'[').abs(4,3)", values_.getVal(0));
-        assertEq("8", values_.getVal(35));
+        assertEq("abs($vararg([$int),'[').abs(4,3)", values_.getVal(0));
+        assertEq("8", values_.getVal(33));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -221,16 +221,16 @@ public class ElResolverTest {
     public void getOperationsSequence13Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"[$int\"),'[').abs(4,3)+8-9";
+        String el_ = "abs($vararg([$int),'[').abs(4,3)+8-9";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq("-", opers_.getVal(36));
+        assertEq("-", opers_.getVal(34));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("abs($vararg(\"[$int\"),'[').abs(4,3)+8", values_.getVal(0));
-        assertEq("9", values_.getVal(37));
+        assertEq("abs($vararg([$int),'[').abs(4,3)+8", values_.getVal(0));
+        assertEq("9", values_.getVal(35));
         assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
     }
 
@@ -336,22 +336,22 @@ public class ElResolverTest {
     public void getOperationsSequence20Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"[$int\"),4,3)";
+        String el_ = "abs($vararg([$int),4,3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
+        assertEq(",", opers_.getVal(18));
         assertEq(",", opers_.getVal(20));
-        assertEq(",", opers_.getVal(22));
-        assertEq(")", opers_.getVal(24));
+        assertEq(")", opers_.getVal(22));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("$vararg(\"[$int\")", values_.getVal(4));
-        assertEq("4", values_.getVal(21));
-        assertEq("3", values_.getVal(23));
+        assertEq("$vararg([$int)", values_.getVal(4));
+        assertEq("4", values_.getVal(19));
+        assertEq("3", values_.getVal(21));
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
 
@@ -1248,21 +1248,21 @@ public class ElResolverTest {
     public void getOperationsSequence71Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"java.lang.Object\"),$firstopt(4),3)";
+        String el_ = "abs($vararg(java.lang.Object),$firstopt(4),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(31));
-        assertEq(",", opers_.getVal(44));
-        assertEq(")", opers_.getVal(46));
+        assertEq(",", opers_.getVal(29));
+        assertEq(",", opers_.getVal(42));
+        assertEq(")", opers_.getVal(44));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("$vararg(\"java.lang.Object\")", values_.getVal(4));
-        assertEq("$firstopt(4)", values_.getVal(32));
-        assertEq("3", values_.getVal(45));
+        assertEq("$vararg(java.lang.Object)", values_.getVal(4));
+        assertEq("$firstopt(4)", values_.getVal(30));
+        assertEq("3", values_.getVal(43));
     
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
@@ -1271,22 +1271,22 @@ public class ElResolverTest {
     public void getOperationsSequence72Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"java.lang.Object\"),$firstopt(4;.;),3)";
+        String el_ = "abs($vararg(java.lang.Object),$firstopt(4;.;),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(31));
-        assertEq(",", opers_.getVal(47));
-        assertEq(")", opers_.getVal(49));
+        assertEq(",", opers_.getVal(29));
+        assertEq(",", opers_.getVal(45));
+        assertEq(")", opers_.getVal(47));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("$vararg(\"java.lang.Object\")", values_.getVal(4));
-        assertEq("$firstopt(4;.;)", values_.getVal(32));
-        assertEq("3", values_.getVal(48));
+        assertEq("$vararg(java.lang.Object)", values_.getVal(4));
+        assertEq("$firstopt(4;.;)", values_.getVal(30));
+        assertEq("3", values_.getVal(46));
     
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
@@ -1295,22 +1295,22 @@ public class ElResolverTest {
     public void getOperationsSequence73Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "abs($vararg(\"java.lang.Object\"),$firstopt(4;.),3)";
+        String el_ = "abs($vararg(java.lang.Object),$firstopt(4;.),3)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
 //        assertEq(0, opers_.size());
         assertEq(4, opers_.size());
         assertEq("(", opers_.getVal(3));
-        assertEq(",", opers_.getVal(31));
-        assertEq(",", opers_.getVal(46));
-        assertEq(")", opers_.getVal(48));
+        assertEq(",", opers_.getVal(29));
+        assertEq(",", opers_.getVal(44));
+        assertEq(")", opers_.getVal(46));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(4, values_.size());
         assertEq("abs", values_.getVal(0));
-        assertEq("$vararg(\"java.lang.Object\")", values_.getVal(4));
-        assertEq("$firstopt(4;.)", values_.getVal(32));
-        assertEq("3", values_.getVal(47));
+        assertEq("$vararg(java.lang.Object)", values_.getVal(4));
+        assertEq("$firstopt(4;.)", values_.getVal(30));
+        assertEq("3", values_.getVal(45));
     
         assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
     }
@@ -3941,7 +3941,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "$vararg+4";
-        assertEq(7, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(9, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test

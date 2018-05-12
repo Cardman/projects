@@ -8628,7 +8628,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\"/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(&quot;java.lang.Object&quot;),$firstopt(list;.))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\"/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(java.lang.Object),$firstopt(list;.))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9129,7 +9129,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($(java.lang.Object)1i)'/><c:set expression='list;.add($(java.lang.Object)2i)'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(&quot;java.lang.Object&quot;),$firstopt($(java.lang.Object)list;.))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($(java.lang.Object)1i)'/><c:set expression='list;.add($(java.lang.Object)2i)'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(java.lang.Object),$firstopt($(java.lang.Object)list;.))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

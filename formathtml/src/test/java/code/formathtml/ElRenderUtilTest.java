@@ -703,7 +703,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = ElRenderUtil.processEl("f;.format($vararg(\"java.lang.String\"),$firstopt(v;.),2;.,v;.)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("f;.format($vararg(java.lang.String),$firstopt(v;.),2;.,v;.)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("varargs:7 8 7", (String)res_);
@@ -728,7 +728,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = ElRenderUtil.processEl("f;.format($vararg(\"java.lang.String\"))",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("f;.format($vararg(java.lang.String))",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("varargs:{0} {1} {2}", (String)res_);
@@ -798,7 +798,7 @@ public final class ElRenderUtilTest {
         localVars_.put("2", lv_);
         addImportingPage(context_);
         context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("$new code.expressionlanguage.classes.Composite($vararg(\"java.lang.String\"),$firstopt(v;.),2;.).getStrings()",0, context_);
+        ElRenderUtil.processEl("$new code.expressionlanguage.classes.Composite($vararg(java.lang.String),$firstopt(v;.),2;.).getStrings()",0, context_);
         assertNotNull(context_.getContext().getException());
 //        Object res_ = arg_.getObject();
 //        assertTrue(res_ instanceof StringList);
@@ -1040,7 +1040,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = ElRenderUtil.processEl("(f;.format($vararg(\"java.lang.String\"),$firstopt(v;.),2;.,v;.)+'\\'').length()",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("(f;.format($vararg(java.lang.String),$firstopt(v;.),2;.,v;.)+'\\'').length()",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(14, (Number)res_);
@@ -2399,7 +2399,7 @@ public final class ElRenderUtilTest {
     public void processEl25FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        String el_ = "\"\".format(\"6\",$vararg(\"6\"))";
+        String el_ = "\"\".format(\"6\",$vararg(6))";
         ElRenderUtil.processEl(el_, 0, context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -2408,7 +2408,7 @@ public final class ElRenderUtilTest {
     public void processEl26FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        String el_ = "\"\".format($vararg(\"6\"),\"6\")";
+        String el_ = "\"\".format($vararg(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
         assertNotNull(context_.getContext().getException());
     }
@@ -2417,7 +2417,7 @@ public final class ElRenderUtilTest {
     public void processEl27FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        String el_ = "$vararg(\"java.lang.Object\")*(7+8)";
+        String el_ = "$vararg(java.lang.Object)*(7+8)";
         ElRenderUtil.processEl(el_, 0, context_);
         assertNotNull(context_.getContext().getException());
     }

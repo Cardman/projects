@@ -161,9 +161,6 @@ public abstract class OperationNode {
 
     private final int indexChild;
 
-    private boolean vararg;
-    private boolean firstOptArg;
-
     private ClassArgumentMatching resultClass;
 
     private boolean staticBlock;
@@ -216,6 +213,9 @@ public abstract class OperationNode {
             }
             if (ct_ == ConstType.STATIC_ACCESS) {
                 return new StaticAccessOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.VARARG) {
+                return new VarargOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.NUMBER) {
                 return new ConstantOperation(_index, _indexChild, _m, _op);
@@ -298,6 +298,9 @@ public abstract class OperationNode {
             }
             if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE), fctName_.length())) {
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
+            }
+            if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
+                return new FirstOptOperation(_index, _indexChild, _m, _op);
             }
             return new FctOperation(_index, _indexChild, _m, _op);
         }
@@ -1385,22 +1388,6 @@ public abstract class OperationNode {
 
     public final void setOrder(int _order) {
         order = _order;
-    }
-
-    public final boolean isVararg() {
-        return vararg;
-    }
-
-    final void setVararg(boolean _vararg) {
-        vararg = _vararg;
-    }
-
-    public final boolean isFirstOptArg() {
-        return firstOptArg;
-    }
-
-    final void setFirstOptArg(boolean _firstOptArg) {
-        firstOptArg = _firstOptArg;
     }
 
     public final int getFullIndexInEl() {

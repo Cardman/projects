@@ -34,16 +34,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children, Analyzable _conf) {
-        if (!_children.isEmpty() && _children.first().isVararg()) {
+        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
             CustList<ClassArgumentMatching> optArgs_ = new CustList<ClassArgumentMatching>();
             CustList<OperationNode> optArgsNodes_ = new CustList<OperationNode>();
             boolean opt_ = false;
             for (OperationNode o: _children) {
-                if (o.isVararg()) {
+                if (o instanceof VarargOperation) {
                     continue;
                 }
-                if (o.isFirstOptArg()) {
+                if (o instanceof FirstOptOperation) {
                     opt_ = true;
                 }
                 if (opt_) {
@@ -104,17 +104,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     static CustList<Argument> listArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
-        if (!_children.isEmpty() && _children.first().isVararg()) {
+        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             boolean opt_ = false;
             int i_ = CustList.FIRST_INDEX;
             for (OperationNode o: _children) {
-                if (o.isVararg()) {
+                if (o instanceof VarargOperation) {
                     i_++;
                     continue;
                 }
-                if (o.isFirstOptArg()) {
+                if (o instanceof FirstOptOperation) {
                     opt_ = true;
                 }
                 Argument a_ = _nodes.get(i_);
@@ -176,17 +176,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return firstArgs_;
     }
     static CustList<Argument> quickListArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Analyzable _context) {
-        if (!_children.isEmpty() && _children.first().isVararg()) {
+        if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
             boolean opt_ = false;
             int i_ = CustList.FIRST_INDEX;
             for (OperationNode o: _children) {
-                if (o.isVararg()) {
+                if (o instanceof VarargOperation) {
                     i_++;
                     continue;
                 }
-                if (o.isFirstOptArg()) {
+                if (o instanceof FirstOptOperation) {
                     opt_ = true;
                 }
                 Argument a_ = _nodes.get(i_);
@@ -358,14 +358,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return void_;
     }
     static void unwrapArgsFct(CustList<OperationNode> _ch, MethodId _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, Analyzable _conf) {
-        if (!_ch.isEmpty() && _ch.first().isVararg()) {
+        if (!_ch.isEmpty() && _ch.first() instanceof VarargOperation) {
             int i_ = CustList.FIRST_INDEX;
             for (OperationNode o: _ch) {
-                if (o.isVararg()) {
+                if (o instanceof VarargOperation) {
                     i_++;
                     continue;
                 }
-                if (o.isFirstOptArg()) {
+                if (o instanceof FirstOptOperation) {
                     break;
                 }
                 String param_ = _id.getParametersTypes().get(i_-1);
@@ -416,14 +416,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return -1;
             }
         }
-        if (!first_.isVararg()) {
+        if (!(first_ instanceof VarargOperation)) {
             return -1;
         }
         CustList<OperationNode> ch_ = getChildrenNodes();
         int firstOpt_ = 0;
         int len_ = ch_.size();
         for (int i = from_; i < len_;i++) {
-            if (ch_.get(i).isFirstOptArg()) {
+            if (ch_.get(i) instanceof FirstOptOperation) {
                 firstOpt_ = i + 1 - from_;
                 break;
             }

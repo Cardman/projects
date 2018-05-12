@@ -25,12 +25,9 @@ import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessConstructor;
-import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
-import code.expressionlanguage.methods.util.VarargError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -97,148 +94,6 @@ public final class FctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         int varargOnly_ = lookOnlyForVarArg();
         LgNames stds_ = _conf.getStandards();
-        String stringType_ = stds_.getAliasString();
-        if (StringList.quickEq(trimMeth_,prefixFunction(VAR_ARG))) {
-            setVararg(true);
-            MethodOperation m_ = getParent();
-            if (!(m_ instanceof InvokingOperation)) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            InvokingOperation parent_ = (InvokingOperation) m_;
-            if (!parent_.isCallMethodCtor()) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            if (!isFirstChild()) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            if (chidren_.size() != CustList.ONE_ELEMENT) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            if (!chidren_.first().getResultClass().matchClass(stringType_)) {
-                setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setRc(_conf.getCurrentLocation());
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setExpectedResult(stringType_);
-                un_.setOperands(new StringList(cl_.getName()));
-                _conf.getClasses().getErrorsDet().add(un_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            if (chidren_.first().getArgument() == null) {
-                setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                BadImplicitCast bad_ = new BadImplicitCast();
-                Mapping map_ = new Mapping();
-                map_.setArg(EMPTY_STRING);
-                map_.setParam(stringType_);
-                bad_.setMapping(map_);
-                bad_.setFileName(_conf.getCurrentFileName());
-                bad_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(bad_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            String str_ = (String) chidren_.first().getArgument().getObject();
-            if (str_ == null) {
-                setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                BadImplicitCast bad_ = new BadImplicitCast();
-                Mapping map_ = new Mapping();
-                map_.setArg(EMPTY_STRING);
-                map_.setParam(stringType_);
-                bad_.setMapping(map_);
-                bad_.setFileName(_conf.getCurrentFileName());
-                bad_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(bad_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            str_ = StringList.removeAllSpaces(str_);
-            if (!checkCorrect(_conf, str_, true, chidren_.first().getIndexInEl()+1)) {
-                str_ = stds_.getAliasObject();
-            }
-            setResultClass(new ClassArgumentMatching(str_));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            setFirstOptArg(true);
-            MethodOperation m_ = getParent();
-            if (!(m_ instanceof InvokingOperation)) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            InvokingOperation parent_ = (InvokingOperation)m_;
-            if (!parent_.isCallMethodCtor()) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            if (isFirstChild()) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            if (chidren_.size() != CustList.ONE_ELEMENT) {
-                VarargError varg_ = new VarargError();
-                varg_.setFileName(_conf.getCurrentFileName());
-                varg_.setRc(_conf.getCurrentLocation());
-                varg_.setMethodName(trimMeth_);
-                _conf.getClasses().getErrorsDet().add(varg_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                setSimpleArgument(new Argument());
-                return;
-            }
-            setResultClass(chidren_.first().getResultClass());
-            return;
-        }
         if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
             //validate calling of constructors of the current class
             String clCurName_ = _conf.getGlobalClass();
@@ -252,14 +107,14 @@ public final class FctOperation extends InvokingOperation {
                     naturalVararg = constId.getParametersTypes().size() - 1;
                     lastType = constId.getParametersTypes().last();
                 }
-                if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
+                if (!chidren_.isEmpty() && chidren_.first() instanceof VarargOperation) {
                     int i_ = CustList.FIRST_INDEX;
                     for (OperationNode o: chidren_) {
-                        if (o.isVararg()) {
+                        if (o instanceof VarargOperation) {
                             i_++;
                             continue;
                         }
-                        if (o.isFirstOptArg()) {
+                        if (o instanceof FirstOptOperation) {
                             break;
                         }
                         String param_ = constId.getParametersTypes().get(i_-1);
@@ -338,14 +193,14 @@ public final class FctOperation extends InvokingOperation {
                     naturalVararg = constId.getParametersTypes().size() - 1;
                     lastType = constId.getParametersTypes().last();
                 }
-                if (!chidren_.isEmpty() && chidren_.first().isVararg()) {
+                if (!chidren_.isEmpty() && chidren_.first() instanceof VarargOperation) {
                     int i_ = CustList.FIRST_INDEX;
                     for (OperationNode o: chidren_) {
-                        if (o.isVararg()) {
+                        if (o instanceof VarargOperation) {
                             i_++;
                             continue;
                         }
-                        if (o.isFirstOptArg()) {
+                        if (o instanceof FirstOptOperation) {
                             break;
                         }
                         String param_ = constId.getParametersTypes().get(i_-1);
@@ -607,60 +462,6 @@ public final class FctOperation extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        LgNames stds_ = _conf.getStandards();
-        String trimMeth_ = methodName.trim();
-        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            setSimpleArgumentAna(arguments_.first(), _conf);
-            return;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
-            if (chidren_.size() == 2) {
-                Argument objArg_ = arguments_.last();
-                Argument classArg_ = arguments_.first();
-                String paramName_ = (String) classArg_.getObject();
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct(), _conf.getStandards())) {
-                    return;
-                }
-                if (objArg_.isNull()) {
-                    Argument arg_ = new Argument();
-                    setSimpleArgumentAna(arg_, _conf);
-                    return;
-                }
-                if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
-                    if (!StringList.quickEq(paramName_, _conf.getStandards().getAliasString())) {
-                        return;
-                    }
-                }
-                Object o_ = objArg_.getObject();
-                String argClassName_ = _conf.getStandards().getSimpleStructClassName(o_);
-                ClassArgumentMatching resCl_ = getResultClass();
-                Argument arg_ = new Argument();
-                if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(argClassName_);
-                    mapping_.setParam(paramName_);
-                    if (!Templates.isCorrect(mapping_, _conf)) {
-                        return;
-                    }
-                    arg_.setStruct(objArg_.getStruct());
-                } else {
-                    if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
-                        if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
-                            return;
-                        }
-                        arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
-                    } else {
-                        String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
-                        if (!StringList.quickEq(typeNameArg_, stds_.getAliasPrimBoolean())) {
-                            return;
-                        }
-                        arg_.setStruct(objArg_.getStruct());
-                    }
-                }
-                setSimpleArgumentAna(arg_, _conf);
-                return;
-            }
-        }
         if (classMethodId == null) {
             return;
         }
@@ -749,9 +550,6 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
-        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            return ArgumentCall.newArgument(_arguments.first());
-        }
         LgNames stds_ = _conf.getStandards();
         String null_;
         String cast_;
@@ -987,23 +785,6 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     boolean isCallMethodCtor() {
-        String trimMeth_ = methodName.trim();
-        if (StringList.quickEq(trimMeth_,prefixFunction(VAR_ARG))) {
-            return false;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            return false;
-        }
         return true;
-    }
-    public boolean isConstCall() {
-        String trimMeth_ = methodName.trim();
-        if (StringList.quickEq(trimMeth_,prefixFunction(VAR_ARG))) {
-            return true;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            return true;
-        }
-        return false;
     }
 }

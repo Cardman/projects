@@ -23,7 +23,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public [java.lang.Integer array=$new [java.lang.Integer[](1i):\n");
         xml_.append(" $public $int elt=2i:\n");
         xml_.append(" {\n");
-        xml_.append("  ref()[0i]=getter($vararg(\"$int\"),$firstopt(8i),5i):\n");
+        xml_.append("  ref()[0i]=getter($vararg($int),$firstopt(8i),5i):\n");
         xml_.append(" }\n");
         xml_.append(" $public $final [java.lang.Object ref(){\n");
         xml_.append("  $return array;;;:\n");
@@ -530,7 +530,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public [java.lang.Integer array=$new [java.lang.Integer[](1i):\n");
         xml_.append(" $public $int elt=2i:\n");
         xml_.append(" {\n");
-        xml_.append("  ref()[0i]=getter($vararg(\"$int\"),$firstopt(8i)):\n");
+        xml_.append("  ref()[0i]=getter($vararg($int),$firstopt(8i)):\n");
         xml_.append(" }\n");
         xml_.append(" $public $final [java.lang.Object ref(){\n");
         xml_.append("  $return array;;;:\n");
@@ -606,7 +606,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public [java.lang.Integer array=$new [java.lang.Integer[](1i):\n");
         xml_.append(" $public $int elt=2i:\n");
         xml_.append(" {\n");
-        xml_.append("  ref()[0i]=getter($vararg(\"$int\")):\n");
+        xml_.append("  ref()[0i]=getter($vararg($int)):\n");
         xml_.append(" }\n");
         xml_.append(" $public $final [java.lang.Object ref(){\n");
         xml_.append("  $return array;;;:\n");
