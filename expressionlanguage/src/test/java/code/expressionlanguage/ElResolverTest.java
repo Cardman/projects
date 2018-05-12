@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -1079,6 +1080,7 @@ public class ElResolverTest {
         assertEq("a", values_.getVal(3));
     
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(!seq_.isInstanceTest());
     }
 
     @Test
@@ -1097,6 +1099,7 @@ public class ElResolverTest {
         assertEq("a", values_.getVal(3));
     
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(!seq_.isInstanceTest());
     }
 
     @Test
@@ -3046,6 +3049,182 @@ public class ElResolverTest {
         assertEq(1, values_.size());
         assertEq("$($byte)1", values_.getVal(7));
         assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence178Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1 $instanceof $byte";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof $byte", opers_.getVal(2));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1 ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence179Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1 $instanceof pkg.List<two.Tmp>";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof pkg.List<two.Tmp>", opers_.getVal(2));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1 ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence180Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1 $instanceof pkg.List<two.Tmp,three.Sec>";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof pkg.List<two.Tmp,three.Sec>", opers_.getVal(2));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1 ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence181Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof pkg.List<two.Tmp<three.Sec>>", opers_.getVal(2));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1 ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence182Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1 $instanceof pkg.List<two.Tmp<three.Sec>>=$true";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("=", opers_.getVal(42));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", values_.getVal(0));
+        assertEq("$true", values_.getVal(43));
+        assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence183Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "v; $instanceof $byte";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof $byte", opers_.getVal(3));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("v; ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence184Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "v $instanceof $byte";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof $byte", opers_.getVal(2));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("v ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence185Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "v() $instanceof $byte";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof $byte", opers_.getVal(4));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("v() ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence186Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$true=1 $instanceof pkg.List<two.Tmp<three.Sec>>";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("=", opers_.getVal(5));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("1 $instanceof pkg.List<two.Tmp<three.Sec>>", values_.getVal(6));
+        assertEq("$true", values_.getVal(0));
+        assertEq(ElResolver.EQ_PRIO, seq_.getPriority());
+    }
+    @Test
+    public void getOperationsSequence187Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1 $instanceof #T";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof #T", opers_.getVal(2));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1 ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence188Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "1 $instanceof pkg . One";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("$instanceof pkg . One", opers_.getVal(2));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(1, values_.size());
+        assertEq("1 ", values_.getVal(0));
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(seq_.isInstanceTest());
     }
     @Test
     public void checkSyntaxDelimiters1Test() {

@@ -938,7 +938,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<#T> {\n");
         xml_.append(" $public $int inst:\n");
         xml_.append(" $public (java.lang.Object i){\n");
-        xml_.append("  $if($instanceof(\"pkg.ExThree\",i;.;)){\n");
+        xml_.append("  $if(i;.; $instanceof pkg.ExThree){\n");
         xml_.append("   inst;;;=1i:\n");
         xml_.append("  }\n");
         xml_.append("  $else{\n");

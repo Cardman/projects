@@ -4061,7 +4061,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for className='java.lang.Integer' var=\"k\" from=\"0\" to=\"1\" step=\"1\">{$instanceof(\"java.lang.Integer\",k;)}</c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for className='java.lang.Integer' var=\"k\" from=\"0\" to=\"1\" step=\"1\">{k; $instanceof java.lang.Integer}</c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();

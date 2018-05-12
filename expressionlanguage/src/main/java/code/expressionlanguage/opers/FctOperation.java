@@ -10,7 +10,6 @@ import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
@@ -27,7 +26,6 @@ import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessConstructor;
 import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
@@ -74,8 +72,6 @@ public final class FctOperation extends InvokingOperation {
     private boolean otherConstructorClass;
 
     private boolean staticChoiceMethod;
-
-    private boolean correctTemplate = true;
 
     private String lastType = EMPTY_STRING;
 
@@ -401,70 +397,6 @@ public final class FctOperation extends InvokingOperation {
             und_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().getErrorsDet().add(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-            return;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
-            if (chidren_.size() == 2) {
-                if (!chidren_.first().getResultClass().matchClass(stringType_)) {
-                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                    ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                    UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                    un_.setRc(_conf.getCurrentLocation());
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setExpectedResult(stringType_);
-                    un_.setOperands(new StringList(cl_.getName()));
-                    _conf.getClasses().getErrorsDet().add(un_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                    return;
-                }
-                if (chidren_.first().getArgument() == null) {
-                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                    BadImplicitCast bad_ = new BadImplicitCast();
-                    Mapping map_ = new Mapping();
-                    map_.setArg(EMPTY_STRING);
-                    map_.setParam(stringType_);
-                    bad_.setMapping(map_);
-                    bad_.setFileName(_conf.getCurrentFileName());
-                    bad_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(bad_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                    return;
-                }
-                String str_ = (String) chidren_.first().getArgument() .getObject();
-                if (str_ == null) {
-                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                    BadImplicitCast bad_ = new BadImplicitCast();
-                    Mapping map_ = new Mapping();
-                    map_.setArg(EMPTY_STRING);
-                    map_.setParam(stringType_);
-                    bad_.setMapping(map_);
-                    bad_.setFileName(_conf.getCurrentFileName());
-                    bad_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(bad_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                    return;
-                }
-                str_ = StringList.removeAllSpaces(str_);
-                if (str_.contains(Templates.TEMPLATE_BEGIN)) {
-                    checkCorrect(_conf, str_, true, chidren_.first().getIndexInEl()+1);
-                } else {
-                    if (!checkExistBase(_conf, !isStaticBlock(), str_, true, chidren_.first().getIndexInEl()+1)) {
-                        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                        return;
-                    }
-                    if (!str_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                        correctTemplate = Templates.correctNbParameters(str_, _conf);
-                    }
-                }
-                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                return;
-            }
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
-            badNb_.setOperandsNumber(chidren_.size());
-            badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badNb_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
         ClassArgumentMatching clCur_;
@@ -904,33 +836,6 @@ public final class FctOperation extends InvokingOperation {
                 return ArgumentCall.newCall(inv_);
             }
         }
-        if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
-            String str_ = (String) _arguments.first().getObject();
-            str_ = StringList.removeAllSpaces(str_);
-            Argument sec_ = _arguments.last();
-            if (sec_.isNull()) {
-                Argument arg_ = new Argument();
-                arg_.setObject(false);
-                return ArgumentCall.newArgument(arg_);
-            }
-            String className_ = stds_.getStructClassName(sec_.getStruct(), _conf);
-            if (!correctTemplate) {
-                className_ = StringList.getAllTypes(className_).first();
-                boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(str_, className_, _conf);
-                Argument arg_ = new Argument();
-                arg_.setObject(res_);
-                return ArgumentCall.newArgument(arg_);
-            }
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(className_);
-            PageEl page_ = _conf.getLastPage();
-            str_ = page_.formatVarType(str_, _conf);
-            mapping_.setParam(str_);
-            boolean res_ = Templates.isCorrect(mapping_, _conf);
-            Argument arg_ = new Argument();
-            arg_.setObject(res_);
-            return ArgumentCall.newArgument(arg_);
-        }
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
         MethodId methodId_ = classMethodId.getConstraints();
@@ -1087,9 +992,6 @@ public final class FctOperation extends InvokingOperation {
             return false;
         }
         if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            return false;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
             return false;
         }
         return true;

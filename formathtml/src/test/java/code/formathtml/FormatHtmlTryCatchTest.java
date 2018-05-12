@@ -610,7 +610,7 @@ public class FormatHtmlTryCatchTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.String' var='e'>{$instanceof(\"java.lang.String\",e;..)}</c:catch></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:try><c:import page=\"page2.html\"/></c:try><c:catch className='java.lang.String' var='e'>{e;.. $instanceof java.lang.String}</c:catch></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><c:try><c:throw expression='$new java.lang.String()'/></c:try><c:catch className='code.expressionlanguage.exceptions.DivideZeroException' var='e'>Divide Zero</c:catch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);

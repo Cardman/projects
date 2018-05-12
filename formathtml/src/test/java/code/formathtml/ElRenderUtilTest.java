@@ -246,7 +246,7 @@ public final class ElRenderUtilTest {
     public void processEl18Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$instanceof(\"java.lang.Number\",5)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("5 $instanceof java.lang.Number",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -256,7 +256,7 @@ public final class ElRenderUtilTest {
     public void processEl19Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$instanceof(\"java.lang.Number\",'5')",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("'5' $instanceof java.lang.Number",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
@@ -266,7 +266,7 @@ public final class ElRenderUtilTest {
     public void processEl20Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("!$instanceof(\"java.lang.Number\",'5')",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("!('5' $instanceof java.lang.Number)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -468,7 +468,7 @@ public final class ElRenderUtilTest {
     public void processEl39Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$instanceof(\"java.lang.Object\",$null)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$null $instanceof java.lang.Object",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);

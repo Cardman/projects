@@ -24,13 +24,15 @@ public final class OperationsSequence {
 
     private int offset;
 
+    private boolean instanceTest;
+
     public void setValue(String _string, int _offset) {
         values = new NatTreeMap<Integer,String>();
         values.put((int)CustList.FIRST_INDEX, _string);
         offset = _offset;
     }
 
-    public void setupValues(String _string) {
+    public void setupValues(String _string, boolean _is) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
             priority = ElResolver.BAD_PRIO;
@@ -60,6 +62,11 @@ public final class OperationsSequence {
         int endValuePart_ = operators.firstKey();
         String str_;
         if (priority == ElResolver.POST_INCR_PRIO) {
+            values.put((int)CustList.FIRST_INDEX, _string.substring(beginValuePart_, endValuePart_));
+            return;
+        } else if (_is && priority == ElResolver.CMP_PRIO) {
+            //instanceof operator
+            instanceTest = true;
             values.put((int)CustList.FIRST_INDEX, _string.substring(beginValuePart_, endValuePart_));
             return;
         } else if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {
@@ -114,6 +121,10 @@ public final class OperationsSequence {
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
         values.put(beginValuePart_, str_);
+    }
+
+    public boolean isInstanceTest() {
+        return instanceTest;
     }
 
     public ConstType getConstType() {
