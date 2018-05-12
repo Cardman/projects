@@ -4,17 +4,14 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -66,8 +63,8 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-            Assignment ba_ = e.getValue();
+        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+            SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
             if (ba_.isAssignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter()) {
                 ab_.setAssignedBefore(true);
@@ -77,11 +74,11 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
             }
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
         }
-        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             int index_ = assBl_.getVariablesRootBefore().size();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment ba_ = e.getValue();
+            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                SimpleAssignment ba_ = e.getValue();
                 AssignmentBefore ab_ = new AssignmentBefore();
                 if (ba_.isAssignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter()) {
                     ab_.setAssignedBefore(true);
@@ -100,27 +97,15 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        int index_ = 0;
-        String boolStd_ = _cont.getStandards().getAliasBoolean();
         for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _cont.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
-            ass_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
+            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
-            StringMap<Assignment> vars_ = new StringMap<Assignment>();
+            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                String key_ = e.getKey();
-                LocalVariable lc_ = _cont.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
-                vars_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
             }
-            index_++;
             ass_.getVariablesRoot().add(vars_);
         }
     }

@@ -9,7 +9,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
@@ -27,6 +26,7 @@ import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
@@ -293,11 +293,10 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             indexDoWhile_++;
         }
 
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
-        fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> varsAfter_;
-        varsAfter_ = new CustList<StringMap<Assignment>>();
-        String boolType_ = _an.getStandards().getAliasBoolean();
+        ObjectMap<ClassField,SimpleAssignment> fieldsAfter_;
+        fieldsAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
+        CustList<StringMap<SimpleAssignment>> varsAfter_;
+        varsAfter_ = new CustList<StringMap<SimpleAssignment>>();
         for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
             boolean ass_ = true;
@@ -320,18 +319,13 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 }
             }
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _an.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-            fieldsAfter_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+            fieldsAfter_.put(key_, Assignment.assignClassic(ass_, unass_));
         }
         varsDo_.getFieldsRoot().putAllMap(fieldsAfter_);
         index_ = 0;
         for (StringMap<BooleanAssignment> s: varsWhile_.getVariablesRootAfter()) {
-            StringMap<Assignment> sm_;
-            sm_ = new StringMap<Assignment>();
+            StringMap<SimpleAssignment> sm_;
+            sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
                 BooleanAssignment ba_ = e.getValue();
                 boolean ass_ = true;
@@ -359,10 +353,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                     }
                 }
                 String key_ = e.getKey();
-                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                sm_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+                sm_.put(key_, Assignment.assignClassic(ass_, unass_));
             }
             index_++;
             varsAfter_.add(sm_);

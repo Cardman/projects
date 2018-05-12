@@ -33,7 +33,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("  $foreach($int i:exmethlist()){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
         xml_.append("  code.expressionlanguage.classes.Ints t:\n");
@@ -77,7 +77,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("  $foreach($int i:exmethlist()){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
         xml_.append("  l;.;getList().add(o;.;):\n");
@@ -125,7 +125,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("  $foreach($int i:exmethlist()){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
         xml_.append("  l;.;getList().add(o;.;):\n");
@@ -175,7 +175,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
         xml_.append("  l;.;getList().add(o;.;):\n");
@@ -228,7 +228,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("    t;.+=i;+1:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
         xml_.append("  l;.;getList().add(o;.;):\n");
@@ -283,7 +283,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("   }\n");
         xml_.append("   t;.+=elt;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
         xml_.append("  l;.;getList().add(o;.;):\n");
@@ -338,7 +338,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("    t;.+=i;+1:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $void adding(code.expressionlanguage.classes.PickableList l,java.lang.Object o){\n");
         xml_.append("  l;.;getList().add(o;.;):\n");

@@ -64,7 +64,6 @@ public final class ElResolver {
     private static final String STATIC_ACCESS = "static";
     private static final String VAR_ARG = "vararg";
     private static final String FIRST_OPT = "firstopt";
-    private static final String CLASS = "class";
     private static final String BOOLEAN = "bool";
     private static final String INSTANCEOF = "instanceof";
     private static final String VALUE_OF = "valueOf";
@@ -145,57 +144,6 @@ public final class ElResolver {
         if (i_ >= len_) {
             d_.setBadOffset(i_);
             return d_;
-        }
-        int firstPrintableWordChar_ = i_;
-        while (i_ < len_) {
-            if (!StringList.isWordChar(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
-        if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
-            i_++;
-            boolean spaces_ = false;
-            while (i_ < len_) {
-                if (_string.charAt(i_) == GET_VAR) {
-                    i_++;
-                    continue;
-                }
-                if (_string.charAt(i_) == DOT_VAR) {
-                    i_++;
-                    continue;
-                }
-                if (Character.isWhitespace(_string.charAt(i_))) {
-                    spaces_ = true;
-                }
-                break;
-            }
-            if (spaces_) {
-                int j_ = i_+1;
-                while (j_ < len_) {
-                    if (Character.isWhitespace(_string.charAt(j_))) {
-                        j_++;
-                        continue;
-                    }
-                    if (_string.charAt(j_) == GET_VAR) {
-                        d_.setBadOffset(i_+1);
-                        return d_;
-                    }
-                    if (_string.charAt(j_) == DOT_VAR) {
-                        d_.setBadOffset(i_+1);
-                        return d_;
-                    }
-                    break;
-                }
-            }
-            while (i_ < len_) {
-                if (!Character.isWhitespace(_string.charAt(i_))) {
-                    break;
-                }
-                i_++;
-            }
-        } else {
-            i_ = firstPrintableWordChar_;
         }
         boolean enabledMinus_ = true;
         i_ = _minIndex;
@@ -331,6 +279,24 @@ public final class ElResolver {
                 hatMethod_ = true;
                 if (i_ + 1 < len_) {
                     char nextChar_ = _string.charAt(i_ + 1);
+                    if (_string.substring(i_ + 1).trim().indexOf(PAR_LEFT) == CustList.FIRST_INDEX) {
+                        //cast
+                        int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
+                        int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+                        if (indexParRight_ < 0) {
+                            d_.setBadOffset(len_);
+                            return d_;
+                        }
+                        if (indexParRight_ + 1 >= len_) {
+                            d_.setBadOffset(len_);
+                            return d_;
+                        }
+                        hatMethod_ = false;
+                        d_.getDelCast().add(i_);
+                        d_.getDelCast().add(indexParRight_);
+                        i_ = indexParRight_ + 1;
+                        continue;
+                    }
                     if (Character.isWhitespace(nextChar_)) {
                         d_.setBadOffset(i_+1);
                         return d_;
@@ -597,7 +563,7 @@ public final class ElResolver {
                     if (foundValue_) {
                         continue;
                     }
-                    for (String s: StringList.wrapStringArray(VAR_ARG,FIRST_OPT,CLASS,INSTANCEOF,BOOLEAN,VALUE_OF,VALUES)) {
+                    for (String s: StringList.wrapStringArray(VAR_ARG,FIRST_OPT,INSTANCEOF,BOOLEAN,VALUE_OF,VALUES)) {
                         if (procWordFirstChar(_string, i_ + 1, s, len_)) {
                             int index_ = processPredefinedMethod(_string, i_, s, len_);
                             if (index_ < 0) {
@@ -639,7 +605,7 @@ public final class ElResolver {
                     }
                 }
                 if (isNumber(i_, len_, _string)) {
-                    NumberInfosOutput res_ = processNb(i_, len_, firstPrintableWordChar_, _string, false);
+                    NumberInfosOutput res_ = processNb(i_, len_, _string, false);
                     int nextIndex_ = res_.getNextIndex();
                     if (nextIndex_ < 0) {
                         d_.setBadOffset(-nextIndex_);
@@ -753,7 +719,7 @@ public final class ElResolver {
             }
             if (curChar_ == DOT_VAR) {
                 if (isNumber(i_ + 1, len_, _string)) {
-                    NumberInfosOutput res_ = processNb(i_ + 1, len_, firstPrintableWordChar_, _string, true);
+                    NumberInfosOutput res_ = processNb(i_ + 1, len_, _string, true);
                     int nextIndex_ = res_.getNextIndex();
                     if (nextIndex_ < 0) {
                         d_.setBadOffset(-nextIndex_);
@@ -1167,11 +1133,11 @@ public final class ElResolver {
     }
     static int processPredefinedMethod(String _string, int _i, String _name, int _max) {
         int afterSuper_ = _i + 1 + _name.length();
-        if (afterSuper_ >= _max) {
+        int index_ = _string.indexOf(PAR_LEFT,afterSuper_);
+        if (index_ < 0) {
             return -afterSuper_;
         }
-        int index_ = _string.indexOf(PAR_LEFT,afterSuper_);
-        if (index_ < 0 || !_string.substring(afterSuper_, index_).trim().isEmpty()) {
+        if (!_string.substring(afterSuper_, index_).trim().isEmpty()) {
             return -afterSuper_;
         }
         return index_;
@@ -1208,7 +1174,7 @@ public final class ElResolver {
         return Character.isDigit(first_) && !var_;
     }
 
-    private static NumberInfosOutput processNb(int _start, int _max, int _firstPrint, String _string, boolean _seenDot) {
+    private static NumberInfosOutput processNb(int _start, int _max, String _string, boolean _seenDot) {
         //_string.charAt(_start) is digit
         NumberInfosOutput output_ = new NumberInfosOutput();
         NumberInfos nbInfos_ = new NumberInfos();
@@ -1676,17 +1642,23 @@ public final class ElResolver {
             prio_ = UNARY_PRIO;
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
             operators_.put(firstPrintChar_, StringList.concat(EMPTY_STRING,ch_,ch_));
-            i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+            i_ = incrementUnary(_string, firstPrintChar_ + 2, lastPrintChar_, _offset, _d);
         } else if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR && !_conf.getOptions().applyEqPlus()) {
             prio_ = UNARY_PRIO;
             operators_.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
-            i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+            i_ = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
         } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
             if (firstPrintChar_ < lastPrintChar_ && _string.charAt(firstPrintChar_+1) != EQ_CHAR) {
                 prio_ = UNARY_PRIO;
                 operators_.put(firstPrintChar_, String.valueOf(NEG_BOOL_CHAR));
-                i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+                i_ = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
             }
+        } else if (_d.getDelCast().contains(firstPrintChar_+_offset)) {
+            prio_ = UNARY_PRIO;
+            int min_ = _d.getDelCast().indexOfObj(firstPrintChar_+_offset);
+            int max_ = _d.getDelCast().get(min_ + 1) - _offset;
+            operators_.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
+            i_ = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
         } else {
             while (true) {
                 if (!StringList.isWordChar(_string.charAt(i_))) {
@@ -1993,6 +1965,31 @@ public final class ElResolver {
         return op_;
     }
 
+    static int incrementUnary(String _string, int _from, int _to, int _offset, Delimiters _d) {
+        int j_ = _from;
+        while (j_ <= _to) {
+            char ch_ = _string.charAt(j_);
+            if (ch_ != MINUS_CHAR) {
+                if (ch_ != PLUS_CHAR) {
+                    if (ch_ != NEG_BOOL_CHAR) {
+                        if (!Character.isWhitespace(ch_)) {
+                            int sum_ = _offset + j_;
+                            int indexCast_ = _d.getDelCast().indexOfObj(sum_);
+                            if (indexCast_ > -1) {
+                                int next_ = _d.getDelCast().get(indexCast_ + 1);
+                                next_ -= _offset;
+                                j_ = next_ + 1;
+                                continue;
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            j_++;
+        }
+        return j_;
+    }
     static int getIncrement(String _string, int _from, int _to) {
         int increment_ = 1;
         int j_ = _from;

@@ -55,7 +55,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append("  $foreach($int i:a;.){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

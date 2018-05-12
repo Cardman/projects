@@ -3,8 +3,8 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
@@ -28,8 +28,8 @@ public final class AnalyzingEl {
     private CustList<BreakableBlock> parentsBreakables = new CustList<BreakableBlock>();
     private CustList<Loop> parentsContinuables = new CustList<Loop>();
     private CustList<Eval> parentsReturnables = new CustList<Eval>();
-    private IdMap<ReturnMehod, ObjectMap<ClassField, Assignment>> assignments = new IdMap<ReturnMehod, ObjectMap<ClassField, Assignment>>();
-    private ObjectMap<ClassField, Assignment> assignmentsCalling = new ObjectMap<ClassField, Assignment>();
+    private IdMap<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>> assignments = new IdMap<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>>();
+    private ObjectMap<ClassField, SimpleAssignment> assignmentsCalling = new ObjectMap<ClassField, SimpleAssignment>();
     private Mapping mapping;
     private MemberCallingsBlock root;
 
@@ -125,11 +125,11 @@ public final class AnalyzingEl {
         return returnablesAncestorsCallings;
     }
 
-    public IdMap<ReturnMehod, ObjectMap<ClassField, Assignment>> getAssignments() {
+    public IdMap<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>> getAssignments() {
         return assignments;
     }
 
-    public ObjectMap<ClassField, Assignment> getAssignmentsCalling() {
+    public ObjectMap<ClassField, SimpleAssignment> getAssignmentsCalling() {
         return assignmentsCalling;
     }
 

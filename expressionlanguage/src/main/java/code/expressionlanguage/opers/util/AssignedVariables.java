@@ -17,11 +17,11 @@ public class AssignedVariables {
     private CustList<StringMap<AssignmentBefore>> variablesRootBefore = new CustList<StringMap<AssignmentBefore>>();
     private ObjectMap<ClassField,AssignmentBefore> fieldsRootBefore = new ObjectMap<ClassField,AssignmentBefore>();
 
-    private CustList<StringMap<Assignment>> variablesRoot = new CustList<StringMap<Assignment>>();
-    private ObjectMap<ClassField,Assignment> fieldsRoot = new ObjectMap<ClassField,Assignment>();
+    private CustList<StringMap<SimpleAssignment>> variablesRoot = new CustList<StringMap<SimpleAssignment>>();
+    private ObjectMap<ClassField,SimpleAssignment> fieldsRoot = new ObjectMap<ClassField,SimpleAssignment>();
     public void initVars() {
         variablesRootBefore.add(new StringMap<AssignmentBefore>());
-        variablesRoot.add(new StringMap<Assignment>());
+        variablesRoot.add(new StringMap<SimpleAssignment>());
     }
     public void removeVars() {
         variablesRootBefore.removeLast();
@@ -45,10 +45,10 @@ public class AssignedVariables {
     public ObjectMap<ClassField,AssignmentBefore> getFieldsRootBefore() {
         return fieldsRootBefore;
     }
-    public CustList<StringMap<Assignment>> getVariablesRoot() {
+    public CustList<StringMap<SimpleAssignment>> getVariablesRoot() {
         return variablesRoot;
     }
-    public ObjectMap<ClassField,Assignment> getFieldsRoot() {
+    public ObjectMap<ClassField,SimpleAssignment> getFieldsRoot() {
         return fieldsRoot;
     }
 }

@@ -25,7 +25,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $for($int i=4i:0i:-1i){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -50,7 +50,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $for($int i=4i:1i::-1i){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -75,7 +75,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $for($int i=0i:4i::1i){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -100,7 +100,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $for($int i=4i:1i::-2i){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -125,7 +125,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $for($int i=1i:4i::2i){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -150,7 +150,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $for($int i=4i:1i::2i){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -200,7 +200,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $for($int i=1i:1i:0i){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -223,7 +223,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
         xml_.append("  $for($int i=1i:4i:1i):\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -250,7 +250,7 @@ public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
         xml_.append("    t;.+=j;:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return $class(\"$int\",t;.):\n");
+        xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

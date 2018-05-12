@@ -4,6 +4,16 @@ public final class AssignmentBefore {
     private boolean assignedBefore;
     private boolean unassignedBefore;
 
+    public SimpleAssignment assignAfterClassic() {
+        SimpleAssignment ba_ = new SimpleAssignment();
+        if (isAssignedBefore()) {
+            ba_.setAssignedAfter(true);
+        }
+        if (isUnassignedBefore()) {
+            ba_.setUnassignedAfter(true);
+        }
+        return ba_;
+    }
     public Assignment assignAfter(boolean _boolType) {
         if (_boolType) {
             BooleanAssignment ba_ = new BooleanAssignment();

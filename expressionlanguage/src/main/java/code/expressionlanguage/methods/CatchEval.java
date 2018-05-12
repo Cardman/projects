@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -14,8 +13,8 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
@@ -128,27 +127,15 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         _cont.getAnalyzing().getCatchVars().put(variableName, lv_);
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        int index_ = 0;
-        String boolStd_ = _cont.getStandards().getAliasBoolean();
         for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _cont.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
-            ass_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
+            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
-            StringMap<Assignment> vars_ = new StringMap<Assignment>();
+            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                String key_ = e.getKey();
-                LocalVariable lc_ = _cont.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _cont);
-                vars_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
             }
-            index_++;
             ass_.getVariablesRoot().add(vars_);
         }
     }
@@ -180,7 +167,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
         }
         AssignedVariables parAss_ = inners_.firstValue();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             AssignmentBefore ab_ = new AssignmentBefore();
             if (parAss_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
                 ab_.setAssignedBefore(true);
@@ -233,10 +220,10 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
             }
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
         }
-        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             int index_ = assBl_.getVariablesRootBefore().size();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
+            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
                 AssignmentBefore ab_ = new AssignmentBefore();
                 if (parAss_.getVariablesRootBefore().get(index_).getVal(e.getKey()).isAssignedBefore()) {
                     ab_.setAssignedBefore(true);
@@ -328,18 +315,13 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
 //            ass_ = _an.getAssignedVariables().getFinalVariables().getVal(ch_);
 //        }
         AssignedVariables assTar_ = id_.getVal(this);
-        ObjectMap<ClassField,Assignment> fields_ = ass_.getFieldsRoot();
-        CustList<StringMap<Assignment>> vars_ = ass_.getVariablesRoot();
-        ObjectMap<ClassField,Assignment> after_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> afterVars_ = new CustList<StringMap<Assignment>>();
-        String boolType_ = _an.getStandards().getAliasBoolean();
-        for (EntryCust<ClassField,Assignment> e: fields_.entryList()) {
-            Assignment ab_ = e.getValue();
+        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
+        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
+            SimpleAssignment ab_ = e.getValue();
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _an.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
             boolean assAfter_ = ab_.isAssignedAfter();
             boolean unassAfter_ = ab_.isUnassignedAfter();
             if (assAfter_) {
@@ -348,7 +330,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
                         continue;
                     }
                     AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,Assignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
                     if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
                         assAfter_ = false;
                         break;
@@ -361,25 +343,22 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
                         continue;
                     }
                     AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,Assignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
                     if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                         unassAfter_ = false;
                         break;
                     }
                 }
             }
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-            after_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
+            after_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
         }
         assTar_.getFieldsRoot().putAllMap(after_);
-        for (StringMap<Assignment> s: vars_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+        for (StringMap<SimpleAssignment> s: vars_) {
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             int index_ = afterVars_.size();
-            for (EntryCust<String,Assignment> e: s.entryList()) {
-                Assignment ab_ = e.getValue();
+            for (EntryCust<String,SimpleAssignment> e: s.entryList()) {
+                SimpleAssignment ab_ = e.getValue();
                 String key_ = e.getKey();
-                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
                 boolean assAfter_ = ab_.isAssignedAfter();
                 boolean unassAfter_ = ab_.isUnassignedAfter();
                 if (assAfter_) {
@@ -388,7 +367,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
                             continue;
                         }
                         AssignedVariables assLoc_ = id_.getVal(p);
-                        StringMap<Assignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
                         if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
                             assAfter_ = false;
                             break;
@@ -401,15 +380,14 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
                             continue;
                         }
                         AssignedVariables assLoc_ = id_.getVal(p);
-                        StringMap<Assignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
                         if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                             unassAfter_ = false;
                             break;
                         }
                     }
                 }
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                sm_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
+                sm_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
             }
             afterVars_.add(sm_);
         }

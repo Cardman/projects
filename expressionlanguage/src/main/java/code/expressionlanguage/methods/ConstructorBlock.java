@@ -9,11 +9,11 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
@@ -203,8 +203,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMehod, ObjectMap<ClassField, Assignment>> r: _anEl.getAssignments().entryList()) {
-            for (EntryCust<ClassField, Assignment> f: r.getValue().entryList()) {
+        for (EntryCust<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
+            for (EntryCust<ClassField, SimpleAssignment> f: r.getValue().entryList()) {
                 ClassField key_ = f.getKey();
                 ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
                 FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
@@ -214,7 +214,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 if (finfo_.isStaticField()) {
                     continue;
                 }
-                Assignment a_ = f.getValue();
+                SimpleAssignment a_ = f.getValue();
                 if (!a_.isAssignedAfter()) {
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
@@ -226,7 +226,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
         if (_anEl.canCompleteNormally(this)) {
             AssignedVariables assTar_ = id_.getVal(this);
-            for (EntryCust<ClassField, Assignment> f: assTar_.getFieldsRoot().entryList()) {
+            for (EntryCust<ClassField, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
                 ClassField key_ = f.getKey();
                 ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
                 FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
@@ -236,7 +236,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 if (finfo_.isStaticField()) {
                     continue;
                 }
-                Assignment a_ = f.getValue();
+                SimpleAssignment a_ = f.getValue();
                 if (!a_.isAssignedAfter()) {
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);

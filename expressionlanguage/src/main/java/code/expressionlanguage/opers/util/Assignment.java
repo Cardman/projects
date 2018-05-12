@@ -3,8 +3,6 @@ package code.expressionlanguage.opers.util;
 
 public abstract class Assignment {
 
-    public abstract Assignment assign();
-
     public AssignmentBefore assignBefore() {
         AssignmentBefore ba_ = new AssignmentBefore();
         if (isAssignedAfter()) {
@@ -22,8 +20,17 @@ public abstract class Assignment {
         }
         return assign(_boolean, _ass, _una);
     }
-
-    public static Assignment assign(boolean _boolean, boolean _ass, boolean _una) {
+    public static SimpleAssignment assignClassic(boolean _ass, boolean _una) {
+        SimpleAssignment ba_ = new SimpleAssignment();
+        if (_ass) {
+            ba_.setAssignedAfter(true);
+        }
+        if (_una) {
+            ba_.setUnassignedAfter(true);
+        }
+        return ba_;
+    }
+    private static Assignment assign(boolean _boolean, boolean _ass, boolean _una) {
         if (_boolean) {
             BooleanAssignment ba_ = new BooleanAssignment();
             if (_ass) {
@@ -45,7 +52,16 @@ public abstract class Assignment {
         }
         return ba_;
     }
-
+    public SimpleAssignment assignClassic() {
+        SimpleAssignment ba_ = new SimpleAssignment();
+        if (isAssignedAfter()) {
+            ba_.setAssignedAfter(true);
+        }
+        if (isUnassignedAfter()) {
+            ba_.setUnassignedAfter(true);
+        }
+        return ba_;
+    }
     public Assignment assign(boolean _boolean) {
         if (_boolean) {
             BooleanAssignment ba_ = new BooleanAssignment();

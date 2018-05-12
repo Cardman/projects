@@ -5,7 +5,7 @@ public class SimpleAssignment extends Assignment {
 
     private boolean assignedAfter;
     private boolean unassignedAfter;
-    @Override
+
     public SimpleAssignment assign() {
         SimpleAssignment ba_ = new SimpleAssignment();
         if (isAssignedAfter()) {

@@ -2950,7 +2950,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='$int'/>{class(\"java.lang.String\",composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {class(\"java.lang.String\",composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='$int'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='$int'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'>{c;strings.get(0i)} {class(\"java.lang.String\",c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='$int'/>{$class(\"java.lang.String\",composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {$class(\"java.lang.String\",composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='$int'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='$int'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'>{c;strings.get(0i)} {$class(\"java.lang.String\",c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='$int'/>{($(java.lang.String)composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {($(java.lang.String)composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='$int'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='$int'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'>{c;strings.get(0i)} {($(java.lang.String)c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -4348,7 +4348,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body>{$class(\"formathtml$classe$Composite\",composite).integer}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body>{($(formathtml.classe.Composite)composite).integer}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -9095,7 +9095,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 //        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"new.util.List()\" className=\"java.util.List\"/><c:set expression='list;.add(class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"new.util.List(list;.)\" className=\"util.List\"/>{listTwo;.size()}</body></html>";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($class(\"java.lang.Object\",1i))'/><c:set expression='list;.add($class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($(java.lang.Object)1i)'/><c:set expression='list;.add($(java.lang.Object)2i)'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9129,7 +9129,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($class(\"java.lang.Object\",1i))'/><c:set expression='list;.add($class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(&quot;java.lang.Object&quot;),$firstopt($class(&quot;java.lang.Object&quot;,list;.)))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($(java.lang.Object)1i)'/><c:set expression='list;.add($(java.lang.Object)2i)'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs($vararg(&quot;java.lang.Object&quot;),$firstopt($(java.lang.Object)list;.))\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

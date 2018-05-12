@@ -19,9 +19,9 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
@@ -110,8 +110,8 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-            Assignment ba_ = e.getValue();
+        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+            SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
             if (ba_.isAssignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter()) {
                 ab_.setAssignedBefore(true);
@@ -121,11 +121,11 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             }
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
         }
-        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             int index_ = assBl_.getVariablesRootBefore().size();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment ba_ = e.getValue();
+            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                SimpleAssignment ba_ = e.getValue();
                 AssignmentBefore ab_ = new AssignmentBefore();
                 if (ba_.isAssignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter()) {
                     ab_.setAssignedBefore(true);

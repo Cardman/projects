@@ -26,7 +26,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=10:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -54,7 +54,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=12:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -83,7 +83,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=12:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -111,7 +111,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=16:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -142,7 +142,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=21:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -171,7 +171,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   }\n");
         xml_.append("   $case(9):\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -201,7 +201,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   }\n");
         xml_.append("   $case(1):\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -231,7 +231,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   $case(7):\n");
         xml_.append("   $case(1):\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -262,7 +262,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=12:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -291,7 +291,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   }\n");
         xml_.append("   $default:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -323,7 +323,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=12:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -352,7 +352,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   }\n");
         xml_.append("   $default:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -384,7 +384,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    t;.=12:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -411,7 +411,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    $return 10i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

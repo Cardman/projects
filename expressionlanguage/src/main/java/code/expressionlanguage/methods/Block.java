@@ -14,9 +14,9 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
@@ -161,7 +161,7 @@ public abstract class Block extends Blockable {
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, Assignment> e: prevAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<ClassField, SimpleAssignment> e: prevAss_.getFieldsRoot().entryList()) {
             AssignmentBefore asBef_ = new AssignmentBefore();
             if (e.getValue().isAssignedAfter()) {
                 asBef_.setAssignedBefore(true);
@@ -171,9 +171,9 @@ public abstract class Block extends Blockable {
             }
             assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
         }
-        for (StringMap<Assignment> s: prevAss_.getVariablesRoot()) {
+        for (StringMap<SimpleAssignment> s: prevAss_.getVariablesRoot()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
+            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
                 AssignmentBefore asBef_ = new AssignmentBefore();
                 if (e.getValue().isAssignedAfter()) {
                     asBef_.setAssignedBefore(true);
@@ -214,6 +214,15 @@ public abstract class Block extends Blockable {
             _anEl.unreach(this);
         }
     }
+
+    public boolean accessibleCondition() {
+        return true;
+    }
+
+    public boolean accessibleForNext() {
+        return true;
+    }
+
     public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl);
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {

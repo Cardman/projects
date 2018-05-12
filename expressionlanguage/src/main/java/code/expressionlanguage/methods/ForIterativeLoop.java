@@ -35,6 +35,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
@@ -337,14 +338,14 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-            Assignment ba_ = e.getValue();
+        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+            SimpleAssignment ba_ = e.getValue();
             assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
         }
-        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment ba_ = e.getValue();
+            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                SimpleAssignment ba_ = e.getValue();
                 sm_.put(e.getKey(), ba_.assignBefore());
             }
             assBl_.getVariablesRootBefore().add(sm_);
@@ -384,9 +385,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 variables_.add(sm_);
             }
         } else {
-            for (StringMap<Assignment> s: vars_.getVariablesRoot()) {
+            for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
                 StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
+                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
                     sm_.put(e.getKey(), e.getValue().assignBefore());
                 }
                 variables_.add(sm_);
@@ -400,11 +401,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-//        Block firstChild_ = getFirstChild();
-//        Block last_ = firstChild_;
-//        while (last_.getNextSibling() != null) {
-//            last_ = last_.getNextSibling();
-//        }
         Block firstChild_ = getFirstChild();
         if (firstChild_ == null) {
             super.setAssignmentAfter(_an, _anEl);
@@ -480,16 +476,16 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         int index_ = 0;
         AssignedVariables vars_;
         vars_ = id_.getVal(last_);
-        for (EntryCust<ClassField,Assignment> f: vars_.getFieldsRoot().entryList()) {
+        for (EntryCust<ClassField,SimpleAssignment> f: vars_.getFieldsRoot().entryList()) {
             if (!f.getValue().isUnassignedAfter()) {
                 fieldsHypot_.getVal(f.getKey()).setUnassignedBefore(false);
             }
         }
-        for (StringMap<Assignment> s: vars_.getVariablesRoot()) {
+        for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
             if (index_ >= varsHypot_.size()) {
                 continue;
             }
-            for (EntryCust<String,Assignment> f: s.entryList()) {
+            for (EntryCust<String,SimpleAssignment> f: s.entryList()) {
                 if (!f.getValue().isUnassignedAfter()) {
                     varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
                 }
@@ -501,11 +497,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         varsWhile_.getVariablesRootBefore().addAllElts(varsHypot_);
         processFinalFields(_an, _anEl, allDesc_, fieldsHypot_, conts_);
         processFinalVars(_an, _anEl, allDesc_, varsHypot_, conts_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
-        fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> varsAfter_;
-        varsAfter_ = new CustList<StringMap<Assignment>>();
-        String boolType_ = _an.getStandards().getAliasBoolean();
+        ObjectMap<ClassField,SimpleAssignment> fieldsAfter_;
+        fieldsAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
+        CustList<StringMap<SimpleAssignment>> varsAfter_;
+        varsAfter_ = new CustList<StringMap<SimpleAssignment>>();
         for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
             boolean ass_ = true;
@@ -534,17 +529,12 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 }
             }
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _an.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-            fieldsAfter_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+            fieldsAfter_.put(key_, Assignment.assignClassic(ass_, unass_));
         }
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
         index_ = 0;
         for (StringMap<BooleanAssignment> s: varsWhile_.getVariablesRootAfter()) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
                 BooleanAssignment ba_ = e.getValue();
                 boolean ass_ = true;
@@ -580,10 +570,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                     }
                 }
                 String key_ = e.getKey();
-                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                sm_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+                sm_.put(key_, Assignment.assignClassic(ass_, unass_));
             }
             varsAfter_.add(sm_);
             index_++;

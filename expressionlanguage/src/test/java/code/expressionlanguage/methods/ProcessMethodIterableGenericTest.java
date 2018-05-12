@@ -216,7 +216,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("$public $class pkg.ExTwo<#T> {\n");
         xml_.append(" $public java.lang.Object inst:\n");
         xml_.append(" $public (java.lang.Object i){\n");
-        xml_.append("  inst;;;=$class(\"#T\",i;.;):\n");
+        xml_.append("  inst;;;=$(#T)i;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());

@@ -59,7 +59,7 @@ public final class ElRenderUtilTest {
     public void processEl1Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class(\"java.lang.Number\",5)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("5",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(5L, (Number)res_);
@@ -458,7 +458,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
-        Argument arg_ = ElRenderUtil.processEl("getOverridenTwo($class(\"java.lang.Object\",$null))",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("getOverridenTwo($(java.lang.Object)$null)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("two", (String)res_);
@@ -1385,7 +1385,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1406,7 +1406,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+e;.;:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1426,7 +1426,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+e;.;:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1456,7 +1456,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+e;.;:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -1477,7 +1477,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+e;.;:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -2176,7 +2176,7 @@ public final class ElRenderUtilTest {
     public void processEl2FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$class(\"Object\",$null)",0, context_);
+        ElRenderUtil.processEl("$(Object)$null",0, context_);
         assertNotNull(context_.getContext().getException());
     }
 
@@ -3190,6 +3190,50 @@ public final class ElRenderUtilTest {
         assertEq(1, (Number)res_);
     }
     @Test
+    public void processEl198Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$(java.lang.Number)5",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(5L, (Number)res_);
+    }
+    @Test
+    public void processEl199Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$($byte)5",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Byte);
+        assertEq(5L, (Number)res_);
+    }
+    @Test
+    public void processEl200Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        ElRenderUtil.processEl("$($byte)$null",0, context_);
+        Struct exc_ = context_.getContext().getException();
+        assertNotNull(exc_);
+        assertEq(context_.getStandards().getAliasNullPe(),exc_.getClassName(context_.getContext()));
+    }
+    @Test
+    public void processEl201Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$(java.lang.Byte)$null",0, context_);
+        assertNull(context_.getContext().getException());
+        assertSame(NullStruct.NULL_VALUE, arg_.getStruct());
+    }
+    @Test
+    public void processEl202Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        ElRenderUtil.processEl("$(java.lang.Byte)\"not cast\"",0, context_);
+        Struct exc_ = context_.getContext().getException();
+        assertNotNull(exc_);
+        assertEq(context_.getStandards().getAliasCast(),exc_.getClassName(context_.getContext()));
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
@@ -3527,7 +3571,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+e;.;:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -3557,7 +3601,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+e;.;:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -3878,7 +3922,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+e;.;:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

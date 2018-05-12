@@ -19,12 +19,11 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.EnumerableStruct;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -112,14 +111,14 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
-            Assignment ba_ = e.getValue();
+        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+            SimpleAssignment ba_ = e.getValue();
             assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
         }
-        for (StringMap<Assignment> s: parAss_.getVariablesRoot()) {
+        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment ba_ = e.getValue();
+            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                SimpleAssignment ba_ = e.getValue();
                 sm_.put(e.getKey(), ba_.assignBefore());
             }
             assBl_.getVariablesRootBefore().add(sm_);
@@ -317,9 +316,8 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables assLast_ = id_.getVal(ch_);
-        String boolType_ = _an.getStandards().getAliasBoolean();
-        ObjectMap<ClassField,Assignment> after_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> afterVars_ = new CustList<StringMap<Assignment>>();
+        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
         for (EntryCust<ClassField,Assignment> e: assTar_.getFields().lastValue().entryList()) {
             boolean ass_ = true;
             boolean unass_ = true;
@@ -336,7 +334,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 unass_ = false;
             }
             if (_anEl.canCompleteNormally(ch_)) {
-                ObjectMap<ClassField, Assignment> l_;
+                ObjectMap<ClassField, SimpleAssignment> l_;
                 l_ = assLast_.getFieldsRoot();
                 if (!l_.getVal(e.getKey()).isAssignedAfter()) {
                     ass_ = false;
@@ -350,7 +348,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     continue;
                 }
                 AssignedVariables assBr_ = id_.getVal(f.getKey());
-                ObjectMap<ClassField, Assignment> l_;
+                ObjectMap<ClassField, SimpleAssignment> l_;
                 l_ = assBr_.getFieldsRoot();
                 if (!l_.getVal(e.getKey()).isAssignedAfter()) {
                     ass_ = false;
@@ -360,16 +358,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 }
             }
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _an.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-            after_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+            after_.put(key_, Assignment.assignClassic(ass_, unass_));
         }
         assTar_.getFieldsRoot().putAllMap(after_);
         for (StringMap<Assignment> s: assTar_.getVariables().lastValue()) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             int index_ = afterVars_.size();
             for (EntryCust<String,Assignment> e: s.entryList()) {
                 boolean ass_ = true;
@@ -387,7 +380,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     unass_ = false;
                 }
                 if (_anEl.canCompleteNormally(ch_)) {
-                    CustList<StringMap<Assignment>> l_;
+                    CustList<StringMap<SimpleAssignment>> l_;
                     l_ = assLast_.getVariablesRoot();
                     if (index_ < l_.size() && l_.get(index_).contains(e.getKey())) {
                         if (!l_.get(index_).getVal(e.getKey()).isAssignedAfter()) {
@@ -403,7 +396,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                         continue;
                     }
                     AssignedVariables assBr_ = id_.getVal(f.getKey());
-                    CustList<StringMap<Assignment>> l_;
+                    CustList<StringMap<SimpleAssignment>> l_;
                     l_ = assBr_.getVariablesRoot();
                     if (index_ >= l_.size()) {
                         continue;
@@ -419,10 +412,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     }
                 }
                 String key_ = e.getKey();
-                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                sm_.put(key_, Assignment.assign(isBool_, ass_, unass_));
+                sm_.put(key_, Assignment.assignClassic(ass_, unass_));
             }
             afterVars_.add(sm_);
         }

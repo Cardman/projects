@@ -16,7 +16,6 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.EmptyPartError;
 import code.expressionlanguage.methods.util.UndefinedFieldError;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -69,16 +68,6 @@ public abstract class SettableAbstractFieldOperation extends
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String argClName_;
-        if (str_.isEmpty()) {
-            EmptyPartError emptyPart_ = new EmptyPartError();
-            emptyPart_.setFileName(_conf.getCurrentFileName());
-            emptyPart_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(emptyPart_);
-            argClName_ = _conf.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
-            return;
-        }
         if (!isIntermediateDottedOperation()) {
             staticAccess = _conf.isStaticContext();
         }

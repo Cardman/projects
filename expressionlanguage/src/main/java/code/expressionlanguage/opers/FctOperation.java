@@ -467,70 +467,6 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
-        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
-//            if (chidren_.size() == 1) {
-//                if (!chidren_.first().getResultClass().matchClass(stringType_)) {
-//                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-//                    throw new NotStringException(StringList.concat(chidren_.first().getResultClass().getName(),RETURN_LINE,_conf.joinPages()));
-//                }
-//                setResultClass(new ClassArgumentMatching(ClassMetaInfo.class.getName()));
-//                return;
-//            }
-            if (chidren_.size() == 2) {
-                if (!chidren_.first().getResultClass().matchClass(stringType_)) {
-                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                    ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                    UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                    un_.setRc(_conf.getCurrentLocation());
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setExpectedResult(stringType_);
-                    un_.setOperands(new StringList(cl_.getName()));
-                    _conf.getClasses().getErrorsDet().add(un_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-                if (chidren_.first().getArgument() == null) {
-                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                    BadImplicitCast bad_ = new BadImplicitCast();
-                    Mapping map_ = new Mapping();
-                    map_.setArg(EMPTY_STRING);
-                    map_.setParam(stringType_);
-                    bad_.setMapping(map_);
-                    bad_.setFileName(_conf.getCurrentFileName());
-                    bad_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(bad_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-                String str_ = (String) chidren_.first().getArgument().getObject();
-                if (str_ == null) {
-                    setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl()+1, _conf);
-                    BadImplicitCast bad_ = new BadImplicitCast();
-                    Mapping map_ = new Mapping();
-                    map_.setArg(EMPTY_STRING);
-                    map_.setParam(stringType_);
-                    bad_.setMapping(map_);
-                    bad_.setFileName(_conf.getCurrentFileName());
-                    bad_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(bad_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-                str_ = StringList.removeAllSpaces(str_);
-                if (!checkCorrect(_conf, str_, true, chidren_.first().getIndexInEl()+1)) {
-                    str_ = stds_.getAliasObject();
-                }
-                setResultClass(new ClassArgumentMatching(str_));
-                return;
-            }
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
-            badNb_.setOperandsNumber(chidren_.size());
-            badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badNb_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         ClassArgumentMatching clCur_;
         if (isIntermediateDottedOperation()) {
             clCur_ = getPreviousResultClass();
@@ -995,87 +931,6 @@ public final class FctOperation extends InvokingOperation {
             arg_.setObject(res_);
             return ArgumentCall.newArgument(arg_);
         }
-        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
-//            if (chidren_.size() == 1) {
-//                String str_ = (String) _arguments.first().getObject();
-//                if (str_ == null) {
-//                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-//                    throw new InvokeException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-//                }
-//                str_ = StringList.removeAllSpaces(str_);
-//                if (PrimitiveTypeUtil.isPrimitive(str_, _conf)) {
-//                    if (!PrimitiveTypeUtil.isExistentPrimitive(str_, _conf)) {
-//                        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-//                        throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()))));
-//                    }
-//                    ClassMetaInfo res_ = new ClassMetaInfo(str_, null, null, null, null, null,false,false);
-//                    Argument arg_ = new Argument();
-//                    arg_.setObject(res_);
-//                    return ArgumentCall.newArgument(arg_);
-//                }
-//                Class<?> cl_;
-//                try {
-//                    cl_ = PrimitiveTypeUtil.getSingleNativeClass(str_);
-//                } catch (RuntimeClassNotFoundException _0_) {
-//                    setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl()+1, _conf);
-//                    throw new InvokeException(new StdStruct(new RuntimeClassNotFoundException(StringList.concat(str_,RETURN_LINE,_conf.joinPages()))));
-//                }
-//                ClassMetaInfo res_ = new ClassMetaInfo(str_, null, null, null, null, null,false,false);
-//                Argument arg_ = new Argument();
-//                arg_.setObject(res_);
-//                return ArgumentCall.newArgument(arg_);
-//            }
-            if (chidren_.size() == 2) {
-                Argument objArg_ = _arguments.last();
-                Argument classArg_ = _arguments.first();
-                String paramName_ = (String) classArg_.getObject();
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, objArg_.getStruct(), _conf)) {
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                    Argument a_ = new Argument();
-                    return ArgumentCall.newArgument(a_);
-                }
-                if (objArg_.isNull()) {
-                    Argument arg_ = new Argument();
-                    return ArgumentCall.newArgument(arg_);
-                }
-                String argClassName_ = objArg_.getObjectClassName(_conf);
-                ClassArgumentMatching resCl_ = getResultClass();
-                Argument arg_ = new Argument();
-                if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(argClassName_);
-                    paramName_ = _conf.getLastPage().formatVarType(paramName_, _conf);
-                    mapping_.setParam(paramName_);
-                    if (!Templates.isCorrect(mapping_, _conf)) {
-                        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
-                        Argument a_ = new Argument();
-                        return ArgumentCall.newArgument(a_);
-                    }
-                    arg_.setStruct(objArg_.getStruct());
-                } else {
-                    if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
-                        if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
-                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
-                            Argument a_ = new Argument();
-                            return ArgumentCall.newArgument(a_);
-                        }
-                        arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
-                    } else {
-                        String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
-                        if (!StringList.quickEq(typeNameArg_, stds_.getAliasPrimBoolean())) {
-                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
-                            Argument a_ = new Argument();
-                            return ArgumentCall.newArgument(a_);
-                        }
-                        arg_.setStruct(objArg_.getStruct());
-                    }
-                }
-                return ArgumentCall.newArgument(arg_);
-            }
-        }
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
         MethodId methodId_ = classMethodId.getConstraints();
@@ -1237,9 +1092,6 @@ public final class FctOperation extends InvokingOperation {
         if (StringList.quickEq(trimMeth_,prefixFunction(INSTANCEOF))) {
             return false;
         }
-        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
-            return false;
-        }
         return true;
     }
     public boolean isConstCall() {
@@ -1248,9 +1100,6 @@ public final class FctOperation extends InvokingOperation {
             return true;
         }
         if (StringList.quickEq(trimMeth_,prefixFunction(FIRST_OPT))) {
-            return true;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(CAST))) {
             return true;
         }
         return false;

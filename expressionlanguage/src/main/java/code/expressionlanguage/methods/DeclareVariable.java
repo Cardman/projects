@@ -10,10 +10,9 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
@@ -118,29 +117,22 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        String boolStd_ = _an.getStandards().getAliasBoolean();
         for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _an.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _an);
-            ass_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
+            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         AssignmentBefore asBe_ = new AssignmentBefore();
         asBe_.setUnassignedBefore(true);
         ass_.getVariablesRootBefore().last().put(variableName, asBe_);
-        boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, className, _an);
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
-            StringMap<Assignment> vars_ = new StringMap<Assignment>();
+            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                vars_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
             }
             ass_.getVariablesRoot().add(vars_);
         }
-        Assignment asf_ = asBe_.assignAfter(isBool_);
-        StringMap<Assignment> as_ = ass_.getVariablesRoot().last();
+        SimpleAssignment asf_ = asBe_.assignAfterClassic();
+        StringMap<SimpleAssignment> as_ = ass_.getVariablesRoot().last();
         as_.put(variableName, asf_);
     }
     @Override

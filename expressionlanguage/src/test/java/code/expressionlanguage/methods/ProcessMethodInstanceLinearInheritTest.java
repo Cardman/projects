@@ -1910,7 +1910,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" {\n");
         xml_.append("  sec;;;+=8i:\n");
         xml_.append("  third;;;[0i]=$new pkg.ExThree():\n");
-        xml_.append("  elt;;;=$class(\"pkg.ExThree\",third;;;[0i]):\n");
+        xml_.append("  elt;;;=$(pkg.ExThree)third;;;[0i]:\n");
         xml_.append(" }\n");
         xml_.append(" $public (){\n");
         xml_.append("  sec;;;+=16i:\n");
@@ -1985,7 +1985,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" {\n");
         xml_.append("  sec;;;+=8i:\n");
         xml_.append("  third;;;[0i][0i]=$new pkg.ExThree():\n");
-        xml_.append("  elt;;;=$class(\"pkg.ExThree\",third;;;[0i][0i]):\n");
+        xml_.append("  elt;;;=$(pkg.ExThree)third;;;[0i][0i]:\n");
         xml_.append(" }\n");
         xml_.append(" $public (){\n");
         xml_.append("  sec;;;+=16i:\n");

@@ -21,7 +21,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -68,7 +68,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

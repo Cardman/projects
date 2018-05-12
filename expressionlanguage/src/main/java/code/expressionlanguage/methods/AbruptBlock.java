@@ -3,13 +3,10 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -35,30 +32,18 @@ public abstract class AbruptBlock extends Leaf {
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        String boolType_ = _an.getStandards().getAliasBoolean();
-        CustList<StringMap<Assignment>> list_ = new CustList<StringMap<Assignment>>();
-        int index_ = 0;
+        CustList<StringMap<SimpleAssignment>> list_ = new CustList<StringMap<SimpleAssignment>>();
         for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                String key_ = e.getKey();
-                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                sm_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+                sm_.put(e.getKey(), e.getValue().assignAfterClassic());
             }
             list_.add(sm_);
-            index_++;
         }
         vars_.getVariablesRoot().addAllElts(list_);
         for (EntryCust<ClassField,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _an.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-            vars_.getFieldsRoot().put(key_, e.getValue().assignAfter(isBool_));
+            vars_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
     }
 }

@@ -7,7 +7,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -109,11 +108,9 @@ public final class Line extends Leaf implements StackableBlock {
                 lv_.setFinalVariable(dc_.isFinalVariable());
                 String varName_ = dc_.getVariableName();
                 _cont.putLocalVar(varName_, lv_);
-                String boolStd_ = _cont.getStandards().getAliasBoolean();
                 AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
                 AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, clName_, _cont);
-                ass_.getVariablesRoot().last().put(varName_,Assignment.assign(isBool_, true, false));
+                ass_.getVariablesRoot().last().put(varName_,Assignment.assignClassic(true, false));
             }
         }
         _cont.setMerged(false);

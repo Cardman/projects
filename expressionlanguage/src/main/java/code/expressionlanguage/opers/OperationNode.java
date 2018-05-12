@@ -318,7 +318,10 @@ public abstract class OperationNode {
             if (StringList.quickEq(value_, MINUS) || StringList.quickEq(value_, PLUS)) {
                 return new UnaryOperation(_index, _indexChild, _m, _op);
             }
-            return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
+            if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
+                return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
+            }
+            return new CastOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
             return new MultOperation(_index, _indexChild, _m, _op);

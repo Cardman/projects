@@ -569,7 +569,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'><c:throw expression='e;..'/></c:catch><c:finally>END BLOCK{$(java.lang.String)8i}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -603,7 +603,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>{$class(\"java.lang.String\",8i)}</c:catch></c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>{$(java.lang.String)8i}</c:catch></c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -637,7 +637,7 @@ public class FormatHtmlTryCatchFinallyTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXCEPTION</c:catch><c:finally>{$class(\"java.lang.String\",8i)}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Exception' var='e'>EXCEPTION</c:catch><c:finally>{$(java.lang.String)8i}</c:finally></c:try><c:catch className='java.lang.Exception' var='e'>EXC</c:catch><c:finally>OUTER</c:finally></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();

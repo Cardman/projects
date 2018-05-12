@@ -23,7 +23,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmethsec(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -48,7 +48,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmethsec(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -76,7 +76,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         xml_.append("  $foreach($int i:exmethlist()){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
         xml_.append("  code.expressionlanguage.classes.Ints t:\n");
@@ -111,7 +111,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         xml_.append("  $foreach($int i:exmethlist()){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.):\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
         xml_.append("  code.expressionlanguage.classes.Ints t:\n");
@@ -152,7 +152,7 @@ public final class ProcessMethodCallsNoParamTest extends ProcessMethodCommon {
         xml_.append("  $foreach($int i:exmethlist()){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
-        xml_.append("  $return 1i+$class(\"$int\",t;.)+p;.getList().size():\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.getList().size():\n");
         xml_.append(" }\n");
         xml_.append(" $public $static code.expressionlanguage.classes.Ints exmethlist(){\n");
         xml_.append("  code.expressionlanguage.classes.Ints t:\n");

@@ -3,13 +3,10 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -81,33 +78,23 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         Block ch_ = getFirstChild();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         if (ch_ == null) {
-            String boolType_ = _an.getStandards().getAliasBoolean();
             AssignedVariables ass_ = id_.getVal(this);
             ObjectMap<ClassField,AssignmentBefore> fields_ = ass_.getFieldsRootBefore();
             CustList<StringMap<AssignmentBefore>> variables_ = ass_.getVariablesRootBefore();
-            ObjectMap<ClassField,Assignment> after_ = new ObjectMap<ClassField,Assignment>();
-            CustList<StringMap<Assignment>> afterVars_ = new CustList<StringMap<Assignment>>();
+            ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+            CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
             for (EntryCust<ClassField,AssignmentBefore> e: fields_.entryList()) {
                 AssignmentBefore ab_ = e.getValue();
                 ClassField key_ = e.getKey();
-                String classNameDecl_ = key_.getClassName();
-                ClassMetaInfo custClass_;
-                custClass_ = _an.getClassMetaInfo(classNameDecl_);
-                String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                after_.put(key_, ab_.assignAfter(isBool_));
+                after_.put(key_, ab_.assignAfterClassic());
             }
             ass_.getFieldsRoot().putAllMap(after_);
             for (StringMap<AssignmentBefore> s: variables_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                int index_ = afterVars_.size();
+                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
                 for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
                     AssignmentBefore ab_ = e.getValue();
                     String key_ = e.getKey();
-                    LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
-                    String type_ = lc_.getClassName();
-                    boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
-                    sm_.put(key_, ab_.assignAfter(isBool_));
+                    sm_.put(key_, ab_.assignAfterClassic());
                 }
                 afterVars_.add(sm_);
             }
@@ -123,8 +110,8 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         }
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(ch_);
-        ObjectMap<ClassField,Assignment> fields_ = ass_.getFieldsRoot();
-        CustList<StringMap<Assignment>> variables_ = ass_.getVariablesRoot();
+        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        CustList<StringMap<SimpleAssignment>> variables_ = ass_.getVariablesRoot();
         assTar_.getFieldsRoot().putAllMap(fields_);
         int count_ = ass_.getVariablesRootBefore().size();
         assTar_.getVariablesRoot().clear();
@@ -160,10 +147,6 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         } else {
             super.reach(_an, _anEl);
         }
-    }
-
-    public boolean accessibleCondition() {
-        return true;
     }
 
     @Override

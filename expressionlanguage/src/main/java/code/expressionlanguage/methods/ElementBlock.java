@@ -7,7 +7,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
@@ -17,6 +16,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
@@ -148,7 +148,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+            for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
                 AssignmentBefore asBef_ = new AssignmentBefore();
                 if (e.getValue().isAssignedAfter()) {
                     asBef_.setAssignedBefore(true);
@@ -187,15 +187,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         String className_ = getClassName();
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
-        ObjectMap<ClassField,Assignment> as_ = varsAss_.getFieldsRoot();
-        String boolStd_ = _an.getStandards().getAliasBoolean();
+        ObjectMap<ClassField,SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         for (EntryCust<ClassField, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
-            String type_ = _an.getClassMetaInfo(key_.getClassName()).getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _an);
-            as_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+            as_.put(e.getKey(), e.getValue().assignAfterClassic());
         }
-        as_.put(new ClassField(className_, fieldName), Assignment.assign(false, true, false));
+        as_.put(new ClassField(className_, fieldName), Assignment.assignClassic(true, false));
     }
     @Override
     boolean canBeLastOfBlockGroup() {

@@ -26,7 +26,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class SemiAffectationOperation extends PrimitiveBoolOperation {
+public final class SemiAffectationOperation extends AbstractUnaryOperation {
     private SettableElResult settable;
     private boolean post;
 

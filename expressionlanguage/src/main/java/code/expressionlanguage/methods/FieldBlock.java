@@ -12,12 +12,13 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.AbstractUnaryOperation;
+import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.ArrayFieldOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ChoiceFctOperation;
@@ -26,6 +27,7 @@ import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.IdOperation;
+import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PrimitiveBoolOperation;
@@ -38,6 +40,7 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldableStruct;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
@@ -222,7 +225,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 parAss_ = _an.getAssignedVariables().getFinalVariablesGlobal();
             }
             AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<ClassField, Assignment> e: parAss_.getFieldsRoot().entryList()) {
+            for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
                 assBl_.getFieldsRootBefore().put(e.getKey(), e.getValue().assignBefore());
             }
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
@@ -268,27 +271,20 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        String boolStd_ = _an.getStandards().getAliasBoolean();
-        String arg_ = className;
         boolean ass_ = false;
         boolean unass_ = true;
         if (!value.trim().isEmpty()) {
-            arg_ = opValue.last().getResultClass().getName();
             ass_ = true;
             unass_ = false;
         }
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
-        ObjectMap<ClassField,Assignment> as_ = varsAss_.getFieldsRoot();
+        ObjectMap<ClassField,SimpleAssignment> as_ = varsAss_.getFieldsRoot();
         for (EntryCust<ClassField, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
-            String type_ = _an.getClassMetaInfo(key_.getClassName()).getFields().getVal(key_.getFieldName()).getType();
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _an);
-            as_.put(e.getKey(), e.getValue().assignAfter(isBool_));
+            as_.put(e.getKey(), e.getValue().assignAfterClassic());
         }
         String className_ = getRooted().getFullName();
-        boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, arg_, _an);
-        as_.put(new ClassField(className_, fieldName), Assignment.assign(isBool_, ass_, unass_));
+        as_.put(new ClassField(className_, fieldName), Assignment.assignClassic(ass_, unass_));
     }
     public boolean isSimpleStaticConstant() {
         if (!isStaticField()) {
@@ -345,6 +341,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 continue;
             }
             if (o instanceof PrimitiveBoolOperation) {
+                continue;
+            }
+            if (o instanceof AbstractUnaryOperation) {
                 if (!(o instanceof SemiAffectationOperation)) {
                     continue;
                 }
@@ -354,13 +353,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 continue;
             }
             if (o instanceof ChoiceFctOperation) {
-                return false;
+                continue;
             }
             if (o instanceof FctOperation) {
-                FctOperation fct_ = (FctOperation) o;
-                if (fct_.isConstCall()) {
-                    continue;
-                }
+                continue;
+            }
+            if (o instanceof ArrOperation) {
+                continue;
+            }
+            if (o instanceof InstanceOperation) {
+                continue;
             }
             return false;
         }

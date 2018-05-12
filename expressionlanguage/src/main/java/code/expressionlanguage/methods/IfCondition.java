@@ -6,7 +6,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.opers.OperationNode;
@@ -16,10 +15,9 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
-import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -159,20 +157,14 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         ObjectMap<ClassField,BooleanAssignment> fieldsCond_ = assTar_.getFieldsRootAfter();
         CustList<StringMap<BooleanAssignment>> varsCond_ = assTar_.getVariablesRootAfter();
         AssignedVariables ass_ = id_.getVal(this);
-        ObjectMap<ClassField,Assignment> fields_ = ass_.getFieldsRoot();
-        CustList<StringMap<Assignment>> vars_ = ass_.getVariablesRoot();
-        ObjectMap<ClassField,Assignment> after_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> afterVars_ = new CustList<StringMap<Assignment>>();
-        String boolType_ = _an.getStandards().getAliasBoolean();
-        for (EntryCust<ClassField,Assignment> e: fields_.entryList()) {
-            Assignment ab_ = e.getValue();
+        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
+        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
+            SimpleAssignment ab_ = e.getValue();
             ClassField key_ = e.getKey();
-            String classNameDecl_ = key_.getClassName();
-            ClassMetaInfo custClass_;
-            custClass_ = _an.getClassMetaInfo(classNameDecl_);
-            String type_ = custClass_.getFields().getVal(key_.getFieldName()).getType();
             BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
-            boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
             boolean assAfter_ = ab_.isAssignedAfter();
             boolean unassAfter_ = ab_.isUnassignedAfter();
             if (_anEl.canCompleteNormally(ch_)) {
@@ -183,19 +175,16 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                     unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
                 }
             }
-            after_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
+            after_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
         }
         assTar_.getFieldsRoot().putAllMap(after_);
-        for (StringMap<Assignment> s: vars_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+        for (StringMap<SimpleAssignment> s: vars_) {
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             int index_ = afterVars_.size();
-            for (EntryCust<String,Assignment> e: s.entryList()) {
-                Assignment ab_ = e.getValue();
+            for (EntryCust<String,SimpleAssignment> e: s.entryList()) {
+                SimpleAssignment ab_ = e.getValue();
                 String key_ = e.getKey();
-                LocalVariable lc_ = _an.getLocalVariables().get(index_).getVal(key_);
-                String type_ = lc_.getClassName();
                 BooleanAssignment condBa_ = varsCond_.get(index_).getVal(key_);
-                boolean isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolType_, type_, _an);
                 boolean assAfter_ = ab_.isAssignedAfter();
                 boolean unassAfter_ = ab_.isUnassignedAfter();
                 if (_anEl.canCompleteNormally(ch_)) {
@@ -206,7 +195,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                         unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
                     }
                 }
-                sm_.put(key_, Assignment.assign(isBool_, assAfter_, unassAfter_));
+                sm_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
             }
             afterVars_.add(sm_);
         }
@@ -254,6 +243,20 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         } else if (!(arg_.getObject() instanceof Boolean)) {
             accessible_ = true;
         } else if ((Boolean)arg_.getObject()) {
+            accessible_ = true;
+        }
+        return accessible_;
+    }
+    @Override
+    public boolean accessibleForNext() {
+        OperationNode op_ = getElCondition().getRoot();
+        boolean accessible_ = false;
+        Argument arg_ = op_.getArgument();
+        if (arg_ == null) {
+            accessible_ = true;
+        } else if (!(arg_.getObject() instanceof Boolean)) {
+            accessible_ = true;
+        } else if (!(Boolean)arg_.getObject()) {
             accessible_ = true;
         }
         return accessible_;

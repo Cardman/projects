@@ -22,7 +22,7 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class UnaryBooleanOperation extends PrimitiveBoolOperation {
+public final class UnaryBooleanOperation extends AbstractUnaryOperation {
 
     public UnaryBooleanOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {

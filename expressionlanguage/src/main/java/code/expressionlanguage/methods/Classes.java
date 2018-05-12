@@ -42,6 +42,7 @@ import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -1763,8 +1764,8 @@ public final class Classes {
             for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {
                 b_.put(e.getKey(), e.getValue().copy());
             }
-            ObjectMap<ClassField,Assignment> assAfter_;
-            assAfter_ = new ObjectMap<ClassField,Assignment>();
+            ObjectMap<ClassField,SimpleAssignment> assAfter_;
+            assAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
             for (Block b: bl_) {
                 if (b instanceof FieldBlock) {
                     FieldBlock f_ = (FieldBlock) b;
@@ -1808,7 +1809,7 @@ public final class Classes {
                     page_.getVars().clear();
                 }
             }
-            for (EntryCust<ClassField, Assignment> a: assAfter_.entryList()) {
+            for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
                 ClassField key_ = a.getKey();
                 ClassMetaInfo cl_ = _context.getClassMetaInfo(key_.getClassName());
                 FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
@@ -1829,24 +1830,21 @@ public final class Classes {
         }
         ObjectMap<ClassField,AssignmentBefore> assSt_;
         assSt_ = new ObjectMap<ClassField,AssignmentBefore>();
-        ObjectMap<ClassField,Assignment> assStAfter_;
-        assStAfter_ = new ObjectMap<ClassField,Assignment>();
-        String boolStd_ = _context.getStandards().getAliasBoolean();
+        ObjectMap<ClassField,SimpleAssignment> assStAfter_;
+        assStAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     if (method_.isStaticField()) {
-                        String type_ = method_.getClassName();
                         AssignmentBefore as_ = new AssignmentBefore();
                         String clDecl_ = c.getKey();
                         String fieldName_ = method_.getFieldName();
                         ClassField key_ = new ClassField(clDecl_, fieldName_);
                         as_.setAssignedBefore(true);
                         assSt_.put(key_, as_);
-                        boolean bool_ = PrimitiveTypeUtil.canBeUseAsArgument(boolStd_, type_, _context);
-                        assStAfter_.put(key_, Assignment.assign(bool_, true, false));
+                        assStAfter_.put(key_, Assignment.assignClassic(true, false));
                     }
                 }
             }
@@ -1906,8 +1904,8 @@ public final class Classes {
             for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {
                 b_.put(e.getKey(), e.getValue().copy());
             }
-            ObjectMap<ClassField,Assignment> assAfter_;
-            assAfter_ = new ObjectMap<ClassField,Assignment>();
+            ObjectMap<ClassField,SimpleAssignment> assAfter_;
+            assAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
@@ -1953,7 +1951,7 @@ public final class Classes {
                 }
             }
             if (!hasCtor_) {
-                for (EntryCust<ClassField, Assignment> a: assAfter_.entryList()) {
+                for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
                     ClassField key_ = a.getKey();
                     String curCur_ = key_.getClassName();
                     if (!StringList.quickEq(curCur_, c.getKey())) {
@@ -1981,10 +1979,10 @@ public final class Classes {
                     }
                 }
             }
-            for (EntryCust<ClassField, Assignment> a: assAfter_.entryList()) {
+            for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
                 b_.put(a.getKey(), a.getValue().assignBefore());
             }
-            for (EntryCust<ClassField, Assignment> a: assStAfter_.entryList()) {
+            for (EntryCust<ClassField, SimpleAssignment> a: assStAfter_.entryList()) {
                 b_.put(a.getKey(), a.getValue().assignBefore());
             }
             for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {

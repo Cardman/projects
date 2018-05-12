@@ -16,19 +16,6 @@ public class BooleanAssignment extends Assignment {
         cp_.setUnassignedAfterWhenTrue(unassignedAfterWhenTrue);
         return cp_;
     }
-    @Override
-    public BooleanAssignment assign() {
-        BooleanAssignment ba_ = new BooleanAssignment();
-        if (isAssignedAfter()) {
-            ba_.setAssignedAfterWhenFalse(true);
-            ba_.setAssignedAfterWhenTrue(true);
-        }
-        if (isUnassignedAfter()) {
-            ba_.setUnassignedAfterWhenFalse(true);
-            ba_.setUnassignedAfterWhenTrue(true);
-        }
-        return ba_;
-    }
 
     public boolean isAssignedAfterWhenFalse() {
         return assignedAfterWhenFalse;
