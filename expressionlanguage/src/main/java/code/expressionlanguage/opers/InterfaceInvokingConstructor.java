@@ -9,8 +9,6 @@ import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -19,26 +17,24 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class SuperInvokingConstructor extends AbstractInvokingConstructor {
+public class InterfaceInvokingConstructor extends AbstractInvokingConstructor {
 
-    public SuperInvokingConstructor(int _index, int _indexChild,
+    public InterfaceInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
-        Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getGlobalClass();
-        String base_ = StringList.getAllTypes(clCurName_).first();
-        UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
-        String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(_conf), _conf);
+        String cl_ = getMethodName();
+        cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
+        String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
         return new ClassArgumentMatching(superClass_);
     }
 
     @Override
     ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
-        Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -52,11 +48,12 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         gl_ = StringList.getAllTypes(gl_).first();
         String base_ = StringList.getAllTypes(gl_).first();
         gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
-        UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
         CustList<Argument> firstArgs_;
         String calledCtor_ = base_;
         String calledCtorTemp_ = gl_;
-        String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(_conf), _conf);
+        String cl_ = getMethodName();
+        cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
+        String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
         String superClassBase_ = StringList.getAllTypes(superClass_).first();
         String lastType_ = getLastType();
         lastType_ = Templates.format(superClass_, lastType_, _conf);

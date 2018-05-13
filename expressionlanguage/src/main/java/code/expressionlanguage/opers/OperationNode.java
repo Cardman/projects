@@ -99,6 +99,7 @@ public abstract class OperationNode {
     protected static final String FIRST_OPT = "firstopt";
 
     protected static final String CLASS_CHOICE = "classchoice";
+    protected static final String INTERFACES = "interfaces";
 
     protected static final String FCT = "(";
 
@@ -299,6 +300,9 @@ public abstract class OperationNode {
             }
             if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE), fctName_.length())) {
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
+            }
+            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES), fctName_.length())) {
+                return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
             }
             if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
                 return new FirstOptOperation(_index, _indexChild, _m, _op);

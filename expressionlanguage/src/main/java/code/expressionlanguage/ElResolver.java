@@ -59,6 +59,7 @@ public final class ElResolver {
     private static final String GET_FIELD = ";;;";
     private static final char EXTERN_CLASS = '$';
     private static final String CLASS_CHOICE = "classchoice";
+    private static final String INTERFACES = "interfaces";
     private static final String INSTANCE = "new";
     private static final String SUPER = "super";
     private static final String STATIC_ACCESS = "static";
@@ -591,9 +592,62 @@ public final class ElResolver {
                             i_ = afterClassChoice_;
                             continue;
                         }
-                      //field
+                        //field
                         d_.getDelKeyWordClassChoice().add(i_);
                         d_.getDelKeyWordClassChoice().add(afterClassChoice_);
+                        i_ = afterClassChoice_;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, INTERFACES, len_)) {
+                        int afterClassChoice_ = i_ + 1 + INTERFACES.length();
+                        boolean foundHat_ = false;
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                                d_.setBadOffset(afterClassChoice_);
+                                return d_;
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (!foundHat_) {
+                            d_.setBadOffset(len_ - 1);
+                            return d_;
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == PAR_RIGHT) {
+                                break;
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        afterClassChoice_++;
+                        while (afterClassChoice_ < len_) {
+                            char loc_ = _string.charAt(afterClassChoice_);
+                            if (!Character.isWhitespace(loc_)) {
+                                break;
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (afterClassChoice_ >= len_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        char loc_ = _string.charAt(afterClassChoice_);
+                        if (loc_ != PAR_LEFT) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        hatMethod_ = false;
                         i_ = afterClassChoice_;
                         continue;
                     }

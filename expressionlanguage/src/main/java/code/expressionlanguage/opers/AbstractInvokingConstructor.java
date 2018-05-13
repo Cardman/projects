@@ -4,11 +4,14 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.Classes;
@@ -24,10 +27,14 @@ import code.expressionlanguage.methods.util.UndefinedConstructorError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.opers.util.NumberStruct;
+import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -335,6 +342,39 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         return res_;
     }
 
+    protected final void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        int i_ = CustList.FIRST_INDEX;
+        LgNames stds_ = _ex.getStandards();
+        String null_;
+        String cast_;
+        null_ = stds_.getAliasNullPe();
+        cast_ = stds_.getAliasCast();
+        for (Argument a: _args) {
+            if (i_ < _params.size()) {
+                Struct str_ = a.getStruct();
+                if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i_), str_, _ex)) {
+                    _ex.setException(new StdStruct(new CustomError(_ex.joinPages()),null_));
+                    return;
+                }
+                if (!str_.isNull()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(a.getObjectClassName(_ex.getContextEl()));
+                    mapping_.setParam(_params.get(i_));
+                    if (!Templates.isCorrect(mapping_, _ex)) {
+                        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _ex);
+                        _ex.setException(new StdStruct(new CustomError(_ex.joinPages()),cast_));
+                        return;
+                    }
+                }
+                if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
+                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(_params.get(i_));
+                    a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _ex));
+                }
+            }
+            i_++;
+        }
+    }
     abstract ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf);
 
     @Override

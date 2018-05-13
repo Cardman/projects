@@ -5,9 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.common.GeneInterface;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.sml.Element;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -32,29 +30,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
             String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
-    }
-
-    @Override
-    protected void validateClassNames(ContextEl _context) {
-        CustList<Block> bl_ = Classes.getDirectChildren(this);
-        for (Block b: bl_) {
-            if (b instanceof MethodBlock) {
-                continue;
-            }
-            if (b instanceof InfoBlock) {
-                continue;
-            }
-            if (b instanceof AloneBlock) {
-                continue;
-            }
-            RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
-            String tagName_ = b.getTagName();
-            UnexpectedTagName unexp_ = new UnexpectedTagName();
-            unexp_.setFileName(getFullName());
-            unexp_.setFoundTag(tagName_);
-            unexp_.setRc(where_);
-            _context.getClasses().getErrorsDet().add(unexp_);
-        }
     }
 
     @Override

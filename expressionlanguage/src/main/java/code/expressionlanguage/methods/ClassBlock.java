@@ -9,11 +9,8 @@ import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.BadReturnTypeInherit;
-import code.expressionlanguage.methods.util.ConstructorEdge;
-import code.expressionlanguage.methods.util.CyclicInheritingGraph;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UndefinedSuperConstructor;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
@@ -22,12 +19,10 @@ import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.graphs.Graph;
 
 public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
@@ -243,53 +238,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         return direct_;
     }
 
-    @Override
-    public void validateConstructors(ContextEl _cont) {
-        boolean opt_ = optionalCallConstr(_cont);
-        String idType_ = getFullName();
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
-        c_ = curMeta_.getConstructors();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
-            b_.setupInstancingStep(_cont);
-        }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
-            if (b_.implicitConstr() && !opt_) {
-                UndefinedSuperConstructor un_ = new UndefinedSuperConstructor();
-                un_.setClassName(getGenericSuperClass(_cont));
-                un_.setFileName(getFile().getFileName());
-                un_.setRc(b_.getRowCol(0, b_.getOffset().getOffsetTrim()));
-                _cont.getClasses().getErrorsDet().add(un_);
-            }
-        }
-        EqList<ConstructorId> l_ = new EqList<ConstructorId>();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
-            if (b_.getConstIdSameClass() != null) {
-                l_.add(e.getKey());
-            }
-        }
-        Graph<ConstructorEdge> graph_;
-        graph_ = new Graph<ConstructorEdge>();
-        for (ConstructorId f: l_) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, f).first();
-            ConstructorId co_ = b_.getConstIdSameClass();
-            ConstructorEdge f_ = new ConstructorEdge(f);
-            ConstructorEdge t_ = new ConstructorEdge(co_);
-            graph_.addSegment(f_, t_);
-        }
-        EqList<ConstructorEdge> cycle_ = graph_.elementsCycle();
-        if (!cycle_.isEmpty()) {
-            CyclicInheritingGraph cyclic_ = new CyclicInheritingGraph();
-            cyclic_.setClassName(cycle_);
-            cyclic_.setFileName(getFile().getFileName());
-            cyclic_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(cyclic_);
-        }
-    }
-
     public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
         String idType_ = getFullName();
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
@@ -306,29 +254,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
         }
         return a_;
-    }
-
-    private boolean optionalCallConstr(ContextEl _cont) {
-        String superClass_ = getSuperClass(_cont);
-        ClassMetaInfo clMeta_ = _cont.getClasses().getClassMetaInfo(superClass_, _cont);
-        if (clMeta_ == null) {
-            return true;
-        }
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> m_;
-        m_ = clMeta_.getConstructors();
-        if (m_.isEmpty()) {
-            return true;
-        }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
-            CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesById(superClass_, e.getKey());
-            if (!Classes.canAccess(getFullName(), formatted_.first(), _cont)) {
-                continue;
-            }
-            if (e.getKey().getParametersTypes().isEmpty()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

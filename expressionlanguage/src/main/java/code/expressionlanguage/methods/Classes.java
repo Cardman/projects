@@ -2093,9 +2093,7 @@ public final class Classes {
         }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock clblock_ = c.getValue();
-            if (clblock_ instanceof UniqueRootedBlock) {
-                ((UniqueRootedBlock)clblock_).validateConstructors(_context);
-            }
+            clblock_.validateConstructors(_context);
         }
     }
     public EqList<ClassField> initStaticFields(ContextEl _context) {

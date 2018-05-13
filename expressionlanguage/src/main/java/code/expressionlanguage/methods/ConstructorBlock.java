@@ -114,7 +114,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             return;
         }
         Line l_ = (Line) first_;
-        if (l_.isCallSuper()) {
+        if (l_.isCallSuper() || l_.isCallInts()) {
             instancing = InstancingStep.USING_SUPER;
             return;
         }

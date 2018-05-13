@@ -6,17 +6,13 @@ import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InvokingConstructor;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.InstancingStep;
-import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -40,9 +36,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        String null_;
         String cast_;
-        null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
 
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
@@ -77,32 +71,10 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
             params_.add(c_);
             j_++;
         }
-        int i_ = CustList.FIRST_INDEX;
-        for (Argument a: firstArgs_) {
-            if (i_ < params_.size()) {
-                Struct str_ = a.getStruct();
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                    Argument a_ = new Argument();
-                    return ArgumentCall.newArgument(a_);
-                }
-                if (!str_.isNull()) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
-                    mapping_.setParam(params_.get(i_));
-                    if (!Templates.isCorrect(mapping_, _conf)) {
-                        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                        Argument a_ = new Argument();
-                        return ArgumentCall.newArgument(a_);
-                    }
-                }
-                if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
-                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
-                    a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
-                }
-            }
-            i_++;
+        processArgs(_conf, firstArgs_, params_);
+        if (_conf.getException() != null) {
+            Argument a_ = new Argument();
+            return ArgumentCall.newArgument(a_);
         }
         InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_THIS);
         return ArgumentCall.newCall(inv_);

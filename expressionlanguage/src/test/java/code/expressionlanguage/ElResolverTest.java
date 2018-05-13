@@ -3227,6 +3227,23 @@ public class ElResolverTest {
         assertTrue(seq_.isInstanceTest());
     }
     @Test
+    public void getOperationsSequence189Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$interfaces(pkg.MyClass)(arg;.)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(24));
+        assertEq(")", opers_.getVal(30));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$interfaces(pkg.MyClass)", values_.getVal(0));
+        assertEq("arg;.", values_.getVal(25));
+        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+    }
+    @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);

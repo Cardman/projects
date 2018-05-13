@@ -525,6 +525,23 @@ public class TemplatesTest {
         assertEq("pkg.Ex<#V>", t_);
     }
     @Test
+    public void getGenericTypeByBases15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExThree<#X> {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T>:pkg.ExThree<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String t_ = Templates.getFullTypeByBases("pkg.Ex<#V>", "pkg.ExThree", cont_);
+        assertEq("pkg.ExThree<#V>", t_);
+    }
+    @Test
     public void isCorrectWrite1Test() {
         ContextEl context_ = simpleContextEl();
         assertTrue(Templates.isCorrectWrite("java.lang.String", context_));
