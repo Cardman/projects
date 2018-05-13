@@ -258,9 +258,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
     }
-    @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
 
     @Override
     public String getTagName() {

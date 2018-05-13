@@ -290,8 +290,8 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         }
         if_.setBlock(this);
         if_.setVisitedBlock(CustList.FIRST_INDEX);
-        boolean assert_ = evaluateCondition(_cont);
-        if (_cont.callsOrException()) {
+        Boolean assert_ = evaluateCondition(_cont);
+        if (assert_ == null) {
             return;
         }
         if (assert_) {

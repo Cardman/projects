@@ -367,8 +367,8 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
         if_.setVisitedBlock(getIndexInGroup());
         if (!if_.isEntered()) {
-            boolean assert_ = evaluateCondition(_cont);
-            if (_cont.callsOrException()) {
+            Boolean assert_ = evaluateCondition(_cont);
+            if (assert_ == null) {
                 return;
             }
             if (assert_) {

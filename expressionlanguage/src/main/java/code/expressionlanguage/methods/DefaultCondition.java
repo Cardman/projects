@@ -126,10 +126,6 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_DEFAULT;
     }

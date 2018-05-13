@@ -9,7 +9,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
@@ -179,23 +178,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         return ch_.last().canBeLastOfBlockGroup();
     }
 
-
-    @Override
-    public void checkCallConstructor(ContextEl _cont) {
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(valueOffset);
-        for (OperationNode o: opValue) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, valueOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), valueOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
-    }
     @Override
     public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
         Block ch_ = getFirstChild();

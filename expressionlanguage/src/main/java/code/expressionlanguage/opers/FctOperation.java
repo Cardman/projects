@@ -16,31 +16,23 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadAccessConstructor;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.StaticAccessError;
-import code.expressionlanguage.methods.util.UndefinedConstructorError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
-import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -57,16 +49,10 @@ public final class FctOperation extends InvokingOperation {
 
     private String methodName;
 
-    private ConstructorId constId;
-
     private ClassMethodId classMethodId;
     private MethodId realId;
 
     private boolean staticMethod;
-
-    private boolean superConstructorCall;
-
-    private boolean otherConstructorClass;
 
     private boolean staticChoiceMethod;
 
@@ -83,177 +69,9 @@ public final class FctOperation extends InvokingOperation {
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    void analyzeCommon(Analyzable _conf) {
-        Classes classes_ = _conf.getClasses();
-        CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String trimMeth_ = methodName.trim();
-        int varargOnly_ = lookOnlyForVarArg();
         LgNames stds_ = _conf.getStandards();
-        if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
-            //validate calling of constructors of the current class
-            String clCurName_ = _conf.getGlobalClass();
-            otherConstructorClass = true;
-            CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-            ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(clCurName_), ClassArgumentMatching.toArgArray(firstArgs_));
-            if (ctorRes_ != null) {
-                constId = ctorRes_.getRealId();
-                if (ctorRes_.isVarArgToCall()) {
-                    naturalVararg = constId.getParametersTypes().size() - 1;
-                    lastType = constId.getParametersTypes().last();
-                }
-                if (!chidren_.isEmpty() && chidren_.first() instanceof VarargOperation) {
-                    int i_ = CustList.FIRST_INDEX;
-                    for (OperationNode o: chidren_) {
-                        if (o instanceof VarargOperation) {
-                            i_++;
-                            continue;
-                        }
-                        if (o instanceof FirstOptOperation) {
-                            break;
-                        }
-                        String param_ = constId.getParametersTypes().get(i_-1);
-                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                            o.getResultClass().setUnwrapObject(param_);
-                        }
-                        i_++;
-                    }
-                } else if (naturalVararg > -1) {
-                    int lenCh_ = firstArgs_.size();
-                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                        ClassArgumentMatching a_ = firstArgs_.get(i);
-                        if (i >= naturalVararg) {
-                            if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                                a_.setUnwrapObject(lastType);
-                            }
-                        } else {
-                            String param_ = constId.getParametersTypes().get(i);
-                            if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                                a_.setUnwrapObject(param_);
-                            }
-                        }
-                    }
-                } else {
-                    int lenCh_ = firstArgs_.size();
-                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                        ClassArgumentMatching a_ = firstArgs_.get(i);
-                        String param_ = constId.getParametersTypes().get(i);
-                        if (i + 1 == lenCh_ && constId.isVararg()) {
-                            param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                        }
-                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                            a_.setUnwrapObject(param_);
-                        }
-                    }
-                }
-                setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-                return;
-            }
-            StringList cl_ = new StringList();
-            for (ClassArgumentMatching c: firstArgs_) {
-                cl_.add(c.getName());
-            }
-            ConstructorId constId_ = new ConstructorId(clCurName_, cl_, false);
-            UndefinedConstructorError und_ = new UndefinedConstructorError();
-            und_.setId(constId_);
-            und_.setClassName(clCurName_);
-            und_.setRc(_conf.getCurrentLocation());
-            und_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().getErrorsDet().add(und_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-            return;
-        }
-        if (StringList.quickEq(trimMeth_,prefixFunction(SUPER_ACCESS))) {
-            //validate calling of super constructors
-            String clCurName_ = _conf.getGlobalClass();
-            String base_ = StringList.getAllTypes(clCurName_).first();
-            superConstructorCall = true;
-            CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-            UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
-            String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(_conf), _conf);
-            ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(superClass_), ClassArgumentMatching.toArgArray(firstArgs_));
-            if (ctorRes_ != null) {
-                constId = ctorRes_.getRealId();
-                CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(superClass_, constId);
-                if (!ctors_.isEmpty() && !Classes.canAccess(clCurName_, ctors_.first(), _conf)) {
-                    ConstructorBlock ctr_ = ctors_.first();
-                    BadAccessConstructor badAccess_ = new BadAccessConstructor();
-                    badAccess_.setId(ctr_.getId());
-                    badAccess_.setFileName(_conf.getCurrentFileName());
-                    badAccess_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(badAccess_);
-                }
-                if (ctorRes_.isVarArgToCall()) {
-                    naturalVararg = constId.getParametersTypes().size() - 1;
-                    lastType = constId.getParametersTypes().last();
-                }
-                if (!chidren_.isEmpty() && chidren_.first() instanceof VarargOperation) {
-                    int i_ = CustList.FIRST_INDEX;
-                    for (OperationNode o: chidren_) {
-                        if (o instanceof VarargOperation) {
-                            i_++;
-                            continue;
-                        }
-                        if (o instanceof FirstOptOperation) {
-                            break;
-                        }
-                        String param_ = constId.getParametersTypes().get(i_-1);
-                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                            o.getResultClass().setUnwrapObject(param_);
-                        }
-                        i_++;
-                    }
-                } else if (naturalVararg > -1) {
-                    int lenCh_ = firstArgs_.size();
-                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                        ClassArgumentMatching a_ = firstArgs_.get(i);
-                        if (i >= naturalVararg) {
-                            if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                                a_.setUnwrapObject(lastType);
-                            }
-                        } else {
-                            String param_ = constId.getParametersTypes().get(i);
-                            if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                                a_.setUnwrapObject(param_);
-                            }
-                        }
-                    }
-                } else {
-                    int lenCh_ = firstArgs_.size();
-                    for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                        ClassArgumentMatching a_ = firstArgs_.get(i);
-                        String param_ = constId.getParametersTypes().get(i);
-                        if (i + 1 == lenCh_ && constId.isVararg()) {
-                            param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                        }
-                        if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                            a_.setUnwrapObject(param_);
-                        }
-                    }
-                }
-                setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-                return;
-            }
-            StringList cl_ = new StringList();
-            for (ClassArgumentMatching c: firstArgs_) {
-                cl_.add(c.getName());
-            }
-            ConstructorId constId_ = new ConstructorId(superClass_, cl_, false);
-            UndefinedConstructorError und_ = new UndefinedConstructorError();
-            und_.setId(constId_);
-            und_.setClassName(superClass_);
-            und_.setRc(_conf.getCurrentLocation());
-            und_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().getErrorsDet().add(und_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-            return;
-        }
         ClassArgumentMatching clCur_;
         if (isIntermediateDottedOperation()) {
             clCur_ = getPreviousResultClass();
@@ -276,20 +94,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         StringList bounds_ = getBounds(clCurName_, _conf);
-        analyzeCustomClass(_conf, bounds_);
-//        if (firstArgs_.isEmpty()) {
-//            if (StringList.quickEq(trimMeth_, GET_CLASS)) {
-//                setResultClass(new ClassArgumentMatching(NativeTypeUtil.getPrettyType(ClassMetaInfo.class)));
-//                return;
-//            }
-//        }
-    }
-
-    private void analyzeCustomClass(Analyzable _conf, StringList _subTypes) {
-        LgNames stds_ = _conf.getStandards();
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
@@ -297,7 +102,6 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
 
         boolean staticChoiceMethod_ = false;
         boolean accessFromSuper_ = false;
@@ -309,7 +113,7 @@ public final class FctOperation extends InvokingOperation {
             trimMeth_ = trimMeth_.substring(CURRENT.length() + 2);
             staticChoiceMethod_ = true;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), _subTypes, trimMeth_, true, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
@@ -549,91 +353,11 @@ public final class FctOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String trimMeth_ = methodName.trim();
         LgNames stds_ = _conf.getStandards();
         String null_;
         String cast_;
         null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
-        if (constId != null) {
-            Argument arg_ = _conf.getLastPage().getGlobalArgument();
-            String clCurName_ = arg_.getObjectClassName(_conf);
-            String gl_ = _conf.getLastPage().getGlobalClass();
-            gl_ = StringList.getAllTypes(gl_).first();
-            String base_ = StringList.getAllTypes(gl_).first();
-            gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
-            UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
-            CustList<Argument> firstArgs_;
-            String calledCtor_ = base_;
-            String calledCtorTemp_ = gl_;
-            if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
-                String lastType_ = Templates.format(gl_, lastType, _conf);
-                firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
-            } else {
-                String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(_conf), _conf);
-                String superClassBase_ = StringList.getAllTypes(superClass_).first();
-                String lastType_ = Templates.format(superClass_, lastType, _conf);
-                firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments, _conf);
-                calledCtor_ = superClassBase_;
-                calledCtorTemp_ = superClass_;
-            }
-            StringList params_ = new StringList();
-            String classFormat_ = calledCtor_;
-            classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
-            if (classFormat_ == null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                Argument a_ = new Argument();
-                return ArgumentCall.newArgument(a_);
-            }
-            int j_ = 0;
-            for (String c: constId.getParametersTypes()) {
-                String c_ = c;
-                c_ = Templates.format(classFormat_, c_, _conf);
-                if (j_ + 1 == constId.getParametersTypes().size() && constId.isVararg()) {
-                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                j_++;
-            }
-            int i_ = CustList.FIRST_INDEX;
-            for (Argument a: firstArgs_) {
-                if (i_ < params_.size()) {
-                    Struct str_ = a.getStruct();
-                    if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), str_, _conf)) {
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                        Argument a_ = new Argument();
-                        return ArgumentCall.newArgument(a_);
-                    }
-                    if (!str_.isNull()) {
-                        Mapping mapping_ = new Mapping();
-                        mapping_.setArg(a.getObjectClassName(_conf));
-                        mapping_.setParam(params_.get(i_));
-                        if (!Templates.isCorrect(mapping_, _conf)) {
-                            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                            Argument a_ = new Argument();
-                            return ArgumentCall.newArgument(a_);
-                        }
-                    }
-                    if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
-                        ClassArgumentMatching clArg_ = new ClassArgumentMatching(params_.get(i_));
-                        a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _conf));
-                    }
-                }
-                i_++;
-            }
-            StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-            called_.add(calledCtor_);
-            if (StringList.quickEq(trimMeth_,prefixFunction(CURRENT))) {
-                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, constId, arg_, firstArgs_, InstancingStep.USING_THIS, called_);
-                return ArgumentCall.newCall(inv_);
-            }
-            if (StringList.quickEq(trimMeth_,prefixFunction(SUPER_ACCESS))) {
-                _conf.getLastPage().clearCurrentEls();
-                InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, constId, arg_, firstArgs_, InstancingStep.USING_SUPER, called_);
-                return ArgumentCall.newCall(inv_);
-            }
-        }
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
         MethodId methodId_ = classMethodId.getConstraints();
@@ -763,17 +487,7 @@ public final class FctOperation extends InvokingOperation {
 
     @Override
     public ConstructorId getConstId() {
-        return constId;
-    }
-
-    @Override
-    public boolean isSuperConstructorCall() {
-        return superConstructorCall;
-    }
-
-    @Override
-    public boolean isOtherConstructorClass() {
-        return otherConstructorClass;
+        return null;
     }
 
     @Override

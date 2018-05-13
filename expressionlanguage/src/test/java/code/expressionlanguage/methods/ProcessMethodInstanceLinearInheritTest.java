@@ -1627,7 +1627,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        System.out.println(cont_.getClasses().getErrorsDet().display());
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");

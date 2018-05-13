@@ -197,10 +197,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_DO;
     }

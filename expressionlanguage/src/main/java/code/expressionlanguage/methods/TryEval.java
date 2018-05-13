@@ -259,10 +259,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_TRY;
     }

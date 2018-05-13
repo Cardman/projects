@@ -1787,7 +1787,6 @@ public final class Classes {
                     b.setAssignmentBefore(_context, null);
                     method_.checkBlocksTree(_context);
                     method_.buildExpressionLanguage(_context);
-                    method_.checkCallConstructor(_context);
                     b.setAssignmentAfter(_context, null);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(b).getFieldsRoot());
                 }
@@ -1920,7 +1919,6 @@ public final class Classes {
                     page_.setCurrentBlock(b);
                     b.setAssignmentBefore(_context, null);
                     method_.buildExpressionLanguage(_context);
-                    method_.checkCallConstructor(_context);
                     b.setAssignmentAfter(_context, null);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(method_).getFieldsRoot());
                 }
@@ -2183,7 +2181,6 @@ public final class Classes {
                 page_.setCurrentBlock(f_);
                 f_.setAssignmentBefore(_context, null);
                 f_.buildExpressionLanguage(_context);
-                f_.checkCallConstructor(_context);
                 f_.setAssignmentAfter(_context, null);
                 cstFields_.add(new ClassField(c.getKey(), f_.getFieldName()));
                 success_.add(cstFields_.last());

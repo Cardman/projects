@@ -412,10 +412,6 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_CATCH;
     }

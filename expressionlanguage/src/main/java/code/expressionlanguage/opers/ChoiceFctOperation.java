@@ -442,15 +442,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
         InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
         return ArgumentCall.newCall(inv_);
     }
-    @Override
-    public boolean isSuperConstructorCall() {
-        return false;
-    }
-
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
 
     @Override
     public ConstructorId getConstId() {

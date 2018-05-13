@@ -123,16 +123,6 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
     }
 
     @Override
-    public final boolean isSuperConstructorCall() {
-        return false;
-    }
-
-    @Override
-    public final boolean isOtherConstructorClass() {
-        return false;
-    }
-
-    @Override
     public final ConstructorId getConstId() {
         return null;
     }

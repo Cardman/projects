@@ -244,16 +244,6 @@ public final class FinalVariableOperation extends LeafOperation {
     }
 
     @Override
-    public boolean isSuperConstructorCall() {
-        return false;
-    }
-
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
-
-    @Override
     public ConstructorId getConstId() {
         return null;
     }

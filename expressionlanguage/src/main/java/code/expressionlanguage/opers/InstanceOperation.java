@@ -573,19 +573,10 @@ public final class InstanceOperation extends InvokingOperation {
         arg_.setStruct(res_.getResult());
         setSimpleArgumentAna(arg_, _conf);
     }
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
 
     @Override
     public ConstructorId getConstId() {
         return null;
-    }
-
-    @Override
-    public boolean isSuperConstructorCall() {
-        return false;
     }
 
     @Override

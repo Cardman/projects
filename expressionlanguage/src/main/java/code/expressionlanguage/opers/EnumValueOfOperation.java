@@ -205,15 +205,6 @@ public final class EnumValueOfOperation extends MethodOperation {
         Argument argres_ = new Argument();
         return ArgumentCall.newArgument(argres_);
     }
-    @Override
-    public boolean isSuperConstructorCall() {
-        return false;
-    }
-
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
 
     @Override
     public ConstructorId getConstId() {

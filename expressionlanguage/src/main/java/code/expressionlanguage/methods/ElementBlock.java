@@ -7,7 +7,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -209,22 +208,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
-    }
-    @Override
-    public void checkCallConstructor(ContextEl _cont) {
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(valueOffest);
-        for (OperationNode o: opValue) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, valueOffest));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), valueOffest));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
     }
 
     @Override

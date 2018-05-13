@@ -108,10 +108,11 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         rw_.setBlock(this);
         _cont.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _cont.getLastPage().setOffset(0);
-        if (!evaluateCondition(_cont)) {
-            if (_cont.callsOrException()) {
-                return;
-            }
+        Boolean keep_ = evaluateCondition(_cont);
+        if (keep_ == null) {
+            return;
+        }
+        if (!keep_) {
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);

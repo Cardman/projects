@@ -2,11 +2,11 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -15,10 +15,12 @@ import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class Condition extends BracedStack implements StackableBlockGroup {
@@ -95,30 +97,20 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         return condition;
     }
 
-    @Override
-    public final void checkCallConstructor(ContextEl _cont) {
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(conditionOffset);
-        for (OperationNode o: opCondition) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, conditionOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), conditionOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
-    }
-    final boolean evaluateCondition(ContextEl _context) {
+    final Boolean evaluateCondition(ContextEl _context) {
         PageEl last_ = _context.getLastPage();
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         last_.setOffset(0);
         last_.setGlobalOffset(conditionOffset);
         Argument arg_ = exp_.calculateMember(_context);
+        if (exp_.isFinished() && arg_.isNull()) {
+            LgNames stds_ = _context.getStandards();
+            String null_;
+            null_ = stds_.getAliasNullPe();
+            _context.setException(new StdStruct(new CustomError(StringList.concat(_context.joinPages())),null_));
+        }
         if (_context.callsOrException()) {
-            return false;
+            return null;
         }
         exp_.setCurrentOper(null);
         last_.clearCurrentEls();

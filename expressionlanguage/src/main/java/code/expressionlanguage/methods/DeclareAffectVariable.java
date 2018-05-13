@@ -8,7 +8,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -147,23 +146,6 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public void checkCallConstructor(ContextEl _cont) {
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(rightMemberOffset);
-        for (OperationNode o: opRight) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, rightMemberOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), rightMemberOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
     }
 
     @Override

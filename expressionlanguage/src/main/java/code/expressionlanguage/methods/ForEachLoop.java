@@ -14,7 +14,6 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.EmptyTagName;
@@ -686,23 +685,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(expressionOffset);
-        for (OperationNode o: opList) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, expressionOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), expressionOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
-    }
-
-    @Override
     public String getTagName() {
         return TAG_FOREACH;
     }
@@ -781,7 +763,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         String var_ = getVariableName();
         varsLoop_.put(var_, lv_);
         if (iterStr_ != null) {
-            finished_ = !iteratorHasNext(_cont);
+            Boolean has_ = iteratorHasNext(_cont);
+            if (has_ == null) {
+                return;
+            }
+            finished_ = !has_;
             if (_cont.callsOrException()) {
                 return;
             }
@@ -848,10 +834,11 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         l_.setEvaluatingKeepLoop(true);
         boolean hasNext_;
         if (l_.getStructIterator() != null) {
-            hasNext_ = iteratorHasNext(_conf);
-            if (_conf.callsOrException()) {
+            Boolean has_ = iteratorHasNext(_conf);
+            if (has_ == null) {
                 return;
             }
+            hasNext_ = has_;
         } else {
             hasNext_ = l_.hasNext();
         }
@@ -872,21 +859,20 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         l_.setEvaluatingKeepLoop(false);
     }
 
-    private boolean iteratorHasNext(ContextEl _conf) {
+    private Boolean iteratorHasNext(ContextEl _conf) {
         PageEl ip_ = _conf.getLastPage();
         LgNames stds_ = _conf.getStandards();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
-        boolean native_ = nativeCmp;
-        String locName_ = _conf.getClasses().getHasNextVar(native_);
+        String locName_ = _conf.getClasses().getHasNextVar(nativeCmp);
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(strIter_, _conf));
         locVar_.setStruct(strIter_);
         _conf.getLastPage().putLocalVar(locName_, locVar_);
-        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, native_, 2);
+        ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, nativeCmp, 2);
         Argument arg_ = dyn_.calculateMember(_conf);
         if (_conf.callsOrException()) {
-            return false;
+            return null;
         }
         boolean hasNext_ = (Boolean) arg_.getObject();
         _conf.getLastPage().removeLocalVar(locName_);

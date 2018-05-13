@@ -89,10 +89,6 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_BREAK;
     }

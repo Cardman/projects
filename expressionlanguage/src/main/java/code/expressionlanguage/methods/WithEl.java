@@ -9,8 +9,6 @@ public interface WithEl {
 
     void buildExpressionLanguage(ContextEl _cont);
 
-    void checkCallConstructor(ContextEl _cont);
-
     void processEl(ContextEl _cont);
 
     RowCol getRowCol(int _offset, int _globalOffset);

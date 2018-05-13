@@ -248,17 +248,6 @@ public abstract class Block extends Blockable {
         un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
         _cont.getClasses().getErrorsDet().add(un_);
     }
-    protected static void tryCheckConstCall(Block _block, ContextEl _cont) {
-        if (_block instanceof WithEl) {
-            _cont.getAnalyzing().setCurrentBlock(_block);
-            ((WithEl)_block).checkCallConstructor(_cont);
-            return;
-        }
-        UnexpectedTagName un_ = new UnexpectedTagName();
-        un_.setFileName(_block.getFile().getFileName());
-        un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
-        _cont.getClasses().getErrorsDet().add(un_);
-    }
 
     final void processBlock(ContextEl _conf) {
         ParentStackBlock parElt_;

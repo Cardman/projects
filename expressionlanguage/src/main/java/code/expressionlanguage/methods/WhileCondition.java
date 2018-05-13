@@ -487,8 +487,8 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             rw_.setBlock(getFirstChild());
             return;
         }
-        boolean res_ = evaluateCondition(_cont);
-        if (_cont.callsOrException()) {
+        Boolean res_ = evaluateCondition(_cont);
+        if (res_ == null) {
             return;
         }
         LoopBlockStack l_ = new LoopBlockStack();
@@ -517,16 +517,17 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         l_.setEvaluatingKeepLoop(true);
         Block forLoopLoc_ = l_.getBlock();
         rw_.setBlock(forLoopLoc_);
-        if (!keepLoop(_conf)) {
-            if (_conf.callsOrException()) {
-                return;
-            }
+        Boolean keep_ = keepLoop(_conf);
+        if (keep_ == null) {
+            return;
+        }
+        if (!keep_) {
             l_.setFinished(true);
         }
         l_.setEvaluatingKeepLoop(false);
     }
 
-    public boolean keepLoop(ContextEl _conf) {
+    public Boolean keepLoop(ContextEl _conf) {
         _conf.getLastPage().setGlobalOffset(getOffset().getOffsetTrim());
         _conf.getLastPage().setOffset(0);
         return evaluateCondition(_conf);

@@ -431,4 +431,32 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
     }
+    @Test
+    public void calculateArgument75Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  java.lang.Boolean f = $null:\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $if(f;.){\n");
+        xml_.append("    $return 1i:\n");
+        xml_.append("   }\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(code.util.exceptions.NullObjectException e){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(3, (Number)ret_.getObject());
+    }
 }

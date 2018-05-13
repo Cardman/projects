@@ -13,7 +13,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -404,25 +403,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         tr_.put(classNameOffset, className);
         return tr_;
-    }
-    @Override
-    public void checkCallConstructor(ContextEl _cont) {
-        if (value.trim().isEmpty()) {
-            return;
-        }
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(valueOffset);
-        for (OperationNode o: opValue) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, valueOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), valueOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
     }
 
     @Override

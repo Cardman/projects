@@ -201,10 +201,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_FINALLY;
     }

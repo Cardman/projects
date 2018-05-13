@@ -7,7 +7,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -87,24 +86,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-
-    @Override
-    public void checkCallConstructor(ContextEl _cont) {
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(expressionOffset);
-        for (OperationNode o: opThrow) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, expressionOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), expressionOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
     }
 
     @Override

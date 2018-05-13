@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.InstanceOperation;
@@ -291,7 +292,7 @@ public final class ElUtil {
                     for (EntryCust<ClassField,Assignment> e: res_.entryList()) {
                         vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
                     }
-                    if (_root.isOtherConstructorClass()) {
+                    if (_root instanceof CurrentInvokingConstructor) {
                         for (EntryCust<ClassField,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
                             SimpleAssignment a_ = e.getValue();
                             a_.setAssignedAfter(true);

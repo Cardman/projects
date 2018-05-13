@@ -35,19 +35,10 @@ public abstract class PrimitiveBoolOperation extends MethodOperation {
         }
         quickCalculate(_conf);
     }
-    @Override
-    public final boolean isOtherConstructorClass() {
-        return false;
-    }
 
     @Override
     public final ConstructorId getConstId() {
         return null;
-    }
-
-    @Override
-    public final boolean isSuperConstructorCall() {
-        return false;
     }
 
 }

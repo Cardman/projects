@@ -141,10 +141,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_DECLARE;
     }

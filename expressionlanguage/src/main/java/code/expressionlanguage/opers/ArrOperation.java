@@ -50,18 +50,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
-
-    @Override
     public ConstructorId getConstId() {
         return null;
-    }
-
-    @Override
-    public boolean isSuperConstructorCall() {
-        return false;
     }
 
     void analyzeCommon(Analyzable _conf) {

@@ -14,7 +14,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
@@ -732,47 +731,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public void checkCallConstructor(ContextEl _cont) {
-        AnalyzedPageEl p_ = _cont.getAnalyzing();
-        p_.setGlobalOffset(initOffset);
-        for (OperationNode o: opInit) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, initOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), initOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
-        p_.setGlobalOffset(expressionOffset);
-        for (OperationNode o: opExp) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, expressionOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), expressionOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
-        p_.setGlobalOffset(stepOffset);
-        for (OperationNode o: opStep) {
-            if (o.isSuperThis()) {
-                int off_ = o.getFullIndexInEl();
-                p_.setOffset(off_);
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(getFile().getFileName());
-                call_.setRc(getRowCol(0, stepOffset));
-                call_.setLocalOffset(getRowCol(o.getFullIndexInEl(), stepOffset));
-                _cont.getClasses().getErrorsDet().add(call_);
-            }
-        }
     }
 
     @Override

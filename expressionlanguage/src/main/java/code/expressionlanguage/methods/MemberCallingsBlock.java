@@ -107,7 +107,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (en_ != anEl_.getRoot()) {
                 tryCheckBlocksTree(en_, _cont);
                 tryBuildExpressionLanguage(en_, _cont);
-                tryCheckConstCall(en_, _cont);
             }
             if (n_ != null) {
                 en_ = n_;

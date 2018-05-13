@@ -1113,18 +1113,8 @@ public abstract class NumericOperation extends MethodOperation {
     }
 
     @Override
-    public final boolean isOtherConstructorClass() {
-        return false;
-    }
-
-    @Override
     public final ConstructorId getConstId() {
         return null;
-    }
-
-    @Override
-    public final boolean isSuperConstructorCall() {
-        return false;
     }
 
     @Override

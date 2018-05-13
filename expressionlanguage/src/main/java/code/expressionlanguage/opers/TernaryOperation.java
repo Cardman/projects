@@ -351,16 +351,6 @@ public final class TernaryOperation extends MethodOperation {
     }
 
     @Override
-    public boolean isSuperConstructorCall() {
-        return false;
-    }
-
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
-
-    @Override
     public ConstructorId getConstId() {
         return null;
     }

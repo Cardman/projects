@@ -86,10 +86,6 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
     }
 
     @Override
-    public void checkCallConstructor(ContextEl _cont) {
-    }
-
-    @Override
     public String getTagName() {
         return TAG_CONTINUE;
     }

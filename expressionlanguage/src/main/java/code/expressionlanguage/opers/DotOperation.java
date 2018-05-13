@@ -91,19 +91,10 @@ public final class DotOperation extends MethodOperation {
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
     }
-    @Override
-    public boolean isOtherConstructorClass() {
-        return false;
-    }
 
     @Override
     public ConstructorId getConstId() {
         return null;
-    }
-
-    @Override
-    public boolean isSuperConstructorCall() {
-        return false;
     }
 
     @Override

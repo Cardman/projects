@@ -302,6 +302,12 @@ public abstract class OperationNode {
             if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
                 return new FirstOptOperation(_index, _indexChild, _m, _op);
             }
+            if (StringList.quickEq(fctName_,prefixFunction(CURRENT))) {
+                return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
+            }
+            if (StringList.quickEq(fctName_,prefixFunction(SUPER_ACCESS))) {
+                return new SuperInvokingConstructor(_index, _indexChild, _m, _op);
+            }
             return new FctOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.ARR_OPER_PRIO) {
@@ -367,14 +373,6 @@ public abstract class OperationNode {
     public abstract boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes);
 
     public abstract boolean isCalculated();
-
-    public final boolean isSuperThis() {
-        return isSuperConstructorCall() || isOtherConstructorClass();
-    }
-
-    public abstract boolean isSuperConstructorCall();
-
-    public abstract boolean isOtherConstructorClass();
 
     public abstract ConstructorId getConstId();
 
