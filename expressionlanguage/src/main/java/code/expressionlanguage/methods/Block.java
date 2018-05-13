@@ -249,7 +249,7 @@ public abstract class Block extends Blockable {
         _cont.getClasses().getErrorsDet().add(un_);
     }
 
-    final void processBlock(ContextEl _conf) {
+    public final void processBlock(ContextEl _conf) {
         ParentStackBlock parElt_;
         Block nextSibling_ = getNextSibling();
         if (nextSibling_ != null) {

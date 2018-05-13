@@ -42,7 +42,36 @@ public class DefaultInitializer implements Initializer {
         }
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
     }
-
+    @Override
+    public void loopCalling(ContextEl _owner) {
+        int sizeBk_ = _owner.nbPages() - 1;
+        while (true) {
+            Boolean res_ = _owner.removeCall(sizeBk_);
+            if (res_ == null) {
+                return;
+            }
+            if (res_) {
+                continue;
+            }
+            _owner.processTags();
+            AbstractPageEl abs_ = _owner.processAfterOperation();
+            if (abs_ != null) {
+                addPage(_owner, abs_);
+            }
+            if (_owner.getException() != null) {
+                return;
+            }
+        }
+    }
+    void addPage(ContextEl _conf, AbstractPageEl _page) {
+        _conf.addPage(_page);
+        if (_conf.getException() != null) {
+            _conf.getThrowing().removeBlockFinally(_conf);
+            if (_conf.getException() != null) {
+                return;
+            }
+        }
+    }
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, ObjectMap<ClassField,Struct> _fields) {
         if (_fieldName.isEmpty()) {

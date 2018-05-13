@@ -31,6 +31,8 @@ public abstract class AbstractPageEl extends PageEl {
 
     private static final String SEP_KEY_VAL = ":";
 
+    private Argument returnedArgument;
+
     private ReadWrite readWrite;
     private Block blockRoot;
 
@@ -298,4 +300,11 @@ public abstract class AbstractPageEl extends PageEl {
         return intializedInterfaces;
     }
 
+    public Argument getReturnedArgument() {
+        return returnedArgument;
+    }
+
+    public void setReturnedArgument(Argument _returnedArgument) {
+        returnedArgument = _returnedArgument;
+    }
 }
