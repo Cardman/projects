@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.AbstractPageEl;
 
 public interface BracedBlockInt {
 
-    void removeVarAndLoop(PageEl _ip);
+    void removeVarAndLoop(AbstractPageEl _ip);
 }

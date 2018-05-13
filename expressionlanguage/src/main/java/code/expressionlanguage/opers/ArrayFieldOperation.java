@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.StaticAccessError;
@@ -93,7 +94,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         vars_.getFields().put(this, assA_);
     }
     @Override
-    ArgumentCall getCommonArgument(Argument _previous, ContextEl _conf) {
+    ArgumentCall getCommonArgument(Argument _previous, ExecutableCode _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();

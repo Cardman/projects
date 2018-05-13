@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -97,7 +97,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
 
     @Override
     public void removeBlockFinally(ContextEl _conf) {
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         Loop loop_ = null;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();

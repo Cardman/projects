@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -159,7 +160,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -182,7 +183,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         return argres_;
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         return _arguments.first();
     }

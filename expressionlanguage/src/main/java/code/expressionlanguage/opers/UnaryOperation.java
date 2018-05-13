@@ -3,6 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -67,11 +68,6 @@ public final class UnaryOperation extends AbstractUnaryOperation {
 
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        return calculateCommon(_nodes, _conf);
-    }
-
-    Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
@@ -134,11 +130,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         setSimpleArgumentAna(out_, _conf);
     }
     @Override
-    public void calculate(ContextEl _conf) {
-        calculateCommon(_conf);
-    }
-
-    void calculateCommon(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = getArgument(_conf, arg_);
@@ -148,7 +140,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         setSimpleArgument(a_, _conf);
     }
 
-    Argument getArgument(ContextEl _conf,
+    Argument getArgument(ExecutableCode _conf,
             Argument _in) {
         Argument out_ = new Argument();
         Object o_ = _in.getObject();

@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -184,7 +185,7 @@ public abstract class OperationNode {
         analyzeAssignmentAfter(_conf);
     }
     public abstract void analyzeAssignmentAfter(Analyzable _conf);
-    public abstract void calculate(ContextEl _conf);
+    public abstract void calculate(ExecutableCode _conf);
     public abstract void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current);
     public abstract void tryCalculateNode(Analyzable _conf);
 
@@ -195,7 +196,7 @@ public abstract class OperationNode {
         _cont.setAnalyzedOffset(operations.getDelimiter().getIndexBegin()+_offset);
     }
 
-    public final void setRelativeOffsetPossibleLastPage(int _offset, Analyzable _cont) {
+    public final void setRelativeOffsetPossibleLastPage(int _offset, ExecutableCode _cont) {
         _cont.setOffset(operations.getDelimiter().getIndexBegin()+_offset);
     }
 
@@ -384,10 +385,10 @@ public abstract class OperationNode {
     final void setNextSibling(OperationNode _nextSibling) {
         nextSibling = _nextSibling;
     }
-    public static boolean okType(ContextEl _cont, String _className) {
+    public static boolean okType(ExecutableCode _cont, String _className) {
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
-        String glClass_ = _cont.getLastPage().getGlobalClass();
+        String glClass_ = _cont.getOperationPageEl().getGlobalClass();
         if (glClass_ != null) {
             for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
                 map_.put(t.getName(), t.getConstraints());
@@ -1231,7 +1232,7 @@ public abstract class OperationNode {
         return CustList.NO_SWAP_SORT;
     }
 
-    final void setNextSiblingsArg(Argument _arg, ContextEl _cont) {
+    final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
         String un_ = resultClass.getUnwrapObject();
         if (!un_.isEmpty()) {
             if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont)) {
@@ -1325,7 +1326,7 @@ public abstract class OperationNode {
         }
     }
 
-    final int processBooleanValues(Argument _arg, ContextEl _cont) {
+    final int processBooleanValues(Argument _arg, ExecutableCode _cont) {
         int res_ = processBooleanValuesAna(_arg, _cont);
         if (res_ < 0) {
             LgNames stds_ = _cont.getStandards();
@@ -1422,7 +1423,7 @@ public abstract class OperationNode {
         setNextSiblingsArg(_argument, _conf, _nodes);
     }
 
-    public final void setSimpleArgument(Argument _argument, ContextEl _conf) {
+    public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {
         argument = _argument;
         PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {

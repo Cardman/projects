@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
@@ -21,14 +21,14 @@ public final class AddOperation extends NumericOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument addOne(Argument _arg, ContextEl _cont) {
+    static Argument addOne(Argument _arg, ExecutableCode _cont) {
         byte b_ = 1;
         Argument a_ = new Argument();
         a_.setObject(b_);
         return calculateSumEx(_arg, _cont, a_, false, false);
     }
 
-    static Argument removeOne(Argument _arg, ContextEl _cont) {
+    static Argument removeOne(Argument _arg, ExecutableCode _cont) {
         byte b_ = 1;
         Argument a_ = new Argument();
         a_.setObject(b_);
@@ -36,7 +36,7 @@ public final class AddOperation extends NumericOperation {
     }
 
     @Override
-    Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
+    Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             return calculateSumEx(_a, _cont, _b, catChars, catString);
         }

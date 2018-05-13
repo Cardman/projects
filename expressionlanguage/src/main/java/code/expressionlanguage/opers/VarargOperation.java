@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -120,7 +121,7 @@ public final class VarargOperation extends LeafOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
     }
 
     @Override

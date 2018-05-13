@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -164,7 +165,7 @@ public final class FinalVariableOperation extends LeafOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         ArgumentCall argres_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
             return;
@@ -187,13 +188,13 @@ public final class FinalVariableOperation extends LeafOperation {
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-    ArgumentCall getCommonArgument(ContextEl _conf) {
+    ArgumentCall getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getLastPage();
+        PageEl ip_ = _conf.getOperationPageEl();
         OperationsSequence op_ = getOperations();
         if (op_.getConstType() == ConstType.PARAM) {
             LocalVariable locVar_ = ip_.getParameters().getVal(variableName);

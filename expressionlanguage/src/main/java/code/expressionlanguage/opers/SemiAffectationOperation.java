@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -219,14 +220,14 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             OperationNode _nextSibling, OperationNode _previous) {
     }
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         OperationNode right_ = getChildrenNodes().last();
-        _conf.getLastPage().setRightArgument(right_.getArgument());
+        _conf.getOperationPageEl().setRightArgument(right_.getArgument());
         String oper_ = getOperations().getOperators().firstValue();
         settable.calculateSetting(_conf, oper_, post);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
-        _conf.getLastPage().setRightArgument(null);
+        _conf.getOperationPageEl().setRightArgument(null);
     }
 
     @Override

@@ -3,6 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
@@ -221,7 +222,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         int max_ = chidren_.size();
@@ -234,7 +235,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     @Override
     public void calculateSetting(
-            ContextEl _conf, String _op, boolean _post) {
+            ExecutableCode _conf, String _op, boolean _post) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument();
         Struct store_;
@@ -250,13 +251,13 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setSimpleArgument(a_, _conf);
     }
 
-    Struct affectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ContextEl _conf) {
+    Struct affectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
         Object o_ = _index.getObject();
-        PageEl ip_ = _conf.getLastPage();
+        PageEl ip_ = _conf.getOperationPageEl();
         Struct leftObj_;
         if (_stored.isArray()) {
             leftObj_ = getElement(_stored, o_, _conf, _indexEl);
@@ -269,7 +270,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Argument left_ = new Argument();
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf));
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf.getContextEl()));
         if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
             if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
@@ -293,7 +294,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         return res_.getStruct();
     }
 
-    Argument getArgument(int _maxIndexChildren, ContextEl _conf) {
+    Argument getArgument(int _maxIndexChildren, ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
         array_ = chidren_.first().getArgument().getStruct();
@@ -309,7 +310,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         return a_;
     }
 
-    Struct getElement(Struct _struct, Object _index, ContextEl _conf, int _indexEl) {
+    Struct getElement(Struct _struct, Object _index, ExecutableCode _conf, int _indexEl) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;
@@ -331,20 +332,20 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
             return NullStruct.NULL_VALUE;
         }
-        return LgNames.getElement(array_, index_, _conf);
+        return LgNames.getElement(array_, index_, _conf.getContextEl());
     }
-    static void setCheckedElement(Struct _array,Object _index, Argument _element, ContextEl _conf) {
+    static void setCheckedElement(Struct _array,Object _index, Argument _element, ExecutableCode _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf));
+        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf.getContextEl()));
         if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf)) {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return;
         }
         setElement(_array, _index, _element.getStruct(), _conf);
     }
-    static void setElement(Struct _struct, Object _index, Struct _value, ContextEl _conf) {
+    static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String badIndex_;
@@ -360,8 +361,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return;
         }
-        String strClass_ = stds_.getStructClassName(_struct, _conf);
-        String valClass_ = stds_.getStructClassName(_value, _conf);
+        String strClass_ = stds_.getStructClassName(_struct, _conf.getContextEl());
+        String valClass_ = stds_.getStructClassName(_value, _conf.getContextEl());
         Object instance_ = _struct.getInstance();
         int len_ = LgNames.getLength(instance_);
         int index_ = ((Number)_index).intValue();
@@ -388,7 +389,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         } else {
             value_ = _value;
         }
-        LgNames.setElement(instance_, index_, value_, _conf);
+        LgNames.setElement(instance_, index_, value_, _conf.getContextEl());
     }
     @Override
     void calculateChildren() {

@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -6,7 +7,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -98,7 +98,7 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         ip_.setOffset(0);
         ip_.setGlobalOffset(expressionOffset);
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);

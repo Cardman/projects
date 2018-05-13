@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 
 public final class CausingErrorStruct implements Struct {
@@ -39,7 +39,7 @@ public final class CausingErrorStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ContextEl _contextEl) {
+    public String getClassName(ExecutableCode _contextEl) {
         return _contextEl.getStandards().getAliasErrorInitClass();
     }
 

@@ -48,7 +48,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.MathFactory;
 
-public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,Analyzable {
+public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,ExecutableCode {
     private static final String RETURN_LINE = "\n";
     private static final int DEFAULT_TAB_WIDTH = 4;
 
@@ -82,7 +82,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private transient Classes classes;
 
-    private transient CustList<PageEl> importing = new CustList<PageEl>();
+    private transient CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
     private transient String html;
 
@@ -148,7 +148,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         ProcessMethod.calculateArgument(arg_, mId_.getClassName(), mId_.getConstraints(), new CustList<Argument>(), this);
     }
     @Override
-    public String getClassName(ContextEl _contextEl) {
+    public String getClassName(ExecutableCode _contextEl) {
         return className;
     }
     @Override
@@ -395,7 +395,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         importing.removeLast();
     }
 
-    public void addPage(PageEl _page) {
+    public void addPage(AbstractPageEl _page) {
         LgNames stds_ = getStandards();
         String sof_ = stds_.getAliasSof();
         if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
@@ -424,9 +424,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.getInfos(this);
     }
 
+    @Override
     public String joinPages() {
         StringList l_ = new StringList();
-        for (PageEl p: importing) {
+        for (AbstractPageEl p: importing) {
             l_.add(p.getInfos(this));
         }
         return l_.join(RETURN_LINE);
@@ -444,7 +445,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.getNextTempVar(classes);
     }
 
-    public PageEl getLastPage() {
+    public AbstractPageEl getLastPage() {
         return importing.last();
     }
 
@@ -570,10 +571,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return false;
     }
+    @Override
     public Struct getException() {
         return exception;
     }
 
+    @Override
     public void setException(Struct _exception) {
         exception = _exception;
     }
@@ -677,6 +680,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         analyzing.setMerged(_merged);
     }
 
+    @Override
     public boolean isCheckAffectation() {
         return checkAffectation;
     }
@@ -717,6 +721,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public CustList<StringMap<LocalVariable>> getLocalVariables() {
         return analyzing.getLocalVars();
+    }
+
+    @Override
+    public PageEl getOperationPageEl() {
+        return getLastPage();
+    }
+
+    @Override
+    public ContextEl getContextEl() {
+        return this;
     }
 
 }

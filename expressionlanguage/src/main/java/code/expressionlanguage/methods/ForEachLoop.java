@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -10,7 +11,6 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
@@ -691,7 +691,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         LoopBlockStack c_ = ip_.getLastLoopIfPossible();
         if (c_ != null && c_.getBlock() == this) {
             if (c_.isEvaluatingKeepLoop()) {
@@ -791,7 +791,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     Struct processLoop(ContextEl _conf) {
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         LgNames stds_ = _conf.getStandards();
         String null_ = stds_.getAliasNullPe();
         ip_.setGlobalOffset(expressionOffset);
@@ -815,7 +815,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     @Override
-    public void removeVarAndLoop(PageEl _ip) {
+    public void removeVarAndLoop(AbstractPageEl _ip) {
         super.removeVarAndLoop(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
         String var_ = getVariableName();
@@ -825,7 +825,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     @Override
     public void processLastElementLoop(ContextEl _conf) {
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
@@ -860,7 +860,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     private Boolean iteratorHasNext(ContextEl _conf) {
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         LgNames stds_ = _conf.getStandards();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();

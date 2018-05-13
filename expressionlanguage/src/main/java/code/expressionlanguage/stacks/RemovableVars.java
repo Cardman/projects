@@ -1,12 +1,12 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
 public interface RemovableVars {
 
     String getInfos();
 
-    void removeVarAndLoop(PageEl _ip);
+    void removeVarAndLoop(AbstractPageEl _ip);
 
     BracedBlock getBlock();
 

@@ -1,10 +1,10 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -160,22 +160,10 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         CustList<Block> prev_ = new CustList<Block>();
         Block pBlock_ = getPreviousSibling();
         while (!(pBlock_ instanceof IfCondition)) {
-//            Block ch_ = pBlock_.getFirstChild();
-//            while (ch_.getNextSibling() != null) {
-//                ch_ = ch_.getNextSibling();
-//            }
             prev_.add(pBlock_);
             pBlock_ = pBlock_.getPreviousSibling();
         }
-//        Block chIf_ = pBlock_.getFirstChild();
-//        while (chIf_.getNextSibling() != null) {
-//            chIf_ = chIf_.getNextSibling();
-//        }
         prev_.add(pBlock_);
-//        Block ch_ = getFirstChild();
-//        while (ch_.getNextSibling() != null) {
-//            ch_ = ch_.getNextSibling();
-//        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(this);
@@ -266,7 +254,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
         if_.setVisitedBlock(getIndexInGroup());
         if (!if_.isEntered()) {
@@ -280,7 +268,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
 
     @Override
     public void exitStack(ContextEl _context) {
-        PageEl ip_ = _context.getLastPage();
+        AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         rw_.setBlock(this);
     }

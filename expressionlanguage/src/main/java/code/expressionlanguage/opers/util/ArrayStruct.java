@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 
 public final class ArrayStruct implements Struct {
@@ -25,7 +25,7 @@ public final class ArrayStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ContextEl _contextEl) {
+    public String getClassName(ExecutableCode _contextEl) {
         return className;
     }
 

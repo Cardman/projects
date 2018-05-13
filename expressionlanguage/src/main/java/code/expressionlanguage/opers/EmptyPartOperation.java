@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.EmptyPartError;
@@ -27,7 +28,7 @@ public final class EmptyPartOperation extends AbstractFieldOperation {
     }
 
     @Override
-    ArgumentCall getCommonArgument(Argument _previous, ContextEl _conf) {
+    ArgumentCall getCommonArgument(Argument _previous, ExecutableCode _conf) {
         return null;
     }
 

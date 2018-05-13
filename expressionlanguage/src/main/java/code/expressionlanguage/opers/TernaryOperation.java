@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.OperationsSequence;
@@ -284,7 +285,7 @@ public final class TernaryOperation extends MethodOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -294,10 +295,10 @@ public final class TernaryOperation extends MethodOperation {
         Argument res_;
         if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf.getContextEl());
         } else if (argres_.isInvokeMethod()) {
             InvokingMethod i_ = argres_.getInvokeMethod();
-            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf.getContextEl());
         } else {
             res_ = argres_.getArgument();
         }
@@ -321,7 +322,7 @@ public final class TernaryOperation extends MethodOperation {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
+            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
         } else if (argres_.isInvokeMethod()) {
             InvokingMethod i_ = argres_.getInvokeMethod();
             _conf.setCallMethod(new CustomFoundMethod(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments()));
@@ -330,7 +331,7 @@ public final class TernaryOperation extends MethodOperation {
         }
         return res_;
     }
-    ArgumentCall getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
         LgNames stds_ = _conf.getStandards();
         String null_;

@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -99,11 +100,6 @@ public final class DotOperation extends MethodOperation {
 
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        return calculateCommon(_nodes, _conf);
-    }
-
-    Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.last();
         Argument a_ = _nodes.getVal(o_).getArgument();
@@ -116,11 +112,7 @@ public final class DotOperation extends MethodOperation {
         setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
     }
     @Override
-    public void calculate(ContextEl _conf) {
-        calculateCommon(_conf);
-    }
-
-    void calculateCommon(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setSimpleArgument(chidren_.last().getArgument(), _conf);
     }

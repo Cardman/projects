@@ -37,8 +37,8 @@ public class DefaultLockingClass {
         classes.put(base_, InitClassState.SUCCESS);
     }
     public void processErrorClass(ContextEl _context, Struct _cause) {
-        PageEl pageEl_ = _context.getLastPage();
-        if (!pageEl_.isInitializingClass()) {
+        AbstractPageEl pageEl_ = _context.getLastPage();
+        if (!(pageEl_ instanceof StaticInitPageEl)) {
             return;
         }
         String curClass_ = pageEl_.getGlobalClass();

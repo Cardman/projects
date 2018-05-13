@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
@@ -96,7 +97,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -119,7 +120,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         return argres_;
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         Argument objArg_ = _arguments.first();
@@ -128,7 +129,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             arg_.setObject(false);
             return arg_;
         }
-        String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf);
+        String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContextEl());
         if (!correctTemplate) {
             className_ = StringList.getAllTypes(className_).first();
             boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(className, className_, _conf);
@@ -138,7 +139,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         }
         Mapping mapping_ = new Mapping();
         mapping_.setArg(className_);
-        PageEl page_ = _conf.getLastPage();
+        PageEl page_ = _conf.getOperationPageEl();
         String str_ = page_.formatVarType(className, _conf);
         mapping_.setParam(str_);
         boolean res_ = Templates.isCorrect(mapping_, _conf);

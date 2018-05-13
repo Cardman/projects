@@ -1,5 +1,5 @@
 package code.expressionlanguage.opers.util;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 
 public interface Struct {
@@ -9,7 +9,7 @@ public interface Struct {
     boolean isArray();
 
 
-    String getClassName(ContextEl _contextEl);
+    String getClassName(ExecutableCode _contextEl);
 
     boolean sameReference(Struct _other);
 

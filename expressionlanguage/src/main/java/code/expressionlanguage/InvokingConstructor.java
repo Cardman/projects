@@ -3,7 +3,6 @@ package code.expressionlanguage;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
-import code.util.StringList;
 
 public class InvokingConstructor {
 
@@ -19,12 +18,10 @@ public class InvokingConstructor {
     private final CustList<Argument> arguments;
 
     private final InstancingStep instanceStep;
-    private final StringList called;
     public InvokingConstructor(String _className, String _fieldName,
             int _ordinal,
             ConstructorId _id, Argument _currentObject,
-            CustList<Argument> _arguments, InstancingStep _instanceStep,
-            StringList _called) {
+            CustList<Argument> _arguments, InstancingStep _instanceStep) {
         className = _className;
         fieldName = _fieldName;
         ordinal = _ordinal;
@@ -32,7 +29,6 @@ public class InvokingConstructor {
         currentObject = _currentObject;
         arguments = _arguments;
         instanceStep = _instanceStep;
-        called = _called;
     }
     public String getClassName() {
         return className;
@@ -54,8 +50,5 @@ public class InvokingConstructor {
     }
     public InstancingStep getInstanceStep() {
         return instanceStep;
-    }
-    public StringList getCalled() {
-        return called;
     }
 }

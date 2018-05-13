@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
@@ -143,12 +144,12 @@ public final class EnumValueOfOperation extends MethodOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         OperationNode first_ = getFirstChild();
         Argument arg_ = first_.getArgument();
         ArgumentCall argres_ = getCommonArgument(arg_, _conf);
         if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
@@ -178,8 +179,8 @@ public final class EnumValueOfOperation extends MethodOperation {
         }
         return arg_;
     }
-    ArgumentCall getCommonArgument(Argument _argument, ContextEl _conf) {
-        InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, className);
+    ArgumentCall getCommonArgument(Argument _argument, ExecutableCode _conf) {
+        InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className);
         if (res_ == InitClassState.NOT_YET) {
             InitializatingClass inv_ = new InitializatingClass(className);
             return ArgumentCall.newCall(inv_);
@@ -194,7 +195,7 @@ public final class EnumValueOfOperation extends MethodOperation {
             return ArgumentCall.newArgument(argres_);
         }
         Classes classes_ = _conf.getClasses();
-        ClassMetaInfo custClass_ = classes_.getClassMetaInfo(className, _conf);
+        ClassMetaInfo custClass_ = classes_.getClassMetaInfo(className, _conf.getContextEl());
         for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
             if (StringList.quickEq(e.getKey(), (String) _argument.getObject())) {
                 Argument argres_ = new Argument();

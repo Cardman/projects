@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
@@ -127,10 +128,10 @@ public final class ValuesOperation extends LeafOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         ArgumentCall argres_ = getCommonArgument(_conf);
         if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
@@ -158,8 +159,8 @@ public final class ValuesOperation extends LeafOperation {
         }
         return arg_;
     }
-    ArgumentCall getCommonArgument(ContextEl _conf) {
-        InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, className);
+    ArgumentCall getCommonArgument(ExecutableCode _conf) {
+        InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className);
         if (res_ == InitClassState.NOT_YET) {
             InitializatingClass inv_ = new InitializatingClass(className);
             return ArgumentCall.newCall(inv_);
@@ -170,7 +171,7 @@ public final class ValuesOperation extends LeafOperation {
             return ArgumentCall.newArgument(Argument.createVoid());
         }
         Classes classes_ = _conf.getClasses();
-        ClassMetaInfo custClass_ = classes_.getClassMetaInfo(className, _conf);
+        ClassMetaInfo custClass_ = classes_.getClassMetaInfo(className, _conf.getContextEl());
         CustList<Struct> enums_ = new CustList<Struct>();
         for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
             if (e.getValue().isEnumElement()) {

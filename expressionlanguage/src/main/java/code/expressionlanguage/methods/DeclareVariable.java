@@ -1,11 +1,11 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -147,7 +147,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         LocalVariable lv_ = new LocalVariable();
         String className_ = getClassName();
         lv_.setClassName(className_);

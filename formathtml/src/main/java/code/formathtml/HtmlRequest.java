@@ -102,7 +102,7 @@ final class HtmlRequest {
                 _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.ATTRIBUTE_CLASS_NAME));
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                if (!OperationNode.okType(_conf, className_)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());

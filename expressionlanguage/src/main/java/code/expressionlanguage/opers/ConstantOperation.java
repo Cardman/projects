@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElResolver;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.ParsedArgument;
 import code.expressionlanguage.methods.Block;
@@ -332,8 +333,7 @@ public final class ConstantOperation extends LeafOperation {
 
 
     @Override
-    public void calculate(ContextEl _conf) {
-        return;
+    public void calculate(ExecutableCode _conf) {
     }
 
     @Override

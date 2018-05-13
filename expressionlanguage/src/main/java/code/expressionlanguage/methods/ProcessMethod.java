@@ -1,10 +1,16 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractInstancingPageEl;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CurrentInstancingPageEl;
 import code.expressionlanguage.InitClassState;
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.MethodPageEl;
+import code.expressionlanguage.NewInstancingPageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.StaticInitPageEl;
+import code.expressionlanguage.SuperInstancingPageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -34,7 +40,7 @@ public final class ProcessMethod {
         call_.setId(_id);
         call_.setInstancingStep(InstancingStep.NEWING);
         call_.setFieldName(EMPTY_STRING);
-        PageEl page_ = createInstancing(_class, call_, _args, _cont);
+        AbstractPageEl page_ = createInstancing(_class, call_, _args, _cont);
         _cont.addPage(page_);
         loopCallings(_cont);
         return page_.getReturnedArgument();
@@ -48,7 +54,7 @@ public final class ProcessMethod {
             Argument a_ = new Argument();
             return a_;
         }
-        PageEl page_ = createCallingMethod(_global, _class, _method, _args, _cont);
+        AbstractPageEl page_ = createCallingMethod(_global, _class, _method, _args, _cont);
         _cont.addPage(page_);
         loopCallings(_cont);
         return page_.getReturnedArgument();
@@ -58,13 +64,13 @@ public final class ProcessMethod {
         while (true) {
             try {
                 if (_cont.getLastPage().getReadWrite() == null) {
-                    PageEl p_ = _cont.getLastPage();
+                    AbstractPageEl p_ = _cont.getLastPage();
                     _cont.removeLastPage();
                     if (_cont.nbPages() == sizeBk_) {
                         break;
                     }
                     Argument a_ = p_.getReturnedArgument();
-                    PageEl l_ = _cont.getLastPage();
+                    AbstractPageEl l_ = _cont.getLastPage();
                     if (a_ != null) {
                         l_.getLastEl().setArgument(a_, _cont);
                         if (_cont.getException() != null) {
@@ -103,19 +109,18 @@ public final class ProcessMethod {
         }
     }
 
-    private static PageEl createInstancingClass(NotInitializedClass _e, ContextEl _cont) {
+    private static AbstractPageEl createInstancingClass(NotInitializedClass _e, ContextEl _cont) {
         return createInstancingClass(_e.getClassName(), _cont);
     }
-    private static PageEl createInstancingClass(String _class, ContextEl _cont) {
+    private static AbstractPageEl createInstancingClass(String _class, ContextEl _cont) {
         _cont.setInitClass(null);
         Classes classes_ = _cont.getClasses();
         classes_.preInitializeStaticFields(_class, _cont);
         String baseClass_ = StringList.getAllTypes(_class).first();
         RootBlock class_ = classes_.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
-        PageEl page_ = new PageEl();
+        StaticInitPageEl page_ = new StaticInitPageEl();
         Argument argGl_ = new Argument();
-        page_.setInitializingClass(true);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         page_.setReadUrl(_class);
@@ -126,17 +131,17 @@ public final class ProcessMethod {
         return page_;
     }
 
-    private static PageEl createCallingMethod(CustomFoundMethod _e, ContextEl _conf) {
+    private static AbstractPageEl createCallingMethod(CustomFoundMethod _e, ContextEl _conf) {
         String cl_ = _e.getClassName();
         MethodId id_ = _e.getId();
         CustList<Argument> args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
         return createCallingMethod(gl_, cl_, id_, args_, _conf);
     }
-    private static PageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args, ContextEl _conf) {
+    private static AbstractPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args, ContextEl _conf) {
         _conf.setCallMethod(null);
         Classes classes_ = _conf.getClasses();
-        PageEl pageLoc_ = new PageEl();
+        MethodPageEl pageLoc_ = new MethodPageEl();
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setReadUrl(_class);
@@ -160,14 +165,14 @@ public final class ProcessMethod {
         pageLoc_.setBlockRoot(methodLoc_);
         return pageLoc_;
     }
-    private static PageEl createInstancing(CustomFoundConstructor _e, ContextEl _conf) {
+    private static AbstractPageEl createInstancing(CustomFoundConstructor _e, ContextEl _conf) {
         String cl_ = _e.getClassName();
         CustList<Argument> args_ = _e.getArguments();
         return createInstancing(cl_, _e.getCall(), args_, _conf);
     }
-    private static PageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args, ContextEl _cont) {
+    private static AbstractPageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args, ContextEl _cont) {
         _cont.setCallCtor(null);
-        PageEl page_ = new PageEl();
+        AbstractInstancingPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
         InstancingStep in_ = _call.getInstancingStep();
@@ -178,6 +183,7 @@ public final class ProcessMethod {
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         if (in_ == InstancingStep.NEWING) {
+            page_ = new NewInstancingPageEl();
             Struct str_ = null;
             if (global_ != null) {
                 str_ = global_.getStruct();
@@ -186,6 +192,11 @@ public final class ProcessMethod {
             int ordinal_ = _call.getChildIndex();
             argGl_.setStruct(_cont.getInit().processInit(_cont, str_, _class, fieldName_, ordinal_));
         } else {
+            if (in_ == InstancingStep.USING_SUPER) {
+                page_ = new SuperInstancingPageEl();
+            } else {
+                page_ = new CurrentInstancingPageEl();
+            }
             argGl_.setStruct(global_.getStruct());
         }
         page_.setReadUrl(_class);
@@ -217,7 +228,7 @@ public final class ProcessMethod {
         page_.setBlockRoot(class_);
         return page_;
     }
-    private static void addPage(ContextEl _conf, PageEl _page) {
+    private static void addPage(ContextEl _conf, AbstractPageEl _page) {
         _conf.addPage(_page);
         if (_conf.getException() != null) {
             _conf.getThrowing().removeBlockFinally(_conf);
@@ -227,10 +238,10 @@ public final class ProcessMethod {
         }
     }
     private static void processTags(ContextEl _conf) {
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         Block en_ = rw_.getBlock();
-        if (ip_.isInitializingClass()) {
+        if (ip_ instanceof StaticInitPageEl) {
             String curClass_ = ip_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
             RootBlock root_ =  _conf.getClasses().getClassBody(curClassBase_);
@@ -287,13 +298,11 @@ public final class ProcessMethod {
                 String superClassBase_ = root_.getSuperClass(_conf);
                 String objectClassName_ = _conf.getStandards().getAliasObject();
                 if (!calledImpl_ && !StringList.quickEq(superClassBase_, objectClassName_)) {
-                    ip_.getCallingConstr().setCalledImplicitConstructor(true);
+                    caller_.setCalledImplicitConstructor(true);
                     ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
-                    StringList called_ = ip_.getCallingConstr().getCalledConstructors();
-                    called_.add(superClassBase_);
                     Argument global_ = ip_.getGlobalArgument();
                     String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _conf);
-                    _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                    _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                     return;
                 }
                 ConstructorBlock const_ = caller_.getUsedConstructor();
@@ -308,10 +317,9 @@ public final class ProcessMethod {
                     if (!ip_.getIntializedInterfaces().containsStr(t_)) {
                         ip_.getIntializedInterfaces().add(t_);
                         ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
-                        StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, t_, _conf);
-                        _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                        _conf.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                         return;
                     }
                 }

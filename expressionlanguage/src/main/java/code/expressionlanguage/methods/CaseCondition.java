@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -6,7 +7,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -253,7 +253,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
         Struct str_ = sw_.getStruct();
@@ -295,7 +295,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
 
     @Override
     public void exitStack(ContextEl _context) {
-        PageEl ip_ = _context.getLastPage();
+        AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
         if (if_.lastVisitedBlock() == this) {

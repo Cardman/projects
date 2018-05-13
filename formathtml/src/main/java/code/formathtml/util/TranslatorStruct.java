@@ -1,7 +1,7 @@
 package code.formathtml.util;
 
 import code.bean.translator.Translator;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.ObjectMap;
@@ -25,7 +25,7 @@ public final class TranslatorStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ContextEl _contextEl) {
+    public String getClassName(ExecutableCode _contextEl) {
         return translator.getClassName();
     }
 

@@ -1,10 +1,10 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -418,7 +418,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
         ts_.setException(NullStruct.NULL_VALUE);
@@ -433,7 +433,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
 
     @Override
     public void exitStack(ContextEl _context) {
-        PageEl ip_ = _context.getLastPage();
+        AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
         CatchEval catch_ = (CatchEval) tryStack_.getCurrentCatchBlock();
@@ -502,7 +502,7 @@ public final class CatchEval extends BracedStack implements Eval, IncrCurrentGro
     }
 
     @Override
-    public void processToFinally(PageEl _ip, TryBlockStack _stack) {
+    public void processToFinally(AbstractPageEl _ip, TryBlockStack _stack) {
         String var_ = getVariableName();
         _ip.getCatchVars().removeKey(var_);
         removeLocalVars(_ip);

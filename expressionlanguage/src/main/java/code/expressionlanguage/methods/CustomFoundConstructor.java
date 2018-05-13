@@ -4,7 +4,6 @@ import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class CustomFoundConstructor {
 
@@ -20,16 +19,14 @@ public final class CustomFoundConstructor {
     private final CustList<Argument> arguments;
 
     private final InstancingStep instanceStep;
-    private final StringList called;
 
-    public CustomFoundConstructor(String _className, String _fieldName, int _childIndex,StringList _calledConstructors,
+    public CustomFoundConstructor(String _className, String _fieldName, int _childIndex,
             ConstructorId _id, Argument _currentObject, CustList<Argument> _arguments, InstancingStep _instance) {
         className = _className;
         fieldName = _fieldName;
         childIndex = _childIndex;
         id = _id;
         currentObject = _currentObject;
-        called = _calledConstructors;
         arguments = _arguments;
         instanceStep = _instance;
     }
@@ -39,7 +36,6 @@ public final class CustomFoundConstructor {
         call_.setFieldName(fieldName);
         call_.setChildIndex(childIndex);
         call_.setArgument(currentObject);
-        call_.getCalledConstructors().addAllElts(called);
         call_.setId(id);
         call_.setInstancingStep(instanceStep);
         return call_;

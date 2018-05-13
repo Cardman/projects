@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.InvokingConstructor;
@@ -581,11 +582,6 @@ public final class InstanceOperation extends InvokingOperation {
 
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        return calculateCommon(_nodes, _conf);
-    }
-
-    Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -606,18 +602,14 @@ public final class InstanceOperation extends InvokingOperation {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
+            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
         } else {
             setSimpleArgument(res_, _conf, _nodes);
         }
         return res_;
     }
     @Override
-    public void calculate(ContextEl _conf) {
-        calculateCommon(_conf);
-    }
-
-    void calculateCommon(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -630,11 +622,11 @@ public final class InstanceOperation extends InvokingOperation {
         if (isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument();
         } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
+            previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
@@ -643,10 +635,10 @@ public final class InstanceOperation extends InvokingOperation {
         Argument res_;
         if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf.getContextEl());
         } else if (argres_.isInvokeMethod()) {
             InvokingMethod i_ = argres_.getInvokeMethod();
-            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf.getContextEl());
         } else {
             res_ = argres_.getArgument();
         }
@@ -657,7 +649,7 @@ public final class InstanceOperation extends InvokingOperation {
     }
 
     ArgumentCall getArgument(Argument _previous,CustList<Argument> _arguments,
-            ContextEl _conf) {
+            ExecutableCode _conf) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String size_;
@@ -684,7 +676,7 @@ public final class InstanceOperation extends InvokingOperation {
         } else {
             realClassName_ = className_;
         }
-        PageEl page_ = _conf.getLastPage();
+        PageEl page_ = _conf.getOperationPageEl();
         realClassName_ = page_.formatVarType(realClassName_, _conf);
         if (realClassName_.startsWith(ARR)) {
             int nbCh_ = chidren_.size();
@@ -742,7 +734,7 @@ public final class InstanceOperation extends InvokingOperation {
         if (possibleInitClass) {
             String base_ = StringList.getAllTypes(realClassName_).first();
             if (_conf.getClasses().isCustomType(base_)) {
-                InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, base_);
+                InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), base_);
                 if (res_ == InitClassState.NOT_YET) {
                     InitializatingClass inv_ = new InitializatingClass(realClassName_);
                     return ArgumentCall.newCall(inv_);
@@ -776,7 +768,7 @@ public final class InstanceOperation extends InvokingOperation {
         return getArg(_previous, firstArgs_, _conf);
     }
     ArgumentCall getArg(Argument _previous, CustList<Argument> _arguments,
-            ContextEl _conf) {
+            ExecutableCode _conf) {
         LgNames stds_ = _conf.getStandards();
 //        String null_;
 //        null_ = stds_.getAliasNullPe();
@@ -791,7 +783,7 @@ public final class InstanceOperation extends InvokingOperation {
 //        }
         String base_ = StringList.getAllTypes(className).first();
         if (!_conf.getClasses().isCustomType(base_)) {
-            ResultErrorStd res_ = LgNames.newInstance(_conf, naturalVararg > -1, constId, Argument.toArgArray(_arguments));
+            ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), naturalVararg > -1, constId, Argument.toArgArray(_arguments));
             if (_conf.getException() != null) {
                 Argument a_ = new Argument();
                 return ArgumentCall.newArgument(a_);
@@ -806,7 +798,7 @@ public final class InstanceOperation extends InvokingOperation {
             return ArgumentCall.newArgument(arg_);
         }
         String className_ = className;
-        PageEl page_ = _conf.getLastPage();
+        PageEl page_ = _conf.getOperationPageEl();
         className_ = page_.formatVarType(className_, _conf);
         StringList params_ = new StringList();
         int j_ = 0;
@@ -819,14 +811,13 @@ public final class InstanceOperation extends InvokingOperation {
             params_.add(class_);
             j_++;
         }
-        StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _arguments) {
             if (i_ < params_.size()) {
                 Struct str_ = a.getStruct();
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
-                    mapping_.setArg(a.getObjectClassName(_conf));
+                    mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
                     mapping_.setParam(params_.get(i_));
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         String cast_;
@@ -839,7 +830,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
             i_++;
         }
-        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, blockIndex,constId, needed_, _arguments, InstancingStep.NEWING, called_);
+        InvokingConstructor inv_ = new InvokingConstructor(className_, fieldName, blockIndex,constId, needed_, _arguments, InstancingStep.NEWING);
         return ArgumentCall.newCall(inv_);
     }
 

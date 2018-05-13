@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 
 public final class FloatStruct extends NumberStruct {
@@ -17,7 +17,7 @@ public final class FloatStruct extends NumberStruct {
     }
 
     @Override
-    public String getClassName(ContextEl _context) {
+    public String getClassName(ExecutableCode _context) {
         return _context.getStandards().getAliasFloat();
     }
 

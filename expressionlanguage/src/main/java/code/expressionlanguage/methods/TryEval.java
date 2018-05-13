@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -265,7 +265,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         Block n_ = getNextSibling();
         int index_ = getIndexGroup();
         TryBlockStack tryStack_ = new TryBlockStack();
@@ -283,7 +283,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
 
     @Override
     public void exitStack(ContextEl _context) {
-        PageEl ip_ = _context.getLastPage();
+        AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         rw_.setBlock(getNextSibling());
     }
@@ -295,7 +295,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     }
 
     @Override
-    public void processToFinally(PageEl _ip, TryBlockStack _stack) {
+    public void processToFinally(AbstractPageEl _ip, TryBlockStack _stack) {
         removeLocalVars(_ip);
         if (_stack.getLastCatchBlock() instanceof FinallyEval) {
             _ip.clearCurrentEls();

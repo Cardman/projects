@@ -1,5 +1,5 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
 
@@ -8,7 +8,7 @@ public final class LoopBlockStack extends LoopStack implements BreakableBlockSta
     private boolean evaluatingKeepLoop;
 
     @Override
-    public void removeVarAndLoop(PageEl _ip) {
+    public void removeVarAndLoop(AbstractPageEl _ip) {
         BracedBlock forNode_ = getBlock();
         forNode_.removeLocalVars(_ip);
         forNode_.removeVarAndLoop(_ip);

@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.InvokingConstructor;
@@ -222,7 +223,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -232,11 +233,11 @@ public final class ChoiceFctOperation extends InvokingOperation {
         if (isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument();
         } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
+            previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
@@ -245,10 +246,10 @@ public final class ChoiceFctOperation extends InvokingOperation {
         Argument res_;
         if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf.getContextEl());
         } else if (argres_.isInvokeMethod()) {
             InvokingMethod i_ = argres_.getInvokeMethod();
-            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf);
+            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf.getContextEl());
         } else {
             res_ = argres_.getArgument();
         }
@@ -278,7 +279,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else if (argres_.isInvokeConstructor()) {
             InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getCalled(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
+            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
         } else if (argres_.isInvokeMethod()) {
             InvokingMethod i_ = argres_.getInvokeMethod();
             _conf.setCallMethod(new CustomFoundMethod(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments()));
@@ -287,7 +288,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         return res_;
     }
-    ArgumentCall getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
+    ArgumentCall getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -312,7 +313,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
 
             classNameFound_ = classMethodId.getClassName();
 
-            String argClassName_ = arg_.getObjectClassName(_conf);
+            String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
             if (staticChoiceMethodTemplate) {
                 classNameFound_ = Templates.format(argClassName_, classNameFound_, _conf);
                 Mapping map_ = new Mapping();
@@ -350,7 +351,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                         Mapping map_ = new Mapping();
                         String param_ = methodId_.getParametersTypes().last();
                         param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
-                        String argClass_ = _arguments.last().getObjectClassName(_conf);
+                        String argClass_ = _arguments.last().getObjectClassName(_conf.getContextEl());
                         map_.setArg(argClass_);
                         map_.setParam(param_);
                         if (argClass_ != null && !Templates.isCorrect(map_, _conf)) {
@@ -366,7 +367,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             classNameFound_ = classMethodId.getClassName();
             if (classes_.isCustomType(classNameFound_)) {
-                InitClassState res_ = classes_.getLocks().getState(_conf, classNameFound_);
+                InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), classNameFound_);
                 if (res_ == InitClassState.NOT_YET) {
                     InitializatingClass inv_ = new InitializatingClass(classNameFound_);
                     return ArgumentCall.newCall(inv_);
@@ -380,7 +381,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         StringList params_ = new StringList();
         if (!staticMethod) {
-            String className_ = stds_.getStructClassName(arg_.getStruct(), _conf);
+            String className_ = stds_.getStructClassName(arg_.getStruct(), _conf.getContextEl());
             String classFormat_ = classNameFound_;
             classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_ == null) {
@@ -415,7 +416,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 Struct str_ = a.getStruct();
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
-                    mapping_.setArg(a.getObjectClassName(_conf));
+                    mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
                     mapping_.setParam(params_.get(i_));
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
@@ -429,7 +430,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         if (!classes_.isCustomType(classNameFound_)) {
             ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);
-            ResultErrorStd res_ = LgNames.invokeMethod(_conf, naturalVararg > -1, dyn_, arg_.getStruct(), Argument.toArgArray(firstArgs_));
+            ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), naturalVararg > -1, dyn_, arg_.getStruct(), Argument.toArgArray(firstArgs_));
             if (res_.getError() != null) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
                 Argument a_ = new Argument();

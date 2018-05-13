@@ -39,7 +39,7 @@ public final class ImportingPage {
 
     private static final String SEP_KEY_VAL = ":";
 
-    private PageEl pageEl = new PageEl();
+    private PageEl pageEl = new SimplePageEl();
 
     private String processingAttribute = EMPTY_STRING;
 
@@ -67,6 +67,10 @@ public final class ImportingPage {
 
     private final boolean rendering;
 
+    private int tabWidth;
+
+    private int offset;
+
     public ImportingPage(boolean _rendering) {
         rendering = _rendering;
         processingHtml = new ProcessingHtml();
@@ -88,9 +92,7 @@ public final class ImportingPage {
         if (rendering) {
             page_.append(SEP_INFO).append(processingHtml.getHtml()).append(SEP_INFO);
         }
-        int off_ = pageEl.getOffset();
-        int tabWidth_ = pageEl.getTabWidth();
-        RowCol rc_ = processingHtml.getRowCol(processingAttribute, off_, tabWidth_);
+        RowCol rc_ = processingHtml.getRowCol(processingAttribute, offset, tabWidth);
         StringBuilder str_ = new StringBuilder(READ_URL);
         str_.append(SEP_KEY_VAL);
         str_.append(readUrl);
@@ -101,23 +103,29 @@ public final class ImportingPage {
         str_.append(SEP_KEY_VAL);
         str_.append(beanName);
         str_.append(SEP_INFO);
-        str_.append(pageEl.getCommonInfosAndRc(rc_, _context.toContextEl()));
+        str_.append(rc_.display());
         str_.append(SEP_INFO);
         str_.append(list_.display());
         return str_.toString();
     }
 
     public RowCol getRowCol() {
-        int off_ = pageEl.getOffset();
-        int tabWidth_ = pageEl.getTabWidth();
-        return processingHtml.getRowCol(processingAttribute, off_, tabWidth_);
+        return processingHtml.getRowCol(processingAttribute, offset, tabWidth);
     }
     public PageEl getPageEl() {
         return pageEl;
     }
 
     public void addToOffset(int _offset) {
-        pageEl.addToOffset(_offset);
+        offset += _offset;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int _offset) {
+        offset = _offset;
     }
     public String getNextTempVar() {
         int i_ = CustList.FIRST_INDEX;
@@ -337,11 +345,11 @@ public final class ImportingPage {
     }
 
     public int getTabWidth() {
-        return pageEl.getTabWidth();
+        return tabWidth;
     }
 
     public void setTabWidth(int _tabWidth) {
-        pageEl.setTabWidth(_tabWidth);
+        tabWidth = _tabWidth;
     }
 
     public ObjectMap<NodeAttribute,NatTreeMap<Integer,Integer>> getEncodedChars() {
@@ -351,14 +359,6 @@ public final class ImportingPage {
     public void setEncodedChars(
             ObjectMap<NodeAttribute,NatTreeMap<Integer,Integer>> _encodedChars) {
         processingHtml.setEncodedChars(_encodedChars);
-    }
-
-    public int getOffset() {
-        return pageEl.getOffset();
-    }
-
-    public void setOffset(int _offset) {
-        pageEl.setOffset(_offset);
     }
 
     public String getProcessingAttribute() {

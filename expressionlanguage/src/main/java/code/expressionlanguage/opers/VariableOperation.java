@@ -6,6 +6,7 @@ import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
@@ -176,7 +177,7 @@ public final class VariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         ArgumentCall argres_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
             return;
@@ -199,13 +200,13 @@ public final class VariableOperation extends LeafOperation implements
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-    ArgumentCall getCommonArgument(ContextEl _conf) {
+    ArgumentCall getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getLastPage();
+        PageEl ip_ = _conf.getOperationPageEl();
         if (resultCanBeSet()) {
             return ArgumentCall.newArgument(Argument.createVoid());
         }
@@ -256,15 +257,15 @@ public final class VariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void calculateSetting(ContextEl _conf, String _op, boolean _post) {
+    public void calculateSetting(ExecutableCode _conf, String _op, boolean _post) {
         Argument arg_ = getCommonSetting(_conf, _op, _post);
         if (_conf.getException() != null) {
             return;
         }
         setSimpleArgument(arg_, _conf);
     }
-    Argument getCommonSetting(ContextEl _conf, String _op, boolean _post) {
-        PageEl ip_ = _conf.getLastPage();
+    Argument getCommonSetting(ExecutableCode _conf, String _op, boolean _post) {
+        PageEl ip_ = _conf.getOperationPageEl();
         LgNames stds_ = _conf.getStandards();
         String null_;
         String cast_;
@@ -283,14 +284,14 @@ public final class VariableOperation extends LeafOperation implements
             check_ = right_;
         }
         String formattedClassVar_ = locVar_.getClassName();
-        formattedClassVar_ = _conf.getLastPage().formatVarType(formattedClassVar_, _conf);
+        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         if (PrimitiveTypeUtil.primitiveTypeNullObject(formattedClassVar_, check_.getStruct(), _conf)) {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return Argument.createVoid();
         }
         if (!check_.isNull() && !NumericOperation.convert(_op)) {
             Mapping mapping_ = new Mapping();
-            String base_ = check_.getObjectClassName(_conf);
+            String base_ = check_.getObjectClassName(_conf.getContextEl());
             mapping_.setArg(base_);
             mapping_.setParam(formattedClassVar_);
             if (!Templates.isCorrect(mapping_, _conf)) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
@@ -63,11 +64,6 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     @Override
     public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        return calculateCommon(_nodes, _conf);
-    }
-
-    final Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode last_ = chidren_.last();
         setRelativeOffsetPossibleLastPage(last_.getIndexInEl(), _conf);
@@ -84,11 +80,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public final void calculate(ContextEl _conf) {
-        calculateCommon(_conf);
-    }
-
-    final void calculateCommon(ContextEl _conf) {
+    public final void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
         Argument a_ = chidren_.last().getArgument();

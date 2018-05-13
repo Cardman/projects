@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -54,19 +55,19 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
     }
 
     @Override
-    public final void calculate(ContextEl _conf) {
+    public final void calculate(ExecutableCode _conf) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument();
         } else {
-            previous_ = _conf.getLastPage().getGlobalArgument();
+            previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
         ArgumentCall argres_ = getCommonArgument(previous_, _conf);
         if (_conf.getException() != null) {
             return;
         }
         if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
             argres_ = getCommonArgument(previous_, _conf);
         }
         Argument arg_ = argres_.getArgument();
@@ -97,7 +98,7 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
         }
         return arg_;
     }
-    abstract ArgumentCall getCommonArgument(Argument _previous, ContextEl _conf);
+    abstract ArgumentCall getCommonArgument(Argument _previous, ExecutableCode _conf);
     @Override
     public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
         OperationNode op_ = this;

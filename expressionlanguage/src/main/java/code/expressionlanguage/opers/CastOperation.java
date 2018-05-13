@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -141,7 +142,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         setSimpleArgumentAna(arg_, _conf);
     }
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -167,7 +168,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         return argres_;
     }
 
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
@@ -185,13 +186,13 @@ public final class CastOperation extends AbstractUnaryOperation {
             Argument arg_ = new Argument();
             return arg_;
         }
-        String argClassName_ = objArg_.getObjectClassName(_conf);
+        String argClassName_ = objArg_.getObjectClassName(_conf.getContextEl());
         ClassArgumentMatching resCl_ = getResultClass();
         Argument arg_ = new Argument();
         if (!PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
-            String paramName_ = _conf.getLastPage().formatVarType(className, _conf);
+            String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);
             mapping_.setParam(paramName_);
             if (!Templates.isCorrect(mapping_, _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);

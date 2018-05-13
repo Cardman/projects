@@ -4,9 +4,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Options;
+import code.expressionlanguage.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -35,7 +36,7 @@ import code.util.StringMap;
 import code.util.StringMapObject;
 import code.util.ints.MathFactory;
 
-public class Configuration implements Analyzable {
+public class Configuration implements ExecutableCode {
     private static final String INSTANCE = "$new ";
 
     private static final String NO_PARAM = "()";
@@ -82,6 +83,8 @@ public class Configuration implements Analyzable {
     private boolean ambigous;
 
     private int nextIndex;
+
+    private transient boolean staticContext;
 
     private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
@@ -369,10 +372,6 @@ public class Configuration implements Analyzable {
 
     public final ContextEl toContextEl() {
         context.setHtml(html);
-        context.clearPages();
-        for (ImportingPage i: importing) {
-            context.addPage(i.getPageEl());
-        }
         return context;
     }
 
@@ -465,6 +464,7 @@ public class Configuration implements Analyzable {
         document = _document;
     }
 
+    @Override
     public final String joinPages() {
         StringList l_ = new StringList();
         for (ImportingPage p: importing) {
@@ -674,12 +674,12 @@ public class Configuration implements Analyzable {
 
     @Override
     public boolean isStaticContext() {
-        return getLastPage().getPageEl().isStaticContext();
+        return staticContext;
     }
 
     @Override
     public void setStaticContext(boolean _staticContext) {
-        getLastPage().getPageEl().setStaticContext(_staticContext);
+        staticContext = _staticContext;
     }
 
     @Override
@@ -791,5 +791,34 @@ public class Configuration implements Analyzable {
     @Override
     public CustList<StringMap<LocalVariable>> getLocalVariables() {
         return context.getLocalVariables();
+    }
+
+    @Override
+    public PageEl getOperationPageEl() {
+        return importing.last().getPageEl();
+    }
+
+    @Override
+    public void setException(Struct _struct) {
+        context.setException(_struct);
+    }
+
+    @Override
+    public Struct getException() {
+        return context.getException();
+    }
+
+    @Override
+    public ContextEl getContextEl() {
+        return context;
+    }
+
+    @Override
+    public boolean isCheckAffectation() {
+        return context.isCheckAffectation();
+    }
+
+    public void setCheckAffectation(boolean _b) {
+        context.setCheckAffectation(_b);
     }
 }

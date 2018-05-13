@@ -473,7 +473,7 @@ public final class ElUtil {
     }
 
     static void calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ExpressionLanguage _el, ContextEl _context, int _offset) {
-        PageEl pageEl_ = _context.getLastPage();
+        AbstractPageEl pageEl_ = _context.getLastPage();
         pageEl_.setTranslatedOffset(_offset);
         for (EntryCust<OperationNode,ArgumentsPair> e: _nodes.entryList()) {
             OperationNode o = e.getKey();
@@ -491,6 +491,10 @@ public final class ElUtil {
                     if (_context.getCallCtor().getCall().getInstancingStep() != InstancingStep.USING_SUPER) {
                         _el.setCurrentOper(o);
                     } else {
+                        _context.getLastPage().clearCurrentEls();
+                        String tmp_ = _context.getCallCtor().getClassName();
+                        String base_ = StringList.getAllTypes(tmp_).first();
+                        _context.getLastPage().getCallingConstr().getCalledConstructors().add(base_);
                         _el.setCurrentOper(null);
                     }
                     return;

@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
@@ -133,15 +134,15 @@ public final class StaticInitOperation extends LeafOperation {
         vars_.getFields().put(this, assA_);
     }
     @Override
-    public void calculate(ContextEl _conf) {
-        Argument previous_ = _conf.getLastPage().getGlobalArgument();
-        ArgumentCall argres_ = getCommonArgument(getArgument(), previous_, _conf);
+    public void calculate(ExecutableCode _conf) {
+        Argument current_ = getArgument();
+        ArgumentCall argres_ = getCommonArgument(current_, _conf);
         if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf);
+            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
-            argres_ = getCommonArgument(getArgument(), previous_, _conf);
+            argres_ = getCommonArgument(current_, _conf);
         }
         if (_conf.getException() != null) {
             return;
@@ -153,18 +154,18 @@ public final class StaticInitOperation extends LeafOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        Argument previous_ = _conf.getLastPage().getGlobalArgument();
-        ArgumentCall argres_ = getCommonArgument(_nodes.getVal(this).getArgument(), previous_, _conf);
+        Argument current_ = _nodes.getVal(this).getArgument();
+        ArgumentCall argres_ = getCommonArgument(current_, _conf);
         Argument arg_ = argres_.getArgument();
         if (argres_.isInitClass()) {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         }
         return arg_;
     }
-    ArgumentCall getCommonArgument(Argument _argument, Argument _previous, ContextEl _conf) {
+    ArgumentCall getCommonArgument(Argument _argument, ExecutableCode _conf) {
         if (possibleInitClass) {
             String className_ = getResultClass().getName();
-            InitClassState res_ = _conf.getClasses().getLocks().getState(_conf, className_);
+            InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className_);
             if (res_ == InitClassState.NOT_YET) {
                 InitializatingClass inv_ = new InitializatingClass(className_);
                 return ArgumentCall.newCall(inv_);

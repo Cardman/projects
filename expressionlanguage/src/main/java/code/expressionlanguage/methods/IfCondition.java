@@ -1,11 +1,11 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.opers.OperationNode;
@@ -267,7 +267,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         if (!ip_.noBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
@@ -309,7 +309,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
 
     @Override
     public void exitStack(ContextEl _context) {
-        PageEl ip_ = _context.getLastPage();
+        AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
         if (if_.lastVisitedBlock() == this) {

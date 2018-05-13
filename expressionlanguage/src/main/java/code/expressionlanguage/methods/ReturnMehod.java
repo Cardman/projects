@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -8,7 +9,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
@@ -230,7 +230,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
@@ -292,7 +292,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
     @Override
     public void removeBlockFinally(ContextEl _conf) {
         FunctionBlock f_ = getFunction();
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         while (!ip_.noBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
             ip_.setFinallyToProcess(false);

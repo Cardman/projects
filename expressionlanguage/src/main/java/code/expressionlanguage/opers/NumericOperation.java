@@ -3,6 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -36,7 +37,7 @@ public abstract class NumericOperation extends MethodOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument calculateAffect(Argument _left,ContextEl _conf, Argument _right, String _op, boolean _catString) {
+    static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString) {
         Argument o_;
         boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
@@ -97,7 +98,7 @@ public abstract class NumericOperation extends MethodOperation {
             if (_conf.getException() != null) {
                 return o_;
             }
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName(_conf));
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName(_conf.getContextEl()));
             Argument converted_ = new Argument();
             converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getStruct(), _conf));
             o_ = converted_;
@@ -131,7 +132,7 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return false;
     }
-    static Argument calculateSumEx(Argument _a, ContextEl _cont, Argument _b, boolean _catChars, boolean _catString) {
+    static Argument calculateSumEx(Argument _a, ExecutableCode _cont, Argument _b, boolean _catChars, boolean _catString) {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
@@ -299,7 +300,7 @@ public abstract class NumericOperation extends MethodOperation {
         return a_;
     }
 
-    static Argument calculateDiffEx(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateDiffEx(Argument _a, ExecutableCode _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
@@ -450,7 +451,7 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateMultEx(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateMultEx(Argument _a, ExecutableCode _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String null_;
         null_ = stds_.getAliasNullPe();
@@ -601,7 +602,7 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateDivEx(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         String null_;
@@ -768,7 +769,7 @@ public abstract class NumericOperation extends MethodOperation {
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateModEx(Argument _a, ContextEl _cont, Argument _b) {
+    static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         String null_;
@@ -1051,17 +1052,12 @@ public abstract class NumericOperation extends MethodOperation {
         }
         vars_.getVariables().put(this, variablesAfter_);
     }
-    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont);
+    abstract Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont);
     abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _an);
 
     @Override
     public final Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        return calculateCommon(_nodes, _conf);
-    }
-
-    final Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.first();
         Argument a_ = _nodes.getVal(o_).getArgument();
@@ -1093,11 +1089,7 @@ public abstract class NumericOperation extends MethodOperation {
         setSimpleArgumentAna(a_, _conf);
     }
     @Override
-    public final void calculate(ContextEl _conf) {
-        calculateCommon(_conf);
-    }
-
-    final void calculateCommon(ContextEl _conf) {
+    public final void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         NatTreeMap<Integer, String> ops_ = getOperations().getOperators();

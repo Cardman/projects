@@ -1,5 +1,5 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 import code.util.CustList;
 
@@ -23,7 +23,7 @@ public final class SwitchBlockStack extends SwitchStack implements BreakableBloc
     }
 
     @Override
-    public void removeVarAndLoop(PageEl _ip) {
+    public void removeVarAndLoop(AbstractPageEl _ip) {
         BracedBlock cur_ = getCurentVisitedBlock();
         cur_.removeLocalVars(_ip);
         _ip.removeLastBlock();

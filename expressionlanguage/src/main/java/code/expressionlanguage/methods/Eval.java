@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.stacks.TryBlockStack;
 
 
 public interface Eval extends StackableBlockGroup {
-    void processToFinally(PageEl _ip, TryBlockStack _stack);
+    void processToFinally(AbstractPageEl _ip, TryBlockStack _stack);
 }

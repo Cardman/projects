@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -103,7 +103,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return firstArgs_;
     }
 
-    static CustList<Argument> listArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ContextEl _context) {
+    static CustList<Argument> listArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, ExecutableCode _context) {
         if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();
             CustList<Argument> optArgs_ = new CustList<Argument>();
@@ -127,7 +127,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             Argument argRem_ = new Argument();
             String g_ = _children.first().getResultClass().getName();
-            g_ = _context.getLastPage().formatVarType(g_, _context);
+            g_ = _context.getOperationPageEl().formatVarType(g_, _context);
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);

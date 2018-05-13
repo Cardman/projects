@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -108,7 +109,7 @@ public final class ThisOperation extends LeafOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         ArgumentCall argres_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
             return;
@@ -132,13 +133,13 @@ public final class ThisOperation extends LeafOperation {
         return arg_;
     }
 
-    ArgumentCall getCommonArgument(ContextEl _conf) {
+    ArgumentCall getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getLastPage();
+        PageEl ip_ = _conf.getOperationPageEl();
         Struct struct_ = ip_.getGlobalArgument().getStruct();
         a_ = new Argument();
         a_.setStruct(struct_);

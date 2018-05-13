@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -100,7 +100,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
 
     @Override
     public void removeBlockFinally(ContextEl _conf) {
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         BreakableBlockStack stack_ = null;
         while (true) {

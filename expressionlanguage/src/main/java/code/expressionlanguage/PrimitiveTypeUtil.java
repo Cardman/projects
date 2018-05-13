@@ -43,7 +43,7 @@ public final class PrimitiveTypeUtil {
     private PrimitiveTypeUtil() {
     }
 
-    public static boolean primitiveTypeNullObject(String _className, Struct _instance, ContextEl _context) {
+    public static boolean primitiveTypeNullObject(String _className, Struct _instance, ExecutableCode _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }
 

@@ -2,6 +2,7 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.IdMap;
@@ -18,5 +19,5 @@ public interface SettableElResult {
             String _op, boolean _post);
 
     void calculateSetting(
-            ContextEl _conf, String _op, boolean _post);
+            ExecutableCode _conf, String _op, boolean _post);
 }

@@ -1,11 +1,11 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.opers.Calculation;
@@ -135,7 +135,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         String op_ = getOper();
         ip_.setGlobalOffset(leftMemberOffset);
         ip_.setOffset(0);

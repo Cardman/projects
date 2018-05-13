@@ -1,5 +1,5 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.Eval;
@@ -40,7 +40,7 @@ public final class TryBlockStack extends TryStack implements RemovableVars {
     }
 
     @Override
-    public void removeVarAndLoop(PageEl _ip) {
+    public void removeVarAndLoop(AbstractPageEl _ip) {
         getCurrentBlock().processToFinally(_ip, this);
     }
 

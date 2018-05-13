@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 
 public final class StringStruct extends CharSequenceStruct {
@@ -17,7 +17,7 @@ public final class StringStruct extends CharSequenceStruct {
     }
 
     @Override
-    public String getClassName(ContextEl _contextEl) {
+    public String getClassName(ExecutableCode _contextEl) {
         return _contextEl.getStandards().getAliasString();
     }
 

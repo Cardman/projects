@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
@@ -125,7 +125,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         return firstChild;
     }
 
-    public final void removeLocalVars(PageEl _ip) {
+    public final void removeLocalVars(AbstractPageEl _ip) {
         for (Block s: Classes.getDirectChildren(this)) {
             if (s instanceof InitVariable) {
                 String var_ = ((InitVariable)s).getVariableName();
@@ -150,7 +150,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
     }
 
     @Override
-    public void removeVarAndLoop(PageEl _ip) {
+    public void removeVarAndLoop(AbstractPageEl _ip) {
         _ip.removeLastBlock();
     }
 }

@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.CallConstructor;
@@ -257,7 +257,7 @@ public abstract class Block extends Blockable {
         } else if (this instanceof StackableBlock) {
             BracedBlock n_ = getParent();
             //n_ != null because strictly in class
-            PageEl ip_ = _conf.getLastPage();
+            AbstractPageEl ip_ = _conf.getLastPage();
             Block root_ = ip_.getBlockRoot();
             if (ip_.isInstancing()) {
                 CallConstructor call_;
@@ -282,7 +282,7 @@ public abstract class Block extends Blockable {
         } else {
             parElt_ = null;
         }
-        PageEl ip_ = _conf.getLastPage();
+        AbstractPageEl ip_ = _conf.getLastPage();
         if (parElt_ == null) {
             Block root_ = ip_.getBlockRoot();
             if (root_ instanceof RootBlock) {

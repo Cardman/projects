@@ -357,7 +357,7 @@ public final class FormatHtml {
                 ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(true);
-                if (!OperationNode.okType(_conf.toContextEl(), searchedClass_)) {
+                if (!OperationNode.okType(_conf, searchedClass_)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(searchedClass_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -406,7 +406,7 @@ public final class FormatHtml {
                         ip_.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
-                        if (!OperationNode.okType(_conf.toContextEl(), classNameParam_)) {
+                        if (!OperationNode.okType(_conf, classNameParam_)) {
                             UnknownClassName un_ = new UnknownClassName();
                             un_.setClassName(classNameParam_);
                             un_.setFileName(_conf.getCurrentFileName());
@@ -1755,7 +1755,7 @@ public final class FormatHtml {
         }
         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
         _ip.setLookForAttrValue(true);
-        if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+        if (!OperationNode.okType(_conf, className_)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(className_);
             un_.setFileName(_conf.getCurrentFileName());
@@ -1882,7 +1882,7 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+            if (!OperationNode.okType(_conf, className_)) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(className_);
                 un_.setFileName(_conf.getCurrentFileName());
@@ -1974,7 +1974,7 @@ public final class FormatHtml {
                     return vi_;
                 }
                 className_ = lgNames_.getStructClassName(struct_, _conf.toContextEl());
-            } else if (!OperationNode.okType(context_, className_)){
+            } else if (!OperationNode.okType(_conf, className_)){
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(className_);
                 un_.setFileName(_conf.getCurrentFileName());
@@ -2028,7 +2028,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                    if (OperationNode.okType(_conf, className_)) {
                         if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                             struct_ = NullStruct.NULL_VALUE;
                         } else {
@@ -2050,7 +2050,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                    if (OperationNode.okType(_conf, className_)) {
                         if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                             struct_ = NullStruct.NULL_VALUE;
                         } else {
@@ -2072,7 +2072,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                    if (OperationNode.okType(_conf, className_)) {
                         if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                             struct_ = NullStruct.NULL_VALUE;
                         } else {
@@ -2094,7 +2094,7 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (OperationNode.okType(_conf.toContextEl(), className_)) {
+                    if (OperationNode.okType(_conf, className_)) {
                         _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(0);
@@ -2121,7 +2121,7 @@ public final class FormatHtml {
                         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(0);
-                        if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                        if (!OperationNode.okType(_conf, className_)) {
                             UnknownClassName un_ = new UnknownClassName();
                             un_.setClassName(className_);
                             un_.setFileName(_conf.getCurrentFileName());
@@ -2477,7 +2477,7 @@ public final class FormatHtml {
                     _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setOffset(0);
                     _conf.getLastPage().setLookForAttrValue(false);
-                    if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                    if (!OperationNode.okType(_conf, className_)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(className_);
                         un_.setFileName(_conf.getCurrentFileName());
@@ -5025,7 +5025,7 @@ public final class FormatHtml {
             indexClassName_ = _conf.getStandards().getAliasPrimLong();
         }
         if (!indexClassName_.isEmpty()) {
-            if (!OperationNode.okType(_conf.toContextEl(), indexClassName_)) {
+            if (!OperationNode.okType(_conf, indexClassName_)) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(indexClassName_);
                 un_.setFileName(_conf.getCurrentFileName());
@@ -5046,7 +5046,7 @@ public final class FormatHtml {
             if (className_.isEmpty()) {
                 className_ = primLong_;
             }
-            if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+            if (!OperationNode.okType(_conf, className_)) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(className_);
                 un_.setFileName(_conf.getCurrentFileName());
@@ -5068,7 +5068,7 @@ public final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(ATTRIBUTE_CLASS_NAME);
             if (!className_.isEmpty()) {
-                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                if (!OperationNode.okType(_conf, className_)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -5091,7 +5091,7 @@ public final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(KEY_CLASS_NAME_ATTRIBUTE);
             if (!className_.isEmpty()) {
-                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                if (!OperationNode.okType(_conf, className_)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -5116,7 +5116,7 @@ public final class FormatHtml {
             lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(VAR_CLASS_NAME_ATTRIBUTE);
             if (!className_.isEmpty()) {
-                if (!OperationNode.okType(_conf.toContextEl(), className_)) {
+                if (!OperationNode.okType(_conf, className_)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());

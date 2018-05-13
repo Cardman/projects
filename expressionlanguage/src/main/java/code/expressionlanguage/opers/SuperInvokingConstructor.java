@@ -3,8 +3,8 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -41,7 +41,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
     }
 
     @Override
-    ArgumentCall getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
@@ -52,9 +52,9 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
 
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        String clCurName_ = arg_.getObjectClassName(_conf);
-        String gl_ = _conf.getLastPage().getGlobalClass();
+        Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
+        String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
+        String gl_ = _conf.getOperationPageEl().getGlobalClass();
         gl_ = StringList.getAllTypes(gl_).first();
         String base_ = StringList.getAllTypes(gl_).first();
         gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
@@ -100,7 +100,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
                 }
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
-                    mapping_.setArg(a.getObjectClassName(_conf));
+                    mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
                     mapping_.setParam(params_.get(i_));
                     if (!Templates.isCorrect(mapping_, _conf)) {
                         setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
@@ -116,10 +116,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             }
             i_++;
         }
-        StringList called_ = _conf.getLastPage().getCallingConstr().getCalledConstructors();
-        called_.add(calledCtor_);
-        _conf.getLastPage().clearCurrentEls();
-        InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER, called_);
+        InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER);
         return ArgumentCall.newCall(inv_);
     }
 

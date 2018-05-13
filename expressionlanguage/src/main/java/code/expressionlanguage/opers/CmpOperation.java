@@ -3,6 +3,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -516,11 +517,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        return calculateCommon(_nodes, _conf);
-    }
-
-    Argument calculateCommon(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
@@ -569,12 +565,10 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         if (first_.isNull()) {
-            setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
             return;
         }
         Argument second_ = chidren_.last().getArgument();
         if (second_.isNull()) {
-            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
             return;
         }
         boolean complement_ = false;
@@ -602,11 +596,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void calculate(ContextEl _conf) {
-        calculateCommon(_conf);
-    }
-
-    void calculateCommon(ContextEl _conf) {
+    public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         LgNames stds_ = _conf.getStandards();

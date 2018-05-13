@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -6,7 +7,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.Calculation;
@@ -148,7 +148,7 @@ public final class Line extends Leaf implements StackableBlock {
 
     @Override
     public void processEl(ContextEl _cont) {
-        PageEl ip_ = _cont.getLastPage();
+        AbstractPageEl ip_ = _cont.getLastPage();
         if (isCallSuper()) {
             String curClass_ = ip_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
@@ -164,10 +164,9 @@ public final class Line extends Leaf implements StackableBlock {
                     if (!ip_.getIntializedInterfaces().containsStr(t_)) {
                         ip_.getIntializedInterfaces().add(t_);
                         ConstructorId super_ = new ConstructorId(baseSuperClass_, new StringList(), false);
-                        StringList called_ = ip_.getCallingConstr().getCalledConstructors();
                         Argument global_ = ip_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, t_, _cont);
-                        _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, called_, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                        _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                         return;
                     }
                 }

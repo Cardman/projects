@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 import code.util.Replacement;
 
@@ -18,7 +18,7 @@ public final class ReplacementStruct implements Struct {
     }
 
     @Override
-    public String getClassName(ContextEl _contextEl) {
+    public String getClassName(ExecutableCode _contextEl) {
         return _contextEl.getStandards().getAliasReplacement();
     }
 

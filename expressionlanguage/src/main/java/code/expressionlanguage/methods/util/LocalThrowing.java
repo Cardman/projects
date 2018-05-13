@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods.util;
 
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CallingFinally;
@@ -23,7 +23,7 @@ public final class LocalThrowing implements CallingFinally {
         CatchEval catchElt_ = null;
         while (!_conf.isEmptyPages()) {
             Struct custCause_ = _conf.getException();
-            PageEl bkIp_ = _conf.getLastPage();
+            AbstractPageEl bkIp_ = _conf.getLastPage();
             while (!bkIp_.noBlock()) {
                 RemovableVars bl_ = bkIp_.getLastStack();
                 if (!(bl_ instanceof TryBlockStack)) {

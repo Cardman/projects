@@ -53,20 +53,20 @@ public final class ElRenderUtil {
             cont_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return;
         }
-        tryToCalculateAffect(left_, cont_, right_, _oper);
+        tryToCalculateAffect(left_, _conf, right_, _oper);
     }
 
-    public static void tryToCalculateAffect(CustList<OperationNode> _left, ContextEl _conf, CustList<OperationNode> _right, String _op) {
+    public static void tryToCalculateAffect(CustList<OperationNode> _left, Configuration _conf, CustList<OperationNode> _right, String _op) {
         CustList<OperationNode> allLeft_ = _left;
         calculate(allLeft_ , _conf);
         CustList<OperationNode> allRight_ = _right;
         calculate(allRight_, _conf);
-        _conf.getLastPage().setRightArgument(_right.last().getArgument());
+        _conf.getOperationPageEl().setRightArgument(_right.last().getArgument());
         SettableElResult settable_ =  ExpressionLanguage.getSettable(_left);
         _conf.setCheckAffectation(true);
         settable_.calculateSetting(_conf, _op, false);
         _conf.setCheckAffectation(false);
-        _conf.getLastPage().setRightArgument(null);
+        _conf.getOperationPageEl().setRightArgument(null);
     }
 
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
@@ -104,9 +104,9 @@ public final class ElRenderUtil {
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
-        Argument argGl_ = _conf.getLastPage().getGlobalArgument();
+        Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
-        context_.setStaticContext(static_);
+        _conf.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, _conf);
         if (!_conf.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
@@ -118,7 +118,7 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        calculate(all_, context_);
+        calculate(all_, _conf);
         Argument arg_ = op_.getArgument();
         return arg_;
     }
@@ -156,7 +156,7 @@ public final class ElRenderUtil {
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
-        Argument argGl_ = _conf.getLastPage().getGlobalArgument();
+        Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, _conf);
@@ -170,7 +170,7 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         context_.setAnalyzing(null);
-        calculate(all_, context_);
+        calculate(all_, _conf);
         Argument arg_  = op_.getArgument();
         return arg_;
     }
@@ -344,7 +344,7 @@ public final class ElRenderUtil {
         }
         return new ExpLanguages(allLeft_, allRight_);
     }
-    static void calculate(CustList<OperationNode> _nodes, ContextEl _context) {
+    static void calculate(CustList<OperationNode> _nodes, Configuration _context) {
         for (OperationNode e: _nodes) {
             if (!e.isCalculated()) {
                 e.calculate(_context);
