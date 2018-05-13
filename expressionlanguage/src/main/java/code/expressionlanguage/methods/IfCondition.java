@@ -110,7 +110,11 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         id_.put(firstChild_, assBl_);
     }
     @Override
-       public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        if (!canBeIncrementedCurGroup() && _anEl.canCompleteNormally(this)) {
+            super.setAssignmentBeforeNextSibling(_an, _anEl);
+            return;
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();

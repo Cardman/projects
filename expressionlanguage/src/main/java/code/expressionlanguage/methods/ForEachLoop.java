@@ -325,25 +325,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         fields_ = new ObjectMap<ClassField,AssignmentBefore>();
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         for (EntryCust<ClassField,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
-            AssignmentBefore ab_ = new AssignmentBefore();
-            if (e.getValue().isAssignedBefore()) {
-                ab_.setAssignedBefore(true);
-            } else {
-                ab_.setUnassignedBefore(true);
-            }
-            fields_.put(e.getKey(), ab_);
+            fields_.put(e.getKey(), e.getValue().copy());
         }
         vars_.getFieldsBefore().put(_root, fields_);
         for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore ab_ = new AssignmentBefore();
-                if (e.getValue().isAssignedBefore()) {
-                    ab_.setAssignedBefore(true);
-                } else {
-                    ab_.setUnassignedBefore(true);
-                }
-                sm_.put(e.getKey(), ab_);
+                sm_.put(e.getKey(), e.getValue().copy());
             }
             variables_.add(sm_);
         }
@@ -375,25 +363,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         CustList<StringMap<AssignmentBefore>> varsHypot_;
         varsHypot_ = new CustList<StringMap<AssignmentBefore>>();
         for (EntryCust<ClassField,AssignmentBefore> e: varsWhile_.getFieldsRootBefore().entryList()) {
-            AssignmentBefore ab_ = new AssignmentBefore();
-            if (e.getValue().isAssignedBefore()) {
-                ab_.setAssignedBefore(true);
-            } else {
-                ab_.setUnassignedBefore(true);
-            }
-            fieldsHypot_.put(e.getKey(), ab_);
+            fieldsHypot_.put(e.getKey(), e.getValue().copy());
         }
         for (StringMap<AssignmentBefore> s: varsWhile_.getVariablesRootBefore()) {
             StringMap<AssignmentBefore> sm_;
             sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore ab_ = new AssignmentBefore();
-                if (e.getValue().isAssignedBefore()) {
-                    ab_.setAssignedBefore(true);
-                } else {
-                    ab_.setUnassignedBefore(true);
-                }
-                sm_.put(e.getKey(), ab_);
+                sm_.put(e.getKey(), e.getValue().copy());
             }
             varsHypot_.add(sm_);
         }

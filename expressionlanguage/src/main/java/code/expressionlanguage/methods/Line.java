@@ -121,6 +121,10 @@ public final class Line extends Leaf implements StackableBlock {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
 
+    public CustList<OperationNode> getExp() {
+        return opExp;
+    }
+
     public ConstructorId getConstId() {
         return opExp.last().getConstId();
     }

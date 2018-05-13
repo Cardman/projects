@@ -515,7 +515,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");

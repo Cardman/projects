@@ -122,6 +122,24 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
     }
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        CustList<Block> group_ = new CustList<Block>();
+        group_.add(this);
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            group_.add(p_);
+            p_ = p_.getPreviousSibling();
+        }
+        group_.add(p_);
+        boolean normal_ = false;
+        for (Block b: group_) {
+            if (_anEl.canCompleteNormally(b)) {
+                normal_ = true;
+            }
+        }
+        if (!canBeIncrementedCurGroup() && normal_) {
+            super.setAssignmentBeforeNextSibling(_an, _anEl);
+            return;
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();

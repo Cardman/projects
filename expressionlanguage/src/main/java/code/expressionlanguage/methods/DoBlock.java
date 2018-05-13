@@ -151,25 +151,13 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         fields_ = new ObjectMap<ClassField,AssignmentBefore>();
         variables_ = parAss_.getVariablesRootBefore();
         for (EntryCust<ClassField,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
-            AssignmentBefore ab_ = new AssignmentBefore();
-            if (e.getValue().isAssignedBefore()) {
-                ab_.setAssignedBefore(true);
-            } else {
-                ab_.setUnassignedBefore(true);
-            }
-            fields_.put(e.getKey(), ab_);
+            fields_.put(e.getKey(), e.getValue().copy());
         }
         vars_.getFieldsRootBefore().putAllMap(fields_);
         for (StringMap<AssignmentBefore> s: variables_) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore ab_ = new AssignmentBefore();
-                if (e.getValue().isAssignedBefore()) {
-                    ab_.setAssignedBefore(true);
-                } else {
-                    ab_.setUnassignedBefore(true);
-                }
-                sm_.put(e.getKey(), ab_);
+                sm_.put(e.getKey(), e.getValue().copy());
             }
             vars_.getVariablesRootBefore().add(sm_);
         }
