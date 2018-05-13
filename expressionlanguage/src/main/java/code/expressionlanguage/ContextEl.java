@@ -16,13 +16,11 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.Returnable;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -159,102 +157,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public void processTags() {
         AbstractPageEl ip_ = getLastPage();
+        if (!ip_.checkCondition(this)) {
+            return;
+        }
         ReadWrite rw_ = ip_.getReadWrite();
         Block en_ = rw_.getBlock();
-        if (ip_ instanceof StaticInitPageEl) {
-            String curClass_ = ip_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            RootBlock root_ =  classes.getClassBody(curClassBase_);
-            if (root_ instanceof UniqueRootedBlock) {
-                String superClass_ = ((UniqueRootedBlock) root_).getSuperClass(this);
-                ClassMetaInfo s_ = classes.getClassMetaInfo(superClass_, this);
-                if (s_ != null) {
-                    InitClassState res_ = classes.getLocks().getState(this, superClass_);
-                    if (res_ == InitClassState.NOT_YET) {
-                        initClass = new NotInitializedClass(superClass_);
-                        return;
-                    }
-                    if (res_ == InitClassState.ERROR) {
-                        CausingErrorStruct causing_ = new CausingErrorStruct(superClass_);
-                        exception = causing_;
-                        return;
-                    }
-                }
-            }
-            for (String i: root_.getStaticInitInterfaces()) {
-                String t_ = StringList.removeAllSpaces(i);
-                InitClassState res_ = classes.getLocks().getState(this, t_);
-                if (res_ == InitClassState.NOT_YET) {
-                    initClass = new NotInitializedClass(t_);
-                    return;
-                }
-                if (res_ == InitClassState.ERROR) {
-                    CausingErrorStruct causing_ = new CausingErrorStruct(t_);
-                    exception = causing_;
-                    return;
-                }
-            }
-        }
-        boolean implicitConstr_ = false;
-        if (ip_.isInstancing()) {
-            CallConstructor caller_ = ip_.getCallingConstr();
-            ConstructorBlock const_ = caller_.getUsedConstructor();
-            if (const_ == null) {
-                implicitConstr_ = true;
-            } else if (const_.implicitConstr()) {
-                implicitConstr_ = true;
-            }
-        }
-        if (implicitConstr_) {
-            CallConstructor caller_ = ip_.getCallingConstr();
-            boolean calledImpl_ = caller_.isCalledImplicitConstructor();
-            String instClass_ = ip_.getGlobalArgument().getObjectClassName(this);
-            String curClass_ = ip_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, this);
-            RootBlock class_ = classes.getClassBody(curClassBase_);
-            if (class_ instanceof UniqueRootedBlock) {
-                UniqueRootedBlock root_ = (UniqueRootedBlock) class_;
-                String superClassBase_ = root_.getSuperClass(this);
-                String objectClassName_ = standards.getAliasObject();
-                if (!calledImpl_ && !StringList.quickEq(superClassBase_, objectClassName_)) {
-                    caller_.setCalledImplicitConstructor(true);
-                    ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
-                    Argument global_ = ip_.getGlobalArgument();
-                    String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, this);
-                    callCtor = new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
-                    return;
-                }
-                ConstructorBlock const_ = caller_.getUsedConstructor();
-                StringList ints_;
-                if (const_ != null) {
-                    ints_ = const_.getInterfaces();
-                } else {
-                    ints_ = class_.getInstInitInterfaces();
-                }
-                for (String i: ints_) {
-                    String t_ = StringList.removeAllSpaces(i);
-                    if (!ip_.getIntializedInterfaces().containsStr(t_)) {
-                        ip_.getIntializedInterfaces().add(t_);
-                        ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
-                        Argument global_ = ip_.getGlobalArgument();
-                        String generic_ = Templates.getFullTypeByBases(formatted_, t_, this);
-                        callCtor = new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER);
-                        return;
-                    }
-                }
-            }
-            if (!caller_.isFirstField()) {
-                Block first_ = class_.getFirstChild();
-                if (first_ == null) {
-                    ip_.exitFromConstructor();
-                    return;
-                }
-                caller_.setFirstField(true);
-                rw_.setBlock(first_);
-                return;
-            }
-        }
         if (en_ != null) {
             ip_.setGlobalOffset(en_.getOffset().getOffsetTrim());
             ip_.setOffset(0);
@@ -269,7 +176,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return;
         }
         if (en_ instanceof StaticBlock) {
-            if (ip_.isInstancing()) {
+            if (ip_ instanceof AbstractInstancingPageEl) {
                 en_.processBlock(this);
                 return;
             }
@@ -277,27 +184,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return;
         }
         if (en_ instanceof InstanceBlock) {
-            if (!ip_.isInstancing()) {
+            if (!(ip_ instanceof AbstractInstancingPageEl)) {
                 en_.processBlock(this);
                 return;
             }
             rw_.setBlock(en_.getFirstChild());
             return;
         }
-        Block root_ = ip_.getBlockRoot();
-        if (root_ instanceof RootBlock) {
-            if (ip_.isInstancing()) {
-                ip_.exitFromConstructor();
-                return;
-            }
-            String curClass_ = ip_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            classes.getLocks().successClass(this, curClassBase_);
-            ip_.setNullReadWrite();
-            return;
-        }
-        getLastPage().setReturnedArgument(PrimitiveTypeUtil.defaultValue(root_, getLastPage().getGlobalArgument(), this));
-        ip_.setNullReadWrite();
+        ip_.endRoot(this);
     }
     public AbstractPageEl processAfterOperation() {
         if (callCtor != null) {
@@ -331,8 +225,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     return true;
                 }
             }
-            if (p_.getCallingConstr().getInstancingStep() == InstancingStep.USING_THIS) {
-                l_.getCallingConstr().setInitializedFields(true);
+            if (p_ instanceof CurrentInstancingPageEl) {
+                ((AbstractInstancingPageEl)l_).setInitializedFields(true);
             }
             return true;
         }
@@ -348,6 +242,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         RootBlock class_ = classes.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
         StaticInitPageEl page_ = new StaticInitPageEl();
+        page_.setTabWidth(tabWidth);
         Argument argGl_ = new Argument();
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
@@ -369,6 +264,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public AbstractPageEl createCallingMethod(Argument _gl, String _class, MethodId _method, CustList<Argument> _args) {
         setCallMethod(null);
         MethodPageEl pageLoc_ = new MethodPageEl();
+        pageLoc_.setTabWidth(tabWidth);
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setReadUrl(_class);
@@ -395,20 +291,20 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private AbstractPageEl createInstancing(CustomFoundConstructor _e) {
         String cl_ = _e.getClassName();
         CustList<Argument> args_ = _e.getArguments();
-        return createInstancing(cl_, _e.getCall(), args_);
+        InstancingStep in_ = _e.getInstanceStep();
+        return createInstancing(cl_, _e.getCall(), in_, args_);
     }
-    public AbstractPageEl createInstancing(String _class, CallConstructor _call, CustList<Argument> _args) {
+    public AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in,CustList<Argument> _args) {
         setCallCtor(null);
         AbstractInstancingPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
-        InstancingStep in_ = _call.getInstancingStep();
         String baseClass_ = StringList.getAllTypes(_class).first();
         RootBlock class_ = classes.getClassBody(baseClass_);
         CustList<ConstructorBlock> methods_ = classes.getConstructorBodiesById(_class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
-        if (in_ == InstancingStep.NEWING) {
+        if (_in == InstancingStep.NEWING) {
             page_ = new NewInstancingPageEl();
             Struct str_ = null;
             if (global_ != null) {
@@ -418,13 +314,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             int ordinal_ = _call.getChildIndex();
             argGl_.setStruct(init.processInit(this, str_, _class, fieldName_, ordinal_));
         } else {
-            if (in_ == InstancingStep.USING_SUPER) {
+            if (_in == InstancingStep.USING_SUPER) {
                 page_ = new SuperInstancingPageEl();
             } else {
                 page_ = new CurrentInstancingPageEl();
             }
             argGl_.setStruct(global_.getStruct());
         }
+        page_.setTabWidth(tabWidth);
         page_.setReadUrl(_class);
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
@@ -449,8 +346,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             rw_.setBlock(firstChild_);
         }
         page_.setReadWrite(rw_);
-        page_.getCallingConstr().setInstancingStep(in_);
-        page_.getCallingConstr().setUsedConstructor(method_);
+        page_.setUsedConstructor(method_);
         page_.setBlockRoot(class_);
         return page_;
     }

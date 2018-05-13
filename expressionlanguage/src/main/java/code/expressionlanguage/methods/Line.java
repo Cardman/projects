@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractInstancingPageEl;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
@@ -150,28 +151,29 @@ public final class Line extends Leaf implements StackableBlock {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         if (isCallSuper()) {
-            String curClass_ = ip_.getGlobalClass();
+            AbstractInstancingPageEl inst_ = (AbstractInstancingPageEl)ip_;
+            String curClass_ = inst_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            String instClass_ = ip_.getGlobalArgument().getObjectClassName(_cont);
+            String instClass_ = inst_.getGlobalArgument().getObjectClassName(_cont);
             String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _cont);
             ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClassBase_, _cont);
             String superClass_ = meta_.getSuperClass();
             String baseSuperClass_ = StringList.getAllTypes(superClass_).first();
-            if (ip_.getCallingConstr().getCalledConstructors().containsObj(baseSuperClass_)) {
+            if (inst_.getCalledConstructors().containsObj(baseSuperClass_)) {
                 ConstructorBlock ctor_ = (ConstructorBlock) getFunction();
                 for (String i: ctor_.getInterfaces()) {
                     String t_ = StringList.removeAllSpaces(i);
-                    if (!ip_.getIntializedInterfaces().containsStr(t_)) {
-                        ip_.getIntializedInterfaces().add(t_);
+                    if (!inst_.getIntializedInterfaces().containsStr(t_)) {
+                        inst_.getIntializedInterfaces().add(t_);
                         ConstructorId super_ = new ConstructorId(baseSuperClass_, new StringList(), false);
-                        Argument global_ = ip_.getGlobalArgument();
+                        Argument global_ = inst_.getGlobalArgument();
                         String generic_ = Templates.getFullTypeByBases(formatted_, t_, _cont);
                         _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
                         return;
                     }
                 }
-                if (!ip_.getCallingConstr().isFirstField()) {
-                    ip_.getCallingConstr().setFirstField(true);
+                if (!inst_.isFirstField()) {
+                    inst_.setFirstField(true);
                     RootBlock class_ = _cont.getClasses().getClassBody(curClassBase_);
                     Block firstChild_ = class_.getFirstChild();
                     ip_.getReadWrite().setBlock(firstChild_);

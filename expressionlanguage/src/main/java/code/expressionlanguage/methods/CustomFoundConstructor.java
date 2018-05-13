@@ -37,7 +37,6 @@ public final class CustomFoundConstructor {
         call_.setChildIndex(childIndex);
         call_.setArgument(currentObject);
         call_.setId(id);
-        call_.setInstancingStep(instanceStep);
         return call_;
     }
 

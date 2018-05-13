@@ -227,6 +227,8 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             ip_.removeLastBlock();
             if (call_ instanceof LocalThrowing) {
                 _context.setException(tryStack_.getException());
+            } else {
+                ip_.setCurrentBlock((Block) call_);
             }
             call_.removeBlockFinally(_context);
             return;

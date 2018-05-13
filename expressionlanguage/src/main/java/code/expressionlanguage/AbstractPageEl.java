@@ -2,8 +2,6 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FileBlock;
-import code.expressionlanguage.methods.util.CallConstructor;
-import code.expressionlanguage.methods.util.CallingClassConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -16,6 +14,8 @@ import code.util.Numbers;
 import code.util.StringList;
 
 public abstract class AbstractPageEl extends PageEl {
+
+    protected static final String EMPTY_STRING = "";
 
     private static final String READ_URL = "readUrl";
 
@@ -153,22 +153,7 @@ public abstract class AbstractPageEl extends PageEl {
         return keyMessage_.append(list_.join(SEP_INFO)).append(SEP_INFO).append(LINE_COL).append(SEP_KEY_VAL).toString();
     }
 
-    public void setArgumentForConstructor() {
-        CallConstructor caller_ = getCallingConstr();
-        if (!caller_.getInstancingStep().isCalling()) {
-            setReturnedArgument(getGlobalArgument());
-        } else if (getCall() != CallingClassConstructor.SUPER_CLASS){
-            setReturnedArgument(getGlobalArgument());
-        }
-    }
-
-    public CallingClassConstructor getCall() {
-        return getCallingConstr().getInstancingStep().getCall();
-    }
-
-    public boolean isInstancing() {
-        return getCallingConstr().getInstancingStep().isInstancing();
-    }
+    public abstract boolean checkCondition(ContextEl _context);
 
     public ExpressionLanguage getCurrentEl(ContextEl _context, Block _block, int _index, boolean _native, int _indexProcess) {
         ExpressionLanguage el_;
@@ -260,11 +245,6 @@ public abstract class AbstractPageEl extends PageEl {
         currentEls.add(_el);
     }
 
-    public void exitFromConstructor() {
-        setArgumentForConstructor();
-        setNullReadWrite();
-    }
-
     public ReadWrite getReadWrite() {
         return readWrite;
     }
@@ -276,28 +256,19 @@ public abstract class AbstractPageEl extends PageEl {
         readWrite = _readWrite;
     }
 
+    public abstract void postBlock(ContextEl _context);
+    public abstract void endRoot(ContextEl _context);
+    public abstract void postReturn(ContextEl _context);
+    public abstract void setReturnedArgument();
+    public Block getCurrentBlockRoot()  {
+        return blockRoot;
+    }
     public Block getBlockRoot() {
         return blockRoot;
     }
 
     public void setBlockRoot(Block _blockRoot) {
         blockRoot = _blockRoot;
-    }
-
-    private final StringList intializedInterfaces = new StringList();
-
-    private CallConstructor callingConstr = new CallConstructor();
-
-    public CallConstructor getCallingConstr() {
-        return callingConstr;
-    }
-
-    public void setCallingConstr(CallConstructor _callingConstr) {
-        callingConstr = _callingConstr;
-    }
-
-    public StringList getIntializedInterfaces() {
-        return intializedInterfaces;
     }
 
     public Argument getReturnedArgument() {

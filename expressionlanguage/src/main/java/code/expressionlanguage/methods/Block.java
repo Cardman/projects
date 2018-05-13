@@ -1,12 +1,9 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
-import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.Metrics;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
@@ -258,14 +255,7 @@ public abstract class Block extends Blockable {
             BracedBlock n_ = getParent();
             //n_ != null because strictly in class
             AbstractPageEl ip_ = _conf.getLastPage();
-            Block root_ = ip_.getBlockRoot();
-            if (ip_.isInstancing()) {
-                CallConstructor call_;
-                call_ = ip_.getCallingConstr();
-                if (call_.isInitializedFields()) {
-                    root_ = call_.getUsedConstructor();
-                }
-            }
+            Block root_ = ip_.getCurrentBlockRoot();
             if (n_ == root_) {
                 //directly at the root => last element in the block root
                 parElt_ = null;
@@ -284,38 +274,7 @@ public abstract class Block extends Blockable {
         }
         AbstractPageEl ip_ = _conf.getLastPage();
         if (parElt_ == null) {
-            Block root_ = ip_.getBlockRoot();
-            if (root_ instanceof RootBlock) {
-                if (ip_.isInstancing()) {
-                    CallConstructor call_;
-                    call_ = ip_.getCallingConstr();
-                    ConstructorBlock cstr_;
-                    cstr_ = call_.getUsedConstructor();
-                    if (call_.isInitializedFields()) {
-                        ip_.exitFromConstructor();
-                        return;
-                    }
-                    if (cstr_ != null) {
-                        Block bl_ = cstr_.getFirstChild();
-                        if (bl_ != null) {
-                            call_.setInitializedFields(true);
-                            ip_.getReadWrite().setBlock(bl_);
-                            return;
-                        }
-                    }
-                    ip_.exitFromConstructor();
-                    return;
-                }
-                String curClass_ = ip_.getGlobalClass();
-                String curClassBase_ = StringList.getAllTypes(curClass_).first();
-                _conf.getClasses().getLocks().successClass(_conf, curClassBase_);
-                ip_.setNullReadWrite();
-                return;
-            }
-            Argument global_ = _conf.getLastPage().getGlobalArgument();
-            Argument arg_ = PrimitiveTypeUtil.defaultValue(root_, global_, _conf);
-            _conf.getLastPage().setReturnedArgument(arg_);
-            ip_.setNullReadWrite();
+            ip_.postBlock(_conf);
             return;
         }
         BracedBlock par_ = parElt_.getElement();

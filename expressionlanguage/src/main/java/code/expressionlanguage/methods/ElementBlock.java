@@ -1,4 +1,5 @@
 package code.expressionlanguage.methods;
+import code.expressionlanguage.AbstractInstancingPageEl;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
@@ -218,8 +219,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        boolean instancing_ = ip_.isInstancing();
-        if (!instancing_) {
+        if (!(ip_ instanceof AbstractInstancingPageEl)) {
             ip_.setGlobalOffset(fieldNameOffest);
             ip_.setOffset(0);
             String name_ = getFieldName();

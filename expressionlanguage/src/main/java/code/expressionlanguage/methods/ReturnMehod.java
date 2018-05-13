@@ -10,7 +10,6 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -278,20 +277,13 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             }
             _cont.getLastPage().setReturnedArgument(arg_);
         } else {
-            FunctionBlock f_ = getFunction();
-            if (f_ instanceof MethodBlock) {
-                Argument void_ = Argument.createVoid();
-                _cont.getLastPage().setReturnedArgument(void_);
-            } else if (f_ instanceof ConstructorBlock) {
-                _cont.getLastPage().setArgumentForConstructor();
-            }
+            _cont.getLastPage().setReturnedArgument();
         }
         removeBlockFinally(_cont);
     }
 
     @Override
     public void removeBlockFinally(ContextEl _conf) {
-        FunctionBlock f_ = getFunction();
         AbstractPageEl ip_ = _conf.getLastPage();
         while (!ip_.noBlock()) {
             RemovableVars bl_ = ip_.getLastStack();
@@ -302,27 +294,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 return;
             }
         }
-        if (!(f_ instanceof AloneBlock)) {
-            ip_.setNullReadWrite();
-            return;
-        }
-        Block bn_ = ((AloneBlock)f_).getNextSibling();
-        ReadWrite rw_ = ip_.getReadWrite();
-        if (bn_ != null) {
-            rw_.setBlock(bn_);
-            return;
-        }
-        ConstructorBlock ctor_ = ip_.getCallingConstr().getUsedConstructor();
-        Block initBlock_ = null;
-        if (ctor_ != null) {
-            initBlock_ = ctor_.getFirstChild();
-        }
-        if (initBlock_ != null) {
-            ip_.getCallingConstr().setInitializedFields(true);
-            rw_.setBlock(initBlock_);
-            return;
-        }
-        ip_.setNullReadWrite();
+        ip_.postReturn(_conf);
     }
 
     @Override

@@ -23,9 +23,8 @@ public final class ProcessMethod {
         CallConstructor call_ = new CallConstructor();
         call_.setArgument(_global);
         call_.setId(_id);
-        call_.setInstancingStep(InstancingStep.NEWING);
         call_.setFieldName(EMPTY_STRING);
-        AbstractPageEl page_ = _cont.createInstancing(_class, call_, _args);
+        AbstractPageEl page_ = _cont.createInstancing(_class, call_, InstancingStep.NEWING, _args);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

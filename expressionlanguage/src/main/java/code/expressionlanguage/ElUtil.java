@@ -488,13 +488,14 @@ public final class ElUtil {
                     return;
                 }
                 if (_context.getCallCtor() != null) {
-                    if (_context.getCallCtor().getCall().getInstancingStep() != InstancingStep.USING_SUPER) {
+                    if (_context.getCallCtor().getInstanceStep() != InstancingStep.USING_SUPER) {
                         _el.setCurrentOper(o);
                     } else {
                         _context.getLastPage().clearCurrentEls();
                         String tmp_ = _context.getCallCtor().getClassName();
                         String base_ = StringList.getAllTypes(tmp_).first();
-                        _context.getLastPage().getCallingConstr().getCalledConstructors().add(base_);
+                        AbstractInstancingPageEl abs_ = (AbstractInstancingPageEl) _context.getLastPage();
+                        abs_.getCalledConstructors().add(base_);
                         _el.setCurrentOper(null);
                     }
                     return;
