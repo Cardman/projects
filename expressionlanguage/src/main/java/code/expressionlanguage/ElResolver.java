@@ -328,7 +328,7 @@ public final class ElResolver {
                         int next_ = i_ + 1 + INSTANCEOF.length();
                         if (Character.isWhitespace(_string.charAt(next_))) {
                             //instanceof
-                            if (i_ <= 0 || !Character.isWhitespace(_string.charAt(i_-1))) {
+                            if (i_ <= 0 || _string.charAt(i_-1) == EXTERN_CLASS || StringList.isWordChar(_string.charAt(i_-1))) {
                                 //error
                                 d_.setBadOffset(i_-1);
                                 return d_;

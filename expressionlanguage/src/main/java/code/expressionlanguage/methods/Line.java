@@ -3,6 +3,7 @@ import code.expressionlanguage.AbstractInstancingPageEl;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
@@ -15,7 +16,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SuperInvokingConstructor;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
@@ -163,62 +163,7 @@ public final class Line extends Leaf implements StackableBlock {
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        if (isCallSuper()) {
-            AbstractInstancingPageEl inst_ = (AbstractInstancingPageEl)ip_;
-            String curClass_ = inst_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClassBase_, _cont);
-            String superClass_ = meta_.getSuperClass();
-            String baseSuperClass_ = StringList.getAllTypes(superClass_).first();
-            if (inst_.getCalledConstructors().containsObj(baseSuperClass_)) {
-                boolean initFields_ = false;
-                Block bl_ = getNextSibling();
-                if (!(bl_ instanceof Line)) {
-                    initFields_ = true;
-                } else {
-                    Line l_ = (Line) bl_;
-                    if (l_.getCalledInterface().isEmpty()) {
-                        initFields_ = true;
-                    }
-                }
-                if (!inst_.isFirstField() && initFields_) {
-                    inst_.setFirstField(true);
-                    RootBlock class_ = _cont.getClasses().getClassBody(curClassBase_);
-                    Block firstChild_ = class_.getFirstChild();
-                    ip_.getReadWrite().setBlock(firstChild_);
-                    return;
-                }
-                processBlock(_cont);
-                return;
-            }
-        }
-        String int_ = getCalledInterface();
-        if (!int_.isEmpty()) {
-            AbstractInstancingPageEl inst_ = (AbstractInstancingPageEl)ip_;
-            String curClass_ = inst_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            if (inst_.getCalledConstructors().containsObj(int_)) {
-                boolean initFields_ = false;
-                Block bl_ = getNextSibling();
-                if (!(bl_ instanceof Line)) {
-                    initFields_ = true;
-                } else {
-                    Line l_ = (Line) bl_;
-                    if (l_.getCalledInterface().isEmpty()) {
-                        initFields_ = true;
-                    }
-                }
-                if (!inst_.isFirstField() && initFields_) {
-                    inst_.setFirstField(true);
-                    RootBlock class_ = _cont.getClasses().getClassBody(curClassBase_);
-                    Block firstChild_ = class_.getFirstChild();
-                    ip_.getReadWrite().setBlock(firstChild_);
-                    return;
-                }
-                processBlock(_cont);
-                return;
-            }
-        }
+        
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
@@ -226,9 +171,26 @@ public final class Line extends Leaf implements StackableBlock {
         if (_cont.callsOrException()) {
             return;
         }
-        if (isCallThis()) {
+        if (isCallSuper() || isCallInts()) {
             AbstractInstancingPageEl inst_ = (AbstractInstancingPageEl)ip_;
-            inst_.setInitializedFields(true);
+            String curClass_ = inst_.getGlobalClass();
+
+            boolean initFields_ = false;
+            Block bl_ = getNextSibling();
+            if (!(bl_ instanceof Line)) {
+                initFields_ = true;
+            } else {
+                Line l_ = (Line) bl_;
+                if (!l_.isCallInts()) {
+                    initFields_ = true;
+                }
+            }
+            if (!inst_.isFirstField() && initFields_) {
+                inst_.setFirstField(true);
+                Argument global_ = inst_.getGlobalArgument();
+                _cont.setInitFields(new NotInitializedFields(curClass_, global_));
+                return;
+            }
         }
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();

@@ -4,5 +4,6 @@ public final class SuperInstancingPageEl extends AbstractCallingInstancingPageEl
 
     @Override
     public void setArgumentForConstructor() {
+        setReturnedArgument(getGlobalArgument());
     }
 }

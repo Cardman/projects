@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FileBlock;
+import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -256,13 +257,12 @@ public abstract class AbstractPageEl extends PageEl {
         readWrite = _readWrite;
     }
 
+    public abstract void tryProcessEl(ContextEl _context);
+    public abstract ParentStackBlock getNextBlock(Block _block, ContextEl _context);
     public abstract void postBlock(ContextEl _context);
     public abstract void endRoot(ContextEl _context);
     public abstract void postReturn(ContextEl _context);
     public abstract void setReturnedArgument();
-    public Block getCurrentBlockRoot()  {
-        return blockRoot;
-    }
     public Block getBlockRoot() {
         return blockRoot;
     }

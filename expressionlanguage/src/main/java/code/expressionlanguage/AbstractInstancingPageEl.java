@@ -1,15 +1,18 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.methods.AloneBlock;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.Line;
+import code.expressionlanguage.methods.NotInitializedFields;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.StackableBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
+import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.InstancingStep;
+import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
@@ -17,16 +20,9 @@ import code.util.StringList;
 
 public abstract class AbstractInstancingPageEl extends AbstractPageEl {
 
-    private final StringList intializedInterfaces = new StringList();
-
     private Argument argument;
 
-    private final StringList calledConstructors = new StringList();
-
     private boolean calledImplicitConstructor;
-
-    private ConstructorBlock usedConstructor;
-    private boolean initializedFields;
 
     private boolean firstField;
 
@@ -38,32 +34,12 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
         argument = _argument;
     }
 
-    public StringList getCalledConstructors() {
-        return calledConstructors;
-    }
-
     public boolean isCalledImplicitConstructor() {
         return calledImplicitConstructor;
     }
 
     public void setCalledImplicitConstructor(boolean _calledImplicitConstructor) {
         calledImplicitConstructor = _calledImplicitConstructor;
-    }
-
-    public ConstructorBlock getUsedConstructor() {
-        return usedConstructor;
-    }
-
-    public void setUsedConstructor(ConstructorBlock _usedConstructor) {
-        usedConstructor = _usedConstructor;
-    }
-
-    public boolean isInitializedFields() {
-        return initializedFields;
-    }
-
-    public void setInitializedFields(boolean _initializedFields) {
-        initializedFields = _initializedFields;
     }
 
     public boolean isFirstField() {
@@ -74,18 +50,45 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
         firstField = _firstField;
     }
 
-    public StringList getIntializedInterfaces() {
-        return intializedInterfaces;
+    @Override
+    public void tryProcessEl(ContextEl _context) {
+        ReadWrite rw_ = getReadWrite();
+        Block en_ = rw_.getBlock();
+        if (en_ instanceof WithEl) {
+            setCurrentBlock(en_);
+            ((WithEl)en_).processEl(_context);
+            return;
+        }
+        endRoot(_context);
     }
-
+    @Override
+    public ParentStackBlock getNextBlock(Block _bl,ContextEl _conf) {
+        ParentStackBlock parElt_;
+        Block nextSibling_ = _bl.getNextSibling();
+        if (nextSibling_ != null) {
+            parElt_ = new ParentStackBlock(null);
+        } else if (_bl instanceof StackableBlock) {
+            BracedBlock n_ = _bl.getParent();
+            //n_ != null because strictly in class
+            if (!noBlock()) {
+                parElt_ =  new ParentStackBlock(n_);
+            } else {
+                //directly at the root => last element in the block root
+                parElt_ = null;
+            }
+        } else {
+            parElt_ = null;
+        }
+        return parElt_;
+    }
     @Override
     public boolean checkCondition(ContextEl _context) {
         Classes classes_ = _context.getClasses();
-        ReadWrite rw_ = getReadWrite();
         boolean implicitConstr_ = false;
-        if (usedConstructor == null) {
+        ConstructorBlock ctor_ = (ConstructorBlock) getBlockRoot();
+        if (ctor_ == null) {
             implicitConstr_ = true;
-        } else if (usedConstructor.implicitConstr()) {
+        } else if (ctor_.implicitConstr()) {
             implicitConstr_ = true;
         }
         if (implicitConstr_) {
@@ -109,21 +112,21 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
             }
             boolean initFields_ = false;
             Block bl_ = null;
-            if (usedConstructor != null) {
-                bl_ = usedConstructor.getFirstChild();
+            if (ctor_ != null) {
+                bl_ = ctor_.getFirstChild();
             }
             if (!(bl_ instanceof Line)) {
                 initFields_ = true;
             } else {
                 Line l_ = (Line) bl_;
-                if (l_.getCalledInterface().isEmpty()) {
+                if (!l_.isCallInts()) {
                     initFields_ = true;
                 }
             }
             if (!firstField && initFields_) {
-                Block first_ = class_.getFirstChild();
                 firstField = true;
-                rw_.setBlock(first_);
+                Argument global_ = getGlobalArgument();
+                _context.setInitFields(new NotInitializedFields(curClass_, global_));
                 return false;
             }
         }
@@ -143,55 +146,15 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
 
     @Override
     public void postBlock(ContextEl _context) {
-        if (initializedFields) {
-            exitFromConstructor();
-            return;
-        }
-        if (usedConstructor != null) {
-            Block bl_ = usedConstructor.getFirstChild();
-            if (bl_ != null) {
-                initializedFields = true;
-                getReadWrite().setBlock(bl_);
-                return;
-            }
-        }
         exitFromConstructor();
     }
-    @Override
-    public Block getCurrentBlockRoot() {
-        Block root_ = getBlockRoot();
-        if (initializedFields) {
-            root_ = usedConstructor;
-        }
-        return root_;
-    }
+
     @Override
     public void endRoot(ContextEl _context) {
         exitFromConstructor();
     }
     @Override
     public void postReturn(ContextEl _context) {
-        Block bl_ = getCurrentBlock();
-        FunctionBlock f_ = bl_.getFunction();
-        if (!(f_ instanceof AloneBlock)) {
-            setNullReadWrite();
-            return;
-        }
-        Block bn_ = ((AloneBlock)f_).getNextSibling();
-        ReadWrite rw_ = getReadWrite();
-        if (bn_ != null) {
-            rw_.setBlock(bn_);
-            return;
-        }
-        Block initBlock_ = null;
-        if (usedConstructor != null) {
-            initBlock_ = usedConstructor.getFirstChild();
-        }
-        if (initBlock_ != null) {
-            initializedFields = true;
-            rw_.setBlock(initBlock_);
-            return;
-        }
         setNullReadWrite();
     }
 }

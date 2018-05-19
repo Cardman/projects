@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.AbstractInstancingPageEl;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
@@ -7,12 +6,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.FieldInitPageEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.StaticInitPageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -414,9 +415,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        boolean instancing_ = ip_ instanceof AbstractInstancingPageEl;
         boolean static_ = isStaticField();
-        if (static_ != instancing_ && !value.trim().isEmpty()) {
+        boolean in_ = false;
+        if (ip_ instanceof FieldInitPageEl && !static_) {
+            in_ = true;
+        } else if (ip_ instanceof StaticInitPageEl && static_) {
+            in_ = true;
+        }
+        if (in_ && !value.trim().isEmpty()) {
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
             String name_ = getFieldName();

@@ -247,32 +247,8 @@ public abstract class Block extends Blockable {
     }
 
     public final void processBlock(ContextEl _conf) {
-        ParentStackBlock parElt_;
-        Block nextSibling_ = getNextSibling();
-        if (nextSibling_ != null) {
-            parElt_ = new ParentStackBlock(null);
-        } else if (this instanceof StackableBlock) {
-            BracedBlock n_ = getParent();
-            //n_ != null because strictly in class
-            AbstractPageEl ip_ = _conf.getLastPage();
-            Block root_ = ip_.getCurrentBlockRoot();
-            if (n_ == root_) {
-                //directly at the root => last element in the block root
-                parElt_ = null;
-            } else if (!ip_.noBlock()) {
-                parElt_ =  new ParentStackBlock(n_);
-            } else {
-                Block next_ = n_.getNextSibling();
-                if (next_ != null) {
-                    parElt_ = new ParentStackBlock(null);
-                } else {
-                    parElt_ = null;
-                }
-            }
-        } else {
-            parElt_ = null;
-        }
         AbstractPageEl ip_ = _conf.getLastPage();
+        ParentStackBlock parElt_ = ip_.getNextBlock(this, _conf);
         if (parElt_ == null) {
             ip_.postBlock(_conf);
             return;

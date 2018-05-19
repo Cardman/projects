@@ -9,14 +9,11 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
-import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
+import code.expressionlanguage.methods.NotInitializedFields;
 import code.expressionlanguage.methods.ProcessMethod;
-import code.expressionlanguage.methods.Returnable;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.StaticBlock;
-import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.LocalThrowing;
@@ -77,6 +74,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private LocalThrowing throwing = new LocalThrowing();
 
     private CustomFoundConstructor callCtor;
+
+    private NotInitializedFields initFields;
 
     private CustomFoundMethod callMethod;
 
@@ -166,32 +165,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             ip_.setGlobalOffset(en_.getOffset().getOffsetTrim());
             ip_.setOffset(0);
         }
-        if (en_ instanceof WithEl) {
-            ip_.setCurrentBlock(en_);
-            ((WithEl)en_).processEl(this);
-            return;
-        }
-        if (en_ instanceof Returnable) {
-            en_.processBlock(this);
-            return;
-        }
-        if (en_ instanceof StaticBlock) {
-            if (ip_ instanceof AbstractInstancingPageEl) {
-                en_.processBlock(this);
-                return;
-            }
-            rw_.setBlock(en_.getFirstChild());
-            return;
-        }
-        if (en_ instanceof InstanceBlock) {
-            if (!(ip_ instanceof AbstractInstancingPageEl)) {
-                en_.processBlock(this);
-                return;
-            }
-            rw_.setBlock(en_.getFirstChild());
-            return;
-        }
-        ip_.endRoot(this);
+        ip_.tryProcessEl(this);
     }
     public AbstractPageEl processAfterOperation() {
         if (callCtor != null) {
@@ -200,6 +174,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return createCallingMethod(callMethod);
         } else if (initClass != null) {
             return createInstancingClass(initClass);
+        } else if (initFields != null) {
+            return createInitFields(initFields.getClassName(), initFields.getCurrentObject());
         } else if (exception != null) {
             throwing.removeBlockFinally(this);
         }
@@ -207,8 +183,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     public Boolean removeCall(int _sizeBk) {
-        if (getLastPage().getReadWrite() == null) {
-            AbstractPageEl p_ = getLastPage();
+        AbstractPageEl p_ = getLastPage();
+        if (p_.getReadWrite() == null) {
             removeLastPage();
             if (nbPages() == _sizeBk) {
                 return null;
@@ -222,12 +198,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (exception != null) {
                         return null;
                     }
-                    return true;
                 }
             }
-            /*if (p_ instanceof CurrentInstancingPageEl) {
-                ((AbstractInstancingPageEl)l_).setInitializedFields(true);
-            }*/
             return true;
         }
         return false;
@@ -288,19 +260,17 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         pageLoc_.setBlockRoot(methodLoc_);
         return pageLoc_;
     }
-    private AbstractPageEl createInstancing(CustomFoundConstructor _e) {
+    private AbstractInstancingPageEl createInstancing(CustomFoundConstructor _e) {
         String cl_ = _e.getClassName();
         CustList<Argument> args_ = _e.getArguments();
         InstancingStep in_ = _e.getInstanceStep();
         return createInstancing(cl_, _e.getCall(), in_, args_);
     }
-    public AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in,CustList<Argument> _args) {
+    public AbstractInstancingPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in,CustList<Argument> _args) {
         setCallCtor(null);
         AbstractInstancingPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
-        String baseClass_ = StringList.getAllTypes(_class).first();
-        RootBlock class_ = classes.getClassBody(baseClass_);
         CustList<ConstructorBlock> methods_ = classes.getConstructorBodiesById(_class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
@@ -343,12 +313,23 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
             Block firstChild_ = method_.getFirstChild();
             rw_.setBlock(firstChild_);
-        } else {
-            Block firstChild_ = class_.getFirstChild();
-            rw_.setBlock(firstChild_);
         }
         page_.setReadWrite(rw_);
-        page_.setUsedConstructor(method_);
+        page_.setBlockRoot(method_);
+        return page_;
+    }
+    public FieldInitPageEl createInitFields(String _class, Argument _current) {
+        setInitFields(null);
+        String baseClass_ = StringList.getAllTypes(_class).first();
+        RootBlock class_ = classes.getClassBody(baseClass_);
+        FieldInitPageEl page_ = new FieldInitPageEl();
+        page_.setTabWidth(tabWidth);
+        page_.setReadUrl(_class);
+        page_.setGlobalClass(_class);
+        page_.setGlobalArgument(_current);
+        ReadWrite rw_ = new ReadWrite();
+        rw_.setBlock(class_.getFirstChild());
+        page_.setReadWrite(rw_);
         page_.setBlockRoot(class_);
         return page_;
     }
@@ -811,6 +792,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     public void setInitClass(NotInitializedClass _initClass) {
         initClass = _initClass;
+    }
+
+    public NotInitializedFields getInitFields() {
+        return initFields;
+    }
+
+    public void setInitFields(NotInitializedFields _initFields) {
+        initFields = _initFields;
     }
 
     public Struct getMemoryError() {

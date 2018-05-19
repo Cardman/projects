@@ -7,7 +7,6 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadElError;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.ExpLanguages;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.Calculation;
@@ -493,13 +492,6 @@ public final class ElUtil {
                 cust_ = _context.getCallCtor();
                 if (cust_ != null) {
                     _el.setCurrentOper(o);
-                    if (cust_.getInstanceStep() == InstancingStep.USING_SUPER) {
-                        _context.getLastPage().clearCurrentEls();
-                        String tmp_ = cust_.getClassName();
-                        String base_ = StringList.getAllTypes(tmp_).first();
-                        AbstractInstancingPageEl abs_ = (AbstractInstancingPageEl) _context.getLastPage();
-                        abs_.getCalledConstructors().add(base_);
-                    }
                     return;
                 }
                 if (_context.getException() != null) {
