@@ -3316,7 +3316,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append(" $public(){\n");
         xml_.append("  $interfaces(pkg.Int3)(3i):\n");
-        xml_.append("  $interfaces(pkg.Int4)(4i):\n");
+        xml_.append("  $interfaces(pkg.Int4)(14i):\n");
         xml_.append("  sec;;;+=16i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3364,7 +3364,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  $this(p;.;,5i):\n");
         xml_.append(" }\n");
         xml_.append(" $public ($int p,$int s){\n");
-        xml_.append("  common;;;=p;.;+s;.;:\n");
+        xml_.append("  common;;;=p;.;-s;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int4", xml_.toString());

@@ -30,10 +30,6 @@ public final class IdOperation extends AbstractUnaryOperation {
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);

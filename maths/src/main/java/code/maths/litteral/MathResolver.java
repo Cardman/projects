@@ -318,68 +318,21 @@ public final class MathResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        boolean constString_ = false;
-        boolean escapedMeta_ = false;
         boolean useFct_ = false;
         String fctName_ = EMPTY_STRING;
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR) {
             prio_ = UNARY_PRIO;
             operators_.put(firstPrintChar_, String.valueOf(MINUS_CHAR));
-            i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+            i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
         } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
             if (firstPrintChar_ < lastPrintChar_ && _string.charAt(firstPrintChar_+1) != EQ_CHAR) {
                 prio_ = UNARY_PRIO;
                 operators_.put(firstPrintChar_, String.valueOf(NEG_BOOL_CHAR));
-                i_ += getIncrement(_string, firstPrintChar_ + 1, lastPrintChar_);
+                i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
             }
         }
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (constString_) {
-                if (!escapedMeta_) {
-                    if (curChar_ == ESCAPE_META_CHAR) {
-                        escapedMeta_ = true;
-                        i_++;
-                        continue;
-                    }
-                    if (curChar_ == DELIMITER_STRING_END) {
-                        constString_ = false;
-                        i_++;
-                        continue;
-                    }
-                    i_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_STRING_END) {
-                    escapedMeta_ = false;
-                    i_++;
-                    continue;
-                }
-                if (curChar_ == DELIMITER_STRING_SEP) {
-                    escapedMeta_ = false;
-                    i_++;
-                    continue;
-                }
-                if (curChar_ == ESCAPE_META_CHAR) {
-                    escapedMeta_ = false;
-                    i_++;
-                    continue;
-                }
-                i_++;
-                continue;
-            }
-            if (curChar_ == DELIMITER_STRING_BEGIN) {
-                constString_ = true;
-            }
-            if (StringList.isWordChar(curChar_)) {
-                while (i_ < len_) {
-                    if (!StringList.isWordChar(_string.charAt(i_))) {
-                        break;
-                    }
-                    i_++;
-                }
-                continue;
-            }
             if (_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
                 if (curChar_ == PAR_LEFT) {
                     if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
@@ -495,8 +448,7 @@ public final class MathResolver {
         return op_;
     }
 
-    static int getIncrement(String _string, int _from, int _to) {
-        int increment_ = 1;
+    static int incrementUnary(String _string, int _from, int _to) {
         int j_ = _from;
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
@@ -507,10 +459,9 @@ public final class MathResolver {
                     }
                 }
             }
-            increment_++;
             j_++;
         }
-        return increment_;
+        return j_;
     }
 
     static boolean isFloatingNumber(String _string, int _from, int _to) {

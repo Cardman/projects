@@ -97,23 +97,10 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         CustList<Block> prev_ = new CustList<Block>();
         Block pBlock_ = getPreviousSibling();
         while (!(pBlock_ instanceof TryEval)) {
-//            Block ch_ = pBlock_.getFirstChild();
-//            while (ch_.getNextSibling() != null) {
-//                ch_ = ch_.getNextSibling();
-//            }
             prev_.add(pBlock_);
             pBlock_ = pBlock_.getPreviousSibling();
         }
-//        Block chIf_ = pBlock_.getFirstChild();
-//        while (chIf_.getNextSibling() != null) {
-//            chIf_ = chIf_.getNextSibling();
-//        }
         prev_.add(pBlock_);
-        
-//        Block ch_ = getFirstChild();
-//        while (ch_.getNextSibling() != null) {
-//            ch_ = ch_.getNextSibling();
-//        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(this);

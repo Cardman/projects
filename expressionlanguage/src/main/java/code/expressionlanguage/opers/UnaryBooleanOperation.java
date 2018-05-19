@@ -33,10 +33,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
@@ -59,6 +55,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
                 _conf.getClasses().getErrorsDet().add(un_);
             }
         }
+//        clMatch_.setUnwrapObject(booleanPrimType_);
         setResultClass(new ClassArgumentMatching(booleanPrimType_));
     }
 

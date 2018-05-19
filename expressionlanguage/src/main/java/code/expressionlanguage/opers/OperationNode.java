@@ -1239,7 +1239,8 @@ public abstract class OperationNode {
     final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
         String un_ = resultClass.getUnwrapObject();
         if (!un_.isEmpty()) {
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont)) {
+//            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont))
+            if (_arg.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
@@ -1274,27 +1275,12 @@ public abstract class OperationNode {
             }
         }
     }
-    final void setNextSiblingsArgAna(Argument _arg, Analyzable _cont) {
-        int res_ = processBooleanValuesAna(_arg, _cont);
-        if (res_ <= 0) {
-            return;
-        }
-        MethodOperation par_ = getParent();
-        Object o_ = _arg.getObject();
-        Boolean b_ = (Boolean) o_;
-        if (res_ != QUICK_OP) {
-            return;
-        }
-        QuickOperation q_ = (QuickOperation) par_;
-        if (b_ == q_.absorbingValue()) {
-            par_.setSimpleArgument(_arg);
-        }
-    }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
         String un_ = resultClass.getUnwrapObject();
         if (!un_.isEmpty()) {
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont)) {
+//            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont))
+            if (_arg.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
@@ -1442,7 +1428,6 @@ public abstract class OperationNode {
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
         }
-        setNextSiblingsArgAna(_argument, _conf);
     }
     public final boolean isStaticBlock() {
         return staticBlock;

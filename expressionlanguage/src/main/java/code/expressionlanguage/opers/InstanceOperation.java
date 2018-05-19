@@ -84,10 +84,6 @@ public final class InstanceOperation extends InvokingOperation {
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
-        analyzeCommon(_conf, _fieldName);
-    }
-
-    void analyzeCommon(Analyzable _conf, String _fieldName) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -137,7 +133,7 @@ public final class InstanceOperation extends InvokingOperation {
                         un_.setOperands(new StringList(cl_.getName()));
                         _conf.getClasses().getErrorsDet().add(un_);
                     }
-                    o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
+//                    o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
                 }
             } else {
                 StringMap<StringList> map_;
@@ -163,9 +159,9 @@ public final class InstanceOperation extends InvokingOperation {
                         cast_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().getErrorsDet().add(cast_);
                     }
-                    if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
-                        o.getResultClass().setUnwrapObject(eltType_);
-                    }
+//                    if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
+//                        o.getResultClass().setUnwrapObject(eltType_);
+//                    }
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());
@@ -333,9 +329,9 @@ public final class InstanceOperation extends InvokingOperation {
                     break;
                 }
                 String param_ = constId.getParametersTypes().get(i_-1);
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    o.getResultClass().setUnwrapObject(param_);
-                }
+//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                    o.getResultClass().setUnwrapObject(param_);
+//                }
                 i_++;
             }
         } else if (naturalVararg > -1) {
@@ -343,14 +339,14 @@ public final class InstanceOperation extends InvokingOperation {
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 ClassArgumentMatching a_ = _firstArgs.get(i);
                 if (i >= naturalVararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                        a_.setUnwrapObject(lastType);
-                    }
+//                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+//                        a_.setUnwrapObject(lastType);
+//                    }
                 } else {
                     String param_ = constId.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                        a_.setUnwrapObject(param_);
-                    }
+//                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                        a_.setUnwrapObject(param_);
+//                    }
                 }
             }
         } else {
@@ -361,9 +357,9 @@ public final class InstanceOperation extends InvokingOperation {
                 if (i + 1 == lenCh_ && constId.isVararg()) {
                     param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
                 }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    a_.setUnwrapObject(param_);
-                }
+//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                    a_.setUnwrapObject(param_);
+//                }
             }
         }
         String glClass_ = _conf.getGlobalClass();

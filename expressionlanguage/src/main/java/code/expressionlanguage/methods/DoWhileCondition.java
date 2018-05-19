@@ -224,6 +224,13 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 allDesc_.put(e.getKey(), e.getValue());
             }
         }
+        CustList<ContinueBlock> conts_ = new CustList<ContinueBlock>();
+        for (EntryCust<ContinueBlock, Loop> e: _anEl.getContinuables().entryList()) {
+            if (e.getValue() != dBlock_) {
+                continue;
+            }
+            conts_.add(e.getKey());
+        }
         AssignedVariables vars_;
         for (EntryCust<ClassField,AssignmentBefore> e: fieldsHypot_.entryList()) {
             if (e.getValue().isUnassignedBefore()) {
@@ -241,7 +248,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
                 vars_ = d.getValue();
                 Block next_ = d.getKey();
-                boolean take_ = takeContinue(next_, vars_, dBlock_, _anEl);
+                boolean take_ = takeContinue(next_, vars_, conts_, _anEl);
                 if (!take_) {
                     continue;
                 }
@@ -263,7 +270,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 }
                 String key_ = e.getKey();
                 StringMap<LocalVariable> varLocs_;
-                varLocs_ = _an.getLocalVariables().get(index_);
+                varLocs_ = _an.getLocalVariables().get(indexDoWhile_);
                 LocalVariable varLoc_ = varLocs_.getVal(key_);
                 if (!varLoc_.isFinalVariable()) {
                     continue;
@@ -271,7 +278,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
                     vars_ = d.getValue();
                     Block next_ = d.getKey();
-                    boolean take_ = takeContinue(next_, vars_, dBlock_, _anEl);
+                    boolean take_ = takeContinue(next_, vars_, conts_, _anEl);
                     if (!take_) {
                         continue;
                     }
@@ -419,13 +426,33 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             _an.getClasses().getErrorsDet().add(un_);
         }
     }
-    private boolean takeContinue(Block _b,AssignedVariables _ass, Block _doBlock, AnalyzingEl _anEl) {
+    private boolean takeContinue(Block _b,AssignedVariables _ass, CustList<ContinueBlock> _conts, AnalyzingEl _anEl) {
+        Loop pr_ = (Loop) getPreviousSibling();
         Block next_ = _b;
+        if (next_ == this) {
+            return true;
+        }
         boolean take_ = false;
         while (next_ != null) {
+            if (next_ instanceof BracedBlock) {
+                BracedBlock possAnc_ = (BracedBlock) next_;
+                for (ContinueBlock c: _conts) {
+                    if (_anEl.getContinuablesAncestors().getVal(c).getVal(pr_).containsObj(possAnc_)) {
+                        take_ = true;
+                        break;
+                    }
+                }
+                if (take_) {
+                    break;
+                }
+            }
+            if (next_ instanceof ContinueBlock) {
+                take_ = true;
+                break;
+            }
             next_ = next_.getNextSibling();
         }
-        if (next_ == null && _b.getParent() == _doBlock) {
+        if (next_ == null && _b.getParent() == this) {
             take_ = true;
         }
         return take_;

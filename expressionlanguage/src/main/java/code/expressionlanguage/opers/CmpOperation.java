@@ -385,10 +385,6 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {
@@ -425,6 +421,8 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true, _conf);
         if (classFirst_.isPrimitive(_conf)) {
             if (classSecond_.isPrimitive(_conf)) {
+//                chidren_.first().getResultClass().setUnwrapObject(classFirst_.getName());
+//              chidren_.last().getResultClass().setUnwrapObject(classSecond_.getName());
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }

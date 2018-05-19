@@ -192,7 +192,7 @@ public final class TernaryOperation extends MethodOperation {
                 _conf.getClasses().getErrorsDet().add(un_);
             }
         }
-        opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
+//        opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
         OperationNode opThree_ = chidren_.get(CustList.SECOND_INDEX);
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();

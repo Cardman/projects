@@ -119,6 +119,7 @@ public final class AffectationOperation extends MethodOperation {
                 _conf.getClasses().getErrorsDet().add(cast_);
                 return;
             }
+            //right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
         } else {
             if (clMatchRight_.isVariable()) {
                 if (!clMatchLeft_.isPrimitive(_conf)) {
@@ -156,6 +157,9 @@ public final class AffectationOperation extends MethodOperation {
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
                 _conf.getClasses().getErrorsDet().add(cast_);
+            }
+            if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_.getName(), _conf)) {
+//                right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
             }
         }
     }

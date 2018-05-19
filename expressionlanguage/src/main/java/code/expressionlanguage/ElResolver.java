@@ -1954,10 +1954,10 @@ public final class ElResolver {
                         if (processNextEq_) {
                             builtOperator_.append(curChar_);
                             if (prio_ > EQ_PRIO) {
-                                clearOperators_ = true;
                                 prio_ = EQ_PRIO;
                             }
                             if (prio_ == EQ_PRIO) {
+                                clearOperators_ = true;
                                 foundOperator_ = true;
                                 builtOperator_.append(EQ_CHAR);
                             }
@@ -1993,20 +1993,20 @@ public final class ElResolver {
                                     }
                                 } else {
                                     if (prio_ > EQ_PRIO) {
-                                        clearOperators_ = true;
                                         prio_ = EQ_PRIO;
                                     }
                                     if (prio_ == EQ_PRIO) {
+                                        clearOperators_ = true;
                                         foundOperator_ = true;
                                     }
                                     increment_ = 1;
                                 }
                             } else {
                                 if (prio_ > EQ_PRIO) {
-                                    clearOperators_ = true;
                                     prio_ = EQ_PRIO;
                                 }
                                 if (prio_ == EQ_PRIO) {
+                                    clearOperators_ = true;
                                     foundOperator_ = true;
                                 }
                                 increment_ = 1;

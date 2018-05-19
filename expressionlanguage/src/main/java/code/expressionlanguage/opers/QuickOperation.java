@@ -5,11 +5,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -22,25 +23,63 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public final void analyze(Analyzable _conf,
-            String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    final void analyzeCommon(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() < 2) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
-            badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setOperandsNumber(chidren_.size());
-            badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badNb_);
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasPrimBoolean()));
+    public void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
+        CustList<OperationNode> children_ = getChildrenNodes();
+        Argument f_ = children_.first().getArgument();
+        if (f_ == null) {
             return;
         }
+        Object v_ = f_.getObject();
+        if (!(v_ instanceof Boolean)) {
+            return;
+        }
+        if (((Boolean)v_).booleanValue() == absorbingValue()) {
+            setSimpleArgumentAna(f_, _conf);
+        } else {
+            Argument s_ = children_.last().getArgument();
+            if (s_ == null) {
+                return;
+            }
+            v_ = s_.getObject();
+            if (!(v_ instanceof Boolean)) {
+                return;
+            }
+            setSimpleArgumentAna(s_, _conf);
+        }
+    }
+    @Override
+    public void tryCalculateNode(Analyzable _conf) {
+        CustList<OperationNode> children_ = getChildrenNodes();
+        Argument f_ = children_.first().getArgument();
+        if (f_ == null) {
+            return;
+        }
+        Object v_ = f_.getObject();
+        if (!(v_ instanceof Boolean)) {
+            return;
+        }
+        if (((Boolean)v_).booleanValue() == absorbingValue()) {
+            setSimpleArgumentAna(f_, _conf);
+        } else {
+            Argument s_ = children_.last().getArgument();
+            if (s_ == null) {
+                return;
+            }
+            v_ = s_.getObject();
+            if (!(v_ instanceof Boolean)) {
+                return;
+            }
+            setSimpleArgumentAna(s_, _conf);
+        }
+    }
+    @Override
+    public final void analyze(Analyzable _conf,
+            String _fieldName) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
+//        chidren_.first().getResultClass().setUnwrapObject(booleanPrimType_);
+//        chidren_.last().getResultClass().setUnwrapObject(booleanPrimType_);
         String booleanType_ = stds_.getAliasBoolean();
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;

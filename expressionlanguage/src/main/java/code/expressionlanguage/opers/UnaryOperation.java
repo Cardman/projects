@@ -33,10 +33,6 @@ public final class UnaryOperation extends AbstractUnaryOperation {
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.isEmpty()) {
@@ -63,6 +59,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
+//        clMatch_.setUnwrapObject(cl_.getName());
         setResultClass(cl_);
     }
 

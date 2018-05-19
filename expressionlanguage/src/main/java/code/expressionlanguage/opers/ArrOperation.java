@@ -45,17 +45,13 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    @Override
     public ConstructorId getConstId() {
         return null;
     }
 
-    void analyzeCommon(Analyzable _conf) {
+    @Override
+    public void analyze(Analyzable _conf,
+            String _fieldName) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching class_ = chidren_.first().getResultClass();
         ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
@@ -83,6 +79,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             setResultClass(class_);
             return;
         }
+//        indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf).getName());
         class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
         setResultClass(class_);
     }

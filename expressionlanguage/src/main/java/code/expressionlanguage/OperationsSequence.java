@@ -1,10 +1,8 @@
 package code.expressionlanguage;
 import code.util.CustList;
 import code.util.NatTreeMap;
-import code.util.StringList;
 
 public final class OperationsSequence {
-    private static final char NEG_BOOL_CHAR = '!';
 
     private ConstType constType = ConstType.NOTHING;
 
@@ -37,14 +35,6 @@ public final class OperationsSequence {
         if (operators.isEmpty()) {
             priority = ElResolver.BAD_PRIO;
             return;
-        }
-        if (priority == ElResolver.EQ_PRIO) {
-            for (String o:operators.values()) {
-                if (StringList.quickEq(o, String.valueOf(NEG_BOOL_CHAR))) {
-                    priority = ElResolver.BAD_PRIO;
-                    return;
-                }
-            }
         }
         if (priority == ElResolver.FCT_OPER_PRIO && !_string.substring(operators.lastKey()+1).trim().isEmpty()) {
             priority = ElResolver.BAD_PRIO;

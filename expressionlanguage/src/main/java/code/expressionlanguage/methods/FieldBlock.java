@@ -13,6 +13,7 @@ import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.StaticInitPageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
@@ -268,6 +269,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             cast_.setRc(getRowCol(0, valueOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
+//        if (PrimitiveTypeUtil.isPrimitive(className, _cont)) {
+//            opValue.last().getResultClass().setUnwrapObject(className);
+//        }
     }
 
     @Override
@@ -285,7 +289,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             as_.put(e.getKey(), e.getValue().assignAfterClassic());
         }
         String className_ = getRooted().getFullName();
-        as_.put(new ClassField(className_, fieldName), Assignment.assignClassic(ass_, unass_));
+        ClassField key_ = new ClassField(className_, fieldName);
+        if (!ass_) {
+            for (EntryCust<ClassField, SimpleAssignment> e: as_.entryList()) {
+                if (!e.getKey().eq(key_)) {
+                    continue;
+                }
+                return;
+            }
+        }
+        as_.put(key_, Assignment.assignClassic(ass_, unass_));
     }
     public boolean isSimpleStaticConstant() {
         if (!isStaticField()) {

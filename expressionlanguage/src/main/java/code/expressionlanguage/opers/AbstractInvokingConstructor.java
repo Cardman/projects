@@ -164,9 +164,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                     break;
                 }
                 String param_ = constId.getParametersTypes().get(i_-1);
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    o.getResultClass().setUnwrapObject(param_);
-                }
+//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                    o.getResultClass().setUnwrapObject(param_);
+//                }
                 i_++;
             }
         } else if (naturalVararg > -1) {
@@ -174,14 +174,14 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 ClassArgumentMatching a_ = _args.get(i);
                 if (i >= naturalVararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-                        a_.setUnwrapObject(lastType);
-                    }
+//                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+//                        a_.setUnwrapObject(lastType);
+//                    }
                 } else {
                     String param_ = constId.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                        a_.setUnwrapObject(param_);
-                    }
+//                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                        a_.setUnwrapObject(param_);
+//                    }
                 }
             }
         } else {
@@ -192,9 +192,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 if (i + 1 == lenCh_ && constId.isVararg()) {
                     param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
                 }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    a_.setUnwrapObject(param_);
-                }
+//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                    a_.setUnwrapObject(param_);
+//                }
             }
         }
         LgNames stds_ = _conf.getStandards();

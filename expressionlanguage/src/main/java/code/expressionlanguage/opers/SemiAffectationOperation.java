@@ -30,11 +30,13 @@ import code.util.StringMap;
 public final class SemiAffectationOperation extends AbstractUnaryOperation {
     private SettableElResult settable;
     private boolean post;
+    private String oper;
 
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
         super(_index, _indexChild, _m, _op);
         post = _post;
+        oper = _op.getOperators().firstValue();
     }
 
     @Override
@@ -89,20 +91,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             _conf.getClasses().getErrorsDet().add(cast_);
             return;
         }
-        String oper_ = getOperations().getOperators().firstValue();
-        if (!StringList.quickEq(oper_, Block.INCR)) {
-            if (!StringList.quickEq(oper_, Block.DECR)) {
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(clMatchLeft_.getName());
-                mapping_.setParam(_conf.getStandards().getAliasLong());
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(cast_);
-                return;
-            }
-        }
+        //clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, true, _conf).getName());
     }
 
     @Override
@@ -223,8 +212,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     public void calculate(ExecutableCode _conf) {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getOperationPageEl().setRightArgument(right_.getArgument());
-        String oper_ = getOperations().getOperators().firstValue();
-        settable.calculateSetting(_conf, oper_, post);
+        settable.calculateSetting(_conf, oper, post);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
         _conf.getOperationPageEl().setRightArgument(null);
@@ -235,8 +223,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(_nodes.getVal(right_).getArgument());
-        String oper_ = getOperations().getOperators().firstValue();
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper_, post);
+        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper, post);
         setSimpleArgument(arg_, _conf, _nodes);
         _conf.getLastPage().setRightArgument(null);
         return arg_;

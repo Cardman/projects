@@ -158,6 +158,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         CustList<Block> prev_ = new CustList<Block>();
+        prev_.add(this);
         Block pBlock_ = getPreviousSibling();
         while (!(pBlock_ instanceof IfCondition)) {
             prev_.add(pBlock_);
@@ -172,34 +173,29 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
         for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
-            SimpleAssignment ab_ = e.getValue();
             ClassField key_ = e.getKey();
-            boolean assAfter_ = ab_.isAssignedAfter();
-            boolean unassAfter_ = ab_.isUnassignedAfter();
-            if (assAfter_) {
-                for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
-                    }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                        assAfter_ = false;
-                        break;
-                    }
+            boolean assAfter_ = true;
+            boolean unassAfter_ = true;
+            for (Block p: prev_) {
+                if (!_anEl.canCompleteNormally(p)) {
+                    continue;
+                }
+                AssignedVariables assLoc_ = id_.getVal(p);
+                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                    assAfter_ = false;
+                    break;
                 }
             }
-            if (unassAfter_) {
-                for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
-                    }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                        unassAfter_ = false;
-                        break;
-                    }
+            for (Block p: prev_) {
+                if (!_anEl.canCompleteNormally(p)) {
+                    continue;
+                }
+                AssignedVariables assLoc_ = id_.getVal(p);
+                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                    unassAfter_ = false;
+                    break;
                 }
             }
             after_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
@@ -209,34 +205,29 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             int index_ = afterVars_.size();
             for (EntryCust<String,SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ab_ = e.getValue();
                 String key_ = e.getKey();
-                boolean assAfter_ = ab_.isAssignedAfter();
-                boolean unassAfter_ = ab_.isUnassignedAfter();
-                if (assAfter_) {
-                    for (Block p: prev_) {
-                        if (!_anEl.canCompleteNormally(p)) {
-                            continue;
-                        }
-                        AssignedVariables assLoc_ = id_.getVal(p);
-                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                        if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                            assAfter_ = false;
-                            break;
-                        }
+                boolean assAfter_ = true;
+                boolean unassAfter_ = true;
+                for (Block p: prev_) {
+                    if (!_anEl.canCompleteNormally(p)) {
+                        continue;
+                    }
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                        assAfter_ = false;
+                        break;
                     }
                 }
-                if (unassAfter_) {
-                    for (Block p: prev_) {
-                        if (!_anEl.canCompleteNormally(p)) {
-                            continue;
-                        }
-                        AssignedVariables assLoc_ = id_.getVal(p);
-                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                        if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                            unassAfter_ = false;
-                            break;
-                        }
+                for (Block p: prev_) {
+                    if (!_anEl.canCompleteNormally(p)) {
+                        continue;
+                    }
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                        unassAfter_ = false;
+                        break;
                     }
                 }
                 sm_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));

@@ -2188,7 +2188,7 @@ public final class ElRenderUtilTest {
 
 
 
-
+    /* ignore because issue with unwrapped object when using affectation */
     @Test
     public void processEl4FailTest() {
         Configuration context_ = contextEl();
@@ -2456,15 +2456,6 @@ public final class ElRenderUtilTest {
         String el_ = "get(,)";
         ElRenderUtil.processEl(el_, 0, context_);
         assertNotNull(context_.getContext().getException());
-    }
-
-    @Test
-    public void processEl32FailTest() {
-        Configuration conf_ = contextEl();
-        addImportingPage(conf_);
-        String el_ = "1!=2!=3";
-        ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
     }
 
     @Test
@@ -3232,6 +3223,17 @@ public final class ElRenderUtilTest {
         Struct exc_ = context_.getContext().getException();
         assertNotNull(exc_);
         assertEq(context_.getStandards().getAliasCast(),exc_.getClassName(context_.getContext()));
+    }
+
+    @Test
+    public void processEl203Test() {
+        Configuration conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "1!=2!=3";
+        Argument arg_ = ElRenderUtil.processEl(el_, 0, conf_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(true, (Boolean)res_);
     }
     @Test
     public void processAffect1Test() {

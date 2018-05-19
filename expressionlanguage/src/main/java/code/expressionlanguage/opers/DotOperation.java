@@ -30,10 +30,6 @@ public final class DotOperation extends MethodOperation {
     @Override
     public void analyze(Analyzable _conf,
             String _fieldName) {
-        analyzeCommon(_conf);
-    }
-
-    void analyzeCommon(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setResultClass(chidren_.last().getResultClass());
     }

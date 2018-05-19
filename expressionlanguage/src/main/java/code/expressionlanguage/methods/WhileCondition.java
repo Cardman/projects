@@ -424,6 +424,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
     private boolean takeContinue(Block _b,AssignedVariables _ass, CustList<ContinueBlock> _conts, AnalyzingEl _anEl) {
         Block next_ = _b;
+        if (next_ == this) {
+            return true;
+        }
         boolean take_ = false;
         while (next_ != null) {
             if (next_ instanceof BracedBlock) {

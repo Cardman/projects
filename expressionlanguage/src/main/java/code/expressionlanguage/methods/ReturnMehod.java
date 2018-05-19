@@ -161,6 +161,9 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             cast_.setRc(getRowCol(0, expressionOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
+//        if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {
+//            opRet.last().getResultClass().setUnwrapObject(retType_);
+//        }
     }
 
     @Override

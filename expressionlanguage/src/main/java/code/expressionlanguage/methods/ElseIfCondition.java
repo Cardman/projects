@@ -231,35 +231,30 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
         for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
-            SimpleAssignment ab_ = e.getValue();
             ClassField key_ = e.getKey();
             BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
-            boolean assAfter_ = ab_.isAssignedAfter();
-            boolean unassAfter_ = ab_.isUnassignedAfter();
-            if (assAfter_) {
-                for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
-                    }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                        assAfter_ = false;
-                        break;
-                    }
+            boolean assAfter_ = true;
+            boolean unassAfter_ = true;
+            for (Block p: prev_) {
+                if (!_anEl.canCompleteNormally(p)) {
+                    continue;
+                }
+                AssignedVariables assLoc_ = id_.getVal(p);
+                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                    assAfter_ = false;
+                    break;
                 }
             }
-            if (unassAfter_) {
-                for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
-                    }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                        unassAfter_ = false;
-                        break;
-                    }
+            for (Block p: prev_) {
+                if (!_anEl.canCompleteNormally(p)) {
+                    continue;
+                }
+                AssignedVariables assLoc_ = id_.getVal(p);
+                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                    unassAfter_ = false;
+                    break;
                 }
             }
             if (_anEl.canCompleteNormally(this)) {
@@ -277,35 +272,30 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             int index_ = afterVars_.size();
             for (EntryCust<String,SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ab_ = e.getValue();
                 String key_ = e.getKey();
                 BooleanAssignment condBa_ = varsCond_.get(index_).getVal(key_);
-                boolean assAfter_ = ab_.isAssignedAfter();
-                boolean unassAfter_ = ab_.isUnassignedAfter();
-                if (assAfter_) {
-                    for (Block p: prev_) {
-                        if (!_anEl.canCompleteNormally(p)) {
-                            continue;
-                        }
-                        AssignedVariables assLoc_ = id_.getVal(p);
-                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                        if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                            assAfter_ = false;
-                            break;
-                        }
+                boolean assAfter_ = true;
+                boolean unassAfter_ = true;
+                for (Block p: prev_) {
+                    if (!_anEl.canCompleteNormally(p)) {
+                        continue;
+                    }
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                        assAfter_ = false;
+                        break;
                     }
                 }
-                if (unassAfter_) {
-                    for (Block p: prev_) {
-                        if (!_anEl.canCompleteNormally(p)) {
-                            continue;
-                        }
-                        AssignedVariables assLoc_ = id_.getVal(p);
-                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                        if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                            unassAfter_ = false;
-                            break;
-                        }
+                for (Block p: prev_) {
+                    if (!_anEl.canCompleteNormally(p)) {
+                        continue;
+                    }
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                        unassAfter_ = false;
+                        break;
                     }
                 }
                 if (_anEl.canCompleteNormally(this)) {

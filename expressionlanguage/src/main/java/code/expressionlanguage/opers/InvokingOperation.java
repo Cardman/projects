@@ -87,9 +87,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     cast_.setRc(_conf.getCurrentLocation());
                     _conf.getClasses().getErrorsDet().add(cast_);
                 }
-                if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
-                    o.getResultClass().setUnwrapObject(name_);
-                }
+//                if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
+//                    o.getResultClass().setUnwrapObject(name_);
+//                }
             }
             name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);
             ClassArgumentMatching clMatch_ = new ClassArgumentMatching(name_);
@@ -369,9 +369,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     break;
                 }
                 String param_ = _id.getParametersTypes().get(i_-1);
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    o.getResultClass().setUnwrapObject(param_);
-                }
+//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                    o.getResultClass().setUnwrapObject(param_);
+//                }
                 i_++;
             }
         } else if (_natvararg > -1) {
@@ -379,14 +379,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 ClassArgumentMatching a_ = _args.get(i);
                 if (i >= _natvararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(_lasttype, _conf)) {
-                        a_.setUnwrapObject(_lasttype);
-                    }
+//                    if (PrimitiveTypeUtil.isPrimitive(_lasttype, _conf)) {
+//                        a_.setUnwrapObject(_lasttype);
+//                    }
                 } else {
                     String param_ = _id.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                        a_.setUnwrapObject(param_);
-                    }
+//                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                        a_.setUnwrapObject(param_);
+//                    }
                 }
             }
         } else {
@@ -397,9 +397,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (i + 1 == lenCh_ && _id.isVararg()) {
                     param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
                 }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-                    a_.setUnwrapObject(param_);
-                }
+//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+//                    a_.setUnwrapObject(param_);
+//                }
             }
         }
     }
