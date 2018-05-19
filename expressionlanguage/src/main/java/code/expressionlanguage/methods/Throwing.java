@@ -7,7 +7,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -71,13 +70,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
-        if (getNextSibling() != null) {
-            Block next_ = getNextSibling();
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(next_.getFile().getFileName());
-            un_.setRc(next_.getRowCol(0, next_.getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
         page_.setGlobalOffset(expressionOffset);
         _cont.setRootAffect(false);
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));

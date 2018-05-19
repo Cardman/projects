@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -8,6 +9,7 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.DotOperation;
@@ -267,7 +269,7 @@ public final class ElUtil {
         String fieldName_ = _calcul.getFieldName();
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         boolean staticContext_ = _calcul.isStaticAcces();
-        _conf.setStaticContext(staticContext_);
+        _conf.setStaticContext(staticContext_ || op_ instanceof AbstractInvokingConstructor);
         CustList<OperationNode> all_ = getSortedDescNodes(op_,fieldName_, hiddenVarTypes_, _conf);
         return all_;
     }
@@ -487,16 +489,16 @@ public final class ElUtil {
                     _el.setCurrentOper(o);
                     return;
                 }
-                if (_context.getCallCtor() != null) {
-                    if (_context.getCallCtor().getInstanceStep() != InstancingStep.USING_SUPER) {
-                        _el.setCurrentOper(o);
-                    } else {
+                CustomFoundConstructor cust_;
+                cust_ = _context.getCallCtor();
+                if (cust_ != null) {
+                    _el.setCurrentOper(o);
+                    if (cust_.getInstanceStep() == InstancingStep.USING_SUPER) {
                         _context.getLastPage().clearCurrentEls();
-                        String tmp_ = _context.getCallCtor().getClassName();
+                        String tmp_ = cust_.getClassName();
                         String base_ = StringList.getAllTypes(tmp_).first();
                         AbstractInstancingPageEl abs_ = (AbstractInstancingPageEl) _context.getLastPage();
                         abs_.getCalledConstructors().add(base_);
-                        _el.setCurrentOper(null);
                     }
                     return;
                 }

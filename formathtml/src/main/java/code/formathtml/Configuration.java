@@ -821,4 +821,9 @@ public class Configuration implements ExecutableCode {
     public void setCheckAffectation(boolean _b) {
         context.setCheckAffectation(_b);
     }
+
+    @Override
+    public StringList getNeedInterfaces() {
+        return context.getNeedInterfaces();
+    }
 }

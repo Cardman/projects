@@ -3,17 +3,16 @@ import code.expressionlanguage.AbstractInstancingPageEl;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.InterfaceInvokingConstructor;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.SuperInvokingConstructor;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -26,21 +25,11 @@ import code.util.StringList;
 
 public final class Line extends Leaf implements StackableBlock {
 
-    private static final char EXTERN_CLASS = '$';
-    private static final String SUPER_ACCESS = "super";
-    private static final String CURRENT = "this";
-    private static final String INTERFACES = "interfaces";
-    private static final char PAR_LEFT = '(';
-
     private final String expression;
 
     private int expressionOffset;
 
     private CustList<OperationNode> opExp;
-    private boolean callSuper;
-    private boolean callInts;
-
-    private boolean callThis;
 
     public Line(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -93,10 +82,7 @@ public final class Line extends Leaf implements StackableBlock {
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
         boolean stBlock_ = f_.isStaticContext();
-        callSuper = expression.trim().startsWith(StringList.concat(String.valueOf(EXTERN_CLASS),SUPER_ACCESS,String.valueOf(PAR_LEFT)));
-        callThis = expression.trim().startsWith(StringList.concat(String.valueOf(EXTERN_CLASS),CURRENT,String.valueOf(PAR_LEFT)));
-        callInts = expression.trim().startsWith(StringList.concat(String.valueOf(EXTERN_CLASS),INTERFACES,String.valueOf(PAR_LEFT)));
-        boolean st_ = stBlock_ || callSuper || callThis || callInts;
+        boolean st_ = stBlock_;
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
@@ -139,7 +125,10 @@ public final class Line extends Leaf implements StackableBlock {
     }
 
     public boolean isCallSuper() {
-        return callSuper;
+        if (opExp.isEmpty()) {
+            return false;
+        }
+        return opExp.last() instanceof SuperInvokingConstructor;
     }
 
     public String getCalledInterface() {
@@ -148,16 +137,22 @@ public final class Line extends Leaf implements StackableBlock {
             return "";
         }
         InterfaceInvokingConstructor int_ = (InterfaceInvokingConstructor) last_;
-        String cl_ = int_.getMethodName();
-        cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
+        String cl_ = int_.getConstId().getName();
+        cl_ = StringList.getAllTypes(cl_).first();
         return cl_;
     }
     public boolean isCallInts() {
-        return callInts;    
+        if (opExp.isEmpty()) {
+            return false;
+        }
+        return opExp.last() instanceof InterfaceInvokingConstructor;
     }
 
     public boolean isCallThis() {
-        return callThis;
+        if (opExp.isEmpty()) {
+            return false;
+        }
+        return opExp.last() instanceof CurrentInvokingConstructor;
     }
 
     @Override
@@ -172,25 +167,21 @@ public final class Line extends Leaf implements StackableBlock {
             AbstractInstancingPageEl inst_ = (AbstractInstancingPageEl)ip_;
             String curClass_ = inst_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
-            String instClass_ = inst_.getGlobalArgument().getObjectClassName(_cont);
-            String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _cont);
             ClassMetaInfo meta_ = _cont.getClasses().getClassMetaInfo(curClassBase_, _cont);
             String superClass_ = meta_.getSuperClass();
             String baseSuperClass_ = StringList.getAllTypes(superClass_).first();
             if (inst_.getCalledConstructors().containsObj(baseSuperClass_)) {
-                ConstructorBlock ctor_ = (ConstructorBlock) getFunction();
-                for (String i: ctor_.getInterfaces()) {
-                    String t_ = StringList.removeAllSpaces(i);
-                    if (!inst_.getIntializedInterfaces().containsStr(t_)) {
-                        inst_.getIntializedInterfaces().add(t_);
-                        ConstructorId super_ = new ConstructorId(baseSuperClass_, new StringList(), false);
-                        Argument global_ = inst_.getGlobalArgument();
-                        String generic_ = Templates.getFullTypeByBases(formatted_, t_, _cont);
-                        _cont.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
-                        return;
+                boolean initFields_ = false;
+                Block bl_ = getNextSibling();
+                if (!(bl_ instanceof Line)) {
+                    initFields_ = true;
+                } else {
+                    Line l_ = (Line) bl_;
+                    if (l_.getCalledInterface().isEmpty()) {
+                        initFields_ = true;
                     }
                 }
-                if (!inst_.isFirstField()) {
+                if (!inst_.isFirstField() && initFields_) {
                     inst_.setFirstField(true);
                     RootBlock class_ = _cont.getClasses().getClassBody(curClassBase_);
                     Block firstChild_ = class_.getFirstChild();
@@ -207,7 +198,17 @@ public final class Line extends Leaf implements StackableBlock {
             String curClass_ = inst_.getGlobalClass();
             String curClassBase_ = StringList.getAllTypes(curClass_).first();
             if (inst_.getCalledConstructors().containsObj(int_)) {
-                if (!inst_.isFirstField()) {
+                boolean initFields_ = false;
+                Block bl_ = getNextSibling();
+                if (!(bl_ instanceof Line)) {
+                    initFields_ = true;
+                } else {
+                    Line l_ = (Line) bl_;
+                    if (l_.getCalledInterface().isEmpty()) {
+                        initFields_ = true;
+                    }
+                }
+                if (!inst_.isFirstField() && initFields_) {
                     inst_.setFirstField(true);
                     RootBlock class_ = _cont.getClasses().getClassBody(curClassBase_);
                     Block firstChild_ = class_.getFirstChild();
@@ -224,6 +225,10 @@ public final class Line extends Leaf implements StackableBlock {
         el_.calculateMember(_cont);
         if (_cont.callsOrException()) {
             return;
+        }
+        if (isCallThis()) {
+            AbstractInstancingPageEl inst_ = (AbstractInstancingPageEl)ip_;
+            inst_.setInitializedFields(true);
         }
         el_.setCurrentOper(null);
         ip_.clearCurrentEls();

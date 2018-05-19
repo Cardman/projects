@@ -13,6 +13,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 
 public interface Analyzable {
@@ -68,4 +69,5 @@ public interface Analyzable {
     Block getCurrentBlock();
     CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
+    StringList getNeedInterfaces();
 }

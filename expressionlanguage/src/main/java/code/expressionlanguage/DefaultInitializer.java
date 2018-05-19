@@ -67,9 +67,6 @@ public class DefaultInitializer implements Initializer {
         _conf.addPage(_page);
         if (_conf.getException() != null) {
             _conf.getThrowing().removeBlockFinally(_conf);
-            if (_conf.getException() != null) {
-                return;
-            }
         }
     }
     protected Struct init(ContextEl _context, Struct _parent,

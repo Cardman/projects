@@ -225,9 +225,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     return true;
                 }
             }
-            if (p_ instanceof CurrentInstancingPageEl) {
+            /*if (p_ instanceof CurrentInstancingPageEl) {
                 ((AbstractInstancingPageEl)l_).setInitializedFields(true);
-            }
+            }*/
             return true;
         }
         return false;
@@ -316,6 +316,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         } else {
             if (_in == InstancingStep.USING_SUPER) {
                 page_ = new SuperInstancingPageEl();
+            } else if (_in == InstancingStep.USING_SUPER_IMPL) {
+                page_ = new SuperInstancingImplicitPageEl();
             } else {
                 page_ = new CurrentInstancingPageEl();
             }
@@ -934,6 +936,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public ContextEl getContextEl() {
         return this;
+    }
+
+    @Override
+    public StringList getNeedInterfaces() {
+        return analyzing.getNeedInterfaces();
     }
 
 }

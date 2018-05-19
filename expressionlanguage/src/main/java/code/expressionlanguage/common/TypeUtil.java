@@ -8,7 +8,6 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AloneBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.RootBlock;
@@ -19,6 +18,7 @@ import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -78,46 +78,6 @@ public final class TypeUtil {
                         }
                     }
                 }
-                ints_ = bl_.getInstInitInterfaces();
-                len_ = ints_.size();
-                for (int i = 0; i < len_; i++) {
-                    String sup_ = StringList.removeAllSpaces(ints_.get(i));
-                    for (int j = i + 1; j < len_; j++) {
-                        String sub_ = StringList.removeAllSpaces(ints_.get(j));
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
-                            BadInheritedClass undef_;
-                            undef_ = new BadInheritedClass();
-                            undef_.setClassName(sub_);
-                            undef_.setFileName(d_);
-                            int offset_ = bl_.getInstInitInterfacesOffset().get(j);
-                            undef_.setRc(bl_.getRowCol(0, offset_));
-                            classes_.getErrorsDet().add(undef_);
-                        }
-                    }
-                }
-                for (Block t: Classes.getDirectChildren(bl_)) {
-                    if (!(t instanceof ConstructorBlock)) {
-                        continue;
-                    }
-                    ConstructorBlock ctor_ = (ConstructorBlock) t;
-                    ints_ = ctor_.getInterfaces();
-                    len_ = ints_.size();
-                    for (int i = 0; i < len_; i++) {
-                        String sup_ = StringList.removeAllSpaces(ints_.get(i));
-                        for (int j = i + 1; j < len_; j++) {
-                            String sub_ = StringList.removeAllSpaces(ints_.get(j));
-                            if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
-                                BadInheritedClass undef_;
-                                undef_ = new BadInheritedClass();
-                                undef_.setClassName(sub_);
-                                undef_.setFileName(d_);
-                                int offset_ = ctor_.getInterfacesOffest().get(j);
-                                undef_.setRc(bl_.getRowCol(0, offset_));
-                                classes_.getErrorsDet().add(undef_);
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -146,7 +106,6 @@ public final class TypeUtil {
                 allCopy_.removeAllElements(superType_.getAllInterfaces());
             }
             StringList filteredStatic_ = new StringList();
-            StringList filteredInst_ = new StringList();
             for (String i: allCopy_) {
                 RootBlock int_ = classes_.getClassBody(i);
                 for (Block b: Classes.getDirectChildren(int_)) {
@@ -155,18 +114,18 @@ public final class TypeUtil {
                     }
                     if (b instanceof GeneField) {
                         GeneField a_ = (GeneField) b;
-                        if (a_.isStaticField()) {
+                        String name_ = a_.getFieldName();
+                        if (!a_.isStaticField()) {
+                            continue;
+                        }
+                        if (_context.getClasses().getStaticField(new ClassField(i, name_)) == null) {
                             filteredStatic_.add(i);
-                        } else {
-                            filteredInst_.add(i);
                         }
                     }
                     if (b instanceof AloneBlock) {
                         AloneBlock a_ = (AloneBlock) b;
                         if (a_.isStaticContext()) {
                             filteredStatic_.add(i);
-                        } else {
-                            filteredInst_.add(i);
                         }
                     }
                 }
@@ -178,73 +137,6 @@ public final class TypeUtil {
                 undef_.setFileName(c);
                 undef_.setRc(block_.getRowCol(0, 0));
                 classes_.getErrorsDet().add(undef_);
-            }
-            ints_ = block_.getInstInitInterfaces();
-            trimmedInt_.clear();
-            for (String i: ints_) {
-                trimmedInt_.add(StringList.removeAllSpaces(i));
-            }
-            boolean ctor_ = false;
-            for (Block t: Classes.getDirectChildren(block_)) {
-                if (!(t instanceof ConstructorBlock)) {
-                    continue;
-                }
-                ctor_ = true;
-                break;
-            }
-            if (!ctor_) {
-                if (!StringList.equalsSet(filteredInst_, trimmedInt_)) {
-                    BadInheritedClass undef_;
-                    undef_ = new BadInheritedClass();
-                    undef_.setClassName(c);
-                    undef_.setFileName(c);
-                    undef_.setRc(block_.getRowCol(0, 0));
-                    classes_.getErrorsDet().add(undef_);
-                }
-            } else {
-                for (Block t: Classes.getDirectChildren(block_)) {
-                    if (!(t instanceof ConstructorBlock)) {
-                        continue;
-                    }
-                    ConstructorBlock ctorLoc_ = (ConstructorBlock) t;
-                    if (!ctorLoc_.superConstr()) {
-                        continue;
-                    }
-                    StringList filteredCtor_ = new StringList();
-                    for (String i: allCopy_) {
-                        RootBlock int_ = classes_.getClassBody(i);
-                        for (Block b: Classes.getDirectChildren(int_)) {
-                            if (b instanceof NamedFunctionBlock) {
-                                continue;
-                            }
-                            if (b instanceof GeneField) {
-                                GeneField a_ = (GeneField) b;
-                                if (!a_.isStaticField()) {
-                                    filteredCtor_.add(i);
-                                }
-                            }
-                            if (b instanceof AloneBlock) {
-                                AloneBlock a_ = (AloneBlock) b;
-                                if (!a_.isStaticContext()) {
-                                    filteredCtor_.add(i);
-                                }
-                            }
-                        }
-                    }
-                    ints_ = ctorLoc_.getInterfaces();
-                    trimmedInt_.clear();
-                    for (String i: ints_) {
-                        trimmedInt_.add(StringList.removeAllSpaces(i));
-                    }
-                    if (!StringList.equalsSet(filteredCtor_, trimmedInt_)) {
-                        BadInheritedClass undef_;
-                        undef_ = new BadInheritedClass();
-                        undef_.setClassName(c);
-                        undef_.setFileName(c);
-                        undef_.setRc(ctorLoc_.getRowCol(0, 0));
-                        classes_.getErrorsDet().add(undef_);
-                    }
-                }
             }
         }
     }

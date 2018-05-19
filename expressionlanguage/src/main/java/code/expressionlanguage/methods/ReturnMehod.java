@@ -110,13 +110,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
-        if (getNextSibling() != null) {
-            Block next_ = getNextSibling();
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(next_.getFile().getFileName());
-            un_.setRc(next_.getRowCol(0, next_.getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
         LgNames stds_ = _cont.getStandards();
         String retType_ = stds_.getAliasVoid();
         BracedBlock par_ = getParent();

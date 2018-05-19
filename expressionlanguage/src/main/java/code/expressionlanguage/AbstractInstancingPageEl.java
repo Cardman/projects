@@ -6,6 +6,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.FunctionBlock;
+import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -102,33 +103,25 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
                     ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
                     Argument global_ = getGlobalArgument();
                     String generic_ = Templates.getFullTypeByBases(formatted_, superClassBase_, _context);
-                    _context.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
+                    _context.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
                     return false;
-                }
-                StringList ints_;
-                if (usedConstructor != null) {
-                    ints_ = usedConstructor.getInterfaces();
-                } else {
-                    ints_ = class_.getInstInitInterfaces();
-                }
-                for (String i: ints_) {
-                    String t_ = StringList.removeAllSpaces(i);
-                    if (!getIntializedInterfaces().containsStr(t_)) {
-                        getIntializedInterfaces().add(t_);
-                        ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
-                        Argument global_ = getGlobalArgument();
-                        String generic_ = Templates.getFullTypeByBases(formatted_, t_, _context);
-                        _context.setCallCtor(new CustomFoundConstructor(generic_, EMPTY_STRING, -1, super_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER));
-                        return false;
-                    }
                 }
             }
-            if (!firstField) {
-                Block first_ = class_.getFirstChild();
-                if (first_ == null) {
-                    exitFromConstructor();
-                    return false;
+            boolean initFields_ = false;
+            Block bl_ = null;
+            if (usedConstructor != null) {
+                bl_ = usedConstructor.getFirstChild();
+            }
+            if (!(bl_ instanceof Line)) {
+                initFields_ = true;
+            } else {
+                Line l_ = (Line) bl_;
+                if (l_.getCalledInterface().isEmpty()) {
+                    initFields_ = true;
                 }
+            }
+            if (!firstField && initFields_) {
+                Block first_ = class_.getFirstChild();
                 firstField = true;
                 rw_.setBlock(first_);
                 return false;

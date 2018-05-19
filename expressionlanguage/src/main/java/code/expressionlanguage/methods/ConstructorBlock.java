@@ -7,6 +7,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
@@ -114,6 +115,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             return;
         }
         Line l_ = (Line) first_;
+        if (l_.isCallInts()) {
+            implicitCallSuper = true;
+        }
         if (l_.isCallSuper() || l_.isCallInts()) {
             instancing = InstancingStep.USING_SUPER;
             return;
@@ -126,19 +130,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         implicitCallSuper = true;
         instancing = InstancingStep.USING_SUPER;
     }
-    public boolean superConstr() {
-        return instancing == InstancingStep.USING_SUPER || implicitConstr();
-    }
 
     public boolean implicitConstr() {
         return implicitCallSuper;
-    }
-
-    public boolean hasFirstBlockAfterSuperConstr() {
-        if (!superConstr()) {
-            return false;
-        }
-        return getFirstBlockAfterOtherConstr() != null;
     }
 
     public Block getFirstBlockAfterOtherConstr() {
@@ -202,6 +196,44 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
+        Block firstChild_ = getFirstChild();
+        StringList ints_ = new StringList();
+        StringList filteredCtor_ = _an.getNeedInterfaces();
+        boolean checkThis_ = false;
+        while (firstChild_ != null) {
+            if (!(firstChild_ instanceof Line)) {
+                break;
+            }
+            Line l_ = (Line) firstChild_;
+            if (l_.isCallThis()) {
+                checkThis_ = true;
+                break;
+            }
+            if (l_.isCallInts()) {
+                ints_.add(l_.getCalledInterface());
+            }
+            firstChild_ = firstChild_.getNextSibling();
+        }
+        if (!checkThis_) {
+            if (!StringList.equalsSet(filteredCtor_, ints_)) {
+                BadInheritedClass undef_;
+                undef_ = new BadInheritedClass();
+                undef_.setClassName(getRooted().getFullName());
+                undef_.setFileName(getFile().getFileName());
+                undef_.setRc(getRowCol(0, 0));
+                _an.getClasses().getErrorsDet().add(undef_);
+            }
+        } else {
+            if (!ints_.isEmpty()) {
+                BadInheritedClass undef_;
+                undef_ = new BadInheritedClass();
+                undef_.setClassName(getRooted().getFullName());
+                undef_.setFileName(getFile().getFileName());
+                undef_.setRc(getRowCol(0, 0));
+                _an.getClasses().getErrorsDet().add(undef_);
+            }
+        }
+        
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         for (EntryCust<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<ClassField, SimpleAssignment> f: r.getValue().entryList()) {

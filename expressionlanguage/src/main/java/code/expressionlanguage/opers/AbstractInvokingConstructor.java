@@ -13,7 +13,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
@@ -105,64 +104,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     @Override
     public void analyze(Analyzable _conf, String _fieldName) {
-        Block curBlock_ = _conf.getCurrentBlock();
-        if (getParent() != null) {
-            //error
-            BadConstructorCall call_ = new BadConstructorCall();
-            call_.setFileName(curBlock_.getFile().getFileName());
-            call_.setRc(curBlock_.getRowCol(0, 0));
-            call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
-            _conf.getClasses().getErrorsDet().add(call_);
-        } else {
-            if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
-                //error
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(curBlock_.getFile().getFileName());
-                call_.setRc(curBlock_.getRowCol(0, 0));
-                call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
-                _conf.getClasses().getErrorsDet().add(call_);
-            } else if (!(curBlock_ instanceof Line)) {
-                //error
-                BadConstructorCall call_ = new BadConstructorCall();
-                call_.setFileName(curBlock_.getFile().getFileName());
-                call_.setRc(curBlock_.getRowCol(0, 0));
-                call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
-                _conf.getClasses().getErrorsDet().add(call_);
-            } else {
-                Line curLine_ = (Line)curBlock_;
-                BracedBlock br_ = curBlock_.getParent();
-                if (br_.getFirstChild() != curBlock_) {
-                    Block f_ = br_.getFirstChild();
-                    while (true) {
-                        Block n_ = f_.getNextSibling();
-                        if (n_ == curBlock_) {
-                            if (!(f_ instanceof Line)) {
-                                //error
-                                BadConstructorCall call_ = new BadConstructorCall();
-                                call_.setFileName(curLine_.getFile().getFileName());
-                                call_.setRc(curLine_.getRowCol(0, curLine_.getExpressionOffset()));
-                                call_.setLocalOffset(curLine_.getRowCol(getFullIndexInEl(), curLine_.getExpressionOffset()));
-                                _conf.getClasses().getErrorsDet().add(call_);
-                            } else {
-                                if (!((Line)f_).getExp().isEmpty()) {
-                                    OperationNode root_ = ((Line)f_).getExp().last();
-                                    if (!(root_ instanceof AbstractInvokingConstructor)) {
-                                        //error
-                                        BadConstructorCall call_ = new BadConstructorCall();
-                                        call_.setFileName(curLine_.getFile().getFileName());
-                                        call_.setRc(curLine_.getRowCol(0, curLine_.getExpressionOffset()));
-                                        call_.setLocalOffset(curLine_.getRowCol(getFullIndexInEl(), curLine_.getExpressionOffset()));
-                                        _conf.getClasses().getErrorsDet().add(call_);
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                        f_ = n_;
-                    }
-                }
-            }
-        }
+        checkPositionBasis(_conf);
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getGlobalClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -172,6 +114,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         LgNames stds_ = _conf.getStandards();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         ClassArgumentMatching clArg_ = getFrom(_conf);
+        if (clArg_ == null) {
+            return;
+        }
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_ == null) {
@@ -342,6 +287,45 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         return res_;
     }
 
+    final void checkPositionBasis(Analyzable _conf) {
+        Block curBlock_ = _conf.getCurrentBlock();
+        if (getParent() != null) {
+            //error
+            BadConstructorCall call_ = new BadConstructorCall();
+            call_.setFileName(curBlock_.getFile().getFileName());
+            call_.setRc(curBlock_.getRowCol(0, 0));
+            call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+            _conf.getClasses().getErrorsDet().add(call_);
+        } else {
+            if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
+                //error
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(curBlock_.getFile().getFileName());
+                call_.setRc(curBlock_.getRowCol(0, 0));
+                call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+                _conf.getClasses().getErrorsDet().add(call_);
+            } else if (!(curBlock_ instanceof Line)) {
+                //error
+                BadConstructorCall call_ = new BadConstructorCall();
+                call_.setFileName(curBlock_.getFile().getFileName());
+                call_.setRc(curBlock_.getRowCol(0, 0));
+                call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+                _conf.getClasses().getErrorsDet().add(call_);
+            } else {
+                checkPosition(_conf);
+            }
+        }
+    }
+    void checkPosition(Analyzable _conf) {
+        Block curBlock_ = _conf.getCurrentBlock();
+        if (curBlock_.getParent().getFirstChild() != curBlock_) {
+            BadConstructorCall call_ = new BadConstructorCall();
+            call_.setFileName(curBlock_.getFile().getFileName());
+            call_.setRc(curBlock_.getRowCol(0, 0));
+            call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
+            _conf.getClasses().getErrorsDet().add(call_);
+        }
+    }
     protected final void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int i_ = CustList.FIRST_INDEX;

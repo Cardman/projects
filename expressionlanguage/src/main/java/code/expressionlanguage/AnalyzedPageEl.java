@@ -66,6 +66,7 @@ public class AnalyzedPageEl {
     private boolean finalVariable;
     private String currentVarSetting;
     private boolean gearConst;
+    private StringList needInterfaces = new StringList();
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -382,5 +383,8 @@ public class AnalyzedPageEl {
 
     public void setGearConst(boolean _gearConst) {
         gearConst = _gearConst;
+    }
+    public StringList getNeedInterfaces() {
+        return needInterfaces;
     }
 }
