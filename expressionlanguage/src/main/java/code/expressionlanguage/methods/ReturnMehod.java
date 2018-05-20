@@ -161,9 +161,9 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             cast_.setRc(getRowCol(0, expressionOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
-//        if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {
-//            opRet.last().getResultClass().setUnwrapObject(retType_);
-//        }
+        if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {
+            opRet.last().getResultClass().setUnwrapObject(retType_);
+        }
     }
 
     @Override
@@ -249,12 +249,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 par_ = par_.getParent();
             }
             retType_ = _cont.getLastPage().formatVarType(retType_, _cont);
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(retType_, arg_.getStruct(), _cont)) {
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
-                return;
-            }
             if (!arg_.isNull()) {
                 Mapping map_ = new Mapping();
                 String rightClass_ = arg_.getObjectClassName(_cont);

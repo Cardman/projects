@@ -269,9 +269,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             cast_.setRc(getRowCol(0, valueOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
-//        if (PrimitiveTypeUtil.isPrimitive(className, _cont)) {
-//            opValue.last().getResultClass().setUnwrapObject(className);
-//        }
+        if (PrimitiveTypeUtil.isPrimitive(className, _cont)) {
+            opValue.last().getResultClass().setUnwrapObject(className);
+        }
     }
 
     @Override

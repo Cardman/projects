@@ -78,8 +78,8 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
-//        chidren_.first().getResultClass().setUnwrapObject(booleanPrimType_);
-//        chidren_.last().getResultClass().setUnwrapObject(booleanPrimType_);
+        chidren_.first().getResultClass().setUnwrapObject(booleanPrimType_);
+        chidren_.last().getResultClass().setUnwrapObject(booleanPrimType_);
         String booleanType_ = stds_.getAliasBoolean();
         for (OperationNode o: chidren_) {
             ClassArgumentMatching clMatch_;

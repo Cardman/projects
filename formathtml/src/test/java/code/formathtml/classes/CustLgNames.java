@@ -393,10 +393,6 @@ public final class CustLgNames extends BeanLgNames {
             }
             if (StringList.quickEq(_method.getConstraints().getName(), aliasSetPrivateInt)) {
                 Integer arg_ = (Integer) _args[0];
-                if (arg_ == null) {
-                    res_.setError(_cont.getStandards().getAliasNullPe());
-                    return res_;
-                }
                 ((Composite)instance_).setPrivateInt(arg_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;

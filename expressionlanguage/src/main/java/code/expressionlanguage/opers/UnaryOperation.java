@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -13,7 +12,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -59,7 +57,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
-//        clMatch_.setUnwrapObject(cl_.getName());
+        clMatch_.setUnwrapObject(cl_.getName());
         setResultClass(cl_);
     }
 
@@ -142,13 +140,6 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         Argument out_ = new Argument();
         Object o_ = _in.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        if (o_ == null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return out_;
-        }
         String oper_ = getOperations().getOperators().firstValue();
         if (StringList.quickEq(oper_, PLUS)) {
             if (o_ instanceof Character) {

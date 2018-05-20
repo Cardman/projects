@@ -58,6 +58,10 @@ public final class CastOperation extends AbstractUnaryOperation {
         }
         className = res_;
         setResultClass(new ClassArgumentMatching(res_));
+        if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
+            getFirstChild().getResultClass().setUnwrapObject(className);
+            getResultClass().setUnwrapObject(className);
+        }
     }
 
     @Override
@@ -172,16 +176,9 @@ public final class CastOperation extends AbstractUnaryOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
-        String null_;
         String cast_;
-        null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
         Argument objArg_ = _arguments.first();
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(className, objArg_.getStruct(), _conf)) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            Argument a_ = new Argument();
-            return a_;
-        }
         if (objArg_.isNull()) {
             Argument arg_ = new Argument();
             return arg_;

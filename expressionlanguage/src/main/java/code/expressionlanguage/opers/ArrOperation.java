@@ -79,7 +79,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             setResultClass(class_);
             return;
         }
-//        indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf).getName());
+        indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf).getName());
         class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
         setResultClass(class_);
     }
@@ -250,9 +250,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     Struct affectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
         Object o_ = _index.getObject();
         PageEl ip_ = _conf.getOperationPageEl();
         Struct leftObj_;
@@ -267,18 +264,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Argument left_ = new Argument();
         left_.setStruct(leftObj_);
         Argument right_ = ip_.getRightArgument();
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf.getContextEl()));
-        if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, right_.getStruct(), _conf)) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                return _stored;
-            }
-        } else {
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, leftObj_, _conf)) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                return _stored;
-            }
-        }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
         if (_conf.getException() != null) {
@@ -318,10 +303,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return NullStruct.NULL_VALUE;
         }
-        if (_index == null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return NullStruct.NULL_VALUE;
-        }
         Object array_ = _struct.getInstance();
         int len_ = LgNames.getLength(array_);
         int index_ = ((Number)_index).intValue();
@@ -332,14 +313,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         return LgNames.getElement(array_, index_, _conf.getContextEl());
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ExecutableCode _conf) {
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        String base_ = PrimitiveTypeUtil.getQuickComponentType(stds_.getStructClassName(_array, _conf.getContextEl()));
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(base_, _element.getStruct(), _conf)) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return;
-        }
         setElement(_array, _index, _element.getStruct(), _conf);
     }
     static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf) {
@@ -351,10 +324,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         badIndex_ = stds_.getAliasBadIndex();
         store_ = stds_.getAliasStore();
         if (_struct.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return;
-        }
-        if (_index == null) {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return;
         }

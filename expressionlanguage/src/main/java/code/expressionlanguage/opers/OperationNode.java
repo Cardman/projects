@@ -1237,9 +1237,11 @@ public abstract class OperationNode {
     }
 
     final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
+        if (_cont.getException() != null) {
+            return;
+        }
         String un_ = resultClass.getUnwrapObject();
         if (!un_.isEmpty()) {
-//            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont))
             if (_arg.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
@@ -1277,9 +1279,11 @@ public abstract class OperationNode {
     }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
+        if (_cont.getException() != null) {
+            return;
+        }
         String un_ = resultClass.getUnwrapObject();
         if (!un_.isEmpty()) {
-//            if (PrimitiveTypeUtil.primitiveTypeNullObject(un_, _arg.getStruct(), _cont))
             if (_arg.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
@@ -1317,15 +1321,26 @@ public abstract class OperationNode {
     }
 
     final int processBooleanValues(Argument _arg, ExecutableCode _cont) {
-        int res_ = processBooleanValuesAna(_arg, _cont);
-        if (res_ < 0) {
-            LgNames stds_ = _cont.getStandards();
-            String null_;
-            null_ = stds_.getAliasNullPe();
-            setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+        Object o_ = _arg.getObject();
+        MethodOperation par_ = getParent();
+        if (!(o_ instanceof Boolean)) {
+            return 0;
         }
-        return res_;
+        if (!(par_ instanceof QuickOperation)) {
+            boolean ternaryParent_ = false;
+            if (par_ instanceof TernaryOperation) {
+                ternaryParent_ = isFirstChild();
+            }
+            if (!ternaryParent_) {
+                return 0;
+            }
+            Boolean b_ = (Boolean) o_;
+            if (b_) {
+                return 2;
+            }
+            return 1;
+        }
+        return QUICK_OP;
     }
     final int processBooleanValuesAna(Argument _arg, Analyzable _cont) {
         Object o_ = _arg.getObject();
@@ -1405,12 +1420,27 @@ public abstract class OperationNode {
         argument = _argument;
     }
 
+    public final void setQuickSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
+        PossibleIntermediateDotted n_ = getSiblingSet();
+        if (n_ != null) {
+            _nodes.getVal((OperationNode)n_).setPreviousArgument(_argument);
+        }
+    }
+
     public final void setSimpleArgument(Argument _argument, ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes) {
         PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             _nodes.getVal((OperationNode)n_).setPreviousArgument(_argument);
         }
         setNextSiblingsArg(_argument, _conf, _nodes);
+    }
+
+    public final void setQuickSimpleArgument(Argument _argument, ExecutableCode _conf) {
+        argument = _argument;
+        PossibleIntermediateDotted n_ = getSiblingSet();
+        if (n_ != null) {
+            n_.setPreviousArgument(_argument);
+        }
     }
 
     public final void setSimpleArgument(Argument _argument, ExecutableCode _conf) {

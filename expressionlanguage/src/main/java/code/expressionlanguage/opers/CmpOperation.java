@@ -421,8 +421,8 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_, true, _conf);
         if (classFirst_.isPrimitive(_conf)) {
             if (classSecond_.isPrimitive(_conf)) {
-//                chidren_.first().getResultClass().setUnwrapObject(classFirst_.getName());
-//              chidren_.last().getResultClass().setUnwrapObject(classSecond_.getName());
+                chidren_.first().getResultClass().setUnwrapObject(classFirst_.getName());
+                chidren_.last().getResultClass().setUnwrapObject(classSecond_.getName());
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }

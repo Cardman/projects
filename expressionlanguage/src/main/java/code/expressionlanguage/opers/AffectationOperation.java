@@ -79,7 +79,7 @@ public final class AffectationOperation extends MethodOperation {
             settable.setCatenizeStrings();
         }
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        ClassArgumentMatching clMatchLeft_ = root_.getResultClass();
+        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
         if (oper_.length() == 2) {
             Mapping mapping_ = new Mapping();
@@ -119,7 +119,8 @@ public final class AffectationOperation extends MethodOperation {
                 _conf.getClasses().getErrorsDet().add(cast_);
                 return;
             }
-            //right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+            elt_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+            right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
         } else {
             if (clMatchRight_.isVariable()) {
                 if (!clMatchLeft_.isPrimitive(_conf)) {
@@ -159,7 +160,7 @@ public final class AffectationOperation extends MethodOperation {
                 _conf.getClasses().getErrorsDet().add(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_.getName(), _conf)) {
-//                right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+                right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
             }
         }
     }

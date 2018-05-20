@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
@@ -28,7 +27,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -192,7 +190,7 @@ public final class TernaryOperation extends MethodOperation {
                 _conf.getClasses().getErrorsDet().add(un_);
             }
         }
-//        opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
+        opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
         OperationNode opThree_ = chidren_.get(CustList.SECOND_INDEX);
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
@@ -333,14 +331,6 @@ public final class TernaryOperation extends MethodOperation {
     }
     ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        if (_arguments.first().isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            Argument a_ = new Argument();
-            return ArgumentCall.newArgument(a_);
-        }
         Boolean obj_ = (Boolean) _arguments.first().getObject();
         Argument arg_;
         if (obj_) {

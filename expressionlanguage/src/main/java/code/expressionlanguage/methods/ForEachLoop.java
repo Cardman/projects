@@ -246,7 +246,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
                 cast_.setRc(getRowCol(0, expressionOffset));
-                _cont.getClasses().getErrorsDet().add(cast_);;
+                _cont.getClasses().getErrorsDet().add(cast_);
             }
         } else {
             String type_ = Templates.getFullTypeByStds(el_.getResultClass().getName(), _cont);

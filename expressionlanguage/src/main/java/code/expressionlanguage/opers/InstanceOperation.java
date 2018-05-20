@@ -133,7 +133,7 @@ public final class InstanceOperation extends InvokingOperation {
                         un_.setOperands(new StringList(cl_.getName()));
                         _conf.getClasses().getErrorsDet().add(un_);
                     }
-//                    o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
+                    o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
                 }
             } else {
                 StringMap<StringList> map_;
@@ -159,9 +159,9 @@ public final class InstanceOperation extends InvokingOperation {
                         cast_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().getErrorsDet().add(cast_);
                     }
-//                    if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
-//                        o.getResultClass().setUnwrapObject(eltType_);
-//                    }
+                    if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
+                        o.getResultClass().setUnwrapObject(eltType_);
+                    }
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());
@@ -329,9 +329,9 @@ public final class InstanceOperation extends InvokingOperation {
                     break;
                 }
                 String param_ = constId.getParametersTypes().get(i_-1);
-//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-//                    o.getResultClass().setUnwrapObject(param_);
-//                }
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    o.getResultClass().setUnwrapObject(param_);
+                }
                 i_++;
             }
         } else if (naturalVararg > -1) {
@@ -339,14 +339,14 @@ public final class InstanceOperation extends InvokingOperation {
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 ClassArgumentMatching a_ = _firstArgs.get(i);
                 if (i >= naturalVararg) {
-//                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-//                        a_.setUnwrapObject(lastType);
-//                    }
+                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+                        a_.setUnwrapObject(lastType);
+                    }
                 } else {
                     String param_ = constId.getParametersTypes().get(i);
-//                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-//                        a_.setUnwrapObject(param_);
-//                    }
+                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                        a_.setUnwrapObject(param_);
+                    }
                 }
             }
         } else {
@@ -357,9 +357,9 @@ public final class InstanceOperation extends InvokingOperation {
                 if (i + 1 == lenCh_ && constId.isVararg()) {
                     param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
                 }
-//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-//                    a_.setUnwrapObject(param_);
-//                }
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    a_.setUnwrapObject(param_);
+                }
             }
         }
         String glClass_ = _conf.getGlobalClass();
@@ -647,9 +647,7 @@ public final class InstanceOperation extends InvokingOperation {
     ArgumentCall getArgument(Argument _previous,CustList<Argument> _arguments,
             ExecutableCode _conf) {
         LgNames stds_ = _conf.getStandards();
-        String null_;
         String size_;
-        null_ = stds_.getAliasNullPe();
         size_ = stds_.getAliasBadSize();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = new CustList<OperationNode>();
@@ -686,11 +684,6 @@ public final class InstanceOperation extends InvokingOperation {
                 for (OperationNode o: chidren_) {
                     Number n_ = (Number)_arguments.get(i_).getObject();
                     setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
-                    if (n_ == null) {
-                        _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(i_),RETURN_LINE,_conf.joinPages())),null_));
-                        Argument a_ = new Argument();
-                        return ArgumentCall.newArgument(a_);
-                    }
                     int dim_ = n_.intValue();
                     if (dim_ < 0) {
                         _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE,_conf.joinPages())),size_));

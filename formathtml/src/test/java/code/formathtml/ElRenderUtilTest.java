@@ -2187,8 +2187,6 @@ public final class ElRenderUtilTest {
 
 
 
-
-    /* ignore because issue with unwrapped object when using affectation */
     @Test
     public void processEl4FailTest() {
         Configuration context_ = contextEl();
@@ -3235,6 +3233,22 @@ public final class ElRenderUtilTest {
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
+
+    @Test
+    public void processEl204Test() {
+        Configuration context_ = contextEl(true,false);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        String el_ = "!v;.";
+        ElRenderUtil.processEl(el_, 0, context_);
+        assertNotNull(context_.getException());
+        ContextEl ctx_= context_.getContext();
+        assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
+    }
     @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl();
@@ -3320,7 +3334,7 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processAffect6Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3331,14 +3345,16 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
-        processAffect("","","","v;.integer", "12i", "-=",context_);
+        Argument res_ = ElRenderUtil.processEl("v;.integer-=12i", 0, context_);
         assertEq(COMPOSITE, lv_.getClassName());
         assertEq(-12, c_.getInteger());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(-12, (Number)res_.getObject());
     }
 
     @Test
     public void processAffect7Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3348,13 +3364,15 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i]", "12i", "-=",context_);
+        Argument res_ = ElRenderUtil.processEl("v;.[0i]-=12i", 0, context_);
         assertEq(-12, (Number) in_[0].getInstance());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(-12, (Number)res_.getObject());
     }
 
     @Test
     public void processAffect8Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3367,13 +3385,15 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i][0i]", "12i", "-=",context_);
+        Argument res_ = ElRenderUtil.processEl("v;.[0i][0i]-=12i", 0, context_);
         assertEq(-12, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(-12, (Number)res_.getObject());
     }
 
     @Test
     public void processAffect9Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3386,13 +3406,15 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i][0i]", "1b", "++",context_);
+        Argument res_ = ElRenderUtil.processEl("v;.[0i][0i]++", 0, context_);
         assertEq(1, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(0, (Number)res_.getObject());
     }
 
     @Test
     public void processAffect10Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3405,11 +3427,54 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i][0i]", "1b", "--",context_);
+        Argument res_ = ElRenderUtil.processEl("v;.[0i][0i]--", 0, context_);
         assertEq(-1, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(0, (Number)res_.getObject());
     }
 
 
+    @Test
+    public void processAffect11Test() {
+        Configuration context_ = contextEl(true,false);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct[] in_ = new Struct[1];
+        in_[0] = new IntStruct(0);
+        Struct[] elt_ = new Struct[1];
+        elt_[0] = new IntStruct(0);
+        in_[0] = new ArrayStruct(elt_, ARR_INT);
+        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
+        lv_.setClassName(ARR_ARR_INT);
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument res_ = ElRenderUtil.processEl("++v;.[0i][0i]", 0, context_);
+        assertEq(1, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(1, (Number)res_.getObject());
+    }
+
+    @Test
+    public void processAffect12Test() {
+        Configuration context_ = contextEl(true,false);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct[] in_ = new Struct[1];
+        in_[0] = new IntStruct(0);
+        Struct[] elt_ = new Struct[1];
+        elt_[0] = new IntStruct(0);
+        in_[0] = new ArrayStruct(elt_, ARR_INT);
+        lv_.setStruct(new ArrayStruct(in_,ARR_ARR_INT));
+        lv_.setClassName(ARR_ARR_INT);
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        Argument res_ = ElRenderUtil.processEl("--v;.[0i][0i]", 0, context_);
+        assertEq(-1, (Number)((Struct[])in_[0].getInstance())[0].getInstance());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(-1, (Number)res_.getObject());
+    }
 
 
 

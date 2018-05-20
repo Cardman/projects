@@ -99,7 +99,20 @@ public final class DotOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode o_ = chidren_.last();
         Argument a_ = _nodes.getVal(o_).getArgument();
-        setSimpleArgument(a_, _conf, _nodes);
+        boolean simple_ = false;
+        if (getParent() instanceof SemiAffectationOperation) {
+            simple_ = true;
+        } else if (getParent() instanceof AffectationOperation) {
+            AffectationOperation aff_ = (AffectationOperation) getParent();
+            if (aff_.getSettable() == chidren_.last()) {
+                simple_ = true;
+            }
+        }
+        if (simple_) {
+            setQuickSimpleArgument(a_, _conf, _nodes);
+        } else {
+            setSimpleArgument(a_, _conf, _nodes);
+        }
         return a_;
     }
     @Override
@@ -110,7 +123,20 @@ public final class DotOperation extends MethodOperation {
     @Override
     public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setSimpleArgument(chidren_.last().getArgument(), _conf);
+        boolean simple_ = false;
+        if (getParent() instanceof SemiAffectationOperation) {
+            simple_ = true;
+        } else if (getParent() instanceof AffectationOperation) {
+            AffectationOperation aff_ = (AffectationOperation) getParent();
+            if (aff_.getSettable() == chidren_.last()) {
+                simple_ = true;
+            }
+        }
+        if (simple_) {
+            setQuickSimpleArgument(chidren_.last().getArgument(), _conf);
+        } else {
+            setSimpleArgument(chidren_.last().getArgument(), _conf);
+        }
     }
     @Override
     void calculateChildren() {

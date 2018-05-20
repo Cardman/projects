@@ -164,9 +164,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                     break;
                 }
                 String param_ = constId.getParametersTypes().get(i_-1);
-//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-//                    o.getResultClass().setUnwrapObject(param_);
-//                }
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    o.getResultClass().setUnwrapObject(param_);
+                }
                 i_++;
             }
         } else if (naturalVararg > -1) {
@@ -174,14 +174,14 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 ClassArgumentMatching a_ = _args.get(i);
                 if (i >= naturalVararg) {
-//                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
-//                        a_.setUnwrapObject(lastType);
-//                    }
+                    if (PrimitiveTypeUtil.isPrimitive(lastType, _conf)) {
+                        a_.setUnwrapObject(lastType);
+                    }
                 } else {
                     String param_ = constId.getParametersTypes().get(i);
-//                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-//                        a_.setUnwrapObject(param_);
-//                    }
+                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                        a_.setUnwrapObject(param_);
+                    }
                 }
             }
         } else {
@@ -192,9 +192,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 if (i + 1 == lenCh_ && constId.isVararg()) {
                     param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
                 }
-//                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
-//                    a_.setUnwrapObject(param_);
-//                }
+                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    a_.setUnwrapObject(param_);
+                }
             }
         }
         LgNames stds_ = _conf.getStandards();
@@ -330,17 +330,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int i_ = CustList.FIRST_INDEX;
         LgNames stds_ = _ex.getStandards();
-        String null_;
         String cast_;
-        null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
         for (Argument a: _args) {
             if (i_ < _params.size()) {
                 Struct str_ = a.getStruct();
-                if (PrimitiveTypeUtil.primitiveTypeNullObject(_params.get(i_), str_, _ex)) {
-                    _ex.setException(new StdStruct(new CustomError(_ex.joinPages()),null_));
-                    return;
-                }
                 if (!str_.isNull()) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(a.getObjectClassName(_ex.getContextEl()));

@@ -258,10 +258,6 @@ public abstract class SettableAbstractFieldOperation extends
             if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
                 check_ = right_.getStruct();
             }
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                return Argument.createVoid();
-            }
             if (!check_.isNull() && !NumericOperation.convert(_op)) {
                 Mapping map_ = new Mapping();
                 String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
@@ -325,10 +321,6 @@ public abstract class SettableAbstractFieldOperation extends
             if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
                 check_ = right_.getStruct();
             }
-            if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                return Argument.createVoid();
-            }
             if (!check_.isNull() && !NumericOperation.convert(_op)) {
                 Mapping map_ = new Mapping();
                 String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
@@ -362,14 +354,6 @@ public abstract class SettableAbstractFieldOperation extends
         }
         structField_ = result_.getResult();
         left_.setStruct(structField_);
-        Argument check_ = left_;
-        if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
-            check_ = right_;
-        }
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_.getStruct(), _conf)) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return Argument.createVoid();
-        }
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
         if (_conf.getException() != null) {
             return res_;

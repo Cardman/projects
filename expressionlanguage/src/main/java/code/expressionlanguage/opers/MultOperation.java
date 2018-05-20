@@ -42,8 +42,8 @@ public final class MultOperation extends NumericOperation {
     @Override
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont) {
         ResultOperand res_ = new ResultOperand();
-//       _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont).getName());
-//        _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont).getName());
+        _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont).getName());
+        _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont).getName());
         res_.setResult(getResultClass(_a, _cont, _b));
         return res_;
     }

@@ -104,7 +104,17 @@ public final class ElUtil {
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
         ClassArgumentMatching clMatchRight_ = opRight_.getResultClass();
-        ClassArgumentMatching clMatchLeft_ = opLeft_.getResultClass();
+        SettableElResult r_ = ExpressionLanguage.getSettable(allLeft_);
+        if (r_ == null){
+            BadElError badEl_ = new BadElError();
+            badEl_.setOffsetInEl(dRight_.getBadOffset());
+            badEl_.setEl(_right);
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badEl_);
+            return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
+        }
+        ClassArgumentMatching clMatchLeft_ = r_.getResultClass();
         page_.setOffset(0);
         if (_attrOp >= 0) {
             page_.setGlobalOffset(_attrOp);
@@ -148,6 +158,8 @@ public final class ElUtil {
                 _conf.getClasses().getErrorsDet().add(cast_);
                 return new ExpLanguages(allLeft_, allRight_);
             }
+            r_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+            opRight_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
         } else {
             if (clMatchRight_.isVariable()) {
                 if (!clMatchLeft_.isPrimitive(_conf)) {
@@ -185,6 +197,9 @@ public final class ElUtil {
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
                 _conf.getClasses().getErrorsDet().add(cast_);
+            }
+            if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_.getName(), _conf)) {
+                opRight_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
             }
         }
         return new ExpLanguages(allLeft_, allRight_);

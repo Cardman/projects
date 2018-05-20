@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
@@ -13,7 +12,6 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -55,7 +53,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
                 _conf.getClasses().getErrorsDet().add(un_);
             }
         }
-//        clMatch_.setUnwrapObject(booleanPrimType_);
+        clMatch_.setUnwrapObject(booleanPrimType_);
         setResultClass(new ClassArgumentMatching(booleanPrimType_));
     }
 
@@ -65,13 +63,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         Argument arg_ = _nodes.getVal(chidren_.first()).getArgument();
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        if (o_ == null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return Argument.createVoid();
-        }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
         Argument a_ = new Argument();
@@ -85,9 +76,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Object o_ = arg_.getObject();
-        if (o_ == null) {
-            return;
-        }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
         Argument a_ = new Argument();
@@ -100,13 +88,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         Argument arg_ = chidren_.first().getArgument();
         Object o_ = arg_.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        if (o_ == null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return;
-        }
         Boolean b_ = (Boolean) o_;
         b_ = !b_;
         Argument a_ = new Argument();

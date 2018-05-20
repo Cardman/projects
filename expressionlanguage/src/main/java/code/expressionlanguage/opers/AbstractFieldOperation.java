@@ -74,7 +74,18 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
         if (arg_ == null) {
             return;
         }
-        setSimpleArgument(arg_, _conf);
+        boolean simple_ = false;
+        if (this instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) this;
+            if (s_.resultCanBeSet()) {
+                simple_ = true;
+            }
+        }
+        if (simple_) {
+            setQuickSimpleArgument(arg_, _conf);
+        } else {
+            setSimpleArgument(arg_, _conf);
+        }
     }
 
     @Override
@@ -94,7 +105,18 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
         if (argres_.isInitClass()) {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else {
-            setSimpleArgument(arg_, _conf, _nodes);
+            boolean simple_ = false;
+            if (this instanceof SettableAbstractFieldOperation) {
+                SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) this;
+                if (s_.resultCanBeSet()) {
+                    simple_ = true;
+                }
+            }
+            if (simple_) {
+                setQuickSimpleArgument(arg_, _conf, _nodes);
+            } else {
+                setSimpleArgument(arg_, _conf, _nodes);
+            }
         }
         return arg_;
     }

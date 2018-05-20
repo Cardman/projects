@@ -186,7 +186,11 @@ public final class VariableOperation extends LeafOperation implements
         if (arg_ == null) {
             return;
         }
-        setSimpleArgument(arg_, _conf);
+        if (resultCanBeSet()) {
+            setQuickSimpleArgument(arg_, _conf);
+        } else {
+            setSimpleArgument(arg_, _conf);
+        }
     }
 
     @Override
@@ -197,7 +201,11 @@ public final class VariableOperation extends LeafOperation implements
         if (_conf.getException() != null) {
             return arg_;
         }
-        setSimpleArgument(arg_, _conf, _nodes);
+        if (resultCanBeSet()) {
+            setQuickSimpleArgument(arg_, _conf, _nodes);
+        } else {
+            setSimpleArgument(arg_, _conf, _nodes);
+        }
         return arg_;
     }
     ArgumentCall getCommonArgument(ExecutableCode _conf) {
@@ -267,9 +275,7 @@ public final class VariableOperation extends LeafOperation implements
     Argument getCommonSetting(ExecutableCode _conf, String _op, boolean _post) {
         PageEl ip_ = _conf.getOperationPageEl();
         LgNames stds_ = _conf.getStandards();
-        String null_;
         String cast_;
-        null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -285,10 +291,6 @@ public final class VariableOperation extends LeafOperation implements
         }
         String formattedClassVar_ = locVar_.getClassName();
         formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(formattedClassVar_, check_.getStruct(), _conf)) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return Argument.createVoid();
-        }
         if (!check_.isNull() && !NumericOperation.convert(_op)) {
             Mapping mapping_ = new Mapping();
             String base_ = check_.getObjectClassName(_conf.getContextEl());
