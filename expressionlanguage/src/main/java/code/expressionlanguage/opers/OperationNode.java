@@ -515,6 +515,9 @@ public abstract class OperationNode {
                         continue;
                     }
                 }
+                if (!Classes.canAccessField(base_, s, _name, _cont)) {
+                    continue;
+                }
                 if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
                     continue;
                 }
@@ -755,17 +758,26 @@ public abstract class OperationNode {
         ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
         methods_ = new ObjectNotNullMap<ClassMethodId, MethodMetaInfo>();
         StringList superTypes_ = new StringList();
+        StringMap<String> superTypesBase_ = new StringMap<String>();
         for (String s: _fromClasses) {
             String baseCurName_ = StringList.getAllTypes(s).first();
             superTypes_.add(baseCurName_);
+            superTypesBase_.put(baseCurName_,baseCurName_);
             GeneType root_ = _conf.getClassBody(baseCurName_);
             roots_.add(root_);
-            superTypes_.addAllElts(root_.getAllSuperTypes());
+            for (String m: root_.getAllSuperTypes()) {
+                superTypesBase_.put(m, baseCurName_);
+                superTypes_.add(m);
+            }
         }
         for (String t: superTypes_) {
             GeneType root_ = _conf.getClassBody(t);
             for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
                 if (!Classes.canAccess(glClass_, e, _conf)) {
+                    continue;
+                }
+                String subType_ = superTypesBase_.getVal(t);
+                if (!Classes.canAccess(subType_, e, _conf)) {
                     continue;
                 }
                 if (e.isStaticMethod()) {

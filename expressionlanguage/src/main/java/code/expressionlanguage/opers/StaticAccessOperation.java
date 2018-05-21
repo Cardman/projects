@@ -160,9 +160,7 @@ public final class StaticAccessOperation extends LeafOperation {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else {
             PossibleIntermediateDotted n_ = getSiblingSet();
-            if (n_ != null) {
-                _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
-            }
+            _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
         }
         return arg_;
     }

@@ -1473,12 +1473,18 @@ public final class Classes {
         _context.setAnalyzing(new AnalyzedPageEl());
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock bl_ = c.getValue();
+            if (bl_.getFile().isPredefined()) {
+                continue;
+            }
             bl_.setupBasicOverrides(_context);
             bl_.checkCompatibility(_context);
             bl_.checkImplements(_context);
         }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock bl_ = c.getValue();
+            if (bl_.getFile().isPredefined()) {
+                continue;
+            }
             bl_.checkCompatibilityBounds(_context);
         }
     }
