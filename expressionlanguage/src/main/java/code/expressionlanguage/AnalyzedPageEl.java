@@ -161,13 +161,10 @@ public final class AnalyzedPageEl {
     }
 
     public String getNextTempVar(Classes _classes) {
-        StringList resVar_ = _classes.getLocalVariablesNames();
         int i_ = CustList.FIRST_INDEX;
         while (true) {
-            if (!resVar_.containsStr(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
-                if (!internVars.getKeys().containsStr(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
-                    break;
-                }
+            if (!internVars.getKeys().containsStr(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
+                break;
             }
             i_++;
         }

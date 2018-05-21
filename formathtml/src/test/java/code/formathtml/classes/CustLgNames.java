@@ -43,6 +43,7 @@ public final class CustLgNames extends BeanLgNames {
     private String aliasAdd = "add";
     private String aliasSize = "size";
     private String aliasIntegerField = "integer";
+    private String aliasObjIntegerField = "objInteger";
     private String aliasCompositeField = "composite";
     private String aliasGetList = "getList";
     private String aliasRemoveAndExistAfter = "removeAndExistAfter";
@@ -182,6 +183,8 @@ public final class CustLgNames extends BeanLgNames {
         //aliasGetOverridenOne
         field_ = new StandardField(aliasIntegerField, getAliasPrimInteger(), false, false, stdcl_);
         fields_.put(aliasIntegerField, field_);
+        field_ = new StandardField(aliasObjIntegerField, getAliasInteger(), false, false, stdcl_);
+        fields_.put(aliasObjIntegerField, field_);
         std_ = stdcl_;
         getStandards().put(aliasComposite, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -474,6 +477,16 @@ public final class CustLgNames extends BeanLgNames {
                 res_.setResult(new IntStruct(cpt_.getInteger()));
                 return res_;
             }
+            if (StringList.quickEq(fieldName_, aliasObjIntegerField)) {
+                Composite cpt_ = (Composite) _instance.getInstance();
+                Integer i_ = cpt_.getObjInteger();
+                if (i_ != null) {
+                    res_.setResult(new IntStruct(i_));
+                } else {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                }
+                return res_;
+            }
         }
         if (StringList.quickEq(_classField.getClassName(), aliasBeanOne)) {
             if (StringList.quickEq(fieldName_, aliasCompositeField)) {
@@ -506,6 +519,16 @@ public final class CustLgNames extends BeanLgNames {
             if (StringList.quickEq(fieldName_, aliasIntegerField)) {
                 Composite cpt_ = (Composite) _instance.getInstance();
                 cpt_.setInteger((Integer) _value.getInstance());
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringList.quickEq(fieldName_, aliasObjIntegerField)) {
+                Composite cpt_ = (Composite) _instance.getInstance();
+                if (!_value.isNull()) {
+                    cpt_.setObjInteger((Integer) _value.getInstance());
+                } else {
+                    cpt_.setObjInteger(null);
+                }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }

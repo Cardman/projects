@@ -3211,6 +3211,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("$(java.lang.Byte)$null",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNull(context_.getContext().getException());
         assertSame(NullStruct.NULL_VALUE, arg_.getStruct());
     }
@@ -3219,6 +3220,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$(java.lang.Byte)\"not cast\"",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         Struct exc_ = context_.getContext().getException();
         assertNotNull(exc_);
         assertEq(context_.getStandards().getAliasCast(),exc_.getClassName(context_.getContext()));
@@ -3246,8 +3248,154 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         String el_ = "!v;.";
         ElRenderUtil.processEl(el_, 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getException());
         ContextEl ctx_= context_.getContext();
+        assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
+    }
+    @Test
+    public void processEl205Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasByte());
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        String el_ = "$($byte)v;.";
+        ElRenderUtil.processEl(el_,0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ContextEl ctx_= context_.getContext();
+        assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
+    }
+    @Test
+    public void processEl206Test() {
+        Configuration context_ = contextEl(true);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasInteger());
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "++v;.";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        assertNotNull(op_);
+        Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
+    }
+    @Test
+    public void processEl207Test() {
+        Configuration context_ = contextEl(true);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasInteger());
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "v;.++";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        assertNotNull(op_);
+        Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
+    }
+    @Test
+    public void processEl208Test() {
+        Configuration context_ = contextEl(true);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct[] in_ = new Struct[1];
+        in_[0] = NullStruct.NULL_VALUE;
+        lv_.setStruct(new ArrayStruct(in_, ARR_INTEGER));
+        lv_.setClassName(ARR_INTEGER);
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "v;.[0i]++";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        assertNotNull(op_);
+        Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
+    }
+    @Test
+    public void processEl209Test() {
+        Configuration context_ = contextEl(true);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Struct[] in_ = new Struct[1];
+        in_[0] = NullStruct.NULL_VALUE;
+        lv_.setStruct(new ArrayStruct(in_, ARR_INTEGER));
+        lv_.setClassName(ARR_INTEGER);
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "++v;.[0i]";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        assertNotNull(op_);
+        Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, "", static_, ctx_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
     @Test
@@ -4028,6 +4176,56 @@ public final class ElRenderUtilTest {
         assertNotNull(context_.getContext().getException());
     }
 
+    @Test
+    public void processAffect13FailTest() {
+        Configuration context_ = contextEl(true,false);
+        CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite();
+        lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ElRenderUtil.processEl("v;.objInteger-=12i", 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertNotNull(context_.getContext().getException());
+    }
+
+    @Test
+    public void processAffect14FailTest() {
+        Configuration context_ = contextEl(true,false);
+        CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite();
+        lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ElRenderUtil.processEl("v;.objInteger++", 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertNotNull(context_.getContext().getException());
+    }
+
+    @Test
+    public void processAffect15FailTest() {
+        Configuration context_ = contextEl(true,false);
+        CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite();
+        lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ElRenderUtil.processEl("++v;.objInteger", 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertNotNull(context_.getContext().getException());
+    }
     private static void addImportingPage(Configuration _conf) {
         _conf.addPage(new ImportingPage(false));
         _conf.getContext().setAnalyzing(new AnalyzedPageEl());

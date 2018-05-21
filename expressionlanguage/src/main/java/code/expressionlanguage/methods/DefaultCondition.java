@@ -66,12 +66,24 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
-            if (ba_.isAssignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter()) {
-                ab_.setAssignedBefore(true);
+            boolean ass_ = true;
+            boolean unass_ = true;
+            if (!ba_.isAssignedAfter()) {
+                ass_ = false;
             }
-            if (ba_.isUnassignedAfter() && prevAss_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
-                ab_.setUnassignedBefore(true);
+            if (!ba_.isUnassignedAfter()) {
+                unass_ = false;
             }
+            if (_anEl.canCompleteNormally(this)) {
+                if (ass_) {
+                    ass_ = prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter();
+                }
+                if (unass_) {
+                    unass_ = prevAss_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter();
+                }
+            }
+            ab_.setAssignedBefore(ass_);
+            ab_.setUnassignedBefore(unass_);
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
         }
         for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
@@ -80,12 +92,24 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
             for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
                 SimpleAssignment ba_ = e.getValue();
                 AssignmentBefore ab_ = new AssignmentBefore();
-                if (ba_.isAssignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter()) {
-                    ab_.setAssignedBefore(true);
+                boolean ass_ = true;
+                boolean unass_ = true;
+                if (!ba_.isAssignedAfter()) {
+                    ass_ = false;
                 }
-                if (ba_.isUnassignedAfter() && prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                    ab_.setUnassignedBefore(true);
+                if (!ba_.isUnassignedAfter()) {
+                    unass_ = false;
                 }
+                if (_anEl.canCompleteNormally(this)) {
+                    if (ass_) {
+                        ass_ = prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter();
+                    }
+                    if (unass_) {
+                        unass_ = prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter();
+                    }
+                }
+                ab_.setAssignedBefore(ass_);
+                ab_.setUnassignedBefore(unass_);
                 sm_.put(e.getKey(), ab_);
             }
             assBl_.getVariablesRootBefore().add(sm_);

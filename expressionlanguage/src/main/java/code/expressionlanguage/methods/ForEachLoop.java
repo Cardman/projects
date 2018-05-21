@@ -17,6 +17,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.AffectationOperation;
@@ -228,7 +229,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         OperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
-        if (el_.getResultClass().isArray()) {
+        Argument arg_ = el_.getArgument();
+        if (arg_ != null) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_cont.getCurrentFileName());
+            static_.setRc(_cont.getCurrentLocation());
+            _cont.getClasses().getErrorsDet().add(static_);
+        } else if (el_.getResultClass().isArray()) {
             String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass().getName());
             Mapping mapping_ = new Mapping();
             mapping_.setArg(compo_);
@@ -359,20 +366,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
         ObjectMap<ClassField,AssignmentBefore> fieldsHypot_;
-        fieldsHypot_ = new ObjectMap<ClassField,AssignmentBefore>();
+        fieldsHypot_ = makeHypothesisFields(_an);
         CustList<StringMap<AssignmentBefore>> varsHypot_;
-        varsHypot_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<ClassField,AssignmentBefore> e: varsWhile_.getFieldsRootBefore().entryList()) {
-            fieldsHypot_.put(e.getKey(), e.getValue().copy());
-        }
-        for (StringMap<AssignmentBefore> s: varsWhile_.getVariablesRootBefore()) {
-            StringMap<AssignmentBefore> sm_;
-            sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            varsHypot_.add(sm_);
-        }
+        varsHypot_ = makeHypothesisVars(_an);
         CustList<ContinueBlock> conts_ = new CustList<ContinueBlock>();
         for (EntryCust<ContinueBlock, Loop> e: _anEl.getContinuables().entryList()) {
             if (e.getValue() != this) {
@@ -397,23 +393,25 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             }
         }
         int index_ = 0;
-        AssignedVariables vars_;
-        vars_ = id_.getVal(last_);
-        for (EntryCust<ClassField,SimpleAssignment> f: vars_.getFieldsRoot().entryList()) {
-            if (!f.getValue().isUnassignedAfter()) {
-                fieldsHypot_.getVal(f.getKey()).setUnassignedBefore(false);
-            }
-        }
-        for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
-            if (index_ >= varsHypot_.size()) {
-                continue;
-            }
-            for (EntryCust<String,SimpleAssignment> f: s.entryList()) {
+        if (_anEl.canCompleteNormally(last_)) {
+            AssignedVariables vars_;
+            vars_ = id_.getVal(last_);
+            for (EntryCust<ClassField,SimpleAssignment> f: vars_.getFieldsRoot().entryList()) {
                 if (!f.getValue().isUnassignedAfter()) {
-                    varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
+                    fieldsHypot_.getVal(f.getKey()).setUnassignedBefore(false);
                 }
             }
-            index_++;
+            for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
+                if (index_ >= varsHypot_.size()) {
+                    continue;
+                }
+                for (EntryCust<String,SimpleAssignment> f: s.entryList()) {
+                    if (!f.getValue().isUnassignedAfter()) {
+                        varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
+                    }
+                }
+                index_++;
+            }
         }
         varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
         varsWhile_.getVariablesRootBefore().clear();

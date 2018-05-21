@@ -32,9 +32,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     private boolean implicitCallSuper;
 
-    private StringList interfaces;
-    private Numbers<Integer> interfacesOffest;
-
     public ConstructorBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
@@ -42,23 +39,11 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     public ConstructorBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,
-            StringList _interfaces,
-            Numbers<Integer> _interfacesOffest,
             OffsetAccessInfo _access,
             OffsetStringInfo _retType, OffsetStringInfo _fctName,
             StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
             StringList _paramNames, Numbers<Integer> _paramNamesOffset, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
-        interfaces = _interfaces;
-        interfacesOffest = _interfacesOffest;
-    }
-
-    public StringList getInterfaces() {
-        return interfaces;
-    }
-
-    public Numbers<Integer> getInterfacesOffest() {
-        return interfacesOffest;
     }
 
     @Override

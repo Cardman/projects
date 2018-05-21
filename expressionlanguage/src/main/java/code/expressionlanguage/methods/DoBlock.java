@@ -81,12 +81,16 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
 
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        Block last_ = getFirstChild();
+        while (last_.getNextSibling() != null) {
+            last_ = last_.getNextSibling();
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables parLast_ = id_.getVal(last_);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-            SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
             boolean contAss_ = true;
             boolean contUnass_ = true;
@@ -101,10 +105,19 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
                     contUnass_ = false;
                 }
             }
-            if (ba_.isAssignedAfter() && contAss_) {
+            if (_anEl.canCompleteNormally(last_)) {
+                SimpleAssignment ba_ = parLast_.getFieldsRoot().getVal(e.getKey());
+                if (contAss_) {
+                    contAss_ = ba_.isAssignedAfter();
+                }
+                if (contUnass_) {
+                    contUnass_ = ba_.isAssignedAfter();
+                }
+            }
+            if (contAss_) {
                 ab_.setAssignedBefore(true);
             }
-            if (ba_.isUnassignedAfter() && contUnass_) {
+            if (contUnass_) {
                 ab_.setUnassignedBefore(true);
             }
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
@@ -113,7 +126,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             int index_ = assBl_.getVariablesRootBefore().size();
             for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ba_ = e.getValue();
                 AssignmentBefore ab_ = new AssignmentBefore();
                 boolean contAss_ = true;
                 boolean contUnass_ = true;
@@ -128,10 +140,22 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
                         contUnass_ = false;
                     }
                 }
-                if (ba_.isAssignedAfter() && contAss_) {
+                if (_anEl.canCompleteNormally(last_)) {
+                    CustList<StringMap<SimpleAssignment>> vars_ = parLast_.getVariablesRoot();
+                    if (vars_.isValidIndex(index_)) {
+                        SimpleAssignment ba_ = vars_.get(index_).getVal(e.getKey());
+                        if (contAss_) {
+                            contAss_ = ba_.isAssignedAfter();
+                        }
+                        if (contUnass_) {
+                            contUnass_ = ba_.isAssignedAfter();
+                        }
+                    }
+                }
+                if (contAss_) {
                     ab_.setAssignedBefore(true);
                 }
-                if (ba_.isUnassignedAfter() && contUnass_) {
+                if (contUnass_) {
                     ab_.setUnassignedBefore(true);
                 }
                 sm_.put(e.getKey(), ab_);

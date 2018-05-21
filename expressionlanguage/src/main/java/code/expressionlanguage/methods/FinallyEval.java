@@ -59,7 +59,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         Block prev_ = getPreviousSibling();
         boolean existTry_ = false;
         while (prev_ != null) {
-            if (prev_ instanceof CatchEval) {
+            if (prev_ instanceof AbstractCatchEval) {
                 prev_ = prev_.getPreviousSibling();
                 continue;
             }

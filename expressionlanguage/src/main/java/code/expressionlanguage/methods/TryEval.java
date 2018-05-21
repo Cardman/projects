@@ -51,7 +51,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                 existCatch_ = true;
                 break;
             }
-            existCatch_ = next_ instanceof CatchEval;
+            existCatch_ = next_ instanceof AbstractCatchEval;
             break;
         }
         if (!existCatch_ || getFirstChild() == null) {
@@ -108,9 +108,9 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         Block nextSibling_ = getNextSibling();
         boolean finClause_ = nextSibling_ instanceof FinallyEval;
         Block try_ = this;
-        CustList<CatchEval> catch_ = new CustList<CatchEval>();
-        while (try_ instanceof CatchEval) {
-            catch_.add((CatchEval) try_);
+        CustList<AbstractCatchEval> catch_ = new CustList<AbstractCatchEval>();
+        while (try_ instanceof AbstractCatchEval) {
+            catch_.add((AbstractCatchEval) try_);
             try_ = try_.getPreviousSibling();
         }
         IdMap<Block, AssignedVariables> inners_;
@@ -168,7 +168,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
             }
             if (finClause_) {
                 if (unass_) {
-                    for (CatchEval c: catch_) {
+                    for (AbstractCatchEval c: catch_) {
                         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
                         if (!vars_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
                             unass_ = false;
@@ -224,7 +224,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                 }
                 if (finClause_) {
                     if (unass_) {
-                        for (CatchEval c: catch_) {
+                        for (AbstractCatchEval c: catch_) {
                             AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
                             if (!vars_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
                                 unass_ = false;
@@ -250,7 +250,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     @Override
     boolean canBeIncrementedCurGroup() {
         Block next_ = getNextSibling();
-        return next_ instanceof CatchEval || next_ instanceof FinallyEval;
+        return next_ instanceof AbstractCatchEval || next_ instanceof FinallyEval;
     }
 
     @Override

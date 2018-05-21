@@ -61,7 +61,6 @@ public final class CastOperation extends AbstractUnaryOperation {
         setResultClass(new ClassArgumentMatching(res_));
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);
-            getResultClass().setUnwrapObject(className);
             Argument arg_ = getFirstChild().getArgument();
             if (arg_ != null) {
                 if (arg_.getObject() == null) {

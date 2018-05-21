@@ -174,25 +174,15 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         super.setAssignmentAfter(_an, _anEl);
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
-        ObjectMap<ClassField,AssignmentBefore> fieldsHypot_;
-        fieldsHypot_ = new ObjectMap<ClassField,AssignmentBefore>();
-        CustList<StringMap<AssignmentBefore>> varsHypot_;
-        varsHypot_ = new CustList<StringMap<AssignmentBefore>>();
-
         //by do block
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
+        ObjectMap<ClassField,AssignmentBefore> fieldsHypot_;
+        fieldsHypot_ = dBlock_.makeHypothesisFields(_an);
+        CustList<StringMap<AssignmentBefore>> varsHypot_;
+        varsHypot_ = dBlock_.makeHypothesisVars(_an);
+
         AssignedVariables varsDo_;
         varsDo_ = id_.getVal(dBlock_);
-        for (EntryCust<ClassField,AssignmentBefore> e: varsDo_.getFieldsRootBefore().entryList()) {
-            fieldsHypot_.put(e.getKey(), e.getValue().copy());
-        }
-        for (StringMap<AssignmentBefore> s: varsDo_.getVariablesRootBefore()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            varsHypot_.add(sm_);
-        }
         AssignedBooleanVariables varsWhile_;
         varsWhile_ = (AssignedBooleanVariables) id_.getVal(this);
         for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {

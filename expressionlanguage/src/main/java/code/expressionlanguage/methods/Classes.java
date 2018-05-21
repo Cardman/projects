@@ -75,7 +75,6 @@ public final class Classes {
     public static final String EXT = "cdm";
     public static final String TEMP_PREFIX = "tmp";
     private static final String EXT_PRO = "pro";
-    private static final String NAT_EQ_FORMAT = "{0};.={1};.";
     private static final char SEP_FILE = '/';
     private static final char DOT = '.';
     private static final char LT = '<';
@@ -96,7 +95,6 @@ public final class Classes {
     private final StringMap<StringMap<Struct>> staticFields;
 
     private final ErrorList errorsDet;
-    private final StringList localVariablesNames;
     private DefaultLockingClass locks;
     private String iteratorVar;
     private String hasNextVar;
@@ -116,7 +114,6 @@ public final class Classes {
         filesBodies = new StringMap<FileBlock>();
         errorsDet = new ErrorList();
         staticFields = new StringMap<StringMap<Struct>>();
-        localVariablesNames = new StringList();
     }
     private void processPredefinedClass(String _fileName,String _content, ContextEl _context) {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
@@ -1528,7 +1525,6 @@ public final class Classes {
                         b_.setVarName(var_);
                         errorsDet.add(b_);
                     }
-                    localVariablesNames.add(var_);
                 }
                 if (b instanceof ForLoop) {
                     String var_ = ((ForLoop)b).getVariableName();
@@ -1552,61 +1548,6 @@ public final class Classes {
                 }
             }
         }
-        /*LgNames stds_ = _context.getStandards();
-        _context.setRootAffect(false);
-        String locName_ = _context.getNextTempVar();
-        String exp_;
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasSimpleIterableType());
-        _context.putLocalVar(locName_, locVar_);
-        iteratorVar = locName_;
-        String simpleIterator_ = stds_.getAliasSimpleIterator();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
-        expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
-        _context.putLocalVar(locName_, locVar_);
-        hasNextVar = locName_;
-        String hasNext_ = stds_.getAliasHasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        expsHasNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
-        _context.putLocalVar(locName_, locVar_);
-        nextVar = locName_;
-        String next_ = stds_.getAliasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasIterable());
-        _context.putLocalVar(locName_, locVar_);
-        iteratorVarCust = locName_;
-        String iterator_ = stds_.getAliasSimpleIterator();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
-        expsIteratorCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasIteratorType());
-        _context.putLocalVar(locName_, locVar_);
-        hasNextVarCust = locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        expsHasNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasIteratorType());
-        _context.putLocalVar(locName_, locVar_);
-        nextVarCust = locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        expsNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        _context.removeLocalVar(iteratorVar);
-        _context.removeLocalVar(hasNextVar);
-        _context.removeLocalVar(nextVar);
-        _context.removeLocalVar(iteratorVarCust);
-        _context.removeLocalVar(hasNextVarCust);
-        _context.removeLocalVar(nextVarCust);*/
         _context.setAnalyzing(null);
     }
 
@@ -2444,10 +2385,6 @@ public final class Classes {
                 }
             }
         }
-    }
-
-    public StringList getLocalVariablesNames() {
-        return localVariablesNames;
     }
 
     public CustList<RootBlock> getClassBodies() {

@@ -10,6 +10,8 @@ public class Composite implements Displayable {
 
     private int integer;
 
+    private Integer objInteger;
+
     private int privateInt;
 
     private ValueChangeEvent changing;
@@ -68,6 +70,14 @@ public class Composite implements Displayable {
 
     public void setInteger(int _integer) {
         integer = _integer;
+    }
+
+    public Integer getObjInteger() {
+        return objInteger;
+    }
+
+    public void setObjInteger(Integer _objInteger) {
+        objInteger = _objInteger;
     }
 
     public int getPrivateInt() {

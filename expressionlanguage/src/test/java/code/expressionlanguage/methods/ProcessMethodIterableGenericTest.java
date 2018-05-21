@@ -538,6 +538,25 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertNotNull(cont_.getException());
     }
+    @Test
+    public void instanceArgumentFailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  $foreach(java.lang.Number e:$null){\n");
+        xml_.append("   res;;;+=e;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+    }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");

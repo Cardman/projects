@@ -46,6 +46,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
+        System.out.println(cont_.getClasses().getErrorsDet().display());
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");

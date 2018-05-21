@@ -52,7 +52,6 @@ import code.util.StringMap;
 import code.util.ints.MathFactory;
 
 public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,ExecutableCode {
-    private static final String EMPTY_STRING = "";
 
     private static final String RETURN_LINE = "\n";
     private static final int DEFAULT_TAB_WIDTH = 4;

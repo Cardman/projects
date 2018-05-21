@@ -138,9 +138,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         ObjectMap<ClassField,AssignmentBefore> fieldsHypot_;
-        fieldsHypot_ = new ObjectMap<ClassField,AssignmentBefore>();
+        fieldsHypot_ = makeHypothesisFields(_an);
         CustList<StringMap<AssignmentBefore>> varsHypot_;
-        varsHypot_ = new CustList<StringMap<AssignmentBefore>>();
+        varsHypot_ = makeHypothesisVars(_an);
         Block last_ = firstChild_;
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -156,17 +156,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             }
         }
         AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
-        for (EntryCust<ClassField,AssignmentBefore> e: varsWhile_.getFieldsRootBefore().entryList()) {
-            fieldsHypot_.put(e.getKey(), e.getValue().copy());
-        }
-        for (StringMap<AssignmentBefore> s: varsWhile_.getVariablesRootBefore()) {
-            StringMap<AssignmentBefore> sm_;
-            sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            varsHypot_.add(sm_);
-        }
         CustList<ContinueBlock> conts_ = new CustList<ContinueBlock>();
         for (EntryCust<ContinueBlock, Loop> e: _anEl.getContinuables().entryList()) {
             if (e.getValue() != this) {
@@ -190,24 +179,26 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
                 index_++;
             }
         }
-        AssignedVariables vars_;
-        vars_ = id_.getVal(last_);
-        for (EntryCust<ClassField,SimpleAssignment> f: vars_.getFieldsRoot().entryList()) {
-            if (!f.getValue().isUnassignedAfter()) {
-                fieldsHypot_.getVal(f.getKey()).setUnassignedBefore(false);
-            }
-        }
         int index_ = 0;
-        for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
-            if (index_ >= varsHypot_.size()) {
-                continue;
-            }
-            for (EntryCust<String,SimpleAssignment> f: s.entryList()) {
+        if (_anEl.canCompleteNormally(last_)) {
+            AssignedVariables vars_;
+            vars_ = id_.getVal(last_);
+            for (EntryCust<ClassField,SimpleAssignment> f: vars_.getFieldsRoot().entryList()) {
                 if (!f.getValue().isUnassignedAfter()) {
-                    varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
+                    fieldsHypot_.getVal(f.getKey()).setUnassignedBefore(false);
                 }
             }
-            index_++;
+            for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
+                if (index_ >= varsHypot_.size()) {
+                    continue;
+                }
+                for (EntryCust<String,SimpleAssignment> f: s.entryList()) {
+                    if (!f.getValue().isUnassignedAfter()) {
+                        varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
+                    }
+                }
+                index_++;
+            }
         }
         varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
         varsWhile_.getVariablesRootBefore().clear();

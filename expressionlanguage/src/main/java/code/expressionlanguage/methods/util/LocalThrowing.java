@@ -4,10 +4,12 @@ import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.AbstractCatchEval;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.CatchEval;
 import code.expressionlanguage.methods.FinallyEval;
+import code.expressionlanguage.methods.NullCatchEval;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -20,7 +22,7 @@ public final class LocalThrowing implements CallingFinally {
     @Override
     public void removeBlockFinally(ContextEl _conf) {
         LgNames lgNames_ = _conf.getStandards();
-        CatchEval catchElt_ = null;
+        AbstractCatchEval catchElt_ = null;
         while (!_conf.isEmptyPages()) {
             Struct custCause_ = _conf.getException();
             AbstractPageEl bkIp_ = _conf.getLastPage();
@@ -55,37 +57,49 @@ public final class LocalThrowing implements CallingFinally {
                     if (e instanceof FinallyEval) {
                         break;
                     }
-                    CatchEval ca_ = (CatchEval) e;
-                    String name_ = ca_.getClassName();
-                    Mapping mapping_ = new Mapping();
-                    String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
-                    if (excepClass_ == null) {
-                        catchElt_ = ca_;
-                        try_.setVisitedCatch(i_);
-                        break;
-                    }
-                    mapping_.setArg(excepClass_);
-                    name_ = bkIp_.formatVarType(name_, _conf);
-                    mapping_.setParam(name_);
-                    if (Templates.isCorrect(mapping_, _conf)) {
-                        catchElt_ = ca_;
-                        try_.setVisitedCatch(i_);
-                        break;
+                    if (e instanceof CatchEval) {
+                        CatchEval ca_ = (CatchEval) e;
+                        String name_ = ca_.getClassName();
+                        Mapping mapping_ = new Mapping();
+                        if (custCause_.isNull()) {
+                            i_++;
+                            continue;
+                        }
+                        String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
+                        mapping_.setArg(excepClass_);
+                        name_ = bkIp_.formatVarType(name_, _conf);
+                        mapping_.setParam(name_);
+                        if (Templates.isCorrect(mapping_, _conf)) {
+                            catchElt_ = ca_;
+                            try_.setVisitedCatch(i_);
+                            break;
+                        }
+                    } else {
+                        NullCatchEval ca_ = (NullCatchEval) e;
+                        if (custCause_.isNull()) {
+                            catchElt_ = ca_;
+                            try_.setVisitedCatch(i_);
+                            break;
+                        }
                     }
                     i_++;
                 }
                 if (catchElt_ != null) {
-                    CatchEval catchElement_ = catchElt_;
+                    Block catchElement_ = catchElt_;
                     try_.setCalling(null);
                     _conf.setException(null);
                     bkIp_.clearCurrentEls();
-                    if (catchElement_.getFirstChild() != null) {
-                        String var_ = catchElement_.getVariableName();
-                        LocalVariable lv_ = new LocalVariable();
-                        lv_.setStruct(custCause_);
-                        lv_.setClassName(catchElement_.getClassName());
-                        bkIp_.getCatchVars().put(var_, lv_);
-                        bkIp_.getReadWrite().setBlock(catchElement_.getFirstChild());
+                    Block childCatch_ = catchElement_.getFirstChild();
+                    if (childCatch_ != null) {
+                        if (catchElement_ instanceof CatchEval) {
+                            CatchEval c_ = (CatchEval) catchElement_;
+                            String var_ = c_.getVariableName();
+                            LocalVariable lv_ = new LocalVariable();
+                            lv_.setStruct(custCause_);
+                            lv_.setClassName(c_.getClassName());
+                            bkIp_.getCatchVars().put(var_, lv_);
+                        }
+                        bkIp_.getReadWrite().setBlock(childCatch_);
                         return;
                     }
                     bkIp_.getReadWrite().setBlock(catchElement_);

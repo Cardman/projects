@@ -222,6 +222,42 @@ public abstract class Block extends Blockable {
 
     public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl);
+    protected final ObjectMap<ClassField, AssignmentBefore> makeHypothesisFields(Analyzable _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        ObjectMap<ClassField,AssignmentBefore> fields_;
+        fields_ = new ObjectMap<ClassField,AssignmentBefore>();
+        for (EntryCust<ClassField,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
+            AssignmentBefore ass_ = e.getValue();
+            AssignmentBefore h_ = new AssignmentBefore();
+            if (ass_.isAssignedBefore()) {
+                h_.setAssignedBefore(true);
+            } else {
+                h_.setUnassignedBefore(true);
+            }
+            fields_.put(e.getKey(), h_);
+        }
+        return fields_;
+    }
+    protected final CustList<StringMap<AssignmentBefore>> makeHypothesisVars(Analyzable _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        CustList<StringMap<AssignmentBefore>> variables_;
+        variables_ = new CustList<StringMap<AssignmentBefore>>();
+        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                AssignmentBefore ass_ = e.getValue();
+                AssignmentBefore h_ = new AssignmentBefore();
+                if (ass_.isAssignedBefore()) {
+                    h_.setAssignedBefore(true);
+                } else {
+                    h_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), h_);
+            }
+            variables_.add(sm_);
+        }
+        return variables_;
+    }
     protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
             _cont.getAnalyzing().setCurrentBlock(_block);
