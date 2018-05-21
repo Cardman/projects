@@ -1,16 +1,15 @@
 package code.expressionlanguage.opers;
 
+import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.StaticAccessThisError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -18,8 +17,8 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -28,10 +27,12 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ThisOperation extends LeafOperation {
+public final class InternVariableOperation extends LeafOperation {
 
-    public ThisOperation(int _indexInEl, int _indexChild, MethodOperation _m,
-            OperationsSequence _op) {
+    private String variableName = EMPTY_STRING;
+
+    public InternVariableOperation(int _indexInEl, int _indexChild,
+            MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
 
@@ -43,20 +44,10 @@ public final class ThisOperation extends LeafOperation {
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
-        String arg_ = _conf.getGlobalClass();
-        if (arg_ == null) {
-            arg_ = stds_.getAliasObject();
-        }
-        if (_conf.isStaticContext()) {
-            StaticAccessThisError static_ = new StaticAccessThisError();
-            static_.setClassName(arg_);
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(static_);
-        }
-        setResultClass(new ClassArgumentMatching(arg_));
+        variableName = str_;
+        LocalVariable locVar_ = _conf.getInternVars().getVal(str_);
+        String c_ = locVar_.getClassName();
+        setResultClass(new ClassArgumentMatching(c_));
     }
 
     @Override
@@ -72,6 +63,7 @@ public final class ThisOperation extends LeafOperation {
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
         isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        
         for (StringMap<AssignmentBefore> s: assB_) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
@@ -121,19 +113,19 @@ public final class ThisOperation extends LeafOperation {
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-
     ArgumentCall getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        PageEl ip_ = _conf.getOperationPageEl();
-        Struct struct_ = ip_.getGlobalArgument().getStruct();
+        AbstractPageEl ip_ = ((ContextEl)_conf).getLastPage();
+        LocalVariable locVar_ = ip_.getInternVars().getVal(variableName);
         a_ = new Argument();
-        a_.setStruct(struct_);
+        a_.setStruct(locVar_.getStruct());
         return ArgumentCall.newArgument(a_);
     }
+
     @Override
     public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
         OperationNode op_ = this;

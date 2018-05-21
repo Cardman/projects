@@ -11,6 +11,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -53,6 +54,16 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     public void analyze(Analyzable _conf,
             String _fieldName) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (chidren_.size() != 2) {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+            BadOperandsNumber badNb_ = new BadOperandsNumber();
+            badNb_.setFileName(_conf.getCurrentFileName());
+            badNb_.setOperandsNumber(chidren_.size());
+            badNb_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().getErrorsDet().add(badNb_);
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
         ClassArgumentMatching class_ = chidren_.first().getResultClass();
         ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(chidren_.last().getIndexInEl(), _conf);
@@ -253,7 +264,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Object o_ = _index.getObject();
         PageEl ip_ = _conf.getOperationPageEl();
         Struct leftObj_;
-        if (_stored.isArray()) {
+        if (resultCanBeSet()) {
             leftObj_ = getElement(_stored, o_, _conf, _indexEl);
         } else {
             leftObj_ = _stored;

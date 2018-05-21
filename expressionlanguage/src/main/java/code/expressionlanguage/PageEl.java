@@ -22,7 +22,6 @@ public abstract class PageEl {
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
 
-
     public Argument getRightArgument() {
         return rightArgument;
     }
@@ -121,6 +120,5 @@ public abstract class PageEl {
     public void setParameters(StringMap<LocalVariable> _parameters) {
         parameters = _parameters;
     }
-
 
 }

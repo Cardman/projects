@@ -3,7 +3,6 @@ import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -15,12 +14,10 @@ import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class Condition extends BracedStack implements StackableBlockGroup {
@@ -75,6 +72,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
                 return;
             }
         }
+        elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
         for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
             res_.getFieldsRootAfter().put(e.getKey(), ((BooleanAssignment) e.getValue()).copy());
@@ -103,12 +101,6 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         last_.setOffset(0);
         last_.setGlobalOffset(conditionOffset);
         Argument arg_ = exp_.calculateMember(_context);
-        if (exp_.isFinished() && arg_.isNull()) {
-            LgNames stds_ = _context.getStandards();
-            String null_;
-            null_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(StringList.concat(_context.joinPages())),null_));
-        }
         if (_context.callsOrException()) {
             return null;
         }

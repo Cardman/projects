@@ -826,4 +826,14 @@ public class Configuration implements ExecutableCode {
     public StringList getNeedInterfaces() {
         return context.getNeedInterfaces();
     }
+
+    @Override
+    public StringMap<LocalVariable> getInternVars() {
+        return context.getInternVars();
+    }
+
+    @Override
+    public boolean isEnabledInternVars() {
+        return false;
+    }
 }

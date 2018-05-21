@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
@@ -17,7 +16,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -69,6 +67,18 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         und_.setRc(_conf.getCurrentLocation());
         _conf.getClasses().getErrorsDet().add(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
+        if (isIntermediateDottedOperation()) {
+            Argument arg_ = getPreviousArgument();
+            if (arg_ != null) {
+                if (arg_.getObject() == null) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(static_);
+                }
+            }
+            cl_.setCheckOnlyNullPe(true);
+        }
     }
     @Override
     public final void analyzeAssignmentAfter(Analyzable _conf) {
@@ -95,9 +105,6 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
     }
     @Override
     ArgumentCall getCommonArgument(Argument _previous, ExecutableCode _conf) {
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -105,11 +112,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument arg_ = _previous;
         a_ = new Argument();
-        if (arg_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-        } else {
-            a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
-        }
+        a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
         return ArgumentCall.newArgument(a_);
     }
 

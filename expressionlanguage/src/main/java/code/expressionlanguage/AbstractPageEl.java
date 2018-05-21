@@ -13,6 +13,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class AbstractPageEl extends PageEl {
 
@@ -55,6 +56,7 @@ public abstract class AbstractPageEl extends PageEl {
     private int tabWidth;
 
     private int offset;
+    private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     public void addToOffset(int _offset) {
         offset += _offset;
@@ -277,5 +279,9 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void setReturnedArgument(Argument _returnedArgument) {
         returnedArgument = _returnedArgument;
+    }
+
+    public StringMap<LocalVariable> getInternVars() {
+        return internVars;
     }
 }

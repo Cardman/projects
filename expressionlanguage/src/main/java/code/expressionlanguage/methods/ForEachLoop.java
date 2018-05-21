@@ -227,6 +227,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             return;
         }
         OperationNode el_ = opList.last();
+        el_.getResultClass().setCheckOnlyNullPe(true);
         if (el_.getResultClass().isArray()) {
             String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass().getName());
             Mapping mapping_ = new Mapping();
@@ -707,7 +708,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             return;
         }
         LgNames stds_ = _cont.getStandards();
-        String null_ = stds_.getAliasNullPe();
         Struct its_ = processLoop(_cont);
         if (_cont.callsOrException()) {
             return;
@@ -727,7 +727,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(stds_.getStructClassName(its_, _cont));
             locVar_.setStruct(its_);
-            _cont.getLastPage().putLocalVar(locName_, locVar_);
+            _cont.getLastPage().getInternVars().put(locName_, locVar_);
             ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX, native_,CustList.SECOND_INDEX);
             Argument arg_ = dyn_.calculateMember(_cont);
             if (_cont.callsOrException()) {
@@ -735,11 +735,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             }
             _cont.getLastPage().clearCurrentEls();
             iterStr_ = arg_.getStruct();
-            _cont.getLastPage().removeLocalVar(locName_);
-            if (iterStr_.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
-                return;
-            }
         }
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setIndex(-1);
@@ -792,8 +787,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     Struct processLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
-        LgNames stds_ = _conf.getStandards();
-        String null_ = stds_.getAliasNullPe();
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
         ExpressionLanguage el_ = ip_.getCurrentEl(_conf, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
@@ -802,9 +795,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
-        if (ito_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-        }
         return ito_;
         
     }
@@ -868,14 +858,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(strIter_, _conf));
         locVar_.setStruct(strIter_);
-        _conf.getLastPage().putLocalVar(locName_, locVar_);
+        _conf.getLastPage().getInternVars().put(locName_, locVar_);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, nativeCmp, 2);
         Argument arg_ = dyn_.calculateMember(_conf);
         if (_conf.callsOrException()) {
             return null;
         }
         boolean hasNext_ = (Boolean) arg_.getObject();
-        _conf.getLastPage().removeLocalVar(locName_);
         return hasNext_;
     }
 
@@ -899,13 +888,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
             locVar_.setStruct(iterator_);
-            _conf.getLastPage().putLocalVar(locName_, locVar_);
+            _conf.getLastPage().getInternVars().put(locName_, locVar_);
             ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.SECOND_INDEX, native_, 3);
             Argument arg_ = dyn_.calculateMember(_conf);
             if (_conf.callsOrException()) {
                 return;
             }
-            _conf.getLastPage().removeLocalVar(locName_);
             _conf.getLastPage().clearCurrentEls();
             element_ = arg_.getStruct();
         } else {

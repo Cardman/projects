@@ -35,7 +35,8 @@ public interface Analyzable {
     StringMap<LocalVariable> getCatchVars();
 
     StringMap<LocalVariable> getParameters();
-
+    boolean isEnabledInternVars();
+    StringMap<LocalVariable> getInternVars();
     int getOffset();
 
     void setAnalyzedOffset(int _offset);

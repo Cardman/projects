@@ -8,11 +8,9 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -31,13 +29,16 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class AffectationOperation extends MethodOperation {
+public final class CompoundAffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
 
-    public AffectationOperation(int _index, int _indexChild,
+    private String oper;
+
+    public CompoundAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        oper = _op.getOperators().firstValue();
     }
 
     @Override
@@ -65,51 +66,55 @@ public final class AffectationOperation extends MethodOperation {
         }
         settable = elt_;
         setResultClass(elt_.getResultClass());
-        elt_.setVariable(true);
+        elt_.setVariable(false);
+        String stringType_ = stds_.getAliasString();
+        String res_ = elt_.getResultClass().getName();
+        if (StringList.quickEq(res_, stringType_)) {
+            settable.setCatenizeStrings();
+        }
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
-        if (clMatchRight_.isVariable()) {
-            if (!clMatchLeft_.isPrimitive(_conf)) {
+        Mapping mapping_ = new Mapping();
+        mapping_.setArg(clMatchRight_.getName());
+        mapping_.setParam(clMatchLeft_.getName());
+        BadImplicitCast cast_ = new BadImplicitCast();
+        cast_.setMapping(mapping_);
+        cast_.setFileName(_conf.getCurrentFileName());
+        cast_.setRc(_conf.getCurrentLocation());
+        if (StringList.quickEq(oper, Block.EQ_PLUS) || StringList.quickEq(oper, Block.PLUS_EQ)) {
+            if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
+                if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    return;
+                }
+            } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
+                _conf.getClasses().getErrorsDet().add(cast_);
                 return;
             }
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(clMatchRight_.getName());
-            mapping_.setParam(clMatchLeft_.getName());
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+        } else if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ)) {
+            if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasBoolean())) {
+                if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasPrimBoolean())) {
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    return;
+                }
+            }
+            if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasBoolean())) {
+                if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasPrimBoolean())) {
+                    _conf.getClasses().getErrorsDet().add(cast_);
+                    return;
+                }
+            }
+        } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
+            _conf.getClasses().getErrorsDet().add(cast_);
+            return;
+        } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
             _conf.getClasses().getErrorsDet().add(cast_);
             return;
         }
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        boolean buildMap_ = true;
-        if (_conf.isStaticContext()) {
-            buildMap_ = false;
-        } else if (_conf.getGlobalClass() == null) {
-            buildMap_ = false;
-        }
-        if (buildMap_) {
-            for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
-        mapping_.setArg(clMatchRight_.getName());
-        mapping_.setParam(clMatchLeft_.getName());
-        if (!Templates.isCorrect(mapping_, _conf)) {
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(cast_);
-        }
-        if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_.getName(), _conf)) {
-            right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
-        }
+        elt_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+        right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
     }
 
     static SettableElResult tryGetSettable(MethodOperation _operation) {
@@ -281,7 +286,7 @@ public final class AffectationOperation extends MethodOperation {
     public void calculate(ExecutableCode _conf) {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getOperationPageEl().setRightArgument(right_.getArgument());
-        settable.calculateSetting(_conf, EMPTY_STRING, false);
+        settable.calculateSetting(_conf, oper, false);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
         _conf.getOperationPageEl().setRightArgument(null);
@@ -292,7 +297,7 @@ public final class AffectationOperation extends MethodOperation {
             ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
         _conf.getLastPage().setRightArgument(_nodes.getVal(right_).getArgument());
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, EMPTY_STRING, false);
+        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper, false);
         _conf.getLastPage().setRightArgument(null);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;

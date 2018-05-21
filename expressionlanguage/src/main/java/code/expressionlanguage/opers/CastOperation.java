@@ -11,6 +11,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -61,6 +62,15 @@ public final class CastOperation extends AbstractUnaryOperation {
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);
             getResultClass().setUnwrapObject(className);
+            Argument arg_ = getFirstChild().getArgument();
+            if (arg_ != null) {
+                if (arg_.getObject() == null) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(static_);
+                }
+            }
         }
     }
 

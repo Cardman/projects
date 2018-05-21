@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -170,6 +171,18 @@ public final class ChoiceFctOperation extends InvokingOperation {
         staticMethod = clMeth_.isStaticMethod();
         unwrapArgsFct(chidren_, realId, naturalVararg, lastType, firstArgs_, _conf);
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+        if (isIntermediateDottedOperation() && !staticMethod) {
+            Argument arg_ = getPreviousArgument();
+            if (arg_ != null) {
+                if (arg_.getObject() == null) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(static_);
+                }
+            }
+            getPreviousResultClass().setCheckOnlyNullPe(true);
+        }
     }
 
     @Override
@@ -294,9 +307,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        String null_;
         String cast_;
-        null_ = stds_.getAliasNullPe();
         cast_ = stds_.getAliasCast();
         CustList<Argument> firstArgs_;
         Argument arg_ = _previous;
@@ -305,11 +316,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         if (!staticMethod) {
-            if (arg_.isNull()) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                Argument a_ = new Argument();
-                return ArgumentCall.newArgument(a_);
-            }
 
             classNameFound_ = classMethodId.getClassName();
 

@@ -15,7 +15,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class AnalyzedPageEl {
+public final class AnalyzedPageEl {
 
     private static final String READ_URL = "readUrl";
 
@@ -39,12 +39,15 @@ public class AnalyzedPageEl {
     private StringMap<LocalVariable> catchVars = new StringMap<LocalVariable>();
 
     private CustList<StringMap<LocalVariable>> localVars = new CustList<StringMap<LocalVariable>>();
+    private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
 
     private AssignedVariablesBlock assignedVariables = new AssignedVariablesBlock();
 
     private CustList<OperationNode> textualSortedOperations = new CustList<OperationNode>();
+
+    private boolean enabledInternVars;
 
     private String readUrl;
 
@@ -162,13 +165,21 @@ public class AnalyzedPageEl {
         int i_ = CustList.FIRST_INDEX;
         while (true) {
             if (!resVar_.containsStr(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
-                if (!localVars.last().contains(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
+                if (!internVars.getKeys().containsStr(StringList.concatNbs(Classes.TEMP_PREFIX,i_))) {
                     break;
                 }
             }
             i_++;
         }
         return StringList.concatNbs(Classes.TEMP_PREFIX,i_);
+    }
+
+    public boolean isEnabledInternVars() {
+        return enabledInternVars;
+    }
+
+    public void setEnabledInternVars(boolean _enabledInternVars) {
+        enabledInternVars = _enabledInternVars;
     }
 
     public Block getCurrentBlock() {
@@ -386,5 +397,8 @@ public class AnalyzedPageEl {
     }
     public StringList getNeedInterfaces() {
         return needInterfaces;
+    }
+    public StringMap<LocalVariable> getInternVars() {
+        return internVars;
     }
 }

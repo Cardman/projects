@@ -11,18 +11,13 @@ import org.junit.Test;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.ExpLanguages;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassField;
@@ -31,14 +26,12 @@ import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.classes.ArrayContainer;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustLgNames;
-import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -1637,7 +1630,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("+1b",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -1645,7 +1638,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("+-1b",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2169,7 +2162,7 @@ public final class ElRenderUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
         ElRenderUtil.processEl("getOverridenOne($null)",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2177,7 +2170,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$(Object)$null",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
 
@@ -2198,6 +2191,7 @@ public final class ElRenderUtilTest {
         addBean(context_,new Composite(), COMPOSITE);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("setPrivateInt(arg;.)",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2215,7 +2209,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new java.lang.Number()",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2223,6 +2217,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new [$int(-1i)",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2231,6 +2226,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new [java.lang.Integer(-1i)",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2242,6 +2238,7 @@ public final class ElRenderUtilTest {
         CustLgNames cust_ = (CustLgNames) context_.getContext().getStandards();
         addBeanClassName(context_,cust_.getAliasComposite());
         ElRenderUtil.processEl("integer",0, context_);
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2259,6 +2256,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("MAX_VALUE",0, context_);
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
     
@@ -2267,7 +2265,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).integer",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2275,7 +2273,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).int$$eger",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2283,6 +2281,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.StrangeInit).NOT_READ",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2291,6 +2290,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.StrangeInit).fail()",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2299,6 +2299,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new code.expressionlanguage.classes.StrangeInit()",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2307,6 +2308,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail()",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2315,6 +2317,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new code.expressionlanguage.classes.FailMethods()",0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2331,7 +2334,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("get(arg;.)",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2339,7 +2342,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).getInteger()",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2390,7 +2393,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "$firstopt(6)*(7+8)";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2399,7 +2402,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format(\"6\",$vararg(6))";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2408,7 +2411,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2417,7 +2420,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "$vararg(java.lang.Object)*(7+8)";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2426,7 +2429,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2435,7 +2438,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format($firstopt(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
     
     @Test
@@ -2453,7 +2456,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "get(,)";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2462,7 +2465,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1<2<3";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2471,7 +2474,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "(3,4)";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2480,7 +2483,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1< ";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2489,7 +2492,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1<";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2498,7 +2501,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1!";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2507,7 +2510,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1!=";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2516,7 +2519,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "!";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2525,7 +2528,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "-";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2534,7 +2537,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "$true!$false";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2543,7 +2546,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "$static(code.expressionlanguage.classes.FailMethods).(fail())";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2552,7 +2555,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "var;.[0i,1i]";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertNotNull(conf_.getContext().getException());
+        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
     }
     @Test
     public void processEl179Test() {
@@ -3201,9 +3204,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$($byte)$null",0, context_);
-        Struct exc_ = context_.getContext().getException();
-        assertNotNull(exc_);
-        assertEq(context_.getStandards().getAliasNullPe(),exc_.getClassName(context_.getContext()));
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
     @Test
     public void processEl201Test() {
@@ -3251,7 +3252,7 @@ public final class ElRenderUtilTest {
     }
     @Test
     public void processAffect1Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3259,14 +3260,14 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "1i", "=",context_);
+        ElRenderUtil.processEl("v;.=1i", 0, context_);
         assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
         assertEq(1, (Number)lv_.getElement());
     }
 
     @Test
     public void processAffect2Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3277,14 +3278,14 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
-        processAffect("","","","v;.integer", "12i", "=",context_);
+        ElRenderUtil.processEl("v;.integer=12i", 0, context_);
         assertEq(COMPOSITE, lv_.getClassName());
         assertEq(12, c_.getInteger());
     }
 
     @Test
     public void processAffect3Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3294,13 +3295,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i]", "12i", "=",context_);
+        ElRenderUtil.processEl("v;.[0i]=12i", 0, context_);
         assertEq(12, (Number) in_[0].getInstance());
     }
 
     @Test
     public void processAffect4Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3313,13 +3314,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i][0i]", "12i", "=",context_);
+        ElRenderUtil.processEl("v;.[0i][0i]=12i", 0, context_);
         assertEq(12, (Number) ((Struct[])in_[0].getInstance())[0].getInstance());
     }
 
     @Test
     public void processAffect5Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3327,7 +3328,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "1i", "+=",context_);
+        ElRenderUtil.processEl("v;.+=1i", 0, context_);
         assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
         assertEq(2, (Number)lv_.getElement());
     }
@@ -3514,7 +3515,7 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processAffect14Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3524,13 +3525,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i].array[0i]", "1i", "=",context_);
+        ElRenderUtil.processEl("v;.[0i].array[0i]=1i", 0, context_);
         assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
 
     @Test
     public void processAffect15Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3540,13 +3541,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i].getArray()[0i]", "1i", "=",context_);
+        ElRenderUtil.processEl("v;.[0i].getArray()[0i]=1i", 0, context_);
         assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
     }
 
     @Test
     public void processAffect16Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3556,7 +3557,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "1i", "=",context_);
+        ElRenderUtil.processEl("v;.[0i].getCompo()[0i].getArray()[0i]=1i", 0, context_);
         assertEq(1, ((ArrayContainer)c_[0].getInstance()).getCompo()[0].getArray()[0]);
     }
 
@@ -3602,7 +3603,7 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processAffect19Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3611,13 +3612,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.getArray()[0i]", "1i", "=",context_);
+        ElRenderUtil.processEl("v;.getArray()[0i]=1i", 0, context_);
         assertEq(1, c_.getArray()[0]);
     }
 
     @Test
     public void processAffect20Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3626,7 +3627,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.getCompo()[0i].getArray()[0i]", "1i", "=",context_);
+        ElRenderUtil.processEl("v;.getCompo()[0i].getArray()[0i]=1i", 0, context_);
         assertEq(1, c_.getCompo()[0].getArray()[0]);
     }
 
@@ -3643,7 +3644,7 @@ public final class ElRenderUtilTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = contextEl(files_);
+        Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3653,7 +3654,7 @@ public final class ElRenderUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$classchoice(pkg.Ex)inst", "2i", "=",cont_);
+        ElRenderUtil.processEl("$classchoice(pkg.Ex)inst=2i", 0, cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertTrue(res_ instanceof Integer);
@@ -3673,7 +3674,7 @@ public final class ElRenderUtilTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = contextEl(files_);
+        Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3683,8 +3684,8 @@ public final class ElRenderUtilTest {
         cont_.getLastPage().setLocalVars(localVars_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$classchoice(pkg.Ex)inst", "2i", "=",cont_);
-        processAffect("","","","$classchoice(pkg.Ex)inst", "v;.", "=",cont_);
+        ElRenderUtil.processEl("$classchoice(pkg.Ex)inst=2i", 0, cont_);
+        ElRenderUtil.processEl("$classchoice(pkg.Ex)inst=v;.", 0, cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertNull(res_);
@@ -3692,7 +3693,7 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processAffect23Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3700,7 +3701,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasString());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "1i", "+=",context_);
+        ElRenderUtil.processEl("v;.+=1i", 0, context_);
         assertEq(context_.getStandards().getAliasString(), lv_.getClassName());
         assertEq("add 1", (String)lv_.getElement());
     }
@@ -3708,7 +3709,7 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processAffect24Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3719,7 +3720,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i]", "1i", "+=",context_);
+        ElRenderUtil.processEl("v;.[0i]+=1i", 0, context_);
         assertEq(arrayType_, lv_.getClassName());
         assertEq("add 1",(String)((Struct[]) lv_.getStruct().getInstance())[0].getInstance());
     }
@@ -3735,11 +3736,11 @@ public final class ElRenderUtilTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = contextEl(files_);
+        Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         Struct arg_;
         Object res_;
-        processAffect("","","","$static(pkg.Ex).exmeth()[0i]", "2i", "=",cont_);
+        ElRenderUtil.processEl("$static(pkg.Ex).exmeth()[0i]=2i", 0, cont_);
         arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         res_ = arg_.getInstance();
         assertEq(1,((Struct[])res_).length);
@@ -3747,7 +3748,7 @@ public final class ElRenderUtilTest {
     }
     @Test
     public void processAffect26Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3755,13 +3756,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "$false", "&=",context_);
+        ElRenderUtil.processEl("v;.&=$false", 0, context_);
         assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
         assertEq(false, (Boolean)lv_.getElement());
     }
     @Test
     public void processAffect27Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3769,56 +3770,50 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "$true", "|=",context_);
+        ElRenderUtil.processEl("v;.|=$true", 0, context_);
         assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
         assertEq(true, (Boolean)lv_.getElement());
     }
-    static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
-            String _left, String _right, String _oper, Configuration _conf) {
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
-        boolean staticContext_ = arg_ == null || arg_.isNull();
-        ContextEl context_ = _conf.toContextEl();
-        context_.setAnalyzing(new AnalyzedPageEl());
-        context_.getAnalyzing().setGlobalClass(_conf.getLastPage().getGlobalClass());
-        context_.getAnalyzing().setLocalVars(_conf.getLastPage().getLocalVars());
-        context_.getAnalyzing().getVars().putAllMap(_conf.getLastPage().getVars());
-        context_.getAnalyzing().getCatchVars().putAllMap(_conf.getLastPage().getCatchVars());
-        context_.getAnalyzing().getParameters().putAllMap(_conf.getLastPage().getParameters());
-        ExpLanguages members_ = ElUtil.getAnalyzedAffectation(0, 0, 0, _left, _right, _oper, context_, staticContext_, staticContext_);
-        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
-            BadElRender badEl_ = new BadElRender();
-            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
-            context_.setAnalyzing(null);
-            return;
-        }
-        context_.setAnalyzing(null);
-        CustList<OperationNode> left_ = members_.getLeft();
-        SettableElResult set_ = ExpressionLanguage.getSettable(left_);
-        if (set_ == null) {
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(un_);
-            context_.setException(new StdStruct(new CustomError(), _conf.getStandards().getErrorEl()));
-            return;
-        }
-        set_.setVariable(true);
-        LgNames stds_ = _conf.getStandards();
-        String stringType_ = stds_.getAliasString();
-        String res_ = set_.getResultClass().getName();
-        if (set_.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {
-            set_.setCatenizeStrings();
-        }
-        CustList<OperationNode> right_ = members_.getRight();
-        ElRenderUtil.tryToCalculateAffect(left_, _conf, right_, _oper);
+
+    @Test
+    public void processAffect28Test() {
+        Configuration context_ = contextEl(true,false);
+        CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite();
+        lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        assertEq(0, c_.getInteger());
+        Argument res_ = ElRenderUtil.processEl("v;.integer++", 0, context_);
+        assertEq(COMPOSITE, lv_.getClassName());
+        assertEq(1, c_.getInteger());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(0, (Number)res_.getObject());
     }
 
-
-
-
+    @Test
+    public void processAffect29Test() {
+        Configuration context_ = contextEl(true,false);
+        CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        Composite c_ = new Composite();
+        lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
+        lv_.setClassName("code.expressionlanguage.classes.Composite");
+        localVars_.put("v", lv_);
+        context_.getLastPage().setLocalVars(localVars_);
+        assertEq(0, c_.getInteger());
+        Argument res_ = ElRenderUtil.processEl("++v;.integer", 0, context_);
+        assertEq(COMPOSITE, lv_.getClassName());
+        assertEq(1, c_.getInteger());
+        assertTrue(res_.getObject() instanceof Integer);
+        assertEq(1, (Number)res_.getObject());
+    }
 
 
 
@@ -3832,7 +3827,7 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processAffect2FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3840,12 +3835,12 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().getParameters().putAllMap(localVars_);
-        processAffect("","","","v;.;", "12i", "=",context_);
-        assertNotNull(context_.getContext().getException());
+        ElRenderUtil.processEl("v;.;=12i", 0, context_);
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
     @Test
     public void processAffect3FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3855,13 +3850,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i]", "\"12i\"", "=",context_);
+        ElRenderUtil.processEl("v;.[0i]=\"12i\"", 0, context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
     public void processAffect4FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3872,13 +3867,13 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
-        processAffect("","","","v;.integer", "\"12i\"", "=",context_);
+        ElRenderUtil.processEl("v;.integer=\"12i\"", 0, context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
     public void processAffect5FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3886,13 +3881,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "\"12i\"", "=",context_);
+        ElRenderUtil.processEl("v;.=\"12i\"", 0, context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
     public void processAffect6FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3906,13 +3901,14 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
-        processAffect("","","","v;.integer", "v2;.", "=",context_);
+        ElRenderUtil.processEl("v;.integer=v2;.", 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
     @Test
     public void processAffect7FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3925,13 +3921,14 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i].getCompo()[0i].getArray()[0i]", "v2;.", "=",context_);
+        ElRenderUtil.processEl("v;.[0i].getCompo()[0i].getArray()[0i]=v2;.", 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
     @Test
     public void processAffect8FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3942,13 +3939,14 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "v2;.", "=",context_);
+        ElRenderUtil.processEl("v;.=v2;.", 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
     @Test
     public void processAffect9FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         addBean(context_, new BeanOne(), ALIAS_BEAN_ONE);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3960,13 +3958,13 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","$this", "$null", "=",context_);
-        assertNotNull(context_.getContext().getException());
+        ElRenderUtil.processEl("$this=$null", 0, context_);
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
     public void processAffect10FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3977,7 +3975,7 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.", "$this", "=",context_);
+        ElRenderUtil.processEl("v;.=$this", 0, context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
@@ -3994,7 +3992,7 @@ public final class ElRenderUtilTest {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = contextEl(files_);
+        Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -4002,13 +4000,14 @@ public final class ElRenderUtilTest {
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","$classchoice(pkg.Ex)inst", "v;.", "=",cont_);
+        ElRenderUtil.processEl("$classchoice(pkg.Ex)inst=v;.", 0, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(cont_.getContext().getException());
     }
 
     @Test
     public void processAffect12FailTest() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
         String stringType_ = custLgNames_.getAliasString();
         addImportingPage(context_);
@@ -4024,7 +4023,8 @@ public final class ElRenderUtilTest {
         lv_.setClassName(context_.getStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
-        processAffect("","","","v;.[0i]", "v2;.", "=",context_);
+        ElRenderUtil.processEl("v;.[0i]=v2;.", 0, context_);
+        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -4069,8 +4069,17 @@ public final class ElRenderUtilTest {
     }
 
     private Configuration contextEl(StringMap<String> _files) {
+        return contextEl(_files, false);
+    }
+
+    private Configuration contextEl(StringMap<String> _files, boolean _multiple) {
+        return contextEl(_files, _multiple, true);
+    }
+    private Configuration contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
         Configuration conf_ = new Configuration();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEqPlus(_eqPlus);
+        cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().getErrorsDet().isEmpty());

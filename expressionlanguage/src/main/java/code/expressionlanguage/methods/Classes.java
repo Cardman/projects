@@ -22,7 +22,6 @@ import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
 import code.expressionlanguage.methods.util.DuplicateType;
 import code.expressionlanguage.methods.util.EmptyTagName;
-import code.expressionlanguage.methods.util.EqualsEl;
 import code.expressionlanguage.methods.util.ErrorList;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -85,7 +84,7 @@ public final class Classes {
     private static final char PREF = '#';
     private static final char PRIM = '$';
     private static final char COMMA = ',';
-    private static final String LOC_VAR = ";.";
+    private static final String LOC_VAR = ".";
 
     private static final String PARS = "()";
     private static final String EMPTY_STRING = "";
@@ -99,11 +98,9 @@ public final class Classes {
     private final ErrorList errorsDet;
     private final StringList localVariablesNames;
     private DefaultLockingClass locks;
-    private EqualsEl natEqEl;
     private String iteratorVar;
     private String hasNextVar;
     private String nextVar;
-    private CustList<OperationNode> exps;
     private String iteratorVarCust;
     private String hasNextVarCust;
     private String nextVarCust;
@@ -648,6 +645,62 @@ public final class Classes {
             String content_ = e.getValue();
             FileResolver.parseFile(name_, content_, true, _context);
         }
+        Classes cl_ = _context.getClasses();
+        TypeUtil.buildInherits(_context, cl_.classesBodies.getKeys(), true);
+        for (RootBlock t: cl_.classesBodies.values()) {
+            TypeUtil.buildOverrides(t, _context);
+        }
+        //local names
+        _context.setAnalyzing(new AnalyzedPageEl());
+        _context.getAnalyzing().setEnabledInternVars(true);
+        String locName_ = _context.getNextTempVar();
+        String exp_;
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasSimpleIterableType());
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.iteratorVar = locName_;
+        String simpleIterator_ = stds_.getAliasSimpleIterator();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
+        cl_.expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.hasNextVar = locName_;
+        String hasNext_ = stds_.getAliasHasNext();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
+        cl_.expsHasNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.nextVar = locName_;
+        String next_ = stds_.getAliasNext();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
+        cl_.expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasIterable());
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.iteratorVarCust = locName_;
+        String iterator_ = stds_.getAliasSimpleIterator();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
+        cl_.expsIteratorCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasIteratorType());
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.hasNextVarCust = locName_;
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
+        cl_.expsHasNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getAliasIteratorType());
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.nextVarCust = locName_;
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
+        cl_.expsNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        _context.setAnalyzing(null);
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             String content_ = f.getValue();
@@ -1038,7 +1091,16 @@ public final class Classes {
             }
             return;
         }
-        TypeUtil.buildInherits(_context, classesBodies.getKeys(), true);
+        StringList filter_ = new StringList();
+        for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
+            String c = s.getKey();
+            RootBlock dBl_ = s.getValue();
+            if (dBl_.getFile().isPredefined()) {
+                continue;
+            }
+            filter_.add(c);
+        }
+        TypeUtil.buildInherits(_context, filter_, true);
         LgNames stds_ = _context.getStandards();
         for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
             String c = s.getKey();
@@ -1490,32 +1552,8 @@ public final class Classes {
                 }
             }
         }
-        localVariablesNames.removeDuplicates();
-        int i_ = CustList.FIRST_INDEX;
-        while (localVariablesNames.containsStr(StringList.concatNbs(TEMP_PREFIX,i_))) {
-            i_++;
-        }
-        int five_ = i_;
-        i_++;
-        while (localVariablesNames.containsStr(StringList.concatNbs(TEMP_PREFIX,i_))) {
-            i_++;
-        }
-        int six_ = i_;
-        String fifthArg_ = StringList.concatNbs(TEMP_PREFIX,five_);
-        String sixthArg_ = StringList.concatNbs(TEMP_PREFIX,six_);
-        localVariablesNames.add(fifthArg_);
-        localVariablesNames.add(sixthArg_);
-        LgNames stds_ = _context.getStandards();
-        String nateqt_ = StringList.simpleStringsFormat(NAT_EQ_FORMAT, fifthArg_, sixthArg_);
-        natEqEl = new EqualsEl(fifthArg_, sixthArg_);
-        LocalVariable lc_ = new LocalVariable();
-        lc_.setClassName(_context.getStandards().getAliasObject());
-        _context.putLocalVar(fifthArg_, lc_);
-        lc_ = new LocalVariable();
-        lc_.setClassName(_context.getStandards().getAliasObject());
-        _context.putLocalVar(sixthArg_, lc_);
+        /*LgNames stds_ = _context.getStandards();
         _context.setRootAffect(false);
-        exps = ElUtil.getAnalyzedOperations(nateqt_, _context, Calculation.staticCalculation(true));
         String locName_ = _context.getNextTempVar();
         String exp_;
         LocalVariable locVar_ = new LocalVariable();
@@ -1563,14 +1601,12 @@ public final class Classes {
         nextVarCust = locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
         expsNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        _context.removeLocalVar(fifthArg_);
-        _context.removeLocalVar(sixthArg_);
         _context.removeLocalVar(iteratorVar);
         _context.removeLocalVar(hasNextVar);
         _context.removeLocalVar(nextVar);
         _context.removeLocalVar(iteratorVarCust);
         _context.removeLocalVar(hasNextVarCust);
-        _context.removeLocalVar(nextVarCust);
+        _context.removeLocalVar(nextVarCust);*/
         _context.setAnalyzing(null);
     }
 
@@ -1633,10 +1669,6 @@ public final class Classes {
         return false;
     }
 
-    public EqualsEl getNatEqEl() {
-        return natEqEl;
-    }
-
     public String getIteratorVar(boolean _native) {
         if (_native) {
             return iteratorVar;
@@ -1677,10 +1709,6 @@ public final class Classes {
             return new ExpressionLanguage(expsNext);
         }
         return new ExpressionLanguage(expsNextCust);
-    }
-
-    public ExpressionLanguage getEqNatEl() {
-        return new ExpressionLanguage(exps);
     }
 
     //validate el and its possible returned type

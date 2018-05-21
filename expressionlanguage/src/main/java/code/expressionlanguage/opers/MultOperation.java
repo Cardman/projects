@@ -19,6 +19,9 @@ public final class MultOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             Analyzable _an) {
+        if (_a.isNull() || _b.isNull()) {
+            return Argument.createVoid();
+        }
         if (StringList.quickEq(_op.trim(), MULT)) {
             return calculateMult(_a, _b);
         }
@@ -31,7 +34,7 @@ public final class MultOperation extends NumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return calculateMultEx(_a, _cont, _b);
+            return calculateMult(_a, _b);
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
             return calculateDivEx(_a, _cont, _b);

@@ -40,10 +40,6 @@ public final class OperationsSequence {
             priority = ElResolver.BAD_PRIO;
             return;
         }
-        if (priority == ElResolver.ARR_OPER_PRIO && operators.size() != 2) {
-            priority = ElResolver.BAD_PRIO;
-            return;
-        }
         if (priority == ElResolver.ARR_OPER_PRIO && !_string.substring(operators.lastKey()+1).trim().isEmpty()) {
             priority = ElResolver.BAD_PRIO;
             return;
@@ -93,10 +89,15 @@ public final class OperationsSequence {
             return;
         }
         if (priority == ElResolver.ARR_OPER_PRIO) {
-            beginValuePart_ = endValuePart_ + operators.getValue(0).length();
-            endValuePart_ = operators.getKey(1);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
+            int i_ = CustList.SECOND_INDEX;
+            int nbKeys_ = operators.size();
+            while (i_ < nbKeys_) {
+                beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+                endValuePart_ = operators.getKey(i_);
+                str_ = _string.substring(beginValuePart_, endValuePart_);
+                values.put(beginValuePart_, str_);
+                i_++;
+            }
             return;
         }
         int i_ = CustList.SECOND_INDEX;

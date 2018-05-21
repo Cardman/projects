@@ -252,6 +252,9 @@ public abstract class OperationNode {
             if (ct_ == ConstType.SUPER_KEYWORD) {
                 return new SuperFieldOperation(_index, _indexChild, _m, _op);
             }
+            if (_an.isEnabledInternVars()) {
+                return new InternVariableOperation(_index, _indexChild, _m, _op);
+            }
             if (!(ct_.isVariable() || _m instanceof AffectationOperation && _m.getParent() == null && _an.isMerged())) {
                 if (_m instanceof DotOperation) {
                     OperationNode ch_ = _m.getFirstChild();
@@ -359,6 +362,10 @@ public abstract class OperationNode {
             return new OrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
+            String op_ = _op.getOperators().firstValue();
+            if (!StringList.quickEq(op_, EQ)) {
+                return new CompoundAffectationOperation(_index, _indexChild, _m, _op);
+            }
             return new AffectationOperation(_index, _indexChild, _m, _op);
         }
         return null;
@@ -1241,7 +1248,7 @@ public abstract class OperationNode {
             return;
         }
         String un_ = resultClass.getUnwrapObject();
-        if (!un_.isEmpty()) {
+        if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
             if (_arg.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
@@ -1250,7 +1257,11 @@ public abstract class OperationNode {
                 _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
                 return;
             }
-            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+        }
+        if (!un_.isEmpty()) {
+            if (!resultClass.isCheckOnlyNullPe()) {
+                _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+            }
         }
         int res_ = processBooleanValues(_arg, _cont);
         if (res_ <= 0) {
@@ -1283,7 +1294,7 @@ public abstract class OperationNode {
             return;
         }
         String un_ = resultClass.getUnwrapObject();
-        if (!un_.isEmpty()) {
+        if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
             if (_arg.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
@@ -1292,7 +1303,11 @@ public abstract class OperationNode {
                 _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
                 return;
             }
-            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+        }
+        if (!un_.isEmpty()) {
+            if (!resultClass.isCheckOnlyNullPe()) {
+                _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+            }
         }
         int res_ = processBooleanValues(_arg, _cont);
         if (res_ <= 0) {

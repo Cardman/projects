@@ -14,7 +14,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.EmptyPartError;
 import code.expressionlanguage.methods.util.UndefinedVariableError;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -27,6 +26,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
@@ -76,20 +76,7 @@ public final class VariableOperation extends LeafOperation implements
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String argClName_;
-        if (str_.isEmpty()) {
-            EmptyPartError emptyPart_ = new EmptyPartError();
-            emptyPart_.setFileName(_conf.getCurrentFileName());
-            emptyPart_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(emptyPart_);
-            argClName_ = _conf.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
-            return;
-        }
         LgNames stds_ = _conf.getStandards();
-        String stringType_;
-        stringType_ = stds_.getAliasString();
-        str_ = StringList.removeAllSpaces(str_);
         if (getParent() instanceof AffectationOperation && getParent().getParent() == null && _conf.isMerged()) {
             excVar = true;
         }
@@ -101,9 +88,6 @@ public final class VariableOperation extends LeafOperation implements
         LocalVariable locVar_ = _conf.getLocalVar(variableName);
         if (locVar_ != null) {
             String c_ = locVar_.getClassName();
-            if (StringList.quickEq(c_, stringType_)) {
-                catString = true;
-            }
             setResultClass(new ClassArgumentMatching(c_));
             return;
         }
@@ -135,10 +119,7 @@ public final class VariableOperation extends LeafOperation implements
             varName_ = originalStr_.trim();
         }
         if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
-            AffectationOperation aff_ = (AffectationOperation) getParent();
-            if (StringList.quickEq(aff_.getOperations().getOperators().firstValue(), "=")) {
-                varName_ = EMPTY_STRING;
-            }
+            varName_ = EMPTY_STRING;
         }
         
         for (StringMap<AssignmentBefore> s: assB_) {
@@ -257,7 +238,10 @@ public final class VariableOperation extends LeafOperation implements
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post) {
-        Argument arg_ = getCommonSetting(_conf, _op, _post);
+        Argument a_ = _nodes.getVal(this).getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument arg_ = getCommonSetting(_conf, store_, _op, _post);
         if (_conf.getException() == null) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
@@ -266,13 +250,16 @@ public final class VariableOperation extends LeafOperation implements
 
     @Override
     public void calculateSetting(ExecutableCode _conf, String _op, boolean _post) {
-        Argument arg_ = getCommonSetting(_conf, _op, _post);
+        Argument a_ = getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument arg_ = getCommonSetting(_conf, store_, _op, _post);
         if (_conf.getException() != null) {
             return;
         }
         setSimpleArgument(arg_, _conf);
     }
-    Argument getCommonSetting(ExecutableCode _conf, String _op, boolean _post) {
+    Argument getCommonSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getOperationPageEl();
         LgNames stds_ = _conf.getStandards();
         String cast_;
@@ -283,23 +270,27 @@ public final class VariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
-        left_.setStruct(locVar_.getStruct());
         Argument right_ = ip_.getRightArgument();
-        Argument check_ = left_;
-        if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
-            check_ = right_;
-        }
         String formattedClassVar_ = locVar_.getClassName();
         formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        if (!check_.isNull() && !NumericOperation.convert(_op)) {
-            Mapping mapping_ = new Mapping();
-            String base_ = check_.getObjectClassName(_conf.getContextEl());
-            mapping_.setArg(base_);
-            mapping_.setParam(formattedClassVar_);
-            if (!Templates.isCorrect(mapping_, _conf)) {
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
-                return Argument.createVoid();
+        if (resultCanBeSet()) {
+            left_.setStruct(locVar_.getStruct());
+            Argument check_ = left_;
+            if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
+                check_ = right_;
             }
+            if (!check_.isNull() && !NumericOperation.convert(_op)) {
+                Mapping mapping_ = new Mapping();
+                String base_ = check_.getObjectClassName(_conf.getContextEl());
+                mapping_.setArg(base_);
+                mapping_.setParam(formattedClassVar_);
+                if (!Templates.isCorrect(mapping_, _conf)) {
+                    _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
+                    return Argument.createVoid();
+                }
+            }
+        } else {
+            left_.setStruct(_store);
         }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
@@ -307,7 +298,7 @@ public final class VariableOperation extends LeafOperation implements
             return res_;
         }
         if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(locVar_.getClassName());
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
             res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         locVar_.setStruct(res_.getStruct());

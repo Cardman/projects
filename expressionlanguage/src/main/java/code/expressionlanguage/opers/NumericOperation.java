@@ -29,9 +29,6 @@ import code.util.StringMap;
 
 public abstract class NumericOperation extends MethodOperation {
 
-    private static final String FIRST = "first";
-    private static final String SECOND = "second";
-
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -41,13 +38,13 @@ public abstract class NumericOperation extends MethodOperation {
         Argument o_;
         boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
-            o_ = NumericOperation.calculateSumEx(_left, _conf, _right, false, _catString);
+            o_ = NumericOperation.calculateSum(_left, _right, false, _catString);
         } else if (StringList.quickEq(_op, Block.EQ_PLUS)) {
-            o_ = NumericOperation.calculateSumEx(_right, _conf, _left, false, _catString);
+            o_ = NumericOperation.calculateSum(_right, _left, false, _catString);
         } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
-            o_ = NumericOperation.calculateDiffEx(_left, _conf, _right);
+            o_ = NumericOperation.calculateDiff(_left, _right);
         } else if (StringList.quickEq(_op, Block.MULT_EQ)) {
-            o_ = NumericOperation.calculateMultEx(_left, _conf, _right);
+            o_ = NumericOperation.calculateMult(_left, _right);
         } else if (StringList.quickEq(_op, Block.DIV_EQ)) {
             o_ = NumericOperation.calculateDivEx(_left, _conf, _right);
         } else if (StringList.quickEq(_op, Block.MOD_EQ)) {
@@ -57,35 +54,13 @@ public abstract class NumericOperation extends MethodOperation {
         } else if (StringList.quickEq(_op, Block.DECR)) {
             o_ = AddOperation.removeOne(_left, _conf);
         } else if (StringList.quickEq(_op, Block.AND_EQ)) {
-            LgNames stds_ = _conf.getStandards();
-            String null_;
-            null_ = stds_.getAliasNullPe();
             o_ = new Argument();
-            if (_left.isNull()) {
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_conf.joinPages())),null_));
-                return Argument.createVoid();
-            }
-            if (_right.isNull()) {
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_conf.joinPages())),null_));
-                return Argument.createVoid();
-            }
             Boolean left_ = (Boolean) _left.getObject();
             Boolean right_ = (Boolean) _right.getObject();
             o_.setStruct(new BooleanStruct(left_ && right_));
             convert_ = false;
         } else if (StringList.quickEq(_op, Block.OR_EQ)) {
-            LgNames stds_ = _conf.getStandards();
-            String null_;
-            null_ = stds_.getAliasNullPe();
             o_ = new Argument();
-            if (_left.isNull()) {
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_conf.joinPages())),null_));
-                return Argument.createVoid();
-            }
-            if (_right.isNull()) {
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_conf.joinPages())),null_));
-                return Argument.createVoid();
-            }
             Boolean left_ = (Boolean) _left.getObject();
             Boolean right_ = (Boolean) _right.getObject();
             o_.setStruct(new BooleanStruct(left_ || right_));
@@ -132,20 +107,6 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return false;
     }
-    static Argument calculateSumEx(Argument _a, ExecutableCode _cont, Argument _b, boolean _catChars, boolean _catString) {
-        LgNames stds_ = _cont.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        Argument res_ = calculateSum(_a, _b, _catChars, _catString);
-        if (res_.isNull()) {
-            if (_a.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
-            } else {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
-            }
-        }
-        return res_;
-    }
     static Argument calculateSum(Argument _a, Argument _b, boolean _catChars, boolean _catString) {
         if (_catString) {
             StringBuilder str_ = new StringBuilder();
@@ -162,12 +123,6 @@ public abstract class NumericOperation extends MethodOperation {
             Argument a_ = new Argument();
             a_.setObject(str_.toString());
             return a_;
-        }
-        if (_a.isNull()) {
-            return Argument.createVoid();
-        }
-        if (_b.isNull()) {
-            return Argument.createVoid();
         }
         Object o_ = _a.getObject();
         Double aOne_ = null;
@@ -300,20 +255,6 @@ public abstract class NumericOperation extends MethodOperation {
         return a_;
     }
 
-    static Argument calculateDiffEx(Argument _a, ExecutableCode _cont, Argument _b) {
-        LgNames stds_ = _cont.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        Argument arg_ = calculateDiff(_a, _b);
-        if (arg_.isNull()) {
-            if (_a.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
-            } else {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
-            }
-        }
-        return arg_;
-    }
     static Argument calculateDiff(Argument _a, Argument _b) {
         if (_a.isNull()) {
             return Argument.createVoid();
@@ -450,20 +391,6 @@ public abstract class NumericOperation extends MethodOperation {
         Argument a_ = new Argument();
         a_.setObject(nb_);
         return a_;
-    }
-    static Argument calculateMultEx(Argument _a, ExecutableCode _cont, Argument _b) {
-        LgNames stds_ = _cont.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        Argument arg_ = calculateMult(_a, _b);
-        if (arg_.isNull()) {
-            if (_a.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
-            } else {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
-            }
-        }
-        return arg_;
     }
     static Argument calculateMult(Argument _a, Argument _b) {
         if (_a.isNull()) {
@@ -605,28 +532,14 @@ public abstract class NumericOperation extends MethodOperation {
     static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String div_;
-        String null_;
         div_ = stds_.getAliasDivisionZero();
-        null_ = stds_.getAliasNullPe();
         Argument res_ = calculateDiv(_a, _b);
         if (res_.isNull()) {
-            if (_a.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
-            } else if (_b.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
-            } else {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
-            }
+            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
         }
         return res_;
     }
     static Argument calculateDiv(Argument _a, Argument _b) {
-        if (_a.isNull()) {
-            return Argument.createVoid();
-        }
-        if (_b.isNull()) {
-            return Argument.createVoid();
-        }
         Object o_ = _a.getObject();
         Double aOne_ = null;
         Float aTwo_ = null;
@@ -772,28 +685,14 @@ public abstract class NumericOperation extends MethodOperation {
     static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b) {
         LgNames stds_ = _cont.getStandards();
         String div_;
-        String null_;
         div_ = stds_.getAliasDivisionZero();
-        null_ = stds_.getAliasNullPe();
         Argument res_ = calculateMod(_a, _b);
         if (res_.isNull()) {
-            if (_a.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(FIRST,RETURN_LINE,_cont.joinPages())),null_));
-            } else if (_b.isNull()) {
-                _cont.setException(new StdStruct(new CustomError(StringList.concat(SECOND,RETURN_LINE,_cont.joinPages())),null_));
-            } else {
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
-            }
+            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
         }
         return res_;
     }
     static Argument calculateMod(Argument _a, Argument _b) {
-        if (_a.isNull()) {
-            return Argument.createVoid();
-        }
-        if (_b.isNull()) {
-            return Argument.createVoid();
-        }
         Object o_ = _a.getObject();
         Double aOne_ = null;
         Float aTwo_ = null;

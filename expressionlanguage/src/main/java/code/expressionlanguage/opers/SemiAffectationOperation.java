@@ -68,16 +68,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             return;
         }
         setResultClass(settable.getResultClass());
-        boolean var_ = true;
-        if (settable instanceof ArrOperation) {
-            var_ = false;
-        }
-        settable.setVariable(var_);
-        String stringType_ = stds_.getAliasString();
-        String res_ = settable.getResultClass().getName();
-        if (settable.resultCanBeSet() && StringList.quickEq(res_, stringType_)) {
-            settable.setCatenizeStrings();
-        }
+        settable.setVariable(false);
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {

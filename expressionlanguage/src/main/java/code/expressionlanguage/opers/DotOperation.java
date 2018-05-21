@@ -101,7 +101,7 @@ public final class DotOperation extends MethodOperation {
         Argument a_ = _nodes.getVal(o_).getArgument();
         boolean simple_ = false;
         if (getParent() instanceof SemiAffectationOperation) {
-            simple_ = true;
+            simple_ = false;
         } else if (getParent() instanceof AffectationOperation) {
             AffectationOperation aff_ = (AffectationOperation) getParent();
             if (aff_.getSettable() == chidren_.last()) {
@@ -125,7 +125,7 @@ public final class DotOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         boolean simple_ = false;
         if (getParent() instanceof SemiAffectationOperation) {
-            simple_ = true;
+            simple_ = false;
         } else if (getParent() instanceof AffectationOperation) {
             AffectationOperation aff_ = (AffectationOperation) getParent();
             if (aff_.getSettable() == chidren_.last()) {

@@ -105,6 +105,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private transient String name;
     private transient int ordinal;
     private transient boolean checkAffectation;
+
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
     }
@@ -932,4 +933,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.getNeedInterfaces();
     }
 
+    @Override
+    public StringMap<LocalVariable> getInternVars() {
+        return analyzing.getInternVars();
+    }
+
+
+    @Override
+    public boolean isEnabledInternVars() {
+        return analyzing.isEnabledInternVars();
+    }
 }

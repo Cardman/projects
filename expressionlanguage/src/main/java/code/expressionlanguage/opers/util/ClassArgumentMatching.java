@@ -13,6 +13,8 @@ public final class ClassArgumentMatching {
 
     private String unwrapObject = "";
 
+    private boolean checkOnlyNullPe;
+
     public ClassArgumentMatching(String _className) {
         className = _className;
     }
@@ -102,4 +104,11 @@ public final class ClassArgumentMatching {
         unwrapObject = _unwrapObject;
     }
 
+    public boolean isCheckOnlyNullPe() {
+        return checkOnlyNullPe;
+    }
+
+    public void setCheckOnlyNullPe(boolean _checkOnlyNullPe) {
+        checkOnlyNullPe = _checkOnlyNullPe;
+    }
 }

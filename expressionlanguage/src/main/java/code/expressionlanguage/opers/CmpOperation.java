@@ -2,20 +2,19 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -403,6 +402,26 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
             stringCompare = true;
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            Argument arg_ = chidren_.first().getArgument();
+            if (arg_ != null) {
+                if (arg_.getObject() == null) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(static_);
+                }
+            }
+            arg_ = chidren_.last().getArgument();
+            if (arg_ != null) {
+                if (arg_.getObject() == null) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(static_);
+                }
+            }
+            first_.setCheckOnlyNullPe(true);
+            second_.setCheckOnlyNullPe(true);
             return;
         }
         if (first_.matchClass(stringType_) || second_.matchClass(stringType_)) {
@@ -519,20 +538,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
         Argument first_ = _nodes.getVal(opOne_).getArgument();
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        if (first_.isNull()) {
-            setRelativeOffsetPossibleLastPage(opOne_.getIndexInEl(), _conf);
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return Argument.createVoid();
-        }
         Argument second_ = _nodes.getVal(opTwo_).getArgument();
-        if (second_.isNull()) {
-            setRelativeOffsetPossibleLastPage(opTwo_.getIndexInEl(), _conf);
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return Argument.createVoid();
-        }
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
         String useOp_ = op_;
@@ -597,20 +603,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        null_ = stds_.getAliasNullPe();
-        if (first_.isNull()) {
-            setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return;
-        }
         Argument second_ = chidren_.last().getArgument();
-        if (second_.isNull()) {
-            setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return;
-        }
         boolean complement_ = false;
         String op_ = getOperations().getOperators().values().first().trim();
         String useOp_ = op_;

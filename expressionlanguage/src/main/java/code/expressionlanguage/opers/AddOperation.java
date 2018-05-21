@@ -25,26 +25,31 @@ public final class AddOperation extends NumericOperation {
         byte b_ = 1;
         Argument a_ = new Argument();
         a_.setObject(b_);
-        return calculateSumEx(_arg, _cont, a_, false, false);
+        return calculateSum(_arg, a_, false, false);
     }
 
     static Argument removeOne(Argument _arg, ExecutableCode _cont) {
         byte b_ = 1;
         Argument a_ = new Argument();
         a_.setObject(b_);
-        return calculateDiffEx(_arg, _cont, a_);
+        return calculateDiff(_arg, a_);
     }
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            return calculateSumEx(_a, _cont, _b, catChars, catString);
+            return calculateSum(_a, _b, catChars, catString);
         }
-        return calculateDiffEx(_a, _cont, _b);
+        return calculateDiff(_a, _b);
     }
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
+        if (!catChars && !catString) {
+            if (_a.isNull() || _b.isNull()) {
+                return Argument.createVoid();
+            }
+        }
         if (StringList.quickEq(_op.trim(), PLUS)) {
             return calculateSum(_a, _b, catChars, catString);
         }
