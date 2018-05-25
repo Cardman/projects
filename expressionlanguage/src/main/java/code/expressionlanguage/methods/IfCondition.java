@@ -171,7 +171,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
             boolean assAfter_ = ab_.isAssignedAfter();
             boolean unassAfter_ = ab_.isUnassignedAfter();
-            if (_anEl.canCompleteNormally(ch_)) {
+            if (_anEl.canCompleteNormallyGroup(ch_)) {
                 if (assAfter_) {
                     assAfter_ = condBa_.isAssignedAfterWhenFalse();
                 }
@@ -191,7 +191,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                 BooleanAssignment condBa_ = varsCond_.get(index_).getVal(key_);
                 boolean assAfter_ = ab_.isAssignedAfter();
                 boolean unassAfter_ = ab_.isUnassignedAfter();
-                if (_anEl.canCompleteNormally(ch_)) {
+                if (_anEl.canCompleteNormallyGroup(ch_)) {
                     if (assAfter_) {
                         assAfter_ = condBa_.isAssignedAfterWhenFalse();
                     }

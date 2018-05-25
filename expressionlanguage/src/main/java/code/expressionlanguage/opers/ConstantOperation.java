@@ -49,8 +49,7 @@ public final class ConstantOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -232,7 +231,6 @@ public final class ConstantOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
-        str_ = StringList.removeAllSpaces(str_);
         ParsedArgument parsed_ = ParsedArgument.parse(op_.getNbInfos(), _conf);
         String argClassName_ = parsed_.getType();
         if (argClassName_.isEmpty()) {

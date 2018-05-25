@@ -6,7 +6,6 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class SuperFieldOperation extends
         SettableAbstractFieldOperation {
@@ -18,11 +17,7 @@ public final class SuperFieldOperation extends
 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
-        OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
         ClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
@@ -45,7 +40,6 @@ public final class SuperFieldOperation extends
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        str_ = StringList.removeAllSpaces(str_);
         return str_;
     }
 

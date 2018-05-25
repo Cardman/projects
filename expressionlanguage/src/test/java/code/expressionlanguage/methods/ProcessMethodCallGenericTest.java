@@ -303,7 +303,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public pkg.ExThree<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
-        xml_.append(" $public $int ance=inst;;;$super$get(1I):\n");
+        xml_.append(" $public $int ance=inst;;;$super.get(1I):\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
@@ -346,8 +346,8 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append(" $public java.lang.Number ance:\n");
         xml_.append(" {\n");
         xml_.append("  inst;;;get;;;=3i:\n");
-        xml_.append("  inst;;;$super$get=1i:\n");
-        xml_.append("  ance;;;=inst;;;$super$get:\n");
+        xml_.append("  inst;;;$super.get=1i:\n");
+        xml_.append("  ance;;;=inst;;;$super.get:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -464,8 +464,8 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         xml_.append(" $public java.lang.Number ance:\n");
         xml_.append(" {\n");
         xml_.append("  inst;;;get;;;=3i:\n");
-        xml_.append("  inst;;;$super$get=1i:\n");
-        xml_.append("  ance;;;=inst;;;$super$getter():\n");
+        xml_.append("  inst;;;$super.get=1i:\n");
+        xml_.append("  ance;;;=inst;;;$super.getter():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -891,7 +891,7 @@ public final class ProcessMethodCallGenericTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $super$getter():\n");
+        xml_.append("  $return $super.getter():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");

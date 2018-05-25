@@ -54,7 +54,7 @@ public final class ValuesOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();

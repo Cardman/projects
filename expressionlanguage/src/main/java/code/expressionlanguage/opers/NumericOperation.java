@@ -882,8 +882,7 @@ public abstract class NumericOperation extends MethodOperation {
     }
 
     @Override
-    public final void analyze(Analyzable _conf,
-            String _fieldName) {
+    public final void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         ClassArgumentMatching a_ = chidren_.first().getResultClass();
         ResultOperand r_;

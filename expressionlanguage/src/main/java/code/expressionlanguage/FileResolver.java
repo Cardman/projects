@@ -1029,7 +1029,7 @@ public final class FileResolver {
                         valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
                         br_ = new SwitchBlock(_context, index_, currentParent_, new OffsetStringInfo(valueOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
-                    } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_STATIC)) {
+                    } else if (StringList.quickEq(trimmedInstruction_, prefixKeyWord(KEY_WORD_STATIC))) {
                         br_ = new StaticBlock(_context, index_, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
                     } else if (trimmedInstruction_.isEmpty()) {

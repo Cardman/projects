@@ -49,7 +49,7 @@ public final class CastOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         String res_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
@@ -62,13 +62,11 @@ public final class CastOperation extends AbstractUnaryOperation {
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);
             Argument arg_ = getFirstChild().getArgument();
-            if (arg_ != null) {
-                if (arg_.getObject() == null) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(static_);
-                }
+            if (Argument.isNullValue(arg_)) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(static_);
             }
         }
     }

@@ -36,15 +36,13 @@ public final class ThisOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
         String arg_ = _conf.getGlobalClass();
         if (arg_ == null) {
             arg_ = stds_.getAliasObject();

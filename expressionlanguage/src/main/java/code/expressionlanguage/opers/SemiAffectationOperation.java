@@ -46,7 +46,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         OperationNode leftEl_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();
         if (leftEl_ == null) {

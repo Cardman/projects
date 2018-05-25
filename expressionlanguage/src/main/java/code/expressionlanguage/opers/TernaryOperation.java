@@ -93,7 +93,7 @@ public final class TernaryOperation extends MethodOperation {
         CustList<StringMap<Assignment>> variablesAfterFirst_ = vars_.getVariables().getVal(firstChild_);
         if (firstChild_ == _previous) {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
-                BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                BooleanAssignment b_ = e.getValue().toBoolAssign();
                 AssignmentBefore a_ = new AssignmentBefore();
                 if (b_.isAssignedAfterWhenTrue()) {
                     a_.setAssignedBefore(true);
@@ -106,7 +106,7 @@ public final class TernaryOperation extends MethodOperation {
             for (StringMap<Assignment> s: variablesAfterFirst_) {
                 StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
-                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                    BooleanAssignment b_ = e.getValue().toBoolAssign();
                     AssignmentBefore a_ = new AssignmentBefore();
                     if (b_.isAssignedAfterWhenTrue()) {
                         a_.setAssignedBefore(true);
@@ -120,7 +120,7 @@ public final class TernaryOperation extends MethodOperation {
             }
         } else {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
-                BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                BooleanAssignment b_ = e.getValue().toBoolAssign();
                 AssignmentBefore a_ = new AssignmentBefore();
                 if (b_.isAssignedAfterWhenFalse()) {
                     a_.setAssignedBefore(true);
@@ -133,7 +133,7 @@ public final class TernaryOperation extends MethodOperation {
             for (StringMap<Assignment> s: variablesAfterFirst_) {
                 StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
-                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                    BooleanAssignment b_ = e.getValue().toBoolAssign();
                     AssignmentBefore a_ = new AssignmentBefore();
                     if (b_.isAssignedAfterWhenFalse()) {
                         a_.setAssignedBefore(true);
@@ -160,7 +160,7 @@ public final class TernaryOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offsetLocal, _conf);
@@ -225,8 +225,8 @@ public final class TernaryOperation extends MethodOperation {
         CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
         if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf)) {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-                BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                BooleanAssignment p_ = (BooleanAssignment) fieldsAfterBefLast_.getVal(e.getKey());
+                BooleanAssignment b_ = e.getValue().toBoolAssign();
+                BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();
                 BooleanAssignment r_ = new BooleanAssignment();
                 if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
                     r_.setAssignedAfterWhenTrue(true);
@@ -240,8 +240,8 @@ public final class TernaryOperation extends MethodOperation {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
-                    BooleanAssignment b_ = (BooleanAssignment) e.getValue();
-                    BooleanAssignment p_ = (BooleanAssignment) variablesAfterBefLast_.get(index_).getVal(e.getKey());
+                    BooleanAssignment b_ = e.getValue().toBoolAssign();
+                    BooleanAssignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey()).toBoolAssign();
                     BooleanAssignment r_ = new BooleanAssignment();
                     if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
                         r_.setAssignedAfterWhenTrue(true);

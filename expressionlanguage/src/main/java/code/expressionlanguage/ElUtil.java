@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.DotOperation;
+import code.expressionlanguage.opers.EmptyPartOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.MethodOperation;
@@ -41,7 +42,6 @@ import code.util.StringMap;
 
 public final class ElUtil {
 
-    private static final String EMPTY_STRING = "";
     private ElUtil() {
     }
 
@@ -72,7 +72,7 @@ public final class ElUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allLeft_ = getSortedDescNodes(opLeft_, EMPTY_STRING, _hiddenVarTypes, _conf);
+        CustList<OperationNode> allLeft_ = getSortedDescNodes(opLeft_, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
@@ -96,7 +96,7 @@ public final class ElUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, EMPTY_STRING, _hiddenVarTypes, _conf);
+        CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setGlobalOffset(_attrLeft);
         page_.setOffset(0);
@@ -265,7 +265,10 @@ public final class ElUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(badEl_);
-            return new CustList<OperationNode>();
+            EmptyPartOperation e_ = new EmptyPartOperation(0, 0, null, null);
+            String argClName_ = _conf.getStandards().getAliasObject();
+            e_.setResultClass(new ClassArgumentMatching(argClName_));    
+            return new CustList<OperationNode>(e_);
         }
         _conf.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
@@ -277,19 +280,25 @@ public final class ElUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(badEl_);
-            return new CustList<OperationNode>();
+            EmptyPartOperation e_ = new EmptyPartOperation(0, 0, null, null);
+            String argClName_ = _conf.getStandards().getAliasObject();
+            e_.setResultClass(new ClassArgumentMatching(argClName_));    
+            return new CustList<OperationNode>(e_);
         }
         _conf.setAnalyzingRoot(false);
         String fieldName_ = _calcul.getFieldName();
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         boolean staticContext_ = _calcul.isStaticAcces();
         _conf.setStaticContext(staticContext_ || op_ instanceof AbstractInvokingConstructor);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_,fieldName_, hiddenVarTypes_, _conf);
+        if (op_ instanceof InstanceOperation) {
+            ((InstanceOperation)op_).setFieldName(fieldName_);
+        }
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
         return all_;
     }
 
 
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root,String _fieldName, boolean _staticBlock,Analyzable _context) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, boolean _staticBlock,Analyzable _context) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         _context.getTextualSortedOperations().clear();
         Block currentBlock_ = _context.getCurrentBlock();
@@ -339,12 +348,12 @@ public final class ElUtil {
                 }
                 break;
             }
-            c_ = getAnalyzedNext(c_, _root, list_, _fieldName, _staticBlock, _context);
+            c_ = getAnalyzedNext(c_, _root, list_, _staticBlock, _context);
         }
         return list_;
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes,String _fieldName, boolean _staticBlock,Analyzable _context) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, boolean _staticBlock,Analyzable _context) {
         if (_context.isEnabledDotted() && _current instanceof PossibleIntermediateDotted) {
             OperationNode last_ = _sortedNodes.last();
             PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _current;
@@ -366,7 +375,7 @@ public final class ElUtil {
         OperationNode current_ = _current;
         while (true) {
             current_.setStaticBlock(_staticBlock);
-            current_.analyze(_context, _fieldName);
+            current_.analyze(_context);
             current_.tryCalculateNode(_context);
             current_.tryAnalyzeAssignmentAfter(_context);
             _sortedNodes.add(current_);
@@ -386,7 +395,7 @@ public final class ElUtil {
             }
             if (par_ == _root) {
                 par_.setStaticBlock(_staticBlock);
-                par_.analyze(_context, _fieldName);
+                par_.analyze(_context);
                 par_.tryCalculateNode(_context);
                 par_.tryAnalyzeAssignmentAfter(_context);
                 _sortedNodes.add(par_);

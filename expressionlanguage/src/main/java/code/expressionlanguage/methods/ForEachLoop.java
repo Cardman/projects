@@ -230,7 +230,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         OperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
         Argument arg_ = el_.getArgument();
-        if (arg_ != null) {
+        if (Argument.isNullValue(arg_)) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_cont.getCurrentFileName());
             static_.setRc(_cont.getCurrentLocation());
@@ -393,7 +393,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             }
         }
         int index_ = 0;
-        if (_anEl.canCompleteNormally(last_)) {
+        if (_anEl.canCompleteNormallyGroup(last_)) {
             AssignedVariables vars_;
             vars_ = id_.getVal(last_);
             for (EntryCust<ClassField,SimpleAssignment> f: vars_.getFieldsRoot().entryList()) {

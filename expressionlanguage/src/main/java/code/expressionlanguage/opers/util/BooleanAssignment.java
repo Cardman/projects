@@ -50,4 +50,9 @@ public class BooleanAssignment extends Assignment {
         return isUnassignedAfterWhenFalse() && isUnassignedAfterWhenTrue();
     }
 
+    @Override
+    public BooleanAssignment toBoolAssign() {
+        return this;
+    }
+
 }

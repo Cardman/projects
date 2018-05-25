@@ -23,12 +23,8 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessConstructor;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.NumberStruct;
@@ -36,12 +32,9 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
@@ -76,34 +69,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     @Override
-    public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
-        CustList<StringMap<Assignment>> variablesAfter_;
-        fieldsAfter_ = vars_.getFields().getVal(_previous);
-        variablesAfter_ = vars_.getVariables().getVal(_previous);
-        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsBefore_.put(e.getKey(), b_.assignBefore());
-        }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-        for (StringMap<Assignment> s: variablesAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignBefore());
-            }
-            variablesBefore_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
-    }
-
-    @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         checkPositionBasis(_conf);
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getGlobalClass();
@@ -115,6 +81,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         ClassArgumentMatching clArg_ = getFrom(_conf);
         if (clArg_ == null) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
             return;
         }
         ConstrustorIdVarArg ctorRes_;
@@ -199,49 +166,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
         LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
-    }
-    @Override
-    public final void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<OperationNode> children_ = getChildrenNodes();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        if (children_.isEmpty()) {
-            for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
-                AssignmentBefore b_ = e.getValue();
-                fieldsAfter_.put(e.getKey(), b_.assignAfter(false));
-            }
-            for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore b_ = e.getValue();
-                    sm_.put(e.getKey(), b_.assignAfter(false));
-                }
-                variablesAfter_.add(sm_);
-            }
-            vars_.getFields().put(this, fieldsAfter_);
-            vars_.getVariables().put(this, variablesAfter_);
-            return;
-        }
-        OperationNode last_ = children_.last();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-
-        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assign(false));
-        }
-        for (StringMap<Assignment> s: variablesAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assign(false));
-            }
-            variablesAfter_.add(sm_);
-        }
-        vars_.getFields().put(this, fieldsAfter_);
-        vars_.getVariables().put(this, variablesAfter_);
     }
 
     @Override

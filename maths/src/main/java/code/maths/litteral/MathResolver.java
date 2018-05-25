@@ -229,9 +229,67 @@ public final class MathResolver {
                 i_++;
                 continue;
             }
-            d_.getAllowedOperatorsIndexes().add(i_);
+            boolean idOp_ = false;
+            if (curChar_ == AND_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == OR_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == LOWER_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == GREATER_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == EQ_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == NEG_BOOL_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == PLUS_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == MINUS_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == MULT_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == DIV_CHAR) {
+                idOp_ = true;
+            }
+            if (curChar_ == PAR_LEFT) {
+                idOp_ = true;
+            }
+            if (curChar_ == PAR_RIGHT) {
+                idOp_ = true;
+            }
+            if (curChar_ == SEP_ARG) {
+                idOp_ = true;
+            }
+            if (idOp_) {
+                d_.getAllowedOperatorsIndexes().add(i_);
+            }
             if (curChar_ == MINUS_CHAR) {
                 enabledMinus_ = false;
+            }
+            boolean compound_ = false;
+            if (curChar_ == LOWER_CHAR) {
+                compound_ = true;
+            } else if (curChar_ == GREATER_CHAR) {
+                compound_ = true;
+            } else if (curChar_ == NEG_BOOL_CHAR) {
+                compound_ = true;
+            }
+            if (compound_) {
+                if (i_ + 1 < len_) {
+                    char next_ = _string.charAt(i_ + 1);
+                    if (next_ == EQ_CHAR) {
+                        i_++;
+                    }
+                }
             }
             i_++;
         }
@@ -416,12 +474,10 @@ public final class MathResolver {
                         if (prio_ == CMP_PRIO) {
                             foundOperator_ = true;
                         }
-                        if (foundOperator_) {
-                            char nextChar_ = _string.charAt(i_ + 1);
-                            if (nextChar_ == EQ_CHAR) {
-                                builtOperator_.append(nextChar_);
-                                increment_++;
-                            }
+                        char nextChar_ = _string.charAt(i_ + 1);
+                        if (nextChar_ == EQ_CHAR) {
+                            builtOperator_.append(nextChar_);
+                            increment_++;
                         }
                     }
                     if (foundOperator_) {

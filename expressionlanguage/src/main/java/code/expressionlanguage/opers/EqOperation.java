@@ -37,8 +37,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
             UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
             badEl_.setFileName(_conf.getCurrentFileName());

@@ -504,7 +504,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.ExThree {\n");
         xml_.append(" $public pkgtwo.ExTwo inst=$new pkg.Ex():\n");
-        xml_.append(" $public $int ance=inst;;;$this$getter():\n");
+        xml_.append(" $public $int ance=inst;;;$that.getter():\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -732,7 +732,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $super$inst.intValue():\n");
+        xml_.append("  $return $super.inst.intValue():\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");
@@ -775,7 +775,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i:\n");
         xml_.append(" $public $normal $int superaccess(){\n");
-        xml_.append("  $return $super$inst+0i:\n");
+        xml_.append("  $return $super.inst+0i:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $int getter(){\n");
         xml_.append("  $return 2i:\n");

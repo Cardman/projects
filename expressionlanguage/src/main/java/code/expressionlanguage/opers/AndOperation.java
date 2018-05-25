@@ -42,7 +42,7 @@ public final class AndOperation extends QuickOperation {
         variablesAfter_ = vars_.getVariables().getVal(_previous);
         ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
         for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
-            BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+            BooleanAssignment b_ = e.getValue().toBoolAssign();
             AssignmentBefore a_ = new AssignmentBefore();
             if (b_.isAssignedAfterWhenTrue()) {
                 a_.setAssignedBefore(true);
@@ -57,7 +57,7 @@ public final class AndOperation extends QuickOperation {
         for (StringMap<Assignment> s: variablesAfter_) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
-                BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                BooleanAssignment b_ = e.getValue().toBoolAssign();
                 AssignmentBefore a_ = new AssignmentBefore();
                 if (b_.isAssignedAfterWhenTrue()) {
                     a_.setAssignedBefore(true);
@@ -86,7 +86,7 @@ public final class AndOperation extends QuickOperation {
         ObjectMap<ClassField,Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(prev_);
         CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(prev_);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-            BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+            BooleanAssignment b_ = e.getValue().toBoolAssign();
             BooleanAssignment r_ = new BooleanAssignment();
             if (b_.isAssignedAfterWhenTrue()) {
                 r_.setAssignedAfterWhenTrue(true);
@@ -94,7 +94,7 @@ public final class AndOperation extends QuickOperation {
             if (b_.isUnassignedAfterWhenTrue()) {
                 r_.setUnassignedAfterWhenTrue(true);
             }
-            BooleanAssignment p_ = (BooleanAssignment) fieldsAfterBefLast_.getVal(e.getKey());
+            BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();
             if (b_.isAssignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
                 r_.setAssignedAfterWhenFalse(true);
             }
@@ -108,7 +108,7 @@ public final class AndOperation extends QuickOperation {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             int index_ = variablesAfter_.size();
             for (EntryCust<String, Assignment> e: s.entryList()) {
-                BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                BooleanAssignment b_ = e.getValue().toBoolAssign();
                 BooleanAssignment r_ = new BooleanAssignment();
                 if (b_.isAssignedAfterWhenTrue()) {
                     r_.setAssignedAfterWhenTrue(true);
@@ -116,7 +116,7 @@ public final class AndOperation extends QuickOperation {
                 if (b_.isUnassignedAfterWhenTrue()) {
                     r_.setUnassignedAfterWhenTrue(true);
                 }
-                BooleanAssignment p_ = (BooleanAssignment) variablesAfterBefLast_.get(index_).getVal(e.getKey());
+                BooleanAssignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey()).toBoolAssign();
                 if (b_.isAssignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
                     r_.setAssignedAfterWhenFalse(true);
                 }

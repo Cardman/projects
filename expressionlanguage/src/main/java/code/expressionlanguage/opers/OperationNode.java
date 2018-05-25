@@ -83,6 +83,7 @@ public abstract class OperationNode {
     protected static final char INTERN_CLASS = '$';
     protected static final String SUPER_ACCESS = "super";
     protected static final String CURRENT = "this";
+    protected static final String THAT = "that";
     protected static final String INSTANCE = "new";
     protected static final String INSTANCEOF = "instanceof";
     protected static final String BOOLEAN = "bool";
@@ -176,7 +177,7 @@ public abstract class OperationNode {
         indexChild = _indexChild;
     }
 
-    public abstract void analyze(Analyzable _conf, String _fieldName);
+    public abstract void analyze(Analyzable _conf);
 
     public final void tryAnalyzeAssignmentAfter(Analyzable _conf) {
         Block currentBlock_ = _conf.getCurrentBlock();
@@ -301,10 +302,10 @@ public abstract class OperationNode {
             if (fctName_.startsWith(prefixFunction(INSTANCE))) {
                 return new InstanceOperation(_index, _indexChild, _m, _op);
             }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE), fctName_.length())) {
+            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE))) {
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
             }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES), fctName_.length())) {
+            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES))) {
                 return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
             }
             if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
@@ -1317,9 +1318,7 @@ public abstract class OperationNode {
             }
         }
         if (!un_.isEmpty()) {
-            if (!resultClass.isCheckOnlyNullPe()) {
-                _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
-            }
+            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
         }
         int res_ = processBooleanValues(_arg, _cont);
         if (res_ <= 0) {

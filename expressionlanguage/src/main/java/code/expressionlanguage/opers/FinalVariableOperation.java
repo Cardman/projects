@@ -42,7 +42,7 @@ public final class FinalVariableOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -60,7 +60,6 @@ public final class FinalVariableOperation extends LeafOperation {
             return;
         }
         LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
         if (op_.getConstType() == ConstType.PARAM) {
             variableName = str_;
             LocalVariable locVar_ = _conf.getParameters().getVal(variableName);

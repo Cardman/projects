@@ -28,8 +28,7 @@ public final class DotOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setResultClass(chidren_.last().getResultClass());
     }

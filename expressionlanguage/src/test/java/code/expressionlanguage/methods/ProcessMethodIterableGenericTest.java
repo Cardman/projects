@@ -539,6 +539,99 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertNotNull(cont_.getException());
     }
     @Test
+    public void instanceArgument134Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  inst;;;addElts(3i,1i,2i):\n");
+        xml_.append("  res;;;=inst;;;size():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomSecondList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(3, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument135Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  inst;;;addElts($new [java.lang.Number[](3i,1i,2i)):\n");
+        xml_.append("  res;;;=inst;;;size():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomSecondList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(3, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument136Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  inst;;;addElts($vararg(java.lang.Number),$firstopt(3i),1i,2i):\n");
+        xml_.append("  res;;;=inst;;;size():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomSecondList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(3, (Number)field_.getInstance());
+    }
+    @Test
     public void instanceArgumentFailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -564,6 +657,59 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $private $int length:\n");
         xml_.append(" $public (){\n");
         xml_.append("  list;;;=$new [#U(0i):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void add(#U elt){\n");
+        xml_.append("  add(length;;;,elt;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void add($int index,#U elt){\n");
+        xml_.append("  [#U newlist=$new [#U(length;;;+1i):\n");
+        xml_.append("  $for($int i=0i:index;.;:1i){\n");
+        xml_.append("   newlist;.[i;]=list;;;[i;]:\n");
+        xml_.append("  }\n");
+        xml_.append("  newlist;.[index;.;]=elt;.;:\n");
+        xml_.append("  $for($int i=index;.;+1i:length;;;+1i:1i){\n");
+        xml_.append("   newlist;.[i;]=list;;;[i;-1i]:\n");
+        xml_.append("  }\n");
+        xml_.append("  length;;;++:\n");
+        xml_.append("  list;;;=newlist;.:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int size(){\n");
+        xml_.append("  $return length;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal #U get($int index){\n");
+        xml_.append("  $return list;;;[index;.;]:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void set($int index,#U elt){\n");
+        xml_.append("  list;;;[index;.;]=elt;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void remove($int index){\n");
+        xml_.append("  $for($int i=index;.;:length;;;-1i:1i){\n");
+        xml_.append("   list;;;[i;]=list;;;[i;+1i]:\n");
+        xml_.append("  }\n");
+        xml_.append("  list;;;[length;;;-1i]=$null:\n");
+        xml_.append("  length;;;--:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $iterator<#U> iterator(){\n");
+        xml_.append("  $return $new pkg.CustIter<#U>($this):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        return xml_.toString();
+    }
+    private static String getCustomSecondList() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");
+        xml_.append(" $private [#U list:\n");
+        xml_.append(" $private $int length:\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  list;;;=$new [#U(0i):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void addElts(#U... elt){\n");
+        xml_.append("  addInnerlyElts(elt;.;):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $void addInnerlyElts(#U... elt){\n");
+        xml_.append("  $foreach(#U u:elt;.;){\n");
+        xml_.append("   add(length;;;,u;):\n");
+        xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void add(#U elt){\n");
         xml_.append("  add(length;;;,elt;.;):\n");

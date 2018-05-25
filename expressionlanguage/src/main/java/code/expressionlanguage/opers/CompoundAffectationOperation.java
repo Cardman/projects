@@ -48,7 +48,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
@@ -113,8 +113,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
             _conf.getClasses().getErrorsDet().add(cast_);
             return;
         }
-        elt_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
-        right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+        if (!StringList.quickEq(res_, stringType_)) {
+            elt_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+            right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+        }
     }
 
     static SettableElResult tryGetSettable(MethodOperation _operation) {

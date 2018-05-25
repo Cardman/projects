@@ -63,18 +63,16 @@ public abstract class SettableAbstractFieldOperation extends
         super(_indexInEl, _indexChild, _m, _op);
     }
     @Override
-    public final void analyze(Analyzable _conf, String _fieldName) {
+    public final void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (!isIntermediateDottedOperation()) {
             staticAccess = _conf.isStaticContext();
         }
         LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
         ClassArgumentMatching cl_ = getFrom(_conf);
         if (cl_ == null) {
             return;
@@ -103,13 +101,11 @@ public abstract class SettableAbstractFieldOperation extends
         setResultClass(new ClassArgumentMatching(c_));
         if (isIntermediateDottedOperation() && !fieldMetaInfo.isStaticField()) {
             Argument arg_ = getPreviousArgument();
-            if (arg_ != null) {
-                if (arg_.getObject() == null) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(static_);
-                }
+            if (Argument.isNullValue(arg_)) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(static_);
             }
             getPreviousResultClass().setCheckOnlyNullPe(true);
         }

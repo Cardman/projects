@@ -29,8 +29,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.isEmpty()) {

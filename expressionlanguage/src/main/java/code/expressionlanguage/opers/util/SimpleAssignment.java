@@ -30,5 +30,18 @@ public class SimpleAssignment extends Assignment {
     public void setUnassignedAfter(boolean _unassignedAfter) {
         unassignedAfter = _unassignedAfter;
     }
+    @Override
+    public BooleanAssignment toBoolAssign() {
+        BooleanAssignment ba_ = new BooleanAssignment();
+        if (isAssignedAfter()) {
+            ba_.setAssignedAfterWhenTrue(true);
+            ba_.setAssignedAfterWhenFalse(true);
+        }
+        if (isUnassignedAfter()) {
+            ba_.setUnassignedAfterWhenFalse(true);
+            ba_.setUnassignedAfterWhenTrue(true);
+        }
+        return ba_;
+    }
 
 }

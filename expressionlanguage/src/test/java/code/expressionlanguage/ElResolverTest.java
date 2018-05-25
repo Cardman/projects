@@ -3453,8 +3453,8 @@ public class ElResolverTest {
     public void checkSyntax15FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "v ;";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "v '";
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -3981,8 +3981,8 @@ public class ElResolverTest {
     public void checkSyntax81FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$($math";
-        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice($math";
+        assertEq(18, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4037,7 +4037,7 @@ public class ElResolverTest {
     public void checkSyntax88FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$this$";
+        String el_ = "$that.";
         assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
@@ -4053,7 +4053,7 @@ public class ElResolverTest {
     public void checkSyntax90FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$this$call";
+        String el_ = "$that.call";
         assertEq(10, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
@@ -4061,24 +4061,24 @@ public class ElResolverTest {
     public void checkSyntax91FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$this$call$";
-        assertEq(10, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$that.call$";
+        assertEq(11, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax92FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$this$call$$";
-        assertEq(10, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$that.call$$";
+        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
     public void checkSyntax93FailTest() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$classchoice$math$abs$$abs;";
-        assertEq(12, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        String el_ = "$classchoice($math$abs$$abs;)";
+        assertEq(28, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     private static void addImportingPage(ContextEl _conf, boolean _rendering) {

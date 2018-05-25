@@ -438,7 +438,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             }
         }
         int index_ = 0;
-        if (_anEl.canCompleteNormally(last_)) {
+        if (_anEl.canCompleteNormallyGroup(last_)) {
             AssignedVariables vars_;
             vars_ = id_.getVal(last_);
             for (EntryCust<ClassField,SimpleAssignment> f: vars_.getFieldsRoot().entryList()) {

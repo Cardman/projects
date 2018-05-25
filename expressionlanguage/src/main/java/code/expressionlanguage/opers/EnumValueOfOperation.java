@@ -60,7 +60,7 @@ public final class EnumValueOfOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());

@@ -65,8 +65,7 @@ public final class StaticInitOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+1);

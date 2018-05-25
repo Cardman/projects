@@ -29,8 +29,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
@@ -117,7 +116,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-            BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+            BooleanAssignment b_ = e.getValue().toBoolAssign();
             BooleanAssignment r_ = new BooleanAssignment();
             if (b_.isAssignedAfterWhenTrue()) {
                 r_.setAssignedAfterWhenFalse(true);
@@ -137,7 +136,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         for (StringMap<Assignment> s: variablesAfterLast_) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
-                BooleanAssignment b_ = (BooleanAssignment) e.getValue();
+                BooleanAssignment b_ = e.getValue().toBoolAssign();
                 BooleanAssignment r_ = new BooleanAssignment();
                 if (b_.isAssignedAfterWhenTrue()) {
                     r_.setAssignedAfterWhenFalse(true);

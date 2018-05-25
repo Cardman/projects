@@ -48,7 +48,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         String method_ = prefixFunction(INSTANCEOF);

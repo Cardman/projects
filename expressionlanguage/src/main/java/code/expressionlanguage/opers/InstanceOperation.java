@@ -16,7 +16,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.NotInitializedClass;
@@ -31,13 +30,9 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ArrayStruct;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
@@ -46,11 +41,9 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -77,13 +70,16 @@ public final class InstanceOperation extends InvokingOperation {
         methodName = getOperations().getFctName();
     }
 
+    public void setFieldName(String _fieldName) {
+        fieldName = _fieldName;
+    }
+
     public boolean initStaticClass() {
         return isCallMethodCtor();
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -206,7 +202,7 @@ public final class InstanceOperation extends InvokingOperation {
 //                    }
 //                }
 //            }
-            analyzeCtor(_conf, _fieldName, realClassName_, firstArgs_, intern_);
+            analyzeCtor(_conf, realClassName_, firstArgs_, intern_);
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
@@ -227,10 +223,10 @@ public final class InstanceOperation extends InvokingOperation {
         }
         firstArgs_.add(CustList.FIRST_INDEX, arg_);
         realClassName_ = StringList.concat(arg_.getName(),String.valueOf(INTERN_CLASS),realClassName_);
-        analyzeCtor(_conf, _fieldName, realClassName_, firstArgs_, intern_);
+        analyzeCtor(_conf, realClassName_, firstArgs_, intern_);
     }
 
-    void analyzeCtor(Analyzable _conf, String _fieldName, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
+    void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
         String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = new CustList<OperationNode>();
@@ -299,7 +295,7 @@ public final class InstanceOperation extends InvokingOperation {
             return;
         }
         if (custClass_.getCategory() == ClassCategory.ENUM) {
-            if (_fieldName.isEmpty() || getParent() != null) {
+            if (fieldName.isEmpty()) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
@@ -309,7 +305,6 @@ public final class InstanceOperation extends InvokingOperation {
                 return;
             }
             blockIndex = _conf.getCurrentChildTypeIndex();
-            fieldName = _fieldName;
         }
         ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
         constId = ctorRes_.getRealId();
@@ -379,85 +374,7 @@ public final class InstanceOperation extends InvokingOperation {
         possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst();
         setResultClass(new ClassArgumentMatching(realClassName_));
     }
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
-        CustList<StringMap<Assignment>> variablesAfter_;
-        fieldsAfter_ = vars_.getFields().getVal(_previous);
-        variablesAfter_ = vars_.getVariables().getVal(_previous);
-        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
-        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsBefore_.put(e.getKey(), b_.assignBefore());
-        }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (StringMap<Assignment> s: variablesAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignBefore());
-            }
-            variablesBefore_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
-    }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<OperationNode> children_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = new CustList<OperationNode>();
-        for (OperationNode o: children_) {
-            if (o instanceof StaticInitOperation) {
-                continue;
-            }
-            filter_.add(o);
-        }
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-        if (filter_.isEmpty()) {
-            for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
-                AssignmentBefore b_ = e.getValue();
-                fieldsAfter_.put(e.getKey(), b_.assignAfter(isBool_));
-            }
-            for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore b_ = e.getValue();
-                    sm_.put(e.getKey(), b_.assignAfter(isBool_));
-                }
-                variablesAfter_.add(sm_);
-            }
-            vars_.getFields().put(this, fieldsAfter_);
-            vars_.getVariables().put(this, variablesAfter_);
-            return;
-        }
-        OperationNode last_ = filter_.last();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
-        }
-        for (StringMap<Assignment> s: variablesAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assign(isBool_));
-            }
-            variablesAfter_.add(sm_);
-        }
-        vars_.getFields().put(this, fieldsAfter_);
-        vars_.getVariables().put(this, variablesAfter_);
-    }
+
     @Override
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();

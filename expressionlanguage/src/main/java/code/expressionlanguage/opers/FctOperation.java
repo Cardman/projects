@@ -15,7 +15,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
@@ -24,12 +23,8 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StaticAccessError;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -39,10 +34,8 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -68,8 +61,7 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
@@ -106,12 +98,12 @@ public final class FctOperation extends InvokingOperation {
 
         boolean staticChoiceMethod_ = false;
         boolean accessFromSuper_ = false;
-        if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(EXTERN_CLASS))))) {
+        if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(DOT_VAR))))) {
             trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
             staticChoiceMethod_ = true;
             accessFromSuper_ = true;
-        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(CURRENT, String.valueOf(EXTERN_CLASS))))) {
-            trimMeth_ = trimMeth_.substring(CURRENT.length() + 2);
+        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(THAT, String.valueOf(DOT_VAR))))) {
+            trimMeth_ = trimMeth_.substring(THAT.length() + 2);
             staticChoiceMethod_ = true;
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
@@ -148,93 +140,15 @@ public final class FctOperation extends InvokingOperation {
         setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();
-            if (arg_ != null) {
-                if (arg_.getObject() == null) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(static_);
-                }
+            if (Argument.isNullValue(arg_)) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(static_);
             }
-            clCur_.setCheckOnlyNullPe(true);
         }
     }
 
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
-        CustList<StringMap<Assignment>> variablesAfter_;
-        fieldsAfter_ = vars_.getFields().getVal(_previous);
-        variablesAfter_ = vars_.getVariables().getVal(_previous);
-        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsBefore_.put(e.getKey(), b_.assignBefore());
-        }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-        for (StringMap<Assignment> s: variablesAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignBefore());
-            }
-            variablesBefore_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
-    }
-    @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<OperationNode> children_ = getChildrenNodes();
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
-        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        if (children_.isEmpty()) {
-            boolean isBool_;
-            isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-            for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
-                AssignmentBefore b_ = e.getValue();
-                fieldsAfter_.put(e.getKey(), b_.assignAfter(isBool_));
-            }
-            for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore b_ = e.getValue();
-                    sm_.put(e.getKey(), b_.assignAfter(isBool_));
-                }
-                variablesAfter_.add(sm_);
-            }
-            vars_.getFields().put(this, fieldsAfter_);
-            vars_.getVariables().put(this, variablesAfter_);
-            return;
-        }
-        OperationNode last_ = children_.last();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-
-        boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
-        }
-        for (StringMap<Assignment> s: variablesAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assign(isBool_));
-            }
-            variablesAfter_.add(sm_);
-        }
-        vars_.getFields().put(this, fieldsAfter_);
-        vars_.getVariables().put(this, variablesAfter_);
-    }
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -361,16 +275,23 @@ public final class FctOperation extends InvokingOperation {
         String cast_;
         cast_ = stds_.getAliasCast();
         CustList<Argument> firstArgs_;
-        Argument arg_ = _previous;
         MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         if (!staticMethod) {
+            if (_previous.isNull()) {
+                String null_;
+                null_ = stds_.getAliasNullPe();
+                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                Argument a_ = new Argument();
+                return ArgumentCall.newArgument(a_);
+            }
             if (staticChoiceMethod) {
                 classNameFound_ = classMethodId.getClassName();
                 String base_ = StringList.getAllTypes(classNameFound_).first();
-                String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
+                String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
                 lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
@@ -378,7 +299,7 @@ public final class FctOperation extends InvokingOperation {
             } else {
                 classNameFound_ = classMethodId.getClassName();
                 classNameFound_ = StringList.getAllTypes(classNameFound_).first();
-                String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
+                String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
                 lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
@@ -419,7 +340,7 @@ public final class FctOperation extends InvokingOperation {
         }
         StringList params_ = new StringList();
         if (!staticMethod) {
-            String className_ = stds_.getStructClassName(arg_.getStruct(), _conf.getContextEl());
+            String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
             String classFormat_ = classNameFound_;
             classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_ == null) {
@@ -468,7 +389,7 @@ public final class FctOperation extends InvokingOperation {
         }
         if (!classes_.isCustomType(classNameFound_)) {
             ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);
-            ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), naturalVararg > -1, dyn_, arg_.getStruct(), Argument.toArgArray(firstArgs_));
+            ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), naturalVararg > -1, dyn_, _previous.getStruct(), Argument.toArgArray(firstArgs_));
             if (res_.getError() != null) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
                 Argument a_ = new Argument();
@@ -478,7 +399,7 @@ public final class FctOperation extends InvokingOperation {
             argRes_.setStruct(res_.getResult());
             return ArgumentCall.newArgument(argRes_);
         }
-        InvokingMethod inv_ = new InvokingMethod(arg_, classNameFound_, methodId_, firstArgs_);
+        InvokingMethod inv_ = new InvokingMethod(_previous, classNameFound_, methodId_, firstArgs_);
         return ArgumentCall.newCall(inv_);
     }
 

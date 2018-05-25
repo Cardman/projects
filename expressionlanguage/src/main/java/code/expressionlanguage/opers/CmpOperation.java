@@ -382,8 +382,7 @@ public final class CmpOperation extends PrimitiveBoolOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {
@@ -403,22 +402,18 @@ public final class CmpOperation extends PrimitiveBoolOperation {
             stringCompare = true;
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             Argument arg_ = chidren_.first().getArgument();
-            if (arg_ != null) {
-                if (arg_.getObject() == null) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(static_);
-                }
+            if (Argument.isNullValue(arg_)) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(static_);
             }
             arg_ = chidren_.last().getArgument();
-            if (arg_ != null) {
-                if (arg_.getObject() == null) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(static_);
-                }
+            if (Argument.isNullValue(arg_)) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(static_);
             }
             first_.setCheckOnlyNullPe(true);
             second_.setCheckOnlyNullPe(true);

@@ -3,6 +3,7 @@ package code.expressionlanguage.opers.util;
 
 public abstract class Assignment {
 
+    public abstract BooleanAssignment toBoolAssign();
     public AssignmentBefore assignBefore() {
         AssignmentBefore ba_ = new AssignmentBefore();
         if (isAssignedAfter()) {

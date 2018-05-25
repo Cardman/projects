@@ -38,7 +38,7 @@ public final class VarargOperation extends LeafOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();

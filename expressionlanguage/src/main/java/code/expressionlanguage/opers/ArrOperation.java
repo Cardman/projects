@@ -51,8 +51,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void analyze(Analyzable _conf,
-            String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 2) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
@@ -187,7 +186,11 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             max_--;
         }
         Argument a_ = getArgument(_nodes, max_, _conf);
-        setSimpleArgument(a_, _conf, _nodes);
+        if (resultCanBeSet()) {
+            setQuickSimpleArgument(a_, _conf, _nodes);
+        } else {
+            setSimpleArgument(a_, _conf, _nodes);
+        }
         return a_;
     }
 
@@ -238,7 +241,11 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             max_--;
         }
         Argument a_ = getArgument(max_, _conf);
-        setSimpleArgument(a_, _conf);
+        if (resultCanBeSet()) {
+            setQuickSimpleArgument(a_, _conf);
+        } else {
+            setSimpleArgument(a_, _conf);
+        }
     }
 
     @Override

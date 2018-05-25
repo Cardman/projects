@@ -47,7 +47,7 @@ public final class AffectationOperation extends MethodOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();

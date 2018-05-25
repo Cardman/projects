@@ -18,11 +18,7 @@ public final class StandardFieldOperation extends
 
     @Override
     ClassArgumentMatching getFrom(Analyzable _conf) {
-        OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
         ClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();

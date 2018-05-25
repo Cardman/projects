@@ -73,8 +73,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
         }
     }
     @Override
-    public final void analyze(Analyzable _conf,
-            String _fieldName) {
+    public final void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();

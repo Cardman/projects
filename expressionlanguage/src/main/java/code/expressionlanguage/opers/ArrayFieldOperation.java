@@ -33,7 +33,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf, String _fieldName) {
+    public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
@@ -41,22 +41,16 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        str_ = StringList.removeAllSpaces(str_);
-        ClassArgumentMatching cl_;
-        if (isIntermediateDottedOperation()) {
-            cl_ = getPreviousResultClass();
-        } else {
-            cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
-        }
-        if (cl_ == null || cl_.getName() == null) {
-            StaticAccessError static_ = new StaticAccessError();
-            static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(static_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
+        ClassArgumentMatching cl_ = getPreviousResultClass();
         if (StringList.quickEq(str_, LENGTH)) {
+            Argument arg_ = getPreviousArgument();
+            if (Argument.isNullValue(arg_)) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().getErrorsDet().add(static_);
+            }
+            cl_.setCheckOnlyNullPe(true);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
             return;
         }
@@ -67,18 +61,6 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         und_.setRc(_conf.getCurrentLocation());
         _conf.getClasses().getErrorsDet().add(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
-        if (isIntermediateDottedOperation()) {
-            Argument arg_ = getPreviousArgument();
-            if (arg_ != null) {
-                if (arg_.getObject() == null) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(static_);
-                }
-            }
-            cl_.setCheckOnlyNullPe(true);
-        }
     }
     @Override
     public final void analyzeAssignmentAfter(Analyzable _conf) {

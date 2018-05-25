@@ -105,7 +105,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
                     contUnass_ = false;
                 }
             }
-            if (_anEl.canCompleteNormally(last_)) {
+            if (_anEl.canCompleteNormallyGroup(last_)) {
                 SimpleAssignment ba_ = parLast_.getFieldsRoot().getVal(e.getKey());
                 if (contAss_) {
                     contAss_ = ba_.isAssignedAfter();
@@ -140,7 +140,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
                         contUnass_ = false;
                     }
                 }
-                if (_anEl.canCompleteNormally(last_)) {
+                if (_anEl.canCompleteNormallyGroup(last_)) {
                     CustList<StringMap<SimpleAssignment>> vars_ = parLast_.getVariablesRoot();
                     if (vars_.isValidIndex(index_)) {
                         SimpleAssignment ba_ = vars_.get(index_).getVal(e.getKey());

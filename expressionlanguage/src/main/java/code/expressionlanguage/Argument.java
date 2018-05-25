@@ -143,6 +143,13 @@ public final class Argument {
         }
     }
 
+    public static boolean isNullValue(Argument _arg) {
+        if (_arg == null) {
+            return false;
+        }
+        return _arg.isNull();
+    }
+
     public boolean isNull() {
         return object.isNull();
     }

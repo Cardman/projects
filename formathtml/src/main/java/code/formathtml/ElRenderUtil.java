@@ -30,7 +30,6 @@ import code.util.StringMap;
 
 public final class ElRenderUtil {
 
-    private static final String EMPTY_STRING = "";
     public static void processAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, Configuration _conf) {
         Argument arg_ = _conf.getLastPage().getGlobalArgument();
@@ -107,7 +106,7 @@ public final class ElRenderUtil {
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, _conf);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, _conf);
         if (!_conf.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -159,7 +158,7 @@ public final class ElRenderUtil {
         Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
-        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, EMPTY_STRING, static_, _conf);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, _conf);
         if (!_conf.getClasses().getErrorsDet().isEmpty()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -211,7 +210,7 @@ public final class ElRenderUtil {
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         _conf.setStaticContext(_staticContext);
-        CustList<OperationNode> allLeft_ = ElUtil.getSortedDescNodes(opLeft_, EMPTY_STRING, _hiddenVarTypes, _conf);
+        CustList<OperationNode> allLeft_ = ElUtil.getSortedDescNodes(opLeft_, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrRight);
         Delimiters dRight_ = ElResolver.checkSyntax(_right, _conf, CustList.FIRST_INDEX);
@@ -236,7 +235,7 @@ public final class ElRenderUtil {
             _conf.getClasses().getErrorsDet().add(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
-        CustList<OperationNode> allRight_ = ElUtil.getSortedDescNodes(opRight_, EMPTY_STRING, _hiddenVarTypes, _conf);
+        CustList<OperationNode> allRight_ = ElUtil.getSortedDescNodes(opRight_, _hiddenVarTypes, _conf);
         page_.setOffset(0);
         page_.setProcessingAttribute(_attrLeft);
         page_.setOffset(0);
