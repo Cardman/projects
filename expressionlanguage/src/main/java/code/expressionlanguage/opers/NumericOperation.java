@@ -34,25 +34,27 @@ public abstract class NumericOperation extends MethodOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString) {
+    static Argument calculateAffect(Argument _left,ExecutableCode _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
         Argument o_;
         boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
-            o_ = NumericOperation.calculateSum(_left, _right, false, _catString);
+            o_ = NumericOperation.calculateSum(_left, _right, false, _catString, _conf, _arg);
+            convert_ = !_catString;
         } else if (StringList.quickEq(_op, Block.EQ_PLUS)) {
-            o_ = NumericOperation.calculateSum(_right, _left, false, _catString);
+            o_ = NumericOperation.calculateSum(_right, _left, false, _catString, _conf, _arg);
+            convert_ = !_catString;
         } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
-            o_ = NumericOperation.calculateDiff(_left, _right);
+            o_ = NumericOperation.calculateDiff(_left, _right, _conf, _arg);
         } else if (StringList.quickEq(_op, Block.MULT_EQ)) {
-            o_ = NumericOperation.calculateMult(_left, _right);
+            o_ = NumericOperation.calculateMult(_left, _right, _conf, _arg);
         } else if (StringList.quickEq(_op, Block.DIV_EQ)) {
-            o_ = NumericOperation.calculateDivEx(_left, _conf, _right);
+            o_ = NumericOperation.calculateDivEx(_left, _conf, _right, _arg);
         } else if (StringList.quickEq(_op, Block.MOD_EQ)) {
-            o_ = NumericOperation.calculateModEx(_left, _conf, _right);
+            o_ = NumericOperation.calculateModEx(_left, _conf, _right, _arg);
         } else if (StringList.quickEq(_op, Block.INCR)) {
-            o_ = AddOperation.addOne(_left, _conf);
+            o_ = AddOperation.addOne(_left, _conf, _arg);
         } else if (StringList.quickEq(_op, Block.DECR)) {
-            o_ = AddOperation.removeOne(_left, _conf);
+            o_ = AddOperation.removeOne(_left, _conf, _arg);
         } else if (StringList.quickEq(_op, Block.AND_EQ)) {
             o_ = new Argument();
             Boolean left_ = (Boolean) _left.getObject();
@@ -107,7 +109,7 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return false;
     }
-    static Argument calculateSum(Argument _a, Argument _b, boolean _catChars, boolean _catString) {
+    static Argument calculateSum(Argument _a, Argument _b, boolean _catChars, boolean _catString, Analyzable _an,ClassArgumentMatching _order) {
         if (_catString) {
             StringBuilder str_ = new StringBuilder();
             str_.append(_a.getObject());
@@ -125,711 +127,221 @@ public abstract class NumericOperation extends MethodOperation {
             return a_;
         }
         Object o_ = _a.getObject();
-        Double aOne_ = null;
-        Float aTwo_ = null;
-        Long aThree_ = null;
-        Integer aFour_ = null;
-        Short aFive_ = null;
-        Byte aSix_ = null;
-        if (o_ instanceof Double) {
-            aOne_ = (Double) o_;
-        } else if (o_ instanceof Float) {
-            aTwo_ = (Float) o_;
-        } else if (o_ instanceof Long) {
-            aThree_ = (Long) o_;
-        } else if (o_ instanceof Integer) {
-            aFour_ = (Integer) o_;
-        } else if (o_ instanceof Short) {
-            aFive_ = (Short) o_;
-        } else if (o_ instanceof Byte) {
-            aSix_ = (Byte) o_;
-        }
         Object p_ = _b.getObject();
-        Double bOne_ = null;
-        Float bTwo_ = null;
-        Long bThree_ = null;
-        Integer bFour_ = null;
-        Short bFive_ = null;
-        Byte bSix_ = null;
-        if (p_ instanceof Double) {
-            bOne_ = (Double) p_;
-        } else if (p_ instanceof Float) {
-            bTwo_ = (Float) p_;
-        } else if (p_ instanceof Long) {
-            bThree_ = (Long) p_;
-        } else if (p_ instanceof Integer) {
-            bFour_ = (Integer) p_;
-        } else if (p_ instanceof Short) {
-            bFive_ = (Short) p_;
-        } else if (p_ instanceof Byte) {
-            bSix_ = (Byte) p_;
-        }
+        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
-        if (aOne_ != null) {
-            if (bOne_ != null) {
-                nb_ = aOne_+ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aOne_+ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aOne_+ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aOne_+ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aOne_+ bFive_;
+        String longPrim_ = _an.getStandards().getAliasPrimLong();
+        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+            long left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).longValue();
             } else {
-                nb_ = aOne_+ bSix_;
+                left_ = ((Character)o_).charValue();
             }
-        } else if (aTwo_ != null) {
-            if (bOne_ != null) {
-                nb_ = aTwo_+ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aTwo_+ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aTwo_+ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aTwo_+ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aTwo_+ bFive_;
+            long right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).longValue();
             } else {
-                nb_ = aTwo_+ bSix_;
+                right_ = ((Character)p_).charValue();
             }
-        } else if (aThree_ != null) {
-            if (bOne_ != null) {
-                nb_ = aThree_+ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aThree_+ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aThree_+ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aThree_+ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aThree_+ bFive_;
-            } else {
-                nb_ = aThree_+ bSix_;
-            }
-        } else if (aFour_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFour_+ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFour_+ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFour_+ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFour_+ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFour_+ bFive_;
-            } else {
-                nb_ = aFour_+ bSix_;
-            }
-        } else if (aFive_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFive_+ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFive_+ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFive_+ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFive_+ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFive_+ bFive_;
-            } else {
-                nb_ = aFive_+ bSix_;
-            }
+            nb_ = left_ + right_;
         } else {
-            if (bOne_ != null) {
-                nb_ = aSix_+ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aSix_+ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aSix_+ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aSix_+ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aSix_+ bFive_;
+            double left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).doubleValue();
             } else {
-                nb_ = aSix_+ bSix_;
+                left_ = ((Character)o_).charValue();
             }
+            double right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).doubleValue();
+            } else {
+                right_ = ((Character)p_).charValue();
+            }
+            nb_ = left_ + right_;
         }
         Argument a_ = new Argument();
         a_.setObject(nb_);
         return a_;
     }
 
-    static Argument calculateDiff(Argument _a, Argument _b) {
-        if (_a.isNull()) {
-            return Argument.createVoid();
-        }
-        if (_b.isNull()) {
-            return Argument.createVoid();
-        }
+    static Argument calculateDiff(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
         Object o_ = _a.getObject();
-        Double aOne_ = null;
-        Float aTwo_ = null;
-        Long aThree_ = null;
-        Integer aFour_ = null;
-        Short aFive_ = null;
-        Byte aSix_ = null;
-        if (o_ instanceof Double) {
-            aOne_ = (Double) o_;
-        } else if (o_ instanceof Float) {
-            aTwo_ = (Float) o_;
-        } else if (o_ instanceof Long) {
-            aThree_ = (Long) o_;
-        } else if (o_ instanceof Integer) {
-            aFour_ = (Integer) o_;
-        } else if (o_ instanceof Short) {
-            aFive_ = (Short) o_;
-        } else if (o_ instanceof Byte) {
-            aSix_ = (Byte) o_;
-        }
         Object p_ = _b.getObject();
-        Double bOne_ = null;
-        Float bTwo_ = null;
-        Long bThree_ = null;
-        Integer bFour_ = null;
-        Short bFive_ = null;
-        Byte bSix_ = null;
-        if (p_ instanceof Double) {
-            bOne_ = (Double) p_;
-        } else if (p_ instanceof Float) {
-            bTwo_ = (Float) p_;
-        } else if (p_ instanceof Long) {
-            bThree_ = (Long) p_;
-        } else if (p_ instanceof Integer) {
-            bFour_ = (Integer) p_;
-        } else if (p_ instanceof Short) {
-            bFive_ = (Short) p_;
-        } else if (p_ instanceof Byte) {
-            bSix_ = (Byte) p_;
-        }
+        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
-        if (aOne_ != null) {
-            if (bOne_ != null) {
-                nb_ = aOne_- bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aOne_- bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aOne_- bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aOne_- bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aOne_- bFive_;
+        String longPrim_ = _an.getStandards().getAliasPrimLong();
+        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+            long left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).longValue();
             } else {
-                nb_ = aOne_- bSix_;
+                left_ = ((Character)o_).charValue();
             }
-        } else if (aTwo_ != null) {
-            if (bOne_ != null) {
-                nb_ = aTwo_- bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aTwo_- bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aTwo_- bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aTwo_- bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aTwo_- bFive_;
+            long right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).longValue();
             } else {
-                nb_ = aTwo_- bSix_;
+                right_ = ((Character)p_).charValue();
             }
-        } else if (aThree_ != null) {
-            if (bOne_ != null) {
-                nb_ = aThree_- bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aThree_- bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aThree_- bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aThree_- bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aThree_- bFive_;
-            } else {
-                nb_ = aThree_- bSix_;
-            }
-        } else if (aFour_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFour_- bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFour_- bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFour_- bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFour_- bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFour_- bFive_;
-            } else {
-                nb_ = aFour_- bSix_;
-            }
-        } else if (aFive_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFive_- bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFive_- bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFive_- bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFive_- bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFive_- bFive_;
-            } else {
-                nb_ = aFive_- bSix_;
-            }
+            nb_ = left_ - right_;
         } else {
-            if (bOne_ != null) {
-                nb_ = aSix_- bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aSix_- bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aSix_- bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aSix_- bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aSix_- bFive_;
+            double left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).doubleValue();
             } else {
-                nb_ = aSix_- bSix_;
+                left_ = ((Character)o_).charValue();
             }
+            double right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).doubleValue();
+            } else {
+                right_ = ((Character)p_).charValue();
+            }
+            nb_ = left_ - right_;
         }
         Argument a_ = new Argument();
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateMult(Argument _a, Argument _b) {
-        if (_a.isNull()) {
-            return Argument.createVoid();
-        }
-        if (_b.isNull()) {
-            return Argument.createVoid();
-        }
+    static Argument calculateMult(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
         Object o_ = _a.getObject();
-        Double aOne_ = null;
-        Float aTwo_ = null;
-        Long aThree_ = null;
-        Integer aFour_ = null;
-        Short aFive_ = null;
-        Byte aSix_ = null;
-        if (o_ instanceof Double) {
-            aOne_ = (Double) o_;
-        } else if (o_ instanceof Float) {
-            aTwo_ = (Float) o_;
-        } else if (o_ instanceof Long) {
-            aThree_ = (Long) o_;
-        } else if (o_ instanceof Integer) {
-            aFour_ = (Integer) o_;
-        } else if (o_ instanceof Short) {
-            aFive_ = (Short) o_;
-        } else if (o_ instanceof Byte) {
-            aSix_ = (Byte) o_;
-        }
         Object p_ = _b.getObject();
-        Double bOne_ = null;
-        Float bTwo_ = null;
-        Long bThree_ = null;
-        Integer bFour_ = null;
-        Short bFive_ = null;
-        Byte bSix_ = null;
-        if (p_ instanceof Double) {
-            bOne_ = (Double) p_;
-        } else if (p_ instanceof Float) {
-            bTwo_ = (Float) p_;
-        } else if (p_ instanceof Long) {
-            bThree_ = (Long) p_;
-        } else if (p_ instanceof Integer) {
-            bFour_ = (Integer) p_;
-        } else if (p_ instanceof Short) {
-            bFive_ = (Short) p_;
-        } else if (p_ instanceof Byte) {
-            bSix_ = (Byte) p_;
-        }
+        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
-        if (aOne_ != null) {
-            if (bOne_ != null) {
-                nb_ = aOne_* bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aOne_* bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aOne_* bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aOne_* bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aOne_* bFive_;
+        String longPrim_ = _an.getStandards().getAliasPrimLong();
+        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+            long left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).longValue();
             } else {
-                nb_ = aOne_* bSix_;
+                left_ = ((Character)o_).charValue();
             }
-        } else if (aTwo_ != null) {
-            if (bOne_ != null) {
-                nb_ = aTwo_* bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aTwo_* bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aTwo_* bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aTwo_* bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aTwo_* bFive_;
+            long right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).longValue();
             } else {
-                nb_ = aTwo_* bSix_;
+                right_ = ((Character)p_).charValue();
             }
-        } else if (aThree_ != null) {
-            if (bOne_ != null) {
-                nb_ = aThree_* bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aThree_* bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aThree_* bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aThree_* bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aThree_* bFive_;
-            } else {
-                nb_ = aThree_* bSix_;
-            }
-        } else if (aFour_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFour_* bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFour_* bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFour_* bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFour_* bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFour_* bFive_;
-            } else {
-                nb_ = aFour_* bSix_;
-            }
-        } else if (aFive_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFive_* bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFive_* bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFive_* bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFive_* bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFive_* bFive_;
-            } else {
-                nb_ = aFive_* bSix_;
-            }
+            nb_ = left_ * right_;
         } else {
-            if (bOne_ != null) {
-                nb_ = aSix_* bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aSix_* bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aSix_* bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aSix_* bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aSix_* bFive_;
+            double left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).doubleValue();
             } else {
-                nb_ = aSix_* bSix_;
+                left_ = ((Character)o_).charValue();
             }
+            double right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).doubleValue();
+            } else {
+                right_ = ((Character)p_).charValue();
+            }
+            nb_ = left_ * right_;
         }
         Argument a_ = new Argument();
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b) {
+    static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Argument res_ = calculateDiv(_a, _b);
+        Argument res_ = calculateDiv(_a, _b, _cont, _order);
         if (res_.isNull()) {
             _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
         }
         return res_;
     }
-    static Argument calculateDiv(Argument _a, Argument _b) {
+    static Argument calculateDiv(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
         Object o_ = _a.getObject();
-        Double aOne_ = null;
-        Float aTwo_ = null;
-        Long aThree_ = null;
-        Integer aFour_ = null;
-        Short aFive_ = null;
-        Byte aSix_ = null;
-        if (o_ instanceof Double) {
-            aOne_ = (Double) o_;
-        } else if (o_ instanceof Float) {
-            aTwo_ = (Float) o_;
-        } else if (o_ instanceof Long) {
-            aThree_ = (Long) o_;
-        } else if (o_ instanceof Integer) {
-            aFour_ = (Integer) o_;
-        } else if (o_ instanceof Short) {
-            aFive_ = (Short) o_;
-        } else if (o_ instanceof Byte) {
-            aSix_ = (Byte) o_;
-        }
         Object p_ = _b.getObject();
-        Double bOne_ = null;
-        Float bTwo_ = null;
-        Long bThree_ = null;
-        Integer bFour_ = null;
-        Short bFive_ = null;
-        Byte bSix_ = null;
-        if (p_ instanceof Double) {
-            bOne_ = (Double) p_;
-        } else if (p_ instanceof Float) {
-            bTwo_ = (Float) p_;
-        } else if (p_ instanceof Long) {
-            bThree_ = (Long) p_;
-            if (bThree_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        } else if (p_ instanceof Integer) {
-            bFour_ = (Integer) p_;
-            if (bFour_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        } else if (p_ instanceof Short) {
-            bFive_ = (Short) p_;
-            if (bFive_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        } else if (p_ instanceof Byte) {
-            bSix_ = (Byte) p_;
-            if (bSix_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        }
+        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
-        if (aOne_ != null) {
-            if (bOne_ != null) {
-                nb_ = aOne_/ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aOne_/ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aOne_/ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aOne_/ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aOne_/ bFive_;
+        String longPrim_ = _an.getStandards().getAliasPrimLong();
+        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+            long left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).longValue();
             } else {
-                nb_ = aOne_/ bSix_;
+                left_ = ((Character)o_).charValue();
             }
-        } else if (aTwo_ != null) {
-            if (bOne_ != null) {
-                nb_ = aTwo_/ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aTwo_/ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aTwo_/ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aTwo_/ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aTwo_/ bFive_;
+            long right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).longValue();
             } else {
-                nb_ = aTwo_/ bSix_;
+                right_ = ((Character)p_).charValue();
             }
-        } else if (aThree_ != null) {
-            if (bOne_ != null) {
-                nb_ = aThree_/ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aThree_/ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aThree_/ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aThree_/ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aThree_/ bFive_;
-            } else {
-                nb_ = aThree_/ bSix_;
+            if (right_ == 0) {
+                return Argument.createVoid();
             }
-        } else if (aFour_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFour_/ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFour_/ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFour_/ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFour_/ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFour_/ bFive_;
-            } else {
-                nb_ = aFour_/ bSix_;
-            }
-        } else if (aFive_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFive_/ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFive_/ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFive_/ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFive_/ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFive_/ bFive_;
-            } else {
-                nb_ = aFive_/ bSix_;
-            }
+            nb_ = left_ / right_;
         } else {
-            if (bOne_ != null) {
-                nb_ = aSix_/ bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aSix_/ bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aSix_/ bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aSix_/ bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aSix_/ bFive_;
+            double left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).doubleValue();
             } else {
-                nb_ = aSix_/ bSix_;
+                left_ = ((Character)o_).charValue();
             }
+            double right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).doubleValue();
+            } else {
+                right_ = ((Character)p_).charValue();
+            }
+            nb_ = left_ / right_;
         }
         Argument a_ = new Argument();
         a_.setObject(nb_);
         return a_;
     }
-    static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b) {
+    static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
         LgNames stds_ = _cont.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Argument res_ = calculateMod(_a, _b);
+        Argument res_ = calculateMod(_a, _b, _cont, _order);
         if (res_.isNull()) {
             _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
         }
         return res_;
     }
-    static Argument calculateMod(Argument _a, Argument _b) {
+    static Argument calculateMod(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
         Object o_ = _a.getObject();
-        Double aOne_ = null;
-        Float aTwo_ = null;
-        Long aThree_ = null;
-        Integer aFour_ = null;
-        Short aFive_ = null;
-        Byte aSix_ = null;
-        if (o_ instanceof Double) {
-            aOne_ = (Double) o_;
-        } else if (o_ instanceof Float) {
-            aTwo_ = (Float) o_;
-        } else if (o_ instanceof Long) {
-            aThree_ = (Long) o_;
-        } else if (o_ instanceof Integer) {
-            aFour_ = (Integer) o_;
-        } else if (o_ instanceof Short) {
-            aFive_ = (Short) o_;
-        } else if (o_ instanceof Byte) {
-            aSix_ = (Byte) o_;
-        }
         Object p_ = _b.getObject();
-        Double bOne_ = null;
-        Float bTwo_ = null;
-        Long bThree_ = null;
-        Integer bFour_ = null;
-        Short bFive_ = null;
-        Byte bSix_ = null;
-        if (p_ instanceof Double) {
-            bOne_ = (Double) p_;
-        } else if (p_ instanceof Float) {
-            bTwo_ = (Float) p_;
-        } else if (p_ instanceof Long) {
-            bThree_ = (Long) p_;
-            if (bThree_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        } else if (p_ instanceof Integer) {
-            bFour_ = (Integer) p_;
-            if (bFour_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        } else if (p_ instanceof Short) {
-            bFive_ = (Short) p_;
-            if (bFive_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        } else if (p_ instanceof Byte) {
-            bSix_ = (Byte) p_;
-            if (bSix_.longValue() == 0) {
-                return Argument.createVoid();
-            }
-        }
+        int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
-        if (aOne_ != null) {
-            if (bOne_ != null) {
-                nb_ = aOne_% bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aOne_% bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aOne_% bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aOne_% bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aOne_% bFive_;
+        String longPrim_ = _an.getStandards().getAliasPrimLong();
+        if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
+            long left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).longValue();
             } else {
-                nb_ = aOne_% bSix_;
+                left_ = ((Character)o_).charValue();
             }
-        } else if (aTwo_ != null) {
-            if (bOne_ != null) {
-                nb_ = aTwo_% bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aTwo_% bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aTwo_% bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aTwo_% bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aTwo_% bFive_;
+            long right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).longValue();
             } else {
-                nb_ = aTwo_% bSix_;
+                right_ = ((Character)p_).charValue();
             }
-        } else if (aThree_ != null) {
-            if (bOne_ != null) {
-                nb_ = aThree_% bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aThree_% bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aThree_% bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aThree_% bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aThree_% bFive_;
-            } else {
-                nb_ = aThree_% bSix_;
+            if (right_ == 0) {
+                return Argument.createVoid();
             }
-        } else if (aFour_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFour_% bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFour_% bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFour_% bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFour_% bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFour_% bFive_;
-            } else {
-                nb_ = aFour_% bSix_;
-            }
-        } else if (aFive_ != null) {
-            if (bOne_ != null) {
-                nb_ = aFive_% bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aFive_% bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aFive_% bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aFive_% bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aFive_% bFive_;
-            } else {
-                nb_ = aFive_% bSix_;
-            }
+            nb_ = left_ % right_;
         } else {
-            if (bOne_ != null) {
-                nb_ = aSix_% bOne_;
-            } else if (bTwo_ != null) {
-                nb_ = aSix_% bTwo_;
-            } else if (bThree_ != null) {
-                nb_ = aSix_% bThree_;
-            } else if (bFour_ != null) {
-                nb_ = aSix_% bFour_;
-            } else if (bFive_ != null) {
-                nb_ = aSix_% bFive_;
+            double left_;
+            if (o_ instanceof Number) {
+                left_ = ((Number)o_).doubleValue();
             } else {
-                nb_ = aSix_% bSix_;
+                left_ = ((Character)o_).charValue();
             }
+            double right_;
+            if (p_ instanceof Number) {
+                right_ = ((Number)p_).doubleValue();
+            } else {
+                right_ = ((Character)p_).charValue();
+            }
+            nb_ = left_ % right_;
         }
         Argument a_ = new Argument();
         a_.setObject(nb_);
@@ -893,6 +405,10 @@ public abstract class NumericOperation extends MethodOperation {
         setCatenize(r_);
         a_ = r_.getResult();
         setResultClass(a_);
+        String res_ = a_.getName();
+        if (PrimitiveTypeUtil.isPrimitive(res_, _conf)) {
+            a_.setUnwrapObject(res_);
+        }
     }
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);
     @Override

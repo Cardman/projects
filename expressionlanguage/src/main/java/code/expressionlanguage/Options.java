@@ -2,9 +2,8 @@ package code.expressionlanguage;
 
 public final class Options {
 
-    private boolean breadthFirst = true;
-
     private boolean eqPlus;
+    private boolean catChars = true;
     private boolean multipleAffectations;
     private boolean initializeStaticClassFirst = true;
 
@@ -15,20 +14,20 @@ public final class Options {
         return eqPlus;
     }
 
-    public boolean isBreadthFirst() {
-        return breadthFirst;
-    }
-
-    public void setBreadthFirst(boolean _breadthFirst) {
-        breadthFirst = _breadthFirst;
-    }
-
     public boolean isEqPlus() {
         return eqPlus;
     }
 
     public void setEqPlus(boolean _eqPlus) {
         eqPlus = _eqPlus;
+    }
+
+    public boolean isCatChars() {
+        return catChars;
+    }
+
+    public void setCatChars(boolean _catChars) {
+        catChars = _catChars;
     }
 
     public boolean isMultipleAffectations() {

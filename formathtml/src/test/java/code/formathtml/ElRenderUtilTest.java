@@ -3396,6 +3396,42 @@ public final class ElRenderUtilTest {
         assertTrue(context_.getClasses().getErrorsDet().isEmpty());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
+
+    @Test
+    public void processEl210Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("'1'+'2'",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(99, (Number)res_);
+    }
+
+    @Test
+    public void processEl211Test() {
+        Configuration context_ = contextEl(true,false,true);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("'1'+'2'",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("12", (String)res_);
+    }
+    @Test
+    public void processEl212Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("('1'+'2')*3i",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(297, (Number)res_);
+    }
+    @Test
+    public void processEl213FailTest() {
+        Configuration context_ = contextEl(true,false,true);
+        addImportingPage(context_);
+        ElRenderUtil.processEl("('1'+'2')*3i",0, context_);
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+    }
     @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);
@@ -4254,6 +4290,24 @@ public final class ElRenderUtilTest {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
+        InitializationLgNames.initAdvStandards(cont_);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        conf_.setContext(cont_);
+        conf_.setStandards((BeanLgNames) cont_.getStandards());
+        cont_.initError();
+        return conf_;
+    }
+    private Configuration contextEl(boolean _multiple, boolean _eqPlus, boolean _catChars) {
+        Configuration conf_ = new Configuration();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEqPlus(_eqPlus);
+        cont_.getOptions().setMultipleAffectations(_multiple);
+        cont_.getOptions().setCatChars(_catChars);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);

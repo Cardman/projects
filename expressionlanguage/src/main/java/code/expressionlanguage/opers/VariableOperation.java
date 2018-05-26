@@ -292,13 +292,13 @@ public final class VariableOperation extends LeafOperation implements
         } else {
             left_.setStruct(_store);
         }
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString, cl_);
         if (_conf.getException() != null) {
             return res_;
         }
         if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
             res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         locVar_.setStruct(res_.getStruct());

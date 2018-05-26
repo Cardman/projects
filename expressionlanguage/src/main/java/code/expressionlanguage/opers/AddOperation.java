@@ -21,26 +21,26 @@ public final class AddOperation extends NumericOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument addOne(Argument _arg, ExecutableCode _cont) {
+    static Argument addOne(Argument _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
         byte b_ = 1;
         Argument a_ = new Argument();
         a_.setObject(b_);
-        return calculateSum(_arg, a_, false, false);
+        return calculateSum(_arg, a_, false, false, _cont, _cl);
     }
 
-    static Argument removeOne(Argument _arg, ExecutableCode _cont) {
+    static Argument removeOne(Argument _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
         byte b_ = 1;
         Argument a_ = new Argument();
         a_.setObject(b_);
-        return calculateDiff(_arg, a_);
+        return calculateDiff(_arg, a_, _cont, _cl);
     }
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            return calculateSum(_a, _b, catChars, catString);
+            return calculateSum(_a, _b, catChars, catString, _cont, getResultClass());
         }
-        return calculateDiff(_a, _b);
+        return calculateDiff(_a, _b, _cont, getResultClass());
     }
 
     @Override
@@ -51,9 +51,9 @@ public final class AddOperation extends NumericOperation {
             }
         }
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            return calculateSum(_a, _b, catChars, catString);
+            return calculateSum(_a, _b, catChars, catString, _cont, getResultClass());
         }
-        return calculateDiff(_a, _b);
+        return calculateDiff(_a, _b, _cont, getResultClass());
     }
 
     @Override
@@ -63,11 +63,13 @@ public final class AddOperation extends NumericOperation {
         String stringBuilderType_ = _cont.getStandards().getAliasStringBuilder();
         String charType_ = _cont.getStandards().getAliasPrimChar();
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            if (PrimitiveTypeUtil.toPrimitive(_a, true, _cont).matchClass(charType_)) {
-                if (PrimitiveTypeUtil.toPrimitive(_b, true, _cont).matchClass(charType_)) {
-                    res_.setResult(new ClassArgumentMatching(stringType_));
-                    res_.setCatChars(true);
-                    return res_;
+            if (_cont.getOptions().isCatChars()) {
+                if (PrimitiveTypeUtil.toPrimitive(_a, true, _cont).matchClass(charType_)) {
+                    if (PrimitiveTypeUtil.toPrimitive(_b, true, _cont).matchClass(charType_)) {
+                        res_.setResult(new ClassArgumentMatching(stringType_));
+                        res_.setCatChars(true);
+                        return res_;
+                    }
                 }
             }
             int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
@@ -112,6 +114,7 @@ public final class AddOperation extends NumericOperation {
             un_.setOperands(new StringList(_a.getName(),_b.getName()));
             _cont.getClasses().getErrorsDet().add(un_);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
+            res_.setOk(false);
             res_.setResult(arg_);
             return res_;
         }

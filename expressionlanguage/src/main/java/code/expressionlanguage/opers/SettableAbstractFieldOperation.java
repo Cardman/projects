@@ -297,12 +297,12 @@ public abstract class SettableAbstractFieldOperation extends
             } else {
                 left_.setStruct(_store);
             }
-            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+            res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString, cl_);
             if (_conf.getException() != null) {
                 return res_;
             }
             if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
-                ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
                 res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
             }
             if (classes_.isCustomType(className_)) {
@@ -368,12 +368,12 @@ public abstract class SettableAbstractFieldOperation extends
             left_.setStruct(_store);
             fieldType_ = _store.getClassName(_conf);
         }
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString);
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString, cl_);
         if (_conf.getException() != null) {
             return res_;
         }
         if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
             res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         if (_previous.getStruct() instanceof FieldableStruct) {

@@ -121,8 +121,20 @@ public final class ReadConfiguration {
         Options options_ = new Options();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "stackOverFlow")) {
-                options_.setBreadthFirst(StringList.quickEq(c.getAttribute("value"), "true"));
+            if (StringList.quickEq(fieldName_, "multipleAffectations")) {
+                options_.setMultipleAffectations(StringList.quickEq(c.getAttribute("value"), "true"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "initializeStaticClassFirst")) {
+                options_.setInitializeStaticClassFirst(StringList.quickEq(c.getAttribute("value"), "true"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "catChars")) {
+                options_.setCatChars(StringList.quickEq(c.getAttribute("value"), "true"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "eqPlus")) {
+                options_.setEqPlus(StringList.quickEq(c.getAttribute("value"), "true"));
                 continue;
             }
         }

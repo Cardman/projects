@@ -1272,9 +1272,7 @@ public abstract class OperationNode {
             }
         }
         if (!un_.isEmpty()) {
-            if (!resultClass.isCheckOnlyNullPe()) {
-                _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
-            }
+            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
         }
         int res_ = processBooleanValues(_arg, _cont);
         if (res_ <= 0) {
@@ -1349,41 +1347,6 @@ public abstract class OperationNode {
     final int processBooleanValues(Argument _arg, ExecutableCode _cont) {
         Object o_ = _arg.getObject();
         MethodOperation par_ = getParent();
-        if (!(o_ instanceof Boolean)) {
-            return 0;
-        }
-        if (!(par_ instanceof QuickOperation)) {
-            boolean ternaryParent_ = false;
-            if (par_ instanceof TernaryOperation) {
-                ternaryParent_ = isFirstChild();
-            }
-            if (!ternaryParent_) {
-                return 0;
-            }
-            Boolean b_ = (Boolean) o_;
-            if (b_) {
-                return 2;
-            }
-            return 1;
-        }
-        return QUICK_OP;
-    }
-    final int processBooleanValuesAna(Argument _arg, Analyzable _cont) {
-        Object o_ = _arg.getObject();
-        MethodOperation par_ = getParent();
-        if (o_ == null) {
-            if (par_ instanceof QuickOperation) {
-                return -1;
-            }
-            boolean ternaryParent_ = false;
-            if (par_ instanceof TernaryOperation) {
-                ternaryParent_ = isFirstChild();
-            }
-            if (ternaryParent_) {
-                return -1;
-            }
-            return 0;
-        }
         if (!(o_ instanceof Boolean)) {
             return 0;
         }
@@ -1483,6 +1446,10 @@ public abstract class OperationNode {
         PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
+        }
+        String un_ = resultClass.getUnwrapObject();
+        if (!un_.isEmpty()) {
+            argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, argument.getStruct(), _conf.getStandards()));
         }
     }
     public final boolean isStaticBlock() {

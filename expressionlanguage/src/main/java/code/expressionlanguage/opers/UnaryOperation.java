@@ -83,40 +83,17 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         }
         String oper_ = getOperations().getOperators().firstValue();
         if (StringList.quickEq(oper_, PLUS)) {
-            if (o_ instanceof Character) {
-                out_.setObject(((Character)o_));
-            } else {
-                Number b_ = (Number) o_;
-                if (b_ instanceof Integer) {
-                    out_.setObject(((Integer)b_));
-                } else if (b_ instanceof Long) {
-                    out_.setObject(((Long)b_));
-                } else if (b_ instanceof Byte) {
-                    out_.setObject(((Byte)b_));
-                } else if (b_ instanceof Short) {
-                    out_.setObject(((Short)b_));
-                } else if (b_ instanceof Double) {
-                    out_.setObject(((Double)b_));
-                } else if (b_ instanceof Float) {
-                    out_.setObject(((Float)b_));
-                }
-            }
+            out_.setStruct(arg_.getStruct());
         } else if (o_ instanceof Character) {
             out_.setObject(-((Character)o_));
         } else {
             Number b_ = (Number) o_;
-            if (b_ instanceof Integer) {
-                out_.setObject(-((Integer)b_));
-            } else if (b_ instanceof Long) {
-                out_.setObject(-((Long)b_));
-            } else if (b_ instanceof Byte) {
-                out_.setObject(-((Byte)b_));
-            } else if (b_ instanceof Short) {
-                out_.setObject(-((Short)b_));
-            } else if (b_ instanceof Double) {
-                out_.setObject(-((Double)b_));
-            } else if (b_ instanceof Float) {
-                out_.setObject(-((Float)b_));
+            int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
+            String longPrim_ = _conf.getStandards().getAliasPrimLong();
+            if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {
+                out_.setObject(-b_.longValue());
+            } else {
+                out_.setObject(-b_.doubleValue());
             }
         }
         ClassArgumentMatching res_ = getResultClass();
@@ -141,40 +118,17 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String oper_ = getOperations().getOperators().firstValue();
         if (StringList.quickEq(oper_, PLUS)) {
-            if (o_ instanceof Character) {
-                out_.setObject(((Character)o_));
-            } else {
-                Number b_ = (Number) o_;
-                if (b_ instanceof Integer) {
-                    out_.setObject(((Integer)b_));
-                } else if (b_ instanceof Long) {
-                    out_.setObject(((Long)b_));
-                } else if (b_ instanceof Byte) {
-                    out_.setObject(((Byte)b_));
-                } else if (b_ instanceof Short) {
-                    out_.setObject(((Short)b_));
-                } else if (b_ instanceof Double) {
-                    out_.setObject(((Double)b_));
-                } else if (b_ instanceof Float) {
-                    out_.setObject(((Float)b_));
-                }
-            }
+            out_.setStruct(_in.getStruct());
         } else if (o_ instanceof Character) {
             out_.setObject(-((Character)o_));
         } else {
             Number b_ = (Number) o_;
-            if (b_ instanceof Integer) {
-                out_.setObject(-((Integer)b_));
-            } else if (b_ instanceof Long) {
-                out_.setObject(-((Long)b_));
-            } else if (b_ instanceof Byte) {
-                out_.setObject(-((Byte)b_));
-            } else if (b_ instanceof Short) {
-                out_.setObject(-((Short)b_));
-            } else if (b_ instanceof Double) {
-                out_.setObject(-((Double)b_));
-            } else if (b_ instanceof Float) {
-                out_.setObject(-((Float)b_));
+            int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
+            String longPrim_ = _conf.getStandards().getAliasPrimLong();
+            if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {
+                out_.setObject(-b_.longValue());
+            } else {
+                out_.setObject(-b_.doubleValue());
             }
         }
         ClassArgumentMatching res_ = getResultClass();
