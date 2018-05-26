@@ -912,7 +912,7 @@ public final class FileResolver {
                         if (leftPar_ > -1) {
                             int typeOffset_ = instructionLocation_ + leftPar_+1;
                             info_ = info_.substring(leftPar_+1);
-                            String declaringType_ = getDeclaringType(info_);
+                            String declaringType_ = getDeclaringTypeInstr(info_);
                             typeOffset_ += StringList.getFirstPrintableCharIndex(declaringType_);
                             int variableOffset_ = typeOffset_ + declaringType_.length();
                             info_ = info_.substring(declaringType_.length());
@@ -967,7 +967,7 @@ public final class FileResolver {
                         String afterIndex_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
                         typeOffset_ += StringList.getFirstPrintableCharIndex(afterIndex_);
                         exp_ = afterIndex_;
-                        String declaringType_ = getDeclaringType(exp_);
+                        String declaringType_ = getDeclaringTypeInstr(exp_);
                         int varOffset_ = typeOffset_ + declaringType_.length();
                         exp_ = exp_.substring(declaringType_.length());
                         String variable_ = exp_.substring(0, exp_.indexOf(FOR_BLOCKS));
@@ -991,7 +991,7 @@ public final class FileResolver {
                             exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1);
                         }
                         exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
-                        String declaringType_ = getDeclaringType(exp_);
+                        String declaringType_ = getDeclaringTypeInstr(exp_);
                         typeOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                         int varOffset_ = typeOffset_ + declaringType_.length();
                         exp_ = exp_.substring(declaringType_.length());
@@ -1060,98 +1060,167 @@ public final class FileResolver {
                         if (fct_) {
                             //fields, constructors or methods
                             String afterAccess_ = trimmedInstruction_.substring(word_.length());
-                            int indexEq_ = afterAccess_.indexOf(PART_SEPARATOR);
-                            if (indexEq_ < 0 && afterAccess_.indexOf(BEGIN_CALLING) >= 0) {
-                                if (currentChar_ == BEGIN_BLOCK || startsWithPrefixKeyWord(afterAccess_.trim(), KEY_WORD_ABSTRACT)) {
-                                    //constructors or methods
-                                    int modifierOffest_ = accessOffest_ + word_.length();
-                                    modifierOffest_ += StringList.getFirstPrintableCharIndex(afterAccess_);
-                                    String info_ = afterAccess_.trim();
-                                    String modifier_ = EMPTY_STRING;
-                                    if (startsWithPrefixKeyWord(info_,KEY_WORD_NORMAL)) {
-                                        modifier_ = KEY_WORD_NORMAL;
-                                    } else if (startsWithPrefixKeyWord(info_,KEY_WORD_ABSTRACT)) {
-                                        modifier_ = KEY_WORD_ABSTRACT;
-                                    } else if (startsWithPrefixKeyWord(info_,KEY_WORD_STATIC)) {
-                                        modifier_ = KEY_WORD_STATIC;
-                                    } else if (startsWithPrefixKeyWord(info_,KEY_WORD_FINAL)) {
-                                        modifier_ = KEY_WORD_FINAL;
-                                    }
-                                    boolean method_ = !modifier_.isEmpty();
-                                    int methodNameOffest_ = -1;
-                                    int typeOffset_ = -1;
-                                    int paramOffest_;
-                                    String methodName_ = EMPTY_STRING;
-                                    String declaringType_ = EMPTY_STRING;
-                                    if (method_) {
-                                        String afterModifier_ = info_.substring((prefixKeyWord(modifier_)).length());
-                                        typeOffset_ = modifierOffest_ + prefixKeyWord(modifier_).length();
-                                        typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
-                                        info_ = afterModifier_.trim();
-                                        declaringType_ = getDeclaringType(info_);
-                                        String afterType_ = info_.substring(declaringType_.length());
-                                        methodNameOffest_ = typeOffset_ + declaringType_.length();
-                                        methodNameOffest_ += StringList.getFirstPrintableCharIndex(afterType_);
-                                        info_ = afterType_.trim();
-                                        int leftParIndex_ = info_.indexOf(BEGIN_CALLING);
-                                        methodName_ = info_.substring(0, leftParIndex_);
-                                        String afterMethodName_ = info_.substring(leftParIndex_ + 1);
-                                        paramOffest_ = methodNameOffest_ + leftParIndex_ + 1;
-                                        paramOffest_ += StringList.getFirstPrintableCharIndex(afterMethodName_);
-                                        info_ = afterMethodName_.trim();
-                                        int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
-                                        paramOffest_ += indexLeftPar_ + 1;
-                                        paramOffest_ += StringList.getFirstPrintableCharIndex(info_.substring(indexLeftPar_ + 1));
-                                    } else {
-                                        paramOffest_ = modifierOffest_;
-                                        int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
-                                        paramOffest_ += indexLeftPar_ + 1;
-                                        String after_ = info_.substring(indexLeftPar_ + 1);
-                                        paramOffest_ += StringList.getFirstPrintableCharIndex(after_);
-                                        info_ = after_.trim();
-                                    }
-                                    Numbers<Integer> offestsTypes_ = new Numbers<Integer>();
-                                    Numbers<Integer> offestsParams_ = new Numbers<Integer>();
-                                    StringList parametersType_ = new StringList();
-                                    StringList parametersName_ = new StringList();
-                                    while (true) {
-                                        if (info_.indexOf(END_CALLING) == 0) {
-                                            break;
-                                        }
-                                        offestsTypes_.add(paramOffest_);
-                                        String paramType_ = getDeclaringParamType(info_);
-                                        parametersType_.add(paramType_.trim());
-                                        String afterParamType_ = info_.substring(paramType_.length());
-                                        info_ = afterParamType_.trim();
-                                        int call_ = info_.indexOf(SEP_CALLING);
-                                        if (call_ < 0) {
-                                            call_ = info_.indexOf(END_CALLING);
-                                        }
-                                        int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
-                                        if (off_ < 0) {
-                                            off_ = 0;
-                                        }
-                                        offestsParams_.add(paramOffest_ + paramType_.length() + off_);
-                                        String paramName_ = info_.substring(0, call_);
-                                        parametersName_.add(paramName_.trim());
-                                        String afterParamName_ = info_.substring(call_ + 1);
-                                        info_ = afterParamName_.trim();
-                                        if (info_.isEmpty()) {
-                                            break;
-                                        }
-                                        paramOffest_ += paramType_.length();
-                                        paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamType_);
-                                        paramOffest_ += call_ + 1;
-                                        paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
-                                    }
-                                    if (method_) {
-                                        br_ = new MethodBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    } else {
-                                        br_ = new ConstructorBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    }
-                                    currentParent_.appendChild(br_);
+                            String otherModifier_ = EMPTY_STRING;
+                            String infoModifiers_ = afterAccess_.trim();
+                            while (true) {
+                                if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_NORMAL)) {
+                                    otherModifier_ = prefixKeyWord(KEY_WORD_NORMAL);
+                                    int lenLoc_ = otherModifier_.length();
+                                    String sub_ = infoModifiers_.substring(lenLoc_);
+                                    int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                    infoModifiers_ = sub_.substring(delta_);
+                                    continue;
                                 }
+                                if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_ABSTRACT)) {
+                                    otherModifier_ = prefixKeyWord(KEY_WORD_ABSTRACT);
+                                    int lenLoc_ = otherModifier_.length();
+                                    String sub_ = infoModifiers_.substring(lenLoc_);
+                                    int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                    infoModifiers_ = sub_.substring(delta_);
+                                    continue;
+                                }
+                                if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_STATIC)) {
+                                    otherModifier_ = prefixKeyWord(KEY_WORD_STATIC);
+                                    int lenLoc_ = otherModifier_.length();
+                                    String sub_ = infoModifiers_.substring(lenLoc_);
+                                    int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                    infoModifiers_ = sub_.substring(delta_);
+                                    continue;
+                                }
+                                if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_FINAL)) {
+                                    otherModifier_ = prefixKeyWord(KEY_WORD_FINAL);
+                                    int lenLoc_ = otherModifier_.length();
+                                    String sub_ = infoModifiers_.substring(lenLoc_);
+                                    int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                    infoModifiers_ = sub_.substring(delta_);
+                                    continue;
+                                }
+                                break;
+                            }
+                            String typeStr_ = getDeclaringTypeInstr(infoModifiers_);
+                            boolean ctor_ = false;
+                            boolean meth_ = false;
+                            if (typeStr_.isEmpty()) {
+                                //constructor
+                                ctor_ = true;
                             } else {
+                                infoModifiers_ = infoModifiers_.substring(typeStr_.length());
+                                int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
+                                infoModifiers_ = infoModifiers_.substring(first_);
+                                int lenAfterModifiers_ = infoModifiers_.length();
+                                int indexMod_ = 0;
+                                while (indexMod_ < lenAfterModifiers_) {
+                                    char cur_ = infoModifiers_.charAt(indexMod_);
+                                    if (!StringList.isWordChar(cur_)) {
+                                        if (cur_ != KEY_WORD_PREFIX) {
+                                            break;
+                                        }
+                                    }
+                                    indexMod_++;
+                                }
+                                while (indexMod_ < lenAfterModifiers_) {
+                                    char cur_ = infoModifiers_.charAt(indexMod_);
+                                    if (!Character.isWhitespace(cur_)) {
+                                        break;
+                                    }
+                                    indexMod_++;
+                                }
+                                if (infoModifiers_.indexOf(BEGIN_CALLING, indexMod_) == indexMod_) {
+                                    meth_ = true;
+                                }
+                            }
+                            if (meth_||ctor_) {
+
+                                //constructors or methods
+                                int modifierOffest_ = accessOffest_ + word_.length();
+                                modifierOffest_ += StringList.getFirstPrintableCharIndex(afterAccess_);
+                                String info_ = afterAccess_.trim();
+                                String modifier_ = EMPTY_STRING;
+                                if (startsWithPrefixKeyWord(info_,KEY_WORD_NORMAL)) {
+                                    modifier_ = KEY_WORD_NORMAL;
+                                } else if (startsWithPrefixKeyWord(info_,KEY_WORD_ABSTRACT)) {
+                                    modifier_ = KEY_WORD_ABSTRACT;
+                                } else if (startsWithPrefixKeyWord(info_,KEY_WORD_STATIC)) {
+                                    modifier_ = KEY_WORD_STATIC;
+                                } else if (startsWithPrefixKeyWord(info_,KEY_WORD_FINAL)) {
+                                    modifier_ = KEY_WORD_FINAL;
+                                }
+                                boolean method_ = !modifier_.isEmpty();
+                                int methodNameOffest_ = -1;
+                                int typeOffset_ = -1;
+                                int paramOffest_;
+                                String methodName_ = EMPTY_STRING;
+                                String declaringType_ = EMPTY_STRING;
+                                if (method_) {
+                                    String afterModifier_ = info_.substring((prefixKeyWord(modifier_)).length());
+                                    typeOffset_ = modifierOffest_ + prefixKeyWord(modifier_).length();
+                                    typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
+                                    info_ = afterModifier_.trim();
+                                    declaringType_ = getDeclaringTypeInstr(info_);
+                                    String afterType_ = info_.substring(declaringType_.length());
+                                    methodNameOffest_ = typeOffset_ + declaringType_.length();
+                                    methodNameOffest_ += StringList.getFirstPrintableCharIndex(afterType_);
+                                    info_ = afterType_.trim();
+                                    int leftParIndex_ = info_.indexOf(BEGIN_CALLING);
+                                    methodName_ = info_.substring(0, leftParIndex_);
+                                    String afterMethodName_ = info_.substring(leftParIndex_ + 1);
+                                    paramOffest_ = methodNameOffest_ + leftParIndex_ + 1;
+                                    paramOffest_ += StringList.getFirstPrintableCharIndex(afterMethodName_);
+                                    info_ = afterMethodName_.trim();
+                                    int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
+                                    paramOffest_ += indexLeftPar_ + 1;
+                                    paramOffest_ += StringList.getFirstPrintableCharIndex(info_.substring(indexLeftPar_ + 1));
+                                } else {
+                                    paramOffest_ = modifierOffest_;
+                                    int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
+                                    paramOffest_ += indexLeftPar_ + 1;
+                                    String after_ = info_.substring(indexLeftPar_ + 1);
+                                    paramOffest_ += StringList.getFirstPrintableCharIndex(after_);
+                                    info_ = after_.trim();
+                                }
+                                Numbers<Integer> offestsTypes_ = new Numbers<Integer>();
+                                Numbers<Integer> offestsParams_ = new Numbers<Integer>();
+                                StringList parametersType_ = new StringList();
+                                StringList parametersName_ = new StringList();
+                                while (true) {
+                                    if (info_.indexOf(END_CALLING) == 0) {
+                                        break;
+                                    }
+                                    offestsTypes_.add(paramOffest_);
+                                    String paramType_ = getDeclaringParamType(info_);
+                                    parametersType_.add(paramType_.trim());
+                                    String afterParamType_ = info_.substring(paramType_.length());
+                                    info_ = afterParamType_.trim();
+                                    int call_ = info_.indexOf(SEP_CALLING);
+                                    if (call_ < 0) {
+                                        call_ = info_.indexOf(END_CALLING);
+                                    }
+                                    int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
+                                    if (off_ < 0) {
+                                        off_ = 0;
+                                    }
+                                    offestsParams_.add(paramOffest_ + paramType_.length() + off_);
+                                    String paramName_ = info_.substring(0, call_);
+                                    parametersName_.add(paramName_.trim());
+                                    String afterParamName_ = info_.substring(call_ + 1);
+                                    info_ = afterParamName_.trim();
+                                    if (info_.isEmpty()) {
+                                        break;
+                                    }
+                                    paramOffest_ += paramType_.length();
+                                    paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamType_);
+                                    paramOffest_ += call_ + 1;
+                                    paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
+                                }
+                                if (method_) {
+                                    br_ = new MethodBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_, modifier_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                } else {
+                                    br_ = new ConstructorBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetStringInfo(accessOffest_, EMPTY_STRING), new OffsetStringInfo(accessOffest_, EMPTY_STRING), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                }
+                                currentParent_.appendChild(br_);
+                            
+                            } else {
+
                                 //fields
                                 int delta_ = StringList.getFirstPrintableCharIndex(found_) + word_.length();
                                 delta_ += StringList.getFirstPrintableCharIndex(afterAccess_);
@@ -1177,7 +1246,7 @@ public final class FileResolver {
                                     info_ = afterFinal_.trim();
                                 }
                                 int typeOffest_ = i_ - found_.length() + delta_;
-                                String declaringType_ = getDeclaringType(info_);
+                                String declaringType_ = getDeclaringTypeInstr(info_);
                                 String afterType_ = info_.substring(declaringType_.length());
                                 int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
                                 String expression_ = EMPTY_STRING;
@@ -1332,57 +1401,6 @@ public final class FileResolver {
                         declTypeName_.append(VARARG);
                     }
                     typeDeclaring_ = true;
-                    break;
-                }
-            }
-            declTypeName_.append(currentCharFound_);
-            indexInstr_++;
-        }
-        if (typeDeclaring_) {
-            return declTypeName_.toString();
-        }
-        return EMPTY_STRING;
-    }
-    private static String getDeclaringType(String _found) {
-        int indexInstr_ = 0;
-        int instLen_ = _found.length();
-        boolean typeDeclaring_ = false;
-        StringBuilder declTypeName_ = new StringBuilder();
-        int nbOpenedTmp_ = 0;
-        boolean foundTmp_ = false;
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
-                if (foundTmp_) {
-                    typeDeclaring_ = true;
-                    break;
-                }
-                String nextPart_ = _found.substring(indexInstr_).trim();
-                String trimmed_ = declTypeName_.toString().trim();
-                if (trimmed_.length() > 0) {
-                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (StringList.isWordChar(ch_)) {
-                        if (!nextPart_.isEmpty()) {
-                            if (StringList.isWordChar(nextPart_.charAt(0))) {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == BEGIN_TEMPLATE) {
-                nbOpenedTmp_++;
-                foundTmp_ = true;
-            }
-            if (currentCharFound_ == END_TEMPLATE) {
-                nbOpenedTmp_--;
-                if (nbOpenedTmp_ == 0) {
-                    typeDeclaring_ = true;
-                    declTypeName_.append(currentCharFound_);
                     break;
                 }
             }
