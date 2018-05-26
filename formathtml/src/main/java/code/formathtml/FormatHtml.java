@@ -399,6 +399,7 @@ public final class FormatHtml {
                         ip_.setLookForAttrValue(true);
                         String el_ = nThree_.getAttribute(ATTRIBUTE_PREPARE_BEAN);
                         ElRenderUtil.processElImport(el_, 0, _conf);
+                        ip_.setInternGlobal(null);
                         if (_conf.getContext().getException() != null) {
                             return;
                         }
