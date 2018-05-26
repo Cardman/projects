@@ -401,6 +401,12 @@ public final class ElUtil {
             if (par_ == _root) {
                 par_.setStaticBlock(_staticBlock);
                 par_.analyze(_context);
+                String res_ = par_.getResultClass().getName();
+                if (res_ != null) {
+                    if (PrimitiveTypeUtil.isPrimitive(res_, _context)) {
+                        par_.getResultClass().setUnwrapObject(res_);
+                    }
+                }
                 par_.tryCalculateNode(_context);
                 par_.tryAnalyzeAssignmentAfter(_context);
                 _sortedNodes.add(par_);

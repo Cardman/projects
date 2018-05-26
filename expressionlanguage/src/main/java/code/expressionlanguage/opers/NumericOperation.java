@@ -405,10 +405,6 @@ public abstract class NumericOperation extends MethodOperation {
         setCatenize(r_);
         a_ = r_.getResult();
         setResultClass(a_);
-        String res_ = a_.getName();
-        if (PrimitiveTypeUtil.isPrimitive(res_, _conf)) {
-            a_.setUnwrapObject(res_);
-        }
     }
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);
     @Override

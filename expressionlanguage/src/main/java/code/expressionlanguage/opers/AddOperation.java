@@ -114,7 +114,6 @@ public final class AddOperation extends NumericOperation {
             un_.setOperands(new StringList(_a.getName(),_b.getName()));
             _cont.getClasses().getErrorsDet().add(un_);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
-            res_.setOk(false);
             res_.setResult(arg_);
             return res_;
         }

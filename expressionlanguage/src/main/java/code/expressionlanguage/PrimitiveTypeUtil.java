@@ -328,26 +328,52 @@ public final class PrimitiveTypeUtil {
     }
     public static Struct unwrapObject(String _match, Struct _obj, LgNames _stds) {
         Object obj_ = _obj.getInstance();
+        if (!(obj_ instanceof Number)) {
+            if (!(obj_ instanceof Character)) {
+                return _obj;
+            }
+        }
         if (StringList.quickEq(_match,_stds.getAliasPrimDouble())) {
+            if (obj_ instanceof Character) {
+                return new DoubleStruct(((Character)obj_).charValue());
+            }
             return new DoubleStruct(((Number)obj_).doubleValue());
         }
         if (StringList.quickEq(_match,_stds.getAliasPrimFloat())) {
+            if (obj_ instanceof Character) {
+                return new FloatStruct(((Character)obj_).charValue());
+            }
             return new FloatStruct(((Number)obj_).floatValue());
         }
         if (StringList.quickEq(_match,_stds.getAliasPrimLong())) {
+            if (obj_ instanceof Character) {
+                return new LongStruct(((Character)obj_).charValue());
+            }
             return new LongStruct(((Number)obj_).longValue());
         }
         if (StringList.quickEq(_match,_stds.getAliasPrimInteger())) {
+            if (obj_ instanceof Character) {
+                return new IntStruct(((Character)obj_).charValue());
+            }
             return new IntStruct(((Number)obj_).intValue());
         }
         if (StringList.quickEq(_match,_stds.getAliasPrimShort())) {
+            if (obj_ instanceof Character) {
+                return new ShortStruct((short) ((Character)obj_).charValue());
+            }
             return new ShortStruct(((Number)obj_).shortValue());
         }
         if (StringList.quickEq(_match,_stds.getAliasPrimByte())) {
+            if (obj_ instanceof Character) {
+                return new ByteStruct((byte) ((Character)obj_).charValue());
+            }
             return new ByteStruct(((Number)obj_).byteValue());
         }
         if (StringList.quickEq(_match,_stds.getAliasPrimChar())) {
-            return new CharStruct(((Character)obj_).charValue());
+            if (obj_ instanceof Character) {
+                return new CharStruct(((Character)obj_).charValue());
+            }
+            return new CharStruct((char) ((Number)obj_).longValue());
         }
         return _obj;
     }
