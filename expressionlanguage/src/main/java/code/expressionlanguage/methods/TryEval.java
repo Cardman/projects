@@ -107,21 +107,13 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
         boolean finClause_ = nextSibling_ instanceof FinallyEval;
-        Block try_ = this;
         CustList<AbstractCatchEval> catch_ = new CustList<AbstractCatchEval>();
-        while (try_ instanceof AbstractCatchEval) {
-            catch_.add((AbstractCatchEval) try_);
-            try_ = try_.getPreviousSibling();
-        }
         IdMap<Block, AssignedVariables> inners_;
         inners_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
-            if (e.getKey() == try_) {
+            if (e.getKey() == this) {
                 add_ = true;
-            }
-            if (e.getKey().getPreviousSibling() == try_) {
-                break;
             }
             if (add_) {
                 inners_.put(e.getKey(), e.getValue());
@@ -135,7 +127,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                 ab_.setAssignedBefore(true);
             }
             boolean unass_ = true;
-            if (!e.getValue().isUnassignedAfter()) {
+            if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteNormally(this)) {
                 unass_ = false;
             }
             for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -144,13 +136,13 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                 }
                 if (f.getKey() instanceof ContinueBlock) {
                     Loop lp_ = _anEl.getContinuables().getVal((ContinueBlock) f.getKey());
-                    if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
+                    if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj(this)) {
                         continue;
                     }
                 }
                 if (f.getKey() instanceof BreakBlock) {
                     BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                    if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
+                    if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj(this)) {
                         continue;
                     }
                 }
@@ -191,7 +183,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                     ab_.setAssignedBefore(true);
                 }
                 boolean unass_ = true;
-                if (!e.getValue().isUnassignedAfter()) {
+                if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteNormally(this)) {
                     unass_ = false;
                 }
                 for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -200,13 +192,13 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                     }
                     if (f.getKey() instanceof ContinueBlock) {
                         Loop lp_ = _anEl.getContinuables().getVal((ContinueBlock) f.getKey());
-                        if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
+                        if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj(this)) {
                             continue;
                         }
                     }
                     if (f.getKey() instanceof BreakBlock) {
                         BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                        if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
+                        if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj(this)) {
                             continue;
                         }
                     }

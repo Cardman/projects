@@ -112,7 +112,10 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             SimpleAssignment ab_ = e.getValue();
             ClassField key_ = e.getKey();
             boolean assAfter_ = true;
-            boolean unassAfter_ = ab_.isUnassignedAfter();
+            boolean unassAfter_ = true;
+            if (_anEl.canCompleteNormallyGroup(this)) {
+                unassAfter_ = ab_.isUnassignedAfter();
+            }
             if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this)) {
                 for (Block p: prev_) {
                     if (!_anEl.canCompleteNormally(p)) {
@@ -151,7 +154,10 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                 SimpleAssignment ab_ = e.getValue();
                 String key_ = e.getKey();
                 boolean assAfter_ = true;
-                boolean unassAfter_ = ab_.isUnassignedAfter();
+                boolean unassAfter_ = true;
+                if (_anEl.canCompleteNormallyGroup(this)) {
+                    unassAfter_ = ab_.isUnassignedAfter();
+                }
                 if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this)) {
                     for (Block p: prev_) {
                         if (!_anEl.canCompleteNormally(p)) {

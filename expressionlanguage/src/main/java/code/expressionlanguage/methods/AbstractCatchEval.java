@@ -120,7 +120,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 ab_.setAssignedBefore(true);
             }
             boolean unass_ = true;
-            if (!e.getValue().isUnassignedAfter()) {
+            if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteNormally(try_)) {
                 unass_ = false;
             }
             for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -176,7 +176,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                     ab_.setAssignedBefore(true);
                 }
                 boolean unass_ = true;
-                if (!e.getValue().isUnassignedAfter()) {
+                if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteNormally(try_)) {
                     unass_ = false;
                 }
                 for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
