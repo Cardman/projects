@@ -285,7 +285,7 @@ public abstract class OperationNode {
             }
             return new VariableOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
+        if (_op.isCall()) {
             String fctName_ = _op.getFctName().trim();
             if (fctName_.isEmpty()) {
                 return new IdOperation(_index, _indexChild, _m, _op);
@@ -319,10 +319,10 @@ public abstract class OperationNode {
             }
             return new FctOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == ElResolver.ARR_OPER_PRIO) {
+        if (_op.isArray()) {
             return new ArrOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getPriority() == ElResolver.DOT_PRIO) {
+        if (_op.isDot()) {
             return new DotOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.POST_INCR_PRIO) {

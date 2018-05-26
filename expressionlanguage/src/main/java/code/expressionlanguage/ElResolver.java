@@ -1786,12 +1786,15 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
+        boolean enPars_ = true;
+        int iVar_ = -1;
         for (VariableInfo v: _d.getVariables()) {
             if (v.getFirstChar() != _offset + firstPrintChar_) {
                 continue;
             }
-            if (v.getLastChar() != _offset + lastPrintChar_ + 1) {
-                continue;
+            iVar_ = v.getLastChar();
+            if (iVar_ != _offset + lastPrintChar_ + 1) {
+                break;
             }
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(v.getKind());
@@ -1850,26 +1853,9 @@ public final class ElResolver {
             operators_.put(firstPrintChar_, _string.substring(firstPrintChar_, max_ + 1));
             i_ = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
         } else {
-            while (true) {
-                if (!StringList.isWordChar(_string.charAt(i_))) {
-                    break;
-                }
-                i_++;
-            }
-            //i_ < len_
-            if (_string.charAt(i_) == GET_VAR) {
-                i_++;
-                while (true) {
-                    if (_string.charAt(i_) == GET_VAR) {
-                        i_++;
-                        continue;
-                    }
-                    if (_string.charAt(i_) == DOT_VAR) {
-                        i_++;
-                        continue;
-                    }
-                    break;
-                }
+            if (iVar_ > -1) {
+                i_ = iVar_ - _offset;
+                enPars_ = false;
                 //i_ < len_
                 int j_ = i_;
                 while (true) {

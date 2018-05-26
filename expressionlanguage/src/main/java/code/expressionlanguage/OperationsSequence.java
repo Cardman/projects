@@ -142,6 +142,18 @@ public final class OperationsSequence {
         useFct = _useFct;
     }
 
+    public boolean isCall() {
+        return priority == ElResolver.FCT_OPER_PRIO;
+    }
+
+    public boolean isArray() {
+        return priority == ElResolver.ARR_OPER_PRIO;
+    }
+
+    public boolean isDot() {
+        return priority == ElResolver.DOT_PRIO;
+    }
+
     public int getPriority() {
         return priority;
     }

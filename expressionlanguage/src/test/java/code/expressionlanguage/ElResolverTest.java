@@ -28,7 +28,7 @@ public class ElResolverTest {
         assertEq("abs", values_.getVal(0));
         assertEq("4", values_.getVal(4));
         assertEq("3", values_.getVal(6));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("abs(4,3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(9));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("abs(4+3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(9));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("abs($vararg([$int),4+3)", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(24));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("abs($vararg([$int),'[')", values_.getVal(0));
         assertEq("abs(4,3)", values_.getVal(24));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -311,7 +311,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("4+3", values_.getVal(1));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -329,7 +329,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("$firstopt", values_.getVal(0));
         assertEq("4+3", values_.getVal(10));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -352,7 +352,7 @@ public class ElResolverTest {
         assertEq("$vararg([$int)", values_.getVal(4));
         assertEq("4", values_.getVal(19));
         assertEq("3", values_.getVal(21));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -414,12 +414,12 @@ public class ElResolverTest {
         assertEq(2, opers_.size());
         assertEq("[", opers_.getVal(8));
         assertEq("]", opers_.getVal(10));
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)", values_.getVal(0));
         assertEq("0", values_.getVal(9));
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
     }
 
     @Test
@@ -433,12 +433,12 @@ public class ElResolverTest {
         assertEq(2, opers_.size());
         assertEq("[", opers_.getVal(12));
         assertEq("]", opers_.getVal(14));
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
         assertEq("abs(4,3)[14]", values_.getVal(0));
         assertEq("5", values_.getVal(13));
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
     }
 
     @Test
@@ -474,7 +474,7 @@ public class ElResolverTest {
         assertEq("v", values_.getVal(0));
         assertEq("a", values_.getVal(2));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -491,7 +491,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -509,7 +509,7 @@ public class ElResolverTest {
         assertEq("var;.;", values_.getVal(0));
         assertEq("call()", values_.getVal(6));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -526,7 +526,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("call()", values_.getVal(5));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -543,7 +543,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("call()", values_.getVal(4));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -561,7 +561,7 @@ public class ElResolverTest {
         assertEq("var;.call()", values_.getVal(0));
         assertEq("call()", values_.getVal(12));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
 
@@ -579,7 +579,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(13));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -597,7 +597,7 @@ public class ElResolverTest {
         assertEq("var;;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(12));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -615,7 +615,7 @@ public class ElResolverTest {
         assertEq("var;call()", values_.getVal(0));
         assertEq("call()", values_.getVal(11));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -634,7 +634,7 @@ public class ElResolverTest {
         assertEq("$new java.lang.Integer", values_.getVal(0));
         assertEq("\"8\"", values_.getVal(23));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -652,7 +652,7 @@ public class ElResolverTest {
         assertEq("call()", values_.getVal(0));
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(7));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
 
@@ -670,7 +670,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(0));
         assertEq("intValue()", values_.getVal(28));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
 
@@ -690,7 +690,7 @@ public class ElResolverTest {
         assertEq("$new [java.lang.Integer", values_.getVal(0));
         assertEq("\"8\"", values_.getVal(24));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -727,7 +727,7 @@ public class ElResolverTest {
         assertEq("var;.", values_.getVal(0));
         assertEq("0", values_.getVal(6));
     
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
     }
 
     @Test
@@ -746,7 +746,7 @@ public class ElResolverTest {
         assertEq("var;.;", values_.getVal(0));
         assertEq("0", values_.getVal(7));
     
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
     }
 
     @Test
@@ -765,7 +765,7 @@ public class ElResolverTest {
         assertEq("var;;", values_.getVal(0));
         assertEq("0", values_.getVal(6));
     
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
     }
 
     @Test
@@ -784,7 +784,7 @@ public class ElResolverTest {
         assertEq("var;", values_.getVal(0));
         assertEq("0", values_.getVal(5));
     
-        assertEq(ElResolver.ARR_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isArray());
     }
 
     @Test
@@ -802,7 +802,7 @@ public class ElResolverTest {
         assertEq("var;.", values_.getVal(0));
         assertEq("f[0]", values_.getVal(5));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -820,7 +820,7 @@ public class ElResolverTest {
         assertEq("var;.;", values_.getVal(0));
         assertEq("f[0]", values_.getVal(6));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -838,7 +838,7 @@ public class ElResolverTest {
         assertEq("var;;", values_.getVal(0));
         assertEq("f[0]", values_.getVal(5));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -856,7 +856,7 @@ public class ElResolverTest {
         assertEq("var;", values_.getVal(0));
         assertEq("f[0]", values_.getVal(4));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -874,7 +874,7 @@ public class ElResolverTest {
         assertEq("var;.", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(5));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -892,7 +892,7 @@ public class ElResolverTest {
         assertEq("var;.;", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(6));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -910,7 +910,7 @@ public class ElResolverTest {
         assertEq("var;;", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(5));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -927,7 +927,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("f()[0]", values_.getVal(4));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -944,7 +944,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("$static(pkg.classname)", values_.getVal(0));
         assertEq("field", values_.getVal(23));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -1184,7 +1184,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("\"\\\"string\"", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1203,7 +1203,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("'\\''", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1222,7 +1222,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("'\\\\'", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1241,7 +1241,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("1.0", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1264,7 +1264,7 @@ public class ElResolverTest {
         assertEq("$firstopt(4)", values_.getVal(30));
         assertEq("3", values_.getVal(43));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1288,7 +1288,7 @@ public class ElResolverTest {
         assertEq("$firstopt(4;.;)", values_.getVal(30));
         assertEq("3", values_.getVal(46));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1312,7 +1312,7 @@ public class ElResolverTest {
         assertEq("$firstopt(4;.)", values_.getVal(30));
         assertEq("3", values_.getVal(45));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1331,7 +1331,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;.", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1350,7 +1350,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;.;", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1369,7 +1369,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1388,7 +1388,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;;", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     //optional parameter with qualified access
@@ -1408,7 +1408,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;.t", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1427,7 +1427,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;.;t", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1446,7 +1446,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;t", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
 
@@ -1467,7 +1467,7 @@ public class ElResolverTest {
         assertEq("$firstopt", values_.getVal(0));
         assertEq("v;;t", values_.getVal(10));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -1568,7 +1568,7 @@ public class ElResolverTest {
         assertEq("v;", values_.getVal(0));
         assertEq(" a", values_.getVal(2));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -1602,7 +1602,7 @@ public class ElResolverTest {
         assertEq("a ", values_.getVal(0));
         assertEq("b", values_.getVal(3));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -1933,7 +1933,7 @@ public class ElResolverTest {
         assertEq("v;.news", values_.getVal(0));
         assertEq("a()", values_.getVal(8));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -1951,7 +1951,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("news", values_.getVal(0));
         assertEq("a()", values_.getVal(5));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
 
@@ -1969,7 +1969,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;.", values_.getVal(0));
         assertEq("f", values_.getVal(5));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -1987,7 +1987,7 @@ public class ElResolverTest {
         assertEq("var;.;", values_.getVal(0));
         assertEq("f", values_.getVal(6));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -2004,7 +2004,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;;", values_.getVal(0));
         assertEq("f", values_.getVal(5));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -2022,7 +2022,7 @@ public class ElResolverTest {
         assertEq("var;", values_.getVal(0));
         assertEq("f", values_.getVal(4));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -2220,7 +2220,7 @@ public class ElResolverTest {
         assertEq(1, values_.size());
         assertEq("a|b", values_.getVal(1));
     
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -2238,7 +2238,7 @@ public class ElResolverTest {
         assertEq("v;.[0i]", values_.getVal(0));
         assertEq("array[0i]", values_.getVal(8));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -2256,7 +2256,7 @@ public class ElResolverTest {
         assertEq("var;.", values_.getVal(0));
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(5));
     
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -2273,7 +2273,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("var;", values_.getVal(0));
         assertEq("$new java.lang.Integer(\"8\")", values_.getVal(4));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
 
     @Test
@@ -2521,7 +2521,7 @@ public class ElResolverTest {
         assertEq("1bs", values_.getVal(0));
         assertEq("4", values_.getVal(4));
         assertEq("3", values_.getVal(6));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -2860,7 +2860,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("$classchoice($math)abs", values_.getVal(0));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
 
     @Test
@@ -2927,7 +2927,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("$classchoice($math)abs$", values_.getVal(0));
         assertEq("field", values_.getVal(24));
-        assertEq(ElResolver.DOT_PRIO, seq_.getPriority());
+        assertTrue(seq_.isDot());
     }
     @Test
     public void getOperationsSequence170Test() {
@@ -2943,7 +2943,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("$this", values_.getVal(0));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
     @Test
     public void getOperationsSequence171Test() {
@@ -2959,7 +2959,7 @@ public class ElResolverTest {
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
         assertEq("$this ", values_.getVal(0));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
     @Test
     public void getOperationsSequence172Test() {
@@ -3241,7 +3241,7 @@ public class ElResolverTest {
         assertEq(2, values_.size());
         assertEq("$interfaces(pkg.MyClass)", values_.getVal(0));
         assertEq("arg;.", values_.getVal(25));
-        assertEq(ElResolver.FCT_OPER_PRIO, seq_.getPriority());
+        assertTrue(seq_.isCall());
     }
     @Test
     public void checkSyntaxDelimiters1Test() {
