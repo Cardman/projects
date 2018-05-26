@@ -200,6 +200,10 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
         Argument res_ = argres_.getArgument();
+        if (_conf.getException() != null) {
+            setSimpleArgument(res_, _conf, _nodes);
+            return res_;
+        }
         if (argres_.isInitClass()) {
             _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
         } else if (argres_.isInvokeConstructor()) {
@@ -281,6 +285,8 @@ public final class ChoiceFctOperation extends InvokingOperation {
                         if (argClass_ != null && !Templates.isCorrect(map_, _conf)) {
                             lastType_ = methodId_.getParametersTypes().last();
                             naturalVararg_ = methodId_.getParametersTypes().size() - 1;
+                        } else {
+                            naturalVararg_ = -1;
                         }
                     }
                 }
