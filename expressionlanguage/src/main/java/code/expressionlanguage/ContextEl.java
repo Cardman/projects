@@ -835,16 +835,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public boolean isEnabledDotted() {
-        return analyzing.isEnabled();
-    }
-
-    @Override
-    public void setEnabledDotted(boolean _enabled) {
-        analyzing.setEnabled(_enabled);
-    }
-
-    @Override
     public boolean isRootAffect() {
         return analyzing.isRootAffect();
     }

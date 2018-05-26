@@ -3,7 +3,9 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 
 public final class OperationsSequence {
-
+    private static final char DOT_VAR = '.';
+    private static final char ARR = '[';
+    private static final char PAR = '(';
     private ConstType constType = ConstType.NOTHING;
 
     private NumberInfos nbInfos;
@@ -36,13 +38,19 @@ public final class OperationsSequence {
             priority = ElResolver.BAD_PRIO;
             return;
         }
-        if (priority == ElResolver.FCT_OPER_PRIO && !_string.substring(operators.lastKey()+1).trim().isEmpty()) {
-            priority = ElResolver.BAD_PRIO;
-            return;
-        }
-        if (priority == ElResolver.ARR_OPER_PRIO && !_string.substring(operators.lastKey()+1).trim().isEmpty()) {
-            priority = ElResolver.BAD_PRIO;
-            return;
+        String op_ = operators.firstValue();
+        boolean pureDot_ = false;
+        if (!op_.isEmpty()) {
+            if (op_.charAt(0) != DOT_VAR) {
+                if (priority == ElResolver.FCT_OPER_PRIO && !_string.substring(operators.lastKey()+1).trim().isEmpty()) {
+                    priority = ElResolver.BAD_PRIO;
+                    return;
+                }
+            } else {
+                pureDot_ = true;
+            }
+        } else {
+            pureDot_ = true;
         }
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
@@ -76,19 +84,13 @@ public final class OperationsSequence {
             }
             return;
         }
-        if (priority == ElResolver.FCT_OPER_PRIO) {
-            int i_ = CustList.SECOND_INDEX;
-            int nbKeys_ = operators.size();
-            while (i_ < nbKeys_) {
-                beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-                endValuePart_ = operators.getKey(i_);
-                str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.put(beginValuePart_, str_);
-                i_++;
-            }
+        if (pureDot_) {
+            beginValuePart_ = endValuePart_ + operators.lastValue().length();
+            str_ = _string.substring(beginValuePart_);
+            values.put(beginValuePart_, str_);
             return;
         }
-        if (priority == ElResolver.ARR_OPER_PRIO) {
+        if (priority == ElResolver.FCT_OPER_PRIO) {
             int i_ = CustList.SECOND_INDEX;
             int nbKeys_ = operators.size();
             while (i_ < nbKeys_) {
@@ -143,15 +145,29 @@ public final class OperationsSequence {
     }
 
     public boolean isCall() {
-        return priority == ElResolver.FCT_OPER_PRIO;
+        if (priority != ElResolver.FCT_OPER_PRIO) {
+            return false;
+        }
+        String str_ = operators.firstValue();
+        if (str_.isEmpty()) {
+            return false;
+        }
+        return str_.charAt(0) == PAR;
     }
 
     public boolean isArray() {
-        return priority == ElResolver.ARR_OPER_PRIO;
+        if (priority != ElResolver.FCT_OPER_PRIO) {
+            return false;
+        }
+        String str_ = operators.firstValue();
+        if (str_.isEmpty()) {
+            return false;
+        }
+        return str_.charAt(0) == ARR;
     }
 
     public boolean isDot() {
-        return priority == ElResolver.DOT_PRIO;
+        return priority == ElResolver.FCT_OPER_PRIO;
     }
 
     public int getPriority() {

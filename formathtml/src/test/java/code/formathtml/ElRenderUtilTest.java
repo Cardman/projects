@@ -2239,7 +2239,6 @@ public final class ElRenderUtilTest {
         addBeanClassName(context_,cust_.getAliasComposite());
         ElRenderUtil.processEl("integer",0, context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
-        assertNotNull(context_.getContext().getException());
     }
 
 
@@ -2257,7 +2256,6 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         ElRenderUtil.processEl("MAX_VALUE",0, context_);
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
-        assertNotNull(context_.getContext().getException());
     }
     
     @Test
@@ -2356,7 +2354,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;.",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2370,7 +2368,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test
@@ -2384,7 +2382,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;;",0, context_);
-        assertNotNull(context_.getContext().getException());
+        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
 
     @Test

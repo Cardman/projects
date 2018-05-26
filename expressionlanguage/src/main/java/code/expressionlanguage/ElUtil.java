@@ -6,6 +6,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadElError;
 import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
@@ -354,16 +355,6 @@ public final class ElUtil {
     }
 
     private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, boolean _staticBlock,Analyzable _context) {
-        if (_context.isEnabledDotted() && _current instanceof PossibleIntermediateDotted) {
-            OperationNode last_ = _sortedNodes.last();
-            PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) _current;
-            boolean static_ = last_ instanceof StaticAccessOperation;
-            possible_.setIntermediateDotted();
-            possible_.setPreviousArgument(last_.getArgument());
-            possible_.setPreviousResultClass(last_.getResultClass(), static_);
-            last_.setSiblingSet(possible_);
-            _context.setEnabledDotted(false);
-        }
         _context.getTextualSortedOperations().add(_current);
         
         OperationNode next_ = createFirstChild(_current, _context, 0);
@@ -387,7 +378,21 @@ public final class ElUtil {
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 if (par_ instanceof DotOperation) {
-                    _context.setEnabledDotted(true);
+                    if (!(next_ instanceof PossibleIntermediateDotted)) {
+                        next_.setRelativeOffsetPossibleAnalyzable(next_.getIndexInEl(), _context);
+                        BadOperandsNumber badNb_ = new BadOperandsNumber();
+                        badNb_.setFileName(_context.getCurrentFileName());
+                        badNb_.setOperandsNumber(0);
+                        badNb_.setRc(_context.getCurrentLocation());
+                        _context.getClasses().getErrorsDet().add(badNb_);
+                    } else {
+                        PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
+                        boolean static_ = current_ instanceof StaticAccessOperation;
+                        possible_.setIntermediateDotted();
+                        possible_.setPreviousArgument(current_.getArgument());
+                        possible_.setPreviousResultClass(current_.getResultClass(), static_);
+                        current_.setSiblingSet(possible_);
+                    }
                 }
                 par_.appendChild(next_);
                 par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);

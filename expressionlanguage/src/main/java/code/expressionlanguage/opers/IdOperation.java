@@ -40,16 +40,6 @@ public final class IdOperation extends AbstractUnaryOperation {
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
-        if (getParent() instanceof DotOperation && !isFirstChild()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
-            badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setOperandsNumber(chidren_.size());
-            badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badNb_);
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
-            return;
-        }
         setResultClass(chidren_.first().getResultClass());
     }
 

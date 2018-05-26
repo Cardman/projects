@@ -34,7 +34,12 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ArrOperation extends MethodOperation implements SettableElResult {
+public final class ArrOperation extends MethodOperation implements SettableElResult, PossibleIntermediateDotted {
+
+    private ClassArgumentMatching previousResultClass;
+    private boolean intermediate;
+
+    private Argument previousArgument;
 
     private boolean variable;
 
@@ -53,7 +58,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() != 2) {
+        if (chidren_.size() != 1) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
@@ -63,7 +68,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
-        ClassArgumentMatching class_ = chidren_.first().getResultClass();
+        ClassArgumentMatching class_ = getPreviousResultClass();
         ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(chidren_.last().getIndexInEl(), _conf);
         if (!indexClass_.isNumericInt(_conf)) {
@@ -154,8 +159,11 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (!_conf.isGearConst()) {
             return;
         }
+        if (getPreviousArgument() == null) {
+            return;
+        }
         Struct array_;
-        array_ = chidren_.first().getArgument().getStruct();
+        array_ = getPreviousArgument().getStruct();
         if (!(array_ instanceof ArrayStruct)) {
             return;
         }
@@ -198,9 +206,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             int _maxIndexChildren, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
-        array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
+        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         Argument a_ = new Argument();
-        for (int i = CustList.SECOND_INDEX; i < _maxIndexChildren; i++) {
+        for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             OperationNode op_ = chidren_.get(i);
             Object o_ = _nodes.getVal(op_).getArgument().getObject();
             array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
@@ -223,7 +231,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Struct array_;
-        array_ = _nodes.getVal(chidren_.first()).getArgument().getStruct();
+        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         a_.setStruct(affectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _post, _conf));
         if (_conf.getException() != null) {
             return a_;
@@ -258,7 +266,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         OperationNode lastElement_ = chidren_.last();
         Argument last_ = lastElement_.getArgument();
         Struct array_;
-        array_ = chidren_.first().getArgument().getStruct();
+        array_ = getPreviousArgument().getStruct();
         a_.setStruct(affectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
         if (_conf.getException() != null) {
             return;
@@ -297,9 +305,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     Argument getArgument(int _maxIndexChildren, ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Struct array_;
-        array_ = chidren_.first().getArgument().getStruct();
+        array_ = getPreviousArgument().getStruct();
         Argument a_ = new Argument();
-        for (int i = CustList.SECOND_INDEX; i < _maxIndexChildren; i++) {
+        for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             Object o_ = chidren_.get(i).getArgument().getObject();
             array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
             if (_conf.getException() != null) {
@@ -378,6 +386,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
+        vs_.removeKey(vs_.firstKey());
         getChildren().putAllMap(vs_);
     }
 
@@ -394,5 +403,39 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public void setCatenizeStrings() {
         catString = true;
+    }
+
+    @Override
+    public final void setIntermediateDotted() {
+        intermediate = true;
+    }
+    @Override
+    public final boolean isIntermediateDottedOperation() {
+        return intermediate;
+    }
+
+    @Override
+    public final ClassArgumentMatching getPreviousResultClass() {
+        return previousResultClass;
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
+        setPreviousResultClass(_previousResultClass, false);
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+        previousResultClass = _previousResultClass;
+    }
+
+    @Override
+    public final Argument getPreviousArgument() {
+        return previousArgument;
+    }
+
+    @Override
+    public final void setPreviousArgument(Argument _previousArgument) {
+        previousArgument = _previousArgument;
     }
 }

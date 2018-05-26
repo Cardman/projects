@@ -113,16 +113,6 @@ public class Configuration implements ExecutableCode {
         context.setMerged(_merged);
     }
 
-    @Override
-    public boolean isEnabledDotted() {
-        return context.isEnabledDotted();
-    }
-
-    @Override
-    public void setEnabledDotted(boolean _enabled) {
-        context.setEnabledDotted(_enabled);
-    }
-
     public final void init() {
         htmlPage = new HtmlPage();
         document = null;
