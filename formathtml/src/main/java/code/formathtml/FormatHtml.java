@@ -154,6 +154,7 @@ public final class FormatHtml {
 
     private static final String ATTRIBUTE_METHOD = "method";
     private static final String ATTRIBUTE_NAME = "name";
+    private static final String ATTRIBUTE_PREPARE_BEAN = "prepare";
     private static final String ATTRIBUTE_FORM = "form";
     private static final String PAGE_ATTRIBUTE = "page";
     private static final String KEEPFIELD_ATTRIBUTE = "keepfields";
@@ -388,6 +389,19 @@ public final class FormatHtml {
                 }
                 for (Element nThree_: nTwo_.getChildElements()) {
                     if (!StringList.quickEq(nThree_.getTagName(),StringList.concat(prefix_,FIELD_BLOCK_TAG))) {
+                        continue;
+                    }
+                    if (nThree_.hasAttribute(ATTRIBUTE_PREPARE_BEAN)) {
+                        ip_.setInternGlobal(bean_);
+                        ip_.setProcessingNode(nThree_);
+                        ip_.setProcessingAttribute(ATTRIBUTE_PREPARE_BEAN);
+                        ip_.setOffset(0);
+                        ip_.setLookForAttrValue(true);
+                        String el_ = nThree_.getAttribute(ATTRIBUTE_PREPARE_BEAN);
+                        ElRenderUtil.processElImport(el_, 0, _conf);
+                        if (_conf.getContext().getException() != null) {
+                            return;
+                        }
                         continue;
                     }
                     if (nThree_.hasAttribute(ATTRIBUTE_METHOD)) {

@@ -826,4 +826,23 @@ public class Configuration implements ExecutableCode {
     public boolean isEnabledInternVars() {
         return false;
     }
+
+    @Override
+    public boolean isInternGlobal() {
+        return getLastPage().isInternGlobal();
+    }
+
+    public void setInternGlobal(Struct _internGlobal) {
+        getLastPage().setInternGlobal(_internGlobal);
+    }
+
+    @Override
+    public Struct getInternGlobal() {
+        return getLastPage().getInternGlobal();
+    }
+
+    @Override
+    public String getInternGlobalClass() {
+        return getLastPage().getInternGlobal().getClassName(this);
+    }
 }

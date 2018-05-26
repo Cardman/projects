@@ -8,6 +8,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -55,6 +56,9 @@ public interface Analyzable {
     int getCurrentChildTypeIndex();
     void setCurrentChildTypeIndex(int _index);
     boolean isMerged();
+    Struct getInternGlobal();
+    String getInternGlobalClass();
+    boolean isInternGlobal();
 
     void setMerged(boolean _merged);
     boolean isAnalyzingRoot();

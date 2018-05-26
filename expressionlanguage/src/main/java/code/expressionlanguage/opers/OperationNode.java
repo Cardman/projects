@@ -101,6 +101,7 @@ public abstract class OperationNode {
 
     protected static final String CLASS_CHOICE = "classchoice";
     protected static final String INTERFACES = "interfaces";
+    protected static final String INTERN_BEAN = "intern";
 
     protected static final String FCT = "(";
 
@@ -255,6 +256,9 @@ public abstract class OperationNode {
             }
             if (_an.isEnabledInternVars()) {
                 return new InternVariableOperation(_index, _indexChild, _m, _op);
+            }
+            if (_an.isInternGlobal() && StringList.quickEq(str_, prefixFunction(INTERN_BEAN))) {
+                return new InternGlobalOperation(_index, _indexChild, _m, _op);
             }
             if (!(ct_.isVariable() || _m instanceof AffectationOperation && _m.getParent() == null && _an.isMerged())) {
                 if (_m instanceof DotOperation) {

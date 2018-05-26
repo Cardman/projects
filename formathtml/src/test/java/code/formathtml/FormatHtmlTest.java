@@ -9260,6 +9260,46 @@ public class FormatHtmlTest {
     }
 
     @Test
+    public void processImports43Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedInt=4i\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        bean_.setForms(new StringMapObject());
+        BeanTwo beanTwo_ = new BeanTwo();
+        beanTwo_.setTypedString("TITLE");
+        beanTwo_.setForms(new StringMapObject());
+        Configuration conf_ = newConfiguration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.getBeans().put("bean_two", beanTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        conf_.setHtml(html_);
+        conf_.setDocument(DocumentBuilder.parseSax(html_));
+        setup(conf_);
+        assertEq(0, beanTwo_.getTypedInt());
+        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/> NEXT<a n-a=\"0\" c:command=\"go\" href=\"\">4</a></body></html>", render_);
+        assertEq(4, beanTwo_.getTypedInt());
+    }
+
+    @Test
     public void processImports1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";

@@ -30,6 +30,7 @@ import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -931,5 +932,20 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public boolean isEnabledInternVars() {
         return analyzing.isEnabledInternVars();
+    }
+
+    @Override
+    public boolean isInternGlobal() {
+        return false;
+    }
+
+    @Override
+    public Struct getInternGlobal() {
+        return null;
+    }
+
+    @Override
+    public String getInternGlobalClass() {
+        return null;
     }
 }

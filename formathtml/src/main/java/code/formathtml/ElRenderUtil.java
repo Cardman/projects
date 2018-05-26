@@ -173,6 +173,67 @@ public final class ElRenderUtil {
         Argument arg_  = op_.getArgument();
         return arg_;
     }
+
+    public static Argument processElImport(String _el, int _index, Configuration _conf) {
+        ContextEl context_ = _conf.toContextEl();
+        context_.setAnalyzing(new AnalyzedPageEl());
+        context_.setRootAffect(true);
+        context_.setAnalyzingRoot(true);
+        context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
+        context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
+        context_.getAnalyzing().getVars().putAllMap(_conf.getVars());
+        context_.getAnalyzing().getCatchVars().putAllMap(_conf.getCatchVars());
+        context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
+        if (d_.getBadOffset() >= 0) {
+            context_.setRootAffect(false);
+            context_.setAnalyzingRoot(false);
+            _conf.getLastPage().setOffset(d_.getBadOffset());
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
+            return Argument.createVoid();
+        }
+        String el_ = _el.substring(_index);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
+        OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
+        if (op_ == null) {
+            context_.setRootAffect(false);
+            context_.setAnalyzingRoot(false);
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
+            return Argument.createVoid();
+        }
+        context_.setAnalyzingRoot(false);
+        Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        _conf.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, _conf);
+        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+            context_.setRootAffect(false);
+            context_.setAnalyzingRoot(false);
+            BadElRender badEl_ = new BadElRender();
+            badEl_.setErrors(_conf.getClasses().getErrorsDet());
+            badEl_.setFileName(_conf.getCurrentFileName());
+            badEl_.setRc(_conf.getCurrentLocation());
+            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setAnalyzing(null);
+            return Argument.createVoid();
+        }
+        context_.setRootAffect(false);
+        context_.setAnalyzingRoot(false);
+        context_.setAnalyzing(null);
+        calculate(all_, _conf);
+        Argument arg_  = op_.getArgument();
+        return arg_;
+    }
     public static ExpLanguages analyzeAffect(String _attrOp, String _attrLeft, String _attrRight,
             String _left, String _right, String _oper, Configuration _conf, boolean _staticContext, boolean _hiddenVarTypes) {
         ContextEl context_ = _conf.toContextEl();

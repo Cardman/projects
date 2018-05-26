@@ -40,6 +40,7 @@ public final class ImportingPage {
     private static final String SEP_KEY_VAL = ":";
 
     private PageEl pageEl = new SimplePageEl();
+    private Struct internGlobal;
 
     private String processingAttribute = EMPTY_STRING;
 
@@ -383,5 +384,17 @@ public final class ImportingPage {
 
     public void setPrefix(String _prefix) {
         prefix = _prefix;
+    }
+
+    public Struct getInternGlobal() {
+        return internGlobal;
+    }
+
+    public boolean isInternGlobal() {
+        return internGlobal != null;
+    }
+
+    public void setInternGlobal(Struct _internGlobal) {
+        internGlobal = _internGlobal;
     }
 }

@@ -58,6 +58,7 @@ public final class ElResolver {
     private static final char EXTERN_CLASS = '$';
     private static final String CLASS_CHOICE = "classchoice";
     private static final String INTERFACES = "interfaces";
+    private static final String INTERN_BEAN = "intern";
     private static final String INSTANCE = "new";
     private static final String SUPER = "super";
     private static final String STATIC_ACCESS = "static";
@@ -733,6 +734,21 @@ public final class ElResolver {
                     }
                     if (!hatMethod_) {
                         continue;
+                    }
+                    if (_conf.isInternGlobal()) {
+                        if (procWordFirstChar(_string, i_ + 1, INTERN_BEAN)) {
+                            int afterSuper_ = i_ + 1 + INTERN_BEAN.length();
+                            while (afterSuper_ < len_) {
+                                if (_string.charAt(afterSuper_) == DOT_VAR) {
+                                    //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
+                                    break;
+                                }
+                                afterSuper_++;
+                            }
+                            hatMethod_ = false;
+                            i_ = afterSuper_;
+                            continue;
+                        }
                     }
                 }
                 d_.setBadOffset(i_);
@@ -1710,6 +1726,16 @@ public final class ElResolver {
                 op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
+            }
+            if (_conf.isInternGlobal()) {
+                if (StringList.quickEq(sub_, INTERN_BEAN)) {
+                    OperationsSequence op_ = new OperationsSequence();
+                    op_.setConstType(ConstType.WORD);
+                    op_.setOperators(new NatTreeMap<Integer, String>());
+                    op_.setValue(_string, firstPrintChar_);
+                    op_.setDelimiter(_d);
+                    return op_;
+                }
             }
             if (StringList.quickEq(sub_, NULL_REF_STRING)) {
                 OperationsSequence op_ = new OperationsSequence();
