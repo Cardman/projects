@@ -36,7 +36,7 @@
 			<c:import page="{effectSendBean}">
 				<c:package name="aiki.beans.effects">
 					<c:class name="EffectWhileSendingBean">
-						<c:field name="effect" value="getEffectSending() "/>
+						<c:field prepare="$intern.effect=getEffectSending() "/>
 					</c:class>
 				</c:package>
 			</c:import>

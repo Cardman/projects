@@ -43,9 +43,9 @@
 					<c:import page="{movesBean}">
 						<c:package name="aiki.beans.moves">
 							<c:class name="MoveLineBean">
-								<c:field name="index" value="d;;"/>
-								<c:field name="moveLine" value="d;"/>
-								<c:field name="sortedMoves" value="sortedMoves"/>
+								<c:field prepare="$intern.index=d;;"/>
+								<c:field prepare="$intern.moveLine=d;"/>
+								<c:field prepare="$intern.sortedMoves=sortedMoves"/>
 							</c:class>
 						</c:package>
 					</c:import>

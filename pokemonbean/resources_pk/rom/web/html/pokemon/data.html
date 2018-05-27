@@ -81,9 +81,9 @@
 							<c:import page="{getPage(e;;)}">
 								<c:package name="aiki.beans.pokemon.evolutions">
 									<c:class name="EvolutionBean">
-										<c:field name="index" value="e;;"/>
-										<c:field name="name" value="e;"/>
-										<c:field name="base" value="name"/>
+										<c:field prepare="$intern.index=e;;"/>
+										<c:field prepare="$intern.name=e;"/>
+										<c:field prepare="$intern.base=name"/>
 									</c:class>
 								</c:package>
 							</c:import>

@@ -346,8 +346,8 @@
 				<c:import page="{getPage(e;;)}">
 					<c:package name="aiki.beans.moves.effects">
 						<c:class name="EffectBean">
-							<c:field name="index" value="e;"/>
-							<c:field name="move" value="name"/>
+							<c:field prepare="$intern.index=e;"/>
+							<c:field prepare="$intern.move=name"/>
 						</c:class>
 					</c:package>
 				</c:import>
@@ -360,8 +360,8 @@
 					<c:import page="{getPage(e;;)}">
 						<c:package name="aiki.beans.moves.effects">
 							<c:class name="EffectBean">
-								<c:field name="index" value="e;"/>
-								<c:field name="move" value="name"/>
+								<c:field prepare="$intern.index=e;"/>
+								<c:field prepare="$intern.move=name"/>
 							</c:class>
 						</c:package>
 					</c:import>
@@ -372,8 +372,8 @@
 						<c:import page="{getPage(e;;)}">
 							<c:package name="aiki.beans.moves.effects">
 								<c:class name="EffectBean">
-									<c:field name="index" value="e;"/>
-									<c:field name="move" value="name"/>
+									<c:field prepare="$intern.index=e;"/>
+									<c:field prepare="$intern.move=name"/>
 								</c:class>
 							</c:package>
 						</c:import>
@@ -391,8 +391,8 @@
 						<c:import page="{getPage(n;)}">
 							<c:package name="aiki.beans.moves.effects">
 								<c:class name="EffectBean">
-									<c:field name="index" value="n;intValue()"/>
-									<c:field name="move" value="name"/>
+									<c:field prepare="$intern.index=n;intValue()"/>
+									<c:field prepare="$intern.move=name"/>
 								</c:class>
 							</c:package>
 						</c:import>
@@ -406,8 +406,8 @@
 					<c:import page="{getPage(e;;)}">
 						<c:package name="aiki.beans.moves.effects">
 							<c:class name="EffectBean">
-								<c:field name="index" value="e;"/>
-								<c:field name="move" value="name"/>
+								<c:field prepare="$intern.index=e;"/>
+								<c:field prepare="$intern.move=name"/>
 							</c:class>
 						</c:package>
 					</c:import>

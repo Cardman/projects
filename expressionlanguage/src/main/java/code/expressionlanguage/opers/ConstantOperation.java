@@ -10,7 +10,6 @@ import code.expressionlanguage.ParsedArgument;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadFormatNumber;
-import code.expressionlanguage.methods.util.EmptyPartError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -57,15 +56,6 @@ public final class ConstantOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String argClName_;
-        if (str_.isEmpty()) {
-            EmptyPartError emptyPart_ = new EmptyPartError();
-            emptyPart_.setFileName(_conf.getCurrentFileName());
-            emptyPart_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(emptyPart_);
-            argClName_ = _conf.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
-            return;
-        }
         Argument a_ = new Argument();
         LgNames stds_ = _conf.getStandards();
         String stringType_;

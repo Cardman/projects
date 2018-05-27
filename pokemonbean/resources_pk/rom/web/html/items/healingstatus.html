@@ -7,7 +7,7 @@
 		<c:import page="{healingItemBean}">
 			<c:package name="aiki.beans.items">
 				<c:class name="ItemBean">
-					<c:field name="name" value="name"/>
+					<c:field prepare="$intern.name=name"/>
 				</c:class>
 			</c:package>
 		</c:import>

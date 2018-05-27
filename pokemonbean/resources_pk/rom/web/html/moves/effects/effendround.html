@@ -7,8 +7,8 @@
 			<c:import page="{effectBean}">
 				<c:package name="aiki.beans.moves.effects">
 					<c:class name="EffectBean">
-						<c:field name="index" value="index"/>
-						<c:field name="move" value="move"/>
+						<c:field prepare="$intern.index=index"/>
+						<c:field prepare="$intern.move=move"/>
 					</c:class>
 				</c:package>
 			</c:import>

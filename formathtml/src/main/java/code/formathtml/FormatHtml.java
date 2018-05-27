@@ -80,9 +80,6 @@ public final class FormatHtml {
     static final String DOT = ".";
 
     static final String TMP_VAR = "tmpvar";
-    private static final char RIGHT_ARR = ']';
-    private static final char LEFT_ARR = '[';
-    private static final String SUFFIX_INT = "i";
     private static final String COMMENT = "!";
     private static final String ATTRIBUTE_SRC = "src";
     private static final String ATTRIBUTE_ENCODE_IMG = "wrap";
@@ -152,15 +149,12 @@ public final class FormatHtml {
     private static final String ATTRIBUTE_VALUE = "value";
     private static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
 
-    private static final String ATTRIBUTE_METHOD = "method";
     private static final String ATTRIBUTE_NAME = "name";
     private static final String ATTRIBUTE_PREPARE_BEAN = "prepare";
     private static final String ATTRIBUTE_FORM = "form";
     private static final String PAGE_ATTRIBUTE = "page";
     private static final String KEEPFIELD_ATTRIBUTE = "keepfields";
     private static final String EXPRESSION_ATTRIBUTE = "expression";
-    private static final String ARRAY_INDEX_ATTRIBUTE = "arrayindex";
-    private static final String ARRAY_ELEMENT_ATTRIBUTE = "arrayelement";
     private static final String KEY_CLASS_NAME_ATTRIBUTE = "keyClassName";
     private static final String VAR_CLASS_NAME_ATTRIBUTE = "varClassName";
     private static final String ATTRIBUTE_FROM = "from";
@@ -331,8 +325,6 @@ public final class FormatHtml {
         Struct bean_ = getBean(_conf, _beanName);
         ImportingPage ip_ = _conf.getLastPage();
         String prefix_ = ip_.getPrefix();
-        String leftParStr_ = String.valueOf(LEFT_PAR_CHAR);
-        String rightParStr_ = String.valueOf(RIGHT_PAR_CHAR);
         ContextEl context_ = _conf.toContextEl();
         LgNames lgNames_ = _conf.getStandards();
         for (Element n: _node.getChildElements()) {
@@ -398,108 +390,11 @@ public final class FormatHtml {
                         ip_.setOffset(0);
                         ip_.setLookForAttrValue(true);
                         String el_ = nThree_.getAttribute(ATTRIBUTE_PREPARE_BEAN);
-                        ElRenderUtil.processElImport(el_, 0, _conf);
+                        ElRenderUtil.processEl(el_, 0, _conf);
                         ip_.setInternGlobal(null);
                         if (_conf.getContext().getException() != null) {
                             return;
                         }
-                        continue;
-                    }
-                    if (nThree_.hasAttribute(ATTRIBUTE_METHOD)) {
-                        String methodName_ =nThree_.getAttribute(ATTRIBUTE_METHOD);
-                        String fieldValue_ = nThree_.getAttribute(ATTRIBUTE_VALUE);
-                        String classNameParam_ = nThree_.getAttribute(ATTRIBUTE_CLASS_NAME);
-                        ip_.setProcessingNode(nThree_);
-                        ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
-                        ip_.setOffset(0);
-                        ip_.setLookForAttrValue(true);
-                        Argument argt_ = ElRenderUtil.processEl(fieldValue_, 0, _conf);
-                        if (_conf.getContext().getException() != null) {
-                            return;
-                        }
-                        ip_.setProcessingNode(nThree_);
-                        ip_.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
-                        ip_.setOffset(0);
-                        ip_.setLookForAttrValue(true);
-                        if (!OperationNode.okType(_conf, classNameParam_)) {
-                            UnknownClassName un_ = new UnknownClassName();
-                            un_.setClassName(classNameParam_);
-                            un_.setFileName(_conf.getCurrentFileName());
-                            un_.setRc(_conf.getCurrentLocation());
-                            _conf.getClasses().getErrorsDet().add(un_);
-                            BadElRender badEl_ = new BadElRender();
-                            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                            badEl_.setFileName(_conf.getCurrentFileName());
-                            badEl_.setRc(_conf.getCurrentLocation());
-                            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
-                            return;
-                        }
-                        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameParam_, argt_.getObjectClassName(context_), context_)) {
-                            Mapping mapping_ = new Mapping();
-                            mapping_.setArg(argt_.getObjectClassName(context_));
-                            mapping_.setParam(classNameParam_);
-                            BadImplicitCast cast_ = new BadImplicitCast();
-                            cast_.setMapping(mapping_);
-                            cast_.setFileName(_conf.getCurrentFileName());
-                            cast_.setRc(_conf.getCurrentLocation());
-                            _conf.getClasses().getErrorsDet().add(cast_);
-                            BadElRender badEl_ = new BadElRender();
-                            badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                            badEl_.setFileName(_conf.getCurrentFileName());
-                            badEl_.setRc(_conf.getCurrentLocation());
-                            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
-                            return;
-                        }
-                        ip_.setProcessingNode(nThree_);
-                        ip_.setProcessingAttribute(ATTRIBUTE_METHOD);
-                        ip_.setOffset(0);
-                        ip_.setLookForAttrValue(true);
-                        Argument argument_ = new Argument();
-                        argument_.setStruct(bean_);
-                        ip_.setGlobalArgument(argument_, _conf);
-                        LocalVariable lv_ = new LocalVariable();
-                        lv_.setClassName(classNameParam_);
-                        lv_.setStruct(argt_.getStruct());
-                        String nameVar_ = ip_.getNextTempVar();
-                        ip_.putLocalVar(nameVar_, lv_);
-                        ElRenderUtil.processEl(StringList.concat(methodName_,leftParStr_,nameVar_,GET_LOC_VAR,rightParStr_), 0, _conf);
-                        ip_.removeLocalVar(nameVar_);
-                        if (_conf.getContext().getException() != null) {
-                            return;
-                        }
-                        continue;
-                    }
-                    ip_.setProcessingNode(nThree_);
-                    ip_.setProcessingAttribute(ATTRIBUTE_VALUE);
-                    ip_.setOffset(0);
-                    ip_.setLookForAttrValue(true);
-                    String fieldValue_ = nThree_.getAttribute(ATTRIBUTE_VALUE);
-                    Argument argt_ = ElRenderUtil.processEl(fieldValue_, 0, _conf);
-                    if (_conf.getContext().getException() != null) {
-                        return;
-                    }
-                    LocalVariable lv_ = new LocalVariable();
-                    lv_.setClassName(searchedClass_);
-                    lv_.setStruct(bean_);
-                    String nameVar_ = ip_.getNextTempVar();
-                    ip_.putLocalVar(nameVar_, lv_);
-                    ip_.setProcessingNode(nThree_);
-                    ip_.setProcessingAttribute(ATTRIBUTE_NAME);
-                    ip_.setOffset(0);
-                    ip_.setLookForAttrValue(true);
-                    String fieldName_ = nThree_.getAttribute(ATTRIBUTE_NAME);
-                    String nameValue_ = ip_.getNextTempVar();
-                    lv_ = new LocalVariable();
-                    lv_.setClassName(lgNames_.getStructClassName(argt_.getStruct(), context_));
-                    lv_.setStruct(argt_.getStruct());
-                    ip_.putLocalVar(nameValue_, lv_);
-                    String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, fieldName_);
-                    String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
-                    ElRenderUtil.processAffect(EMPTY_STRING, ATTRIBUTE_NAME, ATTRIBUTE_VALUE, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
-                    ip_.removeLocalVar(nameVar_);
-                    ip_.removeLocalVar(nameValue_);
-                    if (_conf.getContext().getException() != null) {
-                        return;
                     }
                 }
             }
@@ -1793,75 +1688,7 @@ public final class FormatHtml {
             Element _set) {
         if (!_set.hasAttribute(ATTRIBUTE_VAR)) {
             String expression_ = _set.getAttribute(EXPRESSION_ATTRIBUTE);
-            if (_set.hasAttribute(ARRAY_INDEX_ATTRIBUTE) && _set.hasAttribute(ARRAY_ELEMENT_ATTRIBUTE)) {
-                LgNames lgNames_ = _conf.getStandards();
-                String indexExpr_ = _set.getAttribute(ARRAY_INDEX_ATTRIBUTE);
-                _conf.getLastPage().setProcessingAttribute(ARRAY_INDEX_ATTRIBUTE);
-                _conf.getLastPage().setLookForAttrValue(true);
-                _conf.getLastPage().setOffset(0);
-                String className_;
-                Object index_;
-                if (!StringList.isPositiveNumber(indexExpr_)) {
-                    Struct str_ = ElRenderUtil.processEl(indexExpr_, 0, _conf).getStruct();
-                    className_ = str_.getClassName(_conf.getContext());
-                    index_ = str_.getInstance();
-                    if (_conf.getContext().getException() != null) {
-                        return;
-                    }
-                } else {
-                    className_ = _conf.getContext().getStandards().getAliasPrimInteger();
-                    index_ = Integer.parseInt(indexExpr_);
-                }
-                String elementExpr_ = _set.getAttribute(ARRAY_ELEMENT_ATTRIBUTE);
-                _conf.getLastPage().setProcessingAttribute(ARRAY_ELEMENT_ATTRIBUTE);
-                _conf.getLastPage().setLookForAttrValue(true);
-                _conf.getLastPage().setOffset(0);
-                Struct elementArg_ = ElRenderUtil.processEl(elementExpr_, 0, _conf).getStruct();
-                if (_conf.getContext().getException() != null) {
-                    return;
-                }
-                _conf.getLastPage().setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-                _conf.getLastPage().setLookForAttrValue(true);
-                _conf.getLastPage().setOffset(0);
-                Struct arrayArg_ = ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
-                if (_conf.getContext().getException() != null) {
-                    return;
-                }
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(className_);
-                mapping_.setParam(_conf.getContext().getStandards().getAliasPrimInteger());
-                if (!Templates.isCorrect(mapping_, _conf)) {
-                    BadImplicitCast cast_ = new BadImplicitCast();
-                    cast_.setMapping(mapping_);
-                    cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(cast_);
-                    BadElRender badEl_ = new BadElRender();
-                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                    badEl_.setFileName(_conf.getCurrentFileName());
-                    badEl_.setRc(_conf.getCurrentLocation());
-                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
-                    return;
-                }
-                int indexNb_ = ((Number)index_).intValue();
-                LocalVariable right_ = new LocalVariable();
-                right_.setClassName(lgNames_.getStructClassName(elementArg_, _conf.toContextEl()));
-                right_.setStruct(elementArg_);
-                LocalVariable left_ = new LocalVariable();
-                left_.setClassName(lgNames_.getStructClassName(arrayArg_, _conf.toContextEl()));
-                left_.setStruct(arrayArg_);
-                String nameOne_ = _ip.getNextTempVar();
-                _ip.putLocalVar(nameOne_, left_);
-                String nameTwo_ = _ip.getNextTempVar();
-                _ip.putLocalVar(nameTwo_, right_);
-                String leftEl_ = StringList.concat(nameOne_,GET_LOC_VAR,String.valueOf(LEFT_ARR),Long.toString(indexNb_),SUFFIX_INT,String.valueOf(RIGHT_ARR));
-                String rightEl_ = StringList.concat(nameTwo_,GET_LOC_VAR);
-                ElRenderUtil.processAffect(EMPTY_STRING,ARRAY_ELEMENT_ATTRIBUTE, EXPRESSION_ATTRIBUTE, leftEl_, rightEl_, String.valueOf(EQUALS), _conf);
-                _ip.removeLocalVar(nameOne_);
-                _ip.removeLocalVar(nameTwo_);
-            } else {
-                ElRenderUtil.processEl(expression_, 0, _conf);
-            }
+            ElRenderUtil.processEl(expression_, 0, _conf, true);
             return;
         }
         String var_ = _set.getAttribute(ATTRIBUTE_VAR);

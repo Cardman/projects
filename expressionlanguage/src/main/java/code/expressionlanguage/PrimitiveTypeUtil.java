@@ -328,11 +328,6 @@ public final class PrimitiveTypeUtil {
     }
     public static Struct unwrapObject(String _match, Struct _obj, LgNames _stds) {
         Object obj_ = _obj.getInstance();
-        if (!(obj_ instanceof Number)) {
-            if (!(obj_ instanceof Character)) {
-                return _obj;
-            }
-        }
         if (StringList.quickEq(_match,_stds.getAliasPrimDouble())) {
             if (obj_ instanceof Character) {
                 return new DoubleStruct(((Character)obj_).charValue());

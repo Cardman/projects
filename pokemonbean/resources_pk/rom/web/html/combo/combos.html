@@ -10,8 +10,8 @@
 			<c:import page="{combo}">
 				<c:package name="aiki.beans.effects">
 					<c:class name="EffectComboBean">
-						<c:field name="combos" value="combos"/>
-						<c:field name="index" value="m;;"/>
+						<c:field prepare="$intern.combos=combos"/>
+						<c:field prepare="$intern.index=m;;"/>
 					</c:class>
 				</c:package>
 			</c:import>

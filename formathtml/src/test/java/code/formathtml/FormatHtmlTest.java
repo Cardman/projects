@@ -7890,7 +7890,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -7932,7 +7932,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4i\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedInt=4i\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -7970,7 +7970,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedInt\" value=\"4\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedInt=$($int)4\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<form action=\"DELETE\" c:command=\"go\">{typedInt}</form><form action=\"go\">{typedInt}</form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8049,7 +8049,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8088,7 +8088,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8128,7 +8128,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8169,7 +8169,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=<html xmlns:c=\"javahtml\" xmlns=\"javahtml\">Description <a href=\"\" c:command=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8210,7 +8210,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=<html>Description <a href=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8250,7 +8250,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedString\" value=\"message\" className=\"java.lang.String\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.setTypedString(message)\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8291,7 +8291,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='$int'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.setTypedInt(4i)\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8328,7 +8328,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4i\" className='$int'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.setTypedInt(4i)\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><emb><ed>T</ed><ed>T</ed></emb> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8365,7 +8365,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import>Next text</body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -8862,7 +8862,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className='[[$int'/><c:set var=\"array\" expression=\"$new [$int(1i)\" className='[$int'/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className='[[$int'/><c:set var=\"array\" expression=\"$new [$int(1i)\" className='[$int'/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8896,7 +8896,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className=\"[[$int\"/><c:set var=\"array\" expression=\"$new [$int(1i)\" className=\"[$int\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className=\"[[$int\"/><c:set var=\"array\" expression=\"$new [$int(1i)\" className=\"[$int\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8929,7 +8929,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8962,7 +8962,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Object(2i)\" className=\"[[java.lang.Object\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Object(2i)\" className=\"[[java.lang.Object\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9162,7 +9162,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field method=\"setTypedInt\" name=\"typedInt\" value=\"4b\" className='$int'><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body>HEAD<a href=\"\"/><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.setTypedInt(4b)\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body> NEXT<a href=\"DELETE\" c:command=\"go\">{typedInt}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9199,7 +9199,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [java.lang.String(2i)\" className=\"[java.lang.String\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"&quot;ab&quot;\"/>{arrays;.length}_{arrays;.[0i]}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [java.lang.String(2i)\" className=\"[java.lang.String\"/><c:set expression=\"arrays;.[0i]=&quot;ab&quot;\"/>{arrays;.length}_{arrays;.[0i]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9298,14 +9298,56 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/> NEXT<a n-a=\"0\" c:command=\"go\" href=\"\">4</a></body></html>", render_);
         assertEq(4, beanTwo_.getTypedInt());
     }
-
+    @Test
+    public void processImports44Test() {
+        String locale_ = "LOCALE";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        bean_.setForms(new StringMapObject());
+        bean_.getForms().put("key", "sample_value");
+        BeanTwo beanTwo_ = new BeanTwo();
+        beanTwo_.setTypedString("TITLE");
+        beanTwo_.setForms(new StringMapObject());
+        Configuration conf_ = newConfiguration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.getBeans().put("bean_two", beanTwo_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        conf_.setHtml(html_);
+        conf_.setDocument(DocumentBuilder.parseSax(html_));
+        setup(conf_);
+        assertEq("TITLE",beanTwo_.getTypedString());
+        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
+        assertEq("Test {0}2",beanTwo_.getTypedString());
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" c:command=\"go\" href=\"\">Test {0}2</a></body></html>", render_);
+        assertEq(1, beanTwo_.getForms().size());
+        assertEq("key", beanTwo_.getForms().getKeys().first());
+        assertEq("sample_value", (String)beanTwo_.getForms().values().first());
+    }
     @Test
     public void processImports1FailTest() {
         String locale_ = "LOCALE";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"formathtml.classe\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html c:bean=\"bean_one\" xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"formathtml.classe\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9346,7 +9388,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9387,7 +9429,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field name=\"typedString\" value=\"message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:import page=\"page2.html\" keepfields=\"y\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package><c:form form=\"key\"/></c:import></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9561,7 +9603,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.\" arrayindex=\"0\" arrayelement=\"arrays;.\"/>{arrays;.length}_{arrays;.[0].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.[0i]=arrays;.\"/>{arrays;.length}_{arrays;.[0].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

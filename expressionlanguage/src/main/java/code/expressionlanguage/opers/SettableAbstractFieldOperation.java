@@ -75,6 +75,7 @@ public abstract class SettableAbstractFieldOperation extends
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching cl_ = getFrom(_conf);
         if (cl_ == null) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         String fieldName_ = getFieldName(_conf);

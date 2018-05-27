@@ -21,8 +21,8 @@
 			<c:import page="{pageTeam}">
 				<c:package name="aiki.beans.map.pokemon">
 					<c:class name="PokemonTeamBean">
-						<c:field name="trainer" value="trainer"/>
-						<c:field name="noFight" value="t;;"/>
+						<c:field prepare="$intern.trainer=trainer"/>
+						<c:field prepare="$intern.noFight=t;;"/>
 					</c:class>
 				</c:package>
 			</c:import>

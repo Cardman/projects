@@ -7,7 +7,7 @@
 		<c:import page="{itemBean}">
 			<c:package name="aiki.beans.items">
 				<c:class name="ItemBean">
-					<c:field name="name" value="name"/>
+					<c:field prepare="$intern.name=name"/>
 				</c:class>
 			</c:package>
 		</c:import>
@@ -41,7 +41,7 @@
 				<c:import page="{effectSendBean}">
 					<c:package name="aiki.beans.effects">
 						<c:class name="EffectWhileSendingBean">
-							<c:field name="effect" value="getEffectSending()"/>
+							<c:field prepare="$intern.effect=getEffectSending()"/>
 						</c:class>
 					</c:package>
 				</c:import>

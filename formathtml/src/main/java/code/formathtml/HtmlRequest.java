@@ -144,9 +144,8 @@ final class HtmlRequest {
             ip_.putLocalVar(nameValue_, lv_);
             String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
             String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
-            ElRenderUtil.processAffect(EMPTY_STRING, EMPTY_STRING, EMPTY_STRING, expressionLeft_, expressionRight_, String.valueOf(EQUALS), _conf, true, true);
-            ip_.removeLocalVar(nameVar_);
-            ip_.removeLocalVar(nameValue_);
+            String full_ = StringList.concat(expressionLeft_,String.valueOf(EQUALS),expressionRight_);
+            ElRenderUtil.processEl(full_, 0, _conf, true);
             if (_conf.getContext().getException() != null) {
                 return;
             }

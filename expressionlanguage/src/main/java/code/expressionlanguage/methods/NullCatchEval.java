@@ -15,7 +15,7 @@ import code.util.EntryCust;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
-public class NullCatchEval extends AbstractCatchEval {
+public final class NullCatchEval extends AbstractCatchEval {
 
     public NullCatchEval(Element _el, ContextEl _importingPage,
             int _indexChild, BracedBlock _m) {
@@ -61,7 +61,6 @@ public class NullCatchEval extends AbstractCatchEval {
                 }
                 ass_.getVariablesRoot().add(vars_);
             }
-            return;
         }
     }
 

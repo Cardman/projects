@@ -21,7 +21,7 @@
 		<c:import page="{pageAlly}">
 			<c:package name="aiki.beans.map.characters">
 				<c:class name="AllyBean">
-					<c:field name="ally" value="ally"/>
+					<c:field prepare="$intern.ally=ally"/>
 				</c:class>
 			</c:package>
 		</c:import>
@@ -31,7 +31,7 @@
 		<c:import page="{pageTeam}">
 			<c:package name="aiki.beans.map.pokemon">
 				<c:class name="PokemonTeamBean">
-					<c:field name="trainer" value="trainer"/>
+					<c:field prepare="$intern.trainer=trainer"/>
 				</c:class>
 			</c:package>
 		</c:import>

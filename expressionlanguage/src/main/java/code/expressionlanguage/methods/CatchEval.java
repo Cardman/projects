@@ -80,14 +80,6 @@ public final class CatchEval extends AbstractCatchEval {
         page_.setOffset(0);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (_cont.getAnalyzing().getCatchVars().contains(variableName)) {
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
-            d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
-            _cont.getClasses().getErrorsDet().add(d_);
-            return;
-        }
         if (getFirstChild() == null) {
             AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
             AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
@@ -102,6 +94,13 @@ public final class CatchEval extends AbstractCatchEval {
                 }
                 ass_.getVariablesRoot().add(vars_);
             }
+        }
+        if (_cont.getAnalyzing().getCatchVars().contains(variableName)) {
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableName);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffset));
+            _cont.getClasses().getErrorsDet().add(d_);
             return;
         }
         LocalVariable lv_ = new LocalVariable();

@@ -6,7 +6,7 @@
 		<c:import page="{endRoundStatusHtml}">
 			<c:package name="aiki.beans.endround">
 				<c:class name="EffectEndRoundBean">
-					<c:field name="index" value="index"/>
+					<c:field prepare="$intern.index=index"/>
 				</c:class>
 			</c:package>
 		</c:import>

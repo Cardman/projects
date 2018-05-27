@@ -2379,6 +2379,7 @@ public final class ElRenderUtilTest {
         LoopVariable lv_ = new LoopVariable();
         lv_.setElement(1l);
         lv_.setClassName(context_.getStandards().getAliasLong());
+        lv_.setIndexClassName(context_.getStandards().getAliasPrimLong());
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;;",0, context_);

@@ -11,7 +11,6 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.EmptyPartError;
 import code.expressionlanguage.methods.util.UndefinedVariableError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -49,16 +48,6 @@ public final class FinalVariableOperation extends LeafOperation {
         String str_ = originalStr_.trim();
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String argClName_;
-        if (str_.isEmpty()) {
-            EmptyPartError emptyPart_ = new EmptyPartError();
-            emptyPart_.setFileName(_conf.getCurrentFileName());
-            emptyPart_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(emptyPart_);
-            argClName_ = _conf.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
-            return;
-        }
         LgNames stds_ = _conf.getStandards();
         if (op_.getConstType() == ConstType.PARAM) {
             variableName = str_;

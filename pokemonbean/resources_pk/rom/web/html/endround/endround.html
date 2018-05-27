@@ -10,7 +10,7 @@
 			<c:import page="{getPage(e;;)}">
 				<c:package name="aiki.beans.endround">
 					<c:class name="EffectEndRoundBean">
-						<c:field name="index" value="e;;"/>
+						<c:field prepare="$intern.index=e;;"/>
 					</c:class>
 				</c:package>
 			</c:import>
