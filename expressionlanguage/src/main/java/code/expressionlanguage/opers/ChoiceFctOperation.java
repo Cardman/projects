@@ -281,12 +281,22 @@ public final class ChoiceFctOperation extends InvokingOperation {
                         param_ = PrimitiveTypeUtil.getPrettyArrayType(param_);
                         String argClass_ = _arguments.last().getObjectClassName(_conf.getContextEl());
                         map_.setArg(argClass_);
-                        map_.setParam(param_);
-                        if (argClass_ != null && !Templates.isCorrect(map_, _conf)) {
-                            lastType_ = methodId_.getParametersTypes().last();
-                            naturalVararg_ = methodId_.getParametersTypes().size() - 1;
+                        if (argClass_ != null) {
+                            map_.setParam(param_);
+                            if (!Templates.isCorrect(map_, _conf)) {
+                                lastType_ = methodId_.getParametersTypes().last();
+                                naturalVararg_ = methodId_.getParametersTypes().size() - 1;
+                            } else {
+                                naturalVararg_ = -1;
+                            }
                         } else {
-                            naturalVararg_ = -1;
+                            String paramOr_ = methodId_.getParametersTypes().last();
+                            if (PrimitiveTypeUtil.isPrimitive(paramOr_, _conf)) {
+                                naturalVararg_ = -1;
+                            } else {
+                                lastType_ = methodId_.getParametersTypes().last();
+                                naturalVararg_ = methodId_.getParametersTypes().size() - 1;
+                            }
                         }
                     }
                 }
