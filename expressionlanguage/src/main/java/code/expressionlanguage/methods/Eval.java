@@ -4,6 +4,6 @@ import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.stacks.TryBlockStack;
 
 
-public interface Eval extends StackableBlockGroup {
+public interface Eval extends StackableBlockGroup, BreakableBlock {
     void processToFinally(AbstractPageEl _ip, TryBlockStack _stack);
 }

@@ -30,7 +30,6 @@ import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;

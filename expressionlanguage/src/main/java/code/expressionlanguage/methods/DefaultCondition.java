@@ -141,7 +141,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
 
     @Override
     boolean canBeIncrementedCurGroup() {
-        return false;
+        return true;
     }
 
     @Override

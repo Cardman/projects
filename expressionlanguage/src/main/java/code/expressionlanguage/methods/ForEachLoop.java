@@ -55,6 +55,9 @@ import code.util.StringMap;
 
 public final class ForEachLoop extends BracedStack implements ForLoop {
 
+    private String label;
+    private int labelOffset;
+
     private final String className;
 
     private int classNameOffset;
@@ -92,7 +95,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     public ForEachLoop(ContextEl _importingPage, int _indexChild,
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
-            OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetsBlock _offset) {
+            OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -105,8 +108,18 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             classIndex_ = _importingPage.getStandards().getAliasPrimLong();
         }
         classIndexName = classIndex_;
+        label = _label.getInfo();
+        labelOffset = _label.getOffset();
         classIndexNameOffset = _classIndex.getOffset();
         setAlwaysSkipped(true);
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public int getLabelOffset() {
+        return labelOffset;
     }
 
     public int getClassNameOffset() {

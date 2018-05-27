@@ -28,14 +28,35 @@ import code.util.StringMap;
 
 public final class IfCondition extends Condition implements BlockCondition, IncrCurrentGroup {
 
+    private String label;
+    private int labelOffset;
+
     public IfCondition(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
     }
 
     public IfCondition(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
+            BracedBlock _m, OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _condition, _offset);
+        label = _label.getInfo();
+        labelOffset = _label.getOffset();
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String _label) {
+        label = _label;
+    }
+
+    public int getLabelOffset() {
+        return labelOffset;
+    }
+
+    public void setLabelOffset(int _labelOffset) {
+        labelOffset = _labelOffset;
     }
 
     @Override
@@ -156,6 +177,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
         }
+        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         ObjectMap<ClassField,BooleanAssignment> fieldsCond_ = assTar_.getFieldsRootAfter();
@@ -178,6 +200,30 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                 if (unassAfter_) {
                     unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
                 }
+                if (assAfter_) {
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != this) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                            assAfter_ = false;
+                            break;
+                        }
+                    }
+                }
+                if (unassAfter_) {
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != this) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                            unassAfter_ = false;
+                            break;
+                        }
+                    }
+                }
             }
             after_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
         }
@@ -197,6 +243,32 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                     }
                     if (unassAfter_) {
                         unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                    }
+                    if (assAfter_) {
+                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                            if (b.getValue() != this) {
+                                continue;
+                            }
+                            AssignedVariables assBr_ = id_.getVal(b.getKey());
+                            CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
+                            if (!list_.get(index_).getVal(key_).isAssignedBefore()) {
+                                assAfter_ = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (unassAfter_) {
+                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                            if (b.getValue() != this) {
+                                continue;
+                            }
+                            AssignedVariables assBr_ = id_.getVal(b.getKey());
+                            CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
+                            if (!list_.get(index_).getVal(key_).isUnassignedBefore()) {
+                                unassAfter_ = false;
+                                break;
+                            }
+                        }
                     }
                 }
                 sm_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));

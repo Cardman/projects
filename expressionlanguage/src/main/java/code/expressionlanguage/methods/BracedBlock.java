@@ -59,7 +59,17 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
         }
-        if (!_anEl.canCompleteNormallyGroup(ch_)) {
+        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
+        boolean exist_ = false;
+        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+            if (b.getValue() == this) {
+                if (_anEl.isReachable(b.getKey())) {
+                    exist_ = true;
+                }
+            }
+        }
+        //parent breakable
+        if (!_anEl.canCompleteNormallyGroup(ch_) && !exist_) {
             _anEl.completeAbrupt(this);
         }
     }

@@ -45,6 +45,19 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
     }
+
+    @Override
+    public String getLabel() {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                return EMPTY_STRING;
+            }
+            p_ = p_.getPreviousSibling();
+        }
+        return ((TryEval)p_).getLabel();
+    }
+
     @Override
     public void checkBlocksTree(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -108,6 +121,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
         ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
             SimpleAssignment ab_ = e.getValue();
             ClassField key_ = e.getKey();
@@ -116,7 +130,29 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             if (_anEl.canCompleteNormallyGroup(this)) {
                 unassAfter_ = ab_.isUnassignedAfter();
             }
-            if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this)) {
+            if (unassAfter_) {
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != this) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                        unassAfter_ = false;
+                        break;
+                    }
+                }
+            }
+            for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                if (b.getValue() != this) {
+                    continue;
+                }
+                AssignedVariables assBr_ = id_.getVal(b.getKey());
+                if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                    assAfter_ = false;
+                    break;
+                }
+            }
+            if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this) && assAfter_) {
                 for (Block p: prev_) {
                     if (!_anEl.canCompleteNormally(p)) {
                         continue;
@@ -126,6 +162,16 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                     if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
                         assAfter_ = false;
                         break;
+                    }
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                            assAfter_ = false;
+                            break;
+                        }
                     }
                 }
             }
@@ -158,7 +204,29 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                 if (_anEl.canCompleteNormallyGroup(this)) {
                     unassAfter_ = ab_.isUnassignedAfter();
                 }
-                if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this)) {
+                if (unassAfter_) {
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != this) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
+                            unassAfter_ = false;
+                            break;
+                        }
+                    }
+                }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != this) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
+                        assAfter_ = false;
+                        break;
+                    }
+                }
+                if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this) && assAfter_) {
                     for (Block p: prev_) {
                         if (!_anEl.canCompleteNormally(p)) {
                             continue;
@@ -168,6 +236,16 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                         if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
                             assAfter_ = false;
                             break;
+                        }
+                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                            if (b.getValue() != p) {
+                                continue;
+                            }
+                            AssignedVariables assBr_ = id_.getVal(b.getKey());
+                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
+                                assAfter_ = false;
+                                break;
+                            }
                         }
                     }
                 }

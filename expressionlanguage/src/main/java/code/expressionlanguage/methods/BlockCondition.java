@@ -1,5 +1,5 @@
 package code.expressionlanguage.methods;
 
 
-public interface BlockCondition extends StackableBlockGroup {
+public interface BlockCondition extends StackableBlockGroup, BreakableBlock {
 }

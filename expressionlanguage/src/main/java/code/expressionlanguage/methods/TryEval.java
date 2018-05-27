@@ -3,6 +3,7 @@ import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -21,13 +22,27 @@ import code.util.StringMap;
 
 public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup {
 
+
+    private String label;
+    private int labelOffset;
+
     public TryEval(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
     }
 
-    public TryEval(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
+    public TryEval(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
+        label = _label.getInfo();
+        labelOffset = _label.getOffset();
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public int getLabelOffset() {
+        return labelOffset;
     }
 
     @Override

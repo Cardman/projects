@@ -51,6 +51,9 @@ import code.util.StringMap;
 
 public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
+    private String label;
+    private int labelOffset;
+
     private final String className;
     private int classNameOffset;
 
@@ -99,7 +102,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
             OffsetStringInfo _from,
-            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetsBlock _offset) {
+            OffsetStringInfo _to, OffsetBooleanInfo _eq, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
@@ -119,7 +122,17 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
+        label = _label.getInfo();
+        labelOffset = _label.getOffset();
         setAlwaysSkipped(true);
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public int getLabelOffset() {
+        return labelOffset;
     }
 
     public int getClassNameOffset() {

@@ -9,6 +9,8 @@ public interface RemovableVars {
     void removeVarAndLoop(AbstractPageEl _ip);
 
     BracedBlock getBlock();
+    BracedBlock getCurrentVisitedBlock();
+    BracedBlock getLastBlock();
 
     void setBlock(BracedBlock _block);
 }

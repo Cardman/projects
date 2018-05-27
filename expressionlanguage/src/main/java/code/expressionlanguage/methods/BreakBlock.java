@@ -3,19 +3,26 @@ import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.BreakableBlockStack;
+import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
+import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 public final class BreakBlock extends AbruptBlock implements CallingFinally {
+
+    private String label;
+    private int labelOffset;
 
     public BreakBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -24,9 +31,19 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     }
 
     public BreakBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, OffsetsBlock _offset) {
+            BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         setStoppable(true);
+        label = _label.getInfo();
+        labelOffset = _label.getOffset();
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public int getLabelOffset() {
+        return labelOffset;
     }
 
     @Override
@@ -49,8 +66,17 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
                 ((CaseCondition)b_).setPossibleSkipNexts(true);
             }
             if (b_ instanceof BreakableBlock) {
-                childOfBreakable_ = true;
-                break;
+                if (label.isEmpty()) {
+                    if (b_ instanceof Loop || b_ instanceof SwitchBlock) {
+                        childOfBreakable_ = true;
+                        break;
+                    }
+                } else {
+                    if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                        childOfBreakable_ = true;
+                        break;
+                    }
+                }
             }
             b_ = b_.getParent();
         }
@@ -68,11 +94,32 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     @Override
     public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
         super.abrupt(_an, _anEl);
+        boolean childOfBreakable_ = false;
+        BracedBlock b_ = getParent();
+        while (b_ != null) {
+            if (b_ instanceof BreakableBlock) {
+                if (label.isEmpty()) {
+                    if (b_ instanceof Loop || b_ instanceof SwitchBlock) {
+                        childOfBreakable_ = true;
+                        break;
+                    }
+                } else {
+                    if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                        childOfBreakable_ = true;
+                        break;
+                    }
+                }
+            }
+            b_ = b_.getParent();
+        }
+        if (!childOfBreakable_) { 
+            return;
+        }
         IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors_ = _anEl.getBreakablesAncestors();
         BracedBlock par_ = getParent();
         IdList<BracedBlock> pars_ = new IdList<BracedBlock>();
-        BracedBlock a_ = (BracedBlock) _anEl.getParentsBreakables().last();
+        BracedBlock a_ = b_;
         while (par_ != a_) {
             pars_.add(par_);
             par_ = par_.getParent();
@@ -102,13 +149,23 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     public void removeBlockFinally(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        BreakableBlockStack stack_ = null;
+        RemovableVars stack_ = null;
         while (true) {
             RemovableVars bl_ = ip_.getLastStack();
             if (bl_ instanceof BreakableBlockStack) {
-                stack_ = (BreakableBlockStack) bl_;
-                bl_.getBlock().removeLocalVars(ip_);
-                break;
+                stack_ = bl_;
+                if (label.isEmpty()) {
+                    if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
+                        bl_.getBlock().removeLocalVars(ip_);
+                        break;
+                    }
+                } else {
+                    BreakableBlock br_ = (BreakableBlock) bl_.getBlock();
+                    if (StringList.quickEq(label, br_.getLabel())){
+                        bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
+                        break;
+                    }
+                }
             }
             ip_.setFinallyToProcess(false);
             bl_.removeVarAndLoop(ip_);
@@ -117,9 +174,9 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
                 return;
             }
         }
-        Block forLoopLoc_ = stack_.getBlock();
+        Block forLoopLoc_ = stack_.getLastBlock();
         rw_.setBlock(forLoopLoc_);
-        stack_.setFinished(true);
+        ((BreakableBlockStack)stack_).setFinished(true);
     }
 
     @Override

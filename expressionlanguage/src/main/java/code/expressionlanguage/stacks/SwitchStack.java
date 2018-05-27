@@ -3,7 +3,7 @@ import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 
-public abstract class SwitchStack extends BlockStack implements BreakableStack {
+public abstract class SwitchStack implements BreakableStack {
 
     private boolean finished;
 
@@ -34,9 +34,6 @@ public abstract class SwitchStack extends BlockStack implements BreakableStack {
     }
     public void setStruct(Struct _value) {
         value = _value;
-        if (value == null) {
-            value = NullStruct.NULL_VALUE;
-        }
     }
 
     public int getVisitedBlock() {

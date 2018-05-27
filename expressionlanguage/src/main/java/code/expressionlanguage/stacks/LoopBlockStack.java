@@ -7,6 +7,17 @@ public final class LoopBlockStack extends LoopStack implements BreakableBlockSta
 
     private boolean evaluatingKeepLoop;
 
+    private BracedBlock block;
+
+    @Override
+    public BracedBlock getBlock() {
+        return block;
+    }
+
+    @Override
+    public void setBlock(BracedBlock _block) {
+        block = _block;
+    }
     @Override
     public void removeVarAndLoop(AbstractPageEl _ip) {
         BracedBlock forNode_ = getBlock();
@@ -20,6 +31,16 @@ public final class LoopBlockStack extends LoopStack implements BreakableBlockSta
 
     public void setEvaluatingKeepLoop(boolean _evaluatingKeepLoop) {
         evaluatingKeepLoop = _evaluatingKeepLoop;
+    }
+
+    @Override
+    public BracedBlock getLastBlock() {
+        return getBlock();
+    }
+
+    @Override
+    public BracedBlock getCurrentVisitedBlock() {
+        return getBlock();
     }
 
 }

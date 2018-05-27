@@ -34,6 +34,9 @@ import code.util.StringMap;
 
 public final class SwitchBlock extends BracedStack implements BreakableBlock {
 
+    private String label;
+    private int labelOffset;
+
     private final String value;
     private int valueOffset;
 
@@ -47,10 +50,20 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         value = _el.getAttribute(ATTRIBUTE_VALUE);
     }
 
-    public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _value, OffsetsBlock _offset) {
+    public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
+        label = _label.getInfo();
+        labelOffset = _label.getOffset();
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public int getLabelOffset() {
+        return labelOffset;
     }
 
     public int getValueOffset() {

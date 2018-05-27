@@ -447,11 +447,6 @@ public final class Classes {
             d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
             errorsDet.add(d_);
         }
-        Block rootBl_ = cl_;
-        CustList<Block> all_ = getSortedDescNodes(rootBl_);
-        for (Block b: all_) {
-            b.setCompleteGroup();
-        }
         String fullName_ = cl_.getFullName();
         classesBodies.put(fullName_, cl_);
     }

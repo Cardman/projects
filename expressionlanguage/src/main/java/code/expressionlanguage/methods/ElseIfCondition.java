@@ -72,6 +72,17 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
     }
 
     @Override
+    public String getLabel() {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof IfCondition)) {
+            if (p_ == null) {
+                return EMPTY_STRING;
+            }
+            p_ = p_.getPreviousSibling();
+        }
+        return ((IfCondition)p_).getLabel();
+    }
+    @Override
     boolean canBeIncrementedNextGroup() {
         return true;
     }
@@ -230,6 +241,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
         ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
             ClassField key_ = e.getKey();
             BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
@@ -245,6 +257,18 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                     assAfter_ = false;
                     break;
                 }
+                if (assAfter_) {
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                            assAfter_ = false;
+                            break;
+                        }
+                    }
+                }
             }
             for (Block p: prev_) {
                 if (!_anEl.canCompleteNormally(p)) {
@@ -255,6 +279,18 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                 if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                     unassAfter_ = false;
                     break;
+                }
+                if (unassAfter_) {
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                            unassAfter_ = false;
+                            break;
+                        }
+                    }
                 }
             }
             if (_anEl.canCompleteNormally(this)) {
@@ -286,6 +322,18 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                         assAfter_ = false;
                         break;
                     }
+                    if (assAfter_) {
+                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                            if (b.getValue() != p) {
+                                continue;
+                            }
+                            AssignedVariables assBr_ = id_.getVal(b.getKey());
+                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
+                                assAfter_ = false;
+                                break;
+                            }
+                        }
+                    }
                 }
                 for (Block p: prev_) {
                     if (!_anEl.canCompleteNormally(p)) {
@@ -296,6 +344,18 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                     if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                         unassAfter_ = false;
                         break;
+                    }
+                    if (unassAfter_) {
+                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                            if (b.getValue() != p) {
+                                continue;
+                            }
+                            AssignedVariables assBr_ = id_.getVal(b.getKey());
+                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
+                                unassAfter_ = false;
+                                break;
+                            }
+                        }
                     }
                 }
                 if (_anEl.canCompleteNormally(this)) {

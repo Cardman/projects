@@ -2,7 +2,7 @@ package code.expressionlanguage.stacks;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 
-public abstract class TryStack extends BlockStack {
+public abstract class TryStack {
 
     private int visitedCatch = CustList.INDEX_NOT_FOUND_ELT;
 

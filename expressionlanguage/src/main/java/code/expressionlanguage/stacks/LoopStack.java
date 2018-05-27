@@ -2,7 +2,7 @@ package code.expressionlanguage.stacks;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.StringList;
 
-public abstract class LoopStack extends BlockStack implements BreakableStack {
+public abstract class LoopStack implements BreakableStack {
 
     private static final String INDEX = "index";
 

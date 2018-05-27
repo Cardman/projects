@@ -1,7 +1,7 @@
 package code.expressionlanguage.stacks;
 import code.util.CustList;
 
-public abstract class IfStack extends BlockStack {
+public abstract class IfStack {
 
     private boolean entered;
 

@@ -61,6 +61,18 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
     }
 
     @Override
+    public String getLabel() {
+        Block p_ = getPreviousSibling();
+        while (!(p_ instanceof TryEval)) {
+            if (p_ == null) {
+                return EMPTY_STRING;
+            }
+            p_ = p_.getPreviousSibling();
+        }
+        return ((TryEval)p_).getLabel();
+    }
+
+    @Override
     public final void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {
             return;
@@ -250,6 +262,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
         CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
         ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
             ClassField key_ = e.getKey();
             boolean assAfter_ = true;
@@ -264,6 +277,18 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                     assAfter_ = false;
                     break;
                 }
+                if (assAfter_) {
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                            assAfter_ = false;
+                            break;
+                        }
+                    }
+                }
             }
             for (Block p: prev_) {
                 if (!_anEl.canCompleteNormally(p)) {
@@ -274,6 +299,18 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                     unassAfter_ = false;
                     break;
+                }
+                if (unassAfter_) {
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                            unassAfter_ = false;
+                            break;
+                        }
+                    }
                 }
             }
             after_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
@@ -296,6 +333,18 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                         assAfter_ = false;
                         break;
                     }
+                    if (assAfter_) {
+                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                            if (b.getValue() != p) {
+                                continue;
+                            }
+                            AssignedVariables assBr_ = id_.getVal(b.getKey());
+                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
+                                assAfter_ = false;
+                                break;
+                            }
+                        }
+                    }
                 }
                 for (Block p: prev_) {
                     if (!_anEl.canCompleteNormally(p)) {
@@ -306,6 +355,18 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                     if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                         unassAfter_ = false;
                         break;
+                    }
+                    if (unassAfter_) {
+                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                            if (b.getValue() != p) {
+                                continue;
+                            }
+                            AssignedVariables assBr_ = id_.getVal(b.getKey());
+                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
+                                unassAfter_ = false;
+                                break;
+                            }
+                        }
                     }
                 }
                 sm_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));

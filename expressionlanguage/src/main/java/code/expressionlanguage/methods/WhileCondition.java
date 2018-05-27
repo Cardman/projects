@@ -39,16 +39,27 @@ import code.util.StringMap;
 
 public final class WhileCondition extends Condition implements Loop, IncrNextGroup {
 
+    private String label;
+    private int labelOffset;
+
     public WhileCondition(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
     }
 
     public WhileCondition(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
+            BracedBlock _m, OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _condition, _offset);
+        label = _label.getInfo();
+        labelOffset = _label.getOffset();
     }
 
+    public String getLabel() {
+        return label;
+    }
+    public int getLabelOffset() {
+        return labelOffset;
+    }
     @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
@@ -445,7 +456,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
     @Override
     boolean canBeIncrementedNextGroup() {
-        return true;
+        return false;
     }
 
     @Override
