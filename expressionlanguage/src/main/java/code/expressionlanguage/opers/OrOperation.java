@@ -91,7 +91,7 @@ public final class OrOperation extends QuickOperation {
             }
             BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();
             if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
-                r_.setAssignedAfterWhenFalse(true);
+                r_.setAssignedAfterWhenTrue(true);
             }
             if (b_.isUnassignedAfterWhenTrue() && p_.isUnassignedAfterWhenTrue()) {
                 r_.setUnassignedAfterWhenTrue(true);

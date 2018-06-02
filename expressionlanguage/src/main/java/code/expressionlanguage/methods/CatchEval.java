@@ -113,7 +113,7 @@ public final class CatchEval extends AbstractCatchEval {
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        CatchEval catch_ = (CatchEval) tryStack_.getCurrentCatchBlock();
+        CatchEval catch_ = (CatchEval) tryStack_.getCurrentBlock();
         String var_ = catch_.getVariableName();
         StringMap<LocalVariable> vars_ = ip_.getCatchVars();
         vars_.removeKey(var_);

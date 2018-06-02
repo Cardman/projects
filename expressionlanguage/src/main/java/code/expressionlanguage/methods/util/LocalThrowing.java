@@ -8,14 +8,15 @@ import code.expressionlanguage.methods.AbstractCatchEval;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.CatchEval;
+import code.expressionlanguage.methods.Eval;
 import code.expressionlanguage.methods.FinallyEval;
 import code.expressionlanguage.methods.NullCatchEval;
+import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
-import code.util.CustList;
 
 public final class LocalThrowing implements CallingFinally {
 
@@ -34,35 +35,33 @@ public final class LocalThrowing implements CallingFinally {
                 }
                 TryBlockStack try_ = (TryBlockStack)bl_;
                 boolean addFinallyClause_ = true;
-                if (!(try_.getCatchBlocks().last() instanceof FinallyEval)) {
+                if (!(try_.getLastBlock() instanceof FinallyEval)) {
                     addFinallyClause_ = false;
                 }
-                if (try_.getVisitedCatch() >= CustList.FIRST_INDEX) {
-                    if (!(try_.getCurrentCatchBlock() instanceof FinallyEval)) {
+                Eval currentBlock_ = try_.getCurrentBlock();
+                if (!(currentBlock_ instanceof TryEval)) {
+                    if (!(currentBlock_ instanceof FinallyEval)) {
                         if (addFinallyClause_) {
                             try_.setException(custCause_);
                             try_.setCalling(this);
                             _conf.setException(null);
                             bkIp_.clearCurrentEls();
-                            bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
+                            bkIp_.getReadWrite().setBlock(try_.getLastBlock());
                             return;
                         }
                     }
                     bkIp_.removeLastBlock();
                     continue;
                 }
+                Block n_ = ((Block)currentBlock_).getNextSibling();
                 //process try block
-                int i_ = 0;
-                for (Block e: try_.getCatchBlocks()) {
-                    if (e instanceof FinallyEval) {
-                        break;
-                    }
-                    if (e instanceof CatchEval) {
-                        CatchEval ca_ = (CatchEval) e;
+                while (n_ instanceof AbstractCatchEval) {
+                    if (n_ instanceof CatchEval) {
+                        CatchEval ca_ = (CatchEval) n_;
                         String name_ = ca_.getClassName();
                         Mapping mapping_ = new Mapping();
                         if (custCause_.isNull()) {
-                            i_++;
+                            n_ = n_.getNextSibling();
                             continue;
                         }
                         String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
@@ -71,18 +70,18 @@ public final class LocalThrowing implements CallingFinally {
                         mapping_.setParam(name_);
                         if (Templates.isCorrect(mapping_, _conf)) {
                             catchElt_ = ca_;
-                            try_.setVisitedCatch(i_);
+                            try_.setCurrentBlock(ca_);
                             break;
                         }
                     } else {
-                        NullCatchEval ca_ = (NullCatchEval) e;
+                        NullCatchEval ca_ = (NullCatchEval) n_;
                         if (custCause_.isNull()) {
                             catchElt_ = ca_;
-                            try_.setVisitedCatch(i_);
+                            try_.setCurrentBlock(ca_);
                             break;
                         }
                     }
-                    i_++;
+                    n_ = n_.getNextSibling();
                 }
                 if (catchElt_ != null) {
                     Block catchElement_ = catchElt_;
@@ -110,7 +109,7 @@ public final class LocalThrowing implements CallingFinally {
                     _conf.setException(null);
                     try_.setException(custCause_);
                     bkIp_.clearCurrentEls();
-                    bkIp_.getReadWrite().setBlock(try_.getCatchBlocks().last());
+                    bkIp_.getReadWrite().setBlock(try_.getLastBlock());
                     return;
                 }
                 bkIp_.removeLastBlock();

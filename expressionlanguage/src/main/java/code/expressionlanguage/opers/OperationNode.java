@@ -230,9 +230,6 @@ public abstract class OperationNode {
             if (ct_ == ConstType.STRING) {
                 return new ConstantOperation(_index, _indexChild, _m, _op);
             }
-            if (ct_ == ConstType.STRING) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
             if (ct_ == ConstType.THIS_KEYWORD) {
                 return new ThisOperation(_index, _indexChild, _m, _op);
             }

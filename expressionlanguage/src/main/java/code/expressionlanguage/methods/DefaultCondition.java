@@ -41,19 +41,6 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
     }
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        BracedBlock b_ = getParent();
-        if (!(b_ instanceof SwitchBlock)) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-    }
 
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
@@ -119,6 +106,16 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
+        BracedBlock b_ = getParent();
+        if (!(b_ instanceof SwitchBlock)) {
+            AnalyzedPageEl page_ = _cont.getAnalyzing();
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
+            page_.setOffset(0);
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
+        }
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
         for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
@@ -159,10 +156,10 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
-        sw_.setVisitedBlock(getIndexInGroup());
+        sw_.setCurentVisitedBlock(this);
         if (sw_.isEntered()) {
             if (!hasChildNodes()) {
-                if (sw_.lastVisitedBlock() == this) {
+                if (sw_.getLastVisitedBlock() == this) {
                     sw_.setFinished(true);
                     rw_.setBlock(sw_.getBlock());
                     return;
@@ -178,7 +175,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
             if (hasChildNodes()) {
                 sw_.setEntered(true);
             } else {
-                if (sw_.lastVisitedBlock() != this) {
+                if (sw_.getLastVisitedBlock() != this) {
                     sw_.setEntered(true);
                     rw_.setBlock(getNextSibling());
                     return;
@@ -198,7 +195,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
-        if (if_.lastVisitedBlock() == this) {
+        if (if_.getLastVisitedBlock() == this) {
             if_.setFinished(true);
             rw_.setBlock(if_.getBlock());
         } else {

@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
@@ -59,35 +58,6 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     }
 
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
-        page_.setOffset(0);
-        if (getFirstChild() == null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-        Block prev_ = getPreviousSibling();
-        boolean existTry_ = false;
-        while (prev_ != null) {
-            if (prev_ instanceof AbstractCatchEval) {
-                prev_ = prev_.getPreviousSibling();
-                continue;
-            }
-            existTry_ = prev_ instanceof TryEval;
-            break;
-        }
-        if (!existTry_) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-    }
-
-    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
@@ -107,13 +77,36 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
-        CustList<Block> prev_ = new CustList<Block>();
+        Block ch_ = getFirstChild();
+        if (ch_ == null) {
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
+            return;
+        }
         Block pBlock_ = getPreviousSibling();
+        if (!(pBlock_ instanceof AbstractCatchEval)) {
+            if (!(pBlock_ instanceof TryEval)) {
+                UnexpectedTagName un_ = new UnexpectedTagName();
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                _an.getClasses().getErrorsDet().add(un_);
+            }
+        }
+        CustList<Block> prev_ = new CustList<Block>();
         while (!(pBlock_ instanceof TryEval)) {
-            prev_.add(pBlock_);
+            if (pBlock_ == null) {
+                break;
+            }
+            if (pBlock_ instanceof Eval) {
+                prev_.add(pBlock_);
+            }
             pBlock_ = pBlock_.getPreviousSibling();
         }
-        prev_.add(pBlock_);
+        if (pBlock_ != null) {
+            prev_.add(pBlock_);
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(this);
@@ -127,7 +120,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             ClassField key_ = e.getKey();
             boolean assAfter_ = true;
             boolean unassAfter_ = true;
-            if (_anEl.canCompleteNormallyGroup(this)) {
+            if (_anEl.canCompleteStrictNormally(this)) {
                 unassAfter_ = ab_.isUnassignedAfter();
             }
             if (unassAfter_) {
@@ -152,16 +145,15 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                     break;
                 }
             }
-            if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this) && assAfter_) {
+            if (!ab_.isAssignedAfter() && _anEl.canCompleteStrictNormally(this) && assAfter_) {
                 for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
-                    }
-                    AssignedVariables assLoc_ = _an.getAssignedVariables().getFinalVariables().getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                        assAfter_ = false;
-                        break;
+                    if (_anEl.canCompleteStrictNormally(p)) {
+                        AssignedVariables assLoc_ = _an.getAssignedVariables().getFinalVariables().getVal(p);
+                        ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                        if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                            assAfter_ = false;
+                            break;
+                        }
                     }
                     for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
                         if (b.getValue() != p) {
@@ -201,7 +193,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                 String key_ = e.getKey();
                 boolean assAfter_ = true;
                 boolean unassAfter_ = true;
-                if (_anEl.canCompleteNormallyGroup(this)) {
+                if (_anEl.canCompleteStrictNormally(this)) {
                     unassAfter_ = ab_.isUnassignedAfter();
                 }
                 if (unassAfter_) {
@@ -226,16 +218,15 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                         break;
                     }
                 }
-                if (!ab_.isAssignedAfter() && _anEl.canCompleteNormally(this) && assAfter_) {
+                if (!ab_.isAssignedAfter() && _anEl.canCompleteStrictNormally(this) && assAfter_) {
                     for (Block p: prev_) {
-                        if (!_anEl.canCompleteNormally(p)) {
-                            continue;
-                        }
-                        AssignedVariables assLoc_ = _an.getAssignedVariables().getFinalVariables().getVal(p);
-                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                        if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                            assAfter_ = false;
-                            break;
+                        if (_anEl.canCompleteStrictNormally(p)) {
+                            AssignedVariables assLoc_ = _an.getAssignedVariables().getFinalVariables().getVal(p);
+                            StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                            if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                                assAfter_ = false;
+                                break;
+                            }
                         }
                         for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
                             if (b.getValue() != p) {
@@ -279,12 +270,13 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
-        ts_.setVisitedCatch(getIndexInGroup()-1);
+        ts_.setCurrentBlock(this);
         if (ts_.isVisitedFinally()) {
             ip_.removeLastBlock();
             processBlock(_cont);
             return;
         }
+        ts_.setVisitedFinally(true);
         ip_.getReadWrite().setBlock(getFirstChild());
     }
 
@@ -304,8 +296,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             call_.removeBlockFinally(_context);
             return;
         }
-        FinallyEval catch_ = (FinallyEval) tryStack_.getCurrentCatchBlock();
-        tryStack_.setVisitedFinally(true);
+        FinallyEval catch_ = (FinallyEval) tryStack_.getCurrentBlock();
         rw_.setBlock(catch_);
     }
 
@@ -336,15 +327,25 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             p_ = p_.getPreviousSibling();
         }
         group_.add(p_);
+        if (!_anEl.canCompleteNormally(this)) {
+            for (Block b: group_) {
+                _anEl.completeAbruptGroup(b);
+            }
+            _anEl.completeAbrupt(this);
+            _anEl.completeAbruptGroup(this);
+            return;
+        }
+        if (!_anEl.canCompleteStrictNormally(this)) {
+            //because break instructions cancel all abrupt instructions in the previous blocks
+            //there exists a break instruction that break the try statement
+            return;
+        }
         boolean canCmpNormally_ = false;
         for (Block b: group_) {
             if (_anEl.canCompleteNormally(b)) {
                 canCmpNormally_ = true;
                 break;
             }
-        }
-        if (!_anEl.canCompleteNormally(this)) {
-            canCmpNormally_ = false;
         }
         if (!canCmpNormally_) {
             for (Block b: group_) {

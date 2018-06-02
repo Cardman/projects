@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
@@ -14,9 +13,11 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
@@ -89,19 +90,40 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        OperationNode firstChild_ = (OperationNode) settable;
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(firstChild_);
-        OperationsSequence op_ = firstChild_.getOperations();
         LgNames lgNames_ = _conf.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
         isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-        if (op_.getConstType() == ConstType.LOC_VAR) {
-            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-            String str_ = originalStr_.trim();
+        OperationNode realFirstChild_ = getFirstChild();
+        if (realFirstChild_ == null) {
+            CustList<StringMap<AssignmentBefore>> variablesAfterLast_ = vars_.getVariablesRootBefore();
+            for (StringMap<AssignmentBefore> s: variablesAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    SimpleAssignment s_ = new SimpleAssignment();
+                    s_.setAssignedAfter(true);
+                    s_.setUnassignedAfter(true);
+                    sm_.put(e.getKey(), s_);
+                }
+                variablesAfter_.add(sm_);
+            }
+            vars_.getVariables().put(this, variablesAfter_);
+            ObjectMap<ClassField,AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
+            for (EntryCust<ClassField, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
+                SimpleAssignment s_ = new SimpleAssignment();
+                s_.setAssignedAfter(true);
+                s_.setUnassignedAfter(true);
+                fieldsAfter_.put(e.getKey(), s_);
+            }
+            vars_.getFields().put(this, fieldsAfter_);
+            return;
+        }
+        OperationNode firstChild_ = (OperationNode) settable;
+        if (firstChild_ instanceof VariableOperation) {
+            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(firstChild_);
+            String str_ = ((VariableOperation)firstChild_).getVariableName();
             for (StringMap<Assignment> s: variablesAfterLast_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 int index_ = variablesAfter_.size();
@@ -130,6 +152,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                 variablesAfter_.add(sm_);
             }
         } else {
+            if (settable == null) {
+                firstChild_ = realFirstChild_;
+            }
+            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(firstChild_);
             for (StringMap<Assignment> s: variablesAfterLast_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -149,8 +175,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                 } else {
                     int index_ = cst_.getIndexChild() - 1;
                     OperationNode opPr_ = cst_.getParent().getChildrenNodes().get(index_);
-                    OperationsSequence opPrev_ = opPr_.getOperations();
-                    if (opPrev_.getConstType() == ConstType.THIS_KEYWORD) {
+                    if (opPr_ instanceof ThisOperation) {
                         if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
                             procField_ = true;
                         }
@@ -166,6 +191,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             }
         }
         if (procField_) {
+            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
@@ -189,6 +215,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                 }
             }
         } else {
+            if (settable == null) {
+                firstChild_ = realFirstChild_;
+            }
+            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
             }

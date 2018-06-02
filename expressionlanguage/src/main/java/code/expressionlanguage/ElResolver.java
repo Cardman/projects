@@ -1118,12 +1118,7 @@ public final class ElResolver {
                 } else if (curChar_ == NEG_BOOL_CHAR) {
                     compound_ = true;
                 } else if (curChar_ == EQ_CHAR && _conf.getOptions().isMultipleAffectations()) {
-                    if (i_ + 1 < len_) {
-                        char next_ = _string.charAt(i_ + 1);
-                        if (next_ == EQ_CHAR) {
-                            i_++;
-                        }
-                    }
+                    compound_ = true;
                 }
                 if (compound_) {
                     if (i_ + 1 < len_) {
@@ -1138,8 +1133,7 @@ public final class ElResolver {
                             }
                         }
                     }
-                }
-                if (curChar_ == EQ_CHAR && _conf.getOptions().applyEqPlus()) {
+                } else if (curChar_ == EQ_CHAR && _conf.getOptions().applyEqPlus()) {
                     if (i_ + 1 < len_) {
                         char next_ = _string.charAt(i_ + 1);
                         if (next_ == PLUS_CHAR) {

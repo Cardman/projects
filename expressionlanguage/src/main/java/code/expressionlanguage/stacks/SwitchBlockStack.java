@@ -1,13 +1,14 @@
 package code.expressionlanguage.stacks;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
-import code.util.CustList;
 
 public final class SwitchBlockStack extends SwitchStack implements BreakableBlockStack, RemovableVars {
 
-    private final CustList<BracedBlock> blocks = new CustList<BracedBlock>();
-
     private BracedBlock block;
+
+    private BracedBlock curentVisitedBlock;
+
+    private BracedBlock lastVisitedBlock;
 
     @Override
     public BracedBlock getBlock() {
@@ -18,19 +19,13 @@ public final class SwitchBlockStack extends SwitchStack implements BreakableBloc
     public void setBlock(BracedBlock _block) {
         block = _block;
     }
-    public BracedBlock firstVisitedBlock() {
-        return blocks.first();
-    }
-    public BracedBlock lastVisitedBlock() {
-        return blocks.last();
-    }
 
     public BracedBlock getCurentVisitedBlock() {
-        return blocks.get(getVisitedBlock());
+        return curentVisitedBlock;
     }
 
-    public CustList<BracedBlock> getBlocks() {
-        return blocks;
+    public void setCurentVisitedBlock(BracedBlock _curentVisitedBlock) {
+        curentVisitedBlock = _curentVisitedBlock;
     }
 
     @Override
@@ -48,6 +43,14 @@ public final class SwitchBlockStack extends SwitchStack implements BreakableBloc
     @Override
     public BracedBlock getCurrentVisitedBlock() {
         return getBlock();
+    }
+
+    public BracedBlock getLastVisitedBlock() {
+        return lastVisitedBlock;
+    }
+
+    public void setLastVisitedBlock(BracedBlock _lastVisitedBlock) {
+        lastVisitedBlock = _lastVisitedBlock;
     }
 
     @Override

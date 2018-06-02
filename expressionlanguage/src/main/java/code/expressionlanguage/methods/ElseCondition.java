@@ -1,11 +1,11 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -48,28 +48,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
     }
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        Block prev_ = getPreviousSibling();
-        boolean existIf_ = false;
-        while (prev_ != null) {
-            if (prev_ instanceof ElseIfCondition) {
-                prev_ = prev_.getPreviousSibling();
-                continue;
-            }
-            existIf_ = prev_ instanceof IfCondition;
-            break;
-        }
-        if (!existIf_ || getFirstChild() == null) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-    }
 
     @Override
     public String getLabel() {
@@ -93,26 +71,14 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = new AssignmentBefore();
-            if (ba_.isAssignedAfterWhenFalse()) {
-                ab_.setAssignedBefore(true);
-            }
-            if (ba_.isUnassignedAfterWhenFalse()) {
-                ab_.setUnassignedBefore(true);
-            }
+            AssignmentBefore ab_ = ba_.copyWhenFalse();
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
         }
         for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
                 BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = new AssignmentBefore();
-                if (ba_.isAssignedAfterWhenFalse()) {
-                    ab_.setAssignedBefore(true);
-                }
-                if (ba_.isUnassignedAfterWhenFalse()) {
-                    ab_.setUnassignedBefore(true);
-                }
+                AssignmentBefore ab_ = ba_.copyWhenFalse();
                 sm_.put(e.getKey(), ab_);
             }
             assBl_.getVariablesRootBefore().add(sm_);
@@ -169,14 +135,37 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
+        Block ch_ = getFirstChild();
+        if (ch_ == null) {
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
+            return;
+        }
+        Block pBlock_ = getPreviousSibling();
+        if (!(pBlock_ instanceof IfCondition)) {
+            if (!(pBlock_ instanceof ElseIfCondition)) {
+                UnexpectedTagName un_ = new UnexpectedTagName();
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                _an.getClasses().getErrorsDet().add(un_);
+            }
+        }
         CustList<Block> prev_ = new CustList<Block>();
         prev_.add(this);
-        Block pBlock_ = getPreviousSibling();
         while (!(pBlock_ instanceof IfCondition)) {
-            prev_.add(pBlock_);
+            if (pBlock_ == null) {
+                break;
+            }
+            if (pBlock_ instanceof ElseIfCondition) {
+                prev_.add(pBlock_);
+            }
             pBlock_ = pBlock_.getPreviousSibling();
         }
-        prev_.add(pBlock_);
+        if (pBlock_ != null) {
+            prev_.add(pBlock_);
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(this);
@@ -190,48 +179,42 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
             boolean assAfter_ = true;
             boolean unassAfter_ = true;
             for (Block p: prev_) {
-                if (!_anEl.canCompleteNormally(p)) {
-                    continue;
+                if (_anEl.canCompleteStrictNormally(p)) {
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                        assAfter_ = false;
+                        break;
+                    }
                 }
-                AssignedVariables assLoc_ = id_.getVal(p);
-                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                    assAfter_ = false;
-                    break;
-                }
-                if (assAfter_) {
-                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                        if (b.getValue() != p) {
-                            continue;
-                        }
-                        AssignedVariables assBr_ = id_.getVal(b.getKey());
-                        if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
-                            assAfter_ = false;
-                            break;
-                        }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != p) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                        assAfter_ = false;
+                        break;
                     }
                 }
             }
             for (Block p: prev_) {
-                if (!_anEl.canCompleteNormally(p)) {
-                    continue;
+                if (_anEl.canCompleteStrictNormally(p)) {
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                        unassAfter_ = false;
+                        break;
+                    }
                 }
-                AssignedVariables assLoc_ = id_.getVal(p);
-                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                    unassAfter_ = false;
-                    break;
-                }
-                if (unassAfter_) {
-                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                        if (b.getValue() != p) {
-                            continue;
-                        }
-                        AssignedVariables assBr_ = id_.getVal(b.getKey());
-                        if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
-                            unassAfter_ = false;
-                            break;
-                        }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != p) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                        unassAfter_ = false;
+                        break;
                     }
                 }
             }
@@ -246,48 +229,42 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
                 boolean assAfter_ = true;
                 boolean unassAfter_ = true;
                 for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
+                    if (_anEl.canCompleteStrictNormally(p)) {
+                        AssignedVariables assLoc_ = id_.getVal(p);
+                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                            assAfter_ = false;
+                            break;
+                        }
                     }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                        assAfter_ = false;
-                        break;
-                    }
-                    if (assAfter_) {
-                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                            if (b.getValue() != p) {
-                                continue;
-                            }
-                            AssignedVariables assBr_ = id_.getVal(b.getKey());
-                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
-                                assAfter_ = false;
-                                break;
-                            }
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
+                            assAfter_ = false;
+                            break;
                         }
                     }
                 }
                 for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
+                    if (_anEl.canCompleteStrictNormally(p)) {
+                        AssignedVariables assLoc_ = id_.getVal(p);
+                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                            unassAfter_ = false;
+                            break;
+                        }
                     }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                        unassAfter_ = false;
-                        break;
-                    }
-                    if (unassAfter_) {
-                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                            if (b.getValue() != p) {
-                                continue;
-                            }
-                            AssignedVariables assBr_ = id_.getVal(b.getKey());
-                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
-                                unassAfter_ = false;
-                                break;
-                            }
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
+                            unassAfter_ = false;
+                            break;
                         }
                     }
                 }
@@ -308,7 +285,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if_.setVisitedBlock(getIndexInGroup());
+        if_.setCurentVisitedBlock(this);
         if (!if_.isEntered()) {
             if_.setEntered(true);
             ip_.getReadWrite().setBlock(getFirstChild());
@@ -333,9 +310,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
         Block p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
-            p_ = p_.getPreviousSibling();
-        }
         if (_anEl.isReachable(p_) && p_.accessibleForNext()) {
             _anEl.reach(this);
         } else {

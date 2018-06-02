@@ -125,12 +125,13 @@ public final class PrimitiveTypeUtil {
         indexesArray_.put(new Numbers<Integer>(), output_);
         int glDim_ = _dims.size();
         int i_ = CustList.FIRST_INDEX;
+        Struct defClass_ = StdStruct.defaultClass(_className, _cont);
         for (int i : _dims) {
             dims_.add(i);
             glDim_--;
             if (glDim_ == 0) {
                 for (Numbers<Integer> k: dims_.getAllIndexes()) {
-                    indexesArray_.put(k, StdStruct.defaultClass(_className, _cont));
+                    indexesArray_.put(k, defClass_);
                 }
                 continue;
             }

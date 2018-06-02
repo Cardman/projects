@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -110,9 +111,36 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        OperationNode last_ = children_.last();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        if (children_.isEmpty()) {
+            CustList<StringMap<AssignmentBefore>> variablesAfterLast_ = vars_.getVariablesRootBefore();
+            for (StringMap<AssignmentBefore> s: variablesAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    BooleanAssignment s_ = new BooleanAssignment();
+                    s_.setAssignedAfterWhenFalse(true);
+                    s_.setUnassignedAfterWhenFalse(true);
+                    s_.setAssignedAfterWhenTrue(true);
+                    s_.setUnassignedAfterWhenTrue(true);
+                    sm_.put(e.getKey(), s_);
+                }
+                variablesAfter_.add(sm_);
+            }
+            vars_.getVariables().put(this, variablesAfter_);
+            ObjectMap<ClassField,AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
+            for (EntryCust<ClassField, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
+                BooleanAssignment s_ = new BooleanAssignment();
+                s_.setAssignedAfterWhenFalse(true);
+                s_.setUnassignedAfterWhenFalse(true);
+                s_.setAssignedAfterWhenTrue(true);
+                s_.setUnassignedAfterWhenTrue(true);
+                fieldsAfter_.put(e.getKey(), s_);
+            }
+            vars_.getFields().put(this, fieldsAfter_);
+            return;
+        }
+        OperationNode last_ = children_.last();
         ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {

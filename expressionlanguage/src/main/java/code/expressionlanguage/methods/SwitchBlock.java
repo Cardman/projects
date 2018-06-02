@@ -58,6 +58,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         labelOffset = _label.getOffset();
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
@@ -92,29 +93,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
 
     public CustList<OperationNode> getOpValue() {
         return opValue;
-    }
-
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        Block first_ = getFirstChild();
-        while (first_ != null) {
-            Block elt_ = first_;
-            if (elt_ instanceof CaseCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            if (elt_ instanceof DefaultCondition) {
-                first_ = first_.getNextSibling();
-                continue;
-            }
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
     }
 
     @Override
@@ -170,6 +148,24 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 }
             }
         }
+        Block first_ = getFirstChild();
+        while (first_ != null) {
+            Block elt_ = first_;
+            if (elt_ instanceof CaseCondition) {
+                first_ = first_.getNextSibling();
+                continue;
+            }
+            if (elt_ instanceof DefaultCondition) {
+                first_ = first_.getNextSibling();
+                continue;
+            }
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
+            page_.setOffset(0);
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
+        }
     }
 
     @Override
@@ -212,7 +208,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     _an.getClasses().getErrorsDet().add(un_);
                 }
                 def_ = true;
-            } else {
+            } else if (ch_ instanceof CaseCondition){
                 CaseCondition case_ = (CaseCondition) ch_;
                 OperationNode root_ = case_.getOpValue().last();
                 Argument arg_ = root_.getArgument();
@@ -234,7 +230,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 _an.getClasses().getErrorsDet().add(un_);
             }
             def_ = true;
-        } else {
+        } else if (ch_ instanceof CaseCondition) {
             CaseCondition case_ = (CaseCondition) ch_;
             OperationNode root_ = case_.getOpValue().last();
             Argument arg_ = root_.getArgument();
@@ -432,13 +428,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 return;
             }
         }
-        SwitchBlockStack if_ = new SwitchBlockStack();
-        Block n_ = getFirstChild();
-        while (n_ != null) {
-            if_.getBlocks().add((BracedBlock)n_);
-            n_ = n_.getNextSibling();
-        }
-        if_.setBlock(this);
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         ip_.setGlobalOffset(valueOffset);
         ip_.setOffset(0);
@@ -446,13 +435,21 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         if (_cont.callsOrException()) {
             return;
         }
-        el_.setCurrentOper(null);
         ip_.clearCurrentEls();
-        if_.setStruct(arg_.getStruct());
+        SwitchBlockStack if_ = new SwitchBlockStack();
+        Block n_ = getFirstChild();
+        CustList<BracedBlock> children_;
+        children_ = new CustList<BracedBlock>();
+        while (n_ != null) {
+            children_.add((BracedBlock)n_);
+            if_.setLastVisitedBlock((BracedBlock) n_);
+            n_ = n_.getNextSibling();
+        }
+        if_.setBlock(this);
         Block def_ = null;
         boolean found_ = false;
         if (arg_.isNull()) {
-            for (Block b: if_.getBlocks()) {
+            for (Block b: children_) {
                 if (!(b instanceof CaseCondition)) {
                     def_ = b;
                     continue;
@@ -469,7 +466,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             }
         } else if (enumTest) {
             EnumerableStruct en_ = (EnumerableStruct) arg_.getStruct();
-            for (Block b: if_.getBlocks()) {
+            for (Block b: children_) {
                 if (!(b instanceof CaseCondition)) {
                     def_ = b;
                     continue;
@@ -486,7 +483,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 rw_.setBlock(c_);
             }
         } else {
-            for (Block b: if_.getBlocks()) {
+            for (Block b: children_) {
                 if (!(b instanceof CaseCondition)) {
                     def_ = b;
                     continue;

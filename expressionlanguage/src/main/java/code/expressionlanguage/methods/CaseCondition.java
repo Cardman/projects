@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
@@ -21,7 +20,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
 import code.util.CustList;
@@ -77,20 +75,6 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
     @Override
     boolean isAlwaysExitable() {
         return getFirstChild() == null || !isPossibleSkipNexts();
-    }
-
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        BracedBlock b_ = getParent();
-        if (!(b_ instanceof SwitchBlock)) {
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
     }
 
     boolean isPossibleSkipNexts() {
@@ -231,7 +215,17 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             }
         }
         String resCase_ = opValue.last().getResultClass().getName();
-        SwitchBlock sw_ = (SwitchBlock) getParent();
+        BracedBlock par_ = getParent();
+        if (!(par_ instanceof SwitchBlock)) {
+            page_.setGlobalOffset(getOffset().getOffsetTrim());
+            page_.setOffset(0);
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
+            return;
+        }
+        SwitchBlock sw_ = (SwitchBlock) par_;
         String resSwitch_ = sw_.getOpValue().last().getResultClass().getName();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -280,13 +274,10 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         AbstractPageEl ip_ = _cont.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack sw_ = (SwitchBlockStack) ip_.getLastStack();
-        Struct str_ = sw_.getStruct();
-        Argument virtualArg_ = new Argument();
-        virtualArg_.setStruct(str_);
-        sw_.setVisitedBlock(getIndexInGroup());
+        sw_.setCurentVisitedBlock(this);
         if (sw_.isEntered()) {
             if (!hasChildNodes()) {
-                if (sw_.lastVisitedBlock() == this) {
+                if (sw_.getLastVisitedBlock() == this) {
                     sw_.setFinished(true);
                     rw_.setBlock(sw_.getBlock());
                     return;
@@ -302,7 +293,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             if (hasChildNodes()) {
                 sw_.setEntered(true);
             } else {
-                if (sw_.lastVisitedBlock() != this) {
+                if (sw_.getLastVisitedBlock() != this) {
                     sw_.setEntered(true);
                     rw_.setBlock(getNextSibling());
                     return;
@@ -322,7 +313,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         SwitchBlockStack if_ = (SwitchBlockStack) ip_.getLastStack();
-        if (if_.lastVisitedBlock() == this) {
+        if (if_.getLastVisitedBlock() == this) {
             if_.setFinished(true);
             rw_.setBlock(if_.getBlock());
         } else {

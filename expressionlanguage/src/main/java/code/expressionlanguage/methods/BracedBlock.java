@@ -39,7 +39,6 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             if (sibling_ == null) {
                 _child.setPreviousSibling(child_);
                 child_.setNextSibling(_child);
-                child_.setupNextSiblingGroup();
                 return;
             }
             child_ = sibling_;
@@ -112,11 +111,11 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             ass_.getVariablesRoot().addAllElts(afterVars_);
             return;
         }
-        if (!_anEl.canCompleteNormally(this)) {
-            return;
-        }
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
+        }
+        if (!_anEl.canCompleteNormallyGroup(ch_)) {
+            return;
         }
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(ch_);

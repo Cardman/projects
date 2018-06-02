@@ -67,21 +67,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
     }
 
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        BracedBlock b_ = getParent();
-        while (b_ != null) {
-            if (b_ instanceof FunctionBlock) {
-                return;
-            }
-            b_ = b_.getParent();
-        }
-        UnexpectedTagName un_ = new UnexpectedTagName();
-        un_.setFileName(getFile().getFileName());
-        un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-        _cont.getClasses().getErrorsDet().add(un_);
-    }
-
-    @Override
     public NatTreeMap<String,String> getClassNames(ContextEl _context) {
         NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
         return tr_;
@@ -128,6 +113,13 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             if (isEmpty()) {
                 return;
             }
+        }
+        if (f_ == null) {
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _cont.getClasses().getErrorsDet().add(un_);
+            return;
         }
         _cont.setRootAffect(false);
         opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));

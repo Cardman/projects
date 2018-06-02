@@ -43,7 +43,6 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
@@ -138,17 +137,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return accessOffset;
     }
 
-    public Struct getDefaultStruct(ContextEl _cont) {
-        if (value.trim().isEmpty()) {
-            return StdStruct.defaultClass(className, _cont);
-        }
-        ExpressionLanguage el_ = getValueEl();
-        if (el_.isAlwaysCalculated()) {
-            return el_.getConstValue();
-        }
-        return StdStruct.defaultClass(className, _cont);
-    }
-
     @Override
     public AccessEnum getAccess() {
         return access;
@@ -187,20 +175,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
+    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         if (!(getParent() instanceof RootBlock)) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().getErrorsDet().add(un_);
+            return;
         }
-    }
-
-    @Override
-    public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {

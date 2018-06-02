@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
@@ -143,16 +142,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode lastChild_ = getChildrenNodes().last();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
-        OperationsSequence op_ = firstChild_.getOperations();
         LgNames lgNames_ = _conf.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
         isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-        if (op_.getConstType() == ConstType.LOC_VAR) {
-            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-            String str_ = originalStr_.trim();
+        if (firstChild_ instanceof VariableOperation) {
+            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
+            String str_ = ((VariableOperation)firstChild_).getVariableName();
             for (StringMap<Assignment> s: variablesAfterLast_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 int index_ = variablesAfter_.size();
@@ -182,6 +178,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             
         } else {
+            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
             for (StringMap<Assignment> s: variablesAfterLast_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
@@ -203,8 +200,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 } else {
                     int index_ = cst_.getIndexChild() - 1;
                     OperationNode opPr_ = cst_.getParent().getChildrenNodes().get(index_);
-                    OperationsSequence opPrev_ = opPr_.getOperations();
-                    if (opPrev_.getConstType() == ConstType.THIS_KEYWORD) {
+                    if (opPr_ instanceof ThisOperation) {
                         if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
                             procField_ = true;
                         }
@@ -222,6 +218,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         if (procFinalField_) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
+            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 if (!e.getValue().isUnassignedAfter() && cl_.eq(e.getKey())) {
                     ClassMetaInfo meta_ = _conf.getClassMetaInfo(cl_.getClassName());
@@ -239,6 +236,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         if (procField_) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
+            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 if (cl_.eq(e.getKey()) || e.getValue().isAssignedAfter()) {
                     fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
@@ -249,6 +247,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 }
             }
         } else {
+            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
             }

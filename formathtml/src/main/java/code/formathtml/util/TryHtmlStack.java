@@ -12,6 +12,16 @@ public final class TryHtmlStack extends TryStack implements BlockHtml{
 
     private Element finallyNode;
 
+    private int visitedCatch = CustList.INDEX_NOT_FOUND_ELT;
+
+    public int getVisitedCatch() {
+        return visitedCatch;
+    }
+
+    public void setVisitedCatch(int _visitedCatch) {
+        visitedCatch = _visitedCatch;
+    }
+
     public Element getLastCatchNode() {
         return catchNodes.last();
     }

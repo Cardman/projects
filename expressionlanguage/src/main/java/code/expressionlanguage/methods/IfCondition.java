@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
@@ -43,6 +42,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         labelOffset = _label.getOffset();
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
@@ -70,18 +70,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
     }
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        if (getFirstChild() == null) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffset());
-            page_.setOffset(0);
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-    }
 
     @Override
     boolean canBeIncrementedNextGroup() {
@@ -103,26 +91,14 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
         for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = new AssignmentBefore();
-            if (ba_.isAssignedAfterWhenTrue()) {
-                ab_.setAssignedBefore(true);
-            }
-            if (ba_.isUnassignedAfterWhenTrue()) {
-                ab_.setUnassignedBefore(true);
-            }
+            AssignmentBefore ab_ = ba_.copyWhenTrue();
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
         }
         for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
                 BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = new AssignmentBefore();
-                if (ba_.isAssignedAfterWhenTrue()) {
-                    ab_.setAssignedBefore(true);
-                }
-                if (ba_.isUnassignedAfterWhenTrue()) {
-                    ab_.setUnassignedBefore(true);
-                }
+                AssignmentBefore ab_ = ba_.copyWhenTrue();
                 sm_.put(e.getKey(), ab_);
             }
             assBl_.getVariablesRootBefore().add(sm_);
@@ -170,10 +146,17 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
+        Block ch_ = getFirstChild();
+        if (ch_ == null) {
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
+            return;
+        }
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        Block ch_ = getFirstChild();
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
         }
@@ -193,13 +176,13 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
             boolean assAfter_ = ab_.isAssignedAfter();
             boolean unassAfter_ = ab_.isUnassignedAfter();
+            if (assAfter_) {
+                assAfter_ = condBa_.isAssignedAfterWhenFalse();
+            }
+            if (unassAfter_) {
+                unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+            }
             if (_anEl.canCompleteNormallyGroup(ch_)) {
-                if (assAfter_) {
-                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
-                }
-                if (unassAfter_) {
-                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
-                }
                 if (assAfter_) {
                     for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
                         if (b.getValue() != this) {
@@ -237,13 +220,13 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                 BooleanAssignment condBa_ = varsCond_.get(index_).getVal(key_);
                 boolean assAfter_ = ab_.isAssignedAfter();
                 boolean unassAfter_ = ab_.isUnassignedAfter();
+                if (assAfter_) {
+                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
+                }
+                if (unassAfter_) {
+                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
+                }
                 if (_anEl.canCompleteNormallyGroup(ch_)) {
-                    if (assAfter_) {
-                        assAfter_ = condBa_.isAssignedAfterWhenFalse();
-                    }
-                    if (unassAfter_) {
-                        unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
-                    }
                     if (assAfter_) {
                         for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
                             if (b.getValue() != this) {
@@ -349,23 +332,22 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                 return;
             }
         }
-        IfBlockStack if_ = new IfBlockStack();
-        if_.getBlocks().add(this);
-        int index_ = getIndexGroup();
-        Block n_ = getNextSibling();
-        while (n_ != null) {
-            if (n_.getIndexGroup() != index_) {
-                break;
-            }
-            if_.getBlocks().add((BracedBlock)n_);
-            n_ = n_.getNextSibling();
-        }
-        if_.setBlock(this);
-        if_.setVisitedBlock(CustList.FIRST_INDEX);
         Boolean assert_ = evaluateCondition(_cont);
         if (assert_ == null) {
             return;
         }
+        IfBlockStack if_ = new IfBlockStack();
+        if_.setLastBlock(this);
+        Block n_ = getNextSibling();
+        while (true) {
+            if (!(n_ instanceof ElseIfCondition) && !(n_ instanceof ElseCondition)) {
+                break;
+            }
+            if_.setLastBlock((BracedBlock) n_);
+            n_ = n_.getNextSibling();
+        }
+        if_.setBlock(this);
+        if_.setCurentVisitedBlock(this);
         if (assert_) {
             ip_.addBlock(if_);
             if_.setEntered(true);

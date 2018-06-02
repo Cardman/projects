@@ -105,7 +105,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 parents_.add((BracedBlock) en_);
             }
             if (en_ != anEl_.getRoot()) {
-                tryCheckBlocksTree(en_, _cont);
                 tryBuildExpressionLanguage(en_, _cont);
             }
             if (n_ != null) {
@@ -116,7 +115,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (en_ instanceof BracedBlock) {
                 ((BracedBlock)en_).abruptGroup(_cont, anEl_);
             }
-            
+            if (en_ instanceof CatchEval) {
+                String var_ = ((CatchEval)en_).getVariableName();
+                page_.getCatchVars().removeKey(var_);
+            }
             en_.setAssignmentAfter(_cont, anEl_);
             while (true) {
                 n_ = en_.getNextSibling();

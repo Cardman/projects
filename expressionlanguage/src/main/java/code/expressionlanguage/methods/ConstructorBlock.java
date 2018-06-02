@@ -8,7 +8,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -27,7 +26,6 @@ import code.util.StringList;
 
 public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor {
 
-    private InstancingStep instancing;
     private ConstructorId constIdSameClass;
 
     private boolean implicitCallSuper;
@@ -96,7 +94,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         Block first_ = getFirstChild();
         if (!(first_ instanceof Line)) {
             implicitCallSuper = true;
-            instancing = InstancingStep.USING_SUPER;
             return;
         }
         Line l_ = (Line) first_;
@@ -104,16 +101,13 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             implicitCallSuper = true;
         }
         if (l_.isCallSuper() || l_.isCallInts()) {
-            instancing = InstancingStep.USING_SUPER;
             return;
         }
         if (l_.isCallThis()) {
             constIdSameClass = l_.getConstId();
-            instancing = InstancingStep.USING_THIS;
             return;
         }
         implicitCallSuper = true;
-        instancing = InstancingStep.USING_SUPER;
     }
 
     public boolean implicitConstr() {

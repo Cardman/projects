@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
@@ -38,6 +37,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         labelOffset = _label.getOffset();
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
@@ -57,53 +57,64 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
     }
+
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
-        page_.setOffset(0);
-        if (getFirstChild() == null) {
+    public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
+        super.setAssignmentAfter(_an, _anEl);
+        Block last_ = getFirstChild();
+        if (last_ == null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().getErrorsDet().add(un_);
         }
-        Block next_ = getNextSibling();
-        if (next_ == null) {
+        Block nextSibling_ = getNextSibling();
+        if (nextSibling_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().getErrorsDet().add(un_);
             return;
         }
-        if (!(next_ instanceof DoWhileCondition)) {
+        if (!(nextSibling_ instanceof DoWhileCondition)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(next_.getFile().getFileName());
-            un_.setRc(next_.getRowCol(0, next_.getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-            return;
-        }
-        DoWhileCondition w_ = (DoWhileCondition) next_;
-        Block after_ = w_.getFirstChild();
-        if (after_ != null) {
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(after_.getFile().getFileName());
-            un_.setRc(after_.getRowCol(0, after_.getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            un_.setFileName(nextSibling_.getFile().getFileName());
+            un_.setRc(nextSibling_.getRowCol(0, nextSibling_.getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
         }
     }
-
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
+        Block nextSibling_ = getNextSibling();
+        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        if (last_ == null) {
+            AssignedVariables parAss_ = id_.getVal(this);
+            for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+                AssignmentBefore ab_ = new AssignmentBefore();
+                ab_.setAssignedBefore(true);
+                ab_.setUnassignedBefore(true);
+                assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+            }
+            for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                    AssignmentBefore ab_ = new AssignmentBefore();
+                    ab_.setAssignedBefore(true);
+                    ab_.setUnassignedBefore(true);
+                    sm_.put(e.getKey(), ab_);
+                }
+                assBl_.getVariablesRootBefore().add(sm_);
+            }
+            id_.put(nextSibling_, assBl_);
+            return;
+        }
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables parLast_ = id_.getVal(last_);
-        Block nextSibling_ = getNextSibling();
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             AssignmentBefore ab_ = new AssignmentBefore();
             boolean contAss_ = true;
@@ -125,7 +136,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
                     contAss_ = ba_.isAssignedAfter();
                 }
                 if (contUnass_) {
-                    contUnass_ = ba_.isAssignedAfter();
+                    contUnass_ = ba_.isUnassignedAfter();
                 }
             }
             if (contAss_) {
@@ -162,7 +173,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
                             contAss_ = ba_.isAssignedAfter();
                         }
                         if (contUnass_) {
-                            contUnass_ = ba_.isAssignedAfter();
+                            contUnass_ = ba_.isUnassignedAfter();
                         }
                     }
                 }

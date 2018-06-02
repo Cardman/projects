@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
@@ -33,31 +32,6 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
     public AbstractCatchEval(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-    }
-
-    @Override
-    public final void checkBlocksTree(ContextEl _cont) {
-        Block next_ = getPreviousSibling();
-        boolean existTry_ = false;
-        while (next_ != null) {
-            if (next_ instanceof TryEval) {
-                existTry_ = true;
-                break;
-            }
-            if (!(next_ instanceof AbstractCatchEval)) {
-                break;
-            }
-            next_ = next_.getPreviousSibling();
-        }
-        if (!existTry_) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
     }
 
     @Override
@@ -132,7 +106,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 ab_.setAssignedBefore(true);
             }
             boolean unass_ = true;
-            if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteNormally(try_)) {
+            if (!e.getValue().isUnassignedAfter() && (_anEl.canCompleteStrictNormally(try_) && !finClause_)) {
                 unass_ = false;
             }
             for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -147,7 +121,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 }
                 if (f.getKey() instanceof BreakBlock) {
                     BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                    if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
+                    if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_) && lp_ != try_) {
                         continue;
                     }
                 }
@@ -188,7 +162,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                     ab_.setAssignedBefore(true);
                 }
                 boolean unass_ = true;
-                if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteNormally(try_)) {
+                if (!e.getValue().isUnassignedAfter() && (_anEl.canCompleteStrictNormally(try_) && !finClause_)) {
                     unass_ = false;
                 }
                 for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -203,7 +177,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                     }
                     if (f.getKey() instanceof BreakBlock) {
                         BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                        if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_)) {
+                        if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj((BracedBlock) try_) && lp_ != try_) {
                             continue;
                         }
                     }
@@ -243,17 +217,32 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
     @Override
     public final void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
+        Block pBlock_ = getPreviousSibling();
+        if (!(pBlock_ instanceof AbstractCatchEval)) {
+            if (!(pBlock_ instanceof TryEval)) {
+                UnexpectedTagName un_ = new UnexpectedTagName();
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                _an.getClasses().getErrorsDet().add(un_);
+            }
+        }
         if (canBeIncrementedCurGroup()) {
             return;
         }
         CustList<Block> prev_ = new CustList<Block>();
         prev_.add(this);
-        Block pBlock_ = getPreviousSibling();
         while (!(pBlock_ instanceof TryEval)) {
-            prev_.add(pBlock_);
+            if (pBlock_ == null) {
+                break;
+            }
+            if (pBlock_ instanceof Eval) {
+                prev_.add(pBlock_);
+            }
             pBlock_ = pBlock_.getPreviousSibling();
         }
-        prev_.add(pBlock_);
+        if (pBlock_ != null) {
+            prev_.add(pBlock_);
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables ass_;
         ass_ = id_.getVal(this);
@@ -268,48 +257,42 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
             boolean assAfter_ = true;
             boolean unassAfter_ = true;
             for (Block p: prev_) {
-                if (!_anEl.canCompleteNormally(p)) {
-                    continue;
+                if (_anEl.canCompleteStrictNormally(p)) {
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                        assAfter_ = false;
+                        break;
+                    }
                 }
-                AssignedVariables assLoc_ = id_.getVal(p);
-                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                    assAfter_ = false;
-                    break;
-                }
-                if (assAfter_) {
-                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                        if (b.getValue() != p) {
-                            continue;
-                        }
-                        AssignedVariables assBr_ = id_.getVal(b.getKey());
-                        if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
-                            assAfter_ = false;
-                            break;
-                        }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != p) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                        assAfter_ = false;
+                        break;
                     }
                 }
             }
             for (Block p: prev_) {
-                if (!_anEl.canCompleteNormally(p)) {
-                    continue;
+                if (_anEl.canCompleteStrictNormally(p)) {
+                    AssignedVariables assLoc_ = id_.getVal(p);
+                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                        unassAfter_ = false;
+                        break;
+                    }
                 }
-                AssignedVariables assLoc_ = id_.getVal(p);
-                ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
-                if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                    unassAfter_ = false;
-                    break;
-                }
-                if (unassAfter_) {
-                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                        if (b.getValue() != p) {
-                            continue;
-                        }
-                        AssignedVariables assBr_ = id_.getVal(b.getKey());
-                        if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
-                            unassAfter_ = false;
-                            break;
-                        }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != p) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                        unassAfter_ = false;
+                        break;
                     }
                 }
             }
@@ -324,48 +307,42 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 boolean assAfter_ = true;
                 boolean unassAfter_ = true;
                 for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
+                    if (_anEl.canCompleteStrictNormally(p)) {
+                        AssignedVariables assLoc_ = id_.getVal(p);
+                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
+                            assAfter_ = false;
+                            break;
+                        }
                     }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                    if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
-                        assAfter_ = false;
-                        break;
-                    }
-                    if (assAfter_) {
-                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                            if (b.getValue() != p) {
-                                continue;
-                            }
-                            AssignedVariables assBr_ = id_.getVal(b.getKey());
-                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
-                                assAfter_ = false;
-                                break;
-                            }
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
+                            assAfter_ = false;
+                            break;
                         }
                     }
                 }
                 for (Block p: prev_) {
-                    if (!_anEl.canCompleteNormally(p)) {
-                        continue;
+                    if (_anEl.canCompleteStrictNormally(p)) {
+                        AssignedVariables assLoc_ = id_.getVal(p);
+                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
+                        if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
+                            unassAfter_ = false;
+                            break;
+                        }
                     }
-                    AssignedVariables assLoc_ = id_.getVal(p);
-                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getVariablesRoot().get(index_);
-                    if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
-                        unassAfter_ = false;
-                        break;
-                    }
-                    if (unassAfter_) {
-                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                            if (b.getValue() != p) {
-                                continue;
-                            }
-                            AssignedVariables assBr_ = id_.getVal(b.getKey());
-                            if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
-                                unassAfter_ = false;
-                                break;
-                            }
+                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                        if (b.getValue() != p) {
+                            continue;
+                        }
+                        AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
+                            unassAfter_ = false;
+                            break;
                         }
                     }
                 }
@@ -403,11 +380,11 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack ts_ = (TryBlockStack) ip_.getLastStack();
         ts_.setException(NullStruct.NULL_VALUE);
-        if (ts_.getLastCatchBlock() == this) {
+        if (ts_.getLastBlock() == this) {
             ip_.removeLastBlock();
             processBlock(_cont);
         } else {
-            ts_.setVisitedCatch(getIndexInGroup()-1);
+            ts_.setCurrentBlock(this);
             rw_.setBlock(getNextSibling());
         }
     }
@@ -421,7 +398,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
     @Override
     public void processToFinally(AbstractPageEl _ip, TryBlockStack _stack) {
         removeLocalVars(_ip);
-        BracedBlock br_ = _stack.getLastCatchBlock();
+        BracedBlock br_ = _stack.getLastBlock();
         if (br_ instanceof FinallyEval) {
             _ip.clearCurrentEls();
             _ip.getReadWrite().setBlock(br_);

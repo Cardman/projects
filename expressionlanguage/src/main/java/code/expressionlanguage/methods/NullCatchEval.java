@@ -81,7 +81,7 @@ public final class NullCatchEval extends AbstractCatchEval {
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        NullCatchEval catch_ = (NullCatchEval) tryStack_.getCurrentCatchBlock();
+        NullCatchEval catch_ = (NullCatchEval) tryStack_.getCurrentBlock();
         rw_.setBlock(catch_);
     }
 

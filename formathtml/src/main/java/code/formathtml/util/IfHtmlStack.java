@@ -11,6 +11,8 @@ public final class IfHtmlStack extends IfStack implements BlockHtml {
 
     private Element writeNode;
 
+    private int visitedBlock = CustList.INDEX_NOT_FOUND_ELT;
+
     public void changeVisitedElement(Node _node) {
         int index_ = CustList.FIRST_INDEX;
         while (nodes.get(index_) != _node) {
@@ -47,5 +49,13 @@ public final class IfHtmlStack extends IfStack implements BlockHtml {
     @Override
     public void setWriteNode(Element _writeNode) {
         writeNode = _writeNode;
+    }
+
+    public int getVisitedBlock() {
+        return visitedBlock;
+    }
+
+    public void setVisitedBlock(int _visitedBlock) {
+        visitedBlock = _visitedBlock;
     }
 }

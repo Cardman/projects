@@ -1,14 +1,13 @@
 package code.expressionlanguage.stacks;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
-import code.util.CustList;
 
 
 public final class IfBlockStack extends IfStack implements BreakableBlockStack, RemovableVars {
 
-    private final CustList<BracedBlock> blocks = new CustList<BracedBlock>();
-
     private BracedBlock block;
+    private BracedBlock lastBlock;
+    private BracedBlock curentVisitedBlock;
 
     private boolean finished;
 
@@ -26,18 +25,19 @@ public final class IfBlockStack extends IfStack implements BreakableBlockStack, 
         return lastVisitedBlock();
     }
     public BracedBlock lastVisitedBlock() {
-        return blocks.last();
+        return lastBlock;
     }
-    public BracedBlock getCurentVisitedBlock() {
-        return blocks.get(getVisitedBlock());
+    public void setCurentVisitedBlock(BracedBlock _curentVisitedBlock) {
+        curentVisitedBlock = _curentVisitedBlock;
     }
-    public CustList<BracedBlock> getBlocks() {
-        return blocks;
+
+    public void setLastBlock(BracedBlock _lastBlock) {
+        lastBlock = _lastBlock;
     }
 
     @Override
     public void removeVarAndLoop(AbstractPageEl _ip) {
-        BracedBlock cur_ = getCurentVisitedBlock();
+        BracedBlock cur_ = getCurrentVisitedBlock();
         cur_.removeLocalVars(_ip);
         _ip.removeLastBlock();
     }
@@ -58,6 +58,6 @@ public final class IfBlockStack extends IfStack implements BreakableBlockStack, 
 
     @Override
     public BracedBlock getCurrentVisitedBlock() {
-        return blocks.get(getVisitedBlock());
+        return curentVisitedBlock;
     }
 }

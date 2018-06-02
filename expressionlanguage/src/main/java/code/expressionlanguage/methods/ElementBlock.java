@@ -102,31 +102,22 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        if (!(getParent() instanceof EnumBlock)) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-        Block previous_ = getPreviousSibling();
-        if (previous_ != null && !(previous_ instanceof ElementBlock)) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
-            page_.setGlobalOffset(getOffset().getOffsetTrim());
-            page_.setOffset(0);
-            UnexpectedTagName un_ = new UnexpectedTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-    }
-
-    @Override
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
+        if (prev_ != null && !(prev_ instanceof ElementBlock)) {
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(prev_.getFile().getFileName());
+            un_.setRc(prev_.getRowCol(0, getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
+            return;
+        }
+        if (!(getParent() instanceof EnumBlock)) {
+            UnexpectedTagName un_ = new UnexpectedTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
+            return;
+        }
         while (prev_ != null) {
             if (prev_ instanceof InitBlock) {
                 if (((InitBlock)prev_).isStaticContext() == isStaticField()) {

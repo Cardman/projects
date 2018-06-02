@@ -3,17 +3,18 @@ import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.Eval;
-import code.util.CustList;
 
 public final class TryBlockStack extends TryStack implements BreakableBlockStack, RemovableVars {
-
-    private final CustList<BracedBlock> catchBlocks = new CustList<BracedBlock>();
 
     private CallingFinally calling;
 
     private boolean finished;
 
     private BracedBlock block;
+
+    private BracedBlock lastBlock;
+
+    private Eval currentBlock;
 
     @Override
     public BracedBlock getBlock() {
@@ -26,11 +27,11 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
     }
     @Override
     public BracedBlock getLastBlock() {
-        return getLastCatchBlock();
+        return lastBlock;
     }
 
-    public BracedBlock getLastCatchBlock() {
-        return catchBlocks.last();
+    public void setLastBlock(BracedBlock _lastBlock) {
+        lastBlock = _lastBlock;
     }
 
     @Override
@@ -38,19 +39,11 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
         return (BracedBlock) getCurrentBlock();
     }
     public Eval getCurrentBlock() {
-        int index_ = getVisitedCatch();
-        if (index_ >= CustList.FIRST_INDEX) {
-            return (Eval) catchBlocks.get(index_);
-        }
-        return (Eval) getBlock();
+        return currentBlock;
     }
 
-    public BracedBlock getCurrentCatchBlock() {
-        return catchBlocks.get(getVisitedCatch());
-    }
-
-    public CustList<BracedBlock> getCatchBlocks() {
-        return catchBlocks;
+    public void setCurrentBlock(Eval _currentBlock) {
+        currentBlock = _currentBlock;
     }
 
     public CallingFinally getCalling() {

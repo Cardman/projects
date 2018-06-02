@@ -116,8 +116,6 @@ public abstract class Block extends Blockable {
     private final int indexChild;
     private int indexGroup;
 
-    private int indexInGroup;
-
     private boolean completeGroup;
 
     private SearchingReturnThrow searching;
@@ -257,17 +255,6 @@ public abstract class Block extends Blockable {
             variables_.add(sm_);
         }
         return variables_;
-    }
-    protected static void tryCheckBlocksTree(Block _block, ContextEl _cont) {
-        if (_block instanceof WithEl) {
-            _cont.getAnalyzing().setCurrentBlock(_block);
-            ((WithEl)_block).checkBlocksTree(_cont);
-            return;
-        }
-        UnexpectedTagName un_ = new UnexpectedTagName();
-        un_.setFileName(_block.getFile().getFileName());
-        un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
-        _cont.getClasses().getErrorsDet().add(un_);
     }
 
     protected static void tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
@@ -676,9 +663,6 @@ public abstract class Block extends Blockable {
     public final int getOrder() {
         return searching.getOrder();
     }
-    final SearchingReturnThrow getSearching() {
-        return searching;
-    }
     public final void setCompleteGroup() {
         if (!canBeLastOfBlockGroup()) {
             return;
@@ -712,9 +696,6 @@ public abstract class Block extends Blockable {
     abstract boolean canBeLastOfBlockGroup();
     public final int getIndexGroup() {
         return indexGroup;
-    }
-    public final int getIndexInGroup() {
-        return indexInGroup;
     }
 
     public abstract NatTreeMap<String,String> getClassNames(ContextEl _stds);
@@ -833,14 +814,6 @@ public abstract class Block extends Blockable {
 
     public final Block getNextSibling() {
         return nextSibling;
-    }
-    public final void setupNextSiblingGroup() {
-        if (canBeIncrementedCurGroup() && nextSibling.canBeIncrementedNextGroup()) {
-            nextSibling.indexGroup = indexGroup;
-            nextSibling.indexInGroup = indexInGroup + 1;
-        } else {
-            nextSibling.indexGroup = indexGroup+1;
-        }
     }
     public final int getIndexChild() {
         return indexChild;

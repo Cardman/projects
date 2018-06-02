@@ -5,8 +5,6 @@ import code.sml.RowCol;
 
 public interface WithEl {
 
-    void checkBlocksTree(ContextEl _cont);
-
     void buildExpressionLanguage(ContextEl _cont);
 
     void processEl(ContextEl _cont);

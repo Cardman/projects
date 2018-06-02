@@ -1725,7 +1725,6 @@ public final class Classes {
                     }
                     page_.setCurrentBlock(b);
                     b.setAssignmentBefore(_context, null);
-                    method_.checkBlocksTree(_context);
                     method_.buildExpressionLanguage(_context);
                     b.setAssignmentAfter(_context, null);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(b).getFieldsRoot());
@@ -1855,7 +1854,6 @@ public final class Classes {
                 if (b instanceof FieldBlock) {
                     page_.setGlobalClass(c.getValue().getGenericString());
                     FieldBlock method_ = (FieldBlock) b;
-                    method_.checkBlocksTree(_context);
                     page_.setCurrentBlock(b);
                     b.setAssignmentBefore(_context, null);
                     method_.buildExpressionLanguage(_context);
@@ -2158,7 +2156,6 @@ public final class Classes {
                     continue;
                 }
                 page_.setGlobalClass(c.getValue().getGenericString());
-                f_.checkBlocksTree(_context);
                 page_.setCurrentBlock(f_);
                 f_.setAssignmentBefore(_context, null);
                 f_.buildExpressionLanguage(_context);

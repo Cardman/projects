@@ -21,7 +21,6 @@ import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.VariableOperation;
@@ -127,6 +126,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         setAlwaysSkipped(true);
     }
 
+    @Override
     public String getLabel() {
         return label;
     }
@@ -220,10 +220,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     public ExpressionLanguage getStepEl() {
         return new ExpressionLanguage(opStep);
-    }
-
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
     }
 
     @Override
@@ -427,12 +423,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         fieldsHypot_ = makeHypothesisFields(_an);
         CustList<StringMap<AssignmentBefore>> varsHypot_;
         varsHypot_ = makeHypothesisVars(_an);
-        CustList<ContinueBlock> conts_ = new CustList<ContinueBlock>();
         for (EntryCust<ContinueBlock, Loop> e: _anEl.getContinuables().entryList()) {
             if (e.getValue() != this) {
                 continue;
             }
-            conts_.add(e.getKey());
             AssignedVariables vars_;
             vars_ = id_.getVal(e.getKey());
             for (EntryCust<ClassField,AssignmentBefore> f: vars_.getFieldsRootBefore().entryList()) {
@@ -474,22 +468,16 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
         varsWhile_.getVariablesRootBefore().clear();
         varsWhile_.getVariablesRootBefore().addAllElts(varsHypot_);
-        processFinalFields(_an, _anEl, allDesc_, fieldsHypot_, conts_);
-        processFinalVars(_an, _anEl, allDesc_, varsHypot_, conts_);
+        processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
+        processFinalVars(_an, _anEl, allDesc_, varsHypot_);
         ObjectMap<ClassField,SimpleAssignment> fieldsAfter_;
         fieldsAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         varsAfter_ = new CustList<StringMap<SimpleAssignment>>();
         for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
-            boolean ass_ = true;
-            boolean unass_ = true;
-            if (!ba_.isAssignedAfterWhenFalse()) {
-                ass_ = false;
-            }
-            if (!ba_.isUnassignedAfterWhenFalse()) {
-                unass_ = false;
-            }
+            boolean ass_ = ba_.isAssignedAfterWhenFalse();
+            boolean unass_ = ba_.isUnassignedAfterWhenFalse();
             if (!varsWhile_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
                 ass_ = false;
             }
@@ -516,14 +504,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
                 BooleanAssignment ba_ = e.getValue();
-                boolean ass_ = true;
-                boolean unass_ = true;
-                if (!ba_.isAssignedAfterWhenFalse()) {
-                    ass_ = false;
-                }
-                if (!ba_.isUnassignedAfterWhenFalse()) {
-                    unass_ = false;
-                }
+                boolean ass_ = ba_.isAssignedAfterWhenFalse();
+                boolean unass_ = ba_.isUnassignedAfterWhenFalse();
                 StringMap<AssignmentBefore> assThis_;
                 assThis_ = varsWhile_.getVariablesRootBefore().get(index_);
                 if (!assThis_.getVal(e.getKey()).isAssignedBefore()) {
@@ -559,8 +541,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
     private void processFinalFields(Analyzable _an,AnalyzingEl _anEl,
             IdMap<Block, AssignedVariables> _allDesc,
-            ObjectMap<ClassField, AssignmentBefore> _fields,
-            CustList<ContinueBlock> _conts) {
+            ObjectMap<ClassField, AssignmentBefore> _fields) {
         AssignedVariables vars_;
         for (EntryCust<ClassField,AssignmentBefore> e: _fields.entryList()) {
             if (e.getValue().isUnassignedBefore()) {
@@ -578,10 +559,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {
                 vars_ = d.getValue();
                 Block next_ = d.getKey();
-                boolean take_ = takeContinue(next_, vars_, _conts, _anEl);
-                if (!take_) {
-                    continue;
-                }
                 //next siblings of d
                 processFinalFields(next_, _an, vars_, key_);
             }
@@ -591,16 +568,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     private void processFinalFields(Block _curBlock, Analyzable _an,AssignedVariables _vars, ClassField _field) {
         for (EntryCust<OperationNode, ObjectMap<ClassField,AssignmentBefore>> f: _vars.getFieldsBefore().entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
-                if (!(f.getKey() instanceof SemiAffectationOperation)) {
-                    continue;
-                }
-                //Error
-                OperationNode cst_ = f.getKey();
-                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_an.getCurrentFileName());
-                un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
                 continue;
             }
             AffectationOperation aff_ = (AffectationOperation) f.getKey();
@@ -621,8 +588,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
     private void processFinalVars(Analyzable _an,AnalyzingEl _anEl,
             IdMap<Block, AssignedVariables> _allDesc,
-            CustList<StringMap<AssignmentBefore>> _fields,
-            CustList<ContinueBlock> _conts) {
+            CustList<StringMap<AssignmentBefore>> _fields) {
         AssignedVariables vars_;
         int index_ = 0;
         for (StringMap<AssignmentBefore> s: _fields) {
@@ -646,10 +612,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {
                     vars_ = d.getValue();
                     Block next_ = d.getKey();
-                    boolean take_ = takeContinue(next_, vars_, _conts, _anEl);
-                    if (!take_) {
-                        continue;
-                    }
                     //next siblings of d
                     processFinalVars(next_, _an, vars_, key_);
                 }
@@ -661,16 +623,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     private void processFinalVars(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore().entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
-                if (!(f.getKey() instanceof SemiAffectationOperation)) {
-                    continue;
-                }
-                //Error
-                OperationNode cst_ = f.getKey();
-                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_an.getCurrentFileName());
-                un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
                 continue;
             }
             AffectationOperation aff_ = (AffectationOperation) f.getKey();
@@ -694,33 +646,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
             _an.getClasses().getErrorsDet().add(un_);
         }
-    }
-    private boolean takeContinue(Block _b,AssignedVariables _ass, CustList<ContinueBlock> _conts, AnalyzingEl _anEl) {
-        Block next_ = _b;
-        boolean take_ = false;
-        while (next_ != null) {
-            if (next_ instanceof BracedBlock) {
-                BracedBlock possAnc_ = (BracedBlock) next_;
-                for (ContinueBlock c: _conts) {
-                    if (_anEl.getContinuablesAncestors().getVal(c).getVal(this).containsObj(possAnc_)) {
-                        take_ = true;
-                        break;
-                    }
-                }
-                if (take_) {
-                    break;
-                }
-            }
-            if (next_ instanceof ContinueBlock) {
-                take_ = true;
-                break;
-            }
-            next_ = next_.getNextSibling();
-        }
-        if (next_ == null && _b.getParent() == this) {
-            take_ = true;
-        }
-        return take_;
     }
     @Override
     boolean canBeIncrementedNextGroup() {

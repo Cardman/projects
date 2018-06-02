@@ -148,6 +148,10 @@ public final class VariableOperation extends LeafOperation implements
         vars_.getFields().put(this, assA_);
     }
 
+    public String getVariableName() {
+        return variableName;
+    }
+
     @Override
     public void tryCalculateNode(ContextEl _conf,
             EqList<SortedClassField> _list, SortedClassField _current) {

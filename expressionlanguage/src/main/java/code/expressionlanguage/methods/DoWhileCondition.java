@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
@@ -14,7 +13,6 @@ import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.VariableOperation;
@@ -54,25 +52,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
         NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
         return tr_;
-    }
-
-    @Override
-    public void checkBlocksTree(ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
-        page_.setOffset(0);
-        if (!(getPreviousSibling() instanceof DoBlock)) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
-        if (getFirstChild() != null) {
-            EmptyTagName un_ = new EmptyTagName();
-            un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
-        }
     }
 
     @Override
@@ -172,6 +151,12 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
+        if (getFirstChild() != null) {
+            EmptyTagName un_ = new EmptyTagName();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            _an.getClasses().getErrorsDet().add(un_);
+        }
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         //by do block
@@ -214,13 +199,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 allDesc_.put(e.getKey(), e.getValue());
             }
         }
-        CustList<ContinueBlock> conts_ = new CustList<ContinueBlock>();
-        for (EntryCust<ContinueBlock, Loop> e: _anEl.getContinuables().entryList()) {
-            if (e.getValue() != dBlock_) {
-                continue;
-            }
-            conts_.add(e.getKey());
-        }
         AssignedVariables vars_;
         for (EntryCust<ClassField,AssignmentBefore> e: fieldsHypot_.entryList()) {
             if (e.getValue().isUnassignedBefore()) {
@@ -238,10 +216,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
                 vars_ = d.getValue();
                 Block next_ = d.getKey();
-                boolean take_ = takeContinue(next_, vars_, conts_, _anEl);
-                if (!take_) {
-                    continue;
-                }
                 //next siblings of d
                 processFinalFields(next_, _an, vars_, key_);
             }
@@ -268,10 +242,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
                     vars_ = d.getValue();
                     Block next_ = d.getKey();
-                    boolean take_ = takeContinue(next_, vars_, conts_, _anEl);
-                    if (!take_) {
-                        continue;
-                    }
                     //next siblings of d
                     processFinalVars(next_, _an, vars_, key_);
                 }
@@ -285,14 +255,8 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         varsAfter_ = new CustList<StringMap<SimpleAssignment>>();
         for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
-            boolean ass_ = true;
-            boolean unass_ = true;
-            if (!ba_.isAssignedAfterWhenFalse()) {
-                ass_ = false;
-            }
-            if (!ba_.isUnassignedAfterWhenFalse()) {
-                unass_ = false;
-            }
+            boolean ass_ = ba_.isAssignedAfterWhenFalse();
+            boolean unass_ = ba_.isUnassignedAfterWhenFalse();
             for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
                 if (f.getValue() != dBlock_) {
                     continue;
@@ -314,14 +278,8 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             sm_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
                 BooleanAssignment ba_ = e.getValue();
-                boolean ass_ = true;
-                boolean unass_ = true;
-                if (!ba_.isAssignedAfterWhenFalse()) {
-                    ass_ = false;
-                }
-                if (!ba_.isUnassignedAfterWhenFalse()) {
-                    unass_ = false;
-                }
+                boolean ass_ = ba_.isAssignedAfterWhenFalse();
+                boolean unass_ = ba_.isUnassignedAfterWhenFalse();
                 for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
                     if (f.getValue() != dBlock_) {
                         continue;
@@ -351,16 +309,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     private void processFinalFields(Block _curBlock, Analyzable _an,AssignedVariables _vars, ClassField _field) {
         for (EntryCust<OperationNode, ObjectMap<ClassField,AssignmentBefore>> f: _vars.getFieldsBefore().entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
-                if (!(f.getKey() instanceof SemiAffectationOperation)) {
-                    continue;
-                }
-                //Error
-                OperationNode cst_ = f.getKey();
-                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_an.getCurrentFileName());
-                un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
                 continue;
             }
             AffectationOperation aff_ = (AffectationOperation) f.getKey();
@@ -382,16 +330,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     private void processFinalVars(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore().entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
-                if (!(f.getKey() instanceof SemiAffectationOperation)) {
-                    continue;
-                }
-                //Error
-                OperationNode cst_ = f.getKey();
-                cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                un_.setFileName(_an.getCurrentFileName());
-                un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
                 continue;
             }
             AffectationOperation aff_ = (AffectationOperation) f.getKey();
@@ -415,36 +353,5 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
             _an.getClasses().getErrorsDet().add(un_);
         }
-    }
-    private boolean takeContinue(Block _b,AssignedVariables _ass, CustList<ContinueBlock> _conts, AnalyzingEl _anEl) {
-        Loop pr_ = (Loop) getPreviousSibling();
-        Block next_ = _b;
-        if (next_ == this) {
-            return true;
-        }
-        boolean take_ = false;
-        while (next_ != null) {
-            if (next_ instanceof BracedBlock) {
-                BracedBlock possAnc_ = (BracedBlock) next_;
-                for (ContinueBlock c: _conts) {
-                    if (_anEl.getContinuablesAncestors().getVal(c).getVal(pr_).containsObj(possAnc_)) {
-                        take_ = true;
-                        break;
-                    }
-                }
-                if (take_) {
-                    break;
-                }
-            }
-            if (next_ instanceof ContinueBlock) {
-                take_ = true;
-                break;
-            }
-            next_ = next_.getNextSibling();
-        }
-        if (next_ == null && _b.getParent() == this) {
-            take_ = true;
-        }
-        return take_;
     }
 }

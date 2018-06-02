@@ -16,10 +16,6 @@ public abstract class Leaf extends Block implements WithEl {
     }
 
     @Override
-    public void checkBlocksTree(ContextEl _cont) {
-    }
-
-    @Override
     public final Block getFirstChild() {
         return null;
     }

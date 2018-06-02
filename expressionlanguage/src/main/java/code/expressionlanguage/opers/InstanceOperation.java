@@ -406,9 +406,8 @@ public final class InstanceOperation extends InvokingOperation {
                 args_[CustList.FIRST_INDEX] = chidren_.size();
             } else {
                 args_ = new int[chidren_.size()];
-                int i_ = CustList.FIRST_INDEX;
-                for (OperationNode o: chidren_) {
-                    Number n_ = (Number)arguments_.get(i_).getObject();
+                for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
+                    Number n_ = (Number)arguments_.get(i).getObject();
                     if (n_ == null) {
                         return;
                     }
@@ -416,8 +415,7 @@ public final class InstanceOperation extends InvokingOperation {
                     if (dim_ < 0) {
                         return;
                     }
-                    args_[i_] = dim_;
-                    i_++;
+                    args_[i] = dim_;
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());

@@ -45,6 +45,21 @@ public final class AnalyzingEl {
         return canCompleteNormally.getVal(_reach);
     }
 
+    public Boolean canCompleteStrictNormally(Block _reach) {
+        Block child_ = _reach.getFirstChild();
+        if (child_ == null) {
+            return canCompleteNormally.getVal(_reach);
+        }
+        while (true) {
+            Block next_ = child_.getNextSibling();
+            if (next_ == null) {
+                break;
+            }
+            child_ = next_;
+        }
+        return canCompleteNormallyGroup.getVal(child_);
+    }
+
     public Boolean canCompleteNormallyGroup(Block _reach) {
         return canCompleteNormallyGroup.getVal(_reach);
     }
