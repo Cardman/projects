@@ -70,6 +70,7 @@ public final class ElResolver {
     private static final String VALUES = "values";
     private static final String THIS = "this";
     private static final String THAT = "that";
+    private static final String CLASS = "class";
     private static final String NULL_REF_STRING = "null";
     private static final String TRUE_STRING = "true";
     private static final String FALSE_STRING = "false";

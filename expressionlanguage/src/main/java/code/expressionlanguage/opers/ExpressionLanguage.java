@@ -3,6 +3,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.InvokingArgumentsPair;
+import code.expressionlanguage.methods.util.StandardArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
@@ -48,7 +50,14 @@ public final class ExpressionLanguage {
         IdMap<OperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<OperationNode,ArgumentsPair>();
         for (OperationNode o: operations) {
-            ArgumentsPair a_ = new ArgumentsPair();
+            if (o instanceof InvokingOperation) {
+                ArgumentsPair a_ = new InvokingArgumentsPair();
+                a_.setArgument(o.getArgument());
+                a_.setPreviousArgument(((PossibleIntermediateDotted)o).getPreviousArgument());
+                arguments_.put(o, a_);
+                continue;
+            }
+            ArgumentsPair a_ = new StandardArgumentsPair();
             a_.setArgument(o.getArgument());
             if (o instanceof PossibleIntermediateDotted) {
                 a_.setPreviousArgument(((PossibleIntermediateDotted)o).getPreviousArgument());

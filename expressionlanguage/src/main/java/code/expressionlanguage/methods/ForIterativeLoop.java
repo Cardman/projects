@@ -552,7 +552,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             }
             ClassField key_ = e.getKey();
             ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-            FieldMetaInfo fm_ = cl_.getFields().getVal(key_.getFieldName());
+            FieldMetaInfo fm_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
             if (!fm_.isFinalField()) {
                 continue;
             }

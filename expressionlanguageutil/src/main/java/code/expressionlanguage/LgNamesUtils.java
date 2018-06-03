@@ -48,12 +48,12 @@ public class LgNamesUtils extends LgNames implements LgAdv {
     private String aliasReentrantLock;
     private String aliasLock;
     private String aliasUnlock;
-    private String aliaIsHeldByCurrentThread;
+    private String aliasIsHeldByCurrentThread;
     private String aliasAtomicBoolean;
     private String aliasAtomicInteger;
     private String aliasAtomicLong;
-    private String aliasSet;
-    private String aliasGet;
+    private String aliasSetAtomic;
+    private String aliasGetAtomic;
 
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
@@ -130,7 +130,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         methods_.put(method_.getId(), method_);
         method_ = new StandardMethod(aliasUnlock, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        method_ = new StandardMethod(aliaIsHeldByCurrentThread, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasReentrantLock, std_);
@@ -139,10 +139,10 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         fields_ = new StringMap<StandardField>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicBoolean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasGet, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAtomic, params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSet, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasSetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -157,10 +157,10 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         fields_ = new StringMap<StandardField>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicInteger, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasGet, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAtomic, params_, getAliasPrimInteger(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSet, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasSetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -175,10 +175,10 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         fields_ = new StringMap<StandardField>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicLong, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasGet, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetAtomic, params_, getAliasPrimLong(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasPrimLong());
-        method_ = new StandardMethod(aliasSet, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasSetAtomic, params_, getAliasVoid(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,stdcl_);
@@ -362,7 +362,7 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            if (StringList.quickEq(name_,aliaIsHeldByCurrentThread)) {
+            if (StringList.quickEq(name_,aliasIsHeldByCurrentThread)) {
                 ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
                 boolean held_ = re_.isHeldByCurrentThread();
                 res_.setResult(new BooleanStruct(held_));
@@ -371,13 +371,13 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         }
         if (StringList.quickEq(className_,aliasAtomicBoolean)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasGet)) {
+            if (StringList.quickEq(name_,aliasGetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) _instance.getInstance();
                 boolean held_ = re_.get();
                 res_.setResult(new BooleanStruct(held_));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSet)) {
+            if (StringList.quickEq(name_,aliasSetAtomic)) {
                 AtomicBoolean re_ = (AtomicBoolean) _instance.getInstance();
                 re_.set((Boolean)_args[0].getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -386,13 +386,13 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         }
         if (StringList.quickEq(className_,aliasAtomicInteger)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasGet)) {
+            if (StringList.quickEq(name_,aliasGetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) _instance.getInstance();
                 int held_ = re_.get();
                 res_.setResult(new IntStruct(held_));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSet)) {
+            if (StringList.quickEq(name_,aliasSetAtomic)) {
                 AtomicInteger re_ = (AtomicInteger) _instance.getInstance();
                 re_.set(((Number)_args[0].getInstance()).intValue());
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -401,13 +401,13 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         }
         if (StringList.quickEq(className_,aliasAtomicLong)) {
             String name_ = _method.getConstraints().getName();
-            if (StringList.quickEq(name_,aliasGet)) {
+            if (StringList.quickEq(name_,aliasGetAtomic)) {
                 AtomicLong re_ = (AtomicLong) _instance.getInstance();
                 long held_ = re_.get();
                 res_.setResult(new LongStruct(held_));
                 return res_;
             }
-            if (StringList.quickEq(name_,aliasSet)) {
+            if (StringList.quickEq(name_,aliasSetAtomic)) {
                 AtomicLong re_ = (AtomicLong) _instance.getInstance();
                 re_.set(((Number)_args[0].getInstance()).longValue());
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -455,5 +455,115 @@ public class LgNamesUtils extends LgNames implements LgAdv {
     }
     public void setAliasSleep(String _aliasSleep) {
         aliasSleep = _aliasSleep;
+    }
+    public String getAliasIsAlive() {
+        return aliasIsAlive;
+    }
+    public void setAliasIsAlive(String _aliasIsAlive) {
+        aliasIsAlive = _aliasIsAlive;
+    }
+    public String getAliasIsInterrupted() {
+        return aliasIsInterrupted;
+    }
+    public void setAliasIsInterrupted(String _aliasIsInterrupted) {
+        aliasIsInterrupted = _aliasIsInterrupted;
+    }
+    public String getAliasInterrupt() {
+        return aliasInterrupt;
+    }
+    public void setAliasInterrupt(String _aliasInterrupt) {
+        aliasInterrupt = _aliasInterrupt;
+    }
+    public String getAliasGetId() {
+        return aliasGetId;
+    }
+    public void setAliasGetId(String _aliasGetId) {
+        aliasGetId = _aliasGetId;
+    }
+    public String getAliasIsDaemon() {
+        return aliasIsDaemon;
+    }
+    public void setAliasIsDaemon(String _aliasIsDaemon) {
+        aliasIsDaemon = _aliasIsDaemon;
+    }
+    public String getAliasSetDaemon() {
+        return aliasSetDaemon;
+    }
+    public void setAliasSetDaemon(String _aliasSetDaemon) {
+        aliasSetDaemon = _aliasSetDaemon;
+    }
+    public String getAliasGetPriority() {
+        return aliasGetPriority;
+    }
+    public void setAliasGetPriority(String _aliasGetPriority) {
+        aliasGetPriority = _aliasGetPriority;
+    }
+    public String getAliasSetPriority() {
+        return aliasSetPriority;
+    }
+    public void setAliasSetPriority(String _aliasSetPriority) {
+        aliasSetPriority = _aliasSetPriority;
+    }
+    public String getAliasYield() {
+        return aliasYield;
+    }
+    public void setAliasYield(String _aliasYield) {
+        aliasYield = _aliasYield;
+    }
+    public String getAliasReentrantLock() {
+        return aliasReentrantLock;
+    }
+    public void setAliasReentrantLock(String _aliasReentrantLock) {
+        aliasReentrantLock = _aliasReentrantLock;
+    }
+    public String getAliasLock() {
+        return aliasLock;
+    }
+    public void setAliasLock(String _aliasLock) {
+        aliasLock = _aliasLock;
+    }
+    public String getAliasUnlock() {
+        return aliasUnlock;
+    }
+    public void setAliasUnlock(String _aliasUnlock) {
+        aliasUnlock = _aliasUnlock;
+    }
+    public String getAliasIsHeldByCurrentThread() {
+        return aliasIsHeldByCurrentThread;
+    }
+    public void setAliasIsHeldByCurrentThread(String _aliasIsHeldByCurrentThread) {
+        aliasIsHeldByCurrentThread = _aliasIsHeldByCurrentThread;
+    }
+    public String getAliasAtomicBoolean() {
+        return aliasAtomicBoolean;
+    }
+    public void setAliasAtomicBoolean(String _aliasAtomicBoolean) {
+        aliasAtomicBoolean = _aliasAtomicBoolean;
+    }
+    public String getAliasAtomicInteger() {
+        return aliasAtomicInteger;
+    }
+    public void setAliasAtomicInteger(String _aliasAtomicInteger) {
+        aliasAtomicInteger = _aliasAtomicInteger;
+    }
+    public String getAliasAtomicLong() {
+        return aliasAtomicLong;
+    }
+    public void setAliasAtomicLong(String _aliasAtomicLong) {
+        aliasAtomicLong = _aliasAtomicLong;
+    }
+    public String getAliasSetAtomic() {
+        return aliasSetAtomic;
+    }
+    public void setAliasSetAtomic(String _aliasSet) {
+        aliasSetAtomic = _aliasSet;
+    }
+
+    public String getAliasGetAtomic() {
+        return aliasGetAtomic;
+    }
+
+    public void setAliasGetAtomic(String _aliasGetAtomic) {
+        aliasGetAtomic = _aliasGetAtomic;
     }
 }

@@ -242,7 +242,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         String idType_ = getFullName();
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
-        c_ = curMeta_.getConstructors();
+        c_ = curMeta_.getConstructorsInfos();
         if (c_.isEmpty()) {
             return AccessEnum.PUBLIC;
         }

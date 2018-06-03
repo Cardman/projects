@@ -48,6 +48,11 @@ public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
     }
 
     @Override
+    public EntryCust<K, V> get(int _index) {
+        return list.get(_index);
+    }
+
+    @Override
     public boolean isCorrect() {
         return isCorrectBase();
     }

@@ -209,7 +209,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             }
             ClassField key_ = e.getKey();
             ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-            FieldMetaInfo fm_ = cl_.getFields().getVal(key_.getFieldName());
+            FieldMetaInfo fm_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
             if (!fm_.isFinalField()) {
                 continue;
             }

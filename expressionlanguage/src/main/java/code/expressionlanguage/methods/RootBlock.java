@@ -1128,7 +1128,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         String idType_ = getFullName();
         ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
-        c_ = curMeta_.getConstructors();
+        c_ = curMeta_.getConstructorsInfos();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
             ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
             b_.setupInstancingStep(_cont);
@@ -1179,7 +1179,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             return true;
         }
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> m_;
-        m_ = clMeta_.getConstructors();
+        m_ = clMeta_.getConstructorsInfos();
         if (m_.isEmpty()) {
             return true;
         }

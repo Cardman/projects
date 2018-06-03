@@ -23,6 +23,11 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     }
 
     @Override
+    public EntryCust<String,Integer> get(int _index) {
+        return tree.get(_index);
+    }
+
+    @Override
     public void putAllMap(ListableEntries<String, Integer> _m) {
         tree.putAllMap(_m);
     }

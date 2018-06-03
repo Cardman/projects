@@ -507,7 +507,7 @@ public abstract class OperationNode {
             }
             ClassMetaInfo custClass_;
             custClass_ = _cont.getClassMetaInfo(s);
-            for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
+            for (EntryCust<String, FieldMetaInfo> e: custClass_.getFieldsInfos().entryList()) {
                 if (!StringList.quickEq(e.getKey(), _name)) {
                     continue;
                 }
@@ -549,7 +549,7 @@ public abstract class OperationNode {
         String formatted_ = Templates.getFullTypeByBases(clCurName_, cl_, _cont);
         ClassMetaInfo custClass_;
         custClass_ = _cont.getClassMetaInfo(cl_);
-        FieldMetaInfo field_ = custClass_.getFields().getVal(_name);
+        FieldMetaInfo field_ = custClass_.getFieldsInfos().getVal(_name);
         FieldResult r_ = new FieldResult();
         String formattedType_ = field_.getType();
         String realType_ = formattedType_;
@@ -584,7 +584,7 @@ public abstract class OperationNode {
             }
         }
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors_;
-        constructors_ = custClass_.getConstructors();
+        constructors_ = custClass_.getConstructorsInfos();
         if (constructors_.isEmpty()) {
             if (_args.length == 0) {
                 ConstrustorIdVarArg out_;

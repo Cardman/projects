@@ -218,7 +218,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             for (EntryCust<ClassField, SimpleAssignment> f: r.getValue().entryList()) {
                 ClassField key_ = f.getKey();
                 ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
+                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
@@ -240,7 +240,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             for (EntryCust<ClassField, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
                 ClassField key_ = f.getKey();
                 ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
+                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
                 if (!finfo_.isFinalField()) {
                     continue;
                 }

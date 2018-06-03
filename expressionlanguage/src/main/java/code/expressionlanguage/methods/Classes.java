@@ -1750,7 +1750,7 @@ public final class Classes {
             for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
                 ClassField key_ = a.getKey();
                 ClassMetaInfo cl_ = _context.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFields().getVal(key_.getFieldName());
+                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
@@ -1895,7 +1895,7 @@ public final class Classes {
                     }
                     ClassMetaInfo cl_ = _context.getClassMetaInfo(curCur_);
                     String fieldName_ = key_.getFieldName();
-                    FieldMetaInfo finfo_ = cl_.getFields().getVal(fieldName_);
+                    FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(fieldName_);
                     if (!finfo_.isFinalField()) {
                         continue;
                     }

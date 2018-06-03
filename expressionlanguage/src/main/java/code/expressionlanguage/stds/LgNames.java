@@ -219,6 +219,11 @@ public abstract class LgNames {
     private StringList predefinedClasses = new StringList();
     private StringList predefinedInterfacesInitOrder = new StringList();
 
+    private String aliasClass;
+    private String aliasObjectsUtil;
+    private String aliasSameRef;
+    private String aliasGetClass;
+    private String aliasForName;
     /**Called after setters*/
     public void build() {
         StringMap<StandardField> fields_;
@@ -334,6 +339,9 @@ public abstract class LgNames {
         std_ = new StandardInterface(aliasCountable, methods_, noTypes_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasSize, params_, aliasPrimInteger, false, MethodModifier.ABSTRACT,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimInteger);
+        method_ = new StandardMethod(aliasGet, params_, aliasObject, false, MethodModifier.ABSTRACT,std_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean, false, MethodModifier.ABSTRACT,std_);
@@ -952,6 +960,14 @@ public abstract class LgNames {
         method_ = new StandardMethod(aliasOrdinal, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(aliasEnums, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasObjectsUtil, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasObject,aliasObject);
+        method_ = new StandardMethod(aliasSameRef, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasObjectsUtil, stdcl_);
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
@@ -1246,6 +1262,10 @@ public abstract class LgNames {
             }
             if (StringList.quickEq(name_, lgNames_.getAliasSize())) {
                 result_.setResult(new IntStruct(((Countable) instance_).size()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasGet())) {
+                result_.setResult(StdStruct.wrapStd(((Countable) instance_).get((Integer)argsObj_[0]), _cont));
                 return result_;
             }
         }
@@ -1559,6 +1579,12 @@ public abstract class LgNames {
         if (instance_ instanceof Displayable) {
             if (StringList.quickEq(name_, lgNames_.getAliasDisplay()) || StringList.quickEq(name_, lgNames_.getAliasToString())) {
                 result_.setResult(new StringStruct(((Displayable)instance_).display()));
+                return result_;
+            }
+        }
+        if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
+            if (StringList.quickEq(name_, lgNames_.getAliasSameRef())) {
+                result_.setResult(new BooleanStruct(args_[0].sameReference(args_[1])));
                 return result_;
             }
         }
@@ -4450,6 +4476,24 @@ public abstract class LgNames {
     }
     public void setAliasErrorInitClass(String _aliasErrorInitClass) {
         aliasErrorInitClass = _aliasErrorInitClass;
+    }
+    public String getAliasClass() {
+        return aliasClass;
+    }
+    public void setAliasClass(String _aliasClass) {
+        aliasClass = _aliasClass;
+    }
+    public String getAliasObjectsUtil() {
+        return aliasObjectsUtil;
+    }
+    public void setAliasObjectsUtil(String _aliasObjectsUtil) {
+        aliasObjectsUtil = _aliasObjectsUtil;
+    }
+    public String getAliasSameRef() {
+        return aliasSameRef;
+    }
+    public void setAliasSameRef(String _aliasSameRef) {
+        aliasSameRef = _aliasSameRef;
     }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;

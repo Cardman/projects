@@ -555,7 +555,7 @@ public abstract class SettableAbstractFieldOperation extends
             for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
                 if (procField_ && e.getKey().eq(cl_) && !e.getValue().isAssignedBefore()) {
                     ClassMetaInfo meta_ = _conf.getClassMetaInfo(cl_.getClassName());
-                    if (meta_.getFields().getVal(cl_.getFieldName()).isFinalField()) {
+                    if (meta_.getFieldsInfos().getVal(cl_.getFieldName()).isFinalField()) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

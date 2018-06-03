@@ -215,7 +215,7 @@ public final class AffectationOperation extends MethodOperation {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 if (!e.getValue().isUnassignedAfter() && cl_.eq(e.getKey())) {
                     ClassMetaInfo meta_ = _conf.getClassMetaInfo(cl_.getClassName());
-                    if (meta_.getFields().getVal(cl_.getFieldName()).isFinalField()) {
+                    if (meta_.getFieldsInfos().getVal(cl_.getFieldName()).isFinalField()) {
                         //error if final field
                         cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

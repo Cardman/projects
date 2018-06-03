@@ -569,7 +569,7 @@ public final class ElUtil {
         }
         ClassField key_ = _current.getClassField();
         ClassMetaInfo cm_ = _context.getClassMetaInfo(key_.getClassName());
-        FieldMetaInfo fm_ = cm_.getFields().getVal(key_.getFieldName());
+        FieldMetaInfo fm_ = cm_.getFieldsInfos().getVal(key_.getFieldName());
         Struct str_ = arg_.getStruct();
         str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _context);
         _current.setStruct(str_);
