@@ -1885,14 +1885,15 @@ public final class ElResolver {
             char curChar_ = _string.charAt(i_);
             if (_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
                 if (curChar_ == PAR_LEFT) {
-                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && enPars_) {
-                        operators_.clear();
-                        useFct_ = true;
-                        fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
-                        if (enabledId_) {
-                            operators_.put(i_, String.valueOf(EMPTY_STRING));
-                        } else {
+                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                        if (enPars_) {
+                            operators_.clear();
+                            useFct_ = true;
+                            fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
                             operators_.put(i_, String.valueOf(PAR_LEFT));
+                        } else if (enabledId_) {
+                            operators_.clear();
+                            operators_.put(i_, String.valueOf(EMPTY_STRING));
                         }
                     }
                     parsBrackets_.put(i_, curChar_);

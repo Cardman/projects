@@ -38,13 +38,7 @@ public final class CharStruct implements Struct {
             if (_other instanceof NumberStruct) {
                 NumberStruct other_ = (NumberStruct) _other;
                 Number nb_ = other_.getInstance();
-                if (nb_ instanceof Double) {
-                    return false;
-                }
-                if (nb_ instanceof Float) {
-                    return false;
-                }
-                return Numbers.eq(getInstance(), nb_.longValue());
+                return Numbers.eq((long)getInstance().charValue(), nb_);
             }
             return false;
         }

@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
-import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
@@ -112,12 +111,7 @@ public final class VariableOperation extends LeafOperation implements
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
         isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
-        String varName_ = EMPTY_STRING;
-        OperationsSequence op_ = getOperations();
-        if (op_.getConstType() == ConstType.LOC_VAR) {
-            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-            varName_ = originalStr_.trim();
-        }
+        String varName_ = variableName;
         if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
             varName_ = EMPTY_STRING;
         }

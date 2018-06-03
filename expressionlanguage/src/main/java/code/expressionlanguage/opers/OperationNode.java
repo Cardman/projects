@@ -352,6 +352,9 @@ public abstract class OperationNode {
             if (_op.isInstanceTest()) {
                 return new InstanceOfOperation(_index, _indexChild, _m, _op);
             }
+            if (_an.getOptions().isQuickCompare()) {
+                return new QuickCmpOperation(_index, _indexChild, _m, _op);
+            }
             return new CmpOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.EQ_PRIO) {

@@ -401,7 +401,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if (if_.lastVisitedBlock() == this) {
+        if (if_.getLastBlock() == this) {
             rw_.setBlock(this);
         } else {
             rw_.setBlock(getNextSibling());

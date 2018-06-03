@@ -57,6 +57,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         CustList<BreakableBlock> parentsBreakables_ = anEl_.getParentsBreakables();
         CustList<Loop> parentsContinuable_ = anEl_.getParentsContinuables();
         CustList<Eval> parentsReturnable_ = anEl_.getParentsReturnables();
+        StringList labels_ = anEl_.getLabels();
         if (firstChild_ == null) {
             setAssignmentBefore(_cont, anEl_);
             reach(_cont, anEl_);
@@ -115,11 +116,14 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (en_ instanceof BracedBlock) {
                 ((BracedBlock)en_).abruptGroup(_cont, anEl_);
             }
+            en_.setAssignmentAfter(_cont, anEl_);
             if (en_ instanceof CatchEval) {
                 String var_ = ((CatchEval)en_).getVariableName();
                 page_.getCatchVars().removeKey(var_);
             }
-            en_.setAssignmentAfter(_cont, anEl_);
+            if (en_ instanceof BreakableBlock && !((BreakableBlock)en_).getLabel().isEmpty()) {
+                labels_.removeLast();
+            }
             while (true) {
                 n_ = en_.getNextSibling();
                 if (n_ != null) {
@@ -163,6 +167,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 if (par_ instanceof CatchEval) {
                     String var_ = ((CatchEval)par_).getVariableName();
                     page_.getCatchVars().removeKey(var_);
+                }
+                if (par_ instanceof BreakableBlock && !((BreakableBlock)par_).getLabel().isEmpty()) {
+                    labels_.removeLast();
                 }
                 en_ = par_;
             }

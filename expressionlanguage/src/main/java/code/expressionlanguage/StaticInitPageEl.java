@@ -15,7 +15,6 @@ import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.util.StringList;
 
 public final class StaticInitPageEl extends AbstractPageEl {
@@ -29,8 +28,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
         RootBlock root_ =  classes_.getClassBody(curClassBase_);
         if (root_ instanceof UniqueRootedBlock) {
             String superClass_ = ((UniqueRootedBlock) root_).getSuperClass(_context);
-            ClassMetaInfo s_ = classes_.getClassMetaInfo(superClass_, _context);
-            if (s_ != null) {
+            if (classes_.getClassBody(superClass_) != null) {
                 InitClassState res_ = classes_.getLocks().getState(_context, superClass_);
                 if (res_ == InitClassState.NOT_YET) {
                     _context.setInitClass(new NotInitializedClass(superClass_));

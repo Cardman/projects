@@ -408,7 +408,7 @@ public abstract class NumericOperation extends MethodOperation {
     }
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
+    public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
             OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
@@ -434,7 +434,7 @@ public abstract class NumericOperation extends MethodOperation {
         vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
     }
     @Override
-    public void analyzeAssignmentAfter(Analyzable _conf) {
+    public final void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();

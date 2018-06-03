@@ -9,6 +9,7 @@ import code.util.CustList;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.ObjectMap;
+import code.util.StringList;
 
 public final class AnalyzingEl {
 
@@ -25,6 +26,7 @@ public final class AnalyzingEl {
     private IdMap<ReturnMehod, IdMap<Eval, IdList<BracedBlock>>> returnablesAncestors = new IdMap<ReturnMehod, IdMap<Eval, IdList<BracedBlock>>>();
     private IdMap<ReturnMehod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>> returnablesAncestorsCallings = new IdMap<ReturnMehod, IdMap<MemberCallingsBlock, IdList<BracedBlock>>>();
     private CustList<BracedBlock> parents = new CustList<BracedBlock>();
+    private StringList labels = new StringList();
     private CustList<BreakableBlock> parentsBreakables = new CustList<BreakableBlock>();
     private CustList<Loop> parentsContinuables = new CustList<Loop>();
     private CustList<Eval> parentsReturnables = new CustList<Eval>();
@@ -110,6 +112,10 @@ public final class AnalyzingEl {
 
     public CustList<BracedBlock> getParents() {
         return parents;
+    }
+
+    public StringList getLabels() {
+        return labels;
     }
 
     public CustList<BreakableBlock> getParentsBreakables() {

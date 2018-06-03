@@ -146,6 +146,20 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         return new ExpressionLanguage(opValue);
     }
 
+    public Struct getDefaultValue() {
+        if (!finalField) {
+            return null;
+        }
+        if (opValue == null) {
+            return null;
+        }
+        Argument arg_ = opValue.last().getArgument();
+        if (arg_ == null) {
+            return null;
+        }
+        return arg_.getStruct();
+    }
+
     public CustList<OperationNode> getOpValue() {
         return opValue;
     }

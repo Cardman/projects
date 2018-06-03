@@ -31,7 +31,6 @@ import code.util.TreeMap;
 
 public final class PrimitiveTypeUtil {
     public static final String NO_SUB_CLASS = "";
-    public static final String PRIM  = "$";
     public static final String ARR_CLASS = "[";
     private static final byte DOUBLE_CASTING = 7;
     private static final byte FLOAT_CASTING = 6;

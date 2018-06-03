@@ -36,10 +36,7 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
 
     @Override
     public BracedBlock getCurrentVisitedBlock() {
-        return (BracedBlock) getCurrentBlock();
-    }
-    public Eval getCurrentBlock() {
-        return currentBlock;
+        return (BracedBlock) currentBlock;
     }
 
     public void setCurrentBlock(Eval _currentBlock) {
@@ -56,7 +53,7 @@ public final class TryBlockStack extends TryStack implements BreakableBlockStack
 
     @Override
     public void removeVarAndLoop(AbstractPageEl _ip) {
-        getCurrentBlock().processToFinally(_ip, this);
+        currentBlock.processToFinally(_ip, this);
     }
 
     public boolean isFinished() {

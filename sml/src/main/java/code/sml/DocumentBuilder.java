@@ -929,16 +929,7 @@ public final class DocumentBuilder {
             if (!add_) {
                 if (_htmlText.charAt(iBegin_ + 1) == NUMBERED_CHAR) {
                     String strValue_ = _htmlText.substring(iBegin_ + 2, i_);
-                    int ascii_;
-                    try {
-                        ascii_ = Integer.parseInt(strValue_);
-                    } catch (NumberFormatException _0) {
-                        if (_error) {
-                            return null;
-                        }
-                        str_.append(strValue_);
-                        continue;
-                    }
+                    int ascii_ = (int) Numbers.parseLongZero(strValue_);
                     char char_ = (char) ascii_;
                     str_.append(char_);
                     i_++;

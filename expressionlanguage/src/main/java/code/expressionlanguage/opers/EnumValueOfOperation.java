@@ -11,6 +11,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -22,9 +23,7 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -195,11 +194,15 @@ public final class EnumValueOfOperation extends MethodOperation {
             return ArgumentCall.newArgument(argres_);
         }
         Classes classes_ = _conf.getClasses();
-        ClassMetaInfo custClass_ = classes_.getClassMetaInfo(className, _conf.getContextEl());
-        for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
-            if (StringList.quickEq(e.getKey(), (String) _argument.getObject())) {
+        for (Block b: Classes.getDirectChildren(classes_.getClassBody(className))) {
+            if (!(b instanceof ElementBlock)) {
+                continue;
+            }
+            ElementBlock b_ = (ElementBlock)b;
+            String fieldName_ = b_.getFieldName();
+            if (StringList.quickEq(fieldName_, (String) _argument.getObject())) {
                 Argument argres_ = new Argument();
-                argres_.setStruct(classes_.getStaticField(new ClassField(className, e.getKey())));
+                argres_.setStruct(classes_.getStaticField(new ClassField(className, fieldName_)));
                 return ArgumentCall.newArgument(argres_);
             }
         }

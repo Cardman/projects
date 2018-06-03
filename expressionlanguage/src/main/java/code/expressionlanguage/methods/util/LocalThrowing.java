@@ -8,7 +8,6 @@ import code.expressionlanguage.methods.AbstractCatchEval;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CallingFinally;
 import code.expressionlanguage.methods.CatchEval;
-import code.expressionlanguage.methods.Eval;
 import code.expressionlanguage.methods.FinallyEval;
 import code.expressionlanguage.methods.NullCatchEval;
 import code.expressionlanguage.methods.TryEval;
@@ -38,7 +37,7 @@ public final class LocalThrowing implements CallingFinally {
                 if (!(try_.getLastBlock() instanceof FinallyEval)) {
                     addFinallyClause_ = false;
                 }
-                Eval currentBlock_ = try_.getCurrentBlock();
+                Block currentBlock_ = try_.getCurrentVisitedBlock();
                 if (!(currentBlock_ instanceof TryEval)) {
                     if (!(currentBlock_ instanceof FinallyEval)) {
                         if (addFinallyClause_) {
@@ -53,17 +52,17 @@ public final class LocalThrowing implements CallingFinally {
                     bkIp_.removeLastBlock();
                     continue;
                 }
-                Block n_ = ((Block)currentBlock_).getNextSibling();
+                Block n_ = currentBlock_.getNextSibling();
                 //process try block
                 while (n_ instanceof AbstractCatchEval) {
                     if (n_ instanceof CatchEval) {
                         CatchEval ca_ = (CatchEval) n_;
                         String name_ = ca_.getClassName();
-                        Mapping mapping_ = new Mapping();
                         if (custCause_.isNull()) {
                             n_ = n_.getNextSibling();
                             continue;
                         }
+                        Mapping mapping_ = new Mapping();
                         String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
                         mapping_.setArg(excepClass_);
                         name_ = bkIp_.formatVarType(name_, _conf);

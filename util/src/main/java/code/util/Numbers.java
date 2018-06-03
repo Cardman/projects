@@ -170,6 +170,25 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         return _nb1.longValue() == _nb2.longValue();
     }
 
+    public static boolean lt(Number _nb1,Number _nb2) {
+        if (_nb1 instanceof Double || _nb1 instanceof Float) {
+            return _nb1.doubleValue() < _nb2.doubleValue();
+        }
+        if (_nb2 instanceof Double || _nb2 instanceof Float) {
+            return _nb1.doubleValue() < _nb2.doubleValue();
+        }
+        return _nb1.longValue() < _nb2.longValue();
+    }
+
+    public static boolean gt(Number _nb1,Number _nb2) {
+        if (_nb1 instanceof Double || _nb1 instanceof Float) {
+            return _nb1.doubleValue() > _nb2.doubleValue();
+        }
+        if (_nb2 instanceof Double || _nb2 instanceof Float) {
+            return _nb1.doubleValue() > _nb2.doubleValue();
+        }
+        return _nb1.longValue() > _nb2.longValue();
+    }
     public static boolean eq(long _nb1,long _nb2) {
         return _nb1 == _nb2;
     }

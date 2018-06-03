@@ -9,13 +9,12 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class CmpOperation extends AbstractCmpOperation {
+public final class QuickCmpOperation extends AbstractCmpOperation {
 
-    public CmpOperation(int _index,
+    public QuickCmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
-
 
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
@@ -62,9 +61,9 @@ public final class CmpOperation extends AbstractCmpOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = calculateLower(_one, isStringCompare(), _two);
+            arg_ = quickCalculateLower(_one, isStringCompare(), _two);
         } else {
-            arg_ = calculateGreater(_one, isStringCompare(), _two);
+            arg_ = quickCalculateGreater(_one, isStringCompare(), _two);
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {

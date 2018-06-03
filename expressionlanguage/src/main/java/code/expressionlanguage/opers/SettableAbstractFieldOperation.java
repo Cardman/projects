@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ArgumentCall;
-import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
@@ -536,8 +535,7 @@ public abstract class SettableAbstractFieldOperation extends
                 } else {
                     int index_ = getIndexChild() - 1;
                     OperationNode opPr_ = getParent().getChildrenNodes().get(index_);
-                    OperationsSequence opPrev_ = opPr_.getOperations();
-                    if (opPrev_.getConstType() == ConstType.THIS_KEYWORD) {
+                    if (opPr_ instanceof ThisOperation) {
                         if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
                             procField_ = true;
                         }

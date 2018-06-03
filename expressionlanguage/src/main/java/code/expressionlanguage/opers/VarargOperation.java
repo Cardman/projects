@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.VarargError;
@@ -87,22 +86,18 @@ public final class VarargOperation extends LeafOperation {
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
 
-        boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
         for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
             AssignmentBefore b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assignAfter(isBool_));
+            fieldsAfter_.put(e.getKey(), b_.assignAfter(false));
         }
         for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                 AssignmentBefore b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignAfter(isBool_));
+                sm_.put(e.getKey(), b_.assignAfter(false));
             }
             variablesAfter_.add(sm_);
         }

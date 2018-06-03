@@ -3427,6 +3427,61 @@ public final class ElRenderUtilTest {
         assertEq(297, (Number)res_);
     }
     @Test
+    public void processEl213Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("'1'>1i",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(true, (Boolean)res_);
+    }
+    @Test
+    public void processEl214Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("'1'<1i",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(false, (Boolean)res_);
+    }
+    @Test
+    public void processEl215Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("'1'<1i",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(false, (Boolean)res_);
+    }
+    @Test
+    public void processEl216Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("'1'>1i",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(true, (Boolean)res_);
+    }
+    @Test
+    public void processEl217Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("'1'==49i",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(true, (Boolean)res_);
+    }
+
+    @Test
+    public void processEl218Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("49i=='1'",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(true, (Boolean)res_);
+    }
+    @Test
     public void processEl213FailTest() {
         Configuration context_ = contextEl(true,false,true);
         addImportingPage(context_);

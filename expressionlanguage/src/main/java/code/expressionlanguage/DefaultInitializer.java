@@ -1,16 +1,15 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.EnumStruct;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
-import code.util.EntryCust;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -27,17 +26,27 @@ public class DefaultInitializer implements Initializer {
         ObjectMap<ClassField,Struct> fields_;
         fields_ = new ObjectMap<ClassField,Struct>();
         for (String c: allClasses_) {
-            ClassMetaInfo clMetaLoc_ = classes_.getClassMetaInfo(c, _context);
+            RootBlock clMetaLoc_ = classes_.getClassBody(c);
             if (clMetaLoc_ == null) {
                 continue;
             }
-            for (EntryCust<String, FieldMetaInfo> e: clMetaLoc_.getFields().entryList()) {
-                FieldMetaInfo fieldMeta_ = e.getValue();
-                if (fieldMeta_.isStaticField()) {
+            for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
+                if (!(b instanceof FieldBlock)) {
                     continue;
                 }
-                String fieldDeclClass_ = fieldMeta_.getType();
-                fields_.put(new ClassField(c, e.getKey()), StdStruct.defaultClass(fieldDeclClass_, _context));
+                FieldBlock f_ = (FieldBlock) b;
+                if (f_.isStaticField()) {
+                    continue;
+                }
+                Struct str_ = f_.getDefaultValue();
+                String fieldName_ = f_.getFieldName();
+                String fieldDeclClass_ = f_.getClassName();
+                ClassField key_ = new ClassField(c, fieldName_);
+                if (str_ != null) {
+                    fields_.put(key_, str_);
+                } else {
+                    fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                }
             }
         }
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);

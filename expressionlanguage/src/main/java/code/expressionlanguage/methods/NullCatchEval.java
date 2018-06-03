@@ -9,7 +9,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -80,9 +79,7 @@ public final class NullCatchEval extends AbstractCatchEval {
     public void exitStack(ContextEl _context) {
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
-        TryBlockStack tryStack_ = (TryBlockStack) ip_.getLastStack();
-        NullCatchEval catch_ = (NullCatchEval) tryStack_.getCurrentBlock();
-        rw_.setBlock(catch_);
+        rw_.setBlock(this);
     }
 
 }

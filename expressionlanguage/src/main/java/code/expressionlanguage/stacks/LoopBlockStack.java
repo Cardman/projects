@@ -20,9 +20,8 @@ public final class LoopBlockStack extends LoopStack implements BreakableBlockSta
     }
     @Override
     public void removeVarAndLoop(AbstractPageEl _ip) {
-        BracedBlock forNode_ = getBlock();
-        forNode_.removeLocalVars(_ip);
-        forNode_.removeVarAndLoop(_ip);
+        block.removeLocalVars(_ip);
+        block.removeVarAndLoop(_ip);
     }
 
     public boolean isEvaluatingKeepLoop() {
@@ -35,12 +34,12 @@ public final class LoopBlockStack extends LoopStack implements BreakableBlockSta
 
     @Override
     public BracedBlock getLastBlock() {
-        return getBlock();
+        return block;
     }
 
     @Override
     public BracedBlock getCurrentVisitedBlock() {
-        return getBlock();
+        return block;
     }
 
 }

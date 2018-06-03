@@ -11,6 +11,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -24,9 +25,7 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
@@ -171,12 +170,14 @@ public final class ValuesOperation extends LeafOperation {
             return ArgumentCall.newArgument(Argument.createVoid());
         }
         Classes classes_ = _conf.getClasses();
-        ClassMetaInfo custClass_ = classes_.getClassMetaInfo(className, _conf.getContextEl());
         CustList<Struct> enums_ = new CustList<Struct>();
-        for (EntryCust<String, FieldMetaInfo> e: custClass_.getFields().entryList()) {
-            if (e.getValue().isEnumElement()) {
-                enums_.add(classes_.getStaticField(new ClassField(className, e.getKey())));
+        for (Block b: Classes.getDirectChildren(classes_.getClassBody(className))) {
+            if (!(b instanceof ElementBlock)) {
+                continue;
             }
+            ElementBlock b_ = (ElementBlock)b;
+            String fieldName_ = b_.getFieldName();
+            enums_.add(classes_.getStaticField(new ClassField(className, fieldName_)));
         }
         Struct[] o_ = new Struct[enums_.size()];
         int i_ = CustList.FIRST_INDEX;

@@ -4,6 +4,8 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.methods.util.BadLabelName;
+import code.expressionlanguage.methods.util.DuplicateLabel;
 import code.expressionlanguage.methods.util.Metrics;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
@@ -183,6 +185,37 @@ public abstract class Block extends Blockable {
         id_.put(nextSibling_, assBl_);
     }
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
+        if (this instanceof BreakableBlock) {
+            String label_ = ((BreakableBlock)this).getLabel();
+            boolean wc_ = true;
+            for (char c: label_.toCharArray()) {
+                if (StringList.isWordChar(c)) {
+                    continue;
+                }
+                if (c == '$') {
+                    continue;
+                }
+                wc_ = false;
+                break;
+            }
+            if (!wc_) {
+                BadLabelName bad_ = new BadLabelName();
+                bad_.setName(label_);
+                bad_.setFileName(getFile().getFileName());
+                bad_.setRc(getRowCol(0, 0));
+                _an.getClasses().getErrorsDet().add(bad_);
+            } else if (!label_.isEmpty()){
+                if (_anEl.getLabels().containsStr(label_)) {
+                    DuplicateLabel dup_ = new DuplicateLabel();
+                    dup_.setId(label_);
+                    dup_.setFileName(getFile().getFileName());
+                    dup_.setRc(getRowCol(0, 0));
+                    _an.getClasses().getErrorsDet().add(dup_);
+                } else {
+                    _anEl.getLabels().add(label_);
+                }
+            }
+        }
         BracedBlock br_ = getParent();
         Block prev_ = getPreviousSibling();
         if (prev_ == null) {

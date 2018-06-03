@@ -296,8 +296,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             call_.removeBlockFinally(_context);
             return;
         }
-        FinallyEval catch_ = (FinallyEval) tryStack_.getCurrentBlock();
-        rw_.setBlock(catch_);
+        rw_.setBlock(this);
     }
 
     @Override
@@ -335,7 +334,16 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             _anEl.completeAbruptGroup(this);
             return;
         }
-        if (!_anEl.canCompleteStrictNormally(this)) {
+        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
+        boolean existBreak_ = false;
+        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+            if (b.getValue() == this) {
+                if (_anEl.isReachable(b.getKey())) {
+                    existBreak_ = true;
+                }
+            }
+        }
+        if (existBreak_) {
             //because break instructions cancel all abrupt instructions in the previous blocks
             //there exists a break instruction that break the try statement
             return;

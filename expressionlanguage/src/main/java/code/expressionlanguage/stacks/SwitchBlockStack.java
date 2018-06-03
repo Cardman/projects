@@ -37,12 +37,12 @@ public final class SwitchBlockStack extends SwitchStack implements BreakableBloc
 
     @Override
     public BracedBlock getLastBlock() {
-        return getBlock();
+        return block;
     }
 
     @Override
     public BracedBlock getCurrentVisitedBlock() {
-        return getBlock();
+        return block;
     }
 
     public BracedBlock getLastVisitedBlock() {

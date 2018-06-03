@@ -725,7 +725,17 @@ public final class FileResolver {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == BEGIN_BLOCK) {
-                    endInstruction_ = true;
+                    String tr_ = instruction_.toString().trim();
+                    if (tr_.isEmpty()) {
+                        endInstruction_ = true;
+                    } else {
+                        char lastChar_ = tr_.charAt(tr_.length() - 1);
+                        if (lastChar_ != PART_SEPARATOR) {
+                            if (lastChar_ != END_ARRAY) {
+                                endInstruction_ = true;
+                            }
+                        }
+                    }
                 }
                 //End line
             }
@@ -797,10 +807,18 @@ public final class FileResolver {
                 parentheses_.removeLast();
             }
             if (currentChar_ == BEGIN_BLOCK) {
-                braces_.add(i_);
+                if (endInstruction_) {
+                    braces_.add(i_);
+                } else {
+                    parentheses_.add(i_);
+                }
             }
             if (currentChar_ == END_BLOCK) {
-                braces_.removeLast();
+                if (endInstruction_) {
+                    braces_.removeLast();
+                } else {
+                    parentheses_.removeLast();
+                }
             }
             if (braces_.size() == 0 && currentChar_ == END_BLOCK) {
                 okType_ = true;

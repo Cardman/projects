@@ -182,30 +182,24 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             if (unassAfter_) {
                 unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
             }
-            if (_anEl.canCompleteNormallyGroup(ch_)) {
-                if (assAfter_) {
-                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                        if (b.getValue() != this) {
-                            continue;
-                        }
-                        AssignedVariables assBr_ = id_.getVal(b.getKey());
-                        if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
-                            assAfter_ = false;
-                            break;
-                        }
-                    }
+            for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                if (b.getValue() != this) {
+                    continue;
                 }
-                if (unassAfter_) {
-                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                        if (b.getValue() != this) {
-                            continue;
-                        }
-                        AssignedVariables assBr_ = id_.getVal(b.getKey());
-                        if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
-                            unassAfter_ = false;
-                            break;
-                        }
-                    }
+                AssignedVariables assBr_ = id_.getVal(b.getKey());
+                if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
+                    assAfter_ = false;
+                    break;
+                }
+            }
+            for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                if (b.getValue() != this) {
+                    continue;
+                }
+                AssignedVariables assBr_ = id_.getVal(b.getKey());
+                if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                    unassAfter_ = false;
+                    break;
                 }
             }
             after_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
@@ -226,32 +220,26 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                 if (unassAfter_) {
                     unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
                 }
-                if (_anEl.canCompleteNormallyGroup(ch_)) {
-                    if (assAfter_) {
-                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                            if (b.getValue() != this) {
-                                continue;
-                            }
-                            AssignedVariables assBr_ = id_.getVal(b.getKey());
-                            CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
-                            if (!list_.get(index_).getVal(key_).isAssignedBefore()) {
-                                assAfter_ = false;
-                                break;
-                            }
-                        }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != this) {
+                        continue;
                     }
-                    if (unassAfter_) {
-                        for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                            if (b.getValue() != this) {
-                                continue;
-                            }
-                            AssignedVariables assBr_ = id_.getVal(b.getKey());
-                            CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
-                            if (!list_.get(index_).getVal(key_).isUnassignedBefore()) {
-                                unassAfter_ = false;
-                                break;
-                            }
-                        }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
+                    if (!list_.get(index_).getVal(key_).isAssignedBefore()) {
+                        assAfter_ = false;
+                        break;
+                    }
+                }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != this) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
+                    if (!list_.get(index_).getVal(key_).isUnassignedBefore()) {
+                        unassAfter_ = false;
+                        break;
                     }
                 }
                 sm_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
@@ -354,7 +342,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             rw_.setBlock(getFirstChild());
         } else {
             ip_.addBlock(if_);
-            if (if_.lastVisitedBlock() == this) {
+            if (if_.getLastBlock() == this) {
                 return;
             }
             rw_.setBlock(getNextSibling());
@@ -366,7 +354,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         AbstractPageEl ip_ = _context.getLastPage();
         ReadWrite rw_ = ip_.getReadWrite();
         IfBlockStack if_ = (IfBlockStack) ip_.getLastStack();
-        if (if_.lastVisitedBlock() == this) {
+        if (if_.getLastBlock() == this) {
             rw_.setBlock(this);
         } else {
             rw_.setBlock(getNextSibling());

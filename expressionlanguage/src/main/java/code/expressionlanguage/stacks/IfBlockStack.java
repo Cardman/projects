@@ -22,9 +22,6 @@ public final class IfBlockStack extends IfStack implements BreakableBlockStack, 
     }
     @Override
     public BracedBlock getLastBlock() {
-        return lastVisitedBlock();
-    }
-    public BracedBlock lastVisitedBlock() {
         return lastBlock;
     }
     public void setCurentVisitedBlock(BracedBlock _curentVisitedBlock) {

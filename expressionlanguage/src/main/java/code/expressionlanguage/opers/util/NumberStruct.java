@@ -28,13 +28,7 @@ public abstract class NumberStruct implements Struct {
             if (_other instanceof CharStruct) {
                 CharStruct other_ = (CharStruct) _other;
                 Number nb_ = getInstance();
-                if (nb_ instanceof Float) {
-                    return false;
-                }
-                if (nb_ instanceof Double) {
-                    return false;
-                }
-                return Numbers.eq(nb_.longValue(), other_.getInstance());
+                return Numbers.eq(nb_, (long)other_.getInstance().charValue());
             }
             return false;
         }

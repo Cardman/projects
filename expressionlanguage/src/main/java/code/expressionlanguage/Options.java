@@ -6,6 +6,7 @@ public final class Options {
     private boolean catChars = true;
     private boolean multipleAffectations;
     private boolean initializeStaticClassFirst = true;
+    private boolean quickCompare = true;
 
     public boolean applyEqPlus() {
         if (!isMultipleAffectations()) {
@@ -44,5 +45,13 @@ public final class Options {
 
     public void setInitializeStaticClassFirst(boolean _initializeStaticClassFirst) {
         initializeStaticClassFirst = _initializeStaticClassFirst;
+    }
+
+    public boolean isQuickCompare() {
+        return quickCompare;
+    }
+
+    public void setQuickCompare(boolean _quickCompare) {
+        quickCompare = _quickCompare;
     }
 }
