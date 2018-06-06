@@ -111,21 +111,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
     }
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        CustList<Block> group_ = new CustList<Block>();
-        group_.add(this);
-        Block p_ = getPreviousSibling();
-        while (!(p_ instanceof IfCondition)) {
-            group_.add(p_);
-            p_ = p_.getPreviousSibling();
-        }
-        group_.add(p_);
-        boolean normal_ = false;
-        for (Block b: group_) {
-            if (_anEl.canCompleteNormally(b)) {
-                normal_ = true;
-            }
-        }
-        if (!canBeIncrementedCurGroup() && normal_) {
+        if (!canBeIncrementedCurGroup()) {
             super.setAssignmentBeforeNextSibling(_an, _anEl);
             return;
         }
@@ -135,25 +121,13 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         AssignedBooleanVariables assBool_ = (AssignedBooleanVariables) prevAss_;
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         for (EntryCust<ClassField, BooleanAssignment> e: assBool_.getFieldsRootAfter().entryList()) {
-            AssignmentBefore asBef_ = new AssignmentBefore();
-            if (e.getValue().isAssignedAfterWhenFalse()) {
-                asBef_.setAssignedBefore(true);
-            }
-            if (e.getValue().isUnassignedAfterWhenFalse()) {
-                asBef_.setUnassignedBefore(true);
-            }
+            AssignmentBefore asBef_ = e.getValue().copyWhenFalse();
             assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
         }
         for (StringMap<BooleanAssignment> s: assBool_.getVariablesRootAfter()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                AssignmentBefore asBef_ = new AssignmentBefore();
-                if (e.getValue().isAssignedAfterWhenFalse()) {
-                    asBef_.setAssignedBefore(true);
-                }
-                if (e.getValue().isUnassignedAfterWhenFalse()) {
-                    asBef_.setUnassignedBefore(true);
-                }
+                AssignmentBefore asBef_ = e.getValue().copyWhenFalse();
                 sm_.put(e.getKey(), asBef_);
             }
             assBl_.getVariablesRootBefore().add(sm_);

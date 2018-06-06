@@ -301,6 +301,7 @@ public final class ElResolver {
                             d_.setBadOffset(len_);
                             return d_;
                         }
+                        enabledMinus_ = false;
                         hatMethod_ = false;
                         d_.getDelCast().add(i_);
                         d_.getDelCast().add(indexParRight_);

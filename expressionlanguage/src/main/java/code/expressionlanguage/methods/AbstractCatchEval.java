@@ -75,6 +75,10 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
 
     @Override
     public final void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        if (!canBeIncrementedCurGroup()) {
+            super.setAssignmentBeforeNextSibling(_an, _anEl);
+            return;
+        }
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
         boolean finClause_ = nextSibling_ instanceof FinallyEval;
@@ -106,7 +110,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 ab_.setAssignedBefore(true);
             }
             boolean unass_ = true;
-            if (!e.getValue().isUnassignedAfter() && (_anEl.canCompleteStrictNormally(try_) && !finClause_)) {
+            if (!e.getValue().isUnassignedAfter() && (_anEl.canCompleteStrictNormally(try_) || finClause_)) {
                 unass_ = false;
             }
             for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -162,7 +166,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                     ab_.setAssignedBefore(true);
                 }
                 boolean unass_ = true;
-                if (!e.getValue().isUnassignedAfter() && (_anEl.canCompleteStrictNormally(try_) && !finClause_)) {
+                if (!e.getValue().isUnassignedAfter() && (_anEl.canCompleteStrictNormally(try_) || finClause_)) {
                     unass_ = false;
                 }
                 for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {

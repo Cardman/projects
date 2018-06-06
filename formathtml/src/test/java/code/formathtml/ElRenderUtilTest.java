@@ -3489,6 +3489,15 @@ public final class ElRenderUtilTest {
         assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
     }
     @Test
+    public void processEl219Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("6 + $($int) - $static($math).quot(8,5) - 2",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(3, (Number)res_);
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);

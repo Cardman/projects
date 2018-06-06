@@ -114,9 +114,6 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         while (ch_.getNextSibling() != null) {
             ch_ = ch_.getNextSibling();
         }
-        if (!_anEl.canCompleteNormallyGroup(ch_)) {
-            return;
-        }
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(ch_);
         ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();

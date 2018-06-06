@@ -108,7 +108,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        if (!canBeIncrementedCurGroup() && _anEl.canCompleteNormally(this)) {
+        if (!canBeIncrementedCurGroup()) {
             super.setAssignmentBeforeNextSibling(_an, _anEl);
             return;
         }
@@ -118,25 +118,13 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         AssignedBooleanVariables assBool_ = (AssignedBooleanVariables) prevAss_;
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         for (EntryCust<ClassField, BooleanAssignment> e: assBool_.getFieldsRootAfter().entryList()) {
-            AssignmentBefore asBef_ = new AssignmentBefore();
-            if (e.getValue().isAssignedAfterWhenFalse()) {
-                asBef_.setAssignedBefore(true);
-            }
-            if (e.getValue().isUnassignedAfterWhenFalse()) {
-                asBef_.setUnassignedBefore(true);
-            }
+            AssignmentBefore asBef_ = e.getValue().copyWhenFalse();
             assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
         }
         for (StringMap<BooleanAssignment> s: assBool_.getVariablesRootAfter()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                AssignmentBefore asBef_ = new AssignmentBefore();
-                if (e.getValue().isAssignedAfterWhenFalse()) {
-                    asBef_.setAssignedBefore(true);
-                }
-                if (e.getValue().isUnassignedAfterWhenFalse()) {
-                    asBef_.setUnassignedBefore(true);
-                }
+                AssignmentBefore asBef_ = e.getValue().copyWhenFalse();
                 sm_.put(e.getKey(), asBef_);
             }
             assBl_.getVariablesRootBefore().add(sm_);
@@ -157,9 +145,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        while (ch_.getNextSibling() != null) {
-            ch_ = ch_.getNextSibling();
-        }
         IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
@@ -174,8 +159,12 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             SimpleAssignment ab_ = e.getValue();
             ClassField key_ = e.getKey();
             BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
-            boolean assAfter_ = ab_.isAssignedAfter();
-            boolean unassAfter_ = ab_.isUnassignedAfter();
+            boolean assAfter_ = true;
+            boolean unassAfter_ = true;
+            if (_anEl.canCompleteStrictNormally(this)) {
+                assAfter_ = ab_.isAssignedAfter();
+                unassAfter_ = ab_.isUnassignedAfter();
+            }
             if (assAfter_) {
                 assAfter_ = condBa_.isAssignedAfterWhenFalse();
             }
@@ -212,8 +201,12 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                 SimpleAssignment ab_ = e.getValue();
                 String key_ = e.getKey();
                 BooleanAssignment condBa_ = varsCond_.get(index_).getVal(key_);
-                boolean assAfter_ = ab_.isAssignedAfter();
-                boolean unassAfter_ = ab_.isUnassignedAfter();
+                boolean assAfter_ = true;
+                boolean unassAfter_ = true;
+                if (_anEl.canCompleteStrictNormally(this)) {
+                    assAfter_ = ab_.isAssignedAfter();
+                    unassAfter_ = ab_.isUnassignedAfter();
+                }
                 if (assAfter_) {
                     assAfter_ = condBa_.isAssignedAfterWhenFalse();
                 }

@@ -14,7 +14,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -99,8 +98,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
-        boolean finClause_ = nextSibling_ instanceof FinallyEval;
-        CustList<AbstractCatchEval> catch_ = new CustList<AbstractCatchEval>();
         IdMap<Block, AssignedVariables> inners_;
         inners_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
@@ -120,7 +117,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                 ab_.setAssignedBefore(true);
             }
             boolean unass_ = true;
-            if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteStrictNormally(this)) {
+            if (!e.getValue().isUnassignedAfter()) {
                 unass_ = false;
             }
             for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -151,19 +148,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                     break;
                 }
             }
-            if (finClause_) {
-                if (unass_) {
-                    for (AbstractCatchEval c: catch_) {
-                        if (_anEl.canCompleteStrictNormally(c)) {
-                            AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
-                            if (!vars_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
-                                unass_ = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
             if (unass_) {
                 ab_.setUnassignedBefore(true);
             }
@@ -178,7 +162,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                     ab_.setAssignedBefore(true);
                 }
                 boolean unass_ = true;
-                if (!e.getValue().isUnassignedAfter() && _anEl.canCompleteStrictNormally(this)) {
+                if (!e.getValue().isUnassignedAfter()) {
                     unass_ = false;
                 }
                 for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
@@ -207,19 +191,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                     } else if (!f.getValue().getVariablesRootBefore().get(index_).getVal(e.getKey()).isUnassignedBefore()) {
                         unass_ = false;
                         break;
-                    }
-                }
-                if (finClause_) {
-                    if (unass_) {
-                        for (AbstractCatchEval c: catch_) {
-                            if (_anEl.canCompleteStrictNormally(c)) {
-                                AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
-                                if (!vars_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                                    unass_ = false;
-                                    break;
-                                }
-                            }
-                        }
                     }
                 }
                 if (unass_) {

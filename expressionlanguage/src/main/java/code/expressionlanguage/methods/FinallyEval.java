@@ -145,7 +145,11 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                     break;
                 }
             }
-            if (!ab_.isAssignedAfter() && _anEl.canCompleteStrictNormally(this) && assAfter_) {
+            if (!ab_.isAssignedAfter() && _anEl.canCompleteStrictNormally(this)) {
+                assAfter_ = false;
+            }
+            if (!assAfter_) {
+                assAfter_ = true;
                 for (Block p: prev_) {
                     if (_anEl.canCompleteStrictNormally(p)) {
                         AssignedVariables assLoc_ = _an.getAssignedVariables().getFinalVariables().getVal(p);
@@ -218,7 +222,11 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                         break;
                     }
                 }
-                if (!ab_.isAssignedAfter() && _anEl.canCompleteStrictNormally(this) && assAfter_) {
+                if (!ab_.isAssignedAfter() && _anEl.canCompleteStrictNormally(this)) {
+                    assAfter_ = false;
+                }
+                if (!assAfter_) {
+                    assAfter_ = true;
                     for (Block p: prev_) {
                         if (_anEl.canCompleteStrictNormally(p)) {
                             AssignedVariables assLoc_ = _an.getAssignedVariables().getFinalVariables().getVal(p);

@@ -498,6 +498,7 @@ public final class FileResolver {
         Numbers<Integer> braces_ = new Numbers<Integer>();
         boolean allowedComments_ = false;
         int beginDefinition_ = nextIndex_;
+        int inheritIndex_ = -1;
         while (nextIndex_ < len_) {
             currentChar_ = _file.charAt(nextIndex_);
             if (!enabledSpaces_.isOk()) {
@@ -524,21 +525,17 @@ public final class FileResolver {
             }
             if (currentChar_ == INHERIT && nbOpened_ == 0) {
                 if (foundInherit_) {
-                    superTypes_.put(nextIndex_, str_.toString());
+                    superTypes_.put(inheritIndex_, str_.toString());
                 }
                 str_.delete(0, str_.length());
                 foundInherit_ = true;
                 nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                inheritIndex_ = nextIndex_;
                 continue;
             }
             if (currentChar_ == BEGIN_BLOCK) {
                 braces_.add(nextIndex_);
                 ok_ = true;
-                if (nextIndex_ + 1 < len_) {
-                    if (_file.charAt(nextIndex_ + 1) == LINE_RETURN) {
-                        allowedComments_ = true;
-                    }
-                }
                 break;
             }
             if (currentChar_ == BEGIN_COMMENT) {
@@ -551,7 +548,7 @@ public final class FileResolver {
             nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
         }
         if (foundInherit_) {
-            superTypes_.put(nextIndex_, str_.toString());
+            superTypes_.put(inheritIndex_, str_.toString());
         }
         if (!ok_) {
             //ERROR
@@ -562,49 +559,7 @@ public final class FileResolver {
             return out_;
         }
         currentChar_ = _file.charAt(nextIndex_);
-        StringList instInitInterfaces_ = new StringList();
-        Numbers<Integer> instInitInterfacesOffset_ = new Numbers<Integer>();
         nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-        String typeBody_ = _file.substring(nextIndex_);
-        if (startsWithPrefixKeyWord(typeBody_.trim(), KEY_WORD_INTERFACES)) {
-            int begin_ = _file.indexOf(BEGIN_CALLING, nextIndex_);
-            if (begin_ < 0) {
-                //ERROR
-                return out_;
-            }
-            int end_ = _file.indexOf(END_CALLING, begin_);
-            if (end_ < 0) {
-                //ERROR
-                return out_;
-            }
-            int interfaceOffest_ = begin_ + 1;
-            String interfacesInfo_ = _file.substring(begin_ + 1, end_);
-            for (int i = begin_ + 1; i < end_; i++) {
-                updateAllowedSpaces(i, _file, enabledSpaces_);
-                if (!enabledSpaces_.isOk()) {
-                    //ERROR
-                    return out_;
-                }
-            }
-            for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
-                instInitInterfaces_.add(p);
-                instInitInterfacesOffset_.add(interfaceOffest_);
-                interfaceOffest_ += p.length() + 1;
-            }
-            nextIndex_ = end_ + 1;
-        }
-        while (nextIndex_ < len_) {
-            currentChar_ = _file.charAt(nextIndex_);
-            if (!enabledSpaces_.isOk()) {
-                //ERROR
-                return out_;
-            }
-            if (Character.isWhitespace(currentChar_)) {
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-                continue;
-            }
-            break;
-        }
         boolean commentedSingleLine_ = false;
         boolean commentedMultiLine_ = false;
         boolean constChar_ = false;
@@ -636,8 +591,6 @@ public final class FileResolver {
         } else {
             typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(beginType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
         }
-        typeBlock_.getInstInitInterfaces().addAllElts(instInitInterfaces_);
-        typeBlock_.getInstInitInterfacesOffset().addAllElts(instInitInterfacesOffset_);
         typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
         typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
         out_.setType(typeBlock_);
