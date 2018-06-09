@@ -29,6 +29,7 @@ public interface GeneType extends AccessibleBlock {
     StringList getAllGenericInterfaces(Analyzable _classes);
 
     StringMap<TypeVar> getParamTypesMap();
+    CustList<TypeVar> getParamTypesMapValues();
 
     CustList<TypeVar> getParamTypes();
     StringList getAllInterfaces();
@@ -45,5 +46,6 @@ public interface GeneType extends AccessibleBlock {
     ObjectMap<MethodId, EqList<ClassMethodId>> getAllOverridingMethods();
 
     String getFullName();
+    StringList getDirectGenericSuperTypesBuild(Analyzable _classes);
     StringList getDirectGenericSuperTypes(Analyzable _classes);
 }

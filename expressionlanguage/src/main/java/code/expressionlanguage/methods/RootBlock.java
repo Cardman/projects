@@ -12,7 +12,6 @@ import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.BadFieldName;
 import code.expressionlanguage.methods.util.BadMethodName;
-import code.expressionlanguage.methods.util.BadNumberArgMethod;
 import code.expressionlanguage.methods.util.BadParamName;
 import code.expressionlanguage.methods.util.ConstructorEdge;
 import code.expressionlanguage.methods.util.CyclicInheritingGraph;
@@ -24,7 +23,6 @@ import code.expressionlanguage.methods.util.IncompatibilityReturnType;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UndefinedSuperConstructor;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
-import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -70,6 +68,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     private final StringList directSuperTypes = new StringList();
 
     private NatTreeMap<Integer, String> rowColDirectSuperTypes;
+    private NatTreeMap<Integer, Boolean> explicitDirectSuperTypes = new NatTreeMap<Integer, Boolean>();
 
     private String realTemplateDef;
 
@@ -112,9 +111,15 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         templateDef = StringList.removeAllSpaces(_templateDef);
         rowColDirectSuperTypes = _directSuperTypes;
         idRowCol = _idRowCol;
-        for (String t: _directSuperTypes.values()) {
-            directSuperTypes.add(StringList.removeAllSpaces(t));
+        for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
+            String type_ = StringList.removeAllSpaces(t.getValue());
+            directSuperTypes.add(type_);
+            explicitDirectSuperTypes.put(t.getKey(), true);
         }
+    }
+
+    public NatTreeMap<Integer, Boolean> getExplicitDirectSuperTypes() {
+        return explicitDirectSuperTypes;
     }
 
     public StringList getStaticInitInterfaces() {
@@ -159,10 +164,18 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         return direct_;
     }
 
-    public void buildMapParamType() {
+    public void buildMapParamType(ContextEl _analyze) {
         paramTypesMap = new StringMap<TypeVar>();
+        RowCol rc_ = getRowCol(0, idRowCol);
         for (TypeVar t: paramTypes) {
-            paramTypesMap.put(t.getName(), t);
+            StringList const_ = new StringList();
+            for (String c: t.getConstraints()) {
+                const_.add(_analyze.resolveType(c,this, rc_,false, false));
+            }
+            TypeVar t_ = new TypeVar();
+            t_.setConstraints(const_);
+            t_.setName(t.getName());
+            paramTypesMap.put(t.getName(), t_);
         }
     }
 
@@ -176,21 +189,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         return CustList.INDEX_NOT_FOUND_ELT;
     }
     @Override
-    public final NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        tr_.put(idRowCol, getFullDefinition());
-        int i_ = 0;
-        String enumParam_ = _context.getStandards().getAliasEnumParam();
-        for (String t: directSuperTypes) {
-            String base_ = StringList.getAllTypes(t).first();
-            if (StringList.quickEq(base_, enumParam_)) {
-                tr_.put(-1, t);
-            } else {
-                tr_.put(rowColDirectSuperTypes.getKey(i_), t);
-                i_++;
-            }
-        }
-        return tr_;
+    public CustList<TypeVar> getParamTypesMapValues() {
+        return paramTypesMap.values();
     }
     @Override
     public StringMap<TypeVar> getParamTypesMap() {
@@ -205,12 +205,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     @Override
     public String getGenericString() {
         String base_ = getFullName();
-        if (paramTypes.isEmpty()) {
+        if (paramTypesMap.isEmpty()) {
             return base_;
         }
         StringBuilder generic_ = new StringBuilder(base_);
         StringList vars_ = new StringList();
-        for (TypeVar t:paramTypes) {
+        for (TypeVar t:paramTypesMap.values()) {
             vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         generic_.append(Templates.TEMPLATE_BEGIN);
@@ -257,105 +257,26 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         return StringList.concat(packageName_,DOT,getName());
     }
 
-    protected void validateClassNames(ContextEl _context) {
-        CustList<Block> bl_ = Classes.getDirectChildren(this);
-        for (Block b: bl_) {
-            if (b instanceof Returnable) {
-                continue;
-            }
-            if (b instanceof InfoBlock) {
-                continue;
-            }
-            if (b instanceof AloneBlock) {
-                continue;
-            }
-            //TODO intern classes
-            RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
-            String tagName_ = b.getTagName();
-            UnexpectedTagName unexp_ = new UnexpectedTagName();
-            unexp_.setFileName(getFullName());
-            unexp_.setFoundTag(tagName_);
-            unexp_.setRc(where_);
-            _context.getClasses().getErrorsDet().add(unexp_);
-            //string (class name) - row col - tag name
-        }
-    }
-
     public final void validateIds(ContextEl _context) {
-        validateClassNames(_context);
         EqList<MethodId> idMethods_ = new EqList<MethodId>();
         EqList<ConstructorId> idConstructors_ = new EqList<ConstructorId>();
         StringList idsField_ = new StringList();
         String className_ = getFullName();
-        LgNames stds_ = _context.getStandards();
-        StringMap<StringList> varsGl_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypes()) {
-            varsGl_.put(t.getName(), t.getConstraints());
-        }
-        for (EntryCust<Integer, String> n: getClassNamesOffsets(_context).entryList()) {
-            if (Numbers.eq(n.getKey().intValue(), idRowCol)) {
-                continue;
-            }
-            String classNameLoc_ = n.getValue();
-            if (!Templates.correctClassParts(classNameLoc_, varsGl_, _context)) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(classNameLoc_);
-                un_.setFileName(className_);
-                un_.setRc(getRowCol(0, n.getKey()));
-                _context.getClasses().getErrorsDet().add(un_);
-            }
-        }
         CustList<Block> bl_;
         bl_ = Classes.getDirectChildren(this);
         for (Block b: bl_) {
-            boolean staticContext_;
-            if (b instanceof MethodBlock) {
-                staticContext_ = ((MethodBlock)b).isStaticMethod();
-            } else if (b instanceof InfoBlock) {
-                staticContext_ = ((InfoBlock)b).isStaticField();
-            } else if (b instanceof ConstructorBlock) {
-                staticContext_ = false;
-            } else {
-                staticContext_ = ((AloneBlock)b).isStaticContext();
+            if (b instanceof InfoBlock) {
+                continue;
             }
-            CustList<Block> blLoc_ = Classes.getSortedDescNodes(b);
-            StringMap<StringList> vars_ = new StringMap<StringList>();
-            if (!staticContext_) {
-                for (TypeVar t: getParamTypes()) {
-                    vars_.put(t.getName(), t.getConstraints());
-                }
-            }
-            for (Block a: blLoc_) {
-                for (EntryCust<Integer, String> n: a.getClassNamesOffsets(_context).entryList()) {
-                    String classNameLoc_ = n.getValue();
-                    if (StringList.quickEq(classNameLoc_, stds_.getAliasVoid())) {
-                        if (a == b) {
-                            if (b instanceof MethodBlock) {
-                                if (!Numbers.eq(n.getKey().intValue(), ((MethodBlock)b).getReturnTypeOffset())) {
-                                    UnknownClassName un_ = new UnknownClassName();
-                                    un_.setClassName(classNameLoc_);
-                                    un_.setFileName(className_);
-                                    un_.setRc(b.getRowCol(0, n.getKey()));
-                                    _context.getClasses().getErrorsDet().add(un_);
-                                }
-                                continue;
-                            }
-                        }
-                        UnknownClassName un_ = new UnknownClassName();
-                        un_.setClassName(classNameLoc_);
-                        un_.setFileName(className_);
-                        un_.setRc(b.getRowCol(0, n.getKey()));
-                        _context.getClasses().getErrorsDet().add(un_);
-                        continue;
-                    }
-                    if (!Templates.correctClassParts(classNameLoc_, vars_, _context)) {
-                        UnknownClassName un_ = new UnknownClassName();
-                        un_.setClassName(classNameLoc_);
-                        un_.setFileName(className_);
-                        un_.setRc(b.getRowCol(0, n.getKey()));
-                        _context.getClasses().getErrorsDet().add(un_);
-                    }
-                }
+            if (!(b instanceof FunctionBlock)) {
+                //TODO intern classes
+                RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
+                String tagName_ = b.getTagName();
+                UnexpectedTagName unexp_ = new UnexpectedTagName();
+                unexp_.setFileName(getFullName());
+                unexp_.setFoundTag(tagName_);
+                unexp_.setRc(where_);
+                _context.getClasses().getErrorsDet().add(unexp_);
             }
         }
         for (Block b: bl_) {
@@ -373,15 +294,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                         _context.getClasses().getErrorsDet().add(badMeth_);
                     }
                 }
-                StringList types_ = method_.getParametersTypes();
+                StringList types_ = method_.getParametersTypes(_context);
                 boolean varArg_ = method_.isVarargs();
-                int len_ = types_.size();
                 if (name_.isEmpty()) {
                     name_ = className_;
                 }
-                String sgn_ = method_.getSignature();
                 if (method_ instanceof MethodBlock) {
-                    MethodId id_ = ((MethodBlock) method_).getId();
+                    MethodId id_ = ((MethodBlock) method_).getId(_context);
                     for (MethodId m: idMethods_) {
                         if (m.eq(id_)) {
                             RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
@@ -396,7 +315,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     idMethods_.add(id_);
                 }
                 if (method_ instanceof ConstructorBlock) {
-                    ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
+                    ConstructorId idCt_ = ((ConstructorBlock)method_).getId(_context);
                     for (ConstructorId m: idConstructors_) {
                         if (m.eq(idCt_)) {
                             RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
@@ -412,16 +331,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     idConstructors_.add(idCt_);
                 }
                 StringList l_ = method_.getParametersNames();
-                if (l_.size() != len_) {
-                    BadNumberArgMethod b_;
-                    b_ = new BadNumberArgMethod();
-                    b_.setFileName(className_);
-                    b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
-                    b_.setNbTypes(len_);
-                    b_.setNbVars(l_.size());
-                    b_.setId(sgn_);
-                    _context.getClasses().getErrorsDet().add(b_);
-                }
                 StringList seen_ = new StringList();
                 for (String v: l_) {
                     if (!StringList.isWord(v)) {
@@ -479,7 +388,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         StringList list_ = new StringList();
         StringList vars_ = new StringList();
         Classes classes_ = _classes.getClasses();
-        for (TypeVar t: getParamTypes()) {
+        for (TypeVar t: getParamTypesMap().values()) {
             vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         StringList current_;
@@ -491,7 +400,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
-                String baseType_ = StringList.getAllTypes(c).first();
+                String baseType_ = Templates.getIdFromAllTypes(c);
                 StringList superTypes_ = classes_.getClassBody(baseType_).getDirectGenericSuperTypes(_classes);
                 for (String t: superTypes_) {
                     String format_ = Templates.format(c, t, _classes);
@@ -511,23 +420,23 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         ObjectMap<MethodId, ClassMethodId> localSignatures_;
         localSignatures_ = new ObjectMap<MethodId, ClassMethodId>();
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypes()) {
+        for (TypeVar t: getParamTypesMap().values()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         LgNames stds_ = _context.getStandards();
         String objectClassName_ = stds_.getAliasObject();
-        for (TypeVar t: getParamTypes()) {
+        for (TypeVar t: getParamTypesMap().values()) {
             ObjectMap<MethodId, EqList<ClassMethodId>> signatures_;
             signatures_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
             StringList upper_ = Mapping.getAllUpperBounds(vars_, t.getName(),objectClassName_);
             for (String c: upper_) {
-                String base_ = StringList.getAllTypes(c).first();
+                String base_ = Templates.getIdFromAllTypes(c);
                 if (classesRef_.isCustomType(base_)) {
                     RootBlock r_ = classesRef_.getClassBody(base_);
                     for (EntryCust<MethodId, EqList<ClassMethodId>> e: r_.getAllOverridingMethods().entryList()) {
                         for (ClassMethodId s: e.getValue()) {
                             String c_ = s.getClassName();
-                            MethodBlock m_ = classesRef_.getMethodBodiesById(c_, s.getConstraints()).first();
+                            MethodBlock m_ = Classes.getMethodBodiesById(_context, c_, s.getConstraints()).first();
                             if (!Classes.canAccess(getFullName(), m_, _context)) {
                                 continue;
                             }
@@ -536,7 +445,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                             }
                             MethodId id_ = m_.getFormattedId(c, _context);
                             String formattedType_ = Templates.format(c, c_, _context);
-                            addClass(signatures_, id_, new ClassMethodId(formattedType_, m_.getId()));
+                            addClass(signatures_, id_, new ClassMethodId(formattedType_, m_.getId(_context)));
                         }
                     }
                 } else {
@@ -563,12 +472,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     if (m.getValue().size() > 1) {
                         for (String s: m.getValue()) {
                             MethodId id_ = defs_.getVal(s);
-                            MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s, id_).first();
+                            _context.getClasses();
+                            MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
                             IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                             err_.setFileName(getFullName());
                             err_.setRc(getRowCol(0, idRowCol));
-                            err_.setReturnType(mDer_.getReturnType(stds_));
-                            err_.setMethod(mDer_.getId());
+                            err_.setReturnType(mDer_.getReturnType(_context));
+                            err_.setMethod(mDer_.getId(_context));
                             err_.setParentClass(s);
                             _context.getClasses().getErrorsDet().add(err_);
                         }
@@ -582,12 +492,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
-                    MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
+                    _context.getClasses();
+                    MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFullName());
                     err_.setRc(getRowCol(0, idRowCol));
-                    err_.setReturnType(mDer_.getReturnType(stds_));
-                    err_.setMethod(mDer_.getId());
+                    err_.setReturnType(mDer_.getReturnType(_context));
+                    err_.setMethod(mDer_.getId(_context));
                     err_.setParentClass(s_);
                     _context.getClasses().getErrorsDet().add(err_);
                 }
@@ -596,12 +507,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
-                    MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
+                    _context.getClasses();
+                    MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFullName());
                     err_.setRc(getRowCol(0, idRowCol));
-                    err_.setReturnType(mDer_.getReturnType(stds_));
-                    err_.setMethod(mDer_.getId());
+                    err_.setReturnType(mDer_.getReturnType(_context));
+                    err_.setMethod(mDer_.getId(_context));
                     err_.setParentClass(s_);
                     _context.getClasses().getErrorsDet().add(err_);
                 }
@@ -610,12 +522,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     }
 
     public final void checkCompatibility(ContextEl _context) {
-        ObjectMap<MethodId, ClassMethodId> localSignatures_ = TypeUtil.getLocalSignatures(this,_context.getClasses());
+        ObjectMap<MethodId, ClassMethodId> localSignatures_ = TypeUtil.getLocalSignatures(this,_context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypes()) {
+        for (TypeVar t: getParamTypesMap().values()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        LgNames stds_ = _context.getStandards();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: getAllOverridingMethods().entryList()) {
             StringMap<MethodId> defs_ = new StringMap<MethodId>();
             StringList list_ = new StringList();
@@ -628,12 +539,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 if (m.getValue().size() > 1) {
                     for (String s: m.getValue()) {
                         MethodId id_ = defs_.getVal(s);
-                        MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s, id_).first();
+                        _context.getClasses();
+                        MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
                         IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                         err_.setFileName(getFullName());
                         err_.setRc(getRowCol(0, idRowCol));
-                        err_.setReturnType(mDer_.getReturnType(stds_));
-                        err_.setMethod(mDer_.getId());
+                        err_.setReturnType(mDer_.getReturnType(_context));
+                        err_.setMethod(mDer_.getId(_context));
                         err_.setParentClass(s);
                         _context.getClasses().getErrorsDet().add(err_);
                     }
@@ -648,12 +560,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
-                MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
+                _context.getClasses();
+                MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFullName());
                 err_.setRc(getRowCol(0, idRowCol));
-                err_.setReturnType(mDer_.getReturnType(stds_));
-                err_.setMethod(mDer_.getId());
+                err_.setReturnType(mDer_.getReturnType(_context));
+                err_.setMethod(mDer_.getId(_context));
                 err_.setParentClass(s_);
                 _context.getClasses().getErrorsDet().add(err_);
             }
@@ -662,12 +575,13 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: er_.entryList()) {
             for (ClassMethodId s: e.getValue()) {
                 String s_ = s.getClassName();
-                MethodBlock mDer_ = _context.getClasses().getMethodBodiesById(s_, s.getConstraints()).first();
+                _context.getClasses();
+                MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFullName());
                 err_.setRc(getRowCol(0, idRowCol));
-                err_.setReturnType(mDer_.getReturnType(stds_));
-                err_.setMethod(mDer_.getId());
+                err_.setReturnType(mDer_.getReturnType(_context));
+                err_.setMethod(mDer_.getId(_context));
                 err_.setParentClass(s_);
                 _context.getClasses().getErrorsDet().add(err_);
             }
@@ -682,7 +596,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         }
         StringList allSuperClass_ = getAllGenericSuperTypes(_context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypes()) {
+        for (TypeVar t: getParamTypesMap().values()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         for (Block b: Classes.getDirectChildren(this)) {
@@ -690,7 +604,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 continue;
             }
             MethodBlock mDer_ = (MethodBlock) b;
-            MethodId idFor_ = mDer_.getId();
+            MethodId idFor_ = mDer_.getId(_context);
             if (mDer_.isAbstractMethod()) {
                 if (mDer_.getFirstChild() != null) {
                     AbstractMethod err_;
@@ -706,7 +620,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         if (concreteClass_) {
             for (MethodBlock b: Classes.getMethodBlocks(this)) {
                 MethodBlock mDer_ = b;
-                MethodId idFor_ = mDer_.getId();
+                MethodId idFor_ = mDer_.getId(_context);
                 if (mDer_.isAbstractMethod()) {
                     AbstractMethod err_;
                     err_ = new AbstractMethod();
@@ -718,17 +632,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 }
             }
             for (String s: allSuperClass_) {
-                String base_ = StringList.getAllTypes(s).first();
+                String base_ = Templates.getIdFromAllTypes(s);
                 RootBlock superBl_ = classesRef_.getClassBody(base_);
                 for (MethodBlock m: Classes.getMethodBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
-                        abstractMethods_.add(new ClassFormattedMethodId(s, m.getId()));
+                        abstractMethods_.add(new ClassFormattedMethodId(s, m.getId(_context)));
                     }
                 }
             }
             for (ClassFormattedMethodId m: abstractMethods_) {
                 String baseClass_ = m.getClassName();
-                baseClass_ = StringList.getAllTypes(baseClass_).first();
+                baseClass_ = Templates.getIdFromAllTypes(baseClass_);
                 RootBlock info_ = classesRef_.getClassBody(baseClass_);
                 StringMap<ClassMethodId> map_ = TypeUtil.getConcreteMethodsToCall(info_, m.getConstraints(), _context);
                 if (!map_.contains(getFullName())) {
@@ -746,7 +660,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         signatures_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         StringList allInterfaces_ = getAllGenericInterfaces(_context);
         for (String s: allInterfaces_) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             InterfaceBlock superBl_ = (InterfaceBlock) classesRef_.getClassBody(base_);
             ObjectMap<MethodId, EqList<ClassMethodId>> signaturesInt_;
             signaturesInt_ = TypeUtil.getAllInstanceSignatures(superBl_, _context);
@@ -765,7 +679,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             abstractMethods_ = RootBlock.remainingMethodsToImplement(ov_, getFullName(), _context);
             for (ClassFormattedMethodId m: abstractMethods_) {
                 String baseClass_ = m.getClassName();
-                baseClass_ = StringList.getAllTypes(baseClass_).first();
+                baseClass_ = Templates.getIdFromAllTypes(baseClass_);
                 RootBlock info_ = classesRef_.getClassBody(baseClass_);
                 MethodId realId_ = m.getConstraints();
                 StringMap<ClassMethodId> map_ = info_.getConcreteMethodsToCallFromClass(realId_, _context);
@@ -837,7 +751,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 //pkg.ExTwo & pkg.Int3
                 for (ClassMethodId t: list_) {
                     String t_ = t.getClassName();
-                    String baseSuperType_ = StringList.getAllTypes(t_).first();
+                    String baseSuperType_ = Templates.getIdFromAllTypes(t_);
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
@@ -865,8 +779,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     }
                     i_++;
                 }
-                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
-                if (classes_.getMethodBodiesById(classNameFound_, realId_).first().isAbstractMethod()) {
+                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
+                if (Classes.getMethodBodiesById(_conf, classNameFound_, realId_).first().isAbstractMethod()) {
                     continue;
                 }
                 eq_.put(name_, new ClassMethodId(classNameFound_, realId_));
@@ -914,17 +828,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 //overridden by this interface
                 ClassMethodId subInt_ = _localMethodIds.getVal(e.getKey());
                 String name_ = subInt_.getClassName();
-                MethodBlock sub_ = classesRef_.getMethodBodiesById(name_, subInt_.getConstraints()).first();
+                MethodBlock sub_ = Classes.getMethodBodiesById(_context, name_, subInt_.getConstraints()).first();
                 if (sub_.isStaticMethod()) {
                     StringMap<StringList> vars_ = new StringMap<StringList>();
                     StringList retClasses_ = new StringList();
                     for (ClassMethodId s: e.getValue()) {
                         String supName_ = s.getClassName();
-                        MethodBlock sup_ = classesRef_.getMethodBodiesById(supName_, s.getConstraints()).first();
+                        MethodBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
                         if (sup_.isStaticMethod()) {
                             continue;
                         }
-                        retClasses_.add(sup_.getReturnType(stds_));
+                        retClasses_.add(sup_.getReturnType(_context));
                     }
                     if (!retClasses_.isEmpty() && PrimitiveTypeUtil.getSubslass(retClasses_, vars_, _context).isEmpty()) {
                         for (ClassMethodId c: classes_) {
@@ -933,16 +847,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     }
                     continue;
                 }
-                String subType_ = sub_.getReturnType(stds_);
+                String subType_ = sub_.getReturnType(_context);
                 subType_ = Templates.format(name_, subType_, _context);
                 mapping_.setArg(subType_);
                 for (ClassMethodId s: e.getValue()) {
                     String supName_ = s.getClassName();
-                    MethodBlock sup_ = classesRef_.getMethodBodiesById(supName_, s.getConstraints()).first();
+                    MethodBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
                     if (sup_.isStaticMethod()) {
                         continue;
                     }
-                    String formattedSup_ = Templates.format(supName_, sup_.getReturnType(stds_), _context);
+                    String formattedSup_ = Templates.format(supName_, sup_.getReturnType(_context), _context);
                     mapping_.setParam(formattedSup_);
                     if (StringList.quickEq(formattedSup_, subType_)) {
                         continue;
@@ -957,7 +871,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             StringList retClasses_ = new StringList();
             for (ClassMethodId s: e.getValue()) {
                 String name_ = s.getClassName();
-                String base_ = StringList.getAllTypes(name_).first();
+                String base_ = Templates.getIdFromAllTypes(name_);
                 if (!classesRef_.isCustomType(base_)) {
                     StandardType clBound_ = stds_.getStandards().getVal(base_);
                     for (StandardMethod m: clBound_.getMethods().values()) {
@@ -972,11 +886,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     }
                     continue;
                 }
-                MethodBlock sup_ = classesRef_.getMethodBodiesById(name_, s.getConstraints()).first();
+                MethodBlock sup_ = Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
                 if (sup_.isStaticMethod()) {
                     continue;
                 }
-                String ret_ = sup_.getReturnType(stds_);
+                String ret_ = sup_.getReturnType(_context);
                 retClasses_.add(Templates.format(name_, ret_, _context));
             }
             if (!retClasses_.isEmpty()) {
@@ -1005,18 +919,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         ObjectMap<MethodId, EqList<ClassMethodId>> output_;
         output_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         Classes classes_ = _context.getClasses();
-        LgNames stds_ = _context.getStandards();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
             MethodId cst_ = e.getKey();
             EqList<ClassMethodId> fClasses_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> aClasses_ = new EqList<ClassMethodId>();
             for (ClassMethodId s: e.getValue()) {
                 String name_ = s.getClassName();
-                String base_ = StringList.getAllTypes(name_).first();
+                String base_ = Templates.getIdFromAllTypes(name_);
                 if (classes_.getClassBody(base_) == null) {
                     continue;
                 }
-                MethodBlock sup_ = classes_.getMethodBodiesById(name_, s.getConstraints()).first();
+                MethodBlock sup_ = Classes.getMethodBodiesById(_context, name_, s.getConstraints()).first();
                 if (sup_.isStaticMethod()) {
                     continue;
                 }
@@ -1036,7 +949,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             if (fClasses_.size() > 0 && aClasses_.size() > 0) {
                 if (fClasses_.size() == 1) {
                     String name_ = fClasses_.first().getClassName();
-                    String base_ = StringList.getAllTypes(name_).first();
+                    String base_ = Templates.getIdFromAllTypes(name_);
                     if (classes_.getClassBody(base_) instanceof ClassBlock) {
                         continue;
                     }
@@ -1054,17 +967,17 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 ClassMethodId subInt_ = fClasses_.first();
                 String subIntName_ = subInt_.getClassName();
                 map_.getMapping().putAllMap(_vars);
-                MethodBlock sub_ = classes_.getMethodBodiesById(subIntName_, subInt_.getConstraints()).first();
-                String subType_ = sub_.getReturnType(stds_);
+                MethodBlock sub_ = Classes.getMethodBodiesById(_context, subIntName_, subInt_.getConstraints()).first();
+                String subType_ = sub_.getReturnType(_context);
                 subType_ = Templates.format(subIntName_, subType_, _context);
                 map_.setParam(subType_);
                 for (ClassMethodId s: e.getValue()) {
                     String s_ = s.getClassName();
-                    MethodBlock sup_ = classes_.getMethodBodiesById(s_, s.getConstraints()).first();
+                    MethodBlock sup_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     if (sup_.isStaticMethod()) {
                         continue;
                     }
-                    String supType_ = sup_.getReturnType(stds_);
+                    String supType_ = sup_.getReturnType(_context);
                     String formattedSupType_ = Templates.format(s_, supType_, _context);
                     map_.setArg(formattedSupType_);
                     if (StringList.quickEq(formattedSupType_, subType_)) {
@@ -1084,13 +997,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             String _fullName,
             ContextEl _context) {
         EqList<ClassFormattedMethodId> rem_ = new EqList<ClassFormattedMethodId>();
-        Classes classes_ = _context.getClasses();
         for (EntryCust<MethodId, EqList<ClassMethodId>> e: _methodIds.entryList()) {
             int nbConcrete_ = 0;
             int nbFinal_ = 0;
             for (ClassMethodId f: e.getValue()) {
                 String f_ = f.getClassName();
-                MethodBlock method_ = classes_.getMethodBodiesById(f_, f.getConstraints()).first();
+                MethodBlock method_ = Classes.getMethodBodiesById(_context, f_, f.getConstraints()).first();
                 if (method_.isStaticMethod()) {
                     continue;
                 }
@@ -1130,11 +1042,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
         c_ = curMeta_.getConstructorsInfos();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
+            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, e.getKey()).first();
             b_.setupInstancingStep(_cont);
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
+            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, e.getKey()).first();
             if (b_.implicitConstr() && !opt_) {
                 UndefinedSuperConstructor un_ = new UndefinedSuperConstructor();
                 un_.setClassName(((UniqueRootedBlock)this).getGenericSuperClass(_cont));
@@ -1145,7 +1057,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         }
         EqList<ConstructorId> l_ = new EqList<ConstructorId>();
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, e.getKey()).first();
+            _cont.getClasses();
+            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, e.getKey()).first();
             if (b_.getConstIdSameClass() != null) {
                 l_.add(e.getKey());
             }
@@ -1153,7 +1066,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
         for (ConstructorId f: l_) {
-            ConstructorBlock b_ = _cont.getClasses().getConstructorBodiesById(idType_, f).first();
+            _cont.getClasses();
+            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, f).first();
             ConstructorId co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);
@@ -1184,7 +1098,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             return true;
         }
         for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
-            CustList<ConstructorBlock> formatted_ = _cont.getClasses().getConstructorBodiesById(superClass_, e.getKey());
+            _cont.getClasses();
+            CustList<ConstructorBlock> formatted_ = Classes.getConstructorBodiesById(_cont, superClass_, e.getKey());
             if (!Classes.canAccess(getFullName(), formatted_.first(), _cont)) {
                 continue;
             }

@@ -85,7 +85,7 @@ public abstract class SettableAbstractFieldOperation extends
         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             UndefinedFieldError und_ = new UndefinedFieldError();
-            String base_ = StringList.getAllTypes(cl_.getName()).first();
+            String base_ = Templates.getIdFromAllTypes(cl_.getName());
             und_.setClassName(base_);
             und_.setId(fieldName_);
             und_.setFileName(_conf.getCurrentFileName());
@@ -182,7 +182,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
         String classNameFound_ = fieldId.getClassName();
-        String base_ = StringList.getAllTypes(argClassName_).first();
+        String base_ = Templates.getIdFromAllTypes(argClassName_);
         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
             _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
             return ArgumentCall.newArgument(arg_);
@@ -328,11 +328,11 @@ public abstract class SettableAbstractFieldOperation extends
         if (resultCanBeSet()) {
             String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
             String classNameFound_ = fieldId.getClassName();
-            classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+            classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
             classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
             fieldType_ = fieldMetaInfo.getRealType();
             fieldType_ = Templates.format(classNameFound_, fieldType_, _conf);
-            String base_ = StringList.getAllTypes(argClassName_).first();
+            String base_ = Templates.getIdFromAllTypes(argClassName_);
             classNameFound_ = fieldId.getClassName();
             if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
                 _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));

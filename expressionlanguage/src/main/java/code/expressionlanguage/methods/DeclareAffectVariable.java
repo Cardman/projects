@@ -17,7 +17,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -70,19 +69,6 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_CLASS, className);
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        tr_.put(classNameOffset, className);
-        return tr_;
-    }
-    @Override
     public String getVariableName() {
         return variableName;
     }
@@ -125,8 +111,8 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(globalClass_).first();
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+            String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }

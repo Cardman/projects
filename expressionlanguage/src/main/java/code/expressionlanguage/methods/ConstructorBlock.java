@@ -15,7 +15,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
-import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -45,15 +44,14 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public String getSignature() {
-        return getId().getSignature();
+    public String getSignature(Analyzable _an) {
+        return getId(_an).getSignature();
     }
 
-    @Override
-    public ConstructorId getId() {
+    public ConstructorId getId(Analyzable _an) {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getFullName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(_an);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -62,11 +60,11 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
-    @Override
-    public ConstructorId getGenericId() {
+
+    public ConstructorId getGenericId(Analyzable _an) {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getGenericString();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(_an);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -77,7 +75,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
     public ConstructorId getFormattedId(String _genericClass, ContextEl _classes) {
         String name_ = Templates.format(_genericClass, getName(), _classes);
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(_classes);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -153,8 +151,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public String getReturnType(LgNames _stds) {
-        return _stds.getAliasVoid();
+    public String getReturnType(Analyzable _stds) {
+        return _stds.getStandards().getAliasVoid();
     }
 
     @Override

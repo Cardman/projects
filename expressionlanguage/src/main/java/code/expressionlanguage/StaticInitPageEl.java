@@ -24,7 +24,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
         Classes classes_ = _context.getClasses();
 
         String curClass_ = getGlobalClass();
-        String curClassBase_ = StringList.getAllTypes(curClass_).first();
+        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
         RootBlock root_ =  classes_.getClassBody(curClassBase_);
         if (root_ instanceof UniqueRootedBlock) {
             String superClass_ = ((UniqueRootedBlock) root_).getSuperClass(_context);
@@ -114,7 +114,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
     @Override
     public void postBlock(ContextEl _context) {
         String curClass_ = getGlobalClass();
-        String curClassBase_ = StringList.getAllTypes(curClass_).first();
+        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
         _context.getClasses().getLocks().successClass(_context, curClassBase_);
         setNullReadWrite();
     }
@@ -123,7 +123,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
     public void endRoot(ContextEl _context) {
         Classes classes_ = _context.getClasses();
         String curClass_ = getGlobalClass();
-        String curClassBase_ = StringList.getAllTypes(curClass_).first();
+        String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
         classes_.getLocks().successClass(_context, curClassBase_);
         setNullReadWrite();
     }

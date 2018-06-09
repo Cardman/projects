@@ -11,7 +11,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.Element;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
 import code.util.StringMap;
 
 public final class NullCatchEval extends AbstractCatchEval {
@@ -61,18 +60,6 @@ public final class NullCatchEval extends AbstractCatchEval {
                 ass_.getVariablesRoot().add(vars_);
             }
         }
-    }
-
-    @Override
-    public NatTreeMap<String, String> getClassNames(ContextEl _stds) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer, String> getClassNamesOffsets(ContextEl _stds) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
     }
 
     @Override

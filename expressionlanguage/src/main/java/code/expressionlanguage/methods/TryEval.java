@@ -16,7 +16,6 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.StringMap;
 
 public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup {
@@ -43,18 +42,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
 
     public int getLabelOffset() {
         return labelOffset;
-    }
-
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
     }
 
     @Override

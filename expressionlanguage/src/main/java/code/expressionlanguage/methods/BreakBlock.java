@@ -16,7 +16,6 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.IdList;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.StringList;
 
 public final class BreakBlock extends AbruptBlock implements CallingFinally {
@@ -46,17 +45,6 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
         return labelOffset;
     }
 
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
-    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         boolean childOfBreakable_ = false;

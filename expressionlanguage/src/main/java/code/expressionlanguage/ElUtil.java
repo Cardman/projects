@@ -451,14 +451,13 @@ public final class ElUtil {
         }
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context);
-        if (op_ == null) {
+        if (r_.isError()) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(offset_);
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
             badEl_.setRc(_context.getCurrentLocation());
             _context.getClasses().getErrorsDet().add(badEl_);
-            return null;
         }
         return op_;
     }
@@ -485,14 +484,13 @@ public final class ElUtil {
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
-        if (op_ == null) {
+        if (r_.isError()) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(offset_);
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
             badEl_.setRc(_context.getCurrentLocation());
             _context.getClasses().getErrorsDet().add(badEl_);
-            return null;
         }
         return op_;
     }

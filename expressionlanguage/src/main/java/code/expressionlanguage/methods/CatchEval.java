@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -15,7 +16,6 @@ import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -60,24 +60,11 @@ public final class CatchEval extends AbstractCatchEval {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_CLASS, className);
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        tr_.put(classNameOffset, className);
-        return tr_;
-    }
-
-    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
+        String cl_ = _cont.resolveType(className);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (getFirstChild() == null) {
@@ -95,7 +82,7 @@ public final class CatchEval extends AbstractCatchEval {
                 ass_.getVariablesRoot().add(vars_);
             }
         }
-        if (_cont.getAnalyzing().getCatchVars().contains(variableName)) {
+        if (_cont.getAnalyzing().containsCatchVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
@@ -103,9 +90,19 @@ public final class CatchEval extends AbstractCatchEval {
             _cont.getClasses().getErrorsDet().add(d_);
             return;
         }
+        if (!StringList.isWord(variableName)) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setVarName(variableName);
+            _cont.getClasses().getErrorsDet().add(b_);
+        }
+        if (getFirstChild() == null) {
+            return;
+        }
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(className);
-        _cont.getAnalyzing().getCatchVars().put(variableName, lv_);
+        lv_.setClassName(cl_);
+        _cont.getAnalyzing().putCatchVar(variableName, lv_);
     }
 
     @Override

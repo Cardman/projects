@@ -1,6 +1,5 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -1055,62 +1054,6 @@ public class StringListTest {
     @Test
     public void escape9Test(){
         assertEq("my\\String*end", StringList.escape("my\\\\String\\*end"));
-    }
-    @Test
-    public void getTypes1Test(){
-        assertEq(new StringList(), StringList.getTypes("String"));
-    }
-    @Test
-    public void getTypes2Test(){
-        assertEq(new StringList("String","Rate"), StringList.getTypes("Map<String,Rate>"));
-    }
-    @Test
-    public void getTypes3Test(){
-        assertEq(new StringList("String","Map<String,Rate>"), StringList.getTypes("Map<String,Map<String,Rate>>"));
-    }
-    @Test
-    public void getTypes4Test(){
-        assertEq(new StringList("Boolean"), StringList.getTypes("List<Boolean>"));
-    }
-    @Test
-    public void getTypes5Test(){
-        assertEq(new StringList("BooleanList"), StringList.getTypes("CustList<BooleanList>"));
-    }
-    @Test
-    public void getAllTypes1Test(){
-        assertEq(new StringList("String"), StringList.getAllTypes("String"));
-    }
-    @Test
-    public void getAllTypes2Test(){
-        assertEq(new StringList("Map","String","Rate"), StringList.getAllTypes("Map<String,Rate>"));
-    }
-    @Test
-    public void getAllTypes3Test(){
-        assertEq(new StringList("Map","String","Map<String,Rate>"), StringList.getAllTypes("Map<String,Map<String,Rate>>"));
-    }
-    @Test
-    public void getAllTypes4Test(){
-        assertEq(new StringList("List","Boolean"), StringList.getAllTypes("List<Boolean>"));
-    }
-    @Test
-    public void getAllTypes5Test(){
-        assertEq(new StringList("CustList","BooleanList"), StringList.getAllTypes("CustList<BooleanList>"));
-    }
-    @Test
-    public void getAllTypes6Test(){
-        assertNull(StringList.getAllTypes("Map<String,Rate>>"));
-    }
-    @Test
-    public void getAllTypes7Test(){
-        assertNull(StringList.getAllTypes("String,Rate"));
-    }
-    @Test
-    public void getAllTypes8Test(){
-        assertNull(StringList.getAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
-    }
-    @Test
-    public void getAllTypes9Test(){
-        assertNull(StringList.getAllTypes("Map<String,Rate"));
     }
     @Test
     public void skipStringUntil1Test(){

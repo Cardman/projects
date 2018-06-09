@@ -77,7 +77,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         ConstructorId cid_ = ctor_.getConstId();
                         if (cid_ != null) {
                             String cl_ = cid_.getName();
-                            cl_ = StringList.getAllTypes(cl_).first();
+                            cl_ = Templates.getIdFromAllTypes(cl_);
                             previousInts_.add(cl_);
                         }
                     }
@@ -117,7 +117,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                             ConstructorId cid_ = ctor_.getConstId();
                             if (cid_ != null) {
                                 String cl_ = cid_.getName();
-                                cl_ = StringList.getAllTypes(cl_).first();
+                                cl_ = Templates.getIdFromAllTypes(cl_);
                                 if (!previousInts_.isEmpty()) {
                                     String sup_ = previousInts_.last();
                                     if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
@@ -152,15 +152,15 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
         String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        gl_ = StringList.getAllTypes(gl_).first();
+        gl_ = Templates.getIdFromAllTypes(gl_);
         String base_ = gl_;
         gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         CustList<Argument> firstArgs_;
         String calledCtor_ = base_;
         String cl_ = getConstId().getName();
-        cl_ = StringList.getAllTypes(cl_).first();
+        cl_ = Templates.getIdFromAllTypes(cl_);
         String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
-        String superClassBase_ = StringList.getAllTypes(superClass_).first();
+        String superClassBase_ = Templates.getIdFromAllTypes(superClass_);
         String lastType_ = getLastType();
         lastType_ = Templates.format(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();

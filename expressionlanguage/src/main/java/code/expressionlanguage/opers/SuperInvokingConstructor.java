@@ -30,7 +30,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
     ClassArgumentMatching getFrom(Analyzable _conf) {
         Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getGlobalClass();
-        String base_ = StringList.getAllTypes(clCurName_).first();
+        String base_ = Templates.getIdFromAllTypes(clCurName_);
         UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
         String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(_conf), _conf);
         return new ClassArgumentMatching(superClass_);
@@ -49,15 +49,15 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
         String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        gl_ = StringList.getAllTypes(gl_).first();
-        String base_ = StringList.getAllTypes(gl_).first();
+        gl_ = Templates.getIdFromAllTypes(gl_);
+        String base_ = Templates.getIdFromAllTypes(gl_);
         gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
         CustList<Argument> firstArgs_;
         String calledCtor_ = base_;
         String calledCtorTemp_ = gl_;
         String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(_conf), _conf);
-        String superClassBase_ = StringList.getAllTypes(superClass_).first();
+        String superClassBase_ = Templates.getIdFromAllTypes(superClass_);
         String lastType_ = getLastType();
         lastType_ = Templates.format(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();

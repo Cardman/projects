@@ -253,13 +253,13 @@ public final class ChoiceFctOperation extends InvokingOperation {
                     Argument a_ = new Argument();
                     return ArgumentCall.newArgument(a_);
                 }
-                String base_ = StringList.getAllTypes(classNameFound_).first();
+                String base_ = Templates.getIdFromAllTypes(classNameFound_);
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
                 lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             } else {
-                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
-                String baseArgClassName_ = StringList.getAllTypes(argClassName_).first();
+                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
+                String baseArgClassName_ = Templates.getIdFromAllTypes(argClassName_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, baseArgClassName_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                     _conf.setException(new StdStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));

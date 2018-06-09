@@ -42,9 +42,14 @@ public final class OperationsSequence {
         boolean pureDot_ = false;
         if (!op_.isEmpty()) {
             if (op_.charAt(0) != DOT_VAR) {
-                if (priority == ElResolver.FCT_OPER_PRIO && !_string.substring(operators.lastKey()+1).trim().isEmpty()) {
-                    priority = ElResolver.BAD_PRIO;
-                    return;
+                if (priority == ElResolver.FCT_OPER_PRIO) {
+                    int afterLastPar_ = operators.lastKey()+1;
+                    if (!_string.substring(afterLastPar_).trim().isEmpty()) {
+                        operators.clear();
+                        operators.put(afterLastPar_, "");
+                        priority = ElResolver.BAD_PRIO;
+                        return;
+                    }
                 }
             } else {
                 pureDot_ = true;
@@ -114,6 +119,10 @@ public final class OperationsSequence {
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
         values.put(beginValuePart_, str_);
+    }
+
+    public boolean isError() {
+        return priority == ElResolver.BAD_PRIO;
     }
 
     public boolean isInstanceTest() {

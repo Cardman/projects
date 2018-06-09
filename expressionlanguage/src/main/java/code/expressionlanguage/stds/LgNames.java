@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import java.io.UnsupportedEncodingException;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustBase;
@@ -971,11 +972,13 @@ public abstract class LgNames {
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
+        _cont.setAnalyzing(new AnalyzedPageEl());
         StringList keys_ = standards.getKeys();
         TypeUtil.buildInherits(_cont, keys_, false);
         for (StandardType t: standards.values()) {
             TypeUtil.buildOverrides(t, _cont);
         }
+        _cont.setAnalyzing(null);
     }
 
     private void numbersConstructors(CustList<StandardConstructor> _ctors, String _primitive, StandardType _type) {

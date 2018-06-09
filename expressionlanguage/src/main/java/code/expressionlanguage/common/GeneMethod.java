@@ -7,8 +7,6 @@ import code.expressionlanguage.opers.util.MethodModifier;
 
 public interface GeneMethod extends GeneFunction {
 
-    String getSignature();
-
     MethodModifier getModifier();
 
     String getDeclaringType();
@@ -16,8 +14,6 @@ public interface GeneMethod extends GeneFunction {
     MethodId getFormattedId(String _genericClass, ContextEl _context);
 
     MethodId getFormattedId(ContextEl _context);
-
-    MethodId getId();
 
 
     boolean isConcreteInstanceDerivableMethod();

@@ -395,7 +395,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("exfield", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(164, method_.getAccessOffset());
@@ -424,7 +424,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("exfields", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -453,7 +453,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("loop", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(339, method_.getAccessOffset());
@@ -666,7 +666,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("other", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(228, method_.getAccessOffset());
@@ -695,7 +695,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("overload", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(2, method_.getParametersNames().size());
         assertEq("i", method_.getParametersNames().first());
         assertEq("j", method_.getParametersNames().last());
@@ -733,7 +733,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("overload", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(418, method_.getAccessOffset());
@@ -929,7 +929,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(189, method_.getAccessOffset());
@@ -948,7 +948,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(226, method_.getAccessOffset());
@@ -967,7 +967,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(263, method_.getAccessOffset());
@@ -1051,7 +1051,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(188, method_.getAccessOffset());
@@ -1070,7 +1070,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(225, method_.getAccessOffset());
@@ -1089,7 +1089,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(262, method_.getAccessOffset());
@@ -1183,7 +1183,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(211, method_.getAccessOffset());
@@ -1202,7 +1202,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -1221,7 +1221,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(285, method_.getAccessOffset());
@@ -1339,7 +1339,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(181, method_.getAccessOffset());
@@ -1358,7 +1358,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(3, method_.getParametersNames().size());
         assertEq("pOne", method_.getParametersNames().first());
         assertEq("pTwo", method_.getParametersNames().get(1));
@@ -1389,7 +1389,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(293, method_.getAccessOffset());
@@ -1483,7 +1483,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(211, method_.getAccessOffset());
@@ -1502,7 +1502,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -1521,7 +1521,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(285, method_.getAccessOffset());
@@ -1626,7 +1626,7 @@ public final class FileResolverTest {
         ConstructorBlock ctor_ = (ConstructorBlock) child_;
         assertSame(AccessEnum.PUBLIC, ctor_.getAccess());
         assertEq("", ctor_.getName());
-        assertEq("$void", ctor_.getReturnType(context_.getStandards()));
+        assertEq("$void", ctor_.getReturnType(context_));
         assertEq(3, ctor_.getParametersNames().size());
         assertEq("pOne", ctor_.getParametersNames().first());
         assertEq("pTwo", ctor_.getParametersNames().get(1));
@@ -1655,7 +1655,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(233, method_.getAccessOffset());
@@ -1674,7 +1674,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(270, method_.getAccessOffset());
@@ -1693,7 +1693,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(307, method_.getAccessOffset());
@@ -1798,7 +1798,7 @@ public final class FileResolverTest {
         ConstructorBlock ctor_ = (ConstructorBlock) child_;
         assertSame(AccessEnum.PUBLIC, ctor_.getAccess());
         assertEq("", ctor_.getName());
-        assertEq("$void", ctor_.getReturnType(context_.getStandards()));
+        assertEq("$void", ctor_.getReturnType(context_));
         assertEq(3, ctor_.getParametersNames().size());
         assertEq("pOne", ctor_.getParametersNames().first());
         assertEq("pTwo", ctor_.getParametersNames().get(1));
@@ -1827,7 +1827,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(233, method_.getAccessOffset());
@@ -1846,7 +1846,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(270, method_.getAccessOffset());
@@ -1865,7 +1865,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(307, method_.getAccessOffset());
@@ -1973,7 +1973,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(211, method_.getAccessOffset());
@@ -1992,7 +1992,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -2011,7 +2011,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(285, method_.getAccessOffset());
@@ -2110,7 +2110,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(211, method_.getAccessOffset());
@@ -2129,7 +2129,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -2148,7 +2148,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(285, method_.getAccessOffset());
@@ -2247,7 +2247,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(185, method_.getAccessOffset());
@@ -2266,7 +2266,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(222, method_.getAccessOffset());
@@ -2285,7 +2285,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(259, method_.getAccessOffset());
@@ -2376,7 +2376,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(175, method_.getAccessOffset());
@@ -2395,7 +2395,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(212, method_.getAccessOffset());
@@ -2414,7 +2414,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(249, method_.getAccessOffset());
@@ -2986,10 +2986,6 @@ public final class FileResolverTest {
         assertEq(2, offs_.size());
         assertEq(70, offs_.first());
         assertEq(78, offs_.last());
-        ints_ = cl_.getInstInitInterfaces();
-        offs_ = cl_.getInstInitInterfacesOffset();
-        assertEq(0, ints_.size());
-        assertEq(0, offs_.size());
         assertEq("pkgtwo.ExClassTwo", getCustomTypes(context_,1).getFullName());
         r_ = context_.getClasses().getClassBody("pkgtwo.ExClassTwo");
         assertTrue(r_ instanceof ClassBlock);
@@ -3027,10 +3023,6 @@ public final class FileResolverTest {
         offs_ = cl_.getStaticInitInterfacesOffset();
         assertEq(1, offs_.size());
         assertEq(70, offs_.first());
-        ints_ = cl_.getInstInitInterfaces();
-        offs_ = cl_.getInstInitInterfacesOffset();
-        assertEq(0, ints_.size());
-        assertEq(0, offs_.size());
         assertEq("pkgtwo.ExClassTwo", getCustomTypes(context_,1).getFullName());
         r_ = context_.getClasses().getClassBody("pkgtwo.ExClassTwo");
         assertTrue(r_ instanceof ClassBlock);
@@ -3113,7 +3105,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(211, method_.getAccessOffset());
@@ -3132,7 +3124,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -3151,7 +3143,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(285, method_.getAccessOffset());
@@ -3255,7 +3247,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abs", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(211, method_.getAccessOffset());
@@ -3274,7 +3266,7 @@ public final class FileResolverTest {
         assertTrue(!method_.isNormalMethod());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("abstwo", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -3293,7 +3285,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("conc", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(285, method_.getAccessOffset());
@@ -3762,7 +3754,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("exfield", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(164, method_.getAccessOffset());
@@ -3791,7 +3783,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("exfields", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(248, method_.getAccessOffset());
@@ -3820,7 +3812,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("loop", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(339, method_.getAccessOffset());
@@ -4401,7 +4393,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("other", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(228, method_.getAccessOffset());
@@ -4430,7 +4422,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("overload", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(2, method_.getParametersNames().size());
         assertEq("i", method_.getParametersNames().first());
         assertEq("j", method_.getParametersNames().last());
@@ -4468,7 +4460,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("overload", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(418, method_.getAccessOffset());
@@ -4646,7 +4638,8 @@ public final class FileResolverTest {
         assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
         assertEq("every.body",r_.getDirectSuperTypes().get(1));
         assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
-        assertEq(2, r_.getRowColDirectSuperTypes().size());
+        assertEq(3, r_.getRowColDirectSuperTypes().size());
+        assertEq("$Enum<pkgtwo.Toto>", r_.getRowColDirectSuperTypes().getVal(-1));
         assertEq(" hello.word<Ex> ", r_.getRowColDirectSuperTypes().getVal(70));
         assertEq(" every.body ", r_.getRowColDirectSuperTypes().getVal(87));
         Block child_ = cl_.getFirstChild();
@@ -4711,7 +4704,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("other", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(228, method_.getAccessOffset());
@@ -4740,7 +4733,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("overload", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(2, method_.getParametersNames().size());
         assertEq("i", method_.getParametersNames().first());
         assertEq("j", method_.getParametersNames().last());
@@ -4778,7 +4771,7 @@ public final class FileResolverTest {
         assertTrue(method_.isNormalMethod());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq("overload", method_.getName());
-        assertEq("$String", method_.getReturnType(context_.getStandards()));
+        assertEq("$String", method_.getReturnType());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(418, method_.getAccessOffset());

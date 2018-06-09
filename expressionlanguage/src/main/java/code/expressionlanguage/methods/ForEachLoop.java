@@ -15,6 +15,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.StaticAccessError;
@@ -47,7 +48,6 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -140,21 +140,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_CLASS, className);
-        tr_.put(ATTRIBUTE_CLASS_INDEX, classIndexName);
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        tr_.put(classIndexNameOffset, classIndexName);
-        tr_.put(classNameOffset, className);
-        return tr_;
-    }
-    @Override
     public String getClassIndexName() {
         return classIndexName;
     }
@@ -211,13 +196,19 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             cast_.setRc(getRowCol(0, classIndexNameOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
-        if (_cont.getAnalyzing().getVars().contains(variableName)) {
+        if (_cont.getAnalyzing().containsVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setRc(getRowCol(0, variableNameOffset));
             _cont.getClasses().getErrorsDet().add(d_);
-            return;
+        }
+        if (!StringList.isWord(variableName)) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setVarName(variableName);
+            _cont.getClasses().getErrorsDet().add(b_);
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
@@ -227,6 +218,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         if (opList.isEmpty()) {
             return;
         }
+        page_.setGlobalOffset(classNameOffset);
+        page_.setOffset(0);
+        String cl_ = _cont.resolveType(className);
         OperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
         Argument arg_ = el_.getArgument();
@@ -239,12 +233,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass().getName());
             Mapping mapping_ = new Mapping();
             mapping_.setArg(compo_);
-            mapping_.setParam(className);
+            mapping_.setParam(cl_);
             StringMap<StringList> vars_ = new StringMap<StringList>();
             if (!f_.isStaticContext()) {
                 String globalClass_ = page_.getGlobalClass();
-                String curClassBase_ = StringList.getAllTypes(globalClass_).first();
-                for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+                String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
+                for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
                     vars_.put(t.getName(), t.getConstraints());
                 }
             }
@@ -257,23 +251,25 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 _cont.getClasses().getErrorsDet().add(cast_);
             }
         } else {
-            String type_ = Templates.getFullTypeByStds(el_.getResultClass().getName(), _cont);
+            String foundType_ = el_.getResultClass().getName();
+            String type_ = Templates.getIterableFullTypeByStds(foundType_, _cont);
+            String iterable_ = _cont.getStandards().getAliasIterable();
             if (type_ == null) {
-                type_ = Templates.getFullTypeByBases(el_.getResultClass().getName(), PredefinedClasses.ITERABLE, _cont);
+                type_ = Templates.getFullTypeByBases(foundType_, iterable_, _cont);
                 nativeCmp = false;
             } else {
                 nativeCmp = true;
             }
             if (type_ != null) {
                 Mapping mapping_ = new Mapping();
-                String paramArg_ = StringList.getAllTypes(type_).last();
+                String paramArg_ = Templates.getAllTypes(type_).last();
                 mapping_.setArg(paramArg_);
-                mapping_.setParam(className);
+                mapping_.setParam(cl_);
                 StringMap<StringList> vars_ = new StringMap<StringList>();
                 if (!f_.isStaticContext()) {
                     String globalClass_ = page_.getGlobalClass();
-                    String curClassBase_ = StringList.getAllTypes(globalClass_).first();
-                    for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+                    String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
+                    for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
                         vars_.put(t.getName(), t.getConstraints());
                     }
                 }
@@ -287,9 +283,8 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 }
             } else {
                 Mapping mapping_ = new Mapping();
-                String paramArg_ = StringList.getAllTypes(type_).last();
-                mapping_.setArg(paramArg_);
-                mapping_.setParam(PrimitiveTypeUtil.getPrettyArrayType(className));
+                mapping_.setArg(foundType_);
+                mapping_.setParam(iterable_);
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
@@ -298,9 +293,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             }
         }
         LoopVariable lv_ = new LoopVariable();
-        lv_.setClassName(className);
+        lv_.setClassName(cl_);
         lv_.setIndexClassName(classIndexName);
-        _cont.getAnalyzing().getVars().put(variableName, lv_);
+        _cont.getAnalyzing().putVar(variableName, lv_);
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
         for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
             BooleanAssignment ba_ = new BooleanAssignment();
@@ -362,6 +357,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
         if (firstChild_ == null) {
+            super.setAssignmentAfter(_an, _anEl);
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));

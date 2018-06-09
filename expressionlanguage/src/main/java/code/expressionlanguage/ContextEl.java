@@ -3,20 +3,27 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.FunctionBlock;
+import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.NotInitializedFields;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.LocalThrowing;
+import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedTypeError;
+import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -148,7 +155,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         String runnable_ = init.getInterfaceTask(standards);
         MethodId id_ = new MethodId(MethodModifier.ABSTRACT, run_, new StringList(), false);
         GeneType type_ = classes.getClassBody(runnable_);
-        String base_ = StringList.getAllTypes(className).first();
+        String base_ = Templates.getIdFromAllTypes(className);
         ClassMethodId mId_ = TypeUtil.getConcreteMethodsToCall(type_, id_, this).getVal(base_);
         Argument arg_ = new Argument();
         arg_.setStruct(this);
@@ -210,7 +217,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public AbstractPageEl createInstancingClass(String _class) {
         setInitClass(null);
         classes.preInitializeStaticFields(_class, this);
-        String baseClass_ = StringList.getAllTypes(_class).first();
+        String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
         StaticInitPageEl page_ = new StaticInitPageEl();
@@ -241,9 +248,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         pageLoc_.setGlobalClass(_class);
         pageLoc_.setReadUrl(_class);
         MethodId id_ = _method;
-        MethodBlock methodLoc_ = classes.getMethodBodiesById(_class, id_).first();
+        MethodBlock methodLoc_ = Classes.getMethodBodiesById(this, _class, id_).first();
         StringList paramsLoc_ = methodLoc_.getParametersNames();
-        StringList typesLoc_ = methodLoc_.getParametersTypes();
+        StringList typesLoc_ = methodLoc_.getParametersTypes(this);
         CustList<Argument> args_ = _args;
         int lenLoc_ = paramsLoc_.size();
         for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
@@ -271,7 +278,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         AbstractInstancingPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
-        CustList<ConstructorBlock> methods_ = classes.getConstructorBodiesById(_class, id_);
+        CustList<ConstructorBlock> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         if (_in == InstancingStep.NEWING) {
@@ -301,7 +308,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (!methods_.isEmpty()) {
             method_ = methods_.first();
             StringList params_ = method_.getParametersNames();
-            StringList types_ = method_.getParametersTypes();
+            StringList types_ = method_.getParametersTypes(this);
             int len_ = params_.size();
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 String p_ = params_.get(i);
@@ -320,7 +327,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public FieldInitPageEl createInitFields(String _class, Argument _current) {
         setInitFields(null);
-        String baseClass_ = StringList.getAllTypes(_class).first();
+        String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         FieldInitPageEl page_ = new FieldInitPageEl();
         page_.setTabWidth(tabWidth);
@@ -382,8 +389,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
         if (classes == null || !classes.isCustomType(_name)) {
-            StringList types_ = StringList.getAllTypes(_name);
-            String base_ = types_.first();
+            String base_ = Templates.getIdFromAllTypes(_name);
             LgNames stds_ = getStandards();
             String void_ = stds_.getAliasVoid();
             for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
@@ -408,7 +414,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
                 for (StandardMethod m: clblock_.getMethods().values()) {
                     MethodId id_ = m.getId();
-                    String ret_ = m.getReturnType(stds_);
+                    String ret_ = m.getReturnType(this);
                     MethodMetaInfo met_ = new MethodMetaInfo(m.getDeclaringType(), id_, m.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
@@ -452,8 +458,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
-        StringList types_ = StringList.getAllTypes(_genericClassName);
-        String base_ = types_.first();
+        String base_ = Templates.getIdFromAllTypes(_genericClassName);
         GeneType r_ = getClassBody(base_);
         if (classes == null || !classes.isCustomType(_genericClassName)) {
             for (EntryCust<MethodId, StandardMethod> m: ((StandardType)r_).getMethods().entryList()) {
@@ -465,7 +470,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return methods_;
         }
         for (MethodBlock m: Classes.getMethodBlocks((RootBlock) r_)) {
-            if (m.getId().eq(_id)) {
+            if (m.getId(this).eq(_id)) {
                 methods_.add(m);
                 break;
             }
@@ -673,8 +678,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public StringMap<LoopVariable> getVars() {
-        return analyzing.getVars();
+    public LoopVariable getVar(String _key) {
+        return analyzing.getVar(_key);
     }
 
     public boolean containsLocalVar(String _string) {
@@ -690,13 +695,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         analyzing.putLocalVar(_string, _loc);
     }
 
-    public void removeLocalVar(String _string) {
-        analyzing.removeLocalVar(_string);
-    }
-
     @Override
-    public StringMap<LocalVariable> getCatchVars() {
-        return analyzing.getCatchVars();
+    public LocalVariable getCatchVar(String _key) {
+        return analyzing.getCatchVar(_key);
     }
 
     @Override
@@ -946,5 +947,238 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public String getInternGlobalClass() {
         return null;
+    }
+
+    @Override
+    public String resolveType(String _in) {
+        Block bl_ = getCurrentBlock();
+        RowCol rc_ = getCurrentLocation();
+        return resolveType(_in, bl_,rc_, true, false);
+    }
+    @Override
+    public String resolveType(String _in, Block _currentBlock,RowCol _location, boolean _checkSimpleCorrect, boolean _checkOnlyExistence) {
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in, void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setRc(_location);
+            un_.setType(_in);
+            classes.getErrorsDet().add(un_);
+            return standards.getAliasObject();
+        }
+        RootBlock r_ = _currentBlock.getRooted();
+        boolean static_;
+        if (_currentBlock instanceof InfoBlock) {
+            static_ = ((InfoBlock)_currentBlock).isStaticField();
+        } else {
+            FunctionBlock fct_ = _currentBlock.getFunction();
+            if (fct_ == null) {
+                static_ = true;
+            } else {
+                static_ = fct_.isStaticContext();
+            }
+        }
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        if (_checkSimpleCorrect) {
+            if (!static_) {
+                for (TypeVar t: r_.getParamTypesMapValues()) {
+                    vars_.put(t.getName(), t.getConstraints());
+                }
+            }
+            if (!Templates.correctClassParts(_in, vars_, this)) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(_in);
+                un_.setFileName(r_.getFile().getFileName());
+                un_.setRc(_location);
+                classes.getErrorsDet().add(un_);
+                return standards.getAliasObject();
+            }
+        } else {
+            StringList variables_ = new StringList();
+            for (TypeVar t: r_.getParamTypes()) {
+                variables_.add(t.getName());
+            }
+            for (TypeVar t: r_.getParamTypes()) {
+                StringList const_ = new StringList();
+                for (String c: t.getConstraints()) {
+                    if (!Templates.existAllClassParts(c, variables_, this)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(_in);
+                        un_.setFileName(r_.getFile().getFileName());
+                        un_.setRc(_location);
+                        classes.getErrorsDet().add(un_);
+                    }
+                    const_.add(c);
+                }
+                vars_.put(t.getName(), const_);
+            }
+            if (!Templates.correctClassPartsBuild(_in, vars_, this) && !_checkOnlyExistence) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(_in);
+                un_.setFileName(r_.getFile().getFileName());
+                un_.setRc(_location);
+                classes.getErrorsDet().add(un_);
+                return standards.getAliasObject();
+            }
+        }
+        String className_ = r_.getFullName();
+        StringList parts_ = StringList.splitChars(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
+        for (String p: parts_) {
+            if (classes.isCustomType(p)) {
+                if (!Classes.canAccessClass(className_, p, this)) {
+                    BadAccessClass err_ = new BadAccessClass();
+                    err_.setFileName(r_.getFile().getFileName());
+                    err_.setRc(_location);
+                    err_.setId(_in);
+                    classes.getErrorsDet().add(err_);
+                }
+            }
+        }
+        return _in;
+    }
+    @Override
+    public String resolveType(String _in, Block _currentBlock,RowCol _location) {
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in, void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setRc(_location);
+            un_.setType(_in);
+            classes.getErrorsDet().add(un_);
+            return standards.getAliasObject();
+        }
+        RootBlock r_ = _currentBlock.getRooted();
+        boolean static_;
+        if (_currentBlock instanceof InfoBlock) {
+            static_ = ((InfoBlock)_currentBlock).isStaticField();
+        } else {
+            FunctionBlock fct_ = _currentBlock.getFunction();
+            if (fct_ == null) {
+                static_ = true;
+            } else {
+                static_ = fct_.isStaticContext();
+            }
+        }
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        if (!static_) {
+            StringList variables_ = new StringList();
+            for (TypeVar t: r_.getParamTypes()) {
+                variables_.add(t.getName());
+            }
+            for (TypeVar t: r_.getParamTypes()) {
+                StringList const_ = new StringList();
+                for (String c: t.getConstraints()) {
+                    if (!Templates.existAllClassParts(c, variables_, this)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(_in);
+                        un_.setFileName(r_.getFile().getFileName());
+                        un_.setRc(_location);
+                        classes.getErrorsDet().add(un_);
+                    }
+                    const_.add(c);
+                }
+                vars_.put(t.getName(), const_);
+            }
+        }
+        String className_ = r_.getFullName();
+        StringList parts_ = StringList.splitChars(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
+        for (String p: parts_) {
+            if (classes.isCustomType(p)) {
+                if (!Classes.canAccessClass(className_, p, this)) {
+                    BadAccessClass err_ = new BadAccessClass();
+                    err_.setFileName(r_.getFile().getFileName());
+                    err_.setRc(_location);
+                    err_.setId(_in);
+                    classes.getErrorsDet().add(err_);
+                }
+            }
+        }
+        return _in;
+    }
+    @Override
+    public String resolveBaseType(String _in, Block _currentBlock,RowCol _location) {
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in, void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setRc(_location);
+            un_.setType(_in);
+            classes.getErrorsDet().add(un_);
+            return standards.getAliasObject();
+        }
+        RootBlock r_ = _currentBlock.getRooted();
+        boolean static_;
+        if (_currentBlock instanceof InfoBlock) {
+            static_ = ((InfoBlock)_currentBlock).isStaticField();
+        } else {
+            FunctionBlock fct_ = _currentBlock.getFunction();
+            if (fct_ == null) {
+                static_ = true;
+            } else {
+                static_ = fct_.isStaticContext();
+            }
+        }
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        if (!static_) {
+            StringList variables_ = new StringList();
+            for (TypeVar t: r_.getParamTypes()) {
+                variables_.add(t.getName());
+            }
+            for (TypeVar t: r_.getParamTypes()) {
+                StringList const_ = new StringList();
+                for (String c: t.getConstraints()) {
+                    if (!Templates.existAllClassParts(c, variables_, this)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(_in);
+                        un_.setFileName(r_.getFile().getFileName());
+                        un_.setRc(_location);
+                        classes.getErrorsDet().add(un_);
+                    }
+                    const_.add(c);
+                }
+                vars_.put(t.getName(), const_);
+            }
+        }
+        RootBlock b_ = classes.getClassBody(_in);
+        if (b_ != null) {
+            if (b_.getAccess().ordinal() >= AccessEnum.PROTECTED.ordinal()) {
+                if (b_.getAccess() == AccessEnum.PACKAGE) {
+                    if (!StringList.quickEq(b_.getPackageName(), r_.getPackageName())) {
+                        BadAccessClass err_ = new BadAccessClass();
+                        err_.setFileName(r_.getFile().getFileName());
+                        err_.setRc(_location);
+                        err_.setId(_in);
+                        classes.getErrorsDet().add(err_);
+                    }
+                } else {
+                    BadAccessClass err_ = new BadAccessClass();
+                    err_.setFileName(r_.getFile().getFileName());
+                    err_.setRc(_location);
+                    err_.setId(_in);
+                    classes.getErrorsDet().add(err_);
+                }
+            }
+        }
+        return _in;
+    }
+    @Override
+    public MethodId getId(GeneMethod _m) {
+        if (_m instanceof MethodBlock) {
+            return ((MethodBlock)_m).getId(this);
+        }
+        return ((StandardMethod)_m).getId();
+    }
+
+    @Override
+    public ConstructorId getId(GeneConstructor _m) {
+        if (_m instanceof ConstructorBlock) {
+            return ((ConstructorBlock)_m).getId(this);
+        }
+        return ((StandardConstructor)_m).getId();
+    }
+
+    @Override
+    public int getGlobalOffset() {
+        return analyzing.getGlobalOffset();
     }
 }

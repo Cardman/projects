@@ -8,6 +8,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NotInitializedClass;
@@ -72,7 +73,7 @@ public final class StaticAccessOperation extends LeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
         String classStr_ = StringList.removeAllSpaces(realCl_);
-        String base_ = StringList.getAllTypes(classStr_).first();
+        String base_ = Templates.getIdFromAllTypes(classStr_);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         if (!checkExistBase(_conf, false, base_, false, 0)) {
@@ -85,7 +86,7 @@ public final class StaticAccessOperation extends LeafOperation {
         if (classes_.isCustomType(classStr_)) {
             String curClassBase_ = null;
             if (glClass_ != null) {
-                curClassBase_ = StringList.getAllTypes(glClass_).first();
+                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             }
             if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();

@@ -19,10 +19,9 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         modifier = _modifier;
     }
 
-    @Override
     public MethodId getId() {
         String name_ = getName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(null);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -60,7 +59,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         return StringList.concat(getDeclaringType(),".",getId().getSignature(),":",getReturnType()," is ",modifier.name());
     }
 
-    @Override
     public String getSignature() {
         return getId().getSignature();
     }
@@ -73,7 +71,7 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
     @Override
     public MethodId getFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(_context);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -88,12 +86,12 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
     public MethodId getFormattedId(ContextEl _context) {
         String className_ = getDeclaringType();
         StringList vars_ = new StringList();
-        for (TypeVar t: _context.getClassBody(className_).getParamTypes()) {
+        for (TypeVar t: _context.getClassBody(className_).getParamTypesMapValues()) {
             vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         String current_ = className_;
         String name_ = getName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(null);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {

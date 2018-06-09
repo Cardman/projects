@@ -6,11 +6,10 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -134,39 +133,36 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        StringList l_ = getParametersTypes();
-        int i_ = 0;
-        for (String t: l_) {
-            tr_.put(StringList.concatNbs(ATTRIBUTE_CLASS,i_), t);
-            i_++;
-        }
-        return tr_;
-    }
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        StringList l_ = getParametersTypes();
-        int i_ = 0;
-        for (String t: l_) {
-            tr_.put(parametersTypesOffset.get(i_), t);
-            i_++;
-        }
-        return tr_;
-    }
-    @Override
     public String getName() {
         return name;
     }
 
     @Override
+    public final StringList getParametersTypes(Analyzable _an) {
+        StringList params_ = new StringList();
+        int off_ = getOffset().getOffsetTrim();
+        int i_ = 0;
+        for (String p: parametersTypes) {
+            RowCol rc_ = getRowCol(off_, parametersTypesOffset.get(i_));
+            params_.add(_an.resolveType(p, this, rc_, true, false));
+            i_++;
+        }
+        return params_;
+    }
     public final StringList getParametersTypes() {
         return new StringList(parametersTypes);
     }
 
     @Override
-    public String getReturnType(LgNames _stds) {
+    public String getReturnType(Analyzable _stds) {
+        String void_ = _stds.getStandards().getAliasVoid();
+        if (StringList.quickEq(returnType, void_)) {
+            return returnType;
+        }
+        RowCol rc_ = getRowCol(returnTypeOffset, getOffset().getOffsetTrim());
+        return _stds.resolveType(returnType, this, rc_, true, false);
+    }
+    public String getReturnType() {
         return returnType;
     }
 

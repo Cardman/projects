@@ -737,19 +737,22 @@ public final class ElResolver {
                     if (!hatMethod_) {
                         continue;
                     }
-                    if (_conf.isInternGlobal()) {
-                        if (procWordFirstChar(_string, i_ + 1, INTERN_BEAN)) {
+                    if (procWordFirstChar(_string, i_ + 1, INTERN_BEAN)) {
+                        if (_conf.isInternGlobal()) {
                             int afterSuper_ = i_ + 1 + INTERN_BEAN.length();
-                            while (afterSuper_ < len_) {
-                                if (_string.charAt(afterSuper_) == DOT_VAR) {
-                                    //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
-                                    break;
+                            String trim_ = _string.substring(afterSuper_).trim();
+                            if (trim_.startsWith(String.valueOf(DOT_VAR))) {
+                                while (true) {
+                                    if (_string.charAt(afterSuper_) == DOT_VAR) {
+                                        //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
+                                        break;
+                                    }
+                                    afterSuper_++;
                                 }
-                                afterSuper_++;
+                                hatMethod_ = false;
+                                i_ = afterSuper_;
+                                continue;
                             }
-                            hatMethod_ = false;
-                            i_ = afterSuper_;
-                            continue;
                         }
                     }
                 }

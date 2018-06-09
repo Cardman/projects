@@ -8,6 +8,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NotInitializedClass;
@@ -71,8 +72,8 @@ public final class StaticInitOperation extends LeafOperation {
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = StringList.removeAllSpaces(className_);
         String argClName_;
-        String type_ = StringList.getAllTypes(className_).first();
-        String base_ = StringList.getAllTypes(type_).first();
+        String type_ = Templates.getIdFromAllTypes(className_);
+        String base_ = Templates.getIdFromAllTypes(type_);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         if (!checkExistBase(_conf, false, base_, false, 0)) {
@@ -85,7 +86,7 @@ public final class StaticInitOperation extends LeafOperation {
         if (classes_.isCustomType(base_)) {
             String curClassBase_ = null;
             if (glClass_ != null) {
-                curClassBase_ = StringList.getAllTypes(glClass_).first();
+                curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             }
             if (!Classes.canAccessClass(curClassBase_, base_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();

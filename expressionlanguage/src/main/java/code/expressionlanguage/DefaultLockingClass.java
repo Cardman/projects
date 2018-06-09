@@ -3,7 +3,6 @@ package code.expressionlanguage;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.Struct;
-import code.util.StringList;
 import code.util.StringMap;
 
 public class DefaultLockingClass {
@@ -17,15 +16,15 @@ public class DefaultLockingClass {
         }
     }
     public void initClass(String _className) {
-        String base_ = StringList.getAllTypes(_className).first();
+        String base_ = Templates.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.PROGRESSING);
     }
     public InitClassState getState(String _className) {
-        String base_ = StringList.getAllTypes(_className).first();
+        String base_ = Templates.getIdFromAllTypes(_className);
         return classes.getVal(base_);
     }
     public InitClassState getState(ContextEl _context, String _className) {
-        String base_ = StringList.getAllTypes(_className).first();
+        String base_ = Templates.getIdFromAllTypes(_className);
         InitClassState old_ = classes.getVal(base_);
         if (old_ == InitClassState.NOT_YET) {
             classes.put(base_, InitClassState.PROGRESSING);
@@ -33,7 +32,7 @@ public class DefaultLockingClass {
         return old_;
     }
     public void successClass(ContextEl _context, String _className) {
-        String base_ = StringList.getAllTypes(_className).first();
+        String base_ = Templates.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.SUCCESS);
     }
     public void processErrorClass(ContextEl _context, Struct _cause) {
@@ -47,7 +46,7 @@ public class DefaultLockingClass {
         _context.setException(causing_);
     }
     public void errorClass(ContextEl _context, String _className) {
-        String base_ = StringList.getAllTypes(_className).first();
+        String base_ = Templates.getIdFromAllTypes(_className);
         classes.put(base_, InitClassState.ERROR);
     }
     protected StringMap<InitClassState> getClasses() {

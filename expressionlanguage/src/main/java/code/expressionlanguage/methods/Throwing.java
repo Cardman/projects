@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.NatTreeMap;
 
 public final class Throwing extends AbruptBlock implements StackableBlock {
 
@@ -42,18 +41,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
 
     public int getExpressionOffset() {
         return expressionOffset;
-    }
-
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
     }
 
     public String getExpression() {

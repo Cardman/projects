@@ -40,12 +40,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
 
     private static final char QUOTE = '\'';
 
-    private static final char LT = '<';
-
-    private static final char GT = '>';
-
-    private static final char COMMA = ',';
-
     private static final char LINE_RETURN_CHAR = '\n';
 
     private static final char SPACE_CHAR = ' ';
@@ -1349,86 +1343,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
             index_ = ind_;
         }
         return index_;
-    }
-
-    public static StringList getTypes(String _type) {
-        StringList types_ = new StringList();
-        int i_ = _type.indexOf(String.valueOf(LT));
-        if (i_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return types_;
-        }
-        i_++;
-        int nbGt_ = 0;
-        int nbLt_ = 0;
-        int first_ = i_;
-        while (true) {
-            if (i_ >= _type.length() - 1) {
-                types_.add(_type.substring(first_, i_));
-                break;
-            }
-            if (_type.charAt(i_) == COMMA) {
-                if (nbGt_ == nbLt_) {
-                    types_.add(_type.substring(first_, i_));
-                    first_ = i_ + 1;
-                }
-            }
-            if (_type.charAt(i_) == LT) {
-                nbGt_++;
-            }
-            if (_type.charAt(i_) == GT) {
-                nbLt_++;
-            }
-            i_++;
-        }
-        return types_;
-    }
-
-    public static StringList getAllTypes(String _type) {
-        StringList types_ = new StringList();
-        int i_ = FIRST_INDEX;
-        int nbGt_ = 0;
-        int nbLt_ = 0;
-        int first_ = i_;
-        int lastGt_ = INDEX_NOT_FOUND_ELT;
-        while (true) {
-            if (i_ >= _type.length()) {
-                if (nbGt_ != nbLt_) {
-                    return null;
-                }
-                if (lastGt_ == INDEX_NOT_FOUND_ELT) {
-                    types_.add(_type);
-                } else {
-                    types_.add(_type.substring(first_, lastGt_));
-                }
-                break;
-            }
-            //i_ < _type.length() - 1
-            if (_type.charAt(i_) == COMMA) {
-                if (nbLt_ == 0) {
-                    return null;
-                }
-                if (nbGt_ + 1 == nbLt_) {
-                    types_.add(_type.substring(first_, i_));
-                    first_ = i_ + 1;
-                }
-            }
-            if (_type.charAt(i_) == LT) {
-                if (types_.isEmpty()) {
-                    types_.add(_type.substring(first_, i_));
-                    first_ = i_ + 1;
-                }
-                nbLt_++;
-            }
-            if (_type.charAt(i_) == GT) {
-                nbGt_++;
-                if (nbGt_ > nbLt_) {
-                    return null;
-                }
-                lastGt_ = i_;
-            }
-            i_++;
-        }
-        return types_;
     }
 
     public static CharList getMetaCharacters() {

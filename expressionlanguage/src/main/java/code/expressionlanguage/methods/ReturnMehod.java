@@ -32,7 +32,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -66,17 +65,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         return expressionOffset;
     }
 
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
-    }
     public boolean isEmpty() {
         return expression.trim().isEmpty();
     }
@@ -102,7 +90,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             if (par_ instanceof Returnable) {
                 Returnable meth_ = null;
                 meth_ = (Returnable) par_;
-                retType_ = meth_.getReturnType(stds_);
+                retType_ = meth_.getReturnType(_cont);
                 break;
             }
             par_ = par_.getParent();
@@ -114,6 +102,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 return;
             }
         }
+        retType_ = _cont.resolveType(retType_);
         if (f_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
@@ -129,8 +118,8 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(globalClass_).first();
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+            String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -235,7 +224,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 if (par_ instanceof Returnable) {
                     Returnable meth_ = null;
                     meth_ = (Returnable) par_;
-                    retType_ = meth_.getReturnType(stds_);
+                    retType_ = meth_.getReturnType(_cont);
                     break;
                 }
                 par_ = par_.getParent();

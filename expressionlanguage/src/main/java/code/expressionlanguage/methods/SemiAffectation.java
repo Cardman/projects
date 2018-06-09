@@ -14,7 +14,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.NatTreeMap;
 import code.util.StringList;
 
 public final class SemiAffectation extends Leaf implements StackableBlock {
@@ -65,17 +64,6 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         return oper;
     }
 
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
-    }
     public ExpressionLanguage getLeftEl() {
         return new ExpressionLanguage(opLeft);
     }

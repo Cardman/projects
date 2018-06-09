@@ -71,7 +71,7 @@ public final class FinalVariableOperation extends LeafOperation {
         }
         if (op_.getConstType() == ConstType.CATCH_VAR) {
             variableName = str_;
-            LocalVariable locVar_ = _conf.getCatchVars().getVal(variableName);
+            LocalVariable locVar_ = _conf.getCatchVar(variableName);
             if (locVar_ != null) {
                 setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
                 return;
@@ -86,7 +86,7 @@ public final class FinalVariableOperation extends LeafOperation {
         }
         if (op_.getConstType() == ConstType.LOOP_INDEX) {
             variableName = str_;
-            LoopVariable locVar_ = _conf.getVars().getVal(variableName);
+            LoopVariable locVar_ = _conf.getVar(variableName);
             if (locVar_ != null) {
                 setResultClass(new ClassArgumentMatching(locVar_.getIndexClassName()));
                 return;
@@ -100,7 +100,7 @@ public final class FinalVariableOperation extends LeafOperation {
             return;
         }
         variableName = str_;
-        LoopVariable locVar_ = _conf.getVars().getVal(variableName);
+        LoopVariable locVar_ = _conf.getVar(variableName);
         if (locVar_ != null) {
             setResultClass(new ClassArgumentMatching(locVar_.getClassName()));
             return;

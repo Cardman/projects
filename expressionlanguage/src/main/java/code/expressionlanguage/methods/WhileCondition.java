@@ -30,7 +30,6 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -58,17 +57,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
     public int getLabelOffset() {
         return labelOffset;
-    }
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
     }
 
     @Override
@@ -118,7 +106,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
         Block firstChild_ = getFirstChild();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
@@ -134,6 +121,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         }
         AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
         if (firstChild_ == null) {
+            super.setAssignmentAfter(_an, _anEl);
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));

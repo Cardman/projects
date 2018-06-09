@@ -10,7 +10,6 @@ import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.NotInitializedClass;
@@ -161,7 +160,6 @@ public final class TernaryOperation extends MethodOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
-        Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offsetLocal, _conf);
         LgNames stds_ = _conf.getStandards();

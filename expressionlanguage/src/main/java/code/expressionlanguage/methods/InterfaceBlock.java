@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneInterface;
 import code.sml.Element;
 import code.util.CustList;
@@ -38,8 +39,26 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
+    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
         return new StringList(getDirectSuperTypes());
+    }
+
+    @Override
+    public StringList getDirectGenericSuperTypes(Analyzable _classes) {
+        StringList classes_ = new StringList();
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                classes_.add(s);
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    classes_.add(s);
+                }
+            }
+        }
+        return classes_;
     }
 
     @Override
@@ -50,18 +69,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
-    }
-
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_NAME, getFullDefinition());
-        int i_ = 0;
-        for (String t: getDirectSuperTypes()) {
-            tr_.put(StringList.concatNbs(ATTRIBUTE_CLASS,i_), t);
-            i_++;
-        }
-        return tr_;
     }
 
     @Override
@@ -86,8 +93,20 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     @Override
     public StringList getDirectGenericSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList(getDirectSuperTypes());
-        if (getDirectSuperTypes().isEmpty()) {
+        StringList classes_ = new StringList();
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                classes_.add(s);
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    classes_.add(s);
+                }
+            }
+        }
+        if (classes_.isEmpty()) {
             classes_.add(_classes.getStandards().getAliasObject());
         }
         return classes_;
@@ -97,14 +116,18 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
-            int index_ = s.indexOf(LT);
-            if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-                classes_.add(s.substring(CustList.FIRST_INDEX, index_));
-            } else {
-                classes_.add(s);
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                classes_.add(base_);
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    classes_.add(base_);
+                }
             }
         }
-        if (getDirectSuperTypes().isEmpty()) {
+        if (classes_.isEmpty()) {
             classes_.add(_classes.getStandards().getAliasObject());
         }
         return classes_;
@@ -141,7 +164,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
                 allGenericSuperClasses_.add(s);
             }

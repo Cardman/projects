@@ -5,6 +5,7 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -43,8 +44,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(globalClass_).first();
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+            String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -74,7 +75,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 deadCode_.setFileName(getFile().getFileName());
                 deadCode_.setRc(en_.getRowCol(0, en_.getOffset().getOffsetTrim()));
                 if (this instanceof Returnable) {
-                    deadCode_.setId(((Returnable)this).getSignature());
+                    deadCode_.setId(((Returnable)this).getSignature(_cont));
                 } else {
                     deadCode_.setId(EMPTY_STRING);
                 }
@@ -83,6 +84,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             Block n_ = en_.getFirstChild();
             if (n_ != null) {
                 _cont.getAnalyzing().initLocalVars();
+                _cont.getAnalyzing().initVars();
+                _cont.getAnalyzing().initCatchVars();
                 if (en_ instanceof BreakableBlock) {
                     parentsBreakables_.add((BreakableBlock) en_);
                 }
@@ -117,10 +120,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 ((BracedBlock)en_).abruptGroup(_cont, anEl_);
             }
             en_.setAssignmentAfter(_cont, anEl_);
-            if (en_ instanceof CatchEval) {
-                String var_ = ((CatchEval)en_).getVariableName();
-                page_.getCatchVars().removeKey(var_);
-            }
             if (en_ instanceof BreakableBlock && !((BreakableBlock)en_).getLabel().isEmpty()) {
                 labels_.removeLast();
             }
@@ -160,14 +159,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                     }
                 }
                 page_.removeLocalVars();
-                if (par_ instanceof ForLoop) {
-                    String var_ = ((ForLoop)par_).getVariableName();
-                    page_.getVars().removeKey(var_);
-                }
-                if (par_ instanceof CatchEval) {
-                    String var_ = ((CatchEval)par_).getVariableName();
-                    page_.getCatchVars().removeKey(var_);
-                }
+                page_.removeVars();
+                page_.removeCatchVars();
                 if (par_ instanceof BreakableBlock && !((BreakableBlock)par_).getLabel().isEmpty()) {
                     labels_.removeLast();
                 }

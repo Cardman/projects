@@ -4,7 +4,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.ObjectMap;
-import code.util.StringList;
 
 public class CustInitializer extends DefaultInitializer {
 
@@ -12,7 +11,7 @@ public class CustInitializer extends DefaultInitializer {
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, 
             ObjectMap<ClassField, Struct> _fields) {
-        String base_ = StringList.getAllTypes(_className).first();
+        String base_ = Templates.getIdFromAllTypes(_className);
         String run_ = ((LgNamesUtils)_context.getStandards()).getAliasRunnable();
         if (PrimitiveTypeUtil.canBeUseAsArgument(run_, base_, _context)) {
             return new ContextEl(_context, _className, _fieldName, _ordinal, _fields, _parent);

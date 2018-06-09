@@ -31,8 +31,7 @@ public final class ProcessMethod {
     }
 
     public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        Classes classes_ = _cont.getClasses();
-        MethodBlock method_ = classes_.getMethodBodiesById(_class, _method).first();
+        MethodBlock method_ = Classes.getMethodBodiesById(_cont, _class, _method).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();

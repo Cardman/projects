@@ -8,6 +8,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -20,8 +21,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.NatTreeMap;
-import code.util.StringList;
 
 public final class Line extends Leaf implements StackableBlock {
 
@@ -46,18 +45,6 @@ public final class Line extends Leaf implements StackableBlock {
 
     public int getExpressionOffset() {
         return expressionOffset;
-    }
-
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
     }
     public String getExpression() {
         return expression;
@@ -138,7 +125,7 @@ public final class Line extends Leaf implements StackableBlock {
         }
         InterfaceInvokingConstructor int_ = (InterfaceInvokingConstructor) last_;
         String cl_ = int_.getConstId().getName();
-        cl_ = StringList.getAllTypes(cl_).first();
+        cl_ = Templates.getIdFromAllTypes(cl_);
         return cl_;
     }
     public boolean isCallInts() {

@@ -3,7 +3,6 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class PageEl {
@@ -47,7 +46,7 @@ public abstract class PageEl {
         }
         String objClass_ = globalArgument.getObjectClassName(_cont.getContextEl());
         String gl_ = globalClass;
-        gl_ = StringList.getAllTypes(gl_).first();
+        gl_ = Templates.getIdFromAllTypes(gl_);
         gl_ = Templates.getFullTypeByBases(objClass_, gl_, _cont);
         return Templates.format(gl_, _varType, _cont);
     }

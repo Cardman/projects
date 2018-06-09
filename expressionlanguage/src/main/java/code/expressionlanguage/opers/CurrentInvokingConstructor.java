@@ -42,8 +42,8 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
         Argument arg_ = _conf.getOperationPageEl().getGlobalArgument();
         String clCurName_ = arg_.getObjectClassName(_conf.getContextEl());
         String gl_ = _conf.getOperationPageEl().getGlobalClass();
-        gl_ = StringList.getAllTypes(gl_).first();
-        String base_ = StringList.getAllTypes(gl_).first();
+        gl_ = Templates.getIdFromAllTypes(gl_);
+        String base_ = Templates.getIdFromAllTypes(gl_);
         gl_ = Templates.getFullTypeByBases(clCurName_, gl_, _conf);
         CustList<Argument> firstArgs_;
         String calledCtor_ = base_;

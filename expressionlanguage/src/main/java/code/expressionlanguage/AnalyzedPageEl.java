@@ -34,9 +34,9 @@ public final class AnalyzedPageEl {
 
     private String globalClass;
 
-    private StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+    private CustList<StringMap<LoopVariable>> vars = new CustList<StringMap<LoopVariable>>();
 
-    private StringMap<LocalVariable> catchVars = new StringMap<LocalVariable>();
+    private CustList<StringMap<LocalVariable>> catchVars = new CustList<StringMap<LocalVariable>>();
 
     private CustList<StringMap<LocalVariable>> localVars = new CustList<StringMap<LocalVariable>>();
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
@@ -135,8 +135,10 @@ public final class AnalyzedPageEl {
     private String getCommonInfos(ContextEl _context) {
         StringList list_ = new StringList();
         list_.add(globalClass);
-        for (EntryCust<String,LoopVariable> e: vars.entryList()) {
-            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos(_context)));
+        for (StringMap<LoopVariable> e: vars) {
+            for (EntryCust<String,LoopVariable> f: e.entryList()) {
+                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos(_context)));
+            }
         }
         list_.add(LOCAL_VARIABLES);
         for (StringMap<LocalVariable> e: localVars) {
@@ -145,8 +147,10 @@ public final class AnalyzedPageEl {
             }
         }
         list_.add(CATCH_VARIABLES);
-        for (EntryCust<String,LocalVariable> e: catchVars.entryList()) {
-            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
+        for (StringMap<LocalVariable> e: catchVars) {
+            for (EntryCust<String,LocalVariable> f: e.entryList()) {
+                list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
+            }
         }
         list_.add(PARAMATERS);
         for (EntryCust<String,LocalVariable> e: parameters.entryList()) {
@@ -195,12 +199,39 @@ public final class AnalyzedPageEl {
         globalClass = _globalClass;
     }
 
-    public StringMap<LoopVariable> getVars() {
-        return vars;
+    public void initVars() {
+        vars.add(new StringMap<LoopVariable>());
     }
 
-    public void setVars(StringMap<LoopVariable> _vars) {
-        vars = _vars;
+    public void removeVars() {
+        vars.removeLast();
+    }
+
+    public void putVar(String _key, LoopVariable _var) {
+        vars.last().put(_key, _var);
+    }
+
+    public boolean containsVar(String _key) {
+        for (StringMap<LoopVariable> m: vars) {
+            if (m.contains(_key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public LoopVariable getVar(String _key) {
+        for (StringMap<LoopVariable> m: vars) {
+            if (m.contains(_key)) {
+                return m.getVal(_key);
+            }
+        }
+        return null;
+    }
+
+    public void setVars(StringMap<LoopVariable> _localVars) {
+        vars = new CustList<StringMap<LoopVariable>>(new CollCapacity(1));
+        vars.add(_localVars);
     }
 
     public CustList<StringMap<LocalVariable>> getLocalVars() {
@@ -225,10 +256,8 @@ public final class AnalyzedPageEl {
         assignedVariables.getFinalVariablesGlobal().getVariablesRoot().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesRootBefore().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesBefore().clear();
-    }
-
-    public void removeLocalVar(String _key) {
-        localVars.last().removeKey(_key);
+        vars.clear();
+        catchVars.clear();
     }
 
     public boolean containsLocalVar(String _key) {
@@ -258,12 +287,38 @@ public final class AnalyzedPageEl {
         localVars = _localVars;
     }
 
-    public StringMap<LocalVariable> getCatchVars() {
-        return catchVars;
+    public void setCatchVars(StringMap<LocalVariable> _localVars) {
+        catchVars = new CustList<StringMap<LocalVariable>>(new CollCapacity(1));
+        catchVars.add(_localVars);
+    }
+    public void initCatchVars() {
+        catchVars.add(new StringMap<LocalVariable>());
     }
 
-    public void setCatchVars(StringMap<LocalVariable> _catchVars) {
-        catchVars = _catchVars;
+    public void removeCatchVars() {
+        catchVars.removeLast();
+    }
+
+    public void putCatchVar(String _key, LocalVariable _var) {
+        catchVars.last().put(_key, _var);
+    }
+
+    public boolean containsCatchVar(String _key) {
+        for (StringMap<LocalVariable> m: catchVars) {
+            if (m.contains(_key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public LocalVariable getCatchVar(String _key) {
+        for (StringMap<LocalVariable> m: catchVars) {
+            if (m.contains(_key)) {
+                return m.getVal(_key);
+            }
+        }
+        return null;
     }
 
     public StringMap<LocalVariable> getParameters() {

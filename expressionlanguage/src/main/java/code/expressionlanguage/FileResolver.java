@@ -246,10 +246,6 @@ public final class FileResolver {
             boolean hasNext_ = false;
             while (i_ < len_) {
                 char currentChar_ = _file.charAt(i_);
-                if (currentChar_ == KEY_WORD_PREFIX) {
-                    hasNext_ = true;
-                    break;
-                }
                 if (commentedSingleLine_) {
                     if (currentChar_ == LINE_RETURN) {
                         commentedSingleLine_ = false;
@@ -276,6 +272,10 @@ public final class FileResolver {
                     }
                     i_ = incrementRowCol(i_, _file, tabWidth_, readRc_, enabledSpaces_);
                     continue;
+                }
+                if (currentChar_ == KEY_WORD_PREFIX) {
+                    hasNext_ = true;
+                    break;
                 }
                 if (currentChar_ == BEGIN_COMMENT) {
                     if (!allowedComments_) {

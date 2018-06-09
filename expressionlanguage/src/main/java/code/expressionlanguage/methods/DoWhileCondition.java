@@ -30,7 +30,6 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -40,18 +39,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     public DoWhileCondition(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _condition, _offset);
-    }
-
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
     }
 
     @Override
@@ -150,7 +137,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        super.setAssignmentAfter(_an, _anEl);
         if (getFirstChild() != null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());

@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.util.MethodId;
@@ -53,7 +54,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
         StringList allSuperTypes_ = TypeUtil.getAllGenericSuperTypes(this,_classes);
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             if (_classes.getClassBody(base_) instanceof StandardInterface) {
                 allGenericSuperClasses_.add(s);
             }
@@ -110,6 +111,11 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     @Override
     public StringList getAllInterfaces() {
         return getAllSuperClasses();
+    }
+
+    @Override
+    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
+        return new StringList(getDirectSuperTypes());
     }
 
     @Override

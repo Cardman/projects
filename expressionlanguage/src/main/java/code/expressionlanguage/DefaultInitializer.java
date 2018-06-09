@@ -19,7 +19,7 @@ public class DefaultInitializer implements Initializer {
     public Struct processInit(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal) {
         Classes classes_ = _context.getClasses();
-        String baseClass_ = StringList.getAllTypes(_className).first();
+        String baseClass_ = Templates.getIdFromAllTypes(_className);
         RootBlock class_ = classes_.getClassBody(baseClass_);
         StringList allClasses_ = new StringList(baseClass_);
         allClasses_.addAllElts(class_.getAllSuperTypes());

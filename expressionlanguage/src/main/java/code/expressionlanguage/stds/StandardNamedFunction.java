@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneFunction;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AccessEnum;
@@ -36,12 +37,12 @@ public abstract class StandardNamedFunction implements GeneFunction {
     }
 
     @Override
-    public final StringList getParametersTypes() {
+    public final StringList getParametersTypes(Analyzable _stds) {
         return new StringList(parametersTypes);
     }
 
     @Override
-    public String getReturnType(LgNames _stds) {
+    public String getReturnType(Analyzable _stds) {
         return returnType;
     }
 

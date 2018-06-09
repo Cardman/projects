@@ -15,6 +15,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.AffectationOperation;
@@ -43,7 +44,6 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -165,21 +165,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_CLASS, className);
-        tr_.put(ATTRIBUTE_CLASS_INDEX, classIndexName);
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        tr_.put(classIndexNameOffset, classIndexName);
-        tr_.put(classNameOffset, className);
-        return tr_;
-    }
-    @Override
     public String getClassIndexName() {
         return classIndexName;
     }
@@ -240,10 +225,11 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        ClassArgumentMatching elementClass_ = new ClassArgumentMatching(className);
+        String cl_ = _cont.resolveType(className);
+        ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(className);
+            mapping_.setArg(cl_);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -253,13 +239,19 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        if (_cont.getAnalyzing().getVars().contains(variableName)) {
+        if (_cont.getAnalyzing().containsVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setRc(getRowCol(0, variableNameOffset));
             _cont.getClasses().getErrorsDet().add(d_);
-            return;
+        }
+        if (!StringList.isWord(variableName)) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setVarName(variableName);
+            _cont.getClasses().getErrorsDet().add(b_);
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
@@ -269,10 +261,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         OperationNode initEl_ = opInit.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, initEl_.getResultClass().getName(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(cl_, initEl_.getResultClass().getName(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(initEl_.getResultClass().getName());
-            mapping_.setParam(className);
+            mapping_.setParam(cl_);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
@@ -286,10 +278,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         OperationNode expressionEl_ = opExp.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, expressionEl_.getResultClass().getName(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(cl_, expressionEl_.getResultClass().getName(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(expressionEl_.getResultClass().getName());
-            mapping_.setParam(className);
+            mapping_.setParam(cl_);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
@@ -303,20 +295,22 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         OperationNode stepEl_ = opStep.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(className, stepEl_.getResultClass().getName(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(cl_, stepEl_.getResultClass().getName(), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(stepEl_.getResultClass().getName());
-            mapping_.setParam(className);
+            mapping_.setParam(cl_);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setRc(getRowCol(0, stepOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
-        LoopVariable lv_ = new LoopVariable();
-        lv_.setClassName(className);
-        lv_.setIndexClassName(classIndexName);
-        _cont.getAnalyzing().getVars().put(variableName, lv_);
+        if (getFirstChild() != null) {
+            LoopVariable lv_ = new LoopVariable();
+            lv_.setClassName(cl_);
+            lv_.setIndexClassName(classIndexName);
+            _cont.getAnalyzing().putVar(variableName, lv_);
+        }
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
         for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
             BooleanAssignment ba_ = new BooleanAssignment();

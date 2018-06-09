@@ -8,6 +8,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -15,6 +16,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -624,6 +626,10 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public LoopVariable getVar(String _var) {
+        return getLastPage().getVars().getVal(_var);
+    }
+
     public StringMap<LoopVariable> getVars() {
         return getLastPage().getVars();
     }
@@ -637,9 +643,13 @@ public class Configuration implements ExecutableCode {
         return getLastPage().getLocalVars();
     }
 
-    @Override
     public StringMap<LocalVariable> getCatchVars() {
         return getLastPage().getCatchVars();
+    }
+
+    @Override
+    public LocalVariable getCatchVar(String _key) {
+        return getLastPage().getCatchVars().getVal(_key);
     }
 
     @Override
@@ -844,5 +854,41 @@ public class Configuration implements ExecutableCode {
     @Override
     public String getInternGlobalClass() {
         return getLastPage().getInternGlobal().getClassName(this);
+    }
+
+    @Override
+    public String resolveType(String _in) {
+        return context.resolveType(_in);
+    }
+
+    @Override
+    public MethodId getId(GeneMethod _m) {
+        return context.getId(_m);
+    }
+
+    @Override
+    public ConstructorId getId(GeneConstructor _m) {
+        return context.getId(_m);
+    }
+
+    @Override
+    public String resolveType(String _in, Block _currentBlock, RowCol _location, boolean _checkSimpleCorrect,
+            boolean _checkOnlyExistence) {
+        return context.resolveType(_in, _currentBlock, _location, _checkSimpleCorrect, _checkOnlyExistence);
+    }
+    @Override
+    public int getGlobalOffset() {
+        return context.getGlobalOffset();
+    }
+
+    @Override
+    public String resolveType(String _in, Block _currentBlock, RowCol _location) {
+        return context.resolveType(_in, _currentBlock, _location);
+    }
+
+    @Override
+    public String resolveBaseType(String _in, Block _currentBlock,
+            RowCol _location) {
+        return context.resolveBaseType(_in, _currentBlock, _location);
     }
 }

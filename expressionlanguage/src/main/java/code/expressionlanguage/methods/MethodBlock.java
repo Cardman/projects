@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -62,8 +61,8 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     }
 
     @Override
-    public String getSignature() {
-        return getId().getSignature();
+    public String getSignature(Analyzable _an) {
+        return getId(_an).getSignature();
     }
 
     @Override
@@ -81,18 +80,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = super.getClassNames(_context);
-        tr_.put(ATTRIBUTE_CLASS, getReturnType(_context.getStandards()));
-        return tr_;
-    }
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = super.getClassNamesOffsets(_context);
-        tr_.put(getReturnTypeOffset(), getReturnType(_context.getStandards()));
-        return tr_;
-    }
-    @Override
     public String getDeclaringType() {
         return declaringType;
     }
@@ -100,7 +87,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     @Override
     public MethodId getFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(_context);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -115,7 +102,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     public MethodId getFormattedId(ContextEl _context) {
         String className_ = declaringType;
         StringList vars_ = new StringList();
-        for (TypeVar t: _context.getClassBody(className_).getParamTypes()) {
+        for (TypeVar t: _context.getClassBody(className_).getParamTypesMapValues()) {
             vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         String current_;
@@ -125,7 +112,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
             current_ = StringList.concat(className_,LT,vars_.join(SEP_TMP),GT);
         }
         String name_ = getName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(_context);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -136,10 +123,9 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-    @Override
-    public MethodId getId() {
+    public MethodId getId(Analyzable _an) {
         String name_ = getName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(_an);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -222,14 +208,14 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         LgNames stds_ = _an.getStandards();
-        if (!StringList.quickEq(getReturnType(stds_), stds_.getAliasVoid())) {
+        if (!StringList.quickEq(getReturnType(_an), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
                 //error
                 MissingReturnMethod miss_ = new MissingReturnMethod();
                 miss_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
                 miss_.setFileName(getFile().getFileName());
-                miss_.setId(getSignature());
-                miss_.setReturning(getReturnType(stds_));
+                miss_.setId(getSignature(_an));
+                miss_.setReturning(getReturnType(_an));
                 _an.getClasses().getErrorsDet().add(miss_);
             }
         }

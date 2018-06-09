@@ -71,7 +71,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     @Override
     public void analyze(Analyzable _conf) {
         checkPositionBasis(_conf);
-        Classes classes_ = _conf.getClasses();
         String clCurName_ = _conf.getGlobalClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -102,11 +101,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             return;
         }
         constId = ctorRes_.getRealId();
-        CustList<ConstructorBlock> ctors_ = classes_.getConstructorBodiesById(clArg_.getName(), constId);
+        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_conf,clArg_.getName(), constId);
         if (!ctors_.isEmpty() && !Classes.canAccess(clCurName_, ctors_.first(), _conf)) {
             ConstructorBlock ctr_ = ctors_.first();
             BadAccessConstructor badAccess_ = new BadAccessConstructor();
-            badAccess_.setId(ctr_.getId());
+            badAccess_.setId(ctr_.getId(_conf));
             badAccess_.setFileName(_conf.getCurrentFileName());
             badAccess_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(badAccess_);

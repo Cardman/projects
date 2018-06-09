@@ -175,8 +175,8 @@ public final class PrimitiveTypeUtil {
                 }
             } else {
                 for (String j: _classNames) {
-                    String baseSup_ = StringList.getAllTypes(i).first();
-                    String baseSub_ = StringList.getAllTypes(j).first();
+                    String baseSup_ = Templates.getIdFromAllTypes(i);
+                    String baseSub_ = Templates.getIdFromAllTypes(j);
                     if (StringList.quickEq(baseSup_, baseSub_)) {
                         continue;
                     }
@@ -614,8 +614,7 @@ public final class PrimitiveTypeUtil {
         if (_block instanceof MethodBlock) {
             MethodBlock m_ = (MethodBlock) _block;
             Argument a_ = new Argument();
-            LgNames stds_ = _context.getStandards();
-            a_.setStruct(StdStruct.defaultClass(m_.getReturnType(stds_), _context));
+            a_.setStruct(StdStruct.defaultClass(m_.getReturnType(_context), _context));
             return a_;
         }
         if (_block instanceof ConstructorBlock) {

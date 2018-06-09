@@ -7,6 +7,7 @@ import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -16,7 +17,7 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class DeclareVariable extends Leaf implements InitVariable {
@@ -64,19 +65,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     }
 
     @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_CLASS, className);
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        tr_.put(classNameOffset, className);
-        return tr_;
-    }
-    @Override
     public String getVariableName() {
         return variableName;
     }
@@ -91,6 +79,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
+        String cl_ = _cont.resolveType(className);
         _cont.setMerged(merged);
         _cont.setFinalVariable(finalVariable);
         if (_cont.containsLocalVar(variableName)) {
@@ -103,13 +92,20 @@ public final class DeclareVariable extends Leaf implements InitVariable {
             _cont.getClasses().getErrorsDet().add(d_);
             return;
         }
+        if (!StringList.isWord(variableName)) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setVarName(variableName);
+            _cont.getClasses().getErrorsDet().add(b_);
+        }
         if (!merged) {
             LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(className);
+            lv_.setClassName(cl_);
             lv_.setFinalVariable(finalVariable);
             _cont.putLocalVar(variableName, lv_);
         } else {
-            _cont.setCurrentVarSetting(className);
+            _cont.setCurrentVarSetting(cl_);
         }
     }
 

@@ -49,7 +49,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -235,6 +234,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
+        String cl_ = _cont.resolveType(className);
         if (value.trim().isEmpty()) {
             return;
         }
@@ -248,8 +248,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (!staticField) {
             String globalClass_ = page_.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(globalClass_).first();
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypes()) {
+            String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -257,7 +257,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         mapping_.setMapping(vars_);
         String arg_ = opValue.last().getResultClass().getName();
         mapping_.setArg(arg_);
-        mapping_.setParam(className);
+        mapping_.setParam(cl_);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -265,8 +265,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             cast_.setRc(getRowCol(0, valueOffset));
             _cont.getClasses().getErrorsDet().add(cast_);
         }
-        if (PrimitiveTypeUtil.isPrimitive(className, _cont)) {
-            opValue.last().getResultClass().setUnwrapObject(className);
+        if (PrimitiveTypeUtil.isPrimitive(cl_, _cont)) {
+            opValue.last().getResultClass().setUnwrapObject(cl_);
         }
     }
 
@@ -400,20 +400,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public NatTreeMap<String, String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_CLASS, className);
-        return tr_;
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        tr_.put(classNameOffset, className);
-        return tr_;
     }
 
     @Override

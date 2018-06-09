@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -7,6 +8,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -27,18 +29,19 @@ public interface Analyzable {
     RowCol getCurrentLocation();
 
     String getCurrentVarSetting();
-    StringMap<LoopVariable> getVars();
+    LoopVariable getVar(String _key);
 
     CustList<StringMap<LocalVariable>> getLocalVariables();
 
     LocalVariable getLocalVar(String _key);
 
-    StringMap<LocalVariable> getCatchVars();
+    LocalVariable getCatchVar(String _key);
 
     StringMap<LocalVariable> getParameters();
     boolean isEnabledInternVars();
     StringMap<LocalVariable> getInternVars();
     int getOffset();
+    int getGlobalOffset();
 
     void setAnalyzedOffset(int _offset);
 
@@ -73,4 +76,11 @@ public interface Analyzable {
     CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
     StringList getNeedInterfaces();
+    String resolveType(String _in);
+    MethodId getId(GeneMethod _m);
+    ConstructorId getId(GeneConstructor _m);
+    String resolveType(String _in, Block _currentBlock,RowCol _location,
+            boolean _checkSimpleCorrect, boolean _checkOnlyExistence);
+    String resolveType(String _in, Block _currentBlock,RowCol _location);
+    String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
 }

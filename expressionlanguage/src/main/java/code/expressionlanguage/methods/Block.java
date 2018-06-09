@@ -731,8 +731,6 @@ public abstract class Block extends Blockable {
         return indexGroup;
     }
 
-    public abstract NatTreeMap<String,String> getClassNames(ContextEl _stds);
-    public abstract NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _stds);
     public static Block createOperationNode(Element _el, ContextEl _conf,
             int _indexChild, BracedBlock _m) {
         if (StringList.quickEq(_el.getTagName(),TAG_AFFECT)) {

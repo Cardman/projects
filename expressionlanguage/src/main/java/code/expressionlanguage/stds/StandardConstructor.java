@@ -14,7 +14,7 @@ public final class StandardConstructor extends StandardNamedFunction implements 
     }
 
     public ConstructorId getId(String _className) {
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(null);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -28,11 +28,10 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         return getId(_className).getSignature();
     }
 
-    @Override
     public ConstructorId getGenericId() {
         StandardType clBlock_ = getOwner();
         String name_ = clBlock_.getGenericString();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(null);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -42,7 +41,6 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
-    @Override
     public String getSignature() {
         return getId().getSignature();
     }
@@ -52,11 +50,10 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         return getOwner().getFullName();
     }
 
-    @Override
     public ConstructorId getId() {
         StandardType clBlock_ = getOwner();
         String name_ = clBlock_.getFullName();
-        StringList types_ = getParametersTypes();
+        StringList types_ = getParametersTypes(null);
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {

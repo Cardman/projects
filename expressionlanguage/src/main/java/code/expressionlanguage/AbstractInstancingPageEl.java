@@ -94,7 +94,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
         if (implicitConstr_) {
             String instClass_ = getGlobalArgument().getObjectClassName(_context);
             String curClass_ = getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(curClass_).first();
+            String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
             String formatted_ = Templates.getFullTypeByBases(instClass_, curClassBase_, _context);
             RootBlock class_ = classes_.getClassBody(curClassBase_);
             if (class_ instanceof UniqueRootedBlock) {

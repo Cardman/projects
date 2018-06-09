@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util;
 
-import code.util.StringList;
+import code.expressionlanguage.Templates;
 
 public final class FieldInfo {
     private final String name;
@@ -15,7 +15,7 @@ public final class FieldInfo {
             boolean _staticField, boolean _finalField, boolean _enumField) {
         name = _name;
         declaringClass = _declaringClass;
-        declaringBaseClass = StringList.getAllTypes(_declaringClass).first();
+        declaringBaseClass = Templates.getIdFromAllTypes(_declaringClass);
         type = _type;
         realType = _realType;
         staticField = _staticField;

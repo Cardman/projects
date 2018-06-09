@@ -125,7 +125,7 @@ public final class FctOperation extends InvokingOperation {
             }
         }
         String foundClass_ = clMeth_.getRealClass();
-        foundClass_ = StringList.getAllTypes(foundClass_).first();
+        foundClass_ = Templates.getIdFromAllTypes(foundClass_);
         MethodId id_ = clMeth_.getRealId();
         classMethodId = new ClassMethodId(foundClass_, id_);
         realId = clMeth_.getRealId();
@@ -290,7 +290,7 @@ public final class FctOperation extends InvokingOperation {
             }
             if (staticChoiceMethod) {
                 classNameFound_ = classMethodId.getClassName();
-                String base_ = StringList.getAllTypes(classNameFound_).first();
+                String base_ = Templates.getIdFromAllTypes(classNameFound_);
                 String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
                 lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
@@ -298,13 +298,13 @@ public final class FctOperation extends InvokingOperation {
                 methodId_ = realId;
             } else {
                 classNameFound_ = classMethodId.getClassName();
-                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
                 String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
                 lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 argClassName_ = Templates.getGenericString(argClassName_, _conf);
-                String base_ = StringList.getAllTypes(argClassName_).first();
+                String base_ = Templates.getIdFromAllTypes(argClassName_);
                 MethodId id_ = classMethodId.getConstraints();
                 if (_conf.getMethodBodiesById(classNameFound_, id_).first().isFinalMethod()) {
                     classNameFound_ = classMethodId.getClassName();

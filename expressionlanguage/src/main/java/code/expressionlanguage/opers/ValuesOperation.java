@@ -9,6 +9,7 @@ import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ElementBlock;
@@ -75,7 +76,7 @@ public final class ValuesOperation extends LeafOperation {
         }
         String curClassBase_ = null;
         if (glClass_ != null) {
-            curClassBase_ = StringList.getAllTypes(glClass_).first();
+            curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         }
         if (!Classes.canAccessClass(curClassBase_, clName_, _conf)) {
             BadAccessClass badAccess_ = new BadAccessClass();

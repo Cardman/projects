@@ -60,6 +60,8 @@ public final class TypeUtil {
             Classes classes_ = _context.getClasses();
             for (RootBlock c: classes_.getClassBodies()) {
                 RootBlock bl_ = c;
+                _context.getAnalyzing().setCurrentBlock(bl_);
+                bl_.buildMapParamType(_context);
                 String d_ = c.getFullName();
                 StringList ints_ = bl_.getStaticInitInterfaces();
                 int len_ = ints_.size();
@@ -226,18 +228,18 @@ public final class TypeUtil {
                 allBases_.add(ovRelBase_);
                 pairs_.add(ovRelBase_);
                 current_.add(t);
-                visited_.add(StringList.getAllTypes(t.getClassName()).first());
+                visited_.add(Templates.getIdFromAllTypes(t.getClassName()));
             }
             while (true) {
                 CustList<ClassMethodId> next_ = new CustList<ClassMethodId>();
                 CustList<OverridingRelation> newpairs_ = new CustList<OverridingRelation>();
                 for (ClassMethodId c: current_) {
                     String templClass_ = c.getClassName();
-                    String typeName_ = StringList.getAllTypes(templClass_).first();
+                    String typeName_ = Templates.getIdFromAllTypes(templClass_);
                     GeneType root_ = _context.getClassBody(typeName_);
                     for (String u:getAllGenericSuperTypes(root_,_context)) {
                         String superType_ = Templates.format(templClass_, u, _context);
-                        String superTypeName_ = StringList.getAllTypes(u).first();
+                        String superTypeName_ = Templates.getIdFromAllTypes(u);
                         GeneType super_ = _context.getClassBody(superTypeName_);
                         for (GeneMethod m: ContextEl.getMethodBlocks(super_)) {
                             MethodId f_ = m.getFormattedId(superType_, _context);
@@ -245,7 +247,7 @@ public final class TypeUtil {
                                 OverridingRelation ovRel_ = new OverridingRelation();
                                 ovRel_.setRealId(e.getKey());
                                 ovRel_.setSubMethod(c);
-                                ovRel_.setSupMethod(new ClassMethodId(superType_, m.getId()));
+                                ovRel_.setSupMethod(new ClassMethodId(superType_, _context.getId(m)));
                                 newpairs_.add(ovRel_);
                             }
                         }
@@ -254,7 +256,7 @@ public final class TypeUtil {
                 for (OverridingRelation p: newpairs_) {
                     pairs_.add(p);
                     String superType_ = p.getSupMethod().getClassName();
-                    String superTypeId_ = StringList.getAllTypes(superType_).first();
+                    String superTypeId_ = Templates.getIdFromAllTypes(superType_);
                     if (!visited_.containsStr(superTypeId_)) {
                         next_.add(p.getSupMethod());
                         visited_.add(superTypeId_);
@@ -277,7 +279,7 @@ public final class TypeUtil {
             }
         }
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: _type.getParamTypes()) {
+        for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         ObjectMap<MethodId,CustList<OverridingRelation>> filterAccOverridings_ = new ObjectMap<MethodId,CustList<OverridingRelation>>();
@@ -346,8 +348,8 @@ public final class TypeUtil {
                 if (subId_.eq(supId_)) {
                     addClass(_type.getAllOverridingMethods(), l.getRealId(), subId_);
                 } else {
-                    String retBase_ = sup_.getReturnType(stds_);
-                    String retDerive_ = sub_.getReturnType(stds_);
+                    String retBase_ = sup_.getReturnType(_context);
+                    String retDerive_ = sub_.getReturnType(_context);
                     String formattedRetDer_ = Templates.format(subId_.getClassName(), retDerive_, _context);
                     String formattedRetBase_ = Templates.format(supId_.getClassName(), retBase_, _context);
                     Mapping mapping_ = new Mapping();
@@ -362,7 +364,7 @@ public final class TypeUtil {
                             err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getNameOffset()));
                         }
                         err_.setClassName(subId_.getClassName());
-                        err_.setId(sub_.getId());
+                        err_.setId(_context.getId(sub_));
                         classesRef_.getErrorsDet().add(err_);
                         continue;
                     }
@@ -373,7 +375,7 @@ public final class TypeUtil {
                         if (sub_ instanceof MethodBlock) {
                             err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getAccessOffset()));
                         }
-                        err_.setId(sub_.getId());
+                        err_.setId(_context.getId(sub_));
                         classesRef_.getErrorsDet().add(err_);
                         continue;
                     }
@@ -386,7 +388,7 @@ public final class TypeUtil {
                                 err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
                             }
                             err_.setReturnType(retDerive_);
-                            err_.setMethod(sub_.getId());
+                            err_.setMethod(_context.getId(sub_));
                             err_.setParentClass(supId_.getClassName());
                             classesRef_.getErrorsDet().add(err_);
                             continue;
@@ -399,7 +401,7 @@ public final class TypeUtil {
                             err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
                         }
                         err_.setReturnType(retDerive_);
-                        err_.setMethod(sub_.getId());
+                        err_.setMethod(_context.getId(sub_));
                         err_.setParentClass(supId_.getClassName());
                         classesRef_.getErrorsDet().add(err_);
                         continue;
@@ -412,18 +414,18 @@ public final class TypeUtil {
         StringList all_ = getAllGenericSuperTypes(_type,_context);
         String gene_ = _type.getGenericString();
         for (String s: all_) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             GeneType r_ = _context.getClassBody(base_);
             for (GeneMethod m: ContextEl.getMethodBlocks(r_)) {
                 if (m.isStaticMethod()) {
                     continue;
                 }
                 String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
-                MethodId id_ = m.getId().format(formattedSuper_, _context);
+                MethodId id_ = _context.getId(m).format(formattedSuper_, _context);
                 CustList<GeneMethod> mBases_ = _context.getMethodBodiesById(gene_, id_);
                 if (!mBases_.isEmpty()) {
                     GeneMethod mBas_ = mBases_.first();
-                    MethodId mId_ = mBas_.getId();
+                    MethodId mId_ = _context.getId(mBas_);
                     for (String d: _type.getDirectGenericSuperTypes(_context)) {
                         CustList<GeneMethod> mBasesSuper_ = TypeUtil.getMethodBodiesByFormattedId(_context, d, mId_);
                         if (mBasesSuper_.isEmpty()) {
@@ -450,8 +452,7 @@ public final class TypeUtil {
     }
     private static CustList<GeneConstructor> getConstructorBodiesByFormattedId(ContextEl _context, String _genericClassName, StringList _parametersTypes, boolean _vararg) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
-        StringList types_ = StringList.getAllTypes(_genericClassName);
-        String base_ = types_.first();
+        String base_ = Templates.getIdFromAllTypes(_genericClassName);
         int nbParams_ = _parametersTypes.size();
         for (GeneType c: _context.getClassBodies()) {
             if (!StringList.quickEq(c.getFullName(), base_)) {
@@ -459,7 +460,7 @@ public final class TypeUtil {
             }
             CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
             for (GeneConstructor b: bl_) {
-                StringList list_ = b.getId().getParametersTypes();
+                StringList list_ = _context.getId(b).getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -490,8 +491,7 @@ public final class TypeUtil {
     }
     public static CustList<GeneConstructor> getConstructorBodiesById(String _genericClassName, ConstructorId _id, Analyzable _context) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
-        StringList types_ = StringList.getAllTypes(_genericClassName);
-        String base_ = types_.first();
+        String base_ = Templates.getIdFromAllTypes(_genericClassName);
         StringList paramTypes_ = _id.getParametersTypes();
         int nbParams_ = paramTypes_.size();
         boolean vararg_ = _id.isVararg();
@@ -501,7 +501,7 @@ public final class TypeUtil {
             }
             CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
             for (GeneConstructor b: bl_) {
-                StringList list_ = b.getId().getParametersTypes();
+                StringList list_ = _context.getId(b).getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -535,8 +535,7 @@ public final class TypeUtil {
     }
     public static CustList<GeneMethod> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
-        StringList types_ = StringList.getAllTypes(_genericClassName);
-        String base_ = types_.first();
+        String base_ = Templates.getIdFromAllTypes(_genericClassName);
         int nbParams_ = _parametersTypes.size();
         for (GeneType c: _context.getClassBodies()) {
             if (!StringList.quickEq(c.getFullName(), base_)) {
@@ -547,7 +546,7 @@ public final class TypeUtil {
                 if (!StringList.quickEq(_methodName, b.getName())) {
                     continue;
                 }
-                StringList list_ = b.getId().getParametersTypes();
+                StringList list_ = _context.getId(b).getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -582,7 +581,7 @@ public final class TypeUtil {
     public static StringList getAllGenericSuperTypes(GeneType _type,Analyzable _classes) {
         StringList list_ = new StringList();
         StringList vars_ = new StringList();
-        for (TypeVar t: _type.getParamTypes()) {
+        for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
         }
         StringList current_;
@@ -594,7 +593,7 @@ public final class TypeUtil {
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
-                String baseType_ = StringList.getAllTypes(c).first();
+                String baseType_ = Templates.getIdFromAllTypes(c);
                 StringList superTypes_ = _classes.getClassBody(baseType_).getDirectGenericSuperTypes(_classes);
                 for (String t: superTypes_) {
                     String format_ = Templates.format(c, t, _classes);
@@ -646,7 +645,7 @@ public final class TypeUtil {
                 //pkg.ExTwo & pkg.Int3
                 for (ClassMethodId t: list_) {
                     String t_ = t.getClassName();
-                    String baseSuperType_ = StringList.getAllTypes(t_).first();
+                    String baseSuperType_ = Templates.getIdFromAllTypes(t_);
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
@@ -674,7 +673,7 @@ public final class TypeUtil {
                     }
                     i_++;
                 }
-                classNameFound_ = StringList.getAllTypes(classNameFound_).first();
+                classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
                 if (_conf.getMethodBodiesById(classNameFound_, realId_).first().isAbstractMethod()) {
                     continue;
                 }
@@ -705,7 +704,7 @@ public final class TypeUtil {
                 //pkg.ExTwo & pkg.Int3
                 for (ClassMethodId t: list_) {
                     String t_ = t.getClassName();
-                    String baseSuperType_ = StringList.getAllTypes(t_).first();
+                    String baseSuperType_ = Templates.getIdFromAllTypes(t_);
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
@@ -719,7 +718,7 @@ public final class TypeUtil {
                 }
                 for (ClassMethodId t: foundSuperClasses_) {
                     String t_ = t.getClassName();
-                    String baseSuperType_ = StringList.getAllTypes(t_).first();
+                    String baseSuperType_ = Templates.getIdFromAllTypes(t_);
                     GeneMethod method_ = _conf.getMethodBodiesById(baseSuperType_, t.getConstraints()).first();
                     if (method_.isAbstractMethod()) {
                         continue;
@@ -739,7 +738,7 @@ public final class TypeUtil {
             list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
             if (list_.size() == 1) {
                 String class_ = list_.first();
-                String classBase_ = StringList.getAllTypes(class_).first();
+                String classBase_ = Templates.getIdFromAllTypes(class_);
                 eq_.put(name_, new ClassMethodId(classBase_, defs_.getVal(class_)));
             } else {
                 defs_ = new StringMap<MethodId>();
@@ -751,7 +750,7 @@ public final class TypeUtil {
                 list_ = PrimitiveTypeUtil.getSubclasses(list_, _conf);
                 if (list_.size() == 1) {
                     String class_ = list_.first();
-                    String classBase_ = StringList.getAllTypes(class_).first();
+                    String classBase_ = Templates.getIdFromAllTypes(class_);
                     eq_.put(name_, new ClassMethodId(classBase_, defs_.getVal(class_)));
                 }
             }
@@ -759,11 +758,6 @@ public final class TypeUtil {
         return eq_;
     }
 
-    public static StringList getCustomDirectSuperClasses(GeneType _type,ContextEl _context) {
-        StringList direct_ = _type.getDirectSuperClasses(_context);
-        direct_.removeAllObj(_context.getStandards().getAliasObject());
-        return direct_;
-    }
     public static ObjectMap<MethodId, EqList<ClassMethodId>> getAllInstanceSignatures(GeneType _type, ContextEl _classes) {
         ObjectMap<MethodId, EqList<ClassMethodId>> map_;
         map_ = new ObjectMap<MethodId, EqList<ClassMethodId>>();
@@ -771,25 +765,28 @@ public final class TypeUtil {
             if (b.isStaticMethod()) {
                 continue;
             }
-            map_.put(b.getId(), new EqList<ClassMethodId>(new ClassMethodId(_type.getGenericString(), b.getId())));
+            MethodId m_ = _classes.getId(b);
+            map_.put(m_, new EqList<ClassMethodId>(new ClassMethodId(_type.getGenericString(), m_)));
         }
         for (String s: getAllGenericSuperTypes(_type, _classes)) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             GeneType b_ = _classes.getClassBody(base_);
             for (GeneMethod b: ContextEl.getMethodBlocks(b_)) {
                 if (b.isStaticMethod()) {
                     continue;
                 }
-                addClass(map_, b.getFormattedId(s, _classes), new ClassMethodId(s, b.getId()));
+                MethodId m_ = _classes.getId(b);
+                addClass(map_, b.getFormattedId(s, _classes), new ClassMethodId(s, m_));
             }
         }
         return map_;
     }
-    public static ObjectMap<MethodId, ClassMethodId> getLocalSignatures(GeneType _type, Classes _classes) {
+    public static ObjectMap<MethodId, ClassMethodId> getLocalSignatures(GeneType _type, ContextEl _classes) {
         ObjectMap<MethodId, ClassMethodId> map_;
         map_ = new ObjectMap<MethodId, ClassMethodId>();
         for (GeneMethod b: ContextEl.getMethodBlocks(_type)) {
-            map_.put(b.getId(), new ClassMethodId(_type.getGenericString(), b.getId()));
+            MethodId m_ = _classes.getId(b);
+            map_.put(m_, new ClassMethodId(_type.getGenericString(), m_));
         }
         return map_;
     }

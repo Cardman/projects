@@ -34,11 +34,62 @@ public class TemplatesTest {
     private static final String ARR_VAR_S = "[#S";
     private static final String ARR_VAR_T = "[#T";
 
-
-
-
-
-
+    @Test
+    public void getTypes1Test(){
+        assertEq(new StringList(), Templates.getTypes("String"));
+    }
+    @Test
+    public void getTypes2Test(){
+        assertEq(new StringList("String","Rate"), Templates.getTypes("Map<String,Rate>"));
+    }
+    @Test
+    public void getTypes3Test(){
+        assertEq(new StringList("String","Map<String,Rate>"), Templates.getTypes("Map<String,Map<String,Rate>>"));
+    }
+    @Test
+    public void getTypes4Test(){
+        assertEq(new StringList("Boolean"), Templates.getTypes("List<Boolean>"));
+    }
+    @Test
+    public void getTypes5Test(){
+        assertEq(new StringList("BooleanList"), Templates.getTypes("CustList<BooleanList>"));
+    }
+    @Test
+    public void getAllTypes1Test(){
+        assertEq(new StringList("String"), Templates.getAllTypes("String"));
+    }
+    @Test
+    public void getAllTypes2Test(){
+        assertEq(new StringList("Map","String","Rate"), Templates.getAllTypes("Map<String,Rate>"));
+    }
+    @Test
+    public void getAllTypes3Test(){
+        assertEq(new StringList("Map","String","Map<String,Rate>"), Templates.getAllTypes("Map<String,Map<String,Rate>>"));
+    }
+    @Test
+    public void getAllTypes4Test(){
+        assertEq(new StringList("List","Boolean"), Templates.getAllTypes("List<Boolean>"));
+    }
+    @Test
+    public void getAllTypes5Test(){
+        assertEq(new StringList("CustList","BooleanList"), Templates.getAllTypes("CustList<BooleanList>"));
+    }
+    @Test
+    public void getAllTypes6Test(){
+        assertNull(Templates.getAllTypes("Map<String,Rate>>"));
+    }
+    @Test
+    public void getAllTypes7Test(){
+        assertNull(Templates.getAllTypes("String,Rate"));
+    }
+    @Test
+    public void getAllTypes8Test(){
+        assertNull(Templates.getAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
+    }
+    @Test
+    public void getAllTypes9Test(){
+        assertNull(Templates.getAllTypes("Map<String,Rate"));
+    }
 
 
 

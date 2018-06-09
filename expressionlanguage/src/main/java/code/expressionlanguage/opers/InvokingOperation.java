@@ -310,10 +310,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         StringList bounds_ = new StringList();
         if (_cl.startsWith(Templates.PREFIX_VAR_TYPE)) {
             String glClass_ = _conf.getGlobalClass();
-            String curClassBase_ = StringList.getAllTypes(glClass_).first();
+            String curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             GeneType gl_ = _conf.getClassBody(curClassBase_);
             StringMap<StringList> mapping_ = new StringMap<StringList>();
-            for (TypeVar t: gl_.getParamTypes()) {
+            for (TypeVar t: gl_.getParamTypesMapValues()) {
                 mapping_.put(t.getName(), t.getConstraints());
             }
             bounds_.addAllElts(Mapping.getAllUpperBounds(mapping_, _cl.substring(1), objectClassName_));

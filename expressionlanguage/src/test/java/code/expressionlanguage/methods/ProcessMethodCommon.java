@@ -23,8 +23,7 @@ public abstract class ProcessMethodCommon {
 
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),_method.getParametersTypes());
-        Classes classes_ = _cont.getClasses();
-        MethodBlock method_ = classes_.getMethodBodiesById(_class, fct_).first();
+        MethodBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
         Block firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             Argument a_ = new Argument();

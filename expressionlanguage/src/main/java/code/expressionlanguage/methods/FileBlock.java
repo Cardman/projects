@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -67,17 +66,6 @@ public final class FileBlock extends BracedBlock {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public NatTreeMap<String, String> getClassNames(ContextEl _stds) {
-        return new NatTreeMap<String, String>();
-    }
-
-    @Override
-    public NatTreeMap<Integer,String> getClassNamesOffsets(ContextEl _context) {
-        NatTreeMap<Integer,String> tr_ = new NatTreeMap<Integer,String>();
-        return tr_;
     }
 
     public String getFileName() {

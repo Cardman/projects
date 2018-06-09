@@ -373,7 +373,7 @@ public abstract class OperationNode {
             }
             return new AffectationOperation(_index, _indexChild, _m, _op);
         }
-        return null;
+        return new DotOperation(_index, _indexChild, _m, _op);
     }
 
     final boolean isFirstChild() {
@@ -485,7 +485,7 @@ public abstract class OperationNode {
     }
     private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name) {
         String clCurName_ = _class.getName();
-        String base_ = StringList.getAllTypes(clCurName_).first();
+        String base_ = Templates.getIdFromAllTypes(clCurName_);
         GeneType root_ = _cont.getClassBody(base_);
         StringList classeNames_ = new StringList();
         if (_baseClass) {
@@ -499,7 +499,7 @@ public abstract class OperationNode {
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = null;
         if (glClass_ != null) {
-            curClassBase_ = StringList.getAllTypes(glClass_).first();
+            curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         }
         for (String s: classeNames_) {
             if (StringList.quickEq(s, objectType_)) {
@@ -757,7 +757,6 @@ public abstract class OperationNode {
     private static ObjectNotNullMap<ClassMethodId, MethodMetaInfo>
     getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, int _varargOnly, boolean _accessFromSuper,
         boolean _superClass, StringList _fromClasses, String _name, ClassArgumentMatching... _argsClass) {
-        LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getGlobalClass();
         CustList<GeneType> roots_ = new CustList<GeneType>();
         ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
@@ -765,7 +764,7 @@ public abstract class OperationNode {
         StringList superTypes_ = new StringList();
         StringMap<String> superTypesBase_ = new StringMap<String>();
         for (String s: _fromClasses) {
-            String baseCurName_ = StringList.getAllTypes(s).first();
+            String baseCurName_ = Templates.getIdFromAllTypes(s);
             superTypes_.add(baseCurName_);
             superTypesBase_.put(baseCurName_,baseCurName_);
             GeneType root_ = _conf.getClassBody(baseCurName_);
@@ -786,8 +785,8 @@ public abstract class OperationNode {
                     continue;
                 }
                 if (e.isStaticMethod()) {
-                    MethodId id_ = e.getId();
-                    String returnType_ = e.getReturnType(stds_);
+                    MethodId id_ = _conf.getId(e);
+                    String returnType_ = e.getReturnType(_conf);
                     MethodMetaInfo info_ = new MethodMetaInfo(t, id_, MethodModifier.STATIC, returnType_);
                     ClassMethodId clId_ = new ClassMethodId(t, id_);
                     methods_.put(clId_, info_);
@@ -802,7 +801,7 @@ public abstract class OperationNode {
                     for (ClassMethodId s: e.getValue()) {
                         String name_ = s.getClassName();
                         if (_accessFromSuper) {
-                            String base_ = StringList.getAllTypes(name_).first();
+                            String base_ = Templates.getIdFromAllTypes(name_);
                             if (StringList.quickEq(base_, t.getFullName())) {
                                 continue;
                             }
@@ -811,7 +810,7 @@ public abstract class OperationNode {
                         if (_superClass) {
                             formattedClass_ = Templates.getFullTypeByBases(clCurName_, name_, _conf);
                         } else {
-                            String base_ = StringList.getAllTypes(name_).first();
+                            String base_ = Templates.getIdFromAllTypes(name_);
                             if (!StringList.quickEq(base_, t.getFullName())) {
                                 continue;
                             }
@@ -822,7 +821,7 @@ public abstract class OperationNode {
                         if (!Classes.canAccess(glClass_, sup_, _conf)) {
                             continue;
                         }
-                        String ret_ = sup_.getReturnType(stds_);
+                        String ret_ = sup_.getReturnType(_conf);
                         ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
                         MethodMetaInfo info_ = new MethodMetaInfo(formattedClass_, id_, MethodModifier.NORMAL, ret_);
                         ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
@@ -1228,8 +1227,8 @@ public abstract class OperationNode {
                 return CustList.NO_SWAP_SORT;
             }
         }
-        String baseTypeOne_ = StringList.getAllTypes(glClassOne_).first();
-        String baseTypeTwo_ = StringList.getAllTypes(glClassTwo_).first();
+        String baseTypeOne_ = Templates.getIdFromAllTypes(glClassOne_);
+        String baseTypeTwo_ = Templates.getIdFromAllTypes(glClassTwo_);
         if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
             if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
                 return CustList.SWAP_SORT;

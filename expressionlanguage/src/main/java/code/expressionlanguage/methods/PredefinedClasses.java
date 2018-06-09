@@ -3,38 +3,17 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.stds.LgNames;
-import code.util.StringList;
 
 
 public final class PredefinedClasses {
 
-    public static final String ITERABLE = "$iterable";
-    public static final String ITERATOR = "$iterator";
-    public static final String ENUM = "$enum";
-    public static final String ENUM_PARAM = "$Enum";
     private static final String PUBLIC_ACCESS = "PUBLIC";
 
     private PredefinedClasses() {
     }
     public static boolean isPredefined(String _type, Analyzable _context) {
-        if (_context.getClasses() == null) {
-            return isPredefined(_type);
-        }
         LgNames stds_ = _context.getStandards();
         return stds_.getPredefinedClasses().containsStr(_type);
-    }
-    private static boolean isPredefined(String _type) {
-        boolean pred_ = false;
-        if (StringList.quickEq(_type, PredefinedClasses.ITERABLE)) {
-            pred_ = true;
-        } else if (StringList.quickEq(_type, PredefinedClasses.ITERATOR)) {
-            pred_ = true;
-        } else if (StringList.quickEq(_type, PredefinedClasses.ENUM)) {
-            pred_ = true;
-        } else if (StringList.quickEq(_type, PredefinedClasses.ENUM_PARAM)) {
-            pred_ = true;
-        }
-        return pred_;
     }
     public static String getIterableType(ContextEl _context) {
         LgNames stds_ = _context.getStandards();

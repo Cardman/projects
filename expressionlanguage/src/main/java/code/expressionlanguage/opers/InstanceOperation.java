@@ -361,12 +361,12 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<GeneConstructor> ctors_ = TypeUtil.getConstructorBodiesById(realClassName_, constId, _conf);
         String curClassBase_ = null;
         if (glClass_ != null) {
-            curClassBase_ = StringList.getAllTypes(glClass_).first();
+            curClassBase_ = Templates.getIdFromAllTypes(glClass_);
         }
         if (!ctors_.isEmpty() && !Classes.canAccess(curClassBase_, ctors_.first(), _conf)) {
             GeneConstructor ctr_ = ctors_.first();
             BadAccessConstructor access_ = new BadAccessConstructor();
-            access_.setId(ctr_.getId());
+            access_.setId(_conf.getId(ctr_));
             access_.setFileName(_conf.getCurrentFileName());
             access_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(access_);
@@ -636,7 +636,7 @@ public final class InstanceOperation extends InvokingOperation {
             }
         }
         if (possibleInitClass) {
-            String base_ = StringList.getAllTypes(realClassName_).first();
+            String base_ = Templates.getIdFromAllTypes(realClassName_);
             if (_conf.getClasses().isCustomType(base_)) {
                 InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), base_);
                 if (res_ == InitClassState.NOT_YET) {
@@ -685,7 +685,7 @@ public final class InstanceOperation extends InvokingOperation {
 //            needed_ = arg_;
 //            _arguments.add(CustList.FIRST_INDEX, arg_);
 //        }
-        String base_ = StringList.getAllTypes(className).first();
+        String base_ = Templates.getIdFromAllTypes(className);
         if (!_conf.getClasses().isCustomType(base_)) {
             ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), naturalVararg > -1, constId, Argument.toArgArray(_arguments));
             if (_conf.getException() != null) {

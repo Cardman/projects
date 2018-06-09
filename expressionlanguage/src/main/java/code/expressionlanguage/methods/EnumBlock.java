@@ -40,14 +40,17 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
             i_++;
         }
-        getDirectSuperTypes().add(StringList.concat(PredefinedClasses.ENUM_PARAM,LT,getFullName(),GT));
+        getDirectSuperTypes().add(StringList.concat(_importingPage.getStandards().getAliasEnumParam(),LT,getFullName(),GT));
     }
 
     public EnumBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
             String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
-        getDirectSuperTypes().add(StringList.concat(PredefinedClasses.ENUM_PARAM,LT,getFullName(),GT));
+        String type_ = StringList.concat(_importingPage.getStandards().getAliasEnumParam(),LT,getFullName(),GT);
+        getDirectSuperTypes().add(type_);
+        getExplicitDirectSuperTypes().put(-1, false);
+        getRowColDirectSuperTypes().put(-1, type_);
     }
 
     @Override
@@ -80,11 +83,11 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             }
             ConstructorBlock c_ = (ConstructorBlock) b;
             for (String s: classNames_) {
-                if (TypeUtil.getConstructorBodiesByFormattedId(_context, s, c_.getId()).size() > 1) {
+                if (TypeUtil.getConstructorBodiesByFormattedId(_context, s, c_.getId(_context)).size() > 1) {
                     DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                     duplicate_.setFileName(getFullName());
                     duplicate_.setRc(c_.getRowCol(0, c_.getAccessOffset()));
-                    duplicate_.setCommonSignature(c_.getId().getSignature());
+                    duplicate_.setCommonSignature(c_.getId(_context).getSignature());
                     duplicate_.setOtherType(s);
                     classesRef_.getErrorsDet().add(duplicate_);
                 }
@@ -92,7 +95,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         }
         useSuperTypesOverrides(_context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypes()) {
+        for (TypeVar t: getParamTypesMap().values()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         String gene_ = getGenericString();
@@ -100,16 +103,16 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         classes_.addAllElts(classNames_);
         String void_ = stds_.getAliasVoid();
         for (String s: getAllGenericInterfaces(_context)) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             RootBlock r_ = classesRef_.getClassBody(base_);
             for (MethodBlock m: Classes.getMethodBlocks(r_)) {
                 if (m.isStaticMethod()) {
                     continue;
                 }
                 String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
-                MethodId id_ = m.getId().format(formattedSuper_, _context);
+                MethodId id_ = m.getId(_context).format(formattedSuper_, _context);
                 for (String c: classes_) {
-                    CustList<MethodBlock> mBases_ = classesRef_.getMethodBodiesById(c, id_);
+                    CustList<MethodBlock> mBases_ = Classes.getMethodBodiesById(_context,c, id_);
                     if (mBases_.isEmpty()) {
                         continue;
                     }
@@ -122,11 +125,11 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         err_ = new BadAccessMethod();
                         err_.setFileName(getFullName());
                         err_.setRc(m.getRowCol(0, m.getAccessOffset()));
-                        err_.setId(m.getId());
+                        err_.setId(m.getId(_context));
                         classesRef_.getErrorsDet().add(err_);
                     }
-                    String retBase_ = m.getReturnType(stds_);
-                    String retDerive_ = mBase_.getReturnType(stds_);
+                    String retBase_ = m.getReturnType(_context);
+                    String retDerive_ = mBase_.getReturnType(_context);
                     String formattedRetDer_ = Templates.format(c, retDerive_, _context);
                     String formattedRetBase_ = Templates.format(s, retBase_, _context);
                     Mapping mapping_ = new Mapping();
@@ -140,7 +143,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                             err_.setFileName(getFullName());
                             err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
                             err_.setReturnType(retDerive_);
-                            err_.setMethod(mBase_.getId());
+                            err_.setMethod(mBase_.getId(_context));
                             err_.setParentClass(c);
                             classesRef_.getErrorsDet().add(err_);
                         }
@@ -150,7 +153,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                         err_.setFileName(getFullName());
                         err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
                         err_.setReturnType(retDerive_);
-                        err_.setMethod(mBase_.getId());
+                        err_.setMethod(mBase_.getId(_context));
                         err_.setParentClass(c);
                         classesRef_.getErrorsDet().add(err_);
                     }
@@ -161,8 +164,26 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
+    public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
+        return new StringList(getDirectSuperTypes());
+    }
+
+    @Override
     public StringList getDirectGenericSuperTypes(Analyzable _classes) {
-        return getDirectSuperTypes();
+        StringList interfaces_ = new StringList();
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                interfaces_.add(s);
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    interfaces_.add(s);
+                }
+            }
+        }
+        return interfaces_;
     }
 
     @Override
@@ -171,25 +192,41 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
     @Override
     public StringList getDirectInterfaces(Analyzable _classes) {
-        StringList direct_ = new StringList();
-        for (String s: getDirectGenericInterfaces(_classes)) {
-            int index_ = s.indexOf(LT);
-            if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-                direct_.add(s.substring(CustList.FIRST_INDEX, index_));
-            } else {
-                direct_.add(s);
+        StringList interfaces_ = new StringList();
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof InterfaceBlock)) {
+                continue;
+            }
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                interfaces_.add(base_);
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    interfaces_.add(base_);
+                }
             }
         }
-        return direct_;
+        return interfaces_;
     }
 
     @Override
     public StringList getDirectGenericInterfaces(Analyzable _classes) {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
-            String base_ = StringList.getAllTypes(s).first();
-            if (_classes.getClasses().getClassBody(base_) instanceof InterfaceBlock) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof InterfaceBlock)) {
+                continue;
+            }
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
                 interfaces_.add(s);
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    interfaces_.add(s);
+                }
             }
         }
         return interfaces_;
@@ -203,19 +240,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
-    }
-
-    @Override
-    public NatTreeMap<String,String> getClassNames(ContextEl _context) {
-        NatTreeMap<String,String> tr_ = new NatTreeMap<String,String>();
-        tr_.put(ATTRIBUTE_NAME, getFullDefinition());
-        tr_.put(ATTRIBUTE_SUPER_CLASS, getGenericSuperClass(_context));
-        int i_ = 0;
-        for (String t: getDirectGenericInterfaces(_context)) {
-            tr_.put(StringList.concatNbs(ATTRIBUTE_CLASS,i_), t);
-            i_++;
-        }
-        return tr_;
     }
 
     @Override
@@ -248,32 +272,62 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
-        String superClass_ = getGenericSuperClass(_classes);
-        int index_ = superClass_.indexOf(LT);
-        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-            classes_.add(superClass_.substring(CustList.FIRST_INDEX, index_));
-        } else {
-            classes_.add(superClass_);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof ClassBlock)) {
+                continue;
+            }
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                classes_.add(base_);
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    classes_.add(base_);
+                }
+            }
+        }
+        if (classes_.isEmpty()) {
+            classes_.add(_classes.getStandards().getAliasObject());
         }
         return classes_;
     }
 
     @Override
     public String getSuperClass(Analyzable _classes) {
-        String superClass_ = getGenericSuperClass(_classes);
-        int index_ = superClass_.indexOf(LT);
-        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-            return superClass_.substring(CustList.FIRST_INDEX, index_);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof ClassBlock)) {
+                continue;
+            }
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+                return base_;
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    return base_;
+                }
+            }
         }
-        return superClass_;
+        return _classes.getStandards().getAliasObject();
     }
 
     @Override
     public String getGenericSuperClass(Analyzable _classes) {
         for (String s: getDirectSuperTypes()) {
-            String base_ = StringList.getAllTypes(s).first();
-            if (_classes.getClasses().getClassBody(base_) instanceof ClassBlock) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof ClassBlock)) {
+                continue;
+            }
+            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
                 return s;
+            }
+            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                    return s;
+                }
             }
         }
         return _classes.getStandards().getAliasObject();
@@ -305,7 +359,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         Classes classes_ = _classes.getClasses();
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allSuperTypes_) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             if (classes_.getClassBody(base_) instanceof ClassBlock) {
                 allGenericSuperClasses_.add(s);
             }
@@ -319,7 +373,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         Classes classes_ = _classes.getClasses();
         StringList allGenericInterfaces_ = new StringList();
         for (String s: allSuperTypes_) {
-            String base_ = StringList.getAllTypes(s).first();
+            String base_ = Templates.getIdFromAllTypes(s);
             if (classes_.getClassBody(base_) instanceof InterfaceBlock) {
                 allGenericInterfaces_.add(s);
             }

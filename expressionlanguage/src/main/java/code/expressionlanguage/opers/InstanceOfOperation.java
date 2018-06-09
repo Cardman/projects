@@ -131,7 +131,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         }
         String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContextEl());
         if (!correctTemplate) {
-            className_ = StringList.getAllTypes(className_).first();
+            className_ = Templates.getIdFromAllTypes(className_);
             boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(className, className_, _conf);
             Argument arg_ = new Argument();
             arg_.setObject(res_);
