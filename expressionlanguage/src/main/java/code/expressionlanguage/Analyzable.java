@@ -81,6 +81,5 @@ public interface Analyzable {
     ConstructorId getId(GeneConstructor _m);
     String resolveType(String _in, Block _currentBlock,RowCol _location,
             boolean _checkSimpleCorrect, boolean _checkOnlyExistence);
-    String resolveType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
 }

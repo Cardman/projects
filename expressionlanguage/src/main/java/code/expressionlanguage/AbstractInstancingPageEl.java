@@ -8,7 +8,6 @@ import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.NotInitializedFields;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.StackableBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.InstancingStep;
@@ -18,7 +17,7 @@ import code.util.CustList;
 import code.util.StringList;
 
 
-public abstract class AbstractInstancingPageEl extends AbstractPageEl {
+public abstract class AbstractInstancingPageEl extends AbstractPageEl implements ReturnablePageEl {
 
     private Argument argument;
 
@@ -67,7 +66,7 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
         Block nextSibling_ = _bl.getNextSibling();
         if (nextSibling_ != null) {
             parElt_ = new ParentStackBlock(null);
-        } else if (_bl instanceof StackableBlock) {
+        } else {
             BracedBlock n_ = _bl.getParent();
             //n_ != null because strictly in class
             if (!noBlock()) {
@@ -76,8 +75,6 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl {
                 //directly at the root => last element in the block root
                 parElt_ = null;
             }
-        } else {
-            parElt_ = null;
         }
         return parElt_;
     }

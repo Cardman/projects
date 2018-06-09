@@ -344,6 +344,40 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
         assertEq(0, methods_.size());
     }
+    @Test
+    public void getMethodBodiesByFormattedId15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$protected $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingClasses(files_);
+        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
+        assertEq(0, methods_.size());
+    }
+    @Test
+    public void getMethodBodiesByFormattedId16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$protected $class pkgtwo.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkgtwo.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingClasses(files_);
+        CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#G"), false);
+        assertEq(0, methods_.size());
+    }
     public static CustList<MethodBlock> getMethodBodiesByFormattedId(ContextEl _context, boolean _static, String _genericClassName, String _methodName, StringList _parametersTypes, boolean _vararg) {
         CustList<MethodBlock> ms_ = new CustList<MethodBlock>();
         for (GeneMethod g: TypeUtil.getMethodBodiesByFormattedId(_context, _static, _genericClassName, _methodName, _parametersTypes, _vararg)) {

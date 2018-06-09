@@ -314,13 +314,7 @@ public abstract class Block extends Blockable {
             ReadWrite rw_ = ip_.getReadWrite();
             Block n_ = null;
             n_ = getNextSibling();
-            if (n_ != null) {
-                rw_.setBlock(n_);
-                return;
-            }
-            n_ = getParent();
-            Block next_ = n_.getNextSibling();
-            rw_.setBlock(next_);
+            rw_.setBlock(n_);
             return;
         }
         par_.removeLocalVars(ip_);

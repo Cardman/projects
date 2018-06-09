@@ -33,8 +33,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     private static final String SEP_KEY_VAL = ":";
 
-    private Argument returnedArgument;
-
     private ReadWrite readWrite;
     private Block blockRoot;
 
@@ -50,8 +48,6 @@ public abstract class AbstractPageEl extends PageEl {
     private int globalOffset;
 
     private int translatedOffset;
-
-    private String readUrl;
 
     private int tabWidth;
 
@@ -78,12 +74,7 @@ public abstract class AbstractPageEl extends PageEl {
         offset = _offset;
     }
     public String getInfos(ContextEl _context) {
-        StringBuilder str_ = new StringBuilder(getCommonInfosAndRc(getTrace(), _context));
-        str_.insert(0, SEP_INFO);
-        str_.insert(0, readUrl);
-        str_.insert(0, SEP_KEY_VAL);
-        str_.insert(0, READ_URL);
-        return str_.toString();
+        return getCommonInfosAndRc(getTrace(), _context);
     }
 
     public String getCommonInfosAndRc(RowCol _rc,ContextEl _context) {
@@ -122,6 +113,10 @@ public abstract class AbstractPageEl extends PageEl {
 
     private String getCommonInfos(ContextEl _context) {
         StringList list_ = new StringList();
+        if (currentBlock != null) {
+            list_.add(READ_URL);
+            list_.add(currentBlock.getFile().getFileName());
+        }
         Argument globalArgument_ = getGlobalArgument();
         if (globalArgument_ != null) {
             Object glel_ = globalArgument_.getObject();
@@ -221,14 +216,6 @@ public abstract class AbstractPageEl extends PageEl {
         currentBlock = _currentBlock;
     }
 
-    public String getReadUrl() {
-        return readUrl;
-    }
-
-    public void setReadUrl(String _readUrl) {
-        readUrl = _readUrl;
-    }
-
     public int getTabWidth() {
         return tabWidth;
     }
@@ -263,22 +250,13 @@ public abstract class AbstractPageEl extends PageEl {
     public abstract ParentStackBlock getNextBlock(Block _block, ContextEl _context);
     public abstract void postBlock(ContextEl _context);
     public abstract void endRoot(ContextEl _context);
-    public abstract void postReturn(ContextEl _context);
-    public abstract void setReturnedArgument();
+
     public Block getBlockRoot() {
         return blockRoot;
     }
 
     public void setBlockRoot(Block _blockRoot) {
         blockRoot = _blockRoot;
-    }
-
-    public Argument getReturnedArgument() {
-        return returnedArgument;
-    }
-
-    public void setReturnedArgument(Argument _returnedArgument) {
-        returnedArgument = _returnedArgument;
     }
 
     public StringMap<LocalVariable> getInternVars() {

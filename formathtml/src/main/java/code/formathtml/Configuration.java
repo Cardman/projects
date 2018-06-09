@@ -882,11 +882,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveType(String _in, Block _currentBlock, RowCol _location) {
-        return context.resolveType(_in, _currentBlock, _location);
-    }
-
-    @Override
     public String resolveBaseType(String _in, Block _currentBlock,
             RowCol _location) {
         return context.resolveBaseType(_in, _currentBlock, _location);

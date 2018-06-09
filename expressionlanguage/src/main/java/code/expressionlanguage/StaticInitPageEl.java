@@ -1,23 +1,24 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.methods.AloneBlock;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.FunctionBlock;
+import code.expressionlanguage.methods.CustomFoundBlock;
+import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.Returnable;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.StackableBlock;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
+import code.util.IdMap;
 import code.util.StringList;
 
 public final class StaticInitPageEl extends AbstractPageEl {
+
+    private IdMap<InitBlock, Boolean> processedBlocks = new IdMap<InitBlock, Boolean>();
 
     @Override
     public boolean checkCondition(ContextEl _context) {
@@ -70,7 +71,13 @@ public final class StaticInitPageEl extends AbstractPageEl {
             return;
         }
         if (en_ instanceof StaticBlock) {
-            rw_.setBlock(en_.getFirstChild());
+            if (!processedBlocks.getVal((InitBlock)en_)) {
+                processedBlocks.put((InitBlock)en_, true);
+                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), (InitBlock)en_);
+                _context.setFoundBlock(cust_);
+                return;
+            }
+            en_.processBlock(_context);
             return;
         }
         if (en_ instanceof InstanceBlock) {
@@ -85,30 +92,10 @@ public final class StaticInitPageEl extends AbstractPageEl {
         Block nextSibling_ = _bl.getNextSibling();
         if (nextSibling_ != null) {
             parElt_ = new ParentStackBlock(null);
-        } else if (_bl instanceof StackableBlock) {
-            BracedBlock n_ = _bl.getParent();
-            //n_ != null because strictly in class
-            Block root_ = getBlockRoot();
-            if (!noBlock()) {
-                parElt_ =  new ParentStackBlock(n_);
-            } else if (n_ == root_) {
-                //directly at the root => last element in the block root
-                parElt_ = null;
-            } else {
-                Block next_ = n_.getNextSibling();
-                if (next_ != null) {
-                    parElt_ = new ParentStackBlock(null);
-                } else {
-                    parElt_ = null;
-                }
-            }
         } else {
             parElt_ = null;
         }
         return parElt_;
-    }
-    @Override
-    public void setReturnedArgument() {
     }
 
     @Override
@@ -127,21 +114,8 @@ public final class StaticInitPageEl extends AbstractPageEl {
         classes_.getLocks().successClass(_context, curClassBase_);
         setNullReadWrite();
     }
-    @Override
-    public void postReturn(ContextEl _context) {
-        Block bl_ = getCurrentBlock();
-        FunctionBlock f_ = bl_.getFunction();
-        if (!(f_ instanceof AloneBlock)) {
-            setNullReadWrite();
-            return;
-        }
-        Block bn_ = ((AloneBlock)f_).getNextSibling();
-        ReadWrite rw_ = getReadWrite();
-        if (bn_ != null) {
-            rw_.setBlock(bn_);
-            return;
-        }
-        setNullReadWrite();
-    }
 
+    public IdMap<InitBlock, Boolean> getProcessedBlocks() {
+        return processedBlocks;
+    }
 }

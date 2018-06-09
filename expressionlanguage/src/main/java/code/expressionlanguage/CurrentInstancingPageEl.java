@@ -1,9 +1,5 @@
 package code.expressionlanguage;
 
-public final class CurrentInstancingPageEl extends AbstractCallingInstancingPageEl {
+public final class CurrentInstancingPageEl extends AbstractCallingInstancingPageEl implements ForwardPageEl {
 
-    @Override
-    public void setArgumentForConstructor() {
-        setReturnedArgument(getGlobalArgument());
-    }
 }

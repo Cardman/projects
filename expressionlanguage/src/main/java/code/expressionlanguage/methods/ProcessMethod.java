@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.AbstractPageEl;
+import code.expressionlanguage.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.MethodPageEl;
 import code.expressionlanguage.methods.util.CallConstructor;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
@@ -24,20 +24,14 @@ public final class ProcessMethod {
         call_.setArgument(_global);
         call_.setId(_id);
         call_.setFieldName(EMPTY_STRING);
-        AbstractPageEl page_ = _cont.createInstancing(_class, call_, InstancingStep.NEWING, _args);
+        AbstractCallingInstancingPageEl page_ = _cont.createInstancing(_class, call_, _args);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();
     }
 
     public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
-        MethodBlock method_ = Classes.getMethodBodiesById(_cont, _class, _method).first();
-        Block firstChild_ = method_.getFirstChild();
-        if (firstChild_ == null) {
-            Argument a_ = new Argument();
-            return a_;
-        }
-        AbstractPageEl page_ = _cont.createCallingMethod(_global, _class, _method, _args);
+        MethodPageEl page_ = _cont.createCallingMethod(_global, _class, _method, _args);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

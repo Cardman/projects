@@ -6,10 +6,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.ForwardPageEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.ReturnablePageEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -246,9 +248,9 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 ClassArgumentMatching resCl_ = new ClassArgumentMatching(retType_);
                 arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, arg_.getStruct(), _cont));
             }
-            _cont.getLastPage().setReturnedArgument(arg_);
+            ((ForwardPageEl)_cont.getLastPage()).setReturnedArgument(arg_);
         } else {
-            _cont.getLastPage().setReturnedArgument();
+            ((ReturnablePageEl) _cont.getLastPage()).setReturnedArgument();
         }
         removeBlockFinally(_cont);
     }
@@ -265,7 +267,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 return;
             }
         }
-        ip_.postReturn(_conf);
+        ((ReturnablePageEl) ip_).postReturn(_conf);
     }
 
     @Override
