@@ -326,6 +326,19 @@ public final class ElResolver {
                         i_ = indexParRight_ + 1;
                         continue;
                     }
+                    if (procWordFirstChar(_string, i_ + 1, CLASS)) {
+                        int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
+                        int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+                        if (indexParRight_ < 0) {
+                            d_.setBadOffset(len_);
+                            return d_;
+                        }
+                        hatMethod_ = false;
+                        d_.getDelClass().add(i_);
+                        d_.getDelClass().add(indexParRight_);
+                        i_ = indexParRight_ + 1;
+                        continue;
+                    }
                     if (procWordFirstChar(_string, i_ + 1, INSTANCEOF)) {
                         int next_ = i_ + 1 + INSTANCEOF.length();
                         if (Character.isWhitespace(_string.charAt(next_))) {
@@ -1702,6 +1715,16 @@ public final class ElResolver {
             if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.VARARG);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setValue(_string, firstPrintChar_);
+                op_.setDelimiter(_d);
+                return op_;
+            }
+            begin_ = _d.getDelClass().indexOfObj(_offset + firstPrintChar_);
+            end_ = _d.getDelClass().indexOfObj(_offset + lastPrintChar_);
+            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.CLASS_INFO);
                 op_.setOperators(new NatTreeMap<Integer, String>());
                 op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);

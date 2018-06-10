@@ -221,6 +221,9 @@ public abstract class OperationNode {
             if (ct_ == ConstType.VARARG) {
                 return new VarargOperation(_index, _indexChild, _m, _op);
             }
+            if (ct_ == ConstType.CLASS_INFO) {
+                return new StaticInfoOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.NUMBER) {
                 return new ConstantOperation(_index, _indexChild, _m, _op);
             }
@@ -440,8 +443,10 @@ public abstract class OperationNode {
         map_ = new StringMap<StringList>();
         if (_allowVarTypes) {
             String glClass_ = _cont.getGlobalClass();
-            for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
-                map_.put(t.getName(), t.getConstraints());
+            if (glClass_ != null) {
+                for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
+                    map_.put(t.getName(), t.getConstraints());
+                }
             }
         }
         if (!Templates.existClassParts(_className, map_, _cont)) {
@@ -768,6 +773,9 @@ public abstract class OperationNode {
             superTypes_.add(baseCurName_);
             superTypesBase_.put(baseCurName_,baseCurName_);
             GeneType root_ = _conf.getClassBody(baseCurName_);
+            if (root_ == null) {
+                continue;
+            }
             roots_.add(root_);
             for (String m: root_.getAllSuperTypes()) {
                 superTypesBase_.put(m, baseCurName_);

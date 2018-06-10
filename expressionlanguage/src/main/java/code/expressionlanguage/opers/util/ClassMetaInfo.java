@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers.util;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
@@ -26,6 +27,21 @@ public final class ClassMetaInfo implements Struct {
 
     private final boolean finalType;
 
+    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat) {
+        name = _name;
+        if (_cat == ClassCategory.ARRAY) {
+            abstractType = false;
+            superClass = _context.getStandards().getAliasObject();
+        } else {
+            abstractType = true;
+            superClass = EMPTY_STRING;
+        }
+        fieldsInfos = new StringMap<FieldMetaInfo>();
+        methodsInfos = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+        constructorsInfos = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+        category = _cat;
+        finalType = true;
+    }
     public ClassMetaInfo(String _name,
             String _superClass,StringMap<FieldMetaInfo> _fields,
             ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
@@ -120,7 +136,7 @@ public final class ClassMetaInfo implements Struct {
 
     @Override
     public Object getInstance() {
-        return null;
+        return this;
     }
 
     @Override

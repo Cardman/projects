@@ -29,6 +29,7 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -576,9 +577,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     @Override
     public GeneType getClassBody(String _type) {
-        if (classes == null) {
-            return standards.getStandards().getVal(_type);
-        }
         if (classes.isCustomType(_type)) {
             return classes.getClassBody(_type);
         }
@@ -1183,5 +1181,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public int getGlobalOffset() {
         return analyzing.getGlobalOffset();
+    }
+
+    @Override
+    public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
+        if (PrimitiveTypeUtil.isPrimitive(_name, this)) {
+            return new ClassMetaInfo(_name, this, ClassCategory.PRIMITIVE);
+        }
+        if (new ClassArgumentMatching(_name).isArray()) {
+            return new ClassMetaInfo(_name, this, ClassCategory.ARRAY);
+        }
+        return getClassMetaInfo(_name);
     }
 }

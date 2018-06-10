@@ -29,6 +29,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -193,10 +194,16 @@ public final class FctOperation extends InvokingOperation {
         }
         Argument previous_;
         previous_ = getPreviousArgument();
+        Struct str_;
         if (!classMethodId.getConstraints().isStaticMethod()) {
             if (previous_ == null || previous_.isNull()) {
                 return;
             }
+            str_ = previous_.getStruct();
+        } else if (previous_ != null) {
+            str_ = previous_.getStruct();
+        } else {
+            str_ = NullStruct.NULL_VALUE;
         }
         String cl_ = classMethodId.getClassName();
         if (_conf.getClasses().isCustomType(cl_)) {
@@ -222,7 +229,7 @@ public final class FctOperation extends InvokingOperation {
         if (firstArgs_ == null) {
             return;
         }
-        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, naturalVararg > -1, classMethodId, previous_.getStruct(), Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, naturalVararg > -1, classMethodId, str_, Argument.toArgArray(firstArgs_));
         if (res_.getResult() == null) {
             return;
         }
@@ -386,6 +393,36 @@ public final class FctOperation extends InvokingOperation {
                 }
             }
             i_++;
+        }
+        String aliasClass_ = stds_.getAliasClass();
+        String aliasForName_ = stds_.getAliasForName();
+        if (StringList.quickEq(aliasClass_, classNameFound_)) {
+            if (StringList.quickEq(aliasForName_, methodId_.getName())) {
+                String clDyn_ = (String) firstArgs_.first().getObject();
+                Boolean init_ = (Boolean) firstArgs_.last().getObject();
+                if (!checkExistBase(_conf, false, clDyn_, false, 0)) {
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
+                    Argument a_ = new Argument();
+                    return ArgumentCall.newArgument(a_);
+                }
+                if (init_) {
+                    if (classes_.isCustomType(clDyn_)) {
+                        InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), clDyn_);
+                        if (res_ == InitClassState.NOT_YET) {
+                            InitializatingClass inv_ = new InitializatingClass(clDyn_);
+                            return ArgumentCall.newCall(inv_);
+                        }
+                        if (res_ == InitClassState.ERROR) {
+                            CausingErrorStruct causing_ = new CausingErrorStruct(clDyn_);
+                            _conf.setException(causing_);
+                            return ArgumentCall.newArgument(Argument.createVoid());
+                        }
+                    }
+                }
+                Argument a_ = new Argument();
+                a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
+                return ArgumentCall.newArgument(a_);
+            }
         }
         if (!classes_.isCustomType(classNameFound_)) {
             ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);

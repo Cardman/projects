@@ -368,6 +368,36 @@ public final class ChoiceFctOperation extends InvokingOperation {
             }
             i_++;
         }
+        String aliasClass_ = stds_.getAliasClass();
+        String aliasForName_ = stds_.getAliasForName();
+        if (StringList.quickEq(aliasClass_, classNameFound_)) {
+            if (StringList.quickEq(aliasForName_, methodId_.getName())) {
+                String clDyn_ = (String) firstArgs_.first().getObject();
+                Boolean init_ = (Boolean) firstArgs_.last().getObject();
+                if (!checkExistBase(_conf, false, clDyn_, false, 0)) {
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
+                    Argument a_ = new Argument();
+                    return ArgumentCall.newArgument(a_);
+                }
+                if (init_) {
+                    if (classes_.isCustomType(clDyn_)) {
+                        InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), clDyn_);
+                        if (res_ == InitClassState.NOT_YET) {
+                            InitializatingClass inv_ = new InitializatingClass(clDyn_);
+                            return ArgumentCall.newCall(inv_);
+                        }
+                        if (res_ == InitClassState.ERROR) {
+                            CausingErrorStruct causing_ = new CausingErrorStruct(clDyn_);
+                            _conf.setException(causing_);
+                            return ArgumentCall.newArgument(Argument.createVoid());
+                        }
+                    }
+                }
+                Argument a_ = new Argument();
+                a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
+                return ArgumentCall.newArgument(a_);
+            }
+        }
         if (!classes_.isCustomType(classNameFound_)) {
             ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);
             ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), naturalVararg > -1, dyn_, _previous.getStruct(), Argument.toArgArray(firstArgs_));

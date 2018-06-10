@@ -21,6 +21,7 @@ import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.DimComp;
@@ -212,6 +213,7 @@ public abstract class LgNames {
     private String aliasSimpleIteratorType;
     private String aliasSimpleIterableType;
     private String aliasErrorInitClass;
+    private String aliasClassNotFoundError;
 
     private String selectedBoolean = "$sb";
 
@@ -224,6 +226,7 @@ public abstract class LgNames {
     private String aliasObjectsUtil;
     private String aliasSameRef;
     private String aliasGetClass;
+    private String aliasGetName;
     private String aliasForName;
     /**Called after setters*/
     public void build() {
@@ -301,6 +304,12 @@ public abstract class LgNames {
         stdcl_ = new StandardClass(aliasErrorInitClass, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
         std_ = stdcl_;
         standards.put(aliasErrorInitClass, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasClassNotFoundError, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
+        std_ = stdcl_;
+        standards.put(aliasClassNotFoundError, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -936,39 +945,53 @@ public abstract class LgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         methods_ = new ObjectMap<MethodId, StandardMethod>();
-        stdcl_ = new StandardClass(aliasSimpleIteratorType, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasSimpleIteratorType, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(getAliasNext(), params_, getAliasObject(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasNext, params_, aliasObject, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
-        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasHasNext, params_, aliasPrimBoolean, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         standards.put(aliasSimpleIteratorType, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(selectedBoolean, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(selectedBoolean, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         getStandards().put(selectedBoolean, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList(aliasEnum);
-        method_ = new StandardMethod(aliasName, params_, getAliasString(), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasName, params_, aliasString, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasEnum);
-        method_ = new StandardMethod(aliasOrdinal, params_, getAliasPrimInteger(), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasOrdinal, params_, aliasPrimInteger, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(aliasEnums, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasObjectsUtil, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasObjectsUtil, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject,aliasObject);
-        method_ = new StandardMethod(aliasSameRef, params_, getAliasPrimBoolean(), false, MethodModifier.STATIC, stdcl_);
+        method_ = new StandardMethod(aliasSameRef, params_, aliasPrimBoolean, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(aliasObjectsUtil, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetName, params_, aliasString, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasObject);
+        method_ = new StandardMethod(aliasGetClass, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString,aliasPrimBoolean);
+        method_ = new StandardMethod(aliasForName, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasClass, stdcl_);
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
@@ -1241,16 +1264,7 @@ public abstract class LgNames {
         Object[] argsObj_ = adaptedArgs(list_, _cont.getStandards(), args_);
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
         String replType_ = lgNames_.getAliasReplacement();
-        boolean null_ = false;
-        if (!_method.getConstraints().isStaticMethod()) {
-            if (instance_ == null) {
-                result_.setError(lgNames_.getAliasNullPe());
-                null_ = true;
-            }
-        }
-        if (null_) {
-            return result_;
-        }
+        String aliasClass_ = lgNames_.getAliasClass();
         result_ = invokeStdMethod(_cont, _natvararg, _method, _struct, _args);
         if (result_.getResult() != null) {
             return result_;
@@ -1293,6 +1307,22 @@ public abstract class LgNames {
                 }
             } catch (Throwable _0) {
                 result_.setError(lgNames_.getAliasError());
+                return result_;
+            }
+        }
+        if (StringList.quickEq(type_, aliasClass_)) {
+            if (StringList.quickEq(name_, lgNames_.getAliasGetName())) {
+                result_.setResult(new StringStruct(((ClassMetaInfo)_struct).getName()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasGetClass())) {
+                Struct str_ = args_[0];
+                if (str_.isNull()) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                } else {
+                    String className_ = lgNames_.getStructClassName(str_, _cont);
+                    result_.setResult(_cont.getExtendedClassMetaInfo(className_));
+                }
                 return result_;
             }
         }
@@ -4480,11 +4510,35 @@ public abstract class LgNames {
     public void setAliasErrorInitClass(String _aliasErrorInitClass) {
         aliasErrorInitClass = _aliasErrorInitClass;
     }
+    public String getAliasClassNotFoundError() {
+        return aliasClassNotFoundError;
+    }
+    public void setAliasClassNotFoundError(String _aliasClassNotFoundError) {
+        aliasClassNotFoundError = _aliasClassNotFoundError;
+    }
     public String getAliasClass() {
         return aliasClass;
     }
     public void setAliasClass(String _aliasClass) {
         aliasClass = _aliasClass;
+    }
+    public String getAliasGetName() {
+        return aliasGetName;
+    }
+    public void setAliasGetName(String _aliasGetName) {
+        aliasGetName = _aliasGetName;
+    }
+    public String getAliasGetClass() {
+        return aliasGetClass;
+    }
+    public void setAliasGetClass(String _aliasGetClass) {
+        aliasGetClass = _aliasGetClass;
+    }
+    public String getAliasForName() {
+        return aliasForName;
+    }
+    public void setAliasForName(String _aliasForName) {
+        aliasForName = _aliasForName;
     }
     public String getAliasObjectsUtil() {
         return aliasObjectsUtil;

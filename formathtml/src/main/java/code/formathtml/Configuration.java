@@ -886,4 +886,9 @@ public class Configuration implements ExecutableCode {
             RowCol _location) {
         return context.resolveBaseType(_in, _currentBlock, _location);
     }
+
+    @Override
+    public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
+        return context.getExtendedClassMetaInfo(_name);
+    }
 }

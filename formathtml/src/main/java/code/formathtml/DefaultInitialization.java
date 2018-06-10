@@ -143,7 +143,11 @@ public final class DefaultInitialization {
         _lgNames.setAliasSimpleIteratorType("code.util.SimpleItr");
         _lgNames.setAliasSimpleIterableType("code.util.ints.SimpleIterable");
         _lgNames.setAliasErrorInitClass("$defErrorClass");
+        _lgNames.setAliasClassNotFoundError("$classNotFound");
         _lgNames.setAliasClass("$Class");
+        _lgNames.setAliasGetName("getName");
+        _lgNames.setAliasGetClass("getClass");
+        _lgNames.setAliasForName("forName");
         _lgNames.setAliasObjectsUtil("$ObjectsUtil");
         _lgNames.setAliasSameRef("eq");
         _lgNames.setAliasNext("next");

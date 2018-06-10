@@ -3498,6 +3498,293 @@ public final class ElRenderUtilTest {
         assertEq(3, (Number)res_);
     }
     @Test
+    public void processEl220Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class($int).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("$int", (String)res_);
+    }
+    @Test
+    public void processEl221Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class(java.lang.Integer).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("java.lang.Integer", (String)res_);
+    }
+    @Test
+    public void processEl222Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class(pkg.Ex).getName()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("pkg.Ex", (String)res_);
+    }
+    @Test
+    public void processEl223Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class(pkg.Ex).getName()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("pkg.Ex", (String)res_);
+    }
+    @Test
+    public void processEl224Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return $class(#T).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("java.lang.Integer", (String)res_);
+    }
+    @Test
+    public void processEl225Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return $class(pkg.Ex<#T>).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("pkg.Ex<java.lang.Integer>", (String)res_);
+    }
+    @Test
+    public void processEl226Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getClass(\"\").getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("java.lang.String", (String)res_);
+    }
+    @Test
+    public void processEl227Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getClass(1i).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("java.lang.Integer", (String)res_);
+    }
+    @Test
+    public void processEl228Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getClass($null)",0, context_);
+        assertTrue(arg_.isNull());
+        assertNull(context_.getException());
+    }
+    @Test
+    public void processEl229Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return $class(pkg.Ex<#T>).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getClass($new pkg.Ex<java.lang.Integer>()).getName()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("pkg.Ex<java.lang.Integer>", (String)res_);
+    }
+    @Test
+    public void processEl230Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([$int).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("[$int", (String)res_);
+    }
+    @Test
+    public void processEl231Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.Integer).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("[java.lang.Integer", (String)res_);
+    }
+    @Test
+    public void processEl232Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class([pkg.Ex).getName()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("[pkg.Ex", (String)res_);
+    }
+    @Test
+    public void processEl233Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class([pkg.Ex).getName()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("[pkg.Ex", (String)res_);
+    }
+    @Test
+    public void processEl234Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class([pkg.Ex<java.lang.Integer>).getName()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("[pkg.Ex<java.lang.Integer>", (String)res_);
+    }
+    @Test
+    public void processEl235Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return $class([#T).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("[java.lang.Integer", (String)res_);
+    }
+    @Test
+    public void processEl236Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return $class(pkg.Ex<[#T>).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$new pkg.Ex<java.lang.Integer>().exmeth()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("pkg.Ex<[java.lang.Integer>", (String)res_);
+    }
+    @Test
+    public void processEl237Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getClass($new [$int[](1i)).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("[$int", (String)res_);
+    }
+    @Test
+    public void processEl238Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).forName(\"pkg.Ex\",$true).getName()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("pkg.Ex", (String)res_);
+    }
+    @Test
+    public void processEl239Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static java.lang.String exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"pkg.Ex\",$true).getName():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("pkg.Ex", (String)res_);
+        assertEq(14, (Number)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance());
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
