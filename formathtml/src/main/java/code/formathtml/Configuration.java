@@ -857,8 +857,8 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveType(String _in) {
-        return context.resolveType(_in);
+    public String resolveType(String _in, boolean _correct) {
+        return context.resolveType(_in, _correct);
     }
 
     @Override
@@ -872,9 +872,9 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveType(String _in, Block _currentBlock, RowCol _location, boolean _checkSimpleCorrect,
+    public String resolveType(String _in, Block _currentBlock, RowCol _location, boolean _correct, boolean _checkSimpleCorrect,
             boolean _checkOnlyExistence) {
-        return context.resolveType(_in, _currentBlock, _location, _checkSimpleCorrect, _checkOnlyExistence);
+        return context.resolveType(_in, _currentBlock, _location, _correct, _checkSimpleCorrect, _checkOnlyExistence);
     }
     @Override
     public int getGlobalOffset() {

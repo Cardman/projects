@@ -82,6 +82,19 @@ public abstract class NumericOperation extends MethodOperation {
         }
         return o_;
     }
+    static Argument calculateIncrDecr(Argument _left,ExecutableCode _conf, String _op, ClassArgumentMatching _arg) {
+        Argument o_;
+        if (StringList.quickEq(_op, Block.INCR)) {
+            o_ = AddOperation.addOne(_left, _conf, _arg);
+        } else {
+            o_ = AddOperation.removeOne(_left, _conf, _arg);
+        }
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(_left.getObjectClassName(_conf.getContextEl()));
+        Argument converted_ = new Argument();
+        converted_.setStruct(PrimitiveTypeUtil.convertObject(cl_, o_.getStruct(), _conf));
+        o_ = converted_;
+        return o_;
+    }
     static boolean convert(String _op) {
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
             return true;

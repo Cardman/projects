@@ -48,14 +48,8 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 classes_.add(s);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    classes_.add(s);
-                }
             }
         }
         return classes_;
@@ -96,14 +90,8 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 classes_.add(s);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    classes_.add(s);
-                }
             }
         }
         if (classes_.isEmpty()) {
@@ -117,14 +105,8 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 classes_.add(base_);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    classes_.add(base_);
-                }
             }
         }
         if (classes_.isEmpty()) {

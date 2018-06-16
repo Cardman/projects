@@ -150,7 +150,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, valueOffset));
-            un_.setType(opValue.last().getResultClass().getName());
+            un_.setType(opValue.last().getResultClass());
             _cont.getClasses().getErrorsDet().add(un_);
         }
         if (opValue.last().getArgument() == null) {
@@ -160,7 +160,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                     UnexpectedTypeError un_ = new UnexpectedTypeError();
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass().getName());
+                    un_.setType(opValue.last().getResultClass());
                     _cont.getClasses().getErrorsDet().add(un_);
                     return;
                 }
@@ -169,7 +169,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                     UnexpectedTypeError un_ = new UnexpectedTypeError();
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass().getName());
+                    un_.setType(opValue.last().getResultClass());
                     _cont.getClasses().getErrorsDet().add(un_);
                     return;
                 }
@@ -177,7 +177,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                     UnexpectedTypeError un_ = new UnexpectedTypeError();
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass().getName());
+                    un_.setType(opValue.last().getResultClass());
                     _cont.getClasses().getErrorsDet().add(un_);
                     return;
                 }
@@ -189,7 +189,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, valueOffset));
-                un_.setType(opValue.last().getResultClass().getName());
+                un_.setType(opValue.last().getResultClass());
                 _cont.getClasses().getErrorsDet().add(un_);
                 return;
             }
@@ -197,7 +197,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, valueOffset));
-                un_.setType(opValue.last().getResultClass().getName());
+                un_.setType(opValue.last().getResultClass());
                 _cont.getClasses().getErrorsDet().add(un_);
                 return;
             }
@@ -219,7 +219,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, valueOffset));
-            un_.setType(opValue.last().getResultClass().getName());
+            un_.setType(opValue.last().getResultClass());
             _cont.getClasses().getErrorsDet().add(un_);
         }
     }

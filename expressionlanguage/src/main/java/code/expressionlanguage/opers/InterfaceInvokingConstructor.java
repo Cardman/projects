@@ -2,15 +2,14 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BracedBlock;
+import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.util.BadConstructorCall;
@@ -141,7 +140,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     }
 
     @Override
-    ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -174,7 +173,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (classFormat_ == null) {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
             Argument a_ = new Argument();
-            return ArgumentCall.newArgument(a_);
+            return a_;
         }
         int j_ = 0;
         for (String c: ctorId_.getParametersTypes()) {
@@ -189,10 +188,10 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         processArgs(_conf, firstArgs_, params_);
         if (_conf.getException() != null) {
             Argument a_ = new Argument();
-            return ArgumentCall.newArgument(a_);
+            return a_;
         }
-        InvokingConstructor inv_ = new InvokingConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER);
-        return ArgumentCall.newCall(inv_);
+        _conf.getContextEl().setCallCtor(new CustomFoundConstructor(calledCtorTemp_, EMPTY_STRING, -1, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER));
+        return Argument.createVoid();
     }
 
 }

@@ -58,7 +58,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         if (PrimitiveTypeUtil.getOrderClass(cl_, _conf) < intOrder_) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
-        clMatch_.setUnwrapObject(cl_.getName());
+        clMatch_.setUnwrapObject(cl_);
         setResultClass(cl_);
     }
 

@@ -64,7 +64,7 @@ public final class CatchEval extends AbstractCatchEval {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        String cl_ = _cont.resolveType(className);
+        String cl_ = _cont.resolveType(className, true);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (getFirstChild() == null) {
@@ -121,11 +121,11 @@ public final class CatchEval extends AbstractCatchEval {
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
             if (p_ instanceof CatchEval) {
-                classes_.add(((CatchEval)p_).getClassName());
+                classes_.add(_an.resolveType(((CatchEval)p_).className, false));
             }
             p_ = p_.getPreviousSibling();
         }
-        String curClass_ = getClassName();
+        String curClass_ = _an.resolveType(className, false);
         _anEl.setArgMapping(curClass_);
         boolean reachCatch_ = true;
         for (String c: classes_) {

@@ -15,9 +15,22 @@ public interface SettableElResult {
     ClassArgumentMatching getResultClass();
 
     Argument calculateSetting(
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right);
+
+    void calculateSetting(
+            ExecutableCode _conf, Argument _right);
+
+    Argument calculateCompoundSetting(
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            String _op, Argument _right);
+
+    void calculateCompoundSetting(
+            ExecutableCode _conf, String _op, Argument _right);
+
+    Argument calculateSemiSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, boolean _post);
 
-    void calculateSetting(
+    void calculateSemiSetting(
             ExecutableCode _conf, String _op, boolean _post);
 }

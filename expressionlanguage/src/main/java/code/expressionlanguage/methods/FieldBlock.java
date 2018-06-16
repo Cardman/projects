@@ -234,7 +234,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
-        String cl_ = _cont.resolveType(className);
+        String cl_ = _cont.resolveType(className, true);
         if (value.trim().isEmpty()) {
             return;
         }

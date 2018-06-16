@@ -7,7 +7,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StaticAccessThisError;
@@ -66,21 +65,17 @@ public final class ThisOperation extends LeafOperation {
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
         ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
 
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
-        boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
         for (StringMap<AssignmentBefore> s: assB_) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
-                sm_.put(e.getKey(), bf_.assignAfter(isBool_));
+                sm_.put(e.getKey(), bf_.assignAfter(false));
             }
             ass_.add(sm_);
         }
         for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
             AssignmentBefore bf_ = e.getValue();
-            assA_.put(e.getKey(), bf_.assignAfter(isBool_));
+            assA_.put(e.getKey(), bf_.assignAfter(false));
         }
         vars_.getVariables().put(this, ass_);
         vars_.getFields().put(this, assA_);

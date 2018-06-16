@@ -225,7 +225,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        String cl_ = _cont.resolveType(className);
+        String cl_ = className.trim();
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
             Mapping mapping_ = new Mapping();

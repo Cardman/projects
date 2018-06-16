@@ -79,7 +79,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        String cl_ = _cont.resolveType(className);
+        String cl_ = _cont.resolveType(className, true);
         _cont.setMerged(merged);
         _cont.setFinalVariable(finalVariable);
         if (_cont.containsLocalVar(variableName)) {
@@ -146,7 +146,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         AbstractPageEl ip_ = _cont.getLastPage();
         LocalVariable lv_ = new LocalVariable();
         String className_ = getClassName();
-        lv_.setClassName(className_);
+        lv_.setClassName(_cont.resolveDynamicType(className_));
         lv_.setStruct(PrimitiveTypeUtil.defaultValue(className_, _cont));
         String name_ = getVariableName();
         ip_.putLocalVar(name_, lv_);

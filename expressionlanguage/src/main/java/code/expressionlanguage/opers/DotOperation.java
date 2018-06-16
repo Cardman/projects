@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -12,7 +11,6 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -68,10 +66,8 @@ public final class DotOperation extends MethodOperation {
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsAfter_.put(e.getKey(), b_.assign(isBool_));

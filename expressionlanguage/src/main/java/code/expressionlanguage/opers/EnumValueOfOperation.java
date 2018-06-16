@@ -2,13 +2,10 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
-import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -25,7 +22,6 @@ import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -66,7 +62,8 @@ public final class EnumValueOfOperation extends MethodOperation {
         firstArgs_.add(getFirstChild().getResultClass());
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
-        String clName_ = StringList.removeAllSpaces(className);
+        String clName_;
+        clName_ = _conf.resolveType(className, false);
         if (!checkCorrect(_conf, clName_, false, 0)) {
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
@@ -96,9 +93,9 @@ public final class EnumValueOfOperation extends MethodOperation {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
-        String argCl_ = firstArgs_.first().getName();
+        ClassArgumentMatching argCl_ = firstArgs_.first();
         String stringType_ = _conf.getStandards().getAliasString();
-        if (!StringList.quickEq(argCl_, stringType_)) {
+        if (!argCl_.matchClass(stringType_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
@@ -117,25 +114,21 @@ public final class EnumValueOfOperation extends MethodOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
         ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
 
-        boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
+            fieldsAfter_.put(e.getKey(), b_.assign(false));
         }
         for (StringMap<Assignment> s: variablesAfterLast_) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
                 Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assign(isBool_));
+                sm_.put(e.getKey(), b_.assign(false));
             }
             variablesAfter_.add(sm_);
         }
@@ -147,9 +140,10 @@ public final class EnumValueOfOperation extends MethodOperation {
     public void calculate(ExecutableCode _conf) {
         OperationNode first_ = getFirstChild();
         Argument arg_ = first_.getArgument();
-        ArgumentCall argres_ = getCommonArgument(arg_, _conf);
-        if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
+        Argument argres_ = getCommonArgument(arg_, _conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
@@ -158,7 +152,7 @@ public final class EnumValueOfOperation extends MethodOperation {
         if (_conf.getException() != null) {
             return;
         }
-        Argument argRes_ = argres_.getArgument();
+        Argument argRes_ = argres_;
         setSimpleArgument(argRes_, _conf);
     }
 
@@ -167,32 +161,30 @@ public final class EnumValueOfOperation extends MethodOperation {
             ContextEl _conf) {
         OperationNode first_ = getFirstChild();
         Argument a_ = _nodes.getVal(first_).getArgument();
-        ArgumentCall argres_ = getCommonArgument(a_, _conf);
-        Argument arg_ = argres_.getArgument();
-        if (argres_.isInitClass()) {
-            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
-        } else {
-            PossibleIntermediateDotted n_ = getSiblingSet();
-            if (n_ != null) {
-                _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
-            }
+        Argument arg_ = getCommonArgument(a_, _conf);
+        if (_conf.callsOrException()) {
+            return arg_;
+        }
+        PossibleIntermediateDotted n_ = getSiblingSet();
+        if (n_ != null) {
+            _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
         }
         return arg_;
     }
-    ArgumentCall getCommonArgument(Argument _argument, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
         InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className);
         if (res_ == InitClassState.NOT_YET) {
-            InitializatingClass inv_ = new InitializatingClass(className);
-            return ArgumentCall.newCall(inv_);
+            _conf.getContextEl().setInitClass(new NotInitializedClass(className));
+            return Argument.createVoid();
         }
         if (res_ == InitClassState.ERROR) {
             CausingErrorStruct causing_ = new CausingErrorStruct(className);
             _conf.setException(causing_);
-            return ArgumentCall.newArgument(Argument.createVoid());
+            return Argument.createVoid();
         }
         if (_argument.isNull()) {
             Argument argres_ = new Argument();
-            return ArgumentCall.newArgument(argres_);
+            return argres_;
         }
         Classes classes_ = _conf.getClasses();
         for (Block b: Classes.getDirectChildren(classes_.getClassBody(className))) {
@@ -204,11 +196,11 @@ public final class EnumValueOfOperation extends MethodOperation {
             if (StringList.quickEq(fieldName_, (String) _argument.getObject())) {
                 Argument argres_ = new Argument();
                 argres_.setStruct(classes_.getStaticField(new ClassField(className, fieldName_)));
-                return ArgumentCall.newArgument(argres_);
+                return argres_;
             }
         }
         Argument argres_ = new Argument();
-        return ArgumentCall.newArgument(argres_);
+        return argres_;
     }
 
     @Override

@@ -9,6 +9,7 @@ import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
@@ -47,6 +48,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
@@ -460,10 +462,11 @@ public final class Classes {
         if (!Templates.isCorrectWrite(_temp, _context)) {
             return false;
         }
-        if (PrimitiveTypeUtil.isPrimitive(_temp, _context)) {
+        String temp_ = StringList.removeAllSpaces(_temp);
+        if (PrimitiveTypeUtil.isPrimitive(temp_, _context)) {
             return false;
         }
-        for (char c: _temp.toCharArray()) {
+        for (char c: temp_.toCharArray()) {
             if (StringList.isWordChar(c)) {
                 continue;
             }
@@ -513,6 +516,9 @@ public final class Classes {
         }
         classes_.validateEl(_context);
         TypeUtil.checkInterfaces(_context, classes_.classesBodies.getKeys());
+        if (!classes_.errorsDet.isEmpty()) {
+            return;
+        }
         _context.setAnalyzing(null);
         Classes cl_ = _context.getClasses();
         cl_.getLocks().init(_context);
@@ -2325,14 +2331,46 @@ public final class Classes {
         return methods_;
     }
 
-    public static CustList<ConstructorBlock> getConstructorBodiesById(Analyzable _context,String _genericClassName, ConstructorId _id) {
+    public static CustList<GeneConstructor> getConstructorBodiesById(Analyzable _context,String _genericClassName, ConstructorId _id) {
         return getConstructorBodiesById(_context, _genericClassName, _id.getParametersTypes(), _id.isVararg());
     }
-    private static CustList<ConstructorBlock> getConstructorBodiesById(Analyzable _context,String _genericClassName, StringList _parametersTypes, boolean _vararg) {
-        CustList<ConstructorBlock> methods_ = new CustList<ConstructorBlock>();
+    private static CustList<GeneConstructor> getConstructorBodiesById(Analyzable _context,String _genericClassName, StringList _parametersTypes, boolean _vararg) {
+        CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         int nbParams_ = _parametersTypes.size();
         Classes classes_ = _context.getClasses();
+        for (EntryCust<String, StandardType> c: _context.getStandards().getStandards().entryList()) {
+            if (!StringList.quickEq(c.getKey(), base_)) {
+                continue;
+            }
+            for (StandardConstructor s: c.getValue().getConstructors()) {
+                StringList list_ = s.getId().getParametersTypes();
+                if (list_.size() != nbParams_) {
+                    continue;
+                }
+                if (nbParams_ > 0 && _vararg) {
+                    if (!s.isVarargs()) {
+                        continue;
+                    }
+                } else {
+                    if (s.isVarargs()) {
+                        continue;
+                    }
+                }
+                boolean all_ = true;
+                for (int i = CustList.FIRST_INDEX; i < nbParams_; i++) {
+                    String type_ = list_.get(i);
+                    if (!StringList.quickEq(type_, _parametersTypes.get(i))) {
+                        all_ = false;
+                        break;
+                    }
+                }
+                if (!all_) {
+                    continue;
+                }
+                methods_.add(s);
+            }
+        }
         for (EntryCust<String, RootBlock> c: classes_.classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey(), base_)) {
                 continue;
@@ -2395,7 +2433,7 @@ public final class Classes {
                         continue;
                     }
                     String m_ = method_.getFieldName();
-                    String c_ = method_.getClassName();
+                    String c_ = _context.resolveDynamicType(method_.getClassName());
                     for (EntryCust<String, Struct> f: staticFields.getVal(base_).entryList()) {
                         if (f.getValue() != null) {
                             continue;
@@ -2479,7 +2517,7 @@ public final class Classes {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     String m_ = method_.getFieldName();
-                    String ret_ = method_.getClassName();
+                    String ret_ = _context.resolveDynamicType(method_.getClassName());
                     boolean enumElement_ = b instanceof ElementBlock;
                     boolean staticElement_ = method_.isStaticField();
                     boolean finalElement_ = method_.isFinalField();

@@ -21,7 +21,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.ObjectMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class VarargOperation extends LeafOperation {
@@ -73,7 +72,7 @@ public final class VarargOperation extends LeafOperation {
             return;
         }
         String str_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
-        str_ = StringList.removeAllSpaces(str_);
+        str_ = _conf.resolveType(str_, false);
         if (!checkCorrect(_conf, str_, true, getIndexInEl() + offset+1)) {
             str_ = stds_.getAliasObject();
         }

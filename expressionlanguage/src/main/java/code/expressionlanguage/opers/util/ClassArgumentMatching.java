@@ -67,6 +67,9 @@ public final class ClassArgumentMatching {
         return StringList.quickEq(className, _class);
     }
 
+    public boolean isUndefined() {
+        return className == null;
+    }
 //    public CustList<Class<?>> getDeclaredClasses() {
 //        try {
 //            Class<?> cl_ = PrimitiveTypeUtil.getSingleNativeClass(className);
@@ -92,6 +95,16 @@ public final class ClassArgumentMatching {
         return PrimitiveTypeUtil.isPrimitive(className, _context);
     }
 
+    public boolean isBoolType(Analyzable _context) {
+        LgNames lgNames_ = _context.getStandards();
+        String aliasBoolean_ = lgNames_.getAliasBoolean();
+        return PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, className, _context);
+    }
+
+    public boolean isGlobalClass(Analyzable _context) {
+        return StringList.quickEq(className, _context.getGlobalClass());
+    }
+
     public String getName() {
         return className;
     }
@@ -102,6 +115,10 @@ public final class ClassArgumentMatching {
 
     public void setUnwrapObject(String _unwrapObject) {
         unwrapObject = _unwrapObject;
+    }
+
+    public void setUnwrapObject(ClassArgumentMatching _other) {
+        unwrapObject = _other.getName();
     }
 
     public boolean isCheckOnlyNullPe() {

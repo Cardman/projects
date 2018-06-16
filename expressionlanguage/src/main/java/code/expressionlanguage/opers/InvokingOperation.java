@@ -1,27 +1,39 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.CustomFoundConstructor;
+import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.ObjectMap;
@@ -477,12 +489,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             filter_.add(o);
         }
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         if (filter_.isEmpty()) {
             for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
                 AssignmentBefore b_ = e.getValue();
@@ -562,4 +572,197 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         staticAccess = _staticAccess;
     }
     abstract boolean isCallMethodCtor();
+    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex) {
+        if (_conf.getException() != null) {
+            Argument a_ = new Argument();
+            return a_;
+        }
+        LgNames stds_ = _conf.getStandards();
+//      String null_;
+//      null_ = stds_.getAliasNullPe();
+        Argument needed_ = null;
+//      if (_class != null && !Modifier.isStatic(_class.getModifiers())) {
+//          Argument arg_ = _previous;
+//          if (arg_.isNull()) {
+//              throw new InvokeException(new StdStruct(new CustomError(_class.getName()+RETURN_LINE+_conf.joinPages()),null_));
+//          }
+//          needed_ = arg_;
+//          _arguments.add(CustList.FIRST_INDEX, arg_);
+//      }
+      String base_ = Templates.getIdFromAllTypes(_className);
+      if (!_conf.getClasses().isCustomType(base_)) {
+          ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
+          if (_conf.getException() != null) {
+              Argument a_ = new Argument();
+              return a_;
+          }
+          if (res_.getError() != null) {
+              _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+              Argument a_ = new Argument();
+              return a_;
+          }
+          Argument arg_ = new Argument();
+          arg_.setStruct(res_.getResult());
+          return arg_;
+      }
+      String className_ = _className;
+      PageEl page_ = _conf.getOperationPageEl();
+      className_ = page_.formatVarType(className_, _conf);
+      StringList params_ = new StringList();
+      int j_ = 0;
+      for (String c: _constId.getParametersTypes()) {
+          String class_ = c;
+          class_ = Templates.format(className_, class_, _conf);
+          if (j_ + 1 == _constId.getParametersTypes().size() && _constId.isVararg()) {
+              class_ = PrimitiveTypeUtil.getPrettyArrayType(class_);
+          }
+          params_.add(class_);
+          j_++;
+      }
+      int i_ = CustList.FIRST_INDEX;
+      for (Argument a: _arguments) {
+          if (i_ < params_.size()) {
+              Struct str_ = a.getStruct();
+              if (!str_.isNull()) {
+                  Mapping mapping_ = new Mapping();
+                  mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
+                  mapping_.setParam(params_.get(i_));
+                  if (!Templates.isCorrect(mapping_, _conf)) {
+                      String cast_;
+                      cast_ = stds_.getAliasCast();
+                      _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                      Argument a_ = new Argument();
+                      return a_;
+                  }
+              }
+          }
+          i_++;
+      }
+      _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
+      return Argument.createVoid();
+    }
+    public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset) {
+        StringList params_ = new StringList();
+        LgNames stds_ = _conf.getStandards();
+        String cast_;
+        cast_ = stds_.getAliasCast();
+        if (!_methodId.isStaticMethod()) {
+            String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
+            String classFormat_ = _classNameFound;
+            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+            if (classFormat_ == null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            int i_ = 0;
+            for (String c: _methodId.getParametersTypes()) {
+                String c_ = c;
+                c_ = Templates.format(classFormat_, c_, _conf);
+                if (i_ + 1 == _methodId.getParametersTypes().size() && _methodId.isVararg()) {
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        } else {
+            int i_ = 0;
+            for (String c: _methodId.getParametersTypes()) {
+                String c_ = c;
+                if (i_ + 1 == _methodId.getParametersTypes().size() && _methodId.isVararg()) {
+                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        }
+        int i_ = CustList.FIRST_INDEX;
+        for (Argument a: _firstArgs) {
+            if (i_ < params_.size()) {
+                Struct str_ = a.getStruct();
+                if (!str_.isNull()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
+                    mapping_.setParam(params_.get(i_));
+                    if (!Templates.isCorrect(mapping_, _conf)) {
+                        if (_possibleOffset > -1) {
+                            _conf.setOffset(_possibleOffset);
+                        }
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                }
+            }
+            i_++;
+        }
+        if (_conf.getException() != null) {
+            return Argument.createVoid();
+        }
+        Classes classes_ = _conf.getClasses();
+        String aliasClass_ = stds_.getAliasClass();
+        String aliasForName_ = stds_.getAliasForName();
+        if (StringList.quickEq(aliasClass_, _classNameFound)) {
+            if (StringList.quickEq(aliasForName_, _methodId.getName())) {
+                Argument clArg_ = _firstArgs.first();
+                if (clArg_.isNull()) {
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                    Argument a_ = new Argument();
+                    return a_;
+                }
+                String clDyn_ = (String) clArg_.getObject();
+                if (StringList.quickEq(clDyn_.trim(), _conf.getStandards().getAliasVoid())) {
+                    Argument a_ = new Argument();
+                    a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
+                    return a_;
+                }
+                String base_ = Templates.getIdFromAllTypes(clDyn_);
+                Boolean init_ = (Boolean) _firstArgs.last().getObject();
+                if (base_.contains(Templates.TEMPLATE_BEGIN)) {
+                    if (!Templates.correctClassParts(clDyn_, new StringMap<StringList>(), _conf)) {
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                } else {
+                    if (!Templates.existClassParts(clDyn_, new StringMap<StringList>(), _conf)) {
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                }
+                if (init_) {
+                    if (classes_.isCustomType(clDyn_)) {
+                        InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), clDyn_);
+                        if (res_ == InitClassState.NOT_YET) {
+                            _conf.getContextEl().setInitClass(new NotInitializedClass(clDyn_));
+                            return Argument.createVoid();
+                        }
+                        if (res_ == InitClassState.ERROR) {
+                            CausingErrorStruct causing_ = new CausingErrorStruct(clDyn_);
+                            _conf.setException(causing_);
+                            return Argument.createVoid();
+                        }
+                    }
+                }
+                Argument a_ = new Argument();
+                a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
+                return a_;
+            }
+        }
+        if (!classes_.isCustomType(_classNameFound)) {
+            ClassMethodId dyn_ = new ClassMethodId(_classNameFound, _methodId);
+            ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), dyn_, _previous.getStruct(), Argument.toArgArray(_firstArgs));
+            if (res_.getError() != null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            Argument argRes_ = new Argument();
+            argRes_.setStruct(res_.getResult());
+            return argRes_;
+        }
+        _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));
+        return Argument.createVoid();
+    }
 }

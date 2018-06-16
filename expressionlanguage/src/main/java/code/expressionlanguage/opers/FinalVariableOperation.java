@@ -122,10 +122,8 @@ public final class FinalVariableOperation extends LeafOperation {
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
         ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
 
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         
         for (StringMap<AssignmentBefore> s: assB_) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();

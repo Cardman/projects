@@ -11,16 +11,11 @@ import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.NatTreeMap;
-import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -182,14 +177,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 interfaces_.add(s);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    interfaces_.add(s);
-                }
             }
         }
         return interfaces_;
@@ -203,13 +192,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof ClassBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _context)) {
                 return base_;
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    return base_;
-                }
             }
         }
         return _context.getStandards().getAliasObject();
@@ -223,13 +207,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof ClassBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 return s;
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    return s;
-                }
             }
         }
         return _classes.getStandards().getAliasObject();
@@ -258,13 +237,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 interfaces_.add(s);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    interfaces_.add(s);
-                }
             }
         }
         return interfaces_;
@@ -279,31 +253,27 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 interfaces_.add(base_);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    interfaces_.add(base_);
-                }
             }
         }
         return interfaces_;
     }
 
     public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
-        String idType_ = getFullName();
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
-        c_ = curMeta_.getConstructorsInfos();
-        if (c_.isEmpty()) {
-            return AccessEnum.PUBLIC;
+        CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof ConstructorBlock) {
+                ctors_.add((ConstructorBlock) b);
+            }
+        }
+        if (ctors_.isEmpty()) {
+            return getAccess();
         }
         AccessEnum a_ = AccessEnum.PRIVATE;
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, e.getKey()).first();
-            if (b_.getAccess().ordinal() < a_.ordinal()) {
-                a_ = b_.getAccess();
+        for (ConstructorBlock c: ctors_) {
+            if (c.getAccess().ordinal() < a_.ordinal()) {
+                a_ = c.getAccess();
             }
         }
         return a_;

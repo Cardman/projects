@@ -6,7 +6,6 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
@@ -94,8 +93,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             setResultClass(class_);
             return;
         }
-        indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf).getName());
-        class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_.getName()));
+        indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf));
+        class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_));
         setResultClass(class_);
     }
     @Override
@@ -134,10 +133,8 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
@@ -221,26 +218,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public Argument calculateSetting(
-            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
-        OperationNode lastElement_ = chidren_.last();
-        Struct array_;
-        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _post, _conf));
-        if (_conf.getException() != null) {
-            return a_;
-        }
-        setSimpleArgument(a_, _conf, _nodes);
-        return a_;
-    }
-
-    @Override
     public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
@@ -254,62 +231,6 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         } else {
             setSimpleArgument(a_, _conf);
         }
-    }
-
-    @Override
-    public void calculateSetting(
-            ExecutableCode _conf, String _op, boolean _post) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        OperationNode lastElement_ = chidren_.last();
-        Argument last_ = lastElement_.getArgument();
-        Struct array_;
-        array_ = getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
-        if (_conf.getException() != null) {
-            return;
-        }
-        setSimpleArgument(a_, _conf);
-    }
-
-    Struct affectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
-        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        Object o_ = _index.getObject();
-        PageEl ip_ = _conf.getOperationPageEl();
-        Struct leftObj_;
-        if (resultCanBeSet()) {
-            leftObj_ = getElement(_stored, o_, _conf, _indexEl);
-        } else {
-            leftObj_ = _stored;
-        }
-        if (_conf.getException() != null) {
-            return _stored;
-        }
-        Argument left_ = new Argument();
-        left_.setStruct(leftObj_);
-        Argument right_ = ip_.getRightArgument();
-        String clForm_ = EMPTY_STRING;
-        ClassArgumentMatching clArg_;
-        if (!_array.isNull()) {
-            LgNames stds_ = _conf.getStandards();
-            String strClass_ = stds_.getStructClassName(_array, _conf.getContextEl());
-            clForm_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-            clArg_ = new ClassArgumentMatching(clForm_);
-        } else {
-            clArg_ = getResultClass();
-        }
-        Argument res_;
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString, clArg_);
-        if (_conf.getException() != null) {
-            return _stored;
-        }
-        setElement(_array, o_, res_.getStruct(), _conf);
-        if (_post) {
-            return left_.getStruct();
-        }
-        return res_.getStruct();
     }
 
     Argument getArgument(int _maxIndexChildren, ExecutableCode _conf) {
@@ -447,5 +368,180 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public final void setPreviousArgument(Argument _previousArgument) {
         previousArgument = _previousArgument;
+    }
+
+    @Override
+    public Argument calculateSetting(
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            Argument _right) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = _nodes.getVal(this).getArgument();
+        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        OperationNode lastElement_ = chidren_.last();
+        Struct array_;
+        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
+        a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf));
+        if (_conf.getException() != null) {
+            return a_;
+        }
+        setSimpleArgument(a_, _conf, _nodes);
+        return a_;
+    }
+
+    @Override
+    public void calculateSetting(ExecutableCode _conf, Argument _right) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = getArgument();
+        OperationNode lastElement_ = chidren_.last();
+        Argument last_ = lastElement_.getArgument();
+        Struct array_;
+        array_ = getPreviousArgument().getStruct();
+        a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf));
+        if (_conf.getException() != null) {
+            return;
+        }
+        setSimpleArgument(a_, _conf);
+    }
+
+    @Override
+    public Argument calculateCompoundSetting(
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            String _op, Argument _right) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = _nodes.getVal(this).getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        OperationNode lastElement_ = chidren_.last();
+        Struct array_;
+        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
+        a_.setStruct(compoundAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op,_right, _conf));
+        if (_conf.getException() != null) {
+            return a_;
+        }
+        setSimpleArgument(a_, _conf, _nodes);
+        return a_;
+    }
+
+    @Override
+    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
+            Argument _right) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        OperationNode lastElement_ = chidren_.last();
+        Argument last_ = lastElement_.getArgument();
+        Struct array_;
+        array_ = getPreviousArgument().getStruct();
+        a_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
+        if (_conf.getException() != null) {
+            return;
+        }
+        setSimpleArgument(a_, _conf);
+    }
+
+    @Override
+    public Argument calculateSemiSetting(
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            String _op, boolean _post) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = _nodes.getVal(this).getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        OperationNode lastElement_ = chidren_.last();
+        Struct array_;
+        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
+        a_.setStruct(semiAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _post, _conf));
+        if (_conf.getException() != null) {
+            return a_;
+        }
+        setSimpleArgument(a_, _conf, _nodes);
+        return a_;
+    }
+
+    @Override
+    public void calculateSemiSetting(ExecutableCode _conf, String _op,
+            boolean _post) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        OperationNode lastElement_ = chidren_.last();
+        Argument last_ = lastElement_.getArgument();
+        Struct array_;
+        array_ = getPreviousArgument().getStruct();
+        a_.setStruct(semiAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
+        if (_conf.getException() != null) {
+            return;
+        }
+        setSimpleArgument(a_, _conf);
+    }
+
+    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
+        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+        Object o_ = _index.getObject();
+        if (_conf.getException() != null) {
+            return _right.getStruct();
+        }
+        setElement(_array, o_, _right.getStruct(), _conf);
+        return _right.getStruct();
+    }
+
+    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf) {
+        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+        Object o_ = _index.getObject();
+        if (_conf.getException() != null) {
+            return _stored;
+        }
+        Argument left_ = new Argument();
+        left_.setStruct(_stored);
+        String clForm_ = EMPTY_STRING;
+        ClassArgumentMatching clArg_;
+        if (!_array.isNull()) {
+            LgNames stds_ = _conf.getStandards();
+            String strClass_ = stds_.getStructClassName(_array, _conf.getContextEl());
+            clForm_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+            clArg_ = new ClassArgumentMatching(clForm_);
+        } else {
+            clArg_ = getResultClass();
+        }
+        Argument res_;
+        res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
+        if (_conf.getException() != null) {
+            return _stored;
+        }
+        setElement(_array, o_, res_.getStruct(), _conf);
+        return res_.getStruct();
+    }
+    Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
+        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
+        Object o_ = _index.getObject();
+        if (_conf.getException() != null) {
+            return _stored;
+        }
+        Argument left_ = new Argument();
+        left_.setStruct(_stored);
+        String clForm_ = EMPTY_STRING;
+        ClassArgumentMatching clArg_;
+        if (!_array.isNull()) {
+            LgNames stds_ = _conf.getStandards();
+            String strClass_ = stds_.getStructClassName(_array, _conf.getContextEl());
+            clForm_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+            clArg_ = new ClassArgumentMatching(clForm_);
+        } else {
+            clArg_ = getResultClass();
+        }
+        Argument res_;
+        res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
+        if (_conf.getException() != null) {
+            return _stored;
+        }
+        setElement(_array, o_, res_.getStruct(), _conf);
+        if (_post) {
+            return left_.getStruct();
+        }
+        return res_.getStruct();
     }
 }

@@ -21,7 +21,6 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
@@ -53,11 +52,12 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         LgNames stds_ = _conf.getStandards();
         String method_ = prefixFunction(INSTANCEOF);
         String sub_ = className.substring(method_.length() + className.indexOf(method_));
-        sub_ = StringList.removeAllSpaces(sub_);
+        sub_ = _conf.resolveType(sub_, false);
+        boolean st_ = isStaticBlock();
         if (sub_.contains(Templates.TEMPLATE_BEGIN)) {
             checkCorrect(_conf, sub_, true, offset+1);
         } else {
-            if (!checkExistBase(_conf, !isStaticBlock(), sub_, true, offset+1)) {
+            if (!checkExistBase(_conf, !st_, sub_, true, offset+1)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }

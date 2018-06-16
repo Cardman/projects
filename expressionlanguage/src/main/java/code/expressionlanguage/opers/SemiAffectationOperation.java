@@ -83,7 +83,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             _conf.getClasses().getErrorsDet().add(cast_);
             return;
         }
-        clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, true, _conf).getName());
+        clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, true, _conf));
     }
 
     @Override
@@ -92,10 +92,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         OperationNode realFirstChild_ = getFirstChild();
         if (realFirstChild_ == null) {
             CustList<StringMap<AssignmentBefore>> variablesAfterLast_ = vars_.getVariablesRootBefore();
@@ -141,13 +139,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                             }
                         }
                     }
-                    if (StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter()) {
-                        sm_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
-                    } else if (!StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter()) {
-                        sm_.put(e.getKey(), e.getValue().assignChange(isBool_, false, true));
-                    } else {
-                        sm_.put(e.getKey(), e.getValue().assign(isBool_));
-                    }
+                    boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
+                    boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
+                    sm_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
                 }
                 variablesAfter_.add(sm_);
             }
@@ -176,13 +170,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                     int index_ = cst_.getIndexChild() - 1;
                     OperationNode opPr_ = cst_.getParent().getChildrenNodes().get(index_);
                     if (opPr_ instanceof ThisOperation) {
-                        if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                        if (opPr_.getResultClass().isGlobalClass(_conf)) {
                             procField_ = true;
                         }
                     }
                     if (!procField_) {
                         if (opPr_ instanceof StaticAccessOperation) {
-                            if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                            if (opPr_.getResultClass().isGlobalClass(_conf)) {
                                 procField_ = true;
                             }
                         }
@@ -206,13 +200,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                         _conf.getClasses().getErrorsDet().add(un_);
                     }
                 }
-                if (cl_.eq(e.getKey()) || e.getValue().isAssignedAfter()) {
-                    fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
-                } else if (!cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter()) {
-                    fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, false, true));
-                } else {
-                    fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
-                }
+                boolean ass_ = cl_.eq(e.getKey()) || e.getValue().isAssignedAfter();
+                boolean unass_ = !cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter();
+                fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
             }
         } else {
             if (settable == null) {
@@ -231,22 +221,16 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     }
     @Override
     public void calculate(ExecutableCode _conf) {
-        OperationNode right_ = getChildrenNodes().last();
-        _conf.getOperationPageEl().setRightArgument(right_.getArgument());
-        settable.calculateSetting(_conf, oper, post);
+        settable.calculateSemiSetting(_conf, oper, post);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
-        _conf.getOperationPageEl().setRightArgument(null);
     }
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        OperationNode right_ = getChildrenNodes().last();
-        _conf.getLastPage().setRightArgument(_nodes.getVal(right_).getArgument());
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper, post);
+        Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
         setSimpleArgument(arg_, _conf, _nodes);
-        _conf.getLastPage().setRightArgument(null);
         return arg_;
     }
 

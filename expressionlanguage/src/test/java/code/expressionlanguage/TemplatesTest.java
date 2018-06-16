@@ -697,13 +697,13 @@ public class TemplatesTest {
     @Test
     public void isCorrectWrite18Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<[$int.int>", context_));
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<[$int.int>", context_));
     }
 
     @Test
     public void isCorrectWrite19Test() {
         ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<[$int.int,java.lang.String>>", context_));
+        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<[$int.int,java.lang.String>>", context_));
     }
 
     @Test

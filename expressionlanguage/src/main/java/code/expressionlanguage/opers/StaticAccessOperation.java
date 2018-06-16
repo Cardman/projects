@@ -2,23 +2,17 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
-import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -33,34 +27,18 @@ import code.util.StringMap;
 
 public final class StaticAccessOperation extends LeafOperation {
 
-    private boolean possibleInitClass;
-
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }
     @Override
     public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {
-        OperationNode op_ = getParent();
-        while (op_ != null) {
-            if (_nodes.getVal(op_).getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
+        return true;
     }
 
     @Override
     public final boolean isCalculated() {
-        OperationNode op_ = getParent();
-        while (op_ != null) {
-            if (op_.getArgument() != null) {
-                return true;
-            }
-            op_ = op_.getParent();
-        }
-        return false;
+        return true;
     }
 
     @Override
@@ -72,7 +50,8 @@ public final class StaticAccessOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
-        String classStr_ = StringList.removeAllSpaces(realCl_);
+        String classStr_;
+        classStr_ = _conf.resolveType(realCl_, false);
         String base_ = Templates.getIdFromAllTypes(classStr_);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
@@ -95,7 +74,6 @@ public final class StaticAccessOperation extends LeafOperation {
                 badAccess_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().getErrorsDet().add(badAccess_);
             }
-            possibleInitClass = true;
         }
         Argument a_ = new Argument();
         setArguments(a_);
@@ -134,52 +112,13 @@ public final class StaticAccessOperation extends LeafOperation {
     }
     @Override
     public void calculate(ExecutableCode _conf) {
-        Argument arg_ = getArgument();
-        ArgumentCall argres_ = getCommonArgument(arg_, _conf);
-        if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
-            if (_conf.getException() != null) {
-                return;
-            }
-            argres_ = getCommonArgument(arg_, _conf);
-        }
-        if (_conf.getException() != null) {
-            return;
-        }
-        Argument argRes_ = argres_.getArgument();
-        setSimpleArgument(argRes_, _conf);
     }
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument a_ = _nodes.getVal(this).getArgument();
-        ArgumentCall argres_ = getCommonArgument(a_, _conf);
-        Argument arg_ = argres_.getArgument();
-        if (argres_.isInitClass()) {
-            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
-        } else {
-            PossibleIntermediateDotted n_ = getSiblingSet();
-            _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
-        }
-        return arg_;
-    }
-    ArgumentCall getCommonArgument(Argument _argument, ExecutableCode _conf) {
-        if (possibleInitClass) {
-            String className_ = getResultClass().getName();
-            InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className_);
-            if (res_ == InitClassState.NOT_YET) {
-                InitializatingClass inv_ = new InitializatingClass(className_);
-                return ArgumentCall.newCall(inv_);
-            }
-            if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(className_);
-                _conf.setException(causing_);
-                return ArgumentCall.newArgument(Argument.createVoid());
-            }
-        }
-        Argument cur_ = _argument;
-        return ArgumentCall.newArgument(cur_);
+        return a_;
     }
 
     @Override

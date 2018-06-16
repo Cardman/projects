@@ -118,7 +118,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, valueOffset));
-            un_.setType(opValue.last().getResultClass().getName());
+            un_.setType(opValue.last().getResultClass());
             _cont.getClasses().getErrorsDet().add(un_);
         }
         String exp_ = opValue.last().getResultClass().getName();
@@ -128,7 +128,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     UnexpectedTypeError un_ = new UnexpectedTypeError();
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass().getName());
+                    un_.setType(opValue.last().getResultClass());
                     _cont.getClasses().getErrorsDet().add(un_);
                 } else {
                     enumTest = true;
@@ -463,7 +463,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 if (op_.getArgument() != null) {
                     continue;
                 }
-                if (!c_.getFieldId().eq(new ClassField(op_.getResultClass().getName(), en_.getName()))) {
+                if (!StringList.quickEq(c_.getFieldId().getFieldName(), en_.getName())) {
                     continue;
                 }
                 found_ = true;

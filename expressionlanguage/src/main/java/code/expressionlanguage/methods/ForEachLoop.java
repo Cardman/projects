@@ -220,7 +220,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        String cl_ = _cont.resolveType(className);
+        String cl_ = _cont.resolveType(className, true);
         OperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
         Argument arg_ = el_.getArgument();
@@ -230,7 +230,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             static_.setRc(_cont.getCurrentLocation());
             _cont.getClasses().getErrorsDet().add(static_);
         } else if (el_.getResultClass().isArray()) {
-            String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass().getName());
+            String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
             Mapping mapping_ = new Mapping();
             mapping_.setArg(compo_);
             mapping_.setParam(cl_);
@@ -735,7 +735,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         indexClassName_ = getClassIndexName();
         String className_;
         LoopVariable lv_ = new LoopVariable();
-        className_ = getClassName();
+        className_ = _cont.resolveDynamicType(className);
         lv_.setIndex(-1);
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
@@ -885,12 +885,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         } else {
             element_ = LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf);
         }
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(getClassName(), element_, _conf)) {
+        String className_ = _conf.resolveDynamicType(className);
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(className_, element_, _conf)) {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return;
         }
         if (!element_.isNull()) {
-            String className_ = getClassName();
             className_ = _conf.getLastPage().formatVarType(className_, _conf);
             String argCl_ = stds_.getStructClassName(element_, _conf);
             Mapping mapping_ = new Mapping();

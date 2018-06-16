@@ -8,7 +8,6 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InvokingConstructor;
 import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
@@ -210,8 +209,6 @@ public final class TernaryOperation extends MethodOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
@@ -221,7 +218,7 @@ public final class TernaryOperation extends MethodOperation {
         OperationNode befLast_ = children_.get(children_.size() - 2);
         ObjectMap<ClassField,Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
         CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
-        if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf)) {
+        if (getResultClass().isBoolType(_conf)) {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
                 BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();

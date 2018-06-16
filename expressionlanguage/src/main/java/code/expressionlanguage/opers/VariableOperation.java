@@ -107,10 +107,8 @@ public final class VariableOperation extends LeafOperation implements
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
         ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
 
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         String varName_ = variableName;
         if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
             varName_ = EMPTY_STRING;
@@ -235,11 +233,8 @@ public final class VariableOperation extends LeafOperation implements
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
-        Argument a_ = _nodes.getVal(this).getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSetting(_conf, store_, _op, _post);
+            Argument _right) {
+        Argument arg_ = getCommonSetting(_conf, _right);
         if (_conf.getException() == null) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
@@ -247,17 +242,68 @@ public final class VariableOperation extends LeafOperation implements
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, String _op, boolean _post) {
-        Argument a_ = getArgument();
-        Struct store_;
-        store_ = a_.getStruct();
-        Argument arg_ = getCommonSetting(_conf, store_, _op, _post);
+    public void calculateSetting(ExecutableCode _conf, Argument _right) {
+        Argument arg_ = getCommonSetting(_conf, _right);
         if (_conf.getException() != null) {
             return;
         }
         setSimpleArgument(arg_, _conf);
     }
-    Argument getCommonSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
+
+    @Override
+    public Argument calculateCompoundSetting(
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            String _op, Argument _right) {
+        Argument a_ = _nodes.getVal(this).getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
+        if (_conf.getException() == null) {
+            setSimpleArgument(arg_, _conf, _nodes);
+        }
+        return arg_;
+    }
+
+    @Override
+    public void calculateCompoundSetting(ExecutableCode _conf, String _op,
+            Argument _right) {
+        Argument a_ = getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
+        if (_conf.getException() != null) {
+            return;
+        }
+        setSimpleArgument(arg_, _conf);
+    }
+
+    @Override
+    public Argument calculateSemiSetting(
+            IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
+            String _op, boolean _post) {
+        Argument a_ = _nodes.getVal(this).getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
+        if (_conf.getException() == null) {
+            setSimpleArgument(arg_, _conf, _nodes);
+        }
+        return arg_;
+    }
+
+    @Override
+    public void calculateSemiSetting(ExecutableCode _conf, String _op,
+            boolean _post) {
+        Argument a_ = getArgument();
+        Struct store_;
+        store_ = a_.getStruct();
+        Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
+        if (_conf.getException() != null) {
+            return;
+        }
+        setSimpleArgument(arg_, _conf);
+    }
+    Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         LgNames stds_ = _conf.getStandards();
         String cast_;
@@ -268,31 +314,66 @@ public final class VariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         Argument left_ = new Argument();
-        Argument right_ = ip_.getRightArgument();
         String formattedClassVar_ = locVar_.getClassName();
         formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
-        if (resultCanBeSet()) {
-            left_.setStruct(locVar_.getStruct());
-            Argument check_ = left_;
-            if (getParent() instanceof AffectationOperation || _conf.isCheckAffectation()) {
-                check_ = right_;
+        left_.setStruct(locVar_.getStruct());
+        if (!_right.isNull()) {
+            Mapping mapping_ = new Mapping();
+            String base_ = _right.getObjectClassName(_conf.getContextEl());
+            mapping_.setArg(base_);
+            mapping_.setParam(formattedClassVar_);
+            if (!Templates.isCorrect(mapping_, _conf)) {
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
+                return Argument.createVoid();
             }
-            if (!check_.isNull() && !NumericOperation.convert(_op)) {
-                Mapping mapping_ = new Mapping();
-                String base_ = check_.getObjectClassName(_conf.getContextEl());
-                mapping_.setArg(base_);
-                mapping_.setParam(formattedClassVar_);
-                if (!Templates.isCorrect(mapping_, _conf)) {
-                    _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
-                    return Argument.createVoid();
-                }
-            }
-        } else {
-            left_.setStruct(_store);
         }
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
+        if (_conf.getException() != null) {
+            return _right;
+        }
+        if (_right.getStruct() instanceof NumberStruct || _right.getStruct() instanceof CharStruct) {
+            _right.setStruct(PrimitiveTypeUtil.convertObject(cl_, _right.getStruct(), _conf));
+        }
+        locVar_.setStruct(_right.getStruct());
+        return _right;
+    }
+    Argument getCommonCompoundSetting(ExecutableCode _conf, Struct _store, String _op, Argument _right) {
+        PageEl ip_ = _conf.getOperationPageEl();
+        int relativeOff_ = getOperations().getOffset();
+        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        LocalVariable locVar_ = ip_.getLocalVar(variableName);
+        Argument left_ = new Argument();
+        String formattedClassVar_ = locVar_.getClassName();
+        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
+        left_.setStruct(_store);
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
-        res_ = NumericOperation.calculateAffect(left_, _conf, right_, _op, catString, cl_);
+        res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+        if (_conf.getException() != null) {
+            return res_;
+        }
+        if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
+            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
+        }
+        locVar_.setStruct(res_.getStruct());
+        return res_;
+    }
+    Argument getCommonSemiSetting(ExecutableCode _conf, Struct _store, String _op, boolean _post) {
+        PageEl ip_ = _conf.getOperationPageEl();
+        int relativeOff_ = getOperations().getOffset();
+        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        LocalVariable locVar_ = ip_.getLocalVar(variableName);
+        Argument left_ = new Argument();
+        String formattedClassVar_ = locVar_.getClassName();
+        formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
+        left_.setStruct(_store);
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
+        Argument res_;
+        res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         if (_conf.getException() != null) {
             return res_;
         }

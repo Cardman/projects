@@ -63,8 +63,8 @@ public final class MultOperation extends NumericOperation {
             res_.setResult(arg_);
             return res_;
         }
-        _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont).getName());
-        _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont).getName());
+        _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont));
+        _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont));
         res_.setResult(getResultClass(_a, _cont, _b));
         return res_;
     }

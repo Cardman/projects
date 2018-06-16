@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
@@ -86,7 +85,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         vars_.getFields().put(this, assA_);
     }
     @Override
-    ArgumentCall getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -95,7 +94,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         Argument arg_ = _previous;
         a_ = new Argument();
         a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
-        return ArgumentCall.newArgument(a_);
+        return a_;
     }
 
     @Override

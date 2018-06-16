@@ -67,7 +67,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, conditionOffset));
-                un_.setType(opCondition.last().getResultClass().getName());
+                un_.setType(opCondition.last().getResultClass());
                 _cont.getClasses().getErrorsDet().add(un_);
             }
         }

@@ -299,7 +299,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         NewInstancingPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
-        CustList<ConstructorBlock> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
+        CustList<GeneConstructor> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         page_ = new NewInstancingPageEl();
@@ -315,7 +315,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         if (!methods_.isEmpty()) {
-            method_ = methods_.first();
+            method_ = (ConstructorBlock) methods_.first();
             StringList params_ = method_.getParametersNames();
             StringList types_ = method_.getParametersTypes(this);
             int len_ = params_.size();
@@ -339,7 +339,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         AbstractPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
-        CustList<ConstructorBlock> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
+        CustList<GeneConstructor> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         if (_in == InstancingStep.USING_SUPER) {
@@ -355,7 +355,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         if (!methods_.isEmpty()) {
-            method_ = methods_.first();
+            method_ = (ConstructorBlock) methods_.first();
             StringList params_ = method_.getParametersNames();
             StringList types_ = method_.getParametersTypes(this);
             int len_ = params_.size();
@@ -1023,15 +1023,65 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public String resolveType(String _in) {
+    public String resolveType(String _in, boolean _correct) {
         Block bl_ = getCurrentBlock();
         RowCol rc_ = getCurrentLocation();
-        return resolveType(_in, bl_,rc_, true, false);
+        return resolveType(_in, bl_,rc_, _correct, true, false);
+    }
+    public String resolveDynamicType(String _in) {
+        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
+        StringBuilder str_ = new StringBuilder();
+        for (String p: parts_) {
+            String tr_ = p.trim();
+            if (tr_.isEmpty()) {
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+                str_.append(Templates.PREFIX_VAR_TYPE);
+                str_.append(n_);
+                continue;
+            }
+            StringBuilder b_ = new StringBuilder();
+            for (String q: StringList.splitCharsSep(tr_, Templates.SEP_CLASS_CHAR)) {
+                b_.append(q.trim());
+            }
+            String bs_ = b_.toString().trim();
+            str_.append(bs_);
+        }
+        return str_.toString();
     }
     @Override
-    public String resolveType(String _in, Block _currentBlock,RowCol _location, boolean _checkSimpleCorrect, boolean _checkOnlyExistence) {
+    public String resolveType(String _in, Block _currentBlock,RowCol _location, boolean _correct, boolean _checkSimpleCorrect, boolean _checkOnlyExistence) {
+        if (_currentBlock == null) {
+            return resolveDynamicType(_in);
+        }
         String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in, void_)) {
+        if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_currentBlock.getFile().getFileName());
             un_.setRc(_location);
@@ -1042,23 +1092,32 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         RootBlock r_ = _currentBlock.getRooted();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         if (_checkSimpleCorrect) {
-            boolean static_;
-            if (_currentBlock instanceof InfoBlock) {
-                static_ = ((InfoBlock)_currentBlock).isStaticField();
-            } else {
-                FunctionBlock fct_ = _currentBlock.getFunction();
-                if (fct_ == null) {
-                    static_ = true;
+            if (_correct) {
+                boolean static_;
+                if (_currentBlock instanceof InfoBlock) {
+                    static_ = ((InfoBlock)_currentBlock).isStaticField();
                 } else {
-                    static_ = fct_.isStaticContext();
+                    FunctionBlock fct_ = _currentBlock.getFunction();
+                    if (fct_ == null) {
+                        static_ = true;
+                    } else {
+                        static_ = fct_.isStaticContext();
+                    }
                 }
-            }
-            if (!static_) {
-                for (TypeVar t: r_.getParamTypesMapValues()) {
-                    vars_.put(t.getName(), t.getConstraints());
+                if (!static_) {
+                    for (TypeVar t: r_.getParamTypesMapValues()) {
+                        vars_.put(t.getName(), t.getConstraints());
+                    }
                 }
-            }
-            if (!Templates.correctClassParts(_in, vars_, this)) {
+                if (!Templates.correctClassParts(_in, vars_, this)) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(_in);
+                    un_.setFileName(r_.getFile().getFileName());
+                    un_.setRc(_location);
+                    classes.getErrorsDet().add(un_);
+                    return standards.getAliasObject();
+                }
+            } else if (!Templates.isCorrectWrite(_in, this)) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(_in);
                 un_.setFileName(r_.getFile().getFileName());
@@ -1095,10 +1154,50 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
         }
         String className_ = r_.getFullName();
-        StringList parts_ = StringList.splitChars(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
+        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
+        StringBuilder str_ = new StringBuilder();
         for (String p: parts_) {
-            if (classes.isCustomType(p)) {
-                if (!Classes.canAccessClass(className_, p, this)) {
+            String tr_ = p.trim();
+            if (tr_.isEmpty()) {
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+                str_.append(Templates.PREFIX_VAR_TYPE);
+                str_.append(n_);
+                continue;
+            }
+            StringBuilder b_ = new StringBuilder();
+            for (String q: StringList.splitCharsSep(tr_, Templates.SEP_CLASS_CHAR)) {
+                b_.append(q.trim());
+            }
+            String bs_ = b_.toString().trim();
+            if (classes.isCustomType(bs_)) {
+                if (!Classes.canAccessClass(className_, bs_, this)) {
                     BadAccessClass err_ = new BadAccessClass();
                     err_.setFileName(r_.getFile().getFileName());
                     err_.setRc(_location);
@@ -1106,8 +1205,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     classes.getErrorsDet().add(err_);
                 }
             }
+            str_.append(bs_);
         }
-        return _in;
+        return str_.toString();
     }
     @Override
     public String resolveBaseType(String _in, Block _currentBlock,RowCol _location) {
@@ -1185,6 +1285,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
+        if (StringList.quickEq(_name.trim(), getStandards().getAliasVoid())) {
+            return new ClassMetaInfo(_name, this, ClassCategory.VOID);
+        }
         if (PrimitiveTypeUtil.isPrimitive(_name, this)) {
             return new ClassMetaInfo(_name, this, ClassCategory.PRIMITIVE);
         }

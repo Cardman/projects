@@ -67,8 +67,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
         setResultClass(elt_.getResultClass());
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
-        String res_ = elt_.getResultClass().getName();
-        if (StringList.quickEq(res_, stringType_)) {
+        boolean isString_ = elt_.getResultClass().matchClass(stringType_);
+        if (isString_) {
             settable.setCatenizeStrings();
         }
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
@@ -93,17 +93,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 return;
             }
         } else if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ)) {
-            if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasBoolean())) {
-                if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasPrimBoolean())) {
-                    _conf.getClasses().getErrorsDet().add(cast_);
-                    return;
-                }
+            if (!clMatchLeft_.isBoolType(_conf)) {
+                _conf.getClasses().getErrorsDet().add(cast_);
+                return;
             }
-            if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasBoolean())) {
-                if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasPrimBoolean())) {
-                    _conf.getClasses().getErrorsDet().add(cast_);
-                    return;
-                }
+            if (!clMatchRight_.isBoolType(_conf)) {
+                _conf.getClasses().getErrorsDet().add(cast_);
+                return;
             }
         } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
             _conf.getClasses().getErrorsDet().add(cast_);
@@ -112,9 +108,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             _conf.getClasses().getErrorsDet().add(cast_);
             return;
         }
-        if (!StringList.quickEq(res_, stringType_)) {
-            elt_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
-            right_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
+        if (!isString_) {
+            elt_.getResultClass().setUnwrapObject(clMatchLeft_);
+            right_.getResultClass().setUnwrapObject(clMatchLeft_);
         }
     }
 
@@ -142,10 +138,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode lastChild_ = getChildrenNodes().last();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         if (firstChild_ instanceof VariableOperation) {
             CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
             String str_ = ((VariableOperation)firstChild_).getVariableName();
@@ -166,13 +160,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
                             }
                         }
                     }
-                    if (StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter()) {
-                        sm_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
-                    } else if (!StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter()) {
-                        sm_.put(e.getKey(), e.getValue().assignChange(isBool_, false, true));
-                    } else {
-                        sm_.put(e.getKey(), e.getValue().assign(isBool_));
-                    }
+                    boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
+                    boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
+                    sm_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
                 }
                 variablesAfter_.add(sm_);
             }
@@ -201,13 +191,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     int index_ = cst_.getIndexChild() - 1;
                     OperationNode opPr_ = cst_.getParent().getChildrenNodes().get(index_);
                     if (opPr_ instanceof ThisOperation) {
-                        if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                        if (opPr_.getResultClass().isGlobalClass(_conf)) {
                             procField_ = true;
                         }
                     }
                     if (!procField_) {
                         if (opPr_ instanceof StaticAccessOperation) {
-                            if (StringList.quickEq(opPr_.getResultClass().getName(), _conf.getGlobalClass())) {
+                            if (opPr_.getResultClass().isGlobalClass(_conf)) {
                                 procField_ = true;
                             }
                         }
@@ -238,13 +228,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             ClassField cl_ = cst_.getFieldId();
             ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-                if (cl_.eq(e.getKey()) || e.getValue().isAssignedAfter()) {
-                    fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, true, false));
-                } else if (!cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter()) {
-                    fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, false, true));
-                } else {
-                    fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
-                }
+                boolean ass_ = cl_.eq(e.getKey()) || e.getValue().isAssignedAfter();
+                boolean unass_ = !cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter();
+                fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
             }
         } else {
             ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
@@ -286,20 +272,18 @@ public final class CompoundAffectationOperation extends MethodOperation {
     @Override
     public void calculate(ExecutableCode _conf) {
         OperationNode right_ = getChildrenNodes().last();
-        _conf.getOperationPageEl().setRightArgument(right_.getArgument());
-        settable.calculateSetting(_conf, oper, false);
+        Argument rightArg_ = right_.getArgument();
+        settable.calculateCompoundSetting(_conf, oper, rightArg_);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
-        _conf.getOperationPageEl().setRightArgument(null);
     }
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
-        _conf.getLastPage().setRightArgument(_nodes.getVal(right_).getArgument());
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, oper, false);
-        _conf.getLastPage().setRightArgument(null);
+        Argument rightArg_ = _nodes.getVal(right_).getArgument();
+        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }

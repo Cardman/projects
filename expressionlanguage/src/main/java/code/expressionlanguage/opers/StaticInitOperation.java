@@ -2,11 +2,9 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
-import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
@@ -70,27 +68,26 @@ public final class StaticInitOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
-        className_ = StringList.removeAllSpaces(className_);
+        className_ = _conf.resolveType(className_, false);
         String argClName_;
         String type_ = Templates.getIdFromAllTypes(className_);
-        String base_ = Templates.getIdFromAllTypes(type_);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
-        if (!checkExistBase(_conf, false, base_, false, 0)) {
+        if (!checkExistBase(_conf, false, type_, false, 0)) {
             Argument a_ = new Argument();
             argClName_ = _conf.getStandards().getAliasObject();
             setArguments(a_);
             setStaticResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
-        if (classes_.isCustomType(base_)) {
+        if (classes_.isCustomType(type_)) {
             String curClassBase_ = null;
             if (glClass_ != null) {
                 curClassBase_ = Templates.getIdFromAllTypes(glClass_);
             }
-            if (!Classes.canAccessClass(curClassBase_, base_, _conf)) {
+            if (!Classes.canAccessClass(curClassBase_, type_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
-                badAccess_.setId(base_);
+                badAccess_.setId(type_);
                 badAccess_.setRc(_conf.getCurrentLocation());
                 badAccess_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().getErrorsDet().add(badAccess_);
@@ -98,7 +95,7 @@ public final class StaticInitOperation extends LeafOperation {
             possibleInitClass = true;
         }
         Argument a_ = new Argument();
-        argClName_ = base_;
+        argClName_ = type_;
         setArguments(a_);
         setStaticResultClass(new ClassArgumentMatching(argClName_));
         return;
@@ -136,9 +133,10 @@ public final class StaticInitOperation extends LeafOperation {
     @Override
     public void calculate(ExecutableCode _conf) {
         Argument current_ = getArgument();
-        ArgumentCall argres_ = getCommonArgument(current_, _conf);
-        if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
+        Argument argres_ = getCommonArgument(current_, _conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
@@ -147,7 +145,7 @@ public final class StaticInitOperation extends LeafOperation {
         if (_conf.getException() != null) {
             return;
         }
-        Argument arg_ = argres_.getArgument();
+        Argument arg_ = argres_;
         setSimpleArgument(arg_, _conf);
     }
 
@@ -155,29 +153,29 @@ public final class StaticInitOperation extends LeafOperation {
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument current_ = _nodes.getVal(this).getArgument();
-        ArgumentCall argres_ = getCommonArgument(current_, _conf);
-        Argument arg_ = argres_.getArgument();
-        if (argres_.isInitClass()) {
-            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
+        Argument arg_ = getCommonArgument(current_, _conf);
+        if (_conf.callsOrException()) {
+            return arg_;
         }
+        setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-    ArgumentCall getCommonArgument(Argument _argument, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
         if (possibleInitClass) {
             String className_ = getResultClass().getName();
             InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className_);
             if (res_ == InitClassState.NOT_YET) {
-                InitializatingClass inv_ = new InitializatingClass(className_);
-                return ArgumentCall.newCall(inv_);
+                _conf.getContextEl().setInitClass(new NotInitializedClass(className_));
+                return Argument.createVoid();
             }
             if (res_ == InitClassState.ERROR) {
                 CausingErrorStruct causing_ = new CausingErrorStruct(className_);
                 _conf.setException(causing_);
-                return ArgumentCall.newArgument(Argument.createVoid());
+                return Argument.createVoid();
             }
         }
         Argument cur_ = _argument;
-        return ArgumentCall.newArgument(cur_);
+        return cur_;
     }
 
     @Override

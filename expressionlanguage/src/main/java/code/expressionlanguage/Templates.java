@@ -4,7 +4,6 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.PredefinedClasses;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -21,14 +20,18 @@ import code.util.StringMap;
 public final class Templates {
 
     public static final char ARR_BEG = '[';
+    public static final String ARR_BEG_STRING = "[";
     public static final String TEMPLATE_SEP = ",";
     public static final String TEMPLATE_END = ">";
     public static final String TEMPLATE_BEGIN = "<";
     public static final char EXTENDS_DEF = ':';
     public static final char SEP_BOUNDS = '&';
     public static final String SEP_CLASS = ".";
+    public static final char SEP_CLASS_CHAR = '.';
     public static final String PREFIX_VAR_TYPE = "#";
     public static final char PREFIX_VAR_TYPE_CHAR = '#';
+    public static final String SEP_BOUNDS_STRING = "&";
+    public static final String EXTENDS_DEF_STRING = ":";
 
     public static final char LT = '<';
 
@@ -141,7 +144,8 @@ public final class Templates {
             return false;
         }
         StringList variables_ = _mapping.getKeys();
-        if (!existAllClassParts(_className, variables_, _context)) {
+        String className_ = StringList.removeAllSpaces(_className);
+        if (!existAllClassParts(className_, variables_, _context)) {
             return false;
         }
         return true;
@@ -258,7 +262,7 @@ public final class Templates {
     public static boolean isCorrectWrite(String _className, Analyzable _context) {
         StringList current_ = new StringList(_className);
         boolean already_ = false;
-        StringMap<StandardType> stds_ = _context.getStandards().getStandards();
+//        StringMap<StandardType> stds_ = _context.getStandards().getStandards();
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
@@ -267,32 +271,56 @@ public final class Templates {
                     return false;
                 }
                 String base_ = elts_.first();
-                if (base_.isEmpty()) {
+                String trimBase_ = base_.trim();
+                if (trimBase_.isEmpty()) {
                     return false;
                 }
-                String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-                if (PrimitiveTypeUtil.isPrimitive(base_, _context) && already_) {
+                String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(trimBase_).getComponent();
+                compo_ = compo_.trim();
+                if (PrimitiveTypeUtil.isPrimitive(trimBase_, _context) && already_) {
                     return false;
                 }
-                if (!PrimitiveTypeUtil.isPrimitive(compo_, _context)) {
-                    if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-                        if (!stds_.contains(compo_)) {
-                            if (!PredefinedClasses.isPredefined(compo_, _context)) {
-                                for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
-                                    if (!StringList.isWord(p)) {
-                                        return false;
-                                    }
-                                }
+                if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
+                    for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
+                        String trPart_ = p.trim();
+                        if (trPart_.isEmpty()) {
+                            return false;
+                        }
+                        for (char h: trPart_.toCharArray()) {
+                            if (h == '$') {
+                                continue;
                             }
+                            if (StringList.isWordChar(h)) {
+                                continue;
+                            }
+                            return false;
                         }
                     }
+                } else {
+                    String compoLoc_ = compo_.substring(PREFIX_VAR_TYPE.length());
+                    if (!StringList.isWord(compoLoc_.trim())) {
+                        return false;
+                    }
                 }
+//                if (!PrimitiveTypeUtil.isPrimitive(compo_, _context)) {
+//                    if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
+//                        if (!stds_.contains(compo_)) {
+//                            if (!PredefinedClasses.isPredefined(compo_, _context)) {
+//                                for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
+//                                    if (!StringList.isWord(p.trim())) {
+//                                        return false;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
                 int nbParams_ = elts_.size();
                 for (int i = CustList.SECOND_INDEX; i < nbParams_; i++) {
-                    String baseLoc_ = elts_.get(i);
+                    String baseLoc_ = elts_.get(i).trim();
                     String compoLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseLoc_).getComponent();
                     if (compoLoc_.startsWith(PREFIX_VAR_TYPE)) {
-                        if (!StringList.isWord(compoLoc_.substring(PREFIX_VAR_TYPE.length()))) {
+                        if (!StringList.isWord(compoLoc_.substring(PREFIX_VAR_TYPE.length()).trim())) {
                             return false;
                         }
                         continue;

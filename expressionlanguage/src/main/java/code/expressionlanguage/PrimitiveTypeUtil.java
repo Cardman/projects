@@ -291,6 +291,9 @@ public final class PrimitiveTypeUtil {
         return false;
     }
 
+    public static String getQuickComponentType(ClassArgumentMatching _className) {
+        return getQuickComponentType(_className.getName());
+    }
     public static String getQuickComponentType(String _className) {
         if (!_className.startsWith(ARR_CLASS)) {
             return null;
@@ -492,6 +495,9 @@ public final class PrimitiveTypeUtil {
             return BYTE_CASTING;
         }
         return 0;
+    }
+    public static boolean isPrimitiveOrWrapper(ClassArgumentMatching _className, Analyzable _context) {
+        return isPrimitiveOrWrapper(_className.getName(), _context.getStandards());
     }
     public static boolean isPrimitiveOrWrapper(String _className, Analyzable _context) {
         return isPrimitiveOrWrapper(_className, _context.getStandards());
@@ -707,5 +713,10 @@ public final class PrimitiveTypeUtil {
             return true;
         }
         return false;
+    }
+
+    public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft,
+            Analyzable _conf) {
+        return isPrimitive(_clMatchLeft.getName(), _conf);
     }
 }

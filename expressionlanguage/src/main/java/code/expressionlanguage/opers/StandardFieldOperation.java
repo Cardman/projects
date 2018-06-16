@@ -25,7 +25,7 @@ public final class StandardFieldOperation extends
         } else {
             cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
         }
-        if (cl_ == null || cl_.getName() == null) {
+        if (cl_ == null || cl_.isUndefined()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setRc(_conf.getCurrentLocation());

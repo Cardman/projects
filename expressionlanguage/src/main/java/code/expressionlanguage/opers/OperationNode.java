@@ -680,6 +680,8 @@ public abstract class OperationNode {
         }
         out_.setRealId(ctor_);
         out_.setConstId(ctor_.format(clCurName_, _conf));
+        CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_conf,clCurName_, ctor_);
+        out_.setCtor(ctors_.first());
         return out_;
     }
 

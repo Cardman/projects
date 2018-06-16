@@ -3785,6 +3785,24 @@ public final class ElRenderUtilTest {
         assertEq(14, (Number)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance());
     }
     @Test
+    public void processEl240Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class($void).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("$void", (String)res_);
+    }
+    @Test
+    public void processEl241Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).forName(\"$void\",$true).getName()",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("$void", (String)res_);
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);

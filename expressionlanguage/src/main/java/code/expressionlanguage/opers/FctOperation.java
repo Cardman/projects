@@ -1,15 +1,10 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
-import code.expressionlanguage.InitializatingClass;
-import code.expressionlanguage.InvokingConstructor;
-import code.expressionlanguage.InvokingMethod;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -75,7 +70,7 @@ public final class FctOperation extends InvokingOperation {
         }
         String clCurName_;
 
-        if (clCur_ == null || clCur_.getName() == null) {
+        if (clCur_ == null || clCur_.isUndefined()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setRc(_conf.getCurrentLocation());
@@ -163,19 +158,11 @@ public final class FctOperation extends InvokingOperation {
         } else {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
-        ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
-        Argument res_ = argres_.getArgument();
-        if (argres_.isInitClass()) {
-            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
-        } else if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
-        } else if (argres_.isInvokeMethod()) {
-            InvokingMethod i_ = argres_.getInvokeMethod();
-            _conf.setCallMethod(new CustomFoundMethod(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments()));
-        } else {
-            setSimpleArgument(res_, _conf, _nodes);
+        Argument res_ = getArgument(previous_, arguments_, _conf);
+        if (_conf.callsOrException()) {
+            return res_;
         }
+        setSimpleArgument(res_, _conf, _nodes);
         return res_;
     }
 
@@ -229,7 +216,7 @@ public final class FctOperation extends InvokingOperation {
         if (firstArgs_ == null) {
             return;
         }
-        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, naturalVararg > -1, classMethodId, str_, Argument.toArgArray(firstArgs_));
+        ResultErrorStd res_ = LgNames.invokeStdMethod(_conf, classMethodId, str_, Argument.toArgArray(firstArgs_));
         if (res_.getResult() == null) {
             return;
         }
@@ -250,37 +237,36 @@ public final class FctOperation extends InvokingOperation {
         } else {
             previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
-        ArgumentCall argres_ = getArgument(previous_, arguments_, _conf);
-        if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
+        Argument argres_ = getArgument(previous_, arguments_, _conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
             argres_ = getArgument(previous_, arguments_, _conf);
         }
+        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
+        CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
         Argument res_;
-        if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf.getContextEl());
-        } else if (argres_.isInvokeMethod()) {
-            InvokingMethod i_ = argres_.getInvokeMethod();
-            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf.getContextEl());
+        if (ctor_ != null) {
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
+        } else if (method_ != null) {
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl());
         } else {
-            res_ = argres_.getArgument();
+            res_ = argres_;
         }
         if (_conf.getException() != null) {
             return;
         }
         setSimpleArgument(res_, _conf);
     }
-    ArgumentCall getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
         Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCast();
         CustList<Argument> firstArgs_;
         MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;
@@ -293,7 +279,7 @@ public final class FctOperation extends InvokingOperation {
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
                 Argument a_ = new Argument();
-                return ArgumentCall.newArgument(a_);
+                return a_;
             }
             if (staticChoiceMethod) {
                 classNameFound_ = classMethodId.getClassName();
@@ -335,109 +321,21 @@ public final class FctOperation extends InvokingOperation {
             if (classes_.isCustomType(classNameFound_)) {
                 InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), classNameFound_);
                 if (res_ == InitClassState.NOT_YET) {
-                    InitializatingClass inv_ = new InitializatingClass(classNameFound_);
-                    return ArgumentCall.newCall(inv_);
+                    _conf.getContextEl().setInitClass(new NotInitializedClass(classNameFound_));
+                    return Argument.createVoid();
                 }
                 if (res_ == InitClassState.ERROR) {
                     CausingErrorStruct causing_ = new CausingErrorStruct(classNameFound_);
                     _conf.setException(causing_);
-                    return ArgumentCall.newArgument(Argument.createVoid());
+                    return Argument.createVoid();
                 }
             }
         }
-        StringList params_ = new StringList();
-        if (!staticMethod) {
-            String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
-            String classFormat_ = classNameFound_;
-            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_ == null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                Argument a_ = new Argument();
-                return ArgumentCall.newArgument(a_);
-            }
-            int i_ = 0;
-            for (String c: methodId_.getParametersTypes()) {
-                String c_ = c;
-                c_ = Templates.format(classFormat_, c_, _conf);
-                if (i_ + 1 == methodId_.getParametersTypes().size() && methodId_.isVararg()) {
-                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
-            }
-        } else {
-            int i_ = 0;
-            for (String c: methodId_.getParametersTypes()) {
-                String c_ = c;
-                if (i_ + 1 == methodId_.getParametersTypes().size() && methodId_.isVararg()) {
-                    c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
-            }
+        int offLoc_ = -1;
+        if (!chidren_.isEmpty()) {
+            offLoc_ = chidren_.last().getIndexInEl() + getOperations().getDelimiter().getIndexBegin();
         }
-        int i_ = CustList.FIRST_INDEX;
-        for (Argument a: firstArgs_) {
-            if (i_ < params_.size()) {
-                Struct str_ = a.getStruct();
-                if (!str_.isNull()) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
-                    mapping_.setParam(params_.get(i_));
-                    if (!Templates.isCorrect(mapping_, _conf)) {
-                        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                        Argument a_ = new Argument();
-                        return ArgumentCall.newArgument(a_);
-                    }
-                }
-            }
-            i_++;
-        }
-        String aliasClass_ = stds_.getAliasClass();
-        String aliasForName_ = stds_.getAliasForName();
-        if (StringList.quickEq(aliasClass_, classNameFound_)) {
-            if (StringList.quickEq(aliasForName_, methodId_.getName())) {
-                String clDyn_ = (String) firstArgs_.first().getObject();
-                Boolean init_ = (Boolean) firstArgs_.last().getObject();
-                if (!checkExistBase(_conf, false, clDyn_, false, 0)) {
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
-                    Argument a_ = new Argument();
-                    return ArgumentCall.newArgument(a_);
-                }
-                if (init_) {
-                    if (classes_.isCustomType(clDyn_)) {
-                        InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), clDyn_);
-                        if (res_ == InitClassState.NOT_YET) {
-                            InitializatingClass inv_ = new InitializatingClass(clDyn_);
-                            return ArgumentCall.newCall(inv_);
-                        }
-                        if (res_ == InitClassState.ERROR) {
-                            CausingErrorStruct causing_ = new CausingErrorStruct(clDyn_);
-                            _conf.setException(causing_);
-                            return ArgumentCall.newArgument(Argument.createVoid());
-                        }
-                    }
-                }
-                Argument a_ = new Argument();
-                a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
-                return ArgumentCall.newArgument(a_);
-            }
-        }
-        if (!classes_.isCustomType(classNameFound_)) {
-            ClassMethodId dyn_ = new ClassMethodId(classNameFound_, methodId_);
-            ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), naturalVararg > -1, dyn_, _previous.getStruct(), Argument.toArgArray(firstArgs_));
-            if (res_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
-                Argument a_ = new Argument();
-                return ArgumentCall.newArgument(a_);
-            }
-            Argument argRes_ = new Argument();
-            argRes_.setStruct(res_.getResult());
-            return ArgumentCall.newArgument(argRes_);
-        }
-        InvokingMethod inv_ = new InvokingMethod(_previous, classNameFound_, methodId_, firstArgs_);
-        return ArgumentCall.newCall(inv_);
+        return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, offLoc_);
     }
 
     @Override

@@ -77,10 +77,10 @@ public interface Analyzable {
     CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
     StringList getNeedInterfaces();
-    String resolveType(String _in);
+    String resolveType(String _in, boolean _correct);
     MethodId getId(GeneMethod _m);
     ConstructorId getId(GeneConstructor _m);
-    String resolveType(String _in, Block _currentBlock,RowCol _location,
+    String resolveType(String _in, Block _currentBlock,RowCol _location, boolean _correct,
             boolean _checkSimpleCorrect, boolean _checkOnlyExistence);
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
 }

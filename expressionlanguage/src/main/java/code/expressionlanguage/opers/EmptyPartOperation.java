@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
@@ -28,7 +27,7 @@ public final class EmptyPartOperation extends AbstractFieldOperation {
     }
 
     @Override
-    ArgumentCall getCommonArgument(Argument _previous, ExecutableCode _conf) {
+    Argument getCommonArgument(Argument _previous, ExecutableCode _conf) {
         return null;
     }
 

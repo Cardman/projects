@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.VarargError;
@@ -120,8 +119,6 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
@@ -129,7 +126,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
 
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsAfter_.put(e.getKey(), b_.assign(isBool_));

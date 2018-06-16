@@ -67,14 +67,24 @@ public final class StaticInfoOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
-        String classStr_ = StringList.removeAllSpaces(realCl_);
+        if (StringList.quickEq(realCl_.trim(), _conf.getStandards().getAliasVoid())) {
+            className = realCl_.trim();
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
+            return;
+        }
+        String classStr_;
+        classStr_ = _conf.resolveType(realCl_, false);
         String base_ = Templates.getIdFromAllTypes(classStr_);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         boolean st_ = isStaticBlock();
-        if (!checkExistBase(_conf, !st_, base_, false, 0)) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
-            return;
+        if (base_.contains(Templates.TEMPLATE_BEGIN)) {
+            checkCorrect(_conf, base_, true, 0);
+        } else {
+            if (!checkExistBase(_conf, !st_, base_, true, 0)) {
+                setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
+                return;
+            }
         }
         if (classes_.isCustomType(classStr_)) {
             String curClassBase_ = null;

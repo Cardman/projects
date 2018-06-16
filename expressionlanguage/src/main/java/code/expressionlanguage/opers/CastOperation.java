@@ -53,7 +53,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         String res_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
-        res_ = StringList.removeAllSpaces(res_);
+        res_ = _conf.resolveType(res_, false);
         if (!checkCorrect(_conf, res_, true, getIndexInEl()+1)) {
             res_ = stds_.getAliasObject();
         }
@@ -76,8 +76,6 @@ public final class CastOperation extends AbstractUnaryOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
@@ -85,7 +83,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
 
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
@@ -143,8 +141,7 @@ public final class CastOperation extends AbstractUnaryOperation {
                 }
                 arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
             } else {
-                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
-                if (!StringList.quickEq(typeNameArg_, stds_.getAliasPrimBoolean())) {
+                if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     return;
                 }
                 arg_.setStruct(objArg_.getStruct());
@@ -215,8 +212,7 @@ public final class CastOperation extends AbstractUnaryOperation {
                 }
                 arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
             } else {
-                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true, _conf).getName();
-                if (!StringList.quickEq(typeNameArg_, stds_.getAliasPrimBoolean())) {
+                if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                     _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
                     Argument a_ = new Argument();

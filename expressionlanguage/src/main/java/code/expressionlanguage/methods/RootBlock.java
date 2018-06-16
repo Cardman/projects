@@ -25,10 +25,8 @@ import code.expressionlanguage.methods.util.UndefinedSuperConstructor;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
@@ -41,7 +39,6 @@ import code.util.EqList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorIndexes;
@@ -170,7 +167,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         for (TypeVar t: paramTypes) {
             StringList const_ = new StringList();
             for (String c: t.getConstraints()) {
-                const_.add(_analyze.resolveType(c,this, rc_,false, false));
+                const_.add(_analyze.resolveType(c,this, rc_,true, false, false));
             }
             TypeVar t_ = new TypeVar();
             t_.setConstraints(const_);
@@ -1037,37 +1034,35 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
-        String idType_ = getFullName();
-        ClassMetaInfo curMeta_ = _cont.getClasses().getClassMetaInfo(idType_, _cont);
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> c_;
-        c_ = curMeta_.getConstructorsInfos();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, e.getKey()).first();
-            b_.setupInstancingStep(_cont);
+        CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof ConstructorBlock) {
+                ctors_.add((ConstructorBlock) b);
+            }
         }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, e.getKey()).first();
-            if (b_.implicitConstr() && !opt_) {
+        String idType_ = getFullName();
+        for (ConstructorBlock c: ctors_) {
+            c.setupInstancingStep(_cont);
+        }
+        for (ConstructorBlock c: ctors_) {
+            if (c.implicitConstr() && !opt_) {
                 UndefinedSuperConstructor un_ = new UndefinedSuperConstructor();
                 un_.setClassName(((UniqueRootedBlock)this).getGenericSuperClass(_cont));
                 un_.setFileName(getFile().getFileName());
-                un_.setRc(b_.getRowCol(0, b_.getOffset().getOffsetTrim()));
+                un_.setRc(c.getRowCol(0, c.getOffset().getOffsetTrim()));
                 _cont.getClasses().getErrorsDet().add(un_);
             }
         }
         EqList<ConstructorId> l_ = new EqList<ConstructorId>();
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: c_.entryList()) {
-            _cont.getClasses();
-            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, e.getKey()).first();
-            if (b_.getConstIdSameClass() != null) {
-                l_.add(e.getKey());
+        for (ConstructorBlock c: ctors_) {
+            if (c.getConstIdSameClass() != null) {
+                l_.add(c.getId(_cont));
             }
         }
         Graph<ConstructorEdge> graph_;
         graph_ = new Graph<ConstructorEdge>();
         for (ConstructorId f: l_) {
-            _cont.getClasses();
-            ConstructorBlock b_ = Classes.getConstructorBodiesById(_cont, idType_, f).first();
+            ConstructorBlock b_ = (ConstructorBlock) Classes.getConstructorBodiesById(_cont, idType_, f).first();
             ConstructorId co_ = b_.getConstIdSameClass();
             ConstructorEdge f_ = new ConstructorEdge(f);
             ConstructorEdge t_ = new ConstructorEdge(co_);
@@ -1083,27 +1078,41 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         }
     }
 
+    protected boolean isAccessibleType(String _type, Analyzable _cont) {
+        RootBlock r_ = _cont.getClasses().getClassBody(_type);
+        if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            return true;
+        }
+        if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
+            if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
+                return true;
+            }
+        }
+        return false;
+    }
     private boolean optionalCallConstr(ContextEl _cont) {
         if (!(this instanceof UniqueRootedBlock)) {
             return true;
         }
         String superClass_ = ((UniqueRootedBlock)this).getSuperClass(_cont);
-        ClassMetaInfo clMeta_ = _cont.getClasses().getClassMetaInfo(superClass_, _cont);
+        RootBlock clMeta_ = _cont.getClasses().getClassBody(superClass_);
         if (clMeta_ == null) {
             return true;
         }
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> m_;
-        m_ = clMeta_.getConstructorsInfos();
-        if (m_.isEmpty()) {
+        CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
+        for (Block b: Classes.getDirectChildren(clMeta_)) {
+            if (b instanceof ConstructorBlock) {
+                ctors_.add((ConstructorBlock) b);
+            }
+        }
+        if (ctors_.isEmpty()) {
             return true;
         }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: m_.entryList()) {
-            _cont.getClasses();
-            CustList<ConstructorBlock> formatted_ = Classes.getConstructorBodiesById(_cont, superClass_, e.getKey());
-            if (!Classes.canAccess(getFullName(), formatted_.first(), _cont)) {
+        for (ConstructorBlock c: ctors_) {
+            if (!Classes.canAccess(getFullName(), c, _cont)) {
                 continue;
             }
-            if (e.getKey().getParametersTypes().isEmpty()) {
+            if (c.getId(_cont).getParametersTypes().isEmpty()) {
                 return true;
             }
         }

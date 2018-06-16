@@ -2,21 +2,18 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InvokingConstructor;
-import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -101,11 +98,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             return;
         }
         constId = ctorRes_.getRealId();
-        CustList<ConstructorBlock> ctors_ = Classes.getConstructorBodiesById(_conf,clArg_.getName(), constId);
-        if (!ctors_.isEmpty() && !Classes.canAccess(clCurName_, ctors_.first(), _conf)) {
-            ConstructorBlock ctr_ = ctors_.first();
+        GeneConstructor ctor_ = ctorRes_.getCtor();
+        if (ctor_ != null && !Classes.canAccess(clCurName_, ctor_, _conf)) {
             BadAccessConstructor badAccess_ = new BadAccessConstructor();
-            badAccess_.setId(ctr_.getId(_conf));
+            badAccess_.setId(((ConstructorBlock)ctor_).getId(_conf));
             badAccess_.setFileName(_conf.getCurrentFileName());
             badAccess_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(badAccess_);
@@ -174,13 +170,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        ArgumentCall argres_ = getArgument(arguments_, _conf);
+        Argument argres_ = getArgument(arguments_, _conf);
+        CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
         Argument res_;
-        if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf.getContextEl());
+        if (ctor_ != null) {
+            res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
         } else {
-            res_ = argres_.getArgument();
+            res_ = argres_;
         }
         if (_conf.getException() != null) {
             return;
@@ -196,17 +192,11 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(_nodes.getVal(o).getArgument());
         }
-        ArgumentCall argres_ = getArgument(arguments_, _conf);
-        Argument res_ = argres_.getArgument();
-        if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
-        } else if (argres_.isInvokeMethod()) {
-            InvokingMethod i_ = argres_.getInvokeMethod();
-            _conf.setCallMethod(new CustomFoundMethod(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments()));
-        } else {
-            setSimpleArgument(res_, _conf, _nodes);
+        Argument res_ = getArgument(arguments_, _conf);
+        if (_conf.callsOrException()) {
+            return res_;
         }
+        setSimpleArgument(res_, _conf, _nodes);
         return res_;
     }
 
@@ -276,7 +266,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             i_++;
         }
     }
-    abstract ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf);
+    abstract Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf);
 
     @Override
     public ConstructorId getConstId() {

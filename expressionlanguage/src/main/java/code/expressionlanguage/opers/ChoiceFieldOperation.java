@@ -24,7 +24,7 @@ public final class ChoiceFieldOperation extends
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
-        className_ = StringList.removeAllSpaces(className_);
+        className_ = _conf.resolveType(className_, false);
         if (className_.contains(Templates.TEMPLATE_BEGIN)) {
             if (!checkCorrect(_conf, className_, true, lenPref_)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));

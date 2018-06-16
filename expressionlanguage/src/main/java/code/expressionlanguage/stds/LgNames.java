@@ -1253,7 +1253,7 @@ public abstract class LgNames {
     }
     public void buildOther() {
     }
-    public static ResultErrorStd invokeMethod(ContextEl _cont, boolean _natvararg, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Object instance_ = _struct.getInstance();
         Struct[] args_ = getObjects(_args);
@@ -1265,7 +1265,7 @@ public abstract class LgNames {
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
         String replType_ = lgNames_.getAliasReplacement();
         String aliasClass_ = lgNames_.getAliasClass();
-        result_ = invokeStdMethod(_cont, _natvararg, _method, _struct, _args);
+        result_ = invokeStdMethod(_cont, _method, _struct, _args);
         if (result_.getResult() != null) {
             return result_;
         }
@@ -1593,7 +1593,7 @@ public abstract class LgNames {
         }
         return result_;
     }
-    public static ResultErrorStd invokeStdMethod(Analyzable _cont, boolean _natvararg, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Object instance_ = _struct.getInstance();
         Struct[] args_ = getObjects(_args);
@@ -2996,7 +2996,7 @@ public abstract class LgNames {
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         return new ResultErrorStd();
     }
-    public static ResultErrorStd newInstance(ContextEl _cont, boolean _natvararg, ConstructorId _method, Argument... _args) {
+    public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
@@ -3008,7 +3008,7 @@ public abstract class LgNames {
         String objectType_ = lgNames_.getAliasObject();
         String replType_ = lgNames_.getAliasReplacement();
         String intPrimType_ = lgNames_.getAliasPrimInteger();
-        result_ = newInstanceStd(_cont, _natvararg, _method, _args);
+        result_ = newInstanceStd(_cont, _method, _args);
         if (result_.getResult() != null) {
             return result_;
         }
@@ -3051,7 +3051,7 @@ public abstract class LgNames {
         }
         return result_;
     }
-    public static ResultErrorStd newInstanceStd(Analyzable _cont, boolean _natvararg, ConstructorId _method, Argument... _args) {
+    public static ResultErrorStd newInstanceStd(Analyzable _cont, ConstructorId _method, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();

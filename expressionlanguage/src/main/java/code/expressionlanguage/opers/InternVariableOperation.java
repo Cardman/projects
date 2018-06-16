@@ -7,7 +7,6 @@ import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -17,7 +16,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -59,10 +57,8 @@ public final class InternVariableOperation extends LeafOperation {
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
         ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
 
-        LgNames lgNames_ = _conf.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
         boolean isBool_;
-        isBool_ = PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, getResultClass().getName(), _conf);
+        isBool_ = getResultClass().isBoolType(_conf);
         
         for (StringMap<AssignmentBefore> s: assB_) {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();

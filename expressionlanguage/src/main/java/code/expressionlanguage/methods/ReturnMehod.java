@@ -104,7 +104,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 return;
             }
         }
-        retType_ = _cont.resolveType(retType_);
         if (f_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());

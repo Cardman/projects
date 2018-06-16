@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -246,14 +245,7 @@ public final class ElUtil {
         SettableElResult settable_ = _left.getSettable();
         OperationNode op_ = (OperationNode) settable_;
         ArgumentsPair a_ = allLeft_.getVal(op_);
-        Argument arg_ = settable_.calculateSetting(allLeft_, _conf, _op, false);
-        a_.setArgument(arg_);
-        if (_conf.getException() != null) {
-            _left.setCurrentOper(null);
-            _conf.getLastPage().clearCurrentEls();
-        } else {
-            _conf.getLastPage().setRightArgument(null);
-        }
+        a_.setArgument(Argument.createVoid());
     }
 
 
@@ -402,9 +394,8 @@ public final class ElUtil {
                 par_.setStaticBlock(_staticBlock);
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
-                String res_ = cl_.getName();
-                if (PrimitiveTypeUtil.isPrimitive(res_, _context)) {
-                    cl_.setUnwrapObject(res_);
+                if (PrimitiveTypeUtil.isPrimitive(cl_, _context)) {
+                    cl_.setUnwrapObject(cl_);
                 }
                 par_.tryCalculateNode(_context);
                 par_.tryAnalyzeAssignmentAfter(_context);
@@ -513,23 +504,13 @@ public final class ElUtil {
             if (!o.isCalculated(_nodes)) {
                 ArgumentsPair a_ = e.getValue();
                 Argument arg_ = o.calculate(_nodes, _context);
-                if (_context.getInitClass() != null) {
-                    return;
-                }
-                if (_context.getCallMethod() != null) {
-                    _el.setCurrentOper(o);
-                    return;
-                }
-                CustomFoundConstructor cust_;
-                cust_ = _context.getCallCtor();
-                if (cust_ != null) {
-                    _el.setCurrentOper(o);
-                    return;
-                }
                 if (_context.getException() != null) {
                     pageEl_.setTranslatedOffset(0);
-                    _el.setCurrentOper(null);
                     pageEl_.clearCurrentEls();
+                    return;
+                }
+                if (_context.calls()) {
+                    _el.setCurrentOper(o);
                     return;
                 }
                 a_.setArgument(arg_);

@@ -2,11 +2,9 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
-import code.expressionlanguage.InitializatingClass;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -35,7 +33,6 @@ import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class ValuesOperation extends LeafOperation {
@@ -58,7 +55,8 @@ public final class ValuesOperation extends LeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
-        String clName_ = StringList.removeAllSpaces(className);
+        String clName_;
+        clName_ = _conf.resolveType(className, false);
         if (!checkCorrect(_conf, clName_, false, 0)) {
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
@@ -129,9 +127,10 @@ public final class ValuesOperation extends LeafOperation {
 
     @Override
     public void calculate(ExecutableCode _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
-        if (argres_.isInitClass()) {
-            ProcessMethod.initializeClass(argres_.getInitClass().getClassName(), _conf.getContextEl());
+        Argument argres_ = getCommonArgument(_conf);
+        NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
+        if (statusInit_ != null) {
+            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
@@ -140,35 +139,33 @@ public final class ValuesOperation extends LeafOperation {
         if (_conf.getException() != null) {
             return;
         }
-        Argument argRes_ = argres_.getArgument();
+        Argument argRes_ = argres_;
         setSimpleArgument(argRes_, _conf);
     }
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
-        Argument arg_ = argres_.getArgument();
-        if (argres_.isInitClass()) {
-            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
-        } else {
-            PossibleIntermediateDotted n_ = getSiblingSet();
-            if (n_ != null) {
-                _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
-            }
+        Argument arg_ = getCommonArgument(_conf);
+        if (_conf.callsOrException()) {
+            return arg_;
+        }
+        PossibleIntermediateDotted n_ = getSiblingSet();
+        if (n_ != null) {
+            _nodes.getVal((OperationNode)n_).setPreviousArgument(arg_);
         }
         return arg_;
     }
-    ArgumentCall getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(ExecutableCode _conf) {
         InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className);
         if (res_ == InitClassState.NOT_YET) {
-            InitializatingClass inv_ = new InitializatingClass(className);
-            return ArgumentCall.newCall(inv_);
+            _conf.getContextEl().setInitClass(new NotInitializedClass(className));
+            return Argument.createVoid();
         }
         if (res_ == InitClassState.ERROR) {
             CausingErrorStruct causing_ = new CausingErrorStruct(className);
             _conf.setException(causing_);
-            return ArgumentCall.newArgument(Argument.createVoid());
+            return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
         CustList<Struct> enums_ = new CustList<Struct>();
@@ -189,7 +186,7 @@ public final class ValuesOperation extends LeafOperation {
         String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(className);
         Argument argres_ = new Argument();
         argres_.setStruct(new ArrayStruct(o_,clArr_));
-        return ArgumentCall.newArgument(argres_);
+        return argres_;
     }
     @Override
     public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {

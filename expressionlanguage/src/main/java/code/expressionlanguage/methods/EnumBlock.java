@@ -173,14 +173,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 interfaces_.add(s);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    interfaces_.add(s);
-                }
             }
         }
         return interfaces_;
@@ -199,13 +193,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 interfaces_.add(base_);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    interfaces_.add(base_);
-                }
             }
         }
         return interfaces_;
@@ -220,13 +209,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 interfaces_.add(s);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    interfaces_.add(s);
-                }
             }
         }
         return interfaces_;
@@ -278,13 +262,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof ClassBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 classes_.add(base_);
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    classes_.add(base_);
-                }
             }
         }
         if (classes_.isEmpty()) {
@@ -301,13 +280,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof ClassBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 return base_;
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    return base_;
-                }
             }
         }
         return _classes.getStandards().getAliasObject();
@@ -321,13 +295,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             if (!(r_ instanceof ClassBlock)) {
                 continue;
             }
-            if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
+            if (isAccessibleType(base_, _classes)) {
                 return s;
-            }
-            if (r_.getAccess().ordinal() == AccessEnum.PACKAGE.ordinal()) {
-                if (StringList.quickEq(r_.getPackageName(), getPackageName())) {
-                    return s;
-                }
             }
         }
         return _classes.getStandards().getAliasObject();

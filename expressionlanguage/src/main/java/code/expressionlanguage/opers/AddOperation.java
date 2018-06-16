@@ -75,8 +75,8 @@ public final class AddOperation extends NumericOperation {
             int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
             int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
             if (oa_ > 0 && ob_ > 0) {
-                _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont).getName());
-                _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont).getName());
+                _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont));
+                _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont));
                 res_.setResult(getQuickResultClass(_a, oa_, _cont, _b, ob_));
                 return res_;
             }
@@ -86,18 +86,18 @@ public final class AddOperation extends NumericOperation {
                     str_ = true;
                 } else if (_b.matchClass(stringBuilderType_)) {
                     str_ = true;
-                } else if (_b.getName().isEmpty()) {
+                } else if (_b.isVariable()) {
                     str_ = true;
-                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_b.getName(), _cont)) {
+                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_b, _cont)) {
                     str_ = true;
                 }
             }
             if (_b.matchClass(stringType_)) {
                 if (_a.matchClass(stringBuilderType_)) {
                     str_ = true;
-                } else if (_a.getName().isEmpty()) {
+                } else if (_a.isVariable()) {
                     str_ = true;
-                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_a.getName(), _cont)) {
+                } else if (PrimitiveTypeUtil.isPrimitiveOrWrapper(_a, _cont)) {
                     str_ = true;
                 }
             }
@@ -117,8 +117,8 @@ public final class AddOperation extends NumericOperation {
             res_.setResult(arg_);
             return res_;
         }
-        _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont).getName());
-        _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont).getName());
+        _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont));
+        _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont));
         res_.setResult(getResultClass(_a, _cont, _b));
         return res_;
     }

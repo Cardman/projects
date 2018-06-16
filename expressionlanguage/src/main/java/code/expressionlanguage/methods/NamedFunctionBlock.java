@@ -144,7 +144,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         int i_ = 0;
         for (String p: parametersTypes) {
             RowCol rc_ = getRowCol(off_, parametersTypesOffset.get(i_));
-            params_.add(_an.resolveType(p, this, rc_, true, false));
+            params_.add(_an.resolveType(p, this, rc_, true, true, false));
             i_++;
         }
         return params_;
@@ -160,7 +160,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             return returnType;
         }
         RowCol rc_ = getRowCol(returnTypeOffset, getOffset().getOffsetTrim());
-        return _stds.resolveType(returnType, this, rc_, true, false);
+        return _stds.resolveType(returnType, this, rc_, true, true, false);
     }
     public String getReturnType() {
         return returnType;

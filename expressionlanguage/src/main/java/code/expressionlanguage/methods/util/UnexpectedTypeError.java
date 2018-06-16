@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods.util;
 
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.StringList;
 
 public final class UnexpectedTypeError extends FoundErrorInterpret {
@@ -19,6 +20,10 @@ public final class UnexpectedTypeError extends FoundErrorInterpret {
 
     public void setType(String _type) {
         type = _type;
+    }
+
+    public void setType(ClassArgumentMatching _type) {
+        type = _type.getName();
     }
 
 }
