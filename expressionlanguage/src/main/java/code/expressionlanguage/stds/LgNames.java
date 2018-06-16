@@ -24,6 +24,7 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.DoubleStruct;
 import code.expressionlanguage.opers.util.EnumerableStruct;
@@ -31,6 +32,7 @@ import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ReplacementStruct;
@@ -44,6 +46,7 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.ObjectMap;
+import code.util.ObjectNotNullMap;
 import code.util.Replacement;
 import code.util.SimpleItr;
 import code.util.StringList;
@@ -226,6 +229,18 @@ public abstract class LgNames {
     private String aliasObjectsUtil;
     private String aliasSameRef;
     private String aliasGetClass;
+    private String aliasGetDeclaredMethods;
+    private String aliasGetDeclaredConstructors;
+    private String aliasGetDeclaredFields;
+    private String aliasMakeGeneric;
+    private String aliasConstructor;
+    private String aliasField;
+    private String aliasMethod;
+    private String aliasInvoke;
+    private String aliasNewInstance;
+    private String aliasIsAbstract;
+    private String aliasIsPolymorph;
+    private String aliasSetPolymorph;
     private String aliasGetName;
     private String aliasForName;
     /**Called after setters*/
@@ -991,7 +1006,58 @@ public abstract class LgNames {
         params_ = new StringList(aliasString,aliasPrimBoolean);
         method_ = new StandardMethod(aliasForName, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimBoolean,aliasClass);
+        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor), true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString);
+        method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString,aliasPrimBoolean,aliasPrimBoolean,aliasClass);
+        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasClass);
+        method_ = new StandardMethod(aliasMakeGeneric, params_, aliasClass, true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         getStandards().put(aliasClass, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasConstructor, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasObject);
+        method_ = new StandardMethod(aliasNewInstance, params_, aliasObject, true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasConstructor, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasField, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        getStandards().put(aliasField, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasMethod, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasObject,aliasObject);
+        method_ = new StandardMethod(aliasInvoke, params_, aliasObject, true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasPrimBoolean);
+        method_ = new StandardMethod(aliasSetPolymorph, params_, aliasVoid, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsPolymorph, params_, aliasPrimBoolean, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsAbstract, params_, aliasPrimBoolean, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        getStandards().put(aliasMethod, stdcl_);
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
@@ -1264,7 +1330,7 @@ public abstract class LgNames {
         Object[] argsObj_ = adaptedArgs(list_, _cont.getStandards(), args_);
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
         String replType_ = lgNames_.getAliasReplacement();
-        String aliasClass_ = lgNames_.getAliasClass();
+        String aliasClass_ = lgNames_.aliasClass;
         result_ = invokeStdMethod(_cont, _method, _struct, _args);
         if (result_.getResult() != null) {
             return result_;
@@ -1310,18 +1376,140 @@ public abstract class LgNames {
                 return result_;
             }
         }
+        if (StringList.quickEq(type_, lgNames_.aliasMethod)) {
+            if (StringList.quickEq(name_, lgNames_.aliasIsPolymorph)) {
+                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(method_.isPolymorph()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.aliasIsAbstract)) {
+                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(method_.isAbstract()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.aliasSetPolymorph)) {
+                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
+                Boolean poly_ = (Boolean) args_[0].getInstance();
+                method_.setPolymorph(poly_);
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+        }
         if (StringList.quickEq(type_, aliasClass_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasGetName())) {
+            if (StringList.quickEq(name_, lgNames_.aliasGetName)) {
                 result_.setResult(new StringStruct(((ClassMetaInfo)_struct).getName()));
                 return result_;
             }
-            if (StringList.quickEq(name_, lgNames_.getAliasGetClass())) {
+            if (StringList.quickEq(name_, lgNames_.aliasGetClass)) {
                 Struct str_ = args_[0];
                 if (str_.isNull()) {
                     result_.setResult(NullStruct.NULL_VALUE);
                 } else {
                     String className_ = lgNames_.getStructClassName(str_, _cont);
                     result_.setResult(_cont.getExtendedClassMetaInfo(className_));
+                }
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.aliasGetDeclaredConstructors)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> ctors_;
+                ctors_ = cl_.getConstructorsInfos();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasConstructor);
+                if (args_.length == 0) {
+                    Struct[] ctorsArr_ = new Struct[ctors_.size()];
+                    int index_ = 0;
+                    for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
+                        ctorsArr_[index_] = e.getValue();
+                        index_++;
+                    }
+                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                Boolean vararg_ = (Boolean) args_[0].getInstance();
+                StringList classesNames_ = new StringList();
+                for (Struct s: ((Struct[])args_[1].getInstance())) {
+                    classesNames_.add(((ClassMetaInfo)s).getName());
+                }
+                CustList<ConstructorMetaInfo> candidates_;
+                candidates_ = new CustList<ConstructorMetaInfo>();
+                String instClassName_ = cl_.getName();
+                ConstructorId idToSearch_ = new ConstructorId(instClassName_, classesNames_, vararg_);
+                for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
+                    ConstructorId id_ = e.getKey();
+                    if (id_.format(instClassName_, _cont).eq(idToSearch_)) {
+                        candidates_.add(e.getValue());
+                    }
+                }
+                if (ctors_.isEmpty()) {
+                    if (classesNames_.isEmpty() && !vararg_) {
+                        candidates_.add(new ConstructorMetaInfo(instClassName_, idToSearch_));
+                    }
+                }
+                Struct[] ctorsArr_ = new Struct[candidates_.size()];
+                int index_ = 0;
+                for (ConstructorMetaInfo c: candidates_) {
+                    ctorsArr_[index_] = c;
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.aliasGetDeclaredMethods)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                ObjectNotNullMap<MethodId, MethodMetaInfo> methods_;
+                methods_ = cl_.getMethodsInfos();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasMethod);
+                if (args_.length == 0) {
+                    Struct[] methodsArr_ = new Struct[methods_.size()];
+                    int index_ = 0;
+                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                        methodsArr_[index_] = e.getValue();
+                        index_++;
+                    }
+                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                String methodName_ = (String) args_[0].getInstance();
+                Boolean static_ = (Boolean) args_[1].getInstance();
+                Boolean vararg_ = (Boolean) args_[2].getInstance();
+                StringList classesNames_ = new StringList();
+                for (Struct s: ((Struct[])args_[3].getInstance())) {
+                    classesNames_.add(((ClassMetaInfo)s).getName());
+                }
+                CustList<MethodMetaInfo> candidates_;
+                candidates_ = new CustList<MethodMetaInfo>();
+                String instClassName_ = cl_.getName();
+                MethodId idToSearch_ = new MethodId(static_, methodName_, classesNames_, vararg_);
+                for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                    MethodId id_ = e.getKey();
+                    if (id_.format(instClassName_, _cont).eq(idToSearch_)) {
+                        candidates_.add(e.getValue());
+                    }
+                }
+                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                int index_ = 0;
+                for (MethodMetaInfo c: candidates_) {
+                    methodsArr_[index_] = c;
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.aliasMakeGeneric)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                StringList classesNames_ = new StringList();
+                for (Struct s: ((Struct[])args_[0].getInstance())) {
+                    classesNames_.add(((ClassMetaInfo)s).getName());
+                }
+                String res_ = Templates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);
+                if (res_ == null) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                } else {
+                    result_.setResult(_cont.getExtendedClassMetaInfo(res_));
                 }
                 return result_;
             }
@@ -4521,6 +4709,78 @@ public abstract class LgNames {
     }
     public void setAliasClass(String _aliasClass) {
         aliasClass = _aliasClass;
+    }
+    public String getAliasGetDeclaredMethods() {
+        return aliasGetDeclaredMethods;
+    }
+    public void setAliasGetDeclaredMethods(String _aliasGetDeclaredMethods) {
+        aliasGetDeclaredMethods = _aliasGetDeclaredMethods;
+    }
+    public String getAliasGetDeclaredConstructors() {
+        return aliasGetDeclaredConstructors;
+    }
+    public void setAliasGetDeclaredConstructors(String _aliasGetDeclaredConstructors) {
+        aliasGetDeclaredConstructors = _aliasGetDeclaredConstructors;
+    }
+    public String getAliasGetDeclaredFields() {
+        return aliasGetDeclaredFields;
+    }
+    public void setAliasGetDeclaredFields(String _aliasGetDeclaredFields) {
+        aliasGetDeclaredFields = _aliasGetDeclaredFields;
+    }
+    public String getAliasMakeGeneric() {
+        return aliasMakeGeneric;
+    }
+    public void setAliasMakeGeneric(String _aliasMakeGeneric) {
+        aliasMakeGeneric = _aliasMakeGeneric;
+    }
+    public String getAliasConstructor() {
+        return aliasConstructor;
+    }
+    public void setAliasConstructor(String _aliasConstructor) {
+        aliasConstructor = _aliasConstructor;
+    }
+    public String getAliasField() {
+        return aliasField;
+    }
+    public void setAliasField(String _aliasField) {
+        aliasField = _aliasField;
+    }
+    public String getAliasMethod() {
+        return aliasMethod;
+    }
+    public void setAliasMethod(String _aliasMethod) {
+        aliasMethod = _aliasMethod;
+    }
+    public String getAliasInvoke() {
+        return aliasInvoke;
+    }
+    public void setAliasInvoke(String _aliasInvoke) {
+        aliasInvoke = _aliasInvoke;
+    }
+    public String getAliasNewInstance() {
+        return aliasNewInstance;
+    }
+    public void setAliasNewInstance(String _aliasNewInstance) {
+        aliasNewInstance = _aliasNewInstance;
+    }
+    public String getAliasIsPolymorph() {
+        return aliasIsPolymorph;
+    }
+    public void setAliasIsPolymorph(String _aliasIsPolymorph) {
+        aliasIsPolymorph = _aliasIsPolymorph;
+    }
+    public String getAliasSetPolymorph() {
+        return aliasSetPolymorph;
+    }
+    public void setAliasSetPolymorph(String _aliasSetPolymorph) {
+        aliasSetPolymorph = _aliasSetPolymorph;
+    }
+    public String getAliasIsAbstract() {
+        return aliasIsAbstract;
+    }
+    public void setAliasIsAbstract(String _aliasIsAbstract) {
+        aliasIsAbstract = _aliasIsAbstract;
     }
     public String getAliasGetName() {
         return aliasGetName;

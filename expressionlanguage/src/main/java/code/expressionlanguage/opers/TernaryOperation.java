@@ -2,17 +2,10 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InvokingConstructor;
-import code.expressionlanguage.InvokingMethod;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.CustomFoundMethod;
-import code.expressionlanguage.methods.NotInitializedClass;
-import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
@@ -284,20 +277,7 @@ public final class TernaryOperation extends MethodOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        ArgumentCall argres_ = getArgument(arguments_, _conf);
-        Argument res_;
-        if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            res_ = ProcessMethod.instanceArgument(i_.getClassName(), i_.getCurrentObject(), i_.getId(), i_.getArguments(), _conf.getContextEl());
-        } else if (argres_.isInvokeMethod()) {
-            InvokingMethod i_ = argres_.getInvokeMethod();
-            res_ = ProcessMethod.calculateArgument(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments(), _conf.getContextEl());
-        } else {
-            res_ = argres_.getArgument();
-        }
-        if (_conf.getException() != null) {
-            return;
-        }
+        Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf);
     }
 
@@ -309,22 +289,11 @@ public final class TernaryOperation extends MethodOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(_nodes.getVal(o).getArgument());
         }
-        ArgumentCall argres_ = getArgument(arguments_, _conf);
-        Argument res_ = argres_.getArgument();
-        if (argres_.isInitClass()) {
-            _conf.setInitClass(new NotInitializedClass(argres_.getInitClass().getClassName()));
-        } else if (argres_.isInvokeConstructor()) {
-            InvokingConstructor i_ = argres_.getInvokeConstructor();
-            _conf.setCallCtor(new CustomFoundConstructor(i_.getClassName(), i_.getFieldName(), i_.getOrdinal(), i_.getId(), i_.getCurrentObject(), i_.getArguments(), i_.getInstanceStep()));
-        } else if (argres_.isInvokeMethod()) {
-            InvokingMethod i_ = argres_.getInvokeMethod();
-            _conf.setCallMethod(new CustomFoundMethod(i_.getGl(), i_.getClassName(), i_.getId(), i_.getArguments()));
-        } else {
-            setSimpleArgument(res_, _conf, _nodes);
-        }
+        Argument res_ = getArgument(arguments_, _conf);
+        setSimpleArgument(res_, _conf, _nodes);
         return res_;
     }
-    ArgumentCall getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
+    Argument getArgument(CustList<Argument> _arguments, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetLocal, _conf);
         Boolean obj_ = (Boolean) _arguments.first().getObject();
         Argument arg_;
@@ -333,7 +302,7 @@ public final class TernaryOperation extends MethodOperation {
         } else {
             arg_ = _arguments.last();
         }
-        return ArgumentCall.newArgument(arg_);
+        return arg_;
     }
 
     @Override

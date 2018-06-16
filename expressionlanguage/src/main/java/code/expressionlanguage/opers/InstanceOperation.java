@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
@@ -25,7 +24,6 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ArrayStruct;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -627,23 +625,14 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (possibleInitClass) {
             String base_ = Templates.getIdFromAllTypes(realClassName_);
-            if (_conf.getClasses().isCustomType(base_)) {
-                InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), base_);
-                if (res_ == InitClassState.NOT_YET) {
-                    _conf.getContextEl().setInitClass(new NotInitializedClass(realClassName_));
-                    return Argument.createVoid();
-                }
-                if (res_ == InitClassState.ERROR) {
-                    CausingErrorStruct causing_ = new CausingErrorStruct(base_);
-                    _conf.setException(causing_);
-                    return Argument.createVoid();
-                }
+            if (InvokingOperation.hasToExit(_conf, base_)) {
+                return Argument.createVoid();
             }
         }
         className_ = page_.formatVarType(className_, _conf);
         String lastType_ = Templates.format(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
-        return instancePrepare(_conf, className, constId, _previous, firstArgs_, fieldName, blockIndex);
+        return instancePrepare(_conf, className, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }
 
     @Override

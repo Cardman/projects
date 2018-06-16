@@ -17,6 +17,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.StaticAccessFieldError;
@@ -34,7 +35,6 @@ import code.expressionlanguage.opers.util.ClassMethodIdResult;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorInfo;
-import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -52,6 +52,7 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -588,8 +589,7 @@ public abstract class OperationNode {
                 _conf.getClasses().getErrorsDet().add(cast_);
             }
         }
-        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> constructors_;
-        constructors_ = custClass_.getConstructorsInfos();
+        CustList<GeneConstructor> constructors_ = Classes.getConstructorBodies(_conf, clCurName_);
         if (constructors_.isEmpty()) {
             if (_args.length == 0) {
                 ConstrustorIdVarArg out_;
@@ -599,8 +599,13 @@ public abstract class OperationNode {
                 return out_;
             }
         }
-        for (EntryCust<ConstructorId, ConstructorMetaInfo> e: constructors_.entryList()) {
-            ConstructorId ctor_ = e.getKey();
+        for (GeneConstructor e: constructors_) {
+            ConstructorId ctor_;
+            if (e instanceof ConstructorBlock) {
+                ctor_ = ((ConstructorBlock)e).getId(_conf);
+            } else {
+                ctor_ = ((StandardConstructor)e).getId();
+            }
             if (_varargOnly > -1) {
                 if (!ctor_.isVararg()) {
                     continue;

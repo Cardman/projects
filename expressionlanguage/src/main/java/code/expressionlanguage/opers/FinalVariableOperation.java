@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
@@ -152,11 +151,10 @@ public final class FinalVariableOperation extends LeafOperation {
 
     @Override
     public void calculate(ExecutableCode _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
+        Argument arg_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
             return;
         }
-        Argument arg_ = argres_.getArgument();
         if (arg_ == null) {
             return;
         }
@@ -166,15 +164,14 @@ public final class FinalVariableOperation extends LeafOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
-        Argument arg_ = argres_.getArgument();
+        Argument arg_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
             return arg_;
         }
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
-    ArgumentCall getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -186,25 +183,25 @@ public final class FinalVariableOperation extends LeafOperation {
             LocalVariable locVar_ = ip_.getParameters().getVal(variableName);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
-            return ArgumentCall.newArgument(a_);
+            return a_;
         }
         if (op_.getConstType() == ConstType.CATCH_VAR) {
             LocalVariable locVar_ = ip_.getCatchVars().getVal(variableName);
             a_ = new Argument();
             a_.setStruct(locVar_.getStruct());
-            return ArgumentCall.newArgument(a_);
+            return a_;
         }
         if (op_.getConstType() == ConstType.LOOP_INDEX) {
             LoopVariable locVar_ = ip_.getVars().getVal(variableName);
             a_ = new Argument();
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
             a_.setStruct(PrimitiveTypeUtil.convertObject(clArg_, new LongStruct(locVar_.getIndex()), _conf));
-            return ArgumentCall.newArgument(a_);
+            return a_;
         }
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);
         a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
-        return ArgumentCall.newArgument(a_);
+        return a_;
     }
     @Override
     public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {

@@ -30,12 +30,9 @@ public final class Calculation {
     }
 
     public static Calculation staticCalculation(boolean _staticBlock) {
-        return new Calculation(false, _staticBlock, NO_OP);
+        return new Calculation(_staticBlock, _staticBlock, NO_OP);
     }
 
-    public static Calculation staticCalculation(boolean _static, boolean _staticBlock) {
-        return new Calculation(_static, _staticBlock, NO_OP);
-    }
 
     public boolean isLeftStep() {
         return leftStep;

@@ -5,20 +5,18 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StaticAccessError;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -165,11 +163,14 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         CustomFoundConstructor ctor_ = _conf.getContextEl().getCallCtor();
         CustomFoundMethod method_ = _conf.getContextEl().getCallMethod();
+        CustomReflectMethod ref_ = _conf.getContextEl().getReflectMethod();
         Argument res_;
         if (ctor_ != null) {
             res_ = ProcessMethod.instanceArgument(ctor_.getClassName(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContextEl());
         } else if (method_ != null) {
             res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(), method_.getId(), method_.getArguments(), _conf.getContextEl());
+        } else if (ref_ != null) {
+            res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContextEl(), ref_.getReflect());
         } else {
             res_ = argres_;
         }
@@ -201,7 +202,6 @@ public final class ChoiceFctOperation extends InvokingOperation {
         return res_;
     }
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ExecutableCode _conf) {
-        Classes classes_ = _conf.getClasses();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -289,17 +289,8 @@ public final class ChoiceFctOperation extends InvokingOperation {
         } else {
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             classNameFound_ = classMethodId.getClassName();
-            if (classes_.isCustomType(classNameFound_)) {
-                InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), classNameFound_);
-                if (res_ == InitClassState.NOT_YET) {
-                    _conf.getContextEl().setInitClass(new NotInitializedClass(classNameFound_));
-                    return Argument.createVoid();
-                }
-                if (res_ == InitClassState.ERROR) {
-                    CausingErrorStruct causing_ = new CausingErrorStruct(classNameFound_);
-                    _conf.setException(causing_);
-                    return Argument.createVoid();
-                }
+            if (hasToExit(_conf, classNameFound_)) {
+                return Argument.createVoid();
             }
         }
         int offLoc_ = -1;

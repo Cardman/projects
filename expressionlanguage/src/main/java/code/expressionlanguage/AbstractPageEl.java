@@ -54,6 +54,11 @@ public abstract class AbstractPageEl extends PageEl {
     private int offset;
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
+    public boolean receive(Argument _argument, ContextEl _context) {
+        getLastEl().setArgument(_argument, _context);
+        return _context.processException();
+    }
+
     public void addToOffset(int _offset) {
         offset += _offset;
     }

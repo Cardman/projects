@@ -2334,6 +2334,33 @@ public final class Classes {
     public static CustList<GeneConstructor> getConstructorBodiesById(Analyzable _context,String _genericClassName, ConstructorId _id) {
         return getConstructorBodiesById(_context, _genericClassName, _id.getParametersTypes(), _id.isVararg());
     }
+    public static CustList<GeneConstructor> getConstructorBodies(Analyzable _context,String _genericClassName) {
+        CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
+        String base_ = Templates.getIdFromAllTypes(_genericClassName);
+        Classes classes_ = _context.getClasses();
+        for (EntryCust<String, StandardType> c: _context.getStandards().getStandards().entryList()) {
+            if (!StringList.quickEq(c.getKey(), base_)) {
+                continue;
+            }
+            for (StandardConstructor s: c.getValue().getConstructors()) {
+                methods_.add(s);
+            }
+        }
+        for (EntryCust<String, RootBlock> c: classes_.classesBodies.entryList()) {
+            if (!StringList.quickEq(c.getKey(), base_)) {
+                continue;
+            }
+            CustList<Block> bl_ = getDirectChildren(c.getValue());
+            for (Block b: bl_) {
+                if (!(b instanceof ConstructorBlock)) {
+                    continue;
+                }
+                ConstructorBlock method_ = (ConstructorBlock) b;
+                methods_.add(method_);
+            }
+        }
+        return methods_;
+    }
     private static CustList<GeneConstructor> getConstructorBodiesById(Analyzable _context,String _genericClassName, StringList _parametersTypes, boolean _vararg) {
         CustList<GeneConstructor> methods_ = new CustList<GeneConstructor>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
@@ -2498,8 +2525,6 @@ public final class Classes {
 
     public ClassMetaInfo getClassMetaInfo(String _name, ContextEl _context) {
         String base_ = Templates.getIdFromAllTypes(_name);
-        LgNames stds_ = _context.getStandards();
-        String void_ = stds_.getAliasVoid();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
             infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
@@ -2534,7 +2559,7 @@ public final class Classes {
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
                     ConstructorId id_ = method_.getGenericId(_context);
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(void_);
+                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, id_);
                     infosConst_.put(id_, met_);
                 }
             }

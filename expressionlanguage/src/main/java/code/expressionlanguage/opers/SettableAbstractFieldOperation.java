@@ -5,7 +5,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -22,7 +21,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -154,17 +152,10 @@ public abstract class SettableAbstractFieldOperation extends
         }
         String className_ = fieldId.getClassName();
         if (fieldMetaInfo.isStaticField()) {
+            if (InvokingOperation.hasToExit(_conf, className_)) {
+                return Argument.createVoid();
+            }
             if (classes_.isCustomType(className_)) {
-                InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), className_);
-                if (res_ == InitClassState.NOT_YET) {
-                    _conf.getContextEl().setInitClass(new NotInitializedClass(className_));
-                    return Argument.createVoid();
-                }
-                if (res_ == InitClassState.ERROR) {
-                    CausingErrorStruct causing_ = new CausingErrorStruct(className_);
-                    _conf.setException(causing_);
-                    return Argument.createVoid();
-                }
                 Struct struct_ = classes_.getStaticField(fieldId);
                 a_ = new Argument();
                 a_.setStruct(struct_);
@@ -519,17 +510,8 @@ public abstract class SettableAbstractFieldOperation extends
         Classes classes_ = _conf.getClasses();
         String className_ = fieldId.getClassName();
         if (fieldMetaInfo.isStaticField()) {
-            if (classes_.isCustomType(className_)) {
-                InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), className_);
-                if (res_ == InitClassState.NOT_YET) {
-                    _conf.getContextEl().setInitClass(new NotInitializedClass(className_));
-                    return Argument.createVoid();
-                }
-                if (res_ == InitClassState.ERROR) {
-                    CausingErrorStruct causing_ = new CausingErrorStruct(className_);
-                    _conf.setException(causing_);
-                    return Argument.createVoid();
-                }
+            if (InvokingOperation.hasToExit(_conf, className_)) {
+                return Argument.createVoid();
             }
             fieldType_ = fieldMetaInfo.getRealType();
             Struct check_ = _right.getStruct();

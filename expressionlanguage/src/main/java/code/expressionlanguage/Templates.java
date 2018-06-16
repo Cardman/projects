@@ -475,6 +475,27 @@ public final class Templates {
         GeneType root_ = _context.getClassBody(className_);
         return root_.getParamTypesMapValues();
     }
+    public static String getMadeVarTypes(String _className, StringList _classNames,Analyzable _context) {
+        String type_ = getIdFromAllTypes(_className);
+        GeneType root_ = _context.getClassBody(type_);
+        String pref_ = getGenericString(type_, _context);
+        StringMap<String> varTypes_ = new StringMap<String>();
+        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
+        if (typeVar_.size() != _classNames.size()) {
+            return null;
+        }
+        int i_ = CustList.FIRST_INDEX;
+        for (TypeVar t: typeVar_) {
+            String arg_ = _classNames.get(i_);
+            varTypes_.put(t.getName(), arg_);
+            i_++;
+        }
+        String formatted_ = getFormattedType(pref_, varTypes_);
+        if (!correctClassParts(formatted_, new StringMap<StringList>(), _context)) {
+            return null;
+        }
+        return formatted_;
+    }
     static StringMap<String> getVarTypes(String _className, boolean _checkExact,Analyzable _context) {
         StringList types_ = getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();

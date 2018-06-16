@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -21,7 +20,6 @@ import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -157,14 +155,7 @@ public final class ValuesOperation extends LeafOperation {
         return arg_;
     }
     Argument getCommonArgument(ExecutableCode _conf) {
-        InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className);
-        if (res_ == InitClassState.NOT_YET) {
-            _conf.getContextEl().setInitClass(new NotInitializedClass(className));
-            return Argument.createVoid();
-        }
-        if (res_ == InitClassState.ERROR) {
-            CausingErrorStruct causing_ = new CausingErrorStruct(className);
-            _conf.setException(causing_);
+        if (InvokingOperation.hasToExit(_conf, className)) {
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();

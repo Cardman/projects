@@ -152,6 +152,18 @@ public final class InitializationLgNames {
         _lgNames.setAliasErrorInitClass("$defErrorClass");
         _lgNames.setAliasClassNotFoundError("$classNotFound");
         _lgNames.setAliasClass("$Class");
+        _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
+        _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
+        _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
+        _lgNames.setAliasMakeGeneric("makeGeneric");
+        _lgNames.setAliasConstructor("$Constructor");
+        _lgNames.setAliasField("$Field");
+        _lgNames.setAliasMethod("$Method");
+        _lgNames.setAliasInvoke("invoke");
+        _lgNames.setAliasNewInstance("newInstance");
+        _lgNames.setAliasIsPolymorph("isPolymorph");
+        _lgNames.setAliasSetPolymorph("setPolymorph");
+        _lgNames.setAliasIsAbstract("isAbstract");
         _lgNames.setAliasGetName("getName");
         _lgNames.setAliasGetClass("getClass");
         _lgNames.setAliasForName("forName");

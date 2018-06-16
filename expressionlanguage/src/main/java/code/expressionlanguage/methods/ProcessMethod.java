@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractCallingInstancingPageEl;
+import code.expressionlanguage.AbstractReflectPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.MethodPageEl;
@@ -32,6 +33,13 @@ public final class ProcessMethod {
 
     public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodPageEl page_ = _cont.createCallingMethod(_global, _class, _method, _args);
+        _cont.addPage(page_);
+        _cont.getInit().loopCalling(_cont);
+        return page_.getReturnedArgument();
+    }
+
+    public static Argument reflectArgument(Argument _global, CustList<Argument> _args, ContextEl _cont, ReflectingType _reflect) {
+        AbstractReflectPageEl page_ = _cont.createReflectMethod(_global, _args, _reflect);
         _cont.addPage(page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

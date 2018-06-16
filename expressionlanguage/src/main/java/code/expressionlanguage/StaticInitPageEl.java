@@ -5,14 +5,13 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundBlock;
 import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
-import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.Returnable;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
+import code.expressionlanguage.opers.InvokingOperation;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -30,28 +29,14 @@ public final class StaticInitPageEl extends AbstractPageEl {
         if (root_ instanceof UniqueRootedBlock) {
             String superClass_ = ((UniqueRootedBlock) root_).getSuperClass(_context);
             if (classes_.getClassBody(superClass_) != null) {
-                InitClassState res_ = classes_.getLocks().getState(_context, superClass_);
-                if (res_ == InitClassState.NOT_YET) {
-                    _context.setInitClass(new NotInitializedClass(superClass_));
-                    return false;
-                }
-                if (res_ == InitClassState.ERROR) {
-                    CausingErrorStruct causing_ = new CausingErrorStruct(superClass_);
-                    _context.setException(causing_);
+                if (InvokingOperation.hasToExit(_context, superClass_)) {
                     return false;
                 }
             }
         }
         for (String i: root_.getStaticInitInterfaces()) {
             String t_ = StringList.removeAllSpaces(i);
-            InitClassState res_ = classes_.getLocks().getState(_context, t_);
-            if (res_ == InitClassState.NOT_YET) {
-                _context.setInitClass(new NotInitializedClass(t_));
-                return false;
-            }
-            if (res_ == InitClassState.ERROR) {
-                CausingErrorStruct causing_ = new CausingErrorStruct(t_);
-                _context.setException(causing_);
+            if (InvokingOperation.hasToExit(_context, t_)) {
                 return false;
             }
         }

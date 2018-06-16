@@ -23,7 +23,6 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractInstancing
     @Override
     public final boolean forwardTo(AbstractPageEl _page, ContextEl _context) {
         Argument a_ = getReturnedArgument();
-        _page.getLastEl().setArgument(a_, _context);
-        return _context.processException();
+        return _page.receive(a_, _context);
     }
 }

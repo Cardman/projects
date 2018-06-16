@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
@@ -155,12 +154,8 @@ public final class VariableOperation extends LeafOperation implements
 
     @Override
     public void calculate(ExecutableCode _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
+        Argument arg_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
-            return;
-        }
-        Argument arg_ = argres_.getArgument();
-        if (arg_ == null) {
             return;
         }
         if (resultCanBeSet()) {
@@ -173,8 +168,7 @@ public final class VariableOperation extends LeafOperation implements
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
-        Argument arg_ = argres_.getArgument();
+        Argument arg_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
             return arg_;
         }
@@ -185,7 +179,7 @@ public final class VariableOperation extends LeafOperation implements
         }
         return arg_;
     }
-    ArgumentCall getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -193,12 +187,12 @@ public final class VariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         PageEl ip_ = _conf.getOperationPageEl();
         if (resultCanBeSet()) {
-            return ArgumentCall.newArgument(Argument.createVoid());
+            return Argument.createVoid();
         }
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         a_ = new Argument();
         a_.setStruct(locVar_.getStruct());
-        return ArgumentCall.newArgument(a_);
+        return a_;
     }
 
     @Override

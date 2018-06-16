@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ArgumentCall;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
@@ -92,12 +91,8 @@ public final class ThisOperation extends LeafOperation {
 
     @Override
     public void calculate(ExecutableCode _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
+        Argument arg_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
-            return;
-        }
-        Argument arg_ = argres_.getArgument();
-        if (arg_ == null) {
             return;
         }
         setSimpleArgument(arg_, _conf);
@@ -106,8 +101,7 @@ public final class ThisOperation extends LeafOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        ArgumentCall argres_ = getCommonArgument(_conf);
-        Argument arg_ = argres_.getArgument();
+        Argument arg_ = getCommonArgument(_conf);
         if (_conf.getException() != null) {
             return arg_;
         }
@@ -115,7 +109,7 @@ public final class ThisOperation extends LeafOperation {
         return arg_;
     }
 
-    ArgumentCall getCommonArgument(ExecutableCode _conf) {
+    Argument getCommonArgument(ExecutableCode _conf) {
         Argument a_ = new Argument();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -125,7 +119,7 @@ public final class ThisOperation extends LeafOperation {
         Struct struct_ = ip_.getGlobalArgument().getStruct();
         a_ = new Argument();
         a_.setStruct(struct_);
-        return ArgumentCall.newArgument(a_);
+        return a_;
     }
     @Override
     public boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {

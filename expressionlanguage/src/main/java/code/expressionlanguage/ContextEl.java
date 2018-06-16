@@ -11,6 +11,7 @@ import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.CustomFoundBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InitBlock;
@@ -19,6 +20,7 @@ import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.NotInitializedFields;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.util.BadAccessClass;
@@ -90,6 +92,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private CustomFoundBlock foundBlock;
 
     private CustomFoundMethod callMethod;
+
+    private CustomReflectMethod reflectMethod;
 
     private NotInitializedClass initClass;
 
@@ -194,6 +198,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return createInstancing(callCtor);
         } else if (callMethod != null) {
             return createCallingMethod(callMethod);
+        } else if (reflectMethod != null) {
+            return createReflectMethod(reflectMethod);
         } else if (initClass != null) {
             return createInstancingClass(initClass);
         } else if (initFields != null) {
@@ -408,6 +414,27 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         page_.setBlockRoot(_block);
         return page_;
     }
+    private AbstractReflectPageEl createReflectMethod(CustomReflectMethod _e) {
+        ReflectingType r_ = _e.getReflect();
+        CustList<Argument> args_ = _e.getArguments();
+        Argument gl_ = _e.getGl();
+        return createReflectMethod(gl_, args_, r_);
+    }
+    public AbstractReflectPageEl createReflectMethod(Argument _gl, CustList<Argument> _args, ReflectingType _reflect) {
+        setReflectMethod(null);
+        AbstractReflectPageEl pageLoc_;
+        if (_reflect == ReflectingType.METHOD) {
+            pageLoc_ = new ReflectMethodPageEl();
+        } else {
+            pageLoc_ = new ReflectConstructorPageEl();
+        }
+        pageLoc_.setTabWidth(tabWidth);
+        pageLoc_.setGlobalArgument(_gl);
+        pageLoc_.setArguments(_args);
+        ReadWrite rwLoc_ = new ReadWrite();
+        pageLoc_.setReadWrite(rwLoc_);
+        return pageLoc_;
+    }
     @Override
     public String getClassName(ExecutableCode _contextEl) {
         return className;
@@ -459,7 +486,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (classes == null || !classes.isCustomType(_name)) {
             String base_ = Templates.getIdFromAllTypes(_name);
             LgNames stds_ = getStandards();
-            String void_ = stds_.getAliasVoid();
             for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
                 ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
                 infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
@@ -488,7 +514,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
                 for (StandardConstructor d: clblock_.getConstructors()) {
                     ConstructorId id_ = d.getGenericId();
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(void_);
+                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, id_);
                     infosConst_.put(id_, met_);
                 }
                 if (clblock_ instanceof StandardInterface) {
@@ -815,6 +841,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (callMethod != null) {
             return true;
         }
+        if (reflectMethod != null) {
+            return true;
+        }
         if (callCtor != null) {
             return true;
         }
@@ -850,6 +879,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     public void setCallMethod(CustomFoundMethod _callMethod) {
         callMethod = _callMethod;
+    }
+
+    public CustomReflectMethod getReflectMethod() {
+        return reflectMethod;
+    }
+
+    public void setReflectMethod(CustomReflectMethod _reflectMethod) {
+        reflectMethod = _reflectMethod;
     }
 
     public NotInitializedClass getInitClass() {

@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
@@ -18,7 +17,6 @@ import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -172,14 +170,7 @@ public final class EnumValueOfOperation extends MethodOperation {
         return arg_;
     }
     Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
-        InitClassState res_ = _conf.getClasses().getLocks().getState(_conf.getContextEl(), className);
-        if (res_ == InitClassState.NOT_YET) {
-            _conf.getContextEl().setInitClass(new NotInitializedClass(className));
-            return Argument.createVoid();
-        }
-        if (res_ == InitClassState.ERROR) {
-            CausingErrorStruct causing_ = new CausingErrorStruct(className);
-            _conf.setException(causing_);
+        if (InvokingOperation.hasToExit(_conf, className)) {
             return Argument.createVoid();
         }
         if (_argument.isNull()) {

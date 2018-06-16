@@ -68,14 +68,13 @@ public final class Line extends Leaf implements StackableBlock {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
-        boolean stBlock_ = f_.isStaticContext();
-        boolean st_ = stBlock_;
+        boolean st_ = f_.isStaticContext();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.setRootAffect(true);
         Block previous_ = getPreviousSibling();
-        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_, stBlock_));
+        opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_));
         if (previous_ instanceof DeclareVariable) {
             DeclareVariable dc_ = (DeclareVariable) previous_;
             if (dc_.isMerged()) {

@@ -67,8 +67,8 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
 
     @Override
     public MethodModifier getModifier() {
-        if (staticMethod) {
-            return MethodModifier.STATIC;
+        if (abstractMethod) {
+            return MethodModifier.ABSTRACT;
         }
         if (finalMethod) {
             return MethodModifier.FINAL;

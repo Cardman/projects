@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
@@ -10,11 +11,14 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.NotInitializedClass;
+import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -572,7 +576,26 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         staticAccess = _staticAccess;
     }
     abstract boolean isCallMethodCtor();
-    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex) {
+    public static boolean hasToExit(ExecutableCode _conf, String _className) {
+        Classes classes_ = _conf.getClasses();
+        if (classes_.isCustomType(_className)) {
+            InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), _className);
+            if (res_ == InitClassState.NOT_YET) {
+                _conf.getContextEl().setInitClass(new NotInitializedClass(_className));
+                return true;
+            }
+            if (res_ == InitClassState.ERROR) {
+                CausingErrorStruct causing_ = new CausingErrorStruct(_className);
+                _conf.setException(causing_);
+                return true;
+            }
+        }
+        return false;
+    }
+    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments) {
+        return instancePrepare(_conf, _className, _constId, _previous, _arguments, "", -1, false);
+    }
+    public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex, boolean _format) {
         if (_conf.getException() != null) {
             Argument a_ = new Argument();
             return a_;
@@ -607,7 +630,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
       }
       String className_ = _className;
       PageEl page_ = _conf.getOperationPageEl();
-      className_ = page_.formatVarType(className_, _conf);
+      if (_format) {
+          className_ = page_.formatVarType(className_, _conf);
+      }
       StringList params_ = new StringList();
       int j_ = 0;
       for (String c: _constId.getParametersTypes()) {
@@ -634,12 +659,41 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                       Argument a_ = new Argument();
                       return a_;
                   }
+              } else if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), a.getStruct(), _conf)){
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                    Argument a_ = new Argument();
+                  return a_;
               }
           }
           i_++;
       }
       _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
       return Argument.createVoid();
+    }
+    public static ClassMethodId polymorph(ContextEl _conf, Struct _previous, ClassMethodId _classMethodId) {
+        String classNameFound_ = _classMethodId.getClassName();
+        classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
+        String argClassName_ = _conf.getStandards().getStructClassName(_previous, _conf);
+        argClassName_ = Templates.getGenericString(argClassName_, _conf);
+        String base_ = Templates.getIdFromAllTypes(argClassName_);
+        MethodId id_ = _classMethodId.getConstraints();
+        MethodId methodId_;
+        if (_conf.getMethodBodiesById(classNameFound_, id_).first().isFinalMethod()) {
+            classNameFound_ = _classMethodId.getClassName();
+            methodId_ = id_;
+        } else {
+            GeneType info_ = _conf.getClassBody(classNameFound_);
+            StringMap<ClassMethodId> overriding_ = TypeUtil.getConcreteMethodsToCall(info_,id_, _conf.getContextEl());
+            if (overriding_.contains(base_)) {
+                ClassMethodId res_ = overriding_.getVal(base_);
+                classNameFound_ = res_.getClassName();
+                methodId_ = res_.getConstraints();
+            } else {
+                classNameFound_ = _classMethodId.getClassName();
+                methodId_ = id_;
+            }
+        }
+        return new ClassMethodId(classNameFound_, methodId_);
     }
     public static Argument callPrepare(ExecutableCode _conf, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, int _possibleOffset) {
         StringList params_ = new StringList();
@@ -692,6 +746,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                         Argument a_ = new Argument();
                         return a_;
                     }
+                } else if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), a.getStruct(), _conf)){
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                    Argument a_ = new Argument();
+                    return a_;
                 }
             }
             i_++;
@@ -732,21 +790,30 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     }
                 }
                 if (init_) {
-                    if (classes_.isCustomType(clDyn_)) {
-                        InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), clDyn_);
-                        if (res_ == InitClassState.NOT_YET) {
-                            _conf.getContextEl().setInitClass(new NotInitializedClass(clDyn_));
-                            return Argument.createVoid();
-                        }
-                        if (res_ == InitClassState.ERROR) {
-                            CausingErrorStruct causing_ = new CausingErrorStruct(clDyn_);
-                            _conf.setException(causing_);
-                            return Argument.createVoid();
-                        }
+                    if (hasToExit(_conf, clDyn_)) {
+                        return Argument.createVoid();
                     }
                 }
                 Argument a_ = new Argument();
                 a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
+                return a_;
+            }
+        }
+        String aliasMethod_ = stds_.getAliasMethod();
+        String aliasConstructor_ = stds_.getAliasConstructor();
+        String aliasInvoke_ = stds_.getAliasInvoke();
+        String aliasNewInstance_ = stds_.getAliasNewInstance();
+        if (StringList.quickEq(aliasMethod_, _classNameFound)) {
+            if (StringList.quickEq(aliasInvoke_, _methodId.getName())) {
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs));
+                Argument a_ = new Argument();
+                return a_;
+            }
+        }
+        if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
+            if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, _previous, _firstArgs));
+                Argument a_ = new Argument();
                 return a_;
             }
         }
