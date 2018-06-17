@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -76,11 +77,13 @@ public interface Analyzable {
     void setRootAffect(boolean _b);
     Options getOptions();
     AssignedVariablesBlock getAssignedVariables();
+    AnalyzedPageEl getAnalyzing();
     Block getCurrentBlock();
     CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
     StringList getNeedInterfaces();
     String resolveType(String _in, boolean _correct);
+    String resolveDynamicType(String _in, RootBlock _file);
     MethodId getId(GeneMethod _m);
     ConstructorId getId(GeneConstructor _m);
     String resolveType(String _in, Block _currentBlock,RowCol _location, boolean _correct,

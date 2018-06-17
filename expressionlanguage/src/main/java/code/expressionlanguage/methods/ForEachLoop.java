@@ -733,7 +733,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         indexClassName_ = getClassIndexName();
         String className_;
         LoopVariable lv_ = new LoopVariable();
-        className_ = _cont.resolveDynamicType(className);
+        className_ = _cont.resolveDynamicType(className, getRooted());
         lv_.setIndex(-1);
         lv_.setClassName(className_);
         lv_.setIndexClassName(indexClassName_);
@@ -883,7 +883,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         } else {
             element_ = LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf);
         }
-        String className_ = _conf.resolveDynamicType(className);
+        String className_ = _conf.resolveDynamicType(className, getRooted());
         if (PrimitiveTypeUtil.primitiveTypeNullObject(className_, element_, _conf)) {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return;

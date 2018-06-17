@@ -57,7 +57,7 @@ public final class LocalThrowing implements CallingFinally {
                 while (n_ instanceof AbstractCatchEval) {
                     if (n_ instanceof CatchEval) {
                         CatchEval ca_ = (CatchEval) n_;
-                        String name_ = _conf.resolveDynamicType(ca_.getClassName());
+                        String name_ = _conf.resolveDynamicType(ca_.getClassName(), ca_.getRooted());
                         if (custCause_.isNull()) {
                             n_ = n_.getNextSibling();
                             continue;
@@ -94,7 +94,7 @@ public final class LocalThrowing implements CallingFinally {
                             String var_ = c_.getVariableName();
                             LocalVariable lv_ = new LocalVariable();
                             lv_.setStruct(custCause_);
-                            lv_.setClassName(_conf.resolveDynamicType(c_.getClassName()));
+                            lv_.setClassName(_conf.resolveDynamicType(c_.getClassName(), c_.getRooted()));
                             bkIp_.getCatchVars().put(var_, lv_);
                         }
                         bkIp_.getReadWrite().setBlock(childCatch_);

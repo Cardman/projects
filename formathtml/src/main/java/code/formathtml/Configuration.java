@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Options;
@@ -14,6 +15,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -897,5 +899,15 @@ public class Configuration implements ExecutableCode {
     @Override
     public FieldInfo getFieldInfo(ClassField _classField) {
         return context.getFieldInfo(_classField);
+    }
+
+    @Override
+    public String resolveDynamicType(String _in, RootBlock _file) {
+        return context.resolveDynamicType(_in, _file);
+    }
+
+    @Override
+    public AnalyzedPageEl getAnalyzing() {
+        return context.getAnalyzing();
     }
 }

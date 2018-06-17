@@ -2463,7 +2463,7 @@ public final class Classes {
                         continue;
                     }
                     String m_ = method_.getFieldName();
-                    String c_ = _context.resolveDynamicType(method_.getClassName());
+                    String c_ = _context.resolveDynamicType(method_.getClassName(), method_.getRooted());
                     for (EntryCust<String, Struct> f: staticFields.getVal(base_).entryList()) {
                         if (f.getValue() != null) {
                             continue;
@@ -2545,7 +2545,7 @@ public final class Classes {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     String m_ = method_.getFieldName();
-                    String ret_ = _context.resolveDynamicType(method_.getClassName());
+                    String ret_ = _context.resolveDynamicType(method_.getClassName(), method_.getRooted());
                     boolean enumElement_ = b instanceof ElementBlock;
                     boolean staticElement_ = method_.isStaticField();
                     boolean finalElement_ = method_.isFinalField();

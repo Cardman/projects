@@ -49,7 +49,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
             if (isAccessibleType(base_, _classes)) {
-                classes_.add(s);
+                classes_.add(_classes.resolveDynamicType(s, this));
             }
         }
         return classes_;
@@ -91,7 +91,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
             if (isAccessibleType(base_, _classes)) {
-                classes_.add(s);
+                classes_.add(_classes.resolveDynamicType(s, this));
             }
         }
         if (classes_.isEmpty()) {
@@ -105,6 +105,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
+            base_=_classes.resolveDynamicType(base_,this);
             if (isAccessibleType(base_, _classes)) {
                 classes_.add(base_);
             }

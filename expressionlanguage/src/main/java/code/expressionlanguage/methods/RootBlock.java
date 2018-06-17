@@ -398,7 +398,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             StringList next_ = new StringList();
             for (String c: current_) {
                 String baseType_ = Templates.getIdFromAllTypes(c);
-                StringList superTypes_ = classes_.getClassBody(baseType_).getDirectGenericSuperTypes(_classes);
+                RootBlock curType_ = classes_.getClassBody(baseType_);
+                StringList superTypes_ = curType_.getDirectGenericSuperTypes(_classes);
                 for (String t: superTypes_) {
                     String format_ = Templates.format(c, t, _classes);
                     list_.add(format_);
@@ -1078,8 +1079,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         }
     }
 
-    protected boolean isAccessibleType(String _type, Analyzable _cont) {
-        RootBlock r_ = _cont.getClasses().getClassBody(_type);
+    public boolean isAccessibleType(String _type, Analyzable _cont) {
+        String type_ = ContextEl.removeDottedSpaces(_type);
+        if (!_cont.getClasses().isCustomType(type_)) {
+            type_ = _cont.resolveDynamicType(type_, this);
+        }
+        RootBlock r_ = _cont.getClasses().getClassBody(type_);
         if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
             return true;
         }

@@ -21,7 +21,30 @@ import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class ClassesTest {
+    @Test
+    public void emptyClassesTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = new ContextEl();
+        InitializationLgNames.initAdvStandards(cont_);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+    }
 
+    @Test
+    public void resolve1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        unfullValidateOverridingClasses(files_);
+    }
     @Test
     public void getMethodBodiesByFormattedId1Test() {
         StringMap<String> files_ = new StringMap<String>();

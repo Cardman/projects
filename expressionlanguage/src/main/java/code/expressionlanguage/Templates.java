@@ -129,7 +129,13 @@ public final class Templates {
         if (!existClassParts(_className, _mapping, _context)) {
             return false;
         }
-        return isCorrectTemplateAll(_className, _mapping, _context);
+        String cl_;
+        if (_context.getAnalyzing() != null && _context.getCurrentBlock() != null) {
+            cl_ = _context.resolveDynamicType(_className, _context.getCurrentBlock().getRooted());
+        } else {
+            cl_ = StringList.removeAllSpaces(_className);
+        }
+        return isCorrectTemplateAll(cl_, _mapping, _context);
     }
 
     public static boolean correctClassPartsBuild(String _className, StringMap<StringList> _mapping, Analyzable _context) {
@@ -173,7 +179,14 @@ public final class Templates {
             custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
             if (!custClass_) {
                 if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
-                    return false;
+                    if (_context.getAnalyzing() != null) {
+                        baseName_ = _context.resolveDynamicType(baseName_, _context.getCurrentBlock().getRooted());
+                        if (!classes_.isCustomType(baseName_)) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }               
                 }
             }
         }

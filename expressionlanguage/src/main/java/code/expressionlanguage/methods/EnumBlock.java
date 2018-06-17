@@ -174,7 +174,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
             if (isAccessibleType(base_, _classes)) {
-                interfaces_.add(s);
+                interfaces_.add(_classes.resolveDynamicType(s, this));
             }
         }
         return interfaces_;
@@ -189,6 +189,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
+            base_=_classes.resolveDynamicType(base_,this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
@@ -205,12 +206,13 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
+            base_ = _classes.resolveDynamicType(base_, this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
             }
             if (isAccessibleType(base_, _classes)) {
-                interfaces_.add(s);
+                interfaces_.add(_classes.resolveDynamicType(s, this));
             }
         }
         return interfaces_;
@@ -258,6 +260,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
+            base_=_classes.resolveDynamicType(base_,this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
                 continue;
@@ -276,6 +279,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     public String getSuperClass(Analyzable _classes) {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
+            base_ = _classes.resolveDynamicType(base_, this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
                 continue;
@@ -291,12 +295,13 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     public String getGenericSuperClass(Analyzable _classes) {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
+            base_=_classes.resolveDynamicType(base_,this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
                 continue;
             }
             if (isAccessibleType(base_, _classes)) {
-                return s;
+                return _classes.resolveDynamicType(s,this);
             }
         }
         return _classes.getStandards().getAliasObject();

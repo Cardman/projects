@@ -146,7 +146,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         AbstractPageEl ip_ = _cont.getLastPage();
         LocalVariable lv_ = new LocalVariable();
         String className_ = getClassName();
-        lv_.setClassName(_cont.resolveDynamicType(className_));
+        lv_.setClassName(_cont.resolveDynamicType(className_, getRooted()));
         lv_.setStruct(PrimitiveTypeUtil.defaultValue(className_, _cont));
         String name_ = getVariableName();
         ip_.putLocalVar(name_, lv_);
