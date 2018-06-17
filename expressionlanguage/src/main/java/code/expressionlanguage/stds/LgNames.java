@@ -228,6 +228,7 @@ public abstract class LgNames {
     private String aliasSimpleIteratorType;
     private String aliasSimpleIterableType;
     private String aliasErrorInitClass;
+    private String aliasInvokeTarget;
     private String aliasClassNotFoundError;
 
     private String selectedBoolean = "$sb";
@@ -255,6 +256,8 @@ public abstract class LgNames {
     private String aliasIsPolymorph;
     private String aliasSetPolymorph;
     private String aliasGetName;
+    private String aliasGetField;
+    private String aliasSetField;
     private String aliasForName;
     /**Called after setters*/
     public void build() {
@@ -332,6 +335,12 @@ public abstract class LgNames {
         stdcl_ = new StandardClass(aliasErrorInitClass, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
         std_ = stdcl_;
         standards.put(aliasErrorInitClass, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasInvokeTarget, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
+        std_ = stdcl_;
+        standards.put(aliasInvokeTarget, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -1056,6 +1065,12 @@ public abstract class LgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasField, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasObject);
+        method_ = new StandardMethod(aliasGetField, params_, aliasObject, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasObject,aliasObject);
+        method_ = new StandardMethod(aliasSetField, params_, aliasVoid, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         getStandards().put(aliasField, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -1616,6 +1631,35 @@ public abstract class LgNames {
                     index_++;
                 }
                 ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.aliasGetDeclaredFields)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                StringMap<FieldMetaInfo> fields_;
+                fields_ = cl_.getFieldsInfos();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasField);
+                if (args_.length == 0) {
+                    Struct[] ctorsArr_ = new Struct[fields_.size()];
+                    int index_ = 0;
+                    for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
+                        ctorsArr_[index_] = e.getValue();
+                        index_++;
+                    }
+                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                String fieldName_ = (String) args_[0].getInstance();
+                FieldMetaInfo meta_ = fields_.getVal(fieldName_);
+                Struct[] ctorsArr_;
+                if (meta_ != null) {
+                    ctorsArr_ = new Struct[1];
+                    ctorsArr_[0] = meta_;
+                } else {
+                    ctorsArr_ = new Struct[0];
+                }
+                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
                 result_.setResult(str_);
                 return result_;
             }
@@ -4818,6 +4862,12 @@ public abstract class LgNames {
     public void setAliasErrorInitClass(String _aliasErrorInitClass) {
         aliasErrorInitClass = _aliasErrorInitClass;
     }
+    public String getAliasInvokeTarget() {
+        return aliasInvokeTarget;
+    }
+    public void setAliasInvokeTarget(String _aliasInvokeTarget) {
+        aliasInvokeTarget = _aliasInvokeTarget;
+    }
     public String getAliasClassNotFoundError() {
         return aliasClassNotFoundError;
     }
@@ -4913,6 +4963,18 @@ public abstract class LgNames {
     }
     public void setAliasGetName(String _aliasGetName) {
         aliasGetName = _aliasGetName;
+    }
+    public String getAliasGetField() {
+        return aliasGetField;
+    }
+    public void setAliasGetField(String _aliasGetField) {
+        aliasGetField = _aliasGetField;
+    }
+    public String getAliasSetField() {
+        return aliasSetField;
+    }
+    public void setAliasSetField(String _aliasSetField) {
+        aliasSetField = _aliasSetField;
     }
     public String getAliasGetClass() {
         return aliasGetClass;

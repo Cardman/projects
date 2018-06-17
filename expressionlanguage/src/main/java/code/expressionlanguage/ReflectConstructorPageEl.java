@@ -38,9 +38,11 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         if (!initClass) {
             initClass = true;
             if (InvokingOperation.hasToExit(_context, className_)) {
+                setWrapException(true);
                 return false;
             }
         }
+        setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
             ConstructorId mid_ = method_.getRealId();
@@ -67,6 +69,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             }
             Argument arg_ = InvokingOperation.instancePrepare(_context, className_, mid_, Argument.createVoid(), args_);
             if (_context.callsOrException()) {
+                setWrapException(_context.calls());
                 return false;
             }
             setReturnedArgument(arg_);

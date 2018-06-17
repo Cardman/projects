@@ -802,8 +802,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return a_;
             }
         }
+        String aliasField_ = stds_.getAliasField();
         String aliasMethod_ = stds_.getAliasMethod();
         String aliasConstructor_ = stds_.getAliasConstructor();
+        String aliasGetField_ = stds_.getAliasGetField();
+        String aliasSetField_ = stds_.getAliasSetField();
         String aliasInvoke_ = stds_.getAliasInvoke();
         String aliasNewInstance_ = stds_.getAliasNewInstance();
         if (StringList.quickEq(aliasMethod_, _classNameFound)) {
@@ -816,6 +819,18 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
                 _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, _previous, _firstArgs));
+                Argument a_ = new Argument();
+                return a_;
+            }
+        }
+        if (StringList.quickEq(aliasField_, _classNameFound)) {
+            if (StringList.quickEq(aliasGetField_, _methodId.getName())) {
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.GET_FIELD, _previous, _firstArgs));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            if (StringList.quickEq(aliasSetField_, _methodId.getName())) {
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.SET_FIELD, _previous, _firstArgs));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -873,6 +888,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             return a_;
         }
+        if (arg_.isNull()) {
+            String npe_;
+            npe_ = stds_.getAliasNullPe();
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
+            return Argument.createVoid();
+        }
         String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
         String classNameFound_ = fieldId_.getClassName();
         String base_ = Templates.getIdFromAllTypes(argClassName_);
@@ -903,9 +924,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         boolean isStaticField_ = _meta.isStaticField();
         boolean isFinalField_ = _meta.isFinalField();
         String type_ = _meta.getType();
-        return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, type_, _previous, _right, _conf, -1);
+        return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
     }
-    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset) {
+    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
@@ -917,7 +938,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         ClassField fieldId_ = new ClassField(_className, _fieldName);
         String className_ = _className;
         if (_isStaticField) {
-            if (_finalField) {
+            if (_finalField && _failIfFinal) {
                 String npe_;
                 npe_ = stds_.getAliasNullPe();
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
@@ -962,41 +983,39 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             return _right;
         }
+        if (_previous.isNull()) {
+            String npe_;
+            npe_ = stds_.getAliasNullPe();
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
+            return Argument.createVoid();
+        }
         String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
         String classNameFound_ = fieldId_.getClassName();
-        classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
-        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-        fieldType_ = _returnType;
-        fieldType_ = Templates.format(classNameFound_, fieldType_, _conf);
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         classNameFound_ = fieldId_.getClassName();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
             _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
             return Argument.createVoid();
         }
-        if (_previous.getStruct() instanceof FieldableStruct) {
-            Struct check_ = _right.getStruct();
-            if (!check_.isNull()) {
-                Mapping map_ = new Mapping();
-                String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
-                map_.setArg(rightClass_);
-                map_.setParam(fieldType_);
-                if (!Templates.isCorrect(map_, _conf)) {
-                    _conf.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
-                    return Argument.createVoid();
-                }
-            } else if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
-                String npe_;
-                npe_ = stds_.getAliasNullPe();
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
+        classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
+        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
+        fieldType_ = _returnType;
+        fieldType_ = Templates.format(classNameFound_, fieldType_, _conf);
+        Struct check_ = _right.getStruct();
+        if (!check_.isNull()) {
+            Mapping map_ = new Mapping();
+            String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
+            map_.setArg(rightClass_);
+            map_.setParam(fieldType_);
+            if (!Templates.isCorrect(map_, _conf)) {
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
                 return Argument.createVoid();
             }
-        } else {
-            ResultErrorStd result_ = LgNames.getField(_conf.getContextEl(), fieldId_, _previous.getStruct());
-            if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
-                return Argument.createVoid();
-            }
+        } else if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
+            String npe_;
+            npe_ = stds_.getAliasNullPe();
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
+            return Argument.createVoid();
         }
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
         if (_conf.getException() != null) {

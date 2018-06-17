@@ -21,10 +21,12 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
             initClass = true;
             if (method_.isStatic()) {
                 if (InvokingOperation.hasToExit(_context, method_.getClassName())) {
+                    setWrapException(true);
                     return false;
                 }
             }
         }
+        setWrapException(false);
         if (methodToCall == null) {
             LgNames stds_ = _context.getStandards();
             if (!method_.isStatic()) {
@@ -75,12 +77,15 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
                 return false;
             }
+            setWrapException(false);
             Argument arg_ = InvokingOperation.callPrepare(_context, className_, mid_, instance_, args_, -1);
             if (_context.getInitClass() != null) {
+                setWrapException(true);
                 return false;
             }
             calledMethod = true;
             if (_context.callsOrException()) {
+                setWrapException(_context.calls());
                 return false;
             }
             setReturnedArgument(arg_);

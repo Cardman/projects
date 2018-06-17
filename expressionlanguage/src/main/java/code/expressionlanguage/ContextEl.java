@@ -427,8 +427,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         AbstractReflectPageEl pageLoc_;
         if (_reflect == ReflectingType.METHOD) {
             pageLoc_ = new ReflectMethodPageEl();
-        } else {
+        } else if (_reflect == ReflectingType.CONSTRUCTOR) {
             pageLoc_ = new ReflectConstructorPageEl();
+        } else if (_reflect == ReflectingType.GET_FIELD) {
+            pageLoc_ = new ReflectGetFieldPageEl();
+        } else {
+            pageLoc_ = new ReflectSetFieldPageEl();
         }
         pageLoc_.setTabWidth(tabWidth);
         pageLoc_.setGlobalArgument(_gl);

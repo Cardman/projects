@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.CausingErrorStruct;
+import code.expressionlanguage.opers.util.InvokeTargetErrorStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.StringMap;
 
@@ -38,6 +39,14 @@ public class DefaultLockingClass {
     public void processErrorClass(ContextEl _context, Struct _cause) {
         AbstractPageEl pageEl_ = _context.getLastPage();
         if (!(pageEl_ instanceof StaticInitPageEl)) {
+            if (pageEl_ instanceof AbstractReflectPageEl) {
+                AbstractReflectPageEl p_ = (AbstractReflectPageEl) pageEl_;
+                if (p_.isWrapException()) {
+                    InvokeTargetErrorStruct causing_ = new InvokeTargetErrorStruct(_cause);
+                    _context.setException(causing_);
+                    return;
+                }
+            }
             return;
         }
         String curClass_ = pageEl_.getGlobalClass();

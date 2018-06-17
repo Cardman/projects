@@ -10,6 +10,8 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
 
     private CustList<Argument> arguments;
 
+    private boolean wrapException;
+
     @Override
     public Argument getReturnedArgument() {
         return returnedArgument;
@@ -70,4 +72,13 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
     public void setArguments(CustList<Argument> _arguments) {
         arguments = _arguments;
     }
+
+    public boolean isWrapException() {
+        return wrapException;
+    }
+
+    public void setWrapException(boolean _wrapException) {
+        wrapException = _wrapException;
+    }
+
 }

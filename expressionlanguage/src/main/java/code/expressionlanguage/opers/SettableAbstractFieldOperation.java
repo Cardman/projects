@@ -462,7 +462,8 @@ public abstract class SettableAbstractFieldOperation extends
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
-        return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, fieldType_, _previous, _right, _conf, off_);
+        //Come from code directly so constant static fields can be initialized here
+        return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, _previous, _right, _conf, off_);
     }
     final Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
         int relativeOff_ = getOperations().getOffset();

@@ -158,6 +158,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasSimpleIteratorType("code.util.SimpleItr");
         _lgNames.setAliasSimpleIterableType("code.util.ints.SimpleIterable");
         _lgNames.setAliasErrorInitClass("$defErrorClass");
+        _lgNames.setAliasInvokeTarget("$invokeTaget");
         _lgNames.setAliasClassNotFoundError("$classNotFound");
         _lgNames.setAliasClass("$Class");
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
@@ -174,6 +175,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasSetPolymorph("setPolymorph");
         _lgNames.setAliasIsAbstract("isAbstract");
         _lgNames.setAliasGetName("getName");
+        _lgNames.setAliasGetField("get");
+        _lgNames.setAliasSetField("set");
         _lgNames.setAliasGetClass("getClass");
         _lgNames.setAliasForName("forName");
         _lgNames.setAliasObjectsUtil("$ObjectsUtil");
