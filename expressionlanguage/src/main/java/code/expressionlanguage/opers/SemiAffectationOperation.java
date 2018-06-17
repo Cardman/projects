@@ -16,7 +16,7 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
@@ -190,8 +190,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             ClassField cl_ = cst_.getFieldId();
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 if (!e.getValue().isUnassignedAfter()) {
-                    ClassMetaInfo meta_ = _conf.getClassMetaInfo(cl_.getClassName());
-                    if (meta_.getFieldsInfos().getVal(cl_.getFieldName()).isFinalField()) {
+                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                    if (meta_.isFinalField()) {
                         //error if final field
                         cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

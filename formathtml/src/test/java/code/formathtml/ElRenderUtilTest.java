@@ -4426,6 +4426,59 @@ public final class ElRenderUtilTest {
         assertEq(19, (Number)res_);
     }
     @Test
+    public void processEl261Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst=6i:\n");
+        xml_.append(" $public $static $void set($int i){\n");
+        xml_.append("  inst;;;+=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach(#T i:e;.;){\n");
+        xml_.append("    t;.+=$($int)i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $Method m = $class($Method).getDeclaredMethods(\"invoke\",$false,$true,$class(java.lang.Object),$class(java.lang.Object))[0i]:\n");
+        xml_.append("  $Method mtwo = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"set\",$true,$false,$class($int))[0i]:\n");
+        xml_.append("  $return m;.invoke(mtwo;.,$null,$new [java.lang.Object[](4i)):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
+        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(arg_.isNull());
+        assertNull(cont_.getContext().getException());
+        assertEq(10, (Number)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance());
+    }
+    @Test
     public void processEl262Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -5122,6 +5175,63 @@ public final class ElRenderUtilTest {
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(19, (Number)res_);
+    }
+    @Test
+    public void processEl276Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach(#T i:e;.;){\n");
+        xml_.append("    t;.+=$($int)i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $static(pkg.Ex).inst;;;=19i:\n");
+        xml_.append("  $return $static(pkg.Ex).inst;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"super\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+        xml_.append("  $return \"out\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExConc", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(19, (Number)res_);
+    }
+    @Test
+    public void processEl277Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getAllClasses().length",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(55, (Number)res_);
     }
     @Test
     public void processAffect1Test() {

@@ -32,7 +32,10 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -831,5 +834,187 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));
         return Argument.createVoid();
+    }
+    public static Argument getField(FieldMetaInfo _meta, Argument _previous, ExecutableCode _conf) {
+        String baseClass_ = _meta.getDeclaringClass();
+        baseClass_ = Templates.getIdFromAllTypes(baseClass_);
+        String fieldName_ = _meta.getName();
+        boolean isStaticField_ = _meta.isStaticField();
+        return getField(baseClass_, fieldName_, isStaticField_, _previous, _conf, -1);
+    }
+    public static Argument getField(String _className, String _fieldName, boolean _isStaticField, Argument _previous, ExecutableCode _conf, int _possibleOffset) {
+        LgNames stds_ = _conf.getStandards();
+        String cast_;
+        cast_ = stds_.getAliasCast();
+        Argument a_ = new Argument();
+        if (_possibleOffset > -1) {
+            _conf.setOffset(_possibleOffset);
+        }
+
+        Classes classes_ = _conf.getClasses();
+        Argument arg_ = _previous;
+        ClassField fieldId_ = new ClassField(_className, _fieldName);
+        if (_isStaticField) {
+            if (InvokingOperation.hasToExit(_conf, _className)) {
+                return Argument.createVoid();
+            }
+            if (classes_.isCustomType(_className)) {
+                Struct struct_ = classes_.getStaticField(fieldId_);
+                a_ = new Argument();
+                a_.setStruct(struct_);
+                return a_;
+            }
+            ResultErrorStd res_ = LgNames.getField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE);
+            a_ = new Argument();
+            if (res_.getError() != null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            } else {
+                a_.setStruct(res_.getResult());
+            }
+            return a_;
+        }
+        String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
+        String classNameFound_ = fieldId_.getClassName();
+        String base_ = Templates.getIdFromAllTypes(argClassName_);
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+            return arg_;
+        }
+        if (arg_.getStruct() instanceof FieldableStruct) {
+            Struct struct_ = ((FieldableStruct) arg_.getStruct()).getStruct(fieldId_);
+            a_ = new Argument();
+            a_.setStruct(struct_);
+            return a_;
+        }
+        Struct default_ = arg_.getStruct();
+        ResultErrorStd res_ = LgNames.getField(_conf.getContextEl(), fieldId_, default_);
+        a_ = new Argument();
+        if (res_.getError() != null) {
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+        } else {
+            a_.setStruct(res_.getResult());
+        }
+        return a_;
+    }
+    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right,ExecutableCode _conf) {
+        String baseClass_ = _meta.getDeclaringClass();
+        baseClass_ = Templates.getIdFromAllTypes(baseClass_);
+        String fieldName_ = _meta.getName();
+        boolean isStaticField_ = _meta.isStaticField();
+        boolean isFinalField_ = _meta.isFinalField();
+        String type_ = _meta.getType();
+        return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, type_, _previous, _right, _conf, -1);
+    }
+    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset) {
+        LgNames stds_ = _conf.getStandards();
+        String cast_;
+        cast_ = stds_.getAliasCast();
+        if (_possibleOffset > -1) {
+            _conf.setOffset(_possibleOffset);
+        }
+        String fieldType_;
+        Classes classes_ = _conf.getClasses();
+        ClassField fieldId_ = new ClassField(_className, _fieldName);
+        String className_ = _className;
+        if (_isStaticField) {
+            if (_finalField) {
+                String npe_;
+                npe_ = stds_.getAliasNullPe();
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
+                return Argument.createVoid();
+            }
+            if (InvokingOperation.hasToExit(_conf, className_)) {
+                return Argument.createVoid();
+            }
+            fieldType_ = _returnType;
+            Struct check_ = _right.getStruct();
+            if (!check_.isNull()) {
+                Mapping map_ = new Mapping();
+                String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
+                map_.setArg(rightClass_);
+                map_.setParam(fieldType_);
+                if (!Templates.isCorrect(map_, _conf)) {
+                    _conf.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
+                    return Argument.createVoid();
+                }
+            } else if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
+                String npe_;
+                npe_ = stds_.getAliasNullPe();
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
+                return Argument.createVoid();
+            }
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+            if (_conf.getException() != null) {
+                return _right;
+            }
+            if (_right.getStruct() instanceof NumberStruct || _right.getStruct() instanceof CharStruct) {
+                _right.setStruct(PrimitiveTypeUtil.convertObject(cl_, _right.getStruct(), _conf));
+            }
+            if (classes_.isCustomType(className_)) {
+                classes_.initializeStaticField(fieldId_, _right.getStruct());
+                return _right;
+            }
+            ResultErrorStd result_;
+            result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
+            if (result_.getError() != null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                return _right;
+            }
+            return _right;
+        }
+        String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
+        String classNameFound_ = fieldId_.getClassName();
+        classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
+        classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
+        fieldType_ = _returnType;
+        fieldType_ = Templates.format(classNameFound_, fieldType_, _conf);
+        String base_ = Templates.getIdFromAllTypes(argClassName_);
+        classNameFound_ = fieldId_.getClassName();
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+            return Argument.createVoid();
+        }
+        if (_previous.getStruct() instanceof FieldableStruct) {
+            Struct check_ = _right.getStruct();
+            if (!check_.isNull()) {
+                Mapping map_ = new Mapping();
+                String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
+                map_.setArg(rightClass_);
+                map_.setParam(fieldType_);
+                if (!Templates.isCorrect(map_, _conf)) {
+                    _conf.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,fieldType_,RETURN_LINE,_conf.joinPages())),cast_));
+                    return Argument.createVoid();
+                }
+            } else if (PrimitiveTypeUtil.primitiveTypeNullObject(fieldType_, check_, _conf)) {
+                String npe_;
+                npe_ = stds_.getAliasNullPe();
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
+                return Argument.createVoid();
+            }
+        } else {
+            ResultErrorStd result_ = LgNames.getField(_conf.getContextEl(), fieldId_, _previous.getStruct());
+            if (result_.getError() != null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                return Argument.createVoid();
+            }
+        }
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
+        if (_conf.getException() != null) {
+            return _right;
+        }
+        if (_right.getStruct() instanceof NumberStruct || _right.getStruct() instanceof CharStruct) {
+            _right.setStruct(PrimitiveTypeUtil.convertObject(cl_, _right.getStruct(), _conf));
+        }
+        if (_previous.getStruct() instanceof FieldableStruct) {
+            ((FieldableStruct) _previous.getStruct()).setStruct(fieldId_, _right.getStruct());
+            return _right;
+        }
+        ResultErrorStd result_;
+        result_ = LgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
+        if (result_.getError() != null) {
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            return _right;
+        }
+        return _right;
     }
 }

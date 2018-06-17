@@ -15,8 +15,10 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -890,5 +892,10 @@ public class Configuration implements ExecutableCode {
     @Override
     public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
         return context.getExtendedClassMetaInfo(_name);
+    }
+
+    @Override
+    public FieldInfo getFieldInfo(ClassField _classField) {
+        return context.getFieldInfo(_classField);
     }
 }

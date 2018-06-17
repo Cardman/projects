@@ -1,32 +1,37 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 
 public final class FieldInfo {
-    private final String name;
     private final String declaringClass;
-    private final String declaringBaseClass;
     private final String type;
     private final String realType;
     private final boolean staticField;
     private final boolean finalField;
     private final boolean enumField;
-    public FieldInfo(String _name,String _declaringClass, String _type, String _realType,
+    private final ClassField classField;
+    private FieldInfo(String _name,String _declaringClass, String _type, String _realType,
             boolean _staticField, boolean _finalField, boolean _enumField) {
-        name = _name;
         declaringClass = _declaringClass;
-        declaringBaseClass = Templates.getIdFromAllTypes(_declaringClass);
+        String declaringBaseClass_ = Templates.getIdFromAllTypes(_declaringClass);
+        classField = new ClassField(declaringBaseClass_, _name);
         type = _type;
         realType = _realType;
         staticField = _staticField;
         finalField = _finalField;
         enumField = _enumField;
     }
-    public String getName() {
-        return name;
+    public static FieldInfo newFieldInfo(String _name,String _declaringClass, String _type,
+            boolean _staticField, boolean _finalField, boolean _enumField, Analyzable _cont, boolean _eqType) {
+        String formattedType_ = _type;
+        if (!_eqType) {
+            formattedType_ = Templates.generalFormat(_declaringClass, formattedType_, _cont);
+        }
+        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _enumField);
     }
-    public String getDeclaringBaseClass() {
-        return declaringBaseClass;
+    public ClassField getClassField() {
+        return classField;
     }
     public String getDeclaringClass() {
         return declaringClass;

@@ -37,6 +37,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -1673,8 +1674,7 @@ public final class Classes {
             }
             for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
                 ClassField key_ = a.getKey();
-                ClassMetaInfo cl_ = _context.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
+                FieldInfo finfo_ = _context.getFieldInfo(key_);
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
@@ -1815,9 +1815,8 @@ public final class Classes {
                     if (!StringList.quickEq(curCur_, c.getKey())) {
                         continue;
                     }
-                    ClassMetaInfo cl_ = _context.getClassMetaInfo(curCur_);
                     String fieldName_ = key_.getFieldName();
-                    FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(fieldName_);
+                    FieldInfo finfo_ = _context.getFieldInfo(key_);
                     if (!finfo_.isFinalField()) {
                         continue;
                     }
@@ -2307,6 +2306,10 @@ public final class Classes {
         return classesBodies.values();
     }
 
+    public StringMap<RootBlock> getClassesBodies() {
+        return classesBodies;
+    }
+
     public RootBlock getClassBody(String _className) {
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             if (!StringList.quickEq(c.getKey(), _className)) {
@@ -2546,7 +2549,7 @@ public final class Classes {
                     boolean enumElement_ = b instanceof ElementBlock;
                     boolean staticElement_ = method_.isStaticField();
                     boolean finalElement_ = method_.isFinalField();
-                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, enumElement_);
+                    FieldMetaInfo met_ = new FieldMetaInfo(_name, m_, ret_, staticElement_, finalElement_, enumElement_);
                     infosFields_.put(m_, met_);
                 }
                 if (b instanceof MethodBlock) {

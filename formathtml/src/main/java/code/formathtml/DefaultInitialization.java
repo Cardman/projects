@@ -149,6 +149,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
         _lgNames.setAliasMakeGeneric("makeGeneric");
+        _lgNames.setAliasGetAllClasses("getAllClasses");
         _lgNames.setAliasConstructor("$Constructor");
         _lgNames.setAliasField("$Field");
         _lgNames.setAliasMethod("$Method");

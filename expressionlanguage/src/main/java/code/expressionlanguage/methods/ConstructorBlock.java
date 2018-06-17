@@ -10,9 +10,8 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.sml.Element;
@@ -215,8 +214,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         for (EntryCust<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<ClassField, SimpleAssignment> f: r.getValue().entryList()) {
                 ClassField key_ = f.getKey();
-                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
+                FieldInfo finfo_ = _an.getFieldInfo(key_);
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
@@ -237,8 +235,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
             AssignedVariables assTar_ = id_.getVal(this);
             for (EntryCust<ClassField, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
                 ClassField key_ = f.getKey();
-                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
+                FieldInfo finfo_ = _an.getFieldInfo(key_);
                 if (!finfo_.isFinalField()) {
                     continue;
                 }

@@ -7,8 +7,10 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -56,6 +58,7 @@ public interface Analyzable {
     void setAmbigous(boolean _ambigous);
     ClassMetaInfo getExtendedClassMetaInfo(String _name);
     ClassMetaInfo getClassMetaInfo(String _name);
+    FieldInfo getFieldInfo(ClassField _classField);
     CustList<GeneMethod> getMethodBodiesById(String _genericClassName, MethodId _id);
     int getCurrentChildTypeIndex();
     void setCurrentChildTypeIndex(int _index);

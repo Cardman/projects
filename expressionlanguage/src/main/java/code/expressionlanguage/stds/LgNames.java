@@ -13,13 +13,24 @@ import code.expressionlanguage.NumberInfos;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ConstructorBlock;
+import code.expressionlanguage.methods.ElementBlock;
+import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.methods.InfoBlock;
+import code.expressionlanguage.methods.InterfaceBlock;
+import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.PredefinedClasses;
+import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -28,6 +39,7 @@ import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.DoubleStruct;
 import code.expressionlanguage.opers.util.EnumerableStruct;
+import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
@@ -233,6 +245,7 @@ public abstract class LgNames {
     private String aliasGetDeclaredConstructors;
     private String aliasGetDeclaredFields;
     private String aliasMakeGeneric;
+    private String aliasGetAllClasses;
     private String aliasConstructor;
     private String aliasField;
     private String aliasMethod;
@@ -1027,6 +1040,9 @@ public abstract class LgNames {
         params_ = new StringList(aliasClass);
         method_ = new StandardMethod(aliasMakeGeneric, params_, aliasClass, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAllClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         getStandards().put(aliasClass, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -1398,6 +1414,110 @@ public abstract class LgNames {
         if (StringList.quickEq(type_, aliasClass_)) {
             if (StringList.quickEq(name_, lgNames_.aliasGetName)) {
                 result_.setResult(new StringStruct(((ClassMetaInfo)_struct).getName()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.aliasGetAllClasses)) {
+                CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
+                for (EntryCust<String, RootBlock> c: _cont.getClasses().getClassesBodies().entryList()) {
+                    ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
+                    infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+                    StringMap<FieldMetaInfo> infosFields_;
+                    infosFields_ = new StringMap<FieldMetaInfo>();
+                    ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
+                    infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+                    String k_ = c.getKey();
+                    RootBlock clblock_ = c.getValue();
+                    String forName_ = Templates.getGenericString(k_, _cont);
+                    CustList<Block> bl_ = Classes.getDirectChildren(clblock_);
+                    for (Block b: bl_) {
+                        if (b instanceof InfoBlock) {
+                            InfoBlock method_ = (InfoBlock) b;
+                            String m_ = method_.getFieldName();
+                            String ret_ = _cont.resolveDynamicType(method_.getClassName());
+                            boolean enumElement_ = b instanceof ElementBlock;
+                            boolean staticElement_ = method_.isStaticField();
+                            boolean finalElement_ = method_.isFinalField();
+                            FieldMetaInfo met_ = new FieldMetaInfo(forName_, m_, ret_, staticElement_, finalElement_, enumElement_);
+                            infosFields_.put(m_, met_);
+                        }
+                        if (b instanceof MethodBlock) {
+                            MethodBlock method_ = (MethodBlock) b;
+                            MethodId id_ = method_.getId(_cont);
+                            String ret_ = method_.getReturnType(_cont);
+                            MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), id_, method_.getModifier(), ret_);
+                            infos_.put(id_, met_);
+                        }
+                        if (b instanceof ConstructorBlock) {
+                            ConstructorBlock method_ = (ConstructorBlock) b;
+                            ConstructorId id_ = method_.getGenericId(_cont);
+                            ConstructorMetaInfo met_ = new ConstructorMetaInfo(forName_, id_);
+                            infosConst_.put(id_, met_);
+                        }
+                    }
+                    if (clblock_ instanceof InterfaceBlock) {
+                        classes_.add(new ClassMetaInfo(forName_, ((InterfaceBlock)clblock_).getDirectGenericSuperClasses(_cont), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
+                        continue;
+                    }
+                    ClassCategory cat_ = ClassCategory.CLASS;
+                    if (clblock_ instanceof EnumBlock) {
+                        cat_ = ClassCategory.ENUM;
+                    } else if (clblock_ instanceof InterfaceBlock) {
+                        cat_ = ClassCategory.INTERFACE;
+                    }
+                    boolean abs_ = clblock_.isAbstractType();
+                    boolean final_ = clblock_.isFinalType();
+                    classes_.add(new ClassMetaInfo(forName_, ((UniqueRootedBlock) clblock_).getGenericSuperClass(_cont), infosFields_,infos_, infosConst_, cat_, abs_, final_));
+                }
+                for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
+                    ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
+                    infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+                    StringMap<FieldMetaInfo> infosFields_;
+                    infosFields_ = new StringMap<FieldMetaInfo>();
+                    ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
+                    infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+                    String k_ = c.getKey();
+                    String forName_ = Templates.getGenericString(k_, _cont);
+                    StandardType clblock_ = c.getValue();
+                    for (StandardField f: clblock_.getFields().values()) {
+                        String m_ = f.getFieldName();
+                        String ret_ = f.getClassName();
+                        boolean staticElement_ = f.isStaticField();
+                        boolean finalElement_ = f.isFinalField();
+                        FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, false);
+                        infosFields_.put(m_, met_);
+                    }
+                    for (StandardMethod m: clblock_.getMethods().values()) {
+                        MethodId id_ = m.getId();
+                        String ret_ = m.getReturnType(_cont);
+                        MethodMetaInfo met_ = new MethodMetaInfo(m.getDeclaringType(), id_, m.getModifier(), ret_);
+                        infos_.put(id_, met_);
+                    }
+                    for (StandardConstructor d: clblock_.getConstructors()) {
+                        ConstructorId id_ = d.getGenericId();
+                        ConstructorMetaInfo met_ = new ConstructorMetaInfo(forName_, id_);
+                        infosConst_.put(id_, met_);
+                    }
+                    if (clblock_ instanceof StandardInterface) {
+                        classes_.add(new ClassMetaInfo(forName_, ((StandardInterface)clblock_).getDirectGenericSuperClasses(_cont), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
+                        continue;
+                    }
+                    ClassCategory cat_ = ClassCategory.CLASS;
+                    if (clblock_ instanceof StandardInterface) {
+                        cat_ = ClassCategory.INTERFACE;
+                    }
+                    boolean abs_ = clblock_.isAbstractType();
+                    boolean final_ = clblock_.isFinalType();
+                    classes_.add(new ClassMetaInfo(forName_, ((StandardClass) clblock_).getGenericSuperClass(_cont), infosFields_,infos_, infosConst_, cat_, abs_, final_));
+                }
+                Struct[] ctorsArr_ = new Struct[classes_.size()];
+                int index_ = 0;
+                for (ClassMetaInfo e: classes_) {
+                    ctorsArr_[index_] = e;
+                    index_++;
+                }
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasClass);
+                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+                result_.setResult(str_);
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.aliasGetClass)) {
@@ -4733,6 +4853,12 @@ public abstract class LgNames {
     }
     public void setAliasMakeGeneric(String _aliasMakeGeneric) {
         aliasMakeGeneric = _aliasMakeGeneric;
+    }
+    public String getAliasGetAllClasses() {
+        return aliasGetAllClasses;
+    }
+    public void setAliasGetAllClasses(String _aliasGetAllClasses) {
+        aliasGetAllClasses = _aliasGetAllClasses;
     }
     public String getAliasConstructor() {
         return aliasConstructor;

@@ -25,8 +25,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.Struct;
@@ -547,8 +546,7 @@ public final class ElUtil {
             return;
         }
         ClassField key_ = _current.getClassField();
-        ClassMetaInfo cm_ = _context.getClassMetaInfo(key_.getClassName());
-        FieldMetaInfo fm_ = cm_.getFieldsInfos().getVal(key_.getFieldName());
+        FieldInfo fm_ = _context.getFieldInfo(key_);
         Struct str_ = arg_.getStruct();
         str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _context);
         _current.setStruct(str_);

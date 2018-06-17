@@ -32,8 +32,7 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -545,9 +544,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 continue;
             }
             ClassField key_ = e.getKey();
-            ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-            FieldMetaInfo fm_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
-            if (!fm_.isFinalField()) {
+            FieldInfo meta_ = _an.getFieldInfo(key_);
+            if (!meta_.isFinalField()) {
                 continue;
             }
             for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {

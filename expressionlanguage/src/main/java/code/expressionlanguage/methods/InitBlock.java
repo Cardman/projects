@@ -5,8 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.sml.Element;
@@ -67,8 +66,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
         for (EntryCust<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
             for (EntryCust<ClassField, SimpleAssignment> f: r.getValue().entryList()) {
                 ClassField key_ = f.getKey();
-                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
+                FieldInfo finfo_ = _an.getFieldInfo(key_);
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
@@ -89,8 +87,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
             AssignedVariables assTar_ = id_.getVal(this);
             for (EntryCust<ClassField, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
                 ClassField key_ = f.getKey();
-                ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-                FieldMetaInfo finfo_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
+                FieldInfo finfo_ = _an.getFieldInfo(key_);
                 if (!finfo_.isFinalField()) {
                     continue;
                 }

@@ -12,6 +12,7 @@ import code.expressionlanguage.methods.CustomFoundBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
+import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InitBlock;
@@ -39,6 +40,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.EnumerableStruct;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
@@ -483,7 +485,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
-        if (classes == null || !classes.isCustomType(_name)) {
+        if (!classes.isCustomType(_name)) {
             String base_ = Templates.getIdFromAllTypes(_name);
             LgNames stds_ = getStandards();
             for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
@@ -1332,5 +1334,41 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return new ClassMetaInfo(_name, this, ClassCategory.ARRAY);
         }
         return getClassMetaInfo(_name);
+    }
+
+    @Override
+    public FieldInfo getFieldInfo(ClassField _classField) {
+        GeneType g_ = getClassBody(_classField.getClassName());
+        if (g_ instanceof RootBlock) {
+            for (Block b: Classes.getDirectChildren((Block) g_)) {
+                if (!(b instanceof InfoBlock)) {
+                    continue;
+                }
+                InfoBlock i_ = (InfoBlock) b;
+                String name_ = i_.getFieldName();
+                if (!StringList.quickEq(name_, _classField.getFieldName())) {
+                    continue;
+                }
+                String type_ = i_.getClassName();
+                type_ = resolveType(type_, false);
+                boolean final_ = i_.isFinalField();
+                boolean static_ = i_.isStaticField();
+                return FieldInfo.newFieldInfo(name_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock, this, true);
+            }
+        } else if (g_ instanceof StandardType) {
+            for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
+                StandardField f_ = f.getValue();
+                String name_ = f_.getFieldName();
+                if (!StringList.quickEq(name_, _classField.getFieldName())) {
+                    continue;
+                }
+                String type_ = f_.getClassName();
+                type_ = resolveType(type_, false);
+                boolean final_ = f_.isFinalField();
+                boolean static_ = f_.isStaticField();
+                return FieldInfo.newFieldInfo(name_, g_.getFullName(), type_, static_, final_, false, this, true);
+            }
+        }
+        return null;
     }
 }

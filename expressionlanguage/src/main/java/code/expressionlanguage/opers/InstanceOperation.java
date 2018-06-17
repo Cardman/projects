@@ -10,9 +10,12 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.common.GeneInterface;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
+import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -25,8 +28,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassCategory;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -260,9 +261,9 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
-        ClassMetaInfo custClass_ = null;
-        custClass_ = _conf.getClassMetaInfo(realClassName_);
-        if (custClass_ == null) {
+        String base_ = Templates.getIdFromAllTypes(realClassName_);
+        GeneType g_ = _conf.getClassBody(base_);
+        if (g_ == null) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
@@ -271,7 +272,7 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
-        if (custClass_.isAbstractType() && custClass_.getCategory() != ClassCategory.ENUM) {
+        if (g_.isAbstractType() && !(g_ instanceof EnumBlock)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
@@ -280,7 +281,7 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
-        if (custClass_.getCategory() == ClassCategory.INTERFACE) {
+        if (g_ instanceof GeneInterface) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
@@ -289,7 +290,7 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
-        if (custClass_.getCategory() == ClassCategory.ENUM) {
+        if (g_ instanceof EnumBlock) {
             if (fieldName.isEmpty()) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);

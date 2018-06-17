@@ -29,7 +29,6 @@ import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMatching;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdResult;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -38,7 +37,6 @@ import code.expressionlanguage.opers.util.ConstructorInfo;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldInfo;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.opers.util.MethodId;
@@ -511,29 +509,27 @@ public abstract class OperationNode {
             if (StringList.quickEq(s, objectType_)) {
                 continue;
             }
-            ClassMetaInfo custClass_;
-            custClass_ = _cont.getClassMetaInfo(s);
-            for (EntryCust<String, FieldMetaInfo> e: custClass_.getFieldsInfos().entryList()) {
-                if (!StringList.quickEq(e.getKey(), _name)) {
-                    continue;
-                }
-                if (_static) {
-                    if (!e.getValue().isStaticField()) {
-                        continue;
-                    }
-                } else {
-                    if (e.getValue().isStaticField()) {
-                        continue;
-                    }
-                }
-                if (!Classes.canAccessField(base_, s, _name, _cont)) {
-                    continue;
-                }
-                if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
-                    continue;
-                }
-                fields_.add(new ClassField(s, _name));
+            ClassField candidate_ = new ClassField(s, _name);
+            FieldInfo fi_ = _cont.getFieldInfo(candidate_);
+            if (fi_ == null) {
+                continue;
             }
+            if (_static) {
+                if (!fi_.isStaticField()) {
+                    continue;
+                }
+            } else {
+                if (fi_.isStaticField()) {
+                    continue;
+                }
+            }
+            if (!Classes.canAccessField(base_, s, _name, _cont)) {
+                continue;
+            }
+            if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
+                continue;
+            }
+            fields_.add(candidate_);
         }
         if (fields_.isEmpty()) {
             FieldResult r_ = new FieldResult();
@@ -553,14 +549,11 @@ public abstract class OperationNode {
         }
         cl_ = subs_.first();
         String formatted_ = Templates.getFullTypeByBases(clCurName_, cl_, _cont);
-        ClassMetaInfo custClass_;
-        custClass_ = _cont.getClassMetaInfo(cl_);
-        FieldMetaInfo field_ = custClass_.getFieldsInfos().getVal(_name);
+        FieldInfo field_ = _cont.getFieldInfo(new ClassField(cl_, _name));
         FieldResult r_ = new FieldResult();
-        String formattedType_ = field_.getType();
-        String realType_ = formattedType_;
-        formattedType_ = Templates.generalFormat(formatted_, formattedType_, _cont);
-        FieldInfo f_ = new FieldInfo(_name, formatted_, formattedType_, realType_, _static, field_.isFinalField(), field_.isEnumElement());
+        String realType_ = field_.getType();
+        realType_ = _cont.resolveType(realType_, false);
+        FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, false);
         r_.setId(f_);
         r_.setStatus(SearchingMemberStatus.UNIQ);
         return r_;
@@ -568,12 +561,7 @@ public abstract class OperationNode {
     
     static ConstrustorIdVarArg getDeclaredCustConstructor(Analyzable _conf, int _varargOnly, ClassArgumentMatching _class,
     ClassArgumentMatching... _args) {
-        ClassMetaInfo custClass_ = null;
         String clCurName_ = _class.getName();
-        custClass_ = _conf.getClassMetaInfo(clCurName_);
-        if (custClass_ == null) {
-            return null;
-        }
         LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getGlobalClass();
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();

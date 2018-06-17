@@ -22,8 +22,7 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
@@ -194,8 +193,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 continue;
             }
             ClassField key_ = e.getKey();
-            ClassMetaInfo cl_ = _an.getClassMetaInfo(key_.getClassName());
-            FieldMetaInfo fm_ = cl_.getFieldsInfos().getVal(key_.getFieldName());
+            FieldInfo fm_ = _an.getFieldInfo(key_);
             if (!fm_.isFinalField()) {
                 continue;
             }
