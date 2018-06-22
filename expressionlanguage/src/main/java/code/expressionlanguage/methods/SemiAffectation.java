@@ -78,7 +78,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(leftMemberOffset);
         page_.setOffset(0);
-        opLeft = ElUtil.getAnalyzedOperations(leftMember, _cont, new Calculation(false, f_.isStaticContext(), EMPTY_STRING, true));
+        opLeft = ElUtil.getAnalyzedOperations(leftMember, _cont, new Calculation(f_.isStaticContext(), EMPTY_STRING, true));
         if (opLeft.isEmpty()) {
             return;
         }

@@ -297,22 +297,14 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         _cont.getAnalyzing().putVar(variableName, lv_);
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
         for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
-            BooleanAssignment ba_ = new BooleanAssignment();
-            ba_.setAssignedAfterWhenFalse(true);
-            ba_.setUnassignedAfterWhenFalse(true);
-            ba_.setAssignedAfterWhenTrue(e.getValue().isAssignedAfter());
-            ba_.setUnassignedAfterWhenTrue(e.getValue().isUnassignedAfter());
+            BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
             res_.getFieldsRootAfter().put(e.getKey(), ba_);
         }
         for (StringMap<Assignment> s: res_.getVariables().lastValue()) {
             StringMap<BooleanAssignment> sm_;
             sm_ = new StringMap<BooleanAssignment>();
             for (EntryCust<String,Assignment> e: s.entryList()) {
-                BooleanAssignment ba_ = new BooleanAssignment();
-                ba_.setAssignedAfterWhenFalse(true);
-                ba_.setUnassignedAfterWhenFalse(true);
-                ba_.setAssignedAfterWhenTrue(e.getValue().isAssignedAfter());
-                ba_.setUnassignedAfterWhenTrue(e.getValue().isUnassignedAfter());
+                BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
                 sm_.put(e.getKey(), ba_);
             }
             res_.getVariablesRootAfter().add(sm_);
@@ -440,6 +432,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             }
             int index_ = 0;
             for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+                if (index_ >= varsHypot_.size()) {
+                    continue;
+                }
                 for (EntryCust<String,AssignmentBefore> f: s.entryList()) {
                     if (!f.getValue().isUnassignedBefore()) {
                         varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
@@ -522,8 +517,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                     if (f.getValue() != this) {
                         continue;
                     }
+                    CustList<StringMap<AssignmentBefore>> list_;
+                    list_ = id_.getVal(f.getKey()).getVariablesRootBefore();
+                    if (!list_.isValidIndex(index_)) {
+                        continue;
+                    }
                     StringMap<AssignmentBefore> assB_;
-                    assB_ = id_.getVal(f.getKey()).getVariablesRootBefore().get(index_);
+                    assB_ = list_.get(index_);
                     if (!assB_.contains(e.getKey())) {
                         continue;
                     }
@@ -579,7 +579,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 continue;
             }
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) set_;
-            if (!cst_.getFieldId().eq(_field)) {
+            if (!cst_.matchFieldId(_field)) {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
@@ -602,14 +602,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 if (e.getValue().isAssignedBefore()) {
                     continue;
                 }
-                if (!_an.getLocalVariables().isValidIndex(index_)) {
-                    continue;
-                }
                 String key_ = e.getKey();
-                StringMap<LocalVariable> varLocs_;
-                varLocs_ = _an.getLocalVariables().get(index_);
-                LocalVariable varLoc_ = varLocs_.getVal(key_);
-                if (!varLoc_.isFinalVariable()) {
+                LocalVariable varLoc_ = _an.getLocalVar(key_,index_);
+                if (varLoc_ != null && !varLoc_.isFinalVariable()) {
                     continue;
                 }
                 for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {

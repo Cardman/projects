@@ -203,8 +203,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     knowns_.add(arg_.getStruct());
                     childrenKnowns_.add(case_);
                 } else {
-                    enums_.add(case_.getFieldId());
-                    childrenFields_.add(case_);
+                    ClassField cl_ = case_.getFieldId();
+                    if (cl_ != null) {
+                        enums_.add(cl_);
+                        childrenFields_.add(case_);
+                    }
                 }
             }
             ch_ = ch_.getNextSibling();
@@ -225,8 +228,11 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 knowns_.add(arg_.getStruct());
                 childrenKnowns_.add(case_);
             } else {
-                enums_.add(case_.getFieldId());
-                childrenFields_.add(case_);
+                ClassField cl_ = case_.getFieldId();
+                if (cl_ != null) {
+                    enums_.add(cl_);
+                    childrenFields_.add(case_);
+                }
             }
         }
         int lenTab_ = knowns_.size();

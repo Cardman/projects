@@ -15,10 +15,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.InterfaceInvokingConstructor;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SuperInvokingConstructor;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 
@@ -73,22 +70,7 @@ public final class Line extends Leaf implements StackableBlock {
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _cont.setRootAffect(true);
-        Block previous_ = getPreviousSibling();
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_));
-        if (previous_ instanceof DeclareVariable) {
-            DeclareVariable dc_ = (DeclareVariable) previous_;
-            if (dc_.isMerged()) {
-                LocalVariable lv_ = new LocalVariable();
-                String clName_ = dc_.getClassName();
-                lv_.setClassName(_cont.resolveType(clName_, false));
-                lv_.setFinalVariable(dc_.isFinalVariable());
-                String varName_ = dc_.getVariableName();
-                _cont.putLocalVar(varName_, lv_);
-                AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
-                AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-                ass_.getVariablesRoot().last().put(varName_,Assignment.assignClassic(true, false));
-            }
-        }
         _cont.setMerged(false);
         _cont.setFinalVariable(false);
     }

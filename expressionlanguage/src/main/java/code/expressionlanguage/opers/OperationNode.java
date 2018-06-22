@@ -269,7 +269,7 @@ public abstract class OperationNode {
                         ch_ = ch_.getNextSibling();
                     }
                     if (ch_.getResultClass().isArray()) {
-                        return new ArrayFieldOperation(_indexChild, _index, _m, _op);
+                        return new ArrayFieldOperation(_index, _indexChild, _m, _op);
                     }
                 }
                 return new StandardFieldOperation(_index, _indexChild, _m, _op);

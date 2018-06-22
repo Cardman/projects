@@ -107,26 +107,22 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 abr_ = false;
             }
         }
-        if (abr_) {
-            if (!proc_) {
-                IdMap<ContinueBlock, Loop> breakables_;
-                breakables_ = _anEl.getContinuables();
-                for (EntryCust<ContinueBlock, Loop> e: breakables_.entryList()) {
-                    if (e.getValue() == previous_ && _anEl.isReachable(e.getKey())) {
-                        abr_ = false;
-                        break;
-                    }
-                }
-            }
-        }
-        if (abr_) {
-            IdMap<BreakBlock, BreakableBlock> breakables_;
-            breakables_ = _anEl.getBreakables();
-            for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
+        if (!proc_) {
+            IdMap<ContinueBlock, Loop> breakables_;
+            breakables_ = _anEl.getContinuables();
+            for (EntryCust<ContinueBlock, Loop> e: breakables_.entryList()) {
                 if (e.getValue() == previous_ && _anEl.isReachable(e.getKey())) {
                     abr_ = false;
                     break;
                 }
+            }
+        }
+        IdMap<BreakBlock, BreakableBlock> breakables_;
+        breakables_ = _anEl.getBreakables();
+        for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
+            if (e.getValue() == previous_ && _anEl.isReachable(e.getKey())) {
+                abr_ = false;
+                break;
             }
         }
         if (abr_) {
@@ -164,6 +160,9 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         varsDo_.getFieldsRootBefore().putAllMap(fieldsHypot_);
         int index_ = 0;
         for (StringMap<BooleanAssignment> s: varsWhile_.getVariablesRootAfter()) {
+            if (index_ >= varsHypot_.size()) {
+                continue;
+            }
             for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
                 BooleanAssignment ba_ = e.getValue();
                 if (!ba_.isUnassignedAfterWhenTrue()) {
@@ -213,14 +212,9 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 if (e.getValue().isAssignedBefore()) {
                     continue;
                 }
-                if (!_an.getLocalVariables().isValidIndex(indexDoWhile_)) {
-                    continue;
-                }
                 String key_ = e.getKey();
-                StringMap<LocalVariable> varLocs_;
-                varLocs_ = _an.getLocalVariables().get(indexDoWhile_);
-                LocalVariable varLoc_ = varLocs_.getVal(key_);
-                if (!varLoc_.isFinalVariable()) {
+                LocalVariable varLoc_ = _an.getLocalVar(key_,indexDoWhile_);
+                if (varLoc_ != null && !varLoc_.isFinalVariable()) {
                     continue;
                 }
                 for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
@@ -268,8 +262,12 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                     if (f.getValue() != dBlock_) {
                         continue;
                     }
-                    StringMap<AssignmentBefore> set_;
-                    set_ = id_.getVal(f.getKey()).getVariablesRootBefore().get(index_);
+                    CustList<StringMap<AssignmentBefore>> list_;
+                    list_ = id_.getVal(f.getKey()).getVariablesRootBefore();
+                    if (!list_.isValidIndex(index_)) {
+                        continue;
+                    }
+                    StringMap<AssignmentBefore> set_ = list_.get(index_);
                     if (!set_.contains(e.getKey())) {
                         continue;
                     }
@@ -301,7 +299,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 continue;
             }
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) set_;
-            if (!cst_.getFieldId().eq(_field)) {
+            if (!cst_.matchFieldId(_field)) {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);

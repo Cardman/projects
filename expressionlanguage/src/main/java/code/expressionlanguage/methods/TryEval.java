@@ -9,11 +9,13 @@ import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -171,13 +173,23 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                     if (f.getKey() instanceof Throwing) {
                         //throwing clause => test just after the root
                         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(f.getKey());
-                        if (!vars_.getVariables().lastValue().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                        CustList<StringMap<Assignment>> list_ = vars_.getVariables().lastValue();
+                        if (!list_.isValidIndex(index_)) {
+                            continue;
+                        }
+                        if (!list_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
                             unass_ = false;
                             break;
                         }
-                    } else if (!f.getValue().getVariablesRootBefore().get(index_).getVal(e.getKey()).isUnassignedBefore()) {
-                        unass_ = false;
-                        break;
+                    } else {
+                        CustList<StringMap<AssignmentBefore>> list_ = f.getValue().getVariablesRootBefore();
+                        if (!list_.isValidIndex(index_)) {
+                            continue;
+                        }
+                        if (!list_.get(index_).getVal(e.getKey()).isUnassignedBefore()) {
+                            unass_ = false;
+                            break;
+                        }
                     }
                 }
                 if (unass_) {

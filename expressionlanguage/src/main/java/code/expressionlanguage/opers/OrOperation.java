@@ -38,13 +38,7 @@ public final class OrOperation extends QuickOperation {
         ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
         for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
             BooleanAssignment b_ = e.getValue().toBoolAssign();
-            AssignmentBefore a_ = new AssignmentBefore();
-            if (b_.isAssignedAfterWhenFalse()) {
-                a_.setAssignedBefore(true);
-            }
-            if (b_.isUnassignedAfterWhenFalse()) {
-                a_.setUnassignedBefore(true);
-            }
+            AssignmentBefore a_ = b_.copyWhenFalse();
             fieldsBefore_.put(e.getKey(), a_);
         }
         vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
@@ -53,13 +47,7 @@ public final class OrOperation extends QuickOperation {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = new AssignmentBefore();
-                if (b_.isAssignedAfterWhenFalse()) {
-                    a_.setAssignedBefore(true);
-                }
-                if (b_.isUnassignedAfterWhenFalse()) {
-                    a_.setUnassignedBefore(true);
-                }
+                AssignmentBefore a_ = b_.copyWhenFalse();
                 sm_.put(e.getKey(), a_);
             }
             variablesBefore_.add(sm_);
@@ -82,20 +70,8 @@ public final class OrOperation extends QuickOperation {
         CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(prev_);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
             BooleanAssignment b_ = e.getValue().toBoolAssign();
-            BooleanAssignment r_ = new BooleanAssignment();
-            if (b_.isAssignedAfterWhenFalse()) {
-                r_.setAssignedAfterWhenFalse(true);
-            }
-            if (b_.isUnassignedAfterWhenFalse()) {
-                r_.setUnassignedAfterWhenFalse(true);
-            }
             BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();
-            if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
-                r_.setAssignedAfterWhenTrue(true);
-            }
-            if (b_.isUnassignedAfterWhenTrue() && p_.isUnassignedAfterWhenTrue()) {
-                r_.setUnassignedAfterWhenTrue(true);
-            }
+            BooleanAssignment r_ = b_.or(p_);
             fieldsAfter_.put(e.getKey(), r_);
         }
         vars_.getFields().put(this, fieldsAfter_);
@@ -104,20 +80,8 @@ public final class OrOperation extends QuickOperation {
             int index_ = variablesAfter_.size();
             for (EntryCust<String, Assignment> e: s.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
-                BooleanAssignment r_ = new BooleanAssignment();
-                if (b_.isAssignedAfterWhenFalse()) {
-                    r_.setAssignedAfterWhenFalse(true);
-                }
-                if (b_.isUnassignedAfterWhenFalse()) {
-                    r_.setUnassignedAfterWhenFalse(true);
-                }
                 BooleanAssignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey()).toBoolAssign();
-                if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
-                    r_.setAssignedAfterWhenTrue(true);
-                }
-                if (b_.isUnassignedAfterWhenTrue() && p_.isUnassignedAfterWhenTrue()) {
-                    r_.setUnassignedAfterWhenTrue(true);
-                }
+                BooleanAssignment r_ = b_.or(p_);
                 sm_.put(e.getKey(), r_);
             }
             variablesAfter_.add(sm_);

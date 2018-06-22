@@ -35,8 +35,10 @@ public interface Analyzable {
     LoopVariable getVar(String _key);
 
     CustList<StringMap<LocalVariable>> getLocalVariables();
-
+    LocalVariable getLocalVar(String _key, int _index);
+    boolean containsLocalVar(String _string);
     LocalVariable getLocalVar(String _key);
+    void putLocalVar(String _string, LocalVariable _loc);
 
     LocalVariable getCatchVar(String _key);
 

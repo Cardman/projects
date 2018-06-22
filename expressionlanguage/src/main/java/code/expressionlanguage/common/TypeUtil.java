@@ -8,6 +8,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AloneBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.RootBlock;
@@ -18,12 +19,14 @@ import code.expressionlanguage.methods.util.BadReturnTypeInherit;
 import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.FinalMethod;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
 import code.expressionlanguage.stds.LgNames;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -66,9 +69,36 @@ public final class TypeUtil {
                 StringList ints_ = bl_.getStaticInitInterfaces();
                 int len_ = ints_.size();
                 for (int i = 0; i < len_; i++) {
-                    String sup_ = StringList.removeAllSpaces(ints_.get(i));
+                    int offset_ = bl_.getStaticInitInterfacesOffset().get(i);
+                    String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
+                    RowCol rc_ = bl_.getRowCol(0, offset_);
+                    base_ = _context.resolveType(base_, false);
+                    RootBlock r_ = classes_.getClassBody(base_);
+                    if (r_ == null) {
+                        UnknownClassName undef_;
+                        undef_ = new UnknownClassName();
+                        undef_.setClassName(base_);
+                        undef_.setFileName(d_);
+                        undef_.setRc(rc_);
+                        classes_.getErrorsDet().add(undef_);
+                        continue;
+                    }
+                    if (!(r_ instanceof InterfaceBlock)) {
+                        BadInheritedClass enum_;
+                        enum_ = new BadInheritedClass();
+                        String n_ = base_;
+                        enum_.setClassName(n_);
+                        enum_.setFileName(d_);
+                        enum_.setRc(rc_);
+                        classes_.getErrorsDet().add(enum_);
+                    }
+                }
+                for (int i = 0; i < len_; i++) {
+                    String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
+                    sup_ = _context.resolveType(sup_, false);
                     for (int j = i + 1; j < len_; j++) {
-                        String sub_ = StringList.removeAllSpaces(ints_.get(j));
+                        String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
+                        sub_ = _context.resolveType(sub_, false);
                         if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
                             BadInheritedClass undef_;
                             undef_ = new BadInheritedClass();

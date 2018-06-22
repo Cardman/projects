@@ -1026,33 +1026,6 @@ public final class Classes {
                 }
                 inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
             }
-            index_ = -1;
-            for (String t: bl_.getStaticInitInterfaces()) {
-                index_++;
-                int offset_ = bl_.getStaticInitInterfacesOffset().get(index_);
-                String base_ = StringList.removeAllSpaces(t);
-                RowCol rc_ = bl_.getRowCol(0, offset_);
-                base_ = _context.resolveBaseType(base_, bl_,rc_);
-                RootBlock r_ = classesBodies.getVal(base_);
-                if (r_ == null) {
-                    UnknownClassName undef_;
-                    undef_ = new UnknownClassName();
-                    undef_.setClassName(base_);
-                    undef_.setFileName(d_);
-                    undef_.setRc(rc_);
-                    errorsDet.add(undef_);
-                    continue;
-                }
-                if (!(r_ instanceof InterfaceBlock)) {
-                    BadInheritedClass enum_;
-                    enum_ = new BadInheritedClass();
-                    String n_ = base_;
-                    enum_.setClassName(n_);
-                    enum_.setFileName(d_);
-                    enum_.setRc(rc_);
-                    errorsDet.add(enum_);
-                }
-            }
             if (nbDirectSuperClass_ > 1) {
                 BadInheritedClass enum_;
                 enum_ = new BadInheritedClass();

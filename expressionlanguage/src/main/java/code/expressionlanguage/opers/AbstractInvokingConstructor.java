@@ -67,7 +67,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
-        checkPositionBasis(_conf);
         String clCurName_ = _conf.getGlobalClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -78,6 +77,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         ClassArgumentMatching clArg_ = getFrom(_conf);
         if (clArg_ == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
+            checkPositionBasis(_conf);
             return;
         }
         ConstrustorIdVarArg ctorRes_;
@@ -95,6 +95,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             und_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().getErrorsDet().add(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
+            checkPositionBasis(_conf);
             return;
         }
         constId = ctorRes_.getRealId();
@@ -106,6 +107,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             badAccess_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().getErrorsDet().add(badAccess_);
         }
+        checkPositionBasis(_conf);
         postAnalysis(_conf, ctorRes_, chidren_, firstArgs_);
     }
 

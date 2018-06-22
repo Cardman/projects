@@ -145,19 +145,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
         for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
             BooleanAssignment b_ = e.getValue().toBoolAssign();
-            BooleanAssignment r_ = new BooleanAssignment();
-            if (b_.isAssignedAfterWhenTrue()) {
-                r_.setAssignedAfterWhenFalse(true);
-            }
-            if (b_.isUnassignedAfterWhenTrue()) {
-                r_.setUnassignedAfterWhenFalse(true);
-            }
-            if (b_.isAssignedAfterWhenFalse()) {
-                r_.setAssignedAfterWhenTrue(true);
-            }
-            if (b_.isUnassignedAfterWhenFalse()) {
-                r_.setUnassignedAfterWhenTrue(true);
-            }
+            BooleanAssignment r_ = b_.neg();
             fieldsAfter_.put(e.getKey(), r_);
         }
         vars_.getFields().put(this, fieldsAfter_);
@@ -165,19 +153,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
             StringMap<Assignment> sm_ = new StringMap<Assignment>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
-                BooleanAssignment r_ = new BooleanAssignment();
-                if (b_.isAssignedAfterWhenTrue()) {
-                    r_.setAssignedAfterWhenFalse(true);
-                }
-                if (b_.isUnassignedAfterWhenTrue()) {
-                    r_.setUnassignedAfterWhenFalse(true);
-                }
-                if (b_.isAssignedAfterWhenFalse()) {
-                    r_.setAssignedAfterWhenTrue(true);
-                }
-                if (b_.isUnassignedAfterWhenFalse()) {
-                    r_.setUnassignedAfterWhenTrue(true);
-                }
+                BooleanAssignment r_ = b_.neg();
                 sm_.put(e.getKey(), r_);
             }
             variablesAfter_.add(sm_);

@@ -278,6 +278,13 @@ public final class AnalyzedPageEl {
         return null;
     }
 
+    public LocalVariable getLocalVar(String _key, int _index) {
+        if (!localVars.isValidIndex(_index)) {
+            return null;
+        }
+        return localVars.get(_index).getVal(_key);
+    }
+
     public void setLocalVars(StringMap<LocalVariable> _localVars) {
         localVars = new CustList<StringMap<LocalVariable>>(new CollCapacity(1));
         localVars.add(_localVars);

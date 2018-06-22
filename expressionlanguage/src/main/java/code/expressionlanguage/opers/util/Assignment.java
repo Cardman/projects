@@ -4,6 +4,17 @@ package code.expressionlanguage.opers.util;
 public abstract class Assignment {
 
     public abstract BooleanAssignment toBoolAssign();
+
+    public SimpleAssignment ternarySimple(Assignment _o) {
+        SimpleAssignment r_ = new SimpleAssignment();
+        if (isAssignedAfter() && _o.isAssignedAfter()) {
+            r_.setAssignedAfter(true);
+        }
+        if (isUnassignedAfter() && _o.isUnassignedAfter()) {
+            r_.setUnassignedAfter(true);
+        }
+        return r_;
+    }
     public AssignmentBefore assignBefore() {
         AssignmentBefore ba_ = new AssignmentBefore();
         if (isAssignedAfter()) {

@@ -145,9 +145,40 @@ public abstract class SettableAbstractFieldOperation extends
         }
         return InvokingOperation.getField(className_, fieldName_, staticField_, _previous, _conf, off_);
     }
-
+    
     public final ClassField getFieldId() {
+        if (fieldMetaInfo == null) {
+            return null;
+        }
         return fieldMetaInfo.getClassField();
+    }
+
+    public final boolean matchFieldId(ClassField _id) {
+        if (fieldMetaInfo == null) {
+            return false;
+        }
+        return fieldMetaInfo.getClassField().eq(_id);
+    }
+    public final boolean isFromCurrentClass(Analyzable _an) {
+        if (fieldMetaInfo == null) {
+            return false;
+        }
+        ClassField clField_ = fieldMetaInfo.getClassField();
+        String id_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
+        if (isFirstChild()) {
+            return StringList.quickEq(clField_.getClassName(), id_);
+        }
+        MethodOperation par_ = getParent();
+        if (!(par_ instanceof DotOperation)) {
+            return false;
+        }
+        if (par_.getFirstChild() instanceof ThisOperation) {
+            return StringList.quickEq(clField_.getClassName(), id_);
+        }
+        if (par_.getFirstChild() instanceof StaticAccessOperation) {
+            return StringList.quickEq(clField_.getClassName(), id_);
+        }
+        return false;
     }
     public final FieldInfo getFieldMetaInfo() {
         return fieldMetaInfo;
@@ -277,28 +308,8 @@ public abstract class SettableAbstractFieldOperation extends
                 }
                 ass_.add(sm_);
             }
-            boolean procField_ = false;
+            boolean procField_ = isFromCurrentClass(_conf);
             ClassField cl_ = getFieldId();
-            if (cl_ != null) {
-                if (isFirstChild()) {
-                    procField_ = true;
-                } else {
-                    int index_ = getIndexChild() - 1;
-                    OperationNode opPr_ = getParent().getChildrenNodes().get(index_);
-                    if (opPr_ instanceof ThisOperation) {
-                        if (opPr_.getResultClass().isGlobalClass(_conf)) {
-                            procField_ = true;
-                        }
-                    }
-                    if (!procField_) {
-                        if (opPr_ instanceof StaticAccessOperation) {
-                            if (opPr_.getResultClass().isGlobalClass(_conf)) {
-                                procField_ = true;
-                            }
-                        }
-                    }
-                }
-            }
             if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
                 procField_ = false;
             }

@@ -78,8 +78,11 @@ public final class StaticInfoOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         boolean st_ = isStaticBlock();
-        if (base_.contains(Templates.TEMPLATE_BEGIN)) {
-            checkCorrect(_conf, base_, true, 0);
+        if (classStr_.contains(Templates.TEMPLATE_BEGIN)) {
+            if (!checkCorrect(_conf, classStr_, true, 0)) {
+                setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
+                return;
+            }
         } else {
             if (!checkExistBase(_conf, !st_, base_, true, 0)) {
                 setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));

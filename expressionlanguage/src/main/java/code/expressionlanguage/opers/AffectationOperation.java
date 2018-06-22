@@ -145,9 +145,9 @@ public final class AffectationOperation extends MethodOperation {
                 int index_ = variablesAfter_.size();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
-                        LocalVariable locVar_ = _conf.getLocalVariables().get(index_).getVal(str_);
+                        LocalVariable locVar_ = _conf.getLocalVar(str_,index_);
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (locVar_.isFinalVariable()) {
+                            if (locVar_ != null && locVar_.isFinalVariable()) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
@@ -175,39 +175,22 @@ public final class AffectationOperation extends MethodOperation {
             }
         }
         vars_.getVariables().put(this, variablesAfter_);
-        boolean procField_ = false;
-        boolean procFinalField_ = false;
+        boolean fromCurClass_ = false;
         if (firstChild_ instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
-            ClassField cl_ = cst_.getFieldId();
-            if (cl_ != null) {
-                procFinalField_ = true;
-                if (cst_.isFirstChild()) {
-                    procField_ = true;
-                } else {
-                    int index_ = cst_.getIndexChild() - 1;
-                    OperationNode opPr_ = cst_.getParent().getChildrenNodes().get(index_);
-                    if (opPr_ instanceof ThisOperation) {
-                        if (opPr_.getResultClass().isGlobalClass(_conf)) {
-                            procField_ = true;
-                        }
-                    }
-                    if (!procField_) {
-                        if (opPr_ instanceof StaticAccessOperation) {
-                            if (opPr_.getResultClass().isGlobalClass(_conf)) {
-                                procField_ = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (procFinalField_) {
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
+            fromCurClass_ = cst_.isFromCurrentClass(_conf);
             ClassField cl_ = cst_.getFieldId();
             ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-                if (!e.getValue().isUnassignedAfter() && cl_.eq(e.getKey())) {
+            if (cl_ != null) {
+                boolean checkFinal_ = false;
+                if (!fromCurClass_) {
+                    checkFinal_ = true;
+                } else {
+                    if (!fieldsAfterLast_.getVal(cl_).isUnassignedAfter()) {
+                        checkFinal_ = true;
+                    }
+                }
+                if (checkFinal_) {
                     FieldInfo meta_ = _conf.getFieldInfo(cl_);
                     if (meta_.isFinalField()) {
                         //error if final field
@@ -220,7 +203,7 @@ public final class AffectationOperation extends MethodOperation {
                 }
             }
         }
-        if (procField_) {
+        if (fromCurClass_) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
             ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);

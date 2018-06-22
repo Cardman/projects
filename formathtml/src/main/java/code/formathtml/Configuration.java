@@ -643,6 +643,16 @@ public class Configuration implements ExecutableCode {
         return getLastPage().getLocalVar(_key);
     }
 
+    @Override
+    public boolean containsLocalVar(String _key) {
+        return getLastPage().containsLocalVar(_key);
+    }
+
+    @Override
+    public void putLocalVar(String _key, LocalVariable _loc) {
+        getLastPage().putLocalVar(_key, _loc);
+    }
+
     public StringMap<LocalVariable> getLocalVars() {
         return getLastPage().getLocalVars();
     }
@@ -798,6 +808,11 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public LocalVariable getLocalVar(String _key, int _index) {
+        return context.getLocalVar(_key, _index);
+    }
+
+    @Override
     public PageEl getOperationPageEl() {
         return importing.last().getPageEl();
     }
@@ -815,15 +830,6 @@ public class Configuration implements ExecutableCode {
     @Override
     public ContextEl getContextEl() {
         return context;
-    }
-
-    @Override
-    public boolean isCheckAffectation() {
-        return context.isCheckAffectation();
-    }
-
-    public void setCheckAffectation(boolean _b) {
-        context.setCheckAffectation(_b);
     }
 
     @Override

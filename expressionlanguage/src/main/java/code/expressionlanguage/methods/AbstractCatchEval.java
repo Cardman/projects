@@ -142,13 +142,11 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 }
             }
             if (finClause_) {
-                if (unass_) {
-                    for (AbstractCatchEval c: catch_) {
-                        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
-                        if (!vars_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
-                            unass_ = false;
-                            break;
-                        }
+                for (AbstractCatchEval c: catch_) {
+                    AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
+                    if (!vars_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter()) {
+                        unass_ = false;
+                        break;
                     }
                 }
             }
@@ -188,23 +186,31 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                     if (f.getKey() instanceof Throwing) {
                         //throwing clause => test just after the root
                         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(f.getKey());
-                        if (!vars_.getVariables().lastValue().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                        CustList<StringMap<Assignment>> list_ = vars_.getVariables().lastValue();
+                        if (!list_.isValidIndex(index_)) {
+                            continue;
+                        }
+                        if (!list_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
                             unass_ = false;
                             break;
                         }
-                    } else if (!f.getValue().getVariablesRootBefore().get(index_).getVal(e.getKey()).isUnassignedBefore()) {
-                        unass_ = false;
-                        break;
+                    } else {
+                        CustList<StringMap<AssignmentBefore>> list_ = f.getValue().getVariablesRootBefore();
+                        if (!list_.isValidIndex(index_)) {
+                            continue;
+                        }
+                        if (!list_.get(index_).getVal(e.getKey()).isUnassignedBefore()) {
+                            unass_ = false;
+                            break;
+                        }
                     }
                 }
                 if (finClause_) {
-                    if (unass_) {
-                        for (AbstractCatchEval c: catch_) {
-                            AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
-                            if (!vars_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                                unass_ = false;
-                                break;
-                            }
+                    for (AbstractCatchEval c: catch_) {
+                        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(c);
+                        if (!vars_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter()) {
+                            unass_ = false;
+                            break;
                         }
                     }
                 }
@@ -324,6 +330,9 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                             continue;
                         }
                         AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().isValidIndex(index_)) {
+                            continue;
+                        }
                         if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
                             assAfter_ = false;
                             break;
@@ -344,6 +353,9 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                             continue;
                         }
                         AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().isValidIndex(index_)) {
+                            continue;
+                        }
                         if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
                             unassAfter_ = false;
                             break;

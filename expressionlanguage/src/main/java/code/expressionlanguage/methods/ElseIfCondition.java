@@ -262,6 +262,9 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                             continue;
                         }
                         AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().isValidIndex(index_)) {
+                            continue;
+                        }
                         if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isAssignedBefore()) {
                             assAfter_ = false;
                             break;
@@ -282,6 +285,9 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
                             continue;
                         }
                         AssignedVariables assBr_ = id_.getVal(b.getKey());
+                        if (!assBr_.getVariablesRootBefore().isValidIndex(index_)) {
+                            continue;
+                        }
                         if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
                             unassAfter_ = false;
                             break;

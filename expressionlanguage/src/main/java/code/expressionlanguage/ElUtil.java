@@ -280,8 +280,7 @@ public final class ElUtil {
         _conf.setAnalyzingRoot(false);
         String fieldName_ = _calcul.getFieldName();
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
-        boolean staticContext_ = _calcul.isStaticAcces();
-        _conf.setStaticContext(staticContext_ || op_ instanceof AbstractInvokingConstructor);
+        _conf.setStaticContext(hiddenVarTypes_ || op_ instanceof AbstractInvokingConstructor);
         if (op_ instanceof InstanceOperation) {
             ((InstanceOperation)op_).setFieldName(fieldName_);
         }

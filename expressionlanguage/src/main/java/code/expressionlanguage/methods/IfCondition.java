@@ -206,6 +206,9 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                     }
                     AssignedVariables assBr_ = id_.getVal(b.getKey());
                     CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
+                    if (!list_.isValidIndex(index_)) {
+                        continue;
+                    }
                     if (!list_.get(index_).getVal(key_).isAssignedBefore()) {
                         assAfter_ = false;
                         break;
@@ -217,6 +220,9 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
                     }
                     AssignedVariables assBr_ = id_.getVal(b.getKey());
                     CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
+                    if (!list_.isValidIndex(index_)) {
+                        continue;
+                    }
                     if (!list_.get(index_).getVal(key_).isUnassignedBefore()) {
                         unassAfter_ = false;
                         break;

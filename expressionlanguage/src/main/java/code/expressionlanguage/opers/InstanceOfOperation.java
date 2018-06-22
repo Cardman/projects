@@ -55,7 +55,10 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         sub_ = _conf.resolveType(sub_, false);
         boolean st_ = isStaticBlock();
         if (sub_.contains(Templates.TEMPLATE_BEGIN)) {
-            checkCorrect(_conf, sub_, true, offset+1);
+            if (!checkCorrect(_conf, sub_, true, offset+1)) {
+                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+                return;
+            }
         } else {
             if (!checkExistBase(_conf, !st_, sub_, true, offset+1)) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));

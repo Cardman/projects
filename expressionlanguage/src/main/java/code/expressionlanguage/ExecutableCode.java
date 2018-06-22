@@ -9,5 +9,4 @@ public interface ExecutableCode extends Analyzable {
     String joinPages();
     Struct getException();
     ContextEl getContextEl();
-    boolean isCheckAffectation();
 }

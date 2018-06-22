@@ -75,7 +75,11 @@ public final class VariableOperation extends LeafOperation implements
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        if (getParent() instanceof AffectationOperation && getParent().getParent() == null && _conf.isMerged()) {
+        if (isFirstChild() && getParent() instanceof AffectationOperation && getParent().getParent() == null && _conf.isMerged()) {
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(_conf.getCurrentVarSetting());
+            lv_.setFinalVariable(_conf.isFinalVariable());
+            _conf.putLocalVar(str_, lv_);
             excVar = true;
         }
         variableName = str_;

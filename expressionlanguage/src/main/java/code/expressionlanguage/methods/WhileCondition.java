@@ -162,6 +162,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
                         }
                         CustList<StringMap<AssignmentBefore>> list_;
                         list_ = id_.getVal(f.getKey()).getVariablesRootBefore();
+                        if (!list_.isValidIndex(index_)) {
+                            continue;
+                        }
                         StringMap<AssignmentBefore> sa_;
                         sa_ = list_.get(index_);
                         if (!sa_.contains(key_)) {
@@ -204,6 +207,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             }
             int index_ = 0;
             for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+                if (index_ >= varsHypot_.size()) {
+                    continue;
+                }
                 for (EntryCust<String,AssignmentBefore> f: s.entryList()) {
                     if (!f.getValue().isUnassignedBefore()) {
                         varsHypot_.get(index_).getVal(f.getKey()).setUnassignedBefore(false);
@@ -275,6 +281,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
                     }
                     CustList<StringMap<AssignmentBefore>> list_;
                     list_ = id_.getVal(f.getKey()).getVariablesRootBefore();
+                    if (!list_.isValidIndex(index_)) {
+                        continue;
+                    }
                     StringMap<AssignmentBefore> sa_;
                     sa_ = list_.get(index_);
                     if (!sa_.contains(key_)) {
@@ -332,7 +341,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
                 continue;
             }
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) set_;
-            if (!cst_.getFieldId().eq(_field)) {
+            if (!cst_.matchFieldId(_field)) {
                 continue;
             }
             cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
@@ -355,14 +364,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
                 if (e.getValue().isAssignedBefore()) {
                     continue;
                 }
-                if (!_an.getLocalVariables().isValidIndex(index_)) {
-                    continue;
-                }
                 String key_ = e.getKey();
-                StringMap<LocalVariable> varLocs_;
-                varLocs_ = _an.getLocalVariables().get(index_);
-                LocalVariable varLoc_ = varLocs_.getVal(key_);
-                if (!varLoc_.isFinalVariable()) {
+                LocalVariable varLoc_ = _an.getLocalVar(key_,index_);
+                if (varLoc_ != null && !varLoc_.isFinalVariable()) {
                     continue;
                 }
                 for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {

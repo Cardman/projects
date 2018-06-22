@@ -85,26 +85,14 @@ public final class TernaryOperation extends MethodOperation {
         if (firstChild_ == _previous) {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = new AssignmentBefore();
-                if (b_.isAssignedAfterWhenTrue()) {
-                    a_.setAssignedBefore(true);
-                }
-                if (b_.isUnassignedAfterWhenTrue()) {
-                    a_.setUnassignedBefore(true);
-                }
+                AssignmentBefore a_ = b_.copyWhenTrue();
                 fieldsBefore_.put(e.getKey(), a_);
             }
             for (StringMap<Assignment> s: variablesAfterFirst_) {
                 StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     BooleanAssignment b_ = e.getValue().toBoolAssign();
-                    AssignmentBefore a_ = new AssignmentBefore();
-                    if (b_.isAssignedAfterWhenTrue()) {
-                        a_.setAssignedBefore(true);
-                    }
-                    if (b_.isUnassignedAfterWhenTrue()) {
-                        a_.setUnassignedBefore(true);
-                    }
+                    AssignmentBefore a_ = b_.copyWhenTrue();
                     sm_.put(e.getKey(), a_);
                 }
                 variablesBefore_.add(sm_);
@@ -112,26 +100,14 @@ public final class TernaryOperation extends MethodOperation {
         } else {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = new AssignmentBefore();
-                if (b_.isAssignedAfterWhenFalse()) {
-                    a_.setAssignedBefore(true);
-                }
-                if (b_.isUnassignedAfterWhenFalse()) {
-                    a_.setUnassignedBefore(true);
-                }
+                AssignmentBefore a_ = b_.copyWhenFalse();
                 fieldsBefore_.put(e.getKey(), a_);
             }
             for (StringMap<Assignment> s: variablesAfterFirst_) {
                 StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     BooleanAssignment b_ = e.getValue().toBoolAssign();
-                    AssignmentBefore a_ = new AssignmentBefore();
-                    if (b_.isAssignedAfterWhenFalse()) {
-                        a_.setAssignedBefore(true);
-                    }
-                    if (b_.isUnassignedAfterWhenFalse()) {
-                        a_.setUnassignedBefore(true);
-                    }
+                    AssignmentBefore a_ = b_.copyWhenFalse();
                     sm_.put(e.getKey(), a_);
                 }
                 variablesBefore_.add(sm_);
@@ -215,13 +191,7 @@ public final class TernaryOperation extends MethodOperation {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
                 BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();
-                BooleanAssignment r_ = new BooleanAssignment();
-                if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
-                    r_.setAssignedAfterWhenTrue(true);
-                }
-                if (b_.isUnassignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
-                    r_.setUnassignedAfterWhenFalse(true);
-                }
+                BooleanAssignment r_ = b_.ternary(p_);
                 fieldsAfter_.put(e.getKey(), r_);
             }
             for (StringMap<Assignment> s: variablesAfterLast_) {
@@ -230,13 +200,7 @@ public final class TernaryOperation extends MethodOperation {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     BooleanAssignment b_ = e.getValue().toBoolAssign();
                     BooleanAssignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey()).toBoolAssign();
-                    BooleanAssignment r_ = new BooleanAssignment();
-                    if (b_.isAssignedAfterWhenTrue() && p_.isAssignedAfterWhenTrue()) {
-                        r_.setAssignedAfterWhenTrue(true);
-                    }
-                    if (b_.isUnassignedAfterWhenFalse() && p_.isAssignedAfterWhenFalse()) {
-                        r_.setUnassignedAfterWhenFalse(true);
-                    }
+                    BooleanAssignment r_ = b_.ternary(p_);
                     sm_.put(e.getKey(), r_);
                 }
                 variablesAfter_.add(sm_);
@@ -245,10 +209,7 @@ public final class TernaryOperation extends MethodOperation {
             for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
                 Assignment b_ = e.getValue();
                 Assignment p_ = fieldsAfterBefLast_.getVal(e.getKey());
-                SimpleAssignment r_ = new SimpleAssignment();
-                if (b_.isAssignedAfter() && p_.isAssignedAfter()) {
-                    r_.setAssignedAfter(true);
-                }
+                SimpleAssignment r_ = b_.ternarySimple(p_);
                 fieldsAfter_.put(e.getKey(), r_);
             }
             for (StringMap<Assignment> s: variablesAfterLast_) {
@@ -257,10 +218,7 @@ public final class TernaryOperation extends MethodOperation {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     Assignment b_ = e.getValue();
                     Assignment p_ = variablesAfterBefLast_.get(index_).getVal(e.getKey());
-                    SimpleAssignment r_ = new SimpleAssignment();
-                    if (b_.isAssignedAfter() && p_.isAssignedAfter()) {
-                        r_.setAssignedAfter(true);
-                    }
+                    SimpleAssignment r_ = b_.ternarySimple(p_);
                     sm_.put(e.getKey(), r_);
                 }
                 variablesAfter_.add(sm_);

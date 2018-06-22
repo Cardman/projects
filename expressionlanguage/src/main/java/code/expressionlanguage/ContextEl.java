@@ -13,7 +13,6 @@ import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.ElementBlock;
-import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InitBlock;
@@ -123,7 +122,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private transient Initializer init;
     private transient String name;
     private transient int ordinal;
-    private transient boolean checkAffectation;
 
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
@@ -722,6 +720,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return l_.join(RETURN_LINE);
     }
 
+    @Override
     public AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }
@@ -780,6 +779,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.getVar(_key);
     }
 
+    @Override
     public boolean containsLocalVar(String _string) {
         return analyzing.containsLocalVar(_string);
     }
@@ -789,6 +789,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.getLocalVar(_string);
     }
 
+    @Override
     public void putLocalVar(String _string, LocalVariable _loc) {
         analyzing.putLocalVar(_string, _loc);
     }
@@ -983,15 +984,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public boolean isCheckAffectation() {
-        return checkAffectation;
-    }
-
-    public void setCheckAffectation(boolean _checkAffectation) {
-        checkAffectation = _checkAffectation;
-    }
-
-    @Override
     public String getCurrentVarSetting() {
         return analyzing.getCurrentVarSetting();
     }
@@ -1023,6 +1015,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public CustList<StringMap<LocalVariable>> getLocalVariables() {
         return analyzing.getLocalVars();
+    }
+
+    @Override
+    public LocalVariable getLocalVar(String _key, int _index) {
+        return analyzing.getLocalVar(_key, _index);
     }
 
     @Override

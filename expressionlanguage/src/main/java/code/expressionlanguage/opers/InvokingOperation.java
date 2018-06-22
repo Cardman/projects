@@ -777,9 +777,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
                     return a_;
                 }
-                String base_ = Templates.getIdFromAllTypes(clDyn_);
                 Boolean init_ = (Boolean) _firstArgs.last().getObject();
-                if (base_.contains(Templates.TEMPLATE_BEGIN)) {
+                if (clDyn_.contains(Templates.TEMPLATE_BEGIN)) {
                     if (!Templates.correctClassParts(clDyn_, new StringMap<StringList>(), _conf)) {
                         _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
                         Argument a_ = new Argument();

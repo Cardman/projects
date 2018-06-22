@@ -110,7 +110,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 }
                 if (n_ instanceof Line){
                     if (!((Line)n_).getExp().isEmpty()) {
-                        OperationNode root_ = ((Line)f_).getExp().last();
+                        OperationNode root_ = ((Line)n_).getExp().last();
                         if (root_ instanceof InterfaceInvokingConstructor) {
                             AbstractInvokingConstructor ctor_ = (AbstractInvokingConstructor) root_;
                             ConstructorId cid_ = ctor_.getConstId();
@@ -134,6 +134,22 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                     }
                 }
                 f_ = n_;
+            }
+            ConstructorId cid_ = getConstId();
+            if (cid_ != null) {
+                String cl_ = cid_.getName();
+                cl_ = Templates.getIdFromAllTypes(cl_);
+                if (!previousInts_.isEmpty()) {
+                    String sup_ = previousInts_.last();
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(cl_, sup_, _conf)) {
+                        BadInheritedClass undef_;
+                        undef_ = new BadInheritedClass();
+                        undef_.setClassName(cl_);
+                        undef_.setFileName(curBlock_.getFile().getFileName());
+                        undef_.setRc(curBlock_.getRowCol(0, 0));
+                        _conf.getClasses().getErrorsDet().add(undef_);
+                    }
+                }
             }
         }
     

@@ -36,7 +36,71 @@ public class BooleanAssignment extends Assignment {
         cp_.setUnassignedAfterWhenTrue(unassignedAfterWhenTrue);
         return cp_;
     }
+    public BooleanAssignment neg() {
+        BooleanAssignment r_ = new BooleanAssignment();
+        if (isAssignedAfterWhenTrue()) {
+            r_.setAssignedAfterWhenFalse(true);
+        }
+        if (isUnassignedAfterWhenTrue()) {
+            r_.setUnassignedAfterWhenFalse(true);
+        }
+        if (isAssignedAfterWhenFalse()) {
+            r_.setAssignedAfterWhenTrue(true);
+        }
+        if (isUnassignedAfterWhenFalse()) {
+            r_.setUnassignedAfterWhenTrue(true);
+        }
+        return r_;
+    }
+    public BooleanAssignment or(BooleanAssignment _o) {
+        BooleanAssignment r_ = new BooleanAssignment();
+        if (isAssignedAfterWhenFalse()) {
+            r_.setAssignedAfterWhenFalse(true);
+        }
+        if (isUnassignedAfterWhenFalse()) {
+            r_.setUnassignedAfterWhenFalse(true);
+        }
+        if (isAssignedAfterWhenTrue() && _o.isAssignedAfterWhenTrue()) {
+            r_.setAssignedAfterWhenTrue(true);
+        }
+        if (isUnassignedAfterWhenTrue() && _o.isUnassignedAfterWhenTrue()) {
+            r_.setUnassignedAfterWhenTrue(true);
+        }
+        return r_;
+    }
 
+    public BooleanAssignment and(BooleanAssignment _o) {
+        BooleanAssignment r_ = new BooleanAssignment();
+        if (isAssignedAfterWhenTrue()) {
+            r_.setAssignedAfterWhenTrue(true);
+        }
+        if (isUnassignedAfterWhenTrue()) {
+            r_.setUnassignedAfterWhenTrue(true);
+        }
+        if (isAssignedAfterWhenFalse() && _o.isAssignedAfterWhenFalse()) {
+            r_.setAssignedAfterWhenFalse(true);
+        }
+        if (isUnassignedAfterWhenFalse() && _o.isUnassignedAfterWhenFalse()) {
+            r_.setUnassignedAfterWhenFalse(true);
+        }
+        return r_;
+    }
+    public BooleanAssignment ternary(BooleanAssignment _o) {
+        BooleanAssignment r_ = new BooleanAssignment();
+        if (isAssignedAfterWhenTrue() && _o.isAssignedAfterWhenTrue()) {
+            r_.setAssignedAfterWhenTrue(true);
+        }
+        if (isAssignedAfterWhenFalse() && _o.isAssignedAfterWhenFalse()) {
+            r_.setAssignedAfterWhenFalse(true);
+        }
+        if (isUnassignedAfterWhenTrue() && _o.isUnassignedAfterWhenTrue()) {
+            r_.setUnassignedAfterWhenTrue(true);
+        }
+        if (isUnassignedAfterWhenFalse() && _o.isUnassignedAfterWhenFalse()) {
+            r_.setUnassignedAfterWhenFalse(true);
+        }
+        return r_;
+    }
     public boolean isAssignedAfterWhenFalse() {
         return assignedAfterWhenFalse;
     }
