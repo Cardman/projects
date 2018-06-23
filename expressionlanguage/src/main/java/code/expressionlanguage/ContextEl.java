@@ -1561,13 +1561,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (!StringList.isWord(_type.trim())) {
             return standards.getAliasObject();
         }
-        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
-        if (classes.isCustomType(type_)) {
-            if (_rooted.isAccessibleType(type_, this)) {
-                return type_;
-            }
-            
-        }
         StringList types_ = new StringList();
         for (String i: _rooted.getFile().getImports()) {
             if (!i.contains(".")) {
@@ -1578,9 +1571,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String typeLoc_ = removeDottedSpaces(i);
-            if (!StringList.isWord(end_)) {
-                continue;
-            }
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1588,21 +1578,40 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 types_.add(typeLoc_);
             }
         }
-        if (types_.size() != 1) {
-            return standards.getAliasObject();
+        if (types_.size() == 1) {
+            return types_.first();
         }
-        return types_.first();
+        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
+        if (classes.isCustomType(type_)) {
+            if (_rooted.isAccessibleType(type_, this)) {
+                return type_;
+            }
+        }
+        for (String i: _rooted.getFile().getImports()) {
+            if (!i.contains(".")) {
+                continue;
+            }
+            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+            if (!StringList.quickEq(end_, "*")) {
+                continue;
+            }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
+            String typeLoc_ = StringList.concat(begin_,".",_type.trim());
+            if (!classes.isCustomType(typeLoc_)) {
+                continue;
+            }
+            if (_rooted.isAccessibleType(typeLoc_, this)) {
+                types_.add(typeLoc_);
+            }
+        }
+        if (types_.size() == 1) {
+            return types_.first();
+        }
+        return standards.getAliasObject();
     }
     public String lookupImportsIndirect(String _type, RootBlock _rooted) {
         if (!StringList.isWord(_type.trim())) {
             return standards.getAliasObject();
-        }
-        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
-        if (classes.isCustomType(type_)) {
-            if (Classes.canAccessClass(_rooted.getFullName(), type_, this)) {
-                return type_;
-            }
-            
         }
         StringList types_ = new StringList();
         for (String i: _rooted.getFile().getImports()) {
@@ -1614,9 +1623,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String typeLoc_ = removeDottedSpaces(i);
-            if (!StringList.isWord(end_)) {
-                continue;
-            }
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1624,10 +1630,36 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 types_.add(typeLoc_);
             }
         }
-        if (types_.size() != 1) {
-            return standards.getAliasObject();
+        if (types_.size() == 1) {
+            return types_.first();
         }
-        return types_.first();
+        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
+        if (classes.isCustomType(type_)) {
+            if (Classes.canAccessClass(_rooted.getFullName(), type_, this)) {
+                return type_;
+            }
+        }
+        for (String i: _rooted.getFile().getImports()) {
+            if (!i.contains(".")) {
+                continue;
+            }
+            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+            if (!StringList.quickEq(end_, "*")) {
+                continue;
+            }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
+            String typeLoc_ = StringList.concat(begin_,".",_type.trim());
+            if (!classes.isCustomType(typeLoc_)) {
+                continue;
+            }
+            if (Classes.canAccessClass(_rooted.getFullName(), typeLoc_, this)) {
+                types_.add(typeLoc_);
+            }
+        }
+        if (types_.size() == 1) {
+            return types_.first();
+        }
+        return standards.getAliasObject();
     }
     public static String removeDottedSpaces(String _type) {
         StringBuilder b_ = new StringBuilder();

@@ -23,7 +23,6 @@ import code.expressionlanguage.methods.util.StaticAccessFieldError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
 import code.expressionlanguage.methods.util.UndefinedMethodError;
-import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.util.ArgumentsGroup;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
