@@ -88,22 +88,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _classes.resolveBaseTypeBuildInherits(base_, this);
-            if (isAccessibleType(base_, _classes)) {
-                classes_.add(_classes.resolveDynamicTypeBuildInherits(s, this));
-            }
-        }
-        if (classes_.isEmpty()) {
-            classes_.add(_classes.getStandards().getAliasObject());
-        }
-        return classes_;
-    }
-
-    @Override
     public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
@@ -145,7 +129,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(Analyzable _classes) {
+    public StringList getAllGenericInterfaces(Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         StringList allGenericSuperClasses_ = new StringList();
@@ -156,11 +140,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
             }
         }
         return allGenericSuperClasses_;
-    }
-
-    @Override
-    public StringList getAllGenericInterfaces(Analyzable _classes) {
-        return getAllGenericSuperClasses(_classes);
     }
 
     public StringList getDirectSuperInterfaces() {
@@ -179,8 +158,16 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     @Override
     public void buildDirectGenericSuperTypes(Analyzable _classes) {
         importedDirectSuperInterfaces.clear();
-        for (String i: getDirectGenericSuperTypes(_classes)) {
-            importedDirectSuperInterfaces.add(i);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            base_ = _classes.resolveDynamicType(base_, this);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof InterfaceBlock)) {
+                continue;
+            }
+            if (isAccessibleType(base_, _classes)) {
+                importedDirectSuperInterfaces.add(_classes.resolveDynamicType(s, this));
+            }
         }
     }
 

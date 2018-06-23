@@ -634,6 +634,7 @@ public class ClassesTest {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
@@ -654,6 +655,7 @@ public class ClassesTest {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
@@ -678,6 +680,7 @@ public class ClassesTest {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
@@ -706,6 +709,7 @@ public class ClassesTest {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
@@ -735,6 +739,7 @@ public class ClassesTest {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
@@ -767,6 +772,7 @@ public class ClassesTest {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"),cont_);
@@ -1018,6 +1024,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);
@@ -1034,6 +1041,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1050,6 +1058,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);
@@ -1061,6 +1070,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);

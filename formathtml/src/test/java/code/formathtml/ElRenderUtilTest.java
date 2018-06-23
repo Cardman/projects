@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.expressionlanguage.AnalyzedPageEl;
@@ -2168,8 +2167,6 @@ public final class ElRenderUtilTest {
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
-    //imports
-    @Ignore
     @Test
     public void processEl2FailTest() {
         Configuration context_ = contextEl();

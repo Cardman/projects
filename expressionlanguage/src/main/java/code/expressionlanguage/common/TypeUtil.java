@@ -61,64 +61,76 @@ public final class TypeUtil {
             for (RootBlock c: classes_.getClassBodies()) {
                 RootBlock bl_ = c;
                 _context.getAnalyzing().setCurrentBlock(bl_);
-                bl_.buildDirectGenericSuperTypes(_context);
+                bl_.buildMapParamType(_context);
             }
             for (RootBlock c: classes_.getClassBodies()) {
                 RootBlock bl_ = c;
                 _context.getAnalyzing().setCurrentBlock(bl_);
-                bl_.buildMapParamType(_context);
-                String d_ = c.getFullName();
-                StringList ints_ = bl_.getStaticInitInterfaces();
-                int len_ = ints_.size();
-                for (int i = 0; i < len_; i++) {
-                    int offset_ = bl_.getStaticInitInterfacesOffset().get(i);
-                    String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
-                    RowCol rc_ = bl_.getRowCol(0, offset_);
-                    base_ = _context.resolveQuickType(base_);
-                    RootBlock r_ = classes_.getClassBody(base_);
-                    if (r_ == null) {
-                        UnknownClassName undef_;
-                        undef_ = new UnknownClassName();
-                        undef_.setClassName(base_);
-                        undef_.setFileName(d_);
-                        undef_.setRc(rc_);
-                        classes_.addError(undef_);
-                        continue;
-                    }
-                    if (!(r_ instanceof InterfaceBlock)) {
-                        BadInheritedClass enum_;
-                        enum_ = new BadInheritedClass();
-                        String n_ = base_;
-                        enum_.setClassName(n_);
-                        enum_.setFileName(d_);
-                        enum_.setRc(rc_);
-                        classes_.addError(enum_);
-                    } else {
-                        bl_.getStaticInitImportedInterfaces().add(base_);
-                    }
-                }
-                for (int i = 0; i < len_; i++) {
-                    String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
-                    sup_ = _context.resolveQuickType(sup_);
-                    for (int j = i + 1; j < len_; j++) {
-                        String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
-                        sub_ = _context.resolveQuickType(sub_);
-                        if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
-                            BadInheritedClass undef_;
-                            undef_ = new BadInheritedClass();
-                            undef_.setClassName(sub_);
-                            undef_.setFileName(d_);
-                            int offset_ = bl_.getStaticInitInterfacesOffset().get(j);
-                            undef_.setRc(bl_.getRowCol(0, offset_));
-                            classes_.addError(undef_);
-                        }
-                    }
-                }
+                bl_.buildDirectGenericSuperTypes(_context);
             }
         }
     }
     public static void checkInterfaces(ContextEl _context, StringList _types) {
         Classes classes_ = _context.getClasses();
+        for (RootBlock c: classes_.getClassBodies()) {
+            RootBlock bl_ = c;
+            _context.getAnalyzing().setCurrentBlock(bl_);
+            String d_ = c.getFullName();
+            StringList ints_ = bl_.getStaticInitInterfaces();
+            int len_ = ints_.size();
+            for (int i = 0; i < len_; i++) {
+                int offset_ = bl_.getStaticInitInterfacesOffset().get(i);
+                String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
+                RowCol rc_ = bl_.getRowCol(0, offset_);
+                base_ = _context.resolveQuickType(base_);
+                RootBlock r_ = classes_.getClassBody(base_);
+                if (r_ == null) {
+                    UnknownClassName undef_;
+                    undef_ = new UnknownClassName();
+                    undef_.setClassName(base_);
+                    undef_.setFileName(d_);
+                    undef_.setRc(rc_);
+                    classes_.addError(undef_);
+                    continue;
+                }
+                if (!(r_ instanceof InterfaceBlock)) {
+                    BadInheritedClass enum_;
+                    enum_ = new BadInheritedClass();
+                    String n_ = base_;
+                    enum_.setClassName(n_);
+                    enum_.setFileName(d_);
+                    enum_.setRc(rc_);
+                    classes_.addError(enum_);
+                } else {
+                    bl_.getStaticInitImportedInterfaces().add(base_);
+                }
+            }
+            for (int i = 0; i < len_; i++) {
+                String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
+                sup_ = _context.resolveQuickType(sup_);
+                RootBlock rs_ = classes_.getClassBody(sup_);
+                if (rs_ == null) {
+                    continue;
+                }
+                for (int j = i + 1; j < len_; j++) {
+                    String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
+                    sub_ = _context.resolveQuickType(sub_);
+                    rs_ = classes_.getClassBody(sub_);
+                    if (rs_ == null) {
+                        continue;
+                    }
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
+                        BadInheritedClass undef_;
+                        undef_ = new BadInheritedClass();
+                        undef_.setClassName(sub_);
+                        undef_.setFileName(d_);
+                        int offset_ = bl_.getStaticInitInterfacesOffset().get(j);
+                        undef_.setRc(bl_.getRowCol(0, offset_));
+                        classes_.addError(undef_);
+                    }
+                }
+            }
+        }
         for (String c: _types) {
             GeneType bl_ = _context.getClassBody(c);
             if (!(bl_ instanceof GeneClass)) {

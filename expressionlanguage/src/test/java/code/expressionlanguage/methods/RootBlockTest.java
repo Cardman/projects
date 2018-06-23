@@ -1006,6 +1006,7 @@ public class RootBlockTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
+        Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());

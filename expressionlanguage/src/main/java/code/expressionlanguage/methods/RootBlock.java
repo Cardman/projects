@@ -379,6 +379,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     public abstract void buildDirectGenericSuperTypes(Analyzable _classes);
 
+    public abstract StringList getAllGenericInterfaces(Analyzable _classes);
+
     public final StringList getAllGenericSuperTypes(Analyzable _classes) {
         StringList list_ = new StringList();
         Classes classes_ = _classes.getClasses();

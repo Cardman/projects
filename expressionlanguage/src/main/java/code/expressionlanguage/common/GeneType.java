@@ -13,20 +13,14 @@ import code.util.StringMap;
 
 public interface GeneType extends AccessibleBlock {
 
-    StringList getAllGenericSuperClasses(Analyzable _classes);
-
     StringList getAllSuperClasses();
     StringList getAllSuperTypes();
-
-    StringList getDirectGenericSuperClasses(Analyzable _classes);
 
     /** Copy the list*/
     StringList getDirectSuperClasses(Analyzable _classes);
 
     boolean isFinalType();
     boolean isAbstractType();
-
-    StringList getAllGenericInterfaces(Analyzable _classes);
 
     StringMap<TypeVar> getParamTypesMap();
     CustList<TypeVar> getParamTypesMapValues();

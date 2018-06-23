@@ -511,6 +511,7 @@ public final class Classes {
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
+        Classes.buildPredefinedBracesBodies(_context);
         Classes.tryBuildBracedClassesBodies(_files, _context);
         if (!classes_.isEmptyErrors()) {
             return;
@@ -651,7 +652,7 @@ public final class Classes {
         processPredefinedClass(stds_.getAliasEnumParam(), content_, _context);
         _context.setHtml(EMPTY_STRING);
     }
-    public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
+    public static void buildPredefinedBracesBodies(ContextEl _context) {
         _context.setAnalyzing(new AnalyzedPageEl());
         LgNames stds_ = _context.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(_context).entryList()) {
@@ -717,6 +718,8 @@ public final class Classes {
         cl_.nextVarCust = locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
         cl_.expsNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+    }
+    public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
         _context.setAnalyzing(null);
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
@@ -1002,11 +1005,12 @@ public final class Classes {
                     }
                     continue;
                 }
+                String type_ = base_;
                 base_ = _context.resolveBaseType(base_, bl_, rc_);
                 if (!classesBodies.contains(base_)) {
                     UnknownClassName undef_;
                     undef_ = new UnknownClassName();
-                    undef_.setClassName(base_);
+                    undef_.setClassName(type_);
                     undef_.setFileName(d_);
                     undef_.setRc(rc_);
                     addError(undef_);
@@ -1034,8 +1038,8 @@ public final class Classes {
                         enum_.setRc(rc_);
                         addError(enum_);
                     }
+                    inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
                 }
-                inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
             }
             if (nbDirectSuperClass_ > 1) {
                 BadInheritedClass enum_;

@@ -60,7 +60,15 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     public void setupBasicOverrides(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         Classes classesRef_ = _context.getClasses();
-        StringList classNames_ = getAllGenericSuperClasses(_context);
+        StringList allSuperTypes_ = getAllGenericSuperTypes(_context);
+        StringList allGenericSuperClasses_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            if (classesRef_.getClassBody(base_) instanceof ClassBlock) {
+                allGenericSuperClasses_.add(s);
+            }
+        }
+        StringList classNames_ = allGenericSuperClasses_;
         String fullName_ = getFullName();
         for (String b: getCustomDirectSuperClasses(_context)) {
             ClassBlock bBl_ = (ClassBlock) classesRef_.getClassBody(b);
@@ -206,23 +214,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericInterfaces(Analyzable _classes) {
-        StringList interfaces_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _classes.resolveBaseTypeBuildInherits(base_, this);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (!(r_ instanceof InterfaceBlock)) {
-                continue;
-            }
-            if (isAccessibleType(base_, _classes)) {
-                interfaces_.add(_classes.resolveDynamicTypeBuildInherits(s, this));
-            }
-        }
-        return interfaces_;
-    }
-
-    @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
@@ -250,13 +241,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public String getTagName() {
         return TAG_ENUM;
-    }
-
-    @Override
-    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList();
-        classes_.add(getGenericSuperClass(_classes));
-        return classes_;
     }
 
     @Override
@@ -332,20 +316,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(Analyzable _classes) {
-        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
-        Classes classes_ = _classes.getClasses();
-        StringList allGenericSuperClasses_ = new StringList();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (classes_.getClassBody(base_) instanceof ClassBlock) {
-                allGenericSuperClasses_.add(s);
-            }
-        }
-        return allGenericSuperClasses_;
-    }
-
-    @Override
     public StringList getAllGenericInterfaces(Analyzable _classes) {
         StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
         Classes classes_ = _classes.getClasses();
@@ -374,10 +344,31 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void buildDirectGenericSuperTypes(Analyzable _classes) {
-        importedDirectSuperClass = getGenericSuperClass(_classes);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            base_=_classes.resolveDynamicType(base_,this);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof ClassBlock)) {
+                continue;
+            }
+            if (isAccessibleType(base_, _classes)) {
+                importedDirectSuperClass = _classes.resolveDynamicType(s,this);
+            }
+        }
+        if (importedDirectSuperClass.isEmpty()) {
+            importedDirectSuperClass = _classes.getStandards().getAliasObject();
+        }
         importedDirectSuperInterfaces.clear();
-        for (String i: getDirectGenericInterfaces(_classes)) {
-            importedDirectSuperInterfaces.add(i);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            base_ = _classes.resolveDynamicType(base_, this);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof InterfaceBlock)) {
+                continue;
+            }
+            if (isAccessibleType(base_, _classes)) {
+                importedDirectSuperInterfaces.add(_classes.resolveDynamicType(s, this));
+            }
         }
     }
 

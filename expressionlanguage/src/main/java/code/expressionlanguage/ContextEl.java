@@ -70,6 +70,7 @@ import code.util.ints.MathFactory;
 public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,ExecutableCode {
 
     private static final String RETURN_LINE = "\n";
+    private static final String EMPTY_TYPE = "";
     private static final int DEFAULT_TAB_WIDTH = 4;
 
     private MathFactory mathFactory;
@@ -523,7 +524,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     infosConst_.put(id_, met_);
                 }
                 if (clblock_ instanceof StandardInterface) {
-                    return new ClassMetaInfo(_name, ((StandardInterface)clblock_).getDirectGenericSuperClasses(this), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+                    return new ClassMetaInfo(_name, ((StandardInterface)clblock_).getDirectInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
                 }
                 ClassCategory cat_ = ClassCategory.CLASS;
                 if (clblock_ instanceof StandardInterface) {
@@ -1167,12 +1168,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String res_ = lookupImportsIndirect(bs_, bl_.getRooted());
-            if (StringList.quickEq(res_, standards.getAliasObject())) {
+            if (res_.isEmpty()) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(bs_);
                 un_.setFileName(r_.getFile().getFileName());
                 un_.setRc(rc_);
                 classes.addError(un_);
+                res_ = standards.getAliasObject();
             }
             str_.append(res_);
         }
@@ -1295,12 +1297,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String res_ = lookupImportsIndirect(bs_, _file.getRooted());
-            if (StringList.quickEq(res_, standards.getAliasObject())) {
+            if (res_.isEmpty()) {
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
                 un_.setFileName(_file.getFile().getFileName());
                 un_.setRc(new RowCol());
                 un_.setType(bs_);
                 classes.addError(un_);
+                res_ = standards.getAliasObject();
             }
             str_.append(res_);
         }
@@ -1338,6 +1341,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
             vars_.put(t.getName(), const_);
         }
+        //No need to call Templates.isCorrect
         if (!Templates.correctClassPartsBuild(_in, vars_, this, _currentBlock)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1406,7 +1410,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 str_.append(bs_);
                 continue;
             }
-            str_.append(lookupImportsIndirect(bs_, _currentBlock.getRooted()));
+            String res_ = lookupImportsIndirect(bs_, _currentBlock.getRooted());
+            if (res_.isEmpty()) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(bs_);
+                un_.setFileName(r_.getFile().getFileName());
+                un_.setRc(_location);
+                classes.addError(un_);
+                res_ = standards.getAliasObject();
+            }
+            str_.append(res_);
         }
         return str_.toString();
     }
@@ -1508,7 +1521,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 str_.append(bs_);
                 continue;
             }
-            str_.append(lookupImportsIndirect(bs_, _currentBlock.getRooted()));
+            String res_ = lookupImportsIndirect(bs_, _currentBlock.getRooted());
+            if (res_.isEmpty()) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(bs_);
+                un_.setFileName(r_.getFile().getFileName());
+                un_.setRc(_location);
+                classes.addError(un_);
+                res_ = standards.getAliasObject();
+            }
+            str_.append(res_);
         }
         return str_.toString();
     }
@@ -1559,7 +1581,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public String lookupImportsDirect(String _type, RootBlock _rooted) {
         if (!StringList.isWord(_type.trim())) {
-            return standards.getAliasObject();
+            return EMPTY_TYPE;
         }
         StringList types_ = new StringList();
         for (String i: _rooted.getFile().getImports()) {
@@ -1581,6 +1603,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (types_.size() == 1) {
             return types_.first();
         }
+        types_.clear();
         String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
         if (classes.isCustomType(type_)) {
             if (_rooted.isAccessibleType(type_, this)) {
@@ -1607,11 +1630,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (types_.size() == 1) {
             return types_.first();
         }
-        return standards.getAliasObject();
+        return EMPTY_TYPE;
     }
     public String lookupImportsIndirect(String _type, RootBlock _rooted) {
         if (!StringList.isWord(_type.trim())) {
-            return standards.getAliasObject();
+            return EMPTY_TYPE;
         }
         StringList types_ = new StringList();
         for (String i: _rooted.getFile().getImports()) {
@@ -1633,6 +1656,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (types_.size() == 1) {
             return types_.first();
         }
+        types_.clear();
         String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
         if (classes.isCustomType(type_)) {
             if (Classes.canAccessClass(_rooted.getFullName(), type_, this)) {
@@ -1659,7 +1683,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (types_.size() == 1) {
             return types_.first();
         }
-        return standards.getAliasObject();
+        return EMPTY_TYPE;
     }
     public static String removeDottedSpaces(String _type) {
         StringBuilder b_ = new StringBuilder();

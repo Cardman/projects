@@ -1,9 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneInterface;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -50,19 +48,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     }
 
     @Override
-    public StringList getAllGenericSuperClasses(Analyzable _classes) {
-        StringList allSuperTypes_ = TypeUtil.getAllGenericSuperTypes(this,_classes);
-        StringList allGenericSuperClasses_ = new StringList();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (_classes.getClassBody(base_) instanceof StandardInterface) {
-                allGenericSuperClasses_.add(s);
-            }
-        }
-        return allGenericSuperClasses_;
-    }
-
-    @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
@@ -70,15 +55,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     @Override
     public StringList getAllSuperTypes() {
         return allSuperTypes;
-    }
-
-    @Override
-    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList(getDirectSuperTypes());
-        if (getDirectSuperTypes().isEmpty()) {
-            classes_.add(_classes.getStandards().getAliasObject());
-        }
-        return classes_;
     }
 
     @Override
@@ -101,11 +77,6 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     @Override
     public boolean isAbstractType() {
         return true;
-    }
-
-    @Override
-    public StringList getAllGenericInterfaces(Analyzable _classes) {
-        return getAllGenericSuperClasses(_classes);
     }
 
     @Override

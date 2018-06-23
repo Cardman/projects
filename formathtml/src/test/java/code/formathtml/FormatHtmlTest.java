@@ -9530,8 +9530,6 @@ public class FormatHtmlTest {
         assertNotNull(conf_.getContext().getException());
     }
 
-    //imports
-    @Ignore
     @Test
     public void processImports7FailTest() {
         String locale_ = "LOCALE";
@@ -9565,8 +9563,6 @@ public class FormatHtmlTest {
         assertNotNull(conf_.getContext().getException());
     }
 
-    //imports
-    @Ignore
     @Test
     public void processImports8FailTest() {
         String locale_ = "LOCALE";

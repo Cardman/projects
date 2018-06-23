@@ -62,7 +62,15 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
-        StringList classNames_ = getAllGenericSuperClasses(_context);
+        StringList allSuperTypes_ = getAllGenericSuperTypes(_context);
+        StringList allGenericSuperClasses_ = new StringList();
+        for (String s: allSuperTypes_) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            if (classesRef_.getClassBody(base_) instanceof ClassBlock) {
+                allGenericSuperClasses_.add(s);
+            }
+        }
+        StringList classNames_ = allGenericSuperClasses_;
         String fullName_ = getFullName();
         for (String b: getCustomDirectSuperClasses(_context)) {
             ClassBlock bBl_ = (ClassBlock) classesRef_.getClassBody(b);
@@ -234,23 +242,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericInterfaces(Analyzable _classes) {
-        StringList interfaces_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _classes.resolveBaseTypeBuildInherits(base_, this);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (!(r_ instanceof InterfaceBlock)) {
-                continue;
-            }
-            if (isAccessibleType(base_, _classes)) {
-                interfaces_.add(_classes.resolveDynamicTypeBuildInherits(s, this));
-            }
-        }
-        return interfaces_;
-    }
-
-    @Override
     public StringList getDirectInterfaces(Analyzable _classes) {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
@@ -307,21 +298,21 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList();
-        classes_.add(getGenericSuperClass(_classes));
-        return classes_;
-    }
-
-    @Override
     public StringList getDirectSuperClasses(Analyzable _context) {
         StringList classes_ = new StringList();
-        String superClass_ = getGenericSuperClass(_context);
-        int index_ = superClass_.indexOf(LT);
-        if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-            classes_.add(superClass_.substring(CustList.FIRST_INDEX, index_));
-        } else {
-            classes_.add(superClass_);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            base_=_context.resolveBaseTypeBuildInherits(base_,this);
+            RootBlock r_ = _context.getClasses().getClassBody(base_);
+            if (!(r_ instanceof ClassBlock)) {
+                continue;
+            }
+            if (isAccessibleType(base_, _context)) {
+                classes_.add(base_);
+            }
+        }
+        if (classes_.isEmpty()) {
+            classes_.add(_context.getStandards().getAliasObject());
         }
         return classes_;
     }
@@ -344,20 +335,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public boolean mustImplement() {
         return !isAbstractType();
-    }
-
-    @Override
-    public StringList getAllGenericSuperClasses(Analyzable _classes) {
-        StringList allSuperTypes_ = getAllGenericSuperTypes(_classes);
-        StringList allGenericSuperClasses_ = new StringList();
-        Classes classes_ = _classes.getClasses();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (classes_.getClassBody(base_) instanceof ClassBlock) {
-                allGenericSuperClasses_.add(s);
-            }
-        }
-        return allGenericSuperClasses_;
     }
 
     @Override
@@ -390,10 +367,31 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     @Override
     public void buildDirectGenericSuperTypes(Analyzable _classes) {
-        importedDirectSuperClass = getGenericSuperClass(_classes);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            base_=_classes.resolveDynamicType(base_,this);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof ClassBlock)) {
+                continue;
+            }
+            if (isAccessibleType(base_, _classes)) {
+                importedDirectSuperClass = _classes.resolveDynamicType(s,this);
+            }
+        }
+        if (importedDirectSuperClass.isEmpty()) {
+            importedDirectSuperClass = _classes.getStandards().getAliasObject();
+        }
         importedDirectSuperInterfaces.clear();
-        for (String i: getDirectGenericInterfaces(_classes)) {
-            importedDirectSuperInterfaces.add(i);
+        for (String s: getDirectSuperTypes()) {
+            String base_ = Templates.getIdFromAllTypes(s);
+            base_ = _classes.resolveDynamicType(base_, this);
+            RootBlock r_ = _classes.getClasses().getClassBody(base_);
+            if (!(r_ instanceof InterfaceBlock)) {
+                continue;
+            }
+            if (isAccessibleType(base_, _classes)) {
+                importedDirectSuperInterfaces.add(_classes.resolveDynamicType(s, this));
+            }
         }
     }
 

@@ -7,13 +7,30 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.formathtml.util.BadElRender;
 import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class ElRenderUtil {
+
+    public static boolean okType(ExecutableCode _cont, String _className) {
+        StringMap<StringList> map_;
+        map_ = new StringMap<StringList>();
+        String glClass_ = _cont.getOperationPageEl().getGlobalClass();
+        if (glClass_ != null) {
+            for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
+                map_.put(t.getName(), t.getConstraints());
+            }
+        }
+        return Templates.correctClassParts(_className, map_, _cont.getContextEl());
+    }
 
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
         ContextEl context_ = _conf.toContextEl();

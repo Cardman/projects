@@ -3,7 +3,6 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneClass;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -88,18 +87,6 @@ public final class StandardClass extends StandardType implements GeneClass {
         return superClasses_;
     }
     @Override
-    public StringList getAllGenericSuperClasses(Analyzable _classes) {
-        StringList allSuperTypes_ = TypeUtil.getAllGenericSuperTypes(this, _classes);
-        StringList allGenericSuperClasses_ = new StringList();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (_classes.getClassBody(base_) instanceof StandardClass) {
-                allGenericSuperClasses_.add(s);
-            }
-        }
-        return allGenericSuperClasses_;
-    }
-    @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
@@ -107,12 +94,7 @@ public final class StandardClass extends StandardType implements GeneClass {
     public StringList getAllSuperTypes() {
         return allSuperTypes;
     }
-    @Override
-    public StringList getDirectGenericSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList();
-        classes_.add(getGenericSuperClass(_classes));
-        return classes_;
-    }
+
     @Override
     public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
@@ -120,18 +102,7 @@ public final class StandardClass extends StandardType implements GeneClass {
         classes_.add(superClass_);
         return classes_;
     }
-    @Override
-    public StringList getAllGenericInterfaces(Analyzable _classes) {
-        StringList allSuperTypes_ = TypeUtil.getAllGenericSuperTypes(this,_classes);
-        StringList allGenericInterfaces_ = new StringList();
-        for (String s: allSuperTypes_) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            if (_classes.getClassBody(base_) instanceof StandardInterface) {
-                allGenericInterfaces_.add(s);
-            }
-        }
-        return allGenericInterfaces_;
-    }
+
     @Override
     public StringList getAllInterfaces() {
         return allInterfaces;
@@ -160,8 +131,9 @@ public final class StandardClass extends StandardType implements GeneClass {
     public String getSuperClass(Analyzable _classes) {
         return getGenericSuperClass(_classes);
     }
+
     @Override
-    public StringList getDirectGenericInterfaces(Analyzable _classes) {
+    public StringList getDirectInterfaces(Analyzable _classes) {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
@@ -170,14 +142,6 @@ public final class StandardClass extends StandardType implements GeneClass {
             }
         }
         return interfaces_;
-    }
-    @Override
-    public StringList getDirectInterfaces(Analyzable _classes) {
-        StringList direct_ = new StringList();
-        for (String s: getDirectGenericInterfaces(_classes)) {
-            direct_.add(s);
-        }
-        return direct_;
     }
     @Override
     public StringList getAllSuperClasses(Analyzable _classes) {

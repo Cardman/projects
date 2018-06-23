@@ -400,17 +400,6 @@ public abstract class OperationNode {
     final void setNextSibling(OperationNode _nextSibling) {
         nextSibling = _nextSibling;
     }
-    public static boolean okType(ExecutableCode _cont, String _className) {
-        StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        String glClass_ = _cont.getOperationPageEl().getGlobalClass();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
-                map_.put(t.getName(), t.getConstraints());
-            }
-        }
-        return Templates.correctClassParts(_className, map_, _cont);
-    }
 
     static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name) {
         if (!_staticContext) {

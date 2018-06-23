@@ -9,8 +9,6 @@ public interface GeneClass extends GeneType {
 
     String getSuperClass(Analyzable _classes);
 
-    StringList getDirectGenericInterfaces(Analyzable _classes);
-
     StringList getDirectInterfaces(Analyzable _classes);
 
     StringList getAllSuperClasses(Analyzable _classes);

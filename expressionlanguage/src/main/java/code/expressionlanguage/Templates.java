@@ -8,11 +8,13 @@ import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
@@ -126,7 +128,8 @@ public final class Templates {
         return types_;
     }
 
-    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context) {
+    /**Calls Templates.isCorrect*/
+    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
         if (!existClassParts(_className, _mapping, _context)) {
             return false;
         }
@@ -139,7 +142,8 @@ public final class Templates {
         return isCorrectTemplateAll(cl_, _mapping, _context, true);
     }
 
-    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context, Block _current, boolean _exact) {
+    /**Calls Templates.isCorrect*/
+    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context, Block _current, boolean _exact) {
         if (!existClassParts(_className, _mapping, _context, _current)) {
             return false;
         }
@@ -152,6 +156,7 @@ public final class Templates {
         return isCorrectTemplateAll(cl_, _mapping, _context, _exact);
     }
 
+    /**Calls Templates.isCorrect*/
     public static boolean correctClassPartsDynamic(String _className, StringMap<StringList> _mapping, Analyzable _context, boolean _exact) {
         if (!existClassPartsDynamic(_className, _mapping, _context)) {
             return false;
@@ -159,7 +164,7 @@ public final class Templates {
         String cl_ = StringList.removeAllSpaces(_className);
         return isCorrectTemplateAll(cl_, _mapping, _context, _exact);
     }
-    public static boolean correctClassPartsBuild(String _className, StringMap<StringList> _mapping, Analyzable _context, Block _current) {
+    public static boolean correctClassPartsBuild(String _className, StringMap<StringList> _mapping, ContextEl _context, Block _current) {
         if (!existClassParts(_className, _mapping, _context, _current)) {
             return false;
         }
@@ -172,7 +177,7 @@ public final class Templates {
         return isCorrectTemplateAllBuild(cl_, _mapping, _context);
     }
     
-    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context) {
+    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
         if (!isCorrectWrite(_className, _context)) {
             return false;
         }
@@ -196,7 +201,7 @@ public final class Templates {
         return true;
     }
 
-    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context, Block _current) {
+    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context, Block _current) {
         if (!isCorrectWrite(_className, _context)) {
             return false;
         }
@@ -208,7 +213,7 @@ public final class Templates {
         return true;
     }
     
-    public static boolean existAllClassParts(String _className, StringList _variables, Analyzable _context) {
+    public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context) {
         Classes classes_ = _context.getClasses();
         LgNames stds_ = _context.getStandards();
         String void_ = stds_.getAliasVoid();
@@ -231,8 +236,15 @@ public final class Templates {
             if (!custClass_) {
                 if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
                     if (_context.getAnalyzing() != null) {
-                        baseName_ = _context.resolveDynamicType(baseName_, _context.getCurrentBlock().getRooted());
-                        if (!classes_.isCustomType(baseName_)) {
+                        String trim_ = ContextEl.removeDottedSpaces(baseName_);
+                        String res_ = _context.lookupImportsIndirect(trim_, _context.getCurrentBlock().getRooted());
+                        if (res_.isEmpty()) {
+                            UnexpectedTypeError un_ = new UnexpectedTypeError();
+                            un_.setFileName(_context.getCurrentBlock().getFile().getFileName());
+                            un_.setRc(new RowCol());
+                            un_.setType(trim_);
+                            _context.getClasses().addError(un_);
+                            res_ = _context.getStandards().getAliasObject();
                             return false;
                         }
                     } else {
@@ -272,7 +284,7 @@ public final class Templates {
         }
         return true;
     }
-    public static boolean existAllClassParts(String _className, StringList _variables, Analyzable _context, Block _current) {
+    public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context, Block _current) {
         Classes classes_ = _context.getClasses();
         LgNames stds_ = _context.getStandards();
         String void_ = stds_.getAliasVoid();
@@ -295,8 +307,15 @@ public final class Templates {
             if (!custClass_) {
                 if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
                     if (_context.getAnalyzing() != null) {
-                        baseName_ = _context.resolveDynamicType(baseName_, _current.getRooted());
-                        if (!classes_.isCustomType(baseName_)) {
+                        String trim_ = ContextEl.removeDottedSpaces(baseName_);
+                        String res_ = _context.lookupImportsIndirect(trim_, _current.getRooted());
+                        if (res_.isEmpty()) {
+                            UnexpectedTypeError un_ = new UnexpectedTypeError();
+                            un_.setFileName(_current.getFile().getFileName());
+                            un_.setRc(new RowCol());
+                            un_.setType(trim_);
+                            _context.getClasses().addError(un_);
+                            res_ = _context.getStandards().getAliasObject();
                             return false;
                         }
                     } else {
@@ -307,7 +326,7 @@ public final class Templates {
         }
         return true;
     }
-    public static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
+    static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
         String className_ = getIdFromAllTypes(_className);
         GeneType root_ = _context.getClassBody(className_);
         return TypeUtil.getAllGenericSuperTypes(root_, _context);

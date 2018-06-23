@@ -1513,7 +1513,7 @@ public abstract class LgNames {
                         infosConst_.put(id_, met_);
                     }
                     if (clblock_ instanceof StandardInterface) {
-                        classes_.add(new ClassMetaInfo(forName_, ((StandardInterface)clblock_).getDirectGenericSuperClasses(_cont), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
+                        classes_.add(new ClassMetaInfo(forName_, ((StandardInterface)clblock_).getDirectInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
                         continue;
                     }
                     ClassCategory cat_ = ClassCategory.CLASS;

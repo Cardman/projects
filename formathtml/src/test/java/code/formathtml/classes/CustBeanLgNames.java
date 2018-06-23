@@ -206,6 +206,7 @@ public final class CustBeanLgNames extends BeanLgNames {
         buildGeneObjects();
         buildPickableList();
         buildPickableList();
+        buildRate();
         buildRateEq();
         buildSimpleDataBase();
         buildNatTreeMapStringInteger();
@@ -758,6 +759,18 @@ public final class CustBeanLgNames extends BeanLgNames {
         method_ = new StandardMethod(SET_TYPED_TEXT,params_,getAliasVoid(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(TYPE_ENCAPS_FIELDS, cl_);
+    }
+    private void buildRate() {
+        StringMap<StandardField> fields_;
+        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        StandardClass cl_;
+        cl_ = new StandardClass(TYPE_RATE, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        cl_.getDirectInterfaces().add(getAliasDisplayable());
+        getStandards().put(TYPE_RATE, cl_);
     }
     private void buildRateEq() {
         StringMap<StandardField> fields_;
