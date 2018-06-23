@@ -93,7 +93,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             und_.setClassName(clArg_.getName());
             und_.setRc(_conf.getCurrentLocation());
             und_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().getErrorsDet().add(und_);
+            _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasVoid()));
             checkPositionBasis(_conf);
             return;
@@ -102,10 +102,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         GeneConstructor ctor_ = ctorRes_.getCtor();
         if (ctor_ != null && !Classes.canAccess(clCurName_, ctor_, _conf)) {
             BadAccessConstructor badAccess_ = new BadAccessConstructor();
-            badAccess_.setId(((ConstructorBlock)ctor_).getId(_conf));
+            badAccess_.setId(ctor_.getId());
             badAccess_.setFileName(_conf.getCurrentFileName());
             badAccess_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badAccess_);
+            _conf.getClasses().addError(badAccess_);
         }
         checkPositionBasis(_conf);
         postAnalysis(_conf, ctorRes_, chidren_, firstArgs_);
@@ -210,7 +210,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setRc(curBlock_.getRowCol(0, 0));
             call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
-            _conf.getClasses().getErrorsDet().add(call_);
+            _conf.getClasses().addError(call_);
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
                 //error
@@ -218,14 +218,14 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setRc(curBlock_.getRowCol(0, 0));
                 call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
-                _conf.getClasses().getErrorsDet().add(call_);
+                _conf.getClasses().addError(call_);
             } else if (!(curBlock_ instanceof Line)) {
                 //error
                 BadConstructorCall call_ = new BadConstructorCall();
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setRc(curBlock_.getRowCol(0, 0));
                 call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
-                _conf.getClasses().getErrorsDet().add(call_);
+                _conf.getClasses().addError(call_);
             } else {
                 checkPosition(_conf);
             }
@@ -238,7 +238,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setRc(curBlock_.getRowCol(0, 0));
             call_.setLocalOffset(curBlock_.getRowCol(getFullIndexInEl(), 0));
-            _conf.getClasses().getErrorsDet().add(call_);
+            _conf.getClasses().addError(call_);
         }
     }
     protected final void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {

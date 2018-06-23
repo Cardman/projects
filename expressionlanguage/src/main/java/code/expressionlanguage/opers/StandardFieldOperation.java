@@ -6,7 +6,6 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class StandardFieldOperation extends
         SettableAbstractFieldOperation {
@@ -29,7 +28,7 @@ public final class StandardFieldOperation extends
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(static_);
+            _conf.getClasses().addError(static_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;
         }
@@ -41,7 +40,6 @@ public final class StandardFieldOperation extends
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
-        str_ = StringList.removeAllSpaces(str_);
         return str_;
     }
 

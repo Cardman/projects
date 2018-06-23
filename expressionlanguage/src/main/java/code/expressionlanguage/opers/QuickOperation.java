@@ -92,7 +92,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
                     un_.setFileName(_conf.getCurrentFileName());
                     un_.setExpectedResult(booleanType_);
                     un_.setOperands(new StringList(cl_.getName()));
-                    _conf.getClasses().getErrorsDet().add(un_);
+                    _conf.getClasses().addError(un_);
                 }
             }
         }

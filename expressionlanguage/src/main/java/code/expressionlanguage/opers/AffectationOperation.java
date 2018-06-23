@@ -58,7 +58,7 @@ public final class AffectationOperation extends MethodOperation {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -80,7 +80,7 @@ public final class AffectationOperation extends MethodOperation {
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(cast_);
+            _conf.getClasses().addError(cast_);
             return;
         }
         StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -104,7 +104,7 @@ public final class AffectationOperation extends MethodOperation {
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(cast_);
+            _conf.getClasses().addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_);
@@ -153,7 +153,7 @@ public final class AffectationOperation extends MethodOperation {
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                                 un_.setFileName(_conf.getCurrentFileName());
                                 un_.setRc(_conf.getCurrentLocation());
-                                _conf.getClasses().getErrorsDet().add(un_);
+                                _conf.getClasses().addError(un_);
                             }
                         }
                     }
@@ -198,7 +198,7 @@ public final class AffectationOperation extends MethodOperation {
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(un_);
+                        _conf.getClasses().addError(un_);
                     }
                 }
             }

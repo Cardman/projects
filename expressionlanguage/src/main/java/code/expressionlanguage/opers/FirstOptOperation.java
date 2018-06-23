@@ -75,7 +75,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());
             varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().getErrorsDet().add(varg_);
+            _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -86,7 +86,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());
             varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().getErrorsDet().add(varg_);
+            _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -96,7 +96,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());
             varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().getErrorsDet().add(varg_);
+            _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -106,7 +106,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());
             varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().getErrorsDet().add(varg_);
+            _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;

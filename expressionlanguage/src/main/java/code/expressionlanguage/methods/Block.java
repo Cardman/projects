@@ -159,25 +159,13 @@ public abstract class Block extends Blockable {
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         for (EntryCust<ClassField, SimpleAssignment> e: prevAss_.getFieldsRoot().entryList()) {
-            AssignmentBefore asBef_ = new AssignmentBefore();
-            if (e.getValue().isAssignedAfter()) {
-                asBef_.setAssignedBefore(true);
-            }
-            if (e.getValue().isUnassignedAfter()) {
-                asBef_.setUnassignedBefore(true);
-            }
+            AssignmentBefore asBef_ = e.getValue().assignBefore();
             assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
         }
         for (StringMap<SimpleAssignment> s: prevAss_.getVariablesRoot()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                AssignmentBefore asBef_ = new AssignmentBefore();
-                if (e.getValue().isAssignedAfter()) {
-                    asBef_.setAssignedBefore(true);
-                }
-                if (e.getValue().isUnassignedAfter()) {
-                    asBef_.setUnassignedBefore(true);
-                }
+                AssignmentBefore asBef_ = e.getValue().assignBefore();
                 sm_.put(e.getKey(), asBef_);
             }
             assBl_.getVariablesRootBefore().add(sm_);
@@ -203,14 +191,14 @@ public abstract class Block extends Blockable {
                 bad_.setName(label_);
                 bad_.setFileName(getFile().getFileName());
                 bad_.setRc(getRowCol(0, 0));
-                _an.getClasses().getErrorsDet().add(bad_);
+                _an.getClasses().addError(bad_);
             } else if (!label_.isEmpty()){
                 if (_anEl.getLabels().containsStr(label_)) {
                     DuplicateLabel dup_ = new DuplicateLabel();
                     dup_.setId(label_);
                     dup_.setFileName(getFile().getFileName());
                     dup_.setRc(getRowCol(0, 0));
-                    _an.getClasses().getErrorsDet().add(dup_);
+                    _an.getClasses().addError(dup_);
                 } else {
                     _anEl.getLabels().add(label_);
                 }
@@ -299,7 +287,7 @@ public abstract class Block extends Blockable {
         UnexpectedTagName un_ = new UnexpectedTagName();
         un_.setFileName(_block.getFile().getFileName());
         un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
-        _cont.getClasses().getErrorsDet().add(un_);
+        _cont.getClasses().addError(un_);
     }
 
     public final void processBlock(ContextEl _conf) {
@@ -823,7 +811,7 @@ public abstract class Block extends Blockable {
         UnexpectedTagName un_ = new UnexpectedTagName();
         RowCol rc_ = getRowColBeginElt(_conf.getHtml(), 0, _conf.getTabWidth(), _el);
         un_.setRc(rc_);
-        _conf.getClasses().getErrorsDet().add(un_);
+        _conf.getClasses().addError(un_);
         return null;
     }
     public final Element getAssociateElement() {

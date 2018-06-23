@@ -126,7 +126,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         if (canBeIncrementedCurGroup()) {

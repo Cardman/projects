@@ -127,7 +127,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         Block pBlock_ = getPreviousSibling();
@@ -136,7 +136,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
+                _an.getClasses().addError(un_);
             }
         }
         CustList<Block> prev_ = new CustList<Block>();

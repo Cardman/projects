@@ -52,18 +52,8 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         LgNames stds_ = _conf.getStandards();
         String method_ = prefixFunction(INSTANCEOF);
         String sub_ = className.substring(method_.length() + className.indexOf(method_));
-        sub_ = _conf.resolveType(sub_, false);
-        boolean st_ = isStaticBlock();
-        if (sub_.contains(Templates.TEMPLATE_BEGIN)) {
-            if (!checkCorrect(_conf, sub_, true, offset+1)) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                return;
-            }
-        } else {
-            if (!checkExistBase(_conf, !st_, sub_, true, offset+1)) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-                return;
-            }
+        sub_ = _conf.resolveCorrectType(sub_, false);
+        if (!sub_.contains(Templates.TEMPLATE_BEGIN)) {
             if (!sub_.startsWith(Templates.PREFIX_VAR_TYPE)) {
                 correctTemplate = Templates.correctNbParameters(sub_, _conf);
             }

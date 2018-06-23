@@ -84,14 +84,8 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
-            boolean ass_ = true;
-            boolean unass_ = true;
-            if (!ba_.isAssignedAfter()) {
-                ass_ = false;
-            }
-            if (!ba_.isUnassignedAfter()) {
-                unass_ = false;
-            }
+            boolean ass_ = ba_.isAssignedAfter();
+            boolean unass_ = ba_.isUnassignedAfter();
             if (_anEl.canCompleteNormally(this)) {
                 if (ass_) {
                     ass_ = prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter();
@@ -110,14 +104,8 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
                 SimpleAssignment ba_ = e.getValue();
                 AssignmentBefore ab_ = new AssignmentBefore();
-                boolean ass_ = true;
-                boolean unass_ = true;
-                if (!ba_.isAssignedAfter()) {
-                    ass_ = false;
-                }
-                if (!ba_.isUnassignedAfter()) {
-                    unass_ = false;
-                }
+                boolean ass_ = ba_.isAssignedAfter();
+                boolean unass_ = ba_.isUnassignedAfter();
                 if (_anEl.canCompleteNormally(this)) {
                     if (ass_) {
                         ass_ = prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter();
@@ -151,7 +139,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, valueOffset));
             un_.setType(opValue.last().getResultClass());
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
         }
         if (opValue.last().getArgument() == null) {
             OperationNode last_ = opValue.last();
@@ -161,7 +149,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
                     un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().getErrorsDet().add(un_);
+                    _cont.getClasses().addError(un_);
                     return;
                 }
                 DotOperation d_ = (DotOperation) last_;
@@ -170,7 +158,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
                     un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().getErrorsDet().add(un_);
+                    _cont.getClasses().addError(un_);
                     return;
                 }
                 if (!(d_.getFirstChild().getNextSibling() instanceof SettableAbstractFieldOperation)) {
@@ -178,7 +166,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
                     un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().getErrorsDet().add(un_);
+                    _cont.getClasses().addError(un_);
                     return;
                 }
                 last_ = d_.getFirstChild().getNextSibling();
@@ -190,7 +178,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, valueOffset));
                 un_.setType(opValue.last().getResultClass());
-                _cont.getClasses().getErrorsDet().add(un_);
+                _cont.getClasses().addError(un_);
                 return;
             }
             if (!cst_.getFieldMetaInfo().isEnumField()) {
@@ -198,7 +186,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, valueOffset));
                 un_.setType(opValue.last().getResultClass());
-                _cont.getClasses().getErrorsDet().add(un_);
+                _cont.getClasses().addError(un_);
                 return;
             }
         }
@@ -210,7 +198,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
             return;
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
@@ -220,7 +208,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, valueOffset));
             un_.setType(opValue.last().getResultClass());
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
         }
     }
 

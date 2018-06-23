@@ -9,17 +9,18 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NullStruct;
@@ -867,24 +868,25 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveType(String _in, boolean _correct) {
-        return context.resolveType(_in, _correct);
+    public String resolveCorrectType(String _in) {
+        return resolveDynamicType(_in, null);
+    }
+    @Override
+    public String resolveCorrectType(String _in, boolean _exact) {
+        return resolveDynamicType(_in, null);
+    }
+    @Override
+    public String resolveQuickType(String _in) {
+        return resolveDynamicType(_in, null);
     }
 
     @Override
-    public MethodId getId(GeneMethod _m) {
-        return context.getId(_m);
+    public String resolveTypeMapping(String _in, Block _currentBlock, RowCol _location) {
+        return resolveDynamicType(_in, null);
     }
-
     @Override
-    public ConstructorId getId(GeneConstructor _m) {
-        return context.getId(_m);
-    }
-
-    @Override
-    public String resolveType(String _in, Block _currentBlock, RowCol _location, boolean _correct, boolean _checkSimpleCorrect,
-            boolean _checkOnlyExistence) {
-        return context.resolveType(_in, _currentBlock, _location, _correct, _checkSimpleCorrect, _checkOnlyExistence);
+    public String resolveType(String _in, Block _currentBlock, RowCol _location) {
+        return resolveDynamicType(_in, null);
     }
     @Override
     public int getGlobalOffset() {
@@ -892,9 +894,13 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public String resolveBaseTypeBuildInherits(String _in, Block _currentBlock) {
+        return ContextEl.removeDottedSpaces(_in);
+    }
+    @Override
     public String resolveBaseType(String _in, Block _currentBlock,
             RowCol _location) {
-        return context.resolveBaseType(_in, _currentBlock, _location);
+        return ContextEl.removeDottedSpaces(_in);
     }
 
     @Override
@@ -906,10 +912,71 @@ public class Configuration implements ExecutableCode {
     public FieldInfo getFieldInfo(ClassField _classField) {
         return context.getFieldInfo(_classField);
     }
+    @Override
+    public String resolveDynamicTypeBuildInherits(String _in, RootBlock _file) {
+        return resolveDynamicType(_in, _file);
+    }
 
     @Override
     public String resolveDynamicType(String _in, RootBlock _file) {
-        return context.resolveDynamicType(_in, _file);
+        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
+        StringBuilder str_ = new StringBuilder();
+        for (String p: parts_) {
+            String tr_ = p.trim();
+            if (tr_.isEmpty()) {
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
+                str_.append(tr_);
+                continue;
+            }
+            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+                str_.append(Templates.PREFIX_VAR_TYPE);
+                str_.append(n_);
+                continue;
+            }
+            String bs_ = ContextEl.removeDottedSpaces(tr_);
+            if (context.getClasses().isCustomType(bs_)) {
+                str_.append(bs_);
+                continue;
+            }
+            if (standards.getStandards().contains(bs_)) {
+                str_.append(bs_);
+                continue;
+            }
+            if (PrimitiveTypeUtil.isPrimitive(bs_, this)) {
+                str_.append(bs_);
+                continue;
+            }
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName("");
+            un_.setRc(new RowCol());
+            un_.setType(bs_);
+            context.getClasses().addError(un_);
+            str_.append(standards.getAliasObject());
+        }
+        return str_.toString();
     }
 
     @Override

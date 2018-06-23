@@ -56,7 +56,7 @@ public final class ElUtil {
             badEl_.setEl(_left);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         _conf.setAnalyzingRoot(false);
@@ -68,7 +68,7 @@ public final class ElUtil {
             badEl_.setEl(_left);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         CustList<OperationNode> allLeft_ = getSortedDescNodes(opLeft_, _hiddenVarTypes, _conf);
@@ -81,7 +81,7 @@ public final class ElUtil {
             badEl_.setEl(_right);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
@@ -92,7 +92,7 @@ public final class ElUtil {
             badEl_.setEl(_right);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         CustList<OperationNode> allRight_ = getSortedDescNodes(opRight_, _hiddenVarTypes, _conf);
@@ -110,7 +110,7 @@ public final class ElUtil {
             badEl_.setEl(_right);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
             return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
         }
         ClassArgumentMatching clMatchLeft_ = r_.getResultClass();
@@ -130,31 +130,31 @@ public final class ElUtil {
             if (StringList.quickEq(_oper, Block.EQ_PLUS) || StringList.quickEq(_oper, Block.PLUS_EQ)) {
                 if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                     if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
-                        _conf.getClasses().getErrorsDet().add(cast_);
+                        _conf.getClasses().addError(cast_);
                         return new ExpLanguages(allLeft_, allRight_);
                     }
                 } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
-                    _conf.getClasses().getErrorsDet().add(cast_);
+                    _conf.getClasses().addError(cast_);
                     return new ExpLanguages(allLeft_, allRight_);
                 }
             } else if (StringList.quickEq(_oper, Block.AND_EQ) || StringList.quickEq(_oper, Block.OR_EQ)) {
                 if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasBoolean())) {
                     if (!StringList.quickEq(clMatchLeft_.getName(), stds_.getAliasPrimBoolean())) {
-                        _conf.getClasses().getErrorsDet().add(cast_);
+                        _conf.getClasses().addError(cast_);
                         return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
                     }
                 }
                 if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasBoolean())) {
                     if (!StringList.quickEq(clMatchRight_.getName(), stds_.getAliasPrimBoolean())) {
-                        _conf.getClasses().getErrorsDet().add(cast_);
+                        _conf.getClasses().addError(cast_);
                         return new ExpLanguages(new CustList<OperationNode>(),new CustList<OperationNode>());
                     }
                 }
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
                 return new ExpLanguages(allLeft_, allRight_);
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
                 return new ExpLanguages(allLeft_, allRight_);
             }
             r_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
@@ -171,7 +171,7 @@ public final class ElUtil {
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
                 return new ExpLanguages(allLeft_, allRight_);
             }
             StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -195,7 +195,7 @@ public final class ElUtil {
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_.getName(), _conf)) {
                 opRight_.getResultClass().setUnwrapObject(clMatchLeft_.getName());
@@ -256,7 +256,7 @@ public final class ElUtil {
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
             EmptyPartOperation e_ = new EmptyPartOperation(0, 0, null, null);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
@@ -271,7 +271,7 @@ public final class ElUtil {
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
             EmptyPartOperation e_ = new EmptyPartOperation(0, 0, null, null);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
@@ -374,7 +374,7 @@ public final class ElUtil {
                         badNb_.setFileName(_context.getCurrentFileName());
                         badNb_.setOperandsNumber(0);
                         badNb_.setRc(_context.getCurrentLocation());
-                        _context.getClasses().getErrorsDet().add(badNb_);
+                        _context.getClasses().addError(badNb_);
                     } else {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
                         boolean static_ = current_ instanceof StaticAccessOperation;
@@ -446,7 +446,7 @@ public final class ElUtil {
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
             badEl_.setRc(_context.getCurrentLocation());
-            _context.getClasses().getErrorsDet().add(badEl_);
+            _context.getClasses().addError(badEl_);
         }
         return op_;
     }
@@ -479,7 +479,7 @@ public final class ElUtil {
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
             badEl_.setRc(_context.getCurrentLocation());
-            _context.getClasses().getErrorsDet().add(badEl_);
+            _context.getClasses().addError(badEl_);
         }
         return op_;
     }

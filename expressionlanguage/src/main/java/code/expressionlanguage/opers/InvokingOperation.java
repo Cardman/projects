@@ -100,7 +100,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                         cast_.setMapping(mapping_);
                         cast_.setFileName(_conf.getCurrentFileName());
                         cast_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(cast_);
+                        _conf.getClasses().addError(cast_);
                     }
                     continue;
                 }
@@ -111,7 +111,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
                     cast_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().getErrorsDet().add(cast_);
+                    _conf.getClasses().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
                     o.getResultClass().setUnwrapObject(name_);
@@ -351,7 +351,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(cast_);
+            _conf.getClasses().addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return true;
         }
@@ -378,7 +378,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
             }
         }
         return void_;
@@ -778,18 +778,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     return a_;
                 }
                 Boolean init_ = (Boolean) _firstArgs.last().getObject();
-                if (clDyn_.contains(Templates.TEMPLATE_BEGIN)) {
-                    if (!Templates.correctClassParts(clDyn_, new StringMap<StringList>(), _conf)) {
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
-                } else {
-                    if (!Templates.existClassParts(clDyn_, new StringMap<StringList>(), _conf)) {
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
+                boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
+                if (!Templates.correctClassPartsDynamic(clDyn_, new StringMap<StringList>(), _conf, gene_)) {
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
+                    Argument a_ = new Argument();
+                    return a_;
                 }
                 if (init_) {
                     if (hasToExit(_conf, clDyn_)) {

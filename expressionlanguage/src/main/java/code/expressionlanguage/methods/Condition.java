@@ -68,7 +68,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, conditionOffset));
                 un_.setType(opCondition.last().getResultClass());
-                _cont.getClasses().getErrorsDet().add(un_);
+                _cont.getClasses().addError(un_);
             }
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());

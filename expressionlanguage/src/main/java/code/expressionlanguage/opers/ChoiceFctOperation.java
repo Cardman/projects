@@ -76,18 +76,9 @@ public final class ChoiceFctOperation extends InvokingOperation {
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
-        className_ = _conf.resolveType(className_, false);
+        className_ = _conf.resolveCorrectType(className_, false);
         if (className_.contains(Templates.TEMPLATE_BEGIN)) {
             staticChoiceMethodTemplate = true;
-            if (!checkCorrect(_conf, className_, true, getIndexInEl()+off_ + lenPref_)) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-        } else {
-            if (!checkExistBase(_conf, false, className_, true, getIndexInEl()+off_ + lenPref_)) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
         }
         String clCurName_ = className_;
         if (hasVoidPrevious(clCurName_, _conf)) {
@@ -101,7 +92,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
 
-        trimMeth_ = StringList.removeAllSpaces(methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1));
+        trimMeth_ = methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1).trim();
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
@@ -114,7 +105,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             abs_.setSgn(clMeth_.getRealId().getSignature());
             abs_.setRc(_conf.getCurrentLocation());
             abs_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().getErrorsDet().add(abs_);
+            _conf.getClasses().addError(abs_);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
         }
@@ -134,7 +125,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(static_);
+                _conf.getClasses().addError(static_);
             }
         }
     }

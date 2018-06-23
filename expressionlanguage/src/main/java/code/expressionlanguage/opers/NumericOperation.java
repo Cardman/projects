@@ -371,7 +371,7 @@ public abstract class NumericOperation extends MethodOperation {
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(new StringList(_a.getName()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
             ok_ = false;
         }
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
@@ -381,7 +381,7 @@ public abstract class NumericOperation extends MethodOperation {
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(new StringList(_b.getName()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
             ok_ = false;
         }
         if (!ok_) {

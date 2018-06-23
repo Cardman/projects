@@ -53,21 +53,21 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
         }
         Block nextSibling_ = getNextSibling();
         if (nextSibling_ == null) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         if (!(nextSibling_ instanceof DoWhileCondition)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(nextSibling_.getFile().getFileName());
             un_.setRc(nextSibling_.getRowCol(0, nextSibling_.getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
         }
     }
     @Override

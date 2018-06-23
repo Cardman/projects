@@ -59,4 +59,8 @@ public final class StandardField implements GeneField {
     public GeneType belong() {
         return owner;
     }
+
+    public String getImportedClassName() {
+        return getClassName();
+    }
 }

@@ -23,6 +23,8 @@ public final class CatchEval extends AbstractCatchEval {
 
     private final String className;
 
+    private String importedClassName;
+
     private int classNameOffset;
 
     private final String variableName;
@@ -55,6 +57,9 @@ public final class CatchEval extends AbstractCatchEval {
         return className;
     }
 
+    public String getImportedClassName() {
+        return importedClassName;
+    }
     public String getVariableName() {
         return variableName;
     }
@@ -62,9 +67,6 @@ public final class CatchEval extends AbstractCatchEval {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
-        String cl_ = _cont.resolveType(className, true);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         if (getFirstChild() == null) {
@@ -87,7 +89,7 @@ public final class CatchEval extends AbstractCatchEval {
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setRc(getRowCol(0, variableNameOffset));
-            _cont.getClasses().getErrorsDet().add(d_);
+            _cont.getClasses().addError(d_);
             return;
         }
         if (!StringList.isWord(variableName)) {
@@ -95,13 +97,13 @@ public final class CatchEval extends AbstractCatchEval {
             b_.setFileName(getFile().getFileName());
             b_.setRc(getRowCol(0, variableNameOffset));
             b_.setVarName(variableName);
-            _cont.getClasses().getErrorsDet().add(b_);
+            _cont.getClasses().addError(b_);
         }
         if (getFirstChild() == null) {
             return;
         }
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(cl_);
+        lv_.setClassName(importedClassName);
         _cont.getAnalyzing().putCatchVar(variableName, lv_);
     }
 
@@ -117,16 +119,19 @@ public final class CatchEval extends AbstractCatchEval {
 
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        page_.setGlobalOffset(classNameOffset);
+        page_.setOffset(0);
+        importedClassName = _an.resolveCorrectType(className);
         StringList classes_ = new StringList();
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
             if (p_ instanceof CatchEval) {
-                classes_.add(_an.resolveType(((CatchEval)p_).className, false));
+                classes_.add(((CatchEval)p_).importedClassName);
             }
             p_ = p_.getPreviousSibling();
         }
-        String curClass_ = _an.resolveType(className, false);
-        _anEl.setArgMapping(curClass_);
+        _anEl.setArgMapping(importedClassName);
         boolean reachCatch_ = true;
         for (String c: classes_) {
             _anEl.setParamMapping(c);

@@ -28,7 +28,7 @@ public final class SuperFieldOperation extends
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(static_);
+            _conf.getClasses().addError(static_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;
         }

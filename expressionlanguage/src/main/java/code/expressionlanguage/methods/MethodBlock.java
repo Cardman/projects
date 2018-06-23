@@ -61,8 +61,8 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     }
 
     @Override
-    public String getSignature(Analyzable _an) {
-        return getId(_an).getSignature();
+    public String getSignature() {
+        return getId().getSignature();
     }
 
     @Override
@@ -87,7 +87,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     @Override
     public MethodId getFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
-        StringList types_ = getParametersTypes(_context);
+        StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -112,7 +112,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
             current_ = StringList.concat(className_,LT,vars_.join(SEP_TMP),GT);
         }
         String name_ = getName();
-        StringList types_ = getParametersTypes(_context);
+        StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -123,9 +123,10 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
-    public MethodId getId(Analyzable _an) {
+    @Override
+    public MethodId getId() {
         String name_ = getName();
-        StringList types_ = getParametersTypes(_an);
+        StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -208,15 +209,15 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         super.setAssignmentAfter(_an, _anEl);
         LgNames stds_ = _an.getStandards();
-        if (!StringList.quickEq(getReturnType(_an), stds_.getAliasVoid())) {
+        if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
                 //error
                 MissingReturnMethod miss_ = new MissingReturnMethod();
                 miss_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
                 miss_.setFileName(getFile().getFileName());
-                miss_.setId(getSignature(_an));
-                miss_.setReturning(getReturnType(_an));
-                _an.getClasses().getErrorsDet().add(miss_);
+                miss_.setId(getSignature());
+                miss_.setReturning(getImportedReturnType());
+                _an.getClasses().addError(miss_);
             }
         }
     }

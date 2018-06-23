@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -24,17 +23,10 @@ public final class ChoiceFieldOperation extends
         String className_ = originalStr_.substring(0,originalStr_.lastIndexOf(PAR_RIGHT));
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
-        className_ = _conf.resolveType(className_, false);
-        if (className_.contains(Templates.TEMPLATE_BEGIN)) {
-            if (!checkCorrect(_conf, className_, true, lenPref_)) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return null;
-            }
-        } else {
-            if (!checkExistBase(_conf, false, className_, true, lenPref_)) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return null;
-            }
+        className_ = _conf.resolveCorrectType(className_, false);
+        if (StringList.quickEq(className_, stds_.getAliasObject())) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return null;
         }
         return new ClassArgumentMatching(className_);
     }

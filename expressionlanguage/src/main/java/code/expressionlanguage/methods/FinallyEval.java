@@ -69,7 +69,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         Block pBlock_ = getPreviousSibling();
@@ -78,7 +78,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
+                _an.getClasses().addError(un_);
             }
         }
         CustList<Block> prev_ = new CustList<Block>();

@@ -1448,7 +1448,7 @@ public abstract class LgNames {
                         if (b instanceof InfoBlock) {
                             InfoBlock method_ = (InfoBlock) b;
                             String m_ = method_.getFieldName();
-                            String ret_ = _cont.resolveDynamicType(method_.getClassName(),method_.getRooted());
+                            String ret_ = method_.getImportedClassName();
                             boolean enumElement_ = b instanceof ElementBlock;
                             boolean staticElement_ = method_.isStaticField();
                             boolean finalElement_ = method_.isFinalField();
@@ -1457,20 +1457,20 @@ public abstract class LgNames {
                         }
                         if (b instanceof MethodBlock) {
                             MethodBlock method_ = (MethodBlock) b;
-                            MethodId id_ = method_.getId(_cont);
-                            String ret_ = method_.getReturnType(_cont);
+                            MethodId id_ = method_.getId();
+                            String ret_ = method_.getImportedReturnType();
                             MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), id_, method_.getModifier(), ret_);
                             infos_.put(id_, met_);
                         }
                         if (b instanceof ConstructorBlock) {
                             ConstructorBlock method_ = (ConstructorBlock) b;
-                            ConstructorId id_ = method_.getGenericId(_cont);
+                            ConstructorId id_ = method_.getGenericId();
                             ConstructorMetaInfo met_ = new ConstructorMetaInfo(forName_, id_);
                             infosConst_.put(id_, met_);
                         }
                     }
                     if (clblock_ instanceof InterfaceBlock) {
-                        classes_.add(new ClassMetaInfo(forName_, ((InterfaceBlock)clblock_).getDirectGenericSuperClasses(_cont), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
+                        classes_.add(new ClassMetaInfo(forName_, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
                         continue;
                     }
                     ClassCategory cat_ = ClassCategory.CLASS;
@@ -1481,7 +1481,7 @@ public abstract class LgNames {
                     }
                     boolean abs_ = clblock_.isAbstractType();
                     boolean final_ = clblock_.isFinalType();
-                    classes_.add(new ClassMetaInfo(forName_, ((UniqueRootedBlock) clblock_).getGenericSuperClass(_cont), infosFields_,infos_, infosConst_, cat_, abs_, final_));
+                    classes_.add(new ClassMetaInfo(forName_, ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_));
                 }
                 for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
                     ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
@@ -1503,7 +1503,7 @@ public abstract class LgNames {
                     }
                     for (StandardMethod m: clblock_.getMethods().values()) {
                         MethodId id_ = m.getId();
-                        String ret_ = m.getReturnType(_cont);
+                        String ret_ = m.getImportedReturnType();
                         MethodMetaInfo met_ = new MethodMetaInfo(m.getDeclaringType(), id_, m.getModifier(), ret_);
                         infos_.put(id_, met_);
                     }

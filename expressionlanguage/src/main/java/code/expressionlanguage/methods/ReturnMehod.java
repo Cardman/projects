@@ -92,7 +92,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             if (par_ instanceof Returnable) {
                 Returnable meth_ = null;
                 meth_ = (Returnable) par_;
-                retType_ = meth_.getReturnType(_cont);
+                retType_ = meth_.getImportedReturnType();
                 break;
             }
             par_ = par_.getParent();
@@ -108,7 +108,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
             return;
         }
         _cont.setRootAffect(false);
@@ -120,7 +120,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -133,7 +133,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setRc(getRowCol(0, expressionOffset));
-            _cont.getClasses().getErrorsDet().add(cast_);
+            _cont.getClasses().addError(cast_);
             return;
         }
         if (!Templates.isGenericCorrect(mapping_, _cont)) {
@@ -141,7 +141,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setRc(getRowCol(0, expressionOffset));
-            _cont.getClasses().getErrorsDet().add(cast_);
+            _cont.getClasses().addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(retType_, _cont)) {
             opRet.last().getResultClass().setUnwrapObject(retType_);
@@ -225,7 +225,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 if (par_ instanceof Returnable) {
                     Returnable meth_ = null;
                     meth_ = (Returnable) par_;
-                    retType_ = meth_.getReturnType(_cont);
+                    retType_ = meth_.getImportedReturnType();
                     break;
                 }
                 par_ = par_.getParent();

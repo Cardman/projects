@@ -228,7 +228,7 @@ public final class ConstantOperation extends LeafOperation {
             badFormat_.setNumber(str_);
             badFormat_.setFileName(_conf.getCurrentFileName());
             badFormat_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badFormat_);
+            _conf.getClasses().addError(badFormat_);
             argClassName_ = stds_.getAliasPrimDouble();
         }
         Argument arg_ = Argument.createVoid();

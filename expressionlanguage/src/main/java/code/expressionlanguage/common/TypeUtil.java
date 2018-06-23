@@ -37,9 +37,6 @@ import code.util.comparators.ComparatorIndexes;
 
 public final class TypeUtil {
 
-    private static final String LT = "<";
-    private static final String GT = ">";
-    private static final String SEP_TMP = ",";
     private TypeUtil() {
     }
 
@@ -64,6 +61,11 @@ public final class TypeUtil {
             for (RootBlock c: classes_.getClassBodies()) {
                 RootBlock bl_ = c;
                 _context.getAnalyzing().setCurrentBlock(bl_);
+                bl_.buildDirectGenericSuperTypes(_context);
+            }
+            for (RootBlock c: classes_.getClassBodies()) {
+                RootBlock bl_ = c;
+                _context.getAnalyzing().setCurrentBlock(bl_);
                 bl_.buildMapParamType(_context);
                 String d_ = c.getFullName();
                 StringList ints_ = bl_.getStaticInitInterfaces();
@@ -72,7 +74,7 @@ public final class TypeUtil {
                     int offset_ = bl_.getStaticInitInterfacesOffset().get(i);
                     String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
                     RowCol rc_ = bl_.getRowCol(0, offset_);
-                    base_ = _context.resolveType(base_, false);
+                    base_ = _context.resolveQuickType(base_);
                     RootBlock r_ = classes_.getClassBody(base_);
                     if (r_ == null) {
                         UnknownClassName undef_;
@@ -80,7 +82,7 @@ public final class TypeUtil {
                         undef_.setClassName(base_);
                         undef_.setFileName(d_);
                         undef_.setRc(rc_);
-                        classes_.getErrorsDet().add(undef_);
+                        classes_.addError(undef_);
                         continue;
                     }
                     if (!(r_ instanceof InterfaceBlock)) {
@@ -90,15 +92,17 @@ public final class TypeUtil {
                         enum_.setClassName(n_);
                         enum_.setFileName(d_);
                         enum_.setRc(rc_);
-                        classes_.getErrorsDet().add(enum_);
+                        classes_.addError(enum_);
+                    } else {
+                        bl_.getStaticInitImportedInterfaces().add(base_);
                     }
                 }
                 for (int i = 0; i < len_; i++) {
                     String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
-                    sup_ = _context.resolveType(sup_, false);
+                    sup_ = _context.resolveQuickType(sup_);
                     for (int j = i + 1; j < len_; j++) {
                         String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
-                        sub_ = _context.resolveType(sub_, false);
+                        sub_ = _context.resolveQuickType(sub_);
                         if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
                             BadInheritedClass undef_;
                             undef_ = new BadInheritedClass();
@@ -106,7 +110,7 @@ public final class TypeUtil {
                             undef_.setFileName(d_);
                             int offset_ = bl_.getStaticInitInterfacesOffset().get(j);
                             undef_.setRc(bl_.getRowCol(0, offset_));
-                            classes_.getErrorsDet().add(undef_);
+                            classes_.addError(undef_);
                         }
                     }
                 }
@@ -124,10 +128,10 @@ public final class TypeUtil {
                 continue;
             }
             RootBlock block_ = (RootBlock) bl_;
-            StringList ints_ = block_.getStaticInitInterfaces();
+            StringList ints_ = block_.getStaticInitImportedInterfaces();
             StringList trimmedInt_ = new StringList();
             for (String i: ints_) {
-                trimmedInt_.add(StringList.removeAllSpaces(i));
+                trimmedInt_.add(i);
             }
             UniqueRootedBlock un_ = (UniqueRootedBlock)bl_;
             StringList all_ = bl_.getAllInterfaces();
@@ -168,7 +172,7 @@ public final class TypeUtil {
                 undef_.setClassName(c);
                 undef_.setFileName(c);
                 undef_.setRc(block_.getRowCol(0, 0));
-                classes_.getErrorsDet().add(undef_);
+                classes_.addError(undef_);
             }
         }
     }
@@ -277,7 +281,7 @@ public final class TypeUtil {
                                 OverridingRelation ovRel_ = new OverridingRelation();
                                 ovRel_.setRealId(e.getKey());
                                 ovRel_.setSubMethod(c);
-                                ovRel_.setSupMethod(new ClassMethodId(superType_, _context.getId(m)));
+                                ovRel_.setSupMethod(new ClassMethodId(superType_, m.getId()));
                                 newpairs_.add(ovRel_);
                             }
                         }
@@ -378,8 +382,8 @@ public final class TypeUtil {
                 if (subId_.eq(supId_)) {
                     addClass(_type.getAllOverridingMethods(), l.getRealId(), subId_);
                 } else {
-                    String retBase_ = sup_.getReturnType(_context);
-                    String retDerive_ = sub_.getReturnType(_context);
+                    String retBase_ = sup_.getImportedReturnType();
+                    String retDerive_ = sub_.getImportedReturnType();
                     String formattedRetDer_ = Templates.format(subId_.getClassName(), retDerive_, _context);
                     String formattedRetBase_ = Templates.format(supId_.getClassName(), retBase_, _context);
                     Mapping mapping_ = new Mapping();
@@ -394,8 +398,8 @@ public final class TypeUtil {
                             err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getNameOffset()));
                         }
                         err_.setClassName(subId_.getClassName());
-                        err_.setId(_context.getId(sub_));
-                        classesRef_.getErrorsDet().add(err_);
+                        err_.setId(sub_.getId());
+                        classesRef_.addError(err_);
                         continue;
                     }
                     if (sub_.getAccess().ordinal() > sup_.getAccess().ordinal()) {
@@ -405,8 +409,8 @@ public final class TypeUtil {
                         if (sub_ instanceof MethodBlock) {
                             err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getAccessOffset()));
                         }
-                        err_.setId(_context.getId(sub_));
-                        classesRef_.getErrorsDet().add(err_);
+                        err_.setId(sub_.getId());
+                        classesRef_.addError(err_);
                         continue;
                     }
                     if (StringList.quickEq(retBase_, voidType_)) {
@@ -418,9 +422,9 @@ public final class TypeUtil {
                                 err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
                             }
                             err_.setReturnType(retDerive_);
-                            err_.setMethod(_context.getId(sub_));
+                            err_.setMethod(sub_.getId());
                             err_.setParentClass(supId_.getClassName());
-                            classesRef_.getErrorsDet().add(err_);
+                            classesRef_.addError(err_);
                             continue;
                         }
                     } else if (!Templates.isCorrect(mapping_, _context)) {
@@ -431,9 +435,9 @@ public final class TypeUtil {
                             err_.setRc(((MethodBlock) sub_).getRowCol(0, ((MethodBlock) sub_).getReturnTypeOffset()));
                         }
                         err_.setReturnType(retDerive_);
-                        err_.setMethod(_context.getId(sub_));
+                        err_.setMethod(sub_.getId());
                         err_.setParentClass(supId_.getClassName());
-                        classesRef_.getErrorsDet().add(err_);
+                        classesRef_.addError(err_);
                         continue;
                     }
                     addClass(_type.getAllOverridingMethods(), l.getRealId(), subId_);
@@ -451,11 +455,11 @@ public final class TypeUtil {
                     continue;
                 }
                 String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
-                MethodId id_ = _context.getId(m).format(formattedSuper_, _context);
+                MethodId id_ = m.getId().format(formattedSuper_, _context);
                 CustList<GeneMethod> mBases_ = _context.getMethodBodiesById(gene_, id_);
                 if (!mBases_.isEmpty()) {
                     GeneMethod mBas_ = mBases_.first();
-                    MethodId mId_ = _context.getId(mBas_);
+                    MethodId mId_ = mBas_.getId();
                     for (String d: _type.getDirectGenericSuperTypes(_context)) {
                         CustList<GeneMethod> mBasesSuper_ = TypeUtil.getMethodBodiesByFormattedId(_context, d, mId_);
                         if (mBasesSuper_.isEmpty()) {
@@ -469,7 +473,7 @@ public final class TypeUtil {
                             }
                             duplicate_.setCommonSignature(mId_.getSignature());
                             duplicate_.setOtherType(d);
-                            classesRef_.getErrorsDet().add(duplicate_);
+                            classesRef_.addError(duplicate_);
                         }
                     }
                 }
@@ -490,7 +494,7 @@ public final class TypeUtil {
             }
             CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
             for (GeneConstructor b: bl_) {
-                StringList list_ = _context.getId(b).getParametersTypes();
+                StringList list_ = b.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -531,7 +535,7 @@ public final class TypeUtil {
             }
             CustList<GeneConstructor> bl_ = ContextEl.getConstructorBlocks(c);
             for (GeneConstructor b: bl_) {
-                StringList list_ = _context.getId(b).getParametersTypes();
+                StringList list_ = b.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -576,7 +580,7 @@ public final class TypeUtil {
                 if (!StringList.quickEq(_methodName, b.getName())) {
                     continue;
                 }
-                StringList list_ = _context.getId(b).getParametersTypes();
+                StringList list_ = b.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -610,16 +614,7 @@ public final class TypeUtil {
     }
     public static StringList getAllGenericSuperTypes(GeneType _type,Analyzable _classes) {
         StringList list_ = new StringList();
-        StringList vars_ = new StringList();
-        for (TypeVar t: _type.getParamTypesMapValues()) {
-            vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
-        }
-        StringList current_;
-        if (vars_.isEmpty()) {
-            current_ = new StringList(_type.getFullName());
-        } else {
-            current_ = new StringList(StringList.concat(_type.getFullName(),LT,vars_.join(SEP_TMP),GT));
-        }
+        StringList current_ = new StringList(_type.getGenericString());
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
@@ -651,7 +646,7 @@ public final class TypeUtil {
             }
             GeneClass subClassBlock_ = (GeneClass) c;
             StringList allBaseClasses_ = new StringList(name_);
-            allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses(_conf));
+            allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
             boolean foundConcrete_ = false;
             for (String s: allBaseClasses_) {
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
@@ -668,7 +663,7 @@ public final class TypeUtil {
                 boolean found_ = false;
                 StringList foundSuperClasses_ = new StringList();
                 StringList allSuperClasses_ = new StringList(gene_);
-                for (String t: r_.getAllSuperClasses(_conf)) {
+                for (String t: r_.getAllSuperClasses()) {
                     allSuperClasses_.add(Templates.getFullTypeByBases(gene_, t, _conf));
                 }
                 EqList<ClassMethodId> list_ = ov_.getVal(l_);
@@ -795,7 +790,7 @@ public final class TypeUtil {
             if (b.isStaticMethod()) {
                 continue;
             }
-            MethodId m_ = _classes.getId(b);
+            MethodId m_ = b.getId();
             map_.put(m_, new EqList<ClassMethodId>(new ClassMethodId(_type.getGenericString(), m_)));
         }
         for (String s: getAllGenericSuperTypes(_type, _classes)) {
@@ -805,7 +800,7 @@ public final class TypeUtil {
                 if (b.isStaticMethod()) {
                     continue;
                 }
-                MethodId m_ = _classes.getId(b);
+                MethodId m_ = b.getId();
                 addClass(map_, b.getFormattedId(s, _classes), new ClassMethodId(s, m_));
             }
         }
@@ -815,7 +810,7 @@ public final class TypeUtil {
         ObjectMap<MethodId, ClassMethodId> map_;
         map_ = new ObjectMap<MethodId, ClassMethodId>();
         for (GeneMethod b: ContextEl.getMethodBlocks(_type)) {
-            MethodId m_ = _classes.getId(b);
+            MethodId m_ = b.getId();
             map_.put(m_, new ClassMethodId(_type.getGenericString(), m_));
         }
         return map_;

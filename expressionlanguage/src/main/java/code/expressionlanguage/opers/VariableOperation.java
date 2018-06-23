@@ -97,7 +97,7 @@ public final class VariableOperation extends LeafOperation implements
         und_.setId(variableName);
         und_.setFileName(_conf.getCurrentFileName());
         und_.setRc(_conf.getCurrentLocation());
-        _conf.getClasses().getErrorsDet().add(und_);
+        _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 
@@ -127,7 +127,7 @@ public final class VariableOperation extends LeafOperation implements
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(un_);
+                        _conf.getClasses().addError(un_);
                     }
                 }
                 AssignmentBefore bf_ = e.getValue();

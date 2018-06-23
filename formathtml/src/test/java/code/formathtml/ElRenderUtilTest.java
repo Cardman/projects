@@ -1633,7 +1633,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("+1b",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -1641,7 +1641,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("+-1b",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2165,7 +2165,7 @@ public final class ElRenderUtilTest {
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
         ElRenderUtil.processEl("getOverridenOne($null)",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     //imports
@@ -2175,7 +2175,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$(Object)$null",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
 
@@ -2196,7 +2196,7 @@ public final class ElRenderUtilTest {
         addBean(context_,new Composite(), COMPOSITE);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("setPrivateInt(arg;.)",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2214,7 +2214,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new java.lang.Number()",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2222,7 +2222,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new [$int(-1i)",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2231,7 +2231,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new [java.lang.Integer(-1i)",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2243,7 +2243,7 @@ public final class ElRenderUtilTest {
         CustLgNames cust_ = (CustLgNames) context_.getContext().getStandards();
         addBeanClassName(context_,cust_.getAliasComposite());
         ElRenderUtil.processEl("integer",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
 
@@ -2260,7 +2260,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("MAX_VALUE",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
     
     @Test
@@ -2268,7 +2268,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).integer",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2276,7 +2276,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).int$$eger",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2284,7 +2284,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.StrangeInit).NOT_READ",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2293,7 +2293,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.StrangeInit).fail()",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2302,7 +2302,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new code.expressionlanguage.classes.StrangeInit()",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2311,7 +2311,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail()",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2320,7 +2320,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$new code.expressionlanguage.classes.FailMethods()",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -2337,7 +2337,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("get(arg;.)",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2345,7 +2345,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.Composite).getInteger()",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2359,7 +2359,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;.",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2373,7 +2373,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2388,7 +2388,7 @@ public final class ElRenderUtilTest {
         localVars_.put("arg", lv_);
         context_.getLastPage().getVars().putAllMap(localVars_);
         ElRenderUtil.processEl("$static(code.expressionlanguage.classes.FailMethods).fail().arg;;",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2397,7 +2397,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "$firstopt(6)*(7+8)";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2406,7 +2406,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format(\"6\",$vararg(6))";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2415,7 +2415,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2424,7 +2424,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "$vararg(java.lang.Object)*(7+8)";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2433,7 +2433,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format($vararg(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2442,7 +2442,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "\"\".format($firstopt(6),\"6\")";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
     
     @Test
@@ -2460,7 +2460,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         String el_ = "get(,)";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2469,7 +2469,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1<2<3";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2478,7 +2478,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "(3,4)";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2487,7 +2487,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1< ";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2496,7 +2496,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1<";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2505,7 +2505,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1!";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2514,7 +2514,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "1!=";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2523,7 +2523,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "!";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2532,7 +2532,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "-";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2541,7 +2541,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "$true!$false";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2550,7 +2550,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "$static(code.expressionlanguage.classes.FailMethods).(fail())";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -2559,7 +2559,7 @@ public final class ElRenderUtilTest {
         addImportingPage(conf_);
         String el_ = "var;.[0i,1i]";
         ElRenderUtil.processEl(el_, 0, conf_);
-        assertTrue(!conf_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!conf_.getClasses().isEmptyErrors());
     }
     @Test
     public void processEl179Test() {
@@ -2587,7 +2587,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(4, (Number)lv_.getElement());
@@ -2618,7 +2618,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(false, (Boolean)lv_.getElement());
@@ -2649,7 +2649,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(true, (Boolean)lv_.getElement());
@@ -2680,7 +2680,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertNotNull(ctx_.getException());
@@ -2712,7 +2712,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertNotNull(ctx_.getException());
@@ -2744,7 +2744,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertNotNull(ctx_.getException());
@@ -2776,7 +2776,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertNotNull(ctx_.getException());
@@ -2808,7 +2808,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(false, (Boolean)op_.getArgument().getObject());
@@ -2839,7 +2839,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(4, (Number)lv_.getElement());
@@ -2871,7 +2871,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(4, (Number)lv_.getElement());
@@ -2905,7 +2905,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(6, (Number) in_[0].getInstance());
@@ -2939,7 +2939,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(6, (Number) in_[0].getInstance());
@@ -2971,7 +2971,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(5, (Number)lv_.getElement());
@@ -3005,7 +3005,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(8, (Number) in_[0].getInstance());
@@ -3041,7 +3041,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(12, (Number)lv2_.getElement());
@@ -3078,7 +3078,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(12, (Number)lv2_.getElement());
@@ -3115,7 +3115,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(13, (Number)lv2_.getElement());
@@ -3152,7 +3152,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         assertEq(13, (Number)lv2_.getElement());
@@ -3178,7 +3178,7 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         Object res_ = op_.getArgument().getObject();
@@ -3208,14 +3208,14 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$($byte)$null",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
     @Test
     public void processEl201Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("$(java.lang.Byte)$null",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNull(context_.getContext().getException());
         assertSame(NullStruct.NULL_VALUE, arg_.getStruct());
     }
@@ -3224,7 +3224,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl();
         addImportingPage(context_);
         ElRenderUtil.processEl("$(java.lang.Byte)\"not cast\"",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         Struct exc_ = context_.getContext().getException();
         assertNotNull(exc_);
         assertEq(context_.getStandards().getAliasCast(),exc_.getClassName(context_.getContext()));
@@ -3252,7 +3252,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         String el_ = "!v;.";
         ElRenderUtil.processEl(el_, 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getException());
         ContextEl ctx_= context_.getContext();
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
@@ -3268,7 +3268,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         String el_ = "$($byte)v;.";
         ElRenderUtil.processEl(el_,0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ContextEl ctx_= context_.getContext();
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
@@ -3297,10 +3297,10 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
     @Test
@@ -3328,10 +3328,10 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
     @Test
@@ -3362,10 +3362,10 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
     @Test
@@ -3396,10 +3396,10 @@ public final class ElRenderUtilTest {
         boolean static_ = argGl_ == null || argGl_.isNull();
         ctx_.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), ctx_.getException().getClassName(ctx_));
     }
 
@@ -3491,7 +3491,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl(true,false,true);
         addImportingPage(context_);
         ElRenderUtil.processEl("('1'+'2')*3i",0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
     @Test
     public void processEl219Test() {
@@ -3812,7 +3812,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
         ElRenderUtil.processEl("$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke($null)",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
     @Test
@@ -3820,7 +3820,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
         ElRenderUtil.processEl("$class(java.lang.String).getDeclaredMethods(\"length\",$false,$false)[0i].invoke(1i)",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
     @Test
@@ -3828,7 +3828,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
         ElRenderUtil.processEl("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i)",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
     @Test
@@ -3869,7 +3869,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -3877,7 +3877,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
         ElRenderUtil.processEl("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,\"\")",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
     @Test
@@ -3885,7 +3885,7 @@ public final class ElRenderUtilTest {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
         ElRenderUtil.processEl("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,$null)",0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
     @Test
@@ -3930,7 +3930,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -3975,7 +3975,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -4478,7 +4478,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(arg_.isNull());
         assertNull(cont_.getContext().getException());
         assertEq(10, (Number)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst")).getInstance());
@@ -4526,7 +4526,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -4575,7 +4575,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -4624,7 +4624,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -4673,7 +4673,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -4722,7 +4722,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5026,7 +5026,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5079,7 +5079,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5126,7 +5126,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5332,7 +5332,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5378,7 +5378,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5424,7 +5424,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5565,7 +5565,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5612,7 +5612,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5659,7 +5659,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertTrue(arg_.isNull());
         assertNull(cont_.getContext().getException());
     }
@@ -5707,7 +5707,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5754,7 +5754,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5801,7 +5801,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5848,7 +5848,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -5946,7 +5946,7 @@ public final class ElRenderUtilTest {
         addImportingPage(cont_);
         Argument arg_ =ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
         assertTrue(arg_.isNull());
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNull(cont_.getContext().getException());
     }
     @Test
@@ -6043,7 +6043,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
     @Test
@@ -6084,7 +6084,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         Struct exc_ = cont_.getContext().getException();
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -6130,7 +6130,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         Struct exc_ = cont_.getContext().getException();
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -6174,7 +6174,7 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         Struct exc_ = cont_.getContext().getException();
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
@@ -6222,11 +6222,184 @@ public final class ElRenderUtilTest {
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
         ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         Struct exc_ = cont_.getContext().getException();
         assertTrue(exc_ instanceof CausingErrorStruct);
         Struct cause_ = ((CausingErrorStruct)exc_).getCause();
         assertTrue(cause_.isNull());
+    }
+    @Test
+    public void processEl299Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> : pkg.ExAbs {\n");
+        xml_.append(" $public $static $final $int inst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst;;;=$static(pkg.ExAbs).sup;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach(#T i:e;.;){\n");
+        xml_.append("    t;.+=$($int)i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $static(pkg.Ex).inst;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $protected $static $final $int sup=15i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(15, (Number)res_);
+    }
+    @Test
+    public void processEl300Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> : pkg.ExAbs {\n");
+        xml_.append(" $public $static $final $int inst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst;;;=$static(pkg.ExAbs).sup;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach(#T i:e;.;){\n");
+        xml_.append("    t;.+=$($int)i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $static(pkg.Ex).inst;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $protected $static $final $int sup:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  sup;;;=15i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(15, (Number)res_);
+    }
+    @Test
+    public void processEl301Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> : pkg.ExAbs {\n");
+        xml_.append(" $public $static $final $int inst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst;;;=sup;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach(#T i:e;.;){\n");
+        xml_.append("    t;.+=$($int)i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $static(pkg.Ex).inst;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $protected $static $final $int sup:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  sup;;;=15i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(15, (Number)res_);
+    }
+    @Test
+    public void processEl302Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> : pkg.ExAbs {\n");
+        xml_.append(" $public $static $final $int inst:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  inst;;;=$static(pkg.ExAbs).sup;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $if(e;.;!=$null){\n");
+        xml_.append("   $foreach(#T i:e;.;){\n");
+        xml_.append("    t;.+=$($int)i;:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $static(pkg.Ex).inst;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+        xml_.append(" $protected $static $final $int sup:\n");
+        xml_.append(" $static{\n");
+        xml_.append("  sup;;;=15i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExAbs", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()",0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(15, (Number)res_);
     }
     @Test
     public void processAffect1Test() {
@@ -6814,7 +6987,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().getParameters().putAllMap(localVars_);
         ElRenderUtil.processEl("v;.;=12i", 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
     @Test
     public void processAffect3FailTest() {
@@ -6829,7 +7002,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.[0i]=\"12i\"", 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -6846,7 +7019,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
         ElRenderUtil.processEl("v;.integer=\"12i\"", 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -6860,7 +7033,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.=\"12i\"", 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -6880,7 +7053,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         assertEq(0, c_.getInteger());
         ElRenderUtil.processEl("v;.integer=v2;.", 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -6900,7 +7073,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.[0i].getCompo()[0i].getArray()[0i]=v2;.", 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -6918,7 +7091,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.=v2;.", 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -6937,7 +7110,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("$this=$null", 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -6954,7 +7127,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.=$this", 0, context_);
-        assertTrue(!context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -6979,7 +7152,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         cont_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("$classchoice(pkg.Ex)inst=v;.", 0, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         assertNotNull(cont_.getContext().getException());
     }
 
@@ -7002,7 +7175,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v2", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.[0i]=v2;.", 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -7019,7 +7192,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.objInteger-=12i", 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -7036,7 +7209,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("v;.objInteger++", 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
 
@@ -7053,7 +7226,7 @@ public final class ElRenderUtilTest {
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
         ElRenderUtil.processEl("++v;.objInteger", 0, context_);
-        assertTrue(context_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
     private static void addImportingPage(Configuration _conf) {
@@ -7089,7 +7262,7 @@ public final class ElRenderUtilTest {
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
         cont_.initError();
@@ -7107,7 +7280,7 @@ public final class ElRenderUtilTest {
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
         cont_.initError();
@@ -7128,7 +7301,7 @@ public final class ElRenderUtilTest {
         cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
         cont_.initError();

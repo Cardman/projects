@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
 import code.expressionlanguage.methods.util.DuplicateType;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.ErrorList;
+import code.expressionlanguage.methods.util.FoundErrorInterpret;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
@@ -138,7 +139,7 @@ public final class Classes {
             d_.setId(_root.getFullName());
             d_.setFileName(_root.getFile().getFileName());
             d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-            errorsDet.add(d_);
+            addError(d_);
         }
         filesBodies.put(_fileName, _fileBlock);
         RootBlock bl_ = _root;
@@ -157,7 +158,7 @@ public final class Classes {
                 badCl_.setClassName(cl_.getFullName());
                 badCl_.setFileName(cl_.getFile().getFileName());
                 badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                errorsDet.add(badCl_);
+                addError(badCl_);
             }
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
@@ -166,7 +167,7 @@ public final class Classes {
                     badCl_.setClassName(cl_.getFullName());
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
             }
             String className_;
@@ -176,7 +177,7 @@ public final class Classes {
                 badCl_.setClassName(cl_.getFullName());
                 badCl_.setFileName(cl_.getFile().getFileName());
                 badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                errorsDet.add(badCl_);
+                addError(badCl_);
             }
         }
         String fullDef_ = cl_.getFullDefinition();
@@ -190,7 +191,7 @@ public final class Classes {
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                     continue;
                 }
                 if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
@@ -198,7 +199,7 @@ public final class Classes {
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
                 String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
                 TypeVar type_ = new TypeVar();
@@ -209,14 +210,14 @@ public final class Classes {
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
                 if (varTypes_.containsStr(parts_.first())) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
                 varTypes_.add(parts_.first());
                 StringList constraints_ = new StringList();
@@ -227,7 +228,7 @@ public final class Classes {
                             badCl_.setClassName(fullDef_);
                             badCl_.setFileName(cl_.getFile().getFileName());
                             badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                            errorsDet.add(badCl_);
+                            addError(badCl_);
                         }
                         constraints_.add(b);
                     }
@@ -243,7 +244,7 @@ public final class Classes {
             badCl_.setClassName(fullDef_);
             badCl_.setFileName(cl_.getFile().getFileName());
             badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            errorsDet.add(badCl_);
+            addError(badCl_);
         }
         int indexSuperType_= -1;
         for (String s: cl_.getDirectGenericSuperTypesBuild(_context)) {
@@ -253,7 +254,7 @@ public final class Classes {
                 badCl_.setClassName(s);
                 badCl_.setFileName(cl_.getFile().getFileName());
                 badCl_.setRc(cl_.getRowCol(0, cl_.getRowColDirectSuperTypes().getKey(indexSuperType_)));
-                errorsDet.add(badCl_);
+                addError(badCl_);
             }
         }
         for (TypeVar t: cl_.getParamTypes()) {
@@ -266,7 +267,7 @@ public final class Classes {
                     badCl_.setClassName(u);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
             }
         }
@@ -275,14 +276,14 @@ public final class Classes {
             d_.setId(cl_.getFullName());
             d_.setFileName(cl_.getFile().getFileName());
             d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            errorsDet.add(d_);
+            addError(d_);
         }
         if (PrimitiveTypeUtil.isPrimitive(cl_.getFullName(), _context)) {
             DuplicateType d_ = new DuplicateType();
             d_.setId(cl_.getFullName());
             d_.setFileName(cl_.getFile().getFileName());
             d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            errorsDet.add(d_);
+            addError(d_);
         }
         Block rootBl_ = cl_;
         CustList<Block> all_ = getSortedDescNodesRoot(rootBl_, _context);
@@ -307,7 +308,7 @@ public final class Classes {
             d_.setId(_root.getFullName());
             d_.setFileName(_root.getFile().getFileName());
             d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-            errorsDet.add(d_);
+            addError(d_);
         }
         RootBlock bl_ = _root;
         RootBlock cl_ = bl_;
@@ -320,7 +321,7 @@ public final class Classes {
                 badCl_.setClassName(cl_.getFullName());
                 badCl_.setFileName(cl_.getFile().getFileName());
                 badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                errorsDet.add(badCl_);
+                addError(badCl_);
             }
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
@@ -329,7 +330,7 @@ public final class Classes {
                     badCl_.setClassName(cl_.getFullName());
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
             }
             String className_;
@@ -339,7 +340,7 @@ public final class Classes {
                 badCl_.setClassName(cl_.getFullName());
                 badCl_.setFileName(cl_.getFile().getFileName());
                 badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                errorsDet.add(badCl_);
+                addError(badCl_);
             }
         }
         String fullDef_ = cl_.getFullDefinition();
@@ -353,7 +354,7 @@ public final class Classes {
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                     continue;
                 }
                 if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
@@ -361,7 +362,7 @@ public final class Classes {
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
                 String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
                 TypeVar type_ = new TypeVar();
@@ -372,14 +373,14 @@ public final class Classes {
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
                 if (varTypes_.containsStr(parts_.first())) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
                 varTypes_.add(parts_.first());
                 StringList constraints_ = new StringList();
@@ -390,7 +391,7 @@ public final class Classes {
                             badCl_.setClassName(b);
                             badCl_.setFileName(cl_.getFile().getFileName());
                             badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                            errorsDet.add(badCl_);
+                            addError(badCl_);
                         }
                         constraints_.add(b);
                     }
@@ -406,7 +407,7 @@ public final class Classes {
             badCl_.setClassName(fullDef_);
             badCl_.setFileName(cl_.getFile().getFileName());
             badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            errorsDet.add(badCl_);
+            addError(badCl_);
         }
         int indexSuperType_= -1;
         for (String s: cl_.getDirectGenericSuperTypesBuild(_context)) {
@@ -416,7 +417,7 @@ public final class Classes {
                 badCl_.setClassName(s);
                 badCl_.setFileName(cl_.getFile().getFileName());
                 badCl_.setRc(cl_.getRowCol(0, cl_.getRowColDirectSuperTypes().getKey(indexSuperType_)));
-                errorsDet.add(badCl_);
+                addError(badCl_);
             }
         }
         CustList<TypeVar> tvs_ = cl_.getParamTypes();
@@ -437,7 +438,7 @@ public final class Classes {
                     badCl_.setClassName(u);
                     badCl_.setFileName(cl_.getFile().getFileName());
                     badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    errorsDet.add(badCl_);
+                    addError(badCl_);
                 }
             }
         }
@@ -446,14 +447,14 @@ public final class Classes {
             d_.setId(cl_.getFullName());
             d_.setFileName(cl_.getFile().getFileName());
             d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            errorsDet.add(d_);
+            addError(d_);
         }
         if (PrimitiveTypeUtil.isPrimitive(cl_.getFullName(), _context)) {
             DuplicateType d_ = new DuplicateType();
             d_.setId(cl_.getFullName());
             d_.setFileName(cl_.getFile().getFileName());
             d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            errorsDet.add(d_);
+            addError(d_);
         }
         String fullName_ = cl_.getFullName();
         classesBodies.put(fullName_, cl_);
@@ -463,7 +464,7 @@ public final class Classes {
         if (!Templates.isCorrectWrite(_temp, _context)) {
             return false;
         }
-        String temp_ = StringList.removeAllSpaces(_temp);
+        String temp_ = ContextEl.removeDottedSpaces(_temp);
         if (PrimitiveTypeUtil.isPrimitive(temp_, _context)) {
             return false;
         }
@@ -496,28 +497,37 @@ public final class Classes {
         }
         return true;
     }
+    public boolean isEmptyErrors() {
+        return errorsDet.isEmpty();
+    }
+    public String displayErrors() {
+        return errorsDet.display();
+    }
+    public void addError(FoundErrorInterpret _error) {
+        errorsDet.add(_error);
+    }
     public ErrorList getErrorsDet() {
         return errorsDet;
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
         Classes.tryBuildBracedClassesBodies(_files, _context);
-        if (!classes_.errorsDet.isEmpty()) {
+        if (!classes_.isEmptyErrors()) {
             return;
         }
         classes_.validateInheritingClasses(_context);
-        if (!classes_.errorsDet.isEmpty()) {
+        if (!classes_.isEmptyErrors()) {
             return;
         }
         classes_.validateSingleParameterizedClasses(_context);
         classes_.validateIds(_context);
         classes_.validateOverridingInherit(_context);
-        if (!classes_.errorsDet.isEmpty()) {
+        if (!classes_.isEmptyErrors()) {
             return;
         }
         classes_.validateEl(_context);
         TypeUtil.checkInterfaces(_context, classes_.classesBodies.getKeys());
-        if (!classes_.errorsDet.isEmpty()) {
+        if (!classes_.isEmptyErrors()) {
             return;
         }
         _context.setAnalyzing(null);
@@ -533,7 +543,7 @@ public final class Classes {
                     b_.setClassName(file_);
                     b_.setFileName(file_);
                     b_.setRc(new RowCol());
-                    errorsDet.add(b_);
+                    addError(b_);
                 }
                 for (char c: file_.toCharArray()) {
                     if (StringList.isWordChar(c)) {
@@ -549,28 +559,28 @@ public final class Classes {
                     b_.setClassName(file_);
                     b_.setFileName(file_);
                     b_.setRc(new RowCol());
-                    errorsDet.add(b_);
+                    addError(b_);
                 }
                 if (StringList.indexesOfChar(file_, DOT).size() != 1) {
                     BadFileName b_ = new BadFileName();
                     b_.setClassName(file_);
                     b_.setFileName(file_);
                     b_.setRc(new RowCol());
-                    errorsDet.add(b_);
+                    addError(b_);
                 }
                 if (file_.lastIndexOf(SEP_FILE) > file_.indexOf(DOT)) {
                     BadFileName b_ = new BadFileName();
                     b_.setClassName(file_);
                     b_.setFileName(file_);
                     b_.setRc(new RowCol());
-                    errorsDet.add(b_);
+                    addError(b_);
                 }
                 if (!file_.endsWith(StringList.concat(String.valueOf(DOT),EXT))) {
                     BadFileName b_ = new BadFileName();
                     b_.setClassName(file_);
                     b_.setFileName(file_);
                     b_.setRc(new RowCol());
-                    errorsDet.add(b_);
+                    addError(b_);
                 }
                 for (String s: StringList.splitChars(file_, SEP_FILE)) {
                     if (StringList.isWord(s)) {
@@ -581,7 +591,7 @@ public final class Classes {
                         b_.setClassName(file_);
                         b_.setFileName(file_);
                         b_.setRc(new RowCol());
-                        errorsDet.add(b_);
+                        addError(b_);
                     }
                     for (String e: StringList.splitChars(s, DOT)) {
                         if (StringList.isWord(e)) {
@@ -591,7 +601,7 @@ public final class Classes {
                         b_.setClassName(file_);
                         b_.setFileName(file_);
                         b_.setRc(new RowCol());
-                        errorsDet.add(b_);
+                        addError(b_);
                     }
                 }
                 String content_ = f.getValue();
@@ -601,7 +611,7 @@ public final class Classes {
                     BadFileName bad_ = new BadFileName();
                     bad_.setRc(res_.getLocation());
                     bad_.setFileName(file_);
-                    errorsDet.add(bad_);
+                    addError(bad_);
                     continue;
                 }
                 _context.setHtml(content_);
@@ -614,7 +624,7 @@ public final class Classes {
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(bl_.getFile().getFileName());
                     un_.setRc(bl_.getRowCol(0, bl_.getOffset().getOffsetTrim()));
-                    errorsDet.add(un_);
+                    addError(un_);
                 }
                 int tabWidth_ = _context.getTabWidth();
                 RootBlock cl_ = (RootBlock) bl_;
@@ -627,7 +637,7 @@ public final class Classes {
                 bad_.setClassName(_0.getMessage());
                 bad_.setRc(new RowCol());
                 bad_.setFileName(file_);
-                errorsDet.add(bad_);
+                addError(bad_);
             }
         }
         LgNames stds_ = _context.getStandards();
@@ -653,6 +663,9 @@ public final class Classes {
         TypeUtil.buildInherits(_context, cl_.classesBodies.getKeys(), true);
         for (RootBlock t: cl_.classesBodies.values()) {
             TypeUtil.buildOverrides(t, _context);
+        }
+        for (RootBlock t: cl_.classesBodies.values()) {
+            t.validateIds(_context);
         }
         //local names
         _context.getAnalyzing().setCurrentBlock(null);
@@ -961,7 +974,7 @@ public final class Classes {
             for (EntryCust<Integer, String> t: bl_.getRowColDirectSuperTypes().entryList()) {
                 index_++;
                 String v_ = t.getValue();
-                v_ = StringList.removeAllSpaces(v_);
+                v_ = ContextEl.removeDottedSpaces(v_);
                 String base_ = Templates.getIdFromAllTypes(v_);
                 int offset_ = bl_.getRowColDirectSuperTypes().getKey(index_);
                 RowCol rc_ = bl_.getRowCol(0, offset_);
@@ -973,7 +986,7 @@ public final class Classes {
                         undef_.setClassName(base_);
                         undef_.setFileName(d_);
                         undef_.setRc(rc_);
-                        errorsDet.add(undef_);
+                        addError(undef_);
                     }
                     continue;
                 }
@@ -985,20 +998,18 @@ public final class Classes {
                         undef_.setClassName(base_);
                         undef_.setFileName(d_);
                         undef_.setRc(rc_);
-                        errorsDet.add(undef_);
+                        addError(undef_);
                     }
                     continue;
                 }
                 base_ = _context.resolveBaseType(base_, bl_, rc_);
                 if (!classesBodies.contains(base_)) {
-                    if (!StringList.quickEq(base_, objectClassName_)) {
-                        UnknownClassName undef_;
-                        undef_ = new UnknownClassName();
-                        undef_.setClassName(base_);
-                        undef_.setFileName(d_);
-                        undef_.setRc(rc_);
-                        errorsDet.add(undef_);
-                    }
+                    UnknownClassName undef_;
+                    undef_ = new UnknownClassName();
+                    undef_.setClassName(base_);
+                    undef_.setFileName(d_);
+                    undef_.setRc(rc_);
+                    addError(undef_);
                 } else {
                     RootBlock super_ = classesBodies.getVal(base_);
                     if (super_ instanceof UniqueRootedBlock) {
@@ -1012,7 +1023,7 @@ public final class Classes {
                             enum_.setClassName(n_);
                             enum_.setFileName(d_);
                             enum_.setRc(rc_);
-                            errorsDet.add(enum_);
+                            addError(enum_);
                         }
                     } else if (super_.isFinalType()) {
                         BadInheritedClass enum_;
@@ -1021,7 +1032,7 @@ public final class Classes {
                         enum_.setClassName(n_);
                         enum_.setFileName(d_);
                         enum_.setRc(rc_);
-                        errorsDet.add(enum_);
+                        addError(enum_);
                     }
                 }
                 inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
@@ -1032,10 +1043,10 @@ public final class Classes {
                 enum_.setClassName(EMPTY_STRING);
                 enum_.setFileName(d_);
                 enum_.setRc(bl_.getRowCol(0, bl_.getIdRowCol()));
-                errorsDet.add(enum_);
+                addError(enum_);
             }
         }
-        if (!errorsDet.isEmpty()) {
+        if (!isEmptyErrors()) {
             return;
         }
         EqList<ClassEdge> cycle_ = inherit_.elementsCycle();
@@ -1048,7 +1059,7 @@ public final class Classes {
                 b_.setClassName(n_);
                 b_.setFileName(n_);
                 b_.setRc(type_.getRowCol(0, type_.getIdRowCol()));
-                errorsDet.add(b_);
+                addError(b_);
             }
             return;
         }
@@ -1070,7 +1081,7 @@ public final class Classes {
             StringMap<StringList> cts_ = new StringMap<StringList>();
             StringList variables_ = new StringList();
             boolean ok_ = true;
-            for (TypeVar t: dBl_.getParamTypesMap().values()) {
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
                 cts_.put(t.getName(), t.getConstraints());
                 variables_.add(t.getName());
                 for (String b: t.getConstraints()) {
@@ -1079,7 +1090,7 @@ public final class Classes {
                         un_.setClassName(b);
                         un_.setFileName(c);
                         un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
-                        errorsDet.add(un_);
+                        addError(un_);
                         ok_ = false;
                     }
                 }
@@ -1095,10 +1106,10 @@ public final class Classes {
                 b_.setClassName(c);
                 b_.setFileName(c);
                 b_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
-                errorsDet.add(b_);
+                addError(b_);
                 continue;
             }
-            for (TypeVar t: dBl_.getParamTypesMap().values()) {
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
                 boolean existNative_ = false;
                 boolean existCustom_ = false;
                 StringList upper_ = Mapping.getAllUpperBounds(cts_, t.getName(),objectClassName_);
@@ -1120,7 +1131,7 @@ public final class Classes {
                     un_.setClassName(c);
                     un_.setFileName(c);
                     un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
-                    errorsDet.add(un_);
+                    addError(un_);
                     okLoc_ = false;
                     ok_ = false;
                 }
@@ -1132,7 +1143,7 @@ public final class Classes {
                         duplicate_.setFileName(c);
                         duplicate_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
                         duplicate_.setGenericSuperTypes(e.getValue());
-                        errorsDet.add(duplicate_);
+                        addError(duplicate_);
                     }
                 }
                 if (okLoc_) {
@@ -1181,7 +1192,7 @@ public final class Classes {
                         inh_.setFileName(c);
                         inh_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
                         inh_.setClassName(c);
-                        errorsDet.add(inh_);
+                        addError(inh_);
                         ok_ = false;
                     }
                 }
@@ -1191,17 +1202,17 @@ public final class Classes {
             }
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();
-            for (TypeVar t: dBl_.getParamTypesMap().values()) {
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
                 map_.put(t.getName(), t.getConstraints());
             }
-            for (TypeVar t: dBl_.getParamTypesMap().values()) {
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
                 for (String b: t.getConstraints()) {
                     if (!Templates.correctClassParts(b, map_, _context)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(c);
                         un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
-                        errorsDet.add(un_);
+                        addError(un_);
                     }
                 }
             }
@@ -1211,7 +1222,7 @@ public final class Classes {
                     un_.setClassName(t);
                     un_.setFileName(c);
                     un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
-                    errorsDet.add(un_);
+                    addError(un_);
                 }
             }
         }
@@ -1228,7 +1239,7 @@ public final class Classes {
                     duplicate_.setFileName(i.getKey());
                     duplicate_.setRc(r_.getRowCol(0, r_.getIdRowCol()));
                     duplicate_.setGenericSuperTypes(e.getValue());
-                    errorsDet.add(duplicate_);
+                    addError(duplicate_);
                 }
             }
         }
@@ -1638,7 +1649,7 @@ public final class Classes {
                         EmptyTagName un_ = new EmptyTagName();
                         un_.setFileName(b.getFile().getFileName());
                         un_.setRc(b.getRowCol(0, b.getOffset().getOffsetTrim()));
-                        errorsDet.add(un_);
+                        addError(un_);
                     }
                     method_.buildFctInstructions(_context);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(b).getFieldsRoot());
@@ -1659,7 +1670,7 @@ public final class Classes {
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(c.getValue().getFile().getFileName());
                     un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
-                    _context.getClasses().getErrorsDet().add(un_);
+                    _context.getClasses().addError(un_);
                 }
             }
         }
@@ -1766,7 +1777,7 @@ public final class Classes {
                         EmptyTagName un_ = new EmptyTagName();
                         un_.setFileName(b.getFile().getFileName());
                         un_.setRc(b.getRowCol(0, b.getOffset().getOffsetTrim()));
-                        errorsDet.add(un_);
+                        addError(un_);
                     }
                     method_.buildFctInstructions(_context);
                     assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(method_).getFieldsRoot());
@@ -1801,7 +1812,7 @@ public final class Classes {
                                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                                     un_.setFileName(c.getValue().getFile().getFileName());
                                     un_.setRc(b.getRowCol(0, ((InfoBlock) b).getFieldNameOffset()));
-                                    _context.getClasses().getErrorsDet().add(un_);
+                                    _context.getClasses().addError(un_);
                                     break;
                                 }
                             }
@@ -1859,14 +1870,14 @@ public final class Classes {
                 undef_.setClassName(block_.getFullName());
                 undef_.setFileName(block_.getFile().getFileName());
                 undef_.setRc(block_.getRowCol(0, 0));
-                _context.getClasses().getErrorsDet().add(undef_);
+                _context.getClasses().addError(undef_);
             }
             for (Block b: bl_) {
                 if (b instanceof ConstructorBlock) {
                     page_.setGlobalClass(c.getValue().getGenericString());
                     ConstructorBlock method_ = (ConstructorBlock) b;
                     StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getParametersTypes(_context);
+                    StringList types_ = method_.getImportedParametersTypes();
                     int len_ = params_.size();
                     if (!method_.isVarargs()) {
                         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -1932,7 +1943,7 @@ public final class Classes {
                     page_.setGlobalClass(c.getValue().getGenericString());
                     MethodBlock method_ = (MethodBlock) b;
                     StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getParametersTypes(_context);
+                    StringList types_ = method_.getImportedParametersTypes();
                     int len_ = params_.size();
                     if (!method_.isVarargs()) {
                         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -2189,7 +2200,7 @@ public final class Classes {
                             deadCode_.setFileName(className_);
                             deadCode_.setRc(rc_);
                             deadCode_.setId(EMPTY_STRING);
-                            errorsDet.add(deadCode_);
+                            addError(deadCode_);
                         }
                     }
                 }
@@ -2245,20 +2256,20 @@ public final class Classes {
                         d.setStoppable();
                     }
                     Block r_ = all_.last();
-                    StringList types_ = method_.getParametersTypes(_context);
+                    StringList types_ = method_.getImportedParametersTypes();
                     int len_ = types_.size();
                     EqList<ClassName> pTypes_ = new EqList<ClassName>();
                     for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                         String n_ = types_.get(i);
                         pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
                     }
-                    if (!r_.isExitable() && !StringList.quickEq(method_.getReturnType(_context), void_)) {
+                    if (!r_.isExitable() && !StringList.quickEq(method_.getImportedReturnType(), void_)) {
                         MissingReturnMethod miss_ = new MissingReturnMethod();
                         miss_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
                         miss_.setFileName(className_);
-                        miss_.setId(method_.getSignature(_context));
-                        miss_.setReturning(method_.getReturnType(_context));
-                        errorsDet.add(miss_);
+                        miss_.setId(method_.getSignature());
+                        miss_.setReturning(method_.getImportedReturnType());
+                        addError(miss_);
                     }
                     for (Block d: all_) {
                         RowCol rc_ = d.existDeadCodeInBlock(0, _context.getTabWidth());
@@ -2266,8 +2277,8 @@ public final class Classes {
                             DeadCodeMethod deadCode_ = new DeadCodeMethod();
                             deadCode_.setFileName(className_);
                             deadCode_.setRc(rc_);
-                            deadCode_.setId(method_.getSignature(_context));
-                            errorsDet.add(deadCode_);
+                            deadCode_.setId(method_.getSignature());
+                            addError(deadCode_);
                         }
                     }
                 }
@@ -2299,7 +2310,7 @@ public final class Classes {
         Classes classes_ = _context.getClasses();
         RootBlock r_ = classes_.getClassBody(base_);
         for (MethodBlock m: Classes.getMethodBlocks(r_)) {
-            if (m.getId(_context).eq(_id)) {
+            if (m.getId().eq(_id)) {
                 methods_.add(m);
                 break;
             }
@@ -2384,7 +2395,7 @@ public final class Classes {
                     continue;
                 }
                 ConstructorBlock method_ = (ConstructorBlock) b;
-                StringList list_ = method_.getId(_context).getParametersTypes();
+                StringList list_ = method_.getId().getParametersTypes();
                 if (list_.size() != nbParams_) {
                     continue;
                 }
@@ -2436,7 +2447,7 @@ public final class Classes {
                         continue;
                     }
                     String m_ = method_.getFieldName();
-                    String c_ = _context.resolveDynamicType(method_.getClassName(), method_.getRooted());
+                    String c_ = method_.getImportedClassName();
                     for (EntryCust<String, Struct> f: staticFields.getVal(base_).entryList()) {
                         if (f.getValue() != null) {
                             continue;
@@ -2518,7 +2529,7 @@ public final class Classes {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     String m_ = method_.getFieldName();
-                    String ret_ = _context.resolveDynamicType(method_.getClassName(), method_.getRooted());
+                    String ret_ = method_.getImportedClassName();
                     boolean enumElement_ = b instanceof ElementBlock;
                     boolean staticElement_ = method_.isStaticField();
                     boolean finalElement_ = method_.isFinalField();
@@ -2527,20 +2538,20 @@ public final class Classes {
                 }
                 if (b instanceof MethodBlock) {
                     MethodBlock method_ = (MethodBlock) b;
-                    MethodId id_ = method_.getId(_context);
-                    String ret_ = method_.getReturnType(_context);
+                    MethodId id_ = method_.getId();
+                    String ret_ = method_.getImportedReturnType();
                     MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), id_, method_.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    ConstructorId id_ = method_.getGenericId(_context);
+                    ConstructorId id_ = method_.getGenericId();
                     ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, id_);
                     infosConst_.put(id_, met_);
                 }
             }
             if (clblock_ instanceof InterfaceBlock) {
-                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getDirectGenericSuperClasses(_context), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
             }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {
@@ -2550,7 +2561,7 @@ public final class Classes {
             }
             boolean abs_ = clblock_.isAbstractType();
             boolean final_ = clblock_.isFinalType();
-            return new ClassMetaInfo(_name, ((UniqueRootedBlock) clblock_).getGenericSuperClass(_context), infosFields_,infos_, infosConst_, cat_, abs_, final_);
+            return new ClassMetaInfo(_name, ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
         }
         return null;
     }

@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -10,7 +9,6 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
@@ -84,11 +82,15 @@ public interface Analyzable {
     CustList<OperationNode> getTextualSortedOperations();
     boolean isGearConst();
     StringList getNeedInterfaces();
-    String resolveType(String _in, boolean _correct);
+
+    String resolveDynamicTypeBuildInherits(String _in, RootBlock _file);
     String resolveDynamicType(String _in, RootBlock _file);
-    MethodId getId(GeneMethod _m);
-    ConstructorId getId(GeneConstructor _m);
-    String resolveType(String _in, Block _currentBlock,RowCol _location, boolean _correct,
-            boolean _checkSimpleCorrect, boolean _checkOnlyExistence);
+
+    String resolveTypeMapping(String _in, Block _currentBlock,RowCol _location);
+    String resolveCorrectType(String _in);
+    String resolveCorrectType(String _in, boolean _exact);
+    String resolveQuickType(String _in);
+    String resolveType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
+    String resolveBaseTypeBuildInherits(String _in, Block _currentBlock);
 }

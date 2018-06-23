@@ -54,7 +54,7 @@ public final class ElRenderUtil {
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, _conf);
-        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+        if (!_conf.getClasses().isEmptyErrors()) {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
@@ -120,7 +120,7 @@ public final class ElRenderUtil {
         boolean static_ = argGl_ == null || argGl_.isNull();
         _conf.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, _conf);
-        if (!_conf.getClasses().getErrorsDet().isEmpty()) {
+        if (!_conf.getClasses().isEmptyErrors()) {
             context_.setRootAffect(false);
             context_.setAnalyzingRoot(false);
             BadElRender badEl_ = new BadElRender();

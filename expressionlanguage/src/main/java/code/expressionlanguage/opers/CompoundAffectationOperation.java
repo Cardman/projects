@@ -59,7 +59,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -85,27 +85,27 @@ public final class CompoundAffectationOperation extends MethodOperation {
         if (StringList.quickEq(oper, Block.EQ_PLUS) || StringList.quickEq(oper, Block.PLUS_EQ)) {
             if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                 if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
-                    _conf.getClasses().getErrorsDet().add(cast_);
+                    _conf.getClasses().addError(cast_);
                     return;
                 }
             } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
                 return;
             }
         } else if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ)) {
             if (!clMatchLeft_.isBoolType(_conf)) {
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
                 return;
             }
             if (!clMatchRight_.isBoolType(_conf)) {
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
                 return;
             }
         } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
-            _conf.getClasses().getErrorsDet().add(cast_);
+            _conf.getClasses().addError(cast_);
             return;
         } else if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
-            _conf.getClasses().getErrorsDet().add(cast_);
+            _conf.getClasses().addError(cast_);
             return;
         }
         if (!isString_) {
@@ -156,7 +156,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                                 un_.setFileName(_conf.getCurrentFileName());
                                 un_.setRc(_conf.getCurrentLocation());
-                                _conf.getClasses().getErrorsDet().add(un_);
+                                _conf.getClasses().addError(un_);
                             }
                         }
                     }
@@ -201,7 +201,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(un_);
+                        _conf.getClasses().addError(un_);
                     }
                 }
             }

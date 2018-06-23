@@ -64,7 +64,7 @@ public final class FinalVariableOperation extends LeafOperation {
             und_.setId(variableName);
             und_.setFileName(_conf.getCurrentFileName());
             und_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(und_);
+            _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -79,7 +79,7 @@ public final class FinalVariableOperation extends LeafOperation {
             und_.setId(variableName);
             und_.setFileName(_conf.getCurrentFileName());
             und_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(und_);
+            _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -94,7 +94,7 @@ public final class FinalVariableOperation extends LeafOperation {
             und_.setId(variableName);
             und_.setFileName(_conf.getCurrentFileName());
             und_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(und_);
+            _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -108,7 +108,7 @@ public final class FinalVariableOperation extends LeafOperation {
         und_.setId(variableName);
         und_.setFileName(_conf.getCurrentFileName());
         und_.setRc(_conf.getCurrentLocation());
-        _conf.getClasses().getErrorsDet().add(und_);
+        _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 

@@ -35,7 +35,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -66,7 +66,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -99,7 +99,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -129,7 +129,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -166,7 +166,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -199,7 +199,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -232,7 +232,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument2FailTest() {
@@ -263,7 +263,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument3FailTest() {
@@ -294,7 +294,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument4FailTest() {
@@ -327,7 +327,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument5FailTest() {
@@ -361,7 +361,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument6FailTest() {
@@ -396,7 +396,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument36Test() {
@@ -431,7 +431,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -474,7 +474,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -507,7 +507,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -539,7 +539,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument39Test() {
@@ -570,7 +570,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -603,7 +603,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     @Test
     public void calculateArgument40Test() {
@@ -626,7 +626,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -660,7 +660,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -701,7 +701,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -742,6 +742,6 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
 }

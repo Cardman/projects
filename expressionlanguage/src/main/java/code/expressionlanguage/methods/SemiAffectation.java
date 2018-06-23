@@ -92,7 +92,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setRc(getRowCol(0, leftMemberOffset));
-            _cont.getClasses().getErrorsDet().add(cast_);
+            _cont.getClasses().addError(cast_);
         }
         if (!StringList.quickEq(oper, INCR)) {
             if (!StringList.quickEq(oper, DECR)) {
@@ -105,7 +105,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
                 cast_.setRc(getRowCol(0, operOffset));
-                _cont.getClasses().getErrorsDet().add(cast_);
+                _cont.getClasses().addError(cast_);
             }
         }
         incr = ElUtil.getAnalyzedOperations(RIGHT_EL, _cont, Calculation.staticCalculation(true));

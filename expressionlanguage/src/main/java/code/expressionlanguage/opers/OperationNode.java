@@ -17,7 +17,6 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.StaticAccessFieldError;
@@ -50,7 +49,6 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -415,52 +413,6 @@ public abstract class OperationNode {
         return Templates.correctClassParts(_className, map_, _cont);
     }
 
-    final boolean checkCorrect(Analyzable _cont, String _className,boolean _setOffset, int _offset) {
-        StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        String glClass_ = _cont.getGlobalClass();
-        if (!isStaticBlock()) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
-                map_.put(t.getName(), t.getConstraints());
-            }
-        }
-        if (!Templates.correctClassParts(_className, map_, _cont)) {
-            if (_setOffset) {
-                setRelativeOffsetPossibleAnalyzable(_offset, _cont);
-            }
-            UnknownClassName unknown_ = new UnknownClassName();
-            unknown_.setClassName(_className);
-            unknown_.setFileName(_cont.getCurrentFileName());
-            unknown_.setRc(_cont.getCurrentLocation());
-            _cont.getClasses().getErrorsDet().add(unknown_);
-            return false;
-        }
-        return true;
-    }
-    final boolean checkExistBase(Analyzable _cont, boolean _allowVarTypes, String _className,boolean _setOffset, int _offset) {
-        StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        if (_allowVarTypes) {
-            String glClass_ = _cont.getGlobalClass();
-            if (glClass_ != null) {
-                for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
-                    map_.put(t.getName(), t.getConstraints());
-                }
-            }
-        }
-        if (!Templates.existClassParts(_className, map_, _cont)) {
-            if (_setOffset) {
-                setRelativeOffsetPossibleAnalyzable(_offset, _cont);
-            }
-            UnknownClassName unknown_ = new UnknownClassName();
-            unknown_.setClassName(_className);
-            unknown_.setFileName(_cont.getCurrentFileName());
-            unknown_.setRc(_cont.getCurrentLocation());
-            _cont.getClasses().getErrorsDet().add(unknown_);
-            return false;
-        }
-        return true;
-    }
     static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name) {
         if (!_staticContext) {
             FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name);
@@ -480,7 +432,7 @@ public abstract class OperationNode {
             access_.setId(_name);
             access_.setFileName(_cont.getCurrentFileName());
             access_.setRc(_cont.getCurrentLocation());
-            _cont.getClasses().getErrorsDet().add(access_);
+            _cont.getClasses().addError(access_);
             return resIns_;
         }
         resSt_ = new FieldResult();
@@ -552,7 +504,6 @@ public abstract class OperationNode {
         FieldInfo field_ = _cont.getFieldInfo(new ClassField(cl_, _name));
         FieldResult r_ = new FieldResult();
         String realType_ = field_.getType();
-        realType_ = _cont.resolveType(realType_, false);
         FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, false);
         r_.setId(f_);
         r_.setStatus(SearchingMemberStatus.UNIQ);
@@ -574,7 +525,7 @@ public abstract class OperationNode {
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(cast_);
+                _conf.getClasses().addError(cast_);
             }
         }
         CustList<GeneConstructor> constructors_ = Classes.getConstructorBodies(_conf, clCurName_);
@@ -588,12 +539,7 @@ public abstract class OperationNode {
             }
         }
         for (GeneConstructor e: constructors_) {
-            ConstructorId ctor_;
-            if (e instanceof ConstructorBlock) {
-                ctor_ = ((ConstructorBlock)e).getId(_conf);
-            } else {
-                ctor_ = ((StandardConstructor)e).getId();
-            }
+            ConstructorId ctor_ = e.getId();
             if (_varargOnly > -1) {
                 if (!ctor_.isVararg()) {
                     continue;
@@ -619,7 +565,7 @@ public abstract class OperationNode {
             undefined_.setId(new ConstructorId(clCurName_, classesNames_,false));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(undefined_);
+            _conf.getClasses().addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             out_.setRealId(undefined_.getId());
@@ -658,7 +604,7 @@ public abstract class OperationNode {
             undefined_.setId(new ConstructorId(clCurName_, classesNames_, false));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(undefined_);
+            _conf.getClasses().addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             out_.setRealId(undefined_.getId());
@@ -704,7 +650,7 @@ public abstract class OperationNode {
             undefined_.setId(new MethodId(mod_, _name, classesNames_));
             undefined_.setFileName(_conf.getCurrentFileName());
             undefined_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(undefined_);
+            _conf.getClasses().addError(undefined_);
             ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
             return_.setId(new ClassMethodId(_classes.first(), new MethodId(mod_, _name, classesNames_)));
             return_.setRealId(new MethodId(mod_, _name, classesNames_));
@@ -729,7 +675,7 @@ public abstract class OperationNode {
         undefined_.setId(new MethodId(mod_, _name, classesNames_));
         undefined_.setFileName(_conf.getCurrentFileName());
         undefined_.setRc(_conf.getCurrentLocation());
-        _conf.getClasses().getErrorsDet().add(undefined_);
+        _conf.getClasses().addError(undefined_);
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(mod_, _name, classesNames_)));
         return_.setRealId(new MethodId(mod_, _name, classesNames_));
         return_.setRealClass(_classes.first());
@@ -788,8 +734,8 @@ public abstract class OperationNode {
                     continue;
                 }
                 if (e.isStaticMethod()) {
-                    MethodId id_ = _conf.getId(e);
-                    String returnType_ = e.getReturnType(_conf);
+                    MethodId id_ = e.getId();
+                    String returnType_ = e.getImportedReturnType();
                     MethodMetaInfo info_ = new MethodMetaInfo(t, id_, MethodModifier.STATIC, returnType_);
                     ClassMethodId clId_ = new ClassMethodId(t, id_);
                     methods_.put(clId_, info_);
@@ -824,7 +770,7 @@ public abstract class OperationNode {
                         if (!Classes.canAccess(glClass_, sup_, _conf)) {
                             continue;
                         }
-                        String ret_ = sup_.getReturnType(_conf);
+                        String ret_ = sup_.getImportedReturnType();
                         ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
                         MethodMetaInfo info_ = new MethodMetaInfo(formattedClass_, id_, MethodModifier.NORMAL, ret_);
                         ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);

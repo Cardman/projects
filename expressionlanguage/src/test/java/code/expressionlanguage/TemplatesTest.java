@@ -2384,10 +2384,10 @@ public class TemplatesTest {
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
     private ContextEl simpleContextEl() {

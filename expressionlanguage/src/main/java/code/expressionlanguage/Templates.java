@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
@@ -124,7 +125,7 @@ public final class Templates {
         }
         return types_;
     }
-    
+
     public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context) {
         if (!existClassParts(_className, _mapping, _context)) {
             return false;
@@ -135,16 +136,42 @@ public final class Templates {
         } else {
             cl_ = StringList.removeAllSpaces(_className);
         }
-        return isCorrectTemplateAll(cl_, _mapping, _context);
+        return isCorrectTemplateAll(cl_, _mapping, _context, true);
     }
 
-    public static boolean correctClassPartsBuild(String _className, StringMap<StringList> _mapping, Analyzable _context) {
-        if (!existClassParts(_className, _mapping, _context)) {
+    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context, Block _current, boolean _exact) {
+        if (!existClassParts(_className, _mapping, _context, _current)) {
             return false;
         }
-        return isCorrectTemplateAllBuild(_className, _mapping, _context);
+        String cl_;
+        if (_context.getAnalyzing() != null && _current != null) {
+            cl_ = _context.resolveDynamicType(_className, _current.getRooted());
+        } else {
+            cl_ = StringList.removeAllSpaces(_className);
+        }
+        return isCorrectTemplateAll(cl_, _mapping, _context, _exact);
     }
 
+    public static boolean correctClassPartsDynamic(String _className, StringMap<StringList> _mapping, Analyzable _context, boolean _exact) {
+        if (!existClassPartsDynamic(_className, _mapping, _context)) {
+            return false;
+        }
+        String cl_ = StringList.removeAllSpaces(_className);
+        return isCorrectTemplateAll(cl_, _mapping, _context, _exact);
+    }
+    public static boolean correctClassPartsBuild(String _className, StringMap<StringList> _mapping, Analyzable _context, Block _current) {
+        if (!existClassParts(_className, _mapping, _context, _current)) {
+            return false;
+        }
+        String cl_;
+        if (_context.getAnalyzing() != null && _current != null) {
+            cl_ = _context.resolveDynamicType(_className, _current.getRooted());
+        } else {
+            cl_ = StringList.removeAllSpaces(_className);
+        }
+        return isCorrectTemplateAllBuild(cl_, _mapping, _context);
+    }
+    
     public static boolean existClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context) {
         if (!isCorrectWrite(_className, _context)) {
             return false;
@@ -156,7 +183,31 @@ public final class Templates {
         }
         return true;
     }
+    
+    public static boolean existClassPartsDynamic(String _className, StringMap<StringList> _mapping, Analyzable _context) {
+        if (!isCorrectWrite(_className, _context)) {
+            return false;
+        }
+        StringList variables_ = _mapping.getKeys();
+        String className_ = StringList.removeAllSpaces(_className);
+        if (!existAllClassPartsDynamic(className_, variables_, _context)) {
+            return false;
+        }
+        return true;
+    }
 
+    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, Analyzable _context, Block _current) {
+        if (!isCorrectWrite(_className, _context)) {
+            return false;
+        }
+        StringList variables_ = _mapping.getKeys();
+        String className_ = StringList.removeAllSpaces(_className);
+        if (!existAllClassParts(className_, variables_, _context, _current)) {
+            return false;
+        }
+        return true;
+    }
+    
     public static boolean existAllClassParts(String _className, StringList _variables, Analyzable _context) {
         Classes classes_ = _context.getClasses();
         LgNames stds_ = _context.getStandards();
@@ -181,6 +232,70 @@ public final class Templates {
                 if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
                     if (_context.getAnalyzing() != null) {
                         baseName_ = _context.resolveDynamicType(baseName_, _context.getCurrentBlock().getRooted());
+                        if (!classes_.isCustomType(baseName_)) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }               
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean existAllClassPartsDynamic(String _className, StringList _variables, Analyzable _context) {
+        Classes classes_ = _context.getClasses();
+        LgNames stds_ = _context.getStandards();
+        String void_ = stds_.getAliasVoid();
+        for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
+            if (s.isEmpty()) {
+                continue;
+            }
+            String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(s).getComponent();
+            if (StringList.quickEq(baseName_, void_)) {
+                return false;
+            }
+            if (baseName_.startsWith(PREFIX_VAR_TYPE)) {
+                if (!_variables.containsStr(baseName_.substring(1))) {
+                    return false;
+                }
+                continue;
+            }
+            boolean custClass_ = false;
+            custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
+            if (!custClass_) {
+                if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public static boolean existAllClassParts(String _className, StringList _variables, Analyzable _context, Block _current) {
+        Classes classes_ = _context.getClasses();
+        LgNames stds_ = _context.getStandards();
+        String void_ = stds_.getAliasVoid();
+        for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
+            if (s.isEmpty()) {
+                continue;
+            }
+            String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(s).getComponent();
+            if (StringList.quickEq(baseName_, void_)) {
+                return false;
+            }
+            if (baseName_.startsWith(PREFIX_VAR_TYPE)) {
+                if (!_variables.containsStr(baseName_.substring(1))) {
+                    return false;
+                }
+                continue;
+            }
+            boolean custClass_ = false;
+            custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
+            if (!custClass_) {
+                if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
+                    if (_context.getAnalyzing() != null) {
+                        baseName_ = _context.resolveDynamicType(baseName_, _current.getRooted());
                         if (!classes_.isCustomType(baseName_)) {
                             return false;
                         }
@@ -371,7 +486,10 @@ public final class Templates {
         }
     }
     static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
-        if (!isCorrectTemplate(_className, _inherit, _context)) {
+        return isCorrectTemplateAll(_className, _inherit, _context, true);
+    }
+    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
+        if (!isCorrectTemplate(_className, _inherit, _context, _exact)) {
             return false;
         }
         StringList current_ = new StringList(_className);
@@ -408,6 +526,9 @@ public final class Templates {
         return true;
     }
     static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context) {
+        return isCorrectTemplate(_className, _inherit, _context, true);
+    }
+    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
         StringList types_ = getAllTypes(_className);
         String className_ = types_.first();
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
@@ -417,8 +538,17 @@ public final class Templates {
         if (className_.startsWith(PREFIX_VAR_TYPE)) {
             return _inherit.contains(className_.substring(1));
         }
-        if (!correctNbParameters(_className, _context)) {
-            return false;
+        if (_exact) {
+            if (!correctNbParameters(_className, _context)) {
+                return false;
+            }
+        } else {
+            if (types_.size() > 1 && !correctNbParameters(_className, _context)) {
+                return false;
+            }
+            if (types_.size() == 1) {
+                return true;
+            }
         }
         int i_ = CustList.FIRST_INDEX;
         EqList<StringList> boundsAll_ = null;
@@ -504,7 +634,7 @@ public final class Templates {
             i_++;
         }
         String formatted_ = getFormattedType(pref_, varTypes_);
-        if (!correctClassParts(formatted_, new StringMap<StringList>(), _context)) {
+        if (!correctClassPartsDynamic(formatted_, new StringMap<StringList>(), _context, true)) {
             return null;
         }
         return formatted_;
@@ -766,7 +896,8 @@ public final class Templates {
     private static String getSuperClassName(String _className, Analyzable _context) {
         GeneType r_ = _context.getClassBody(_className);
         if (r_ instanceof UniqueRootedBlock) {
-            return ((UniqueRootedBlock)r_).getSuperClass(_context);
+            String gene_ = ((UniqueRootedBlock)r_).getImportedDirectGenericSuperClass();
+            return getIdFromAllTypes(gene_);
         }
         if (r_ instanceof InterfaceBlock) {
             return null;
@@ -786,7 +917,7 @@ public final class Templates {
         Classes classes_ = _context.getClasses();
         RootBlock r_ = classes_.getClassBody(baseClass_);
         if (r_ != null) {
-            return ((UniqueRootedBlock)r_).getGenericSuperClass(_context);
+            return ((UniqueRootedBlock)r_).getImportedDirectGenericSuperClass();
         }
         LgNames stds_ = _context.getStandards();
         if (StringList.quickEq(baseClass_, stds_.getAliasObject())) {
@@ -802,10 +933,18 @@ public final class Templates {
     private static StringList getSuperInterfaceNames(String _className, Analyzable _context) {
         GeneType r_ = _context.getClassBody(_className);
         if (r_ instanceof UniqueRootedBlock) {
-            return ((UniqueRootedBlock)r_).getDirectInterfaces(_context);
+            StringList bases_ = new StringList();
+            for (String i: ((UniqueRootedBlock)r_).getImportedDirectGenericSuperInterfaces()) {
+                bases_.add(getIdFromAllTypes(i));
+            }
+            return bases_;
         }
         if (r_ instanceof InterfaceBlock) {
-            return ((InterfaceBlock)r_).getDirectSuperClasses(_context);
+            StringList bases_ = new StringList();
+            for (String i: ((InterfaceBlock)r_).getImportedDirectSuperInterfaces()) {
+                bases_.add(getIdFromAllTypes(i));
+            }
+            return bases_;
         }
         if (r_ instanceof StandardClass) {
             return ((StandardClass)r_).getDirectInterfaces();
@@ -817,10 +956,10 @@ public final class Templates {
         String baseClass_ = getIdFromAllTypes(_genericClassName);
         GeneType r_ = _context.getClassBody(baseClass_);
         if (r_ instanceof UniqueRootedBlock) {
-            return ((UniqueRootedBlock)r_).getDirectGenericInterfaces(_context).get(_index);
+            return ((UniqueRootedBlock)r_).getImportedDirectGenericSuperInterfaces().get(_index);
         }
         if (r_ instanceof InterfaceBlock) {
-            return ((InterfaceBlock)r_).getDirectGenericSuperClasses(_context).get(_index);
+            return ((InterfaceBlock)r_).getImportedDirectSuperInterfaces().get(_index);
         }
         if (r_ instanceof StandardClass) {
             return ((StandardClass)r_).getDirectInterfaces().get(_index);
@@ -833,7 +972,7 @@ public final class Templates {
         String base_ = params_.first();
         int nbParams_ = params_.size() - 1;
         String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-        return _context.getClassBody(baseArr_).getParamTypesMap().size() == nbParams_;
+        return _context.getClassBody(baseArr_).getParamTypesMapValues().size() == nbParams_;
     }
 
     public static boolean correctNbParametersBuild(String _genericClass, Analyzable _context) {

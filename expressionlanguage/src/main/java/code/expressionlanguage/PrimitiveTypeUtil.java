@@ -620,7 +620,7 @@ public final class PrimitiveTypeUtil {
         if (_block instanceof MethodBlock) {
             MethodBlock m_ = (MethodBlock) _block;
             Argument a_ = new Argument();
-            a_.setStruct(StdStruct.defaultClass(m_.getReturnType(_context), _context));
+            a_.setStruct(StdStruct.defaultClass(m_.getImportedReturnType(), _context));
             return a_;
         }
         if (_block instanceof ConstructorBlock) {

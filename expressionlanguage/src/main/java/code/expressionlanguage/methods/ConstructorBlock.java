@@ -43,14 +43,15 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public String getSignature(Analyzable _an) {
-        return getId(_an).getSignature();
+    public String getSignature() {
+        return getId().getSignature();
     }
 
-    public ConstructorId getId(Analyzable _an) {
+    @Override
+    public ConstructorId getId() {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getFullName();
-        StringList types_ = getParametersTypes(_an);
+        StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -60,10 +61,10 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
-    public ConstructorId getGenericId(Analyzable _an) {
+    public ConstructorId getGenericId() {
         RootBlock clBlock_ = (RootBlock) getParent();
         String name_ = clBlock_.getGenericString();
-        StringList types_ = getParametersTypes(_an);
+        StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -74,7 +75,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
     public ConstructorId getFormattedId(String _genericClass, ContextEl _classes) {
         String name_ = Templates.format(_genericClass, getName(), _classes);
-        StringList types_ = getParametersTypes(_classes);
+        StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
@@ -150,8 +151,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
 
     @Override
-    public String getReturnType(Analyzable _stds) {
-        return _stds.getStandards().getAliasVoid();
+    public void buildImportedReturnTypes(Analyzable _stds) {
+        String void_ = _stds.getStandards().getAliasVoid();
+        setImportedReturnType(void_);
     }
 
     @Override
@@ -197,7 +199,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_.setClassName(getRooted().getFullName());
                 undef_.setFileName(getFile().getFileName());
                 undef_.setRc(getRowCol(0, 0));
-                _an.getClasses().getErrorsDet().add(undef_);
+                _an.getClasses().addError(undef_);
             }
         } else {
             if (!ints_.isEmpty()) {
@@ -206,7 +208,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_.setClassName(getRooted().getFullName());
                 undef_.setFileName(getFile().getFileName());
                 undef_.setRc(getRowCol(0, 0));
-                _an.getClasses().getErrorsDet().add(undef_);
+                _an.getClasses().addError(undef_);
             }
         }
         
@@ -227,7 +229,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
-                    _an.getClasses().getErrorsDet().add(un_);
+                    _an.getClasses().addError(un_);
                 }
             }
         }
@@ -248,7 +250,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
-                    _an.getClasses().getErrorsDet().add(un_);
+                    _an.getClasses().addError(un_);
                 }
             }
         }

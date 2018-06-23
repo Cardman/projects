@@ -51,17 +51,9 @@ public final class StaticAccessOperation extends LeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
         String classStr_;
-        classStr_ = _conf.resolveType(realCl_, false);
-        String base_ = Templates.getIdFromAllTypes(classStr_);
+        classStr_ = _conf.resolveCorrectType(realCl_, false);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
-        if (!checkExistBase(_conf, false, base_, false, 0)) {
-            Argument a_ = new Argument();
-            String argClName_ = _conf.getStandards().getAliasObject();
-            setArguments(a_);
-            setStaticResultClass(new ClassArgumentMatching(argClName_));
-            return;
-        }
         if (classes_.isCustomType(classStr_)) {
             String curClassBase_ = null;
             if (glClass_ != null) {
@@ -72,7 +64,7 @@ public final class StaticAccessOperation extends LeafOperation {
                 badAccess_.setId(classStr_);
                 badAccess_.setRc(_conf.getCurrentLocation());
                 badAccess_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().getErrorsDet().add(badAccess_);
+                _conf.getClasses().addError(badAccess_);
             }
         }
         Argument a_ = new Argument();

@@ -27,7 +27,7 @@ public class ClassesTest {
         ContextEl cont_ = new ContextEl();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().getErrorsDet().isEmpty());
+        assertTrue(cont_.getClasses().isEmptyErrors());
     }
 
     @Test
@@ -41,6 +41,23 @@ public class ClassesTest {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        unfullValidateOverridingClasses(files_);
+    }
+
+    @Test
+    public void resolve2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$protected $class pkgtwo.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.Ex;\n");
         xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         unfullValidateOverridingClasses(files_);
@@ -62,8 +79,8 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger()), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId(context_).getParametersTypes().first());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -84,8 +101,8 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<#F>", "instancemethod", new StringList("#F"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().first());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -106,8 +123,8 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().first());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -128,8 +145,8 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().first());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -150,9 +167,9 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId(context_).getParametersTypes().first());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().last());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -175,9 +192,9 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId(context_).getParametersTypes().first());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().last());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -218,8 +235,8 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().first());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -260,12 +277,12 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList("java.lang.Object"), false);
         assertEq(2, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(1, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().first());
+        assertEq(1, methods_.first().getId().getParametersTypes().size());
+        assertEq("#E", methods_.first().getId().getParametersTypes().first());
         assertTrue(!methods_.first().isVarargs());
         assertEq("instancemethod", methods_.last().getName());
-        assertEq(1, methods_.last().getId(context_).getParametersTypes().size());
-        assertEq("java.lang.Object", methods_.last().getId(context_).getParametersTypes().first());
+        assertEq(1, methods_.last().getId().getParametersTypes().size());
+        assertEq("java.lang.Object", methods_.last().getId().getParametersTypes().first());
         assertTrue(!methods_.last().isVarargs());
     }
 
@@ -290,9 +307,9 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId(context_).getParametersTypes().first());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().last());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -317,7 +334,7 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(), false);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(0, methods_.first().getId(context_).getParametersTypes().size());
+        assertEq(0, methods_.first().getId().getParametersTypes().size());
         assertTrue(!methods_.first().isVarargs());
     }
 
@@ -344,9 +361,9 @@ public class ClassesTest {
         CustList<MethodBlock> methods_ =getMethodBodiesByFormattedId(context_, false, "pkg.Ex<java.lang.Object>", "instancemethod", new StringList(context_.getStandards().getAliasPrimInteger(),"java.lang.Object"), true);
         assertEq(1, methods_.size());
         assertEq("instancemethod", methods_.first().getName());
-        assertEq(2, methods_.first().getId(context_).getParametersTypes().size());
-        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId(context_).getParametersTypes().first());
-        assertEq("#E", methods_.first().getId(context_).getParametersTypes().last());
+        assertEq(2, methods_.first().getId().getParametersTypes().size());
+        assertEq(context_.getStandards().getAliasPrimInteger(), methods_.first().getId().getParametersTypes().first());
+        assertEq("#E", methods_.first().getId().getParametersTypes().last());
         assertTrue(methods_.first().isVarargs());
     }
 
@@ -421,7 +438,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(1, s_.size());
         assertEq("pkg.Ex", s_.first());
@@ -441,7 +458,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(2, s_.size());
         assertEq("pkg.ExTwo", s_.first());
@@ -465,7 +482,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(3, s_.size());
         assertEq("pkg.ExTwo", s_.first());
@@ -493,7 +510,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
         assertEq("pkg.ExTwo", s_.first());
@@ -522,7 +539,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
         assertEq(4, s_.size());
         assertEq("pkg.ExFour", s_.first());
@@ -554,7 +571,7 @@ public class ClassesTest {
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"),cont_);
         assertEq(5, s_.size());
         assertEq("pkg.ExFour", s_.first());
@@ -805,13 +822,13 @@ public class ClassesTest {
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateSingleParameterizedClasses(cont_);
         classes_.validateIds(cont_);
         classes_.validateOverridingInherit(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.initStaticFields(cont_);
         return cont_;
    }
@@ -821,14 +838,14 @@ public class ClassesTest {
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateSingleParameterizedClasses(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateIds(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
@@ -837,11 +854,12 @@ public class ClassesTest {
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         Classes.tryBuildBracedClassesBodies(_files, cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateSingleParameterizedClasses(cont_);
-        assertTrue(classes_.getErrorsDet().display(), classes_.getErrorsDet().isEmpty());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
 

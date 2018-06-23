@@ -28,7 +28,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
             return false;
         }
-        if (!Templates.correctClassParts(className_, new StringMap<StringList>(), _context)) {
+        if (!Templates.correctClassPartsDynamic(className_, new StringMap<StringList>(), _context, true)) {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasNullPe();

@@ -50,6 +50,8 @@ public final class InstanceOperation extends InvokingOperation {
     private ConstructorId constId;
 
     private String className;
+    private boolean array;
+    private boolean elts;
 
     private String fieldName = EMPTY_STRING;
     private int blockIndex = -1;
@@ -77,6 +79,7 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        className = _conf.getStandards().getAliasObject();
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = className_.trim();
         if (!className_.startsWith(ARR) && className_.endsWith(ARR_DYN)) {
@@ -86,33 +89,33 @@ public final class InstanceOperation extends InvokingOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(className_.substring(0, len_-ARR_DYN.length())));
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
         }
-        boolean elts_ = false;
         String realClassName_;
         if (className_.endsWith(ARR_DYN)) {
-            elts_ = true;
+            elts = true;
             int len_ = className_.length();
             realClassName_ = className_.substring(0, len_-ARR_DYN.length());
         } else {
             realClassName_ = className_;
         }
         if (realClassName_.startsWith(ARR)) {
-            realClassName_ = _conf.resolveType(realClassName_, false);
-            if (chidren_.isEmpty() && !elts_) {
+            array = true;
+            realClassName_ = _conf.resolveCorrectType(realClassName_);
+            if (chidren_.isEmpty() && !elts) {
                 BadOperandsNumber badCall_ = new BadOperandsNumber();
                 badCall_.setOperandsNumber(0);
                 badCall_.setFileName(_conf.getCurrentFileName());
                 badCall_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(badCall_);
+                _conf.getClasses().addError(badCall_);
                 LgNames stds_ = _conf.getStandards();
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
                 return;
             }
-            if (!elts_) {
+            if (!elts) {
                 for (OperationNode o: chidren_) {
                     setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
                     if (!o.getResultClass().isNumericInt(_conf)) {
@@ -122,7 +125,7 @@ public final class InstanceOperation extends InvokingOperation {
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                         un_.setOperands(new StringList(cl_.getName()));
-                        _conf.getClasses().getErrorsDet().add(un_);
+                        _conf.getClasses().addError(un_);
                     }
                     o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
                 }
@@ -148,7 +151,7 @@ public final class InstanceOperation extends InvokingOperation {
                         cast_.setMapping(mapping_);
                         cast_.setFileName(_conf.getCurrentFileName());
                         cast_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(cast_);
+                        _conf.getClasses().addError(cast_);
                     }
                     if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                         o.getResultClass().setUnwrapObject(eltType_);
@@ -156,11 +159,8 @@ public final class InstanceOperation extends InvokingOperation {
                 }
             }
             realClassName_ = realClassName_.substring(ARR.length());
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-            if (!checkCorrect(_conf, realClassName_, false, 0)) {
-                realClassName_ = _conf.getStandards().getAliasObject();
-            }
-            if (!elts_) {
+            className = realClassName_;
+            if (!elts) {
                 setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, chidren_.size())));
                 return;
             }
@@ -211,7 +211,7 @@ public final class InstanceOperation extends InvokingOperation {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(static_);
+            _conf.getClasses().addError(static_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -240,24 +240,20 @@ public final class InstanceOperation extends InvokingOperation {
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(cast_);
+            _conf.getClasses().addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         int varargOnly_ = lookOnlyForVarArg();
         ConstrustorIdVarArg ctorRes_ = null;
 
-        realClassName_ = _conf.resolveType(realClassName_, false);
-        if (!checkCorrect(_conf, realClassName_, false, 0)) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
+        realClassName_ = _conf.resolveCorrectType(realClassName_);
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(call_);
+            _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
@@ -268,7 +264,7 @@ public final class InstanceOperation extends InvokingOperation {
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(call_);
+            _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
@@ -277,7 +273,7 @@ public final class InstanceOperation extends InvokingOperation {
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(call_);
+            _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
@@ -286,7 +282,7 @@ public final class InstanceOperation extends InvokingOperation {
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
             call_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(call_);
+            _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
@@ -296,7 +292,7 @@ public final class InstanceOperation extends InvokingOperation {
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
                 call_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(call_);
+                _conf.getClasses().addError(call_);
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
             }
@@ -362,10 +358,10 @@ public final class InstanceOperation extends InvokingOperation {
         if (!ctors_.isEmpty() && !Classes.canAccess(curClassBase_, ctors_.first(), _conf)) {
             GeneConstructor ctr_ = ctors_.first();
             BadAccessConstructor access_ = new BadAccessConstructor();
-            access_.setId(_conf.getId(ctr_));
+            access_.setId(ctr_.getId());
             access_.setFileName(_conf.getCurrentFileName());
             access_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(access_);
+            _conf.getClasses().addError(access_);
         }
         possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst();
         setResultClass(new ClassArgumentMatching(realClassName_));
@@ -377,27 +373,16 @@ public final class InstanceOperation extends InvokingOperation {
         CustList<Argument> arguments_ = new CustList<Argument>();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String className_ = methodName.trim().substring(INSTANCE.length()+1);
-        className_ = StringList.removeAllSpaces(className_);
         if (!_conf.isGearConst()) {
             return;
         }
-        if (className_.startsWith(ARR)) {
+        if (array) {
             for (OperationNode o: chidren_) {
                 arguments_.add(o.getArgument());
             }
-            boolean elts_ = false;
-            String realClassName_;
-            if (className_.endsWith(ARR_DYN)) {
-                elts_ = true;
-                int len_ = className_.length();
-                realClassName_ = className_.substring(0, len_-ARR_DYN.length());
-            } else {
-                realClassName_ = className_;
-            }
             int nbCh_ = chidren_.size();
             int[] args_;
-            if (elts_) {
+            if (elts) {
                 args_ = new int[CustList.ONE_ELEMENT];
                 args_[CustList.FIRST_INDEX] = chidren_.size();
             } else {
@@ -414,13 +399,12 @@ public final class InstanceOperation extends InvokingOperation {
                     args_[i] = dim_;
                 }
             }
-            realClassName_ = realClassName_.substring(ARR.length());
             Argument a_ = new Argument();
-            if (elts_) {
+            if (elts) {
                 Numbers<Integer> dims_;
                 dims_ = new Numbers<Integer>();
                 dims_.add(nbCh_);
-                ArrayStruct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf);
+                ArrayStruct str_ = PrimitiveTypeUtil.newCustomArray(className, dims_, _conf);
                 for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                     Argument chArg_ = arguments_.get(i);
                     if (!setCheckedElement(str_, i, chArg_, _conf)) {
@@ -436,7 +420,7 @@ public final class InstanceOperation extends InvokingOperation {
                 for (int d: args_) {
                     dims_.add(d);
                 }
-                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf));
+                a_.setStruct(PrimitiveTypeUtil.newCustomArray(className, dims_, _conf));
                 setSimpleArgumentAna(a_, _conf);
                 return;
             }
@@ -563,23 +547,13 @@ public final class InstanceOperation extends InvokingOperation {
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_ = methodName.trim().substring(INSTANCE.length()+1);
-        className_ = StringList.removeAllSpaces(className_);
-        boolean elts_ = false;
-        String realClassName_;
-        if (className_.endsWith(ARR_DYN)) {
-            elts_ = true;
-            int len_ = className_.length();
-            realClassName_ = className_.substring(0, len_-ARR_DYN.length());
-        } else {
-            realClassName_ = className_;
-        }
+        String className_;
         PageEl page_ = _conf.getOperationPageEl();
-        realClassName_ = page_.formatVarType(realClassName_, _conf);
-        if (realClassName_.startsWith(ARR)) {
+        className_ = page_.formatVarType(className, _conf);
+        if (array) {
             int nbCh_ = chidren_.size();
             int[] args_;
-            if (elts_) {
+            if (elts) {
                 args_ = new int[CustList.ONE_ELEMENT];
                 args_[CustList.FIRST_INDEX] = chidren_.size();
             } else {
@@ -598,13 +572,12 @@ public final class InstanceOperation extends InvokingOperation {
                     i_++;
                 }
             }
-            realClassName_ = realClassName_.substring(ARR.length());
             Argument a_ = new Argument();
-            if (elts_) {
+            if (elts) {
                 Numbers<Integer> dims_;
                 dims_ = new Numbers<Integer>();
                 dims_.add(nbCh_);
-                Struct str_ = PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf);
+                Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
                 for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                     Argument chArg_ = _arguments.get(i);
                     ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
@@ -620,20 +593,19 @@ public final class InstanceOperation extends InvokingOperation {
                 for (int d: args_) {
                     dims_.add(d);
                 }
-                a_.setStruct(PrimitiveTypeUtil.newCustomArray(realClassName_, dims_, _conf));
+                a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
                 return a_;
             }
         }
         if (possibleInitClass) {
-            String base_ = Templates.getIdFromAllTypes(realClassName_);
+            String base_ = Templates.getIdFromAllTypes(className_);
             if (InvokingOperation.hasToExit(_conf, base_)) {
                 return Argument.createVoid();
             }
         }
-        className_ = page_.formatVarType(className_, _conf);
         String lastType_ = Templates.format(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
-        return instancePrepare(_conf, className, constId, _previous, firstArgs_, fieldName, blockIndex, true);
+        return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }
 
     @Override
@@ -646,7 +618,7 @@ public final class InstanceOperation extends InvokingOperation {
     @Override
     boolean isCallMethodCtor() {
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
-        className_ = StringList.removeAllSpaces(className_);
+        className_ = ContextEl.removeDottedSpaces(className_);
         return !className_.startsWith(ARR);
     }
 }

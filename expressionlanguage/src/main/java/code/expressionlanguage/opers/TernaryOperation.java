@@ -138,7 +138,7 @@ public final class TernaryOperation extends MethodOperation {
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badNb_);
+            _conf.getClasses().addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -153,7 +153,7 @@ public final class TernaryOperation extends MethodOperation {
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setExpectedResult(booleanType_);
                 un_.setOperands(new StringList(cl_.getName()));
-                _conf.getClasses().getErrorsDet().add(un_);
+                _conf.getClasses().addError(un_);
             }
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
@@ -168,7 +168,7 @@ public final class TernaryOperation extends MethodOperation {
             un_.setOperands(new StringList(clMatchTwo_.getName(),clMatchThree_.getName()));
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
         }
         setResultClass(clMatchTwo_);
     }

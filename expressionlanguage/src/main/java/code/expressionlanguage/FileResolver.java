@@ -39,7 +39,6 @@ import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
-import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class FileResolver {
@@ -118,7 +117,7 @@ public final class FileResolver {
         enabledSpaces_.setEnabledTab(true);
         enabledSpaces_.setFile(fileBlock_);
         enabledSpaces_.setTabWidth(_context.getTabWidth());
-        ObjectMap<FileRowCol, String> importedTypes_ = new ObjectMap<FileRowCol, String>();
+        StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
         boolean allowedComments_ = true;
         char previousChar_ = LINE_RETURN;
@@ -130,8 +129,8 @@ public final class FileResolver {
         readRc_.setCol(1);
         readRc_.setRow(1);
         int tabWidth_ = _context.getTabWidth();
-        int rowBegImport_ = 1;
-        int colBegImport_ = 1;
+        int indexImport_ = 0;
+        Numbers<Integer> offsetsImports_ = new Numbers<Integer>();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (currentChar_ == KEY_WORD_PREFIX) {
@@ -198,18 +197,14 @@ public final class FileResolver {
                 return;
             }
             if (currentChar_ == END_IMPORTS) {
-                RowCol rc_ = new RowCol();
-                rc_.setCol(colBegImport_);
-                rc_.setRow(rowBegImport_);
-                FileRowCol frc_ = new FileRowCol(_fileName, rc_);
-                importedTypes_.put(frc_, str_.toString());
+                importedTypes_.add(str_.toString());
+                offsetsImports_.add(indexImport_);
                 str_.delete(0, str_.length());
             } else {
                 if (!Character.isWhitespace(currentChar_)) {
                     allowedComments_ = false;
                     if (str_.length() == 0) {
-                        rowBegImport_ = readRc_.getRow();
-                        colBegImport_ = readRc_.getCol();
+                        indexImport_ = i_;
                     }
                     str_.append(currentChar_);
                 } else if (currentChar_ == LINE_RETURN && previousChar_ == END_IMPORTS) {
@@ -227,8 +222,11 @@ public final class FileResolver {
         input_.getNextRowCol().setRow(readRc_.getRow());
         input_.getNextRowCol().setCol(readRc_.getCol());
         input_.setNextIndex(i_);
+        fileBlock_.getImports().addAllElts(importedTypes_);
+        fileBlock_.getImportsOffset().addAllElts(offsetsImports_);
         input_.setFileBlock(fileBlock_);
         input_.setEnabledSpaces(enabledSpaces_);
+        _context.getClasses().putFileBlock(_fileName, fileBlock_);
         while (true) {
             input_.setNextRowCol(new RowCol());
             input_.getNextRowCol().setRow(readRc_.getRow());
@@ -239,7 +237,6 @@ public final class FileResolver {
                 return;
             }
             fileBlock_.appendChild(res_.getType());
-            _context.getClasses().putFileBlock(_fileName, fileBlock_);
             _context.getClasses().processBracedClass(res_.getType(), _predefined, _context);
             input_.setIndexChild(input_.getIndexChild() + 1);
             i_ = res_.getNextIndex();
@@ -312,10 +309,6 @@ public final class FileResolver {
                 }
                 if (!Character.isWhitespace(currentChar_)) {
                     allowedComments_ = false;
-                    if (str_.length() == 0) {
-                        rowBegImport_ = readRc_.getRow();
-                        colBegImport_ = readRc_.getCol();
-                    }
                     str_.append(currentChar_);
                 } else if (currentChar_ == LINE_RETURN && previousChar_ == END_IMPORTS) {
                     allowedComments_ = true;
@@ -331,7 +324,7 @@ public final class FileResolver {
             input_.setNextIndex(i_);
         }
     }
-    private static ResultTypeCreation createType(ContextEl _context, String _fileName, String _file, InputTypeCreation _input, ObjectMap<FileRowCol, String> _import) {
+    private static ResultTypeCreation createType(ContextEl _context, String _fileName, String _file, InputTypeCreation _input, StringList _import) {
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
         ResultTypeCreation out_ = new ResultTypeCreation();
         AccessEnum access_;

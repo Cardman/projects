@@ -55,7 +55,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         CustList<Argument> firstArgs_;
         String calledCtor_ = base_;
         String calledCtorTemp_ = gl_;
-        String superClass_ = Templates.format(gl_, unique_.getGenericSuperClass(_conf), _conf);
+        String superClass_ = Templates.format(gl_, unique_.getImportedDirectGenericSuperClass(), _conf);
         String superClassBase_ = Templates.getIdFromAllTypes(superClass_);
         String lastType_ = getLastType();
         lastType_ = Templates.format(superClass_, lastType_, _conf);

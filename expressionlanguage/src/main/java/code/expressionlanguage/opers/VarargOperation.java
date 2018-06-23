@@ -45,7 +45,7 @@ public final class VarargOperation extends LeafOperation {
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());
             varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().getErrorsDet().add(varg_);
+            _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -56,7 +56,7 @@ public final class VarargOperation extends LeafOperation {
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());
             varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().getErrorsDet().add(varg_);
+            _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -66,16 +66,13 @@ public final class VarargOperation extends LeafOperation {
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());
             varg_.setMethodName(VAR_ARG);
-            _conf.getClasses().getErrorsDet().add(varg_);
+            _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
         }
         String str_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
-        str_ = _conf.resolveType(str_, false);
-        if (!checkCorrect(_conf, str_, true, getIndexInEl() + offset+1)) {
-            str_ = stds_.getAliasObject();
-        }
+        str_ = _conf.resolveCorrectType(str_);
         setResultClass(new ClassArgumentMatching(str_));
         className = str_;
         setSimpleArgument(new Argument());

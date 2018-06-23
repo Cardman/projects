@@ -42,7 +42,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
             UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badEl_);
+            _conf.getClasses().addError(badEl_);
         }
         LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));

@@ -106,14 +106,14 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(prev_.getFile().getFileName());
             un_.setRc(prev_.getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         if (!(getParent() instanceof EnumBlock)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         while (prev_ != null) {
@@ -139,13 +139,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
             for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-                AssignmentBefore asBef_ = new AssignmentBefore();
-                if (e.getValue().isAssignedAfter()) {
-                    asBef_.setAssignedBefore(true);
-                }
-                if (e.getValue().isUnassignedAfter()) {
-                    asBef_.setUnassignedBefore(true);
-                }
+                AssignmentBefore asBef_ = e.getValue().assignBefore();
                 assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
             }
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
@@ -226,5 +220,10 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     public ExpressionLanguage getEl(ContextEl _context, boolean _native,
             int _indexProcess) {
         return getValueEl();
+    }
+
+    @Override
+    public String getImportedClassName() {
+        return getClassName();
     }
 }

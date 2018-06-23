@@ -27,6 +27,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
 
     private final StringList allInterfaces = new StringList();
 
+    private String importedDirectSuperClass = "";
+    private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean finalType;
     private final boolean abstractType;
 
@@ -78,7 +80,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             inherit_.setClassName(fullName_);
             inherit_.setFileName(fullName_);
             inherit_.setRc(getRowCol(0, getIdRowCol()));
-            classesRef_.getErrorsDet().add(inherit_);
+            classesRef_.addError(inherit_);
         }
         for (Block b: Classes.getDirectChildren(this)) {
             if (!(b instanceof ConstructorBlock)) {
@@ -86,19 +88,19 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
             ConstructorBlock c_ = (ConstructorBlock) b;
             for (String s: classNames_) {
-                if (TypeUtil.getConstructorBodiesByFormattedId(_context, s, c_.getId(_context)).size() > 1) {
+                if (TypeUtil.getConstructorBodiesByFormattedId(_context, s, c_.getId()).size() > 1) {
                     DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
                     duplicate_.setFileName(getFullName());
                     duplicate_.setRc(c_.getRowCol(0, c_.getAccessOffset()));
-                    duplicate_.setCommonSignature(c_.getId(_context).getSignature());
+                    duplicate_.setCommonSignature(c_.getId().getSignature());
                     duplicate_.setOtherType(s);
-                    classesRef_.getErrorsDet().add(duplicate_);
+                    classesRef_.addError(duplicate_);
                 }
             }
         }
         useSuperTypesOverrides(_context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (TypeVar t: getParamTypesMap().values()) {
+        for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
         String gene_ = getGenericString();
@@ -114,7 +116,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     continue;
                 }
                 String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
-                MethodId id_ = m.getId(_context).format(formattedSuper_, _context);
+                MethodId id_ = m.getId().format(formattedSuper_, _context);
                 for (String c: classes_) {
                     CustList<MethodBlock> mBases_ = Classes.getMethodBodiesById(_context, c, id_);
                     if (mBases_.isEmpty()) {
@@ -129,11 +131,11 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         err_ = new BadAccessMethod();
                         err_.setFileName(getFullName());
                         err_.setRc(m.getRowCol(0, mBase_.getAccessOffset()));
-                        err_.setId(m.getId(_context));
-                        classesRef_.getErrorsDet().add(err_);
+                        err_.setId(m.getId());
+                        classesRef_.addError(err_);
                     }
-                    String retBase_ = m.getReturnType(_context);
-                    String retDerive_ = mBase_.getReturnType(_context);
+                    String retBase_ = m.getImportedReturnType();
+                    String retDerive_ = mBase_.getImportedReturnType();
                     String formattedRetDer_ = Templates.format(c, retDerive_, _context);
                     String formattedRetBase_ = Templates.format(s, retBase_, _context);
                     Mapping mapping_ = new Mapping();
@@ -147,9 +149,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                             err_.setFileName(getFullName());
                             err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
                             err_.setReturnType(retDerive_);
-                            err_.setMethod(mBase_.getId(_context));
+                            err_.setMethod(mBase_.getId());
                             err_.setParentClass(c);
-                            classesRef_.getErrorsDet().add(err_);
+                            classesRef_.addError(err_);
                         }
                     } else if (!Templates.isCorrect(mapping_, _context)) {
                         BadReturnTypeInherit err_;
@@ -157,9 +159,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         err_.setFileName(getFullName());
                         err_.setRc(mBase_.getRowCol(0, mBase_.getReturnTypeOffset()));
                         err_.setReturnType(retDerive_);
-                        err_.setMethod(mBase_.getId(_context));
+                        err_.setMethod(mBase_.getId());
                         err_.setParentClass(c);
-                        classesRef_.getErrorsDet().add(err_);
+                        classesRef_.addError(err_);
                     }
                     break;
                 }
@@ -177,8 +179,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
+            base_ = _classes.resolveBaseTypeBuildInherits(base_, this);
             if (isAccessibleType(base_, _classes)) {
-                interfaces_.add(_classes.resolveDynamicType(s, this));
+                interfaces_.add(_classes.resolveDynamicTypeBuildInherits(s, this));
             }
         }
         return interfaces_;
@@ -188,7 +191,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     public String getSuperClass(Analyzable _context) {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _context.resolveDynamicType(base_, this);
+            base_ = _context.resolveBaseTypeBuildInherits(base_, this);
             RootBlock r_ = _context.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
                 continue;
@@ -204,13 +207,13 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     public String getGenericSuperClass(Analyzable _classes) {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            base_=_classes.resolveDynamicType(base_,this);
+            base_=_classes.resolveBaseTypeBuildInherits(base_,this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
                 continue;
             }
             if (isAccessibleType(base_, _classes)) {
-                return _classes.resolveDynamicType(s,this);
+                return _classes.resolveDynamicTypeBuildInherits(s,this);
             }
         }
         return _classes.getStandards().getAliasObject();
@@ -235,13 +238,13 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _classes.resolveDynamicType(base_, this);
+            base_ = _classes.resolveBaseTypeBuildInherits(base_, this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
             }
             if (isAccessibleType(base_, _classes)) {
-                interfaces_.add(_classes.resolveDynamicType(s, this));
+                interfaces_.add(_classes.resolveDynamicTypeBuildInherits(s, this));
             }
         }
         return interfaces_;
@@ -252,7 +255,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
-            base_=_classes.resolveDynamicType(base_,this);
+            base_ = _classes.resolveBaseTypeBuildInherits(base_, this);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
@@ -383,5 +386,24 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             current_ = superClass_;
         }
         return superClasses_;
+    }
+
+    @Override
+    public void buildDirectGenericSuperTypes(Analyzable _classes) {
+        importedDirectSuperClass = getGenericSuperClass(_classes);
+        importedDirectSuperInterfaces.clear();
+        for (String i: getDirectGenericInterfaces(_classes)) {
+            importedDirectSuperInterfaces.add(i);
+        }
+    }
+
+    @Override
+    public String getImportedDirectGenericSuperClass() {
+        return importedDirectSuperClass;
+    }
+
+    @Override
+    public StringList getImportedDirectGenericSuperInterfaces() {
+        return importedDirectSuperInterfaces;
     }
 }

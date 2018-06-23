@@ -68,7 +68,7 @@ public final class FctOperation extends InvokingOperation {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(static_);
+            _conf.getClasses().addError(static_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -109,7 +109,7 @@ public final class FctOperation extends InvokingOperation {
                 abs_.setSgn(clMeth_.getRealId().getSignature());
                 abs_.setRc(_conf.getCurrentLocation());
                 abs_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().getErrorsDet().add(abs_);
+                _conf.getClasses().addError(abs_);
                 setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
                 return;
             }
@@ -134,7 +134,7 @@ public final class FctOperation extends InvokingOperation {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(static_);
+                _conf.getClasses().addError(static_);
             }
         }
     }

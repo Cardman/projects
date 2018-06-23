@@ -124,7 +124,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             ObjectMap<ClassField,SimpleAssignment> fieldsAfter_;
             fieldsAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
             for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
@@ -348,7 +348,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
             un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
         }
     }
     private void processFinalVars(Analyzable _an,AnalyzingEl _anEl,
@@ -404,7 +404,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
             un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
         }
     }
     @Override

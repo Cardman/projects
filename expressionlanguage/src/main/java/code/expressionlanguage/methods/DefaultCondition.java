@@ -40,14 +40,8 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
-            boolean ass_ = true;
-            boolean unass_ = true;
-            if (!ba_.isAssignedAfter()) {
-                ass_ = false;
-            }
-            if (!ba_.isUnassignedAfter()) {
-                unass_ = false;
-            }
+            boolean ass_ = ba_.isAssignedAfter();
+            boolean unass_ = ba_.isUnassignedAfter();
             if (_anEl.canCompleteNormally(this)) {
                 if (ass_) {
                     ass_ = prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter();
@@ -66,14 +60,8 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
             for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
                 SimpleAssignment ba_ = e.getValue();
                 AssignmentBefore ab_ = new AssignmentBefore();
-                boolean ass_ = true;
-                boolean unass_ = true;
-                if (!ba_.isAssignedAfter()) {
-                    ass_ = false;
-                }
-                if (!ba_.isUnassignedAfter()) {
-                    unass_ = false;
-                }
+                boolean ass_ = ba_.isAssignedAfter();
+                boolean unass_ = ba_.isUnassignedAfter();
                 if (_anEl.canCompleteNormally(this)) {
                     if (ass_) {
                         ass_ = prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter();
@@ -101,7 +89,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
         }
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);

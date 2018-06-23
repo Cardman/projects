@@ -36,7 +36,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
         }
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
@@ -45,7 +45,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         if (!isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -75,11 +75,11 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 deadCode_.setFileName(getFile().getFileName());
                 deadCode_.setRc(en_.getRowCol(0, en_.getOffset().getOffsetTrim()));
                 if (this instanceof Returnable) {
-                    deadCode_.setId(((Returnable)this).getSignature(_cont));
+                    deadCode_.setId(((Returnable)this).getSignature());
                 } else {
                     deadCode_.setId(EMPTY_STRING);
                 }
-                _cont.getClasses().getErrorsDet().add(deadCode_);
+                _cont.getClasses().addError(deadCode_);
             }
             Block n_ = en_.getFirstChild();
             if (n_ != null) {

@@ -99,7 +99,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setRc(getRowCol(0, variableNameOffset));
-            _cont.getClasses().getErrorsDet().add(d_);
+            _cont.getClasses().addError(d_);
             return;
         }
         LocalVariable lv_ = new LocalVariable();
@@ -112,7 +112,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         if (!f_.isStaticContext()) {
             String globalClass_ = page_.getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -125,7 +125,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setRc(getRowCol(0, rightMemberOffset));
-            _cont.getClasses().getErrorsDet().add(cast_);
+            _cont.getClasses().addError(cast_);
         }
     }
 

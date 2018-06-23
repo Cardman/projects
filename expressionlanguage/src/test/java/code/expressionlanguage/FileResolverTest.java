@@ -1626,7 +1626,7 @@ public final class FileResolverTest {
         ConstructorBlock ctor_ = (ConstructorBlock) child_;
         assertSame(AccessEnum.PUBLIC, ctor_.getAccess());
         assertEq("", ctor_.getName());
-        assertEq("$void", ctor_.getReturnType(context_));
+        assertEq("", ctor_.getReturnType());
         assertEq(3, ctor_.getParametersNames().size());
         assertEq("pOne", ctor_.getParametersNames().first());
         assertEq("pTwo", ctor_.getParametersNames().get(1));
@@ -1798,7 +1798,7 @@ public final class FileResolverTest {
         ConstructorBlock ctor_ = (ConstructorBlock) child_;
         assertSame(AccessEnum.PUBLIC, ctor_.getAccess());
         assertEq("", ctor_.getName());
-        assertEq("$void", ctor_.getReturnType(context_));
+        assertEq("", ctor_.getReturnType());
         assertEq(3, ctor_.getParametersNames().size());
         assertEq("pOne", ctor_.getParametersNames().first());
         assertEq("pTwo", ctor_.getParametersNames().get(1));

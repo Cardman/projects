@@ -61,18 +61,13 @@ public final class EnumValueOfOperation extends MethodOperation {
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         String clName_;
-        clName_ = _conf.resolveType(className, false);
-        if (!checkCorrect(_conf, clName_, false, 0)) {
-            String argClName_ = _conf.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
-            return;
-        }
+        clName_ = _conf.resolveCorrectType(className);
         if (!(classes_.getClassBody(clName_) instanceof EnumBlock)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
             un_.setType(clName_);
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -86,7 +81,7 @@ public final class EnumValueOfOperation extends MethodOperation {
             badAccess_.setId(clName_);
             badAccess_.setRc(_conf.getCurrentLocation());
             badAccess_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().getErrorsDet().add(badAccess_);
+            _conf.getClasses().addError(badAccess_);
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
@@ -98,7 +93,7 @@ public final class EnumValueOfOperation extends MethodOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
             un_.setType(argCl_);
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;

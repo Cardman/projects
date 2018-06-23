@@ -233,7 +233,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
+                _an.getClasses().addError(un_);
             }
         }
         if (canBeIncrementedCurGroup()) {

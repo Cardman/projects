@@ -105,10 +105,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
             if (parAss_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
                 ab_.setAssignedBefore(true);
             }
-            boolean unass_ = true;
-            if (!e.getValue().isUnassignedAfter()) {
-                unass_ = false;
-            }
+            boolean unass_ = e.getValue().isUnassignedAfter();
             for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
                 if (!(f.getKey() instanceof AbruptBlock)) {
                     continue;
@@ -150,10 +147,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                 if (parAss_.getVariablesRootBefore().get(index_).getVal(e.getKey()).isAssignedBefore()) {
                     ab_.setAssignedBefore(true);
                 }
-                boolean unass_ = true;
-                if (!e.getValue().isUnassignedAfter()) {
-                    unass_ = false;
-                }
+                boolean unass_ = e.getValue().isUnassignedAfter();
                 for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
                     if (!(f.getKey() instanceof AbruptBlock)) {
                         continue;
@@ -209,7 +203,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         Block nBlock_ = getNextSibling();
@@ -218,7 +212,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
+                _an.getClasses().addError(un_);
             }
         }
     }

@@ -96,7 +96,8 @@ public abstract class AbstractInstancingPageEl extends AbstractPageEl implements
             RootBlock class_ = classes_.getClassBody(curClassBase_);
             if (class_ instanceof UniqueRootedBlock) {
                 UniqueRootedBlock root_ = (UniqueRootedBlock) class_;
-                String superClassBase_ = root_.getSuperClass(_context);
+                String id_ = root_.getImportedDirectGenericSuperClass();
+                String superClassBase_ = Templates.getIdFromAllTypes(id_);
                 String objectClassName_ = _context.getStandards().getAliasObject();
                 if (!calledImplicitConstructor && !StringList.quickEq(superClassBase_, objectClassName_)) {
                     calledImplicitConstructor = true;

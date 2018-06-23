@@ -63,6 +63,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private int classNameOffset;
 
+    private String importedClassName;
+
     private final String value;
 
     private int valueOffset;
@@ -179,6 +181,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
+    public String getImportedClassName() {
+        return importedClassName;
+    }
+
+    @Override
     public String getFieldName() {
         return fieldName;
     }
@@ -193,7 +200,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
             return;
         }
         Block prev_ = getPreviousSibling();
@@ -229,12 +236,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             id_.put(this, assBl_);
         }
     }
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
+    public void buildImportedType(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
-        String cl_ = _cont.resolveType(className, true);
+        page_.setCurrentBlock(this);
+        importedClassName = _cont.resolveCorrectType(className);
+    }
+    @Override
+    public void buildExpressionLanguage(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (value.trim().isEmpty()) {
             return;
         }
@@ -249,7 +260,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         if (!staticField) {
             String globalClass_ = page_.getGlobalClass();
             String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMap().values()) {
+            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
@@ -257,16 +268,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         mapping_.setMapping(vars_);
         String arg_ = opValue.last().getResultClass().getName();
         mapping_.setArg(arg_);
-        mapping_.setParam(cl_);
+        mapping_.setParam(importedClassName);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
             cast_.setRc(getRowCol(0, valueOffset));
-            _cont.getClasses().getErrorsDet().add(cast_);
+            _cont.getClasses().addError(cast_);
         }
-        if (PrimitiveTypeUtil.isPrimitive(cl_, _cont)) {
-            opValue.last().getResultClass().setUnwrapObject(cl_);
+        if (PrimitiveTypeUtil.isPrimitive(importedClassName, _cont)) {
+            opValue.last().getResultClass().setUnwrapObject(importedClassName);
         }
     }
 

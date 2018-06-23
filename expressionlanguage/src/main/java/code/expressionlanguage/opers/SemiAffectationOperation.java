@@ -54,7 +54,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -64,7 +64,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -80,7 +80,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(cast_);
+            _conf.getClasses().addError(cast_);
             return;
         }
         clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, true, _conf));
@@ -135,7 +135,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                                 un_.setFileName(_conf.getCurrentFileName());
                                 un_.setRc(_conf.getCurrentLocation());
-                                _conf.getClasses().getErrorsDet().add(un_);
+                                _conf.getClasses().addError(un_);
                             }
                         }
                     }
@@ -182,7 +182,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(un_);
+                        _conf.getClasses().addError(un_);
                     }
                 }
             }

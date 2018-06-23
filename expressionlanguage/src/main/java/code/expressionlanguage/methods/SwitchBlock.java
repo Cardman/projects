@@ -119,7 +119,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, valueOffset));
             un_.setType(opValue.last().getResultClass());
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
         }
         String exp_ = opValue.last().getResultClass().getName();
         if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(exp_, _cont)) {
@@ -129,7 +129,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     un_.setFileName(getFile().getFileName());
                     un_.setRc(getRowCol(0, valueOffset));
                     un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().getErrorsDet().add(un_);
+                    _cont.getClasses().addError(un_);
                 } else {
                     enumTest = true;
                 }
@@ -151,7 +151,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _cont.getClasses().getErrorsDet().add(un_);
+            _cont.getClasses().addError(un_);
         }
     }
 
@@ -192,7 +192,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(ch_.getFile().getFileName());
                     un_.setRc(ch_.getRowCol(0, ch_.getOffset().getOffsetTrim()));
-                    _an.getClasses().getErrorsDet().add(un_);
+                    _an.getClasses().addError(un_);
                 }
                 def_ = true;
             } else if (ch_ instanceof CaseCondition){
@@ -217,7 +217,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(ch_.getFile().getFileName());
                 un_.setRc(ch_.getRowCol(0, ch_.getOffset().getOffsetTrim()));
-                _an.getClasses().getErrorsDet().add(un_);
+                _an.getClasses().addError(un_);
             }
             def_ = true;
         } else if (ch_ instanceof CaseCondition) {
@@ -244,7 +244,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(locCh_.getFile().getFileName());
                     un_.setRc(locCh_.getRowCol(locCh_.getValueOffset(), locCh_.getOffset().getOffsetTrim()));
-                    _an.getClasses().getErrorsDet().add(un_);
+                    _an.getClasses().addError(un_);
                 }
             }
         }
@@ -257,7 +257,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     UnexpectedTagName un_ = new UnexpectedTagName();
                     un_.setFileName(locCh_.getFile().getFileName());
                     un_.setRc(locCh_.getRowCol(locCh_.getValueOffset(), locCh_.getOffset().getOffsetTrim()));
-                    _an.getClasses().getErrorsDet().add(un_);
+                    _an.getClasses().addError(un_);
                 }
             }
         }

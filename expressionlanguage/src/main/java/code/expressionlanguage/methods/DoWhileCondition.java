@@ -136,7 +136,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
         }
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
@@ -306,7 +306,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
             un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
         }
     }
     private void processFinalVars(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
@@ -333,7 +333,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_an.getCurrentFileName());
             un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-            _an.getClasses().getErrorsDet().add(un_);
+            _an.getClasses().addError(un_);
         }
     }
 }

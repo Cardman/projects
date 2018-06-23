@@ -8,7 +8,8 @@ import code.expressionlanguage.opers.util.MethodModifier;
 public interface GeneMethod extends GeneFunction {
 
     MethodModifier getModifier();
-
+    @Override
+    MethodId getId();
     String getDeclaringType();
 
     MethodId getFormattedId(String _genericClass, ContextEl _context);

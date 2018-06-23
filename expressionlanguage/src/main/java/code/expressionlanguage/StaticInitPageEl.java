@@ -13,7 +13,6 @@ import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.util.IdMap;
-import code.util.StringList;
 
 public final class StaticInitPageEl extends AbstractPageEl {
 
@@ -27,16 +26,16 @@ public final class StaticInitPageEl extends AbstractPageEl {
         String curClassBase_ = Templates.getIdFromAllTypes(curClass_);
         RootBlock root_ =  classes_.getClassBody(curClassBase_);
         if (root_ instanceof UniqueRootedBlock) {
-            String superClass_ = ((UniqueRootedBlock) root_).getSuperClass(_context);
+            String gene_ = ((UniqueRootedBlock) root_).getImportedDirectGenericSuperClass();
+            String superClass_ = Templates.getIdFromAllTypes(gene_);
             if (classes_.getClassBody(superClass_) != null) {
                 if (InvokingOperation.hasToExit(_context, superClass_)) {
                     return false;
                 }
             }
         }
-        for (String i: root_.getStaticInitInterfaces()) {
-            String t_ = StringList.removeAllSpaces(i);
-            if (InvokingOperation.hasToExit(_context, t_)) {
+        for (String i: root_.getStaticInitImportedInterfaces()) {
+            if (InvokingOperation.hasToExit(_context, i)) {
                 return false;
             }
         }

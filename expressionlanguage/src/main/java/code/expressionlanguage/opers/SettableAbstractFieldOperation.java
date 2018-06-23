@@ -84,7 +84,7 @@ public abstract class SettableAbstractFieldOperation extends
             und_.setId(fieldName_);
             und_.setFileName(_conf.getCurrentFileName());
             und_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(und_);
+            _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -98,7 +98,7 @@ public abstract class SettableAbstractFieldOperation extends
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(static_);
+                _conf.getClasses().addError(static_);
             }
             getPreviousResultClass().setCheckOnlyNullPe(true);
         }
@@ -310,8 +310,23 @@ public abstract class SettableAbstractFieldOperation extends
             }
             boolean procField_ = isFromCurrentClass(_conf);
             ClassField cl_ = getFieldId();
-            if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
+            MethodOperation par_ = getParent();
+            if (par_ instanceof AffectationOperation && isFirstChild()) {
                 procField_ = false;
+            } else {
+                if (par_ instanceof DotOperation) {
+                    boolean cancelCheck_ = false;
+                    if (par_.getFirstChild() instanceof ThisOperation) {
+                        cancelCheck_ = true;
+                    } else if (par_.getFirstChild() instanceof StaticAccessOperation) {
+                        cancelCheck_ = true;
+                    }
+                    if (cancelCheck_) {
+                        if (par_.getParent() instanceof AffectationOperation && par_.isFirstChild()) {
+                            procField_ = false;
+                        }
+                    }
+                }
             }
             for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
                 if (procField_ && e.getKey().eq(cl_) && !e.getValue().isAssignedBefore()) {
@@ -322,7 +337,7 @@ public abstract class SettableAbstractFieldOperation extends
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().getErrorsDet().add(un_);
+                        _conf.getClasses().addError(un_);
                     }
                 }
                 AssignmentBefore bf_ = e.getValue();

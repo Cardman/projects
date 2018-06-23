@@ -28,6 +28,8 @@ public final class DeclareVariable extends Leaf implements InitVariable {
 
     private final String className;
 
+    private String importedClassName;
+
     private int classNameOffset;
 
     private boolean merged;
@@ -74,12 +76,16 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         return className;
     }
 
+    public String getImportedClassName() {
+        return importedClassName;
+    }
+
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        String cl_ = _cont.resolveType(className, true);
+        importedClassName = _cont.resolveCorrectType(className);
         _cont.setMerged(merged);
         _cont.setFinalVariable(finalVariable);
         if (_cont.containsLocalVar(variableName)) {
@@ -89,7 +95,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
             d_.setRc(getRowCol(0, variableNameOffset));
-            _cont.getClasses().getErrorsDet().add(d_);
+            _cont.getClasses().addError(d_);
             return;
         }
         if (!StringList.isWord(variableName)) {
@@ -97,15 +103,15 @@ public final class DeclareVariable extends Leaf implements InitVariable {
             b_.setFileName(getFile().getFileName());
             b_.setRc(getRowCol(0, variableNameOffset));
             b_.setVarName(variableName);
-            _cont.getClasses().getErrorsDet().add(b_);
+            _cont.getClasses().addError(b_);
         }
         if (!merged) {
             LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(cl_);
+            lv_.setClassName(importedClassName);
             lv_.setFinalVariable(finalVariable);
             _cont.putLocalVar(variableName, lv_);
         } else {
-            _cont.setCurrentVarSetting(cl_);
+            _cont.setCurrentVarSetting(importedClassName);
         }
     }
 
@@ -145,9 +151,8 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         LocalVariable lv_ = new LocalVariable();
-        String className_ = getClassName();
-        lv_.setClassName(_cont.resolveDynamicType(className_, getRooted()));
-        lv_.setStruct(PrimitiveTypeUtil.defaultValue(className_, _cont));
+        lv_.setClassName(importedClassName);
+        lv_.setStruct(PrimitiveTypeUtil.defaultValue(importedClassName, _cont));
         String name_ = getVariableName();
         ip_.putLocalVar(name_, lv_);
         processBlock(_cont);

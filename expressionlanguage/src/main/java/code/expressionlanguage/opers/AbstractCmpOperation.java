@@ -50,7 +50,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         Object nbTwo_ = _b.getObject();
         Number b_;
         if (nbTwo_ instanceof Number) {
-            b_ = ((Number)nbTwo_).doubleValue();
+            b_ = (Number)nbTwo_;
         } else {
             b_ = (long)((Character)nbTwo_).charValue();
         }
@@ -77,7 +77,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         Object nbTwo_ = _b.getObject();
         Number b_;
         if (nbTwo_ instanceof Number) {
-            b_ = ((Number)nbTwo_).doubleValue();
+            b_ = (Number)nbTwo_;
         } else {
             b_ = (long)((Character)nbTwo_).charValue();
         }
@@ -441,7 +441,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badNb_);
+            _conf.getClasses().addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
@@ -456,14 +456,14 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(static_);
+                _conf.getClasses().addError(static_);
             }
             arg_ = chidren_.last().getArgument();
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(static_);
+                _conf.getClasses().addError(static_);
             }
             first_.setCheckOnlyNullPe(true);
             second_.setCheckOnlyNullPe(true);
@@ -477,7 +477,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasString());
             un_.setOperands(new StringList(first_.getName(),second_.getName()));
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
@@ -497,7 +497,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
             un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
@@ -509,7 +509,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
             un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
@@ -523,7 +523,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         un_.setFileName(_conf.getCurrentFileName());
         un_.setExpectedResult(expectedTypes_.join(";"));
         un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
-        _conf.getClasses().getErrorsDet().add(un_);
+        _conf.getClasses().addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
     }
     public final boolean isStringCompare() {

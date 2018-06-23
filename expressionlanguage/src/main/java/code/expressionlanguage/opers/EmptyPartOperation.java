@@ -40,7 +40,7 @@ public final class EmptyPartOperation extends AbstractFieldOperation {
         EmptyPartError emptyPart_ = new EmptyPartError();
         emptyPart_.setFileName(_conf.getCurrentFileName());
         emptyPart_.setRc(_conf.getCurrentLocation());
-        _conf.getClasses().getErrorsDet().add(emptyPart_);
+        _conf.getClasses().addError(emptyPart_);
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));    
     }

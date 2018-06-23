@@ -40,7 +40,7 @@ public class DefaultInitializer implements Initializer {
                 }
                 Struct str_ = f_.getDefaultValue();
                 String fieldName_ = f_.getFieldName();
-                String fieldDeclClass_ = _context.resolveDynamicType(f_.getClassName(), f_.getRooted());
+                String fieldDeclClass_ = f_.getImportedClassName();
                 ClassField key_ = new ClassField(c, fieldName_);
                 if (str_ != null) {
                     fields_.put(key_, str_);

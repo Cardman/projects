@@ -47,7 +47,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(static_);
+                _conf.getClasses().addError(static_);
             }
             cl_.setCheckOnlyNullPe(true);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
@@ -58,7 +58,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         und_.setFileName(str_);
         und_.setFileName(_conf.getCurrentFileName());
         und_.setRc(_conf.getCurrentLocation());
-        _conf.getClasses().getErrorsDet().add(und_);
+        _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }
     @Override

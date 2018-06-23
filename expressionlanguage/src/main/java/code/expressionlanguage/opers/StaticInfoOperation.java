@@ -73,22 +73,9 @@ public final class StaticInfoOperation extends LeafOperation {
             return;
         }
         String classStr_;
-        classStr_ = _conf.resolveType(realCl_, false);
-        String base_ = Templates.getIdFromAllTypes(classStr_);
+        classStr_ = _conf.resolveCorrectType(realCl_, false);
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
-        boolean st_ = isStaticBlock();
-        if (classStr_.contains(Templates.TEMPLATE_BEGIN)) {
-            if (!checkCorrect(_conf, classStr_, true, 0)) {
-                setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
-                return;
-            }
-        } else {
-            if (!checkExistBase(_conf, !st_, base_, true, 0)) {
-                setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClass()));
-                return;
-            }
-        }
         if (classes_.isCustomType(classStr_)) {
             String curClassBase_ = null;
             if (glClass_ != null) {
@@ -99,7 +86,7 @@ public final class StaticInfoOperation extends LeafOperation {
                 badAccess_.setId(classStr_);
                 badAccess_.setRc(_conf.getCurrentLocation());
                 badAccess_.setFileName(_conf.getCurrentFileName());
-                _conf.getClasses().getErrorsDet().add(badAccess_);
+                _conf.getClasses().addError(badAccess_);
             }
         }
         className = classStr_;

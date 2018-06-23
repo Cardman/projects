@@ -25,6 +25,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private final String returnType;
 
+    private String importedReturnType;
+
+    private final StringList importedParametersTypes;
+
     private int returnTypeOffset;
 
     private final StringList parametersNames;
@@ -42,6 +46,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         super(_el, _importingPage, _indexChild, _m);
         name = _el.getAttribute(ATTRIBUTE_NAME);
         parametersTypes = new StringList();
+        importedParametersTypes = new StringList();
         int i_ = CustList.FIRST_INDEX;
         boolean varargs_ = false;
         while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
@@ -77,6 +82,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             StringList _paramNames, Numbers<Integer> _paramNamesOffset,
             OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
+        importedParametersTypes = new StringList();
         name = _fctName.getInfo();
         nameOffset = _fctName.getOffset();
         parametersTypes = new StringList();
@@ -137,30 +143,32 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return name;
     }
 
-    @Override
-    public final StringList getParametersTypes(Analyzable _an) {
+    public final StringList getParametersTypes() {
+        return new StringList(parametersTypes);
+    }
+
+    public final void buildImportedTypes(Analyzable _stds) {
         StringList params_ = new StringList();
         int off_ = getOffset().getOffsetTrim();
         int i_ = 0;
         for (String p: parametersTypes) {
             RowCol rc_ = getRowCol(off_, parametersTypesOffset.get(i_));
-            params_.add(_an.resolveType(p, this, rc_, true, true, false));
+            params_.add(_stds.resolveType(p, this, rc_));
             i_++;
         }
-        return params_;
-    }
-    public final StringList getParametersTypes() {
-        return new StringList(parametersTypes);
+        importedParametersTypes.clear();
+        importedParametersTypes.addAllElts(params_);
+        buildImportedReturnTypes(_stds);
     }
 
-    @Override
-    public String getReturnType(Analyzable _stds) {
+    public void buildImportedReturnTypes(Analyzable _stds) {
         String void_ = _stds.getStandards().getAliasVoid();
         if (StringList.quickEq(returnType, void_)) {
-            return returnType;
+            importedReturnType = void_;
+            return;
         }
-        RowCol rc_ = getRowCol(returnTypeOffset, getOffset().getOffsetTrim());
-        return _stds.resolveType(returnType, this, rc_, true, true, false);
+        RowCol rc_ = getRowCol(returnTypeOffset, 0);
+        importedReturnType = _stds.resolveType(returnType, this, rc_);
     }
     public String getReturnType() {
         return returnType;
@@ -186,5 +194,19 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         ass_ = _an.getAssignedVariables().getFinalVariablesGlobal();
         id_.put(this, ass_);
+    }
+
+    @Override
+    public StringList getImportedParametersTypes() {
+        return importedParametersTypes;
+    }
+
+    @Override
+    public String getImportedReturnType() {
+        return importedReturnType;
+    }
+
+    public void setImportedReturnType(String _importedReturnType) {
+        importedReturnType = _importedReturnType;
     }
 }

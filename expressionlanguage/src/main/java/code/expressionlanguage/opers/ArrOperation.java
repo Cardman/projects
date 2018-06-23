@@ -63,7 +63,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().getErrorsDet().add(badNb_);
+            _conf.getClasses().addError(badNb_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
         }
@@ -76,7 +76,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
             un_.setOperands(new StringList(indexClass_.getName()));
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
             return;
@@ -88,7 +88,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(class_.getName()));
-            _conf.getClasses().getErrorsDet().add(un_);
+            _conf.getClasses().addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
             return;
