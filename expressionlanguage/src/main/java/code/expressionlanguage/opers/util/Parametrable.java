@@ -13,4 +13,6 @@ public interface Parametrable {
     boolean isStatic();
 
     boolean isVararg();
+
+    int getImported();
 }

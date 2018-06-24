@@ -220,6 +220,8 @@ public final class FileResolver {
                     str_.append(currentChar_);
                 } else if (currentChar_ == LINE_RETURN && previousChar_ == END_IMPORTS) {
                     allowedComments_ = true;
+                } else {
+                    str_.append(currentChar_);
                 }
             }
             previousChar_ = currentChar_;

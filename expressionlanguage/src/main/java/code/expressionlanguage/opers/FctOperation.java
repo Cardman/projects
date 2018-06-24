@@ -55,10 +55,12 @@ public final class FctOperation extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
+        boolean import_ = false;
         ClassArgumentMatching clCur_;
         if (isIntermediateDottedOperation()) {
             clCur_ = getPreviousResultClass();
         } else {
+            import_ = true;
             clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
             setStaticAccess(_conf.isStaticContext());
         }
@@ -96,7 +98,7 @@ public final class FctOperation extends InvokingOperation {
             trimMeth_ = trimMeth_.substring(THAT.length() + 2);
             staticChoiceMethod_ = true;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, import_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;

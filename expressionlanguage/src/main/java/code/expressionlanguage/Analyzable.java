@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
@@ -92,4 +93,8 @@ public interface Analyzable {
     String resolveType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseTypeBuildInherits(String _in, Block _currentBlock);
+    CustList<ClassMethodId> lookupSingleImportStaticMethods(String _method, Block _rooted);
+    CustList<ClassMethodId> lookupImportsOnDemandStaticMethods(String _method, Block _rooted);
+    CustList<ClassField> lookupSingleImportStaticFields(String _field, Block _rooted);
+    CustList<ClassField> lookupImportsOnDemandStaticFields(String _field, Block _rooted);
 }

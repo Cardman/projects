@@ -226,4 +226,9 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     public String getImportedClassName() {
         return getClassName();
     }
+
+    @Override
+    public ClassField getId() {
+        return new ClassField(getRooted().getFullName(), getFieldName());
+    }
 }

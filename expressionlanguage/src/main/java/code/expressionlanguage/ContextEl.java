@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
@@ -13,6 +14,7 @@ import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.ElementBlock;
+import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InitBlock;
@@ -604,6 +606,21 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
         } else {
             for (StandardMethod m: ((StandardType)_element).getMethods().values()) {
+                methods_.add(m);
+            }
+        }
+        return methods_;
+    }
+    public static CustList<GeneField> getFieldBlocks(GeneType _element) {
+        CustList<GeneField> methods_ = new CustList<GeneField>();
+        if (_element instanceof RootBlock) {
+            for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
+                if (b instanceof FieldBlock) {
+                    methods_.add((FieldBlock) b);
+                }
+            }
+        } else {
+            for (StandardField m: ((StandardType)_element).getFields().values()) {
                 methods_.add(m);
             }
         }
@@ -1724,12 +1741,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return EMPTY_TYPE;
     }
-    public CustList<ClassMethodId> lookupImportsStaticMethods(String _method, RootBlock _rooted) {
-        CustList<ClassMethodId> types_ = new CustList<ClassMethodId>();
+    @Override
+    public CustList<ClassMethodId> lookupSingleImportStaticMethods(String _method, Block _rooted) {
+        CustList<ClassMethodId> methods_ = new CustList<ClassMethodId>();
         if (!StringList.isWord(_method.trim())) {
-            return types_;
+            return methods_;
         }
-        String cl_ = _rooted.getFullName();
         for (String i: _rooted.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1744,31 +1761,37 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     continue;
                 }
             }
-            if (!Classes.canAccessClass(cl_, typeLoc_, this)) {
-                continue;
-            }
             String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
             if (!StringList.quickEq(end_, _method.trim())) {
                 continue;
             }
             GeneType root_ = getClassBody(typeLoc_);
-            for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
-                if (!Classes.canAccess(cl_, e, this)) {
-                    continue;
+            StringList typesLoc_ = new StringList(typeLoc_);
+            typesLoc_.addAllElts(root_.getAllSuperTypes());
+            for (String s: typesLoc_) {
+                GeneType super_ = getClassBody(s);
+                for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
+                    if (!e.isStaticMethod()) {
+                        continue;
+                    }
+                    if (!StringList.quickEq(end_, e.getId().getName())) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(typeLoc_, e, this)) {
+                        continue;
+                    }
+                    methods_.add(new ClassMethodId(s, e.getId()));
                 }
-                if (!e.isStaticMethod()) {
-                    continue;
-                }
-                if (!StringList.quickEq(end_, e.getId().getName())) {
-                    continue;
-                }
-                types_.add(new ClassMethodId(typeLoc_, e.getId()));
             }
         }
-        if (types_.size() == 1) {
-            return types_;
+        return methods_;
+    }
+    @Override
+    public CustList<ClassMethodId> lookupImportsOnDemandStaticMethods(String _method, Block _rooted) {
+        CustList<ClassMethodId> methods_ = new CustList<ClassMethodId>();
+        if (!StringList.isWord(_method.trim())) {
+            return methods_;
         }
-        types_.clear();
         for (String i: _rooted.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1787,24 +1810,116 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     continue;
                 }
             }
-            if (!Classes.canAccessClass(cl_, typeLoc_, this)) {
+            GeneType root_ = getClassBody(typeLoc_);
+            StringList typesLoc_ = new StringList(typeLoc_);
+            typesLoc_.addAllElts(root_.getAllSuperTypes());
+            for (String s: typesLoc_) {
+                GeneType super_ = getClassBody(s);
+                for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
+                    if (!e.isStaticMethod()) {
+                        continue;
+                    }
+                    if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(typeLoc_, e, this)) {
+                        continue;
+                    }
+                    methods_.add(new ClassMethodId(s, e.getId()));
+                }
+            }
+        }
+        return methods_;
+    }
+    @Override
+    public CustList<ClassField> lookupSingleImportStaticFields(String _method, Block _rooted) {
+        CustList<ClassField> methods_ = new CustList<ClassField>();
+        if (!StringList.isWord(_method.trim())) {
+            return methods_;
+        }
+        for (String i: _rooted.getFile().getImports()) {
+            if (!i.contains(".")) {
+                continue;
+            }
+            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                continue;
+            }
+            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+            if (!classes.isCustomType(typeLoc_)) {
+                if (!standards.getStandards().contains(typeLoc_)) {
+                    continue;
+                }
+            }
+            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+            if (!StringList.quickEq(end_, _method.trim())) {
                 continue;
             }
             GeneType root_ = getClassBody(typeLoc_);
-            for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
-                if (!Classes.canAccess(cl_, e, this)) {
-                    continue;
+            StringList typesLoc_ = new StringList(typeLoc_);
+            typesLoc_.addAllElts(root_.getAllSuperTypes());
+            for (String s: typesLoc_) {
+                GeneType super_ = getClassBody(s);
+                for (GeneField e: ContextEl.getFieldBlocks(super_)) {
+                    if (!e.isStaticField()) {
+                        continue;
+                    }
+                    if (!StringList.quickEq(end_, e.getFieldName())) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(typeLoc_, e, this)) {
+                        continue;
+                    }
+                    methods_.add(new ClassField(s, _method));
                 }
-                if (!e.isStaticMethod()) {
-                    continue;
-                }
-                if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
-                    continue;
-                }
-                types_.add(new ClassMethodId(typeLoc_, e.getId()));
             }
         }
-        return types_;
+        return methods_;
+    }
+    @Override
+    public CustList<ClassField> lookupImportsOnDemandStaticFields(String _method, Block _rooted) {
+        CustList<ClassField> methods_ = new CustList<ClassField>();
+        if (!StringList.isWord(_method.trim())) {
+            return methods_;
+        }
+        for (String i: _rooted.getFile().getImports()) {
+            if (!i.contains(".")) {
+                continue;
+            }
+            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                continue;
+            }
+            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+            if (!StringList.quickEq(end_, "*")) {
+                continue;
+            }
+            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+            if (!classes.isCustomType(typeLoc_)) {
+                if (!standards.getStandards().contains(typeLoc_)) {
+                    continue;
+                }
+            }
+            GeneType root_ = getClassBody(typeLoc_);
+            StringList typesLoc_ = new StringList(typeLoc_);
+            typesLoc_.addAllElts(root_.getAllSuperTypes());
+            for (String s: typesLoc_) {
+                GeneType super_ = getClassBody(s);
+                for (GeneField e: ContextEl.getFieldBlocks(super_)) {
+                    if (!e.isStaticField()) {
+                        continue;
+                    }
+                    if (!StringList.quickEq(_method.trim(), e.getId().getFieldName())) {
+                        continue;
+                    }
+                    if (!Classes.canAccess(typeLoc_, e, this)) {
+                        continue;
+                    }
+                    methods_.add(new ClassField(s, _method));
+                }
+            }
+        }
+        return methods_;
     }
     public static String removeDottedSpaces(String _type) {
         StringBuilder b_ = new StringBuilder();

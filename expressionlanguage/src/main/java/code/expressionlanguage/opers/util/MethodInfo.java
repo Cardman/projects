@@ -19,6 +19,8 @@ public final class MethodInfo implements Parametrable, Displayable {
 
     private boolean staticMethod;
 
+    private int imported;
+
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
@@ -83,5 +85,14 @@ public final class MethodInfo implements Parametrable, Displayable {
     @Override
     public Identifiable getId() {
         return getConstraints();
+    }
+
+    @Override
+    public int getImported() {
+        return imported;
+    }
+
+    public void setImported(int _imported) {
+        imported = _imported;
     }
 }

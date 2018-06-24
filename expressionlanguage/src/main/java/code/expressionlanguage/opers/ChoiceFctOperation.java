@@ -70,7 +70,9 @@ public final class ChoiceFctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         int varargOnly_ = lookOnlyForVarArg();
         LgNames stds_ = _conf.getStandards();
+        boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
+            import_ = true;
             setStaticAccess(_conf.isStaticContext());
         }
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
@@ -93,7 +95,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
 
         trimMeth_ = methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1).trim();
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;

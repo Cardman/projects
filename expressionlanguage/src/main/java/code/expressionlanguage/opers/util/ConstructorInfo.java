@@ -60,4 +60,9 @@ public final class ConstructorInfo implements Parametrable, Displayable {
         return getConstraints();
     }
 
+    @Override
+    public int getImported() {
+        return 0;
+    }
+
 }

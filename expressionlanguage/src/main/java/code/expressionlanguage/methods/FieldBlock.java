@@ -465,4 +465,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             int _indexProcess) {
         return getValueEl();
     }
+
+    @Override
+    public ClassField getId() {
+        return new ClassField(getRooted().getFullName(), getFieldName());
+    }
 }

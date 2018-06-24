@@ -1,6 +1,7 @@
 package code.expressionlanguage.common;
 
 import code.expressionlanguage.methods.AccessibleBlock;
+import code.expressionlanguage.opers.util.ClassField;
 
 public interface GeneField extends AccessibleBlock {
 
@@ -11,5 +12,7 @@ public interface GeneField extends AccessibleBlock {
     String getClassName();
 
     String getFieldName();
+
+    ClassField getId();
 
 }

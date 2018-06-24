@@ -21,6 +21,7 @@ import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NullStruct;
@@ -974,5 +975,29 @@ public class Configuration implements ExecutableCode {
     @Override
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
+    }
+
+    @Override
+    public CustList<ClassMethodId> lookupSingleImportStaticMethods(
+            String _method, Block _rooted) {
+        return new CustList<ClassMethodId>();
+    }
+
+    @Override
+    public CustList<ClassMethodId> lookupImportsOnDemandStaticMethods(
+            String _method, Block _rooted) {
+        return new CustList<ClassMethodId>();
+    }
+
+    @Override
+    public CustList<ClassField> lookupSingleImportStaticFields(String _field,
+            Block _rooted) {
+        return new CustList<ClassField>();
+    }
+
+    @Override
+    public CustList<ClassField> lookupImportsOnDemandStaticFields(
+            String _field, Block _rooted) {
+        return new CustList<ClassField>();
     }
 }

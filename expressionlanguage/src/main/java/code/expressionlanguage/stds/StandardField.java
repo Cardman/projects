@@ -3,6 +3,7 @@ package code.expressionlanguage.stds;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.opers.util.ClassField;
 import code.util.StringList;
 
 public final class StandardField implements GeneField {
@@ -62,5 +63,10 @@ public final class StandardField implements GeneField {
 
     public String getImportedClassName() {
         return getClassName();
+    }
+
+    @Override
+    public ClassField getId() {
+        return new ClassField(owner.getFullName(), getFieldName());
     }
 }

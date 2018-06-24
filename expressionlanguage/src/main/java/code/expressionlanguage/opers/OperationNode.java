@@ -39,7 +39,6 @@ import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.Identifiable;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.Parametrable;
@@ -401,19 +400,19 @@ public abstract class OperationNode {
         nextSibling = _nextSibling;
     }
 
-    static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name) {
+    static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
         if (!_staticContext) {
-            FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name);
+            FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return resIns_;
             }
         }
-        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name);
+        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name, _import);
         if (resSt_.getStatus() == SearchingMemberStatus.UNIQ) {
             return resSt_;
         }
         //Errors
-        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name);
+        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import);
         if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
             StaticAccessFieldError access_ = new StaticAccessFieldError();
             access_.setClassName(_class.getName());
@@ -427,7 +426,7 @@ public abstract class OperationNode {
         resSt_.setStatus(SearchingMemberStatus.ZERO);
         return resSt_;
     }
-    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name) {
+    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
         String clCurName_ = _class.getName();
         String base_ = Templates.getIdFromAllTypes(clCurName_);
         GeneType root_ = _cont.getClassBody(base_);
@@ -439,7 +438,7 @@ public abstract class OperationNode {
         if (_superClass) {
             classeNames_.addAllElts(root_.getAllSuperTypes());
         }
-        EqList<ClassField> fields_ = new EqList<ClassField>();
+        ObjectNotNullMap<ClassField,Integer> imports_ = new ObjectNotNullMap<ClassField,Integer>();
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = null;
         if (glClass_ != null) {
@@ -469,32 +468,58 @@ public abstract class OperationNode {
             if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
                 continue;
             }
-            fields_.add(candidate_);
+            imports_.put(candidate_, 0);
         }
-        if (fields_.isEmpty()) {
-            FieldResult r_ = new FieldResult();
-            r_.setStatus(SearchingMemberStatus.ZERO);
-            return r_;
+        if (_import) {
+            for (ClassField e: _cont.lookupSingleImportStaticFields(_name, _cont.getCurrentBlock())) {
+                String cl_ = e.getClassName();
+                if (!Classes.canAccessField(base_, cl_, _name, _cont)) {
+                    continue;
+                }
+                if (!Classes.canAccessField(curClassBase_, cl_, _name, _cont)) {
+                    continue;
+                }
+                imports_.put(e,1);
+            }
+            for (ClassField e: _cont.lookupImportsOnDemandStaticFields(_name, _cont.getCurrentBlock())) {
+                String cl_ = e.getClassName();
+                if (!Classes.canAccessField(base_, cl_, _name, _cont)) {
+                    continue;
+                }
+                if (!Classes.canAccessField(curClassBase_, cl_, _name, _cont)) {
+                    continue;
+                }
+                imports_.put(e,2);
+            }
         }
-        String cl_ = fields_.first().getClassName();
-        StringList subClasses_ = new StringList();
-        for (ClassField c: fields_) {
-            subClasses_.add(c.getClassName());
+        for (int i = 0; i < 3; i++) {
+            StringList subClasses_ = new StringList();
+            for (EntryCust<ClassField,Integer> e: imports_.entryList()) {
+                if (e.getValue().intValue() != i) {
+                    continue;
+                }
+                subClasses_.add(e.getKey().getClassName());
+            }
+            StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
+            if (subs_.size() == CustList.ONE_ELEMENT) {
+                String cl_ = subs_.first();
+                String formatted_;
+                if (i == 0) {
+                    formatted_ = Templates.getFullTypeByBases(clCurName_, cl_, _cont);
+                } else {
+                    formatted_ = cl_;
+                }
+                FieldInfo field_ = _cont.getFieldInfo(new ClassField(cl_, _name));
+                FieldResult r_ = new FieldResult();
+                String realType_ = field_.getType();
+                FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, false);
+                r_.setId(f_);
+                r_.setStatus(SearchingMemberStatus.UNIQ);
+                return r_;
+            }
         }
-        StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
-        if (subs_.size() != CustList.ONE_ELEMENT) {
-            FieldResult r_ = new FieldResult();
-            r_.setStatus(SearchingMemberStatus.ZERO);
-            return r_;
-        }
-        cl_ = subs_.first();
-        String formatted_ = Templates.getFullTypeByBases(clCurName_, cl_, _cont);
-        FieldInfo field_ = _cont.getFieldInfo(new ClassField(cl_, _name));
         FieldResult r_ = new FieldResult();
-        String realType_ = field_.getType();
-        FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, false);
-        r_.setId(f_);
-        r_.setStatus(SearchingMemberStatus.UNIQ);
+        r_.setStatus(SearchingMemberStatus.ZERO);
         return r_;
     }
     
@@ -614,9 +639,9 @@ public abstract class OperationNode {
 
     static ClassMethodIdReturn getDeclaredCustMethod(Analyzable _conf, int _varargOnly,
     boolean _staticContext, StringList _classes, String _name,
-    boolean _superClass, boolean _accessFromSuper, ClassArgumentMatching... _argsClass) {
-        ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-        methods_ = getDeclaredCustMethodByType(_conf, _staticContext,_varargOnly, _accessFromSuper, _superClass, _classes, _name, _argsClass);
+    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassArgumentMatching... _argsClass) {
+        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = getDeclaredCustMethodByType(_conf, _staticContext,_varargOnly, _accessFromSuper, _superClass, _classes, _name, _import, _argsClass);
         ClassMethodIdResult res_= getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
         if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
             return toFoundMethod(_conf, res_);
@@ -688,13 +713,13 @@ public abstract class OperationNode {
         idRet_.setAbstractMethod(m_.isAbstractMethod());
         return idRet_;
     }
-    private static ObjectNotNullMap<ClassMethodId, MethodMetaInfo>
+    private static ObjectNotNullMap<ClassMethodId, MethodInfo>
     getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, int _varargOnly, boolean _accessFromSuper,
-        boolean _superClass, StringList _fromClasses, String _name, ClassArgumentMatching... _argsClass) {
+        boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassArgumentMatching... _argsClass) {
         String glClass_ = _conf.getGlobalClass();
         CustList<GeneType> roots_ = new CustList<GeneType>();
-        ObjectNotNullMap<ClassMethodId, MethodMetaInfo> methods_;
-        methods_ = new ObjectNotNullMap<ClassMethodId, MethodMetaInfo>();
+        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
         StringList superTypes_ = new StringList();
         StringMap<String> superTypesBase_ = new StringMap<String>();
         for (String s: _fromClasses) {
@@ -724,9 +749,19 @@ public abstract class OperationNode {
                 if (e.isStaticMethod()) {
                     MethodId id_ = e.getId();
                     String returnType_ = e.getImportedReturnType();
-                    MethodMetaInfo info_ = new MethodMetaInfo(t, id_, MethodModifier.STATIC, returnType_);
+                    ParametersGroup p_ = new ParametersGroup();
+                    MethodId realId_ = id_;
+                    for (String c: realId_.getParametersTypes()) {
+                        p_.add(new ClassMatching(c));
+                    }
+                    MethodInfo mloc_ = new MethodInfo();
+                    mloc_.setClassName(t);
+                    mloc_.setStatic(true);
+                    mloc_.setConstraints(realId_);
+                    mloc_.setParameters(p_);
+                    mloc_.setReturnType(returnType_);
                     ClassMethodId clId_ = new ClassMethodId(t, id_);
-                    methods_.put(clId_, info_);
+                    methods_.put(clId_, mloc_);
                 }
             }
         }
@@ -760,22 +795,88 @@ public abstract class OperationNode {
                         }
                         String ret_ = sup_.getImportedReturnType();
                         ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
-                        MethodMetaInfo info_ = new MethodMetaInfo(formattedClass_, id_, MethodModifier.NORMAL, ret_);
+                        ParametersGroup p_ = new ParametersGroup();
+                        MethodId realId_ = id_;
+                        for (String c: realId_.getParametersTypes()) {
+                            p_.add(new ClassMatching(c));
+                        }
+                        MethodInfo mloc_ = new MethodInfo();
+                        mloc_.setClassName(formattedClass_);
+                        mloc_.setStatic(false);
+                        mloc_.setConstraints(realId_);
+                        mloc_.setParameters(p_);
+                        mloc_.setReturnType(ret_);
                         ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
-                        methods_.put(clId_, info_);
+                        methods_.put(clId_, mloc_);
                     }
                 }
                 indexType_++;
             }
         }
+        if (_import) {
+            for (ClassMethodId m: _conf.lookupSingleImportStaticMethods(_name, _conf.getCurrentBlock())) {
+                if (methods_.contains(m)) {
+                    continue;
+                }
+                String clName_ = m.getClassName();
+                MethodId id_ = m.getConstraints();
+                GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
+                if (!Classes.canAccess(glClass_, method_, _conf)) {
+                    continue;
+                }
+                if (method_.isStaticMethod()) {
+                    String returnType_ = method_.getImportedReturnType();
+                    ParametersGroup p_ = new ParametersGroup();
+                    MethodId realId_ = id_;
+                    for (String c: realId_.getParametersTypes()) {
+                        p_.add(new ClassMatching(c));
+                    }
+                    MethodInfo mloc_ = new MethodInfo();
+                    mloc_.setImported(1);
+                    mloc_.setClassName(clName_);
+                    mloc_.setStatic(true);
+                    mloc_.setConstraints(realId_);
+                    mloc_.setParameters(p_);
+                    mloc_.setReturnType(returnType_);
+                    methods_.put(m, mloc_);
+                }
+            }
+            for (ClassMethodId m: _conf.lookupImportsOnDemandStaticMethods(_name, _conf.getCurrentBlock())) {
+                if (methods_.contains(m)) {
+                    continue;
+                }
+                String clName_ = m.getClassName();
+                MethodId id_ = m.getConstraints();
+                GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
+                if (!Classes.canAccess(glClass_, method_, _conf)) {
+                    continue;
+                }
+                if (method_.isStaticMethod()) {
+                    String returnType_ = method_.getImportedReturnType();
+                    ParametersGroup p_ = new ParametersGroup();
+                    MethodId realId_ = id_;
+                    for (String c: realId_.getParametersTypes()) {
+                        p_.add(new ClassMatching(c));
+                    }
+                    MethodInfo mloc_ = new MethodInfo();
+                    mloc_.setImported(2);
+                    mloc_.setClassName(clName_);
+                    mloc_.setStatic(true);
+                    mloc_.setConstraints(realId_);
+                    mloc_.setParameters(p_);
+                    mloc_.setReturnType(returnType_);
+                    methods_.put(m, mloc_);
+                }
+            }
+        }
         return methods_;
     }
     private static ClassMethodIdResult getCustResult(Analyzable _conf, int _varargOnly,
-            ObjectNotNullMap<ClassMethodId, MethodMetaInfo> _methods,
+            ObjectNotNullMap<ClassMethodId, MethodInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         CustList<ClassMethodId> possibleMethods_ = new CustList<ClassMethodId>();
         String glClass_ = _conf.getGlobalClass();
-        for (EntryCust<ClassMethodId, MethodMetaInfo> e: _methods.entryList()) {
+        for (EntryCust<ClassMethodId, MethodInfo> e: _methods.entryList()) {
             ClassMethodId key_ = e.getKey();
             MethodId id_ = key_.getConstraints();
             if (_varargOnly > -1) {
@@ -809,20 +910,8 @@ public abstract class OperationNode {
         gr_.setGlobalClass(glClass_);
         Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (ClassMethodId m: possibleMethods_) {
-            ParametersGroup p_ = new ParametersGroup();
-            MethodMetaInfo info_ = _methods.getVal(m);
-            MethodId realId_ = info_.getRealId();
-            for (String c: realId_.getParametersTypes()) {
-                p_.add(new ClassMatching(c));
-            }
-            MethodInfo mloc_ = new MethodInfo();
-            String formattedType_ = info_.getClassName();
-            mloc_.setClassName(formattedType_);
-            mloc_.setStatic(info_.getModifier() == MethodModifier.STATIC);
-            mloc_.setConstraints(realId_);
-            mloc_.setParameters(p_);
-            mloc_.setReturnType(info_.getReturnType());
-            signatures_.add(mloc_);
+            MethodInfo info_ = _methods.getVal(m);
+            signatures_.add(info_);
         }
         _conf.setAmbigous(false);
         sortFct(signatures_, gr_);
@@ -835,7 +924,7 @@ public abstract class OperationNode {
         MethodId constraints_ = signatures_.first().getConstraints();
         MethodId realId_ = constraints_;
         String className_ = signatures_.first().getClassName();
-        MethodMetaInfo info_ = _methods.getVal(new ClassMethodId(className_, realId_));
+        MethodInfo info_ = _methods.getVal(new ClassMethodId(className_, realId_));
         String baseClassName_ = info_.getClassName();
         ClassMethodIdResult res_ = new ClassMethodIdResult();
         MethodId id_;
@@ -846,7 +935,7 @@ public abstract class OperationNode {
             id_ = constraints_;
         } else {
             realClass_ = baseClassName_;
-            if (info_.getModifier() == MethodModifier.STATIC) {
+            if (info_.isStatic()) {
                 id_ = constraints_;
             } else {
                 id_ = constraints_.format(baseClassName_, _conf);
@@ -1027,6 +1116,12 @@ public abstract class OperationNode {
         }
     }
     static int compare(ArgumentsGroup _context, Parametrable _o1, Parametrable _o2) {
+        if (_o1.getImported() > _o2.getImported()) {
+            return CustList.SWAP_SORT;
+        }
+        if (_o2.getImported() > _o1.getImported()) {
+            return CustList.NO_SWAP_SORT;
+        }
         int len_ = _o1.getParameters().size();
         Analyzable context_ = _context.getContext();
         StringMap<StringList> map_;

@@ -62,7 +62,9 @@ public abstract class SettableAbstractFieldOperation extends
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
+            import_ = true;
             staticAccess = _conf.isStaticContext();
         }
         LgNames stds_ = _conf.getStandards();
@@ -76,7 +78,7 @@ public abstract class SettableAbstractFieldOperation extends
         boolean superAccess_ = isSuperAccess(_conf);
         FieldResult r_;
         FieldInfo e_;
-        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_);
+        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             UndefinedFieldError und_ = new UndefinedFieldError();
             String base_ = Templates.getIdFromAllTypes(cl_.getName());

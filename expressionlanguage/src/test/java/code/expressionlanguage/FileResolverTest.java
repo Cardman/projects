@@ -4905,7 +4905,31 @@ public final class FileResolverTest {
         assertEq(4, getFileTypes(context_,0).getLeftSpaces().get(28));
         assertEq(0, getFileTypes(context_,0).getLeftSpaces().get(29));
     }
-
+    @Test
+    public void parseFile50Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$static pkg.Ex.method;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $class pkgtwo.ExClass {\n");
+        file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER}):\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.ExClass");
+        assertTrue(r_ instanceof ClassBlock);
+        assertEq(1, countFileTypes(context_));
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq(2, cl_.getFile().getImports().size());
+        assertEq("$static pkg.Ex.method", cl_.getFile().getImports().first());
+        assertEq("pkg.ExTwo", cl_.getFile().getImports().last());
+        Block ch_ = cl_.getFirstChild();
+        assertTrue(ch_ instanceof FieldBlock);
+        assertNull(ch_.getNextSibling());
+    }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getClasses().getClassBodies()) {
