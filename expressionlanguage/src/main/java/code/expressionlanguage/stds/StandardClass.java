@@ -98,7 +98,7 @@ public final class StandardClass extends StandardType implements GeneClass {
     @Override
     public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
-        String superClass_ = getGenericSuperClass(_classes);
+        String superClass_ = getSuperClass(_classes);
         classes_.add(superClass_);
         return classes_;
     }
@@ -117,8 +117,9 @@ public final class StandardClass extends StandardType implements GeneClass {
     public StringList getDirectGenericSuperTypes(Analyzable _classes) {
         return getDirectSuperTypes();
     }
+
     @Override
-    public String getGenericSuperClass(Analyzable _classes) {
+    public String getSuperClass(Analyzable _classes) {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
             if (_classes.getClassBody(base_) instanceof StandardClass) {
@@ -126,10 +127,6 @@ public final class StandardClass extends StandardType implements GeneClass {
             }
         }
         return _classes.getStandards().getAliasObject();
-    }
-    @Override
-    public String getSuperClass(Analyzable _classes) {
-        return getGenericSuperClass(_classes);
     }
 
     @Override

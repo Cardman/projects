@@ -143,38 +143,12 @@ public final class Templates {
     }
 
     /**Calls Templates.isCorrect*/
-    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context, Block _current, boolean _exact) {
-        if (!existClassParts(_className, _mapping, _context, _current)) {
-            return false;
-        }
-        String cl_;
-        if (_context.getAnalyzing() != null && _current != null) {
-            cl_ = _context.resolveDynamicType(_className, _current.getRooted());
-        } else {
-            cl_ = StringList.removeAllSpaces(_className);
-        }
-        return isCorrectTemplateAll(cl_, _mapping, _context, _exact);
-    }
-
-    /**Calls Templates.isCorrect*/
     public static boolean correctClassPartsDynamic(String _className, StringMap<StringList> _mapping, Analyzable _context, boolean _exact) {
         if (!existClassPartsDynamic(_className, _mapping, _context)) {
             return false;
         }
         String cl_ = StringList.removeAllSpaces(_className);
         return isCorrectTemplateAll(cl_, _mapping, _context, _exact);
-    }
-    public static boolean correctClassPartsBuild(String _className, StringMap<StringList> _mapping, ContextEl _context, Block _current) {
-        if (!existClassParts(_className, _mapping, _context, _current)) {
-            return false;
-        }
-        String cl_;
-        if (_context.getAnalyzing() != null && _current != null) {
-            cl_ = _context.resolveDynamicType(_className, _current.getRooted());
-        } else {
-            cl_ = StringList.removeAllSpaces(_className);
-        }
-        return isCorrectTemplateAllBuild(cl_, _mapping, _context);
     }
     
     public static boolean existClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
@@ -196,18 +170,6 @@ public final class Templates {
         StringList variables_ = _mapping.getKeys();
         String className_ = StringList.removeAllSpaces(_className);
         if (!existAllClassPartsDynamic(className_, variables_, _context)) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context, Block _current) {
-        if (!isCorrectWrite(_className, _context)) {
-            return false;
-        }
-        StringList variables_ = _mapping.getKeys();
-        String className_ = StringList.removeAllSpaces(_className);
-        if (!existAllClassParts(className_, variables_, _context, _current)) {
             return false;
         }
         return true;
@@ -409,7 +371,6 @@ public final class Templates {
     public static boolean isCorrectWrite(String _className, Analyzable _context) {
         StringList current_ = new StringList(_className);
         boolean already_ = false;
-//        StringMap<StandardType> stds_ = _context.getStandards().getStandards();
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
@@ -449,19 +410,6 @@ public final class Templates {
                         return false;
                     }
                 }
-//                if (!PrimitiveTypeUtil.isPrimitive(compo_, _context)) {
-//                    if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-//                        if (!stds_.contains(compo_)) {
-//                            if (!PredefinedClasses.isPredefined(compo_, _context)) {
-//                                for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
-//                                    if (!StringList.isWord(p.trim())) {
-//                                        return false;
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
                 int nbParams_ = elts_.size();
                 for (int i = CustList.SECOND_INDEX; i < nbParams_; i++) {
                     String baseLoc_ = elts_.get(i).trim();
@@ -482,7 +430,7 @@ public final class Templates {
             current_ = next_;
         }
     }
-    static boolean isCorrectTemplateAllBuild(String _className, StringMap<StringList> _inherit, Analyzable _context) {
+    public static boolean isCorrectTemplateAllBuild(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         if (!isCorrectTemplateBuild(_className, _inherit, _context)) {
             return false;
         }
@@ -507,7 +455,7 @@ public final class Templates {
     static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
     }
-    static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
+    public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
         if (!isCorrectTemplate(_className, _inherit, _context, _exact)) {
             return false;
         }

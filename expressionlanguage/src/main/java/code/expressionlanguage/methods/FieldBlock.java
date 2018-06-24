@@ -45,6 +45,7 @@ import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.sml.Element;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -241,7 +242,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
         page_.setCurrentBlock(this);
-        importedClassName = _cont.resolveCorrectType(className);
+        RowCol rc_ = getRowCol(classNameOffset, 0);
+        importedClassName = _cont.resolveType(className, this, rc_);
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {

@@ -875,10 +875,6 @@ public class Configuration implements ExecutableCode {
     public String resolveCorrectType(String _in, boolean _exact) {
         return resolveDynamicType(_in, null);
     }
-    @Override
-    public String resolveQuickType(String _in) {
-        return resolveDynamicType(_in, null);
-    }
 
     @Override
     public String resolveTypeMapping(String _in, Block _currentBlock, RowCol _location) {
@@ -911,10 +907,6 @@ public class Configuration implements ExecutableCode {
     @Override
     public FieldInfo getFieldInfo(ClassField _classField) {
         return context.getFieldInfo(_classField);
-    }
-    @Override
-    public String resolveDynamicTypeBuildInherits(String _in, RootBlock _file) {
-        return resolveDynamicType(_in, _file);
     }
 
     @Override

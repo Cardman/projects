@@ -1088,16 +1088,6 @@ public final class Classes {
             for (TypeVar t: dBl_.getParamTypesMapValues()) {
                 cts_.put(t.getName(), t.getConstraints());
                 variables_.add(t.getName());
-                for (String b: t.getConstraints()) {
-                    if (!Templates.existAllClassParts(b, variables_, _context)) {
-                        UnknownClassName un_ = new UnknownClassName();
-                        un_.setClassName(b);
-                        un_.setFileName(c);
-                        un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
-                        addError(un_);
-                        ok_ = false;
-                    }
-                }
             }
             mapping_.setMapping(cts_);
             if (!ok_) {
@@ -1211,7 +1201,7 @@ public final class Classes {
             }
             for (TypeVar t: dBl_.getParamTypesMapValues()) {
                 for (String b: t.getConstraints()) {
-                    if (!Templates.correctClassParts(b, map_, _context)) {
+                    if (!Templates.isCorrectTemplateAll(b, map_, _context, true)) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(b);
                         un_.setFileName(c);
@@ -1221,7 +1211,7 @@ public final class Classes {
                 }
             }
             for (String t: dBl_.getDirectGenericSuperTypes(_context)) {
-                if (!Templates.correctClassParts(t, map_, _context)) {
+                if (!Templates.isCorrectTemplateAll(t, map_, _context, true)) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(t);
                     un_.setFileName(c);

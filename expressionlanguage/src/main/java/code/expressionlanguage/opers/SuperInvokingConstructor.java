@@ -31,7 +31,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         String clCurName_ = _conf.getGlobalClass();
         String base_ = Templates.getIdFromAllTypes(clCurName_);
         UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
-        String superClass_ = Templates.format(clCurName_, unique_.getGenericSuperClass(_conf), _conf);
+        String superClass_ = Templates.format(clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
         return new ClassArgumentMatching(superClass_);
     }
 

@@ -134,7 +134,18 @@ public final class FileResolver {
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (currentChar_ == KEY_WORD_PREFIX) {
-                break;
+                if (_file.indexOf(prefixKeyWord(KEY_WORD_PUBLIC), i_) == i_) {
+                    break;
+                }
+                if (_file.indexOf(prefixKeyWord(KEY_WORD_PROTECTED), i_) == i_) {
+                    break;
+                }
+                if (_file.indexOf(prefixKeyWord(KEY_WORD_PACKAGE), i_) == i_) {
+                    break;
+                }
+                if (_file.indexOf(prefixKeyWord(KEY_WORD_PRIVATE), i_) == i_) {
+                    break;
+                }
             }
             if (commentedSingleLine_) {
                 if (currentChar_ == LINE_RETURN) {

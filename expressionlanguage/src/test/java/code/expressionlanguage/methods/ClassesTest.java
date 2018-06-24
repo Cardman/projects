@@ -260,6 +260,126 @@ public class ClassesTest {
         assertEq("pkgtwo.ExThree<#T>", types_.first().getConstraints().first());
     }
     @Test
+    public void resolve1FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgtwo.ExThree<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.*;\n");
+        xml_.append("$public $class pkg.ExTwo<#T:ExFour<#T>> :Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve2FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgtwo.ExThree<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.*;\n");
+        xml_.append("$public $class pkg.ExTwo<#T> :ExFour<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve3FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgtwo.ExThree<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.*;\n");
+        xml_.append("$public $class pkg.ExTwo<#T> :Ex{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve4FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgtwo.ExThree<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.*;\n");
+        xml_.append("$public $class pkg.ExTwo<#T> :Ex<#S>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve5FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E:pkg.Ex<#E>> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgtwo.ExThree<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.*;\n");
+        xml_.append("$public $class pkg.ExTwo<#T> :Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve6FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E:pkg.Ex<#E>> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkgtwo.ExThree<#E> {\n");
+        xml_.append(" $public $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.*;\n");
+        xml_.append("$public $class pkg.ExTwo<#S,#T:pkg.Ex<#S>>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
     public void getMethodBodiesByFormattedId1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -1063,6 +1183,18 @@ public class ClassesTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        return cont_;
+    }
+    private ContextEl failValidateInheritingClasses(StringMap<String> _files) {
+        ContextEl cont_ = new ContextEl();
+        Classes classes_ = cont_.getClasses();
+        InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
+        Classes.buildPredefinedBracesBodies(cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateInheritingClasses(cont_);
+        assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());
         return cont_;
     }
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {

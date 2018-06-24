@@ -5,8 +5,6 @@ import code.util.StringList;
 
 public interface GeneClass extends GeneType {
 
-    String getGenericSuperClass(Analyzable _classes);
-
     String getSuperClass(Analyzable _classes);
 
     StringList getDirectInterfaces(Analyzable _classes);

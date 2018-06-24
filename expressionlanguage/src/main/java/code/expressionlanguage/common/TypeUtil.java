@@ -82,7 +82,7 @@ public final class TypeUtil {
                 int offset_ = bl_.getStaticInitInterfacesOffset().get(i);
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
                 RowCol rc_ = bl_.getRowCol(0, offset_);
-                base_ = _context.resolveQuickType(base_);
+                base_ = _context.resolveType(base_, bl_, rc_);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (r_ == null) {
                     UnknownClassName undef_;
@@ -107,14 +107,18 @@ public final class TypeUtil {
             }
             for (int i = 0; i < len_; i++) {
                 String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
-                sup_ = _context.resolveQuickType(sup_);
+                int offsetSup_ = bl_.getStaticInitInterfacesOffset().get(i);
+                RowCol rc_ = bl_.getRowCol(0, offsetSup_);
+                sup_ = _context.resolveType(sup_, bl_, rc_);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
                 }
                 for (int j = i + 1; j < len_; j++) {
                     String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
-                    sub_ = _context.resolveQuickType(sub_);
+                    int offsetSub_ = bl_.getStaticInitInterfacesOffset().get(j);
+                    RowCol rcSub_ = bl_.getRowCol(0, offsetSub_);
+                    sub_ = _context.resolveType(sub_, bl_, rcSub_);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;

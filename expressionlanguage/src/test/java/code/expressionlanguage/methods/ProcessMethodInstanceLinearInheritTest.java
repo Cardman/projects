@@ -2976,4 +2976,26 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void instanceArgument8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree:pkg.ExFour {\n");
+        xml_.append(" $static {\n");
+        xml_.append("  ance;;;=2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExFour {\n");
+        xml_.append(" $public $static $final $int ance:\n");
+        xml_.append(" $static {\n");
+        xml_.append("  ance;;;=1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

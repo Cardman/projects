@@ -1039,7 +1039,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         for (ConstructorBlock c: ctors_) {
             if (c.implicitConstr() && !opt_) {
                 UndefinedSuperConstructor un_ = new UndefinedSuperConstructor();
-                un_.setClassName(((UniqueRootedBlock)this).getGenericSuperClass(_cont));
+                un_.setClassName(((UniqueRootedBlock)this).getImportedDirectGenericSuperClass());
                 un_.setFileName(getFile().getFileName());
                 un_.setRc(c.getRowCol(0, c.getOffset().getOffsetTrim()));
                 _cont.getClasses().addError(un_);

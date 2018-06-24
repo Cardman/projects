@@ -7,7 +7,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
@@ -101,16 +100,7 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     @Override
     public MethodId getFormattedId(ContextEl _context) {
         String className_ = declaringType;
-        StringList vars_ = new StringList();
-        for (TypeVar t: _context.getClassBody(className_).getParamTypesMapValues()) {
-            vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
-        }
-        String current_;
-        if (vars_.isEmpty()) {
-            current_ = className_;
-        } else {
-            current_ = StringList.concat(className_,LT,vars_.join(SEP_TMP),GT);
-        }
+        String current_ = _context.getClassBody(className_).getGenericString();
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();

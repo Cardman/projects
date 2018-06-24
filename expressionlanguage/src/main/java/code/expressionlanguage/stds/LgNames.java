@@ -1522,7 +1522,7 @@ public abstract class LgNames {
                     }
                     boolean abs_ = clblock_.isAbstractType();
                     boolean final_ = clblock_.isFinalType();
-                    classes_.add(new ClassMetaInfo(forName_, ((StandardClass) clblock_).getGenericSuperClass(_cont), infosFields_,infos_, infosConst_, cat_, abs_, final_));
+                    classes_.add(new ClassMetaInfo(forName_, ((StandardClass) clblock_).getSuperClass(_cont), infosFields_,infos_, infosConst_, cat_, abs_, final_));
                 }
                 Struct[] ctorsArr_ = new Struct[classes_.size()];
                 int index_ = 0;
