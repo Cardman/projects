@@ -55,7 +55,7 @@ public final class ElResolver {
     private static final String GET_ATTRIBUTE = ";";
     private static final String GET_PARAM = ";.;";
     private static final String GET_FIELD = ";;;";
-    private static final char EXTERN_CLASS = '$';
+    private static final char EXTERN_CLASS = FileResolver.SUPPLEMENT_CHAR;
     private static final String CLASS_CHOICE = "classchoice";
     private static final String INTERFACES = "interfaces";
     private static final String INTERN_BEAN = "intern";

@@ -7,6 +7,7 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -74,8 +75,8 @@ public abstract class OperationNode {
     protected static final char SEP_ARG = ',';
     protected static final char FIRST_VAR_ARG = '?';
     protected static final char DOT_VAR = '.';
-    protected static final char EXTERN_CLASS = '$';
-    protected static final char INTERN_CLASS = '$';
+    protected static final char EXTERN_CLASS = FileResolver.SUPPLEMENT_CHAR;
+    protected static final char INTERN_CLASS = FileResolver.SUPPLEMENT_CHAR;
     protected static final String SUPER_ACCESS = "super";
     protected static final String CURRENT = "this";
     protected static final String THAT = "that";

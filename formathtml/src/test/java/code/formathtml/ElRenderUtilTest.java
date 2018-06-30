@@ -6399,6 +6399,62 @@ public final class ElRenderUtilTest {
         assertEq(15, (Number)res_);
     }
     @Test
+    public void processEl303Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $return $static($Class).forName(\"Ex\",$true):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()", 0, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        Struct exc_ = cont_.getContext().getException();
+        assertEq(cont_.getStandards().getAliasClassNotFoundError(), exc_.getClassName(cont_));
+    }
+    @Test
+    public void processEl304Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst:\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $return $static($Class).forName($null,$true):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Configuration cont_ = contextEl(files_, true,false);
+        addImportingPage(cont_);
+        ElRenderUtil.processEl("$static(pkg.ExTwo).exmeth()", 0, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        Struct exc_ = cont_.getContext().getException();
+        assertEq(cont_.getStandards().getAliasNullPe(), exc_.getClassName(cont_));
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);

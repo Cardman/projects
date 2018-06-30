@@ -260,22 +260,49 @@ public final class ElUtil {
             EmptyPartOperation e_ = new EmptyPartOperation(0, 0, null, null);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
+            Block currentBlock_ = _conf.getCurrentBlock();
+            if (currentBlock_ != null) {
+                currentBlock_.defaultAssignmentBefore(_conf, e_);
+                e_.tryAnalyzeAssignmentAfter(_conf);
+                AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(currentBlock_);
+                ObjectMap<ClassField,Assignment> res_ = vars_.getFields().getVal(e_);
+                for (EntryCust<ClassField,Assignment> e: res_.entryList()) {
+                    vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
+                }
+                CustList<StringMap<Assignment>> varsRes_;
+                varsRes_ = vars_.getVariables().getVal(e_);
+                if (vars_.getVariablesRoot().isEmpty()) {
+                    for (StringMap<Assignment> s: varsRes_) {
+                        StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                        for (EntryCust<String, Assignment> e: s.entryList()) {
+                            sm_.put(e.getKey(), e.getValue().assignClassic());
+                        }
+                        vars_.getVariablesRoot().add(sm_);
+                    }
+                } else {
+                    int index_ = 0;
+                    for (StringMap<Assignment> s: varsRes_) {
+                        StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                        for (EntryCust<String, Assignment> e: s.entryList()) {
+                            sm_.put(e.getKey(), e.getValue().assignClassic());
+                        }
+                        vars_.getVariablesRoot().set(index_, sm_);
+                        index_++;
+                    }
+                }
+            }
             return new CustList<OperationNode>(e_);
         }
         _conf.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        if (op_ == null) {
+        if (opTwo_.isError()) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(d_.getBadOffset());
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(badEl_);
-            EmptyPartOperation e_ = new EmptyPartOperation(0, 0, null, null);
-            String argClName_ = _conf.getStandards().getAliasObject();
-            e_.setResultClass(new ClassArgumentMatching(argClName_));    
-            return new CustList<OperationNode>(e_);
         }
         _conf.setAnalyzingRoot(false);
         String fieldName_ = _calcul.getFieldName();

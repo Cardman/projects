@@ -97,4 +97,11 @@ public interface Analyzable {
     CustList<ClassMethodId> lookupImportsOnDemandStaticMethods(String _method, Block _rooted);
     CustList<ClassField> lookupSingleImportStaticFields(String _field, Block _rooted);
     CustList<ClassField> lookupImportsOnDemandStaticFields(String _field, Block _rooted);
+    String lookupImportsDirect(String _type, RootBlock _rooted);
+    String lookupImportsIndirect(String _type, RootBlock _rooted);
+
+    boolean isDirectImport();
+
+    void setDirectImport(boolean _directImport);
+    StringList getAvailableVariables();
 }

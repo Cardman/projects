@@ -54,6 +54,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -79,12 +80,6 @@ public final class Classes {
     private static final String EXT_PRO = "pro";
     private static final char SEP_FILE = '/';
     private static final char DOT = '.';
-    private static final char LT = '<';
-    private static final char GT = '>';
-    private static final char ARR_BEG = '[';
-    private static final char PREF = '#';
-    private static final char PRIM = '$';
-    private static final char COMMA = ',';
     private static final String LOC_VAR = ".";
 
     private static final String PARS = "()";
@@ -223,7 +218,7 @@ public final class Classes {
                 StringList constraints_ = new StringList();
                 if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
                     for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                        if (!isCorrectTemplate(b, _context)) {
+                        if (!isCorrectTemplate(b, _context, cl_)) {
                             BadClassName badCl_ = new BadClassName();
                             badCl_.setClassName(fullDef_);
                             badCl_.setFileName(cl_.getFile().getFileName());
@@ -249,7 +244,7 @@ public final class Classes {
         int indexSuperType_= -1;
         for (String s: cl_.getDirectGenericSuperTypesBuild(_context)) {
             indexSuperType_++;
-            if (!isCorrectTemplate(s, _context)) {
+            if (!isCorrectTemplate(s, _context, cl_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(s);
                 badCl_.setFileName(cl_.getFile().getFileName());
@@ -386,7 +381,7 @@ public final class Classes {
                 StringList constraints_ = new StringList();
                 if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
                     for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                        if (!isCorrectTemplate(b, _context)) {
+                        if (!isCorrectTemplate(b, _context, cl_)) {
                             BadClassName badCl_ = new BadClassName();
                             badCl_.setClassName(b);
                             badCl_.setFileName(cl_.getFile().getFileName());
@@ -412,7 +407,7 @@ public final class Classes {
         int indexSuperType_= -1;
         for (String s: cl_.getDirectGenericSuperTypesBuild(_context)) {
             indexSuperType_++;
-            if (!isCorrectTemplate(s, _context)) {
+            if (!isCorrectTemplate(s, _context, cl_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(s);
                 badCl_.setFileName(cl_.getFile().getFileName());
@@ -460,39 +455,10 @@ public final class Classes {
         classesBodies.put(fullName_, cl_);
     }
     //TODO remainer
-    private static boolean isCorrectTemplate(String _temp, ContextEl _context) {
-        if (!Templates.isCorrectWrite(_temp, _context)) {
-            return false;
-        }
-        String temp_ = ContextEl.removeDottedSpaces(_temp);
+    private static boolean isCorrectTemplate(String _temp, ContextEl _context, RootBlock _type) {
+        RowCol rc_ = new RowCol();
+        String temp_ = PartTypeUtil.processTypeHeaders(_temp, _context, _type, rc_);
         if (PrimitiveTypeUtil.isPrimitive(temp_, _context)) {
-            return false;
-        }
-        for (char c: temp_.toCharArray()) {
-            if (StringList.isWordChar(c)) {
-                continue;
-            }
-            if (c == DOT) {
-                continue;
-            }
-            if (c == LT) {
-                continue;
-            }
-            if (c == GT) {
-                continue;
-            }
-            if (c == COMMA) {
-                continue;
-            }
-            if (c == PREF) {
-                continue;
-            }
-            if (c == PRIM) {
-                continue;
-            }
-            if (c == ARR_BEG) {
-                continue;
-            }
             return false;
         }
         return true;

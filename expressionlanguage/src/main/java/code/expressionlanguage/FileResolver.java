@@ -43,6 +43,7 @@ import code.util.StringList;
 
 public final class FileResolver {
 
+    public static final char SUPPLEMENT_CHAR = '$';
     private static final char INHERIT = ':';
     private static final char FOR_BLOCKS = ':';
     private static final char END_LINE = ':';
@@ -71,7 +72,7 @@ public final class FileResolver {
     private static final char DEL_STRING = '"';
     private static final char ESCAPE = '\\';
     private static final String KEY_WORD_INTERFACES = "interfaces";
-    private static final char KEY_WORD_PREFIX = '$';
+    private static final char KEY_WORD_PREFIX = SUPPLEMENT_CHAR;
     private static final String KEY_WORD_PUBLIC = "public";
     private static final String KEY_WORD_PACKAGE = "package";
     private static final String KEY_WORD_PROTECTED = "protected";

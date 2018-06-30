@@ -57,6 +57,7 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.ElementOffsetsNext;
@@ -74,7 +75,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private static final String RETURN_LINE = "\n";
     private static final String EMPTY_TYPE = "";
     private static final int DEFAULT_TAB_WIDTH = 4;
-    private static final char KEY_WORD_PREFIX = '$';
+    private static final char KEY_WORD_PREFIX = FileResolver.SUPPLEMENT_CHAR;
     private static final String KEY_WORD_STATIC = "static";
 
     private MathFactory mathFactory;
@@ -1102,6 +1103,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return standards.getAliasObject();
         }
         RootBlock r_ = bl_.getRooted();
+        StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
 
         boolean static_;
@@ -1117,10 +1119,15 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         if (!static_) {
             for (TypeVar t: r_.getParamTypesMapValues()) {
+                varsList_.add(t.getName());
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
-        if (!Templates.isCorrectWrite(_in, this)) {
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(varsList_);
+        setDirectImport(false);
+        String resType_ = PartTypeUtil.process(_in, this, r_, rc_);
+        if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(r_.getFile().getFileName());
@@ -1128,188 +1135,25 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             classes.addError(un_);
             return standards.getAliasObject();
         }
-        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
-        StringBuilder str_ = new StringBuilder();
-        boolean error_ = false;
-        String className_ = r_.getFullName();
-        for (String p: parts_) {
-            String tr_ = p.trim();
-            if (tr_.isEmpty()) {
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-                str_.append(Templates.PREFIX_VAR_TYPE);
-                if (!vars_.contains(n_)) {
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(tr_);
-                    un_.setFileName(r_.getFile().getFileName());
-                    un_.setRc(rc_);
-                    classes.addError(un_);
-                    error_ = true;
-                }
-                str_.append(n_);
-                continue;
-            }
-            String bs_ = removeDottedSpaces(tr_);
-            if (classes.isCustomType(bs_)) {
-                if (!Classes.canAccessClass(className_, bs_, this)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(r_.getFile().getFileName());
-                    err_.setRc(rc_);
-                    err_.setId(_in);
-                    classes.addError(err_);
-                    error_ = true;
-                }
-            }
-            if (classes.isCustomType(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (standards.getStandards().contains(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (PrimitiveTypeUtil.isPrimitive(bs_, this)) {
-                str_.append(bs_);
-                continue;
-            }
-            String res_ = lookupImportsIndirect(bs_, bl_.getRooted());
-            if (res_.isEmpty()) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(bs_);
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setRc(rc_);
-                classes.addError(un_);
-                res_ = standards.getAliasObject();
-                error_ = true;
-            }
-            str_.append(res_);
-        }
-        if (!error_) {
-            if (!Templates.isCorrectTemplateAll(str_.toString(), vars_, this, _exact)) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(_in);
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setRc(rc_);
-                classes.addError(un_);
-                return standards.getAliasObject();
-            }
-        } else {
-            return standards.getAliasObject();
-        }
-        return str_.toString();
+        return resType_;
     }
 
     /**Used at building and checking mapping constraints*/
     @Override
     public String resolveDynamicType(String _in, RootBlock _file) {
-        String className_ = _file.getFullName();
         StringMap<StringList> vars_ = new StringMap<StringList>();
+        StringList varsList_ = new StringList();
 
         for (TypeVar t: _file.getParamTypesMapValues()) {
+            varsList_.add(t.getName());
             vars_.put(t.getName(), t.getConstraints());
         }
-        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
-        StringBuilder str_ = new StringBuilder();
-        for (String p: parts_) {
-            String tr_ = p.trim();
-            if (tr_.isEmpty()) {
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-                str_.append(Templates.PREFIX_VAR_TYPE);
-                if (!vars_.contains(n_)) {
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(tr_);
-                    un_.setFileName(_file.getFile().getFileName());
-                    un_.setRc(new RowCol());
-                    classes.addError(un_);
-                }
-                str_.append(n_);
-                continue;
-            }
-            String bs_ = removeDottedSpaces(tr_);
-            if (classes.isCustomType(bs_)) {
-                if (!Classes.canAccessClass(className_, bs_, this)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(_file.getFile().getFileName());
-                    err_.setRc(new RowCol());
-                    err_.setId(bs_);
-                    classes.addError(err_);
-                }
-                str_.append(bs_);
-                continue;
-            }
-            if (standards.getStandards().contains(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (PrimitiveTypeUtil.isPrimitive(bs_, this)) {
-                str_.append(bs_);
-                continue;
-            }
-            String res_ = lookupImportsIndirect(bs_, _file.getRooted());
-            if (res_.isEmpty()) {
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
-                un_.setFileName(_file.getFile().getFileName());
-                un_.setRc(new RowCol());
-                un_.setType(bs_);
-                classes.addError(un_);
-                res_ = standards.getAliasObject();
-            }
-            str_.append(res_);
-        }
-        return str_.toString();
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(varsList_);
+        setDirectImport(false);
+        RowCol rc_ = new RowCol();
+        String resType_ = PartTypeUtil.process(_in, this, _file, rc_);
+        return resType_;
     }
     /**Used at building mapping constraints*/
     @Override
@@ -1338,109 +1182,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             vars_.put(t.getName(), const_);
         }
         //No need to call Templates.isCorrect
-        if (!Templates.isCorrectWrite(_in, this)) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
-            un_.setFileName(r_.getFile().getFileName());
-            un_.setRc(_location);
-            classes.addError(un_);
-            return standards.getAliasObject();
-        }
-        String className_ = r_.getFullName();
-        boolean error_ = false;
-        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
-        StringBuilder str_ = new StringBuilder();
-        for (String p: parts_) {
-            String tr_ = p.trim();
-            if (tr_.isEmpty()) {
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-                str_.append(Templates.PREFIX_VAR_TYPE);
-                if (!vars_.contains(n_)) {
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(tr_);
-                    un_.setFileName(r_.getFile().getFileName());
-                    un_.setRc(_location);
-                    classes.addError(un_);
-                    error_ = true;
-                }
-                str_.append(n_);
-                continue;
-            }
-            String bs_ = removeDottedSpaces(tr_);
-            if (classes.isCustomType(bs_)) {
-                if (!Classes.canAccessClass(className_, bs_, this)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(r_.getFile().getFileName());
-                    err_.setRc(_location);
-                    err_.setId(_in);
-                    classes.addError(err_);
-                    error_ = true;
-                }
-            }
-            if (classes.isCustomType(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (standards.getStandards().contains(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (PrimitiveTypeUtil.isPrimitive(bs_, this)) {
-                str_.append(bs_);
-                continue;
-            }
-            String res_ = lookupImportsIndirect(bs_, _currentBlock.getRooted());
-            if (res_.isEmpty()) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(bs_);
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setRc(_location);
-                classes.addError(un_);
-                res_ = standards.getAliasObject();
-                error_ = true;
-            }
-            str_.append(res_);
-        }
-        if (!error_) {
-            if (!Templates.isCorrectTemplateAllBuild(str_.toString(), vars_, this)) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(str_.toString());
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setRc(_location);
-                classes.addError(un_);
-                return standards.getAliasObject();
-            }
-        } else {
-            return standards.getAliasObject();
-        }
-        return str_.toString();
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(variables_);
+        setDirectImport(false);
+        String resType_ = PartTypeUtil.process(_in, this, r_, _location);
+        return resType_;
     }
     /**used at building direct generic types
     at building and checking ids*/
@@ -1457,6 +1203,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         RootBlock r_ = _currentBlock.getRooted();
         StringMap<StringList> vars_ = new StringMap<StringList>();
+        StringList variables_ = new StringList();
 
         boolean static_;
         if (_currentBlock instanceof InfoBlock) {
@@ -1471,112 +1218,15 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         if (!static_) {
             for (TypeVar t: r_.getParamTypesMapValues()) {
+                variables_.add(t.getName());
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
-        if (!Templates.isCorrectWrite(_in, this)) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(_in);
-            un_.setFileName(r_.getFile().getFileName());
-            un_.setRc(_location);
-            classes.addError(un_);
-            return standards.getAliasObject();
-        }
-        String className_ = r_.getFullName();
-        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
-        StringBuilder str_ = new StringBuilder();
-        boolean error_ = false;
-        for (String p: parts_) {
-            String tr_ = p.trim();
-            if (tr_.isEmpty()) {
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-                str_.append(Templates.PREFIX_VAR_TYPE);
-                if (!vars_.contains(n_)) {
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(tr_);
-                    un_.setFileName(r_.getFile().getFileName());
-                    un_.setRc(_location);
-                    classes.addError(un_);
-                    error_ = true;
-                }
-                str_.append(n_);
-                continue;
-            }
-            String bs_ = removeDottedSpaces(tr_);
-            if (classes.isCustomType(bs_)) {
-                if (!Classes.canAccessClass(className_, bs_, this)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(r_.getFile().getFileName());
-                    err_.setRc(_location);
-                    err_.setId(_in);
-                    classes.addError(err_);
-                    error_ = true;
-                }
-            }
-            if (classes.isCustomType(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (standards.getStandards().contains(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (PrimitiveTypeUtil.isPrimitive(bs_, this)) {
-                str_.append(bs_);
-                continue;
-            }
-            String res_ = lookupImportsIndirect(bs_, _currentBlock.getRooted());
-            if (res_.isEmpty()) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(bs_);
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setRc(_location);
-                classes.addError(un_);
-                res_ = standards.getAliasObject();
-                error_ = true;
-            }
-            str_.append(res_);
-        }
-        if (!error_) {
-            if (!Templates.isCorrectTemplateAll(str_.toString(), vars_, this, true)) {
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(_in);
-                un_.setFileName(r_.getFile().getFileName());
-                un_.setRc(_location);
-                classes.addError(un_);
-                return standards.getAliasObject();
-            }
-        } else {
-            return standards.getAliasObject();
-        }
-        return str_.toString();
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(variables_);
+        setDirectImport(false);
+        String resType_ = PartTypeUtil.process(_in, this, r_, _location);
+        return resType_;
     }
     @Override
     public String resolveBaseTypeBuildInherits(String _in, Block _currentBlock) {
@@ -1623,6 +1273,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return lookupImportsDirect(_in, _currentBlock.getRooted());
     }
+    @Override
     public String lookupImportsDirect(String _type, RootBlock _rooted) {
         if (!StringList.isWord(_type.trim())) {
             return EMPTY_TYPE;
@@ -1682,6 +1333,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return EMPTY_TYPE;
     }
+    @Override
     public String lookupImportsIndirect(String _type, RootBlock _rooted) {
         if (!StringList.isWord(_type.trim())) {
             return EMPTY_TYPE;
@@ -1996,5 +1648,20 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     private static String prefixKeyWord(String _keyWord) {
         return StringList.concat(String.valueOf(KEY_WORD_PREFIX), _keyWord);
+    }
+
+    @Override
+    public boolean isDirectImport() {
+        return analyzing.isDirectImport();
+    }
+
+    @Override
+    public void setDirectImport(boolean _directImport) {
+        analyzing.setDirectImport(_directImport);
+    }
+
+    @Override
+    public StringList getAvailableVariables() {
+        return analyzing.getAvailableVariables();
     }
 }

@@ -9,8 +9,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -27,6 +25,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.BeanLgNames;
@@ -912,64 +911,16 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String resolveDynamicType(String _in, RootBlock _file) {
-        StringList parts_ = StringList.splitCharsSep(_in, Templates.LT, Templates.GT, Templates.ARR_BEG, Templates.COMMA, Templates.SEP_BOUNDS, Templates.EXTENDS_DEF);
-        StringBuilder str_ = new StringBuilder();
-        for (String p: parts_) {
-            String tr_ = p.trim();
-            if (tr_.isEmpty()) {
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_BEGIN)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_END)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.TEMPLATE_SEP)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.ARR_BEG_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.SEP_BOUNDS_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (StringList.quickEq(tr_, Templates.EXTENDS_DEF_STRING)) {
-                str_.append(tr_);
-                continue;
-            }
-            if (tr_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                String n_ = tr_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
-                str_.append(Templates.PREFIX_VAR_TYPE);
-                str_.append(n_);
-                continue;
-            }
-            String bs_ = ContextEl.removeDottedSpaces(tr_);
-            if (context.getClasses().isCustomType(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (standards.getStandards().contains(bs_)) {
-                str_.append(bs_);
-                continue;
-            }
-            if (PrimitiveTypeUtil.isPrimitive(bs_, this)) {
-                str_.append(bs_);
-                continue;
-            }
+        String res_ = PartTypeUtil.processExec(_in, context);
+        if (res_.isEmpty()) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName("");
             un_.setRc(new RowCol());
-            un_.setType(bs_);
+            un_.setType(_in);
             context.getClasses().addError(un_);
-            str_.append(standards.getAliasObject());
+            res_ = standards.getAliasObject();
         }
-        return str_.toString();
+        return res_;
     }
 
     @Override
@@ -999,5 +950,30 @@ public class Configuration implements ExecutableCode {
     public CustList<ClassField> lookupImportsOnDemandStaticFields(
             String _field, Block _rooted) {
         return new CustList<ClassField>();
+    }
+
+    @Override
+    public boolean isDirectImport() {
+        return context.isDirectImport();
+    }
+
+    @Override
+    public void setDirectImport(boolean _directImport) {
+        context.setDirectImport(_directImport);
+    }
+
+    @Override
+    public String lookupImportsDirect(String _type, RootBlock _rooted) {
+        return ContextEl.removeDottedSpaces(_type);
+    }
+
+    @Override
+    public String lookupImportsIndirect(String _type, RootBlock _rooted) {
+        return ContextEl.removeDottedSpaces(_type);
+    }
+
+    @Override
+    public StringList getAvailableVariables() {
+        return context.getAvailableVariables();
     }
 }

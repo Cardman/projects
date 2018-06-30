@@ -62,7 +62,7 @@ public final class AnalyzedPageEl {
     private int indexChildType;
 
     private boolean ambigous;
-    private boolean enabled;
+    private boolean directImport;
     private boolean rootAffect;
     private boolean analyzingRoot;
     private boolean merged;
@@ -70,6 +70,7 @@ public final class AnalyzedPageEl {
     private String currentVarSetting;
     private boolean gearConst;
     private StringList needInterfaces = new StringList();
+    private StringList availableVariables = new StringList();
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -384,12 +385,12 @@ public final class AnalyzedPageEl {
         ambigous = _ambigous;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public boolean isDirectImport() {
+        return directImport;
     }
 
-    public void setEnabled(boolean _enabled) {
-        enabled = _enabled;
+    public void setDirectImport(boolean _directImport) {
+        directImport = _directImport;
     }
 
     public boolean isRootAffect() {
@@ -459,5 +460,8 @@ public final class AnalyzedPageEl {
     }
     public StringMap<LocalVariable> getInternVars() {
         return internVars;
+    }
+    public StringList getAvailableVariables() {
+        return availableVariables;
     }
 }

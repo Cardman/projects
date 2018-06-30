@@ -67,8 +67,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     private NatTreeMap<Integer, String> rowColDirectSuperTypes;
     private NatTreeMap<Integer, Boolean> explicitDirectSuperTypes = new NatTreeMap<Integer, Boolean>();
 
-    private String realTemplateDef;
-
     private String realName;
 
     private String realPackageName;
@@ -100,10 +98,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         packageName = ContextEl.removeDottedSpaces(_packageName);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
-        realTemplateDef = _templateDef;
+        templateDef = _templateDef;
         realName = _name;
         realPackageName = _packageName;
-        templateDef = ContextEl.removeDottedSpaces(_templateDef);
         rowColDirectSuperTypes = _directSuperTypes;
         idRowCol = _idRowCol;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
@@ -1115,6 +1112,15 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             int _indexProcess) {
         return null;
     }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public String getRealPackageName() {
+        return realPackageName;
+    }
+
     @Override
     public void reach(Analyzable _an, AnalyzingEl _anEl) {
     }

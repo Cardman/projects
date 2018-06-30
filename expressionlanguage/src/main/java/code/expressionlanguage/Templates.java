@@ -2,19 +2,17 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
-import code.sml.RowCol;
+import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.StringList;
@@ -33,8 +31,7 @@ public final class Templates {
     public static final char SEP_CLASS_CHAR = '.';
     public static final String PREFIX_VAR_TYPE = "#";
     public static final char PREFIX_VAR_TYPE_CHAR = '#';
-    public static final String SEP_BOUNDS_STRING = "&";
-    public static final String EXTENDS_DEF_STRING = ":";
+    public static final String INNER_TYPE = "..";
 
     public static final char LT = '<';
 
@@ -44,7 +41,7 @@ public final class Templates {
     private Templates() {
     }
 
-    public static StringList getTypes(String _type) {
+    static StringList getTypes(String _type) {
         StringList types_ = new StringList();
         int i_ = _type.indexOf(String.valueOf(LT));
         if (i_ == CustList.INDEX_NOT_FOUND_ELT) {
@@ -129,165 +126,14 @@ public final class Templates {
     }
 
     /**Calls Templates.isCorrect*/
-    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
-        if (!existClassParts(_className, _mapping, _context)) {
+    public static boolean correctClassPartsDynamic(String _className, StringMap<StringList> _mapping, ExecutableCode _context, boolean _exact) {
+        String className_ = PartTypeUtil.processExec(_className, _context);
+        if (className_.isEmpty()) {
             return false;
         }
-        String cl_;
-        if (_context.getAnalyzing() != null && _context.getCurrentBlock() != null) {
-            cl_ = _context.resolveDynamicType(_className, _context.getCurrentBlock().getRooted());
-        } else {
-            cl_ = StringList.removeAllSpaces(_className);
-        }
-        return isCorrectTemplateAll(cl_, _mapping, _context, true);
+        return isCorrectTemplateAll(className_, _mapping, _context, _exact);
     }
 
-    /**Calls Templates.isCorrect*/
-    public static boolean correctClassPartsDynamic(String _className, StringMap<StringList> _mapping, Analyzable _context, boolean _exact) {
-        if (!existClassPartsDynamic(_className, _mapping, _context)) {
-            return false;
-        }
-        String cl_ = StringList.removeAllSpaces(_className);
-        return isCorrectTemplateAll(cl_, _mapping, _context, _exact);
-    }
-    
-    public static boolean existClassParts(String _className, StringMap<StringList> _mapping, ContextEl _context) {
-        if (!isCorrectWrite(_className, _context)) {
-            return false;
-        }
-        StringList variables_ = _mapping.getKeys();
-        String className_ = StringList.removeAllSpaces(_className);
-        if (!existAllClassParts(className_, variables_, _context)) {
-            return false;
-        }
-        return true;
-    }
-    
-    public static boolean existClassPartsDynamic(String _className, StringMap<StringList> _mapping, Analyzable _context) {
-        if (!isCorrectWrite(_className, _context)) {
-            return false;
-        }
-        StringList variables_ = _mapping.getKeys();
-        String className_ = StringList.removeAllSpaces(_className);
-        if (!existAllClassPartsDynamic(className_, variables_, _context)) {
-            return false;
-        }
-        return true;
-    }
-    
-    public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context) {
-        Classes classes_ = _context.getClasses();
-        LgNames stds_ = _context.getStandards();
-        String void_ = stds_.getAliasVoid();
-        for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
-            if (s.isEmpty()) {
-                continue;
-            }
-            String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(s).getComponent();
-            if (StringList.quickEq(baseName_, void_)) {
-                return false;
-            }
-            if (baseName_.startsWith(PREFIX_VAR_TYPE)) {
-                if (!_variables.containsStr(baseName_.substring(1))) {
-                    return false;
-                }
-                continue;
-            }
-            boolean custClass_ = false;
-            custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
-            if (!custClass_) {
-                if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
-                    if (_context.getAnalyzing() != null) {
-                        String trim_ = ContextEl.removeDottedSpaces(baseName_);
-                        String res_ = _context.lookupImportsIndirect(trim_, _context.getCurrentBlock().getRooted());
-                        if (res_.isEmpty()) {
-                            UnexpectedTypeError un_ = new UnexpectedTypeError();
-                            un_.setFileName(_context.getCurrentBlock().getFile().getFileName());
-                            un_.setRc(new RowCol());
-                            un_.setType(trim_);
-                            _context.getClasses().addError(un_);
-                            res_ = _context.getStandards().getAliasObject();
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }               
-                }
-            }
-        }
-        return true;
-    }
-
-    public static boolean existAllClassPartsDynamic(String _className, StringList _variables, Analyzable _context) {
-        Classes classes_ = _context.getClasses();
-        LgNames stds_ = _context.getStandards();
-        String void_ = stds_.getAliasVoid();
-        for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
-            if (s.isEmpty()) {
-                continue;
-            }
-            String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(s).getComponent();
-            if (StringList.quickEq(baseName_, void_)) {
-                return false;
-            }
-            if (baseName_.startsWith(PREFIX_VAR_TYPE)) {
-                if (!_variables.containsStr(baseName_.substring(1))) {
-                    return false;
-                }
-                continue;
-            }
-            boolean custClass_ = false;
-            custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
-            if (!custClass_) {
-                if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context, Block _current) {
-        Classes classes_ = _context.getClasses();
-        LgNames stds_ = _context.getStandards();
-        String void_ = stds_.getAliasVoid();
-        for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
-            if (s.isEmpty()) {
-                continue;
-            }
-            String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(s).getComponent();
-            if (StringList.quickEq(baseName_, void_)) {
-                return false;
-            }
-            if (baseName_.startsWith(PREFIX_VAR_TYPE)) {
-                if (!_variables.containsStr(baseName_.substring(1))) {
-                    return false;
-                }
-                continue;
-            }
-            boolean custClass_ = false;
-            custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
-            if (!custClass_) {
-                if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
-                    if (_context.getAnalyzing() != null) {
-                        String trim_ = ContextEl.removeDottedSpaces(baseName_);
-                        String res_ = _context.lookupImportsIndirect(trim_, _current.getRooted());
-                        if (res_.isEmpty()) {
-                            UnexpectedTypeError un_ = new UnexpectedTypeError();
-                            un_.setFileName(_current.getFile().getFileName());
-                            un_.setRc(new RowCol());
-                            un_.setType(trim_);
-                            _context.getClasses().addError(un_);
-                            res_ = _context.getStandards().getAliasObject();
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }               
-                }
-            }
-        }
-        return true;
-    }
     static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
         String className_ = getIdFromAllTypes(_className);
         GeneType root_ = _context.getClassBody(className_);
@@ -368,7 +214,7 @@ public final class Templates {
         }
         return generic_;
     }
-    public static boolean isCorrectWrite(String _className, Analyzable _context) {
+    static boolean isCorrectWrite(String _className, Analyzable _context) {
         StringList current_ = new StringList(_className);
         boolean already_ = false;
         while (true) {
@@ -395,7 +241,7 @@ public final class Templates {
                             return false;
                         }
                         for (char h: trPart_.toCharArray()) {
-                            if (h == '$') {
+                            if (h == FileResolver.SUPPLEMENT_CHAR) {
                                 continue;
                             }
                             if (StringList.isWordChar(h)) {
@@ -585,7 +431,7 @@ public final class Templates {
         GeneType root_ = _context.getClassBody(className_);
         return root_.getParamTypesMapValues();
     }
-    public static String getMadeVarTypes(String _className, StringList _classNames,Analyzable _context) {
+    public static String getMadeVarTypes(String _className, StringList _classNames,ExecutableCode _context) {
         String type_ = getIdFromAllTypes(_className);
         GeneType root_ = _context.getClassBody(type_);
         String pref_ = getGenericString(type_, _context);
