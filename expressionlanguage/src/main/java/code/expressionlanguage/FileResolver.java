@@ -349,23 +349,20 @@ public final class FileResolver {
         updateAllowedSpaces(i_, _file, enabledSpaces_);
         int nextIndex_ = i_ + 1;
         int beginType_ = nextIndex_;
-        if (_file.substring(nextIndex_).startsWith(KEY_WORD_PUBLIC)) {
+        String afterAccessType_ = _file.substring(i_);
+        if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_PUBLIC)) {
             access_ = AccessEnum.PUBLIC;
             nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_PUBLIC.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_PROTECTED)) {
+        } else if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_PROTECTED)) {
             access_ = AccessEnum.PROTECTED;
             nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_PROTECTED.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_PACKAGE)) {
+        } else if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_PACKAGE)) {
             access_ = AccessEnum.PACKAGE;
             nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_PACKAGE.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_PRIVATE)) {
+        } else if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_PRIVATE)) {
             access_ = AccessEnum.PRIVATE;
             nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_PRIVATE.length(), _file, tabWidth_, current_, enabledSpaces_);
         } else {
-            //ERROR
-            return out_;
-        }
-        if (!Character.isWhitespace(_file.charAt(nextIndex_))) {
             //ERROR
             return out_;
         }
@@ -383,6 +380,48 @@ public final class FileResolver {
         if (nextIndex_ > len_) {
             //ERROR
             return out_;
+        }
+        StringList importedTypes_ = new StringList();
+        Numbers<Integer> offsetsImports_ = new Numbers<Integer>();
+        if (_file.charAt(nextIndex_) == BEGIN_BLOCK) {
+            nextIndex_++;
+            int indexImport_ = 0;
+            StringBuilder str_ = new StringBuilder();
+            while (nextIndex_ < len_) {
+                char currentChar_ = _file.charAt(nextIndex_);
+                if (currentChar_ == END_BLOCK) {
+                    nextIndex_++;
+                    break;
+                }
+                if (currentChar_ == END_IMPORTS) {
+                    importedTypes_.add(str_.toString());
+                    offsetsImports_.add(indexImport_);
+                    str_.delete(0, str_.length());
+                } else {
+                    if (!Character.isWhitespace(currentChar_)) {
+                        if (str_.length() == 0) {
+                            indexImport_ = nextIndex_;
+                        }
+                    }
+                    str_.append(currentChar_);
+                }
+                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            }
+            while (nextIndex_ < len_) {
+                char currentChar_ = _file.charAt(nextIndex_);
+                if (!enabledSpaces_.isOk()) {
+                    //ERROR
+                    return out_;
+                }
+                if (!Character.isWhitespace(currentChar_)) {
+                    break;
+                }
+                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            }
+            if (nextIndex_ > len_) {
+                //ERROR
+                return out_;
+            }
         }
         if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
             //ERROR
@@ -598,6 +637,8 @@ public final class FileResolver {
         } else {
             typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(beginType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
         }
+        typeBlock_.getImports().addAllElts(importedTypes_);
+        typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
         typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
         typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
         out_.setType(typeBlock_);

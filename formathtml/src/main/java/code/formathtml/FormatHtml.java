@@ -1150,62 +1150,60 @@ public final class FormatHtml {
                 }
                 processAfterBlock(_conf, ip_);
                 return ip_;
+            }
+            ip_.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
+            ip_.setOffset(0);
+            ip_.setLookForAttrValue(true);
+            String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
+            Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
+            if (_conf.getContext().getException() != null) {
+                return ip_;
+            }
+            boolean enter_ = false;
+            if (value_ == null) {
+                if (arg_.getStruct().isNull()) {
+                    enter_ = true;
+                }
             } else {
-                ip_.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-                ip_.setOffset(0);
-                ip_.setLookForAttrValue(true);
-                String expr_ = en_.getAttribute(EXPRESSION_ATTRIBUTE);
-                Argument arg_ = ElRenderUtil.processEl(expr_, 0, _conf);
+                if (ExtractObject.eq(_conf, value_, arg_.getStruct())) {
+                    enter_ = true;
+                }
                 if (_conf.getContext().getException() != null) {
                     return ip_;
                 }
-                boolean enter_ = false;
-                if (value_ == null) {
-                    if (arg_.getStruct().isNull()) {
-                        enter_ = true;
-                    }
+            }
+            int i_ = CustList.FIRST_INDEX;
+            while (true) {
+                if (sw_.getNodes().get(i_) == en_) {
+                    break;
+                }
+                i_++;
+            }
+            sw_.setVisitedBlock(i_);
+            if (enter_) {
+                if (en_.hasChildNodes()) {
+                    sw_.setEntered(true);
                 } else {
-                    if (ExtractObject.eq(_conf, value_, arg_.getStruct())) {
-                        enter_ = true;
-                    }
-                    if (_conf.getContext().getException() != null) {
+                    sw_.increment();
+                    if (sw_.lastVisitedNode() != en_) {
+                        sw_.setEntered(true);
+                        rw_.setRead(en_.getNextSibling());
                         return ip_;
                     }
-                }
-                int i_ = CustList.FIRST_INDEX;
-                while (true) {
-                    if (sw_.getNodes().get(i_) == en_) {
-                        break;
-                    }
-                    i_++;
-                }
-                sw_.setVisitedBlock(i_);
-                if (enter_) {
-                    if (en_.hasChildNodes()) {
-                        sw_.setEntered(true);
-                    } else {
-                        sw_.increment();
-                        if (sw_.lastVisitedNode() != en_) {
-                            sw_.setEntered(true);
-                            rw_.setRead(en_.getNextSibling());
-                            return ip_;
-                        } else {
-                            sw_.setFinished(true);
-                            rw_.setRead(sw_.getReadNode());
-                            return ip_;
-                        }
-                    }
-                    processAfterBlock(_conf, ip_);
-                    return ip_;
-                }
-                if (sw_.lastVisitedNode() == en_) {
                     sw_.setFinished(true);
                     rw_.setRead(sw_.getReadNode());
                     return ip_;
                 }
-                rw_.setRead(en_.getNextSibling());
+                processAfterBlock(_conf, ip_);
                 return ip_;
             }
+            if (sw_.lastVisitedNode() == en_) {
+                sw_.setFinished(true);
+                rw_.setRead(sw_.getReadNode());
+                return ip_;
+            }
+            rw_.setRead(en_.getNextSibling());
+            return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,TAG_DEFAULT))) {
             SwitchHtmlStack sw_ = (SwitchHtmlStack) ip_.getLastStack();
@@ -1222,32 +1220,30 @@ public final class FormatHtml {
                 }
                 processAfterBlock(_conf, ip_);
                 return ip_;
+            }
+            int i_ = CustList.FIRST_INDEX;
+            while (true) {
+                if (sw_.getNodes().get(i_) == en_) {
+                    break;
+                }
+                i_++;
+            }
+            sw_.setVisitedBlock(i_);
+            if (en_.hasChildNodes()) {
+                sw_.setEntered(true);
             } else {
-                int i_ = CustList.FIRST_INDEX;
-                while (true) {
-                    if (sw_.getNodes().get(i_) == en_) {
-                        break;
-                    }
-                    i_++;
-                }
-                sw_.setVisitedBlock(i_);
-                if (en_.hasChildNodes()) {
+                sw_.increment();
+                if (sw_.lastVisitedNode() != en_) {
                     sw_.setEntered(true);
-                } else {
-                    sw_.increment();
-                    if (sw_.lastVisitedNode() != en_) {
-                        sw_.setEntered(true);
-                        rw_.setRead(en_.getNextSibling());
-                        return ip_;
-                    } else {
-                        sw_.setFinished(true);
-                        rw_.setRead(sw_.getReadNode());
-                        return ip_;
-                    }
+                    rw_.setRead(en_.getNextSibling());
+                    return ip_;
                 }
-                processAfterBlock(_conf, ip_);
+                sw_.setFinished(true);
+                rw_.setRead(sw_.getReadNode());
                 return ip_;
             }
+            processAfterBlock(_conf, ip_);
+            return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,SELECT_TAG))) {
             String map_ = en_.getAttribute(ATTRIBUTE_MAP);
@@ -1593,10 +1589,9 @@ public final class FormatHtml {
                 ip_.removeLastBlock();
                 processBlock(_conf, ip_);
                 return ip_;
-            } else {
-                processAfterBlock(_conf, ip_);
-                return ip_;
             }
+            processAfterBlock(_conf, ip_);
+            return ip_;
         }
         return null;
     }
@@ -1754,34 +1749,30 @@ public final class FormatHtml {
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
             return ExtractObject.evaluateMathExpression(_ip, _conf, eval_, numExpr_);
-        } else {
-            _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
-            _ip.setLookForAttrValue(true);
-            _ip.setOffset(0);
-            if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
-                if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    return NullStruct.NULL_VALUE;
-                } else {
-                    return new StringStruct(expression_);
-                }
-            } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
-                if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    return NullStruct.NULL_VALUE;
-                } else {
-                    return new CharStruct(ExtractObject.getChar(_conf, expression_));
-                }
-            } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
-                if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
-                    return NullStruct.NULL_VALUE;
-                } else {
-                    return new BooleanStruct(Boolean.parseBoolean(expression_));
-                }
-            } else if (StringList.isNumber(expression_)) {
-                String primLong_ = _conf.getStandards().getAliasPrimLong();
-                return ExtractObject.instanceByString(_conf, primLong_, expression_);
-            } else {
-                return ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
+        }
+        _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
+        _ip.setLookForAttrValue(true);
+        _ip.setOffset(0);
+        if (_element.hasAttribute(IS_STRING_CONST_ATTRIBUTE)){
+            if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
+                return NullStruct.NULL_VALUE;
             }
+            return new StringStruct(expression_);
+        } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
+            if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
+                return NullStruct.NULL_VALUE;
+            }
+            return new CharStruct(ExtractObject.getChar(_conf, expression_));
+        } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
+            if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
+                return NullStruct.NULL_VALUE;
+            }
+            return new BooleanStruct(Boolean.parseBoolean(expression_));
+        } else if (StringList.isNumber(expression_)) {
+            String primLong_ = _conf.getStandards().getAliasPrimLong();
+            return ExtractObject.instanceByString(_conf, primLong_, expression_);
+        } else {
+            return ElRenderUtil.processEl(expression_, 0, _conf).getStruct();
         }
     }
     static VariableInformation tryToGetVariableInformation(Configuration _conf, ImportingPage _ip,

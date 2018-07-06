@@ -880,10 +880,7 @@ public class Configuration implements ExecutableCode {
     public String resolveTypeMapping(String _in, Block _currentBlock, RowCol _location) {
         return resolveDynamicType(_in, null);
     }
-    @Override
-    public String resolveType(String _in, Block _currentBlock, RowCol _location) {
-        return resolveDynamicType(_in, null);
-    }
+
     @Override
     public int getGlobalOffset() {
         return context.getGlobalOffset();
@@ -909,7 +906,6 @@ public class Configuration implements ExecutableCode {
         return context.getFieldInfo(_classField);
     }
 
-    @Override
     public String resolveDynamicType(String _in, RootBlock _file) {
         String res_ = PartTypeUtil.processExec(_in, context);
         if (res_.isEmpty()) {

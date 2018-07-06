@@ -51,11 +51,10 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                 if (label.isEmpty()) {
                     childOfLoop_ = true;
                     break;
-                } else {
-                    if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
-                        childOfLoop_ = true;
-                        break;
-                    }
+                }
+                if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                    childOfLoop_ = true;
+                    break;
                 }
             }
             b_ = b_.getParent();
@@ -81,11 +80,10 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                 if (label.isEmpty()) {
                     childOfLoop_ = true;
                     break;
-                } else {
-                    if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
-                        childOfLoop_ = true;
-                        break;
-                    }
+                }
+                if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                    childOfLoop_ = true;
+                    break;
                 }
             }
             b_ = b_.getParent();
@@ -136,12 +134,11 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                     br_.removeLocalVars(ip_);
                     loop_ = (Loop) br_;
                     break;
-                } else {
-                    if (StringList.quickEq(label, ((BreakableBlock) br_).getLabel())){
-                        br_.removeLocalVars(ip_);
-                        loop_ = (Loop) br_;
-                        break;
-                    }
+                }
+                if (StringList.quickEq(label, ((BreakableBlock) br_).getLabel())){
+                    br_.removeLocalVars(ip_);
+                    loop_ = (Loop) br_;
+                    break;
                 }
             }
             ip_.setFinallyToProcess(false);

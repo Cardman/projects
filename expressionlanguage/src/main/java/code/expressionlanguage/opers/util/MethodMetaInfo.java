@@ -1,6 +1,7 @@
 package code.expressionlanguage.opers.util;
 
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.AccessEnum;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -11,13 +12,15 @@ public final class MethodMetaInfo implements Struct {
 
     private final MethodId realId;
 
+    private final AccessEnum access;
     private final MethodModifier modifier;
 
     private final String returnType;
 
     private boolean polymorph = true;
 
-    public MethodMetaInfo(String _className, MethodId _realId, MethodModifier _modifier,String _returnType) {
+    public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier,String _returnType) {
+        access = _access;
         className = _className;
         realId = _realId;
         modifier = _modifier;
@@ -35,15 +38,47 @@ public final class MethodMetaInfo implements Struct {
     public String getClassName() {
         return className;
     }
+    public String getName() {
+        return realId.getName();
+    }
+    public StringList getParameterNames() {
+        return new StringList(realId.getParametersTypes());
+    }
+    public boolean isVararg() {
+        return realId.isVararg();
+    }
     public MethodId getRealId() {
         return realId;
     }
     public boolean isStatic() {
-        return getModifier() == MethodModifier.STATIC;
+        return modifier == MethodModifier.STATIC;
+    }
+    
+    public boolean isAbstract() {
+        return modifier == MethodModifier.ABSTRACT;
+    }
+    
+    public boolean isFinal() {
+        return modifier == MethodModifier.FINAL;
+    }
+    
+    public boolean isNormal() {
+        return modifier == MethodModifier.NORMAL;
+    }
+    public boolean isPublic() {
+        return access == AccessEnum.PUBLIC;
+    }
+    
+    public boolean isProtected() {
+        return access == AccessEnum.PROTECTED;
+    }
+    
+    public boolean isPackage() {
+        return access == AccessEnum.PACKAGE;
     }
 
-    public boolean isAbstract() {
-        return getModifier() == MethodModifier.ABSTRACT;
+    public boolean isPrivate() {
+        return access == AccessEnum.PRIVATE;
     }
     public MethodModifier getModifier() {
         return modifier;

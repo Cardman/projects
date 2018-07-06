@@ -126,12 +126,13 @@ public final class Templates {
     }
 
     /**Calls Templates.isCorrect*/
-    public static boolean correctClassPartsDynamic(String _className, StringMap<StringList> _mapping, ExecutableCode _context, boolean _exact) {
+    public static boolean correctClassPartsDynamic(String _className, ExecutableCode _context, boolean _exact) {
         String className_ = PartTypeUtil.processExec(_className, _context);
         if (className_.isEmpty()) {
             return false;
         }
-        return isCorrectTemplateAll(className_, _mapping, _context, _exact);
+        StringMap<StringList> mapping_ = new StringMap<StringList>();
+        return isCorrectTemplateAll(className_, mapping_, _context, _exact);
     }
 
     static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
@@ -276,28 +277,6 @@ public final class Templates {
             current_ = next_;
         }
     }
-    public static boolean isCorrectTemplateAllBuild(String _className, StringMap<StringList> _inherit, Analyzable _context) {
-        if (!isCorrectTemplateBuild(_className, _inherit, _context)) {
-            return false;
-        }
-        StringList current_ = new StringList(_className);
-        while (true) {
-            StringList next_ = new StringList();
-            for (String c: current_) {
-                StringList types_ = getAllTypes(c);
-                for (String n: types_.mid(1)) {
-                    if (!isCorrectTemplateBuild(n, _inherit, _context)) {
-                        return false;
-                    }
-                    next_.add(n);
-                }
-            }
-            if (next_.isEmpty()) {
-                return true;
-            }
-            current_ = next_;
-        }
-    }
     static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
     }
@@ -322,21 +301,6 @@ public final class Templates {
             }
             current_ = next_;
         }
-    }
-    static boolean isCorrectTemplateBuild(String _className, StringMap<StringList> _inherit, Analyzable _context) {
-        StringList types_ = getAllTypes(_className);
-        String className_ = types_.first();
-        className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
-        if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
-            return true;
-        }
-        if (className_.startsWith(PREFIX_VAR_TYPE)) {
-            return _inherit.contains(className_.substring(1));
-        }
-        if (!correctNbParametersBuild(_className, _context)) {
-            return false;
-        }
-        return true;
     }
     static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         return isCorrectTemplate(_className, _inherit, _context, true);
@@ -447,7 +411,7 @@ public final class Templates {
             i_++;
         }
         String formatted_ = getFormattedType(pref_, varTypes_);
-        if (!correctClassPartsDynamic(formatted_, new StringMap<StringList>(), _context, true)) {
+        if (!correctClassPartsDynamic(formatted_, _context, true)) {
             return null;
         }
         return formatted_;
@@ -786,13 +750,5 @@ public final class Templates {
         int nbParams_ = params_.size() - 1;
         String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
         return _context.getClassBody(baseArr_).getParamTypesMapValues().size() == nbParams_;
-    }
-
-    public static boolean correctNbParametersBuild(String _genericClass, Analyzable _context) {
-        StringList params_ = getAllTypes(_genericClass);
-        String base_ = params_.first();
-        int nbParams_ = params_.size() - 1;
-        String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-        return _context.getClassBody(baseArr_).getParamTypes().size() == nbParams_;
     }
 }

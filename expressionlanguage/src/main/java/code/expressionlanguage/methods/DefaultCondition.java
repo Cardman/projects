@@ -144,25 +144,23 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
             }
             rw_.setBlock(getFirstChild());
             return;
+        }
+        ip_.setGlobalOffset(getOffset().getOffsetTrim());
+        ip_.setOffset(0);
+        if (hasChildNodes()) {
+            sw_.setEntered(true);
         } else {
-            ip_.setGlobalOffset(getOffset().getOffsetTrim());
-            ip_.setOffset(0);
-            if (hasChildNodes()) {
+            if (sw_.getLastVisitedBlock() != this) {
                 sw_.setEntered(true);
-            } else {
-                if (sw_.getLastVisitedBlock() != this) {
-                    sw_.setEntered(true);
-                    rw_.setBlock(getNextSibling());
-                    return;
-                } else {
-                    sw_.setFinished(true);
-                    rw_.setBlock(sw_.getBlock());
-                    return;
-                }
+                rw_.setBlock(getNextSibling());
+                return;
             }
-            rw_.setBlock(getFirstChild());
+            sw_.setFinished(true);
+            rw_.setBlock(sw_.getBlock());
             return;
         }
+        rw_.setBlock(getFirstChild());
+        return;
     }
 
     @Override

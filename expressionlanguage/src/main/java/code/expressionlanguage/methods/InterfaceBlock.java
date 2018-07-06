@@ -7,6 +7,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneInterface;
 import code.sml.Element;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -151,17 +152,21 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     @Override
     public void buildDirectGenericSuperTypes(Analyzable _classes) {
+        NatTreeMap<Integer, String> rcs_;
+        rcs_ = getRowColDirectSuperTypes();
+        int i_ = 0;
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _classes.resolveDynamicType(base_, this);
+            int index_ = rcs_.getKey(i_);
+            i_++;
+            RowCol rc_ = getRowCol(0,index_);
+            String s_ = _classes.resolveTypeMapping(s, this,rc_);
+            String base_ = Templates.getIdFromAllTypes(s_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof InterfaceBlock)) {
                 continue;
             }
-            if (isAccessibleType(base_, _classes)) {
-                importedDirectSuperInterfaces.add(_classes.resolveDynamicType(s, this));
-            }
+            importedDirectSuperInterfaces.add(s_);
         }
     }
 

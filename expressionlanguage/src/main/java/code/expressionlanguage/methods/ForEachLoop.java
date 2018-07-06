@@ -752,16 +752,15 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             l_.setEvaluatingKeepLoop(false);
             processBlock(_cont);
             return;
-        } else {
-            StringMap<LoopVariable> vars_ = ip_.getVars();
-            incrementLoop(_cont, l_, vars_);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            l_.setEvaluatingKeepLoop(false);
-            ip_.getReadWrite().setBlock(getFirstChild());
+        }
+        StringMap<LoopVariable> vars_ = ip_.getVars();
+        incrementLoop(_cont, l_, vars_);
+        if (_cont.callsOrException()) {
             return;
         }
+        l_.setEvaluatingKeepLoop(false);
+        ip_.getReadWrite().setBlock(getFirstChild());
+        return;
     }
 
     Struct processLoop(ContextEl _conf) {

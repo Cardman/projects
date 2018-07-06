@@ -107,9 +107,8 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         Argument a_ = new Argument();
         if (arg_.isNull()) {
             return;
-        } else {
-            a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
         }
+        a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
         setSimpleArgumentAna(a_,_conf);
     }
 
@@ -122,9 +121,8 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         Argument a_ = new Argument();
         if (arg_ == null || arg_.isNull()) {
             return;
-        } else {
-            a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
         }
+        a_.setStruct(new IntStruct(LgNames.getLength(arg_.getObject())));
         setSimpleArgumentAna(a_,_conf);
     }
 }

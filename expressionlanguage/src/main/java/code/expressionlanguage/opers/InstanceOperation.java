@@ -414,16 +414,15 @@ public final class InstanceOperation extends InvokingOperation {
                 a_.setStruct(str_);
                 setSimpleArgumentAna(a_, _conf);
                 return;
-            } else {
-                Numbers<Integer> dims_;
-                dims_ = new Numbers<Integer>();
-                for (int d: args_) {
-                    dims_.add(d);
-                }
-                a_.setStruct(PrimitiveTypeUtil.newCustomArray(className, dims_, _conf));
-                setSimpleArgumentAna(a_, _conf);
-                return;
             }
+            Numbers<Integer> dims_;
+            dims_ = new Numbers<Integer>();
+            for (int d: args_) {
+                dims_.add(d);
+            }
+            a_.setStruct(PrimitiveTypeUtil.newCustomArray(className, dims_, _conf));
+            setSimpleArgumentAna(a_, _conf);
+            return;
         }
         String cl_ = className;
         if (cl_ == null) {
@@ -587,15 +586,14 @@ public final class InstanceOperation extends InvokingOperation {
                 }
                 a_.setStruct(str_);
                 return a_;
-            } else {
-                Numbers<Integer> dims_;
-                dims_ = new Numbers<Integer>();
-                for (int d: args_) {
-                    dims_.add(d);
-                }
-                a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
-                return a_;
             }
+            Numbers<Integer> dims_;
+            dims_ = new Numbers<Integer>();
+            for (int d: args_) {
+                dims_.add(d);
+            }
+            a_.setStruct(PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf));
+            return a_;
         }
         if (possibleInitClass) {
             String base_ = Templates.getIdFromAllTypes(className_);

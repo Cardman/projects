@@ -7,7 +7,6 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.sml.Element;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Numbers;
@@ -151,9 +150,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         StringList params_ = new StringList();
         int off_ = getOffset().getOffsetTrim();
         int i_ = 0;
+        _stds.getAnalyzing().setCurrentBlock(this);
+        _stds.getAnalyzing().setGlobalOffset(off_);
         for (String p: parametersTypes) {
-            RowCol rc_ = getRowCol(off_, parametersTypesOffset.get(i_));
-            params_.add(_stds.resolveType(p, this, rc_));
+            _stds.getAnalyzing().setOffset(parametersTypesOffset.get(i_));
+            params_.add(_stds.resolveCorrectType(p, true));
             i_++;
         }
         importedParametersTypes.clear();
@@ -163,12 +164,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void buildImportedReturnTypes(Analyzable _stds) {
         String void_ = _stds.getStandards().getAliasVoid();
-        if (StringList.quickEq(returnType, void_)) {
+        if (StringList.quickEq(returnType.trim(), void_)) {
             importedReturnType = void_;
             return;
         }
-        RowCol rc_ = getRowCol(returnTypeOffset, 0);
-        importedReturnType = _stds.resolveType(returnType, this, rc_);
+        _stds.getAnalyzing().setCurrentBlock(this);
+        _stds.getAnalyzing().setOffset(returnTypeOffset);
+        importedReturnType = _stds.resolveCorrectType(returnType, true);
     }
     public String getReturnType() {
         return returnType;

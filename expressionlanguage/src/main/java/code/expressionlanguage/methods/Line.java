@@ -113,7 +113,15 @@ public final class Line extends Leaf implements StackableBlock {
         if (opExp.isEmpty()) {
             return false;
         }
-        return opExp.last() instanceof InterfaceInvokingConstructor;
+        OperationNode last_ = opExp.last();
+        if (!(last_ instanceof InterfaceInvokingConstructor)) {
+            return false;
+        }
+        InterfaceInvokingConstructor int_ = (InterfaceInvokingConstructor) last_;
+        if (int_.getConstId() == null) {
+            return false;
+        }
+        return true;
     }
 
     public boolean isCallThis() {

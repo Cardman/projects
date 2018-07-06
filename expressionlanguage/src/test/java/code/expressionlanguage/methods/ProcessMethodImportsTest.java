@@ -854,6 +854,57 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         assertSame(cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE")), field_);
     }
     @Test
+    public void calculateArgument23Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public {pkgthree.*;pkgtwo.*;} $class pkg.Ex {\n");
+        xml_.append(" $public SecList<ExTwo<ExThree>> inst=$new SecList<ExTwo<ExThree>>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  inst;;;addPair($new ExTwo<ExThree>().pass($new ExFour(),0i).pass($new ExFour(),1i),\n");
+        xml_.append("  $new ExTwo<ExThree>().pass($new ExFour(),0i).pass($new ExFour(),1i)):\n");
+        xml_.append("  res;;;=inst;;;size():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public {pkgthree.ExThree;} $class pkgtwo.ExTwo<#K:ExThree> {\n");
+        xml_.append(" $public $final [#K array = $new [#K(2i):\n");
+        xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
+        xml_.append("  array;;;[_index;.;]=_v;.;:\n");
+        xml_.append("  $int unused=_v;.;get():\n");
+        xml_.append("  $return $this:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $abstract $class pkgthree.ExThree {\n");
+        xml_.append(" $public $abstract $int get():\n");
+        xml_.append("}\n");
+        xml_.append("$public $final $class pkgthree.ExFour:ExThree {\n");
+        xml_.append(" $public $final $int get(){\n");
+        xml_.append("  $return 15i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        files_.put(CUST_SEC_LIST_PATH, getSecondCustomList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+    }
+    @Test
     public void calculateArgument30Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();

@@ -56,6 +56,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     private final String templateDef;
 
+    private StringList imports = new StringList();
+
+    private Numbers<Integer> importsOffset = new Numbers<Integer>();
+
     private ObjectMap<MethodId, EqList<ClassMethodId>> allOverridingMethods;
 
     private CustList<TypeVar> paramTypes = new CustList<TypeVar>();
@@ -124,6 +128,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
 
     public Numbers<Integer> getStaticInitInterfacesOffset() {
         return staticInitInterfacesOffset;
+    }
+
+    public StringList getImports() {
+        return imports;
+    }
+
+    public Numbers<Integer> getImportsOffset() {
+        return importsOffset;
     }
 
     public int getCategoryOffset() {

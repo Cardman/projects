@@ -52,7 +52,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
-import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
@@ -1114,7 +1113,7 @@ public final class Classes {
                             String baseParamsUpp_ = Templates.getIdFromAllTypes(b);
                             String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
                             StandardType type_ = stds_.getStandards().getVal(base_);
-                            if (type_ instanceof StandardInterface) {
+                            if (!(type_ instanceof StandardClass)) {
                                 continue;
                             }
                             StandardClass class_ = (StandardClass) type_;
@@ -1130,7 +1129,7 @@ public final class Classes {
                             String baseParamsUpp_ = Templates.getIdFromAllTypes(b);
                             String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
                             RootBlock r_ = getClassBody(base_);
-                            if (r_ instanceof InterfaceBlock) {
+                            if (!(r_ instanceof UniqueRootedBlock)) {
                                 continue;
                             }
                             if (r_ instanceof EnumBlock) {
@@ -2500,7 +2499,17 @@ public final class Classes {
                     MethodBlock method_ = (MethodBlock) b;
                     MethodId id_ = method_.getId();
                     String ret_ = method_.getImportedReturnType();
-                    MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), id_, method_.getModifier(), ret_);
+                    AccessEnum acc_ = method_.getAccess();
+                    String formatRet_;
+                    MethodId fid_;
+                    if (Templates.correctNbParameters(_name, _context)) {
+                        formatRet_ = Templates.format(_name, ret_, _context);
+                        fid_ = id_.format(_name, _context);
+                    } else {
+                        formatRet_ = ret_;
+                        fid_ = id_;
+                    }
+                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {

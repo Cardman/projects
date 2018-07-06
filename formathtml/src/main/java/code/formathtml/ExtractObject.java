@@ -313,9 +313,8 @@ final class ExtractObject {
         numExpr_ = calculateVariables_.toString();
         if (_evalBool) {
             return new BooleanStruct(mathFact_.evaluateDirectlyBoolean(numExpr_));
-        } else {
-            return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.toContextEl(), rateClass_);
         }
+        return StdStruct.wrapStd(mathFact_.evaluateDirectlyRate(numExpr_), _conf.toContextEl(), rateClass_);
     }
 
     static Struct instanceByString(Configuration _conf, String _class, String _arg) {

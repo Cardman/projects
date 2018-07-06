@@ -676,10 +676,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             ip_.removeLastBlock();
             processBlock(_cont);
             return;
-        } else {
-            ip_.getReadWrite().setBlock(getFirstChild());
-            return;
         }
+        ip_.getReadWrite().setBlock(getFirstChild());
+        return;
     }
 
     void processLoop(ContextEl _conf) {

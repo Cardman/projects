@@ -8,9 +8,99 @@ import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
+import code.util.StringList;
 
 public final class PartTypeUtil {
 
+    public static StringList getAllTypes(String _input) {
+        StringList list_ = new StringList();
+        StringBuilder out_ = new StringBuilder();
+        StringBuilder id_ = new StringBuilder();
+        int count_ = 0;
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input);
+        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_);
+        CustList<NatTreeMap<Integer, String>> dels_;
+        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        boolean rem_ = loc_.isRemovedEmptyFirstChild();
+        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_);
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            if (current_ instanceof LeafPartType) {
+                if (count_ == 0) {
+                    id_.append(((LeafPartType)current_).getTypeName());
+                } else {
+                    out_.append(((LeafPartType)current_).getTypeName());
+                }
+            }
+            PartType child_ = createFirstChild(current_, loc_, dels_);
+            if (child_ != null) {
+                if (count_ == 0) {
+                    id_.append(((ParentPartType)current_).getBegin());
+                } else {
+                    out_.append(((ParentPartType)current_).getBegin());
+                }
+                ((ParentPartType)current_).appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                PartType next_ = createNextSibling(current_, loc_, dels_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    if (par_ instanceof TemplatePartType) {
+                        if (current_.getIndex() == 0) {
+                            count_++;
+                        }
+                    }
+                    if (count_ == 0) {
+                        id_.append(par_.getSeparator(current_.getIndex()));
+                    } else if (count_ > 1 || !(par_ instanceof TemplatePartType)) {
+                        out_.append(par_.getSeparator(current_.getIndex()));
+                    } else if (current_.getIndex() > 0) {
+                        // par_ instanceof TemplatePartType
+                        // end first argument
+                        list_.add(out_.toString());
+                        out_.delete(0, out_.length());
+                    }
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    if (par_ instanceof TemplatePartType) {
+                        list_.add(out_.toString());
+                    }
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                if (par_ instanceof TemplatePartType) {
+                    count_--;
+                }
+                if (count_ > 0) {
+                    out_.append(par_.getEnd());
+                } else if (par_ instanceof TemplatePartType) {
+                    list_.add(out_.toString());
+                    out_.delete(0, out_.length());
+                }
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        list_.add(0, id_.toString());
+        return list_;
+    }
     public static String processTypeHeaders(String _input,Analyzable _an, RootBlock _rooted,RowCol _location) {
         StringBuilder out_ = new StringBuilder();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input);

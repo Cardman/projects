@@ -26,7 +26,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.OverridingRelation;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -81,15 +80,16 @@ public final class TypeUtil {
             for (int i = 0; i < len_; i++) {
                 int offset_ = bl_.getStaticInitInterfacesOffset().get(i);
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
-                RowCol rc_ = bl_.getRowCol(0, offset_);
-                base_ = _context.resolveType(base_, bl_, rc_);
+                _context.getAnalyzing().setCurrentBlock(bl_);
+                _context.getAnalyzing().setOffset(offset_);
+                base_ = _context.resolveCorrectType(base_, true);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (r_ == null) {
                     UnknownClassName undef_;
                     undef_ = new UnknownClassName();
                     undef_.setClassName(base_);
                     undef_.setFileName(d_);
-                    undef_.setRc(rc_);
+                    undef_.setRc(_context.getAnalyzing().getTrace());
                     classes_.addError(undef_);
                     continue;
                 }
@@ -99,7 +99,7 @@ public final class TypeUtil {
                     String n_ = base_;
                     enum_.setClassName(n_);
                     enum_.setFileName(d_);
-                    enum_.setRc(rc_);
+                    enum_.setRc(_context.getAnalyzing().getTrace());
                     classes_.addError(enum_);
                 } else {
                     bl_.getStaticInitImportedInterfaces().add(base_);
@@ -108,8 +108,9 @@ public final class TypeUtil {
             for (int i = 0; i < len_; i++) {
                 String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
                 int offsetSup_ = bl_.getStaticInitInterfacesOffset().get(i);
-                RowCol rc_ = bl_.getRowCol(0, offsetSup_);
-                sup_ = _context.resolveType(sup_, bl_, rc_);
+                _context.getAnalyzing().setCurrentBlock(bl_);
+                _context.getAnalyzing().setOffset(offsetSup_);
+                sup_ = _context.resolveCorrectType(sup_, true);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
@@ -117,8 +118,9 @@ public final class TypeUtil {
                 for (int j = i + 1; j < len_; j++) {
                     String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = bl_.getStaticInitInterfacesOffset().get(j);
-                    RowCol rcSub_ = bl_.getRowCol(0, offsetSub_);
-                    sub_ = _context.resolveType(sub_, bl_, rcSub_);
+                    _context.getAnalyzing().setCurrentBlock(bl_);
+                    _context.getAnalyzing().setOffset(offsetSub_);
+                    sub_ = _context.resolveCorrectType(sub_, true);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;

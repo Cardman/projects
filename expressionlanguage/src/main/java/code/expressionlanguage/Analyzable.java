@@ -84,13 +84,10 @@ public interface Analyzable {
     boolean isGearConst();
     StringList getNeedInterfaces();
 
-    String resolveDynamicType(String _in, RootBlock _file);
-
     String resolveTypeMapping(String _in, Block _currentBlock,RowCol _location);
     String resolveCorrectType(String _in);
     String resolveCorrectType(String _in, boolean _exact);
 
-    String resolveType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseTypeBuildInherits(String _in, Block _currentBlock);
     CustList<ClassMethodId> lookupSingleImportStaticMethods(String _method, Block _rooted);

@@ -13,38 +13,23 @@ import code.expressionlanguage.NumberInfos;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.ElementBlock;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.InfoBlock;
-import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.PredefinedClasses;
-import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignableFrom;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ByteStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.DoubleStruct;
 import code.expressionlanguage.opers.util.EnumerableStruct;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ReplacementStruct;
@@ -58,7 +43,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.ObjectMap;
-import code.util.ObjectNotNullMap;
 import code.util.Replacement;
 import code.util.SimpleItr;
 import code.util.StringList;
@@ -238,27 +222,9 @@ public abstract class LgNames {
     private StringList predefinedClasses = new StringList();
     private StringList predefinedInterfacesInitOrder = new StringList();
 
-    private String aliasClass;
     private String aliasObjectsUtil;
     private String aliasSameRef;
-    private String aliasGetClass;
-    private String aliasGetDeclaredMethods;
-    private String aliasGetDeclaredConstructors;
-    private String aliasGetDeclaredFields;
-    private String aliasMakeGeneric;
-    private String aliasGetAllClasses;
-    private String aliasConstructor;
-    private String aliasField;
-    private String aliasMethod;
-    private String aliasInvoke;
-    private String aliasNewInstance;
-    private String aliasIsAbstract;
-    private String aliasIsPolymorph;
-    private String aliasSetPolymorph;
-    private String aliasGetName;
-    private String aliasGetField;
-    private String aliasSetField;
-    private String aliasForName;
+    private AliasReflection reflect = new AliasReflection();
     /**Called after setters*/
     public void build() {
         StringMap<StandardField> fields_;
@@ -1015,80 +981,7 @@ public abstract class LgNames {
         method_ = new StandardMethod(aliasSameRef, params_, aliasPrimBoolean, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         getStandards().put(aliasObjectsUtil, stdcl_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetName, params_, aliasString, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(aliasGetClass, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString,aliasPrimBoolean);
-        method_ = new StandardMethod(aliasForName, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean,aliasClass);
-        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor), true, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasString,aliasPrimBoolean,aliasPrimBoolean,aliasClass);
-        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasConstructor), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredFields, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasClass);
-        method_ = new StandardMethod(aliasMakeGeneric, params_, aliasClass, true, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAllClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
-        getStandards().put(aliasClass, stdcl_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasConstructor, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
-        params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(aliasNewInstance, params_, aliasObject, true, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        getStandards().put(aliasConstructor, stdcl_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasField, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
-        params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(aliasGetField, params_, aliasObject, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasObject,aliasObject);
-        method_ = new StandardMethod(aliasSetField, params_, aliasVoid, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        getStandards().put(aliasField, stdcl_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasMethod, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
-        params_ = new StringList(aliasObject,aliasObject);
-        method_ = new StandardMethod(aliasInvoke, params_, aliasObject, true, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimBoolean);
-        method_ = new StandardMethod(aliasSetPolymorph, params_, aliasVoid, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPolymorph, params_, aliasPrimBoolean, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasIsAbstract, params_, aliasPrimBoolean, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        getStandards().put(aliasMethod, stdcl_);
+        reflect.build(this);
         buildOther();
     }
     public void setupOverrides(ContextEl _cont) {
@@ -1361,7 +1254,6 @@ public abstract class LgNames {
         Object[] argsObj_ = adaptedArgs(list_, _cont.getStandards(), args_);
         String stringBuilderType_ = lgNames_.getAliasStringBuilder();
         String replType_ = lgNames_.getAliasReplacement();
-        String aliasClass_ = lgNames_.aliasClass;
         result_ = invokeStdMethod(_cont, _method, _struct, _args);
         if (result_.getResult() != null) {
             return result_;
@@ -1404,277 +1296,6 @@ public abstract class LgNames {
                 }
             } catch (Throwable _0) {
                 result_.setError(lgNames_.getAliasError());
-                return result_;
-            }
-        }
-        if (StringList.quickEq(type_, lgNames_.aliasMethod)) {
-            if (StringList.quickEq(name_, lgNames_.aliasIsPolymorph)) {
-                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                result_.setResult(new BooleanStruct(method_.isPolymorph()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasIsAbstract)) {
-                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                result_.setResult(new BooleanStruct(method_.isAbstract()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasSetPolymorph)) {
-                MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                Boolean poly_ = (Boolean) args_[0].getInstance();
-                method_.setPolymorph(poly_);
-                result_.setResult(NullStruct.NULL_VALUE);
-                return result_;
-            }
-        }
-        if (StringList.quickEq(type_, aliasClass_)) {
-            if (StringList.quickEq(name_, lgNames_.aliasGetName)) {
-                result_.setResult(new StringStruct(((ClassMetaInfo)_struct).getName()));
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasGetAllClasses)) {
-                CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
-                for (EntryCust<String, RootBlock> c: _cont.getClasses().getClassesBodies().entryList()) {
-                    ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-                    infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-                    StringMap<FieldMetaInfo> infosFields_;
-                    infosFields_ = new StringMap<FieldMetaInfo>();
-                    ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-                    infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
-                    String k_ = c.getKey();
-                    RootBlock clblock_ = c.getValue();
-                    String forName_ = Templates.getGenericString(k_, _cont);
-                    CustList<Block> bl_ = Classes.getDirectChildren(clblock_);
-                    for (Block b: bl_) {
-                        if (b instanceof InfoBlock) {
-                            InfoBlock method_ = (InfoBlock) b;
-                            String m_ = method_.getFieldName();
-                            String ret_ = method_.getImportedClassName();
-                            boolean enumElement_ = b instanceof ElementBlock;
-                            boolean staticElement_ = method_.isStaticField();
-                            boolean finalElement_ = method_.isFinalField();
-                            FieldMetaInfo met_ = new FieldMetaInfo(forName_, m_, ret_, staticElement_, finalElement_, enumElement_);
-                            infosFields_.put(m_, met_);
-                        }
-                        if (b instanceof MethodBlock) {
-                            MethodBlock method_ = (MethodBlock) b;
-                            MethodId id_ = method_.getId();
-                            String ret_ = method_.getImportedReturnType();
-                            MethodMetaInfo met_ = new MethodMetaInfo(method_.getDeclaringType(), id_, method_.getModifier(), ret_);
-                            infos_.put(id_, met_);
-                        }
-                        if (b instanceof ConstructorBlock) {
-                            ConstructorBlock method_ = (ConstructorBlock) b;
-                            ConstructorId id_ = method_.getGenericId();
-                            ConstructorMetaInfo met_ = new ConstructorMetaInfo(forName_, id_);
-                            infosConst_.put(id_, met_);
-                        }
-                    }
-                    if (clblock_ instanceof InterfaceBlock) {
-                        classes_.add(new ClassMetaInfo(forName_, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
-                        continue;
-                    }
-                    ClassCategory cat_ = ClassCategory.CLASS;
-                    if (clblock_ instanceof EnumBlock) {
-                        cat_ = ClassCategory.ENUM;
-                    } else if (clblock_ instanceof InterfaceBlock) {
-                        cat_ = ClassCategory.INTERFACE;
-                    }
-                    boolean abs_ = clblock_.isAbstractType();
-                    boolean final_ = clblock_.isFinalType();
-                    classes_.add(new ClassMetaInfo(forName_, ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_));
-                }
-                for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
-                    ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-                    infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-                    StringMap<FieldMetaInfo> infosFields_;
-                    infosFields_ = new StringMap<FieldMetaInfo>();
-                    ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-                    infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
-                    String k_ = c.getKey();
-                    String forName_ = Templates.getGenericString(k_, _cont);
-                    StandardType clblock_ = c.getValue();
-                    for (StandardField f: clblock_.getFields().values()) {
-                        String m_ = f.getFieldName();
-                        String ret_ = f.getClassName();
-                        boolean staticElement_ = f.isStaticField();
-                        boolean finalElement_ = f.isFinalField();
-                        FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, false);
-                        infosFields_.put(m_, met_);
-                    }
-                    for (StandardMethod m: clblock_.getMethods().values()) {
-                        MethodId id_ = m.getId();
-                        String ret_ = m.getImportedReturnType();
-                        MethodMetaInfo met_ = new MethodMetaInfo(m.getDeclaringType(), id_, m.getModifier(), ret_);
-                        infos_.put(id_, met_);
-                    }
-                    for (StandardConstructor d: clblock_.getConstructors()) {
-                        ConstructorId id_ = d.getGenericId();
-                        ConstructorMetaInfo met_ = new ConstructorMetaInfo(forName_, id_);
-                        infosConst_.put(id_, met_);
-                    }
-                    if (clblock_ instanceof StandardInterface) {
-                        classes_.add(new ClassMetaInfo(forName_, ((StandardInterface)clblock_).getDirectInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE));
-                        continue;
-                    }
-                    ClassCategory cat_ = ClassCategory.CLASS;
-                    if (clblock_ instanceof StandardInterface) {
-                        cat_ = ClassCategory.INTERFACE;
-                    }
-                    boolean abs_ = clblock_.isAbstractType();
-                    boolean final_ = clblock_.isFinalType();
-                    classes_.add(new ClassMetaInfo(forName_, ((StandardClass) clblock_).getSuperClass(_cont), infosFields_,infos_, infosConst_, cat_, abs_, final_));
-                }
-                Struct[] ctorsArr_ = new Struct[classes_.size()];
-                int index_ = 0;
-                for (ClassMetaInfo e: classes_) {
-                    ctorsArr_[index_] = e;
-                    index_++;
-                }
-                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasClass);
-                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasGetClass)) {
-                Struct str_ = args_[0];
-                if (str_.isNull()) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    String className_ = lgNames_.getStructClassName(str_, _cont);
-                    result_.setResult(_cont.getExtendedClassMetaInfo(className_));
-                }
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasGetDeclaredConstructors)) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> ctors_;
-                ctors_ = cl_.getConstructorsInfos();
-                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasConstructor);
-                if (args_.length == 0) {
-                    Struct[] ctorsArr_ = new Struct[ctors_.size()];
-                    int index_ = 0;
-                    for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
-                        ctorsArr_[index_] = e.getValue();
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                Boolean vararg_ = (Boolean) args_[0].getInstance();
-                StringList classesNames_ = new StringList();
-                for (Struct s: ((Struct[])args_[1].getInstance())) {
-                    classesNames_.add(((ClassMetaInfo)s).getName());
-                }
-                CustList<ConstructorMetaInfo> candidates_;
-                candidates_ = new CustList<ConstructorMetaInfo>();
-                String instClassName_ = cl_.getName();
-                ConstructorId idToSearch_ = new ConstructorId(instClassName_, classesNames_, vararg_);
-                for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
-                    ConstructorId id_ = e.getKey();
-                    if (id_.format(instClassName_, _cont).eq(idToSearch_)) {
-                        candidates_.add(e.getValue());
-                    }
-                }
-                if (ctors_.isEmpty()) {
-                    if (classesNames_.isEmpty() && !vararg_) {
-                        candidates_.add(new ConstructorMetaInfo(instClassName_, idToSearch_));
-                    }
-                }
-                Struct[] ctorsArr_ = new Struct[candidates_.size()];
-                int index_ = 0;
-                for (ConstructorMetaInfo c: candidates_) {
-                    ctorsArr_[index_] = c;
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasGetDeclaredMethods)) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                ObjectNotNullMap<MethodId, MethodMetaInfo> methods_;
-                methods_ = cl_.getMethodsInfos();
-                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasMethod);
-                if (args_.length == 0) {
-                    Struct[] methodsArr_ = new Struct[methods_.size()];
-                    int index_ = 0;
-                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
-                        methodsArr_[index_] = e.getValue();
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                String methodName_ = (String) args_[0].getInstance();
-                Boolean static_ = (Boolean) args_[1].getInstance();
-                Boolean vararg_ = (Boolean) args_[2].getInstance();
-                StringList classesNames_ = new StringList();
-                for (Struct s: ((Struct[])args_[3].getInstance())) {
-                    classesNames_.add(((ClassMetaInfo)s).getName());
-                }
-                CustList<MethodMetaInfo> candidates_;
-                candidates_ = new CustList<MethodMetaInfo>();
-                String instClassName_ = cl_.getName();
-                MethodId idToSearch_ = new MethodId(static_, methodName_, classesNames_, vararg_);
-                for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
-                    MethodId id_ = e.getKey();
-                    if (id_.format(instClassName_, _cont).eq(idToSearch_)) {
-                        candidates_.add(e.getValue());
-                    }
-                }
-                Struct[] methodsArr_ = new Struct[candidates_.size()];
-                int index_ = 0;
-                for (MethodMetaInfo c: candidates_) {
-                    methodsArr_[index_] = c;
-                    index_++;
-                }
-                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasGetDeclaredFields)) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                StringMap<FieldMetaInfo> fields_;
-                fields_ = cl_.getFieldsInfos();
-                String className_= PrimitiveTypeUtil.getPrettyArrayType(lgNames_.aliasField);
-                if (args_.length == 0) {
-                    Struct[] ctorsArr_ = new Struct[fields_.size()];
-                    int index_ = 0;
-                    for (EntryCust<String, FieldMetaInfo> e: fields_.entryList()) {
-                        ctorsArr_[index_] = e.getValue();
-                        index_++;
-                    }
-                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                    result_.setResult(str_);
-                    return result_;
-                }
-                String fieldName_ = (String) args_[0].getInstance();
-                FieldMetaInfo meta_ = fields_.getVal(fieldName_);
-                Struct[] ctorsArr_;
-                if (meta_ != null) {
-                    ctorsArr_ = new Struct[1];
-                    ctorsArr_[0] = meta_;
-                } else {
-                    ctorsArr_ = new Struct[0];
-                }
-                ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (StringList.quickEq(name_, lgNames_.aliasMakeGeneric)) {
-                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
-                StringList classesNames_ = new StringList();
-                for (Struct s: ((Struct[])args_[0].getInstance())) {
-                    classesNames_.add(((ClassMetaInfo)s).getName());
-                }
-                String res_ = Templates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);
-                if (res_ == null) {
-                    result_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    result_.setResult(_cont.getExtendedClassMetaInfo(res_));
-                }
                 return result_;
             }
         }
@@ -1938,7 +1559,21 @@ public abstract class LgNames {
                     result_.setResult(new IntStruct(en_.getOrdinal()));
                 }
             }
-        } else if(lgNames_ instanceof LgAdv) {
+        }
+        if (result_.getResult() != null) {
+            return result_;
+        }
+        if (result_.getError() != null) {
+            return result_;
+        }
+        result_ = AliasReflection.invokeMethod(_cont, _method, _struct, _args);
+        if (result_.getResult() != null) {
+            return result_;
+        }
+        if (result_.getError() != null) {
+            return result_;
+        }
+        if(lgNames_ instanceof LgAdv) {
             result_ = ((LgAdv)lgNames_).getOtherResult(_cont, _struct, _method, args_);
         } else {
             result_ = lgNames_.getOtherResult(_cont, _struct, _method, argsObj_);
@@ -3081,12 +2716,10 @@ public abstract class LgNames {
         if (negative_) {
             if (i_ > 1) {
                 return result_;
-            } else {
-                return null;
             }
-        } else {
-            return -result_;
+            return null;
         }
+        return -result_;
     }
     public static boolean isValidDouble(String _nb) {
         int to_ = _nb.length() - 1;
@@ -3309,10 +2942,9 @@ public abstract class LgNames {
                 i_++;
                 if (ch_ < '0' || ch_ > '9') {
                     return null;
-                } else {
-                    digit_ = ch_ - '0';
-                    result_ = -digit_;
                 }
+                digit_ = ch_ - '0';
+                result_ = -digit_;
             }
             while (i_ < max_) {
                 // Accumulating negatively avoids surprises near MAX_VALUE
@@ -3337,12 +2969,10 @@ public abstract class LgNames {
         if (negative_) {
             if (i_ > 1) {
                 return result_;
-            } else {
-                return null;
             }
-        } else {
-            return -result_;
+            return null;
         }
+        return -result_;
     }
 
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
@@ -4868,6 +4498,9 @@ public abstract class LgNames {
     public void setAliasInvokeTarget(String _aliasInvokeTarget) {
         aliasInvokeTarget = _aliasInvokeTarget;
     }
+    public AliasReflection getReflect() {
+        return reflect;
+    }
     public String getAliasClassNotFoundError() {
         return aliasClassNotFoundError;
     }
@@ -4875,118 +4508,118 @@ public abstract class LgNames {
         aliasClassNotFoundError = _aliasClassNotFoundError;
     }
     public String getAliasClass() {
-        return aliasClass;
+        return reflect.getAliasClass();
     }
     public void setAliasClass(String _aliasClass) {
-        aliasClass = _aliasClass;
+        reflect.setAliasClass(_aliasClass);
     }
     public String getAliasGetDeclaredMethods() {
-        return aliasGetDeclaredMethods;
+        return reflect.getAliasGetDeclaredMethods();
     }
     public void setAliasGetDeclaredMethods(String _aliasGetDeclaredMethods) {
-        aliasGetDeclaredMethods = _aliasGetDeclaredMethods;
+        reflect.setAliasGetDeclaredMethods(_aliasGetDeclaredMethods);
     }
     public String getAliasGetDeclaredConstructors() {
-        return aliasGetDeclaredConstructors;
+        return reflect.getAliasGetDeclaredConstructors();
     }
     public void setAliasGetDeclaredConstructors(String _aliasGetDeclaredConstructors) {
-        aliasGetDeclaredConstructors = _aliasGetDeclaredConstructors;
+        reflect.setAliasGetDeclaredConstructors(_aliasGetDeclaredConstructors);
     }
     public String getAliasGetDeclaredFields() {
-        return aliasGetDeclaredFields;
+        return reflect.getAliasGetDeclaredFields();
     }
     public void setAliasGetDeclaredFields(String _aliasGetDeclaredFields) {
-        aliasGetDeclaredFields = _aliasGetDeclaredFields;
+        reflect.setAliasGetDeclaredFields(_aliasGetDeclaredFields);
     }
     public String getAliasMakeGeneric() {
-        return aliasMakeGeneric;
+        return reflect.getAliasMakeGeneric();
     }
     public void setAliasMakeGeneric(String _aliasMakeGeneric) {
-        aliasMakeGeneric = _aliasMakeGeneric;
+        reflect.setAliasMakeGeneric(_aliasMakeGeneric);
     }
     public String getAliasGetAllClasses() {
-        return aliasGetAllClasses;
+        return reflect.getAliasGetAllClasses();
     }
     public void setAliasGetAllClasses(String _aliasGetAllClasses) {
-        aliasGetAllClasses = _aliasGetAllClasses;
+        reflect.setAliasGetAllClasses(_aliasGetAllClasses);
     }
     public String getAliasConstructor() {
-        return aliasConstructor;
+        return reflect.getAliasConstructor();
     }
     public void setAliasConstructor(String _aliasConstructor) {
-        aliasConstructor = _aliasConstructor;
+        reflect.setAliasConstructor(_aliasConstructor);
     }
     public String getAliasField() {
-        return aliasField;
+        return reflect.getAliasField();
     }
     public void setAliasField(String _aliasField) {
-        aliasField = _aliasField;
+        reflect.setAliasField(_aliasField);
     }
     public String getAliasMethod() {
-        return aliasMethod;
+        return reflect.getAliasMethod();
     }
     public void setAliasMethod(String _aliasMethod) {
-        aliasMethod = _aliasMethod;
+        reflect.setAliasMethod(_aliasMethod);
     }
     public String getAliasInvoke() {
-        return aliasInvoke;
+        return reflect.getAliasInvoke();
     }
     public void setAliasInvoke(String _aliasInvoke) {
-        aliasInvoke = _aliasInvoke;
+        reflect.setAliasInvoke(_aliasInvoke);
     }
     public String getAliasNewInstance() {
-        return aliasNewInstance;
+        return reflect.getAliasNewInstance();
     }
     public void setAliasNewInstance(String _aliasNewInstance) {
-        aliasNewInstance = _aliasNewInstance;
+        reflect.setAliasNewInstance(_aliasNewInstance);
     }
     public String getAliasIsPolymorph() {
-        return aliasIsPolymorph;
+        return reflect.getAliasIsPolymorph();
     }
     public void setAliasIsPolymorph(String _aliasIsPolymorph) {
-        aliasIsPolymorph = _aliasIsPolymorph;
+        reflect.setAliasIsPolymorph(_aliasIsPolymorph);
     }
     public String getAliasSetPolymorph() {
-        return aliasSetPolymorph;
+        return reflect.getAliasSetPolymorph();
     }
     public void setAliasSetPolymorph(String _aliasSetPolymorph) {
-        aliasSetPolymorph = _aliasSetPolymorph;
+        reflect.setAliasSetPolymorph(_aliasSetPolymorph);
     }
     public String getAliasIsAbstract() {
-        return aliasIsAbstract;
+        return reflect.getAliasIsAbstract();
     }
     public void setAliasIsAbstract(String _aliasIsAbstract) {
-        aliasIsAbstract = _aliasIsAbstract;
+        reflect.setAliasIsAbstract(_aliasIsAbstract);
     }
     public String getAliasGetName() {
-        return aliasGetName;
+        return reflect.getAliasGetName();
     }
     public void setAliasGetName(String _aliasGetName) {
-        aliasGetName = _aliasGetName;
+        reflect.setAliasGetName(_aliasGetName);
     }
     public String getAliasGetField() {
-        return aliasGetField;
+        return reflect.getAliasGetField();
     }
     public void setAliasGetField(String _aliasGetField) {
-        aliasGetField = _aliasGetField;
+        reflect.setAliasGetField(_aliasGetField);
     }
     public String getAliasSetField() {
-        return aliasSetField;
+        return reflect.getAliasSetField();
     }
     public void setAliasSetField(String _aliasSetField) {
-        aliasSetField = _aliasSetField;
+        reflect.setAliasSetField(_aliasSetField);
     }
     public String getAliasGetClass() {
-        return aliasGetClass;
+        return reflect.getAliasGetClass();
     }
     public void setAliasGetClass(String _aliasGetClass) {
-        aliasGetClass = _aliasGetClass;
+        reflect.setAliasGetClass(_aliasGetClass);
     }
     public String getAliasForName() {
-        return aliasForName;
+        return reflect.getAliasForName();
     }
     public void setAliasForName(String _aliasForName) {
-        aliasForName = _aliasForName;
+        reflect.setAliasForName(_aliasForName);
     }
     public String getAliasObjectsUtil() {
         return aliasObjectsUtil;
