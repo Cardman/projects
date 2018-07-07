@@ -1,17 +1,29 @@
 package code.expressionlanguage.opers.util;
 
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.AccessEnum;
 import code.util.ObjectMap;
 import code.util.StringList;
 
 public final class ConstructorMetaInfo implements Struct {
 
     private final String className;
+    private final String formClassName;
     private final ConstructorId realId;
+    private final AccessEnum access;
+    private final ConstructorId fid;
+    private final String returnType;
+    private final String formattedReturnType;
 
-    public ConstructorMetaInfo(String _className, ConstructorId _realId) {
+    public ConstructorMetaInfo(String _className, AccessEnum _access, ConstructorId _realId,String _returnType,
+            ConstructorId _fid,String _formattedReturnType, String _formClassName) {
         className = _className;
+        access = _access;
         realId = _realId;
+        returnType = _returnType;
+        fid = _fid;
+        formattedReturnType = _formattedReturnType;
+        formClassName = _formClassName;
     }
 
     public String getClassName() {
@@ -20,6 +32,48 @@ public final class ConstructorMetaInfo implements Struct {
 
     public ConstructorId getRealId() {
         return realId;
+    }
+    public boolean isVararg() {
+        return realId.isVararg();
+    }
+    public boolean isPublic() {
+        return access == AccessEnum.PUBLIC;
+    }
+    
+    public boolean isProtected() {
+        return access == AccessEnum.PROTECTED;
+    }
+    
+    public boolean isPackage() {
+        return access == AccessEnum.PACKAGE;
+    }
+
+    public boolean isPrivate() {
+        return access == AccessEnum.PRIVATE;
+    }
+    
+    public String getFormClassName() {
+        return formClassName;
+    }
+    
+    public String getName() {
+        return formClassName;
+    }
+
+    public AccessEnum getAccess() {
+        return access;
+    }
+
+    public ConstructorId getFid() {
+        return fid;
+    }
+
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public String getFormattedReturnType() {
+        return formattedReturnType;
     }
 
     @Override

@@ -2,12 +2,9 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
@@ -16,13 +13,9 @@ import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.NumberStruct;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -208,7 +201,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             OperationNode op_ = chidren_.get(i);
             Object o_ = _nodes.getVal(op_).getArgument().getObject();
-            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
+            int indexEl_ = chidren_.get(i).getIndexInEl();
+            setRelativeOffsetPossibleLastPage(indexEl_, _conf);
+            array_ = InvokingOperation.getElement(array_, o_, _conf);
             if (_conf.getException() != null) {
                 return a_;
             }
@@ -240,7 +235,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             Object o_ = chidren_.get(i).getArgument().getObject();
-            array_ = getElement(array_, o_, _conf, chidren_.get(i).getIndexInEl());
+            int indexEl_ = chidren_.get(i).getIndexInEl();
+            setRelativeOffsetPossibleLastPage(indexEl_, _conf);
+            array_ = InvokingOperation.getElement(array_, o_, _conf);
             if (_conf.getException() != null) {
                 return a_;
             }
@@ -248,72 +245,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         a_.setStruct(array_);
         return a_;
     }
-
-    Struct getElement(Struct _struct, Object _index, ExecutableCode _conf, int _indexEl) {
-        setRelativeOffsetPossibleLastPage(_indexEl, _conf);
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        String badIndex_;
-        null_ = stds_.getAliasNullPe();
-        badIndex_ = stds_.getAliasBadIndex();
-        if (_struct.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return NullStruct.NULL_VALUE;
-        }
-        Object array_ = _struct.getInstance();
-        int len_ = LgNames.getLength(array_);
-        int index_ = ((Number)_index).intValue();
-        if (index_ < 0 || index_ >= len_) {
-            _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
-            return NullStruct.NULL_VALUE;
-        }
-        return LgNames.getElement(array_, index_, _conf.getContextEl());
-    }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ExecutableCode _conf) {
-        setElement(_array, _index, _element.getStruct(), _conf);
+        InvokingOperation.setElement(_array, _index, _element.getStruct(), _conf);
     }
-    static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf) {
-        LgNames stds_ = _conf.getStandards();
-        String null_;
-        String badIndex_;
-        String store_;
-        null_ = stds_.getAliasNullPe();
-        badIndex_ = stds_.getAliasBadIndex();
-        store_ = stds_.getAliasStore();
-        if (_struct.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-            return;
-        }
-        String strClass_ = stds_.getStructClassName(_struct, _conf.getContextEl());
-        String valClass_ = stds_.getStructClassName(_value, _conf.getContextEl());
-        Object instance_ = _struct.getInstance();
-        int len_ = LgNames.getLength(instance_);
-        int index_ = ((Number)_index).intValue();
-        if (index_ < 0 || index_ >= len_) {
-            _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
-            return;
-        }
-        if (!_value.isNull()) {
-            String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-            String elementType_ = valClass_;
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(elementType_);
-            mapping_.setParam(componentType_);
-            if (!Templates.isCorrect(mapping_, _conf)) {
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(componentType_,elementType_,_conf.joinPages())),store_));
-                return;
-            }
-        }
-        Struct value_;
-        if (_value instanceof NumberStruct || _value instanceof CharStruct) {
-            String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
-            value_ = PrimitiveTypeUtil.convertObject(cl_, _value, _conf);
-        } else {
-            value_ = _value;
-        }
-        LgNames.setElement(instance_, index_, value_, _conf.getContextEl());
-    }
+    
     @Override
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
@@ -485,7 +420,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_conf.getException() != null) {
             return _right.getStruct();
         }
-        setElement(_array, o_, _right.getStruct(), _conf);
+        InvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
@@ -512,7 +447,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_conf.getException() != null) {
             return _stored;
         }
-        setElement(_array, o_, res_.getStruct(), _conf);
+        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
@@ -538,7 +473,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_conf.getException() != null) {
             return _stored;
         }
-        setElement(_array, o_, res_.getStruct(), _conf);
+        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         if (_post) {
             return left_.getStruct();
         }

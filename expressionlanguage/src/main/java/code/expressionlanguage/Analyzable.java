@@ -18,6 +18,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
 import code.util.CustList;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -90,10 +91,8 @@ public interface Analyzable {
 
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseTypeBuildInherits(String _in, Block _currentBlock);
-    CustList<ClassMethodId> lookupSingleImportStaticMethods(String _method, Block _rooted);
-    CustList<ClassMethodId> lookupImportsOnDemandStaticMethods(String _method, Block _rooted);
-    CustList<ClassField> lookupSingleImportStaticFields(String _field, Block _rooted);
-    CustList<ClassField> lookupImportsOnDemandStaticFields(String _field, Block _rooted);
+    ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
+    ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
     String lookupImportsDirect(String _type, RootBlock _rooted);
     String lookupImportsIndirect(String _type, RootBlock _rooted);
 

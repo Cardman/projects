@@ -79,49 +79,45 @@ public final class Templates {
 
     public static StringList getAllTypes(String _type) {
         StringList types_ = new StringList();
+        StringBuilder out_ = new StringBuilder();
+        StringBuilder id_ = new StringBuilder();
         int i_ = CustList.FIRST_INDEX;
-        int nbGt_ = 0;
-        int nbLt_ = 0;
-        int first_ = i_;
-        int lastGt_ = CustList.INDEX_NOT_FOUND_ELT;
-        while (true) {
-            if (i_ >= _type.length()) {
-                if (nbGt_ != nbLt_) {
-                    return null;
+        int count_ = 0;
+        int len_ = _type.length();
+        while (i_ < len_) {
+            char curChar_ = _type.charAt(i_);
+            if (count_ > 0) {
+                if (curChar_ == Templates.LT) {
+                    count_++;
                 }
-                if (lastGt_ == CustList.INDEX_NOT_FOUND_ELT) {
-                    types_.add(_type);
-                } else {
-                    types_.add(_type.substring(first_, lastGt_));
+                if (curChar_ == Templates.GT) {
+                    count_--;
                 }
-                break;
+                if (count_ == 1 && curChar_ == Templates.COMMA) {
+                    types_.add(out_.toString());
+                    out_.delete(0, out_.length());
+                    i_++;
+                    continue;
+                }
+                if (count_ == 0 && curChar_ == Templates.GT) {
+                    types_.add(out_.toString());
+                    out_.delete(0, out_.length());
+                    i_++;
+                    continue;
+                }
+                out_.append(curChar_);
+                i_++;
+                continue;
             }
-            //i_ < _type.length() - 1
-            if (_type.charAt(i_) == COMMA) {
-                if (nbLt_ == 0) {
-                    return null;
-                }
-                if (nbGt_ + 1 == nbLt_) {
-                    types_.add(_type.substring(first_, i_));
-                    first_ = i_ + 1;
-                }
+            if (curChar_ == Templates.LT) {
+                count_++;
+                i_++;
+                continue;
             }
-            if (_type.charAt(i_) == LT) {
-                if (types_.isEmpty()) {
-                    types_.add(_type.substring(first_, i_));
-                    first_ = i_ + 1;
-                }
-                nbLt_++;
-            }
-            if (_type.charAt(i_) == GT) {
-                nbGt_++;
-                if (nbGt_ > nbLt_) {
-                    return null;
-                }
-                lastGt_ = i_;
-            }
+            id_.append(curChar_);
             i_++;
         }
+        types_.add(0, id_.toString());
         return types_;
     }
 

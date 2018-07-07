@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
+import code.expressionlanguage.Initializer;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
@@ -17,6 +18,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
+import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.util.BadImplicitCast;
@@ -30,6 +32,7 @@ import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
@@ -763,7 +766,30 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         Classes classes_ = _conf.getClasses();
         String aliasClass_ = stds_.getAliasClass();
         String aliasForName_ = stds_.getAliasForName();
+        String aliasValueOf_ = stds_.getAliasEnumValueOf();
+        String aliasEnumsValues_ = stds_.getAliasGetEnumConstants();
+        String aliasDefaultInstance_ = stds_.getAliasDefaultInstance();
+        String aliasInit_ = stds_.getAliasInit();
         if (StringList.quickEq(aliasClass_, _classNameFound)) {
+            if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                if (!cl_.isEnum()) {
+                    Argument a_ = new Argument();
+                    return a_;
+                }
+                Argument clArg_ = _firstArgs.first();
+                String enumName_ = cl_.getName();
+                return getEnumValue(enumName_, clArg_, _conf);
+            }
+            if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                if (!cl_.isEnum()) {
+                    Argument a_ = new Argument();
+                    return a_;
+                }
+                String enumName_ = cl_.getName();
+                return getEnumValues(enumName_, _conf);
+            }
             if (StringList.quickEq(aliasForName_, _methodId.getName())) {
                 Argument clArg_ = _firstArgs.first();
                 if (clArg_.isNull()) {
@@ -792,6 +818,39 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 Argument a_ = new Argument();
                 a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
                 return a_;
+            }
+            if (StringList.quickEq(aliasDefaultInstance_, _methodId.getName())) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                String className_ = cl_.getName();
+                ContextEl cont_ = _conf.getContextEl();
+                String id_ = Templates.getIdFromAllTypes(className_);
+                GeneType type_ = cont_.getClassBody(id_);
+                if (type_.isAbstractType()) {
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    cont_.setException(new StdStruct(new CustomError(cont_.joinPages()),null_));
+                    return Argument.createVoid();
+                }
+                if (!Templates.correctClassPartsDynamic(className_, cont_, true)) {
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    cont_.setException(new StdStruct(new CustomError(cont_.joinPages()),null_));
+                    return Argument.createVoid();
+                }
+                if (InvokingOperation.hasToExit(_conf, className_)) {
+                    return Argument.createVoid();
+                }
+                Initializer in_ = cont_.getInit();
+                Struct struct_ = in_.processInit(cont_, NullStruct.NULL_VALUE, className_, EMPTY_STRING, 0);
+                Argument a_ = new Argument();
+                a_.setStruct(struct_);
+                return a_;
+            }
+            if (StringList.quickEq(aliasInit_, _methodId.getName())) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();
+                String clDyn_ = cl_.getName();
+                hasToExit(_conf, clDyn_);
+                return Argument.createVoid();
             }
         }
         String aliasField_ = stds_.getAliasField();
@@ -841,6 +900,119 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));
         return Argument.createVoid();
+    }
+
+    public static Struct getElement(Struct _struct, Object _index, ExecutableCode _conf) {
+        LgNames stds_ = _conf.getStandards();
+        String null_;
+        String badIndex_;
+        null_ = stds_.getAliasNullPe();
+        badIndex_ = stds_.getAliasBadIndex();
+        if (_struct.isNull()) {
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return NullStruct.NULL_VALUE;
+        }
+        Object array_ = _struct.getInstance();
+        int len_ = LgNames.getLength(array_);
+        int index_ = ((Number)_index).intValue();
+        if (index_ < 0 || index_ >= len_) {
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            return NullStruct.NULL_VALUE;
+        }
+        return LgNames.getElement(array_, index_, _conf.getContextEl());
+    }
+    public static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf) {
+        LgNames stds_ = _conf.getStandards();
+        String null_;
+        String badIndex_;
+        String store_;
+        null_ = stds_.getAliasNullPe();
+        badIndex_ = stds_.getAliasBadIndex();
+        store_ = stds_.getAliasStore();
+        if (_struct.isNull()) {
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
+        }
+        String strClass_ = stds_.getStructClassName(_struct, _conf.getContextEl());
+        String valClass_ = stds_.getStructClassName(_value, _conf.getContextEl());
+        Object instance_ = _struct.getInstance();
+        int len_ = LgNames.getLength(instance_);
+        int index_ = ((Number)_index).intValue();
+        if (index_ < 0 || index_ >= len_) {
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            return;
+        }
+        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+        if (!_value.isNull()) {
+            String elementType_ = valClass_;
+            Mapping mapping_ = new Mapping();
+            mapping_.setArg(elementType_);
+            mapping_.setParam(componentType_);
+            if (!Templates.isCorrect(mapping_, _conf)) {
+                _conf.setException(new StdStruct(new CustomError(StringList.concat(componentType_,elementType_,_conf.joinPages())),store_));
+                return;
+            }
+        } else if (PrimitiveTypeUtil.primitiveTypeNullObject(componentType_, _value, _conf)) {
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            return;
+        }
+        Struct value_;
+        if (_value instanceof NumberStruct || _value instanceof CharStruct) {
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
+            value_ = PrimitiveTypeUtil.convertObject(cl_, _value, _conf);
+        } else {
+            value_ = _value;
+        }
+        LgNames.setElement(instance_, index_, value_, _conf.getContextEl());
+    }
+    public static Argument getEnumValues(String _class, ExecutableCode _conf) {
+        if (InvokingOperation.hasToExit(_conf, _class)) {
+            return Argument.createVoid();
+        }
+        Classes classes_ = _conf.getClasses();
+        CustList<Struct> enums_ = new CustList<Struct>();
+        for (Block b: Classes.getDirectChildren(classes_.getClassBody(_class))) {
+            if (!(b instanceof ElementBlock)) {
+                continue;
+            }
+            ElementBlock b_ = (ElementBlock)b;
+            String fieldName_ = b_.getFieldName();
+            enums_.add(classes_.getStaticField(new ClassField(_class, fieldName_)));
+        }
+        Struct[] o_ = new Struct[enums_.size()];
+        int i_ = CustList.FIRST_INDEX;
+        for (Struct o: enums_) {
+            o_[i_] = o;
+            i_++;
+        }
+        String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(_class);
+        Argument argres_ = new Argument();
+        argres_.setStruct(new ArrayStruct(o_,clArr_));
+        return argres_;
+    }
+    public static Argument getEnumValue(String _class, Argument _name, ExecutableCode _conf) {
+        if (InvokingOperation.hasToExit(_conf, _class)) {
+            return Argument.createVoid();
+        }
+        if (_name.isNull()) {
+            Argument argres_ = new Argument();
+            return argres_;
+        }
+        Classes classes_ = _conf.getClasses();
+        for (Block b: Classes.getDirectChildren(classes_.getClassBody(_class))) {
+            if (!(b instanceof ElementBlock)) {
+                continue;
+            }
+            ElementBlock b_ = (ElementBlock)b;
+            String fieldName_ = b_.getFieldName();
+            if (StringList.quickEq(fieldName_, (String) _name.getObject())) {
+                Argument argres_ = new Argument();
+                argres_.setStruct(classes_.getStaticField(new ClassField(_class, fieldName_)));
+                return argres_;
+            }
+        }
+        Argument argres_ = new Argument();
+        return argres_;
     }
     public static Argument getField(FieldMetaInfo _meta, Argument _previous, ExecutableCode _conf) {
         String baseClass_ = _meta.getDeclaringClass();

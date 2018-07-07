@@ -9,14 +9,12 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
-import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -24,7 +22,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -150,29 +147,7 @@ public final class ValuesOperation extends LeafOperation {
         return arg_;
     }
     Argument getCommonArgument(ExecutableCode _conf) {
-        if (InvokingOperation.hasToExit(_conf, className)) {
-            return Argument.createVoid();
-        }
-        Classes classes_ = _conf.getClasses();
-        CustList<Struct> enums_ = new CustList<Struct>();
-        for (Block b: Classes.getDirectChildren(classes_.getClassBody(className))) {
-            if (!(b instanceof ElementBlock)) {
-                continue;
-            }
-            ElementBlock b_ = (ElementBlock)b;
-            String fieldName_ = b_.getFieldName();
-            enums_.add(classes_.getStaticField(new ClassField(className, fieldName_)));
-        }
-        Struct[] o_ = new Struct[enums_.size()];
-        int i_ = CustList.FIRST_INDEX;
-        for (Struct o: enums_) {
-            o_[i_] = o;
-            i_++;
-        }
-        String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(className);
-        Argument argres_ = new Argument();
-        argres_.setStruct(new ArrayStruct(o_,clArr_));
-        return argres_;
+        return InvokingOperation.getEnumValues(className, _conf);
     }
     @Override
     public final boolean isCalculated(IdMap<OperationNode, ArgumentsPair> _nodes) {

@@ -212,8 +212,6 @@ public abstract class LgNames {
     private String aliasSimpleIteratorType;
     private String aliasSimpleIterableType;
     private String aliasErrorInitClass;
-    private String aliasInvokeTarget;
-    private String aliasClassNotFoundError;
 
     private String selectedBoolean = "$sb";
 
@@ -301,18 +299,6 @@ public abstract class LgNames {
         stdcl_ = new StandardClass(aliasErrorInitClass, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
         std_ = stdcl_;
         standards.put(aliasErrorInitClass, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasInvokeTarget, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasInvokeTarget, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasClassNotFoundError, fields_, constructors_, methods_, aliasError, MethodModifier.NORMAL);
-        std_ = stdcl_;
-        standards.put(aliasClassNotFoundError, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
@@ -4493,20 +4479,35 @@ public abstract class LgNames {
         aliasErrorInitClass = _aliasErrorInitClass;
     }
     public String getAliasInvokeTarget() {
-        return aliasInvokeTarget;
+        return reflect.getAliasInvokeTarget();
     }
     public void setAliasInvokeTarget(String _aliasInvokeTarget) {
-        aliasInvokeTarget = _aliasInvokeTarget;
+        reflect.setAliasInvokeTarget(_aliasInvokeTarget);
     }
     public AliasReflection getReflect() {
         return reflect;
     }
     public String getAliasClassNotFoundError() {
-        return aliasClassNotFoundError;
+        return reflect.getAliasClassNotFoundError();
     }
     public void setAliasClassNotFoundError(String _aliasClassNotFoundError) {
-        aliasClassNotFoundError = _aliasClassNotFoundError;
+        reflect.setAliasClassNotFoundError(_aliasClassNotFoundError);
     }
+    
+    public String getAliasGetVariableOwner() {
+        return reflect.getAliasGetVariableOwner();
+    }
+    public void setAliasGetVariableOwner(String _aliasTypeVariable) {
+        reflect.setAliasGetVariableOwner(_aliasTypeVariable);
+    }
+    
+    public String getAliasGetGenericVariableOwner() {
+        return reflect.getAliasGetGenericVariableOwner();
+    }
+    public void setAliasGetGenericVariableOwner(String _aliasTypeVariable) {
+        reflect.setAliasGetGenericVariableOwner(_aliasTypeVariable);
+    }
+   
     public String getAliasClass() {
         return reflect.getAliasClass();
     }
@@ -4641,6 +4642,230 @@ public abstract class LgNames {
     }
     public void setSelectedBoolean(String _selectedBoolean) {
         selectedBoolean = _selectedBoolean;
+    }
+
+    public String getAliasGetSuperClass() {
+        return reflect.getAliasGetSuperClass();
+    }
+    public void setAliasGetSuperClass(String _aliasGetSuperClass) {
+        reflect.setAliasGetSuperClass(_aliasGetSuperClass);
+    }
+    public String getAliasGetGenericSuperClass() {
+        return reflect.getAliasGetGenericSuperClass();
+    }
+    public void setAliasGetGenericSuperClass(String _aliasGetGenericSuperClass) {
+        reflect.setAliasGetGenericSuperClass(_aliasGetGenericSuperClass);
+    }
+    public String getAliasGetInterfaces() {
+        return reflect.getAliasGetInterfaces();
+    }
+    public void setAliasGetInterfaces(String _aliasGetInterfaces) {
+        reflect.setAliasGetInterfaces(_aliasGetInterfaces);
+    }
+    public String getAliasGetGenericInterfaces() {
+        return reflect.getAliasGetGenericInterfaces();
+    }
+    public void setAliasGetGenericInterfaces(String _aliasGetGenericInterfaces) {
+        reflect.setAliasGetGenericInterfaces(_aliasGetGenericInterfaces);
+    }
+    public String getAliasGetComponentType() {
+        return reflect.getAliasGetComponentType();
+    }
+    public void setAliasGetComponentType(String _aliasGetComponentType) {
+        reflect.setAliasGetComponentType(_aliasGetComponentType);
+    }
+    
+    public String getAliasMakeArray() {
+        return reflect.getAliasMakeArray();
+    }
+    public void setAliasMakeArray(String _aliasMakeArray) {
+        reflect.setAliasMakeArray(_aliasMakeArray);
+    }
+    public String getAliasGetParameterTypes() {
+        return reflect.getAliasGetParameterTypes();
+    }
+    public void setAliasGetParameterTypes(String _aliasGetParameterTypes) {
+        reflect.setAliasGetParameterTypes(_aliasGetParameterTypes);
+    }
+    public String getAliasGetTypeParameters() {
+        return reflect.getAliasGetTypeParameters();
+    }
+    public void setAliasGetTypeParameters(String _aliasGetTypeParameters) {
+        reflect.setAliasGetTypeParameters(_aliasGetTypeParameters);
+    }
+    public String getAliasGetParameterNames() {
+        return reflect.getAliasGetParameterNames();
+    }
+    public void setAliasGetParameterNames(String _aliasGetNameParameters) {
+        reflect.setAliasGetParameterNames(_aliasGetNameParameters);
+    }
+    public String getAliasGetGenericReturnType() {
+        return reflect.getAliasGetGenericReturnType();
+    }
+    public void setAliasGetGenericReturnType(String _aliasGetGenericReturnType) {
+        reflect.setAliasGetGenericReturnType(_aliasGetGenericReturnType);
+    }
+    public String getAliasGetReturnType() {
+        return reflect.getAliasGetReturnType();
+    }
+    public void setAliasGetReturnType(String _aliasGetReturnType) {
+        reflect.setAliasGetReturnType(_aliasGetReturnType);
+    }
+    public String getAliasIsFinal() {
+        return reflect.getAliasIsFinal();
+    }
+    public void setAliasIsFinal(String _aliasIsFinal) {
+        reflect.setAliasIsFinal(_aliasIsFinal);
+    }
+    public String getAliasIsStatic() {
+        return reflect.getAliasIsStatic();
+    }
+    public void setAliasIsStatic(String _aliasIsStatic) {
+        reflect.setAliasIsStatic(_aliasIsStatic);
+    }
+    public String getAliasIsVarargs() {
+        return reflect.getAliasIsVarargs();
+    }
+    public void setAliasIsVarargs(String _aliasIsVarargs) {
+        reflect.setAliasIsVarargs(_aliasIsVarargs);
+    }
+    public String getAliasIsNormal() {
+        return reflect.getAliasIsNormal();
+    }
+    public void setAliasIsNormal(String _aliasIsNormal) {
+        reflect.setAliasIsNormal(_aliasIsNormal);
+    }
+    public String getAliasIsPublic() {
+        return reflect.getAliasIsPublic();
+    }
+    public void setAliasIsPublic(String _aliasIsPublic) {
+        reflect.setAliasIsPublic(_aliasIsPublic);
+    }
+    public String getAliasIsProtected() {
+        return reflect.getAliasIsProtected();
+    }
+    public void setAliasIsProtected(String _aliasIsProtected) {
+        reflect.setAliasIsProtected(_aliasIsProtected);
+    }
+    public String getAliasIsPackage() {
+        return reflect.getAliasIsPackage();
+    }
+    public void setAliasIsPackage(String _aliasIsPackage) {
+        reflect.setAliasIsPackage(_aliasIsPackage);
+    }
+    public String getAliasIsPrivate() {
+        return reflect.getAliasIsPrivate();
+    }
+    public void setAliasIsPrivate(String _aliasIsPrivate) {
+        reflect.setAliasIsPrivate(_aliasIsPrivate);
+    }
+    public String getAliasIsClass() {
+        return reflect.getAliasIsClass();
+    }
+    public void setAliasIsClass(String _aliasIsClass) {
+        reflect.setAliasIsClass(_aliasIsClass);
+    }
+    public String getAliasIsInterface() {
+        return reflect.getAliasIsInterface();
+    }
+    public void setAliasIsInterface(String _aliasIsInterface) {
+        reflect.setAliasIsInterface(_aliasIsInterface);
+    }
+    public String getAliasIsEnum() {
+        return reflect.getAliasIsEnum();
+    }
+    public void setAliasIsEnum(String _aliasIsEnum) {
+        reflect.setAliasIsEnum(_aliasIsEnum);
+    }
+    public String getAliasIsPrimitive() {
+        return reflect.getAliasIsPrimitive();
+    }
+    public void setAliasIsPrimitive(String _aliasIsPrimitive) {
+        reflect.setAliasIsPrimitive(_aliasIsPrimitive);
+    }
+    public String getAliasIsArray() {
+        return reflect.getAliasIsArray();
+    }
+    public void setAliasIsArray(String _aliasIsArray) {
+        reflect.setAliasIsArray(_aliasIsArray);
+    }
+    public String getAliasIsInstance() {
+        return reflect.getAliasIsInstance();
+    }
+    public void setAliasIsInstance(String _aliasIsInstance) {
+        reflect.setAliasIsInstance(_aliasIsInstance);
+    }
+    public String getAliasIsAssignableFrom() {
+        return reflect.getAliasIsAssignableFrom();
+    }
+    public void setAliasIsAssignableFrom(String _aliasIsAssignableFrom) {
+        reflect.setAliasIsAssignableFrom(_aliasIsAssignableFrom);
+    }
+    public String getAliasInit() {
+        return reflect.getAliasInit();
+    }
+    public void setAliasInit(String _aliasInit) {
+        reflect.setAliasInit(_aliasInit);
+    }
+    public String getAliasDefaultInstance() {
+        return reflect.getAliasDefaultInstance();
+    }
+    public void setAliasDefaultInstance(String _aliasDefaultInstance) {
+        reflect.setAliasDefaultInstance(_aliasDefaultInstance);
+    }
+    public String getAliasEnumValueOf() {
+        return reflect.getAliasEnumValueOf();
+    }
+    public void setAliasEnumValueOf(String _aliasEnumValueOf) {
+        reflect.setAliasEnumValueOf(_aliasEnumValueOf);
+    }
+    public String getAliasGetEnumConstants() {
+        return reflect.getAliasGetEnumConstants();
+    }
+    public void setAliasGetEnumConstants(String _aliasGetEnumConstants) {
+        reflect.setAliasGetEnumConstants(_aliasGetEnumConstants);
+    }
+    public String getAliasGetGenericBounds() {
+        return reflect.getAliasGetGenericBounds();
+    }
+    public void setAliasGetGenericBounds(String _aliasGetGenericBounds) {
+        reflect.setAliasGetGenericBounds(_aliasGetGenericBounds);
+    }
+    public String getAliasGetBounds() {
+        return reflect.getAliasGetBounds();
+    }
+    public void setAliasGetBounds(String _aliasGetBounds) {
+        reflect.setAliasGetBounds(_aliasGetBounds);
+    }
+    public String getAliasArrayNewInstance() {
+        return reflect.getAliasArrayNewInstance();
+    }
+    public void setAliasArrayNewInstance(String _aliasArrayNewInstance) {
+        reflect.setAliasArrayNewInstance(_aliasArrayNewInstance);
+    }
+    public String getAliasArrayGet() {
+        return reflect.getAliasArrayGet();
+    }
+    public void setAliasArrayGet(String _aliasArrayGet) {
+        reflect.setAliasArrayGet(_aliasArrayGet);
+    }
+    public String getAliasArraySet() {
+        return reflect.getAliasArraySet();
+    }
+    public void setAliasArraySet(String _aliasArraySet) {
+        reflect.setAliasArraySet(_aliasArraySet);
+    }
+    public String getAliasArrayGetLength() {
+        return reflect.getAliasArrayGetLength();
+    }
+    public void setAliasArrayGetLength(String _aliasArrayGetLength) {
+        reflect.setAliasArrayGetLength(_aliasArrayGetLength);
+    }
+    public String getAliasGetDeclaringClass() {
+        return reflect.getAliasGetDeclaringClass();
+    }
+    public void setAliasGetDeclaringClass(String _aliasGetDeclaringClass) {
+        reflect.setAliasGetDeclaringClass(_aliasGetDeclaringClass);
     }
     public StringList getPredefinedClasses() {
         return predefinedClasses;

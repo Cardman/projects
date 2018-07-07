@@ -76,21 +76,93 @@ public class TemplatesTest {
     }
     @Test
     public void getAllTypes6Test(){
-        assertNull(Templates.getAllTypes("Map<String,Rate>>"));
+        assertEq(new StringList("Outer..Map"), Templates.getAllTypes("Outer..Map"));
     }
     @Test
     public void getAllTypes7Test(){
-        assertNull(Templates.getAllTypes("String,Rate"));
+        assertEq(new StringList("..Map"), Templates.getAllTypes("..Map"));
     }
     @Test
     public void getAllTypes8Test(){
-        assertNull(Templates.getAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
+        assertEq(new StringList("Map..Inner","String","Rate"), Templates.getAllTypes("Map<String,Rate>..Inner"));
     }
     @Test
     public void getAllTypes9Test(){
-        assertNull(Templates.getAllTypes("Map<String,Rate"));
+        assertEq(new StringList("Map..Inner","String","Rate","Boolean","Number"), Templates.getAllTypes("Map<String,Rate>..Inner<Boolean,Number>"));
     }
-
+    @Test
+    public void getAllTypes10Test(){
+        assertEq(new StringList("Map..Inner","String","Rate..Denominator","Boolean","Number"), Templates.getAllTypes("Map<String,Rate..Denominator>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllTypes11Test(){
+        assertEq(new StringList("Map..Inner","String..Character","Rate","Boolean","Number"), Templates.getAllTypes("Map<String..Character,Rate>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllTypes12Test(){
+        assertEq(new StringList("Map..Inner","String"), Templates.getAllTypes("Map<String>..Inner"));
+    }
+    @Test
+    public void getAllTypes13Test(){
+        assertEq(new StringList("[String"), Templates.getAllTypes("[String"));
+    }
+    @Test
+    public void getAllTypes14Test(){
+        assertEq(new StringList("Map","[String","Rate"), Templates.getAllTypes("Map<[String,Rate>"));
+    }
+    @Test
+    public void getAllTypes15Test(){
+        assertEq(new StringList("[Map","String","Rate"), Templates.getAllTypes("[Map<String,Rate>"));
+    }
+    @Test
+    public void getAllTypes16Test(){
+        assertEq(new StringList("[Map..Inner","String"), Templates.getAllTypes("[Map<String>..Inner"));
+    }
+    @Test
+    public void getAllTypes17Test(){
+        assertEq(new StringList("Map..Inner","String","[Rate..Denominator","Boolean","Number"), Templates.getAllTypes("Map<String,[Rate..Denominator>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllTypes18Test(){
+        assertEq(new StringList("Map..Inner","[String..Character","Rate","Boolean","Number"), Templates.getAllTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
+    }
+//    @Test
+//    public void getAllTypes1Test(){
+//        assertEq(new StringList("String"), Templates.getAllTypes("String"));
+//    }
+//    @Test
+//    public void getAllTypes2Test(){
+//        assertEq(new StringList("Map","String","Rate"), Templates.getAllTypes("Map<String,Rate>"));
+//    }
+//    @Test
+//    public void getAllTypes3Test(){
+//        assertEq(new StringList("Map","String","Map<String,Rate>"), Templates.getAllTypes("Map<String,Map<String,Rate>>"));
+//    }
+//    @Test
+//    public void getAllTypes4Test(){
+//        assertEq(new StringList("List","Boolean"), Templates.getAllTypes("List<Boolean>"));
+//    }
+//    @Test
+//    public void getAllTypes5Test(){
+//        assertEq(new StringList("CustList","BooleanList"), Templates.getAllTypes("CustList<BooleanList>"));
+//    }
+//    @Test
+//    public void getAllTypes6Test(){
+//        assertNull(Templates.getAllTypes("Map<String,Rate>>"));
+//    }
+//    @Test
+//    public void getAllTypes7Test(){
+//        assertNull(Templates.getAllTypes("String,Rate"));
+//    }
+//    @Test
+//    public void getAllTypes8Test(){
+//        assertNull(Templates.getAllTypes("Map<String,Rate>>,StrMap<String,Rate>>"));
+//    }
+//    @Test
+//    public void getAllTypes9Test(){
+//        assertNull(Templates.getAllTypes("Map<String,Rate"));
+//    }
+//
 
 
     @Test
@@ -668,12 +740,6 @@ public class TemplatesTest {
     public void isCorrectWrite13Test() {
         ContextEl context_ = simpleContextEl();
         assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite14Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>", context_));
     }
 
     @Test

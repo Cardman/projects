@@ -8,7 +8,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -25,7 +24,6 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class EnumValueOfOperation extends MethodOperation {
@@ -165,28 +163,7 @@ public final class EnumValueOfOperation extends MethodOperation {
         return arg_;
     }
     Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
-        if (InvokingOperation.hasToExit(_conf, className)) {
-            return Argument.createVoid();
-        }
-        if (_argument.isNull()) {
-            Argument argres_ = new Argument();
-            return argres_;
-        }
-        Classes classes_ = _conf.getClasses();
-        for (Block b: Classes.getDirectChildren(classes_.getClassBody(className))) {
-            if (!(b instanceof ElementBlock)) {
-                continue;
-            }
-            ElementBlock b_ = (ElementBlock)b;
-            String fieldName_ = b_.getFieldName();
-            if (StringList.quickEq(fieldName_, (String) _argument.getObject())) {
-                Argument argres_ = new Argument();
-                argres_.setStruct(classes_.getStaticField(new ClassField(className, fieldName_)));
-                return argres_;
-            }
-        }
-        Argument argres_ = new Argument();
-        return argres_;
+        return InvokingOperation.getEnumValue(className, _argument, _conf);
     }
 
     @Override

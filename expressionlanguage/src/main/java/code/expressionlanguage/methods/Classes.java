@@ -2492,7 +2492,8 @@ public final class Classes {
                     boolean enumElement_ = b instanceof ElementBlock;
                     boolean staticElement_ = method_.isStaticField();
                     boolean finalElement_ = method_.isFinalField();
-                    FieldMetaInfo met_ = new FieldMetaInfo(_name, m_, ret_, staticElement_, finalElement_, enumElement_);
+                    AccessEnum acc_ = method_.getAccess();
+                    FieldMetaInfo met_ = new FieldMetaInfo(_name, m_, ret_, staticElement_, finalElement_, enumElement_, acc_);
                     infosFields_.put(m_, met_);
                 }
                 if (b instanceof MethodBlock) {
@@ -2502,25 +2503,41 @@ public final class Classes {
                     AccessEnum acc_ = method_.getAccess();
                     String formatRet_;
                     MethodId fid_;
+                    String formCl_ = method_.getDeclaringType();
                     if (Templates.correctNbParameters(_name, _context)) {
                         formatRet_ = Templates.format(_name, ret_, _context);
                         fid_ = id_.format(_name, _context);
+                        formCl_ = Templates.format(_name,formCl_,_context);
                     } else {
                         formatRet_ = ret_;
                         fid_ = id_;
                     }
-                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_);
+                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
                     infos_.put(id_, met_);
                 }
                 if (b instanceof ConstructorBlock) {
                     ConstructorBlock method_ = (ConstructorBlock) b;
                     ConstructorId id_ = method_.getGenericId();
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, id_);
+                    AccessEnum acc_ = method_.getAccess();
+                    String formatRet_;
+                    ConstructorId fid_;
+                    String ret_ = method_.getImportedReturnType();
+                    String formCl_ = method_.getDeclaringType();
+                    if (Templates.correctNbParameters(_name, _context)) {
+                        formatRet_ = Templates.format(_name, ret_, _context);
+                        fid_ = id_.format(_name, _context);
+                        formCl_ = Templates.format(_name,formCl_,_context);
+                    } else {
+                        formatRet_ = ret_;
+                        fid_ = id_;
+                    }
+                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
                     infosConst_.put(id_, met_);
                 }
             }
+            AccessEnum acc_ = clblock_.getAccess();
             if (clblock_ instanceof InterfaceBlock) {
-                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,acc_);
             }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {
@@ -2530,7 +2547,9 @@ public final class Classes {
             }
             boolean abs_ = clblock_.isAbstractType();
             boolean final_ = clblock_.isFinalType();
-            return new ClassMetaInfo(_name, ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass(), infosFields_,infos_, infosConst_, cat_, abs_, final_);
+            String superClass_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass();
+            StringList superInterfaces_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperInterfaces();
+            return new ClassMetaInfo(_name, superClass_, superInterfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_);
         }
         return null;
     }

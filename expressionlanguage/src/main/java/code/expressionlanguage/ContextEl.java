@@ -512,23 +512,29 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     String ret_ = f.getClassName();
                     boolean staticElement_ = f.isStaticField();
                     boolean finalElement_ = f.isFinalField();
-                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, false);
+                    AccessEnum acc_ = f.getAccess();
+                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, false, acc_);
                     infosFields_.put(m_, met_);
                 }
                 for (StandardMethod m: clblock_.getMethods().values()) {
                     MethodId id_ = m.getId();
                     String ret_ = m.getImportedReturnType();
                     AccessEnum acc_ = m.getAccess();
-                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,m.getDeclaringType(), id_, m.getModifier(), ret_);
+                    String decl_ = m.getDeclaringType();
+                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, m.getModifier(), ret_, id_, ret_, decl_);
                     infos_.put(id_, met_);
                 }
                 for (StandardConstructor d: clblock_.getConstructors()) {
                     ConstructorId id_ = d.getGenericId();
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, id_);
+                    AccessEnum acc_ = d.getAccess();
+                    String decl_ = d.getDeclaringType();
+                    String ret_ = d.getImportedReturnType();
+                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, ret_, decl_);
                     infosConst_.put(id_, met_);
                 }
+                AccessEnum acc_ = clblock_.getAccess();
                 if (clblock_ instanceof StandardInterface) {
-                    return new ClassMetaInfo(_name, ((StandardInterface)clblock_).getDirectInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE);
+                    return new ClassMetaInfo(_name, ((StandardInterface)clblock_).getDirectInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,acc_);
                 }
                 ClassCategory cat_ = ClassCategory.CLASS;
                 if (clblock_ instanceof StandardInterface) {
@@ -536,7 +542,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
                 boolean abs_ = clblock_.isAbstractType();
                 boolean final_ = clblock_.isFinalType();
-                return new ClassMetaInfo(_name, ((StandardClass) clblock_).getSuperClass(this), infosFields_,infos_, infosConst_, cat_, abs_, final_);
+                String superClass_ = ((StandardClass) clblock_).getSuperClass(this);
+                StringList superInterfaces_ = ((StandardClass) clblock_).getDirectInterfaces();
+                return new ClassMetaInfo(_name, superClass_, superInterfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_);
             }
             return null;
         }
@@ -1422,12 +1430,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return EMPTY_TYPE;
     }
     @Override
-    public CustList<ClassMethodId> lookupSingleImportStaticMethods(String _method, Block _rooted) {
-        CustList<ClassMethodId> methods_ = new CustList<ClassMethodId>();
+    public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted) {
+        ObjectMap<ClassMethodId,Integer> methods_ = new ObjectMap<ClassMethodId,Integer>();
         if (!StringList.isWord(_method.trim())) {
             return methods_;
         }
         RootBlock type_ = _rooted.getRooted();
+        int import_ = 1;
         for (String i: type_.getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1461,10 +1470,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassMethodId(s, e.getId()));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    methods_.put(new ClassMethodId(s, e.getId()),import_);
                 }
             }
         }
+        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1498,19 +1511,18 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassMethodId(s, e.getId()));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
+                    if (methods_.contains(clMet_)) {
+                        continue;
+                    }
+                    methods_.put(clMet_, import_);
                 }
             }
         }
-        return methods_;
-    }
-    @Override
-    public CustList<ClassMethodId> lookupImportsOnDemandStaticMethods(String _method, Block _rooted) {
-        CustList<ClassMethodId> methods_ = new CustList<ClassMethodId>();
-        if (!StringList.isWord(_method.trim())) {
-            return methods_;
-        }
-        RootBlock type_ = _rooted.getRooted();
+        import_++;
         for (String i: type_.getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1544,10 +1556,18 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassMethodId(s, e.getId()));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
+                    if (methods_.contains(clMet_)) {
+                        continue;
+                    }
+                    methods_.put(clMet_, import_);
                 }
             }
         }
+        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1581,18 +1601,27 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassMethodId(s, e.getId()));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
+                    if (methods_.contains(clMet_)) {
+                        continue;
+                    }
+                    methods_.put(clMet_, import_);
                 }
             }
         }
         return methods_;
     }
+
     @Override
-    public CustList<ClassField> lookupSingleImportStaticFields(String _method, Block _rooted) {
-        CustList<ClassField> methods_ = new CustList<ClassField>();
+    public ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _method, Block _rooted) {
+        ObjectMap<ClassField,Integer> methods_ = new ObjectMap<ClassField,Integer>();
         if (!StringList.isWord(_method.trim())) {
             return methods_;
         }
+        int import_ = 1;
         RootBlock type_ = _rooted.getRooted();
         for (String i: type_.getImports()) {
             if (!i.contains(".")) {
@@ -1627,10 +1656,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassField(s, _method));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    methods_.put(new ClassField(s, _method),import_);
                 }
             }
         }
+        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1664,19 +1697,18 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassField(s, _method));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    ClassField field_ = new ClassField(s, _method);
+                    if (methods_.contains(field_)) {
+                        continue;
+                    }
+                    methods_.put(field_, import_);
                 }
             }
         }
-        return methods_;
-    }
-    @Override
-    public CustList<ClassField> lookupImportsOnDemandStaticFields(String _method, Block _rooted) {
-        CustList<ClassField> methods_ = new CustList<ClassField>();
-        if (!StringList.isWord(_method.trim())) {
-            return methods_;
-        }
-        RootBlock type_ = _rooted.getRooted();
+        import_++;
         for (String i: type_.getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1710,10 +1742,18 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassField(s, _method));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    ClassField field_ = new ClassField(s, _method);
+                    if (methods_.contains(field_)) {
+                        continue;
+                    }
+                    methods_.put(field_, import_);
                 }
             }
         }
+        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1747,12 +1787,20 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(typeLoc_, e, this)) {
                         continue;
                     }
-                    methods_.add(new ClassField(s, _method));
+                    if (!Classes.canAccess(_glClass, e, this)) {
+                        continue;
+                    }
+                    ClassField field_ = new ClassField(s, _method);
+                    if (methods_.contains(field_)) {
+                        continue;
+                    }
+                    methods_.put(field_, import_);
                 }
             }
         }
         return methods_;
     }
+
     public static String removeDottedSpaces(String _type) {
         StringBuilder b_ = new StringBuilder();
         for (String q: StringList.splitCharsSep(_type, Templates.SEP_CLASS_CHAR)) {
@@ -1776,6 +1824,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         if (new ClassArgumentMatching(_name).isArray()) {
             return new ClassMetaInfo(_name, this, ClassCategory.ARRAY);
+        }
+        if (_name.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            return new ClassMetaInfo(_name, this, ClassCategory.VARIABLE,"", new StringList(), AccessEnum.PUBLIC);
         }
         return getClassMetaInfo(_name);
     }

@@ -471,29 +471,18 @@ public abstract class OperationNode {
             }
             imports_.put(candidate_, 0);
         }
+        int max_ = 0;
         if (_import) {
-            for (ClassField e: _cont.lookupSingleImportStaticFields(_name, _cont.getCurrentBlock())) {
-                String cl_ = e.getClassName();
-                if (!Classes.canAccessField(base_, cl_, _name, _cont)) {
+            for (EntryCust<ClassField, Integer> e: _cont.lookupImportStaticFields(curClassBase_, _name, _cont.getCurrentBlock()).entryList()) {
+                if (imports_.contains(e.getKey())) {
                     continue;
                 }
-                if (!Classes.canAccessField(curClassBase_, cl_, _name, _cont)) {
-                    continue;
-                }
-                imports_.put(e,1);
-            }
-            for (ClassField e: _cont.lookupImportsOnDemandStaticFields(_name, _cont.getCurrentBlock())) {
-                String cl_ = e.getClassName();
-                if (!Classes.canAccessField(base_, cl_, _name, _cont)) {
-                    continue;
-                }
-                if (!Classes.canAccessField(curClassBase_, cl_, _name, _cont)) {
-                    continue;
-                }
-                imports_.put(e,2);
+                max_ = Math.max(max_, e.getValue());
+                imports_.put(e.getKey(),e.getValue());
             }
         }
-        for (int i = 0; i < 3; i++) {
+        max_++;
+        for (int i = 0; i < max_; i++) {
             StringList subClasses_ = new StringList();
             for (EntryCust<ClassField,Integer> e: imports_.entryList()) {
                 if (e.getValue().intValue() != i) {
@@ -815,59 +804,28 @@ public abstract class OperationNode {
             }
         }
         if (_import) {
-            for (ClassMethodId m: _conf.lookupSingleImportStaticMethods(_name, _conf.getCurrentBlock())) {
+            for (EntryCust<ClassMethodId, Integer> e: _conf.lookupImportStaticMethods(glClass_, _name, _conf.getCurrentBlock()).entryList()) {
+                ClassMethodId m = e.getKey();
                 if (methods_.contains(m)) {
                     continue;
                 }
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();
                 GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
-                if (!Classes.canAccess(glClass_, method_, _conf)) {
-                    continue;
+                String returnType_ = method_.getImportedReturnType();
+                ParametersGroup p_ = new ParametersGroup();
+                MethodId realId_ = id_;
+                for (String c: realId_.getParametersTypes()) {
+                    p_.add(new ClassMatching(c));
                 }
-                if (method_.isStaticMethod()) {
-                    String returnType_ = method_.getImportedReturnType();
-                    ParametersGroup p_ = new ParametersGroup();
-                    MethodId realId_ = id_;
-                    for (String c: realId_.getParametersTypes()) {
-                        p_.add(new ClassMatching(c));
-                    }
-                    MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setImported(1);
-                    mloc_.setClassName(clName_);
-                    mloc_.setStatic(true);
-                    mloc_.setConstraints(realId_);
-                    mloc_.setParameters(p_);
-                    mloc_.setReturnType(returnType_);
-                    methods_.put(m, mloc_);
-                }
-            }
-            for (ClassMethodId m: _conf.lookupImportsOnDemandStaticMethods(_name, _conf.getCurrentBlock())) {
-                if (methods_.contains(m)) {
-                    continue;
-                }
-                String clName_ = m.getClassName();
-                MethodId id_ = m.getConstraints();
-                GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
-                if (!Classes.canAccess(glClass_, method_, _conf)) {
-                    continue;
-                }
-                if (method_.isStaticMethod()) {
-                    String returnType_ = method_.getImportedReturnType();
-                    ParametersGroup p_ = new ParametersGroup();
-                    MethodId realId_ = id_;
-                    for (String c: realId_.getParametersTypes()) {
-                        p_.add(new ClassMatching(c));
-                    }
-                    MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setImported(2);
-                    mloc_.setClassName(clName_);
-                    mloc_.setStatic(true);
-                    mloc_.setConstraints(realId_);
-                    mloc_.setParameters(p_);
-                    mloc_.setReturnType(returnType_);
-                    methods_.put(m, mloc_);
-                }
+                MethodInfo mloc_ = new MethodInfo();
+                mloc_.setImported(e.getValue());
+                mloc_.setClassName(clName_);
+                mloc_.setStatic(true);
+                mloc_.setConstraints(realId_);
+                mloc_.setParameters(p_);
+                mloc_.setReturnType(returnType_);
+                methods_.put(m, mloc_);
             }
         }
         return methods_;

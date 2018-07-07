@@ -1,11 +1,13 @@
 package code.expressionlanguage.opers.util;
 
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.AccessEnum;
 import code.util.ObjectMap;
 import code.util.StringList;
 
 
 public final class FieldMetaInfo implements Struct {
+    private final AccessEnum access;
     private final String declaringClass;
     private final String name;
 
@@ -20,15 +22,31 @@ public final class FieldMetaInfo implements Struct {
     public FieldMetaInfo(String _declaringClass,
             String _name,
             String _returnType, boolean _static,
-            boolean _finalField, boolean _enumElement) {
+            boolean _finalField, boolean _enumElement,
+            AccessEnum _access) {
         declaringClass = _declaringClass;
         name = _name;
         type = _returnType;
         staticField = _static;
         finalField = _finalField;
         enumElement = _enumElement;
+        access = _access;
+    }
+    public boolean isPublic() {
+        return access == AccessEnum.PUBLIC;
+    }
+    
+    public boolean isProtected() {
+        return access == AccessEnum.PROTECTED;
+    }
+    
+    public boolean isPackage() {
+        return access == AccessEnum.PACKAGE;
     }
 
+    public boolean isPrivate() {
+        return access == AccessEnum.PRIVATE;
+    }
     public String getDeclaringClass() {
         return declaringClass;
     }

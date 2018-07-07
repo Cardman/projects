@@ -38,6 +38,7 @@ import code.sml.Document;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.StringMapObject;
@@ -925,27 +926,15 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public CustList<ClassMethodId> lookupSingleImportStaticMethods(
-            String _method, Block _rooted) {
-        return new CustList<ClassMethodId>();
+    public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(
+            String _glClass, String _method, Block _rooted) {
+        return new ObjectMap<ClassMethodId,Integer>();
     }
 
     @Override
-    public CustList<ClassMethodId> lookupImportsOnDemandStaticMethods(
-            String _method, Block _rooted) {
-        return new CustList<ClassMethodId>();
-    }
-
-    @Override
-    public CustList<ClassField> lookupSingleImportStaticFields(String _field,
+    public ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field,
             Block _rooted) {
-        return new CustList<ClassField>();
-    }
-
-    @Override
-    public CustList<ClassField> lookupImportsOnDemandStaticFields(
-            String _field, Block _rooted) {
-        return new CustList<ClassField>();
+        return new ObjectMap<ClassField,Integer>();
     }
 
     @Override
