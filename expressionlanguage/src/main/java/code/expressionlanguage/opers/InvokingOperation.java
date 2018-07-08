@@ -779,6 +779,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 Argument clArg_ = _firstArgs.first();
                 String enumName_ = cl_.getName();
+                enumName_ = Templates.getIdFromAllTypes(enumName_);
                 return getEnumValue(enumName_, clArg_, _conf);
             }
             if (StringList.quickEq(aliasEnumsValues_, _methodId.getName())) {
@@ -966,18 +967,19 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         LgNames.setElement(instance_, index_, value_, _conf.getContextEl());
     }
     public static Argument getEnumValues(String _class, ExecutableCode _conf) {
-        if (InvokingOperation.hasToExit(_conf, _class)) {
+        String id_ = Templates.getIdFromAllTypes(_class);
+        if (InvokingOperation.hasToExit(_conf, id_)) {
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
         CustList<Struct> enums_ = new CustList<Struct>();
-        for (Block b: Classes.getDirectChildren(classes_.getClassBody(_class))) {
+        for (Block b: Classes.getDirectChildren(classes_.getClassBody(id_))) {
             if (!(b instanceof ElementBlock)) {
                 continue;
             }
             ElementBlock b_ = (ElementBlock)b;
             String fieldName_ = b_.getFieldName();
-            enums_.add(classes_.getStaticField(new ClassField(_class, fieldName_)));
+            enums_.add(classes_.getStaticField(new ClassField(id_, fieldName_)));
         }
         Struct[] o_ = new Struct[enums_.size()];
         int i_ = CustList.FIRST_INDEX;
@@ -985,7 +987,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             o_[i_] = o;
             i_++;
         }
-        String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(_class);
+        String clArr_;
+        if (StringList.quickEq(id_, _class)) {
+            clArr_ = _class;
+        } else {
+            clArr_ = _conf.getStandards().getAliasEnum();
+        }
+        clArr_ = PrimitiveTypeUtil.getPrettyArrayType(clArr_);
         Argument argres_ = new Argument();
         argres_.setStruct(new ArrayStruct(o_,clArr_));
         return argres_;

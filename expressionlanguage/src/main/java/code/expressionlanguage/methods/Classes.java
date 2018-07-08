@@ -53,6 +53,7 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.types.ParserType;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Document;
@@ -338,10 +339,10 @@ public final class Classes {
             }
         }
         String fullDef_ = cl_.getFullDefinition();
-        StringList params_ = Templates.getAllTypes(fullDef_);
         StringList varTypes_ = new StringList();
         String objectClassName_ = _context.getStandards().getAliasObject();
-        if (params_ != null) {
+        if (ParserType.getIndexes(fullDef_) != null) {
+            StringList params_ = Templates.getAllTypes(fullDef_);
             for (String p: params_.mid(CustList.SECOND_INDEX)) {
                 if (p.isEmpty()) {
                     BadClassName badCl_ = new BadClassName();
@@ -402,6 +403,23 @@ public final class Classes {
             badCl_.setFileName(cl_.getFile().getFileName());
             badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
             addError(badCl_);
+        }
+        if (cl_ instanceof EnumBlock) {
+            String base_ = cl_.getFullName();
+            StringBuilder generic_ = new StringBuilder(base_);
+            if (!cl_.getParamTypes().isEmpty()) {
+                StringList vars_ = new StringList();
+                for (TypeVar t:cl_.getParamTypes()) {
+                    vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+                }
+                generic_.append(Templates.TEMPLATE_BEGIN);
+                generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+                generic_.append(Templates.TEMPLATE_END);
+            }
+            String type_ = StringList.concat(_context.getStandards().getAliasEnumParam(),Templates.TEMPLATE_BEGIN,generic_,Templates.TEMPLATE_END);
+            cl_.getDirectSuperTypes().add(type_);
+            cl_.getExplicitDirectSuperTypes().put(-1, false);
+            cl_.getRowColDirectSuperTypes().put(-1, type_);
         }
         int indexSuperType_= -1;
         for (String s: cl_.getDirectGenericSuperTypesBuild(_context)) {

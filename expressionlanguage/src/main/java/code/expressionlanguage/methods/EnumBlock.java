@@ -51,10 +51,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
             String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
-        String type_ = StringList.concat(_importingPage.getStandards().getAliasEnumParam(),LT,getFullName(),GT);
-        getDirectSuperTypes().add(type_);
-        getExplicitDirectSuperTypes().put(-1, false);
-        getRowColDirectSuperTypes().put(-1, type_);
     }
 
     @Override

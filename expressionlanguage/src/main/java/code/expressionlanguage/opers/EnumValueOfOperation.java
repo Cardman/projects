@@ -96,8 +96,12 @@ public final class EnumValueOfOperation extends MethodOperation {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
-        className = clName_;
-        setResultClass(new ClassArgumentMatching(clName_));
+        if (classes_.getClassBody(clName_).getParamTypes().isEmpty()) {
+            className = clName_;
+        } else {
+            className = _conf.getStandards().getAliasEnum();
+        }
+        setResultClass(new ClassArgumentMatching(className));
     }
 
     @Override

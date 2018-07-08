@@ -33,6 +33,12 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     private final String value;
 
+    private final String tempClass;
+
+    private int tempClassOffset;
+
+    private String importedClassName;
+
     private CustList<OperationNode> opValue;
 
     private int fieldNameOffest;
@@ -44,15 +50,20 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         super(_el, _importingPage, _indexChild, _m);
         fieldName = _el.getAttribute(ATTRIBUTE_NAME);
         value = _el.getAttribute(ATTRIBUTE_VALUE);
+        tempClass = _el.getAttribute(ATTRIBUTE_NAME);
     }
 
     public ElementBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, OffsetStringInfo _fieldName, OffsetStringInfo _value, OffsetsBlock _offset) {
+            BracedBlock _m, OffsetStringInfo _fieldName,
+            OffsetStringInfo _type,
+            OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();
         value = _value.getInfo();
+        tempClass = _type.getInfo();
+        tempClassOffset = _type.getOffset();
     }
 
     @Override
@@ -64,6 +75,12 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         return valueOffest;
     }
 
+    public String getTempClass() {
+        return tempClass;
+    }
+    public int getTempClassOffset() {
+        return tempClassOffset;
+    }
     public ExpressionLanguage getValueEl() {
         return new ExpressionLanguage(opValue);
     }
@@ -99,6 +116,16 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         return value;
     }
 
+    @Override
+    public void buildImportedType(ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(tempClassOffset);
+        page_.setOffset(0);
+        page_.setCurrentBlock(this);
+        String className_ = getClassName();
+        className_ = StringList.concat(className_, tempClass);
+        importedClassName = _cont.resolveCorrectType(className_, true);
+    }
     @Override
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         Block prev_ = getPreviousSibling();
@@ -152,9 +179,8 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
         page_.setOffset(0);
-        String className_ = getClassName();
-        String fullInstance_ = StringList.concat(NEW,className_, PAR_LEFT, value, PAR_RIGHT);
-        page_.setTranslatedOffset(valueOffest - fieldNameOffest - 1 - NEW.length() - className_.length());
+        String fullInstance_ = StringList.concat(NEW,importedClassName, PAR_LEFT, value, PAR_RIGHT);
+        page_.setTranslatedOffset(valueOffest - fieldNameOffest - 1 - NEW.length() - importedClassName.length());
         int index_ = 0;
         Block n_ = getPreviousSibling();
         while (n_ != null) {
@@ -196,8 +222,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             String name_ = getFieldName();
             Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
-            String className_ = getClassName();
-            Argument arg_ = el_.calculateMember(_cont, valueOffest - fieldNameOffest - 1 - NEW.length() - className_.length());
+            Argument arg_ = el_.calculateMember(_cont, valueOffest - fieldNameOffest - 1 - NEW.length() - importedClassName.length());
             if (_cont.callsOrException()) {
                 return;
             }
@@ -224,7 +249,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     @Override
     public String getImportedClassName() {
-        return getClassName();
+        return importedClassName;
     }
 
     @Override

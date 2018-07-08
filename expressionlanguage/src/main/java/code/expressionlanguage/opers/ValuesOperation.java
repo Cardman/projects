@@ -76,8 +76,12 @@ public final class ValuesOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
-        className = clName_;
-        String ret_ = PrimitiveTypeUtil.getPrettyArrayType(clName_);
+        if (classes_.getClassBody(clName_).getParamTypes().isEmpty()) {
+            className = clName_;
+        } else {
+            className = _conf.getStandards().getAliasEnum();
+        }
+        String ret_ = PrimitiveTypeUtil.getPrettyArrayType(className);
         setResultClass(new ClassArgumentMatching(ret_));
     }
 

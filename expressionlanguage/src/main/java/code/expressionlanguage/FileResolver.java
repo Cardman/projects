@@ -833,43 +833,44 @@ public final class FileResolver {
                     instructionLocation_ += StringList.getFirstPrintableCharIndex(found_);
                 }
                 int index_ = indexes_.last();
-                boolean enum_ = false;
-                if (found_.indexOf(BEGIN_CALLING) >= 0) {
-                    String part_ = trimmedInstruction_;
-                    part_ = part_.substring(0, part_.indexOf(BEGIN_CALLING));
-                    if (StringList.isWord(part_)) {
-                        enum_ = true;
-                    }
-                } else {
-                    String part_ = trimmedInstruction_;
-                    if (StringList.isWord(part_)) {
-                        enum_ = true;
-                    }
-                }
                 Block br_ = null;
-                if (enableByEndLine_ && enum_) {
-                    String fieldName_;
-                    int fieldOffest_ = instructionLocation_;
-                    int expressionOffest_ = -1;
-                    String expression_ = EMPTY_STRING;
-                    int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
-                    if (indexBeginCalling_ >= 0) {
-                        fieldName_ = found_.substring(0, indexBeginCalling_);
-                        expression_ = found_.substring(indexBeginCalling_ + 1, found_.lastIndexOf(END_CALLING));
-                        expressionOffest_ = instructionRealLocation_ + indexBeginCalling_ + 1;
-                        if (!expression_.isEmpty()) {
-                            expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
+                if (currentParent_ instanceof EnumBlock && enableByEndLine_) {
+                    if (!trimmedInstruction_.isEmpty()) {
+                        String fieldName_;
+                        int fieldOffest_ = instructionLocation_;
+                        int expressionOffest_ = -1;
+                        String expression_ = EMPTY_STRING;
+                        int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
+                        if (indexBeginCalling_ >= 0) {
+                            fieldName_ = found_.substring(0, indexBeginCalling_);
+                            expression_ = found_.substring(indexBeginCalling_ + 1, found_.lastIndexOf(END_CALLING));
+                            expressionOffest_ = instructionRealLocation_ + indexBeginCalling_ + 1;
+                            if (!expression_.isEmpty()) {
+                                expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
+                            }
+                        } else {
+                            fieldName_ = found_;
+                            expressionOffest_ = fieldOffest_;
+                            expressionOffest_ += fieldName_.trim().length();
+                            expressionOffest_ += fieldName_.length() - StringList.getLastPrintableCharIndex(fieldName_) - 1;
                         }
-                    } else {
-                        fieldName_ = found_;
-                        expressionOffest_ = fieldOffest_;
-                        expressionOffest_ += fieldName_.trim().length();
-                        expressionOffest_ += fieldName_.length() - StringList.getLastPrintableCharIndex(fieldName_) - 1;
+                        int indexTmp_ = fieldName_.indexOf(Templates.TEMPLATE_BEGIN);
+                        String tmpPart_ = EMPTY_STRING;
+                        int templateOffset_ = 0;
+                        if (indexTmp_ > -1) {
+                            templateOffset_ = fieldOffest_;
+                            tmpPart_ = fieldName_.substring(indexTmp_);
+                            fieldName_ = fieldName_.substring(0, indexTmp_);
+                            templateOffset_ += fieldName_.trim().length();
+                            templateOffset_ += fieldName_.length() - StringList.getLastPrintableCharIndex(fieldName_) - 1;
+                        }
+                        br_ = new ElementBlock(_context, index_, currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
+                                new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
+                                new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        currentParent_.appendChild(br_);
+                        index_++;
+                        indexes_.setLast(index_);
                     }
-                    br_ = new ElementBlock(_context, index_, currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()), new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                    currentParent_.appendChild(br_);
-                    index_++;
-                    indexes_.setLast(index_);
                     if (currentChar_ == END_LINE) {
                         enableByEndLine_ = false;
                     }

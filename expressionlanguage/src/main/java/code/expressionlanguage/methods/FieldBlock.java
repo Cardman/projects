@@ -236,6 +236,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             id_.put(this, assBl_);
         }
     }
+    @Override
     public void buildImportedType(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getClassNameOffset());

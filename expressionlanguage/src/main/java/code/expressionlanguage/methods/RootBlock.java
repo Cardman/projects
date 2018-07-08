@@ -352,9 +352,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                 }
             } else if (b instanceof InfoBlock) {
                 InfoBlock method_ = (InfoBlock) b;
-                if (method_ instanceof FieldBlock) {
-                    ((FieldBlock)method_).buildImportedType(_context);
-                }
+                method_.buildImportedType(_context);
                 String name_ = method_.getFieldName();
                 InfoBlock m_ = (InfoBlock) b;
                 if (!StringList.isWord(name_)) {
