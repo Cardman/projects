@@ -1389,18 +1389,15 @@ public final class FileResolver {
                                 info_ = found_;
                             }
                             String inst_ = info_;
-                            boolean addLine_ = true;
                             if (typeDeclaring_) {
-                                br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, info_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                 currentParent_.appendChild(br_);
                                 index_++;
                                 indexes_.setLast(index_);
                                 inst_ = info_;
                             }
-                            if (addLine_) {
-                                br_ = new Line(_context, index_, currentParent_, new OffsetStringInfo(afterDeclareOffset_, inst_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                currentParent_.appendChild(br_);
-                            }
+                            br_ = new Line(_context, index_, currentParent_, new OffsetStringInfo(afterDeclareOffset_, inst_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            currentParent_.appendChild(br_);
                         }
                     }
                     if (currentChar_ == END_LINE) {

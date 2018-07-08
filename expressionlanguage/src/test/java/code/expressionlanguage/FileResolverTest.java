@@ -1235,7 +1235,6 @@ public final class FileResolverTest {
         DeclareVariable decl_ = (DeclareVariable) instr_;
         assertEq("[[$int",decl_.getClassName());
         assertEq(320, decl_.getClassNameOffset());
-        assertTrue(!decl_.isMerged());
         assertTrue(!decl_.isFinalVariable());
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof Line);
@@ -3151,7 +3150,6 @@ public final class FileResolverTest {
         assertEq("[[$int",decl_.getClassName());
         assertEq(327, decl_.getClassNameOffset());
         assertEq(320, decl_.getFinalVariableOffset());
-        assertTrue(!decl_.isMerged());
         assertTrue(decl_.isFinalVariable());
         instr_ = instr_.getNextSibling();
         assertTrue(instr_ instanceof Line);

@@ -21,17 +21,12 @@ import code.util.StringMap;
 public final class DeclareVariable extends Leaf implements InitVariable {
 
     private final StringList variableNames = new StringList();
-    private final String variableName;
-
-    private int variableNameOffset;
 
     private final String className;
 
     private String importedClassName;
 
     private int classNameOffset;
-
-    private boolean merged;
 
     private boolean finalVariable;
 
@@ -40,25 +35,16 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     DeclareVariable(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
         super(_el, _importingPage, _indexChild, _m);
-        variableName = _el.getAttribute(ATTRIBUTE_VAR);
         className = _el.getAttribute(ATTRIBUTE_CLASS);
     }
 
     public DeclareVariable(boolean _merged, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetStringInfo _variableName, OffsetsBlock _offset) {
+            BracedBlock _m, OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-        merged = _merged;
         finalVariable = _finalVar.isInfo();
         finalVariableOffset = _finalVar.getOffset();
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
-        variableName = _variableName.getInfo();
-        variableNameOffset = _variableName.getOffset();
-    }
-
-    @Override
-    public int getVariableNameOffset() {
-        return variableNameOffset;
     }
 
     @Override
@@ -126,9 +112,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
             ip_.putLocalVar(v, lv_);
         }
         processBlock(_cont);
-    }
-    public boolean isMerged() {
-        return merged;
     }
 
     public boolean isFinalVariable() {

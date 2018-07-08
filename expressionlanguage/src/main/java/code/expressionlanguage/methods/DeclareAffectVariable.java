@@ -55,11 +55,6 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         rightMemberOffset = _right.getOffset();
     }
 
-    @Override
-    public int getVariableNameOffset() {
-        return variableNameOffset;
-    }
-
     public int getClassNameOffset() {
         return classNameOffset;
     }
