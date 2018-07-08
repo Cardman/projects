@@ -821,7 +821,7 @@ public abstract class Block extends Blockable {
     public final void setNullAssociateElement() {
         metrics.setAssociateElement(null);
     }
-    protected final Block getPreviousSibling() {
+    public final Block getPreviousSibling() {
         return previousSibling;
     }
     public abstract Block getFirstChild();

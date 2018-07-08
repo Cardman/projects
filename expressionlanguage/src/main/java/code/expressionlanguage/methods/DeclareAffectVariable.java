@@ -69,8 +69,8 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
     }
 
     @Override
-    public String getVariableName() {
-        return variableName;
+    public StringList getVariableNames() {
+        return new StringList(variableName);
     }
 
     @Override
@@ -146,7 +146,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         ip_.setOffset(0);
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(getClassName());
-        String name_ = getVariableName();
+        String name_ = getVariableNames().first();
         ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
         Argument arg_ = el_.calculateMember(_cont);
         if (_cont.callsOrException()) {

@@ -1391,19 +1391,11 @@ public final class FileResolver {
                             String inst_ = info_;
                             boolean addLine_ = true;
                             if (typeDeclaring_) {
-                                if (StringList.isWord(info_.trim())) {
-                                    br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, info_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    currentParent_.appendChild(br_);
-                                    addLine_ = false;
-                                } else {
-                                    int firstIndex_ = info_.indexOf(PART_SEPARATOR);
-                                    String left_ = info_.substring(0, firstIndex_);
-                                    br_ = new DeclareVariable(true,_context, index_, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, left_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                                    currentParent_.appendChild(br_);
-                                    index_++;
-                                    indexes_.setLast(index_);
-                                    inst_ = info_;
-                                }
+                                br_ = new DeclareVariable(false,_context, index_, currentParent_, new OffsetBooleanInfo(instructionLocation_, finalLocalVar_), new OffsetStringInfo(realTypeOffset_, declaringType_.trim()), new OffsetStringInfo(afterDeclareOffset_, info_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                currentParent_.appendChild(br_);
+                                index_++;
+                                indexes_.setLast(index_);
+                                inst_ = info_;
                             }
                             if (addLine_) {
                                 br_ = new Line(_context, index_, currentParent_, new OffsetStringInfo(afterDeclareOffset_, inst_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));

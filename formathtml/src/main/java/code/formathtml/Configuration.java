@@ -961,4 +961,9 @@ public class Configuration implements ExecutableCode {
     public StringList getAvailableVariables() {
         return context.getAvailableVariables();
     }
+
+    @Override
+    public StringList getVariablesNames() {
+        return context.getVariablesNames();
+    }
 }

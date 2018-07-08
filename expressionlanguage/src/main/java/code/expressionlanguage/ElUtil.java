@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -9,8 +10,10 @@ import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.ExpLanguages;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
+import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
+import code.expressionlanguage.opers.DeclaringOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.EmptyPartOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -21,6 +24,7 @@ import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.StaticInitOperation;
+import code.expressionlanguage.opers.VariableOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -509,6 +513,63 @@ public final class ElUtil {
             _context.getClasses().addError(badEl_);
         }
         return op_;
+    }
+    public static boolean isDeclaringVariable(VariableOperation _var, Analyzable _an) {
+        Block bl_ = _an.getCurrentBlock();
+        if (!_an.isMerged()) {
+            return false;
+        }
+        if (bl_ == null) {
+            return false;
+        }
+        if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
+            return false;
+        }
+        MethodOperation par_ = _var.getParent();
+        if (par_ == null) {
+            return true;
+        }
+        if (par_ instanceof AffectationOperation) {
+            if (par_.getParent() == null) {
+                if (_var == par_.getFirstChild()) {
+                    return true;
+                }
+            }
+            if (par_.getParent() instanceof DeclaringOperation) {
+                if (_var == par_.getFirstChild()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public static boolean isDeclaringVariable(MethodOperation _par, Analyzable _an) {
+        Block bl_ = _an.getCurrentBlock();
+        if (!_an.isMerged()) {
+            return false;
+        }
+        if (bl_ == null) {
+            return false;
+        }
+        if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
+            return false;
+        }
+        if (_par == null) {
+            return true;
+        }
+        if (_par instanceof AffectationOperation) {
+            if (_par.getParent() == null) {
+                if (null == _par.getFirstChild()) {
+                    return true;
+                }
+            }
+            if (_par.getParent() instanceof DeclaringOperation) {
+                if (null == _par.getFirstChild()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();

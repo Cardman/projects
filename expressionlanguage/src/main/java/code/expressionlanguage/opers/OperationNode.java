@@ -256,20 +256,8 @@ public abstract class OperationNode {
             if (_an.isInternGlobal() && StringList.quickEq(str_, prefixFunction(INTERN_BEAN))) {
                 return new InternGlobalOperation(_index, _indexChild, _m, _op);
             }
-            if (!(ct_.isVariable() || _m instanceof AffectationOperation && _m.getParent() == null && _an.isMerged())) {
-                if (_m instanceof DotOperation) {
-                    OperationNode ch_ = _m.getFirstChild();
-                    if (ch_ == null) {
-                        return new StandardFieldOperation(_index, _indexChild, _m, _op);
-                    }
-                    while (ch_.getNextSibling() != null) {
-                        ch_ = ch_.getNextSibling();
-                    }
-                    if (ch_.getResultClass().isArray()) {
-                        return new ArrayFieldOperation(_index, _indexChild, _m, _op);
-                    }
-                }
-                return new StandardFieldOperation(_index, _indexChild, _m, _op);
+            if (ElUtil.isDeclaringVariable(_m, _an)) {
+                return new VariableOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.PARAM) {
                 return new FinalVariableOperation(_index, _indexChild, _m, _op);
@@ -283,7 +271,19 @@ public abstract class OperationNode {
             if (ct_ == ConstType.LOOP_VAR) {
                 return new FinalVariableOperation(_index, _indexChild, _m, _op);
             }
-            return new VariableOperation(_index, _indexChild, _m, _op);
+            if (ct_ == ConstType.LOC_VAR) {
+                return new VariableOperation(_index, _indexChild, _m, _op);
+            }
+            if (_m instanceof DotOperation) {
+                OperationNode ch_ = _m.getFirstChild();
+                if (ch_ == null) {
+                    return new StandardFieldOperation(_index, _indexChild, _m, _op);
+                }
+                if (ch_.getResultClass().isArray()) {
+                    return new ArrayFieldOperation(_index, _indexChild, _m, _op);
+                }
+            }
+            return new StandardFieldOperation(_index, _indexChild, _m, _op);
         }
         if (_op.isCall()) {
             String fctName_ = _op.getFctName().trim();

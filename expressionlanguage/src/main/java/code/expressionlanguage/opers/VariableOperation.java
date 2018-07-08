@@ -1,17 +1,22 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadVariableName;
+import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.methods.util.UndefinedVariableError;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -75,11 +80,34 @@ public final class VariableOperation extends LeafOperation implements
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
-        if (isFirstChild() && getParent() instanceof AffectationOperation && getParent().getParent() == null && _conf.isMerged()) {
+        if (ElUtil.isDeclaringVariable(this, _conf)) {
+            AnalyzedPageEl page_ = _conf.getAnalyzing();
+            if (_conf.containsLocalVar(str_)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(str_);
+                d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                d_.setRc(page_.getTrace());
+                _conf.getClasses().addError(d_);
+                return;
+            }
+            if (!StringList.isWord(str_)) {
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                b_.setRc(page_.getTrace());
+                b_.setVarName(str_);
+                _conf.getClasses().addError(b_);
+            }
+            Block block_ = _conf.getCurrentBlock();
             LocalVariable lv_ = new LocalVariable();
             lv_.setClassName(_conf.getCurrentVarSetting());
             lv_.setFinalVariable(_conf.isFinalVariable());
             _conf.putLocalVar(str_, lv_);
+            _conf.getVariablesNames().add(str_);
+            AssignedVariablesBlock glAss_ = _conf.getAssignedVariables();
+            AssignedVariables ass_ = glAss_.getFinalVariables().getVal(block_);
+            AssignmentBefore asBe_ = new AssignmentBefore();
+            asBe_.setUnassignedBefore(true);
+            ass_.getVariablesRootBefore().last().put(str_, asBe_);
             excVar = true;
         }
         variableName = str_;
@@ -109,6 +137,29 @@ public final class VariableOperation extends LeafOperation implements
         ObjectMap<ClassField,AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
         ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
+        if (ElUtil.isDeclaringVariable(this, _conf)) {
+            if (variableName.isEmpty()) {
+                return;
+            }
+            boolean isBool_;
+            isBool_ = getResultClass().isBoolType(_conf);
+            
+            for (StringMap<AssignmentBefore> s: assB_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore bf_ = e.getValue();
+                    sm_.put(e.getKey(), bf_.assignAfter(isBool_));
+                }
+                ass_.add(sm_);
+            }
+            for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+                AssignmentBefore bf_ = e.getValue();
+                assA_.put(e.getKey(), bf_.assignAfter(isBool_));
+            }
+            vars_.getVariables().put(this, ass_);
+            vars_.getFields().put(this, assA_);
+            return;
+        }
 
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);

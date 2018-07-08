@@ -7,8 +7,6 @@ import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.util.BadVariableName;
-import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
@@ -22,6 +20,7 @@ import code.util.StringMap;
 
 public final class DeclareVariable extends Leaf implements InitVariable {
 
+    private final StringList variableNames = new StringList();
     private final String variableName;
 
     private int variableNameOffset;
@@ -62,13 +61,12 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         return variableNameOffset;
     }
 
+    @Override
+    public StringList getVariableNames() {
+        return variableNames;
+    }
     public int getClassNameOffset() {
         return classNameOffset;
-    }
-
-    @Override
-    public String getVariableName() {
-        return variableName;
     }
 
     @Override
@@ -86,33 +84,10 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         importedClassName = _cont.resolveCorrectType(className);
-        _cont.setMerged(merged);
+        _cont.setMerged(true);
         _cont.setFinalVariable(finalVariable);
-        if (_cont.containsLocalVar(variableName)) {
-            page_.setGlobalOffset(variableNameOffset);
-            page_.setOffset(0);
-            DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
-            d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
-            _cont.getClasses().addError(d_);
-            return;
-        }
-        if (!StringList.isWord(variableName)) {
-            BadVariableName b_ = new BadVariableName();
-            b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
-            b_.setVarName(variableName);
-            _cont.getClasses().addError(b_);
-        }
-        if (!merged) {
-            LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(importedClassName);
-            lv_.setFinalVariable(finalVariable);
-            _cont.putLocalVar(variableName, lv_);
-        } else {
-            _cont.setCurrentVarSetting(importedClassName);
-        }
+        _cont.setCurrentVarSetting(importedClassName);
+        _cont.getVariablesNames().clear();
     }
 
     @Override
@@ -123,9 +98,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
             ClassField key_ = e.getKey();
             ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
-        AssignmentBefore asBe_ = new AssignmentBefore();
-        asBe_.setUnassignedBefore(true);
-        ass_.getVariablesRootBefore().last().put(variableName, asBe_);
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
             StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
@@ -133,9 +105,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
             }
             ass_.getVariablesRoot().add(vars_);
         }
-        SimpleAssignment asf_ = asBe_.assignAfterClassic();
-        StringMap<SimpleAssignment> as_ = ass_.getVariablesRoot().last();
-        as_.put(variableName, asf_);
     }
     @Override
     boolean canBeLastOfBlockGroup() {
@@ -153,8 +122,9 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setStruct(PrimitiveTypeUtil.defaultValue(importedClassName, _cont));
-        String name_ = getVariableName();
-        ip_.putLocalVar(name_, lv_);
+        for (String v: getVariableNames()) {
+            ip_.putLocalVar(v, lv_);
+        }
         processBlock(_cont);
     }
     public boolean isMerged() {

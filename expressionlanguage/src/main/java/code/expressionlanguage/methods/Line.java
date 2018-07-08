@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.SuperInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class Line extends Leaf implements StackableBlock {
 
@@ -71,6 +72,10 @@ public final class Line extends Leaf implements StackableBlock {
         page_.setOffset(0);
         _cont.setRootAffect(true);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_));
+        if (_cont.isMerged()) {
+            StringList vars_ = _cont.getVariablesNames();
+            ((DeclareVariable)getPreviousSibling()).getVariableNames().addAllElts(vars_);
+        }
         _cont.setMerged(false);
         _cont.setFinalVariable(false);
     }

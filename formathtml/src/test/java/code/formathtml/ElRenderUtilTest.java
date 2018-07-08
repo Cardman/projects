@@ -6455,6 +6455,43 @@ public final class ElRenderUtilTest {
         assertEq(cont_.getStandards().getAliasNullPe(), exc_.getClassName(cont_));
     }
     @Test
+    public void processEl305Test() {
+        Configuration context_ = contextEl(true, false);
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setElement(3);
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
+        localVars_.put("v", lv_);
+        LocalVariable lv2_ = new LocalVariable();
+        lv2_.setElement(12);
+        lv2_.setClassName(context_.getStandards().getAliasPrimInteger());
+        localVars_.put("v2", lv2_);
+        context_.getLastPage().setLocalVars(localVars_);
+        ContextEl ctx_ = context_.toContextEl();
+        ctx_.setAnalyzing(new AnalyzedPageEl());
+        ctx_.getAnalyzing().setLocalVars(localVars_);
+        ctx_.setRootAffect(true);
+        String elr_ = "v;.=v2;.=4i";
+        Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_.substring(0);
+        ctx_.setAnalyzingRoot(true);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        assertNotNull(op_);
+        Argument argGl_ = context_.getOperationPageEl().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        ctx_.setStaticContext(static_);
+        CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, ctx_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        ctx_.setAnalyzing(null);
+        ElRenderUtil.calculate(all_, context_);
+        assertEq(4, (Number)lv2_.getElement());
+        assertEq(4, (Number)lv_.getElement());
+        assertEq(4, (Number)op_.getArgument().getObject());
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);

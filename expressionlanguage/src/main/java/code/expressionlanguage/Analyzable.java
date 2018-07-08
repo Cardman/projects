@@ -100,4 +100,5 @@ public interface Analyzable {
 
     void setDirectImport(boolean _directImport);
     StringList getAvailableVariables();
+    StringList getVariablesNames();
 }

@@ -2030,8 +2030,6 @@ public final class ElResolver {
                                     if (prio_ > AFF_PRIO) {
                                         clearOperators_ = true;
                                         prio_ = AFF_PRIO;
-                                    }
-                                    if (prio_ == AFF_PRIO) {
                                         foundOperator_ = true;
                                     }
                                     increment_ = 1;
@@ -2064,8 +2062,6 @@ public final class ElResolver {
                             if (prio_ > AFF_PRIO) {
                                 clearOperators_ = true;
                                 prio_ = AFF_PRIO;
-                            }
-                            if (prio_ == AFF_PRIO) {
                                 foundOperator_ = true;
                             }
                             increment_ = 1;
@@ -2105,8 +2101,6 @@ public final class ElResolver {
                                     if (prio_ > AFF_PRIO) {
                                         clearOperators_ = true;
                                         prio_ = AFF_PRIO;
-                                    }
-                                    if (prio_ == AFF_PRIO) {
                                         foundOperator_ = true;
                                     }
                                     increment_ = 2;
@@ -2178,9 +2172,6 @@ public final class ElResolver {
                             operators_.clear();
                         }
                         operators_.put(i_,builtOperator_.toString());
-                        if (prio_ == AFF_PRIO) {
-                            break;
-                        }
                     }
                     i_ += increment_;
                     continue;
