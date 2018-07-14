@@ -11,14 +11,12 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class FinallyEval extends BracedStack implements Eval, IncrNextGroup {
@@ -48,8 +46,8 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
             ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
@@ -97,14 +95,14 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(this);
-        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        StringMap<SimpleAssignment> fields_ = ass_.getFieldsRoot();
         CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
-        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
         IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
-        for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
+        for (EntryCust<String,SimpleAssignment> e: fields_.entryList()) {
             SimpleAssignment ab_ = e.getValue();
-            ClassField key_ = e.getKey();
+            String key_ = e.getKey();
             boolean assAfter_ = true;
             boolean unassAfter_ = true;
             if (_anEl.canCompleteStrictNormally(this)) {
@@ -140,7 +138,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                 for (Block p: prev_) {
                     if (_anEl.canCompleteStrictNormally(p)) {
                         AssignedVariables assLoc_ = _an.getAssignedVariables().getFinalVariables().getVal(p);
-                        ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                        StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
                         if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
                             assAfter_ = false;
                             break;
@@ -166,7 +164,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                 if (b != e.getValue()) {
                     continue;
                 }
-                for (EntryCust<ClassField, SimpleAssignment> f: _anEl.getAssignments().getVal(e.getKey()).entryList()) {
+                for (EntryCust<String, SimpleAssignment> f: _anEl.getAssignments().getVal(e.getKey()).entryList()) {
                     SimpleAssignment asLoc_ = f.getValue();
                     if (assTar_.getFieldsRoot().getVal(f.getKey()).isAssignedAfter() || asLoc_.isAssignedAfter()) {
                         asLoc_.setAssignedAfter(true);

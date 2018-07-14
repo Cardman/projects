@@ -27,7 +27,6 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -88,7 +87,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             SimpleAssignment ba_ = e.getValue();
             assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
         }
@@ -300,9 +299,9 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables assLast_ = id_.getVal(ch_);
-        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-        for (EntryCust<ClassField,Assignment> e: assTar_.getFields().lastValue().entryList()) {
+        for (EntryCust<String,Assignment> e: assTar_.getFields().lastValue().entryList()) {
             boolean ass_ = true;
             boolean unass_ = true;
             if (!(def_ ||e.getValue().isAssignedAfter())){
@@ -318,7 +317,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                 unass_ = false;
             }
             if (_anEl.canCompleteNormally(ch_)) {
-                ObjectMap<ClassField, SimpleAssignment> l_;
+                StringMap<SimpleAssignment> l_;
                 l_ = assLast_.getFieldsRoot();
                 if (!l_.getVal(e.getKey()).isAssignedAfter()) {
                     ass_ = false;
@@ -332,7 +331,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     continue;
                 }
                 AssignedVariables assBr_ = id_.getVal(f.getKey());
-                ObjectMap<ClassField, SimpleAssignment> l_;
+                StringMap<SimpleAssignment> l_;
                 l_ = assBr_.getFieldsRoot();
                 if (!l_.getVal(e.getKey()).isAssignedAfter()) {
                     ass_ = false;
@@ -341,7 +340,7 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
                     unass_ = false;
                 }
             }
-            ClassField key_ = e.getKey();
+            String key_ = e.getKey();
             after_.put(key_, Assignment.assignClassic(ass_, unass_));
         }
         assTar_.getFieldsRoot().putAllMap(after_);

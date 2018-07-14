@@ -21,6 +21,7 @@ import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
+import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.StaticInitOperation;
@@ -39,7 +40,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -269,8 +269,8 @@ public final class ElUtil {
                 currentBlock_.defaultAssignmentBefore(_conf, e_);
                 e_.tryAnalyzeAssignmentAfter(_conf);
                 AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(currentBlock_);
-                ObjectMap<ClassField,Assignment> res_ = vars_.getFields().getVal(e_);
-                for (EntryCust<ClassField,Assignment> e: res_.entryList()) {
+                StringMap<Assignment> res_ = vars_.getFields().getVal(e_);
+                for (EntryCust<String,Assignment> e: res_.entryList()) {
                     vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
                 }
                 CustList<StringMap<Assignment>> varsRes_;
@@ -332,15 +332,15 @@ public final class ElUtil {
             if (c_ == null) {
                 if (currentBlock_ != null) {
                     AssignedVariables vars_ = _context.getAssignedVariables().getFinalVariables().getVal(currentBlock_);
-                    ObjectMap<ClassField,Assignment> res_ = vars_.getFields().getVal(_root);
+                    StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
                     if (res_ == null) {
                         break;
                     }
-                    for (EntryCust<ClassField,Assignment> e: res_.entryList()) {
+                    for (EntryCust<String,Assignment> e: res_.entryList()) {
                         vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
                     }
                     if (_root instanceof CurrentInvokingConstructor) {
-                        for (EntryCust<ClassField,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
+                        for (EntryCust<String,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
                             SimpleAssignment a_ = e.getValue();
                             a_.setAssignedAfter(true);
                             a_.setUnassignedAfter(false);
@@ -578,6 +578,35 @@ public final class ElUtil {
             }
         }
         return false;
+    }
+    public static boolean checkFinalField(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass) {
+        boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
+        ClassField cl_ = _cst.getFieldId();
+        if (cl_ == null) {
+            return false;
+        }
+        boolean checkFinal_ = false;
+        if (_conf.isAssignedFields()) {
+            checkFinal_ = true;
+        } else if (_conf.isAssignedStaticFields()) {
+            FieldInfo meta_ = _conf.getFieldInfo(cl_);
+            if (meta_.isStaticField()) {
+                checkFinal_ = true;
+            } else if (!fromCurClass_) {
+                checkFinal_ = true;
+            } else {
+                if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
+                    checkFinal_ = true;
+                }
+            }
+        } else if (!fromCurClass_) {
+            checkFinal_ = true;
+        } else {
+            if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
+                checkFinal_ = true;
+            }
+        }
+        return checkFinal_;
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();

@@ -5,13 +5,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public abstract class BracedBlock extends Block implements BracedBlockInt {
@@ -88,13 +86,13 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         if (ch_ == null) {
             AssignedVariables ass_ = id_.getVal(this);
-            ObjectMap<ClassField,AssignmentBefore> fields_ = ass_.getFieldsRootBefore();
+            StringMap<AssignmentBefore> fields_ = ass_.getFieldsRootBefore();
             CustList<StringMap<AssignmentBefore>> variables_ = ass_.getVariablesRootBefore();
-            ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+            StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
             CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-            for (EntryCust<ClassField,AssignmentBefore> e: fields_.entryList()) {
+            for (EntryCust<String,AssignmentBefore> e: fields_.entryList()) {
                 AssignmentBefore ab_ = e.getValue();
-                ClassField key_ = e.getKey();
+                String key_ = e.getKey();
                 after_.put(key_, ab_.assignAfterClassic());
             }
             ass_.getFieldsRoot().putAllMap(after_);
@@ -116,7 +114,7 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         }
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(ch_);
-        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        StringMap<SimpleAssignment> fields_ = ass_.getFieldsRoot();
         CustList<StringMap<SimpleAssignment>> variables_ = ass_.getVariablesRoot();
         assTar_.getFieldsRoot().putAllMap(fields_);
         int count_ = ass_.getVariablesRootBefore().size();

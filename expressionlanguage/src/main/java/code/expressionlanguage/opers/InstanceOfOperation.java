@@ -14,13 +14,11 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
@@ -67,13 +65,13 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
 
-        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+        for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsAfter_.put(e.getKey(), b_.assign(true));
         }

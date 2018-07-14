@@ -10,7 +10,6 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -18,7 +17,6 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public abstract class AbstractCatchEval extends BracedBlock implements Eval,
@@ -104,7 +102,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
         }
         AssignedVariables parAss_ = inners_.firstValue();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             AssignmentBefore ab_ = new AssignmentBefore();
             if (parAss_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
                 ab_.setAssignedBefore(true);
@@ -257,19 +255,19 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
         AssignedVariables ass_;
         ass_ = id_.getVal(this);
         AssignedVariables assTar_ = id_.getVal(this);
-        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        StringMap<SimpleAssignment> fields_ = ass_.getFieldsRoot();
         CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
-        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
         IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
-        for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,SimpleAssignment> e: fields_.entryList()) {
+            String key_ = e.getKey();
             boolean assAfter_ = true;
             boolean unassAfter_ = true;
             for (Block p: prev_) {
                 if (_anEl.canCompleteStrictNormally(p)) {
                     AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
                     if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
                         assAfter_ = false;
                         break;
@@ -289,7 +287,7 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval,
             for (Block p: prev_) {
                 if (_anEl.canCompleteStrictNormally(p)) {
                     AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
                     if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                         unassAfter_ = false;
                         break;

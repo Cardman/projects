@@ -3,34 +3,21 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.EmptyTagName;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
-import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.SettableElResult;
-import code.expressionlanguage.opers.VariableOperation;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
-import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class DoWhileCondition extends Condition implements IncrNextGroup {
@@ -142,35 +129,16 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         id_ = _an.getAssignedVariables().getFinalVariables();
         //by do block
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
-        ObjectMap<ClassField,AssignmentBefore> fieldsHypot_;
-        fieldsHypot_ = dBlock_.makeHypothesisFields(_an);
+        StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
-        varsHypot_ = dBlock_.makeHypothesisVars(_an);
 
         AssignedVariables varsDo_;
         varsDo_ = id_.getVal(dBlock_);
         AssignedBooleanVariables varsWhile_;
         varsWhile_ = (AssignedBooleanVariables) id_.getVal(this);
-        for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            if (!ba_.isUnassignedAfterWhenTrue()) {
-                fieldsHypot_.getVal(e.getKey()).setUnassignedBefore(false);
-            }
-        }
+        fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an, _anEl);
         varsDo_.getFieldsRootBefore().putAllMap(fieldsHypot_);
-        int index_ = 0;
-        for (StringMap<BooleanAssignment> s: varsWhile_.getVariablesRootAfter()) {
-            if (index_ >= varsHypot_.size()) {
-                continue;
-            }
-            for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                if (!ba_.isUnassignedAfterWhenTrue()) {
-                    varsHypot_.get(index_).getVal(e.getKey()).setUnassignedBefore(false);
-                }
-            }
-            index_++;
-        }
+        varsHypot_ = buildAssListLocVarInvalHypot(_an, _anEl);
         varsDo_.getVariablesRootBefore().clear();
         varsDo_.getVariablesRootBefore().addAllElts(varsHypot_);
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
@@ -183,157 +151,59 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
                 allDesc_.put(e.getKey(), e.getValue());
             }
         }
-        AssignedVariables vars_;
-        for (EntryCust<ClassField,AssignmentBefore> e: fieldsHypot_.entryList()) {
-            if (e.getValue().isUnassignedBefore()) {
-                continue;
-            }
-            if (e.getValue().isAssignedBefore()) {
-                continue;
-            }
-            ClassField key_ = e.getKey();
-            FieldInfo fm_ = _an.getFieldInfo(key_);
-            if (!fm_.isFinalField()) {
-                continue;
-            }
-            for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
-                vars_ = d.getValue();
-                Block next_ = d.getKey();
-                //next siblings of d
-                processFinalFields(next_, _an, vars_, key_);
-            }
-        }
-        int indexDoWhile_ = 0;
-        for (StringMap<AssignmentBefore> s: varsHypot_) {
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                if (e.getValue().isUnassignedBefore()) {
-                    continue;
-                }
-                if (e.getValue().isAssignedBefore()) {
-                    continue;
-                }
-                String key_ = e.getKey();
-                LocalVariable varLoc_ = _an.getLocalVar(key_,indexDoWhile_);
-                if (varLoc_ != null && !varLoc_.isFinalVariable()) {
-                    continue;
-                }
-                for (EntryCust<Block, AssignedVariables> d: allDesc_.entryList()) {
-                    vars_ = d.getValue();
-                    Block next_ = d.getKey();
-                    //next siblings of d
-                    processFinalVars(next_, _an, vars_, key_);
-                }
-            }
-            indexDoWhile_++;
-        }
+        processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
+        processFinalVars(_an, _anEl, allDesc_, varsHypot_);
 
-        ObjectMap<ClassField,SimpleAssignment> fieldsAfter_;
-        fieldsAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
+        StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
-        varsAfter_ = new CustList<StringMap<SimpleAssignment>>();
-        for (EntryCust<ClassField,BooleanAssignment> e: varsWhile_.getFieldsRootAfter().entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            boolean ass_ = ba_.isAssignedAfterWhenFalse();
-            boolean unass_ = ba_.isUnassignedAfterWhenFalse();
-            for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
-                if (f.getValue() != dBlock_) {
-                    continue;
-                }
-                if (!id_.getVal(f.getKey()).getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
-                    ass_ = false;
-                }
-                if (!id_.getVal(f.getKey()).getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
-                    unass_ = false;
-                }
-            }
-            ClassField key_ = e.getKey();
-            fieldsAfter_.put(key_, Assignment.assignClassic(ass_, unass_));
-        }
+        fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
         varsDo_.getFieldsRoot().putAllMap(fieldsAfter_);
-        index_ = 0;
-        for (StringMap<BooleanAssignment> s: varsWhile_.getVariablesRootAfter()) {
-            StringMap<SimpleAssignment> sm_;
-            sm_ = new StringMap<SimpleAssignment>();
-            for (EntryCust<String,BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                boolean ass_ = ba_.isAssignedAfterWhenFalse();
-                boolean unass_ = ba_.isUnassignedAfterWhenFalse();
-                for (EntryCust<BreakBlock, BreakableBlock> f: _anEl.getBreakables().entryList()) {
-                    if (f.getValue() != dBlock_) {
-                        continue;
-                    }
-                    CustList<StringMap<AssignmentBefore>> list_;
-                    list_ = id_.getVal(f.getKey()).getVariablesRootBefore();
-                    if (!list_.isValidIndex(index_)) {
-                        continue;
-                    }
-                    StringMap<AssignmentBefore> set_ = list_.get(index_);
-                    if (!set_.contains(e.getKey())) {
-                        continue;
-                    }
-                    if (!set_.getVal(e.getKey()).isAssignedBefore()) {
-                        ass_ = false;
-                    }
-                    if (!set_.getVal(e.getKey()).isUnassignedBefore()) {
-                        unass_ = false;
-                    }
-                }
-                String key_ = e.getKey();
-                sm_.put(key_, Assignment.assignClassic(ass_, unass_));
-            }
-            index_++;
-            varsAfter_.add(sm_);
-        }
         varsWhile_.getVariablesRoot().clear();
+        varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-    
     }
-    private void processFinalFields(Block _curBlock, Analyzable _an,AssignedVariables _vars, ClassField _field) {
-        for (EntryCust<OperationNode, ObjectMap<ClassField,AssignmentBefore>> f: _vars.getFieldsBefore().entryList()) {
-            if (!(f.getKey() instanceof AffectationOperation)) {
-                continue;
-            }
-            AffectationOperation aff_ = (AffectationOperation) f.getKey();
-            SettableElResult set_ = aff_.getSettable();
-            if (!(set_ instanceof SettableAbstractFieldOperation)) {
-                continue;
-            }
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) set_;
-            if (!cst_.matchFieldId(_field)) {
-                continue;
-            }
-            cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setFileName(_an.getCurrentFileName());
-            un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-            _an.getClasses().addError(un_);
-        }
+
+    protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        DoBlock dBlock_ = (DoBlock) getPreviousSibling();
+        StringMap<AssignmentBefore> list_;
+        list_ = dBlock_.makeHypothesisFields(_an);
+        StringMap<BooleanAssignment> end_;
+        end_ = ((AssignedBooleanVariables) id_.getVal(this)).getFieldsRootAfter();
+        return invalidateHypothesis(list_, end_);
     }
-    private void processFinalVars(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
-        for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore().entryList()) {
-            if (!(f.getKey() instanceof AffectationOperation)) {
-                continue;
-            }
-            AffectationOperation aff_ = (AffectationOperation) f.getKey();
-            SettableElResult set_ = aff_.getSettable();
-            if (!(set_ instanceof VariableOperation)) {
-                continue;
-            }
-            VariableOperation cst_ = (VariableOperation) set_;
-            OperationsSequence op_ = cst_.getOperations();
-            if (op_.getConstType() != ConstType.LOC_VAR) {
-                continue;
-            }
-            String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
-            String str_ = originalStr_.trim();
-            if (!StringList.quickEq(str_, _field)) {
-                continue;
-            }
-            cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _an);
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setFileName(_an.getCurrentFileName());
-            un_.setRc(_curBlock.getRowCol(_an.getOffset(),_curBlock.getOffset().getOffsetTrim()));
-            _an.getClasses().addError(un_);
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<AssignmentBefore>> varsList_;
+        varsList_ = new CustList<StringMap<AssignmentBefore>>();
+        DoBlock dBlock_ = (DoBlock) getPreviousSibling();
+        CustList<StringMap<AssignmentBefore>> list_;
+        list_ = dBlock_.makeHypothesisVars(_an);
+        int loopLen_ = list_.size();
+        
+        CustList<StringMap<BooleanAssignment>> end_;
+        end_ = ((AssignedBooleanVariables) id_.getVal(this)).getVariablesRootAfter();
+        for (int i = 0; i < loopLen_; i++) {
+            StringMap<AssignmentBefore> cond_ = list_.get(i);
+            varsList_.add(invalidateHypothesis(cond_, end_.get(i)));
         }
+        
+        return varsList_;
+    }
+    private static StringMap<AssignmentBefore> invalidateHypothesis(StringMap<AssignmentBefore> _loop, StringMap<BooleanAssignment> _last) {
+        StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
+        for (EntryCust<String,AssignmentBefore> e: _loop.entryList()) {
+            String key_ = e.getKey();
+            AssignmentBefore ass_ = e.getValue().copy();
+            if (_last.contains(key_)) {
+                if (!_last.getVal(key_).isUnassignedAfterWhenTrue()) {
+                    ass_.setUnassignedBefore(false);
+                }
+            }
+            out_.put(key_, ass_);
+        }
+        return out_;
     }
 }

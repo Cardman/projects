@@ -6,11 +6,9 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassField;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class OrOperation extends QuickOperation {
@@ -31,12 +29,12 @@ public final class OrOperation extends QuickOperation {
             OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
+        StringMap<Assignment> fieldsAfter_;
         CustList<StringMap<Assignment>> variablesAfter_;
         fieldsAfter_ = vars_.getFields().getVal(_previous);
         variablesAfter_ = vars_.getVariables().getVal(_previous);
-        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
-        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
+        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
+        for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
             BooleanAssignment b_ = e.getValue().toBoolAssign();
             AssignmentBefore a_ = b_.copyWhenFalse();
             fieldsBefore_.put(e.getKey(), a_);
@@ -62,13 +60,13 @@ public final class OrOperation extends QuickOperation {
         CustList<OperationNode> children_ = getChildrenNodes();
         OperationNode last_ = children_.last();
         OperationNode prev_ = children_.get(children_.size() - 2);
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        ObjectMap<ClassField,Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(prev_);
+        StringMap<Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(prev_);
         CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(prev_);
-        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+        for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
             BooleanAssignment b_ = e.getValue().toBoolAssign();
             BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();
             BooleanAssignment r_ = b_.or(p_);

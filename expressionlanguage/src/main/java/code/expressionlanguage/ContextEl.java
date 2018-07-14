@@ -1909,4 +1909,24 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public StringList getVariablesNames() {
         return analyzing.getVariablesNames();
     }
+
+    @Override
+    public boolean isAssignedStaticFields() {
+        return analyzing.isAssignedStaticFields();
+    }
+
+    @Override
+    public void setAssignedStaticFields(boolean _assignedStaticFields) {
+        analyzing.setAssignedStaticFields(_assignedStaticFields);
+    }
+
+    @Override
+    public boolean isAssignedFields() {
+        return analyzing.isAssignedFields();
+    }
+
+    @Override
+    public void setAssignedFields(boolean _assignedFields) {
+        analyzing.setAssignedFields(_assignedFields);
+    }
 }

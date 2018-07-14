@@ -101,4 +101,12 @@ public interface Analyzable {
     void setDirectImport(boolean _directImport);
     StringList getAvailableVariables();
     StringList getVariablesNames();
+
+    boolean isAssignedStaticFields();
+
+    void setAssignedStaticFields(boolean _assignedStaticFields);
+
+    boolean isAssignedFields();
+
+    void setAssignedFields(boolean _assignedFields);
 }

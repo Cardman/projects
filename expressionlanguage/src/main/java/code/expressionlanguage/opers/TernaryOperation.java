@@ -14,7 +14,6 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
@@ -24,7 +23,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -77,13 +75,13 @@ public final class TernaryOperation extends MethodOperation {
             OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
+        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
         OperationNode firstChild_ = getFirstChild();
-        ObjectMap<ClassField,Assignment> fieldsAfterFirst_ = vars_.getFields().getVal(firstChild_);
+        StringMap<Assignment> fieldsAfterFirst_ = vars_.getFields().getVal(firstChild_);
         CustList<StringMap<Assignment>> variablesAfterFirst_ = vars_.getVariables().getVal(firstChild_);
         if (firstChild_ == _previous) {
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
+            for (EntryCust<String, Assignment> e: fieldsAfterFirst_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
                 AssignmentBefore a_ = b_.copyWhenTrue();
                 fieldsBefore_.put(e.getKey(), a_);
@@ -98,7 +96,7 @@ public final class TernaryOperation extends MethodOperation {
                 variablesBefore_.add(sm_);
             }
         } else {
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterFirst_.entryList()) {
+            for (EntryCust<String, Assignment> e: fieldsAfterFirst_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
                 AssignmentBefore a_ = b_.copyWhenFalse();
                 fieldsBefore_.put(e.getKey(), a_);
@@ -178,17 +176,17 @@ public final class TernaryOperation extends MethodOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
 
         OperationNode befLast_ = children_.get(children_.size() - 2);
-        ObjectMap<ClassField,Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
+        StringMap<Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
         CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
         if (getResultClass().isBoolType(_conf)) {
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
                 BooleanAssignment p_ = fieldsAfterBefLast_.getVal(e.getKey()).toBoolAssign();
                 BooleanAssignment r_ = b_.ternary(p_);
@@ -206,7 +204,7 @@ public final class TernaryOperation extends MethodOperation {
                 variablesAfter_.add(sm_);
             }
         } else {
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
                 Assignment b_ = e.getValue();
                 Assignment p_ = fieldsAfterBefLast_.getVal(e.getKey());
                 SimpleAssignment r_ = b_.ternarySimple(p_);

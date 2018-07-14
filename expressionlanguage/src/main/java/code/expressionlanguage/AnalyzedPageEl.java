@@ -72,6 +72,8 @@ public final class AnalyzedPageEl {
     private StringList needInterfaces = new StringList();
     private StringList availableVariables = new StringList();
     private StringList variablesNames = new StringList();
+    private boolean assignedStaticFields;
+    private boolean assignedFields;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -467,5 +469,21 @@ public final class AnalyzedPageEl {
     }
     public StringList getVariablesNames() {
         return variablesNames;
+    }
+
+    public boolean isAssignedStaticFields() {
+        return assignedStaticFields;
+    }
+
+    public void setAssignedStaticFields(boolean _assignedStaticFields) {
+        assignedStaticFields = _assignedStaticFields;
+    }
+
+    public boolean isAssignedFields() {
+        return assignedFields;
+    }
+
+    public void setAssignedFields(boolean _assignedFields) {
+        assignedFields = _assignedFields;
     }
 }

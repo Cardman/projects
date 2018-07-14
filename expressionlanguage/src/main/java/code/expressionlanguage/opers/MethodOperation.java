@@ -7,13 +7,11 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public abstract class MethodOperation extends OperationNode {
@@ -61,7 +59,7 @@ public abstract class MethodOperation extends OperationNode {
     public void analyzeAssignmentBefore(Analyzable _conf, OperationNode _firstChild) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,AssignmentBefore> fields_;
+        StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
         fields_ = vars_.getFieldsBefore().getVal(this);
         variables_ = vars_.getVariablesBefore().getVal(this);

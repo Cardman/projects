@@ -38,7 +38,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -241,9 +240,9 @@ public abstract class SettableAbstractFieldOperation extends
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
-        ObjectMap<ClassField,AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
+        StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
-        ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (arg_ != null) {
             Object obj_ = arg_.getObject();
             if (obj_ instanceof Boolean) {
@@ -268,7 +267,7 @@ public abstract class SettableAbstractFieldOperation extends
                     }
                     ass_.add(sm_);
                 }
-                for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     BooleanAssignment b_ = new BooleanAssignment();
                     if ((Boolean)obj_) {
@@ -294,7 +293,7 @@ public abstract class SettableAbstractFieldOperation extends
                     }
                     ass_.add(sm_);
                 }
-                for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                     AssignmentBefore bf_ = e.getValue();
                     assA_.put(e.getKey(), bf_.assignAfter(false));
                 }
@@ -330,20 +329,36 @@ public abstract class SettableAbstractFieldOperation extends
                     }
                 }
             }
-            for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
-                if (procField_ && e.getKey().eq(cl_) && !e.getValue().isAssignedBefore()) {
-                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                    if (meta_.isFinalField()) {
-                        //error if final field
-                        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setFileName(_conf.getCurrentFileName());
-                        un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().addError(un_);
-                    }
+            if (_conf.isAssignedStaticFields()) {
+                FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                if (meta_.isStaticField()) {
+                    procField_ = false;
                 }
-                AssignmentBefore bf_ = e.getValue();
-                assA_.put(e.getKey(), bf_.assignAfter(isBool_));
+            }
+            if (_conf.isAssignedFields()) {
+                procField_ = false;
+            }
+            if (!procField_) {
+                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
+                    AssignmentBefore bf_ = e.getValue();
+                    assA_.put(e.getKey(), bf_.assignAfter(isBool_));
+                }
+            } else {
+                for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
+                    if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
+                        FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                        if (meta_.isFinalField()) {
+                            //error if final field
+                            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
+                            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                            un_.setFileName(_conf.getCurrentFileName());
+                            un_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().addError(un_);
+                        }
+                    }
+                    AssignmentBefore bf_ = e.getValue();
+                    assA_.put(e.getKey(), bf_.assignAfter(isBool_));
+                }
             }
         }
         vars_.getVariables().put(this, ass_);

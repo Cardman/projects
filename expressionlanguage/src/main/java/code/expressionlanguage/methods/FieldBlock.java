@@ -49,7 +49,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -229,7 +228,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 parAss_ = _an.getAssignedVariables().getFinalVariablesGlobal();
             }
             AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+            for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
                 assBl_.getFieldsRootBefore().put(e.getKey(), e.getValue().assignBefore());
             }
             assBl_.getFieldsRoot().putAllMap(parAss_.getFieldsRoot());
@@ -292,21 +291,19 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
-        ObjectMap<ClassField,SimpleAssignment> as_ = varsAss_.getFieldsRoot();
-        for (EntryCust<ClassField, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+        StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
+        for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
             as_.put(e.getKey(), e.getValue().assignAfterClassic());
         }
-        String className_ = getRooted().getFullName();
-        ClassField key_ = new ClassField(className_, fieldName);
         if (!ass_) {
-            for (EntryCust<ClassField, SimpleAssignment> e: as_.entryList()) {
-                if (!e.getKey().eq(key_)) {
+            for (EntryCust<String, SimpleAssignment> e: as_.entryList()) {
+                if (!StringList.quickEq(e.getKey(),fieldName)) {
                     continue;
                 }
                 return;
             }
         }
-        as_.put(key_, Assignment.assignClassic(ass_, unass_));
+        as_.put(fieldName, Assignment.assignClassic(ass_, unass_));
     }
     public boolean isSimpleStaticConstant() {
         if (!isStaticField()) {

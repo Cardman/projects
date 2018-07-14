@@ -12,13 +12,11 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class FirstOptOperation extends AbstractUnaryOperation {
@@ -42,13 +40,13 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
+        StringMap<Assignment> fieldsAfter_;
         CustList<StringMap<Assignment>> variablesAfter_;
         fieldsAfter_ = vars_.getFields().getVal(_previous);
         variablesAfter_ = vars_.getVariables().getVal(_previous);
-        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
+        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
+        for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsBefore_.put(e.getKey(), b_.assignBefore());
         }
@@ -119,15 +117,15 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
 
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
-        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+        for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsAfter_.put(e.getKey(), b_.assign(isBool_));
         }

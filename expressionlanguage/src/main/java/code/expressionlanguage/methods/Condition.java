@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
@@ -73,7 +72,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
-        for (EntryCust<ClassField,Assignment> e: res_.getFields().lastValue().entryList()) {
+        for (EntryCust<String,Assignment> e: res_.getFields().lastValue().entryList()) {
             res_.getFieldsRootAfter().put(e.getKey(), e.getValue().toBoolAssign().copy());
         }
         for (StringMap<Assignment> s: res_.getVariables().lastValue()) {

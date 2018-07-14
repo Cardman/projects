@@ -10,7 +10,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -81,8 +80,8 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
             ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {

@@ -12,7 +12,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
@@ -20,7 +19,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class VarargOperation extends LeafOperation {
@@ -82,10 +80,10 @@ public final class VarargOperation extends LeafOperation {
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
 
-        for (EntryCust<ClassField, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
+        for (EntryCust<String, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
             AssignmentBefore b_ = e.getValue();
             fieldsAfter_.put(e.getKey(), b_.assignAfter(false));
         }

@@ -11,7 +11,6 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
@@ -50,8 +49,8 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
             ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
@@ -68,7 +67,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             SimpleAssignment ba_ = e.getValue();
             assBl_.getFieldsRootBefore().put(e.getKey(), ba_.assignBefore());
         }
@@ -100,7 +99,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         }
         AssignedVariables parAss_ = inners_.firstValue();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             AssignmentBefore ab_ = new AssignmentBefore();
             if (parAss_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
                 ab_.setAssignedBefore(true);

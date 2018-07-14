@@ -19,8 +19,8 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.Numbers;
-import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class ConstructorBlock extends NamedFunctionBlock implements GeneConstructor {
 
@@ -213,9 +213,10 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
         
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        for (EntryCust<ReturnMehod, ObjectMap<ClassField, SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
-            for (EntryCust<ClassField, SimpleAssignment> f: r.getValue().entryList()) {
-                ClassField key_ = f.getKey();
+        for (EntryCust<ReturnMehod, StringMap<SimpleAssignment>> r: _anEl.getAssignments().entryList()) {
+            for (EntryCust<String, SimpleAssignment> f: r.getValue().entryList()) {
+                String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
+                ClassField key_ = new ClassField(cl_,f.getKey());
                 FieldInfo finfo_ = _an.getFieldInfo(key_);
                 if (!finfo_.isFinalField()) {
                     continue;
@@ -235,8 +236,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
         if (_anEl.canCompleteNormally(this)) {
             AssignedVariables assTar_ = id_.getVal(this);
-            for (EntryCust<ClassField, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
-                ClassField key_ = f.getKey();
+            for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
+                String cl_ = Templates.getIdFromAllTypes(_an.getGlobalClass());
+                ClassField key_ = new ClassField(cl_,f.getKey());
                 FieldInfo finfo_ = _an.getFieldInfo(key_);
                 if (!finfo_.isFinalField()) {
                     continue;

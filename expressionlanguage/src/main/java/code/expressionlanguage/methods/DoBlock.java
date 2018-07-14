@@ -10,14 +10,12 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup {
@@ -78,7 +76,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         if (last_ == null) {
             AssignedVariables parAss_ = id_.getVal(this);
-            for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+            for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
                 AssignmentBefore ab_ = new AssignmentBefore();
                 ab_.setAssignedBefore(true);
                 ab_.setUnassignedBefore(true);
@@ -102,7 +100,7 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         }
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables parLast_ = id_.getVal(last_);
-        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             AssignmentBefore ab_ = new AssignmentBefore();
             boolean contAss_ = true;
             boolean contUnass_ = true;
@@ -182,11 +180,11 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables vars_ = firstChild_.buildNewAssignedVariable();
-        ObjectMap<ClassField,AssignmentBefore> fields_;
+        StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
-        fields_ = new ObjectMap<ClassField,AssignmentBefore>();
+        fields_ = new StringMap<AssignmentBefore>();
         variables_ = parAss_.getVariablesRootBefore();
-        for (EntryCust<ClassField,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
+        for (EntryCust<String,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
             fields_.put(e.getKey(), e.getValue().copy());
         }
         vars_.getFieldsRootBefore().putAllMap(fields_);
@@ -204,8 +202,8 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
             ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {

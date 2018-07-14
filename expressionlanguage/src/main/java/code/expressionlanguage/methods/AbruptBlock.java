@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.Element;
 import code.util.CustList;
@@ -41,8 +40,8 @@ public abstract class AbruptBlock extends Leaf {
             list_.add(sm_);
         }
         vars_.getVariablesRoot().addAllElts(list_);
-        for (EntryCust<ClassField,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
             vars_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
     }

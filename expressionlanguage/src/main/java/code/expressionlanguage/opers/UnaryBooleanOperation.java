@@ -12,13 +12,11 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -111,7 +109,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         if (children_.isEmpty()) {
             CustList<StringMap<AssignmentBefore>> variablesAfterLast_ = vars_.getVariablesRootBefore();
@@ -128,8 +126,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
                 variablesAfter_.add(sm_);
             }
             vars_.getVariables().put(this, variablesAfter_);
-            ObjectMap<ClassField,AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
-            for (EntryCust<ClassField, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
+            StringMap<AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
+            for (EntryCust<String, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
                 BooleanAssignment s_ = new BooleanAssignment();
                 s_.setAssignedAfterWhenFalse(true);
                 s_.setUnassignedAfterWhenFalse(true);
@@ -141,9 +139,9 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
             return;
         }
         OperationNode last_ = children_.last();
-        ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
+        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-        for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+        for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
             BooleanAssignment b_ = e.getValue().toBoolAssign();
             BooleanAssignment r_ = b_.neg();
             fieldsAfter_.put(e.getKey(), r_);

@@ -22,8 +22,8 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class ElementBlock extends Leaf implements InfoBlock{
 
@@ -165,7 +165,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
             AssignedVariables parAss_ = id_.getVal(prev_);
             AssignedVariables assBl_ = buildNewAssignedVariable();
-            for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+            for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
                 AssignmentBefore asBef_ = e.getValue().assignBefore();
                 assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
             }
@@ -194,14 +194,13 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        String className_ = getClassName();
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
-        ObjectMap<ClassField,SimpleAssignment> as_ = varsAss_.getFieldsRoot();
-        for (EntryCust<ClassField, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+        StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
+        for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
             as_.put(e.getKey(), e.getValue().assignAfterClassic());
         }
-        as_.put(new ClassField(className_, fieldName), Assignment.assignClassic(true, false));
+        as_.put(fieldName, Assignment.assignClassic(true, false));
     }
     @Override
     boolean canBeLastOfBlockGroup() {

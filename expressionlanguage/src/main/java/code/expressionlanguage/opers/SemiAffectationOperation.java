@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -24,7 +25,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -90,7 +90,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     public void analyzeAssignmentAfter(Analyzable _conf) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
@@ -108,8 +108,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                 variablesAfter_.add(sm_);
             }
             vars_.getVariables().put(this, variablesAfter_);
-            ObjectMap<ClassField,AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
-            for (EntryCust<ClassField, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
+            StringMap<AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
+            for (EntryCust<String, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
                 SimpleAssignment s_ = new SimpleAssignment();
                 s_.setAssignedAfter(true);
                 s_.setUnassignedAfter(true);
@@ -163,45 +163,35 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
         if (firstChild_ instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             fromCurClass_ = cst_.isFromCurrentClass(_conf);
-            ClassField cl_ = cst_.getFieldId();
-            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
-            if (cl_ != null) {
-                boolean checkFinal_ = false;
-                if (!fromCurClass_) {
-                    checkFinal_ = true;
-                } else {
-                    if (!fieldsAfterLast_.getVal(cl_).isUnassignedAfter()) {
-                        checkFinal_ = true;
-                    }
-                }
-                if (checkFinal_) {
-                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                    if (meta_.isFinalField()) {
-                        //error if final field
-                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setFileName(_conf.getCurrentFileName());
-                        un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().addError(un_);
-                    }
+            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
+            if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
+                ClassField cl_ = cst_.getFieldId();
+                FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                if (meta_.isFinalField()) {
+                    //error if final field
+                    cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(un_);
                 }
             }
         }
         if (fromCurClass_) {
-            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
+            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-                boolean ass_ = cl_.eq(e.getKey()) || e.getValue().isAssignedAfter();
-                boolean unass_ = !cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter();
+            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
+                boolean ass_ = StringList.quickEq(cl_.getFieldName(), e.getKey()) || e.getValue().isAssignedAfter();
+                boolean unass_ = !StringList.quickEq(cl_.getFieldName(), e.getKey()) && e.getValue().isUnassignedAfter();
                 fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
             }
         } else {
             if (settable == null) {
                 firstChild_ = realFirstChild_;
             }
-            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(firstChild_);
+            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
                 fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
             }
         }

@@ -9,7 +9,6 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
@@ -37,7 +36,7 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
             boolean ass_ = ba_.isAssignedAfter();
@@ -93,8 +92,8 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
         }
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
             ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {

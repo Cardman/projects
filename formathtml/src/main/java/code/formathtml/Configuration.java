@@ -966,4 +966,25 @@ public class Configuration implements ExecutableCode {
     public StringList getVariablesNames() {
         return context.getVariablesNames();
     }
+
+    @Override
+    public boolean isAssignedStaticFields() {
+        return context.isAssignedStaticFields();
+    }
+
+    @Override
+    public void setAssignedStaticFields(boolean _assignedStaticFields) {
+        context.setAssignedStaticFields(_assignedStaticFields);
+    }
+
+    @Override
+    public boolean isAssignedFields() {
+        return context.isAssignedFields();
+    }
+
+    @Override
+    public void setAssignedFields(boolean _assignedFields) {
+        context.setAssignedFields(_assignedFields);
+    }
+
 }

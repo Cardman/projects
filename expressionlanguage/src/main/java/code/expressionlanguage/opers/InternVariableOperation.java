@@ -12,7 +12,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.variables.LocalVariable;
@@ -20,7 +19,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -52,9 +50,9 @@ public final class InternVariableOperation extends LeafOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
-        ObjectMap<ClassField,AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
+        StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
-        ObjectMap<ClassField,Assignment> assA_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> assA_ = new StringMap<Assignment>();
 
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
@@ -67,7 +65,7 @@ public final class InternVariableOperation extends LeafOperation {
             }
             ass_.add(sm_);
         }
-        for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
+        for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
             AssignmentBefore bf_ = e.getValue();
             assA_.put(e.getKey(), bf_.assignAfter(isBool_));
         }

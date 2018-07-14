@@ -22,7 +22,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -34,7 +33,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -188,9 +186,9 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             super.setAssignmentAfter(_an, _anEl);
         }
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        ObjectMap<ClassField, SimpleAssignment> ass_;
-        ass_ = new ObjectMap<ClassField, SimpleAssignment>();
-        for (EntryCust<ClassField, SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
+        StringMap<SimpleAssignment> ass_;
+        ass_ = new StringMap<SimpleAssignment>();
+        for (EntryCust<String, SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
             ass_.put(e.getKey(), e.getValue().assign());
         }
         _anEl.getAssignments().put(this, ass_);

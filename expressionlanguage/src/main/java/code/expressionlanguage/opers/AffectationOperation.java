@@ -3,6 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -26,7 +27,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -133,7 +133,7 @@ public final class AffectationOperation extends MethodOperation {
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         OperationNode firstChild_ = (OperationNode) settable;
         OperationNode lastChild_ = getChildrenNodes().last();
-        ObjectMap<ClassField,Assignment> fieldsAfter_ = new ObjectMap<ClassField,Assignment>();
+        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
@@ -179,42 +179,32 @@ public final class AffectationOperation extends MethodOperation {
         if (firstChild_ instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             fromCurClass_ = cst_.isFromCurrentClass(_conf);
-            ClassField cl_ = cst_.getFieldId();
-            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            if (cl_ != null) {
-                boolean checkFinal_ = false;
-                if (!fromCurClass_) {
-                    checkFinal_ = true;
-                } else {
-                    if (!fieldsAfterLast_.getVal(cl_).isUnassignedAfter()) {
-                        checkFinal_ = true;
-                    }
-                }
-                if (checkFinal_) {
-                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                    if (meta_.isFinalField()) {
-                        //error if final field
-                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
-                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setFileName(_conf.getCurrentFileName());
-                        un_.setRc(_conf.getCurrentLocation());
-                        _conf.getClasses().addError(un_);
-                    }
+            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
+            if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
+                ClassField cl_ = cst_.getFieldId();
+                FieldInfo meta_ = _conf.getFieldInfo(cl_);
+                if (meta_.isFinalField()) {
+                    //error if final field
+                    cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(un_);
                 }
             }
         }
         if (fromCurClass_) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             ClassField cl_ = cst_.getFieldId();
-            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
-                boolean ass_ = cl_.eq(e.getKey()) || e.getValue().isAssignedAfter();
-                boolean unass_ = !cl_.eq(e.getKey()) && e.getValue().isUnassignedAfter();
+            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
+            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
+                boolean ass_ = StringList.quickEq(cl_.getFieldName(), e.getKey()) || e.getValue().isAssignedAfter();
+                boolean unass_ = !StringList.quickEq(cl_.getFieldName(),e.getKey()) && e.getValue().isUnassignedAfter();
                 fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
             }
         } else {
-            ObjectMap<ClassField,Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
-            for (EntryCust<ClassField, Assignment> e: fieldsAfterLast_.entryList()) {
+            StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
+            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
                 fieldsAfter_.put(e.getKey(), e.getValue().assign(isBool_));
             }
         }
@@ -225,13 +215,13 @@ public final class AffectationOperation extends MethodOperation {
             OperationNode _nextSibling, OperationNode _previous) {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        ObjectMap<ClassField,Assignment> fieldsAfter_;
+        StringMap<Assignment> fieldsAfter_;
         CustList<StringMap<Assignment>> variablesAfter_;
         fieldsAfter_ = vars_.getFields().getVal(_previous);
         variablesAfter_ = vars_.getVariables().getVal(_previous);
-        ObjectMap<ClassField,AssignmentBefore> fieldsBefore_ = new ObjectMap<ClassField,AssignmentBefore>();
+        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<ClassField, Assignment> e: fieldsAfter_.entryList()) {
+        for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsBefore_.put(e.getKey(), b_.assignBefore());
         }

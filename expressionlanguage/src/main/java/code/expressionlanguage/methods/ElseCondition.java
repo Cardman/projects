@@ -14,14 +14,12 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class ElseCondition extends BracedStack implements BlockCondition, IncrNextGroup {
@@ -56,7 +54,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         parAss_ = id_.getVal(getPreviousSibling());
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = ba_.copyWhenFalse();
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
@@ -77,8 +75,8 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     public void buildExpressionLanguage(ContextEl _cont) {
         AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
         AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<ClassField,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
             ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
         }
         for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
@@ -156,19 +154,19 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         AssignedVariables ass_ = id_.getVal(this);
-        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        StringMap<SimpleAssignment> fields_ = ass_.getFieldsRoot();
         CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
-        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
         IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
-        for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
-            ClassField key_ = e.getKey();
+        for (EntryCust<String,SimpleAssignment> e: fields_.entryList()) {
+            String key_ = e.getKey();
             boolean assAfter_ = true;
             boolean unassAfter_ = true;
             for (Block p: prev_) {
                 if (_anEl.canCompleteStrictNormally(p)) {
                     AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
                     if (!fieldsLoc_.getVal(key_).isAssignedAfter()) {
                         assAfter_ = false;
                         break;
@@ -188,7 +186,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
             for (Block p: prev_) {
                 if (_anEl.canCompleteStrictNormally(p)) {
                     AssignedVariables assLoc_ = id_.getVal(p);
-                    ObjectMap<ClassField,SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
+                    StringMap<SimpleAssignment> fieldsLoc_ = assLoc_.getFieldsRoot();
                     if (!fieldsLoc_.getVal(key_).isUnassignedAfter()) {
                         unassAfter_ = false;
                         break;

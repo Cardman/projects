@@ -15,7 +15,6 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -26,7 +25,6 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -147,7 +145,7 @@ public abstract class Block extends Blockable {
     }
     public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        ObjectMap<ClassField,AssignmentBefore> fields_;
+        StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
         fields_ = vars_.getFieldsRootBefore();
         variables_ = vars_.getVariablesRootBefore();
@@ -159,7 +157,7 @@ public abstract class Block extends Blockable {
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, SimpleAssignment> e: prevAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: prevAss_.getFieldsRoot().entryList()) {
             AssignmentBefore asBef_ = e.getValue().assignBefore();
             assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
         }
@@ -242,11 +240,11 @@ public abstract class Block extends Blockable {
 
     public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl);
-    protected final ObjectMap<ClassField, AssignmentBefore> makeHypothesisFields(Analyzable _an) {
+    protected final StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        ObjectMap<ClassField,AssignmentBefore> fields_;
-        fields_ = new ObjectMap<ClassField,AssignmentBefore>();
-        for (EntryCust<ClassField,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
+        StringMap<AssignmentBefore> fields_;
+        fields_ = new StringMap<AssignmentBefore>();
+        for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
             AssignmentBefore ass_ = e.getValue();
             AssignmentBefore h_ = new AssignmentBefore();
             if (ass_.isAssignedBefore()) {

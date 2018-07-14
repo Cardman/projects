@@ -30,7 +30,6 @@ import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -66,7 +65,6 @@ import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
-import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1546,23 +1544,10 @@ public final class Classes {
         EqList<ClassField> cstFields_ = initStaticFields(_context);
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         _context.setAnalyzing(page_);
-        ObjectMap<ClassField,AssignmentBefore> assStd_;
-        assStd_ = new ObjectMap<ClassField,AssignmentBefore>();
-        for (EntryCust<String, StandardType> e: _context.getStandards().getStandards().entryList()){
-            for (EntryCust<String, StandardField> f: e.getValue().getFields().entryList()){
-                if (!f.getValue().isStaticField()) {
-                    continue;
-                }
-                AssignmentBefore as_ = new AssignmentBefore();
-                as_.setAssignedBefore(true);
-                ClassField key_ = new ClassField(e.getKey(), f.getValue().getFieldName());
-                assStd_.put(key_, as_);
-            }
-        }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
-            ObjectMap<ClassField,AssignmentBefore> ass_;
-            ass_ = new ObjectMap<ClassField,AssignmentBefore>();
+            StringMap<AssignmentBefore> ass_;
+            ass_ = new StringMap<AssignmentBefore>();
             for (Block b: bl_) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
@@ -1574,26 +1559,23 @@ public final class Classes {
                 AssignmentBefore as_ = new AssignmentBefore();
                 String clDecl_ = c.getKey();
                 String fieldName_ = f_.getFieldName();
-                ClassField key_ = new ClassField(clDecl_, fieldName_);
                 if (staticFields.getVal(clDecl_).getVal(fieldName_) != null) {
                     as_.setAssignedBefore(true);
                 } else {
                     as_.setUnassignedBefore(true);
                 }
-                ass_.put(key_, as_);
+                ass_.put(fieldName_, as_);
             }
             AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
-            ObjectMap<ClassField,AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
+            StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
+            b_.clear();
             asBlock_.getFinalVariablesGlobal().getFields().clear();
             asBlock_.getFinalVariablesGlobal().getFieldsRoot().clear();
             asBlock_.getFinalVariablesGlobal().getFieldsRootBefore().clear();
             asBlock_.getFinalVariablesGlobal().getFieldsBefore().clear();
             b_.putAllMap(ass_);
-            for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {
-                b_.put(e.getKey(), e.getValue().copy());
-            }
-            ObjectMap<ClassField,SimpleAssignment> assAfter_;
-            assAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
+            StringMap<SimpleAssignment> assAfter_;
+            assAfter_ = new StringMap<SimpleAssignment>();
             for (Block b: bl_) {
                 if (b instanceof FieldBlock) {
                     FieldBlock f_ = (FieldBlock) b;
@@ -1633,9 +1615,10 @@ public final class Classes {
                     page_.clearAllLocalVars();
                 }
             }
-            for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
-                ClassField key_ = a.getKey();
-                FieldInfo finfo_ = _context.getFieldInfo(key_);
+            for (EntryCust<String, SimpleAssignment> a: assAfter_.entryList()) {
+                String key_ = a.getKey();
+                ClassField id_ = new ClassField(c.getKey(), key_);
+                FieldInfo finfo_ = _context.getFieldInfo(id_);
                 if (!finfo_.isFinalField()) {
                     continue;
                 }
@@ -1644,38 +1627,18 @@ public final class Classes {
                 }
                 if (!a.getValue().isAssignedAfter()) {
                     //error
-                    UnassignedFinalField un_ = new UnassignedFinalField(key_);
+                    UnassignedFinalField un_ = new UnassignedFinalField(id_);
                     un_.setFileName(c.getValue().getFile().getFileName());
                     un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
                     _context.getClasses().addError(un_);
                 }
             }
         }
-        ObjectMap<ClassField,AssignmentBefore> assSt_;
-        assSt_ = new ObjectMap<ClassField,AssignmentBefore>();
-        ObjectMap<ClassField,SimpleAssignment> assStAfter_;
-        assStAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
+        page_.setAssignedStaticFields(true);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof InfoBlock) {
-                    InfoBlock method_ = (InfoBlock) b;
-                    if (method_.isStaticField()) {
-                        AssignmentBefore as_ = new AssignmentBefore();
-                        String clDecl_ = c.getKey();
-                        String fieldName_ = method_.getFieldName();
-                        ClassField key_ = new ClassField(clDecl_, fieldName_);
-                        as_.setAssignedBefore(true);
-                        assSt_.put(key_, as_);
-                        assStAfter_.put(key_, Assignment.assignClassic(true, false));
-                    }
-                }
-            }
-        }
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            ObjectMap<ClassField,AssignmentBefore> ass_;
-            ass_ = new ObjectMap<ClassField,AssignmentBefore>();
+            StringMap<AssignmentBefore> ass_;
+            ass_ = new StringMap<AssignmentBefore>();
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
@@ -1686,49 +1649,21 @@ public final class Classes {
                 if (b instanceof FieldBlock) {
                     InfoBlock f_ = (InfoBlock) b;
                     AssignmentBefore as_ = new AssignmentBefore();
-                    String clDecl_ = c.getKey();
                     String fieldName_ = f_.getFieldName();
-                    ClassField key_ = new ClassField(clDecl_, fieldName_);
                     as_.setUnassignedBefore(true);
-                    ass_.put(key_, as_);
-                }
-            }
-            for (EntryCust<String, RootBlock> d: classesBodies.entryList()) {
-                if (StringList.quickEq(d.getKey(), c.getKey())) {
-                    continue;
-                }
-                CustList<Block> blt_ = getDirectChildren(d.getValue());
-                for (Block b: blt_) {
-                    if (b instanceof InfoBlock) {
-                        InfoBlock method_ = (InfoBlock) b;
-                        if (method_.isStaticField()) {
-                            continue;
-                        }
-                    }
-                    if (b instanceof FieldBlock) {
-                        InfoBlock f_ = (InfoBlock) b;
-                        AssignmentBefore as_ = new AssignmentBefore();
-                        String clDecl_ = d.getKey();
-                        String fieldName_ = f_.getFieldName();
-                        ClassField key_ = new ClassField(clDecl_, fieldName_);
-                        as_.setAssignedBefore(true);
-                        ass_.put(key_, as_);
-                    }
+                    ass_.put(fieldName_, as_);
                 }
             }
             AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
-            ObjectMap<ClassField,AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
+            StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
             asBlock_.getFinalVariablesGlobal().getFields().clear();
             asBlock_.getFinalVariablesGlobal().getFieldsRoot().clear();
             asBlock_.getFinalVariablesGlobal().getFieldsRootBefore().clear();
             asBlock_.getFinalVariablesGlobal().getFieldsBefore().clear();
+            b_.clear();
             b_.putAllMap(ass_);
-            b_.putAllMap(assSt_);
-            for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {
-                b_.put(e.getKey(), e.getValue().copy());
-            }
-            ObjectMap<ClassField,SimpleAssignment> assAfter_;
-            assAfter_ = new ObjectMap<ClassField,SimpleAssignment>();
+            StringMap<SimpleAssignment> assAfter_;
+            assAfter_ = new StringMap<SimpleAssignment>();
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
@@ -1770,13 +1705,9 @@ public final class Classes {
                 }
             }
             if (!hasCtor_) {
-                for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
-                    ClassField key_ = a.getKey();
-                    String curCur_ = key_.getClassName();
-                    if (!StringList.quickEq(curCur_, c.getKey())) {
-                        continue;
-                    }
-                    String fieldName_ = key_.getFieldName();
+                for (EntryCust<String, SimpleAssignment> a: assAfter_.entryList()) {
+                    String fieldName_ = a.getKey();
+                    ClassField key_ = new ClassField(c.getKey(), fieldName_);
                     FieldInfo finfo_ = _context.getFieldInfo(key_);
                     if (!finfo_.isFinalField()) {
                         continue;
@@ -1797,14 +1728,8 @@ public final class Classes {
                     }
                 }
             }
-            for (EntryCust<ClassField, SimpleAssignment> a: assAfter_.entryList()) {
+            for (EntryCust<String, SimpleAssignment> a: assAfter_.entryList()) {
                 b_.put(a.getKey(), a.getValue().assignBefore());
-            }
-            for (EntryCust<ClassField, SimpleAssignment> a: assStAfter_.entryList()) {
-                b_.put(a.getKey(), a.getValue().assignBefore());
-            }
-            for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {
-                b_.put(e.getKey(), e.getValue().copy());
             }
             RootBlock block_ = c.getValue();
             StringList filteredCtor_ = new StringList();
@@ -1884,36 +1809,15 @@ public final class Classes {
                 }
             }
         }
-        ObjectMap<ClassField,AssignmentBefore> ass_;
-        ass_ = new ObjectMap<ClassField,AssignmentBefore>();
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof InfoBlock) {
-                    InfoBlock f_ = (InfoBlock) b;
-                    AssignmentBefore as_ = new AssignmentBefore();
-                    String clDecl_ = c.getKey();
-                    String fieldName_ = f_.getFieldName();
-                    ClassField key_ = new ClassField(clDecl_, fieldName_);
-                    as_.setAssignedBefore(true);
-                    ass_.put(key_, as_);
-                }
-            }
-        }
-        for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {
-            ass_.put(e.getKey(), e.getValue().copy());
-        }
+        page_.setAssignedFields(true);
         AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
-        ObjectMap<ClassField,AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
         asBlock_.getFinalVariablesGlobal().getFields().clear();
         asBlock_.getFinalVariablesGlobal().getFieldsRoot().clear();
         asBlock_.getFinalVariablesGlobal().getFieldsRootBefore().clear();
         asBlock_.getFinalVariablesGlobal().getFieldsBefore().clear();
+        StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
+        b_.clear();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            b_.clear();
-            for (EntryCust<ClassField, AssignmentBefore> a: ass_.entryList()) {
-                b_.put(a.getKey(), a.getValue().copy());
-            }
             CustList<Block> bl_ = getDirectChildren(c.getValue());
             for (Block b: bl_) {
                 if (b instanceof MethodBlock) {
@@ -1977,23 +1881,10 @@ public final class Classes {
         EqList<ClassField> success_ = new EqList<ClassField>();
         EqList<ClassField> cstFields_ = new EqList<ClassField>();
         page_.getAssignedVariables().getFinalVariablesGlobal().initVars();
-        ObjectMap<ClassField,AssignmentBefore> assStd_;
-        assStd_ = new ObjectMap<ClassField,AssignmentBefore>();
-        for (EntryCust<String, StandardType> e: _context.getStandards().getStandards().entryList()){
-            for (EntryCust<String, StandardField> f: e.getValue().getFields().entryList()){
-                if (!f.getValue().isStaticField()) {
-                    continue;
-                }
-                AssignmentBefore as_ = new AssignmentBefore();
-                as_.setAssignedBefore(true);
-                ClassField key_ = new ClassField(e.getKey(), f.getValue().getFieldName());
-                assStd_.put(key_, as_);
-            }
-        }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
-            ObjectMap<ClassField,AssignmentBefore> ass_;
-            ass_ = new ObjectMap<ClassField,AssignmentBefore>();
+            StringMap<AssignmentBefore> ass_;
+            ass_ = new StringMap<AssignmentBefore>();
             for (Block b: bl_) {
                 if (!(b instanceof FieldBlock)) {
                     continue;
@@ -2007,16 +1898,12 @@ public final class Classes {
                 }
                 AssignmentBefore as_ = new AssignmentBefore();
                 as_.setUnassignedBefore(true);
-                ClassField key_ = new ClassField(c.getKey(), f_.getFieldName());
-                ass_.put(key_, as_);
+                ass_.put(f_.getFieldName(), as_);
             }
             AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
-            ObjectMap<ClassField,AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
+            StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
             b_.clear();
             b_.putAllMap(ass_);
-            for (EntryCust<ClassField, AssignmentBefore> e: assStd_.entryList()) {
-                b_.put(e.getKey(), e.getValue().copy());
-            }
             for (Block b: bl_) {
                 if (!(b instanceof FieldBlock)) {
                     continue;

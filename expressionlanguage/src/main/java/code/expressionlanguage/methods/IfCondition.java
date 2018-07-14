@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
@@ -21,7 +20,6 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
-import code.util.ObjectMap;
 import code.util.StringMap;
 
 public final class IfCondition extends Condition implements BlockCondition, IncrCurrentGroup {
@@ -76,7 +74,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-        for (EntryCust<ClassField, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
             BooleanAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = ba_.copyWhenTrue();
             assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
@@ -104,7 +102,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         Block nextSibling_ = getNextSibling();
         AssignedBooleanVariables assBool_ = (AssignedBooleanVariables) prevAss_;
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, BooleanAssignment> e: assBool_.getFieldsRootAfter().entryList()) {
+        for (EntryCust<String, BooleanAssignment> e: assBool_.getFieldsRootAfter().entryList()) {
             AssignmentBefore asBef_ = e.getValue().copyWhenFalse();
             assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
         }
@@ -135,16 +133,16 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
-        ObjectMap<ClassField,BooleanAssignment> fieldsCond_ = assTar_.getFieldsRootAfter();
+        StringMap<BooleanAssignment> fieldsCond_ = assTar_.getFieldsRootAfter();
         CustList<StringMap<BooleanAssignment>> varsCond_ = assTar_.getVariablesRootAfter();
         AssignedVariables ass_ = id_.getVal(this);
-        ObjectMap<ClassField,SimpleAssignment> fields_ = ass_.getFieldsRoot();
+        StringMap<SimpleAssignment> fields_ = ass_.getFieldsRoot();
         CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
-        ObjectMap<ClassField,SimpleAssignment> after_ = new ObjectMap<ClassField,SimpleAssignment>();
+        StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-        for (EntryCust<ClassField,SimpleAssignment> e: fields_.entryList()) {
+        for (EntryCust<String,SimpleAssignment> e: fields_.entryList()) {
             SimpleAssignment ab_ = e.getValue();
-            ClassField key_ = e.getKey();
+            String key_ = e.getKey();
             BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
             boolean assAfter_ = true;
             boolean unassAfter_ = true;

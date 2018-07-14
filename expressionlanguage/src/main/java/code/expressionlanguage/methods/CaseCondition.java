@@ -81,7 +81,7 @@ public final class CaseCondition extends BracedStack implements StackableBlockGr
         AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<ClassField, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
             SimpleAssignment ba_ = e.getValue();
             AssignmentBefore ab_ = new AssignmentBefore();
             boolean ass_ = ba_.isAssignedAfter();
