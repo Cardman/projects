@@ -95,33 +95,101 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             id_.put(nextSibling_, assBl_);
             return;
         }
+        assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeNextSibling(_an, _anEl));
+        assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeNextSibling(_an, _anEl));
+        id_.put(nextSibling_, assBl_);
+    }
+    protected StringMap<AssignmentBefore> buildAssListFieldBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
-        AssignedVariables parAss_ = id_.getVal(this);
-        AssignedVariables parLast_ = id_.getVal(last_);
-        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
+        CustList<ContinueBlock> continues_ = getContinuables(_anEl);
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        StringMap<SimpleAssignment> list_;
+        list_ = id_.getVal(this).getFieldsRoot();
+        int contLen_ = continues_.size();
+        CustList<StringMap<AssignmentBefore>> breakAss_;
+        breakAss_ = new CustList<StringMap<AssignmentBefore>>();
+        for (int j = 0; j < contLen_; j++) {
+            ContinueBlock br_ = continues_.get(j);
+            AssignedVariables ass_ = id_.getVal(br_);
+            StringMap<AssignmentBefore> vars_ = ass_.getFieldsRootBefore();
+            breakAss_.add(vars_);
+        }
+        if (_anEl.canCompleteNormallyGroup(last_)) {
+            AssignedVariables ass_ = id_.getVal(last_);
+            StringMap<SimpleAssignment> v_ = ass_.getFieldsRoot();
+            return beforeNextSibling(list_, v_, breakAss_);
+        }
+        return beforeNextSibling(list_, new StringMap<SimpleAssignment>(), breakAss_);
+    }
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        Block last_ = getFirstChild();
+        while (last_.getNextSibling() != null) {
+            last_ = last_.getNextSibling();
+        }
+        CustList<ContinueBlock> continues_ = getContinuables(_anEl);
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<AssignmentBefore>> varsList_;
+        varsList_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<SimpleAssignment>> list_;
+        list_ = id_.getVal(this).getVariablesRoot();
+        int contLen_ = continues_.size();
+        int loopLen_ = list_.size();
+        for (int i = 0; i < loopLen_; i++) {
+            CustList<StringMap<AssignmentBefore>> breakAss_;
+            breakAss_ = new CustList<StringMap<AssignmentBefore>>();
+            for (int j = 0; j < contLen_; j++) {
+                ContinueBlock br_ = continues_.get(j);
+                AssignedVariables ass_ = id_.getVal(br_);
+                CustList<StringMap<AssignmentBefore>> vars_ = ass_.getVariablesRootBefore();
+                if (!vars_.isValidIndex(i)) {
+                    continue;
+                }
+                breakAss_.add(vars_.get(i));
+            }
+            StringMap<SimpleAssignment> cond_ = list_.get(i);
+            if (_anEl.canCompleteNormallyGroup(last_)) {
+                AssignedVariables ass_ = id_.getVal(last_);
+                CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
+                if (v_.isValidIndex(i)) {
+                    varsList_.add(beforeNextSibling(cond_, v_.get(i), breakAss_));
+                }
+            } else {
+                varsList_.add(beforeNextSibling(cond_, new StringMap<SimpleAssignment>(), breakAss_));
+            }
+        }
+        
+        return varsList_;
+    }
+    private static StringMap<AssignmentBefore> beforeNextSibling(StringMap<SimpleAssignment> _loop, StringMap<SimpleAssignment> _last,
+            CustList<StringMap<AssignmentBefore>> _continuable) {
+        StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
+        for (EntryCust<String, SimpleAssignment> e: _loop.entryList()) {
+            String key_ = e.getKey();
             AssignmentBefore ab_ = new AssignmentBefore();
             boolean contAss_ = true;
             boolean contUnass_ = true;
-            for (EntryCust<ContinueBlock, Loop> c: _anEl.getContinuables().entryList()) {
-                if (c.getValue() != this) {
+            for (StringMap<AssignmentBefore> c: _continuable) {
+                if (!c.contains(key_)) {
                     continue;
                 }
-                if (!id_.getVal(c.getKey()).getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
+                if (!c.getVal(key_).isAssignedBefore()) {
                     contAss_ = false;
                 }
-                if (!id_.getVal(c.getKey()).getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
+                if (!c.getVal(key_).isUnassignedBefore()) {
                     contUnass_ = false;
                 }
             }
-            if (_anEl.canCompleteNormallyGroup(last_)) {
-                SimpleAssignment ba_ = parLast_.getFieldsRoot().getVal(e.getKey());
-                if (contAss_) {
-                    contAss_ = ba_.isAssignedAfter();
+            if (_last.contains(key_)) {
+                if (!_last.getVal(key_).isAssignedAfter()) {
+                    contAss_ = false;
                 }
-                if (contUnass_) {
-                    contUnass_ = ba_.isUnassignedAfter();
+                if (!_last.getVal(key_).isUnassignedAfter()) {
+                    contUnass_ = false;
                 }
             }
             if (contAss_) {
@@ -130,49 +198,9 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             if (contUnass_) {
                 ab_.setUnassignedBefore(true);
             }
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+            out_.put(e.getKey(), ab_);
         }
-        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            int index_ = assBl_.getVariablesRootBefore().size();
-            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                AssignmentBefore ab_ = new AssignmentBefore();
-                boolean contAss_ = true;
-                boolean contUnass_ = true;
-                for (EntryCust<ContinueBlock, Loop> c: _anEl.getContinuables().entryList()) {
-                    if (c.getValue() != this) {
-                        continue;
-                    }
-                    if (!id_.getVal(c.getKey()).getVariablesRootBefore().get(index_).getVal(e.getKey()).isAssignedBefore()) {
-                        contAss_ = false;
-                    }
-                    if (!id_.getVal(c.getKey()).getVariablesRootBefore().get(index_).getVal(e.getKey()).isUnassignedBefore()) {
-                        contUnass_ = false;
-                    }
-                }
-                if (_anEl.canCompleteNormallyGroup(last_)) {
-                    CustList<StringMap<SimpleAssignment>> vars_ = parLast_.getVariablesRoot();
-                    if (vars_.isValidIndex(index_)) {
-                        SimpleAssignment ba_ = vars_.get(index_).getVal(e.getKey());
-                        if (contAss_) {
-                            contAss_ = ba_.isAssignedAfter();
-                        }
-                        if (contUnass_) {
-                            contUnass_ = ba_.isUnassignedAfter();
-                        }
-                    }
-                }
-                if (contAss_) {
-                    ab_.setAssignedBefore(true);
-                }
-                if (contUnass_) {
-                    ab_.setUnassignedBefore(true);
-                }
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
-        id_.put(nextSibling_, assBl_);
+        return out_;
     }
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {

@@ -393,8 +393,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         CustList<StringMap<AssignmentBefore>> varsHypot_;
         fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an, _anEl);
         varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
-        varsWhile_.getVariablesRootBefore().clear();
         varsHypot_ = buildAssListLocVarInvalHypot(_an, _anEl);
+        varsWhile_.getVariablesRootBefore().clear();
         varsWhile_.getVariablesRootBefore().addAllElts(varsHypot_);
         processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
         processFinalVars(_an, _anEl, allDesc_, varsHypot_);
@@ -402,8 +402,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
-        varsWhile_.getVariablesRoot().clear();
         varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
+        varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
     }
     protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {

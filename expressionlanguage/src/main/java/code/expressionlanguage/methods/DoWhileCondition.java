@@ -158,8 +158,8 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
         varsDo_.getFieldsRoot().putAllMap(fieldsAfter_);
-        varsWhile_.getVariablesRoot().clear();
         varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
+        varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
     }
 
