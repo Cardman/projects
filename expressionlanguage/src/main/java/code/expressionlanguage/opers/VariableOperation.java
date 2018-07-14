@@ -12,7 +12,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadVariableName;
@@ -97,17 +96,11 @@ public final class VariableOperation extends LeafOperation implements
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
-            Block block_ = _conf.getCurrentBlock();
             LocalVariable lv_ = new LocalVariable();
             lv_.setClassName(_conf.getCurrentVarSetting());
             lv_.setFinalVariable(_conf.isFinalVariable());
             _conf.putLocalVar(str_, lv_);
             _conf.getVariablesNames().add(str_);
-            AssignedVariablesBlock glAss_ = _conf.getAssignedVariables();
-            AssignedVariables ass_ = glAss_.getFinalVariables().getVal(block_);
-            AssignmentBefore asBe_ = new AssignmentBefore();
-            asBe_.setUnassignedBefore(true);
-            ass_.getVariablesRootBefore().last().put(str_, asBe_);
             excVar = true;
         }
         variableName = str_;
@@ -143,7 +136,6 @@ public final class VariableOperation extends LeafOperation implements
             }
             boolean isBool_;
             isBool_ = getResultClass().isBoolType(_conf);
-            
             for (StringMap<AssignmentBefore> s: assB_) {
                 StringMap<Assignment> sm_ = new StringMap<Assignment>();
                 for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
@@ -152,6 +144,9 @@ public final class VariableOperation extends LeafOperation implements
                 }
                 ass_.add(sm_);
             }
+            AssignmentBefore asBe_ = new AssignmentBefore();
+            asBe_.setUnassignedBefore(true);
+            ass_.last().put(variableName, asBe_.assignAfter(isBool_));
             for (EntryCust<ClassField, AssignmentBefore> e: assF_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
                 assA_.put(e.getKey(), bf_.assignAfter(isBool_));

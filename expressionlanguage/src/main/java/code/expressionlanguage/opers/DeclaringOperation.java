@@ -10,6 +10,7 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
@@ -63,6 +64,7 @@ public class DeclaringOperation extends MethodOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
+        setResultClass(new ClassArgumentMatching(EMPTY_STRING));
     }
 
     @Override

@@ -469,6 +469,7 @@ public final class ElUtil {
                 return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
             }
         }
+        _context.setAnalyzingRoot(block_ instanceof DeclaringOperation);
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context);
         if (r_.isError()) {
@@ -502,6 +503,7 @@ public final class ElUtil {
         int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
         d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
+        _context.setAnalyzingRoot(p_ instanceof DeclaringOperation);
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
         if (r_.isError()) {
@@ -527,6 +529,9 @@ public final class ElUtil {
         }
         MethodOperation par_ = _var.getParent();
         if (par_ == null) {
+            return true;
+        }
+        if (par_ instanceof DeclaringOperation) {
             return true;
         }
         if (par_ instanceof AffectationOperation) {
@@ -555,6 +560,9 @@ public final class ElUtil {
             return false;
         }
         if (_par == null) {
+            return true;
+        }
+        if (_par instanceof DeclaringOperation) {
             return true;
         }
         if (_par instanceof AffectationOperation) {

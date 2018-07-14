@@ -12,6 +12,7 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.EntryCust;
@@ -105,10 +106,11 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     @Override
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(importedClassName);
-        lv_.setStruct(PrimitiveTypeUtil.defaultValue(importedClassName, _cont));
+        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
         for (String v: getVariableNames()) {
+            LocalVariable lv_ = new LocalVariable();
+            lv_.setClassName(importedClassName);
+            lv_.setStruct(struct_);
             ip_.putLocalVar(v, lv_);
         }
         processBlock(_cont);

@@ -86,4 +86,17 @@ public abstract class ProcessMethodCommon {
         ct_.initError();
         return ct_;
     }
+    protected static ContextEl contextEl(boolean _multAff, boolean _eqPlus,int... _m) {
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = new ContextEl();
+        } else {
+            ct_ = new ContextEl(_m[0]);
+        }
+        ct_.getOptions().setMultipleAffectations(_multAff);
+        ct_.getOptions().setEqPlus(_eqPlus);
+        InitializationLgNames.initAdvStandards(ct_);
+        ct_.initError();
+        return ct_;
+    }
 }

@@ -285,6 +285,9 @@ public abstract class OperationNode {
             }
             return new StandardFieldOperation(_index, _indexChild, _m, _op);
         }
+        if (_op.isDeclaring()) {
+            return new DeclaringOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.isCall()) {
             String fctName_ = _op.getFctName().trim();
             if (fctName_.isEmpty()) {

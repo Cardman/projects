@@ -26,6 +26,8 @@ public final class OperationsSequence {
 
     private boolean instanceTest;
 
+    private boolean declaring;
+
     public void setValue(String _string, int _offset) {
         values = new NatTreeMap<Integer,String>();
         values.put((int)CustList.FIRST_INDEX, _string);
@@ -42,7 +44,7 @@ public final class OperationsSequence {
         boolean pureDot_ = false;
         if (!op_.isEmpty()) {
             if (op_.charAt(0) != DOT_VAR) {
-                if (priority == ElResolver.FCT_OPER_PRIO) {
+                if (priority == ElResolver.FCT_OPER_PRIO && !declaring) {
                     int afterLastPar_ = operators.lastKey()+1;
                     if (!_string.substring(afterLastPar_).trim().isEmpty()) {
                         operators.clear();
@@ -60,6 +62,23 @@ public final class OperationsSequence {
         int beginValuePart_ = CustList.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_;
+        if (declaring) {
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            values.put(beginValuePart_, str_);
+            int i_ = CustList.SECOND_INDEX;
+            int nbKeys_ = operators.size();
+            while (i_ < nbKeys_) {
+                beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+                endValuePart_ = operators.getKey(i_);
+                str_ = _string.substring(beginValuePart_, endValuePart_);
+                values.put(beginValuePart_, str_);
+                i_++;
+            }
+            beginValuePart_ = endValuePart_ + operators.lastValue().length();
+            str_ = _string.substring(beginValuePart_);
+            values.put(beginValuePart_, str_);
+            return;
+        }
         if (priority == ElResolver.POST_INCR_PRIO) {
             values.put((int)CustList.FIRST_INDEX, _string.substring(beginValuePart_, endValuePart_));
             return;
@@ -221,5 +240,13 @@ public final class OperationsSequence {
 
     public void setNbInfos(NumberInfos _nbInfos) {
         nbInfos = _nbInfos;
+    }
+
+    public boolean isDeclaring() {
+        return declaring;
+    }
+
+    public void setDeclaring(boolean _declaring) {
+        declaring = _declaring;
     }
 }
