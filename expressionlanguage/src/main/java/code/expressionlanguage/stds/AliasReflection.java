@@ -59,6 +59,8 @@ public class AliasReflection {
     private String aliasGetParameterNames;
     private String aliasGetGenericReturnType;
     private String aliasGetReturnType;
+    private String aliasGetGenericTypeArguments;
+    private String aliasGetActualTypeArguments;
     private String aliasIsFinal;
     private String aliasIsStatic;
     private String aliasIsVarargs;
@@ -97,6 +99,8 @@ public class AliasReflection {
     private String aliasGetName;
     private String aliasGetField;
     private String aliasSetField;
+    private String aliasGetGenericType;
+    private String aliasGetType;
     private String aliasForName;
     private String aliasGetDeclaringClass;
     private String aliasInvokeTarget;
@@ -278,6 +282,12 @@ public class AliasReflection {
         method_ = new StandardMethod(aliasGetReturnType, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasGetActualTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetGenericTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -326,6 +336,12 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetGenericType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasField, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -452,6 +468,21 @@ public class AliasReflection {
                 result_.setResult(_cont.getExtendedClassMetaInfo(field_.getDeclaringClass()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetType)) {
+                FieldMetaInfo field_ = (FieldMetaInfo) _struct;
+                String owner_ = field_.getDeclaringClass();
+                String typeField_ = field_.getType();
+                typeField_ = Templates.format(owner_, typeField_, _cont);
+                result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetGenericType)) {
+                FieldMetaInfo field_ = (FieldMetaInfo) _struct;
+                String owner_ = field_.getDeclaringClass();
+                String typeField_ = field_.getType();
+                result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
+                return result_;
+            }
         }
         if (StringList.quickEq(type_, ref_.aliasMethod)) {
             if (StringList.quickEq(name_, ref_.aliasIsPolymorph)) {
@@ -506,6 +537,7 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
+                String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
                 int len_ = geneInterfaces_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -514,15 +546,15 @@ public class AliasReflection {
                     int first_ = len_ -1;
                     for (int i = 0; i < first_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                     String int_ = geneInterfaces_.get(first_);
                     int_ = PrimitiveTypeUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = _cont.getExtendedClassMetaInfo(int_);
+                    superInts_[first_] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
@@ -562,7 +594,8 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormattedReturnType()));
+                String owner_ = method_.getFormClassName();
+                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormattedReturnType(),owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
@@ -985,12 +1018,13 @@ public class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasMakeArray)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
                 String clName_ = cl_.getName();
+                String owner_ = cl_.getVariableOwner();
                 if (StringList.quickEq(clName_, aliasVoid_)) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
                 clName_ = PrimitiveTypeUtil.getPrettyArrayType(clName_);
-                result_.setResult(_cont.getExtendedClassMetaInfo(clName_));
+                result_.setResult(_cont.getExtendedClassMetaInfo(clName_, owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetVariableOwner)) {
@@ -1058,13 +1092,14 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetComponentType)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                String owner_ = cl_.getVariableOwner();
                 if (!cl_.isArray()) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
                 String clName_ = cl_.getName();
                 clName_ = PrimitiveTypeUtil.getQuickComponentType(clName_);
-                result_.setResult(_cont.getExtendedClassMetaInfo(clName_));
+                result_.setResult(_cont.getExtendedClassMetaInfo(clName_, owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasMakeGeneric)) {
@@ -1146,7 +1181,38 @@ public class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
-            //
+            if (StringList.quickEq(name_, ref_.aliasGetActualTypeArguments)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                StringList types_ = Templates.getAllTypes(cl_.getName());
+                String owner_ = types_.first();
+                int len_ = types_.size();
+                String clName_ = cl_.getName();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
+                Struct[] superInts_ = new Struct[len_];
+                for (int i = 1; i < len_; i++) {
+                    String nameVar_ = types_.get(i);
+                    nameVar_ = Templates.format(clName_, nameVar_, _cont);
+                    superInts_[i] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
+                }
+                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                result_.setResult(arr_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetGenericTypeArguments)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                StringList types_ = Templates.getAllTypes(cl_.getName());
+                String owner_ = types_.first();
+                int len_ = types_.size();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
+                Struct[] superInts_ = new Struct[len_];
+                for (int i = 1; i < len_; i++) {
+                    String nameVar_ = types_.get(i);
+                    superInts_[i] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
+                }
+                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                result_.setResult(arr_);
+                return result_;
+            }
         }
         if (StringList.quickEq(type_, aliasConstructor_)) {
             if (StringList.quickEq(name_, ref_.aliasIsVarargs)) {
@@ -1176,6 +1242,7 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetParameterTypes)) {
                 ConstructorMetaInfo method_ = (ConstructorMetaInfo) _struct;
+                String declaring_ = method_.getFormClassName();
                 StringList geneInterfaces_ =  method_.getFid().getParametersTypes();
                 int len_ = geneInterfaces_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1184,15 +1251,15 @@ public class AliasReflection {
                     int first_ = len_ -1;
                     for (int i = 0; i < first_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                     String int_ = geneInterfaces_.get(first_);
                     int_ = PrimitiveTypeUtil.getPrettyArrayType(int_);
-                    superInts_[first_] = _cont.getExtendedClassMetaInfo(int_);
+                    superInts_[first_] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                 } else {
                     for (int i = 0; i < len_; i++) {
                         String int_ = geneInterfaces_.get(i);
-                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_);
+                        superInts_[i] = _cont.getExtendedClassMetaInfo(int_,declaring_);
                     }
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
@@ -1232,7 +1299,8 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetGenericReturnType)) {
                 ConstructorMetaInfo method_ = (ConstructorMetaInfo) _struct;
-                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormattedReturnType()));
+                String owner_ = method_.getFormClassName();
+                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormattedReturnType(),owner_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
@@ -1343,6 +1411,18 @@ public class AliasReflection {
     }
     public void setAliasGetReturnType(String _aliasGetReturnType) {
         aliasGetReturnType = _aliasGetReturnType;
+    }
+    public String getAliasGetActualTypeArguments() {
+        return aliasGetActualTypeArguments;
+    }
+    public void setAliasGetActualTypeArguments(String _aliasGetActualTypeArguments) {
+        aliasGetActualTypeArguments = _aliasGetActualTypeArguments;
+    }
+    public String getAliasGetGenericTypeArguments() {
+        return aliasGetGenericTypeArguments;
+    }
+    public void setAliasGetGenericTypeArguments(String _aliasGetGenericTypeArguments) {
+        aliasGetGenericTypeArguments = _aliasGetGenericTypeArguments;
     }
     public String getAliasIsFinal() {
         return aliasIsFinal;
@@ -1571,6 +1651,18 @@ public class AliasReflection {
     }
     public void setAliasSetField(String _aliasSetField) {
         aliasSetField = _aliasSetField;
+    }
+    public String getAliasGetGenericType() {
+        return aliasGetGenericType;
+    }
+    public void setAliasGetGenericType(String _aliasGetGenericType) {
+        aliasGetGenericType = _aliasGetGenericType;
+    }
+    public String getAliasGetType() {
+        return aliasGetType;
+    }
+    public void setAliasGetType(String _aliasGetType) {
+        aliasGetType = _aliasGetType;
     }
     public String getAliasForName() {
         return aliasForName;

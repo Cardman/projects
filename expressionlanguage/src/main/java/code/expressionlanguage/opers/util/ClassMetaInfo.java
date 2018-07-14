@@ -21,7 +21,6 @@ public final class ClassMetaInfo implements Struct {
     private final String superClass;
 
     private final StringList superInterfaces = new StringList();
-    private final StringList bounds = new StringList();
 
     private final StringMap<FieldMetaInfo> fieldsInfos;
     private final ObjectNotNullMap<MethodId, MethodMetaInfo> methodsInfos;
@@ -36,9 +35,9 @@ public final class ClassMetaInfo implements Struct {
 
     private final String variableOwner;
     private final AccessEnum access;
-    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat) {
+    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
         name = _name;
-        variableOwner = "";
+        variableOwner = _variableOwner;
         if (_cat == ClassCategory.ARRAY) {
             String id_ = Templates.getIdFromAllTypes(_name);
             String comp_ = PrimitiveTypeUtil.getQuickComponentBaseType(id_).getComponent();
@@ -63,9 +62,8 @@ public final class ClassMetaInfo implements Struct {
         finalType = true;
     }
 
-    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner, StringList _bounds, AccessEnum _access) {
+    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner, AccessEnum _access) {
         name = _name;
-        bounds.addAllElts(_bounds);
         access = _access;
         abstractType = true;
         superClass = EMPTY_STRING;
@@ -128,20 +126,17 @@ public final class ClassMetaInfo implements Struct {
         String id_ = Templates.getIdFromAllTypes(variableOwner);
         CustList<TypeVar> vars_;
         GeneType g_ = _cont.getClassBody(id_);
+        if (g_ == null) {
+            return list_;
+        }
         vars_ = g_.getParamTypesMapValues();
+        String varName_ = name.substring(Templates.PREFIX_VAR_TYPE.length());
         for (TypeVar b: vars_) {
+            if (!StringList.quickEq(b.getName(), varName_)) {
+                continue;
+            }
             for (String u: b.getConstraints()) {
-                if (u.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                    String varName_ = u.substring(Templates.PREFIX_VAR_TYPE.length());
-                    for (TypeVar c: vars_) {
-                        if (StringList.quickEq(c.getName(), varName_)) {
-                            list_.add(new ClassMetaInfo(varName_, _cont, ClassCategory.VARIABLE, variableOwner, c.getConstraints(), g_.getAccess()));
-                            break;
-                        }
-                    }
-                } else {
-                    list_.add(_cont.getExtendedClassMetaInfo(u));
-                }
+                list_.add(_cont.getExtendedClassMetaInfo(u, variableOwner));
             }
         }
         return list_;
@@ -155,7 +150,7 @@ public final class ClassMetaInfo implements Struct {
         vars_ = g_.getParamTypesMapValues();
         for (TypeVar b: vars_) {
             String pref_ = StringList.concat(Templates.PREFIX_VAR_TYPE, b.getName());
-            list_.add(new ClassMetaInfo(pref_, _cont, ClassCategory.VARIABLE, name, b.getConstraints(), g_.getAccess()));
+            list_.add(new ClassMetaInfo(pref_, _cont, ClassCategory.VARIABLE, name, g_.getAccess()));
         }
         return list_;
     }
@@ -254,7 +249,10 @@ public final class ClassMetaInfo implements Struct {
             return false;
         }
         ClassMetaInfo info_ = (ClassMetaInfo) _other;
-        return StringList.quickEq(name, info_.getName());
+        if (!StringList.quickEq(variableOwner, info_.variableOwner)) {
+            return false;
+        }
+        return StringList.quickEq(name, info_.name);
     }
 
     @Override

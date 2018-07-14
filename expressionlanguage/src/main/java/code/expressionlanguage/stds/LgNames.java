@@ -4711,6 +4711,33 @@ public abstract class LgNames {
     public void setAliasGetReturnType(String _aliasGetReturnType) {
         reflect.setAliasGetReturnType(_aliasGetReturnType);
     }
+
+    public String getAliasGetActualTypeArguments() {
+        return reflect.getAliasGetActualTypeArguments();
+    }
+    public void setAliasGetActualTypeArguments(
+            String _aliasGetActualTypeArguments) {
+        reflect.setAliasGetActualTypeArguments(_aliasGetActualTypeArguments);
+    }
+    public String getAliasGetGenericTypeArguments() {
+        return reflect.getAliasGetGenericTypeArguments();
+    }
+    public void setAliasGetGenericTypeArguments(
+            String _aliasGetGenericTypeArguments) {
+        reflect.setAliasGetGenericTypeArguments(_aliasGetGenericTypeArguments);
+    }
+    public String getAliasGetFieldType() {
+        return reflect.getAliasGetType();
+    }
+    public void setAliasGetFieldType(String _aliasGetGenericType) {
+        reflect.setAliasGetType(_aliasGetGenericType);
+    }
+    public String getAliasGetGenericType() {
+        return reflect.getAliasGetGenericType();
+    }
+    public void setAliasGetGenericType(String _aliasGetGenericType) {
+        reflect.setAliasGetGenericType(_aliasGetGenericType);
+    }
     public String getAliasIsFinal() {
         return reflect.getAliasIsFinal();
     }

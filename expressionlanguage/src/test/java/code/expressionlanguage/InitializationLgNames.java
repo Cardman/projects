@@ -194,6 +194,10 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetParameterNames("getParameterNames");
         _lgNames.setAliasGetGenericReturnType("getGenericReturnType");
         _lgNames.setAliasGetReturnType("getReturnType");
+        _lgNames.setAliasGetActualTypeArguments("getActualTypeArguments");
+        _lgNames.setAliasGetGenericTypeArguments("getGenericTypeArguments");
+        _lgNames.setAliasGetFieldType("getType");
+        _lgNames.setAliasGetGenericType("getGenericType");
         _lgNames.setAliasIsFinal("isFinal");
         _lgNames.setAliasIsStatic("isStatic");
         _lgNames.setAliasIsVarargs("isVarargs");

@@ -41,6 +41,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.EnumerableStruct;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
@@ -1814,19 +1815,27 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.getGlobalOffset();
     }
 
+    public ClassMetaInfo getExtendedClassMetaInfo(String _name, String _variableOwner) {
+        if (_name.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            return new ClassMetaInfo(_name, this, ClassCategory.VARIABLE,_variableOwner, AccessEnum.PUBLIC);
+        }
+        DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_name);
+        String compo_ = dc_.getComponent();
+        if (new ClassArgumentMatching(compo_).isArray()) {
+            return new ClassMetaInfo(_name, this, ClassCategory.ARRAY, _variableOwner);
+        }
+        return getExtendedClassMetaInfo(_name);
+    }
     @Override
     public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
         if (StringList.quickEq(_name.trim(), getStandards().getAliasVoid())) {
-            return new ClassMetaInfo(_name, this, ClassCategory.VOID);
+            return new ClassMetaInfo(_name, this, ClassCategory.VOID,"");
         }
         if (PrimitiveTypeUtil.isPrimitive(_name, this)) {
-            return new ClassMetaInfo(_name, this, ClassCategory.PRIMITIVE);
+            return new ClassMetaInfo(_name, this, ClassCategory.PRIMITIVE,"");
         }
         if (new ClassArgumentMatching(_name).isArray()) {
-            return new ClassMetaInfo(_name, this, ClassCategory.ARRAY);
-        }
-        if (_name.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            return new ClassMetaInfo(_name, this, ClassCategory.VARIABLE,"", new StringList(), AccessEnum.PUBLIC);
+            return new ClassMetaInfo(_name, this, ClassCategory.ARRAY, "");
         }
         return getClassMetaInfo(_name);
     }
