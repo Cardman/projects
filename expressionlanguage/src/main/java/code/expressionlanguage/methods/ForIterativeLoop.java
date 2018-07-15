@@ -379,16 +379,16 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
+        AssignedBooleanVariables varsWhile_ = null;
         boolean add_ = false;
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
             if (e.getKey() == this) {
+                varsWhile_ = (AssignedBooleanVariables) e.getValue();
                 add_ = true;
-            }
-            if (add_) {
+            } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
         }
-        AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
         fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an, _anEl);
@@ -407,7 +407,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
     }
     protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
-        Block last_ = getFirstChild();
+        Block first_ = getFirstChild();
+        Block last_ = first_;
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
@@ -415,7 +416,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
         StringMap<AssignmentBefore> list_;
-        list_ = makeHypothesisFields(_an);
+        list_ = first_.makeHypothesisFields(_an);
         int contLen_ = continues_.size();
         CustList<StringMap<AssignmentBefore>> breakAss_;
         breakAss_ = new CustList<StringMap<AssignmentBefore>>();
@@ -433,7 +434,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         return invalidateHypothesis(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
     protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
-        Block last_ = getFirstChild();
+        Block first_ = getFirstChild();
+        Block last_ = first_;
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
         }
@@ -443,7 +445,8 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         CustList<StringMap<AssignmentBefore>> varsList_;
         varsList_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> list_;
-        list_ = makeHypothesisVars(_an);
+        list_ = first_.makeHypothesisVars(_an);
+        list_ = list_.mid(0, list_.size() - 1);
         int contLen_ = continues_.size();
         int loopLen_ = list_.size();
         for (int i = 0; i < loopLen_; i++) {

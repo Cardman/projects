@@ -9,7 +9,6 @@ import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -86,112 +85,10 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         Block nextSibling_ = getNextSibling();
-        IdMap<Block, AssignedVariables> inners_;
-        inners_ = new IdMap<Block, AssignedVariables>();
-        boolean add_ = false;
-        for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
-            if (e.getKey() == this) {
-                add_ = true;
-            }
-            if (add_) {
-                inners_.put(e.getKey(), e.getValue());
-            }
-        }
-        AssignedVariables parAss_ = inners_.firstValue();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-            AssignmentBefore ab_ = new AssignmentBefore();
-            if (parAss_.getFieldsRootBefore().getVal(e.getKey()).isAssignedBefore()) {
-                ab_.setAssignedBefore(true);
-            }
-            boolean unass_ = e.getValue().isUnassignedAfter();
-            for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
-                if (!(f.getKey() instanceof AbruptBlock)) {
-                    continue;
-                }
-                if (f.getKey() instanceof ContinueBlock) {
-                    Loop lp_ = _anEl.getContinuables().getVal((ContinueBlock) f.getKey());
-                    if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj(this)) {
-                        continue;
-                    }
-                }
-                if (f.getKey() instanceof BreakBlock) {
-                    BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                    if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj(this) && lp_ != this) {
-                        continue;
-                    }
-                }
-                if (f.getKey() instanceof Throwing) {
-                    //throwing clause => test just after the root
-                    AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(f.getKey());
-                    if (!vars_.getFields().lastValue().getVal(e.getKey()).isUnassignedAfter()) {
-                        unass_ = false;
-                        break;
-                    }
-                } else if (!f.getValue().getFieldsRootBefore().getVal(e.getKey()).isUnassignedBefore()) {
-                    unass_ = false;
-                    break;
-                }
-            }
-            if (unass_) {
-                ab_.setUnassignedBefore(true);
-            }
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-        }
-        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            int index_ = assBl_.getVariablesRootBefore().size();
-            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                AssignmentBefore ab_ = new AssignmentBefore();
-                if (parAss_.getVariablesRootBefore().get(index_).getVal(e.getKey()).isAssignedBefore()) {
-                    ab_.setAssignedBefore(true);
-                }
-                boolean unass_ = e.getValue().isUnassignedAfter();
-                for (EntryCust<Block, AssignedVariables> f: inners_.entryList()) {
-                    if (!(f.getKey() instanceof AbruptBlock)) {
-                        continue;
-                    }
-                    if (f.getKey() instanceof ContinueBlock) {
-                        Loop lp_ = _anEl.getContinuables().getVal((ContinueBlock) f.getKey());
-                        if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f.getKey()).getVal(lp_).containsObj(this)) {
-                            continue;
-                        }
-                    }
-                    if (f.getKey() instanceof BreakBlock) {
-                        BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f.getKey());
-                        if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f.getKey()).getVal(lp_).containsObj(this) && lp_ != this) {
-                            continue;
-                        }
-                    }
-                    if (f.getKey() instanceof Throwing) {
-                        //throwing clause => test just after the root
-                        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(f.getKey());
-                        CustList<StringMap<Assignment>> list_ = vars_.getVariables().lastValue();
-                        if (!list_.isValidIndex(index_)) {
-                            continue;
-                        }
-                        if (!list_.get(index_).getVal(e.getKey()).isUnassignedAfter()) {
-                            unass_ = false;
-                            break;
-                        }
-                    } else {
-                        CustList<StringMap<AssignmentBefore>> list_ = f.getValue().getVariablesRootBefore();
-                        if (!list_.isValidIndex(index_)) {
-                            continue;
-                        }
-                        if (!list_.get(index_).getVal(e.getKey()).isUnassignedBefore()) {
-                            unass_ = false;
-                            break;
-                        }
-                    }
-                }
-                if (unass_) {
-                    ab_.setUnassignedBefore(true);
-                }
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
+        CustList<AbstractCatchEval> catchs_ = new CustList<AbstractCatchEval>();
+        assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextSibling(_an, _anEl,catchs_));
+        assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextSibling(_an, _anEl,catchs_));
         id_.put(nextSibling_, assBl_);
     }
     @Override

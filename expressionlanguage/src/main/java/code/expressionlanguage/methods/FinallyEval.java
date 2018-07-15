@@ -108,16 +108,14 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
             if (_anEl.canCompleteStrictNormally(this)) {
                 unassAfter_ = ab_.isUnassignedAfter();
             }
-            if (unassAfter_) {
-                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                    if (b.getValue() != this) {
-                        continue;
-                    }
-                    AssignedVariables assBr_ = id_.getVal(b.getKey());
-                    if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
-                        unassAfter_ = false;
-                        break;
-                    }
+            for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                if (b.getValue() != this) {
+                    continue;
+                }
+                AssignedVariables assBr_ = id_.getVal(b.getKey());
+                if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
+                    unassAfter_ = false;
+                    break;
                 }
             }
             for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
@@ -185,16 +183,14 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
                 if (_anEl.canCompleteStrictNormally(this)) {
                     unassAfter_ = ab_.isUnassignedAfter();
                 }
-                if (unassAfter_) {
-                    for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                        if (b.getValue() != this) {
-                            continue;
-                        }
-                        AssignedVariables assBr_ = id_.getVal(b.getKey());
-                        if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
-                            unassAfter_ = false;
-                            break;
-                        }
+                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
+                    if (b.getValue() != this) {
+                        continue;
+                    }
+                    AssignedVariables assBr_ = id_.getVal(b.getKey());
+                    if (!assBr_.getVariablesRootBefore().get(index_).getVal(key_).isUnassignedBefore()) {
+                        unassAfter_ = false;
+                        break;
                     }
                 }
                 for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {

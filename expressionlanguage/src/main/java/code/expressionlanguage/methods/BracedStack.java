@@ -23,6 +23,7 @@ import code.expressionlanguage.variables.LocalVariable;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -187,6 +188,161 @@ public abstract class BracedStack extends BracedBlock {
             varsList_.add(buildAssAfter(cond_, breakAss_));
         }
         return varsList_;
+    }
+    protected StringMap<SimpleAssignment> buildAssAfterTry(StringMap<SimpleAssignment> _tryAfter,
+            CustList<StringMap<SimpleAssignment>> _blocks,
+            CustList<StringMap<AssignmentBefore>> _breaks) {
+        StringMap<SimpleAssignment> out_ = new StringMap<SimpleAssignment>();
+        for (EntryCust<String, SimpleAssignment> e: _tryAfter.entryList()) {
+            String key_ = e.getKey();
+            boolean assAfter_ = true;
+            boolean unassAfter_ = true;
+            for (StringMap<SimpleAssignment> m: _blocks) {
+                if (!m.getVal(key_).isAssignedAfter()) {
+                    assAfter_ = false;
+                }
+                if (!m.getVal(key_).isUnassignedAfter()) {
+                    unassAfter_ = false;
+                }
+            }
+            for (StringMap<AssignmentBefore> b: _breaks) {
+                if (!b.getVal(key_).isAssignedBefore()) {
+                    assAfter_ = false;
+                }
+                if (!b.getVal(key_).isUnassignedBefore()) {
+                    unassAfter_ = false;
+                }
+            }
+            out_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
+        }
+        return out_;
+    }
+    protected StringMap<AssignmentBefore> buildAssFieldsBefNextSibling(Analyzable _an, AnalyzingEl _anEl,
+            CustList<AbstractCatchEval> _catchs) {
+        CustList<AbruptBlock> abr_ = getAbruptTry(_an, _anEl);
+        CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
+        CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        for (AbruptBlock a: abr_) {
+            if (a instanceof Throwing) {
+                throws_.add(id_.getVal(a).getFields().lastValue());
+            } else {
+                others_.add(id_.getVal(a).getFieldsRootBefore());
+            }
+        }
+        for (AbstractCatchEval c: _catchs) {
+            catchs_.add(id_.getVal(c).getFieldsRoot());
+        }
+        StringMap<SimpleAssignment> tryAfter_ = id_.getVal(this).getFieldsRoot();
+        StringMap<AssignmentBefore> tryBefore_ = id_.getVal(this).getFieldsRootBefore();
+        return buildAssBefNextSibling(tryAfter_, tryBefore_, throws_, others_, catchs_);
+    }
+    protected CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextSibling(Analyzable _an, AnalyzingEl _anEl,
+            CustList<AbstractCatchEval> _catchs) {
+        CustList<AbruptBlock> abr_ = getAbruptTry(_an, _anEl);
+        CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(this).getVariablesRoot();
+        CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(this).getVariablesRootBefore();
+        int loopLen_ = tryAfters_.size();
+        for (int i = 0; i < loopLen_; i++) {
+            StringMap<SimpleAssignment> tryAfter_ = tryAfters_.get(i);
+            StringMap<AssignmentBefore> tryBefore_ = tryBefores_.get(i);
+            CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
+            CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
+            CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
+            for (AbruptBlock a: abr_) {
+                if (a instanceof Throwing) {
+                    CustList<StringMap<Assignment>> li_ = id_.getVal(a).getVariables().lastValue();
+                    if (li_.isValidIndex(i)) {
+                        throws_.add(li_.get(i));
+                    }
+                } else {
+                    CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
+                    if (li_.isValidIndex(i)) {
+                        others_.add(li_.get(i));
+                    }
+                }
+            }
+            for (AbstractCatchEval c: _catchs) {
+                CustList<StringMap<SimpleAssignment>> li_ = id_.getVal(c).getVariablesRoot();
+                if (li_.isValidIndex(i)) {
+                    catchs_.add(li_.get(i));
+                }
+            }
+            out_.add(buildAssBefNextSibling(tryAfter_, tryBefore_, throws_, others_,catchs_));
+        }
+        return out_;
+    }
+    protected static StringMap<AssignmentBefore> buildAssBefNextSibling(StringMap<SimpleAssignment> _tryAfter,
+            StringMap<AssignmentBefore> _tryBefore,CustList<StringMap<Assignment>> _throws,
+            CustList<StringMap<AssignmentBefore>> _others, CustList<StringMap<SimpleAssignment>> _catchs) {
+        StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
+        for (EntryCust<String, SimpleAssignment> e: _tryAfter.entryList()) {
+            AssignmentBefore ab_ = new AssignmentBefore();
+            String key_ = e.getKey();
+            if (_tryBefore.getVal(key_).isAssignedBefore()) {
+                ab_.setAssignedBefore(true);
+            }
+            boolean unass_ = e.getValue().isUnassignedAfter();
+            for (StringMap<Assignment> t: _throws) {
+                if (!t.getVal(key_).isUnassignedAfter()) {
+                    unass_ = false;
+                }
+            }
+            for (StringMap<AssignmentBefore> t: _others) {
+                if (!t.getVal(key_).isUnassignedBefore()) {
+                    unass_ = false;
+                }
+            }
+            for (StringMap<SimpleAssignment> c: _catchs) {
+                if (!c.getVal(key_).isUnassignedAfter()) {
+                    unass_ = false;
+                }
+            }
+            if (unass_) {
+                ab_.setUnassignedBefore(true);
+            }
+            out_.put(e.getKey(), ab_);
+        }
+        return out_;
+    }
+    protected CustList<AbruptBlock> getAbruptTry(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        IdList<Block> inners_;
+        inners_ = new IdList<Block>();
+        boolean add_ = false;
+        for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
+            if (e.getKey() == this) {
+                add_ = true;
+            }
+            if (add_) {
+                inners_.add(e.getKey());
+            }
+        }
+        CustList<AbruptBlock> stoppers_ = new CustList<AbruptBlock>();
+        for (Block f: inners_) {
+            if (!(f instanceof AbruptBlock)) {
+                continue;
+            }
+            if (f instanceof ContinueBlock) {
+                Loop lp_ = _anEl.getContinuables().getVal((ContinueBlock) f);
+                if (!_anEl.getContinuablesAncestors().getVal((ContinueBlock) f).getVal(lp_).containsObj(this)) {
+                    continue;
+                }
+            }
+            if (f instanceof BreakBlock) {
+                BreakableBlock lp_ = _anEl.getBreakables().getVal((BreakBlock) f);
+                if (!_anEl.getBreakablesAncestors().getVal((BreakBlock) f).getVal(lp_).containsObj(this) && lp_ != this) {
+                    continue;
+                }
+            }
+            stoppers_.add((AbruptBlock)f);
+        }
+        return stoppers_;
     }
     protected CustList<ContinueBlock> getContinuables(AnalyzingEl _anEl) {
         CustList<ContinueBlock> breaks_ = new CustList<ContinueBlock>();
