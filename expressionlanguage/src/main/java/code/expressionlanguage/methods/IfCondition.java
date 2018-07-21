@@ -10,7 +10,6 @@ import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -130,106 +129,13 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        IdMap<BreakBlock, BreakableBlock> breakables_ = _anEl.getBreakables();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
-        StringMap<BooleanAssignment> fieldsCond_ = assTar_.getFieldsRootAfter();
-        CustList<StringMap<BooleanAssignment>> varsCond_ = assTar_.getVariablesRootAfter();
-        AssignedVariables ass_ = id_.getVal(this);
-        StringMap<SimpleAssignment> fields_ = ass_.getFieldsRoot();
-        CustList<StringMap<SimpleAssignment>> vars_ = ass_.getVariablesRoot();
         StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
-        for (EntryCust<String,SimpleAssignment> e: fields_.entryList()) {
-            SimpleAssignment ab_ = e.getValue();
-            String key_ = e.getKey();
-            BooleanAssignment condBa_ = fieldsCond_.getVal(key_);
-            boolean assAfter_ = true;
-            boolean unassAfter_ = true;
-            if (_anEl.canCompleteStrictNormally(this)) {
-                assAfter_ = ab_.isAssignedAfter();
-                unassAfter_ = ab_.isUnassignedAfter();
-            }
-            if (assAfter_) {
-                assAfter_ = condBa_.isAssignedAfterWhenFalse();
-            }
-            if (unassAfter_) {
-                unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
-            }
-            for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                if (b.getValue() != this) {
-                    continue;
-                }
-                AssignedVariables assBr_ = id_.getVal(b.getKey());
-                if (!assBr_.getFieldsRootBefore().getVal(key_).isAssignedBefore()) {
-                    assAfter_ = false;
-                    break;
-                }
-            }
-            for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                if (b.getValue() != this) {
-                    continue;
-                }
-                AssignedVariables assBr_ = id_.getVal(b.getKey());
-                if (!assBr_.getFieldsRootBefore().getVal(key_).isUnassignedBefore()) {
-                    unassAfter_ = false;
-                    break;
-                }
-            }
-            after_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
-        }
+        after_ = buildAssFieldsAfterIf(true, new CustList<Block>(this), _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
-        for (StringMap<SimpleAssignment> s: vars_) {
-            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-            int index_ = afterVars_.size();
-            for (EntryCust<String,SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ab_ = e.getValue();
-                String key_ = e.getKey();
-                BooleanAssignment condBa_ = varsCond_.get(index_).getVal(key_);
-                boolean assAfter_ = true;
-                boolean unassAfter_ = true;
-                if (_anEl.canCompleteStrictNormally(this)) {
-                    assAfter_ = ab_.isAssignedAfter();
-                    unassAfter_ = ab_.isUnassignedAfter();
-                }
-                if (assAfter_) {
-                    assAfter_ = condBa_.isAssignedAfterWhenFalse();
-                }
-                if (unassAfter_) {
-                    unassAfter_ = condBa_.isUnassignedAfterWhenFalse();
-                }
-                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                    if (b.getValue() != this) {
-                        continue;
-                    }
-                    AssignedVariables assBr_ = id_.getVal(b.getKey());
-                    CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
-                    if (!list_.isValidIndex(index_)) {
-                        continue;
-                    }
-                    if (!list_.get(index_).getVal(key_).isAssignedBefore()) {
-                        assAfter_ = false;
-                        break;
-                    }
-                }
-                for (EntryCust<BreakBlock, BreakableBlock> b: breakables_.entryList()) {
-                    if (b.getValue() != this) {
-                        continue;
-                    }
-                    AssignedVariables assBr_ = id_.getVal(b.getKey());
-                    CustList<StringMap<AssignmentBefore>> list_ = assBr_.getVariablesRootBefore();
-                    if (!list_.isValidIndex(index_)) {
-                        continue;
-                    }
-                    if (!list_.get(index_).getVal(key_).isUnassignedBefore()) {
-                        unassAfter_ = false;
-                        break;
-                    }
-                }
-                sm_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
-            }
-            afterVars_.add(sm_);
-        }
+        afterVars_ = buildAssVariablesAfterIf(true, new CustList<Block>(this), _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
     }

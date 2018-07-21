@@ -16,7 +16,7 @@ import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class DefaultCondition extends BracedStack implements StackableBlockGroup, IncrNextGroup {
+public final class DefaultCondition extends SwitchPartBlock implements IncrNextGroup {
 
     public DefaultCondition(Element _el, ContextEl _importingPage,
             int _indexChild, BracedBlock _m) {
@@ -30,51 +30,11 @@ public final class DefaultCondition extends BracedStack implements StackableBloc
 
     @Override
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        BracedBlock br_ = getParent();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables parAss_ = id_.getVal(br_);
-        AssignedVariables prevAss_ = id_.getVal(this);
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<String, SimpleAssignment> e: parAss_.getFieldsRoot().entryList()) {
-            SimpleAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = new AssignmentBefore();
-            boolean ass_ = ba_.isAssignedAfter();
-            boolean unass_ = ba_.isUnassignedAfter();
-            if (_anEl.canCompleteNormally(this)) {
-                if (ass_) {
-                    ass_ = prevAss_.getFieldsRoot().getVal(e.getKey()).isAssignedAfter();
-                }
-                if (unass_) {
-                    unass_ = prevAss_.getFieldsRoot().getVal(e.getKey()).isUnassignedAfter();
-                }
-            }
-            ab_.setAssignedBefore(ass_);
-            ab_.setUnassignedBefore(unass_);
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-        }
-        for (StringMap<SimpleAssignment> s: parAss_.getVariablesRoot()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            int index_ = assBl_.getVariablesRootBefore().size();
-            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                SimpleAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = new AssignmentBefore();
-                boolean ass_ = ba_.isAssignedAfter();
-                boolean unass_ = ba_.isUnassignedAfter();
-                if (_anEl.canCompleteNormally(this)) {
-                    if (ass_) {
-                        ass_ = prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isAssignedAfter();
-                    }
-                    if (unass_) {
-                        unass_ = prevAss_.getVariablesRoot().get(index_).getVal(e.getKey()).isUnassignedAfter();
-                    }
-                }
-                ab_.setAssignedBefore(ass_);
-                ab_.setUnassignedBefore(unass_);
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
+        assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _anEl));
+        assBl_.getVariablesRootBefore().addAllElts(buildVariablesSwitchPart(_an, _anEl));
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(nextSibling_, assBl_);
     }

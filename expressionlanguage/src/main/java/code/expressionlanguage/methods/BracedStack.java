@@ -145,6 +145,264 @@ public abstract class BracedStack extends BracedBlock {
             _an.getClasses().addError(un_);
         }
     }
+    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterIf(boolean _useBool,
+            CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
+        CustList<StringMap<SimpleAssignment>> out_;
+        out_ = new CustList<StringMap<SimpleAssignment>>();
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables idStdIf_;
+        idStdIf_ = id_.getVal(this);
+        CustList<StringMap<SimpleAssignment>> list_;
+        list_ = idStdIf_.getVariablesRoot();
+        int len_ = list_.size();
+        for (int i = 0; i < len_; i++) {
+            StringMap<BooleanAssignment> bool_;
+            if (_useBool) {
+                AssignedBooleanVariables idIf_;
+                idIf_ = (AssignedBooleanVariables) id_.getVal(this);
+                CustList<StringMap<BooleanAssignment>> bools_;
+                bools_ = idIf_.getVariablesRootAfter();
+                if (bools_.isValidIndex(i)) {
+                    bool_ = bools_.get(i);
+                } else {
+                    bool_ = new StringMap<BooleanAssignment>();
+                }
+            } else {
+                bool_ = new StringMap<BooleanAssignment>();
+            }
+            CustList<StringMap<SimpleAssignment>> listBl_;
+            listBl_ = new CustList<StringMap<SimpleAssignment>>();
+            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+            for (Block c: _blocks) {
+                CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
+                CustList<StringMap<AssignmentBefore>> listBr_;
+                listBr_ = new CustList<StringMap<AssignmentBefore>>();
+                if (_anEl.canCompleteStrictNormally(c)) {
+                    CustList<StringMap<SimpleAssignment>> map_;
+                    map_ = id_.getVal(c).getVariablesRoot();
+                    if (map_.isValidIndex(i)) {
+                        listBl_.add(map_.get(i));
+                    } else {
+                        listBl_.add(new StringMap<SimpleAssignment>());
+                    }
+                } else {
+                    listBl_.add(new StringMap<SimpleAssignment>());
+                }
+                for (BreakBlock b: breaks_) {
+                    CustList<StringMap<AssignmentBefore>> map_;
+                    map_ = id_.getVal(b).getVariablesRootBefore();
+                    if (map_.isValidIndex(i)) {
+                        listBr_.add(map_.get(i));
+                    } else {
+                        listBr_.add(new StringMap<AssignmentBefore>());
+                    }
+                }
+                listBrs_.add(listBr_);
+            }
+            StringMap<SimpleAssignment> if_ = list_.get(i);
+            out_.add(buildAssAfterIf(if_, bool_, listBl_, listBrs_));
+        }
+        return out_;
+    }
+    protected StringMap<SimpleAssignment> buildAssFieldsAfterIf(boolean _useBool,
+            CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables idStdIf_;
+        idStdIf_ = id_.getVal(this);
+        StringMap<SimpleAssignment> list_;
+        list_ = idStdIf_.getFieldsRoot();
+        StringMap<BooleanAssignment> bool_;
+        if (_useBool) {
+            AssignedBooleanVariables idIf_;
+            idIf_ = (AssignedBooleanVariables) id_.getVal(this);
+            bool_ = idIf_.getFieldsRootAfter();
+        } else {
+            bool_ = new StringMap<BooleanAssignment>();
+        }
+        CustList<StringMap<SimpleAssignment>> listBl_;
+        listBl_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+        listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        for (Block c: _blocks) {
+            CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
+            CustList<StringMap<AssignmentBefore>> listBr_;
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            if (_anEl.canCompleteStrictNormally(c)) {
+                listBl_.add(id_.getVal(c).getFieldsRoot());
+            } else {
+                listBl_.add(new StringMap<SimpleAssignment>());
+            }
+            for (BreakBlock b: breaks_) {
+                listBr_.add(id_.getVal(b).getFieldsRootBefore());
+            }
+            listBrs_.add(listBr_);
+        }
+        return buildAssAfterIf(list_, bool_, listBl_, listBrs_);
+    }
+    protected static StringMap<SimpleAssignment> buildAssAfterIf(StringMap<SimpleAssignment> _ifAfter,
+            StringMap<BooleanAssignment> _afterCond,
+            CustList<StringMap<SimpleAssignment>> _blocks,
+            CustList<CustList<StringMap<AssignmentBefore>>> _breaks) {
+        StringMap<SimpleAssignment> out_ = new StringMap<SimpleAssignment>();
+        int len_ = _blocks.size();
+        for (EntryCust<String, SimpleAssignment> e: _ifAfter.entryList()) {
+            String key_ = e.getKey();
+            boolean assAfterAll_ = true;
+            boolean unassAfterAll_ = true;
+            for (EntryCust<String, BooleanAssignment> f: _afterCond.entryList()) {
+                if (!StringList.quickEq(key_, f.getKey())) {
+                    continue;
+                }
+                if(!f.getValue().isAssignedAfterWhenFalse()) {
+                    assAfterAll_ = false;
+                }
+                if(!f.getValue().isUnassignedAfterWhenFalse()) {
+                    unassAfterAll_ = false;
+                }
+            }
+            for (int i = 0; i < len_; i++) {
+                boolean assAfter_ = true;
+                boolean unassAfter_ = true;
+                for (EntryCust<String, SimpleAssignment> f: _blocks.get(i).entryList()) {
+                    if (!StringList.quickEq(key_, f.getKey())) {
+                        continue;
+                    }
+                    if(!f.getValue().isAssignedAfter()) {
+                        assAfter_ = false;
+                    }
+                    if(!f.getValue().isUnassignedAfter()) {
+                        unassAfter_ = false;
+                    }
+                }
+                for (StringMap<AssignmentBefore> b: _breaks.get(i)) {
+                    if (!b.getVal(key_).isAssignedBefore()) {
+                        assAfter_ = false;
+                    }
+                    if (!b.getVal(key_).isUnassignedBefore()) {
+                        unassAfter_ = false;
+                    }
+                }
+                if (!assAfter_) {
+                    assAfterAll_ = false;
+                }
+                if (!unassAfter_) {
+                    unassAfterAll_ = false;
+                }
+            }
+            out_.put(key_, Assignment.assignClassic(assAfterAll_, unassAfterAll_));
+        }
+        return out_;
+    }
+    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterSwitch(
+            boolean _default, boolean _emptyEndCase,
+            Block _last,
+            Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<Assignment>> list_;
+        list_ = id_.getVal(this).getVariables().lastValue();
+        int len_ = list_.size();
+        CustList<StringMap<SimpleAssignment>> out_;
+        out_ = new CustList<StringMap<SimpleAssignment>>();
+        for (int i = 0; i < len_; i++) {
+            StringMap<Assignment> switch_ = list_.get(i);
+            StringMap<SimpleAssignment> last_;
+            if (_anEl.canCompleteNormally(_last)) {
+                CustList<StringMap<SimpleAssignment>> map_;
+                map_ = id_.getVal(_last).getVariablesRoot();
+                if (map_.isValidIndex(i)) {
+                    last_ = map_.get(i);
+                } else {
+                    last_ = new StringMap<SimpleAssignment>();
+                }
+            } else {
+                last_ = new StringMap<SimpleAssignment>();
+            }
+            CustList<BreakBlock> breaks_ = getBreakables(_anEl);
+            CustList<StringMap<AssignmentBefore>> listBr_;
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            for (BreakBlock b: breaks_) {
+                CustList<StringMap<AssignmentBefore>> map_;
+                map_ = id_.getVal(b).getVariablesRootBefore();
+                if (map_.isValidIndex(i)) {
+                    listBr_.add(map_.get(i));
+                } else {
+                    listBr_.add(new StringMap<AssignmentBefore>());
+                }
+            }
+            out_.add(buildAssAfterSwitch(_default, _emptyEndCase, switch_, last_, listBr_));
+        }
+        return out_;
+    }
+    protected StringMap<SimpleAssignment> buildAssFieldsAfterSwitch(
+            boolean _default, boolean _emptyEndCase,
+            Block _last,
+            Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        StringMap<Assignment> list_;
+        list_ = id_.getVal(this).getFields().lastValue();
+        StringMap<SimpleAssignment> last_;
+        if (_anEl.canCompleteNormally(_last)) {
+            last_ = id_.getVal(_last).getFieldsRoot();
+        } else {
+            last_ = new StringMap<SimpleAssignment>();
+        }
+        CustList<BreakBlock> breaks_ = getBreakables(_anEl);
+        CustList<StringMap<AssignmentBefore>> listBr_;
+        listBr_ = new CustList<StringMap<AssignmentBefore>>();
+        for (BreakBlock b: breaks_) {
+            listBr_.add(id_.getVal(b).getFieldsRootBefore());
+        }
+        return buildAssAfterSwitch(_default, _emptyEndCase,list_, last_, listBr_);
+    }
+    protected static StringMap<SimpleAssignment> buildAssAfterSwitch(boolean _default, boolean _emptyEndCase,
+            StringMap<Assignment> _tryAfter,
+            StringMap<SimpleAssignment> _last,
+            CustList<StringMap<AssignmentBefore>> _breaks) {
+        StringMap<SimpleAssignment> out_ = new StringMap<SimpleAssignment>();
+        for (EntryCust<String, Assignment> e: _tryAfter.entryList()) {
+            String key_ = e.getKey();
+            boolean assAfter_ = true;
+            boolean unassAfter_ = true;
+            if (!(_default ||e.getValue().isAssignedAfter())){
+                assAfter_ = false;
+            }
+            if (!(_default || e.getValue().isUnassignedAfter())){
+                unassAfter_ = false;
+            }
+            if (!(!_emptyEndCase || e.getValue().isAssignedAfter())){
+                assAfter_ = false;
+            }
+            if (!(!_emptyEndCase || e.getValue().isUnassignedAfter())){
+                unassAfter_ = false;
+            }
+            for (EntryCust<String, SimpleAssignment> f: _last.entryList()) {
+                if (!StringList.quickEq(key_, f.getKey())) {
+                    continue;
+                }
+                if(!f.getValue().isAssignedAfter()) {
+                    assAfter_ = false;
+                }
+                if(!f.getValue().isUnassignedAfter()) {
+                    unassAfter_ = false;
+                }
+            }
+            for (StringMap<AssignmentBefore> b: _breaks) {
+                if (!b.getVal(key_).isAssignedBefore()) {
+                    assAfter_ = false;
+                }
+                if (!b.getVal(key_).isUnassignedBefore()) {
+                    unassAfter_ = false;
+                }
+            }
+            out_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
+        }
+        return out_;
+    }
     protected StringMap<SimpleAssignment> buildAssListFieldAfter(Analyzable _an, AnalyzingEl _anEl) {
         CustList<BreakBlock> breaks_ = getBreakables(_anEl);
         IdMap<Block, AssignedVariables> id_;
@@ -189,31 +447,260 @@ public abstract class BracedStack extends BracedBlock {
         }
         return varsList_;
     }
-    protected StringMap<SimpleAssignment> buildAssAfterTry(StringMap<SimpleAssignment> _tryAfter,
+    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterFinally(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<SimpleAssignment>> list_;
+        list_ = id_.getVal(this).getVariablesRoot();
+        int len_ = list_.size();
+        CustList<StringMap<SimpleAssignment>> outs_;
+        outs_ = new CustList<StringMap<SimpleAssignment>>();
+        for (int i = 0; i < len_; i++) {
+            StringMap<SimpleAssignment> out_;
+            out_ = new StringMap<SimpleAssignment>();
+            CustList<StringMap<SimpleAssignment>> listBl_;
+            listBl_ = new CustList<StringMap<SimpleAssignment>>();
+            CustList<StringMap<SimpleAssignment>> listBlFin_;
+            listBlFin_ = new CustList<StringMap<SimpleAssignment>>();
+            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+            CustList<CustList<StringMap<AssignmentBefore>>> listSingBrs_;
+            listSingBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+            CustList<BreakBlock> breaks_ = getBreakables(_anEl);
+            CustList<StringMap<AssignmentBefore>> listBr_;
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            CustList<StringMap<AssignmentBefore>> listBrFin_;
+            listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
+            if (_anEl.canCompleteStrictNormally(this)) {
+                CustList<StringMap<SimpleAssignment>> map_;
+                map_ = id_.getVal(this).getVariablesRoot();
+                if (map_.isValidIndex(i)) {
+                    listBlFin_.add(map_.get(i));
+                } else {
+                    listBlFin_.add(new StringMap<SimpleAssignment>());
+                }
+            } else {
+                listBlFin_.add(new StringMap<SimpleAssignment>());
+            }
+            for (BreakBlock b: breaks_) {
+                CustList<StringMap<AssignmentBefore>> map_;
+                map_ = id_.getVal(b).getVariablesRootBefore();
+                if (map_.isValidIndex(i)) {
+                    listBrFin_.add(map_.get(i));
+                } else {
+                    listBrFin_.add(new StringMap<AssignmentBefore>());
+                }
+            }
+            listSingBrs_.add(listBrFin_);
+            StringMap<SimpleAssignment> try_ = list_.get(i);
+            StringMap<SimpleAssignment> fin_ = buildAssAfterTry(try_, listBlFin_, listSingBrs_);
+            
+            for (Block c: _blocks) {
+                breaks_ = ((BracedStack)c).getBreakables(_anEl);
+                listBr_ = new CustList<StringMap<AssignmentBefore>>();
+                if (_anEl.canCompleteStrictNormally(c)) {
+                    CustList<StringMap<SimpleAssignment>> map_;
+                    map_ = id_.getVal(c).getVariablesRoot();
+                    if (map_.isValidIndex(i)) {
+                        listBl_.add(map_.get(i));
+                    } else {
+                        listBl_.add(new StringMap<SimpleAssignment>());
+                    }
+                } else {
+                    listBl_.add(new StringMap<SimpleAssignment>());
+                }
+                for (BreakBlock b: breaks_) {
+                    CustList<StringMap<AssignmentBefore>> map_;
+                    map_ = id_.getVal(b).getVariablesRootBefore();
+                    if (map_.isValidIndex(i)) {
+                        listBr_.add(map_.get(i));
+                    } else {
+                        listBr_.add(new StringMap<AssignmentBefore>());
+                    }
+                }
+                listBrs_.add(listBr_);
+            }
+            StringMap<SimpleAssignment> prev_ = buildAssAfterTry(try_, listBl_, listBrs_);
+            for (EntryCust<String, SimpleAssignment> f: fin_.entryList()) {
+                if (!f.getValue().isAssignedAfter()) {
+                    if (prev_.getVal(f.getKey()).isAssignedAfter()) {
+                        out_.put(f.getKey(), prev_.getVal(f.getKey()));
+                    } else {
+                        out_.put(f.getKey(), f.getValue());
+                    }
+                } else {
+                    out_.put(f.getKey(), f.getValue());
+                }
+            }
+            outs_.add(out_);
+        }
+        return outs_;
+    }
+    protected StringMap<SimpleAssignment> buildAssFieldsAfterFinally(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        StringMap<SimpleAssignment> list_;
+        list_ = id_.getVal(this).getFieldsRoot();
+        CustList<StringMap<SimpleAssignment>> listBl_;
+        listBl_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<StringMap<SimpleAssignment>> listBlFin_;
+        listBlFin_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+        listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listSingBrs_;
+        listSingBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        CustList<BreakBlock> breaks_ = getBreakables(_anEl);
+        CustList<StringMap<AssignmentBefore>> listBr_;
+        listBr_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<AssignmentBefore>> listBrFin_;
+        listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
+        if (_anEl.canCompleteStrictNormally(this)) {
+            listBlFin_.add(id_.getVal(this).getFieldsRoot());
+        } else {
+            listBlFin_.add(new StringMap<SimpleAssignment>());
+        }
+        for (BreakBlock b: breaks_) {
+            listBrFin_.add(id_.getVal(b).getFieldsRootBefore());
+        }
+        listSingBrs_.add(listBrFin_);
+        StringMap<SimpleAssignment> fin_ = buildAssAfterTry(list_, listBlFin_, listSingBrs_);
+        for (Block c: _blocks) {
+            breaks_ = ((BracedStack)c).getBreakables(_anEl);
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            if (_anEl.canCompleteStrictNormally(c)) {
+                listBl_.add(id_.getVal(c).getFieldsRoot());
+            } else {
+                listBl_.add(new StringMap<SimpleAssignment>());
+            }
+            for (BreakBlock b: breaks_) {
+                listBr_.add(id_.getVal(b).getFieldsRootBefore());
+            }
+            listBrs_.add(listBr_);
+        }
+        StringMap<SimpleAssignment> prev_ = buildAssAfterTry(list_, listBl_, listBrs_);
+        StringMap<SimpleAssignment> out_;
+        out_ = new StringMap<SimpleAssignment>();
+        for (EntryCust<String, SimpleAssignment> f: fin_.entryList()) {
+            if (!f.getValue().isAssignedAfter()) {
+                if (prev_.getVal(f.getKey()).isAssignedAfter()) {
+                    out_.put(f.getKey(), prev_.getVal(f.getKey()));
+                } else {
+                    out_.put(f.getKey(), f.getValue());
+                }
+            } else {
+                out_.put(f.getKey(), f.getValue());
+            }
+        }
+        return out_;
+    }
+    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterTry(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<SimpleAssignment>> out_;
+        out_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<StringMap<SimpleAssignment>> list_;
+        list_ = id_.getVal(this).getVariablesRoot();
+        int len_ = list_.size();
+        for (int i = 0; i < len_; i++) {
+            CustList<StringMap<SimpleAssignment>> listBl_;
+            listBl_ = new CustList<StringMap<SimpleAssignment>>();
+            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+            for (Block c: _blocks) {
+                CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
+                CustList<StringMap<AssignmentBefore>> listBr_;
+                listBr_ = new CustList<StringMap<AssignmentBefore>>();
+                if (_anEl.canCompleteStrictNormally(c)) {
+                    CustList<StringMap<SimpleAssignment>> map_;
+                    map_ = id_.getVal(c).getVariablesRoot();
+                    if (map_.isValidIndex(i)) {
+                        listBl_.add(map_.get(i));
+                    } else {
+                        listBl_.add(new StringMap<SimpleAssignment>());
+                    }
+                } else {
+                    listBl_.add(new StringMap<SimpleAssignment>());
+                }
+                for (BreakBlock b: breaks_) {
+                    CustList<StringMap<AssignmentBefore>> map_;
+                    map_ = id_.getVal(b).getVariablesRootBefore();
+                    if (map_.isValidIndex(i)) {
+                        listBr_.add(map_.get(i));
+                    } else {
+                        listBr_.add(new StringMap<AssignmentBefore>());
+                    }
+                }
+                listBrs_.add(listBr_);
+            }
+            StringMap<SimpleAssignment> try_ = list_.get(i);
+            out_.add(buildAssAfterTry(try_, listBl_, listBrs_));
+        }
+        return out_;
+    }
+    protected StringMap<SimpleAssignment> buildAssFieldsAfterTry(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        StringMap<SimpleAssignment> list_;
+        list_ = id_.getVal(this).getFieldsRoot();
+        CustList<StringMap<SimpleAssignment>> listBl_;
+        listBl_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+        listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        for (Block c: _blocks) {
+            CustList<BreakBlock> breaks_ = ((BracedStack)c).getBreakables(_anEl);
+            CustList<StringMap<AssignmentBefore>> listBr_;
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            if (_anEl.canCompleteStrictNormally(c)) {
+                listBl_.add(id_.getVal(c).getFieldsRoot());
+            } else {
+                listBl_.add(new StringMap<SimpleAssignment>());
+            }
+            for (BreakBlock b: breaks_) {
+                listBr_.add(id_.getVal(b).getFieldsRootBefore());
+            }
+            listBrs_.add(listBr_);
+        }
+        return buildAssAfterTry(list_, listBl_, listBrs_);
+    }
+    protected static StringMap<SimpleAssignment> buildAssAfterTry(StringMap<SimpleAssignment> _tryAfter,
             CustList<StringMap<SimpleAssignment>> _blocks,
-            CustList<StringMap<AssignmentBefore>> _breaks) {
+            CustList<CustList<StringMap<AssignmentBefore>>> _breaks) {
         StringMap<SimpleAssignment> out_ = new StringMap<SimpleAssignment>();
+        int len_ = _blocks.size();
         for (EntryCust<String, SimpleAssignment> e: _tryAfter.entryList()) {
             String key_ = e.getKey();
-            boolean assAfter_ = true;
-            boolean unassAfter_ = true;
-            for (StringMap<SimpleAssignment> m: _blocks) {
-                if (!m.getVal(key_).isAssignedAfter()) {
-                    assAfter_ = false;
+            boolean assAfterAll_ = true;
+            boolean unassAfterAll_ = true;
+            for (int i = 0; i < len_; i++) {
+                boolean assAfter_ = true;
+                boolean unassAfter_ = true;
+                for (EntryCust<String, SimpleAssignment> f: _blocks.get(i).entryList()) {
+                    if (!StringList.quickEq(key_, f.getKey())) {
+                        continue;
+                    }
+                    if(!f.getValue().isAssignedAfter()) {
+                        assAfter_ = false;
+                    }
+                    if(!f.getValue().isUnassignedAfter()) {
+                        unassAfter_ = false;
+                    }
                 }
-                if (!m.getVal(key_).isUnassignedAfter()) {
-                    unassAfter_ = false;
+                for (StringMap<AssignmentBefore> b: _breaks.get(i)) {
+                    if (!b.getVal(key_).isAssignedBefore()) {
+                        assAfter_ = false;
+                    }
+                    if (!b.getVal(key_).isUnassignedBefore()) {
+                        unassAfter_ = false;
+                    }
+                }
+                if (!assAfter_) {
+                    assAfterAll_ = false;
+                }
+                if (!unassAfter_) {
+                    unassAfterAll_ = false;
                 }
             }
-            for (StringMap<AssignmentBefore> b: _breaks) {
-                if (!b.getVal(key_).isAssignedBefore()) {
-                    assAfter_ = false;
-                }
-                if (!b.getVal(key_).isUnassignedBefore()) {
-                    unassAfter_ = false;
-                }
-            }
-            out_.put(key_, Assignment.assignClassic(assAfter_, unassAfter_));
+            out_.put(key_, Assignment.assignClassic(assAfterAll_, unassAfterAll_));
         }
         return out_;
     }
