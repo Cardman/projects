@@ -6,9 +6,6 @@ import code.util.StringMap;
 
 public interface ForLoop extends Loop {
 
-    String getVariableName();
-    int getVariableNameOffset();
-
     String getClassName();
 
     String getClassIndexName();

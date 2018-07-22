@@ -72,6 +72,16 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
             assBl_.getVariablesRootBefore().add(sm_);
         }
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        for (StringMap<BooleanAssignment> s: abv_.getMutableLoopRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = ba_.copyWhenTrue();
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getMutableLoopRootBefore().add(sm_);
+        }
+        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
 

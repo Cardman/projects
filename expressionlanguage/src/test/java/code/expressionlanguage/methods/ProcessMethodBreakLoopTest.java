@@ -21,7 +21,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  $for($int i=0i:4i:1i){\n");
+        xml_.append("  $iter($int i=0i:4i:1i){\n");
         xml_.append("   t;.+=1i:\n");
         xml_.append("   $if(i;=2){\n");
         xml_.append("    $break:\n");
@@ -612,7 +612,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  $for($int i=0i:4i:1i)label{\n");
+        xml_.append("  $iter($int i=0i:4i:1i)label{\n");
         xml_.append("   t;.+=1i:\n");
         xml_.append("   $if(i;=2){\n");
         xml_.append("    $break label:\n");
@@ -640,8 +640,8 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  $for($int i=0i:4i:1i)label{\n");
-        xml_.append("   $for($int j=0i:4i:1i)labeltwo{\n");
+        xml_.append("  $iter($int i=0i:4i:1i)label{\n");
+        xml_.append("   $iter($int j=0i:4i:1i)labeltwo{\n");
         xml_.append("    t;.+=1i:\n");
         xml_.append("    $if(j;=2){\n");
         xml_.append("     $break labeltwo:\n");

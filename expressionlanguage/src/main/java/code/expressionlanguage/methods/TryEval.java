@@ -53,6 +53,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         CustList<AbstractCatchEval> catchs_ = new CustList<AbstractCatchEval>();
         assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextSibling(_an, _anEl,catchs_));
         assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextSibling(_an, _anEl,catchs_));
+        assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextSibling(_an, _anEl,catchs_));
         id_.put(nextSibling_, assBl_);
     }
     @Override

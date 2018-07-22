@@ -143,13 +143,16 @@ public final class TernaryOperation extends MethodOperation {
         CustList<OperationNode> children_ = getChildrenNodes();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
         OperationNode last_ = children_.last();
         StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
+        CustList<StringMap<Assignment>> mutableAfterLast_ = vars_.getMutableLoop().getVal(last_);
 
         OperationNode befLast_ = children_.get(children_.size() - 2);
         StringMap<Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
         CustList<StringMap<Assignment>> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
+        CustList<StringMap<Assignment>> mutableAfterBefLast_ = vars_.getMutableLoop().getVal(befLast_);
         if (getResultClass().isBoolType(_conf)) {
             for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
@@ -167,6 +170,17 @@ public final class TernaryOperation extends MethodOperation {
                     sm_.put(e.getKey(), r_);
                 }
                 variablesAfter_.add(sm_);
+            }
+            for (StringMap<Assignment> s: mutableAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                int index_ = mutableAfter_.size();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    BooleanAssignment b_ = e.getValue().toBoolAssign();
+                    BooleanAssignment p_ = mutableAfterBefLast_.get(index_).getVal(e.getKey()).toBoolAssign();
+                    BooleanAssignment r_ = b_.ternary(p_);
+                    sm_.put(e.getKey(), r_);
+                }
+                mutableAfter_.add(sm_);
             }
         } else {
             for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
@@ -186,9 +200,21 @@ public final class TernaryOperation extends MethodOperation {
                 }
                 variablesAfter_.add(sm_);
             }
+            for (StringMap<Assignment> s: mutableAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                int index_ = mutableAfter_.size();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    Assignment b_ = e.getValue();
+                    Assignment p_ = mutableAfterBefLast_.get(index_).getVal(e.getKey());
+                    SimpleAssignment r_ = b_.ternarySimple(p_);
+                    sm_.put(e.getKey(), r_);
+                }
+                mutableAfter_.add(sm_);
+            }
         }
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
+        vars_.getMutableLoop().put(this, mutableAfter_);
     }
 
     @Override

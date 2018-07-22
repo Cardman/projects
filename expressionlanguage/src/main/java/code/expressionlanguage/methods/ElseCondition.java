@@ -117,11 +117,15 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
         after_ = buildAssFieldsAfterIf(false, prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterIf(false, prev_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
+        mutableVars_ = buildAssMutableLoopAfterIf(false, prev_, _an, _anEl);
+        assTar_.getMutableLoopRoot().clear();
+        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
 
     @Override

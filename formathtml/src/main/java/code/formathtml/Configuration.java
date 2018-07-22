@@ -14,6 +14,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
@@ -985,6 +986,36 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setAssignedFields(boolean _assignedFields) {
         context.setAssignedFields(_assignedFields);
+    }
+
+    @Override
+    public LoopVariable getMutableLoopVar(String _key, int _index) {
+        return context.getMutableLoopVar(_key, _index);
+    }
+
+    @Override
+    public boolean containsMutableLoopVar(String _string) {
+        return context.containsMutableLoopVar(_string);
+    }
+
+    @Override
+    public LoopVariable getMutableLoopVar(String _key) {
+        return context.getMutableLoopVar(_key);
+    }
+
+    @Override
+    public void putMutableLoopVar(String _string, LoopVariable _loc) {
+        context.putMutableLoopVar(_string, _loc);
+    }
+
+    @Override
+    public ForLoopPart getForLoopPartState() {
+        return context.getForLoopPartState();
+    }
+
+    @Override
+    public void setForLoopPartState(ForLoopPart _state) {
+        context.setForLoopPartState(_state);
     }
 
 }

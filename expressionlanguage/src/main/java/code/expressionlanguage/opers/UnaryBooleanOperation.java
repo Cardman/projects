@@ -111,6 +111,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         CustList<OperationNode> children_ = getChildrenNodes();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
         if (children_.isEmpty()) {
             CustList<StringMap<AssignmentBefore>> variablesAfterLast_ = vars_.getVariablesRootBefore();
             for (StringMap<AssignmentBefore> s: variablesAfterLast_) {
@@ -126,6 +127,20 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
                 variablesAfter_.add(sm_);
             }
             vars_.getVariables().put(this, variablesAfter_);
+            CustList<StringMap<AssignmentBefore>> mutableAfterLast_ = vars_.getVariablesRootBefore();
+            for (StringMap<AssignmentBefore> s: mutableAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    BooleanAssignment s_ = new BooleanAssignment();
+                    s_.setAssignedAfterWhenFalse(true);
+                    s_.setUnassignedAfterWhenFalse(true);
+                    s_.setAssignedAfterWhenTrue(true);
+                    s_.setUnassignedAfterWhenTrue(true);
+                    sm_.put(e.getKey(), s_);
+                }
+                mutableAfter_.add(sm_);
+            }
+            vars_.getMutableLoop().put(this, mutableAfter_);
             StringMap<AssignmentBefore> fieldsAfterLast_ = vars_.getFieldsRootBefore();
             for (EntryCust<String, AssignmentBefore> e: fieldsAfterLast_.entryList()) {
                 BooleanAssignment s_ = new BooleanAssignment();
@@ -141,6 +156,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         OperationNode last_ = children_.last();
         StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
         CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
+        CustList<StringMap<Assignment>> mutableAfterLast_ = vars_.getVariables().getVal(last_);
         for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
             BooleanAssignment b_ = e.getValue().toBoolAssign();
             BooleanAssignment r_ = b_.neg();
@@ -157,5 +173,15 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
             variablesAfter_.add(sm_);
         }
         vars_.getVariables().put(this, variablesAfter_);
+        for (StringMap<Assignment> s: mutableAfterLast_) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                BooleanAssignment b_ = e.getValue().toBoolAssign();
+                BooleanAssignment r_ = b_.neg();
+                sm_.put(e.getKey(), r_);
+            }
+            mutableAfter_.add(sm_);
+        }
+        vars_.getMutableLoop().put(this, mutableAfter_);
     }
 }

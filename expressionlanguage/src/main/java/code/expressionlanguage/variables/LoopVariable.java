@@ -34,6 +34,16 @@ public final class LoopVariable {
 
     private String indexClassName;
 
+    private boolean finalVariable;
+
+    public boolean isFinalVariable() {
+        return finalVariable;
+    }
+
+    public void setFinalVariable(boolean _finalVariable) {
+        finalVariable = _finalVariable;
+    }
+
     public String getInfos(ContextEl _context) {
         StringBuilder lv_ = new StringBuilder(INDEX).append(SEP_KEY_VAL).append(index).append(AS).append(indexClassName).append(SEP_INFO);
         lv_.append(ELEMENT).append(AS).append(className).append(SEP_INFO);

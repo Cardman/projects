@@ -87,9 +87,11 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
         if (finClause_) {
             assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextSibling(_an, _anEl, catch_));
             assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextSibling(_an, _anEl, catch_));
+            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextSibling(_an, _anEl, catch_));
         } else {
             assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextSibling(_an, _anEl, new CustList<AbstractCatchEval>()));
             assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextSibling(_an, _anEl, new CustList<AbstractCatchEval>()));
+            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextSibling(_an, _anEl, new CustList<AbstractCatchEval>()));
         }
         id_.put(nextSibling_, assBl_);
     }
@@ -132,6 +134,10 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
         afterVars_ = buildAssVariablesAfterTry(prev_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
+        CustList<StringMap<SimpleAssignment>> afterMutable_;
+        afterMutable_ = buildAssMutableLoopAfterTry(prev_, _an, _anEl);
+        assTar_.getMutableLoopRoot().clear();
+        assTar_.getMutableLoopRoot().addAllElts(afterMutable_);
     }
 
     @Override

@@ -25,6 +25,7 @@ public abstract class LeafOperation extends OperationNode {
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
 
         for (EntryCust<String, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
             AssignmentBefore b_ = e.getValue();
@@ -38,8 +39,17 @@ public abstract class LeafOperation extends OperationNode {
             }
             variablesAfter_.add(sm_);
         }
+        for (StringMap<AssignmentBefore> s: vars_.getMutableLoopBefore().getVal(this)) {
+            StringMap<Assignment> sm_ = new StringMap<Assignment>();
+            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                AssignmentBefore b_ = e.getValue();
+                sm_.put(e.getKey(), b_.assignAfter(_bool));
+            }
+            mutableAfter_.add(sm_);
+        }
         vars_.getFields().put(this, fieldsAfter_);
         vars_.getVariables().put(this, variablesAfter_);
+        vars_.getMutableLoop().put(this, mutableAfter_);
     }
 
     @Override

@@ -82,6 +82,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
         after_ = buildAssFieldsAfterFinally(prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         for (EntryCust<ReturnMehod, Eval> e: _anEl.getReturnables().entryList()) {
@@ -102,6 +103,9 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
         afterVars_ = buildAssVariablesAfterFinally(prev_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
+        mutableVars_ = buildAssMutableLoopAfterFinally(prev_, _an, _anEl);
+        assTar_.getMutableLoopRoot().clear();
+        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
     @Override
     boolean canBeIncrementedNextGroup() {

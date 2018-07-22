@@ -4,6 +4,7 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FileBlock;
+import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -35,6 +36,7 @@ public final class AnalyzedPageEl {
     private String globalClass;
 
     private CustList<StringMap<LoopVariable>> vars = new CustList<StringMap<LoopVariable>>();
+    private CustList<StringMap<LoopVariable>> mutableVars = new CustList<StringMap<LoopVariable>>();
 
     private CustList<StringMap<LocalVariable>> catchVars = new CustList<StringMap<LocalVariable>>();
 
@@ -74,6 +76,7 @@ public final class AnalyzedPageEl {
     private StringList variablesNames = new StringList();
     private boolean assignedStaticFields;
     private boolean assignedFields;
+    private ForLoopPart forLoopPart;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -238,6 +241,21 @@ public final class AnalyzedPageEl {
         vars.add(_localVars);
     }
 
+    public CustList<StringMap<LoopVariable>> getMutableLoopVars() {
+        return mutableVars;
+    }
+
+    public void initMutableLoopVars() {
+        mutableVars.add(new StringMap<LoopVariable>());
+    }
+
+    public void removeMutableLoopVars() {
+        mutableVars.removeLast();
+    }
+
+    public void putMutableLoopVar(String _key, LoopVariable _var) {
+        mutableVars.last().put(_key, _var);
+    }
     public CustList<StringMap<LocalVariable>> getLocalVars() {
         return localVars;
     }
@@ -256,14 +274,52 @@ public final class AnalyzedPageEl {
 
     public void clearAllLocalVars() {
         localVars.clear();
+        mutableVars.clear();
         assignedVariables.getFinalVariablesGlobal().getVariables().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesRoot().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesRootBefore().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesBefore().clear();
+        assignedVariables.getFinalVariablesGlobal().getMutableLoop().clear();
+        assignedVariables.getFinalVariablesGlobal().getMutableLoopRoot().clear();
+        assignedVariables.getFinalVariablesGlobal().getMutableLoopRootBefore().clear();
+        assignedVariables.getFinalVariablesGlobal().getMutableLoopBefore().clear();
         vars.clear();
         catchVars.clear();
     }
 
+    public boolean containsMutableLoopVar(String _key) {
+        for (StringMap<LoopVariable> m: mutableVars) {
+            if (m.contains(_key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public LoopVariable getMutableLoopVar(String _key) {
+        for (StringMap<LoopVariable> m: mutableVars) {
+            if (m.contains(_key)) {
+                return m.getVal(_key);
+            }
+        }
+        return null;
+    }
+
+    public LoopVariable getMutableLoopVar(String _key, int _index) {
+        if (!mutableVars.isValidIndex(_index)) {
+            return null;
+        }
+        return mutableVars.get(_index).getVal(_key);
+    }
+
+    public void setMutableLoopVars(StringMap<LoopVariable> _localVars) {
+        mutableVars = new CustList<StringMap<LoopVariable>>(new CollCapacity(1));
+        mutableVars.add(_localVars);
+    }
+
+    public void setMutableLoopVars(CustList<StringMap<LoopVariable>> _localVars) {
+        mutableVars = _localVars;
+    }
     public boolean containsLocalVar(String _key) {
         for (StringMap<LocalVariable> m: localVars) {
             if (m.contains(_key)) {
@@ -485,5 +541,11 @@ public final class AnalyzedPageEl {
 
     public void setAssignedFields(boolean _assignedFields) {
         assignedFields = _assignedFields;
+    }
+    public ForLoopPart getForLoopPartState() {
+        return forLoopPart;
+    }
+    public void setForLoopPartState(ForLoopPart _forLoopPart) {
+        forLoopPart = _forLoopPart;
     }
 }

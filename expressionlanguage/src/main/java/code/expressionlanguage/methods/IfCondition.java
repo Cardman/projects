@@ -93,11 +93,15 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
         after_ = buildAssFieldsAfterIf(true, new CustList<Block>(this), _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterIf(true, new CustList<Block>(this), _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
+        mutableVars_ = buildAssMutableLoopAfterIf(true, new CustList<Block>(this), _an, _anEl);
+        assTar_.getMutableLoopRoot().clear();
+        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
     @Override
     boolean canBeLastOfBlockGroup() {

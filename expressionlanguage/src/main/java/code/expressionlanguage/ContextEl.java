@@ -15,6 +15,7 @@ import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InitBlock;
@@ -1928,5 +1929,35 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setAssignedFields(boolean _assignedFields) {
         analyzing.setAssignedFields(_assignedFields);
+    }
+
+    @Override
+    public LoopVariable getMutableLoopVar(String _key, int _index) {
+        return analyzing.getMutableLoopVar(_key, _index);
+    }
+
+    @Override
+    public boolean containsMutableLoopVar(String _string) {
+        return analyzing.containsMutableLoopVar(_string);
+    }
+
+    @Override
+    public LoopVariable getMutableLoopVar(String _key) {
+        return analyzing.getMutableLoopVar(_key);
+    }
+
+    @Override
+    public void putMutableLoopVar(String _string, LoopVariable _loc) {
+        analyzing.putMutableLoopVar(_string, _loc);
+    }
+
+    @Override
+    public ForLoopPart getForLoopPartState() {
+        return analyzing.getForLoopPartState();
+    }
+
+    @Override
+    public void setForLoopPartState(ForLoopPart _state) {
+        analyzing.setForLoopPartState(_state);
     }
 }

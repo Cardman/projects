@@ -269,6 +269,9 @@ public abstract class OperationNode {
                 return new FinalVariableOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.LOOP_VAR) {
+                if (_an.containsMutableLoopVar(str_)) {
+                    return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
+                }
                 return new FinalVariableOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.LOC_VAR) {

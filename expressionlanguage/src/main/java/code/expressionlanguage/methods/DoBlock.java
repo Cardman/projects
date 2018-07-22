@@ -92,11 +92,22 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
                 }
                 assBl_.getVariablesRootBefore().add(sm_);
             }
+            for (StringMap<SimpleAssignment> s: parAss_.getMutableLoopRoot()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                    AssignmentBefore ab_ = new AssignmentBefore();
+                    ab_.setAssignedBefore(true);
+                    ab_.setUnassignedBefore(true);
+                    sm_.put(e.getKey(), ab_);
+                }
+                assBl_.getMutableLoopRootBefore().add(sm_);
+            }
             id_.put(nextSibling_, assBl_);
             return;
         }
         assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeNextSibling(_an, _anEl));
         assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeNextSibling(_an, _anEl));
+        assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeNextSibling(_an, _anEl));
         id_.put(nextSibling_, assBl_);
     }
     protected StringMap<AssignmentBefore> buildAssListFieldBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
@@ -155,6 +166,46 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
+                if (v_.isValidIndex(i)) {
+                    varsList_.add(beforeNextSibling(cond_, v_.get(i), breakAss_));
+                }
+            } else {
+                varsList_.add(beforeNextSibling(cond_, new StringMap<SimpleAssignment>(), breakAss_));
+            }
+        }
+        
+        return varsList_;
+    }
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        Block last_ = getFirstChild();
+        while (last_.getNextSibling() != null) {
+            last_ = last_.getNextSibling();
+        }
+        CustList<ContinueBlock> continues_ = getContinuables(_anEl);
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<AssignmentBefore>> varsList_;
+        varsList_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<SimpleAssignment>> list_;
+        list_ = id_.getVal(this).getMutableLoopRoot();
+        int contLen_ = continues_.size();
+        int loopLen_ = list_.size();
+        for (int i = 0; i < loopLen_; i++) {
+            CustList<StringMap<AssignmentBefore>> breakAss_;
+            breakAss_ = new CustList<StringMap<AssignmentBefore>>();
+            for (int j = 0; j < contLen_; j++) {
+                ContinueBlock br_ = continues_.get(j);
+                AssignedVariables ass_ = id_.getVal(br_);
+                CustList<StringMap<AssignmentBefore>> vars_ = ass_.getMutableLoopRootBefore();
+                if (!vars_.isValidIndex(i)) {
+                    continue;
+                }
+                breakAss_.add(vars_.get(i));
+            }
+            StringMap<SimpleAssignment> cond_ = list_.get(i);
+            if (_anEl.canCompleteNormallyGroup(last_)) {
+                AssignedVariables ass_ = id_.getVal(last_);
+                CustList<StringMap<SimpleAssignment>> v_ = ass_.getMutableLoopRoot();
                 if (v_.isValidIndex(i)) {
                     varsList_.add(beforeNextSibling(cond_, v_.get(i), breakAss_));
                 }

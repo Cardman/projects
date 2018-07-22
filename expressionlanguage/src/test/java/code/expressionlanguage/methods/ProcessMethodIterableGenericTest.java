@@ -1095,11 +1095,11 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append(" $public $normal $void add($int index,#U elt){\n");
         xml_.append("  [#U newlist=$new [#U(length;;;+1i):\n");
-        xml_.append("  $for($int i=0i:index;.;:1i){\n");
+        xml_.append("  $iter($int i=0i:index;.;:1i){\n");
         xml_.append("   newlist;.[i;]=list;;;[i;]:\n");
         xml_.append("  }\n");
         xml_.append("  newlist;.[index;.;]=elt;.;:\n");
-        xml_.append("  $for($int i=index;.;+1i:length;;;+1i:1i){\n");
+        xml_.append("  $iter($int i=index;.;+1i:length;;;+1i:1i){\n");
         xml_.append("   newlist;.[i;]=list;;;[i;-1i]:\n");
         xml_.append("  }\n");
         xml_.append("  length;;;++:\n");
@@ -1115,7 +1115,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("  list;;;[index;.;]=elt;.;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void remove($int index){\n");
-        xml_.append("  $for($int i=index;.;:length;;;-1i:1i){\n");
+        xml_.append("  $iter($int i=index;.;:length;;;-1i:1i){\n");
         xml_.append("   list;;;[i;]=list;;;[i;+1i]:\n");
         xml_.append("  }\n");
         xml_.append("  list;;;[length;;;-1i]=$null:\n");
@@ -1148,11 +1148,11 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append(" $public $normal $void add($int index,#U elt){\n");
         xml_.append("  [#U newlist=$new [#U(length;;;+1i):\n");
-        xml_.append("  $for($int i=0i:index;.;:1i){\n");
+        xml_.append("  $iter($int i=0i:index;.;:1i){\n");
         xml_.append("   newlist;.[i;]=list;;;[i;]:\n");
         xml_.append("  }\n");
         xml_.append("  newlist;.[index;.;]=elt;.;:\n");
-        xml_.append("  $for($int i=index;.;+1i:length;;;+1i:1i){\n");
+        xml_.append("  $iter($int i=index;.;+1i:length;;;+1i:1i){\n");
         xml_.append("   newlist;.[i;]=list;;;[i;-1i]:\n");
         xml_.append("  }\n");
         xml_.append("  length;;;++:\n");
@@ -1168,7 +1168,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("  list;;;[index;.;]=elt;.;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void remove($int index){\n");
-        xml_.append("  $for($int i=index;.;:length;;;-1i:1i){\n");
+        xml_.append("  $iter($int i=index;.;:length;;;-1i:1i){\n");
         xml_.append("   list;;;[i;]=list;;;[i;+1i]:\n");
         xml_.append("  }\n");
         xml_.append("  list;;;[length;;;-1i]=$null:\n");

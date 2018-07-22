@@ -100,6 +100,15 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             assBl_.getVariablesRootBefore().add(sm_);
         }
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        for (StringMap<Assignment> s: parAss_.getMutableLoop().lastValue()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                Assignment ba_ = e.getValue();
+                sm_.put(e.getKey(), ba_.assignBefore());
+            }
+            assBl_.getMutableLoopRootBefore().add(sm_);
+        }
+        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
     @Override
@@ -300,11 +309,15 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_ = new StringMap<SimpleAssignment>();
         CustList<StringMap<SimpleAssignment>> afterVars_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<StringMap<SimpleAssignment>> mutableVars_ = new CustList<StringMap<SimpleAssignment>>();
         after_ =buildAssFieldsAfterSwitch(def_, emptyEndCases_, ch_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterSwitch(def_, emptyEndCases_, ch_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(afterVars_);
+        mutableVars_ = buildAssMutableLoopAfterSwitch(def_, emptyEndCases_, ch_, _an, _anEl);
+        assTar_.getMutableLoopRoot().clear();
+        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
     }
 
     @Override

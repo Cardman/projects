@@ -85,6 +85,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             if (n_ != null) {
                 _cont.getAnalyzing().initLocalVars();
                 _cont.getAnalyzing().initVars();
+                _cont.getAnalyzing().initMutableLoopVars();
                 _cont.getAnalyzing().initCatchVars();
                 if (en_ instanceof BreakableBlock) {
                     parentsBreakables_.add((BreakableBlock) en_);
@@ -160,6 +161,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 }
                 page_.removeLocalVars();
                 page_.removeVars();
+                page_.removeMutableLoopVars();
                 page_.removeCatchVars();
                 if (par_ instanceof BreakableBlock && !((BreakableBlock)par_).getLabel().isEmpty()) {
                     labels_.removeLast();

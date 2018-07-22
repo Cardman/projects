@@ -131,6 +131,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         DoBlock dBlock_ = (DoBlock) getPreviousSibling();
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
+        CustList<StringMap<AssignmentBefore>> mutableHypot_;
 
         AssignedVariables varsDo_;
         varsDo_ = id_.getVal(dBlock_);
@@ -141,6 +142,9 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         varsHypot_ = buildAssListLocVarInvalHypot(_an, _anEl);
         varsDo_.getVariablesRootBefore().clear();
         varsDo_.getVariablesRootBefore().addAllElts(varsHypot_);
+        mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
+        varsDo_.getMutableLoopRootBefore().clear();
+        varsDo_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
         IdMap<Block, AssignedVariables> allDesc_ = new IdMap<Block, AssignedVariables>();
         boolean add_ = false;
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
@@ -153,14 +157,19 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         }
         processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
         processFinalVars(_an, _anEl, allDesc_, varsHypot_);
+        processFinalMutableLoop(_an, _anEl, allDesc_, mutableHypot_);
 
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
+        CustList<StringMap<SimpleAssignment>> mutableAfter_;
         fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
         varsDo_.getFieldsRoot().putAllMap(fieldsAfter_);
         varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
         varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
+        mutableAfter_ = buildAssListMutableLoopAfter(_an, _anEl);
+        varsWhile_.getMutableLoopRoot().clear();
+        varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
 
     protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
@@ -185,6 +194,25 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         
         CustList<StringMap<BooleanAssignment>> end_;
         end_ = ((AssignedBooleanVariables) id_.getVal(this)).getVariablesRootAfter();
+        for (int i = 0; i < loopLen_; i++) {
+            StringMap<AssignmentBefore> cond_ = list_.get(i);
+            varsList_.add(invalidateHypothesis(cond_, end_.get(i)));
+        }
+        
+        return varsList_;
+    }
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<AssignmentBefore>> varsList_;
+        varsList_ = new CustList<StringMap<AssignmentBefore>>();
+        DoBlock dBlock_ = (DoBlock) getPreviousSibling();
+        CustList<StringMap<AssignmentBefore>> list_;
+        list_ = dBlock_.makeHypothesisMutableLoop(_an);
+        int loopLen_ = list_.size();
+        
+        CustList<StringMap<BooleanAssignment>> end_;
+        end_ = ((AssignedBooleanVariables) id_.getVal(this)).getMutableLoopRootAfter();
         for (int i = 0; i < loopLen_; i++) {
             StringMap<AssignmentBefore> cond_ = list_.get(i);
             varsList_.add(invalidateHypothesis(cond_, end_.get(i)));

@@ -241,8 +241,10 @@ public final class ConstantOperation extends LeafOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
+        CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
         CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
+        CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
 
         Object obj_ = arg_.getObject();
@@ -267,6 +269,26 @@ public final class ConstantOperation extends LeafOperation {
                     sm_.put(e.getKey(), b_);
                 }
                 ass_.add(sm_);
+            }
+            for (StringMap<AssignmentBefore> s: assM_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore bf_ = e.getValue();
+                    BooleanAssignment b_ = new BooleanAssignment();
+                    if ((Boolean)obj_) {
+                        b_.setAssignedAfterWhenFalse(true);
+                        b_.setUnassignedAfterWhenFalse(true);
+                        b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
+                        b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
+                    } else {
+                        b_.setAssignedAfterWhenTrue(true);
+                        b_.setUnassignedAfterWhenTrue(true);
+                        b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
+                        b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
+                    }
+                    sm_.put(e.getKey(), b_);
+                }
+                assAfM_.add(sm_);
             }
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
@@ -294,12 +316,21 @@ public final class ConstantOperation extends LeafOperation {
                 }
                 ass_.add(sm_);
             }
+            for (StringMap<AssignmentBefore> s: assM_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore bf_ = e.getValue();
+                    sm_.put(e.getKey(), bf_.assignAfter(false));
+                }
+                assAfM_.add(sm_);
+            }
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
                 assA_.put(e.getKey(), bf_.assignAfter(false));
             }
         }
         vars_.getVariables().put(this, ass_);
+        vars_.getMutableLoop().put(this, assAfM_);
         vars_.getFields().put(this, assA_);
     }
 

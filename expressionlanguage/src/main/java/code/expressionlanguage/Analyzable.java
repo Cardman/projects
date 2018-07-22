@@ -5,6 +5,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
@@ -33,6 +34,11 @@ public interface Analyzable {
 
     String getCurrentVarSetting();
     LoopVariable getVar(String _key);
+
+    LoopVariable getMutableLoopVar(String _key, int _index);
+    boolean containsMutableLoopVar(String _string);
+    LoopVariable getMutableLoopVar(String _key);
+    void putMutableLoopVar(String _string, LoopVariable _loc);
 
     CustList<StringMap<LocalVariable>> getLocalVariables();
     LocalVariable getLocalVar(String _key, int _index);
@@ -109,4 +115,6 @@ public interface Analyzable {
     boolean isAssignedFields();
 
     void setAssignedFields(boolean _assignedFields);
+    ForLoopPart getForLoopPartState();
+    void setForLoopPartState(ForLoopPart _state);
 }

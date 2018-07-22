@@ -24,7 +24,7 @@ public final class ProcessMethodContinueLoopTest extends
         xml_.append("  t;.=$null:\n");
         xml_.append("  $int r:\n");
         xml_.append("  r;.=0i:\n");
-        xml_.append("  $for($int i=0i:4i::1i){\n");
+        xml_.append("  $iter($int i=0i:4i::1i){\n");
         xml_.append("   $switch(i;){\n");
         xml_.append("    $case(1i){\n");
         xml_.append("     r;.+=1i:\n");
@@ -232,7 +232,7 @@ public final class ProcessMethodContinueLoopTest extends
         xml_.append("  $int r:\n");
         xml_.append("  r;.=0i:\n");
         xml_.append("  $int i:\n");
-        xml_.append("  $for($int i=0i:2i:1i){\n");
+        xml_.append("  $iter($int i=0i:2i:1i){\n");
         xml_.append("   i;.=0i:\n");
         xml_.append("   $while(i;.<10){\n");
         xml_.append("    $switch(i;.){\n");
@@ -278,7 +278,7 @@ public final class ProcessMethodContinueLoopTest extends
         xml_.append("  $int r:\n");
         xml_.append("  r;.=0i:\n");
         xml_.append("  $int i:\n");
-        xml_.append("  $for($int i=0i:2i:1i){\n");
+        xml_.append("  $iter($int i=0i:2i:1i){\n");
         xml_.append("   i;.=0i:\n");
         xml_.append("   $do{\n");
         xml_.append("    $switch(i;.){\n");
@@ -495,8 +495,8 @@ public final class ProcessMethodContinueLoopTest extends
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  $for($int i=0i:4i:1i)label{\n");
-        xml_.append("   $for($int j=0i:4i:1i)labeltwo{\n");
+        xml_.append("  $iter($int i=0i:4i:1i)label{\n");
+        xml_.append("   $iter($int j=0i:4i:1i)labeltwo{\n");
         xml_.append("    t;.+=1i:\n");
         xml_.append("    $if(j;=2){\n");
         xml_.append("     $continue label:\n");

@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.FinallyEval;
 import code.expressionlanguage.methods.ForEachLoop;
 import code.expressionlanguage.methods.ForIterativeLoop;
+import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.IfCondition;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
@@ -85,6 +86,7 @@ public final class FileResolver {
     private static final String KEY_WORD_FINAL = "final";
     private static final String KEY_WORD_NORMAL = "normal";
 
+    private static final String KEY_WORD_ITER = "iter";
     private static final String KEY_WORD_FOR = "for";
     private static final String KEY_WORD_FOREACH = "foreach";
     private static final String KEY_WORD_WHILE = "while";
@@ -1053,9 +1055,9 @@ public final class FileResolver {
                                 new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
                                 new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
-                    } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_FOR)) {
-                        String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_FOR)).length());
-                        int indexClassOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_FOR).length();
+                    } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_ITER)) {
+                        String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_ITER)).length());
+                        int indexClassOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_ITER).length();
                         int lastPar_ = exp_.lastIndexOf(END_CALLING);
                         int labelOff_ = indexClassOffest_ + lastPar_+ 1;
                         String label_ = exp_;
@@ -1102,6 +1104,51 @@ public final class FileResolver {
                         }
                         br_ = new ForIterativeLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_,declaringType_.trim()), new OffsetStringInfo(varOffset_,variable_.trim()),
                                 new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetBooleanInfo(expOff_, eq_) , new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
+                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        currentParent_.appendChild(br_);
+                    } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_FOR)) {
+                        String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_FOR)).length());
+                        int indexClassOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_FOR).length();
+                        int lastPar_ = exp_.lastIndexOf(END_CALLING);
+                        int labelOff_ = indexClassOffest_ + lastPar_+ 1;
+                        String label_ = exp_;
+                        int typeOffset_ = instructionLocation_ + trimmedInstruction_.indexOf(BEGIN_CALLING) + 1;
+                        if (!exp_.trim().isEmpty()) {
+                            indexClassOffest_ += StringList.getFirstPrintableCharIndex(exp_) + 1;
+                        }
+                        String indexClassName_ = EMPTY_STRING;
+                        if (exp_.trim().indexOf(BEGIN_ARRAY) == 0) {
+                            indexClassName_ = exp_.substring(0, exp_.indexOf(END_ARRAY));
+                            exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1);
+                        }
+                        exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
+                        String declaringType_ = getDeclaringTypeInstr(exp_);
+                        typeOffset_ += StringList.getFirstPrintableCharIndex(exp_);
+                        int varOffset_ = typeOffset_ + declaringType_.length();
+                        exp_ = exp_.substring(declaringType_.length());
+                        String variable_ = exp_.substring(0, exp_.indexOf(PART_SEPARATOR));
+                        varOffset_ += StringList.getFirstPrintableCharIndex(variable_);
+                        exp_ = exp_.substring(exp_.indexOf(PART_SEPARATOR) + 1);
+                        int nextElt_ = getIndex(exp_);
+                        int initOff_ = varOffset_ + nextElt_;
+                        String init_ = exp_.substring(0, nextElt_);
+                        initOff_ += StringList.getFirstPrintableCharIndex(init_);
+                        exp_ = exp_.substring(init_.length()+1);
+                        nextElt_ = getIndex(exp_);
+                        int toOff_ = initOff_ + nextElt_;
+                        String to_ = exp_.substring(0, nextElt_);
+                        toOff_ += StringList.getFirstPrintableCharIndex(to_);
+                        int expOff_ = toOff_ + nextElt_;
+                        int stepOff_ = expOff_ + 1;
+                        exp_ = exp_.substring(nextElt_ + 1);
+                        String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
+                        stepOff_ += StringList.getFirstPrintableCharIndex(step_);
+                        label_ = label_.substring(lastPar_ + 1);
+                        if (!label_.isEmpty()) {
+                            labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                        }
+                        br_ = new ForMutableIterativeLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_,declaringType_.trim()), new OffsetStringInfo(varOffset_,variable_.trim()),
+                                new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
                                 new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_SWITCH)) {

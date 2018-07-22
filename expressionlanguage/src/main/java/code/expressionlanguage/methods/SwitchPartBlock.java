@@ -35,6 +35,8 @@ public abstract class SwitchPartBlock extends BracedStack implements
         assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _anEl));
         assBl_.getVariablesRootBefore().addAllElts(buildVariablesSwitchPart(_an, _anEl));
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        assBl_.getMutableLoopRootBefore().addAllElts(buildMutableLoopSwitchPart(_an, _anEl));
+        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(nextSibling_, assBl_);
     }
     protected CustList<StringMap<AssignmentBefore>> buildVariablesSwitchPart(Analyzable _an, AnalyzingEl _anEl){
@@ -51,6 +53,32 @@ public abstract class SwitchPartBlock extends BracedStack implements
             StringMap<SimpleAssignment> current_;
             if (_anEl.canCompleteNormally(this)) {
                 CustList<StringMap<SimpleAssignment>> map_ = prevAss_.getVariablesRoot();
+                if (map_.isValidIndex(i)) {
+                    current_ = map_.get(i);
+                } else {
+                    current_ = new StringMap<SimpleAssignment>();
+                }
+            } else {
+                current_ = new StringMap<SimpleAssignment>();
+            }
+            out_.add(buildSwitchPart(assSwitch_, current_));
+        }
+        return out_;
+    }
+    protected CustList<StringMap<AssignmentBefore>> buildMutableLoopSwitchPart(Analyzable _an, AnalyzingEl _anEl){
+        BracedBlock br_ = getParent();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(br_);
+        AssignedVariables prevAss_ = id_.getVal(this);
+        CustList<StringMap<AssignmentBefore>> out_;
+        out_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<Assignment>> assSwitchs_ = parAss_.getMutableLoop().lastValue();
+        int len_ = assSwitchs_.size();
+        for (int i = 0; i < len_; i++) {
+            StringMap<Assignment> assSwitch_ = assSwitchs_.get(i);
+            StringMap<SimpleAssignment> current_;
+            if (_anEl.canCompleteNormally(this)) {
+                CustList<StringMap<SimpleAssignment>> map_ = prevAss_.getMutableLoopRoot();
                 if (map_.isValidIndex(i)) {
                     current_ = map_.get(i);
                 } else {

@@ -157,13 +157,22 @@ public abstract class Block extends Blockable {
             }
             ass_.getVariablesRoot().add(vars_);
         }
+        for (StringMap<AssignmentBefore> s: ass_.getMutableLoopRootBefore()) {
+            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
+            }
+            ass_.getMutableLoopRoot().add(vars_);
+        }
     }
     public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
+        CustList<StringMap<AssignmentBefore>> mutable_;
         fields_ = new StringMap<AssignmentBefore>();
         variables_ = new CustList<StringMap<AssignmentBefore>>();
+        mutable_ = new CustList<StringMap<AssignmentBefore>>();
         for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
             fields_.put(e.getKey(), e.getValue().copy());
         }
@@ -176,6 +185,14 @@ public abstract class Block extends Blockable {
             variables_.add(sm_);
         }
         vars_.getVariablesBefore().put(_root, variables_);
+        for (StringMap<AssignmentBefore> s: vars_.getMutableLoopRootBefore()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().copy());
+            }
+            mutable_.add(sm_);
+        }
+        vars_.getMutableLoopBefore().put(_root, mutable_);
     }
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
@@ -193,6 +210,14 @@ public abstract class Block extends Blockable {
                 sm_.put(e.getKey(), asBef_);
             }
             assBl_.getVariablesRootBefore().add(sm_);
+        }
+        for (StringMap<SimpleAssignment> s: prevAss_.getMutableLoopRoot()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                AssignmentBefore asBef_ = e.getValue().assignBefore();
+                sm_.put(e.getKey(), asBef_);
+            }
+            assBl_.getMutableLoopRootBefore().add(sm_);
         }
         id_.put(nextSibling_, assBl_);
     }
@@ -286,6 +311,26 @@ public abstract class Block extends Blockable {
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
         for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                AssignmentBefore ass_ = e.getValue();
+                AssignmentBefore h_ = new AssignmentBefore();
+                if (ass_.isAssignedBefore()) {
+                    h_.setAssignedBefore(true);
+                } else {
+                    h_.setUnassignedBefore(true);
+                }
+                sm_.put(e.getKey(), h_);
+            }
+            variables_.add(sm_);
+        }
+        return variables_;
+    }
+    protected final CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(Analyzable _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        CustList<StringMap<AssignmentBefore>> variables_;
+        variables_ = new CustList<StringMap<AssignmentBefore>>();
+        for (StringMap<AssignmentBefore> s: vars_.getMutableLoopRootBefore()) {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
                 AssignmentBefore ass_ = e.getValue();

@@ -2,6 +2,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadElError;
@@ -18,7 +19,9 @@ import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.EmptyPartOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.InstanceOperation;
+import code.expressionlanguage.opers.LeafOperation;
 import code.expressionlanguage.opers.MethodOperation;
+import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
@@ -294,6 +297,27 @@ public final class ElUtil {
                         index_++;
                     }
                 }
+                CustList<StringMap<Assignment>> mutableRes_;
+                mutableRes_ = vars_.getMutableLoop().getVal(e_);
+                if (vars_.getMutableLoopRoot().isEmpty()) {
+                    for (StringMap<Assignment> s: mutableRes_) {
+                        StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                        for (EntryCust<String, Assignment> e: s.entryList()) {
+                            sm_.put(e.getKey(), e.getValue().assignClassic());
+                        }
+                        vars_.getMutableLoopRoot().add(sm_);
+                    }
+                } else {
+                    int index_ = 0;
+                    for (StringMap<Assignment> s: mutableRes_) {
+                        StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                        for (EntryCust<String, Assignment> e: s.entryList()) {
+                            sm_.put(e.getKey(), e.getValue().assignClassic());
+                        }
+                        vars_.getMutableLoopRoot().set(index_, sm_);
+                        index_++;
+                    }
+                }
             }
             return new CustList<OperationNode>(e_);
         }
@@ -364,6 +388,27 @@ public final class ElUtil {
                                 sm_.put(e.getKey(), e.getValue().assignClassic());
                             }
                             vars_.getVariablesRoot().set(index_, sm_);
+                            index_++;
+                        }
+                    }
+                    CustList<StringMap<Assignment>> mutableRes_;
+                    mutableRes_ = vars_.getMutableLoop().getVal(_root);
+                    if (vars_.getMutableLoopRoot().isEmpty()) {
+                        for (StringMap<Assignment> s: mutableRes_) {
+                            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                            for (EntryCust<String, Assignment> e: s.entryList()) {
+                                sm_.put(e.getKey(), e.getValue().assignClassic());
+                            }
+                            vars_.getMutableLoopRoot().add(sm_);
+                        }
+                    } else {
+                        int index_ = 0;
+                        for (StringMap<Assignment> s: mutableRes_) {
+                            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                            for (EntryCust<String, Assignment> e: s.entryList()) {
+                                sm_.put(e.getKey(), e.getValue().assignClassic());
+                            }
+                            vars_.getMutableLoopRoot().set(index_, sm_);
                             index_++;
                         }
                     }
@@ -516,6 +561,26 @@ public final class ElUtil {
         }
         return op_;
     }
+    public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
+        Block bl_ = _an.getCurrentBlock();
+        if (!_an.isMerged()) {
+            return false;
+        }
+        if (!(bl_ instanceof ForMutableIterativeLoop)) {
+            return false;
+        }
+        return isDeclaringVariable(_var);
+    }
+    public static boolean isDeclaringLoopVariable(MethodOperation _par, Analyzable _an) {
+        Block bl_ = _an.getCurrentBlock();
+        if (!_an.isMerged()) {
+            return false;
+        }
+        if (!(bl_ instanceof ForMutableIterativeLoop)) {
+            return false;
+        }
+        return isDeclaringVariable(_par);
+    }
     public static boolean isDeclaringVariable(VariableOperation _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!_an.isMerged()) {
@@ -527,6 +592,22 @@ public final class ElUtil {
         if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
             return false;
         }
+        return isDeclaringVariable(_var);
+    }
+    public static boolean isDeclaringVariable(MethodOperation _par, Analyzable _an) {
+        Block bl_ = _an.getCurrentBlock();
+        if (!_an.isMerged()) {
+            return false;
+        }
+        if (bl_ == null) {
+            return false;
+        }
+        if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
+            return false;
+        }
+        return isDeclaringVariable(_par);
+    }
+    private static boolean isDeclaringVariable(LeafOperation _var) {
         MethodOperation par_ = _var.getParent();
         if (par_ == null) {
             return true;
@@ -548,17 +629,7 @@ public final class ElUtil {
         }
         return false;
     }
-    public static boolean isDeclaringVariable(MethodOperation _par, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
-        if (!_an.isMerged()) {
-            return false;
-        }
-        if (bl_ == null) {
-            return false;
-        }
-        if (!(bl_.getPreviousSibling() instanceof DeclareVariable)) {
-            return false;
-        }
+    private static boolean isDeclaringVariable(MethodOperation _par) {
         if (_par == null) {
             return true;
         }

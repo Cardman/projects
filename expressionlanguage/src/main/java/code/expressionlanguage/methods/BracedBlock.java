@@ -77,8 +77,10 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
+        CustList<StringMap<AssignmentBefore>> mutable_;
         fields_ = new StringMap<AssignmentBefore>();
         variables_ = parAss_.getVariablesRootBefore();
+        mutable_ = parAss_.getMutableLoopRootBefore();
         for (EntryCust<String,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
             fields_.put(e.getKey(), e.getValue().copy());
         }
@@ -91,6 +93,14 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             assBl_.getVariablesRootBefore().add(sm_);
         }
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        for (StringMap<AssignmentBefore> s: mutable_) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().copy());
+            }
+            assBl_.getMutableLoopRootBefore().add(sm_);
+        }
+        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
     @Override
@@ -120,6 +130,20 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
             }
             ass_.getVariablesRoot().clear();
             ass_.getVariablesRoot().addAllElts(afterVars_);
+            CustList<StringMap<SimpleAssignment>> afterMutable_;
+            afterMutable_ = new CustList<StringMap<SimpleAssignment>>();
+            CustList<StringMap<AssignmentBefore>> mutable_ = ass_.getMutableLoopRootBefore();
+            for (StringMap<AssignmentBefore> s: mutable_) {
+                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore ab_ = e.getValue();
+                    String key_ = e.getKey();
+                    sm_.put(key_, ab_.assignAfterClassic());
+                }
+                afterMutable_.add(sm_);
+            }
+            ass_.getMutableLoopRoot().clear();
+            ass_.getMutableLoopRoot().addAllElts(afterMutable_);
             return;
         }
         while (ch_.getNextSibling() != null) {
@@ -133,6 +157,10 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         int count_ = ass_.getVariablesRootBefore().size();
         assTar_.getVariablesRoot().clear();
         assTar_.getVariablesRoot().addAllElts(variables_.mid(0, count_ - 1));
+        CustList<StringMap<SimpleAssignment>> mutable_ = ass_.getMutableLoopRoot();
+        count_ = ass_.getMutableLoopRootBefore().size();
+        assTar_.getMutableLoopRoot().clear();
+        assTar_.getMutableLoopRoot().addAllElts(mutable_.mid(0, count_ - 1));
     }
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
     }

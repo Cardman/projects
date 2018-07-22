@@ -78,24 +78,37 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             varsAfter_ =buildAssListLocVarAfter(_an, _anEl);
             varsWhile_.getVariablesRoot().clear();
             varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
+            CustList<StringMap<SimpleAssignment>> mutableAfter_;
+            mutableAfter_ =buildAssListMutableLoopAfter(_an, _anEl);
+            varsWhile_.getMutableLoopRoot().clear();
+            varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
             return;
         }
         StringMap<AssignmentBefore> fieldsHypot_;
         CustList<StringMap<AssignmentBefore>> varsHypot_;
+        CustList<StringMap<AssignmentBefore>> mutableHypot_;
         fieldsHypot_ = buildAssListFieldAfterInvalHypot(_an, _anEl);
         varsWhile_.getFieldsRootBefore().putAllMap(fieldsHypot_);
         varsHypot_ = buildAssListLocVarInvalHypot(_an, _anEl);
         varsWhile_.getVariablesRootBefore().clear();
         varsWhile_.getVariablesRootBefore().addAllElts(varsHypot_);
+        mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
+        varsWhile_.getMutableLoopRootBefore().clear();
+        varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
         processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
         processFinalVars(_an, _anEl, allDesc_, varsHypot_);
+        processFinalMutableLoop(_an, _anEl, allDesc_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
         CustList<StringMap<SimpleAssignment>> varsAfter_;
+        CustList<StringMap<SimpleAssignment>> mutableAfter_;
         varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
         varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
+        mutableAfter_ = buildAssListMutableLoopAfter(_an, _anEl);
+        varsWhile_.getMutableLoopRoot().clear();
+        varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
 
     protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
@@ -154,6 +167,46 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             if (_anEl.canCompleteNormallyGroup(last_)) {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
+                if (v_.isValidIndex(i)) {
+                    varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
+                }
+            } else {
+                varsList_.add(invalidateHypothesis(cond_, new StringMap<SimpleAssignment>(), breakAss_));
+            }
+        }
+        
+        return varsList_;
+    }
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(Analyzable _an, AnalyzingEl _anEl) {
+        Block last_ = getFirstChild();
+        while (last_.getNextSibling() != null) {
+            last_ = last_.getNextSibling();
+        }
+        CustList<ContinueBlock> continues_ = getContinuables(_anEl);
+        IdMap<Block, AssignedVariables> id_;
+        id_ = _an.getAssignedVariables().getFinalVariables();
+        CustList<StringMap<AssignmentBefore>> varsList_;
+        varsList_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<AssignmentBefore>> list_;
+        list_ = makeHypothesisMutableLoop(_an);
+        int contLen_ = continues_.size();
+        int loopLen_ = list_.size();
+        for (int i = 0; i < loopLen_; i++) {
+            CustList<StringMap<AssignmentBefore>> breakAss_;
+            breakAss_ = new CustList<StringMap<AssignmentBefore>>();
+            for (int j = 0; j < contLen_; j++) {
+                ContinueBlock br_ = continues_.get(j);
+                AssignedVariables ass_ = id_.getVal(br_);
+                CustList<StringMap<AssignmentBefore>> vars_ = ass_.getMutableLoopRootBefore();
+                if (!vars_.isValidIndex(i)) {
+                    continue;
+                }
+                breakAss_.add(vars_.get(i));
+            }
+            StringMap<AssignmentBefore> cond_ = list_.get(i);
+            if (_anEl.canCompleteNormallyGroup(last_)) {
+                AssignedVariables ass_ = id_.getVal(last_);
+                CustList<StringMap<SimpleAssignment>> v_ = ass_.getMutableLoopRoot();
                 if (v_.isValidIndex(i)) {
                     varsList_.add(invalidateHypothesis(cond_, v_.get(i), breakAss_));
                 }
@@ -302,14 +355,12 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
                 abr_ = false;
             }
         }
-        if (abr_) {
-            IdMap<BreakBlock, BreakableBlock> breakables_;
-            breakables_ = _anEl.getBreakables();
-            for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
-                if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
-                    abr_ = false;
-                    break;
-                }
+        IdMap<BreakBlock, BreakableBlock> breakables_;
+        breakables_ = _anEl.getBreakables();
+        for (EntryCust<BreakBlock, BreakableBlock> e: breakables_.entryList()) {
+            if (e.getValue() == this && _anEl.isReachable(e.getKey())) {
+                abr_ = false;
+                break;
             }
         }
         if (abr_) {

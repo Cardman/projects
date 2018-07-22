@@ -22,6 +22,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
+import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -134,6 +135,7 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode lastChild_ = getChildrenNodes().last();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
+        CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
         if (firstChild_ instanceof VariableOperation) {
@@ -174,6 +176,44 @@ public final class AffectationOperation extends MethodOperation {
             }
         }
         vars_.getVariables().put(this, variablesAfter_);
+        if (firstChild_ instanceof MutableLoopVariableOperation) {
+            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getMutableLoop().getVal(lastChild_);
+            String str_ = ((MutableLoopVariableOperation)firstChild_).getVariableName();
+            for (StringMap<Assignment> s: variablesAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                int index_ = mutableAfter_.size();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    if (StringList.quickEq(str_, e.getKey())) {
+                        LoopVariable locVar_ = _conf.getMutableLoopVar(str_,index_);
+                        if (!e.getValue().isUnassignedAfter()) {
+                            if (locVar_ != null && locVar_.isFinalVariable()) {
+                                //error
+                                firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
+                                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                                un_.setFileName(_conf.getCurrentFileName());
+                                un_.setRc(_conf.getCurrentLocation());
+                                _conf.getClasses().addError(un_);
+                            }
+                        }
+                    }
+                    boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
+                    boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
+                    sm_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
+                }
+                mutableAfter_.add(sm_);
+            }
+            
+        } else {
+            CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getMutableLoop().getVal(lastChild_);
+            for (StringMap<Assignment> s: variablesAfterLast_) {
+                StringMap<Assignment> sm_ = new StringMap<Assignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assign(isBool_));
+                }
+                mutableAfter_.add(sm_);
+            }
+        }
+        vars_.getMutableLoop().put(this, mutableAfter_);
         boolean fromCurClass_ = false;
         if (firstChild_ instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
