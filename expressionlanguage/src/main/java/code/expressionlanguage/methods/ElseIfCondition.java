@@ -11,13 +11,10 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -99,48 +96,11 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
             super.setAssignmentBeforeNextSibling(_an, _anEl);
             return;
         }
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables prevAss_ = id_.getVal(this);
-        Block nextSibling_ = getNextSibling();
-        AssignedBooleanVariables assBool_ = (AssignedBooleanVariables) prevAss_;
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        for (EntryCust<String, BooleanAssignment> e: assBool_.getFieldsRootAfter().entryList()) {
-            AssignmentBefore asBef_ = e.getValue().copyWhenFalse();
-            assBl_.getFieldsRootBefore().put(e.getKey(), asBef_);
-        }
-        for (StringMap<BooleanAssignment> s: assBool_.getVariablesRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                AssignmentBefore asBef_ = e.getValue().copyWhenFalse();
-                sm_.put(e.getKey(), asBef_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
-        id_.put(nextSibling_, assBl_);
+        assignWhenFalse(false, _an, _anEl);
     }
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables parAss_ = id_.getVal(this);
-        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = ba_.copyWhenTrue();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-        }
-        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = ba_.copyWhenTrue();
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(firstChild_, assBl_);
+        assignWhenTrue(_an, _anEl);
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {

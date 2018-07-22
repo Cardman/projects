@@ -27,6 +27,16 @@ public abstract class SwitchPartBlock extends BracedStack implements
         super(_importingPage, _indexChild, _m, _offset);
     }
 
+    @Override
+    public final void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        Block nextSibling_ = getNextSibling();
+        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
+        assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _anEl));
+        assBl_.getVariablesRootBefore().addAllElts(buildVariablesSwitchPart(_an, _anEl));
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(nextSibling_, assBl_);
+    }
     protected CustList<StringMap<AssignmentBefore>> buildVariablesSwitchPart(Analyzable _an, AnalyzingEl _anEl){
         BracedBlock br_ = getParent();
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();

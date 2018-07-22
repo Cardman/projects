@@ -39,6 +39,59 @@ public abstract class BracedStack extends BracedBlock {
             BracedBlock _m, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
     }
+    
+    protected void buildConditions(ContextEl _cont) {
+        AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
+        for (EntryCust<String,Assignment> e: res_.getFields().lastValue().entryList()) {
+            BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
+            res_.getFieldsRootAfter().put(e.getKey(), ba_);
+        }
+        for (StringMap<Assignment> s: res_.getVariables().lastValue()) {
+            StringMap<BooleanAssignment> sm_;
+            sm_ = new StringMap<BooleanAssignment>();
+            for (EntryCust<String,Assignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
+                sm_.put(e.getKey(), ba_);
+            }
+            res_.getVariablesRootAfter().add(sm_);
+        }
+    }
+    protected void assignWhenFalse(boolean _add,Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_;
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        Block pr_ = getPreviousSibling();
+        if (_add) {
+            firstChild_ = getFirstChild();
+            parAss_ = id_.getVal(pr_);
+        } else {
+            firstChild_ = getNextSibling();
+        }
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        if (!(parAss_ instanceof AssignedBooleanVariables)) {
+            super.setAssignmentBeforeChild(_an, _anEl);
+            return;
+        }
+        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
+        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            AssignmentBefore ab_ = ba_.copyWhenFalse();
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = ba_.copyWhenFalse();
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        if (_add) {
+            assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        }
+        id_.put(firstChild_, assBl_);
+    }
     protected void processFinalFields(Analyzable _an,AnalyzingEl _anEl,
             IdMap<Block, AssignedVariables> _allDesc,
             StringMap<AssignmentBefore> _fields) {

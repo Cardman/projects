@@ -9,17 +9,12 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.StringMap;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
 
@@ -62,29 +57,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<OperationNode> children_ = getChildrenNodes();
-        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
-        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-        OperationNode last_ = children_.last();
-        StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(last_);
-        CustList<StringMap<Assignment>> variablesAfterLast_ = vars_.getVariables().getVal(last_);
-
-        for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assign(true));
-        }
-        for (StringMap<Assignment> s: variablesAfterLast_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assign(true));
-            }
-            variablesAfter_.add(sm_);
-        }
-        vars_.getFields().put(this, fieldsAfter_);
-        vars_.getVariables().put(this, variablesAfter_);
+        analyzeStdAssignmentAfter(_conf);
     }
 
     @Override

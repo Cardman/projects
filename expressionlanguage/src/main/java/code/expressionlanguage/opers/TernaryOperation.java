@@ -11,7 +11,6 @@ import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -73,46 +72,12 @@ public final class TernaryOperation extends MethodOperation {
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
             OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
         OperationNode firstChild_ = getFirstChild();
-        StringMap<Assignment> fieldsAfterFirst_ = vars_.getFields().getVal(firstChild_);
-        CustList<StringMap<Assignment>> variablesAfterFirst_ = vars_.getVariables().getVal(firstChild_);
         if (firstChild_ == _previous) {
-            for (EntryCust<String, Assignment> e: fieldsAfterFirst_.entryList()) {
-                BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = b_.copyWhenTrue();
-                fieldsBefore_.put(e.getKey(), a_);
-            }
-            for (StringMap<Assignment> s: variablesAfterFirst_) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    BooleanAssignment b_ = e.getValue().toBoolAssign();
-                    AssignmentBefore a_ = b_.copyWhenTrue();
-                    sm_.put(e.getKey(), a_);
-                }
-                variablesBefore_.add(sm_);
-            }
+            analyzeTrueAssignmentBeforeNextSibling(_conf, _nextSibling, firstChild_);
         } else {
-            for (EntryCust<String, Assignment> e: fieldsAfterFirst_.entryList()) {
-                BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = b_.copyWhenFalse();
-                fieldsBefore_.put(e.getKey(), a_);
-            }
-            for (StringMap<Assignment> s: variablesAfterFirst_) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, Assignment> e: s.entryList()) {
-                    BooleanAssignment b_ = e.getValue().toBoolAssign();
-                    AssignmentBefore a_ = b_.copyWhenFalse();
-                    sm_.put(e.getKey(), a_);
-                }
-                variablesBefore_.add(sm_);
-            }
+            analyzeFalseAssignmentBeforeNextSibling(_conf, _nextSibling, firstChild_);
         }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
     }
 
     @Override

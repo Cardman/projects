@@ -3,13 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringMap;
 
 public abstract class AbruptBlock extends Leaf {
 
@@ -30,19 +24,6 @@ public abstract class AbruptBlock extends Leaf {
     }
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        CustList<StringMap<SimpleAssignment>> list_ = new CustList<StringMap<SimpleAssignment>>();
-        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
-            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
-            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().assignAfterClassic());
-            }
-            list_.add(sm_);
-        }
-        vars_.getVariablesRoot().addAllElts(list_);
-        for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
-            String key_ = e.getKey();
-            vars_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
-        }
+        buildEmptyEl(_an);
     }
 }

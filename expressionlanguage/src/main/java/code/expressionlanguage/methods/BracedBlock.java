@@ -75,8 +75,21 @@ public abstract class BracedBlock extends Block implements BracedBlockInt {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        assBl_.getFieldsRootBefore().putAllMap(parAss_.getFieldsRootBefore());
-        assBl_.getVariablesRootBefore().addAllElts(parAss_.getVariablesRootBefore());
+        StringMap<AssignmentBefore> fields_;
+        CustList<StringMap<AssignmentBefore>> variables_;
+        fields_ = new StringMap<AssignmentBefore>();
+        variables_ = parAss_.getVariablesRootBefore();
+        for (EntryCust<String,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
+            fields_.put(e.getKey(), e.getValue().copy());
+        }
+        assBl_.getFieldsRootBefore().putAllMap(fields_);
+        for (StringMap<AssignmentBefore> s: variables_) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().copy());
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
         assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }

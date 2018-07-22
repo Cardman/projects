@@ -5,21 +5,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.VarargError;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
-import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.StringMap;
 
 public final class VarargOperation extends LeafOperation {
 
@@ -78,26 +71,7 @@ public final class VarargOperation extends LeafOperation {
 
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
-        CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
-
-        for (EntryCust<String, AssignmentBefore> e: vars_.getFieldsBefore().getVal(this).entryList()) {
-            AssignmentBefore b_ = e.getValue();
-            fieldsAfter_.put(e.getKey(), b_.assignAfter(false));
-        }
-        for (StringMap<AssignmentBefore> s: vars_.getVariablesBefore().getVal(this)) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignAfter(false));
-            }
-            variablesAfter_.add(sm_);
-        }
-        vars_.getFields().put(this, fieldsAfter_);
-        vars_.getVariables().put(this, variablesAfter_);
-        return;
+        analyzeNotBoolAssignmentAfter(_conf);
     }
 
     @Override

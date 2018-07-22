@@ -202,45 +202,10 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         }
         return out_;
     }
-    @Override
-    public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables parAss_ = id_.getVal(this);
-        AssignedVariables vars_ = firstChild_.buildNewAssignedVariable();
-        StringMap<AssignmentBefore> fields_;
-        CustList<StringMap<AssignmentBefore>> variables_;
-        fields_ = new StringMap<AssignmentBefore>();
-        variables_ = parAss_.getVariablesRootBefore();
-        for (EntryCust<String,AssignmentBefore> e: parAss_.getFieldsRootBefore().entryList()) {
-            fields_.put(e.getKey(), e.getValue().copy());
-        }
-        vars_.getFieldsRootBefore().putAllMap(fields_);
-        for (StringMap<AssignmentBefore> s: variables_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            vars_.getVariablesRootBefore().add(sm_);
-        }
-        vars_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(firstChild_, vars_);
-    }
+
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
-        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            String key_ = e.getKey();
-            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
-        }
-        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
-            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
-            }
-            ass_.getVariablesRoot().add(vars_);
-        }
+        buildEmptyEl(_cont);
     }
 
     @Override

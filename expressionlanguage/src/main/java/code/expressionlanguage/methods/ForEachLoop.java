@@ -23,9 +23,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -287,40 +285,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         lv_.setClassName(importedClassName);
         lv_.setIndexClassName(classIndexName);
         _cont.getAnalyzing().putVar(variableName, lv_);
-        AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
-        for (EntryCust<String,Assignment> e: res_.getFields().lastValue().entryList()) {
-            BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
-            res_.getFieldsRootAfter().put(e.getKey(), ba_);
-        }
-        for (StringMap<Assignment> s: res_.getVariables().lastValue()) {
-            StringMap<BooleanAssignment> sm_;
-            sm_ = new StringMap<BooleanAssignment>();
-            for (EntryCust<String,Assignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue().toBoolAssign().copy();
-                sm_.put(e.getKey(), ba_);
-            }
-            res_.getVariablesRootAfter().add(sm_);
-        }
-    }
-    @Override
-    public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<AssignmentBefore> fields_;
-        CustList<StringMap<AssignmentBefore>> variables_;
-        fields_ = new StringMap<AssignmentBefore>();
-        variables_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
-            fields_.put(e.getKey(), e.getValue().copy());
-        }
-        vars_.getFieldsBefore().put(_root, fields_);
-        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            variables_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_root, variables_);
+        buildConditions(_cont);
     }
 
     @Override

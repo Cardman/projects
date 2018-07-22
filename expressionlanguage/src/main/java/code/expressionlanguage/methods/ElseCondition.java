@@ -9,15 +9,11 @@ import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -47,44 +43,11 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
 
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables parAss_;
-        parAss_ = id_.getVal(getPreviousSibling());
-        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = ba_.copyWhenFalse();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-        }
-        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = ba_.copyWhenFalse();
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(firstChild_, assBl_);
+        assignWhenFalse(true, _an, _anEl);
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
-        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            String key_ = e.getKey();
-            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
-        }
-        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
-            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
-            }
-            ass_.getVariablesRoot().add(vars_);
-        }
+        buildEmptyEl(_cont);
     }
 
     @Override

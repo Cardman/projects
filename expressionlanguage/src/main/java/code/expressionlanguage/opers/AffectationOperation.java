@@ -16,7 +16,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -213,28 +212,7 @@ public final class AffectationOperation extends MethodOperation {
     @Override
     public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
             OperationNode _nextSibling, OperationNode _previous) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        StringMap<Assignment> fieldsAfter_;
-        CustList<StringMap<Assignment>> variablesAfter_;
-        fieldsAfter_ = vars_.getFields().getVal(_previous);
-        variablesAfter_ = vars_.getVariables().getVal(_previous);
-        StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
-        CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
-            Assignment b_ = e.getValue();
-            fieldsBefore_.put(e.getKey(), b_.assignBefore());
-        }
-        vars_.getFieldsBefore().put(_nextSibling, fieldsBefore_);
-        for (StringMap<Assignment> s: variablesAfter_) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, Assignment> e: s.entryList()) {
-                Assignment b_ = e.getValue();
-                sm_.put(e.getKey(), b_.assignBefore());
-            }
-            variablesBefore_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_nextSibling, variablesBefore_);
+        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
     public SettableElResult getSettable() {
         return settable;

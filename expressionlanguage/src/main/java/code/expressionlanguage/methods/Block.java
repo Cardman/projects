@@ -143,13 +143,38 @@ public abstract class Block extends Blockable {
     public final OffsetsBlock getOffset() {
         return offset;
     }
+    protected void buildEmptyEl(Analyzable _cont) {
+        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
+        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
+        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
+            String key_ = e.getKey();
+            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
+        }
+        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
+            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
+            }
+            ass_.getVariablesRoot().add(vars_);
+        }
+    }
     public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         CustList<StringMap<AssignmentBefore>> variables_;
-        fields_ = vars_.getFieldsRootBefore();
-        variables_ = vars_.getVariablesRootBefore();
+        fields_ = new StringMap<AssignmentBefore>();
+        variables_ = new CustList<StringMap<AssignmentBefore>>();
+        for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
+            fields_.put(e.getKey(), e.getValue().copy());
+        }
         vars_.getFieldsBefore().put(_root, fields_);
+        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().copy());
+            }
+            variables_.add(sm_);
+        }
         vars_.getVariablesBefore().put(_root, variables_);
     }
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {

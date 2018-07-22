@@ -1,6 +1,5 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
@@ -16,14 +15,10 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.IdMap;
-import code.util.StringMap;
 
 public final class CaseCondition extends SwitchPartBlock implements IncrCurrentGroup, IncrNextGroup {
 
@@ -71,16 +66,6 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
         possibleSkipNexts = _possibleSkipNexts;
     }
 
-    @Override
-    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        Block nextSibling_ = getNextSibling();
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _anEl));
-        assBl_.getVariablesRootBefore().addAllElts(buildVariablesSwitchPart(_an, _anEl));
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(nextSibling_, assBl_);
-    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();

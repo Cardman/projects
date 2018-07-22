@@ -11,7 +11,6 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.sml.Element;
@@ -47,47 +46,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
 
     @Override
     public void setAssignmentBeforeChild(Analyzable _an, AnalyzingEl _anEl) {
-        Block firstChild_ = getFirstChild();
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        AssignedVariables parAss_ = id_.getVal(this);
-        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
-        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
-        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            AssignmentBefore ab_ = ba_.copyWhenTrue();
-            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
-        }
-        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
-                BooleanAssignment ba_ = e.getValue();
-                AssignmentBefore ab_ = ba_.copyWhenTrue();
-                sm_.put(e.getKey(), ab_);
-            }
-            assBl_.getVariablesRootBefore().add(sm_);
-        }
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(firstChild_, assBl_);
-    }
-    @Override
-    public void defaultAssignmentBefore(Analyzable _an, OperationNode _root) {
-        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
-        StringMap<AssignmentBefore> fields_;
-        CustList<StringMap<AssignmentBefore>> variables_;
-        fields_ = new StringMap<AssignmentBefore>();
-        variables_ = new CustList<StringMap<AssignmentBefore>>();
-        for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
-            fields_.put(e.getKey(), e.getValue().copy());
-        }
-        vars_.getFieldsBefore().put(_root, fields_);
-        for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
-            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().copy());
-            }
-            variables_.add(sm_);
-        }
-        vars_.getVariablesBefore().put(_root, variables_);
+        assignWhenTrue(_an, _anEl);
     }
 
     @Override

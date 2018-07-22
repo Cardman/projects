@@ -6,24 +6,17 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.util.CustList;
-import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class StaticInitOperation extends LeafOperation {
 
@@ -97,27 +90,7 @@ public final class StaticInitOperation extends LeafOperation {
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
-        Block block_ = _conf.getCurrentBlock();
-        AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
-        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
-        CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
-        StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
-        StringMap<Assignment> assA_ = new StringMap<Assignment>();
-        //simple assignment
-        for (StringMap<AssignmentBefore> s: assB_) {
-            StringMap<Assignment> sm_ = new StringMap<Assignment>();
-            for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                AssignmentBefore bf_ = e.getValue();
-                sm_.put(e.getKey(), bf_.assignAfter(false));
-            }
-            ass_.add(sm_);
-        }
-        for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
-            AssignmentBefore bf_ = e.getValue();
-            assA_.put(e.getKey(), bf_.assignAfter(false));
-        }
-        vars_.getVariables().put(this, ass_);
-        vars_.getFields().put(this, assA_);
+        analyzeNotBoolAssignmentAfter(_conf);
     }
     @Override
     public void calculate(ExecutableCode _conf) {

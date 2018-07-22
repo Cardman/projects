@@ -9,7 +9,6 @@ import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.sml.Element;
@@ -43,19 +42,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
 
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
-        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
-        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            String key_ = e.getKey();
-            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
-        }
-        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
-            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
-            }
-            ass_.getVariablesRoot().add(vars_);
-        }
+        buildEmptyEl(_cont);
     }
 
     @Override

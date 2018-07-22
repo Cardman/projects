@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -11,12 +12,14 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
-import code.expressionlanguage.opers.util.Assignment;
+import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.stds.LgNames;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.StringMap;
 
 public abstract class Condition extends BracedStack implements StackableBlockGroup {
@@ -48,6 +51,30 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
     public AssignedBooleanVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
+    protected void assignWhenTrue(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
+        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            AssignmentBefore ab_ = ba_.copyWhenTrue();
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = ba_.copyWhenTrue();
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, assBl_);
+    }
+
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
@@ -71,18 +98,7 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
             }
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
-        AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
-        for (EntryCust<String,Assignment> e: res_.getFields().lastValue().entryList()) {
-            res_.getFieldsRootAfter().put(e.getKey(), e.getValue().toBoolAssign().copy());
-        }
-        for (StringMap<Assignment> s: res_.getVariables().lastValue()) {
-            StringMap<BooleanAssignment> sm_;
-            sm_ = new StringMap<BooleanAssignment>();
-            for (EntryCust<String,Assignment> e: s.entryList()) {
-                sm_.put(e.getKey(), e.getValue().toBoolAssign().copy());
-            }
-            res_.getVariablesRootAfter().add(sm_);
-        }
+        buildConditions(_cont);
     }
 
     public final ExpressionLanguage getElCondition() {

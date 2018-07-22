@@ -1,20 +1,13 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
-import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
-import code.util.EntryCust;
-import code.util.IdMap;
-import code.util.StringMap;
 
 public final class DefaultCondition extends SwitchPartBlock implements IncrNextGroup {
 
@@ -29,16 +22,6 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
     }
 
     @Override
-    public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
-        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
-        Block nextSibling_ = getNextSibling();
-        AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
-        assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _anEl));
-        assBl_.getVariablesRootBefore().addAllElts(buildVariablesSwitchPart(_an, _anEl));
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        id_.put(nextSibling_, assBl_);
-    }
-    @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)) {
@@ -50,19 +33,7 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
             _cont.getClasses().addError(un_);
         }
-        AssignedVariablesBlock glAss_ = _cont.getAssignedVariables();
-        AssignedVariables ass_ = glAss_.getFinalVariables().getVal(this);
-        for (EntryCust<String,AssignmentBefore> e: ass_.getFieldsRootBefore().entryList()) {
-            String key_ = e.getKey();
-            ass_.getFieldsRoot().put(key_, e.getValue().assignAfterClassic());
-        }
-        for (StringMap<AssignmentBefore> s: ass_.getVariablesRootBefore()) {
-            StringMap<SimpleAssignment> vars_ = new StringMap<SimpleAssignment>();
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                vars_.put(e.getKey(), e.getValue().assignAfterClassic());
-            }
-            ass_.getVariablesRoot().add(vars_);
-        }
+        buildEmptyEl(_cont);
     }
 
     @Override
