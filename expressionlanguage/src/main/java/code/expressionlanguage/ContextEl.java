@@ -5,6 +5,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -1959,5 +1960,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setForLoopPartState(ForLoopPart _state) {
         analyzing.setForLoopPartState(_state);
+    }
+
+    @Override
+    public AnalyzingEl getAnalysisAss() {
+        return analyzing.getAnalysisAss();
     }
 }

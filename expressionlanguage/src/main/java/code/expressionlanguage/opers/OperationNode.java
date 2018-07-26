@@ -256,6 +256,9 @@ public abstract class OperationNode {
             if (_an.isInternGlobal() && StringList.quickEq(str_, prefixFunction(INTERN_BEAN))) {
                 return new InternGlobalOperation(_index, _indexChild, _m, _op);
             }
+            if (ElUtil.isDeclaringLoopVariable(_m, _an)) {
+                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
+            }
             if (ElUtil.isDeclaringVariable(_m, _an)) {
                 return new VariableOperation(_index, _indexChild, _m, _op);
             }

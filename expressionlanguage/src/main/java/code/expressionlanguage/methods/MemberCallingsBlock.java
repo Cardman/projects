@@ -52,6 +52,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
+        _cont.getAnalyzing().setAnalysisAss(anEl_);
         anEl_.setRoot(this);
         Block en_ = this;
         CustList<BracedBlock> parents_ = anEl_.getParents();

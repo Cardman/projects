@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -77,6 +78,7 @@ public final class AnalyzedPageEl {
     private boolean assignedStaticFields;
     private boolean assignedFields;
     private ForLoopPart forLoopPart;
+    private AnalyzingEl analysisAss;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -547,5 +549,13 @@ public final class AnalyzedPageEl {
     }
     public void setForLoopPartState(ForLoopPart _forLoopPart) {
         forLoopPart = _forLoopPart;
+    }
+
+    public AnalyzingEl getAnalysisAss() {
+        return analysisAss;
+    }
+
+    public void setAnalysisAss(AnalyzingEl _analysisAss) {
+        analysisAss = _analysisAss;
     }
 }

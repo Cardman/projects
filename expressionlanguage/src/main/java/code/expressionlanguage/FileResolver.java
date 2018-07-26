@@ -1122,15 +1122,22 @@ public final class FileResolver {
                             exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1);
                         }
                         exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
+                        boolean finalLocalVar_ = startsWithPrefixKeyWord(exp_, KEY_WORD_FINAL);
+                        int finalOffset_ = typeOffset_;
+                        int delta_ = 0;
+                        int deltaAfter_ = 0;
+                        if (finalLocalVar_) {
+                            deltaAfter_ = prefixKeyWord(KEY_WORD_FINAL).length();
+                            delta_ = StringList.getFirstPrintableCharIndex(exp_) + deltaAfter_;
+                            deltaAfter_ = delta_;
+                            deltaAfter_ += StringList.getFirstPrintableCharIndex(exp_.substring(delta_));
+                        }
+                        exp_ = exp_.substring(delta_);
                         String declaringType_ = getDeclaringTypeInstr(exp_);
                         typeOffset_ += StringList.getFirstPrintableCharIndex(exp_);
-                        int varOffset_ = typeOffset_ + declaringType_.length();
+                        int initOff_ = typeOffset_ + declaringType_.length();
                         exp_ = exp_.substring(declaringType_.length());
-                        String variable_ = exp_.substring(0, exp_.indexOf(PART_SEPARATOR));
-                        varOffset_ += StringList.getFirstPrintableCharIndex(variable_);
-                        exp_ = exp_.substring(exp_.indexOf(PART_SEPARATOR) + 1);
                         int nextElt_ = getIndex(exp_);
-                        int initOff_ = varOffset_ + nextElt_;
                         String init_ = exp_.substring(0, nextElt_);
                         initOff_ += StringList.getFirstPrintableCharIndex(init_);
                         exp_ = exp_.substring(init_.length()+1);
@@ -1147,7 +1154,9 @@ public final class FileResolver {
                         if (!label_.isEmpty()) {
                             labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                         }
-                        br_ = new ForMutableIterativeLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_,declaringType_.trim()), new OffsetStringInfo(varOffset_,variable_.trim()),
+                        br_ = new ForMutableIterativeLoop(_context, index_, currentParent_,
+                                new OffsetBooleanInfo(finalOffset_, finalLocalVar_),
+                                new OffsetStringInfo(typeOffset_,declaringType_.trim()),
                                 new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
                                 new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);

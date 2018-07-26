@@ -2,6 +2,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -569,6 +570,9 @@ public final class ElUtil {
         if (!(bl_ instanceof ForMutableIterativeLoop)) {
             return false;
         }
+        if (_an.getForLoopPartState() == ForLoopPart.CONDITION) {
+            return false;
+        }
         return isDeclaringVariable(_var);
     }
     public static boolean isDeclaringLoopVariable(MethodOperation _par, Analyzable _an) {
@@ -577,6 +581,9 @@ public final class ElUtil {
             return false;
         }
         if (!(bl_ instanceof ForMutableIterativeLoop)) {
+            return false;
+        }
+        if (_an.getForLoopPartState() == ForLoopPart.CONDITION) {
             return false;
         }
         return isDeclaringVariable(_par);

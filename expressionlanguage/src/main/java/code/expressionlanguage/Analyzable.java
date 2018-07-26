@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -117,4 +118,5 @@ public interface Analyzable {
     void setAssignedFields(boolean _assignedFields);
     ForLoopPart getForLoopPartState();
     void setForLoopPartState(ForLoopPart _state);
+    AnalyzingEl getAnalysisAss();
 }

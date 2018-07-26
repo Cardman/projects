@@ -11,6 +11,7 @@ import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -1017,5 +1018,10 @@ public class Configuration implements ExecutableCode {
     public void setForLoopPartState(ForLoopPart _state) {
         context.setForLoopPartState(_state);
     }
+
+	@Override
+	public AnalyzingEl getAnalysisAss() {
+		return context.getAnalysisAss();
+	}
 
 }
