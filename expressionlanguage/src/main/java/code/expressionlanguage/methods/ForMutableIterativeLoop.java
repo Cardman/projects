@@ -109,33 +109,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     }
 
     @Override
-    public void processLastElementLoop(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        ReadWrite rw_ = ip_.getReadWrite();
-        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
-        l_.setEvaluatingKeepLoop(true);
-        Block forLoopLoc_ = l_.getBlock();
-        rw_.setBlock(forLoopLoc_);
-        int index_ = 0;
-        if (!opInit.isEmpty()) {
-            ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, false, 2);
-            from_.calculateMember(_conf);
-            if (_conf.callsOrException()) {
-                return;
-            }
-            index_++;
-        }
-        Boolean keep_ = evaluateCondition(_conf, index_);
-        if (keep_ == null) {
-            return;
-        }
-        if (!keep_) {
-            l_.setFinished(true);
-        }
-        l_.setEvaluatingKeepLoop(false);
-    }
-
-    @Override
     public String getLabel() {
         return label;
     }
@@ -245,22 +218,42 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 mutable_.add(sm_);
             }
         } else if (_an.getForLoopPartState() == ForLoopPart.CONDITION) {
-            for (EntryCust<String,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
-                fields_.put(e.getKey(), e.getValue().assignBefore());
-            }
-            for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignBefore());
+            if (opInit.isEmpty()) {
+                for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
+                    fields_.put(e.getKey(), e.getValue().copy());
                 }
-                variables_.add(sm_);
-            }
-            for (StringMap<SimpleAssignment> s: vars_.getMutableLoopRoot()) {
-                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
-                for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
-                    sm_.put(e.getKey(), e.getValue().assignBefore());
+                for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                    for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                        sm_.put(e.getKey(), e.getValue().copy());
+                    }
+                    variables_.add(sm_);
                 }
-                mutable_.add(sm_);
+                for (StringMap<AssignmentBefore> s: vars_.getMutableLoopRootBefore()) {
+                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                    for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                        sm_.put(e.getKey(), e.getValue().copy());
+                    }
+                    mutable_.add(sm_);
+                }
+            } else {
+                for (EntryCust<String,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
+                    fields_.put(e.getKey(), e.getValue().assignBefore());
+                }
+                for (StringMap<SimpleAssignment> s: vars_.getVariablesRoot()) {
+                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                    for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                        sm_.put(e.getKey(), e.getValue().assignBefore());
+                    }
+                    variables_.add(sm_);
+                }
+                for (StringMap<SimpleAssignment> s: vars_.getMutableLoopRoot()) {
+                    StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                    for (EntryCust<String, SimpleAssignment> e: s.entryList()) {
+                        sm_.put(e.getKey(), e.getValue().assignBefore());
+                    }
+                    mutable_.add(sm_);
+                }
             }
         } else {
             fields_ = buildAssListFieldBeforeNextSibling(_an, _an.getAnalysisAss());
@@ -335,7 +328,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         _cont.getVariablesNames().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        _cont.setRootAffect(false);
+        _cont.setRootAffect(true);
         _cont.setForLoopPartState(ForLoopPart.INIT);
         if (init.trim().isEmpty()) {
             opInit = new CustList<OperationNode>();
@@ -346,15 +339,16 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             StringList vars_ = _cont.getVariablesNames();
             getVariableNames().addAllElts(vars_);
         }
+        _cont.setMerged(false);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
+        _cont.setRootAffect(false);
         _cont.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             opExp = new CustList<OperationNode>();
         } else {
             opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         }
-        _cont.setMerged(false);
         if (!opExp.isEmpty()) {
             buildConditions(_cont);
         } else {
@@ -456,6 +450,8 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setOffset(0);
         _an.setForLoopPartState(ForLoopPart.STEP);
         _an.setMerged(true);
+        _an.getLocalVariables().last().clear();
+        _an.setRootAffect(true);
         if (step.trim().isEmpty()) {
             opStep = new CustList<OperationNode>();
         } else {
@@ -638,12 +634,14 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         ip_.setGlobalOffset(initOffset);
         ip_.setOffset(0);
         int index_ = 0;
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
-        for (String v: variableNames) {
-            LoopVariable lv_ = new LoopVariable();
-            lv_.setClassName(importedClassName);
-            lv_.setStruct(struct_);
-            ip_.getVars().put(v, lv_);
+        if (ip_.isEmptyEl()) {
+            Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont);
+            for (String v: variableNames) {
+                LoopVariable lv_ = new LoopVariable();
+                lv_.setClassName(importedClassName);
+                lv_.setStruct(struct_);
+                ip_.getVars().put(v, lv_);
+            }
         }
         if (!opInit.isEmpty()) {
             ExpressionLanguage from_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
@@ -676,6 +674,7 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     private Boolean evaluateCondition(ContextEl _context, int _index) {
         AbstractPageEl last_ = _context.getLastPage();
         if (opExp.isEmpty()) {
+            last_.clearCurrentEls();
             return true;
         }
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, _index, false, CustList.SECOND_INDEX);
@@ -702,6 +701,33 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             LoopVariable lv_ = _vars.getVal(v);
             lv_.setIndex(lv_.getIndex() + 1);
         }
+    }
+
+    @Override
+    public void processLastElementLoop(ContextEl _conf) {
+        AbstractPageEl ip_ = _conf.getLastPage();
+        ReadWrite rw_ = ip_.getReadWrite();
+        LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
+        l_.setEvaluatingKeepLoop(true);
+        Block forLoopLoc_ = l_.getBlock();
+        rw_.setBlock(forLoopLoc_);
+        int index_ = 0;
+        if (!opStep.isEmpty()) {
+            ExpressionLanguage from_ = ip_.getCurrentEl(_conf,this, CustList.FIRST_INDEX, false, 2);
+            from_.calculateMember(_conf);
+            if (_conf.callsOrException()) {
+                return;
+            }
+            index_++;
+        }
+        Boolean keep_ = evaluateCondition(_conf, index_);
+        if (keep_ == null) {
+            return;
+        }
+        if (!keep_) {
+            l_.setFinished(true);
+        }
+        l_.setEvaluatingKeepLoop(false);
     }
 
     @Override
