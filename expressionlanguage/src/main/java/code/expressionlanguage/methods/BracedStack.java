@@ -113,8 +113,42 @@ public abstract class BracedStack extends BracedBlock {
         }
         id_.put(firstChild_, assBl_);
     }
+    protected void assignWhenTrue(Analyzable _an, AnalyzingEl _anEl) {
+        Block firstChild_ = getFirstChild();
+        IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedVariables parAss_ = id_.getVal(this);
+        AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
+        AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
+        for (EntryCust<String, BooleanAssignment> e: abv_.getFieldsRootAfter().entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            AssignmentBefore ab_ = ba_.copyWhenTrue();
+            assBl_.getFieldsRootBefore().put(e.getKey(), ab_);
+        }
+        for (StringMap<BooleanAssignment> s: abv_.getVariablesRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = ba_.copyWhenTrue();
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getVariablesRootBefore().add(sm_);
+        }
+        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
+        for (StringMap<BooleanAssignment> s: abv_.getMutableLoopRootAfter()) {
+            StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+            for (EntryCust<String, BooleanAssignment> e: s.entryList()) {
+                BooleanAssignment ba_ = e.getValue();
+                AssignmentBefore ab_ = ba_.copyWhenTrue();
+                sm_.put(e.getKey(), ab_);
+            }
+            assBl_.getMutableLoopRootBefore().add(sm_);
+        }
+        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
+        id_.put(firstChild_, assBl_);
+    }
     protected void processFinalFields(Analyzable _an,AnalyzingEl _anEl,
             IdMap<Block, AssignedVariables> _allDesc,
+            AssignedVariables _root,
             StringMap<AssignmentBefore> _fields) {
         AssignedVariables vars_;
         for (EntryCust<String,AssignmentBefore> e: _fields.entryList()) {
@@ -131,17 +165,19 @@ public abstract class BracedStack extends BracedBlock {
             if (!meta_.isFinalField()) {
                 continue;
             }
+            processFinalMutableLoop(this, false, _an, _root, key_);
             for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {
                 vars_ = d.getValue();
                 Block next_ = d.getKey();
                 //next siblings of d
-                processFinalFields(next_, _an, vars_, key_);
+                processFinalFields(next_, true, _an, vars_, key_);
             }
         }
     }
     
     protected void processFinalVars(Analyzable _an,AnalyzingEl _anEl,
             IdMap<Block, AssignedVariables> _allDesc,
+            AssignedVariables _root,
             CustList<StringMap<AssignmentBefore>> _fields) {
         AssignedVariables vars_;
         int index_ = 0;
@@ -158,11 +194,12 @@ public abstract class BracedStack extends BracedBlock {
                 if (varLoc_ != null && !varLoc_.isFinalVariable()) {
                     continue;
                 }
+                processFinalMutableLoop(this, false, _an, _root, key_);
                 for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {
                     vars_ = d.getValue();
                     Block next_ = d.getKey();
                     //next siblings of d
-                    processFinalVars(next_, _an, vars_, key_);
+                    processFinalVars(next_,true, _an, vars_, key_);
                 }
             }
             index_++;
@@ -172,6 +209,7 @@ public abstract class BracedStack extends BracedBlock {
 
     protected void processFinalMutableLoop(Analyzable _an,AnalyzingEl _anEl,
             IdMap<Block, AssignedVariables> _allDesc,
+            AssignedVariables _root,
             CustList<StringMap<AssignmentBefore>> _fields) {
         AssignedVariables vars_;
         int index_ = 0;
@@ -188,19 +226,20 @@ public abstract class BracedStack extends BracedBlock {
                 if (varLoc_ != null && !varLoc_.isFinalVariable()) {
                     continue;
                 }
+                processFinalMutableLoop(this, false, _an, _root, key_);
                 for (EntryCust<Block, AssignedVariables> d: _allDesc.entryList()) {
                     vars_ = d.getValue();
                     Block next_ = d.getKey();
                     //next siblings of d
-                    processFinalMutableLoop(next_, _an, vars_, key_);
+                    processFinalMutableLoop(next_, true, _an, vars_, key_);
                 }
             }
             index_++;
         }
         
     }
-    protected void processFinalVars(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
-        for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore().entryList()) {
+    protected void processFinalVars(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+        for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
             }
@@ -226,8 +265,8 @@ public abstract class BracedStack extends BracedBlock {
             _an.getClasses().addError(un_);
         }
     }
-    protected void processFinalMutableLoop(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
-        for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getMutableLoopBefore().entryList()) {
+    protected void processFinalMutableLoop(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+        for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getMutableLoopBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
             }
@@ -250,8 +289,8 @@ public abstract class BracedStack extends BracedBlock {
             _an.getClasses().addError(un_);
         }
     }
-    protected void processFinalFields(Block _curBlock, Analyzable _an,AssignedVariables _vars, String _field) {
-        for (EntryCust<OperationNode, StringMap<AssignmentBefore>> f: _vars.getFieldsBefore().entryList()) {
+    protected void processFinalFields(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+        for (EntryCust<OperationNode, StringMap<AssignmentBefore>> f: _vars.getFieldsBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
             }

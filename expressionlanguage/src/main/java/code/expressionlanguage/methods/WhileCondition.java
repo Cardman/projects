@@ -56,15 +56,15 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         boolean add_ = false;
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
+        AssignedBooleanVariables varsWhile_ = null;
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
             if (e.getKey() == this) {
                 add_ = true;
-            }
-            if (add_) {
+                varsWhile_ = (AssignedBooleanVariables) e.getValue();
+            } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
         }
-        AssignedBooleanVariables varsWhile_ = (AssignedBooleanVariables) allDesc_.firstValue();
         if (firstChild_ == null) {
             super.setAssignmentAfter(_an, _anEl);
             EmptyTagName un_ = new EmptyTagName();
@@ -95,9 +95,9 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, mutableHypot_);
+        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);

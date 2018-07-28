@@ -348,9 +348,9 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, mutableHypot_);
+        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;

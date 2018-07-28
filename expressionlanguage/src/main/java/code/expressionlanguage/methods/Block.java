@@ -11,9 +11,11 @@ import code.expressionlanguage.methods.util.Metrics;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.sml.DocumentBuilder;
@@ -193,6 +195,38 @@ public abstract class Block extends Blockable {
             mutable_.add(sm_);
         }
         vars_.getMutableLoopBefore().put(_root, mutable_);
+    }
+    public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        for (EntryCust<String,Assignment> e: res_.entryList()) {
+            vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
+        }
+        if (_root instanceof CurrentInvokingConstructor) {
+            for (EntryCust<String,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
+                SimpleAssignment a_ = e.getValue();
+                a_.setAssignedAfter(true);
+                a_.setUnassignedAfter(false);
+            }
+        }
+        CustList<StringMap<Assignment>> varsRes_;
+        varsRes_ = vars_.getVariables().getVal(_root);
+        for (StringMap<Assignment> s: varsRes_) {
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().assignClassic());
+            }
+            vars_.getVariablesRoot().add(sm_);
+        }
+        CustList<StringMap<Assignment>> mutableRes_;
+        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        for (StringMap<Assignment> s: mutableRes_) {
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().assignClassic());
+            }
+            vars_.getMutableLoopRoot().add(sm_);
+        }
     }
     public void setAssignmentBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_ = _an.getAssignedVariables().getFinalVariables();

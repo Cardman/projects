@@ -20,6 +20,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
+import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -385,6 +386,56 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         vars_.getMutableLoopBefore().put(_root, mutable_);
     }
     @Override
+    public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        for (EntryCust<String,Assignment> e: res_.entryList()) {
+            vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
+        }
+        CustList<StringMap<Assignment>> varsRes_;
+        varsRes_ = vars_.getVariables().getVal(_root);
+        if (vars_.getVariablesRoot().isEmpty()) {
+            for (StringMap<Assignment> s: varsRes_) {
+                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assignClassic());
+                }
+                vars_.getVariablesRoot().add(sm_);
+            }
+        } else {
+            int index_ = 0;
+            for (StringMap<Assignment> s: varsRes_) {
+                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assignClassic());
+                }
+                vars_.getVariablesRoot().set(index_, sm_);
+                index_++;
+            }
+        }
+        CustList<StringMap<Assignment>> mutableRes_;
+        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        if (vars_.getMutableLoopRoot().isEmpty()) {
+            for (StringMap<Assignment> s: mutableRes_) {
+                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assignClassic());
+                }
+                vars_.getMutableLoopRoot().add(sm_);
+            }
+        } else {
+            int index_ = 0;
+            for (StringMap<Assignment> s: mutableRes_) {
+                StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+                for (EntryCust<String, Assignment> e: s.entryList()) {
+                    sm_.put(e.getKey(), e.getValue().assignClassic());
+                }
+                vars_.getMutableLoopRoot().set(index_, sm_);
+                index_++;
+            }
+        }
+    }
+    @Override
     protected AssignedBooleanVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
@@ -419,9 +470,9 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         mutableHypot_ = buildAssListMutableLoopInvalHypot(_an, _anEl);
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
-        processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, mutableHypot_);
+        processFinalFields(_an, _anEl, allDesc_, varsWhile_, fieldsHypot_);
+        processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;

@@ -150,14 +150,13 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         for (EntryCust<Block, AssignedVariables> e: id_.entryList()) {
             if (e.getKey() == dBlock_) {
                 add_ = true;
-            }
-            if (add_) {
+            } else if (add_) {
                 allDesc_.put(e.getKey(), e.getValue());
             }
         }
-        processFinalFields(_an, _anEl, allDesc_, fieldsHypot_);
-        processFinalVars(_an, _anEl, allDesc_, varsHypot_);
-        processFinalMutableLoop(_an, _anEl, allDesc_, mutableHypot_);
+        processFinalFields(_an, _anEl, allDesc_, varsDo_, fieldsHypot_);
+        processFinalVars(_an, _anEl, allDesc_, varsDo_, varsHypot_);
+        processFinalMutableLoop(_an, _anEl, allDesc_, varsDo_, mutableHypot_);
 
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
