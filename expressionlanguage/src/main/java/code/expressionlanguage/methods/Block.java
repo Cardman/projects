@@ -324,7 +324,7 @@ public abstract class Block extends Blockable {
 
     public abstract void abrupt(Analyzable _an, AnalyzingEl _anEl);
     public abstract void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl);
-    protected final StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
+    protected StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         StringMap<AssignmentBefore> fields_;
         fields_ = new StringMap<AssignmentBefore>();
@@ -340,7 +340,7 @@ public abstract class Block extends Blockable {
         }
         return fields_;
     }
-    protected final CustList<StringMap<AssignmentBefore>> makeHypothesisVars(Analyzable _an) {
+    protected CustList<StringMap<AssignmentBefore>> makeHypothesisVars(Analyzable _an) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();
@@ -360,7 +360,7 @@ public abstract class Block extends Blockable {
         }
         return variables_;
     }
-    protected final CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(Analyzable _an) {
+    protected CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(Analyzable _an) {
         AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
         CustList<StringMap<AssignmentBefore>> variables_;
         variables_ = new CustList<StringMap<AssignmentBefore>>();

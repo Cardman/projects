@@ -603,6 +603,115 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         
         return varsList_;
     }
+    @Override
+    protected StringMap<AssignmentBefore> makeHypothesisFields(Analyzable _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        StringMap<AssignmentBefore> fields_;
+        fields_ = new StringMap<AssignmentBefore>();
+        if (opInit.isEmpty()) {
+            for (EntryCust<String,AssignmentBefore> e: vars_.getFieldsRootBefore().entryList()) {
+                AssignmentBefore ass_ = e.getValue();
+                AssignmentBefore h_ = new AssignmentBefore();
+                if (ass_.isAssignedBefore()) {
+                    h_.setAssignedBefore(true);
+                } else {
+                    h_.setUnassignedBefore(true);
+                }
+                fields_.put(e.getKey(), h_);
+            }
+        } else {
+            OperationNode prev_ = opInit.last();
+            for (EntryCust<String,Assignment> e: vars_.getFields().getVal(prev_).entryList()) {
+                Assignment ass_ = e.getValue();
+                AssignmentBefore h_ = new AssignmentBefore();
+                if (ass_.isAssignedAfter()) {
+                    h_.setAssignedBefore(true);
+                } else {
+                    h_.setUnassignedBefore(true);
+                }
+                fields_.put(e.getKey(), h_);
+            }
+        }
+        return fields_;
+    }
+    @Override
+    protected CustList<StringMap<AssignmentBefore>> makeHypothesisVars(Analyzable _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        CustList<StringMap<AssignmentBefore>> variables_;
+        variables_ = new CustList<StringMap<AssignmentBefore>>();
+        if (opInit.isEmpty()) {
+            for (StringMap<AssignmentBefore> s: vars_.getVariablesRootBefore()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore ass_ = e.getValue();
+                    AssignmentBefore h_ = new AssignmentBefore();
+                    if (ass_.isAssignedBefore()) {
+                        h_.setAssignedBefore(true);
+                    } else {
+                        h_.setUnassignedBefore(true);
+                    }
+                    sm_.put(e.getKey(), h_);
+                }
+                variables_.add(sm_);
+            }
+        } else {
+            OperationNode prev_ = opInit.last();
+            for (StringMap<Assignment> s: vars_.getVariables().getVal(prev_)) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String,Assignment> e: s.entryList()) {
+                    Assignment ass_ = e.getValue();
+                    AssignmentBefore h_ = new AssignmentBefore();
+                    if (ass_.isAssignedAfter()) {
+                        h_.setAssignedBefore(true);
+                    } else {
+                        h_.setUnassignedBefore(true);
+                    }
+                    sm_.put(e.getKey(), h_);
+                }
+                variables_.add(sm_);
+            }
+        }
+        return variables_;
+    }
+    @Override
+    protected CustList<StringMap<AssignmentBefore>> makeHypothesisMutableLoop(Analyzable _an) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        CustList<StringMap<AssignmentBefore>> variables_;
+        variables_ = new CustList<StringMap<AssignmentBefore>>();
+        if (opInit.isEmpty()) {
+            for (StringMap<AssignmentBefore> s: vars_.getMutableLoopRootBefore()) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
+                    AssignmentBefore ass_ = e.getValue();
+                    AssignmentBefore h_ = new AssignmentBefore();
+                    if (ass_.isAssignedBefore()) {
+                        h_.setAssignedBefore(true);
+                    } else {
+                        h_.setUnassignedBefore(true);
+                    }
+                    sm_.put(e.getKey(), h_);
+                }
+                variables_.add(sm_);
+            }
+        } else {
+            OperationNode prev_ = opInit.last();
+            for (StringMap<Assignment> s: vars_.getMutableLoop().getVal(prev_)) {
+                StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
+                for (EntryCust<String,Assignment> e: s.entryList()) {
+                    Assignment ass_ = e.getValue();
+                    AssignmentBefore h_ = new AssignmentBefore();
+                    if (ass_.isAssignedAfter()) {
+                        h_.setAssignedBefore(true);
+                    } else {
+                        h_.setUnassignedBefore(true);
+                    }
+                    sm_.put(e.getKey(), h_);
+                }
+                variables_.add(sm_);
+            }
+        }
+        return variables_;
+    }
     private static StringMap<AssignmentBefore> invalidateHypothesis(StringMap<AssignmentBefore> _loop, StringMap<SimpleAssignment> _last,
             CustList<StringMap<AssignmentBefore>> _continuable) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();

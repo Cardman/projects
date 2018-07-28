@@ -308,10 +308,13 @@ public final class AnalyzedPageEl {
     }
 
     public LoopVariable getMutableLoopVar(String _key, int _index) {
-        if (!mutableVars.isValidIndex(_index)) {
-            return null;
+        for (StringMap<LoopVariable> m: mutableVars.getReverse()) {
+            LoopVariable l_ = m.getVal(_key);
+            if (l_ != null) {
+                return l_;
+            }
         }
-        return mutableVars.get(_index).getVal(_key);
+        return null;
     }
 
     public void setMutableLoopVars(StringMap<LoopVariable> _localVars) {
