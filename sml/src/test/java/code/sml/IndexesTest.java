@@ -42,7 +42,7 @@ public class IndexesTest {
         assertEq(0, indexes_.get(1).intValue());
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute1Test() {
         String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -51,7 +51,7 @@ public class IndexesTest {
         assertEq(10,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute2Test() {
         String html_ = "<tag>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -60,7 +60,7 @@ public class IndexesTest {
         assertEq(12,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute3Test() {
         String html_ = "<tag>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -69,7 +69,7 @@ public class IndexesTest {
         assertEq(9,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute4Test() {
         String html_ = "<tag>233<tag>234</tag></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -78,7 +78,7 @@ public class IndexesTest {
         assertEq(9,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute5Test() {
         String html_ = "<tag><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -87,7 +87,7 @@ public class IndexesTest {
         assertEq(17,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute6Test() {
         String html_ = "<tag><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -96,7 +96,7 @@ public class IndexesTest {
         assertEq(14,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute7Test() {
         String html_ = "<tag><ta where=\"here\">Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -105,7 +105,7 @@ public class IndexesTest {
         assertEq(43,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute8Test() {
         String html_ = "<tag><ta where=\"here\">Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -114,7 +114,7 @@ public class IndexesTest {
         assertEq(9,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "where"));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute9Test() {
         String html_ = "<tag><ta where=\"h'ere\" when='n\"ow'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -123,7 +123,7 @@ public class IndexesTest {
         assertEq(9,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "where"));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute10Test() {
         String html_ = "<tag><ta where=\"h'ere\" when='n\"ow'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -132,7 +132,7 @@ public class IndexesTest {
         assertEq(23,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "when"));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute11Test() {
         String html_ = "<tag>233<ta>&amp;</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -141,7 +141,7 @@ public class IndexesTest {
         assertEq(12,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute12Test() {
         String html_ = "<tag>233<ta>&#38;</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -150,7 +150,7 @@ public class IndexesTest {
         assertEq(12,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute13Test() {
         String html_ = "<tag>\u00E9<ta>\u00E9</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -159,7 +159,7 @@ public class IndexesTest {
         assertEq(10,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute14Test() {
         String html_ = "<tag>233<ta>233</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -168,7 +168,7 @@ public class IndexesTest {
         assertEq(12,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute15Test() {
         String html_ = "<tag>233<ta> 234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -177,7 +177,7 @@ public class IndexesTest {
         assertEq(9,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute16Test() {
         String html_ = "<tag>233<ta><a/></ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -186,7 +186,7 @@ public class IndexesTest {
         assertEq(13,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute17Test() {
         String html_ = "<tag>233<ta></ta><a/></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -195,7 +195,7 @@ public class IndexesTest {
         assertEq(18,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute18Test() {
         String html_ = "<tag>233<ta></ta><a/></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -204,7 +204,7 @@ public class IndexesTest {
     }
 
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute19Test() {
         String html_ = "<tag><ta where=\"here\">Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -213,7 +213,7 @@ public class IndexesTest {
         assertEq(43,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "", true));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute20Test() {
         String html_ = "<tag><ta where=\"here\">Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -222,7 +222,7 @@ public class IndexesTest {
         assertEq(16,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "where", true));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute21Test() {
         String html_ = "<tag><ta where=\"h'ere\" when='n\"ow'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -231,7 +231,7 @@ public class IndexesTest {
         assertEq(16,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "where", true));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute22Test() {
         String html_ = "<tag><ta where=\"h'ere\" when='n\"ow'>Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -240,7 +240,7 @@ public class IndexesTest {
         assertEq(29,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "when", true));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute23Test() {
         String html_ = "<tag><ta when='n\"ow' where=\"h'ere\">Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -249,7 +249,7 @@ public class IndexesTest {
         assertEq(28,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "where", true));
     }
 
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute24Test() {
         String html_ = "<tag><ta when='n\"ow' where=\"h'ere\">Content</ta><ta/>233<ta>234</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -257,7 +257,7 @@ public class IndexesTest {
         Node n_ = node_.getFirstChild();
         assertEq(34,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, "how", true));
     }
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute25Test() {
         String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -265,7 +265,7 @@ public class IndexesTest {
         Node n_ = node_.getFirstChild().getNextSibling().getFirstChild();
         assertEq(10,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute26Test() {
         String html_ = "<tag>\u00E9<ta>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);
@@ -273,7 +273,7 @@ public class IndexesTest {
         Node n_ = node_.getFirstChild().getNextSibling();
         assertEq(7,DocumentBuilder.getIndexOfNodeOrAttribute(html_, n_, ""));
     }
-    @Test(timeout=1000)
+    @Test
     public void getIndexOfNodeOrAttribute27Test() {
         String html_ = "<tag>\u00E9<ta myattr='value'>\u00EA</ta></tag>";
         Document doc_ = DocumentBuilder.parseSax(html_);

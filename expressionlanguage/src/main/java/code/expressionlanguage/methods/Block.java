@@ -130,6 +130,8 @@ public abstract class Block extends Blockable {
 
     private OffsetsBlock offset;
 
+    private StringList annotations = new StringList();
+    private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
     Block(Element _el,int _indexChild, BracedBlock _m) {
         metrics.setAssociateElement(_el);
         parent = _m;
@@ -968,6 +970,12 @@ public abstract class Block extends Blockable {
         return parent;
     }
 
+    public StringList getAnnotations() {
+        return annotations;
+    }
+    public Numbers<Integer> getAnnotationsIndexes() {
+        return annotationsIndexes;
+    }
     public final boolean hasChildNodes() {
         return getFirstChild() != null;
     }

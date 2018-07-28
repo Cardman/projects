@@ -39,6 +39,8 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private int accessOffset;
 
     private final boolean varargs;
+    private CustList<StringList> annotationsParams = new CustList<StringList>();
+    private CustList<Numbers<Integer>> annotationsIndexesParams = new CustList<Numbers<Integer>>();
 
     public NamedFunctionBlock(Element _el, ContextEl _importingPage,
             int _indexChild, BracedBlock _m) {
@@ -210,5 +212,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public void setImportedReturnType(String _importedReturnType) {
         importedReturnType = _importedReturnType;
+    }
+
+    public CustList<StringList> getAnnotationsParams() {
+        return annotationsParams;
+    }
+
+    public CustList<Numbers<Integer>> getAnnotationsIndexesParams() {
+        return annotationsIndexesParams;
     }
 }
