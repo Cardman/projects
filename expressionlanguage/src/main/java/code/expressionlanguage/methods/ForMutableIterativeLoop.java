@@ -746,6 +746,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 return;
             }
             if (c_.isFinished()) {
+                for (String v: variableNames) {
+                    ip_.getVars().removeKey(v);
+                }
                 removeVarAndLoop(ip_);
                 processBlock(_cont);
                 return;

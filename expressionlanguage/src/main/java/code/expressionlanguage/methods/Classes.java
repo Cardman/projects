@@ -11,6 +11,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneField;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadClassName;
@@ -854,11 +855,14 @@ public final class Classes {
         }
         return null;
     }
-    public static CustList<MethodBlock> getMethodBlocks(RootBlock _element) {
-        CustList<MethodBlock> methods_ = new CustList<MethodBlock>();
+    public static CustList<GeneMethod> getMethodBlocks(RootBlock _element) {
+        CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
         for (Block b: Classes.getDirectChildren(_element)) {
             if (b instanceof MethodBlock) {
                 methods_.add((MethodBlock) b);
+            }
+            if (b instanceof AnnotationMethodBlock) {
+                methods_.add((AnnotationMethodBlock) b);
             }
         }
         return methods_;
@@ -1069,6 +1073,15 @@ public final class Classes {
             for (TypeVar t: dBl_.getParamTypesMapValues()) {
                 cts_.put(t.getName(), t.getConstraints());
                 variables_.add(t.getName());
+            }
+            if (!variables_.isEmpty() && dBl_ instanceof AnnotationBlock) {
+                BadInheritedClass b_;
+                b_ = new BadInheritedClass();
+                b_.setClassName(c);
+                b_.setFileName(c);
+                b_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                addError(b_);
+                continue;
             }
             mapping_.setMapping(cts_);
             if (!ok_) {
@@ -1854,6 +1867,13 @@ public final class Classes {
                 }
             }
         }
+        _context.setAnnotAnalysis(true);
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            for (Block b:getSortedDescNodes(c.getValue())) {
+                b.buildAnnotations(_context);
+            }
+        }
+        //init annotations here
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock clblock_ = c.getValue();
             clblock_.validateConstructors(_context);
@@ -2173,9 +2193,9 @@ public final class Classes {
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         RootBlock r_ = classes_.getClassBody(base_);
-        for (MethodBlock m: Classes.getMethodBlocks(r_)) {
+        for (GeneMethod m: Classes.getMethodBlocks(r_)) {
             if (m.getId().eq(_id)) {
-                methods_.add(m);
+                methods_.add((MethodBlock)m);
                 break;
             }
         }

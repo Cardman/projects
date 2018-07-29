@@ -15,6 +15,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.CustomFoundAnnotation;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
@@ -602,6 +603,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
       _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
       return Argument.createVoid();
     }
+    public static Argument instancePrepareAnnotation(ExecutableCode _conf, String _className, StringList _fieldNames,CustList<Argument> _arguments) {
+        if (_conf.getException() != null) {
+            Argument a_ = new Argument();
+            return a_;
+        }
+        String className_ = _className;
+        _conf.getContextEl().setCallAnnot(new CustomFoundAnnotation(className_, _fieldNames, _arguments));
+        return Argument.createVoid();
+    }
     public static ClassMethodId polymorph(ContextEl _conf, Struct _previous, ClassMethodId _classMethodId) {
         String classNameFound_ = _classMethodId.getClassName();
         classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
@@ -696,6 +706,31 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String aliasEnumsValues_ = stds_.getAliasGetEnumConstants();
         String aliasDefaultInstance_ = stds_.getAliasDefaultInstance();
         String aliasInit_ = stds_.getAliasInit();
+        String aliasAnnotated_ = stds_.getAliasAnnotated();
+        String aliasAnnotation_ = stds_.getAliasAnnotation();
+        String aliasGetAnnotations_ = stds_.getAliasGetAnnotations();
+        String aliasGetAnnotationsParam_ = stds_.getAliasGetAnnotationsParameters();
+        if (!_methodId.isStaticMethod()) {
+            String clName_ = _previous.getObjectClassName(_conf.getContextEl());
+            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotation_, clName_, _conf)) {
+                FieldableStruct f_ = (FieldableStruct) _previous.getStruct();
+                Argument a_ = new Argument();
+                a_.setStruct(f_.getStruct(new ClassField(clName_, _methodId.getName())));
+                return a_;
+            }
+        }
+        if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotated_, _classNameFound, _conf)) {
+            if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            if (StringList.quickEq(aliasGetAnnotationsParam_, _methodId.getName())) {
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs));
+                Argument a_ = new Argument();
+                return a_;
+            }
+        }
         if (StringList.quickEq(aliasClass_, _classNameFound)) {
             if (StringList.quickEq(aliasValueOf_, _methodId.getName())) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _previous.getStruct();

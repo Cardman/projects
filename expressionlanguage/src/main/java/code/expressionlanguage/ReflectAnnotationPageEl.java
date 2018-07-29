@@ -1,0 +1,206 @@
+package code.expressionlanguage;
+
+import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.common.GeneField;
+import code.expressionlanguage.common.GeneMethod;
+import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.NamedFunctionBlock;
+import code.expressionlanguage.opers.AnnotationExpressionLanguage;
+import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.opers.util.Struct;
+import code.util.CustList;
+import code.util.StringList;
+
+public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
+    private boolean retrievedAnnot;
+    private int indexAnnotation;
+    private int indexAnnotationParam;
+    private boolean onParameters;
+    private ArrayStruct array;
+    private CustList<CustList<OperationNode>> annotations;
+    private CustList<CustList<CustList<OperationNode>>> annotationsParams;
+
+    private CustList<AnnotationExpressionLanguage> currentAnnot = new CustList<AnnotationExpressionLanguage>();
+
+    @Override
+    public boolean checkCondition(ContextEl _context) {
+        Struct structBlock_ = getGlobalArgument().getStruct();
+        if (!retrievedAnnot) {
+            if (onParameters) {
+                if (structBlock_ instanceof ConstructorMetaInfo){
+                    ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
+                    String cl_ = cid_.getName();
+                    String idClass_ = Templates.getIdFromAllTypes(cl_);
+                    GeneType type_ = _context.getClassBody(idClass_);
+                    for (GeneConstructor c: ContextEl.getConstructorBlocks(type_)) {
+                        if (c.getId().eq(cid_)) {
+                            if (c instanceof NamedFunctionBlock) {
+                                annotationsParams=((NamedFunctionBlock)c).getAnnotationsOpsParams();
+                            }
+                        }
+                    }
+                } else if (structBlock_ instanceof MethodMetaInfo){
+                    MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
+                    String cl_ = mid_.getName();
+                    String idClass_ = Templates.getIdFromAllTypes(cl_);
+                    GeneType type_ = _context.getClassBody(idClass_);
+                    for (GeneMethod m: ContextEl.getMethodBlocks(type_)) {
+                        if (m.getId().eq(mid_)) {
+                            if (m instanceof NamedFunctionBlock) {
+                                annotationsParams=((NamedFunctionBlock)m).getAnnotationsOpsParams();
+                            }
+                        }
+                    }
+                } else {
+                    annotationsParams = new CustList<CustList<CustList<OperationNode>>>();
+                }
+            } else if (structBlock_ instanceof ClassMetaInfo) {
+                String cl_ = ((ClassMetaInfo)structBlock_).getName();
+                String id_ = Templates.getIdFromAllTypes(cl_);
+                GeneType type_ = _context.getClassBody(id_);
+                if (type_ instanceof Block) {
+                    annotations=((Block)type_).getAnnotationsOps();
+                }
+            } else if (structBlock_ instanceof ConstructorMetaInfo){
+                ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
+                String cl_ = cid_.getName();
+                String idClass_ = Templates.getIdFromAllTypes(cl_);
+                GeneType type_ = _context.getClassBody(idClass_);
+                for (GeneConstructor c: ContextEl.getConstructorBlocks(type_)) {
+                    if (c.getId().eq(cid_)) {
+                        if (c instanceof Block) {
+                            annotations=((Block)c).getAnnotationsOps();
+                        }
+                    }
+                }
+            } else if (structBlock_ instanceof MethodMetaInfo){
+                MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
+                String cl_ = mid_.getName();
+                String idClass_ = Templates.getIdFromAllTypes(cl_);
+                GeneType type_ = _context.getClassBody(idClass_);
+                for (GeneMethod m: ContextEl.getMethodBlocks(type_)) {
+                    if (m.getId().eq(mid_)) {
+                        if (m instanceof Block) {
+                            annotations=((Block)m).getAnnotationsOps();
+                        }
+                    }
+                }
+            } else {
+                //Field
+                String fieldId_ = ((FieldMetaInfo)structBlock_).getName();
+                String cl_ = ((FieldMetaInfo)structBlock_).getDeclaringClass();
+                String idClass_ = Templates.getIdFromAllTypes(cl_);
+                GeneType type_ = _context.getClassBody(idClass_);
+                for (GeneField f: ContextEl.getFieldBlocks(type_)) {
+                    if (StringList.quickEq(f.getFieldName(), fieldId_)) {
+                        if (f instanceof Block) {
+                            annotations=((Block)f).getAnnotationsOps();
+                        }
+                    }
+                }
+            }
+            if (onParameters) {
+                int len_ = annotationsParams.size();
+                String annot_ = _context.getStandards().getAliasAnnotation();
+                String annotArr_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
+                array = new ArrayStruct(new Struct[len_], annotArr_);
+                int i_ = 0;
+                for (CustList<CustList<OperationNode>> e: annotationsParams) {
+                    ArrayStruct loc_;
+                    loc_ = new ArrayStruct(new Struct[e.size()], annot_);
+                    array.getInstance()[i_] = loc_;
+                    i_++;
+                }
+            } else {
+                int len_ = annotations.size();
+                String annot_ = _context.getStandards().getAliasAnnotation();
+                array = new ArrayStruct(new Struct[len_], annot_);
+            }
+        }
+        if (onParameters) {
+            int len_ = annotationsParams.size();
+            for (int i = indexAnnotationParam; i < len_; i++) {
+                Struct[] rr_ = array.getInstance();
+                Struct loc_ = rr_[i];
+                int lenLoc_ = annotationsParams.get(i).size();
+                for (int j = indexAnnotation; j < lenLoc_; j++) {
+                    CustList<OperationNode> ops_ = annotationsParams.get(i).get(j);
+                    AnnotationExpressionLanguage el_;
+                    if (!isEmptyAnnotEl()) {
+                        el_ = getLastAnnotEl();
+                    } else {
+                        el_ = new AnnotationExpressionLanguage(ops_);
+                        addCurrentAnnotEl(el_);
+                    }
+                    Argument ret_ = el_.calculateMember(_context);
+                    if (_context.callsOrException()) {
+                        return false;
+                    }
+                    clearCurrentAnnotEl();
+                    ((ArrayStruct)loc_).getInstance()[j] = ret_.getStruct();
+                    indexAnnotation++;
+                }
+                indexAnnotationParam++;
+            }
+        } else {
+            int len_ = annotations.size();
+            for (int i = indexAnnotation; i < len_; i++) {
+                CustList<OperationNode> ops_ = annotations.get(i);
+                AnnotationExpressionLanguage el_;
+                if (!isEmptyAnnotEl()) {
+                    el_ = getLastAnnotEl();
+                } else {
+                    el_ = new AnnotationExpressionLanguage(ops_);
+                    addCurrentAnnotEl(el_);
+                }
+                Argument ret_ = el_.calculateMember(_context);
+                if (_context.callsOrException()) {
+                    return false;
+                }
+                clearCurrentAnnotEl();
+                array.getInstance()[i] = ret_.getStruct();
+                indexAnnotation++;
+            }
+        }
+        
+        Argument out_ = new Argument();
+        out_.setStruct(array);
+        setRightArgument(out_);
+        return true;
+    }
+
+    @Override
+    public boolean receive(Argument _argument, ContextEl _context) {
+        getLastEl().setArgument(_argument, _context);
+        return true;
+    }
+    public boolean isEmptyAnnotEl() {
+        return currentAnnot.isEmpty();
+    }
+    public AnnotationExpressionLanguage getLastAnnotEl() {
+        return currentAnnot.last();
+    }
+
+    public void addCurrentAnnotEl(AnnotationExpressionLanguage _el) {
+        currentAnnot.add(_el);
+    }
+    public void clearCurrentAnnotEl() {
+        currentAnnot.clear();
+    }
+
+    public boolean isOnParameters() {
+        return onParameters;
+    }
+
+    public void setOnParameters(boolean _onParameters) {
+        onParameters = _onParameters;
+    }
+}

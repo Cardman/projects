@@ -4514,6 +4514,31 @@ public abstract class LgNames {
     public void setAliasClass(String _aliasClass) {
         reflect.setAliasClass(_aliasClass);
     }
+    
+    public String getAliasAnnotation() {
+        return reflect.getAliasAnnotation();
+    }
+    public void setAliasAnnotation(String _aliasAnnotation) {
+        reflect.setAliasAnnotation(_aliasAnnotation);
+    }
+    public String getAliasAnnotated() {
+        return reflect.getAliasAnnotated();
+    }
+    public void setAliasAnnotated(String _aliasAnnotated) {
+        reflect.setAliasAnnotated(_aliasAnnotated);
+    }
+    public String getAliasGetAnnotations() {
+        return reflect.getAliasGetAnnotations();
+    }
+    public void setAliasGetAnnotations(String _aliasGetAnnotations) {
+        reflect.setAliasGetAnnotations(_aliasGetAnnotations);
+    }
+    public String getAliasGetAnnotationsParameters() {
+        return reflect.getAliasGetAnnotationsParameters();
+    }
+    public void setAliasGetAnnotationsParameters(String _aliasGetAnnotationsParameters) {
+        reflect.setAliasGetAnnotationsParameters(_aliasGetAnnotationsParameters);
+    }
     public String getAliasGetDeclaredMethods() {
         return reflect.getAliasGetDeclaredMethods();
     }

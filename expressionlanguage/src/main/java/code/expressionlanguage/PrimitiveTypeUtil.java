@@ -585,6 +585,36 @@ public final class PrimitiveTypeUtil {
         }
         return null;
     }
+    public static String toPrimitive(String _class, boolean _id, LgNames _stds) {
+        if (StringList.quickEq(_class,_stds.getAliasBoolean())) {
+            return _stds.getAliasPrimBoolean();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasDouble())) {
+            return _stds.getAliasPrimDouble();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasFloat())) {
+            return _stds.getAliasPrimFloat();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasLong())) {
+            return _stds.getAliasPrimLong();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasInteger())) {
+            return _stds.getAliasPrimInteger();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasShort())) {
+            return _stds.getAliasPrimShort();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasByte())) {
+            return _stds.getAliasPrimByte();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasCharacter())) {
+            return _stds.getAliasPrimChar();
+        }
+        if (_id) {
+            return _class;
+        }
+        return null;
+    }
     static ClassArgumentMatching toWrapper(ClassArgumentMatching _class, boolean _id, LgNames _stds) {
         if (_class.matchClass(_stds.getAliasPrimBoolean())) {
             return new ClassArgumentMatching(_stds.getAliasBoolean());
@@ -615,7 +645,36 @@ public final class PrimitiveTypeUtil {
         }
         return null;
     }
-
+    public static String toWrapper(String _class, boolean _id, LgNames _stds) {
+        if (StringList.quickEq(_class,_stds.getAliasPrimBoolean())) {
+            return _stds.getAliasBoolean();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasPrimDouble())) {
+            return _stds.getAliasDouble();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasPrimFloat())) {
+            return _stds.getAliasFloat();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasPrimLong())) {
+            return _stds.getAliasLong();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasPrimInteger())) {
+            return _stds.getAliasInteger();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasPrimShort())) {
+            return _stds.getAliasShort();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasPrimByte())) {
+            return _stds.getAliasByte();
+        }
+        if (StringList.quickEq(_class,_stds.getAliasPrimChar())) {
+            return _stds.getAliasCharacter();
+        }
+        if (_id) {
+            return _class;
+        }
+        return null;
+    }
     public static Argument defaultValue(Block _block, Argument _global, ContextEl _context) {
         if (_block instanceof MethodBlock) {
             MethodBlock m_ = (MethodBlock) _block;

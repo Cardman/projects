@@ -7,6 +7,7 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.AbstractMethod;
@@ -261,6 +262,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         EqList<MethodId> idMethods_ = new EqList<MethodId>();
         EqList<ConstructorId> idConstructors_ = new EqList<ConstructorId>();
         StringList idsField_ = new StringList();
+        StringList idsAnnotMethods_ = new StringList();
         String className_ = getFullName();
         CustList<Block> bl_;
         bl_ = Classes.getDirectChildren(this);
@@ -295,6 +297,18 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                         _context.getClasses().addError(badMeth_);
                     }
                 }
+                if (method_ instanceof AnnotationMethodBlock) {
+                    AnnotationMethodBlock m_ = (AnnotationMethodBlock) method_;
+                    m_.buildImportedTypes(_context);
+                    if (!StringList.isWord(name_)) {
+                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        BadMethodName badMeth_ = new BadMethodName();
+                        badMeth_.setFileName(className_);
+                        badMeth_.setRc(r_);
+                        badMeth_.setName(name_);
+                        _context.getClasses().addError(badMeth_);
+                    }
+                }
                 if (name_.isEmpty()) {
                     name_ = className_;
                 }
@@ -312,6 +326,21 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                         }
                     }
                     idMethods_.add(id_);
+                }
+                if (method_ instanceof AnnotationMethodBlock) {
+                    String id_ = ((AnnotationMethodBlock) method_).getName();
+                    for (String m: idsAnnotMethods_) {
+                        if (StringList.quickEq(m,id_)) {
+                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            DuplicateMethod duplicate_;
+                            duplicate_ = new DuplicateMethod();
+                            duplicate_.setRc(r_);
+                            duplicate_.setFileName(className_);
+                            duplicate_.setId(new MethodId(false, id_, new StringList()));
+                            _context.getClasses().addError(duplicate_);
+                        }
+                    }
+                    idsAnnotMethods_.add(id_);
                 }
                 if (method_ instanceof ConstructorBlock) {
                     ((ConstructorBlock)method_).buildImportedTypes(_context);
@@ -614,14 +643,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             }
         }
         if (concreteClass_) {
-            for (MethodBlock b: Classes.getMethodBlocks(this)) {
-                MethodBlock mDer_ = b;
+            for (GeneMethod b: Classes.getMethodBlocks(this)) {
+                GeneMethod mDer_ = b;
                 MethodId idFor_ = mDer_.getId();
                 if (mDer_.isAbstractMethod()) {
                     AbstractMethod err_;
                     err_ = new AbstractMethod();
                     err_.setFileName(getFullName());
-                    err_.setRc(mDer_.getRowCol(0, mDer_.getNameOffset()));
+                    err_.setRc(((MethodBlock)mDer_).getRowCol(0, ((MethodBlock)mDer_).getNameOffset()));
                     err_.setSgn(idFor_.getSignature());
                     err_.setClassName(getFullName());
                     classesRef_.addError(err_);
@@ -630,7 +659,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
             for (String s: allSuperClass_) {
                 String base_ = Templates.getIdFromAllTypes(s);
                 RootBlock superBl_ = classesRef_.getClassBody(base_);
-                for (MethodBlock m: Classes.getMethodBlocks(superBl_)) {
+                for (GeneMethod m: Classes.getMethodBlocks(superBl_)) {
                     if (m.isAbstractMethod()) {
                         abstractMethods_.add(new ClassFormattedMethodId(s, m.getId()));
                     }

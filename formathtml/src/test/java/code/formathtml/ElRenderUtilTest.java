@@ -5233,7 +5233,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("$static($Class).getAllClasses().length",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
-        assertEq(56, (Number)res_);
+        assertEq(58, (Number)res_);
     }
     @Test
     public void processEl278Test() {

@@ -1019,9 +1019,19 @@ public class Configuration implements ExecutableCode {
         context.setForLoopPartState(_state);
     }
 
-	@Override
-	public AnalyzingEl getAnalysisAss() {
-		return context.getAnalysisAss();
-	}
+    @Override
+    public AnalyzingEl getAnalysisAss() {
+        return context.getAnalysisAss();
+    }
+
+    @Override
+    public boolean isAnnotAnalysis() {
+        return context.isAnnotAnalysis();
+    }
+
+    @Override
+    public void setAnnotAnalysis(boolean _ana) {
+        context.setAnnotAnalysis(_ana);
+    }
 
 }

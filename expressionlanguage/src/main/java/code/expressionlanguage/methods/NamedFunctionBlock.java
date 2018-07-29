@@ -1,10 +1,13 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnnotationUtil;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.opers.Calculation;
+import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.sml.Element;
 import code.util.CustList;
@@ -41,6 +44,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final boolean varargs;
     private CustList<StringList> annotationsParams = new CustList<StringList>();
     private CustList<Numbers<Integer>> annotationsIndexesParams = new CustList<Numbers<Integer>>();
+    private CustList<CustList<CustList<OperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<OperationNode>>>();
 
     public NamedFunctionBlock(Element _el, ContextEl _importingPage,
             int _indexChild, BracedBlock _m) {
@@ -119,6 +123,23 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersNamesOffset = _paramNamesOffset;
     }
 
+    @Override
+    public void buildAnnotations(ContextEl _context) {
+        super.buildAnnotations(_context);
+        annotationsOpsParams = new CustList<CustList<CustList<OperationNode>>>();
+        for (StringList p: annotationsParams) {
+            CustList<CustList<OperationNode>> annotation_;
+            annotation_ = new CustList<CustList<OperationNode>>();
+            for (String a:p) {
+                Calculation c_ = Calculation.staticCalculation(true);
+                annotation_.add(AnnotationUtil.getAnalyzedOperations(a, _context, c_));
+            }
+            annotationsOpsParams.add(annotation_);
+        }
+    }
+    public CustList<CustList<CustList<OperationNode>>> getAnnotationsOpsParams() {
+        return annotationsOpsParams;
+    }
     public Numbers<Integer> getParametersTypesOffset() {
         return parametersTypesOffset;
     }

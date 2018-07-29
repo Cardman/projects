@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.AnnotationUtil;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.OffsetsBlock;
@@ -11,6 +12,7 @@ import code.expressionlanguage.methods.util.Metrics;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.methods.util.SearchingReturnThrow;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.CurrentInvokingConstructor;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -131,6 +133,7 @@ public abstract class Block extends Blockable {
     private OffsetsBlock offset;
 
     private StringList annotations = new StringList();
+    private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
     Block(Element _el,int _indexChild, BracedBlock _m) {
         metrics.setAssociateElement(_el);
@@ -970,8 +973,18 @@ public abstract class Block extends Blockable {
         return parent;
     }
 
+    public void buildAnnotations(ContextEl _context) {
+        annotationsOps = new CustList<CustList<OperationNode>>();
+        for (String a: annotations) {
+            Calculation c_ = Calculation.staticCalculation(true);
+            annotationsOps.add(AnnotationUtil.getAnalyzedOperations(a, _context, c_));
+        }
+    }
     public StringList getAnnotations() {
         return annotations;
+    }
+    public CustList<CustList<OperationNode>> getAnnotationsOps() {
+        return annotationsOps;
     }
     public Numbers<Integer> getAnnotationsIndexes() {
         return annotationsIndexes;

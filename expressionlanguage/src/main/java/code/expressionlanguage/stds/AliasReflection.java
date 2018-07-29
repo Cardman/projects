@@ -42,6 +42,10 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class AliasReflection {
+    private String aliasAnnotation;
+    private String aliasAnnotated;
+    private String aliasGetAnnotations;
+    private String aliasGetAnnotationsParameters;
     private String aliasClass;
     private String aliasGetClass;
     private String aliasGetDeclaredMethods;
@@ -125,7 +129,7 @@ public class AliasReflection {
         String aliasVoid_ = _stds.getAliasVoid();
         String aliasError_ = _stds.getAliasError();
         String aliasEnum_ = _stds.getAliasEnum();
-        stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasAnnotated , MethodModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -259,7 +263,7 @@ public class AliasReflection {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasConstructor, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasConstructor, fields_, constructors_, methods_, aliasAnnotated, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasNewInstance, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -306,7 +310,7 @@ public class AliasReflection {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasField, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasField, fields_, constructors_, methods_, aliasAnnotated, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasGetField, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -347,7 +351,7 @@ public class AliasReflection {
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
-        stdcl_ = new StandardClass(aliasMethod, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
+        stdcl_ = new StandardClass(aliasMethod, fields_, constructors_, methods_, aliasAnnotated, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject_,aliasObject_);
         method_ = new StandardMethod(aliasInvoke, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -413,6 +417,22 @@ public class AliasReflection {
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasClassNotFoundError, fields_, constructors_, methods_, aliasError_, MethodModifier.NORMAL);
         _stds.getStandards().put(aliasClassNotFoundError, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasAnnotation, fields_, constructors_, methods_, aliasObject_, MethodModifier.NORMAL);
+        _stds.getStandards().put(aliasAnnotation, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        stdcl_ = new StandardClass(aliasAnnotated, fields_, constructors_, methods_, aliasObject_, MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation)), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        _stds.getStandards().put(aliasAnnotated, stdcl_);
     }
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
@@ -1321,6 +1341,30 @@ public class AliasReflection {
     }
     public void setAliasClass(String _aliasClass) {
         aliasClass = _aliasClass;
+    }
+    public String getAliasAnnotation() {
+        return aliasAnnotation;
+    }
+    public void setAliasAnnotation(String _aliasAnnotation) {
+        aliasAnnotation = _aliasAnnotation;
+    }
+    public String getAliasAnnotated() {
+        return aliasAnnotated;
+    }
+    public void setAliasAnnotated(String _aliasAnnotated) {
+        aliasAnnotated = _aliasAnnotated;
+    }
+    public String getAliasGetAnnotations() {
+        return aliasGetAnnotations;
+    }
+    public void setAliasGetAnnotations(String _aliasGetAnnotations) {
+        aliasGetAnnotations = _aliasGetAnnotations;
+    }
+    public String getAliasGetAnnotationsParameters() {
+        return aliasGetAnnotationsParameters;
+    }
+    public void setAliasGetAnnotationsParameters(String _aliasGetAnnotationsParameters) {
+        aliasGetAnnotationsParameters = _aliasGetAnnotationsParameters;
     }
     public String getAliasGetClass() {
         return aliasGetClass;

@@ -6,10 +6,12 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AnalyzingEl;
+import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
+import code.expressionlanguage.methods.CustomFoundAnnotation;
 import code.expressionlanguage.methods.CustomFoundBlock;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
@@ -97,6 +99,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private LocalThrowing throwing = new LocalThrowing();
 
+    private CustomFoundAnnotation callAnnot;
     private CustomFoundConstructor callCtor;
 
     private NotInitializedFields initFields;
@@ -206,6 +209,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public AbstractPageEl processAfterOperation() {
         if (callCtor != null) {
             return createInstancing(callCtor);
+        } else if (callAnnot != null) {
+            return createAnnotation(callAnnot.getClassName(), callAnnot.getId(), callAnnot.getArguments());
         } else if (callMethod != null) {
             return createCallingMethod(callMethod);
         } else if (reflectMethod != null) {
@@ -348,6 +353,25 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         page_.setBlockRoot(method_);
         return page_;
     }
+    public NewAnnotationPageEl createAnnotation(String _class,
+            StringList _id,
+            CustList<Argument> _args) {
+        setCallAnnot(null);
+        NewAnnotationPageEl page_;
+        ConstructorBlock method_ = null;
+        Argument argGl_ = new Argument();
+        page_ = new NewAnnotationPageEl();
+        page_.setArgs(_args);
+        page_.setNames(_id);
+        argGl_.setStruct(init.processInitAnnot(this, _class));
+        page_.setTabWidth(tabWidth);
+        page_.setGlobalClass(_class);
+        page_.setGlobalArgument(argGl_);
+        ReadWrite rw_ = new ReadWrite();
+        page_.setReadWrite(rw_);
+        page_.setBlockRoot(method_);
+        return page_;
+    }
     public AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in,CustList<Argument> _args) {
         setCallCtor(null);
         AbstractPageEl page_;
@@ -437,6 +461,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             pageLoc_ = new ReflectConstructorPageEl();
         } else if (_reflect == ReflectingType.GET_FIELD) {
             pageLoc_ = new ReflectGetFieldPageEl();
+        } else if (_reflect == ReflectingType.ANNOTATION || _reflect == ReflectingType.ANNOTATION_PARAM) {
+            pageLoc_ = new ReflectAnnotationPageEl();
+            ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(_reflect == ReflectingType.ANNOTATION_PARAM);
         } else {
             pageLoc_ = new ReflectSetFieldPageEl();
         }
@@ -584,7 +611,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
             return methods_;
         }
-        for (MethodBlock m: Classes.getMethodBlocks((RootBlock) r_)) {
+        for (GeneMethod m: Classes.getMethodBlocks((RootBlock) r_)) {
             if (m.getId().eq(_id)) {
                 methods_.add(m);
                 break;
@@ -612,7 +639,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
                 if (b instanceof MethodBlock) {
-                    methods_.add((MethodBlock) b);
+                    methods_.add((GeneMethod) b);
+                }
+                if (b instanceof AnnotationMethodBlock) {
+                    methods_.add((GeneMethod) b);
                 }
             }
         } else {
@@ -886,6 +916,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (callCtor != null) {
             return true;
         }
+        if (callAnnot != null) {
+            return true;
+        }
         if (initClass != null) {
             return true;
         }
@@ -903,13 +936,21 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public LocalThrowing getThrowing() {
         return throwing;
     }
-
+    
     public CustomFoundConstructor getCallCtor() {
         return callCtor;
     }
-
+    
     public void setCallCtor(CustomFoundConstructor _callCtor) {
         callCtor = _callCtor;
+    }
+
+    public CustomFoundAnnotation getCallAnnot() {
+        return callAnnot;
+    }
+
+    public void setCallAnnot(CustomFoundAnnotation _callAnnot) {
+        callAnnot = _callAnnot;
     }
 
     public CustomFoundMethod getCallMethod() {
@@ -1965,5 +2006,15 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public AnalyzingEl getAnalysisAss() {
         return analyzing.getAnalysisAss();
+    }
+
+    @Override
+    public boolean isAnnotAnalysis() {
+        return analyzing.isAnnotAnalysis();
+    }
+
+    @Override
+    public void setAnnotAnalysis(boolean _ana) {
+        analyzing.setAnnotAnalysis(_ana);
     }
 }

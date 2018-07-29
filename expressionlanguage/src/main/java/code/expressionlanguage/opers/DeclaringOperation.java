@@ -11,7 +11,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 
-public class DeclaringOperation extends MethodOperation {
+public final class DeclaringOperation extends MethodOperation {
 
     public DeclaringOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {

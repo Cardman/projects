@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
@@ -7,6 +8,7 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.EnumStruct;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -50,6 +52,40 @@ public class DefaultInitializer implements Initializer {
             }
         }
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
+    }
+
+    @Override
+    public Struct processInitAnnot(ContextEl _context,
+            String _className) {
+        Classes classes_ = _context.getClasses();
+        String baseClass_ = Templates.getIdFromAllTypes(_className);
+        RootBlock class_ = classes_.getClassBody(baseClass_);
+        StringList allClasses_ = new StringList(baseClass_);
+        allClasses_.addAllElts(class_.getAllSuperTypes());
+        ObjectMap<ClassField,Struct> fields_;
+        fields_ = new ObjectMap<ClassField,Struct>();
+        for (String c: allClasses_) {
+            RootBlock clMetaLoc_ = classes_.getClassBody(c);
+            if (clMetaLoc_ == null) {
+                continue;
+            }
+            for (Block b: Classes.getDirectChildren(clMetaLoc_)) {
+                if (!(b instanceof AnnotationMethodBlock)) {
+                    continue;
+                }
+                AnnotationMethodBlock f_ = (AnnotationMethodBlock) b;
+                Struct str_ = f_.getDefaultArgument();
+                String fieldName_ = f_.getName();
+                String fieldDeclClass_ = f_.getImportedReturnType();
+                ClassField key_ = new ClassField(c, fieldName_);
+                if (str_ != null) {
+                    fields_.put(key_, str_);
+                } else {
+                    fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                }
+            }
+        }
+        return init(_context, NullStruct.NULL_VALUE, _className, "", 0, fields_);
     }
     @Override
     public final void loopCalling(ContextEl _owner) {

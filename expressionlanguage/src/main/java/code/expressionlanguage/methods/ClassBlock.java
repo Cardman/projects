@@ -5,6 +5,7 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadInheritedClass;
@@ -120,7 +121,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         for (String s: getAllGenericInterfaces(_context)) {
             String base_ = Templates.getIdFromAllTypes(s);
             RootBlock r_ = classesRef_.getClassBody(base_);
-            for (MethodBlock m: Classes.getMethodBlocks(r_)) {
+            for (GeneMethod m: Classes.getMethodBlocks(r_)) {
                 if (m.isStaticMethod()) {
                     continue;
                 }
@@ -139,7 +140,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                         BadAccessMethod err_;
                         err_ = new BadAccessMethod();
                         err_.setFileName(getFullName());
-                        err_.setRc(m.getRowCol(0, mBase_.getAccessOffset()));
+                        err_.setRc(((MethodBlock)m).getRowCol(0, mBase_.getAccessOffset()));
                         err_.setId(m.getId());
                         classesRef_.addError(err_);
                     }

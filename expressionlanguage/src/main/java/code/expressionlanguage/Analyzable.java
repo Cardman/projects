@@ -119,4 +119,6 @@ public interface Analyzable {
     ForLoopPart getForLoopPartState();
     void setForLoopPartState(ForLoopPart _state);
     AnalyzingEl getAnalysisAss();
+    boolean isAnnotAnalysis();
+    void setAnnotAnalysis(boolean _ana);
 }

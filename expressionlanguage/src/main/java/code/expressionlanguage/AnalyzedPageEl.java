@@ -79,6 +79,7 @@ public final class AnalyzedPageEl {
     private boolean assignedFields;
     private ForLoopPart forLoopPart;
     private AnalyzingEl analysisAss;
+    private boolean annotAnalysis;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -560,5 +561,13 @@ public final class AnalyzedPageEl {
 
     public void setAnalysisAss(AnalyzingEl _analysisAss) {
         analysisAss = _analysisAss;
+    }
+
+    public boolean isAnnotAnalysis() {
+        return annotAnalysis;
+    }
+
+    public void setAnnotAnalysis(boolean _annotAnalysis) {
+        annotAnalysis = _annotAnalysis;
     }
 }

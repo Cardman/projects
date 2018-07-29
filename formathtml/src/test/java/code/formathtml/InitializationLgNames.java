@@ -163,6 +163,10 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
         _lgNames.setAliasClass("$Class");
+        _lgNames.setAliasAnnotation("$Annotation");
+        _lgNames.setAliasAnnotated("$Annotated");
+        _lgNames.setAliasGetAnnotations("getAnnotations");
+        _lgNames.setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");

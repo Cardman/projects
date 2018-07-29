@@ -1345,7 +1345,7 @@ public final class ElResolver {
         return index_;
     }
 
-    private static boolean isNumber(int _start, int _max, String _string) {
+    static boolean isNumber(int _start, int _max, String _string) {
         if (_start >= _string.length()) {
             return false;
         }
@@ -1376,7 +1376,7 @@ public final class ElResolver {
         return Character.isDigit(first_) && !var_;
     }
 
-    private static NumberInfosOutput processNb(int _start, int _max, String _string, boolean _seenDot) {
+    static NumberInfosOutput processNb(int _start, int _max, String _string, boolean _seenDot) {
         //_string.charAt(_start) is digit
         NumberInfosOutput output_ = new NumberInfosOutput();
         NumberInfos nbInfos_ = new NumberInfos();
@@ -1542,7 +1542,7 @@ public final class ElResolver {
         output_.setNextIndex(j_);
         return output_;
     }
-    private static boolean isNbSuffix(char _char) {
+    static boolean isNbSuffix(char _char) {
         char lower_ = Character.toLowerCase(_char);
         if (lower_ == DOUBLE) {
             return true;
@@ -1568,7 +1568,7 @@ public final class ElResolver {
         return false;
     }
 
-    private static boolean isCorrectNbEnd(String _string) {
+    static boolean isCorrectNbEnd(String _string) {
         if (_string.isEmpty()) {
             return true;
         }
@@ -1604,7 +1604,7 @@ public final class ElResolver {
         return true;
     }
 
-    private static boolean isCorrectNbEndWord(String _string, char _end) {
+    static boolean isCorrectNbEndWord(String _string, char _end) {
         if (_string.isEmpty()) {
             return true;
         }
@@ -1635,7 +1635,7 @@ public final class ElResolver {
         }
         return true;
     }
-    private static void processExp(int _start, int _max, String _string, NumberInfosOutput _output) {
+    static void processExp(int _start, int _max, String _string, NumberInfosOutput _output) {
         StringBuilder exp_ = _output.getInfos().getExponentialPart();
         int len_ = _max;
         int j_ = _start;

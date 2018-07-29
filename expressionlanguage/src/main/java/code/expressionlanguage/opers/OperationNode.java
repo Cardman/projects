@@ -16,6 +16,7 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -144,6 +145,7 @@ public abstract class OperationNode {
     protected static final String RETURN_TAB = "\n\t";
 
     protected static final String VARARG_SUFFIX = "...";
+    protected static final String AROBASE = "@";
 
     private static final int QUICK_OP = 3;
 
@@ -308,6 +310,9 @@ public abstract class OperationNode {
             if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
                 return new TernaryOperation(_index, _indexChild, _m, _op);
             }
+            if (_an.isAnnotAnalysis()) {
+                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+            }
             if (fctName_.startsWith(prefixFunction(INSTANCE))) {
                 return new InstanceOperation(_index, _indexChild, _m, _op);
             }
@@ -375,6 +380,10 @@ public abstract class OperationNode {
             return new OrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
+            if (_an.isAnnotAnalysis()) {
+                String value_ = _op.getValues().firstValue();
+                return new AssocationOperation(_index, _indexChild, _m, _op, value_);
+            }
             String op_ = _op.getOperators().firstValue();
             if (!StringList.quickEq(op_, EQ)) {
                 return new CompoundAffectationOperation(_index, _indexChild, _m, _op);
@@ -705,6 +714,9 @@ public abstract class OperationNode {
         idRet_.setRealClass(realClass_);
         idRet_.setId(new ClassMethodId(clCurName_, id_));
         idRet_.setVarArgToCall(_res.isVarArgToCall());
+        if (_conf.getClassBody(realClass_) instanceof AnnotationBlock) {
+            //
+        }
         CustList<GeneMethod> methods_ = _conf.getMethodBodiesById(realClass_, realId_);
         GeneMethod m_ = methods_.first();
         idRet_.setReturnType(_res.getReturnType());
