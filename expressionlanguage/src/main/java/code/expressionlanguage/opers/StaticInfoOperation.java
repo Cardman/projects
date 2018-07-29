@@ -86,9 +86,21 @@ public final class StaticInfoOperation extends LeafOperation {
     }
     @Override
     public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
+        if (className.contains(Templates.PREFIX_VAR_TYPE)) {
+            return;
+        }
+        Argument a_ = new Argument();
+        a_.setStruct(_conf.getExtendedClassMetaInfo(className));
+        setSimpleArgumentAna(a_, _conf);
     }
     @Override
     public void tryCalculateNode(Analyzable _conf) {
+        if (className.contains(Templates.PREFIX_VAR_TYPE)) {
+            return;
+        }
+        Argument a_ = new Argument();
+        a_.setStruct(_conf.getExtendedClassMetaInfo(className));
+        setSimpleArgumentAna(a_, _conf);
     }
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {

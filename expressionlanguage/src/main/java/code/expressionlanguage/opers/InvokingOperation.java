@@ -714,8 +714,20 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String clName_ = _previous.getObjectClassName(_conf.getContextEl());
             if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotation_, clName_, _conf)) {
                 FieldableStruct f_ = (FieldableStruct) _previous.getStruct();
+                Struct ret_ = f_.getStruct(new ClassField(clName_, _methodId.getName()));
                 Argument a_ = new Argument();
-                a_.setStruct(f_.getStruct(new ClassField(clName_, _methodId.getName())));
+                if (ret_ instanceof ArrayStruct) {
+                    ArrayStruct orig_ = (ArrayStruct) ret_;
+                    Struct[] arr_ = orig_.getInstance();
+                    int len_ = arr_.length;
+                    ArrayStruct copy_ = new ArrayStruct(new Struct[len_], orig_.getClassName());
+                    for (int i = 0; i < len_; i++) {
+                        copy_.getInstance()[i] = arr_[i];
+                    }
+                    a_.setStruct(copy_);
+                } else {
+                    a_.setStruct(ret_);
+                }
                 return a_;
             }
         }

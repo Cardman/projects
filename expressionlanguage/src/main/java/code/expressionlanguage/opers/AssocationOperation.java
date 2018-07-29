@@ -69,12 +69,16 @@ public final class AssocationOperation extends AbstractUnaryOperation {
 
     @Override
     public void calculate(ExecutableCode _conf) {
+        Argument arg_ = getFirstChild().getArgument();
+        setSimpleArgument(arg_, _conf);
     }
 
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        return _nodes.getVal(this).getArgument();
+        Argument arg_ = _nodes.getVal(getFirstChild()).getArgument();
+        setSimpleArgument(arg_, _conf, _nodes);
+        return arg_;
     }
 
 }

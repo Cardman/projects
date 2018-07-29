@@ -110,6 +110,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             if (onParameters) {
                 int len_ = annotationsParams.size();
                 String annot_ = _context.getStandards().getAliasAnnotation();
+                annot_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
                 String annotArr_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annotArr_);
                 int i_ = 0;
@@ -122,8 +123,10 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             } else {
                 int len_ = annotations.size();
                 String annot_ = _context.getStandards().getAliasAnnotation();
+                annot_ = PrimitiveTypeUtil.getPrettyArrayType(annot_);
                 array = new ArrayStruct(new Struct[len_], annot_);
             }
+            retrievedAnnot = true;
         }
         if (onParameters) {
             int len_ = annotationsParams.size();
@@ -173,13 +176,13 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         
         Argument out_ = new Argument();
         out_.setStruct(array);
-        setRightArgument(out_);
+        setReturnedArgument(out_);
         return true;
     }
 
     @Override
     public boolean receive(Argument _argument, ContextEl _context) {
-        getLastEl().setArgument(_argument, _context);
+        getLastAnnotEl().setArgument(_argument, _context);
         return true;
     }
     public boolean isEmptyAnnotEl() {

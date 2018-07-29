@@ -1870,6 +1870,9 @@ public final class Classes {
         _context.setAnnotAnalysis(true);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             for (Block b:getSortedDescNodes(c.getValue())) {
+                if (b instanceof AnnotationMethodBlock) {
+                    ((AnnotationMethodBlock)b).buildExpressionLanguage(_context);
+                }
                 b.buildAnnotations(_context);
             }
         }
