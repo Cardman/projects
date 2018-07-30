@@ -6,6 +6,7 @@ public final class OperationsSequence {
     private static final char DOT_VAR = '.';
     private static final char ARR = '[';
     private static final char PAR = '(';
+    private static final char ARR_ANNOT = '{';
     private ConstType constType = ConstType.NOTHING;
 
     private NumberInfos nbInfos;
@@ -34,15 +35,36 @@ public final class OperationsSequence {
         offset = _offset;
     }
 
-    public void setupValues(String _string, boolean _is) {
+    public void setupValues(String _string, boolean _is, boolean _annot) {
         values = new NatTreeMap<Integer,String>();
-        if (operators.isEmpty()) {
+        if (operators.isEmpty() && !_annot) {
             priority = ElResolver.BAD_PRIO;
             return;
+        }
+        if (operators.isEmpty() && _annot) {
+        	priority = ElResolver.FCT_OPER_PRIO;
+        	values.put((int)CustList.FIRST_INDEX, _string);
+        	operators.put(_string.length(), "(");
+        	operators.put(_string.length()+1, ")");
+        	return;
         }
         String op_ = operators.firstValue();
         boolean pureDot_ = false;
         if (!op_.isEmpty()) {
+            if (_annot && op_.charAt(0) == ARR_ANNOT) {
+            	int i_ = CustList.SECOND_INDEX;
+                int nbKeys_ = operators.size();
+                int beginValuePart_ = CustList.FIRST_INDEX;
+                int endValuePart_ = operators.firstKey();
+                while (i_ < nbKeys_) {
+                    beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+                    endValuePart_ = operators.getKey(i_);
+                    String str_ = _string.substring(beginValuePart_, endValuePart_);
+                    values.put(beginValuePart_, str_);
+                    i_++;
+                }
+                return;
+            }
             if (op_.charAt(0) != DOT_VAR) {
                 if (priority == ElResolver.FCT_OPER_PRIO && !declaring) {
                     int afterLastPar_ = operators.lastKey()+1;

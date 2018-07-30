@@ -152,6 +152,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     indexAnnotation++;
                 }
                 indexAnnotationParam++;
+                indexAnnotation = 0;
             }
         } else {
             int len_ = annotations.size();

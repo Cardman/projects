@@ -815,6 +815,9 @@ public final class AnnotationResolver {
                 return op_;
             }
         }
+        if (_string.charAt(firstPrintChar_) == ANNOT) {
+        	
+        }
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR) {
             prio_ = UNARY_PRIO;
             operators_.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
@@ -1006,7 +1009,7 @@ public final class AnnotationResolver {
         op_.setOperators(operators_);
         op_.setUseFct(useFct_);
         op_.setFctName(fctName_);
-        op_.setupValues(_string, false);
+        op_.setupValues(_string, false, true);
         op_.setDelimiter(_d);
         return op_;
     }

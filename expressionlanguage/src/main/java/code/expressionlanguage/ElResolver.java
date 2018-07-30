@@ -2192,7 +2192,7 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setUseFct(useFct_);
         op_.setFctName(fctName_);
-        op_.setupValues(_string, is_);
+        op_.setupValues(_string, is_, false);
         op_.setDelimiter(_d);
         return op_;
     }
