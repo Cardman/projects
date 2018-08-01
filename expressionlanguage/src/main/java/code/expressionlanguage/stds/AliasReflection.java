@@ -6,6 +6,7 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
@@ -747,6 +748,19 @@ public class AliasReflection {
                         }
                         if (b instanceof MethodBlock) {
                             MethodBlock method_ = (MethodBlock) b;
+                            MethodId id_ = method_.getId();
+                            String ret_ = method_.getImportedReturnType();
+                            AccessEnum acc_ = method_.getAccess();
+                            String formatRet_;
+                            MethodId fid_;
+                            formatRet_ = ret_;
+                            fid_ = id_;
+                            String decl_ = method_.getDeclaringType();
+                            MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, method_.getModifier(), ret_, fid_, formatRet_,decl_);
+                            infos_.put(id_, met_);
+                        }
+                        if (b instanceof AnnotationMethodBlock) {
+                            AnnotationMethodBlock method_ = (AnnotationMethodBlock) b;
                             MethodId id_ = method_.getId();
                             String ret_ = method_.getImportedReturnType();
                             AccessEnum acc_ = method_.getAccess();

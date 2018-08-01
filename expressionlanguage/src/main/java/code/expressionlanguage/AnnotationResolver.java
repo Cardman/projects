@@ -29,8 +29,10 @@ public final class AnnotationResolver {
     private static final char PAR_RIGHT = ')';
     private static final char SEP_ARG = ',';
     private static final char DOT_VAR = '.';
+    private static final char GET_VAR = ';';
     private static final char ANNOT = '@';
     private static final char EXTERN_CLASS = FileResolver.SUPPLEMENT_CHAR;
+    private static final String GET_FIELD = ";;;";
     private static final String STATIC_ACCESS = "static";
     private static final String BOOLEAN = "bool";
     private static final String CLASS = "class";
@@ -38,7 +40,7 @@ public final class AnnotationResolver {
     private static final String TRUE_STRING = "true";
     private static final String FALSE_STRING = "false";
 
-    private static final String ARR = "[";
+    private static final String ARR = "{";
 
     private static final char NEG_BOOL_CHAR = '!';
 
@@ -436,7 +438,26 @@ public final class AnnotationResolver {
                 ConstType type_ = ConstType.NOTHING;
                 boolean tolerateDot_ = false;
                 VariableInfo info_ = new VariableInfo();
-                if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+                if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
+                    if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
+                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                            type_ = ConstType.CUST_FIELD;
+                            info_.setKind(type_);
+                            info_.setFirstChar(beginWord_);
+                            info_.setLastChar(i_+GET_FIELD.length());
+                            info_.setName(_string.substring(beginWord_, i_));
+                            i_ += GET_FIELD.length();
+                            d_.getVariables().add(info_);
+                            tolerateDot_ = true;
+                        } else {
+                            d_.setBadOffset(i_+2);
+                            return d_;
+                        }
+                    } else {
+                        d_.setBadOffset(i_+1);
+                        return d_;
+                    }
+                } else if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
                     tolerateDot_ = true;
                     type_ = ConstType.WORD;
                     info_.setKind(type_);
@@ -446,7 +467,7 @@ public final class AnnotationResolver {
                     d_.getVariables().add(info_);
                 }
                 String nextPart_ = _string.substring(i_).trim();
-                if (!tolerateDot_ && !nextPart_.isEmpty() && nextPart_.charAt(0) == DOT_VAR) {
+                if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
                     d_.setBadOffset(i_);
                     return d_;
                 }
@@ -816,7 +837,7 @@ public final class AnnotationResolver {
             }
         }
         if (_string.charAt(firstPrintChar_) == ANNOT) {
-        	
+            
         }
         if (_string.charAt(firstPrintChar_) == MINUS_CHAR || _string.charAt(firstPrintChar_) == PLUS_CHAR) {
             prio_ = UNARY_PRIO;

@@ -18,6 +18,8 @@ public final class EmptyPartType extends LeafPartType {
         un_.setFileName(_rooted.getFile().getFileName());
         un_.setRc(_location);
         _an.getClasses().addError(un_);
+        String object_ = _an.getStandards().getAliasObject();
+        setImportedTypeName(object_);
     }
 
     @Override

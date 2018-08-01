@@ -1870,6 +1870,7 @@ public final class Classes {
         _context.setAnnotAnalysis(true);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             for (Block b:getSortedDescNodes(c.getValue())) {
+                _context.getAnalyzing().setCurrentBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_context);
                 }
@@ -2440,6 +2441,19 @@ public final class Classes {
                         formatRet_ = ret_;
                         fid_ = id_;
                     }
+                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
+                    infos_.put(id_, met_);
+                }
+                if (b instanceof AnnotationMethodBlock) {
+                    AnnotationMethodBlock method_ = (AnnotationMethodBlock) b;
+                    MethodId id_ = method_.getId();
+                    String ret_ = method_.getImportedReturnType();
+                    AccessEnum acc_ = method_.getAccess();
+                    String formatRet_;
+                    MethodId fid_;
+                    String formCl_ = method_.getDeclaringType();
+                    formatRet_ = ret_;
+                    fid_ = id_;
                     MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
                     infos_.put(id_, met_);
                 }

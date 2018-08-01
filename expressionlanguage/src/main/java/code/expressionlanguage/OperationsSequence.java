@@ -42,17 +42,17 @@ public final class OperationsSequence {
             return;
         }
         if (operators.isEmpty() && _annot) {
-        	priority = ElResolver.FCT_OPER_PRIO;
-        	values.put((int)CustList.FIRST_INDEX, _string);
-        	operators.put(_string.length(), "(");
-        	operators.put(_string.length()+1, ")");
-        	return;
+            priority = ElResolver.FCT_OPER_PRIO;
+            values.put((int)CustList.FIRST_INDEX, _string);
+            operators.put(_string.length(), "(");
+            operators.put(_string.length()+1, ")");
+            return;
         }
         String op_ = operators.firstValue();
         boolean pureDot_ = false;
         if (!op_.isEmpty()) {
             if (_annot && op_.charAt(0) == ARR_ANNOT) {
-            	int i_ = CustList.SECOND_INDEX;
+                int i_ = CustList.SECOND_INDEX;
                 int nbKeys_ = operators.size();
                 int beginValuePart_ = CustList.FIRST_INDEX;
                 int endValuePart_ = operators.firstKey();
