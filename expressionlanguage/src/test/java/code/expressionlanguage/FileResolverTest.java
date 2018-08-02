@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.methods.AnnotationBlock;
+import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.BreakBlock;
 import code.expressionlanguage.methods.CaseCondition;
@@ -5278,6 +5280,155 @@ public final class FileResolverTest {
         assertEq(116, method_.getAnnotationsIndexesParams().first().first());
         assertEq(128, method_.getParametersTypesOffset().first());
         assertEq(133, method_.getParametersNamesOffset().first());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile58Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertNull(child_);
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile59Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("\t$String exmethod():\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof AnnotationMethodBlock);
+        AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
+        assertTrue(!method_.isStaticMethod());
+        assertTrue(!method_.isFinalMethod());
+        assertTrue(method_.isAbstractMethod());
+        assertTrue(!method_.isNormalMethod());
+        assertEq(0, method_.getAnnotations().size());
+        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertSame(AccessEnum.PUBLIC, method_.getAccess());
+        assertEq("exmethod", method_.getName());
+        assertEq(86, method_.getNameOffset());
+        assertEq(78, method_.getReturnTypeOffset());
+        assertEq("$String", method_.getReturnType());
+        assertEq("", method_.getDefaultValue());
+        assertNull(child_.getNextSibling());
+        assertEq(0, method_.getParametersTypes().size());
+        assertEq(0, method_.getParametersNames().size());
+        assertEq(0, method_.getAnnotationsParams().size());
+        assertEq(0, method_.getAnnotationsIndexesParams().size());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile60Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("\t$String exmethod()\"sample\":\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof AnnotationMethodBlock);
+        AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
+        assertTrue(!method_.isStaticMethod());
+        assertTrue(!method_.isFinalMethod());
+        assertTrue(method_.isAbstractMethod());
+        assertTrue(!method_.isNormalMethod());
+        assertEq(0, method_.getAnnotations().size());
+        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertSame(AccessEnum.PUBLIC, method_.getAccess());
+        
+        assertEq("exmethod", method_.getName());
+        assertEq(86, method_.getNameOffset());
+        assertEq(78, method_.getReturnTypeOffset());
+        assertEq(96, method_.getDefaultValueOffset());
+        assertEq("$String", method_.getReturnType());
+        assertEq("\"sample\"", method_.getDefaultValue());
+        assertNull(child_.getNextSibling());
+        assertEq(0, method_.getParametersTypes().size());
+        assertEq(0, method_.getParametersNames().size());
+        assertEq(0, method_.getAnnotationsParams().size());
+        assertEq(0, method_.getAnnotationsIndexesParams().size());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile61Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("\t@MyAnnot $String exmethod():\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof AnnotationMethodBlock);
+        AnnotationMethodBlock method_ = (AnnotationMethodBlock) child_;
+        assertTrue(!method_.isStaticMethod());
+        assertTrue(!method_.isFinalMethod());
+        assertTrue(method_.isAbstractMethod());
+        assertTrue(!method_.isNormalMethod());
+        assertSame(AccessEnum.PUBLIC, method_.getAccess());
+        assertEq("exmethod", method_.getName());
+        assertEq(95, method_.getNameOffset());
+        assertEq(87, method_.getReturnTypeOffset());
+        assertEq("$String", method_.getReturnType());
+        assertEq("", method_.getDefaultValue());
+        assertEq(1, method_.getAnnotations().size());
+        assertEq("@MyAnnot", method_.getAnnotations().first());
+        assertEq(1, method_.getAnnotationsIndexes().size());
+        assertEq(78, method_.getAnnotationsIndexes().first());
+        assertNull(child_.getNextSibling());
+        assertEq(0, method_.getParametersTypes().size());
+        assertEq(0, method_.getParametersNames().size());
+        assertEq(0, method_.getAnnotationsParams().size());
+        assertEq(0, method_.getAnnotationsIndexesParams().size());
         assertEq(1, countFileTypes(context_));
     }
     private static int countCustomTypes(ContextEl _cont) {

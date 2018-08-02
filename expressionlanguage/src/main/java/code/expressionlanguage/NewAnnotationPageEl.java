@@ -19,6 +19,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl i
             Argument value_ = args.get(i);
             str_.setStruct(new ClassField(className_, name_), value_.getStruct());
         }
+        setArgumentForConstructor();
         setNullReadWrite();
     }
     public StringList getNames() {

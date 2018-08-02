@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
@@ -391,9 +390,6 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String className_;
-        PageEl page_ = _conf.getOperationPageEl();
-        className_ = page_.formatVarType(className, _conf);
         if (array) {
             int nbCh_ = chidren_.size();
             int[] args_;
@@ -403,7 +399,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             Numbers<Integer> dims_;
             dims_ = new Numbers<Integer>();
             dims_.add(nbCh_);
-            Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
+            Struct str_ = PrimitiveTypeUtil.newCustomArray(className, dims_, _conf);
             for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                 Argument chArg_ = _arguments.get(i);
                 ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
@@ -415,12 +411,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             return a_;
         }
         if (possibleInitClass) {
-            String base_ = Templates.getIdFromAllTypes(className_);
+            String base_ = Templates.getIdFromAllTypes(className);
             if (InvokingOperation.hasToExit(_conf, base_)) {
                 return Argument.createVoid();
             }
         }
-        return instancePrepareAnnotation(_conf, className_, fieldNames, _arguments);
+        return instancePrepareAnnotation(_conf, className, fieldNames, _arguments);
     }
 
     @Override

@@ -301,7 +301,8 @@ public abstract class OperationNode {
             if (StringList.quickEq(op_, String.valueOf(ARR_ANNOT))) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(op_, AROBASE)) {
+            String fctName_ = _op.getFctName().trim();
+            if (fctName_.startsWith(AROBASE)) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
         }

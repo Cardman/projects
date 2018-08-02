@@ -1218,6 +1218,9 @@ public final class Classes {
     public void validateSingleParameterizedClasses(ContextEl _context) {
         for (EntryCust<String, RootBlock> i: classesBodies.entryList()) {
             RootBlock r_ = i.getValue();
+            if (r_ instanceof AnnotationBlock) {
+                continue;
+            }
             StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(_context);
             StringMap<StringList> baseParams_ = getBaseParams(genericSuperTypes_);
             for (EntryCust<String, StringList> e: baseParams_.entryList()) {

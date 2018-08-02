@@ -619,7 +619,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         if (mustImplement()) {
             concreteClass_ = true;
         }
-        StringList allSuperClass_ = getAllGenericSuperTypes(_context);
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
@@ -656,6 +655,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
                     classesRef_.addError(err_);
                 }
             }
+            StringList allSuperClass_ = getAllGenericSuperTypes(_context);
             for (String s: allSuperClass_) {
                 String base_ = Templates.getIdFromAllTypes(s);
                 RootBlock superBl_ = classesRef_.getClassBody(base_);

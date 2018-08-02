@@ -301,13 +301,15 @@ public final class ElUtil {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         _context.getTextualSortedOperations().clear();
         Block currentBlock_ = _context.getCurrentBlock();
-        if (currentBlock_ != null) {
+        if (currentBlock_ != null && !_context.isAnnotAnalysis()) {
             currentBlock_.defaultAssignmentBefore(_context, _root);
         }
         OperationNode c_ = _root;
+        if (_context.isAnnotAnalysis())
+        System.out.println(_root);
         while (true) {
             if (c_ == null) {
-                if (currentBlock_ != null) {
+                if (currentBlock_ != null && !_context.isAnnotAnalysis()) {
                     currentBlock_.defaultAssignmentAfter(_context, _root);
                 }
                 break;
@@ -326,7 +328,9 @@ public final class ElUtil {
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
-            ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
+            if (!_context.isAnnotAnalysis()) {
+                ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
+            }
             return next_;
         }
         OperationNode current_ = _current;
@@ -334,7 +338,9 @@ public final class ElUtil {
             current_.setStaticBlock(_staticBlock);
             current_.analyze(_context);
             current_.tryCalculateNode(_context);
-            current_.tryAnalyzeAssignmentAfter(_context);
+            if (!_context.isAnnotAnalysis()) {
+                current_.tryAnalyzeAssignmentAfter(_context);
+            }
             _sortedNodes.add(current_);
             if (current_ instanceof StaticInitOperation) {
                 next_ = createFirstChild(current_.getParent(), _context, 1);
@@ -361,7 +367,9 @@ public final class ElUtil {
                     }
                 }
                 par_.appendChild(next_);
-                par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
+                if (!_context.isAnnotAnalysis()) {
+                    par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
+                }
                 return next_;
             }
             if (par_ == _root) {
@@ -372,7 +380,9 @@ public final class ElUtil {
                     cl_.setUnwrapObject(cl_);
                 }
                 par_.tryCalculateNode(_context);
-                par_.tryAnalyzeAssignmentAfter(_context);
+                if (!_context.isAnnotAnalysis()) {
+                    par_.tryAnalyzeAssignmentAfter(_context);
+                }
                 _sortedNodes.add(par_);
                 return null;
             }

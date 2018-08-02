@@ -889,16 +889,14 @@ public final class FileResolver {
                             delta_ = typeOffset_ - instructionRealLocation_;
                         }
                         String declaringType_ = getDeclaringTypeInstr(found_);
-                        typeOffset_ += delta_;
-                        typeOffset_ += StringList.getFirstPrintableCharIndex(declaringType_);
                         found_ = found_.substring(declaringType_.length());
                         int fieldOffest_ = typeOffset_;
-                        fieldOffest_ += declaringType_.length();
+                        fieldOffest_ += declaringType_.trim().length();
                         fieldOffest_ += StringList.getFirstPrintableCharIndex(found_);
                         int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
                         fieldName_ = found_.substring(0, indexBeginCalling_);
                         expression_ = found_.substring(found_.lastIndexOf(END_CALLING)+1);
-                        expressionOffest_ = instructionRealLocation_ + found_.lastIndexOf(END_CALLING) + 1 + delta_;
+                        expressionOffest_ = instructionLocation_ + trimmedInstruction_.lastIndexOf(END_CALLING) + 1 + delta_;
                         if (!expression_.trim().isEmpty()) {
                             expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
                         }

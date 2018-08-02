@@ -51,7 +51,7 @@ public final class TypeUtil {
             if (c instanceof GeneClass) {
                 c.getAllSuperTypes().addAllElts(((GeneClass)c).getAllSuperClasses(_context));
                 c.getAllSuperTypes().addAllElts(((GeneClass)c).getAllInterfaces());
-            } else {
+            } else if (c instanceof GeneInterface){
                 c.getAllSuperTypes().addAllElts(((GeneInterface)c).getAllSuperClasses());
             }
         }
@@ -236,7 +236,7 @@ public final class TypeUtil {
             allSuperInterfaces_.removeAllObj(aliasObject_);
             allSuperInterfaces_.removeDuplicates();
             type_.getAllInterfaces().addAllElts(allSuperInterfaces_);
-        } else {
+        } else if (_type instanceof GeneInterface){
             GeneInterface type_ = (GeneInterface) _context.getClassBody(typeName_);
             StringList allSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
             StringList currentSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
