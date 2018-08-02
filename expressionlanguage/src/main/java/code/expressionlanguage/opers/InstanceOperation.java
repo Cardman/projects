@@ -265,7 +265,7 @@ public final class InstanceOperation extends InvokingOperation {
             call_.setFileName(_conf.getCurrentFileName());
             call_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(call_);
-            setResultClass(new ClassArgumentMatching(realClassName_));
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (g_.isAbstractType() && !(g_ instanceof EnumBlock)) {

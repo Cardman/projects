@@ -24,6 +24,7 @@ import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PossibleIntermediateDotted;
+import code.expressionlanguage.opers.PreAnalyzableOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StaticAccessOperation;
@@ -310,6 +311,9 @@ public final class ElUtil {
                     currentBlock_.defaultAssignmentAfter(_context, _root);
                 }
                 break;
+            }
+            if (c_ instanceof PreAnalyzableOperation) {
+                ((PreAnalyzableOperation)c_).preAnalyze(_context);
             }
             c_ = getAnalyzedNext(c_, _root, list_, _staticBlock, _context);
         }

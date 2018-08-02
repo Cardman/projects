@@ -35,6 +35,8 @@ public final class ElResolver {
     private static final char IND_BOUND = 'b';
     private static final char ARR_LEFT = '[';
     private static final char ARR_RIGHT = ']';
+    private static final char ANN_ARR_LEFT = '{';
+    private static final char ANN_ARR_RIGHT = '}';
     private static final char PAR_LEFT = '(';
     private static final char PAR_RIGHT = ')';
     private static final char SEP_ARG = ',';
@@ -55,6 +57,7 @@ public final class ElResolver {
     private static final String GET_ATTRIBUTE = ";";
     private static final String GET_PARAM = ";.;";
     private static final String GET_FIELD = ";;;";
+    private static final char ANNOT = '@';
     private static final char EXTERN_CLASS = FileResolver.SUPPLEMENT_CHAR;
     private static final String CLASS_CHOICE = "classchoice";
     private static final String INTERFACES = "interfaces";
@@ -83,6 +86,7 @@ public final class ElResolver {
     private static final char MAX_ENCODE_UPP_LETTER = 'F';
 
     private static final String ARR = "[";
+    private static final String ANN_ARR = "{";
 
     private static final char NEG_BOOL_CHAR = '!';
 
@@ -187,9 +191,16 @@ public final class ElResolver {
                             d_.setBadOffset(i_);
                             return d_;
                         }
-                        if (nextPart_.charAt(0) == ARR_LEFT) {
-                            d_.setBadOffset(i_);
-                            return d_;
+                        if (_conf.isAnnotAnalysis()) {
+                            if (nextPart_.charAt(0) == ANN_ARR_LEFT) {
+                                d_.setBadOffset(i_);
+                                return d_;
+                            }
+                        } else {
+                            if (nextPart_.charAt(0) == ARR_LEFT) {
+                                d_.setBadOffset(i_);
+                                return d_;
+                            }
                         }
                         if (nextPart_.charAt(0) == PAR_LEFT) {
                             d_.setBadOffset(i_);
@@ -255,9 +266,16 @@ public final class ElResolver {
                             d_.setBadOffset(i_);
                             return d_;
                         }
-                        if (nextPart_.charAt(0) == ARR_LEFT) {
-                            d_.setBadOffset(i_);
-                            return d_;
+                        if (_conf.isAnnotAnalysis()) {
+                            if (nextPart_.charAt(0) == ANN_ARR_LEFT) {
+                                d_.setBadOffset(i_);
+                                return d_;
+                            }
+                        } else {
+                            if (nextPart_.charAt(0) == ARR_LEFT) {
+                                d_.setBadOffset(i_);
+                                return d_;
+                            }
                         }
                         if (nextPart_.charAt(0) == PAR_LEFT) {
                             d_.setBadOffset(i_);
@@ -282,6 +300,32 @@ public final class ElResolver {
                 escapedMeta_ = res_.isEscape();
                 nbChars_ = res_.getNbChars();
                 unicode_ = res_.getUnicode();
+                continue;
+            }
+            if (curChar_ == ANNOT && _conf.isAnnotAnalysis()) {
+                int j_ = i_ + 1;
+                while (j_ < len_) {
+                    char locChar_ = _string.charAt(j_);
+                    if (StringList.isWordChar(locChar_)) {
+                        j_++;
+                        continue;
+                    }
+                    if (locChar_ == EXTERN_CLASS) {
+                        j_++;
+                        continue;
+                    }
+                    if (locChar_ == DOT_VAR) {
+                        j_++;
+                        continue;
+                    }
+                    if (Character.isWhitespace(locChar_)) {
+                        j_++;
+                        continue;
+                    }
+                    hatMethod_ = false;
+                    break;
+                }
+                i_ = j_;
                 continue;
             }
             if (curChar_ == EXTERN_CLASS) {
@@ -921,6 +965,7 @@ public final class ElResolver {
             }
             if (curChar_ == DOT_VAR) {
                 if (isNumber(i_ + 1, len_, _string)) {
+                    enabledMinus_ = true;
                     NumberInfosOutput res_ = processNb(i_ + 1, len_, _string, true);
                     int nextIndex_ = res_.getNextIndex();
                     if (nextIndex_ < 0) {
@@ -996,19 +1041,36 @@ public final class ElResolver {
                 }
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
-            if (curChar_ == ARR_LEFT) {
-                parsBrackets_.put(i_, curChar_);
-            }
-            if (curChar_ == ARR_RIGHT) {
-                if (parsBrackets_.isEmpty()) {
-                    d_.setBadOffset(i_);
-                    return d_;
+            if (_conf.isAnnotAnalysis()) {
+                if (curChar_ == ANN_ARR_LEFT) {
+                    parsBrackets_.put(i_, curChar_);
                 }
-                if (parsBrackets_.lastValue() != ARR_LEFT) {
-                    d_.setBadOffset(i_);
-                    return d_;
+                if (curChar_ == ANN_ARR_RIGHT) {
+                    if (parsBrackets_.isEmpty()) {
+                        d_.setBadOffset(i_);
+                        return d_;
+                    }
+                    if (parsBrackets_.lastValue() != ANN_ARR_LEFT) {
+                        d_.setBadOffset(i_);
+                        return d_;
+                    }
+                    parsBrackets_.removeKey(parsBrackets_.lastKey());
                 }
-                parsBrackets_.removeKey(parsBrackets_.lastKey());
+            } else {
+                if (curChar_ == ARR_LEFT) {
+                    parsBrackets_.put(i_, curChar_);
+                }
+                if (curChar_ == ARR_RIGHT) {
+                    if (parsBrackets_.isEmpty()) {
+                        d_.setBadOffset(i_);
+                        return d_;
+                    }
+                    if (parsBrackets_.lastValue() != ARR_LEFT) {
+                        d_.setBadOffset(i_);
+                        return d_;
+                    }
+                    parsBrackets_.removeKey(parsBrackets_.lastKey());
+                }
             }
             if (curChar_ == SEP_ARG) {
                 if (parsBrackets_.isEmpty() && !_conf.isMerged()) {
@@ -1020,7 +1082,7 @@ public final class ElResolver {
             if (curChar_ == PLUS_CHAR && _conf.getOptions().applyEqPlus()) {
                 pureBinaryOp_ = true;
             }
-            if ((curChar_ == PLUS_CHAR || curChar_ == MINUS_CHAR) && _conf.getOptions().isMultipleAffectations()) {
+            if ((curChar_ == PLUS_CHAR || curChar_ == MINUS_CHAR) && applyMultipleAffectations(_conf)) {
                 pureBinaryOp_ = false;
             }
             if (curChar_ == MULT_CHAR) {
@@ -1081,11 +1143,20 @@ public final class ElResolver {
             if (curChar_ == MOD_CHAR) {
                 idOp_ = true;
             }
-            if (curChar_ == ARR_LEFT) {
-                idOp_ = true;
-            }
-            if (curChar_ == ARR_RIGHT) {
-                idOp_ = true;
+            if (_conf.isAnnotAnalysis()) {
+                if (curChar_ == ANN_ARR_LEFT) {
+                    idOp_ = true;
+                }
+                if (curChar_ == ANN_ARR_RIGHT) {
+                    idOp_ = true;
+                }
+            } else {
+                if (curChar_ == ARR_LEFT) {
+                    idOp_ = true;
+                }
+                if (curChar_ == ARR_RIGHT) {
+                    idOp_ = true;
+                }
             }
             if (curChar_ == PAR_LEFT) {
                 idOp_ = true;
@@ -1113,7 +1184,7 @@ public final class ElResolver {
                 d_.setBadOffset(i_);
                 return d_;
             }
-            if (_conf.isRootAffect() || _conf.getOptions().isMultipleAffectations()) {
+            if (_conf.isRootAffect() || applyMultipleAffectations(_conf)) {
                 boolean compound_ = false;
                 if (curChar_ == PLUS_CHAR) {
                     compound_ = true;
@@ -1135,7 +1206,7 @@ public final class ElResolver {
                     compound_ = true;
                 } else if (curChar_ == NEG_BOOL_CHAR) {
                     compound_ = true;
-                } else if (curChar_ == EQ_CHAR && _conf.getOptions().isMultipleAffectations()) {
+                } else if (curChar_ == EQ_CHAR && applyMultipleAffectations(_conf)) {
                     compound_ = true;
                 }
                 if (compound_) {
@@ -1576,6 +1647,9 @@ public final class ElResolver {
         if (char_ == PAR_LEFT) {
             return false;
         }
+        if (char_ == ANN_ARR_LEFT) {
+            return false;
+        }
         if (char_ == ARR_LEFT) {
             return false;
         }
@@ -1877,7 +1951,7 @@ public final class ElResolver {
                 }
             }
         }
-        if (preIncr_ && _conf.getOptions().isMultipleAffectations()) {
+        if (preIncr_ && applyMultipleAffectations(_conf)) {
             prio_ = UNARY_PRIO;
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
             operators_.put(firstPrintChar_, StringList.concat(EMPTY_STRING,ch_,ch_));
@@ -1951,28 +2025,55 @@ public final class ElResolver {
                         operators_.put(i_, String.valueOf(PAR_RIGHT));
                     }
                 }
-                if (curChar_ == ARR_LEFT) {
-                    if (parsBrackets_.isEmpty() && !declaring_) {
-                        if (FCT_OPER_PRIO <= prio_) {
-                            useFct_ = false;
-                            fctName_ = EMPTY_STRING;
-                            operators_.clear();
-                            if (firstPrintChar_ == i_) {
-                                operators_.put(i_, ARR);
-                            } else {
-                                operators_.put(i_, EMPTY_STRING);
+                if (_conf.isAnnotAnalysis()) {
+                    if (curChar_ == ANN_ARR_LEFT) {
+                        if (parsBrackets_.isEmpty() && !declaring_) {
+                            if (FCT_OPER_PRIO <= prio_) {
+                                useFct_ = false;
+                                fctName_ = EMPTY_STRING;
+                                operators_.clear();
+                                if (firstPrintChar_ == i_) {
+                                    operators_.put(i_, ANN_ARR);
+                                } else {
+                                    operators_.put(i_, EMPTY_STRING);
+                                }
                             }
                         }
+                        parsBrackets_.put(i_, curChar_);
                     }
-                    parsBrackets_.put(i_, curChar_);
-                }
-                if (curChar_ == ARR_RIGHT) {
-                    parsBrackets_.removeKey(parsBrackets_.lastKey());
-                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
-                        if (!operators_.lastValue().isEmpty()) {
-                            operators_.put(i_, String.valueOf(ARR_RIGHT));
+                    if (curChar_ == ANN_ARR_RIGHT) {
+                        parsBrackets_.removeKey(parsBrackets_.lastKey());
+                        if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
+                            if (!operators_.lastValue().isEmpty()) {
+                                operators_.put(i_, String.valueOf(ANN_ARR_RIGHT));
+                            }
+                            enabledId_ = true;
                         }
-                        enabledId_ = true;
+                    }
+                } else {
+                    if (curChar_ == ARR_LEFT) {
+                        if (parsBrackets_.isEmpty() && !declaring_) {
+                            if (FCT_OPER_PRIO <= prio_) {
+                                useFct_ = false;
+                                fctName_ = EMPTY_STRING;
+                                operators_.clear();
+                                if (firstPrintChar_ == i_) {
+                                    operators_.put(i_, ARR);
+                                } else {
+                                    operators_.put(i_, EMPTY_STRING);
+                                }
+                            }
+                        }
+                        parsBrackets_.put(i_, curChar_);
+                    }
+                    if (curChar_ == ARR_RIGHT) {
+                        parsBrackets_.removeKey(parsBrackets_.lastKey());
+                        if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
+                            if (!operators_.lastValue().isEmpty()) {
+                                operators_.put(i_, String.valueOf(ARR_RIGHT));
+                            }
+                            enabledId_ = true;
+                        }
                     }
                 }
                 if (parsBrackets_.isEmpty() && !declaring_) {
@@ -1993,7 +2094,7 @@ public final class ElResolver {
                         boolean processNextEq_ = false;
                         if (curChar_ == NEG_BOOL_CHAR) {
                             processNextEq_ = true;
-                        } else if (_conf.getOptions().isMultipleAffectations()) {
+                        } else if (applyMultipleAffectations(_conf)) {
                             processNextEq_ = true;
                         }
                         if (processNextEq_) {
@@ -2029,7 +2130,7 @@ public final class ElResolver {
                                 prio_ = EQ_PRIO;
                                 foundOperator_ = true;
                             }
-                        } else if (!_conf.getOptions().isMultipleAffectations()) {
+                        } else if (!applyMultipleAffectations(_conf)) {
                             builtOperator_.append(EQ_CHAR);
                             if (_conf.isAnalyzingRoot() && _conf.isRootAffect()) {
                                 if (i_ + 1 < _string.length()) {
@@ -2093,10 +2194,10 @@ public final class ElResolver {
                     }
                     if (prioOpMult_ > 0) {
                         builtOperator_.append(curChar_);
-                        if (_conf.isAnalyzingRoot() && _conf.isRootAffect() || _conf.getOptions().isMultipleAffectations()) {
+                        if (_conf.isAnalyzingRoot() && _conf.isRootAffect() || applyMultipleAffectations(_conf)) {
                             if (i_ + 1 < len_) {
                                 char nextChar_ = _string.charAt(i_ + 1);
-                                if (prioOpMult_ == ADD_PRIO && nextChar_ == curChar_ && (i_ + 2 == len_ || _conf.getOptions().isMultipleAffectations() )) {
+                                if (prioOpMult_ == ADD_PRIO && nextChar_ == curChar_ && (i_ + 2 == len_ || applyMultipleAffectations(_conf))) {
                                     if (prio_ > POST_INCR_PRIO) {
                                         clearOperators_ = true;
                                         prio_ = POST_INCR_PRIO;
@@ -2192,11 +2293,18 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setUseFct(useFct_);
         op_.setFctName(fctName_);
-        op_.setupValues(_string, is_, false);
+        boolean annotation_ = _conf.isAnnotAnalysis();
+        op_.setupValues(_string, is_, annotation_);
         op_.setDelimiter(_d);
         return op_;
     }
 
+    static boolean applyMultipleAffectations(Analyzable _an) {
+        if (_an.getOptions().isMultipleAffectations()) {
+            return true;
+        }
+        return _an.isAnnotAnalysis();
+    }
     static int incrementUnary(String _string, int _from, int _to, int _offset, Delimiters _d) {
         int j_ = _from;
         while (j_ <= _to) {

@@ -3256,6 +3256,23 @@ public class ElResolverTest {
     
         assertTrue(seq_.isArray());
     }
+
+    @Test
+    public void getOperationsSequence191Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "-.1e-2-.5";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("-", opers_.getVal(6));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("-.1e-2", values_.getVal(0));
+        assertEq(".5", values_.getVal(7));
+        assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
+    }
     @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();

@@ -101,7 +101,7 @@ public abstract class OperationNode {
     protected static final String INTERN_BEAN = "intern";
 
     protected static final String FCT = "(";
-
+    protected static final char ARR_ANNOT = '{';
     protected static final String ARR = "[";
 
     protected static final String ARR_DYN = "[]";
@@ -296,6 +296,15 @@ public abstract class OperationNode {
         if (_op.isDeclaring()) {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
         }
+        if (_an.isAnnotAnalysis()) {
+            String op_ = _op.getOperators().firstValue();
+            if (StringList.quickEq(op_, String.valueOf(ARR_ANNOT))) {
+                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+            }
+            if (StringList.quickEq(op_, AROBASE)) {
+                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+            }
+        }
         if (_op.isCall()) {
             String fctName_ = _op.getFctName().trim();
             if (fctName_.isEmpty()) {
@@ -309,9 +318,6 @@ public abstract class OperationNode {
             }
             if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
                 return new TernaryOperation(_index, _indexChild, _m, _op);
-            }
-            if (_an.isAnnotAnalysis()) {
-                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
             if (fctName_.startsWith(prefixFunction(INSTANCE))) {
                 return new InstanceOperation(_index, _indexChild, _m, _op);

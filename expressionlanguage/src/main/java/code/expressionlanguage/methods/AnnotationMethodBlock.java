@@ -3,9 +3,9 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
-import code.expressionlanguage.AnnotationUtil;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FieldInitPageEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
@@ -212,7 +212,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
         _cont.setRootAffect(false);
-        opValue = AnnotationUtil.getAnalyzedOperations(defaultValue, _cont, Calculation.staticCalculation(true));
+        opValue = ElUtil.getAnalyzedOperations(defaultValue, _cont, Calculation.staticCalculation(true));
         if (opValue.isEmpty()) {
             return;
         }

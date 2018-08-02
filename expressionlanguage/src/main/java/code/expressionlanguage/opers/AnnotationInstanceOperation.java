@@ -9,6 +9,7 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -20,12 +21,10 @@ import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.IllegalCallCtorByType;
 import code.expressionlanguage.methods.util.UndefinedFieldError;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
-import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.Struct;
-import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -34,7 +33,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class AnnotationInstanceOperation extends InvokingOperation {
+public final class AnnotationInstanceOperation extends InvokingOperation implements PreAnalyzableOperation {
 
     private boolean possibleInitClass;
 
@@ -55,50 +54,135 @@ public final class AnnotationInstanceOperation extends InvokingOperation {
     }
 
     @Override
+    public void preAnalyze(Analyzable _conf) {
+        if (methodName.trim().isEmpty()) {
+            array = true;
+            MethodOperation mOp_ = getParent();
+            if (mOp_ instanceof AssocationOperation) {
+                AssocationOperation ass_ = (AssocationOperation) mOp_;
+                String fieldName_ = ass_.getFieldName();
+                MethodOperation mOpAss_ = ass_.getParent();
+                if (mOpAss_ instanceof AnnotationInstanceOperation) {
+                    AnnotationInstanceOperation inst_;
+                    inst_ = (AnnotationInstanceOperation)mOpAss_;
+                    String className_ = inst_.getClassName();
+                    Block ann_ = (Block) _conf.getClassBody(className_);
+                    String type_ = EMPTY_STRING;
+                    for (Block b: Classes.getDirectChildren(ann_)) {
+                        if (!(b instanceof AnnotationMethodBlock)) {
+                            continue;
+                        }
+                        AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+                        if (StringList.quickEq(a_.getName(), fieldName_)) {
+                            type_ = a_.getImportedReturnType();
+                            break;
+                        }
+                    }
+                    if (!type_.isEmpty()) {
+                        className = type_;
+                    } else {
+                        className = _conf.getStandards().getAliasObject();
+                    }
+                } else {
+                    className = _conf.getStandards().getAliasObject();
+                }
+            } else if (mOp_ instanceof AnnotationInstanceOperation) {
+                if (((AnnotationInstanceOperation)mOp_).isArray()) {
+                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setFileName(_conf.getCurrentFileName());
+                    _conf.getClasses().addError(un_);
+                    className = _conf.getStandards().getAliasObject();
+                } else {
+                    AnnotationInstanceOperation inst_;
+                    inst_ = (AnnotationInstanceOperation)mOp_;
+                    String className_ = inst_.getClassName();
+                    Block ann_ = (Block) _conf.getClassBody(className_);
+                    CustList<Block> bls_ = Classes.getDirectChildren(ann_);
+                    CustList<AnnotationMethodBlock> blsAnn_ = new CustList<AnnotationMethodBlock>();
+                    for (Block b: bls_) {
+                        if (!(b instanceof AnnotationMethodBlock)) {
+                            continue;
+                        }
+                        AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+                        blsAnn_.add(a_);
+                    }
+                    if (blsAnn_.size() != 1) {
+                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                        un_.setRc(_conf.getCurrentLocation());
+                        un_.setFileName(_conf.getCurrentFileName());
+                        _conf.getClasses().addError(un_);
+                        className = _conf.getStandards().getAliasObject();
+                    } else {
+                        AnnotationMethodBlock a_ =blsAnn_.first();
+                        className = a_.getImportedReturnType();
+                    }
+                }
+            }
+        } else {
+            String className_ = methodName.trim().substring(AROBASE.length());
+            className_ = className_.trim();
+            String realClassName_ = className_;
+            realClassName_ = _conf.resolveCorrectType(realClassName_);
+            GeneType g_ = _conf.getClassBody(realClassName_);
+            if (g_ == null) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(realClassName_);
+                call_.setFileName(_conf.getCurrentFileName());
+                call_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(call_);
+                className = _conf.getStandards().getAliasObject();
+                setResultClass(new ClassArgumentMatching(className));
+                return;
+            }
+            if (!(g_ instanceof AnnotationBlock)) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(realClassName_);
+                call_.setFileName(_conf.getCurrentFileName());
+                call_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(call_);
+                className = _conf.getStandards().getAliasObject();
+                setResultClass(new ClassArgumentMatching(realClassName_));
+                return;
+            }
+            className = realClassName_;
+            possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst();
+        }
+    }
+    public boolean isArray() {
+        return array;
+    }
+    public String getClassName() {
+        return className;
+    }
+    @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        className = _conf.getStandards().getAliasObject();
-        String className_ = methodName.trim().substring(AROBASE.length());
-        className_ = className_.trim();
-        String realClassName_ = className_;
-        if (!methodName.trim().startsWith(AROBASE)) {
-            array = true;
-            StringList subclasses_ = new StringList();
-            boolean existNull_ = false;
+        if (array) {
+            StringMap<StringList> map_;
+            map_ = new StringMap<StringList>();
+            String eltType_ = PrimitiveTypeUtil.getQuickComponentType(className);
+            Mapping mapping_ = new Mapping();
+            mapping_.setParam(eltType_);
             for (OperationNode o: chidren_) {
+                setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
                 String argType_ = o.getResultClass().getName();
-                if (argType_.isEmpty()) {
-                    existNull_ = true;
-                    continue;
+                mapping_.setArg(argType_);
+                mapping_.setMapping(map_);
+                if (!Templates.isGenericCorrect(mapping_, _conf)) {
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(cast_);
                 }
-                subclasses_.add(argType_);
-            }
-            subclasses_ = PrimitiveTypeUtil.getSubclasses(subclasses_, _conf);
-            if (subclasses_.size() != 1 || StringList.quickEq(subclasses_.first(), _conf.getStandards().getAliasObject())) {
-                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setRc(_conf.getCurrentLocation());
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-                un_.setOperands(subclasses_);
-                _conf.getClasses().addError(un_);
-                LgNames stds_ = _conf.getStandards();
-                setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
-                return;
-            }
-            String eltType_ = subclasses_.first();
-            if (existNull_) {
-                eltType_ = PrimitiveTypeUtil.toWrapper(eltType_, true, _conf.getStandards());
-            }
-            if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
-                for (OperationNode o: chidren_) {
+                if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
                     o.getResultClass().setUnwrapObject(eltType_);
                 }
             }
-            realClassName_ = eltType_;
-            className = realClassName_;
-            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(realClassName_, CustList.ONE_ELEMENT)));
+            setResultClass(new ClassArgumentMatching(className));
             return;
         }
         CustList<OperationNode> filter_ = new CustList<OperationNode>();
@@ -110,11 +194,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation {
         }
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         setStaticAccess(_conf.isStaticContext());
-        analyzeCtor(_conf, realClassName_, firstArgs_);
+        analyzeCtor(_conf, firstArgs_);
     }
 
-    void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
-        String realClassName_ = _realClassName;
+    void analyzeCtor(Analyzable _conf, CustList<ClassArgumentMatching> _firstArgs) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = new CustList<OperationNode>();
         for (OperationNode o: chidren_) {
@@ -123,20 +206,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation {
             }
             filter_.add(o);
         }
-
-        realClassName_ = _conf.resolveCorrectType(realClassName_);
-        GeneType g_ = _conf.getClassBody(realClassName_);
-        if (g_ == null) {
-            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(realClassName_);
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().addError(call_);
-            setResultClass(new ClassArgumentMatching(realClassName_));
+        String objCl_ = _conf.getStandards().getAliasObject();
+        if (StringList.quickEq(className, objCl_)) {
+            setResultClass(new ClassArgumentMatching(className));
             return;
         }
-        className = realClassName_;
-        possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst();
+
+        GeneType g_ = _conf.getClassBody(className);
         StringMap<Boolean> fieldsOpt_ = new StringMap<Boolean>();
         StringMap<String> fieldsTypes_ = new StringMap<String>();
         for (Block b: Classes.getDirectChildren((Block)g_)) {
@@ -149,18 +225,34 @@ public final class AnnotationInstanceOperation extends InvokingOperation {
         }
         StringList suppliedFields_ = new StringList();
         StringMap<String> suppliedFieldsType_ = new StringMap<String>();
-        boolean exist_ = false;
         for (OperationNode o: filter_) {
             if (!(o instanceof AssocationOperation)) {
-                exist_ = true;
                 continue;
             }
             AssocationOperation a_ = (AssocationOperation) o;
             suppliedFields_.add(a_.getFieldName());
             suppliedFieldsType_.put(a_.getFieldName(), a_.getResultClass().getName());
         }
-        if (exist_ && filter_.size() == 1 && suppliedFields_.isEmpty()) {
-            //guess the unique field
+        if (filter_.size() == 1 && suppliedFields_.isEmpty()) {
+            if (fieldsTypes_.size() == 1) {
+                //guess the unique field
+                String arg_ = filter_.first().getResultClass().getName();
+                String param_ = fieldsTypes_.getValue(0);
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
+                    //ERROR
+                    StringMap<StringList> vars_ = new StringMap<StringList>();
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setMapping(vars_);
+                    mapping_.setArg(arg_);
+                    mapping_.setParam(param_);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(cast_);
+                }
+                fieldNames.add(fieldsTypes_.getKey(0));
+            }
         }
         int nb_ = suppliedFields_.size();
         suppliedFields_.removeDuplicates();
@@ -177,7 +269,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation {
                 //ERROR
                 UndefinedFieldError cast_ = new UndefinedFieldError();
                 cast_.setId(f);
-                cast_.setClassName(realClassName_);
+                cast_.setClassName(className);
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
                 _conf.getClasses().addError(cast_);
@@ -214,37 +306,11 @@ public final class AnnotationInstanceOperation extends InvokingOperation {
                 _conf.getClasses().addError(cast_);
             }
         }
-        setResultClass(new ClassArgumentMatching(realClassName_));
+        setResultClass(new ClassArgumentMatching(className));
     }
 
     @Override
     public void quickCalculate(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        int off_ = StringList.getFirstPrintableCharIndex(methodName);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        if (array) {
-            for (OperationNode o: chidren_) {
-                arguments_.add(o.getArgument());
-            }
-            int nbCh_ = chidren_.size();
-            int[] args_;
-            args_ = new int[CustList.ONE_ELEMENT];
-            args_[CustList.FIRST_INDEX] = chidren_.size();
-            Argument a_ = new Argument();
-            Numbers<Integer> dims_;
-            dims_ = new Numbers<Integer>();
-            dims_.add(nbCh_);
-            ArrayStruct str_ = PrimitiveTypeUtil.newCustomArray(className, dims_, _conf);
-            for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
-                Argument chArg_ = arguments_.get(i);
-                if (!setCheckedElement(str_, i, chArg_, _conf)) {
-                    return;
-                }
-            }
-            a_.setStruct(str_);
-            setSimpleArgumentAna(a_, _conf);
-        }
     }
 
     @Override

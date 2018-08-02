@@ -1,8 +1,8 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.AnnotationUtil;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
@@ -977,7 +977,7 @@ public abstract class Block extends Blockable {
         annotationsOps = new CustList<CustList<OperationNode>>();
         for (String a: annotations) {
             Calculation c_ = Calculation.staticCalculation(true);
-            annotationsOps.add(AnnotationUtil.getAnalyzedOperations(a, _context, c_));
+            annotationsOps.add(ElUtil.getAnalyzedOperations(a, _context, c_));
         }
     }
     public StringList getAnnotations() {

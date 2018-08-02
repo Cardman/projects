@@ -44,22 +44,32 @@ public final class OperationsSequence {
         if (operators.isEmpty() && _annot) {
             priority = ElResolver.FCT_OPER_PRIO;
             values.put((int)CustList.FIRST_INDEX, _string);
-            operators.put(_string.length(), "(");
-            operators.put(_string.length()+1, ")");
+            operators.put(_string.length(), "");
             return;
         }
         String op_ = operators.firstValue();
         boolean pureDot_ = false;
         if (!op_.isEmpty()) {
             if (_annot && op_.charAt(0) == ARR_ANNOT) {
-                int i_ = CustList.SECOND_INDEX;
-                int nbKeys_ = operators.size();
                 int beginValuePart_ = CustList.FIRST_INDEX;
                 int endValuePart_ = operators.firstKey();
+                String str_ = _string.substring(beginValuePart_, endValuePart_);
+                values.put(beginValuePart_, str_);
+                int i_ = CustList.SECOND_INDEX;
+                int nbKeys_ = operators.size();
+                if (nbKeys_ == 2) {
+                    beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+                    endValuePart_ = operators.getKey(i_);
+                    str_ = _string.substring(beginValuePart_, endValuePart_);
+                    if (!str_.trim().isEmpty()) {
+                        values.put(beginValuePart_, str_);
+                    }
+                    return;
+                }
                 while (i_ < nbKeys_) {
                     beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
                     endValuePart_ = operators.getKey(i_);
-                    String str_ = _string.substring(beginValuePart_, endValuePart_);
+                    str_ = _string.substring(beginValuePart_, endValuePart_);
                     values.put(beginValuePart_, str_);
                     i_++;
                 }

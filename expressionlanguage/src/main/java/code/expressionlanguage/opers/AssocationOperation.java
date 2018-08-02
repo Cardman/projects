@@ -5,14 +5,20 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.methods.AnnotationMethodBlock;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadFieldName;
+import code.expressionlanguage.methods.util.UndefinedFieldError;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.stds.LgNames;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class AssocationOperation extends AbstractUnaryOperation {
+public final class AssocationOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
     private String fieldName;
 
@@ -35,13 +41,7 @@ public final class AssocationOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
-        if (!(getParent() instanceof AnnotationInstanceOperation)) {
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setRc(_conf.getCurrentLocation());
-            un_.setFileName(_conf.getCurrentFileName());
-            _conf.getClasses().addError(un_);
-        }
+    public void preAnalyze(Analyzable _conf) {
         if (!StringList.isWord(fieldName.trim())) {
             BadFieldName err_ = new BadFieldName();
             err_.setName(fieldName.trim());
@@ -50,6 +50,59 @@ public final class AssocationOperation extends AbstractUnaryOperation {
             _conf.getClasses().addError(err_);
         }
         fieldName = fieldName.trim();
+        MethodOperation mOp_ = getParent();
+        if (!(mOp_ instanceof AnnotationInstanceOperation)) {
+            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            _conf.getClasses().addError(un_);
+        } else {
+            AnnotationInstanceOperation par_ = (AnnotationInstanceOperation) mOp_;
+            if (par_.isArray()) {
+                UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                un_.setRc(_conf.getCurrentLocation());
+                un_.setFileName(_conf.getCurrentFileName());
+                _conf.getClasses().addError(un_);
+            } else {
+                String annotationClass_ = par_.getClassName();
+                if (!StringList.quickEq(_conf.getStandards().getAliasObject(), annotationClass_)) {
+                    Block ann_ = (Block) _conf.getClassBody(annotationClass_);
+                    boolean ok_ = false;
+                    for (Block b: Classes.getDirectChildren(ann_)) {
+                        if (!(b instanceof AnnotationMethodBlock)) {
+                            continue;
+                        }
+                        AnnotationMethodBlock a_ = (AnnotationMethodBlock) b;
+                        if (StringList.quickEq(a_.getName(), fieldName)) {
+                            ok_ = true;
+                            break;
+                        }
+                    }
+                    if (!ok_) {
+                        UndefinedFieldError cast_ = new UndefinedFieldError();
+                        cast_.setId(fieldName);
+                        cast_.setClassName(annotationClass_);
+                        cast_.setFileName(_conf.getCurrentFileName());
+                        cast_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(cast_);
+                    }
+                }
+            }
+        }
+    }
+    @Override
+    public void analyze(Analyzable _conf) {
+        MethodOperation mOp_ = getParent();
+        LgNames std_ = _conf.getStandards();
+        String objCl_ = std_.getAliasObject();
+        if (!(mOp_ instanceof AnnotationInstanceOperation)) {
+            setResultClass(new ClassArgumentMatching(objCl_));
+            return;
+        }
+        if (!StringList.isWord(fieldName)) {
+            setResultClass(new ClassArgumentMatching(objCl_));
+            return;
+        }
         setResultClass(getFirstChild().getResultClass());
     }
 

@@ -6,7 +6,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.opers.AnnotationExpressionLanguage;
+import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -27,8 +27,6 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private ArrayStruct array;
     private CustList<CustList<OperationNode>> annotations;
     private CustList<CustList<CustList<OperationNode>>> annotationsParams;
-
-    private CustList<AnnotationExpressionLanguage> currentAnnot = new CustList<AnnotationExpressionLanguage>();
 
     @Override
     public boolean checkCondition(ContextEl _context) {
@@ -136,18 +134,18 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 int lenLoc_ = annotationsParams.get(i).size();
                 for (int j = indexAnnotation; j < lenLoc_; j++) {
                     CustList<OperationNode> ops_ = annotationsParams.get(i).get(j);
-                    AnnotationExpressionLanguage el_;
-                    if (!isEmptyAnnotEl()) {
-                        el_ = getLastAnnotEl();
+                    ExpressionLanguage el_;
+                    if (!isEmptyEl()) {
+                        el_ = getLastEl();
                     } else {
-                        el_ = new AnnotationExpressionLanguage(ops_);
-                        addCurrentAnnotEl(el_);
+                        el_ = new ExpressionLanguage(ops_);
+                        addCurrentEl(el_);
                     }
                     Argument ret_ = el_.calculateMember(_context);
                     if (_context.callsOrException()) {
                         return false;
                     }
-                    clearCurrentAnnotEl();
+                    clearCurrentEls();
                     ((ArrayStruct)loc_).getInstance()[j] = ret_.getStruct();
                     indexAnnotation++;
                 }
@@ -158,18 +156,18 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             int len_ = annotations.size();
             for (int i = indexAnnotation; i < len_; i++) {
                 CustList<OperationNode> ops_ = annotations.get(i);
-                AnnotationExpressionLanguage el_;
-                if (!isEmptyAnnotEl()) {
-                    el_ = getLastAnnotEl();
+                ExpressionLanguage el_;
+                if (!isEmptyEl()) {
+                    el_ = getLastEl();
                 } else {
-                    el_ = new AnnotationExpressionLanguage(ops_);
-                    addCurrentAnnotEl(el_);
+                    el_ = new ExpressionLanguage(ops_);
+                    addCurrentEl(el_);
                 }
                 Argument ret_ = el_.calculateMember(_context);
                 if (_context.callsOrException()) {
                     return false;
                 }
-                clearCurrentAnnotEl();
+                clearCurrentEls();
                 array.getInstance()[i] = ret_.getStruct();
                 indexAnnotation++;
             }
@@ -183,21 +181,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean receive(Argument _argument, ContextEl _context) {
-        getLastAnnotEl().setArgument(_argument, _context);
+        getLastEl().setArgument(_argument, _context);
         return true;
-    }
-    public boolean isEmptyAnnotEl() {
-        return currentAnnot.isEmpty();
-    }
-    public AnnotationExpressionLanguage getLastAnnotEl() {
-        return currentAnnot.last();
-    }
-
-    public void addCurrentAnnotEl(AnnotationExpressionLanguage _el) {
-        currentAnnot.add(_el);
-    }
-    public void clearCurrentAnnotEl() {
-        currentAnnot.clear();
     }
 
     public boolean isOnParameters() {
