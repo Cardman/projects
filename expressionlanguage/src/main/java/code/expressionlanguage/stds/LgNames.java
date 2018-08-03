@@ -4507,6 +4507,13 @@ public abstract class LgNames {
     public void setAliasGetGenericVariableOwner(String _aliasTypeVariable) {
         reflect.setAliasGetGenericVariableOwner(_aliasTypeVariable);
     }
+    
+    public String getAliasGetString() {
+        return reflect.getAliasGetString();
+    }
+    public void setAliasGetString(String _aliasTypeVariable) {
+        reflect.setAliasGetString(_aliasTypeVariable);
+    }
    
     public String getAliasClass() {
         return reflect.getAliasClass();

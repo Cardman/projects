@@ -140,7 +140,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     public Struct getDefaultArgument() {
-        if (opValue == null) {
+        if (opValue.isEmpty()) {
             return null;
         }
         Argument arg_ = opValue.last().getArgument();
@@ -207,6 +207,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (defaultValue.trim().isEmpty()) {
+            opValue = new CustList<OperationNode>();
             return;
         }
         page_.setGlobalOffset(defaultValueOffset);

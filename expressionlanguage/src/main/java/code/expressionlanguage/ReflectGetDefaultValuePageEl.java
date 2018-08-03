@@ -8,6 +8,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -38,6 +39,14 @@ public class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
                     continue;
                 }
                 ops = a_.getOpValue();
+                if (ops.isEmpty()) {
+                    String clMethod_ = a_.getImportedReturnType();
+                    Struct value_ = PrimitiveTypeUtil.defaultValue(clMethod_, _context);
+                    Argument out_ = new Argument();
+                    out_.setStruct(value_);
+                    setReturnedArgument(out_);
+                    return true;
+                }
             }
             init = true;
         }
@@ -54,6 +63,12 @@ public class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
         }
         clearCurrentEls();
         setReturnedArgument(ret_);
+        return true;
+    }
+
+    @Override
+    public boolean receive(Argument _argument, ContextEl _context) {
+        getLastEl().setArgument(_argument, _context);
         return true;
     }
 

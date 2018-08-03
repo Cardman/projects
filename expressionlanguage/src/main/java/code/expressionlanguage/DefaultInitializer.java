@@ -5,10 +5,10 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.opers.util.AnnotationStruct;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.EnumStruct;
-import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -85,7 +85,7 @@ public class DefaultInitializer implements Initializer {
                 }
             }
         }
-        return init(_context, NullStruct.NULL_VALUE, _className, "", 0, fields_);
+        return new AnnotationStruct(_className, fields_);
     }
     @Override
     public final void loopCalling(ContextEl _owner) {

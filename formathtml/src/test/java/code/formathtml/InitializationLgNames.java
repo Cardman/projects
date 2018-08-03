@@ -162,6 +162,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasClassNotFoundError("$classNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
+        _lgNames.setAliasGetString("getString");
         _lgNames.setAliasClass("$Class");
         _lgNames.setAliasAnnotation("$Annotation");
         _lgNames.setAliasAnnotated("$Annotated");

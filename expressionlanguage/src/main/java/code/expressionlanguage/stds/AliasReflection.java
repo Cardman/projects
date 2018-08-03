@@ -1,6 +1,8 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ClassNameCmp;
+import code.expressionlanguage.ClassNameCmpr;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -26,6 +28,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -34,6 +37,7 @@ import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
@@ -114,6 +118,7 @@ public class AliasReflection {
     private String aliasClassNotFoundError;
     private String aliasGetVariableOwner;
     private String aliasGetGenericVariableOwner;
+    private String aliasGetString;
 
     public void build(LgNames _stds) {
         StringMap<StandardField> fields_;
@@ -136,10 +141,7 @@ public class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDefaultValue, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasObject_);
+       params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasGetClass, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasPrimBoolean_);
@@ -407,6 +409,9 @@ public class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDefaultValue, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -430,6 +435,9 @@ public class AliasReflection {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasAnnotation, fields_, constructors_, methods_, aliasObject_, MethodModifier.NORMAL);
+        params_ = new StringList(aliasAnnotation);
+        method_ = new StandardMethod(aliasGetString, params_, aliasString_, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasAnnotation, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -462,6 +470,13 @@ public class AliasReflection {
         String aliasConstructor_ = ref_.aliasConstructor;
         String aliasField_ = ref_.aliasField;
         String aliasVoid_ = lgNames_.getAliasVoid();
+        if (StringList.quickEq(type_, ref_.aliasAnnotation)) {
+            if (StringList.quickEq(name_, ref_.aliasGetString)) {
+                FieldableStruct poly_ = (FieldableStruct) args_[0];
+                result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(poly_)));
+                return result_;
+            }
+        }
         if (StringList.quickEq(type_, ref_.aliasField)) {
             if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
                 FieldMetaInfo class_ = (FieldMetaInfo) _struct;
@@ -872,10 +887,15 @@ public class AliasReflection {
                     StringList interfaces_ = ((StandardClass) clblock_).getDirectInterfaces();
                     classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_));
                 }
+                CustList<ClassNameCmp> sortClasses_  = new CustList<ClassNameCmp>();
+                for (ClassMetaInfo e: classes_) {
+                    sortClasses_.add(new ClassNameCmp(e));
+                }
+                sortClasses_.sortElts(new ClassNameCmpr());
                 Struct[] ctorsArr_ = new Struct[classes_.size()];
                 int index_ = 0;
-                for (ClassMetaInfo e: classes_) {
-                    ctorsArr_[index_] = e;
+                for (ClassNameCmp e: sortClasses_) {
+                    ctorsArr_[index_] = e.getMeta();
                     index_++;
                 }
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1789,4 +1809,11 @@ public class AliasReflection {
     public void setAliasGetGenericVariableOwner(String _aliasGetGenericVariableOwner) {
         aliasGetGenericVariableOwner = _aliasGetGenericVariableOwner;
     }
+    public String getAliasGetString() {
+        return aliasGetString;
+    }
+    public void setAliasGetString(String _aliasGetString) {
+        aliasGetString = _aliasGetString;
+    }
+    
 }
