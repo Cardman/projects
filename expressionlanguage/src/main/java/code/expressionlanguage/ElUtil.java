@@ -305,8 +305,6 @@ public final class ElUtil {
             currentBlock_.defaultAssignmentBefore(_context, _root);
         }
         OperationNode c_ = _root;
-        if (_context.isAnnotAnalysis())
-        System.out.println(_root);
         while (true) {
             if (c_ == null) {
                 if (currentBlock_ != null && !_context.isAnnotAnalysis()) {
