@@ -957,6 +957,15 @@ public final class ElResolver {
                     d_.setBadOffset(i_);
                     return d_;
                 }
+                if (_conf.isAnnotAnalysis()) {
+                    if (nextPart_.isEmpty()) {
+                        continue;
+                    }
+                    char nextChar_ = nextPart_.charAt(0);
+                    if (nextChar_ == ANN_ARR_RIGHT) {
+                        continue;
+                    }
+                }
                 if (!isCorrectNbEndWord(nextPart_, end_)) {
                     d_.setBadOffset(i_+1);
                     return d_;

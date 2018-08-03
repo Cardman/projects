@@ -767,7 +767,16 @@ public final class FileResolver {
                         endInstruction_ = true;
                     } else {
                         char lastChar_ = tr_.charAt(tr_.length() - 1);
-                        if (lastChar_ != PART_SEPARATOR) {
+                        if (currentParent_ instanceof AnnotationBlock) {
+                            if (lastChar_ != END_CALLING) {
+                                endInstruction_ = true;
+                            } else {
+                                String trLeft_ = tr_.substring(0, tr_.length() - 1).trim();
+                                if (!trLeft_.endsWith(String.valueOf(BEGIN_CALLING))) {
+                                    endInstruction_ = true;
+                                }
+                            }
+                        } else if (lastChar_ != PART_SEPARATOR) {
                             if (lastChar_ != END_ARRAY) {
                                 endInstruction_ = true;
                             }
@@ -895,8 +904,8 @@ public final class FileResolver {
                         fieldOffest_ += StringList.getFirstPrintableCharIndex(found_);
                         int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
                         fieldName_ = found_.substring(0, indexBeginCalling_);
-                        expression_ = found_.substring(found_.lastIndexOf(END_CALLING)+1);
-                        expressionOffest_ = instructionLocation_ + trimmedInstruction_.lastIndexOf(END_CALLING) + 1 + delta_;
+                        expression_ = found_.substring(found_.indexOf(END_CALLING)+1);
+                        expressionOffest_ = instructionLocation_ + trimmedInstruction_.indexOf(END_CALLING) + 1 + delta_;
                         if (!expression_.trim().isEmpty()) {
                             expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
                         }

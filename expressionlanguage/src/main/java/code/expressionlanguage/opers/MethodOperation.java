@@ -170,6 +170,7 @@ public abstract class MethodOperation extends OperationNode {
         StringMap<AssignmentBefore> fieldsBefore_ = new StringMap<AssignmentBefore>();
         CustList<StringMap<AssignmentBefore>> variablesBefore_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<AssignmentBefore>> mutableBefore_ = new CustList<StringMap<AssignmentBefore>>();
+        //TODO null fieldsAfter_ when local vars: a = value: duplicate field
         for (EntryCust<String, Assignment> e: fieldsAfter_.entryList()) {
             Assignment b_ = e.getValue();
             fieldsBefore_.put(e.getKey(), b_.assignBefore());

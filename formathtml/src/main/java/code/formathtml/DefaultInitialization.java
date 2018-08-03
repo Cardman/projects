@@ -151,6 +151,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasAnnotation("$Annotation");
         _lgNames.setAliasAnnotated("$Annotated");
         _lgNames.setAliasGetAnnotations("getAnnotations");
+        _lgNames.setAliasGetDefaultValue("getDefaultValue");
         _lgNames.setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
@@ -208,6 +209,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasIsEnum("isEnum");
         _lgNames.setAliasIsPrimitive("isPrimitive");
         _lgNames.setAliasIsArray("isArray");
+        _lgNames.setAliasIsAnnotation("isAnnotation");
         _lgNames.setAliasIsInstance("isInstance");
         _lgNames.setAliasIsAssignableFrom("isAssignableFrom");
         _lgNames.setAliasInit("init");

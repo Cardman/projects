@@ -193,6 +193,9 @@ public final class ClassMetaInfo implements Struct {
     public boolean isTypeVariable() {
         return category == ClassCategory.VARIABLE;
     }
+    public boolean isTypeAnnotation() {
+        return category == ClassCategory.ANNOTATION;
+    }
     public String getName() {
         return name;
     }

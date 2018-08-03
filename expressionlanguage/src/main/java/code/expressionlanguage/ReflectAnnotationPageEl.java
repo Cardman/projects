@@ -47,7 +47,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     }
                 } else if (structBlock_ instanceof MethodMetaInfo){
                     MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
-                    String cl_ = mid_.getName();
+                    String cl_ = ((MethodMetaInfo)structBlock_).getFormClassName();
                     String idClass_ = Templates.getIdFromAllTypes(cl_);
                     GeneType type_ = _context.getClassBody(idClass_);
                     for (GeneMethod m: ContextEl.getMethodBlocks(type_)) {
@@ -81,7 +81,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             } else if (structBlock_ instanceof MethodMetaInfo){
                 MethodId mid_ =  ((MethodMetaInfo)structBlock_).getRealId();
-                String cl_ = mid_.getName();
+                String cl_ = ((MethodMetaInfo)structBlock_).getFormClassName();
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 GeneType type_ = _context.getClassBody(idClass_);
                 for (GeneMethod m: ContextEl.getMethodBlocks(type_)) {
@@ -103,6 +103,40 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                             annotations=((Block)f).getAnnotationsOps();
                         }
                     }
+                }
+            }
+            CustList<Argument> args_ = getArguments();
+            String cl_ = "";
+            if (!args_.isEmpty()) {
+                Struct arg_ = args_.first().getStruct();
+                if (arg_ instanceof ClassMetaInfo) {
+                    cl_ = ((ClassMetaInfo)arg_).getName();
+                }
+            }
+            if (!cl_.isEmpty()) {
+                String param_ = cl_;
+                if (onParameters) {
+                    CustList<CustList<CustList<OperationNode>>> filters_ = new CustList<CustList<CustList<OperationNode>>>();
+                    for (CustList<CustList<OperationNode>> a: annotationsParams) {
+                        CustList<CustList<OperationNode>> filter_ = new CustList<CustList<OperationNode>>();
+                        for (CustList<OperationNode> b: a) {
+                            String arg_ = b.last().getResultClass().getName();
+                            if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
+                                filter_.add(b);
+                            }
+                        }
+                        filters_.add(filter_);
+                    }
+                    annotationsParams = filters_;
+                } else {
+                    CustList<CustList<OperationNode>> filter_ = new CustList<CustList<OperationNode>>();
+                    for (CustList<OperationNode> a: annotations) {
+                        String arg_ = a.last().getResultClass().getName();
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
+                            filter_.add(a);
+                        }
+                    }
+                    annotations = filter_;
                 }
             }
             if (onParameters) {

@@ -17,7 +17,6 @@ import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.ElementBlock;
-import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
@@ -656,8 +655,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         CustList<GeneField> methods_ = new CustList<GeneField>();
         if (_element instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((RootBlock)_element)) {
-                if (b instanceof FieldBlock) {
-                    methods_.add((FieldBlock) b);
+                if (b instanceof InfoBlock) {
+                    methods_.add((InfoBlock) b);
                 }
             }
         } else {

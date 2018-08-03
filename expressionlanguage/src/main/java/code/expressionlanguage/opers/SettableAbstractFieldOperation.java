@@ -367,7 +367,9 @@ public abstract class SettableAbstractFieldOperation extends
                     }
                 }
             }
-            if (_conf.isAssignedStaticFields()) {
+            if (cl_ == null) {
+                procField_ = false;
+            } else if (_conf.isAssignedStaticFields()) {
                 FieldInfo meta_ = _conf.getFieldInfo(cl_);
                 if (meta_.isStaticField()) {
                     procField_ = false;

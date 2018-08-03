@@ -263,4 +263,12 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         processBlock(_cont);
     }
 
+    @Override
+    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+            int _indexProcess) {
+        return new ExpressionLanguage(opValue);
+    }
+    public CustList<OperationNode> getOpValue() {
+        return opValue;
+    }
 }

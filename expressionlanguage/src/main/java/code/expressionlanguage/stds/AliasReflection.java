@@ -45,6 +45,7 @@ import code.util.StringMap;
 public class AliasReflection {
     private String aliasAnnotation;
     private String aliasAnnotated;
+    private String aliasGetDefaultValue;
     private String aliasGetAnnotations;
     private String aliasGetAnnotationsParameters;
     private String aliasClass;
@@ -78,6 +79,7 @@ public class AliasReflection {
     private String aliasIsInterface;
     private String aliasIsEnum;
     private String aliasIsPrimitive;
+    private String aliasIsAnnotation;
     private String aliasIsArray;
     private String aliasIsInstance;
     private String aliasIsAssignableFrom;
@@ -134,6 +136,9 @@ public class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDefaultValue, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasGetClass, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -142,6 +147,9 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasInit, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsAnnotation, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsArray, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -433,6 +441,12 @@ public class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation)), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasClass);
+        method_ = new StandardMethod(aliasGetAnnotations, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasClass);
+        method_ = new StandardMethod(aliasGetAnnotationsParameters, params_, PrimitiveTypeUtil.getPrettyArrayType(PrimitiveTypeUtil.getPrettyArrayType(aliasAnnotation)), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasAnnotated, stdcl_);
     }
     public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
@@ -646,6 +660,11 @@ public class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasIsArray)) {
                 ClassMetaInfo class_ = (ClassMetaInfo) _struct;
                 result_.setResult(new BooleanStruct(class_.isTypeArray()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasIsAnnotation)) {
+                ClassMetaInfo class_ = (ClassMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(class_.isTypeAnnotation()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsClass)) {
@@ -1374,6 +1393,12 @@ public class AliasReflection {
     public void setAliasGetAnnotations(String _aliasGetAnnotations) {
         aliasGetAnnotations = _aliasGetAnnotations;
     }
+    public String getAliasGetDefaultValue() {
+        return aliasGetDefaultValue;
+    }
+    public void setAliasGetDefaultValue(String _aliasGetDefaultValue) {
+        aliasGetDefaultValue = _aliasGetDefaultValue;
+    }
     public String getAliasGetAnnotationsParameters() {
         return aliasGetAnnotationsParameters;
     }
@@ -1559,6 +1584,12 @@ public class AliasReflection {
     }
     public void setAliasIsArray(String _aliasIsArray) {
         aliasIsArray = _aliasIsArray;
+    }
+    public String getAliasIsAnnotation() {
+        return aliasIsAnnotation;
+    }
+    public void setAliasIsAnnotation(String _aliasIsAnnotation) {
+        aliasIsAnnotation = _aliasIsAnnotation;
     }
     public String getAliasIsInstance() {
         return aliasIsInstance;

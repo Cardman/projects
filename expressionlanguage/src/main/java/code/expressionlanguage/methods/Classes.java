@@ -1442,12 +1442,18 @@ public final class Classes {
                 continue;
             }
             bl_.setupBasicOverrides(_context);
+            if (bl_ instanceof AnnotationBlock) {
+                continue;
+            }
             bl_.checkCompatibility(_context);
             bl_.checkImplements(_context);
         }
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock bl_ = c.getValue();
             if (bl_.getFile().isPredefined()) {
+                continue;
+            }
+            if (bl_ instanceof AnnotationBlock) {
                 continue;
             }
             bl_.checkCompatibilityBounds(_context);
@@ -2484,11 +2490,12 @@ public final class Classes {
             if (clblock_ instanceof InterfaceBlock) {
                 return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,acc_);
             }
+            if (clblock_ instanceof AnnotationBlock) {
+                return new ClassMetaInfo(_name, new StringList(), infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,acc_);
+            }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {
                 cat_ = ClassCategory.ENUM;
-            } else if (clblock_ instanceof InterfaceBlock) {
-                cat_ = ClassCategory.INTERFACE;
             }
             boolean abs_ = clblock_.isAbstractType();
             boolean final_ = clblock_.isFinalType();

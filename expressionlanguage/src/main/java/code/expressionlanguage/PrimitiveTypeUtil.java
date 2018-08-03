@@ -1,4 +1,5 @@
 package code.expressionlanguage;
+import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
@@ -411,6 +412,11 @@ public final class PrimitiveTypeUtil {
         String a_ = dArg_.getComponent();
         RootBlock clArgBl_ = classes_.getClassBody(a_);
         if (clArgBl_ != null) {
+            if (clArgBl_ instanceof AnnotationBlock) {
+                if (StringList.quickEq(p_, stds_.getAliasAnnotation())) {
+                    return AssignableFrom.YES;
+                }
+            }
             if (clParBl_ == null && !StringList.quickEq(p_, stds_.getAliasObject())) {
                 return AssignableFrom.NO;
             }

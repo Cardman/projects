@@ -57,6 +57,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (methodName.trim().isEmpty()) {
             array = true;
             MethodOperation mOp_ = getParent();
+            if (mOp_ == null) {
+                Block curr_ = _conf.getCurrentBlock();
+                if (curr_ instanceof AnnotationMethodBlock) {
+                    className = ((AnnotationMethodBlock)curr_).getImportedReturnType();
+                }
+            }
             if (mOp_ instanceof AssocationOperation) {
                 AssocationOperation ass_ = (AssocationOperation) mOp_;
                 String fieldName_ = ass_.getFieldName();
@@ -251,6 +257,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     _conf.getClasses().addError(cast_);
                 }
                 fieldNames.add(fieldsTypes_.getKey(0));
+                setResultClass(new ClassArgumentMatching(className));
+                return;
             }
         }
         int nb_ = suppliedFields_.size();
@@ -399,7 +407,8 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             Numbers<Integer> dims_;
             dims_ = new Numbers<Integer>();
             dims_.add(nbCh_);
-            Struct str_ = PrimitiveTypeUtil.newCustomArray(className, dims_, _conf);
+            String className_ = PrimitiveTypeUtil.getQuickComponentType(className);
+            Struct str_ = PrimitiveTypeUtil.newCustomArray(className_, dims_, _conf);
             for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                 Argument chArg_ = _arguments.get(i);
                 ArrOperation.setCheckedElement(str_, i, chArg_, _conf);

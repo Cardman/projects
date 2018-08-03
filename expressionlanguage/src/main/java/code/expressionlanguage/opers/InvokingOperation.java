@@ -833,8 +833,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String aliasGetField_ = stds_.getAliasGetField();
         String aliasSetField_ = stds_.getAliasSetField();
         String aliasInvoke_ = stds_.getAliasInvoke();
+        String aliasGetDefaultValue_ = stds_.getAliasGetDefaultValue();
         String aliasNewInstance_ = stds_.getAliasNewInstance();
         if (StringList.quickEq(aliasMethod_, _classNameFound)) {
+            if (StringList.quickEq(aliasGetDefaultValue_, _methodId.getName())) {
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.DEFAULT_VALUE, _previous, _firstArgs));
+                Argument a_ = new Argument();
+                return a_;
+            }
             if (StringList.quickEq(aliasInvoke_, _methodId.getName())) {
                 _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, _previous, _firstArgs));
                 Argument a_ = new Argument();

@@ -4533,6 +4533,12 @@ public abstract class LgNames {
     public void setAliasGetAnnotations(String _aliasGetAnnotations) {
         reflect.setAliasGetAnnotations(_aliasGetAnnotations);
     }
+    public String getAliasGetDefaultValue() {
+        return reflect.getAliasGetDefaultValue();
+    }
+    public void setAliasGetDefaultValue(String _aliasGetDefaultValue) {
+        reflect.setAliasGetDefaultValue(_aliasGetDefaultValue);
+    }
     public String getAliasGetAnnotationsParameters() {
         return reflect.getAliasGetAnnotationsParameters();
     }
@@ -4840,6 +4846,12 @@ public abstract class LgNames {
     }
     public void setAliasIsArray(String _aliasIsArray) {
         reflect.setAliasIsArray(_aliasIsArray);
+    }
+    public String getAliasIsAnnotation() {
+        return reflect.getAliasIsAnnotation();
+    }
+    public void setAliasIsAnnotation(String _aliasIsAnnotation) {
+        reflect.setAliasIsAnnotation(_aliasIsAnnotation);
     }
     public String getAliasIsInstance() {
         return reflect.getAliasIsInstance();
