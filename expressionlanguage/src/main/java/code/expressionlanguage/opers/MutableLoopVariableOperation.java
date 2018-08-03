@@ -69,6 +69,7 @@ public class MutableLoopVariableOperation extends LeafOperation implements Setta
                 d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
                 d_.setRc(page_.getTrace());
                 _conf.getClasses().addError(d_);
+                setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                 return;
             }
             if (!StringList.isWord(str_)) {
@@ -116,6 +117,7 @@ public class MutableLoopVariableOperation extends LeafOperation implements Setta
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
             if (variableName.isEmpty()) {
+                analyzeNotBoolAssignmentAfter(_conf);
                 return;
             }
             boolean isBool_;

@@ -1903,4 +1903,20 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={true}))", (String)ret_.getObject());
     }
+    @Test
+    public void calculateArgumentFailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static java.lang.String catching(){\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $return \"\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

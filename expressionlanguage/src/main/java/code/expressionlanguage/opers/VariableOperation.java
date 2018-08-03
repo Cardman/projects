@@ -85,6 +85,7 @@ public final class VariableOperation extends LeafOperation implements
                 d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
                 d_.setRc(page_.getTrace());
                 _conf.getClasses().addError(d_);
+                setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
                 return;
             }
             if (!StringList.isWord(str_)) {
@@ -132,6 +133,7 @@ public final class VariableOperation extends LeafOperation implements
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
         if (ElUtil.isDeclaringVariable(this, _conf)) {
             if (variableName.isEmpty()) {
+                analyzeNotBoolAssignmentAfter(_conf);
                 return;
             }
             boolean isBool_;
