@@ -7,6 +7,7 @@ import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
@@ -487,44 +488,64 @@ public final class Templates {
         return str_.toString();
     }
     public static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
-        if (_m.getArg().isEmpty()) {
+        if (_m.getArg().getName().isEmpty()) {
             return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
         }
         return isCorrect(_m, _context);
     }
     public static boolean isCorrect(Mapping _m, Analyzable _context) {
-        String arg_ = _m.getArg();
-        String param_ = _m.getParam();
+        ClassArgumentMatching arg_ = _m.getArg();
+        ClassArgumentMatching param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
         Mapping map_ = new Mapping();
         map_.setParam(param_);
         map_.setArg(arg_);
         map_.setMapping(generalMapping_);
-        MappingPairs m_ = getSimpleMapping(map_, _context);
-        if (m_ == null) {
-            return false;
-        }
-        for (Matching n: m_.getPairsArgParam()) {
-            if (!StringList.quickEq(n.getParam(), n.getArg())) {
+        for (String p: param_.getNames()) {
+            boolean ok_ = false;
+            StringList names_ = arg_.getNames();
+            for (String a: names_) {
+                MappingPairs m_ = getSimpleMapping(a,p,generalMapping_, _context);
+                if (m_ == null) {
+                    continue;
+                }
+                boolean locOk_ = true;
+                for (Matching n: m_.getPairsArgParam()) {
+                    if (!StringList.quickEq(n.getParam(), n.getArg())) {
+                        locOk_ = false;
+                        break;
+                    }
+                }
+                if (!locOk_) {
+                    continue;
+                }
+                ok_ = true;
+                break;
+            }
+            if (!ok_) {
                 return false;
             }
         }
         return true;
     }
-    private static MappingPairs getSimpleMapping(Mapping _m, Analyzable _context) {
-        String arg_ = _m.getArg();
-        String param_ = _m.getParam();
-        StringList typesArg_ = getAllTypes(arg_);
-        StringList typesParam_ = getAllTypes(param_);
+    private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
+        StringList typesArg_ = getAllTypes(_arg);
+        StringList typesParam_ = getAllTypes(_param);
         String baseArg_ = typesArg_.first();
         String baseParam_ = typesParam_.first();
-        DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(arg_);
-        DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_);
+        DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
+        DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String baseArrayParam_ = dParam_.getComponent();
         String baseArrayArg_ = dArg_.getComponent();
         DimComp dBaseParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParam_);
         String classParam_ = dBaseParam_.getComponent();
+        Mapping _m = new Mapping();
+        _m.setMapping(_inherit);
         if (baseArrayParam_.startsWith(PREFIX_VAR_TYPE)) {
+            if (_arg.isEmpty()) {
+                MappingPairs m_ = new MappingPairs();
+                return m_;
+            }
             if (_m.inheritArgParam(baseArrayParam_.substring(1), baseArrayArg_.substring(1))) {
                 MappingPairs m_ = new MappingPairs();
                 return m_;
@@ -589,7 +610,7 @@ public final class Templates {
             curClasses_ = _m.getAllUpperBounds(baseArg_.substring(1), objType_);
             visitedClasses_ = new StringList(curClasses_);
             for (String c: curClasses_) {
-                if (StringList.quickEq(c, param_)) {
+                if (StringList.quickEq(c, _param)) {
                     generic_ = c;
                     break;
                 }

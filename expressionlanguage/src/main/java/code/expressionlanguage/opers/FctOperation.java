@@ -64,7 +64,6 @@ public final class FctOperation extends InvokingOperation {
             clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
             setStaticAccess(_conf.isStaticContext());
         }
-        String clCurName_;
 
         if (clCur_ == null || clCur_.isUndefined()) {
             StaticAccessError static_ = new StaticAccessError();
@@ -74,11 +73,14 @@ public final class FctOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        clCurName_ = clCur_.getName();
-        if (hasVoidPrevious(clCurName_, _conf)) {
-            return;
+        StringList l_ = clCur_.getNames();
+        StringList bounds_ = new StringList();
+        for (String c: l_) {
+            if (hasVoidPrevious(c, _conf)) {
+                return;
+            }
+            bounds_.addAllElts(getBounds(c, _conf));
         }
-        StringList bounds_ = getBounds(clCurName_, _conf);
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);

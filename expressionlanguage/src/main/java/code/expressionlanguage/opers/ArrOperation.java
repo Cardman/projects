@@ -16,7 +16,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.StringList;
 
 public final class ArrOperation extends MethodOperation implements SettableElResult, PossibleIntermediateDotted {
 
@@ -60,7 +59,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
-            un_.setOperands(new StringList(indexClass_.getName()));
+            un_.setOperands(indexClass_);
             _conf.getClasses().addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
@@ -72,14 +71,14 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-            un_.setOperands(new StringList(class_.getName()));
+            un_.setOperands(class_);
             _conf.getClasses().addError(un_);
             class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
             setResultClass(class_);
             return;
         }
         indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf));
-        class_ = new ClassArgumentMatching(PrimitiveTypeUtil.getQuickComponentType(class_));
+        class_ = PrimitiveTypeUtil.getQuickComponentType(class_);
         setResultClass(class_);
     }
     @Override

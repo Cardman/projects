@@ -17,7 +17,7 @@ public final class BadImplicitCast extends FoundErrorInterpret {
             tabs_.add(e.getValue().join(";"));
             tabs_.add("}");
         }
-        return StringList.concat(super.display(),SEP_INFO,mapping.getArg(),SEP_INFO,mapping.getParam(),SEP_INFO,tabs_.join(","),SEP_INFO);
+        return StringList.concat(super.display(),SEP_INFO,mapping.getArg().getNames().join(""),SEP_INFO,mapping.getParam().getNames().join(""),SEP_INFO,tabs_.join(","),SEP_INFO);
     }
 
     public Mapping getMapping() {

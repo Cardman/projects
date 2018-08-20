@@ -78,7 +78,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     firstArgs_.add(o.getResultClass());
                 }
             }
-            String name_ = _children.first().getResultClass().getName();
+            ClassArgumentMatching name_ = _children.first().getResultClass();
             StringMap<StringList> map_;
             map_ = new StringMap<StringList>();
             String glClass_ = _conf.getGlobalClass();
@@ -91,8 +91,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             mapping_.setParam(name_);
             for (OperationNode o: optArgsNodes_) {
                 setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
-                String argType_ = o.getResultClass().getName();
-                if (argType_.isEmpty()) {
+                ClassArgumentMatching argType_ = o.getResultClass();
+                if (argType_.isVariable()) {
                     if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
                         mapping_.setMapping(map_);
                         BadImplicitCast cast_ = new BadImplicitCast();
@@ -117,7 +117,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
             }
             name_ = PrimitiveTypeUtil.getPrettyArrayType(name_);
-            ClassArgumentMatching clMatch_ = new ClassArgumentMatching(name_);
+            ClassArgumentMatching clMatch_ = name_;
             firstArgs_.add(clMatch_);
             return firstArgs_;
         }
@@ -151,7 +151,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 i_++;
             }
             Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getName();
+            String g_ = _children.first().getResultClass().getNames().first();
             g_ = _context.getOperationPageEl().formatVarType(g_, _context);
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
@@ -223,7 +223,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 i_++;
             }
             Argument argRem_ = new Argument();
-            String g_ = _children.first().getResultClass().getName();
+            String g_ = _children.first().getResultClass().getNames().first();
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
             String clArr_ = PrimitiveTypeUtil.getPrettyArrayType(g_);

@@ -76,8 +76,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
         root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
         Mapping mapping_ = new Mapping();
-        mapping_.setArg(clMatchRight_.getName());
-        mapping_.setParam(clMatchLeft_.getName());
+        mapping_.setArg(clMatchRight_);
+        mapping_.setParam(clMatchLeft_);
         BadImplicitCast cast_ = new BadImplicitCast();
         cast_.setMapping(mapping_);
         cast_.setFileName(_conf.getCurrentFileName());

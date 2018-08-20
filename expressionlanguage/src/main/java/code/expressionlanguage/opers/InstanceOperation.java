@@ -124,7 +124,7 @@ public final class InstanceOperation extends InvokingOperation {
                         un_.setRc(_conf.getCurrentLocation());
                         un_.setFileName(_conf.getCurrentFileName());
                         un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
-                        un_.setOperands(new StringList(cl_.getName()));
+                        un_.setOperands(cl_);
                         _conf.getClasses().addError(un_);
                     }
                     o.getResultClass().setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
@@ -143,7 +143,7 @@ public final class InstanceOperation extends InvokingOperation {
                 mapping_.setParam(eltType_);
                 for (OperationNode o: chidren_) {
                     setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
-                    String argType_ = o.getResultClass().getName();
+                    ClassArgumentMatching argType_ = o.getResultClass();
                     mapping_.setArg(argType_);
                     mapping_.setMapping(map_);
                     if (!Templates.isGenericCorrect(mapping_, _conf)) {
@@ -217,7 +217,7 @@ public final class InstanceOperation extends InvokingOperation {
             return;
         }
         firstArgs_.add(CustList.FIRST_INDEX, arg_);
-        realClassName_ = StringList.concat(arg_.getName(),String.valueOf(INTERN_CLASS),realClassName_);
+        realClassName_ = StringList.concat(arg_.getNames().join(""),String.valueOf(INTERN_CLASS),realClassName_);
         analyzeCtor(_conf, realClassName_, firstArgs_, intern_);
     }
 

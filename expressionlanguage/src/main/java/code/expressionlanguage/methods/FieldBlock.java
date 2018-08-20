@@ -40,6 +40,7 @@ import code.expressionlanguage.opers.TernaryOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -266,7 +267,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        String arg_ = opValue.last().getResultClass().getName();
+        ClassArgumentMatching arg_ = opValue.last().getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(importedClassName);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {

@@ -173,7 +173,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             mapping_.setParam(eltType_);
             for (OperationNode o: chidren_) {
                 setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
-                String argType_ = o.getResultClass().getName();
+                ClassArgumentMatching argType_ = o.getResultClass();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!Templates.isGenericCorrect(mapping_, _conf)) {
@@ -229,20 +229,21 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             fieldsTypes_.put(a_.getName(), a_.getImportedReturnType());
         }
         StringList suppliedFields_ = new StringList();
-        StringMap<String> suppliedFieldsType_ = new StringMap<String>();
+        StringMap<ClassArgumentMatching> suppliedFieldsType_ = new StringMap<ClassArgumentMatching>();
         for (OperationNode o: filter_) {
             if (!(o instanceof AssocationOperation)) {
                 continue;
             }
             AssocationOperation a_ = (AssocationOperation) o;
             suppliedFields_.add(a_.getFieldName());
-            suppliedFieldsType_.put(a_.getFieldName(), a_.getResultClass().getName());
+            suppliedFieldsType_.put(a_.getFieldName(), a_.getResultClass());
         }
         if (filter_.size() == 1 && suppliedFields_.isEmpty()) {
             if (fieldsTypes_.size() == 1) {
                 //guess the unique field
-                String arg_ = filter_.first().getResultClass().getName();
-                String param_ = fieldsTypes_.getValue(0);
+                ClassArgumentMatching arg_ = filter_.first().getResultClass();
+                String paramName_ = fieldsTypes_.getValue(0);
+                ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
                     //ERROR
                     StringMap<StringList> vars_ = new StringMap<StringList>();
@@ -296,9 +297,10 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 _conf.getClasses().addError(cast_);
             }
         }
-        for (EntryCust<String, String> e: suppliedFieldsType_.entryList()) {
-            String param_ = fieldsTypes_.getVal(e.getKey());
-            String arg_ = e.getValue();
+        for (EntryCust<String, ClassArgumentMatching> e: suppliedFieldsType_.entryList()) {
+            String paramName_ = fieldsTypes_.getVal(e.getKey());
+            ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
+            ClassArgumentMatching arg_ = e.getValue();
             if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
                 //ERROR
                 StringMap<StringList> vars_ = new StringMap<StringList>();

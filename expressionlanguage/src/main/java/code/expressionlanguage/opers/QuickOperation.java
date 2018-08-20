@@ -12,7 +12,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.IdMap;
-import code.util.StringList;
 
 
 public abstract class QuickOperation extends PrimitiveBoolOperation {
@@ -84,16 +83,14 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
             ClassArgumentMatching clMatch_;
             clMatch_ = o.getResultClass();
             setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
-            if (!clMatch_.matchClass(booleanPrimType_)) {
-                if (!clMatch_.matchClass(booleanType_)) {
-                    ClassArgumentMatching cl_ = o.getResultClass();
-                    UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                    un_.setRc(_conf.getCurrentLocation());
-                    un_.setFileName(_conf.getCurrentFileName());
-                    un_.setExpectedResult(booleanType_);
-                    un_.setOperands(new StringList(cl_.getName()));
-                    _conf.getClasses().addError(un_);
-                }
+            if (!clMatch_.isBoolType(_conf)) {
+                ClassArgumentMatching cl_ = o.getResultClass();
+                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                un_.setRc(_conf.getCurrentLocation());
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setExpectedResult(booleanType_);
+                un_.setOperands(cl_);
+                _conf.getClasses().addError(un_);
             }
         }
         setResultClass(chidren_.last().getResultClass());

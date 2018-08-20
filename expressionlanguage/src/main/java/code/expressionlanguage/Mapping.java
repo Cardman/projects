@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.methods.util.ClassEdge;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -8,8 +9,8 @@ import code.util.graphs.Graph;
 
 public class Mapping {
 
-    private String arg;
-    private String param;
+    private ClassArgumentMatching arg;
+    private ClassArgumentMatching param;
     private StringMap<StringList> mapping = new StringMap<StringList>();
 
     public boolean isCyclic(String _objectClassName) {
@@ -92,16 +93,22 @@ public class Mapping {
             currentBounds_ = nextBounds_;
         }
     }
-    public String getArg() {
+    public ClassArgumentMatching getArg() {
         return arg;
     }
     public void setArg(String _arg) {
+        arg = new ClassArgumentMatching(_arg);
+    }
+    public void setArg(ClassArgumentMatching _arg) {
         arg = _arg;
     }
-    public String getParam() {
+    public ClassArgumentMatching getParam() {
         return param;
     }
     public void setParam(String _param) {
+        param = new ClassArgumentMatching(_param);
+    }
+    public void setParam(ClassArgumentMatching _param) {
         param = _param;
     }
     public StringMap<StringList> getMapping() {

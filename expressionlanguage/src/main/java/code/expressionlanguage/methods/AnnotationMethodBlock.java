@@ -19,6 +19,7 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
@@ -221,7 +222,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        String arg_ = opValue.last().getResultClass().getName();
+        ClassArgumentMatching arg_ = opValue.last().getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {

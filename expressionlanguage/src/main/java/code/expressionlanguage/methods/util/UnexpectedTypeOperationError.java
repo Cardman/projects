@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods.util;
 
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.StringList;
 
 public final class UnexpectedTypeOperationError extends FoundErrorInterpret {
@@ -20,6 +21,12 @@ public final class UnexpectedTypeOperationError extends FoundErrorInterpret {
         operands = _operands;
     }
 
+    public void setOperands(ClassArgumentMatching... _operands) {
+        operands = new StringList();
+        for (ClassArgumentMatching c: _operands) {
+            operands.add(c.getName());
+        }
+    }
     public String getExpectedResult() {
         return expectedResult;
     }

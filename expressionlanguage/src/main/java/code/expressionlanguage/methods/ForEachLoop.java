@@ -24,6 +24,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -233,7 +234,7 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
             static_.setRc(_cont.getCurrentLocation());
             _cont.getClasses().addError(static_);
         } else if (el_.getResultClass().isArray()) {
-            String compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
+            ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
             Mapping mapping_ = new Mapping();
             mapping_.setArg(compo_);
             mapping_.setParam(importedClassName);
@@ -254,16 +255,30 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 _cont.getClasses().addError(cast_);
             }
         } else {
-            String foundType_ = el_.getResultClass().getName();
-            String type_ = Templates.getIterableFullTypeByStds(foundType_, _cont);
-            String iterable_ = _cont.getStandards().getAliasIterable();
-            if (type_ == null) {
-                type_ = Templates.getFullTypeByBases(foundType_, iterable_, _cont);
-                nativeCmp = false;
+            StringList candidates_ = new StringList();
+            StringList names_ = el_.getResultClass().getNames();
+            if (names_.isEmpty()) {
+                candidates_.add("");
             } else {
-                nativeCmp = true;
+                candidates_.addAllElts(names_);
             }
-            if (type_ != null) {
+            StringList out_ = new StringList();
+            for (String f: candidates_) {
+                String type_ = Templates.getIterableFullTypeByStds(f, _cont);
+                String iterable_ = _cont.getStandards().getAliasIterable();
+                if (type_ == null) {
+                    type_ = Templates.getFullTypeByBases(f, iterable_, _cont);
+                    nativeCmp = false;
+                } else {
+                    nativeCmp = true;
+                }
+                if (type_ != null) {
+                    out_.add(type_);
+                }
+            }
+            out_.removeDuplicates();
+            if (out_.size() == 1) {
+                String type_ = out_.first();
                 Mapping mapping_ = new Mapping();
                 String paramArg_ = Templates.getAllTypes(type_).last();
                 mapping_.setArg(paramArg_);
@@ -285,14 +300,17 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                     _cont.getClasses().addError(cast_);
                 }
             } else {
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(foundType_);
-                mapping_.setParam(iterable_);
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(getFile().getFileName());
-                cast_.setRc(getRowCol(0, expressionOffset));
-                _cont.getClasses().addError(cast_);
+                String iterable_ = _cont.getStandards().getAliasIterable();
+                for (String e: out_) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(e);
+                    mapping_.setParam(iterable_);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(getFile().getFileName());
+                    cast_.setRc(getRowCol(0, expressionOffset));
+                    _cont.getClasses().addError(cast_);
+                }
             }
         }
         LoopVariable lv_ = new LoopVariable();

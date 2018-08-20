@@ -80,12 +80,14 @@ public abstract class SettableAbstractFieldOperation extends
         r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             UndefinedFieldError und_ = new UndefinedFieldError();
-            String base_ = Templates.getIdFromAllTypes(cl_.getName());
-            und_.setClassName(base_);
-            und_.setId(fieldName_);
-            und_.setFileName(_conf.getCurrentFileName());
-            und_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().addError(und_);
+            for (String c: cl_.getNames()) {
+                String base_ = Templates.getIdFromAllTypes(c);
+                und_.setClassName(base_);
+                und_.setId(fieldName_);
+                und_.setFileName(_conf.getCurrentFileName());
+                und_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(und_);
+            }
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }

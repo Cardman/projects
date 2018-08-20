@@ -75,7 +75,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(clMatchLeft_.getName());
+            mapping_.setArg(clMatchLeft_);
             mapping_.setParam(_conf.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);

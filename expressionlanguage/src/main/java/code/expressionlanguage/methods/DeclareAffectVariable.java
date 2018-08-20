@@ -113,7 +113,7 @@ public final class DeclareAffectVariable extends Leaf implements InitVariable {
         }
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        mapping_.setArg(opRight.last().getResultClass().getName());
+        mapping_.setArg(opRight.last().getResultClass());
         mapping_.setParam(className);
         if (!Templates.isGenericCorrect(mapping_, _cont)) {
             BadImplicitCast cast_ = new BadImplicitCast();

@@ -441,7 +441,7 @@ public abstract class OperationNode {
         FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import);
         if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
             StaticAccessFieldError access_ = new StaticAccessFieldError();
-            access_.setClassName(_class.getName());
+            access_.setClassName(_class.getNames().join(""));
             access_.setId(_name);
             access_.setFileName(_cont.getCurrentFileName());
             access_.setRc(_cont.getCurrentLocation());
@@ -453,17 +453,24 @@ public abstract class OperationNode {
         return resSt_;
     }
     private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
-        String clCurName_ = _class.getName();
-        String base_ = Templates.getIdFromAllTypes(clCurName_);
-        GeneType root_ = _cont.getClassBody(base_);
+        StringMap<String> clCurNames_ = new StringMap<String>();
+        StringMap<String> clCurNamesBase_ = new StringMap<String>();
         StringList classeNames_ = new StringList();
-        if (_baseClass) {
-            classeNames_.add(root_.getFullName());
+        for (String c: _class.getNames()) {
+            String base_ = Templates.getIdFromAllTypes(c);
+            GeneType root_ = _cont.getClassBody(base_);
+            if (_baseClass) {
+                classeNames_.add(root_.getFullName());
+            }
+            if (_superClass) {
+                classeNames_.addAllElts(root_.getAllSuperTypes());
+            }
+            for (String s: classeNames_) {
+                clCurNamesBase_.put(s, base_);
+                clCurNames_.put(s, c);
+            }
         }
         String objectType_ = _cont.getStandards().getAliasObject();
-        if (_superClass) {
-            classeNames_.addAllElts(root_.getAllSuperTypes());
-        }
         ObjectNotNullMap<ClassField,Integer> imports_ = new ObjectNotNullMap<ClassField,Integer>();
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = null;
@@ -488,7 +495,8 @@ public abstract class OperationNode {
                     continue;
                 }
             }
-            if (!Classes.canAccessField(base_, s, _name, _cont)) {
+            String baseLoc_ = clCurNamesBase_.getVal(s);
+            if (!Classes.canAccessField(baseLoc_, s, _name, _cont)) {
                 continue;
             }
             if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
@@ -520,7 +528,8 @@ public abstract class OperationNode {
                 String cl_ = subs_.first();
                 String formatted_;
                 if (i == 0) {
-                    formatted_ = Templates.getFullTypeByBases(clCurName_, cl_, _cont);
+                    String baseCl_ = clCurNames_.getVal(cl_);
+                    formatted_ = Templates.getFullTypeByBases(baseCl_, cl_, _cont);
                 } else {
                     formatted_ = cl_;
                 }
@@ -540,7 +549,7 @@ public abstract class OperationNode {
     
     static ConstrustorIdVarArg getDeclaredCustConstructor(Analyzable _conf, int _varargOnly, ClassArgumentMatching _class,
     ClassArgumentMatching... _args) {
-        String clCurName_ = _class.getName();
+        String clCurName_ = _class.getNames().first();
         LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getGlobalClass();
         CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
@@ -586,7 +595,7 @@ public abstract class OperationNode {
         if (possibleMethods_.isEmpty()) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
-                classesNames_.add(c.getName());
+                classesNames_.add(c.getNames().join(""));
             }
             UndefinedConstructorError undefined_ = new UndefinedConstructorError();
             undefined_.setClassName(clCurName_);
@@ -625,7 +634,7 @@ public abstract class OperationNode {
         if (gr_.isAmbigous()) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
-                classesNames_.add(c.getName());
+                classesNames_.add(c.getNames().join(""));
             }
             UndefinedConstructorError undefined_ = new UndefinedConstructorError();
             undefined_.setClassName(clCurName_);
@@ -665,7 +674,7 @@ public abstract class OperationNode {
         if (_conf.isAmbigous()) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _argsClass) {
-                classesNames_.add(c.getName());
+                classesNames_.add(c.getNames().join(""));
             }
             UndefinedMethodError undefined_ = new UndefinedMethodError();
             MethodModifier mod_;
@@ -690,7 +699,7 @@ public abstract class OperationNode {
         ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         StringList classesNames_ = new StringList();
         for (ClassArgumentMatching c: _argsClass) {
-            classesNames_.add(c.getName());
+            classesNames_.add(c.getNames().join(""));
         }
         UndefinedMethodError undefined_ = new UndefinedMethodError();
         MethodModifier mod_;
@@ -980,7 +989,7 @@ public abstract class OperationNode {
                 continue;
             }
             Mapping map_ = new Mapping();
-            map_.setArg(_argsClass[i].getName());
+            map_.setArg(_argsClass[i]);
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
@@ -995,7 +1004,7 @@ public abstract class OperationNode {
         if (_params.length == _argsClass.length) {
             int last_ = _params.length - 1;
             Mapping map_ = new Mapping();
-            map_.setArg(_argsClass[last_].getName());
+            map_.setArg(_argsClass[last_]);
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
@@ -1018,7 +1027,7 @@ public abstract class OperationNode {
         }
         map_.setParam(Templates.generalFormat(_class, param_, _context));
         for (int i = startOpt_; i < len_; i++) {
-            map_.setArg(_argsClass[i].getName());
+            map_.setArg(_argsClass[i]);
             if (!Templates.isGenericCorrect(map_, _context)) {
                 return false;
             }
@@ -1047,7 +1056,7 @@ public abstract class OperationNode {
         for (TypeVar t: vars_) {
             map_.getMapping().put(t.getName(), t.getConstraints());
         }
-        map_.setArg(_argsClass[last_].getName());
+        map_.setArg(_argsClass[last_]);
         map_.setParam(Templates.generalFormat(_class, param_, _context));
         return !Templates.isGenericCorrect(map_, _context);
     }
@@ -1484,7 +1493,7 @@ public abstract class OperationNode {
 
     public final boolean isVoidArg(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        return StringList.quickEq(resultClass.getName(), stds_.getAliasVoid());
+        return resultClass.matchVoid(stds_);
     }
 
     public final ClassArgumentMatching getResultClass() {

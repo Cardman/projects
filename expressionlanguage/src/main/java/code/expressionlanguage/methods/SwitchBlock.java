@@ -17,6 +17,7 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.EnumerableStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
@@ -129,17 +130,27 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             un_.setType(opValue.last().getResultClass());
             _cont.getClasses().addError(un_);
         }
-        String exp_ = opValue.last().getResultClass().getName();
-        if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(exp_, _cont)) {
-            if (!StringList.quickEq(exp_, _cont.getStandards().getAliasString())) {
-                if (!(_cont.getClassBody(exp_) instanceof EnumBlock)) {
-                    UnexpectedTypeError un_ = new UnexpectedTypeError();
-                    un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().addError(un_);
-                } else {
-                    enumTest = true;
+        ClassArgumentMatching clArg_ = opValue.last().getResultClass();
+        StringList names_ = clArg_.getNames();
+        if (names_.size() != 1) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, valueOffset));
+            un_.setType(opValue.last().getResultClass());
+            _cont.getClasses().addError(un_);
+        } else {
+            String exp_ = names_.first();
+            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(exp_, _cont)) {
+                if (!StringList.quickEq(exp_, _cont.getStandards().getAliasString())) {
+                    if (!(_cont.getClassBody(exp_) instanceof EnumBlock)) {
+                        UnexpectedTypeError un_ = new UnexpectedTypeError();
+                        un_.setFileName(getFile().getFileName());
+                        un_.setRc(getRowCol(0, valueOffset));
+                        un_.setType(opValue.last().getResultClass());
+                        _cont.getClasses().addError(un_);
+                    } else {
+                        enumTest = true;
+                    }
                 }
             }
         }

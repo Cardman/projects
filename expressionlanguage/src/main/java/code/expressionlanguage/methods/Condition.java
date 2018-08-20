@@ -59,14 +59,12 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
         }
         OperationNode elCondition_ = opCondition.last();
         LgNames stds_ = _cont.getStandards();
-        if (!elCondition_.getResultClass().matchClass(stds_.getAliasPrimBoolean())) {
-            if (!elCondition_.getResultClass().matchClass(stds_.getAliasBoolean())) {
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
-                un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, conditionOffset));
-                un_.setType(opCondition.last().getResultClass());
-                _cont.getClasses().addError(un_);
-            }
+        if (!elCondition_.getResultClass().isBoolType(_cont)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(getFile().getFileName());
+            un_.setRc(getRowCol(0, conditionOffset));
+            un_.setType(opCondition.last().getResultClass());
+            _cont.getClasses().addError(un_);
         }
         elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
         buildConditions(_cont);

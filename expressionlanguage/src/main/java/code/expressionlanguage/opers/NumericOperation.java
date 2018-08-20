@@ -363,7 +363,7 @@ public abstract class NumericOperation extends MethodOperation {
             un_.setRc(_cont.getCurrentLocation());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
-            un_.setOperands(new StringList(_a.getName()));
+            un_.setOperands(_a);
             _cont.getClasses().addError(un_);
             ok_ = false;
         }
@@ -373,7 +373,7 @@ public abstract class NumericOperation extends MethodOperation {
             un_.setRc(_cont.getCurrentLocation());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
-            un_.setOperands(new StringList(_b.getName()));
+            un_.setOperands(_b);
             _cont.getClasses().addError(un_);
             ok_ = false;
         }

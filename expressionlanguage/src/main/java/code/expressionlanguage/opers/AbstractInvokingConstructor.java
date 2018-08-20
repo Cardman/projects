@@ -85,12 +85,12 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         if (ctorRes_ == null) {
             StringList cl_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
-                cl_.add(c.getName());
+                cl_.add(c.getNames().join(""));
             }
-            ConstructorId constId_ = new ConstructorId(clArg_.getName(), cl_, false);
+            ConstructorId constId_ = new ConstructorId(clArg_.getNames().join(""), cl_, false);
             UndefinedConstructorError und_ = new UndefinedConstructorError();
             und_.setId(constId_);
-            und_.setClassName(clArg_.getName());
+            und_.setClassName(clArg_.getNames().join(""));
             und_.setRc(_conf.getCurrentLocation());
             und_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(und_);

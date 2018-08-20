@@ -86,7 +86,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(clMatchLeft_.getName());
+            mapping_.setArg(clMatchLeft_);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -99,7 +99,7 @@ public final class SemiAffectation extends Leaf implements StackableBlock {
                 page_.setGlobalOffset(operOffset);
                 page_.setOffset(0);
                 Mapping mapping_ = new Mapping();
-                mapping_.setArg(clMatchLeft_.getName());
+                mapping_.setArg(clMatchLeft_);
                 mapping_.setParam(_cont.getStandards().getAliasLong());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);

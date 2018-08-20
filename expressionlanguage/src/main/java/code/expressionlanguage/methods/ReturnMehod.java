@@ -124,7 +124,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         }
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        mapping_.setArg(opRet.last().getResultClass().getName());
+        mapping_.setArg(opRet.last().getResultClass());
         mapping_.setParam(retType_);
         if (StringList.quickEq(retType_, stds_.getAliasVoid())) {
             BadImplicitCast cast_ = new BadImplicitCast();

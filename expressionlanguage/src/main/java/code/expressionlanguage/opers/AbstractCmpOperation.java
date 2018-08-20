@@ -468,7 +468,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasString());
-            un_.setOperands(new StringList(first_.getName(),second_.getName()));
+            un_.setOperands(first_,second_);
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
@@ -488,7 +488,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
-            un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
+            un_.setOperands(classFirst_,classSecond_);
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
@@ -500,7 +500,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
-            un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
+            un_.setOperands(classFirst_,classSecond_);
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(res_));
             return;
@@ -514,7 +514,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         un_.setRc(_conf.getCurrentLocation());
         un_.setFileName(_conf.getCurrentFileName());
         un_.setExpectedResult(expectedTypes_.join(";"));
-        un_.setOperands(new StringList(classFirst_.getName(),classSecond_.getName()));
+        un_.setOperands(classFirst_,classSecond_);
         _conf.getClasses().addError(un_);
         setResultClass(new ClassArgumentMatching(res_));
     }

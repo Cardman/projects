@@ -74,8 +74,8 @@ public final class AffectationOperation extends MethodOperation {
                 return;
             }
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(clMatchRight_.getName());
-            mapping_.setParam(clMatchLeft_.getName());
+            mapping_.setArg(clMatchRight_);
+            mapping_.setParam(clMatchLeft_);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
@@ -97,8 +97,8 @@ public final class AffectationOperation extends MethodOperation {
         }
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        mapping_.setArg(clMatchRight_.getName());
-        mapping_.setParam(clMatchLeft_.getName());
+        mapping_.setArg(clMatchRight_);
+        mapping_.setParam(clMatchLeft_);
         if (!Templates.isCorrect(mapping_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);

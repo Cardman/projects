@@ -1100,7 +1100,7 @@ public abstract class LgNames {
         }
 
         ClassArgumentMatching arg_ = new ClassArgumentMatching(_arg);
-        DimComp paramComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(param_.getName());
+        DimComp paramComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         DimComp argComp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
         String objAlias_ = _context.getAliasObject();
         if (StringList.quickEq(paramComp_.getComponent(), objAlias_)) {
@@ -1113,16 +1113,18 @@ public abstract class LgNames {
             return false;
         }
         boolean array_ = paramComp_.getDim() > 0;
+        String paramName_ = paramComp_.getComponent();
+        String argName_ = argComp_.getComponent();
         param_ = new ClassArgumentMatching(paramComp_.getComponent());
         arg_ = new ClassArgumentMatching(argComp_.getComponent());
-        if (StringList.quickEq(param_.getName(),arg_.getName())) {
+        if (StringList.quickEq(paramComp_.getComponent(),argComp_.getComponent())) {
             return true;
         }
         String aliasPrimBool_ = _context.getAliasPrimBoolean();
         String aliasNumber_ = _context.getAliasNumber();
-        String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(arg_, true, _context).getName();
+        String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(argName_, true, _context);
         if (StringList.quickEq(typeNameArg_, aliasPrimBool_)) {
-            String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(param_, true, _context).getName();
+            String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(paramName_, true, _context);
             if (!StringList.quickEq(typeNameParam_, aliasPrimBool_)) {
                 return false;
             }
@@ -1138,7 +1140,7 @@ public abstract class LgNames {
                 ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(param_, true, _context);
                 boolean contained_ = false;
                 for (ClassArgumentMatching c: gt_) {
-                    if (StringList.quickEq(c.getName(), prim_.getName())) {
+                    if (StringList.equalsSet(c.getNames(), prim_.getNames())) {
                         contained_ = true;
                         break;
                     }
@@ -1153,10 +1155,9 @@ public abstract class LgNames {
             }
             if (!array_) {
                 CustList<ClassArgumentMatching> gt_ = PrimitiveTypeUtil.getOrdersGreaterEqThan(clMatch_, _context);
-                ClassArgumentMatching prim_ = param_;
                 boolean contained_ = false;
                 for (ClassArgumentMatching c: gt_) {
-                    if (StringList.quickEq(c.getName(), prim_.getName())) {
+                    if (StringList.equalsSet(c.getNames(), param_.getNames())) {
                         contained_ = true;
                         break;
                     }

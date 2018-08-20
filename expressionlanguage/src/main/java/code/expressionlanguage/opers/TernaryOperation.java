@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
@@ -107,33 +108,24 @@ public final class TernaryOperation extends MethodOperation {
         }
         OperationNode opOne_ = chidren_.first();
         ClassArgumentMatching clMatch_ = opOne_.getResultClass();
-        if (!clMatch_.matchClass(booleanPrimType_)) {
-            if (!clMatch_.matchClass(booleanType_)) {
-                setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
-                ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setRc(_conf.getCurrentLocation());
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setExpectedResult(booleanType_);
-                un_.setOperands(new StringList(cl_.getName()));
-                _conf.getClasses().addError(un_);
-            }
+        if (!clMatch_.isBoolType(_conf)) {
+            setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
+            ClassArgumentMatching cl_ = chidren_.first().getResultClass();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(booleanType_);
+            un_.setOperands(cl_);
+            _conf.getClasses().addError(un_);
         }
         opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
         OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
         OperationNode opThree_ = chidren_.get(CustList.SECOND_INDEX);
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
-        if (!clMatchTwo_.matchClass(clMatchThree_)) {
-            setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl()+1, _conf);
-            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setExpectedResult(clMatchTwo_.getName());
-            un_.setOperands(new StringList(clMatchTwo_.getName(),clMatchThree_.getName()));
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().addError(un_);
-        }
-        setResultClass(clMatchTwo_);
+        StringList one_ = clMatchTwo_.getNames();
+        StringList two_ = clMatchThree_.getNames();
+        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getResultTernary(one_, two_, _conf)));
     }
 
     @Override

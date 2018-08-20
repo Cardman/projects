@@ -39,7 +39,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(exp_);
-            un_.setOperands(new StringList(clMatch_.getName()));
+            un_.setOperands(clMatch_);
             _conf.getClasses().addError(un_);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
             setResultClass(arg_);

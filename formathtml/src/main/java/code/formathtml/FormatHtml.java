@@ -1640,7 +1640,7 @@ public final class FormatHtml {
             return;
         }
         String className_ = ret_.getClassName();
-        checkClass(_conf, _ip, new ClassArgumentMatching(className_), elt_);
+        checkClass(_conf, _ip, className_, elt_);
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -1672,7 +1672,7 @@ public final class FormatHtml {
             _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return;
         }
-        checkClass(_conf, _ip, new ClassArgumentMatching(className_), ret_.getStruct());
+        checkClass(_conf, _ip, className_, ret_.getStruct());
         if (_conf.getContext().getException() != null) {
             return;
         }
@@ -2020,9 +2020,9 @@ public final class FormatHtml {
                 loc_.setStruct(_object);
                 return loc_;
             }
-            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(type_), true, _conf.toContextEl()).getName();
+            String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(type_, true, _conf.getStandards());
             if (StringList.quickEq(typeNameArg_, lgNames_.getAliasPrimBoolean())) {
-                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf.toContextEl()).getName();
+                String typeNameParam_ = PrimitiveTypeUtil.toPrimitive(_className, true, _conf.getStandards());
                 if (!StringList.quickEq(typeNameParam_, lgNames_.getAliasPrimBoolean())) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(typeNameArg_);
@@ -2092,12 +2092,11 @@ public final class FormatHtml {
         loc_.setClassName(_className);
         return loc_;
     }
-    static void checkClass(Configuration _conf, ImportingPage _ip, ClassArgumentMatching _class, Struct _object) {
-        String paramName_ = _class.getName();
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(paramName_, _object, _conf.toContextEl())) {
+    static void checkClass(Configuration _conf, ImportingPage _ip, String _class, Struct _object) {
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(_class, _object, _conf.toContextEl())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(EMPTY_STRING);
-            mapping_.setParam(paramName_);
+            mapping_.setParam(_class);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
@@ -2119,10 +2118,10 @@ public final class FormatHtml {
         ContextEl context_ = _conf.toContextEl();
         LgNames lgNames_ = _conf.getStandards();
         String argClassName_ = lgNames_.getStructClassName(_object, context_);
-        if (!PrimitiveTypeUtil.isPrimitive(paramName_, context_)) {
+        if (!PrimitiveTypeUtil.isPrimitive(_class, context_)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argClassName_);
-            paramName_ = _conf.getLastPage().getPageEl().formatVarType(paramName_, context_);
+            String paramName_ = _conf.getLastPage().getPageEl().formatVarType(_class, context_);
             mapping_.setParam(paramName_);
             if (!Templates.isCorrect(mapping_, context_)) {
                 BadImplicitCast cast_ = new BadImplicitCast();
@@ -2138,11 +2137,11 @@ public final class FormatHtml {
                 return;
             }
         } else {
-            if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf.toContextEl()) > 0) {
+            if (PrimitiveTypeUtil.getOrderClass(_class, _conf.toContextEl()) > 0) {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf.toContextEl()) == 0) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(argClassName_);
-                    mapping_.setParam(paramName_);
+                    mapping_.setParam(_class);
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -2156,11 +2155,11 @@ public final class FormatHtml {
                     return;
                 }
             } else {
-                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(new ClassArgumentMatching(argClassName_), true,_conf.toContextEl()).getName();
+                String typeNameArg_ = PrimitiveTypeUtil.toPrimitive(argClassName_, true,_conf.getStandards());
                 if (!StringList.quickEq(typeNameArg_, context_.getStandards().getAliasPrimBoolean())) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(typeNameArg_);
-                    mapping_.setParam(paramName_);
+                    mapping_.setParam(_class);
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());

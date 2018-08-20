@@ -124,7 +124,7 @@ public final class StaticInitOperation extends LeafOperation {
     }
     Argument getCommonArgument(Argument _argument, ExecutableCode _conf) {
         if (possibleInitClass) {
-            String className_ = getResultClass().getName();
+            String className_ = getResultClass().getNames().first();
             if (InvokingOperation.hasToExit(_conf, className_)) {
                 return Argument.createVoid();
             }

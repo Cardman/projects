@@ -9,14 +9,18 @@ public final class ClassArgumentMatching {
 
     private static final String ARR_CLASS = "[";
 
-    private final String className;
+    private final StringList className = new StringList();
 
     private String unwrapObject = "";
 
     private boolean checkOnlyNullPe;
 
     public ClassArgumentMatching(String _className) {
-        className = _className;
+        className.add(_className);
+    }
+
+    public ClassArgumentMatching(StringList _className) {
+        className.addAllElts(_className);
     }
 
     public static ClassArgumentMatching[] toArgArray(CustList<ClassArgumentMatching> _args) {
@@ -49,26 +53,34 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isArray() {
-        return className.startsWith(ARR_CLASS);
+        for (String b: className) {
+            if (b.startsWith(ARR_CLASS)) {
+                return true;
+            }
+        }
+        return false;
     }
     public boolean matchClass(ClassArgumentMatching _class) {
-        return StringList.quickEq(className, _class.getName());
+        return StringList.equalsSet(className, _class.getNames());
     }
     public boolean matchVoid(Analyzable _classes) {
         LgNames stds_ = _classes.getStandards();
-        return StringList.quickEq(className, stds_.getAliasVoid());
+        StringList l_ = new StringList(stds_.getAliasVoid());
+        return StringList.equalsSet(className, l_);
     }
     public boolean matchVoid(LgNames _classes) {
         LgNames stds_ = _classes;
-        return StringList.quickEq(className, stds_.getAliasVoid());
+        StringList l_ = new StringList(stds_.getAliasVoid());
+        return StringList.equalsSet(className, l_);
     }
 
     public boolean matchClass(String _class) {
-        return StringList.quickEq(className, _class);
+        StringList l_ = new StringList(_class);
+        return StringList.equalsSet(className, l_);
     }
 
     public boolean isUndefined() {
-        return className == null;
+        return className.containsNull();
     }
 //    public CustList<Class<?>> getDeclaredClasses() {
 //        try {
@@ -84,29 +96,44 @@ public final class ClassArgumentMatching {
 //    }
 
     public boolean isVariable() {
-        return className.isEmpty();
+        return className.size() == 1 && className.first().isEmpty();
     }
 
     public boolean isPrimitive(LgNames _context) {
-        return PrimitiveTypeUtil.isPrimitive(className, _context);
+        for (String b: className) {
+            if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isPrimitive(Analyzable _context) {
-        return PrimitiveTypeUtil.isPrimitive(className, _context);
+        for (String b: className) {
+            if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isBoolType(Analyzable _context) {
         LgNames lgNames_ = _context.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
-        return PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, className, _context);
-    }
-
-    public boolean isGlobalClass(Analyzable _context) {
-        return StringList.quickEq(className, _context.getGlobalClass());
+        for (String b: className) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, b, _context)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getName() {
-        return className;
+        return className.first();
+    }
+
+    public StringList getNames() {
+        return new StringList(className);
     }
 
     public String getUnwrapObject() {

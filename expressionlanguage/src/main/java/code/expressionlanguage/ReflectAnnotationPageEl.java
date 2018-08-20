@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
@@ -114,13 +115,13 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 }
             }
             if (!cl_.isEmpty()) {
-                String param_ = cl_;
+                ClassArgumentMatching param_ = new ClassArgumentMatching(cl_);
                 if (onParameters) {
                     CustList<CustList<CustList<OperationNode>>> filters_ = new CustList<CustList<CustList<OperationNode>>>();
                     for (CustList<CustList<OperationNode>> a: annotationsParams) {
                         CustList<CustList<OperationNode>> filter_ = new CustList<CustList<OperationNode>>();
                         for (CustList<OperationNode> b: a) {
-                            String arg_ = b.last().getResultClass().getName();
+                            ClassArgumentMatching arg_ = b.last().getResultClass();
                             if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
                                 filter_.add(b);
                             }
@@ -131,7 +132,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 } else {
                     CustList<CustList<OperationNode>> filter_ = new CustList<CustList<OperationNode>>();
                     for (CustList<OperationNode> a: annotations) {
-                        String arg_ = a.last().getResultClass().getName();
+                        ClassArgumentMatching arg_ = a.last().getResultClass();
                         if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _context)) {
                             filter_.add(a);
                         }

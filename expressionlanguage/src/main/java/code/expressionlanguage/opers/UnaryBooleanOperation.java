@@ -17,7 +17,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.NatTreeMap;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class UnaryBooleanOperation extends AbstractUnaryOperation {
@@ -40,16 +39,14 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         clMatch_ = chidren_.first().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         String booleanType_ = stds_.getAliasBoolean();
-        if (!clMatch_.matchClass(booleanPrimType_)) {
-            if (!clMatch_.matchClass(booleanType_)) {
-                ClassArgumentMatching cl_ = chidren_.first().getResultClass();
-                UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setRc(_conf.getCurrentLocation());
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setExpectedResult(booleanType_);
-                un_.setOperands(new StringList(cl_.getName()));
-                _conf.getClasses().addError(un_);
-            }
+        if (!clMatch_.isBoolType(_conf)) {
+            ClassArgumentMatching cl_ = chidren_.first().getResultClass();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(booleanType_);
+            un_.setOperands(cl_);
+            _conf.getClasses().addError(un_);
         }
         clMatch_.setUnwrapObject(booleanPrimType_);
         setResultClass(new ClassArgumentMatching(booleanPrimType_));

@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.sml.Element;
@@ -133,7 +134,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
                 return;
             }
         }
-        String resCase_ = opValue.last().getResultClass().getName();
+        ClassArgumentMatching resCase_ = opValue.last().getResultClass();
         BracedBlock par_ = getParent();
         if (!(par_ instanceof SwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
@@ -145,7 +146,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
             return;
         }
         SwitchBlock sw_ = (SwitchBlock) par_;
-        String resSwitch_ = sw_.getOpValue().last().getResultClass().getName();
+        ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(resSwitch_, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());

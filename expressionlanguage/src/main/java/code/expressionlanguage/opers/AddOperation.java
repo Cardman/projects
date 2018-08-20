@@ -111,7 +111,7 @@ public final class AddOperation extends NumericOperation {
             un_.setRc(_cont.getCurrentLocation());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
-            un_.setOperands(new StringList(_a.getName(),_b.getName()));
+            un_.setOperands(_a,_b);
             _cont.getClasses().addError(un_);
             ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
             res_.setResult(arg_);

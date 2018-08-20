@@ -214,7 +214,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
         if (!PrimitiveTypeUtil.isPureNumberClass(elementClass_, _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(cl_);
+            mapping_.setArg(elementClass_);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -253,10 +253,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         OperationNode initEl_ = opInit.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(cl_, initEl_.getResultClass().getName(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, initEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(initEl_.getResultClass().getName());
-            mapping_.setParam(cl_);
+            mapping_.setArg(initEl_.getResultClass());
+            mapping_.setParam(elementClass_);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
@@ -270,10 +270,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         OperationNode expressionEl_ = opExp.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(cl_, expressionEl_.getResultClass().getName(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, expressionEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(expressionEl_.getResultClass().getName());
-            mapping_.setParam(cl_);
+            mapping_.setArg(expressionEl_.getResultClass());
+            mapping_.setParam(elementClass_);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
@@ -287,10 +287,10 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         OperationNode stepEl_ = opStep.last();
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(cl_, stepEl_.getResultClass().getName(), _cont)) {
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(elementClass_, stepEl_.getResultClass(), _cont)) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(stepEl_.getResultClass().getName());
-            mapping_.setParam(cl_);
+            mapping_.setArg(stepEl_.getResultClass());
+            mapping_.setParam(elementClass_);
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
