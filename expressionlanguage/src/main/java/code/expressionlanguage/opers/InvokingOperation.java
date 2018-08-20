@@ -712,6 +712,20 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String aliasGetAnnotationsParam_ = stds_.getAliasGetAnnotationsParameters();
         if (!_methodId.isStaticMethod()) {
             String clName_ = _previous.getObjectClassName(_conf.getContextEl());
+            if (_previous.getStruct().isArray()) {
+                //clone object
+                Struct ret_ =_previous.getStruct();
+                Argument a_ = new Argument();
+                Object arr_ = ret_.getInstance();
+                int len_ = LgNames.getLength(arr_);
+                String clNameOut_ = ret_.getClassName(_conf);
+                ArrayStruct copy_ = new ArrayStruct(new Struct[len_], clNameOut_);
+                for (int i = 0; i < len_; i++) {
+                    copy_.getInstance()[i] = LgNames.getElement(arr_, i, _conf.getContextEl());
+                }
+                a_.setStruct(copy_);
+                return a_;
+            }
             if (PrimitiveTypeUtil.canBeUseAsArgument(aliasAnnotation_, clName_, _conf)) {
                 FieldableStruct f_ = (FieldableStruct) _previous.getStruct();
                 Struct ret_ = f_.getStruct(new ClassField(clName_, _methodId.getName()));

@@ -143,6 +143,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasSimpleIteratorType("code.util.SimpleItr");
         _lgNames.setAliasSimpleIterableType("code.util.ints.SimpleIterable");
         _lgNames.setAliasErrorInitClass("$defErrorClass");
+        _lgNames.setAliasClone("clone");
         _lgNames.setAliasInvokeTarget("$invokeTaget");
         _lgNames.setAliasClassNotFoundError("$classNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");

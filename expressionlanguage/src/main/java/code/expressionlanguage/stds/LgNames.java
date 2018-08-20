@@ -212,6 +212,7 @@ public abstract class LgNames {
     private String aliasSimpleIteratorType;
     private String aliasSimpleIterableType;
     private String aliasErrorInitClass;
+    private String aliasClone;
 
     private String selectedBoolean = "$sb";
 
@@ -4478,6 +4479,12 @@ public abstract class LgNames {
     }
     public void setAliasErrorInitClass(String _aliasErrorInitClass) {
         aliasErrorInitClass = _aliasErrorInitClass;
+    }
+    public String getAliasClone() {
+        return aliasClone;
+    }
+    public void setAliasClone(String _aliasClone) {
+        aliasClone = _aliasClone;
     }
     public String getAliasInvokeTarget() {
         return reflect.getAliasInvokeTarget();

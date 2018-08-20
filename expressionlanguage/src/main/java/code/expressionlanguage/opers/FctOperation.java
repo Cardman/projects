@@ -100,7 +100,39 @@ public final class FctOperation extends InvokingOperation {
             trimMeth_ = trimMeth_.substring(THAT.length() + 2);
             staticChoiceMethod_ = true;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, import_, ClassArgumentMatching.toArgArray(firstArgs_));
+        boolean cloneArray_ = false;
+        if (StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
+            for (String b: bounds_) {
+                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                    cloneArray_ = true;
+                    break;
+                }
+            }
+        }
+        if (cloneArray_) {
+            StringList a_ = new StringList();
+            for (String b: bounds_) {
+                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                    a_.add(b);
+                }
+            }
+            String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject());
+            MethodId id_ = new MethodId(false, trimMeth_, new StringList());
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            setResultClass(new ClassArgumentMatching(a_));
+            if (isIntermediateDottedOperation() && !staticMethod) {
+                Argument arg_ = getPreviousArgument();
+                if (Argument.isNullValue(arg_)) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(static_);
+                }
+            }
+            return;
+        }
+        ClassMethodIdReturn clMeth_;
+        clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, import_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
