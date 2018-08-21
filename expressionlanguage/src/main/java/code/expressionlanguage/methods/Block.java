@@ -20,6 +20,8 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
+import code.expressionlanguage.opers.util.UnassignedFinalField;
+import code.expressionlanguage.opers.util.UnassignedInfered;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.ElementOffsetsNext;
@@ -298,6 +300,24 @@ public abstract class Block extends Blockable {
             br_.setAssignmentBeforeChild(_an, _anEl);
         } else {
             prev_.setAssignmentBeforeNextSibling(_an, _anEl);
+        }
+        if (this instanceof BracedBlock) {
+            AssignedVariables v_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+            CustList<StringMap<AssignmentBefore>> as_ = v_.getVariablesRootBefore();
+            for (String v: _an.getInfersLocalVars()) {
+                for (StringMap<AssignmentBefore> a: as_) {
+                    if (!a.contains(v)) {
+                        continue;
+                    }
+                    if (!a.getVal(v).isAssignedBefore()) {
+                        //error
+                        UnassignedInfered un_ = new UnassignedInfered(v);
+                        un_.setFileName(getFile().getFileName());
+                        un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                        _an.getClasses().addError(un_);
+                    }
+                }
+            }
         }
     }
     protected AssignedVariables buildNewAssignedVariable() {

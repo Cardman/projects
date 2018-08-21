@@ -34,6 +34,7 @@ public interface Analyzable {
     RowCol getCurrentLocation();
 
     String getCurrentVarSetting();
+    void setCurrentVarSetting(String _currentVarSetting);
     LoopVariable getVar(String _key);
 
     LoopVariable getMutableLoopVar(String _key, int _index);
@@ -46,6 +47,8 @@ public interface Analyzable {
     boolean containsLocalVar(String _string);
     LocalVariable getLocalVar(String _key);
     void putLocalVar(String _string, LocalVariable _loc);
+    StringList getInfersLocalVars();
+    void putLocalVar(String _string);
 
     LocalVariable getCatchVar(String _key);
 

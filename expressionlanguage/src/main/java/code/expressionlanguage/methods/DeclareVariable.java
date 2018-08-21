@@ -7,6 +7,7 @@ import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -59,12 +60,19 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         return importedClassName;
     }
 
+    public void setImportedClassName(String _importedClassName) {
+        importedClassName = _importedClassName;
+    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        importedClassName = _cont.resolveCorrectType(className);
+        if (StringList.quickEq(className.trim(), TypeUtil.VAR_TYPE)) {
+            importedClassName = TypeUtil.VAR_TYPE;
+        } else {
+            importedClassName = _cont.resolveCorrectType(className);
+        }
         _cont.setMerged(true);
         _cont.setFinalVariable(finalVariable);
         _cont.setCurrentVarSetting(importedClassName);

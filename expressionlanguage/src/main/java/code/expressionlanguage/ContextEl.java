@@ -1061,6 +1061,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return analyzing.getCurrentVarSetting();
     }
 
+    @Override
     public void setCurrentVarSetting(String _currentVarSetting) {
         analyzing.setCurrentVarSetting(_currentVarSetting);
     }
@@ -2017,5 +2018,15 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setAnnotAnalysis(boolean _ana) {
         analyzing.setAnnotAnalysis(_ana);
+    }
+
+    @Override
+    public void putLocalVar(String _string) {
+        analyzing.putLocalVar(_string);
+    }
+
+    @Override
+    public StringList getInfersLocalVars() {
+        return analyzing.getLastLocalVarsInfers();
     }
 }

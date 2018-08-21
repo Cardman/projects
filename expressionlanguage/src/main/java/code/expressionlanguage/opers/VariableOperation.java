@@ -12,6 +12,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadVariableName;
@@ -95,8 +96,16 @@ public final class VariableOperation extends LeafOperation implements
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
+            String c_ = _conf.getCurrentVarSetting();
+            if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                _conf.putLocalVar(str_);
+            }
             LocalVariable lv_ = new LocalVariable();
-            lv_.setClassName(_conf.getCurrentVarSetting());
+            if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                lv_.setClassName(_conf.getStandards().getAliasObject());
+            } else {
+                lv_.setClassName(c_);
+            }
             lv_.setFinalVariable(_conf.isFinalVariable());
             _conf.putLocalVar(str_, lv_);
             _conf.getVariablesNames().add(str_);

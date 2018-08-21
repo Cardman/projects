@@ -9,7 +9,9 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -63,6 +65,28 @@ public final class AffectationOperation extends MethodOperation {
             return;
         }
         settable = elt_;
+        if (settable instanceof VariableOperation) {
+            VariableOperation v_ = (VariableOperation)elt_;
+            String inf_ = v_.getVariableName();
+            if (ElUtil.isDeclaringVariable(v_, _conf) && _conf.getInfersLocalVars().containsStr(inf_)) {
+                String c_ = _conf.getCurrentVarSetting();
+                if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                    ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                    StringList names_ = clMatchRight_.getNames();
+                    if (names_.size() == 1) {
+                        ClassArgumentMatching n_ = new ClassArgumentMatching(names_);
+                        LocalVariable lv_ = _conf.getLocalVar(inf_);
+                        if (lv_ != null) {
+                            lv_.setClassName(names_.first());
+                            DeclareVariable d_ = (DeclareVariable) _conf.getCurrentBlock().getPreviousSibling();
+                            d_.setImportedClassName(names_.first());
+                            _conf.setCurrentVarSetting(names_.first());
+                        }
+                        v_.setResultClass(n_);
+                    }
+                }
+            }
+        }
         setResultClass(elt_.getResultClass());
         elt_.setVariable(true);
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();

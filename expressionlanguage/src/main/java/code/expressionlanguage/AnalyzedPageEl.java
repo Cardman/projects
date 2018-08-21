@@ -42,6 +42,7 @@ public final class AnalyzedPageEl {
     private CustList<StringMap<LocalVariable>> catchVars = new CustList<StringMap<LocalVariable>>();
 
     private CustList<StringMap<LocalVariable>> localVars = new CustList<StringMap<LocalVariable>>();
+    private CustList<StringList> localVarsInfers = new CustList<StringList>();
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
@@ -265,18 +266,24 @@ public final class AnalyzedPageEl {
 
     public void initLocalVars() {
         localVars.add(new StringMap<LocalVariable>());
+        localVarsInfers.add(new StringList());
     }
 
     public void removeLocalVars() {
         localVars.removeLast();
+        localVarsInfers.removeLast();
     }
 
+    public void putLocalVar(String _key) {
+        localVarsInfers.last().add(_key);
+    }
     public void putLocalVar(String _key, LocalVariable _var) {
         localVars.last().put(_key, _var);
     }
 
     public void clearAllLocalVars() {
         localVars.clear();
+        localVarsInfers.clear();
         mutableVars.clear();
         assignedVariables.getFinalVariablesGlobal().getVariables().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesRoot().clear();
@@ -354,6 +361,8 @@ public final class AnalyzedPageEl {
     public void setLocalVars(StringMap<LocalVariable> _localVars) {
         localVars = new CustList<StringMap<LocalVariable>>(new CollCapacity(1));
         localVars.add(_localVars);
+        localVarsInfers = new CustList<StringList>();
+        localVarsInfers.add(new StringList());
     }
 
     public void setLocalVars(CustList<StringMap<LocalVariable>> _localVars) {
@@ -569,5 +578,8 @@ public final class AnalyzedPageEl {
 
     public void setAnnotAnalysis(boolean _annotAnalysis) {
         annotAnalysis = _annotAnalysis;
+    }
+    public StringList getLastLocalVarsInfers() {
+        return localVarsInfers.last();
     }
 }

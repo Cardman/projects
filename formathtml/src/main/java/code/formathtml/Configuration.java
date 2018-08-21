@@ -743,6 +743,7 @@ public class Configuration implements ExecutableCode {
         return context.getCurrentVarSetting();
     }
 
+    @Override
     public void setCurrentVarSetting(String _currentVarSetting) {
         context.setCurrentVarSetting(_currentVarSetting);
     }
@@ -1032,6 +1033,16 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setAnnotAnalysis(boolean _ana) {
         context.setAnnotAnalysis(_ana);
+    }
+
+    @Override
+    public void putLocalVar(String _string) {
+        context.putLocalVar(_string);
+    }
+
+    @Override
+    public StringList getInfersLocalVars() {
+        return context.getInfersLocalVars();
     }
 
 }

@@ -142,7 +142,7 @@ public final class InstanceOperation extends InvokingOperation {
                         }
                     }
                 }
-                if (type_.isEmpty()) {
+                if (type_.isEmpty() || StringList.quickEq(type_, TypeUtil.VAR_TYPE)) {
                     int len_ = className_.length();
                     UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
                     un_.setRc(_conf.getCurrentLocation());
