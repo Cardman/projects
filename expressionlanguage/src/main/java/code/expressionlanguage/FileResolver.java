@@ -32,6 +32,7 @@ import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.NullCatchEval;
+import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.ReturnMehod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
@@ -115,6 +116,8 @@ public final class FileResolver {
     private static final String KEY_WORD_BREAK = "break";
     private static final String KEY_WORD_CONTINUE = "continue";
 
+    private static final String KEY_WORD_OPERATOR = "operator";
+
     private FileResolver(){
     }
     public static void parseFile(String _fileName, String _file, boolean _predefined, ContextEl _context) {
@@ -170,6 +173,9 @@ public final class FileResolver {
             }
             if (currentChar_ == KEY_WORD_PREFIX) {
                 if (_file.indexOf(prefixKeyWord(KEY_WORD_PUBLIC), i_) == i_) {
+                    break;
+                }
+                if (_file.indexOf(prefixKeyWord(KEY_WORD_OPERATOR), i_) == i_) {
                     break;
                 }
                 if (_file.indexOf(prefixKeyWord(KEY_WORD_PROTECTED), i_) == i_) {
@@ -256,12 +262,22 @@ public final class FileResolver {
             input_.getNextRowCol().setRow(readRc_.getRow());
             input_.getNextRowCol().setCol(readRc_.getCol());
             input_.setNextIndex(i_);
-            ResultTypeCreation res_ = createType(_context, _fileName, _file, input_, importedTypes_);
+            ResultCreation res_ = createType(_context, _fileName, _file, input_, importedTypes_);
             if (!res_.isOk()) {
                 return;
             }
-            fileBlock_.appendChild(res_.getType());
-            _context.getClasses().processBracedClass(res_.getType(), _predefined, _context);
+            if (res_ instanceof ResultTypeCreation) {
+                ResultTypeCreation restype_ = (ResultTypeCreation) res_;
+                RootBlock r_ = restype_.getType();
+                fileBlock_.appendChild(r_);
+                _context.getClasses().processBracedClass(r_, _predefined, _context);
+            }
+            if (res_ instanceof ResultOperatorCreation) {
+                ResultOperatorCreation restype_ = (ResultOperatorCreation) res_;
+                OperatorBlock r_ = restype_.getType();
+                fileBlock_.appendChild(r_);
+                _context.getClasses().getOperators().add(r_);
+            }
             input_.setIndexChild(input_.getIndexChild() + 1);
             i_ = res_.getNextIndex();
             boolean hasNext_ = false;
@@ -352,9 +368,9 @@ public final class FileResolver {
             input_.setNextIndex(i_);
         }
     }
-    private static ResultTypeCreation createType(ContextEl _context, String _fileName, String _file, InputTypeCreation _input, StringList _import) {
+    private static ResultCreation createType(ContextEl _context, String _fileName, String _file, InputTypeCreation _input, StringList _import) {
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
-        ResultTypeCreation out_ = new ResultTypeCreation();
+        ResultCreation out_ = new ResultTypeCreation();
         AccessEnum access_;
         int i_ = _input.getNextIndex();
         RowCol current_ = _input.getNextRowCol();
@@ -379,6 +395,7 @@ public final class FileResolver {
             accessOffesType_ = par_.getIndex();
         }
         nextIndex_ += deltaType_;
+        boolean oper_ = false;
         if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_PUBLIC)) {
             access_ = AccessEnum.PUBLIC;
             nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_PUBLIC.length(), _file, tabWidth_, current_, enabledSpaces_);
@@ -391,6 +408,10 @@ public final class FileResolver {
         } else if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_PRIVATE)) {
             access_ = AccessEnum.PRIVATE;
             nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_PRIVATE.length(), _file, tabWidth_, current_, enabledSpaces_);
+        } else if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_OPERATOR)) {
+            access_ = AccessEnum.PUBLIC;
+            oper_ = true;
+            nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_OPERATOR.length(), _file, tabWidth_, current_, enabledSpaces_);
         } else {
             //ERROR
             return out_;
@@ -452,237 +473,326 @@ public final class FileResolver {
                 return out_;
             }
         }
-        if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
-            //ERROR
-            return out_;
-        }
-        char currentChar_ = _file.charAt(nextIndex_);
-        nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-        boolean abstractType_ = false;
-        boolean finalType_ = false;
-        if (_file.substring(nextIndex_).startsWith(KEY_WORD_ABSTRACT)) {
-            abstractType_ = true;
-            nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_ABSTRACT.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_FINAL)) {
-            finalType_ = true;
-            nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_FINAL.length(), _file, tabWidth_, current_, enabledSpaces_);
-        }
-        if (abstractType_ || finalType_) {
+        boolean enableByEndLine_ = false;
+        BracedBlock currentParent_;
+        Numbers<Integer> braces_ = new Numbers<Integer>();
+        boolean allowedComments_ = false;
+        if (oper_) {
+            out_ = new ResultOperatorCreation();
+            int until_ = untilOperator(nextIndex_, _file);
+            String header_ = _file.substring(nextIndex_, until_);
+            String info_ = header_;
+            int methodNameOffest_ = -1;
+            int typeOffset_ = -1;
+            int paramOffest_;
+            String methodName_ = EMPTY_STRING;
+            String declaringType_ = EMPTY_STRING;
+            String afterModifier_ = info_;
+            typeOffset_ = nextIndex_;
+            typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
+            info_ = afterModifier_.trim();
+            declaringType_ = getDeclaringTypeOper(info_);
+            String afterType_ = info_.substring(declaringType_.length());
+            methodNameOffest_ = typeOffset_ + declaringType_.length();
+            methodNameOffest_ += StringList.getFirstPrintableCharIndex(afterType_);
+            info_ = afterType_.trim();
+            int leftParIndex_ = info_.indexOf(BEGIN_CALLING);
+            methodName_ = info_.substring(0, leftParIndex_);
+            String afterMethodName_ = info_.substring(leftParIndex_ + 1);
+            paramOffest_ = methodNameOffest_ + leftParIndex_ + 1;
+            paramOffest_ += StringList.getFirstPrintableCharIndex(afterMethodName_);
+            info_ = afterMethodName_.trim();
+            int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
+            paramOffest_ += indexLeftPar_ + 1;
+            paramOffest_ += StringList.getFirstPrintableCharIndex(info_.substring(indexLeftPar_ + 1));
+            Numbers<Integer> offestsTypes_ = new Numbers<Integer>();
+            Numbers<Integer> offestsParams_ = new Numbers<Integer>();
+            StringList parametersType_ = new StringList();
+            StringList parametersName_ = new StringList();
+            CustList<Numbers<Integer>> annotationsIndexesParams_ = new CustList<Numbers<Integer>>();
+            CustList<StringList> annotationsParams_ = new CustList<StringList>();
+            while (true) {
+                if (info_.indexOf(END_CALLING) == 0) {
+                    break;
+                }
+                Numbers<Integer> annotationsIndexesParam_ = new Numbers<Integer>();
+                StringList annotationsParam_ = new StringList();
+                if (info_.trim().charAt(0) == ANNOT) {
+                    ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_ + 1, -1);
+                    par_.parse();
+                    annotationsIndexesParam_ = par_.getAnnotationsIndexes();
+                    annotationsParam_ = par_.getAnnotations();
+                    info_ = par_.getAfter();
+                    paramOffest_ = par_.getIndex();
+                    paramOffest_ += StringList.getFirstPrintableCharIndex(info_);
+                }
+                annotationsIndexesParams_.add(annotationsIndexesParam_);
+                annotationsParams_.add(annotationsParam_);
+                offestsTypes_.add(paramOffest_);
+                String paramType_ = getDeclaringParamType(info_);
+                parametersType_.add(paramType_.trim());
+                String afterParamType_ = info_.substring(paramType_.length());
+                info_ = afterParamType_.trim();
+                int call_ = info_.indexOf(SEP_CALLING);
+                if (call_ < 0) {
+                    call_ = info_.indexOf(END_CALLING);
+                }
+                int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
+                if (off_ < 0) {
+                    off_ = 0;
+                }
+                offestsParams_.add(paramOffest_ + paramType_.length() + off_);
+                String paramName_ = info_.substring(0, call_);
+                parametersName_.add(paramName_.trim());
+                String afterParamName_ = info_.substring(call_ + 1);
+                info_ = afterParamName_.trim();
+                if (info_.isEmpty()) {
+                    break;
+                }
+                paramOffest_ += paramType_.length();
+                paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamType_);
+                paramOffest_ += call_ + 1;
+                paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
+            }
+            currentParent_ = new OperatorBlock(_context, _input.getIndexChild(), _input.getFileBlock(), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(nextIndex_, nextIndex_));
+            ((NamedFunctionBlock)currentParent_).getAnnotationsParams().addAllElts(annotationsParams_);
+            ((NamedFunctionBlock)currentParent_).getAnnotationsIndexesParams().addAllElts(annotationsIndexesParams_);
+            currentParent_.getAnnotations().addAllElts(annotationsTypes_);
+            currentParent_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
+            ((ResultOperatorCreation)out_).setType((OperatorBlock) currentParent_);
+            nextIndex_ = until_ + 1;
+        } else {
+            out_ = new ResultTypeCreation();
+            if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
+                //ERROR
+                return out_;
+            }
+            char currentChar_ = _file.charAt(nextIndex_);
+            nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            boolean abstractType_ = false;
+            boolean finalType_ = false;
+            if (_file.substring(nextIndex_).startsWith(KEY_WORD_ABSTRACT)) {
+                abstractType_ = true;
+                nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_ABSTRACT.length(), _file, tabWidth_, current_, enabledSpaces_);
+            } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_FINAL)) {
+                finalType_ = true;
+                nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_FINAL.length(), _file, tabWidth_, current_, enabledSpaces_);
+            }
+            if (abstractType_ || finalType_) {
+                while (nextIndex_ < len_) {
+                    currentChar_ = _file.charAt(nextIndex_);
+                    if (!enabledSpaces_.isOk()) {
+                        //ERROR
+                        return out_;
+                    }
+                    if (!Character.isWhitespace(currentChar_)) {
+                        break;
+                    }
+                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                }
+                if (nextIndex_ > len_) {
+                    //ERROR
+                    return out_;
+                }
+                if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
+                    //ERROR
+                    return out_;
+                }
+                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            }
+            int categoryOffset_ = nextIndex_ - 1;
+            currentChar_ = _file.charAt(nextIndex_);
+            String type_;
+            if (_file.substring(nextIndex_).startsWith(KEY_WORD_CLASS)) {
+                type_ = KEY_WORD_CLASS;
+                nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_CLASS.length(), _file, tabWidth_, current_, enabledSpaces_);
+            } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_ENUM)) {
+                type_ = KEY_WORD_ENUM;
+                nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_ENUM.length(), _file, tabWidth_, current_, enabledSpaces_);
+            } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_INTERFACE)) {
+                type_ = KEY_WORD_INTERFACE;
+                nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_INTERFACE.length(), _file, tabWidth_, current_, enabledSpaces_);
+            } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_ANNOTATION)) {
+                type_ = KEY_WORD_ANNOTATION;
+                nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_ANNOTATION.length(), _file, tabWidth_, current_, enabledSpaces_);
+            } else {
+                //ERROR
+                return out_;
+            }
             while (nextIndex_ < len_) {
                 currentChar_ = _file.charAt(nextIndex_);
                 if (!enabledSpaces_.isOk()) {
                     //ERROR
                     return out_;
                 }
-                if (!Character.isWhitespace(currentChar_)) {
-                    break;
+                if (Character.isWhitespace(currentChar_)) {
+                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                    continue;
                 }
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                break;
             }
-            if (nextIndex_ > len_) {
+            if (!StringList.isWordChar(_file.charAt(nextIndex_)) && _file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
                 //ERROR
                 return out_;
             }
-            if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
-                //ERROR
-                return out_;
+            //insert interfaces static initialization for class and enums
+            StringList staticInitInterfaces_ = new StringList();
+            Numbers<Integer> staticInitInterfacesOffset_ = new Numbers<Integer>();
+            if (startsWithPrefixKeyWord(_file.substring(nextIndex_), KEY_WORD_INTERFACES)) {
+                int begin_ = _file.indexOf(BEGIN_CALLING, nextIndex_);
+                if (begin_ < 0) {
+                    //ERROR
+                    return out_;
+                }
+                int end_ = _file.indexOf(END_CALLING, begin_);
+                if (end_ < 0) {
+                    //ERROR
+                    return out_;
+                }
+                int interfaceOffest_ = begin_ + 1;
+                String interfacesInfo_ = _file.substring(begin_ + 1, end_);
+                for (int i = begin_ + 1; i < end_; i++) {
+                    updateAllowedSpaces(i, _file, enabledSpaces_);
+                    if (!enabledSpaces_.isOk()) {
+                        //ERROR
+                        return out_;
+                    }
+                }
+                for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
+                    staticInitInterfaces_.add(p);
+                    staticInitInterfacesOffset_.add(interfaceOffest_);
+                    interfaceOffest_ += p.length() + 1;
+                }
+                nextIndex_ = end_ + 1;
             }
-            nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-        }
-        int categoryOffset_ = nextIndex_ - 1;
-        currentChar_ = _file.charAt(nextIndex_);
-        String type_;
-        if (_file.substring(nextIndex_).startsWith(KEY_WORD_CLASS)) {
-            type_ = KEY_WORD_CLASS;
-            nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_CLASS.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_ENUM)) {
-            type_ = KEY_WORD_ENUM;
-            nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_ENUM.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_INTERFACE)) {
-            type_ = KEY_WORD_INTERFACE;
-            nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_INTERFACE.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_ANNOTATION)) {
-            type_ = KEY_WORD_ANNOTATION;
-            nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_ANNOTATION.length(), _file, tabWidth_, current_, enabledSpaces_);
-        } else {
-            //ERROR
-            return out_;
-        }
-        while (nextIndex_ < len_) {
-            currentChar_ = _file.charAt(nextIndex_);
-            if (!enabledSpaces_.isOk()) {
-                //ERROR
-                return out_;
-            }
-            if (Character.isWhitespace(currentChar_)) {
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-                continue;
-            }
-            break;
-        }
-        if (!StringList.isWordChar(_file.charAt(nextIndex_)) && _file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
-            //ERROR
-            return out_;
-        }
-        //insert interfaces static initialization for class and enums
-        StringList staticInitInterfaces_ = new StringList();
-        Numbers<Integer> staticInitInterfacesOffset_ = new Numbers<Integer>();
-        if (startsWithPrefixKeyWord(_file.substring(nextIndex_), KEY_WORD_INTERFACES)) {
-            int begin_ = _file.indexOf(BEGIN_CALLING, nextIndex_);
-            if (begin_ < 0) {
-                //ERROR
-                return out_;
-            }
-            int end_ = _file.indexOf(END_CALLING, begin_);
-            if (end_ < 0) {
-                //ERROR
-                return out_;
-            }
-            int interfaceOffest_ = begin_ + 1;
-            String interfacesInfo_ = _file.substring(begin_ + 1, end_);
-            for (int i = begin_ + 1; i < end_; i++) {
-                updateAllowedSpaces(i, _file, enabledSpaces_);
+            while (nextIndex_ < len_) {
+                currentChar_ = _file.charAt(nextIndex_);
                 if (!enabledSpaces_.isOk()) {
                     //ERROR
                     return out_;
                 }
-            }
-            for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
-                staticInitInterfaces_.add(p);
-                staticInitInterfacesOffset_.add(interfaceOffest_);
-                interfaceOffest_ += p.length() + 1;
-            }
-            nextIndex_ = end_ + 1;
-        }
-        while (nextIndex_ < len_) {
-            currentChar_ = _file.charAt(nextIndex_);
-            if (!enabledSpaces_.isOk()) {
-                //ERROR
-                return out_;
-            }
-            if (Character.isWhitespace(currentChar_)) {
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-                continue;
-            }
-            break;
-        }
-        StringBuilder str_ = new StringBuilder();
-        NatTreeMap<Integer, String> superTypes_ = new NatTreeMap<Integer, String>();
-        StringBuilder typeNamePref_ = new StringBuilder();
-        StringBuilder templateDef_ = new StringBuilder();
-        int nbOpened_ = 0;
-        boolean ok_ = false;
-        boolean foundInherit_ = false;
-        Numbers<Integer> braces_ = new Numbers<Integer>();
-        boolean allowedComments_ = false;
-        int beginDefinition_ = nextIndex_;
-        int inheritIndex_ = -1;
-        while (nextIndex_ < len_) {
-            currentChar_ = _file.charAt(nextIndex_);
-            if (!enabledSpaces_.isOk()) {
-                //ERROR
-                return out_;
-            }
-            if (currentChar_ == BEGIN_TEMPLATE) {
-                nbOpened_++;
-            }
-            if (nbOpened_ > 0) {
-                if (!foundInherit_) {
-                    templateDef_.append(currentChar_);
+                if (Character.isWhitespace(currentChar_)) {
+                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                    continue;
                 }
-            } else if (templateDef_.length() == 0 && currentChar_ != BEGIN_BLOCK) {
-                if (!foundInherit_ && currentChar_ != INHERIT) {
-                    if (typeNamePref_.length() == 0) {
-                        beginDefinition_ = nextIndex_;
-                    }
-                    typeNamePref_.append(currentChar_);
-                }
-            }
-            if (currentChar_ == END_TEMPLATE) {
-                nbOpened_--;
-            }
-            if (currentChar_ == INHERIT && nbOpened_ == 0) {
-                if (foundInherit_) {
-                    superTypes_.put(inheritIndex_, str_.toString());
-                }
-                str_.delete(0, str_.length());
-                foundInherit_ = true;
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-                inheritIndex_ = nextIndex_;
-                continue;
-            }
-            if (currentChar_ == BEGIN_BLOCK) {
-                braces_.add(nextIndex_);
-                ok_ = true;
                 break;
             }
-            if (currentChar_ == BEGIN_COMMENT) {
+            StringBuilder str_ = new StringBuilder();
+            NatTreeMap<Integer, String> superTypes_ = new NatTreeMap<Integer, String>();
+            StringBuilder typeNamePref_ = new StringBuilder();
+            StringBuilder templateDef_ = new StringBuilder();
+            int nbOpened_ = 0;
+            boolean ok_ = false;
+            boolean foundInherit_ = false;
+            int beginDefinition_ = nextIndex_;
+            int inheritIndex_ = -1;
+            while (nextIndex_ < len_) {
+                currentChar_ = _file.charAt(nextIndex_);
+                if (!enabledSpaces_.isOk()) {
+                    //ERROR
+                    return out_;
+                }
+                if (currentChar_ == BEGIN_TEMPLATE) {
+                    nbOpened_++;
+                }
+                if (nbOpened_ > 0) {
+                    if (!foundInherit_) {
+                        templateDef_.append(currentChar_);
+                    }
+                } else if (templateDef_.length() == 0 && currentChar_ != BEGIN_BLOCK) {
+                    if (!foundInherit_ && currentChar_ != INHERIT) {
+                        if (typeNamePref_.length() == 0) {
+                            beginDefinition_ = nextIndex_;
+                        }
+                        typeNamePref_.append(currentChar_);
+                    }
+                }
+                if (currentChar_ == END_TEMPLATE) {
+                    nbOpened_--;
+                }
+                if (currentChar_ == INHERIT && nbOpened_ == 0) {
+                    if (foundInherit_) {
+                        superTypes_.put(inheritIndex_, str_.toString());
+                    }
+                    str_.delete(0, str_.length());
+                    foundInherit_ = true;
+                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                    inheritIndex_ = nextIndex_;
+                    continue;
+                }
+                if (currentChar_ == BEGIN_BLOCK) {
+                    braces_.add(nextIndex_);
+                    ok_ = true;
+                    break;
+                }
+                if (currentChar_ == BEGIN_COMMENT) {
+                    //ERROR
+                    return out_;
+                }
+                if (foundInherit_) {
+                    str_.append(currentChar_);
+                }
+                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            }
+            if (foundInherit_) {
+                superTypes_.put(inheritIndex_, str_.toString());
+            }
+            if (!ok_) {
                 //ERROR
                 return out_;
             }
-            if (foundInherit_) {
-                str_.append(currentChar_);
+            if (nextIndex_ >= len_) {
+                //ERROR
+                return out_;
             }
+            currentChar_ = _file.charAt(nextIndex_);
             nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            RootBlock typeBlock_;
+            String tempDef_ = templateDef_.toString();
+            String typeName_ = typeNamePref_.toString();
+            String packageName_ = EMPTY_STRING;
+            String baseName_ = EMPTY_STRING;
+            int lastDot_ = typeName_.lastIndexOf(PKG);
+            if (lastDot_ >= 0) {
+                packageName_ = typeName_.substring(0, lastDot_);
+                baseName_ = typeName_.substring(lastDot_ + 1);
+            } else {
+                baseName_ = typeName_;
+            }
+            
+            if (StringList.quickEq(type_, KEY_WORD_ENUM)) {
+                enableByEndLine_ = true;
+                typeBlock_ = new EnumBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+            } else if (StringList.quickEq(type_, KEY_WORD_CLASS)) {
+                typeBlock_ = new ClassBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+            } else if (StringList.quickEq(type_, KEY_WORD_INTERFACE)) {
+                typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+            } else {
+                typeBlock_ = new AnnotationBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+            }
+            typeBlock_.getImports().addAllElts(importedTypes_);
+            typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
+            typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
+            typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
+            typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
+            typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
+            ((ResultTypeCreation) out_).setType(typeBlock_);
+            currentParent_ = typeBlock_;
         }
-        if (foundInherit_) {
-            superTypes_.put(inheritIndex_, str_.toString());
-        }
-        if (!ok_) {
-            //ERROR
-            return out_;
-        }
-        if (nextIndex_ >= len_) {
-            //ERROR
-            return out_;
-        }
-        currentChar_ = _file.charAt(nextIndex_);
-        nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-        boolean commentedSingleLine_ = false;
-        boolean commentedMultiLine_ = false;
-        boolean constChar_ = false;
-        boolean constString_ = false;
         StringBuilder instruction_ = new StringBuilder();
         int instructionLocation_ = -1;
         Numbers<Integer> parentheses_ = new Numbers<Integer>();
         Numbers<Integer> indexes_ = new Numbers<Integer>();
         indexes_.add(0);
-        RootBlock typeBlock_;
-        BracedBlock currentParent_;
-        String tempDef_ = templateDef_.toString();
-        String typeName_ = typeNamePref_.toString();
-        String packageName_ = EMPTY_STRING;
-        String baseName_ = EMPTY_STRING;
-        int lastDot_ = typeName_.lastIndexOf(PKG);
-        if (lastDot_ >= 0) {
-            packageName_ = typeName_.substring(0, lastDot_);
-            baseName_ = typeName_.substring(lastDot_ + 1);
-        } else {
-            baseName_ = typeName_;
-        }
-        boolean enableByEndLine_ = false;
-        if (StringList.quickEq(type_, KEY_WORD_ENUM)) {
-            enableByEndLine_ = true;
-            typeBlock_ = new EnumBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
-        } else if (StringList.quickEq(type_, KEY_WORD_CLASS)) {
-            typeBlock_ = new ClassBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
-        } else if (StringList.quickEq(type_, KEY_WORD_INTERFACE)) {
-            typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
-        } else {
-            typeBlock_ = new AnnotationBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
-        }
-        typeBlock_.getImports().addAllElts(importedTypes_);
-        typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
-        typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
-        typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
-        typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
-        typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
-        out_.setType(typeBlock_);
-        currentParent_ = typeBlock_;
+        boolean commentedSingleLine_ = false;
+        boolean commentedMultiLine_ = false;
+        boolean constChar_ = false;
+        boolean constString_ = false;
+        
         i_ = nextIndex_;
         boolean okType_ = false;
         while (i_ < len_) {
-            currentChar_ = _file.charAt(i_);
+            char currentChar_ = _file.charAt(i_);
             if (commentedSingleLine_) {
                 if (currentChar_ == LINE_RETURN) {
                     commentedSingleLine_ = false;
@@ -1742,6 +1852,132 @@ public final class FileResolver {
         }
         return EMPTY_STRING;
     }
+    private static String getDeclaringTypeOper(String _found) {
+        int indexInstr_ = 0;
+        int instLen_ = _found.length();
+        boolean typeDeclaring_ = false;
+        StringBuilder declTypeName_ = new StringBuilder();
+        int nbOpenedTmp_ = 0;
+        boolean foundTmp_ = false;
+        while (indexInstr_ < instLen_) {
+            char currentCharFound_ = _found.charAt(indexInstr_);
+            if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
+                String trimmed_ = declTypeName_.toString().trim();
+                if (foundTmp_) {
+                    typeDeclaring_ = true;
+                    break;
+                }
+                String nextPart_ = _found.substring(indexInstr_).trim();
+                if (trimmed_.length() > 0) {
+                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
+                    if (StringList.isWordChar(ch_)) {
+                        if (!nextPart_.isEmpty()) {
+                            if (nextPart_.charAt(0) == '+') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '-') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '*') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '%') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '/') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '!') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '=') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '<') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                            if (nextPart_.charAt(0) == '>') {
+                                typeDeclaring_ = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == BEGIN_ARRAY) {
+                String trimmed_ = declTypeName_.toString().trim();
+                if (trimmed_.length() > 0) {
+                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
+                    if (ch_ != BEGIN_ARRAY) {
+                        break;
+                    }
+                }
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == BEGIN_TEMPLATE) {
+                nbOpenedTmp_++;
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == END_TEMPLATE) {
+                nbOpenedTmp_--;
+                if (nbOpenedTmp_ == 0) {
+                    declTypeName_.append(currentCharFound_);
+                    typeDeclaring_ = true;
+                    break;
+                }
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (nbOpenedTmp_ > 0) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            // !Character.isWhitespace(currentCharFound_)
+            if (StringList.isWordChar(currentCharFound_)) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == KEY_WORD_PREFIX) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == PKG) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (currentCharFound_ == TYPE_VAR) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            // !Character.isWhitespace(currentCharFound_)
+            break;
+        }
+        if (typeDeclaring_) {
+            return declTypeName_.toString();
+        }
+        return EMPTY_STRING;
+    }
     private static String getDeclaringTypeInstr(String _found) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
@@ -1995,5 +2231,66 @@ public final class FileResolver {
                 return;
             }
         }
+    }
+    private static int untilOperator(int _from, String _file) {
+        int len_ = _file.length();
+        int i_ = _from;
+        Numbers<Integer> localCallings_ = new Numbers<Integer>();
+        boolean localConstChar_ = false;
+        boolean localConstString_ = false;
+        while (i_ < len_) {
+            char locChar_ = _file.charAt(i_);
+            if (localConstChar_) {
+                if (locChar_ == ESCAPE) {
+                    i_++;
+                    i_++;
+                    continue;
+                }
+                if (locChar_ == DEL_CHAR) {
+                    i_++;
+                    localConstChar_ = false;
+                    continue;
+                }
+                i_++;
+                continue;
+            }
+            if (localConstString_) {
+                if (locChar_ == ESCAPE) {
+                    i_++;
+                    i_++;
+                    continue;
+                }
+                if (locChar_ == DEL_STRING) {
+                    i_++;
+                    localConstString_ = false;
+                    continue;
+                }
+                i_++;
+                continue;
+            }
+            if (localCallings_.isEmpty() && locChar_ == BEGIN_BLOCK) {
+                return i_;
+            }
+            if (locChar_ == DEL_CHAR) {
+                localConstChar_ = true;
+            }
+            if (locChar_ == DEL_STRING) {
+                localConstString_ = true;
+            }
+            if (locChar_ == BEGIN_CALLING) {
+                localCallings_.add(i_);
+            }
+            if (locChar_ == END_CALLING) {
+                localCallings_.removeLast();
+            }
+            if (locChar_ == BEGIN_BLOCK) {
+                localCallings_.add(i_);
+            }
+            if (locChar_ == END_BLOCK) {
+                localCallings_.removeLast();
+            }
+            i_++;
+        }
+        return -1;
     }
 }

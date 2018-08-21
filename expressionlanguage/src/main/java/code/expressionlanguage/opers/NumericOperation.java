@@ -6,12 +6,17 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
@@ -21,6 +26,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 
 public abstract class NumericOperation extends MethodOperation {
+    private ClassMethodId classMethodId;
 
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -407,11 +413,27 @@ public abstract class NumericOperation extends MethodOperation {
         NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
         ClassArgumentMatching c_ = chidren_.last().getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+        ClassMethodIdReturn cust_ = getOperator(_conf, ops_.firstValue(), a_, c_);
+        if (cust_.isFoundMethod()) {
+            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = cust_.getRealId();
+            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+            for (OperationNode o: chidren_) {
+                firstArgs_.add(o.getResultClass());
+            }
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            return;
+        }
         r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);
         setCatenize(r_);
         a_ = r_.getResult();
         setResultClass(a_);
     }
+
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, Analyzable _cont);
     @Override
     public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
@@ -435,6 +457,17 @@ public abstract class NumericOperation extends MethodOperation {
         o_ = chidren_.last();
         Argument c_ = _nodes.getVal(o_).getArgument();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
+        if (classMethodId != null) {
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(_nodes.getVal(o).getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
+            return Argument.createVoid();
+        }
         Argument r_;
         r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
         if (_conf.getException() != null) {

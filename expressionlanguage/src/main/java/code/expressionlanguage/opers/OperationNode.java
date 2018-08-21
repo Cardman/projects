@@ -16,9 +16,9 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.StaticAccessFieldError;
@@ -730,15 +730,56 @@ public abstract class OperationNode {
         idRet_.setRealClass(realClass_);
         idRet_.setId(new ClassMethodId(clCurName_, id_));
         idRet_.setVarArgToCall(_res.isVarArgToCall());
-        if (_conf.getClassBody(realClass_) instanceof AnnotationBlock) {
-            //
-        }
         CustList<GeneMethod> methods_ = _conf.getMethodBodiesById(realClass_, realId_);
         GeneMethod m_ = methods_.first();
         idRet_.setReturnType(_res.getReturnType());
         idRet_.setStaticMethod(m_.isStaticMethod());
         idRet_.setAbstractMethod(m_.isAbstractMethod());
         return idRet_;
+    }
+    ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
+        ObjectNotNullMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
+        ClassMethodIdResult res_ = getCustResult(_cont, -1, ops_, _op, _argsClass);
+        ClassMethodIdReturn idRet_ = new ClassMethodIdReturn(res_.getStatus() == SearchingMemberStatus.UNIQ);
+        ClassMethodId idCl_ = res_.getId();
+        if (idCl_ == null) {
+            return idRet_;
+        }
+        String clCurName_ = idCl_.getClassName();
+        MethodId id_ = idCl_.getConstraints();
+        MethodId realId_ = res_.getRealId();
+        idRet_.setRealId(realId_);
+        String realClass_ = res_.getRealClass();
+        idRet_.setRealClass(realClass_);
+        idRet_.setId(new ClassMethodId(clCurName_, id_));
+        idRet_.setVarArgToCall(res_.isVarArgToCall());
+        idRet_.setReturnType(res_.getReturnType());
+        idRet_.setStaticMethod(true);
+        idRet_.setAbstractMethod(false);
+        return idRet_;
+    }
+    ObjectNotNullMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
+        String objType_ = _cont.getStandards().getAliasObject();
+        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
+        for (OperatorBlock o: _cont.getClasses().getOperators()) {
+            String ret_ = o.getImportedReturnType();
+            MethodId id_ = o.getId();
+            ParametersGroup p_ = new ParametersGroup();
+            MethodId realId_ = id_;
+            for (String c: realId_.getParametersTypes()) {
+                p_.add(new ClassMatching(c));
+            }
+            MethodInfo mloc_ = new MethodInfo();
+            mloc_.setClassName(objType_);
+            mloc_.setStatic(false);
+            mloc_.setConstraints(realId_);
+            mloc_.setParameters(p_);
+            mloc_.setReturnType(ret_);
+            ClassMethodId clId_ = new ClassMethodId(objType_, id_);
+            methods_.put(clId_, mloc_);
+        }
+        return methods_;
     }
     private static ObjectNotNullMap<ClassMethodId, MethodInfo>
     getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, int _varargOnly, boolean _accessFromSuper,

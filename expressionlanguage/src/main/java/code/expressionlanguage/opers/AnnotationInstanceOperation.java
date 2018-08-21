@@ -39,7 +39,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     private String methodName;
 
     private String className;
-    private StringList fieldNames = new StringList();
+    private StringMap<String> fieldNames = new StringMap<String>();
     private boolean array;
 
     public AnnotationInstanceOperation(int _index,
@@ -246,6 +246,14 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
                     //ERROR
+                    if (param_.isArray()) {
+                        ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
+                            fieldNames.put(fieldsTypes_.getKey(0), paramName_);
+                            setResultClass(new ClassArgumentMatching(className));
+                            return;
+                        }
+                    }
                     StringMap<StringList> vars_ = new StringMap<StringList>();
                     Mapping mapping_ = new Mapping();
                     mapping_.setMapping(vars_);
@@ -257,7 +265,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setRc(_conf.getCurrentLocation());
                     _conf.getClasses().addError(cast_);
                 }
-                fieldNames.add(fieldsTypes_.getKey(0));
+                fieldNames.put(fieldsTypes_.getKey(0),EMPTY_STRING);
                 setResultClass(new ClassArgumentMatching(className));
                 return;
             }
@@ -282,7 +290,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 cast_.setRc(_conf.getCurrentLocation());
                 _conf.getClasses().addError(cast_);
             }
-            fieldNames.add(f);
+            fieldNames.put(f,EMPTY_STRING);
         }
         for (EntryCust<String, Boolean> e: fieldsOpt_.entryList()) {
             if (e.getValue()) {
@@ -302,6 +310,13 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
             ClassArgumentMatching arg_ = e.getValue();
             if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
+                if (param_.isArray()) {
+                    ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
+                        fieldNames.put(e.getKey(), paramName_);
+                        continue;
+                    }
+                }
                 //ERROR
                 StringMap<StringList> vars_ = new StringMap<StringList>();
                 Mapping mapping_ = new Mapping();

@@ -23,6 +23,7 @@ import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.NotInitializedFields;
 import code.expressionlanguage.methods.ProcessMethod;
@@ -284,7 +285,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         pageLoc_.setGlobalArgument(_gl);
         pageLoc_.setGlobalClass(_class);
         MethodId id_ = _method;
-        MethodBlock methodLoc_ = Classes.getMethodBodiesById(this, _class, id_).first();
+        NamedFunctionBlock methodLoc_;
+        if (!StringList.isWord(id_.getName())) {
+            methodLoc_ = Classes.getOperatorsBodiesById(this, id_).first();
+        } else {
+            methodLoc_ = Classes.getMethodBodiesById(this, _class, id_).first();
+        }
         StringList paramsLoc_ = methodLoc_.getParametersNames();
         StringList typesLoc_ = methodLoc_.getImportedParametersTypes();
         CustList<Argument> args_ = _args;
@@ -353,7 +359,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return page_;
     }
     public NewAnnotationPageEl createAnnotation(String _class,
-            StringList _id,
+            StringMap<String> _id,
             CustList<Argument> _args) {
         setCallAnnot(null);
         NewAnnotationPageEl page_;

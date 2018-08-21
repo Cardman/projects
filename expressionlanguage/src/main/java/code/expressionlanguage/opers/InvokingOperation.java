@@ -603,7 +603,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
       _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
       return Argument.createVoid();
     }
-    public static Argument instancePrepareAnnotation(ExecutableCode _conf, String _className, StringList _fieldNames,CustList<Argument> _arguments) {
+    public static Argument instancePrepareAnnotation(ExecutableCode _conf, String _className, StringMap<String> _fieldNames,CustList<Argument> _arguments) {
         if (_conf.getException() != null) {
             Argument a_ = new Argument();
             return a_;

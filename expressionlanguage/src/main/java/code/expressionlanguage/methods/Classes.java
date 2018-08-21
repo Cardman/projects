@@ -17,9 +17,13 @@ import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadClassName;
 import code.expressionlanguage.methods.util.BadFileName;
 import code.expressionlanguage.methods.util.BadInheritedClass;
+import code.expressionlanguage.methods.util.BadMethodName;
+import code.expressionlanguage.methods.util.BadParamName;
 import code.expressionlanguage.methods.util.ClassEdge;
 import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
+import code.expressionlanguage.methods.util.DuplicateMethod;
+import code.expressionlanguage.methods.util.DuplicateParamName;
 import code.expressionlanguage.methods.util.DuplicateType;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.ErrorList;
@@ -107,6 +111,7 @@ public final class Classes {
     private CustList<OperationNode> expsIteratorCust;
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
+    private CustList<OperatorBlock> operators;
 
     public Classes(){
         classesBodies = new StringMap<RootBlock>();
@@ -114,6 +119,7 @@ public final class Classes {
         errorsDet = new ErrorList();
         warningsDet = new WarningList();
         staticFields = new StringMap<StringMap<Struct>>();
+        operators = new CustList<OperatorBlock>();
     }
     private void processPredefinedClass(String _fileName,String _content, ContextEl _context) {
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
@@ -1231,6 +1237,9 @@ public final class Classes {
             }
         }
     }
+    public CustList<OperatorBlock> getOperators() {
+        return operators;
+    }
     public void validateSingleParameterizedClasses(ContextEl _context) {
         for (EntryCust<String, RootBlock> i: classesBodies.entryList()) {
             RootBlock r_ = i.getValue();
@@ -1449,6 +1458,89 @@ public final class Classes {
             RootBlock bl_ = c.getValue();
             bl_.validateIds(_context);
         }
+        EqList<MethodId> idMethods_ = new EqList<MethodId>();
+        for (OperatorBlock o: operators) {
+            String name_ = o.getName();
+            o.buildImportedTypes(_context);
+            if (!isOper(name_)) {
+                RowCol r_ = o.getRowCol(0, o.getNameOffset());
+                BadMethodName badMeth_ = new BadMethodName();
+                badMeth_.setFileName(_context.getCurrentFileName());
+                badMeth_.setRc(r_);
+                badMeth_.setName(name_);
+                _context.getClasses().addError(badMeth_);
+            }
+            MethodId id_ = o.getId();
+            for (MethodId m: idMethods_) {
+                if (m.eq(id_)) {
+                    RowCol r_ = o.getRowCol(0, o.getOffset().getOffsetTrim());
+                    DuplicateMethod duplicate_;
+                    duplicate_ = new DuplicateMethod();
+                    duplicate_.setRc(r_);
+                    duplicate_.setFileName(_context.getCurrentFileName());
+                    duplicate_.setId(id_);
+                    _context.getClasses().addError(duplicate_);
+                }
+            }
+            idMethods_.add(id_);
+            StringList l_ = o.getParametersNames();
+            StringList seen_ = new StringList();
+            for (String v: l_) {
+                if (!StringList.isWord(v)) {
+                    BadParamName b_;
+                    b_ = new BadParamName();
+                    b_.setFileName(_context.getCurrentFileName());
+                    b_.setRc(o.getRowCol(0, o.getOffset().getOffsetTrim()));
+                    b_.setParamName(v);
+                    _context.getClasses().addError(b_);
+                } else if (seen_.containsStr(v)){
+                    DuplicateParamName b_;
+                    b_ = new DuplicateParamName();
+                    b_.setFileName(_context.getCurrentFileName());
+                    b_.setRc(o.getRowCol(0, o.getOffset().getOffsetTrim()));
+                    b_.setParamName(v);
+                    _context.getClasses().addError(b_);
+                } else {
+                    seen_.add(v);
+                }
+            }
+        }
+    }
+    private static boolean isOper(String _op) {
+        if(StringList.quickEq(_op, "+")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "-")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "*")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "/")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "%")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "=")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "!=")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "<=")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, ">")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, ">=")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "<")) {
+            return true;
+        }
+        return false;
     }
     public void validateOverridingInherit(ContextEl _context) {
         _context.setAnalyzing(new AnalyzedPageEl());
@@ -1892,6 +1984,21 @@ public final class Classes {
                 }
             }
         }
+        for (OperatorBlock o : operators) {
+            StringList params_ = o.getParametersNames();
+            StringList types_ = o.getImportedParametersTypes();
+            int len_ = params_.size();
+            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+                String p_ = params_.get(i);
+                String c_ = types_.get(i);
+                LocalVariable lv_ = new LocalVariable();
+                lv_.setClassName(c_);
+                page_.getParameters().put(p_, lv_);
+            }
+            o.buildFctInstructions(_context);
+            page_.getParameters().clear();
+            page_.clearAllLocalVars();
+        }
         _context.setAnnotAnalysis(true);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             for (Block b:getSortedDescNodes(c.getValue())) {
@@ -2230,7 +2337,17 @@ public final class Classes {
         }
         return methods_;
     }
-
+    public static CustList<OperatorBlock> getOperatorsBodiesById(ContextEl _context,MethodId _id) {
+        CustList<OperatorBlock> methods_ = new CustList<OperatorBlock>();
+        Classes classes_ = _context.getClasses();
+        for (GeneMethod m: classes_.getOperators()) {
+            if (m.getId().eq(_id)) {
+                methods_.add((OperatorBlock)m);
+                break;
+            }
+        }
+        return methods_;
+    }
     public static CustList<GeneConstructor> getConstructorBodiesById(Analyzable _context,String _genericClassName, ConstructorId _id) {
         return getConstructorBodiesById(_context, _genericClassName, _id.getParametersTypes(), _id.isVararg());
     }

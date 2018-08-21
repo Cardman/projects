@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.BadAccessClass;
@@ -20,6 +21,17 @@ public final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
+            if (_rooted == null) {
+                if (_an.getClassBody(type_).getAccess() != AccessEnum.PUBLIC) {
+                    BadAccessClass err_ = new BadAccessClass();
+                    err_.setFileName(_an.getCurrentFileName());
+                    err_.setRc(new RowCol());
+                    err_.setId(type_);
+                    _an.getClasses().addError(err_);
+                }
+                setImportedTypeName(type_);
+                return;
+            }
             String className_ = _rooted.getFullName();
             if (_an.isDirectImport()) {
                 if (!_rooted.isAccessibleType(type_, _an)) {

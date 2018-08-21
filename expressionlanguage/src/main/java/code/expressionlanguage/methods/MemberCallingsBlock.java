@@ -30,7 +30,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     @Override
     public final void buildFctInstructions(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (!(getParent() instanceof RootBlock)) {
+        if (!(getParent() instanceof RootBlock) && !(this instanceof OperatorBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();

@@ -20,7 +20,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.expressionlanguage.opers.util.UnassignedInfered;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
