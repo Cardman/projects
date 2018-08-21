@@ -6,9 +6,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.ResultTernary;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
@@ -123,9 +126,30 @@ public final class TernaryOperation extends MethodOperation {
         OperationNode opThree_ = chidren_.get(CustList.SECOND_INDEX);
         ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
+        Argument firstArg_ = opTwo_.getArgument();
+        Argument secondArg_ = opThree_.getArgument();
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
-        setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getResultTernary(one_, two_, _conf)));
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        boolean buildMap_ = true;
+        if (_conf.isStaticContext()) {
+            buildMap_ = false;
+        } else if (_conf.getGlobalClass() == null) {
+            buildMap_ = false;
+        }
+        if (buildMap_) {
+            for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
+                vars_.put(t.getName(), t.getConstraints());
+            }
+        }
+        ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
+        if (res_.isUnwrapFirst()) {
+            opTwo_.getResultClass().setUnwrapObject(res_.getTypes().first());
+        }
+        if (res_.isUnwrapSecond()) {
+            opThree_.getResultClass().setUnwrapObject(res_.getTypes().first());
+        }
+        setResultClass(new ClassArgumentMatching(res_.getTypes()));
     }
 
     @Override
@@ -133,6 +157,10 @@ public final class TernaryOperation extends MethodOperation {
         Block block_ = _conf.getCurrentBlock();
         AssignedVariables vars_ = _conf.getAssignedVariables().getFinalVariables().getVal(block_);
         CustList<OperationNode> children_ = getChildrenNodes();
+        if (children_.size() != BOOLEAN_ARGS) {
+            analyzeStdAssignmentAfter(_conf);
+            return;
+        }
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         CustList<StringMap<Assignment>> variablesAfter_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<Assignment>> mutableAfter_ = new CustList<StringMap<Assignment>>();

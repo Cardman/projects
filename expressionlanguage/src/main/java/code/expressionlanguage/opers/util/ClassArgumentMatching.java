@@ -34,12 +34,11 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isNumericInt(Analyzable _context) {
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(className);
         LgNames stds_ = _context.getStandards();
         String intPr_ = stds_.getAliasPrimInteger();
         String shortPr_ = stds_.getAliasPrimShort();
         String bytePr_ = stds_.getAliasPrimByte();
-        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(cl_, true, _context);
+        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(this, true, _context);
         if (prim_.matchClass(intPr_)) {
             return true;
         }
@@ -96,7 +95,7 @@ public final class ClassArgumentMatching {
 //    }
 
     public boolean isVariable() {
-        return className.size() == 1 && className.first().isEmpty();
+        return className.containsStr("");
     }
 
     public boolean isPrimitive(LgNames _context) {
@@ -117,6 +116,14 @@ public final class ClassArgumentMatching {
         return false;
     }
 
+    public boolean isWrapper(Analyzable _context) {
+        for (String b: className) {
+            if (PrimitiveTypeUtil.isWrapper(b, _context)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean isBoolType(Analyzable _context) {
         LgNames lgNames_ = _context.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();

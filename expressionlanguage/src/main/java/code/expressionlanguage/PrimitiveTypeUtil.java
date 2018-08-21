@@ -45,13 +45,113 @@ public final class PrimitiveTypeUtil {
     private PrimitiveTypeUtil() {
     }
 
-    public static StringList getResultTernary(StringList _first, StringList _second, Analyzable _conf) {
-        StringList superTypesFirst_ = getSuperTypesSet(_first, _conf);
-        StringList superTypesSecond_ = getSuperTypesSet(_second, _conf);
-        StringList ints_ = superTypesFirst_.intersect(superTypesSecond_);
-        if (ints_.isEmpty()) {
-            return new StringList("");
+    public static ResultTernary getResultTernary(StringList _first, Argument _firstArg,
+            StringList _second, Argument _secondArg,
+            StringMap<StringList> _vars,
+            Analyzable _conf) {
+        if (StringList.equalsSet(_first, _second)) {
+            return new ResultTernary(_first, false, false);
         }
+        LgNames stds_ = _conf.getStandards();
+        ClassArgumentMatching first_ = new ClassArgumentMatching(_first);
+        ClassArgumentMatching second_ = new ClassArgumentMatching(_second);
+        if (first_.isPrimitive(_conf) && second_.isWrapper(_conf) && StringList.equalsSet(toWrapper(first_, true, stds_).getNames(), second_.getNames())) {
+            return new ResultTernary(_first, false, true);
+        }
+        if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(toWrapper(second_, true, stds_).getNames(), first_.getNames())) {
+            return new ResultTernary(_second, true, false);
+        }
+        if (_first.containsStr("") && !second_.isPrimitive(_conf)) {
+            return new ResultTernary(_second, false, false);
+        }
+        if (_first.containsStr("")) {
+            StringList w_ = toWrapper(second_, true, stds_).getNames();
+            return new ResultTernary(w_, false, false);
+        }
+        if (_second.containsStr("") && !first_.isPrimitive(_conf)) {
+            return new ResultTernary(_first, false, false);
+        }
+        if (_second.containsStr("")) {
+            StringList w_ = toWrapper(first_, true, stds_).getNames();
+            return new ResultTernary(w_, false, false);
+        }
+        if (isPrimitiveOrWrapper(first_, _conf) && isPrimitiveOrWrapper(second_, _conf)) {
+            String primShort_ = stds_.getAliasPrimShort();
+            String primChar_ = stds_.getAliasPrimChar();
+            String primByte_ = stds_.getAliasPrimByte();
+            String short_ = stds_.getAliasShort();
+            String char_ = stds_.getAliasCharacter();
+            String byte_ = stds_.getAliasByte();
+            if (_first.containsStr(primByte_) || _first.containsStr(byte_)) {
+                if (_second.containsStr(primShort_) || _second.containsStr(short_)) {
+                    return new ResultTernary(new StringList(primShort_), _first.containsStr(byte_), _second.containsStr(short_));
+                }
+            }
+            if (_second.containsStr(primByte_) || _second.containsStr(byte_)) {
+                if (_first.containsStr(primShort_) || _first.containsStr(short_)) {
+                    return new ResultTernary(new StringList(primShort_), _first.containsStr(short_), _second.containsStr(byte_));
+                }
+            }
+            if (_secondArg != null && _secondArg.getObject() instanceof Integer) {
+                int value_ = (Integer) _secondArg.getObject();
+                if (_first.containsStr(primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primByte_), false, true);
+                }
+                if (_first.containsStr(primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primChar_), false, true);
+                }
+                if (_first.containsStr(primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primShort_), false, true);
+                }
+                if (_first.containsStr(byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primByte_), true, true);
+                }
+                if (_first.containsStr(char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primChar_), true, true);
+                }
+                if (_first.containsStr(short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primShort_), true, true);
+                }
+            }
+            if (_firstArg != null && _firstArg.getObject() instanceof Integer) {
+                int value_ = (Integer) _firstArg.getObject();
+                if (_second.containsStr(primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primByte_), true, false);
+                }
+                if (_second.containsStr(primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primChar_), true, false);
+                }
+                if (_second.containsStr(primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primShort_), true, false);
+                }
+                if (_second.containsStr(byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primByte_), true, true);
+                }
+                if (_second.containsStr(char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primChar_), true, true);
+                }
+                if (_second.containsStr(short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
+                    return new ResultTernary(new StringList(primShort_), true, true);
+                }
+            }
+            StringList prOne_ = new StringList();
+            StringList prTwo_ = new StringList();
+            for (String c: _first) {
+                prOne_.add(toPrimitive(c, true, stds_));
+            }
+            for (String c: _second) {
+                prTwo_.add(toPrimitive(c, true, stds_));
+            }
+            StringList superTypesFirst_ = getSuperTypesSet(prOne_, _vars, _conf);
+            StringList superTypesSecond_ = getSuperTypesSet(prTwo_, _vars, _conf);
+            StringList ints_ = superTypesFirst_.intersect(superTypesSecond_);
+            StringList bases_;
+            bases_ = getTernarySubclasses(ints_, _vars, _conf);
+            return new ResultTernary(bases_, true, true);
+        }
+        StringList superTypesFirst_ = getSuperTypesSet(_first, _vars, _conf);
+        StringList superTypesSecond_ = getSuperTypesSet(_second, _vars, _conf);
+        StringList ints_ = superTypesFirst_.intersect(superTypesSecond_);
         StringMap<String> basesGene_ = new StringMap<String>();
         StringList bases_ = new StringList();
         for (String l: ints_) {
@@ -59,78 +159,78 @@ public final class PrimitiveTypeUtil {
             basesGene_.put(id_, l);
             bases_.add(id_);
         }
-        bases_ = PrimitiveTypeUtil.getTernarySubclasses(bases_, _conf);
+        bases_ = getTernarySubclasses(bases_, _vars, _conf);
         StringList out_ = new StringList();
         for (String l: bases_) {
             out_.add(basesGene_.getVal(l));
         }
         out_.removeDuplicates();
-        return out_;
+        return new ResultTernary(out_, false, false);
     }
-    public static StringList getSuperTypesSet(StringList _first, Analyzable _conf) {
-        StringList superTypesFirst_ = new StringList();
+    static StringList getSuperTypesSet(StringList _first, StringMap<StringList> _mapping, Analyzable _conf) {
+        StringList superTypes_ = new StringList();
         LgNames stds_ = _conf.getStandards();
-        if (!_first.isEmpty()) {
-            boolean null_ = false;
-            for (String c: _first) {
-                if (c.isEmpty()) {
-                    null_ = true;
-                    break;
-                }
-            }
-            int arrFirst_ = PrimitiveTypeUtil.getQuickComponentBaseType(_first.first()).getDim();
-            for (String c: _first) {
-                int arrLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(c).getDim();
-                if (arrLoc_ < arrFirst_) {
-                    arrFirst_ = arrLoc_;
-                }
-            }
-            for (String c: _first) {
-                String e_ = c.substring(arrFirst_);
-                if (e_.isEmpty()) {
-                    continue;
-                }
-                superTypesFirst_.add(c);
-                if (PrimitiveTypeUtil.isPrimitive(e_, _conf)) {
-                    ClassArgumentMatching c_ = new ClassArgumentMatching(e_);
-                    for (ClassArgumentMatching s: PrimitiveTypeUtil.getOrdersGreaterEqThan(c_, _conf)) {
-                        String p_ = s.getName();
-                        if (!null_) {
-                            superTypesFirst_.add(p_);
-                        }
-                        String w_ = PrimitiveTypeUtil.toWrapper(p_, true, stds_);
-                        GeneType g_ = _conf.getClassBody(w_);
-                        StringBuilder wrapped_ = new StringBuilder();
-                        for (int i = 0; i < arrFirst_; i++) {
-                            wrapped_.append(PrimitiveTypeUtil.ARR_CLASS);
-                        }
-                        wrapped_.append(w_);
-                        superTypesFirst_.add(wrapped_.toString());
-                        for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
-                            wrapped_ = new StringBuilder();
-                            for (int i = 0; i < arrFirst_; i++) {
-                                wrapped_.append(PrimitiveTypeUtil.ARR_CLASS);
-                            }
-                            wrapped_.append(t);
-                            superTypesFirst_.add(wrapped_.toString());
-                        }
+        String obj_ = stds_.getAliasObject();
+        String bool_ = stds_.getAliasPrimBoolean();
+        for (String c: _first) {
+            DimComp dc_ = getQuickComponentBaseType(c);
+            String base_ = dc_.getComponent();
+            int d_ = dc_.getDim();
+            superTypes_.add(c);
+            if (base_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                String ex_ = base_.substring(Templates.PREFIX_VAR_TYPE.length());
+                for (String t: Mapping.getAllBounds(_mapping, ex_, obj_)) {
+                    superTypes_.add(getPrettyArrayType(t, d_));
+                    if (t.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                        continue;
                     }
-                    continue;
+                    DimComp dci_ = getQuickComponentBaseType(t);
+                    String i_ = dci_.getComponent();
+                    int dLoc_ = dci_.getDim();
+                    i_ = Templates.getIdFromAllTypes(i_);
+                    GeneType j_ = _conf.getClassBody(i_);
+                    for (String u: TypeUtil.getAllGenericSuperTypes(j_, _conf)) {
+                        superTypes_.add(getPrettyArrayType(u, d_ + dLoc_));
+                    }
                 }
-                String id_ = Templates.getIdFromAllTypes(e_);
-                GeneType g_ = _conf.getClassBody(id_);
+                superTypes_.add(getPrettyArrayType(obj_, d_));
+                continue;
+            }
+            if (StringList.quickEq(base_, bool_)) {
+                String w_ = PrimitiveTypeUtil.toWrapper(base_, true, stds_);
+                GeneType g_ = _conf.getClassBody(w_);
+                superTypes_.add(getPrettyArrayType(w_, d_));
                 for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
-                    StringBuilder wrapped_ = new StringBuilder();
-                    for (int i = 0; i < arrFirst_; i++) {
-                        wrapped_.append(PrimitiveTypeUtil.ARR_CLASS);
-                    }
-                    wrapped_.append(t);
-                    superTypesFirst_.add(wrapped_.toString());
+                    superTypes_.add(getPrettyArrayType(t, d_));
                 }
+                superTypes_.add(getPrettyArrayType(obj_, d_));
+                continue;
             }
-            superTypesFirst_.removeDuplicates();
+            if (PrimitiveTypeUtil.isPrimitive(base_, _conf)) {
+                ClassArgumentMatching c_ = new ClassArgumentMatching(base_);
+                for (ClassArgumentMatching s: PrimitiveTypeUtil.getOrdersGreaterEqThan(c_, _conf)) {
+                    String p_ = s.getName();
+                    superTypes_.add(getPrettyArrayType(p_, d_));
+                    String w_ = PrimitiveTypeUtil.toWrapper(p_, true, stds_);
+                    GeneType g_ = _conf.getClassBody(w_);
+                    superTypes_.add(getPrettyArrayType(w_, d_));
+                    for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
+                        superTypes_.add(getPrettyArrayType(t, d_));
+                    }
+                }
+                superTypes_.add(getPrettyArrayType(obj_, d_));
+                continue;
+            }
+            String id_ = Templates.getIdFromAllTypes(base_);
+            GeneType g_ = _conf.getClassBody(id_);
+            for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
+                superTypes_.add(getPrettyArrayType(t, d_));
+            }
+            superTypes_.add(getPrettyArrayType(obj_, d_));
         }
-        return superTypesFirst_;
+        superTypes_.add(obj_);
+        superTypes_.removeDuplicates();
+        return superTypes_;
     }
     public static boolean primitiveTypeNullObject(String _className, Struct _instance, ExecutableCode _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
@@ -188,6 +288,24 @@ public final class PrimitiveTypeUtil {
     }
     public static boolean isPrimitive(String _className, Analyzable _context) {
         return isPrimitive(_className, _context.getStandards());
+    }
+    public static boolean isWrapper(String _className, Analyzable _context) {
+        return isWrapper(_className, _context.getStandards());
+    }
+    public static boolean isWrapper(String _className, LgNames _stds) {
+        if (_className.startsWith(_stds.getAliasIterable())) {
+            return false;
+        }
+        if (_className.startsWith(_stds.getAliasIteratorType())) {
+            return false;
+        }
+        if (_className.startsWith(_stds.getAliasEnum())) {
+            return false;
+        }
+        if (_className.startsWith(_stds.getAliasEnumParam())) {
+            return false;
+        }
+        return toPrimitive(new ClassArgumentMatching(_className), false, _stds) != null;
     }
     public static boolean isPrimitive(String _className, LgNames _stds) {
         if (_className.startsWith(_stds.getAliasIterable())) {
@@ -284,11 +402,14 @@ public final class PrimitiveTypeUtil {
         types_.removeDuplicates();
         return types_;
     }
-    /** Only "object" classes are used as arguments */
-    public static StringList getTernarySubclasses(StringList _classNames, Analyzable _context) {
+
+    static StringList getTernarySubclasses(StringList _classNames, StringMap<StringList> _map, Analyzable _context) {
         StringList types_ = new StringList();
         LgNames stds_ = _context.getStandards();
         String voidType_ = stds_.getAliasVoid();
+        String obj_ = stds_.getAliasObject();
+        Mapping m_ = new Mapping();
+        m_.setMapping(_map);
         for (String i: _classNames) {
             boolean sub_ = true;
             if (StringList.quickEq(i, voidType_)) {
@@ -302,10 +423,31 @@ public final class PrimitiveTypeUtil {
                 for (String j: _classNames) {
                     String baseSup_ = Templates.getIdFromAllTypes(i);
                     String baseSub_ = Templates.getIdFromAllTypes(j);
+                    DimComp baseArrSub_ = getQuickComponentBaseType(baseSub_);
                     if (StringList.quickEq(baseSup_, baseSub_)) {
                         continue;
                     }
                     if (isPrimitive(baseSup_, _context) && !isPrimitive(baseSub_, _context)) {
+                        continue;
+                    }
+                    int dimSup_ = baseArrSub_.getDim();
+                    if (baseArrSub_.getComponent().startsWith(Templates.PREFIX_VAR_TYPE)) {
+                        boolean inh_ = false;
+                        String b_ = baseArrSub_.getComponent().substring(Templates.PREFIX_VAR_TYPE.length());
+                        for (String u: Mapping.getAllBounds(_map, b_, obj_)) {
+                            String a_ = getPrettyArrayType(u, dimSup_);
+                            if (StringList.quickEq(a_, baseSup_)) {
+                                inh_ = true;
+                                break;
+                            }
+                        }
+                        if (inh_) {
+                            sub_ = false;
+                            break;
+                        }
+                        continue;
+                    }
+                    if (baseSup_.startsWith(Templates.PREFIX_VAR_TYPE)) {
                         continue;
                     }
                     if (canBeUseAsArgument(baseSup_, baseSub_, _context)) {
