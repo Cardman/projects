@@ -11,6 +11,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.methods.util.DeadCodeTernary;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.AssignedVariables;
@@ -150,6 +151,12 @@ public final class TernaryOperation extends MethodOperation {
             opThree_.getResultClass().setUnwrapObject(res_.getTypes().first());
         }
         setResultClass(new ClassArgumentMatching(res_.getTypes()));
+        if (opOne_.getArgument() != null) {
+            DeadCodeTernary d_ = new DeadCodeTernary();
+            d_.setRc(_conf.getCurrentLocation());
+            d_.setFileName(_conf.getCurrentFileName());
+            _conf.getClasses().addWarning(d_);
+        }
     }
 
     @Override

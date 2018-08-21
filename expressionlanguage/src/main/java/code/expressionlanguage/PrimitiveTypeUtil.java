@@ -61,17 +61,17 @@ public final class PrimitiveTypeUtil {
         if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(toWrapper(second_, true, stds_).getNames(), first_.getNames())) {
             return new ResultTernary(_second, true, false);
         }
-        if (_first.containsStr("") && !second_.isPrimitive(_conf)) {
+        if (_first.containsStr(NO_SUB_CLASS) && !second_.isPrimitive(_conf)) {
             return new ResultTernary(_second, false, false);
         }
-        if (_first.containsStr("")) {
+        if (_first.containsStr(NO_SUB_CLASS)) {
             StringList w_ = toWrapper(second_, true, stds_).getNames();
             return new ResultTernary(w_, false, false);
         }
-        if (_second.containsStr("") && !first_.isPrimitive(_conf)) {
+        if (_second.containsStr(NO_SUB_CLASS) && !first_.isPrimitive(_conf)) {
             return new ResultTernary(_first, false, false);
         }
-        if (_second.containsStr("")) {
+        if (_second.containsStr(NO_SUB_CLASS)) {
             StringList w_ = toWrapper(first_, true, stds_).getNames();
             return new ResultTernary(w_, false, false);
         }
@@ -209,13 +209,14 @@ public final class PrimitiveTypeUtil {
             if (PrimitiveTypeUtil.isPrimitive(base_, _conf)) {
                 ClassArgumentMatching c_ = new ClassArgumentMatching(base_);
                 for (ClassArgumentMatching s: PrimitiveTypeUtil.getOrdersGreaterEqThan(c_, _conf)) {
-                    String p_ = s.getName();
-                    superTypes_.add(getPrettyArrayType(p_, d_));
-                    String w_ = PrimitiveTypeUtil.toWrapper(p_, true, stds_);
-                    GeneType g_ = _conf.getClassBody(w_);
-                    superTypes_.add(getPrettyArrayType(w_, d_));
-                    for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
-                        superTypes_.add(getPrettyArrayType(t, d_));
+                    for (String p: s.getNames()) {
+                        superTypes_.add(getPrettyArrayType(p, d_));
+                        String w_ = PrimitiveTypeUtil.toWrapper(p, true, stds_);
+                        GeneType g_ = _conf.getClassBody(w_);
+                        superTypes_.add(getPrettyArrayType(w_, d_));
+                        for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
+                            superTypes_.add(getPrettyArrayType(t, d_));
+                        }
                     }
                 }
                 superTypes_.add(getPrettyArrayType(obj_, d_));
@@ -581,10 +582,17 @@ public final class PrimitiveTypeUtil {
         return new ClassArgumentMatching(cl_);
     }
     public static String getQuickComponentType(String _className) {
-        if (!_className.startsWith(ARR_CLASS)) {
-            return null;
+        return getQuickComponentType(_className,1);
+    }
+    public static String getQuickComponentType(String _className, int _nb) {
+        String className_ = _className;
+        for (int i = 0; i < _nb; i++) {
+            if (!className_.startsWith(ARR_CLASS)) {
+                return null;
+            }
+            className_ = className_.substring(1);
         }
-        return _className.substring(CustList.SECOND_INDEX);
+        return className_;
     }
 
     public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, Analyzable _context) {

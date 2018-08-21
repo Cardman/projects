@@ -36,6 +36,8 @@ import code.util.comparators.ComparatorIndexes;
 
 public final class TypeUtil {
 
+    public static final String VAR_TYPE = "$var";
+
     private TypeUtil() {
     }
 

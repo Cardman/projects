@@ -488,7 +488,7 @@ public final class Templates {
         return str_.toString();
     }
     public static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
-        if (_m.getArg().getName().isEmpty()) {
+        if (_m.getArg().isVariable()) {
             return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
         }
         return isCorrect(_m, _context);

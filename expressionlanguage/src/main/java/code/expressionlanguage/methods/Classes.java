@@ -24,10 +24,12 @@ import code.expressionlanguage.methods.util.DuplicateType;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.ErrorList;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
+import code.expressionlanguage.methods.util.FoundWarningInterpret;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnknownClassName;
+import code.expressionlanguage.methods.util.WarningList;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -91,6 +93,7 @@ public final class Classes {
     private final StringMap<StringMap<Struct>> staticFields;
 
     private final ErrorList errorsDet;
+    private final WarningList warningsDet;
     private DefaultLockingClass locks;
     private String iteratorVar;
     private String hasNextVar;
@@ -109,6 +112,7 @@ public final class Classes {
         classesBodies = new StringMap<RootBlock>();
         filesBodies = new StringMap<FileBlock>();
         errorsDet = new ErrorList();
+        warningsDet = new WarningList();
         staticFields = new StringMap<StringMap<Struct>>();
     }
     private void processPredefinedClass(String _fileName,String _content, ContextEl _context) {
@@ -490,6 +494,18 @@ public final class Classes {
     }
     public ErrorList getErrorsDet() {
         return errorsDet;
+    }
+    public boolean isEmptyWarnings() {
+        return warningsDet.isEmpty();
+    }
+    public void addWarning(FoundWarningInterpret _warning) {
+        warningsDet.add(_warning);
+    }
+    public String displayWarnings() {
+        return warningsDet.display();
+    }
+    public WarningList getWarningsDet() {
+        return warningsDet;
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();

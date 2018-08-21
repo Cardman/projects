@@ -16,6 +16,7 @@ import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.EnumBlock;
+import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -104,6 +105,87 @@ public final class InstanceOperation extends InvokingOperation {
         }
         if (realClassName_.startsWith(ARR)) {
             array = true;
+            if (StringList.quickEq(realClassName_.trim(), ARR)) {
+                int nbParents_ = 0;
+                MethodOperation m_ = getParent();
+                while (m_ != null) {
+                    if (!(m_ instanceof InstanceOperation)) {
+                        break;
+                    }
+                    InstanceOperation i_ = (InstanceOperation) m_;
+                    String classNamePar_ = i_.methodName.trim().substring(INSTANCE.length()+1);
+                    classNamePar_ = classNamePar_.trim();
+                    if (!classNamePar_.startsWith(ARR)) {
+                        break;
+                    }
+                    String sub_ = classNamePar_.substring(ARR.length()).trim();
+                    if (!StringList.quickEq(sub_, ARR_DYN)) {
+                        break;
+                    }
+                    nbParents_++;
+                    m_ = m_.getParent();
+                }
+                String type_ = EMPTY_STRING;
+                if (m_ == null && _conf.getCurrentBlock() instanceof InfoBlock) {
+                    InfoBlock i_ = (InfoBlock) _conf.getCurrentBlock();
+                    type_ = i_.getClassName();
+                } else if (!(m_ instanceof AffectationOperation)) {
+                    //ERROR
+                    type_ = EMPTY_STRING;
+                } else {
+                    AffectationOperation a_ = (AffectationOperation) m_;
+                    SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
+                    if (s_ != null) {
+                        ClassArgumentMatching c_ = s_.getResultClass();
+                        if (c_.getNames().size() == 1) {
+                            type_ = c_.getName();
+                        }
+                    }
+                }
+                if (type_.isEmpty()) {
+                    int len_ = className_.length();
+                    UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
+                    un_.setOperands(new StringList(className_.substring(0, len_-ARR_DYN.length())));
+                    _conf.getClasses().addError(un_);
+                    LgNames stds_ = _conf.getStandards();
+                    setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
+                    return;
+                }
+                String n_ = type_;
+                String cp_ = PrimitiveTypeUtil.getQuickComponentType(n_, nbParents_);
+                className = PrimitiveTypeUtil.getQuickComponentType(cp_);
+                StringMap<StringList> map_;
+                map_ = new StringMap<StringList>();
+                String glClass_ = _conf.getGlobalClass();
+                if (glClass_ != null) {
+                    for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+                        map_.put(t.getName(), t.getConstraints());
+                    }
+                }
+                Mapping mapping_ = new Mapping();
+                mapping_.setParam(className);
+                for (OperationNode o: chidren_) {
+                    setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
+                    ClassArgumentMatching argType_ = o.getResultClass();
+                    mapping_.setArg(argType_);
+                    mapping_.setMapping(map_);
+                    if (!Templates.isGenericCorrect(mapping_, _conf)) {
+                        BadImplicitCast cast_ = new BadImplicitCast();
+                        cast_.setMapping(mapping_);
+                        cast_.setFileName(_conf.getCurrentFileName());
+                        cast_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(cast_);
+                    }
+                    if (PrimitiveTypeUtil.isPrimitive(cp_, _conf)) {
+                        o.getResultClass().setUnwrapObject(cp_);
+                    }
+                }
+                setResultClass(new ClassArgumentMatching(cp_));
+                return;
+            }
             realClassName_ = _conf.resolveCorrectType(realClassName_);
             if (chidren_.isEmpty() && !elts) {
                 BadOperandsNumber badCall_ = new BadOperandsNumber();
