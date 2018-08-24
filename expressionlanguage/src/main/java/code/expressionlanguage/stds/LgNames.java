@@ -4590,6 +4590,12 @@ public abstract class LgNames {
     public void setAliasGetAllClasses(String _aliasGetAllClasses) {
         reflect.setAliasGetAllClasses(_aliasGetAllClasses);
     }
+    public String getAliasGetOperators() {
+        return reflect.getAliasGetOperators();
+    }
+    public void setAliasGetOperators(String _aliasGetOperators) {
+        reflect.setAliasGetOperators(_aliasGetOperators);
+    }
     public String getAliasConstructor() {
         return reflect.getAliasConstructor();
     }

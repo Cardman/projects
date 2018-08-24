@@ -9,6 +9,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
+import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
@@ -42,9 +43,20 @@ public final class StaticAccessOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));
-        String classStr_;
-        classStr_ = _conf.resolveCorrectType(realCl_, false);
         String glClass_ = _conf.getGlobalClass();
+        String classStr_;
+        if (!realCl_.trim().isEmpty()) {
+            classStr_ = _conf.resolveCorrectType(realCl_, false);
+        } else {
+            classStr_ = glClass_;
+            if (classStr_ == null) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(EMPTY_STRING);
+                un_.setFileName(_conf.getCurrentFileName());
+                un_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(un_);
+            }
+        }
         Classes classes_ = _conf.getClasses();
         if (classes_.isCustomType(classStr_)) {
             String curClassBase_ = null;

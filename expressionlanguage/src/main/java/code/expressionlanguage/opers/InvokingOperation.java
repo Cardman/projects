@@ -699,6 +699,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_conf.getException() != null) {
             return Argument.createVoid();
         }
+        if (!StringList.isWord(_methodId.getName())) {
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(_previous, _classNameFound, _methodId, _firstArgs));
+            return Argument.createVoid();
+        }
         Classes classes_ = _conf.getClasses();
         String aliasClass_ = stds_.getAliasClass();
         String aliasForName_ = stds_.getAliasForName();

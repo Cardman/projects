@@ -522,6 +522,16 @@ public abstract class Block extends Blockable {
         }
         return null;
     }
+    public final AccessingImportingBlock getImporting() {
+        Block b_ = this;
+        while (b_ != null) {
+            if (b_ instanceof AccessingImportingBlock) {
+                return (AccessingImportingBlock)b_;
+            }
+            b_ = b_.getParent();
+        }
+        return null;
+    }
 
     public final void setAlwaysSkipped() {
         Block c_ = this;

@@ -1,14 +1,24 @@
 package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -18,6 +28,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
     private static final int EQ_CMP = 0;
 
     private boolean stringCompare;
+    private ClassMethodId classMethodId;
 
     public AbstractCmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -439,6 +450,22 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         }
         ClassArgumentMatching first_ = chidren_.first().getResultClass();
         ClassArgumentMatching second_ = chidren_.last().getResultClass();
+        String op_ = getOperations().getOperators().values().first().trim();
+        ClassMethodIdReturn cust_ = getOperator(_conf, op_, first_, second_);
+        if (cust_.isFoundMethod()) {
+            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = cust_.getRealId();
+            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+            for (OperationNode o: chidren_) {
+                firstArgs_.add(o.getResultClass());
+            }
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            return;
+        }
         String stringType_ = stds_.getAliasString();
         if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
             stringCompare = true;
@@ -547,6 +574,43 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
 
     abstract void quickCalculateNotNull(Analyzable _conf);
 
+    @Override
+    public void calculate(ExecutableCode _conf) {
+        if (classMethodId != null) {
+            CustList<OperationNode> chidren_ = getChildrenNodes();
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(o.getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            Argument res_;
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
+            setSimpleArgument(res_, _conf);
+            return;
+        }
+        calculateCmp(_conf);
+    }
+    @Override
+    public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
+            ContextEl _conf) {
+        if (classMethodId != null) {
+            CustList<OperationNode> chidren_ = getChildrenNodes();
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(_nodes.getVal(o).getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
+            return Argument.createVoid();
+        }
+        return calculateCmp(_nodes, _conf);
+    }
+    abstract Argument calculateCmp(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf);
+    abstract void calculateCmp(ExecutableCode _conf);
     @Override
     final void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();

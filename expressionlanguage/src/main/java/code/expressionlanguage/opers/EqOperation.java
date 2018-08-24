@@ -4,9 +4,15 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -16,6 +22,7 @@ import code.util.StringList;
 public final class EqOperation extends PrimitiveBoolOperation {
 
     private String oper;
+    private ClassMethodId classMethodId;
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -36,6 +43,32 @@ public final class EqOperation extends PrimitiveBoolOperation {
             badEl_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(badEl_);
         }
+        String custOp_;
+        if (oper.trim().startsWith(NEG_BOOL)) {
+            custOp_ = oper.trim();
+        } else {
+            custOp_ = "==";
+        }
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode opOne_ = chidren_.first();
+        OperationNode opTwo_ = chidren_.last();
+        ClassArgumentMatching a_ = opOne_.getResultClass();
+        ClassArgumentMatching b_ = opTwo_.getResultClass();
+        ClassMethodIdReturn cust_ = getOperator(_conf, custOp_, a_, b_);
+        if (cust_.isFoundMethod()) {
+            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = cust_.getRealId();
+            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+            for (OperationNode o: chidren_) {
+                firstArgs_.add(o.getResultClass());
+            }
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            return;
+        }
         LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
     }
@@ -50,8 +83,18 @@ public final class EqOperation extends PrimitiveBoolOperation {
     }
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (classMethodId != null) {
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(_nodes.getVal(o).getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
+            return Argument.createVoid();
+        }
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
         Argument first_ = _nodes.getVal(opOne_).getArgument();
@@ -92,6 +135,19 @@ public final class EqOperation extends PrimitiveBoolOperation {
     @Override
     public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (classMethodId != null) {
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(o.getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            Argument res_;
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
+            setSimpleArgument(res_, _conf);
+            return;
+        }
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();
         boolean complement_ = false;

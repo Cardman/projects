@@ -5,6 +5,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -1161,7 +1162,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             classes.addError(un_);
             return standards.getAliasObject();
         }
-        RootBlock r_ = bl_.getRooted();
+        AccessingImportingBlock r_ = bl_.getImporting();
         StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
 
@@ -1268,7 +1269,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return lookupImportsDirect(_in, _currentBlock.getRooted());
     }
     @Override
-    public String lookupImportsDirect(String _type, RootBlock _rooted) {
+    public String lookupImportsDirect(String _type, AccessingImportingBlock _rooted) {
         if (!StringList.isWord(_type.trim())) {
             return EMPTY_TYPE;
         }
@@ -1319,10 +1320,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return types_.first();
         }
         types_.clear();
-        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
-        if (classes.isCustomType(type_)) {
-            if (_rooted.isAccessibleType(type_, this)) {
-                return type_;
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
+            String type_ = removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
+            if (classes.isCustomType(type_)) {
+                if (_rooted.isAccessibleType(type_, this)) {
+                    return type_;
+                }
             }
         }
         for (String i: _rooted.getImports()) {
@@ -1375,7 +1379,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return EMPTY_TYPE;
     }
     @Override
-    public String lookupImportsIndirect(String _type, RootBlock _rooted) {
+    public String lookupImportsIndirect(String _type, AccessingImportingBlock _rooted) {
         if (!StringList.isWord(_type.trim())) {
             return EMPTY_TYPE;
         }
@@ -1395,7 +1399,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
-            if (Classes.canAccessClass(_rooted.getFullName(), typeLoc_, this)) {
+            if (_rooted.canAccessClass(typeLoc_, this)) {
                 types_.add(typeLoc_);
             }
         }
@@ -1418,7 +1422,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
-            if (Classes.canAccessClass(_rooted.getFullName(), typeLoc_, this)) {
+            if (_rooted.canAccessClass(typeLoc_, this)) {
                 types_.add(typeLoc_);
             }
         }
@@ -1426,10 +1430,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return types_.first();
         }
         types_.clear();
-        String type_ = removeDottedSpaces(StringList.concat(_rooted.getPackageName(),".",_type));
-        if (classes.isCustomType(type_)) {
-            if (Classes.canAccessClass(_rooted.getFullName(), type_, this)) {
-                return type_;
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
+            String type_ = removeDottedSpaces(StringList.concat(r_.getPackageName(),".",_type));
+            if (classes.isCustomType(type_)) {
+                if (_rooted.canAccessClass(type_, this)) {
+                    return type_;
+                }
             }
         }
         for (String i: _rooted.getImports()) {
@@ -1448,7 +1455,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
-            if (Classes.canAccessClass(_rooted.getFullName(), typeLoc_, this)) {
+            if (_rooted.canAccessClass(typeLoc_, this)) {
                 types_.add(typeLoc_);
             }
         }
@@ -1472,7 +1479,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
-            if (Classes.canAccessClass(_rooted.getFullName(), typeLoc_, this)) {
+            if (_rooted.canAccessClass(typeLoc_, this)) {
                 types_.add(typeLoc_);
             }
         }
@@ -1487,7 +1494,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (!StringList.isWord(_method.trim())) {
             return methods_;
         }
-        RootBlock type_ = _rooted.getRooted();
+        AccessingImportingBlock type_ = _rooted.getImporting();
         int import_ = 1;
         for (String i: type_.getImports()) {
             if (!i.contains(".")) {
@@ -1674,7 +1681,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return methods_;
         }
         int import_ = 1;
-        RootBlock type_ = _rooted.getRooted();
+        AccessingImportingBlock type_ = _rooted.getImporting();
         for (String i: type_.getImports()) {
             if (!i.contains(".")) {
                 continue;

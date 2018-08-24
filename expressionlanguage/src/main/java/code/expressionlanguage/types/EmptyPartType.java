@@ -1,7 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
 
@@ -12,7 +12,7 @@ public final class EmptyPartType extends LeafPartType {
     }
 
     @Override
-    public void checkExistence(Analyzable _an, RootBlock _rooted,RowCol _location) {
+    public void checkExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
         UnknownClassName un_ = new UnknownClassName();
         un_.setClassName(EMPTY_STRING);
         un_.setFileName(_rooted.getFile().getFileName());

@@ -25,7 +25,10 @@ public class AnalyzingType {
         int first_ = StringList.getFirstPrintableCharIndex(_string);
         int arr_ = first_;
         first_++;
-        first_ += StringList.getFirstPrintableCharIndex(_string.substring(first_));
+        int offset_ = StringList.getFirstPrintableCharIndex(_string.substring(first_));
+        if (offset_ > 0) {
+            first_ += offset_;
+        }
         String str_ = _string.substring(first_);
         values = new NatTreeMap<Integer,String>();
         values.put(first_, str_);

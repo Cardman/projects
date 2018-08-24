@@ -5,9 +5,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -15,6 +21,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 
 public final class UnaryOperation extends AbstractUnaryOperation {
+    private ClassMethodId classMethodId;
 
     public UnaryOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -31,6 +38,22 @@ public final class UnaryOperation extends AbstractUnaryOperation {
             return;
         }
         ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
+        String oper_ = getOperations().getOperators().firstValue();
+        ClassMethodIdReturn cust_ = getOperator(_conf, oper_, clMatch_);
+        if (cust_.isFoundMethod()) {
+            setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = cust_.getRealId();
+            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+            for (OperationNode o: chidren_) {
+                firstArgs_.add(o.getResultClass());
+            }
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            return;
+        }
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (cl_ == null) {
@@ -56,6 +79,17 @@ public final class UnaryOperation extends AbstractUnaryOperation {
     @Override
     public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (classMethodId != null) {
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(_nodes.getVal(o).getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
+            return Argument.createVoid();
+        }
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
         Argument a_ = getArgument(_conf, arg_);
@@ -96,6 +130,19 @@ public final class UnaryOperation extends AbstractUnaryOperation {
     @Override
     public void calculate(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (classMethodId != null) {
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(o.getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            Argument res_;
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
+            setSimpleArgument(res_, _conf);
+            return;
+        }
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = getArgument(_conf, arg_);
         if (_conf.getException() != null) {

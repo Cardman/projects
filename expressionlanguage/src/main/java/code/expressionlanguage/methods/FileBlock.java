@@ -6,7 +6,7 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.util.Numbers;
 import code.util.StringList;
 
-public final class FileBlock extends BracedBlock {
+public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     private Numbers<Integer> lineReturns = new Numbers<Integer>();
     private Numbers<Integer> leftSpaces = new Numbers<Integer>();
@@ -40,10 +40,12 @@ public final class FileBlock extends BracedBlock {
         return lineReturns;
     }
 
+    @Override
     public StringList getImports() {
         return imports;
     }
 
+    @Override
     public Numbers<Integer> getImportsOffset() {
         return importsOffset;
     }

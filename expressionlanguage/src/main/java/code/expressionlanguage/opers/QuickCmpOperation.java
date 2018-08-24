@@ -17,7 +17,7 @@ public final class QuickCmpOperation extends AbstractCmpOperation {
     }
 
     @Override
-    public Argument calculate(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
+    public Argument calculateCmp(IdMap<OperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
@@ -38,7 +38,7 @@ public final class QuickCmpOperation extends AbstractCmpOperation {
         setSimpleArgumentAna(arg_, _conf);
     }
     @Override
-    public void calculate(ExecutableCode _conf) {
+    public void calculateCmp(ExecutableCode _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();

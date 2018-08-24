@@ -45,7 +45,7 @@ import code.util.StringMap;
 import code.util.comparators.ComparatorIndexes;
 import code.util.graphs.Graph;
 
-public abstract class RootBlock extends BracedBlock implements GeneType {
+public abstract class RootBlock extends BracedBlock implements GeneType, AccessingImportingBlock {
 
     private final String name;
 
@@ -131,10 +131,12 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         return staticInitInterfacesOffset;
     }
 
+    @Override
     public StringList getImports() {
         return imports;
     }
 
+    @Override
     public Numbers<Integer> getImportsOffset() {
         return importsOffset;
     }
@@ -1106,6 +1108,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
         }
     }
 
+    @Override
     public boolean isAccessibleType(String _type, Analyzable _cont) {
         RootBlock r_ = _cont.getClasses().getClassBody(_type);
         if (r_.getAccess().ordinal() <= AccessEnum.PROTECTED.ordinal()) {
@@ -1165,5 +1168,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType {
     }
     @Override
     public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
+    }
+    @Override
+    public boolean canAccessClass(String _class, Analyzable _analyzable) {
+        return Classes.canAccessClass(getFullName(), _class, _analyzable);
     }
 }

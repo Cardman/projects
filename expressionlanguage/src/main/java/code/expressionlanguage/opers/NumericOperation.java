@@ -9,6 +9,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.BooleanStruct;
@@ -498,6 +499,19 @@ public abstract class NumericOperation extends MethodOperation {
         NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
         Argument c_ = chidren_.last().getArgument();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+ops_.firstKey(), _conf);
+        if (classMethodId != null) {
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            for (OperationNode o: chidren_) {
+                arguments_.add(o.getArgument());
+            }
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            Argument res_;
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
+            setSimpleArgument(res_, _conf);
+            return;
+        }
         Argument r_;
         r_ = calculateOper(a_, ops_.firstValue(), c_, _conf);
         if (_conf.getException() != null) {

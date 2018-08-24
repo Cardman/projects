@@ -557,6 +557,8 @@ public final class FileResolver {
             currentParent_ = new OperatorBlock(_context, _input.getIndexChild(), _input.getFileBlock(), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(nextIndex_, nextIndex_));
             ((NamedFunctionBlock)currentParent_).getAnnotationsParams().addAllElts(annotationsParams_);
             ((NamedFunctionBlock)currentParent_).getAnnotationsIndexesParams().addAllElts(annotationsIndexesParams_);
+            ((OperatorBlock)currentParent_).getImports().addAllElts(importedTypes_);
+            ((OperatorBlock)currentParent_).getImportsOffset().addAllElts(offsetsImports_);
             currentParent_.getAnnotations().addAllElts(annotationsTypes_);
             currentParent_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
             ((ResultOperatorCreation)out_).setType((OperatorBlock) currentParent_);

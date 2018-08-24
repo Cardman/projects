@@ -1,16 +1,13 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.opers.util.ClassMetaInfo;
+import code.util.ints.Comparing;
 
-public class ClassNameCmp {
+public class ClassNameCmp implements Comparing<ClassMetaInfo> {
 
-    private final ClassMetaInfo meta;
-
-    public ClassNameCmp(ClassMetaInfo _meta) {
-        meta = _meta;
+    @Override
+    public int compare(ClassMetaInfo _one, ClassMetaInfo _two) {
+        return _one.getName().compareTo(_two.getName());
     }
 
-    public ClassMetaInfo getMeta() {
-        return meta;
-    }
 }

@@ -1,8 +1,8 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.OperatorCmp;
 import code.expressionlanguage.ClassNameCmp;
-import code.expressionlanguage.ClassNameCmpr;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -17,6 +17,7 @@ import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.InterfaceBlock;
 import code.expressionlanguage.methods.MethodBlock;
+import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.InvokingOperation;
@@ -99,6 +100,7 @@ public class AliasReflection {
     private String aliasArrayGetLength;
     private String aliasMakeGeneric;
     private String aliasGetAllClasses;
+    private String aliasGetOperators;
     private String aliasConstructor;
     private String aliasField;
     private String aliasMethod;
@@ -258,6 +260,13 @@ public class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetAllClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasClass);
+        method_ = new StandardMethod(aliasGetOperators, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetOperators, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        //TODO getOperators(), getOperators(id)
         params_ = new StringList(aliasPrimInt_);
         method_ = new StandardMethod(aliasArrayNewInstance, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasObject_), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -655,7 +664,12 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaringClass)) {
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                result_.setResult(_cont.getExtendedClassMetaInfo(method_.getFormClassName()));
+                String cl_ = method_.getFormClassName();
+                if (cl_.isEmpty()) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
+                result_.setResult(_cont.getExtendedClassMetaInfo(cl_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasSetPolymorph)) {
@@ -753,6 +767,63 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetName)) {
                 result_.setResult(new StringStruct(((ClassMetaInfo)_struct).getName()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetOperators)) {
+                CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
+                if (args_.length == 0) {
+                    for (OperatorBlock o: _cont.getClasses().getOperators()) {
+                        MethodId id_ = o.getId();
+                        String ret_ = o.getImportedReturnType();
+                        AccessEnum acc_ = o.getAccess();
+                        String formatRet_;
+                        MethodId fid_;
+                        formatRet_ = ret_;
+                        fid_ = id_;
+                        String decl_ = o.getDeclaringType();
+                        operators_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, formatRet_,decl_));
+                    }
+                    operators_.sortElts(new OperatorCmp());
+                    Struct[] ctorsArr_ = new Struct[operators_.size()];
+                    int index_ = 0;
+                    for (MethodMetaInfo e: operators_) {
+                        ctorsArr_[index_] = e;
+                        index_++;
+                    }
+                    ArrayStruct str_ = new ArrayStruct(ctorsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                String methodName_ = (String) args_[0].getInstance();
+                StringList classesNames_ = new StringList();
+                for (Struct s: ((Struct[])args_[1].getInstance())) {
+                    classesNames_.add(((ClassMetaInfo)s).getName());
+                }
+                CustList<MethodMetaInfo> candidates_;
+                candidates_ = new CustList<MethodMetaInfo>();
+                MethodId idToSearch_ = new MethodId(true, methodName_, classesNames_, false);
+                for (OperatorBlock o: _cont.getClasses().getOperators()) {
+                    MethodId id_ = o.getId();
+                    if (id_.eq(idToSearch_)) {
+                        String ret_ = o.getImportedReturnType();
+                        AccessEnum acc_ = o.getAccess();
+                        String formatRet_;
+                        MethodId fid_;
+                        formatRet_ = ret_;
+                        fid_ = id_;
+                        String decl_ = o.getDeclaringType();
+                        candidates_.add(new MethodMetaInfo(acc_,decl_, id_, o.getModifier(), ret_, fid_, formatRet_,decl_));
+                    }
+                }
+                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                int index_ = 0;
+                for (MethodMetaInfo c: candidates_) {
+                    methodsArr_[index_] = c;
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
@@ -887,15 +958,11 @@ public class AliasReflection {
                     StringList interfaces_ = ((StandardClass) clblock_).getDirectInterfaces();
                     classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_));
                 }
-                CustList<ClassNameCmp> sortClasses_  = new CustList<ClassNameCmp>();
-                for (ClassMetaInfo e: classes_) {
-                    sortClasses_.add(new ClassNameCmp(e));
-                }
-                sortClasses_.sortElts(new ClassNameCmpr());
+                classes_.sortElts(new ClassNameCmp());
                 Struct[] ctorsArr_ = new Struct[classes_.size()];
                 int index_ = 0;
-                for (ClassNameCmp e: sortClasses_) {
-                    ctorsArr_[index_] = e.getMeta();
+                for (ClassMetaInfo e: classes_) {
+                    ctorsArr_[index_] = e;
                     index_++;
                 }
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
@@ -1694,6 +1761,12 @@ public class AliasReflection {
     }
     public void setAliasGetAllClasses(String _aliasGetAllClasses) {
         aliasGetAllClasses = _aliasGetAllClasses;
+    }
+    public String getAliasGetOperators() {
+        return aliasGetOperators;
+    }
+    public void setAliasGetOperators(String _aliasGetOperators) {
+        aliasGetOperators = _aliasGetOperators;
     }
     public String getAliasConstructor() {
         return aliasConstructor;

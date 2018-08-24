@@ -2,6 +2,7 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
@@ -163,7 +164,7 @@ public final class PartTypeUtil {
         }
         return out_.toString();
     }
-    public static String process(String _input,Analyzable _an, RootBlock _rooted,RowCol _location) {
+    public static String process(String _input,Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
         StringBuilder out_ = new StringBuilder();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input);
         if (indexes_ == null) {

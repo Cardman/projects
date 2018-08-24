@@ -11,6 +11,7 @@ import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
@@ -951,12 +952,12 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportsDirect(String _type, RootBlock _rooted) {
+    public String lookupImportsDirect(String _type, AccessingImportingBlock _rooted) {
         return ContextEl.removeDottedSpaces(_type);
     }
 
     @Override
-    public String lookupImportsIndirect(String _type, RootBlock _rooted) {
+    public String lookupImportsIndirect(String _type, AccessingImportingBlock _rooted) {
         return ContextEl.removeDottedSpaces(_type);
     }
 

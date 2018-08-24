@@ -1522,7 +1522,7 @@ public final class Classes {
         if(StringList.quickEq(_op, "%")) {
             return true;
         }
-        if(StringList.quickEq(_op, "=")) {
+        if(StringList.quickEq(_op, "==")) {
             return true;
         }
         if(StringList.quickEq(_op, "!=")) {

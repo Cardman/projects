@@ -2,12 +2,12 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
@@ -103,8 +103,8 @@ public interface Analyzable {
     String resolveBaseTypeBuildInherits(String _in, Block _currentBlock);
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
-    String lookupImportsDirect(String _type, RootBlock _rooted);
-    String lookupImportsIndirect(String _type, RootBlock _rooted);
+    String lookupImportsDirect(String _type, AccessingImportingBlock _rooted);
+    String lookupImportsIndirect(String _type, AccessingImportingBlock _rooted);
 
     boolean isDirectImport();
 

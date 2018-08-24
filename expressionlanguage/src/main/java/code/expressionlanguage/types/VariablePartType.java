@@ -3,7 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
 import code.util.StringList;
@@ -15,7 +15,7 @@ public final class VariablePartType extends LeafPartType {
     }
 
     @Override
-    public void checkExistence(Analyzable _an, RootBlock _rooted,RowCol _location) {
+    public void checkExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();

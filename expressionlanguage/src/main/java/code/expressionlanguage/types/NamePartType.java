@@ -3,9 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
@@ -17,22 +15,10 @@ public final class NamePartType extends LeafPartType {
     }
 
     @Override
-    public void checkExistence(Analyzable _an, RootBlock _rooted,RowCol _location) {
+    public void checkExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
-            if (_rooted == null) {
-                if (_an.getClassBody(type_).getAccess() != AccessEnum.PUBLIC) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(_an.getCurrentFileName());
-                    err_.setRc(new RowCol());
-                    err_.setId(type_);
-                    _an.getClasses().addError(err_);
-                }
-                setImportedTypeName(type_);
-                return;
-            }
-            String className_ = _rooted.getFullName();
             if (_an.isDirectImport()) {
                 if (!_rooted.isAccessibleType(type_, _an)) {
                     BadAccessClass err_ = new BadAccessClass();
@@ -41,7 +27,7 @@ public final class NamePartType extends LeafPartType {
                     err_.setId(type_);
                     _an.getClasses().addError(err_);
                 }
-            } else if (!Classes.canAccessClass(className_, type_, _an)) {
+            } else if (!_rooted.canAccessClass(type_, _an)) {
                 BadAccessClass err_ = new BadAccessClass();
                 err_.setFileName(_rooted.getFile().getFileName());
                 err_.setRc(new RowCol());

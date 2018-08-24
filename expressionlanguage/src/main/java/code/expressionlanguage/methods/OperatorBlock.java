@@ -7,6 +7,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
@@ -15,7 +16,11 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 
-public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod {
+public final class OperatorBlock extends NamedFunctionBlock implements GeneMethod, AccessingImportingBlock {
+
+    private StringList imports = new StringList();
+
+    private Numbers<Integer> importsOffset = new Numbers<Integer>();
 
     public OperatorBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -164,5 +169,25 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
                 _an.getClasses().addError(miss_);
             }
         }
+    }
+    @Override
+    public StringList getImports() {
+        return imports;
+    }
+    @Override
+    public Numbers<Integer> getImportsOffset() {
+        return importsOffset;
+    }
+    @Override
+    public boolean canAccessClass(String _type, Analyzable _analyzable) {
+        return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
+    }
+    @Override
+    public boolean isAccessibleType(String _type, Analyzable _analyzable) {
+        return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
+    }
+    @Override
+    public CustList<TypeVar> getParamTypesMapValues() {
+        return new CustList<TypeVar>();
     }
 }
