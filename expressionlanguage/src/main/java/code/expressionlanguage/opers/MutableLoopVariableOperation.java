@@ -12,6 +12,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadVariableName;
@@ -79,8 +80,22 @@ public class MutableLoopVariableOperation extends LeafOperation implements Setta
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
+            String c_ = _conf.getCurrentVarSetting();
+            if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                if (!(getParent() instanceof AffectationOperation)) {
+                    UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(un_);
+                }
+                _conf.putMutableLoopVar(str_);
+            }
             LoopVariable lv_ = new LoopVariable();
-            lv_.setClassName(_conf.getCurrentVarSetting());
+            if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                lv_.setClassName(_conf.getStandards().getAliasObject());
+            } else {
+                lv_.setClassName(c_);
+            }
             lv_.setFinalVariable(_conf.isFinalVariable());
             _conf.putMutableLoopVar(str_, lv_);
             _conf.getVariablesNames().add(str_);

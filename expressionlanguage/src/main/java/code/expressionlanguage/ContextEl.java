@@ -2042,4 +2042,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public StringList getInfersLocalVars() {
         return analyzing.getLastLocalVarsInfers();
     }
+
+    @Override
+    public StringList getInfersMutableLocalVars() {
+        return analyzing.getLastMutableLoopVarsInfers();
+    }
+
+    @Override
+    public void putMutableLoopVar(String _string) {
+        analyzing.putMutableLoopVar(_string);
+    }
 }

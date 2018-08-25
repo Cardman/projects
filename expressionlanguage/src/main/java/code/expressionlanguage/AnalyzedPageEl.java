@@ -43,6 +43,7 @@ public final class AnalyzedPageEl {
 
     private CustList<StringMap<LocalVariable>> localVars = new CustList<StringMap<LocalVariable>>();
     private CustList<StringList> localVarsInfers = new CustList<StringList>();
+    private CustList<StringList> mutableLocalVarsInfers = new CustList<StringList>();
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
@@ -251,10 +252,16 @@ public final class AnalyzedPageEl {
 
     public void initMutableLoopVars() {
         mutableVars.add(new StringMap<LoopVariable>());
+        mutableLocalVarsInfers.add(new StringList());
     }
 
     public void removeMutableLoopVars() {
         mutableVars.removeLast();
+        mutableLocalVarsInfers.removeLast();
+    }
+
+    public void putMutableLoopVar(String _key) {
+        mutableLocalVarsInfers.last().add(_key);
     }
 
     public void putMutableLoopVar(String _key, LoopVariable _var) {
@@ -285,6 +292,7 @@ public final class AnalyzedPageEl {
         localVars.clear();
         localVarsInfers.clear();
         mutableVars.clear();
+        mutableLocalVarsInfers.clear();
         assignedVariables.getFinalVariablesGlobal().getVariables().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesRoot().clear();
         assignedVariables.getFinalVariablesGlobal().getVariablesRootBefore().clear();
@@ -328,10 +336,19 @@ public final class AnalyzedPageEl {
     public void setMutableLoopVars(StringMap<LoopVariable> _localVars) {
         mutableVars = new CustList<StringMap<LoopVariable>>(new CollCapacity(1));
         mutableVars.add(_localVars);
+        mutableLocalVarsInfers = new CustList<StringList>();
+        mutableLocalVarsInfers.add(new StringList());
     }
 
     public void setMutableLoopVars(CustList<StringMap<LoopVariable>> _localVars) {
         mutableVars = _localVars;
+    }
+    public CustList<StringList> getMutableLocalVarsInfers() {
+        return mutableLocalVarsInfers;
+    }
+    public void setMutableLocalVarsInfers(
+            CustList<StringList> _mutableLocalVarsInfers) {
+        mutableLocalVarsInfers = _mutableLocalVarsInfers;
     }
     public boolean containsLocalVar(String _key) {
         for (StringMap<LocalVariable> m: localVars) {
@@ -581,5 +598,8 @@ public final class AnalyzedPageEl {
     }
     public StringList getLastLocalVarsInfers() {
         return localVarsInfers.last();
+    }
+    public StringList getLastMutableLoopVarsInfers() {
+        return mutableLocalVarsInfers.last();
     }
 }

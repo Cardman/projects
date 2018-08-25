@@ -48,7 +48,9 @@ public interface Analyzable {
     LocalVariable getLocalVar(String _key);
     void putLocalVar(String _string, LocalVariable _loc);
     StringList getInfersLocalVars();
+    StringList getInfersMutableLocalVars();
     void putLocalVar(String _string);
+    void putMutableLoopVar(String _string);
 
     LocalVariable getCatchVar(String _key);
 

@@ -860,7 +860,7 @@ public final class FileResolver {
                     String tr_ = instruction_.toString().trim();
                     if (tr_.isEmpty()) {
                         endInstruction_ = true;
-                    } else {
+                    } else if (!StringList.quickEq(tr_, prefixKeyWord(KEY_WORD_RETURN))) {
                         char lastChar_ = tr_.charAt(tr_.length() - 1);
                         if (currentParent_ instanceof AnnotationBlock) {
                             if (lastChar_ != END_CALLING) {

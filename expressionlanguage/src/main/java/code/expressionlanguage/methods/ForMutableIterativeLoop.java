@@ -12,6 +12,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.opers.Calculation;
@@ -167,6 +168,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         return finalOffset;
     }
 
+    public void setImportedClassName(String _importedClassName) {
+        importedClassName = _importedClassName;
+    }
     public CustList<OperationNode> getOpInit() {
         return opInit;
     }
@@ -292,7 +296,11 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (!className.isEmpty()) {
-            importedClassName = _cont.resolveCorrectType(className);
+            if (StringList.quickEq(className.trim(), TypeUtil.VAR_TYPE)) {
+                importedClassName = TypeUtil.VAR_TYPE;
+            } else {
+                importedClassName = _cont.resolveCorrectType(className);
+            }
             _cont.setMerged(true);
             _cont.setFinalVariable(finalVariable);
             _cont.setCurrentVarSetting(importedClassName);
@@ -936,4 +944,5 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             _anEl.completeAbruptGroup(this);
         }
     }
+
 }

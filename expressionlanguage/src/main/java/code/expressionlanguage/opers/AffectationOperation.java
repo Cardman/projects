@@ -12,6 +12,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
+import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -79,6 +80,28 @@ public final class AffectationOperation extends MethodOperation {
                         if (lv_ != null) {
                             lv_.setClassName(names_.first());
                             DeclareVariable d_ = (DeclareVariable) _conf.getCurrentBlock().getPreviousSibling();
+                            d_.setImportedClassName(names_.first());
+                            _conf.setCurrentVarSetting(names_.first());
+                        }
+                        v_.setResultClass(n_);
+                    }
+                }
+            }
+        }
+        if (settable instanceof MutableLoopVariableOperation) {
+            MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
+            String inf_ = v_.getVariableName();
+            if (ElUtil.isDeclaringLoopVariable(v_, _conf) && _conf.getInfersMutableLocalVars().containsStr(inf_)) {
+                String c_ = _conf.getCurrentVarSetting();
+                if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                    ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                    StringList names_ = clMatchRight_.getNames();
+                    if (names_.size() == 1) {
+                        ClassArgumentMatching n_ = new ClassArgumentMatching(names_);
+                        LoopVariable lv_ = _conf.getMutableLoopVar(inf_);
+                        if (lv_ != null) {
+                            lv_.setClassName(names_.first());
+                            ForMutableIterativeLoop d_ = (ForMutableIterativeLoop) _conf.getCurrentBlock();
                             d_.setImportedClassName(names_.first());
                             _conf.setCurrentVarSetting(names_.first());
                         }
