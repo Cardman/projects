@@ -238,7 +238,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     @Override
     public String getPackageName() {
-        return packageName;
+        Block par_ = this;
+        while (par_.getParent() instanceof RootBlock) {
+            par_ = par_.getParent();
+        }
+        if (!(par_ instanceof RootBlock)) {
+            return packageName;
+        }
+        return ((RootBlock)par_).packageName;
     }
 
     @Override
@@ -254,10 +261,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     @Override
     public final String getFullName() {
         String packageName_ = getPackageName();
+        Block par_ = this;
+        StringList names_ = new StringList(getName());
+        while (par_.getParent() instanceof RootBlock) {
+            par_ = par_.getParent();
+            names_.add(((RootBlock)par_).getName());
+        }
         if (packageName_.isEmpty()) {
             return getName();
         }
-        return StringList.concat(packageName_,DOT,getName());
+        return StringList.concat(packageName_,DOT,names_.getReverse().join(".."));
     }
 
     public final void validateIds(ContextEl _context) {

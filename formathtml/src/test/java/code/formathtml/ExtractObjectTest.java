@@ -28,12 +28,12 @@ public class ExtractObjectTest {
 
     @BeforeClass
     public static void initialize() {
-        Constants.setLanguage("LOCALE");
+        Constants.setLanguage("en");
     }
 
     @Test
     public void formatMessage1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
@@ -63,7 +63,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
@@ -93,7 +93,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
@@ -123,7 +123,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
@@ -154,7 +154,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
@@ -185,7 +185,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
@@ -216,7 +216,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -247,7 +247,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage8Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
@@ -278,7 +278,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage9Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -310,7 +310,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage10Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
@@ -340,7 +340,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage11Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
@@ -370,7 +370,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage12Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two";
@@ -400,7 +400,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage13Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
@@ -431,7 +431,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage14Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
@@ -462,7 +462,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage15Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc {0}";
@@ -493,7 +493,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage16Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -524,7 +524,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage17Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
@@ -555,7 +555,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage18Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -587,7 +587,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage19Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc \"{0}\"";
@@ -618,7 +618,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatMessage20Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -649,7 +649,7 @@ public class ExtractObjectTest {
 
     @Test
     public void evaluateMathExpression1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -684,7 +684,7 @@ public class ExtractObjectTest {
 
     @Test
     public void evaluateMathExpression2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -719,7 +719,7 @@ public class ExtractObjectTest {
 
     @Test
     public void evaluateMathExpression3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -754,7 +754,7 @@ public class ExtractObjectTest {
 
     @Test
     public void evaluateMathExpression4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -788,7 +788,7 @@ public class ExtractObjectTest {
     }
     @Test
     public void evaluateMathExpression5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -823,7 +823,7 @@ public class ExtractObjectTest {
 
     @Test
     public void evaluateMathExpression6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -850,7 +850,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -879,7 +879,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -912,7 +912,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -944,7 +944,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -976,7 +976,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1008,7 +1008,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1040,7 +1040,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1072,7 +1072,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables8Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1104,7 +1104,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables9Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1136,7 +1136,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables10Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1168,7 +1168,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables11Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1200,7 +1200,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables12Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1232,7 +1232,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables13Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1259,7 +1259,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables14Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1285,7 +1285,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables15Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1310,7 +1310,7 @@ public class ExtractObjectTest {
     }
     @Test
     public void formatNamedVariables1FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1336,7 +1336,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables2FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1362,7 +1362,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables3FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1389,7 +1389,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables4FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1416,7 +1416,7 @@ public class ExtractObjectTest {
     
     @Test
     public void formatNamedVariables5FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1443,7 +1443,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables6FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1470,7 +1470,7 @@ public class ExtractObjectTest {
 
     @Test
     public void formatNamedVariables7FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1496,7 +1496,7 @@ public class ExtractObjectTest {
 
     private static void addImportingPage(Configuration _conf, boolean _rendering) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("LOCALE");
+        _conf.setupValiatorsTranslators("en");
         _conf.addPage(new ImportingPage(_rendering));
     }
 

@@ -33,7 +33,7 @@ public class HtmlRequestTest {
 
     @BeforeClass
     public static void initialize() {
-        Constants.setLanguage("LOCALE");
+        Constants.setLanguage("en");
     }
 
     @Test
@@ -524,7 +524,7 @@ public class HtmlRequestTest {
 
     @Test
     public void formatErrorMessage1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -558,7 +558,7 @@ public class HtmlRequestTest {
 
     @Test
     public void formatErrorMessage2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -592,7 +592,7 @@ public class HtmlRequestTest {
 
     private static void setup(Configuration _conf) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("LOCALE");
+        _conf.setupValiatorsTranslators("en");
     }
 
     private static Configuration newConfiguration() {

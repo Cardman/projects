@@ -5083,7 +5083,6 @@ public final class FileResolverTest {
         assertEq("@MyAnnot",r_.getAnnotations().first());
         assertEq(1,r_.getAnnotationsIndexes().size());
         assertEq(19,r_.getAnnotationsIndexes().first());
-        System.out.println(file_.substring(r_.getAccessOffset()));
     }
     @Test
     public void parseFile54Test() {
@@ -5635,6 +5634,28 @@ public final class FileResolverTest {
         ReturnMehod r_ = (ReturnMehod) b_;
         assertEq("plus(a;.;,b;.;)", r_.getExpression());
         assertEq(56, r_.getExpressionOffset());
+    }
+
+    @Test
+    public void parseFile67Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer {\n");
+        file_.append("\t$public {} $class Inner{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
+        assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block inner_ = cl_.getFirstChild();
+        assertTrue(inner_ instanceof ClassBlock);
+        assertNull(inner_.getNextSibling());
+        assertNull(cl_.getNextSibling());
+        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
     }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;

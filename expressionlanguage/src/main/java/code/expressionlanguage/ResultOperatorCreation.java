@@ -6,6 +6,7 @@ public final class ResultOperatorCreation extends ResultCreation {
 
     private OperatorBlock type;
 
+    @Override
     public OperatorBlock getType() {
         return type;
     }

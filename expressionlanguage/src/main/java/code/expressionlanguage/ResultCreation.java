@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.methods.ImportingBlock;
 import code.sml.RowCol;
 
 public abstract class ResultCreation {
@@ -10,6 +11,7 @@ public abstract class ResultCreation {
 
     private boolean ok;
 
+    public abstract ImportingBlock getType();
     public RowCol getNextRowCol() {
         return nextRowCol;
     }

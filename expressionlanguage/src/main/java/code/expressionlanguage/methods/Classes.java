@@ -307,47 +307,46 @@ public final class Classes {
     }
     //TODO remainder
     public void processBracedClass(RootBlock _root, boolean _predefined, ContextEl _context) {
-        if (classesBodies.contains(_root.getFullName())) {
+        String fullName_ = _root.getFullName();
+        if (classesBodies.contains(fullName_)) {
             DuplicateType d_ = new DuplicateType();
-            d_.setId(_root.getFullName());
+            d_.setId(fullName_);
             d_.setFileName(_root.getFile().getFileName());
             d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
             addError(d_);
         }
-        RootBlock bl_ = _root;
-        RootBlock cl_ = bl_;
         String packageName_;
-        packageName_ = cl_.getPackageName();
+        packageName_ = _root.getPackageName();
         LgNames lgNames_ = _context.getStandards();
         if (!_predefined) {
             if (packageName_.isEmpty()) {
                 BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(cl_.getFullName());
-                badCl_.setFileName(cl_.getFile().getFileName());
-                badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                 addError(badCl_);
             }
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
                 if (!StringList.isWord(e)) {
                     BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(cl_.getFullName());
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                    badCl_.setClassName(fullName_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
             }
             String className_;
-            className_ = cl_.getName();
+            className_ = _root.getName();
             if (!StringList.isWord(className_)) {
                 BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(cl_.getFullName());
-                badCl_.setFileName(cl_.getFile().getFileName());
-                badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                 addError(badCl_);
             }
         }
-        String fullDef_ = cl_.getFullDefinition();
+        String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();
         String objectClassName_ = _context.getStandards().getAliasObject();
         if (ParserType.getIndexes(fullDef_) != null) {
@@ -356,16 +355,16 @@ public final class Classes {
                 if (p.isEmpty()) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                     continue;
                 }
                 if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
                 String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
@@ -375,26 +374,26 @@ public final class Classes {
                 if (!StringList.isWord(parts_.first())) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
                 if (varTypes_.containsStr(parts_.first())) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
                 varTypes_.add(parts_.first());
                 StringList constraints_ = new StringList();
                 if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
                     for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                        if (!isCorrectTemplate(b, _context, cl_)) {
+                        if (!isCorrectTemplate(b, _context, _root)) {
                             BadClassName badCl_ = new BadClassName();
                             badCl_.setClassName(b);
-                            badCl_.setFileName(cl_.getFile().getFileName());
-                            badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                            badCl_.setFileName(_root.getFile().getFileName());
+                            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                             addError(badCl_);
                         }
                         constraints_.add(b);
@@ -404,21 +403,20 @@ public final class Classes {
                 }
                 type_.setConstraints(constraints_);
                 type_.setName(parts_.first());
-                cl_.getParamTypes().add(type_);
+                _root.getParamTypes().add(type_);
             }
         } else {
             BadClassName badCl_ = new BadClassName();
             badCl_.setClassName(fullDef_);
-            badCl_.setFileName(cl_.getFile().getFileName());
-            badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
             addError(badCl_);
         }
-        if (cl_ instanceof EnumBlock) {
-            String base_ = cl_.getFullName();
-            StringBuilder generic_ = new StringBuilder(base_);
-            if (!cl_.getParamTypes().isEmpty()) {
+        if (_root instanceof EnumBlock) {
+            StringBuilder generic_ = new StringBuilder(fullName_);
+            if (!_root.getParamTypes().isEmpty()) {
                 StringList vars_ = new StringList();
-                for (TypeVar t:cl_.getParamTypes()) {
+                for (TypeVar t:_root.getParamTypes()) {
                     vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
                 }
                 generic_.append(Templates.TEMPLATE_BEGIN);
@@ -426,22 +424,22 @@ public final class Classes {
                 generic_.append(Templates.TEMPLATE_END);
             }
             String type_ = StringList.concat(_context.getStandards().getAliasEnumParam(),Templates.TEMPLATE_BEGIN,generic_,Templates.TEMPLATE_END);
-            cl_.getDirectSuperTypes().add(type_);
-            cl_.getExplicitDirectSuperTypes().put(-1, false);
-            cl_.getRowColDirectSuperTypes().put(-1, type_);
+            _root.getDirectSuperTypes().add(type_);
+            _root.getExplicitDirectSuperTypes().put(-1, false);
+            _root.getRowColDirectSuperTypes().put(-1, type_);
         }
         int indexSuperType_= -1;
-        for (String s: cl_.getDirectGenericSuperTypesBuild(_context)) {
+        for (String s: _root.getDirectGenericSuperTypesBuild(_context)) {
             indexSuperType_++;
-            if (!isCorrectTemplate(s, _context, cl_)) {
+            if (!isCorrectTemplate(s, _context, _root)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(s);
-                badCl_.setFileName(cl_.getFile().getFileName());
-                badCl_.setRc(cl_.getRowCol(0, cl_.getRowColDirectSuperTypes().getKey(indexSuperType_)));
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getRowColDirectSuperTypes().getKey(indexSuperType_)));
                 addError(badCl_);
             }
         }
-        CustList<TypeVar> tvs_ = cl_.getParamTypes();
+        CustList<TypeVar> tvs_ = _root.getParamTypes();
         for (TypeVar t: tvs_) {
             for (String u: t.getConstraints()) {
                 if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
@@ -457,28 +455,27 @@ public final class Classes {
                 if (!found_) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(u);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
             }
         }
-        if (lgNames_.getStandards().contains(cl_.getFullName())) {
+        if (lgNames_.getStandards().contains(fullName_)) {
             DuplicateType d_ = new DuplicateType();
-            d_.setId(cl_.getFullName());
-            d_.setFileName(cl_.getFile().getFileName());
-            d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+            d_.setId(fullName_);
+            d_.setFileName(_root.getFile().getFileName());
+            d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
             addError(d_);
         }
-        if (PrimitiveTypeUtil.isPrimitive(cl_.getFullName(), _context)) {
+        if (PrimitiveTypeUtil.isPrimitive(fullName_, _context)) {
             DuplicateType d_ = new DuplicateType();
-            d_.setId(cl_.getFullName());
-            d_.setFileName(cl_.getFile().getFileName());
-            d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
+            d_.setId(fullName_);
+            d_.setFileName(_root.getFile().getFileName());
+            d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
             addError(d_);
         }
-        String fullName_ = cl_.getFullName();
-        classesBodies.put(fullName_, cl_);
+        classesBodies.put(fullName_, _root);
     }
     //TODO remainer
     private static boolean isCorrectTemplate(String _temp, ContextEl _context, RootBlock _type) {

@@ -13,12 +13,12 @@ public class ExtractFromResourcesTest {
 
     @BeforeClass
     public static void initialize() {
-        Constants.setLanguage("LOCALE");
+        Constants.setLanguage("en");
     }
 
     @Test
     public void getInnerMessagesFromLocaleClass1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo_lignes=Description\n\t2";
@@ -34,7 +34,7 @@ public class ExtractFromResourcesTest {
 
     @Test
     public void getInnerMessagesFromLocaleClass2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "\tone=Description one\ntwo_lignes=Description 2";

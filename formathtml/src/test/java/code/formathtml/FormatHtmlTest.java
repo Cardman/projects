@@ -31,12 +31,12 @@ public class FormatHtmlTest {
 
     @BeforeClass
     public static void initialize() {
-        Constants.setLanguage("LOCALE");
+        Constants.setLanguage("en");
     }
 
     @Test
     public void processHtml1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -67,7 +67,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processHtml2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -98,7 +98,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processHtml3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -129,7 +129,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processHtml4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -161,7 +161,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -193,7 +193,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -227,7 +227,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -261,7 +261,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml8Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -293,7 +293,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml9Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -323,7 +323,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml10Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -354,7 +354,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml11Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -385,7 +385,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml12Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -416,7 +416,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml13Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -447,7 +447,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml14Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -478,7 +478,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml15Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -510,7 +510,7 @@ public class FormatHtmlTest {
 //    @Ignore
     @Test
     public void processHtml16Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -544,7 +544,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml17Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -578,7 +578,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml18Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -608,7 +608,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml19Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -640,7 +640,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml20Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -671,7 +671,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml21Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -704,7 +704,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml22Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -737,7 +737,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml23Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -769,7 +769,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml24Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -802,7 +802,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml25Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -835,7 +835,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml26Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -867,7 +867,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml27Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -901,7 +901,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml28Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -935,7 +935,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml29Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -969,7 +969,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml30Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -999,7 +999,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml31Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1029,7 +1029,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml32Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1061,7 +1061,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml33Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1093,7 +1093,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml34Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1123,7 +1123,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml35Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1154,7 +1154,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml36Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1185,7 +1185,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml37Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1216,7 +1216,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml38Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1247,7 +1247,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml39Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1278,7 +1278,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml40Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1309,7 +1309,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml41Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1339,7 +1339,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml42Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1371,7 +1371,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml43Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1402,7 +1402,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml44Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1435,7 +1435,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml45Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1468,7 +1468,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml46Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1501,7 +1501,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml47Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1534,7 +1534,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml48Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1567,7 +1567,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml49Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1596,7 +1596,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processHtml50Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1626,7 +1626,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml51Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1656,7 +1656,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml52Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1686,7 +1686,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml54Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1716,7 +1716,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml55Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1745,7 +1745,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml57Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1773,7 +1773,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml58Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1801,7 +1801,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml59Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1830,7 +1830,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml60Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1858,7 +1858,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processHtml61Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1888,7 +1888,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml62Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1918,7 +1918,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml63Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1948,7 +1948,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml64Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -1978,7 +1978,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml65Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2009,7 +2009,7 @@ public class FormatHtmlTest {
     @Ignore
     @Test
     public void processHtml66Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2041,7 +2041,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml67Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2071,7 +2071,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml68Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2103,7 +2103,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml69Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2135,7 +2135,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml70Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2167,7 +2167,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml71Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2199,7 +2199,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml72Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2231,7 +2231,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml73Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2263,7 +2263,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml74Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2293,7 +2293,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml75Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2323,7 +2323,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml76Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2354,7 +2354,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml77Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2385,7 +2385,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml78Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2416,7 +2416,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml79Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2452,7 +2452,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml80Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2487,7 +2487,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml81Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2521,7 +2521,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml82Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2556,7 +2556,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml83Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2585,7 +2585,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml84Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2615,7 +2615,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml85Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2645,7 +2645,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml86Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2675,7 +2675,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml87Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2705,7 +2705,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml88Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2735,7 +2735,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml89Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2765,7 +2765,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml90Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2795,7 +2795,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml91Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2825,7 +2825,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml92Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2855,7 +2855,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml93Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2885,7 +2885,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml94Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2915,7 +2915,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml95Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2945,7 +2945,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml96Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -2978,7 +2978,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml97Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3010,7 +3010,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml98Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3042,7 +3042,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml99Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3074,7 +3074,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml100Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3105,7 +3105,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processHtml102Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3137,7 +3137,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml103Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3169,7 +3169,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml104Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3201,7 +3201,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml105Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3233,7 +3233,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml106Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3265,7 +3265,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml107Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3297,7 +3297,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml108Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3329,7 +3329,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml109Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3362,7 +3362,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml110Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3394,7 +3394,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml111Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3429,7 +3429,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml112Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3464,7 +3464,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml113Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3499,7 +3499,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml114Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3534,7 +3534,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml115Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3569,7 +3569,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml116Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3604,7 +3604,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml117Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3639,7 +3639,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml118Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3674,7 +3674,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml119Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3709,7 +3709,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml120Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3744,7 +3744,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml121Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3779,7 +3779,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml122Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3814,7 +3814,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml123Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3849,7 +3849,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml124Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3884,7 +3884,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml125Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3919,7 +3919,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml126Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3954,7 +3954,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml127Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -3989,7 +3989,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml128Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4023,7 +4023,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml129Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4057,7 +4057,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml130Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4092,7 +4092,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml131Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4126,7 +4126,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml212Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4158,7 +4158,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml213Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4189,7 +4189,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml214Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4219,7 +4219,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processHtml1FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4251,7 +4251,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml2FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4283,7 +4283,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml4FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4313,7 +4313,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml5FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4344,7 +4344,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtml6FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4373,7 +4373,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputValue1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4410,7 +4410,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputValue2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4446,7 +4446,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputValue3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4483,7 +4483,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputValue4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4520,7 +4520,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputValue5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4557,7 +4557,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputValue6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4594,7 +4594,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputValue7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -4632,7 +4632,7 @@ public class FormatHtmlTest {
 
     @Test
     public void formatClassAndMessage1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4671,7 +4671,7 @@ public class FormatHtmlTest {
 
     @Test
     public void formatClassAndMessage2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4709,7 +4709,7 @@ public class FormatHtmlTest {
 
     @Test
     public void formatClassAndMessage3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4747,7 +4747,7 @@ public class FormatHtmlTest {
 
     @Test
     public void formatClassAndMessage4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4786,7 +4786,7 @@ public class FormatHtmlTest {
 
     @Test
     public void formatClassAndMessage5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4825,7 +4825,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4864,7 +4864,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt; &amp;\nfour=''asp''";
@@ -4905,7 +4905,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description & <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4944,7 +4944,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -4983,7 +4983,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''";
@@ -5023,7 +5023,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''";
@@ -5062,7 +5062,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''\ntitle=My page title";
@@ -5101,7 +5101,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages8Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\"><span>two</span></a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5141,7 +5141,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages9Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5180,7 +5180,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages10Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt; &amp;\nfour=''asp''";
@@ -5221,7 +5221,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages11Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description & <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5260,7 +5260,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages12Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5299,7 +5299,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages13Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''";
@@ -5339,7 +5339,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages14Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''";
@@ -5378,7 +5378,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages15Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &amp;lt;{0}&amp;gt;\nfour=''asp''\ntitle=My page title";
@@ -5417,7 +5417,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processMessages16Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\"><span>two</span></a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5456,7 +5456,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processSubmitTags1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5497,7 +5497,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processSubmitTags2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5538,7 +5538,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processSubmitTags3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5579,7 +5579,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processTitles1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5620,7 +5620,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processTitles2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5661,7 +5661,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processTitles3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5703,7 +5703,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processTitles4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5745,7 +5745,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processRadio1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5789,7 +5789,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processRadio2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5840,7 +5840,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processRadio3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5883,7 +5883,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processRadio4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5925,7 +5925,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processRadio5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -5967,7 +5967,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputName1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -6011,7 +6011,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputName2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6050,7 +6050,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputName3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6090,7 +6090,7 @@ public class FormatHtmlTest {
     @Ignore
     @Test
     public void processVarInputName4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6132,7 +6132,7 @@ public class FormatHtmlTest {
     @Ignore
     @Test
     public void processVarInputName5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6173,7 +6173,7 @@ public class FormatHtmlTest {
     @Ignore
     @Test
     public void processVarInputName6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6213,7 +6213,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputName7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6252,7 +6252,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputName8Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6291,7 +6291,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processVarInputName9Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6329,7 +6329,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImages1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6370,7 +6370,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImages2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6411,7 +6411,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImages3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6452,7 +6452,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImages4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6494,7 +6494,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImages5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6535,7 +6535,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImagesTags1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6577,7 +6577,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImagesTags2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6619,7 +6619,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6662,7 +6662,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6705,7 +6705,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6748,7 +6748,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6793,7 +6793,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6838,7 +6838,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6883,7 +6883,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6928,7 +6928,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss8Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -6973,7 +6973,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss9Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7020,7 +7020,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss10Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7066,7 +7066,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss11Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7112,7 +7112,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss12Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7158,7 +7158,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processCss13Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7204,7 +7204,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processScript1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7248,7 +7248,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processScript2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7294,7 +7294,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processScript3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7340,7 +7340,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processSpansErrors1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7385,7 +7385,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processSpansErrors2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7431,7 +7431,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processSpansErrors3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7477,7 +7477,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processSpansErrors4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -7509,7 +7509,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtmlJava1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7543,7 +7543,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtmlJava2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7576,7 +7576,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtmlJava3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7610,7 +7610,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtmlJava4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7643,7 +7643,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtmlJava5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7676,7 +7676,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtmlJava6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7708,7 +7708,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processHtmlJava7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7740,7 +7740,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports1Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc <{0}>\nfour=''asp''";
@@ -7775,7 +7775,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports2Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7810,7 +7810,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports3Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7848,7 +7848,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports4Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7886,7 +7886,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports5Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7928,7 +7928,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports6Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -7966,7 +7966,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports7Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8006,7 +8006,7 @@ public class FormatHtmlTest {
     @Ignore
     @Test
     public void processImports8Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8045,7 +8045,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports9Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8084,7 +8084,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports10Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8124,7 +8124,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processImports11Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8165,7 +8165,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports12Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=<html xmlns:c=\"javahtml\" xmlns=\"javahtml\">Description <a href=\"\" c:command=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8206,7 +8206,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports13Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=<html>Description <a href=\"$go\">two</a></html>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8246,7 +8246,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processImports14Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8287,7 +8287,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports15Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8324,7 +8324,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports16Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8361,7 +8361,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports17Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8402,7 +8402,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports18Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8441,7 +8441,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports19Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8480,7 +8480,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports20Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8519,7 +8519,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports21Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -8558,7 +8558,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports22Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8591,7 +8591,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports23Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8624,7 +8624,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports24Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8658,7 +8658,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports25Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8691,7 +8691,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports26Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8724,7 +8724,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports27Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8758,7 +8758,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports28Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8791,7 +8791,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports29Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8825,7 +8825,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports30Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8858,7 +8858,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports31Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8892,7 +8892,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports32Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8925,7 +8925,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports33Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8958,7 +8958,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports34Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -8991,7 +8991,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports35Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9024,7 +9024,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports36Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9057,7 +9057,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports37Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9090,7 +9090,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports38Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9125,7 +9125,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports39Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9158,7 +9158,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports40Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -9195,7 +9195,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports41Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9228,7 +9228,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports42Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9261,7 +9261,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports43Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -9300,7 +9300,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processImports44Test() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -9343,7 +9343,7 @@ public class FormatHtmlTest {
     }
     @Test
     public void processImports1FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -9384,7 +9384,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports2FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -9425,7 +9425,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports3FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
@@ -9466,7 +9466,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports5FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9499,7 +9499,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports6FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9532,7 +9532,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports7FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9565,7 +9565,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports8FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9599,7 +9599,7 @@ public class FormatHtmlTest {
 
     @Test
     public void processImports9FailTest() {
-        String locale_ = "LOCALE";
+        String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
@@ -9631,12 +9631,12 @@ public class FormatHtmlTest {
     }
     private static void setup(Configuration _conf) {
         _conf.setSepPrefix("c");
-        _conf.setupValiatorsTranslators("LOCALE");
+        _conf.setupValiatorsTranslators("en");
     }
 //    @Ignore
 //    @Test
 //    public void testCheckSyntax() {
-//        String locale_ = "LOCALE";
+//        String locale_ = "en";
 //        String folder_ = "messages";
 //        String relative_ = "sample/file";
 //        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";

@@ -1046,14 +1046,14 @@ public class Configuration implements ExecutableCode {
         return context.getInfersLocalVars();
     }
 
-	@Override
-	public StringList getInfersMutableLocalVars() {
-		return context.getInfersMutableLocalVars();
-	}
+    @Override
+    public StringList getInfersMutableLocalVars() {
+        return context.getInfersMutableLocalVars();
+    }
 
-	@Override
-	public void putMutableLoopVar(String _string) {
-		context.putMutableLoopVar(_string);
-	}
+    @Override
+    public void putMutableLoopVar(String _string) {
+        context.putMutableLoopVar(_string);
+    }
 
 }
