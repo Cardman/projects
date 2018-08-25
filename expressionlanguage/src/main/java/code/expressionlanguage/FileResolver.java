@@ -90,6 +90,7 @@ public final class FileResolver {
     private static final String KEY_WORD_STATIC = "static";
     private static final String KEY_WORD_ABSTRACT = "abstract";
     private static final String KEY_WORD_FINAL = "final";
+    private static final String KEY_WORD_ABSTRACT_FINAL = "abstractfinal";
     private static final String KEY_WORD_NORMAL = "normal";
 
     private static final String KEY_WORD_ITER = "iter";
@@ -379,23 +380,25 @@ public final class FileResolver {
         updateAllowedSpaces(i_, _file, enabledSpaces_);
         int nextIndex_ = i_ + 1;
         int beginType_ = nextIndex_;
-        int accessOffesType_ = beginType_;
+        int accessOffsetType_ = beginType_;
         String afterAccessType_ = _file.substring(i_);
         Numbers<Integer> annotationsIndexesTypes_ = new Numbers<Integer>();
         StringList annotationsTypes_ = new StringList();
         int deltaType_ = 0;
         if (afterAccessType_.trim().charAt(0) == ANNOT) {
             // accessOffesType_ == nextIndex_ == i_ + 1;
-            ParsedAnnotations par_ = new ParsedAnnotations(afterAccessType_, accessOffesType_);
+            ParsedAnnotations par_ = new ParsedAnnotations(afterAccessType_, i_);
             par_.parse();
             annotationsIndexesTypes_ = par_.getAnnotationsIndexes();
             annotationsTypes_ = par_.getAnnotations();
             afterAccessType_ = par_.getAfter();
-            deltaType_ = par_.getIndex() - accessOffesType_ + 1;
-            accessOffesType_ = par_.getIndex();
+            accessOffsetType_ = par_.getIndex();
+            deltaType_ = accessOffsetType_ - i_;
         }
         nextIndex_ += deltaType_;
         boolean oper_ = false;
+        StringBuilder symbol_ = new StringBuilder();
+        int symbolIndex_ = -1;
         if (startsWithPrefixKeyWord(afterAccessType_, KEY_WORD_PUBLIC)) {
             access_ = AccessEnum.PUBLIC;
             nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_PUBLIC.length(), _file, tabWidth_, current_, enabledSpaces_);
@@ -416,16 +419,27 @@ public final class FileResolver {
             //ERROR
             return out_;
         }
-        while (nextIndex_ < len_) {
-            char currentChar_ = _file.charAt(nextIndex_);
-            if (!enabledSpaces_.isOk()) {
+        nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+        if (nextIndex_ < 0) {
+            //ERROR
+            return out_;
+        }
+        if (oper_) {
+            symbolIndex_ = nextIndex_;
+            while (nextIndex_ < len_) {
+                char currentChar_ = _file.charAt(nextIndex_);
+                if (!isOperatorCharacter(currentChar_)) {
+                    //found space or import or return type
+                    break;
+                }
+                symbol_.append(currentChar_);
+                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            }
+            nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            if (nextIndex_ < 0) {
                 //ERROR
                 return out_;
             }
-            if (!Character.isWhitespace(currentChar_)) {
-                break;
-            }
-            nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
         }
         if (nextIndex_ > len_) {
             //ERROR
@@ -434,13 +448,13 @@ public final class FileResolver {
         StringList importedTypes_ = new StringList();
         Numbers<Integer> offsetsImports_ = new Numbers<Integer>();
         if (_file.charAt(nextIndex_) == BEGIN_BLOCK) {
-            nextIndex_++;
+            nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
             int indexImport_ = 0;
             StringBuilder str_ = new StringBuilder();
             while (nextIndex_ < len_) {
                 char currentChar_ = _file.charAt(nextIndex_);
                 if (currentChar_ == END_BLOCK) {
-                    nextIndex_++;
+                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
                     break;
                 }
                 if (currentChar_ == END_IMPORTS) {
@@ -457,16 +471,10 @@ public final class FileResolver {
                 }
                 nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
             }
-            while (nextIndex_ < len_) {
-                char currentChar_ = _file.charAt(nextIndex_);
-                if (!enabledSpaces_.isOk()) {
-                    //ERROR
-                    return out_;
-                }
-                if (!Character.isWhitespace(currentChar_)) {
-                    break;
-                }
-                nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            if (nextIndex_ < 0) {
+                //ERROR
+                return out_;
             }
             if (nextIndex_ > len_) {
                 //ERROR
@@ -479,32 +487,23 @@ public final class FileResolver {
         boolean allowedComments_ = false;
         if (oper_) {
             out_ = new ResultOperatorCreation();
-            int until_ = untilOperator(nextIndex_, _file);
+            int until_ = untilOperator(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
             String header_ = _file.substring(nextIndex_, until_);
             String info_ = header_;
-            int methodNameOffest_ = -1;
-            int typeOffset_ = -1;
+            int typeOffset_ = nextIndex_;
             int paramOffest_;
-            String methodName_ = EMPTY_STRING;
             String declaringType_ = EMPTY_STRING;
             String afterModifier_ = info_;
-            typeOffset_ = nextIndex_;
-            typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
             info_ = afterModifier_.trim();
             declaringType_ = getDeclaringTypeOper(info_);
-            String afterType_ = info_.substring(declaringType_.length());
-            methodNameOffest_ = typeOffset_ + declaringType_.length();
-            methodNameOffest_ += StringList.getFirstPrintableCharIndex(afterType_);
+            int declTypeLen_ = declaringType_.length();
+            String afterType_ = info_.substring(declTypeLen_);
             info_ = afterType_.trim();
             int leftParIndex_ = info_.indexOf(BEGIN_CALLING);
-            methodName_ = info_.substring(0, leftParIndex_);
             String afterMethodName_ = info_.substring(leftParIndex_ + 1);
-            paramOffest_ = methodNameOffest_ + leftParIndex_ + 1;
+            paramOffest_ = typeOffset_ + declTypeLen_ + 1;
             paramOffest_ += StringList.getFirstPrintableCharIndex(afterMethodName_);
             info_ = afterMethodName_.trim();
-            int indexLeftPar_ = info_.indexOf(BEGIN_CALLING);
-            paramOffest_ += indexLeftPar_ + 1;
-            paramOffest_ += StringList.getFirstPrintableCharIndex(info_.substring(indexLeftPar_ + 1));
             Numbers<Integer> offestsTypes_ = new Numbers<Integer>();
             Numbers<Integer> offestsParams_ = new Numbers<Integer>();
             StringList parametersType_ = new StringList();
@@ -518,7 +517,7 @@ public final class FileResolver {
                 Numbers<Integer> annotationsIndexesParam_ = new Numbers<Integer>();
                 StringList annotationsParam_ = new StringList();
                 if (info_.trim().charAt(0) == ANNOT) {
-                    ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_ + 1, -1);
+                    ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_);
                     par_.parse();
                     annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                     annotationsParam_ = par_.getAnnotations();
@@ -554,7 +553,7 @@ public final class FileResolver {
                 paramOffest_ += call_ + 1;
                 paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
             }
-            currentParent_ = new OperatorBlock(_context, _input.getIndexChild(), _input.getFileBlock(), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(methodNameOffest_, methodName_.trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(nextIndex_, nextIndex_));
+            currentParent_ = new OperatorBlock(_context, _input.getIndexChild(), _input.getFileBlock(), new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(symbolIndex_, symbol_.toString().trim()), parametersType_, offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(nextIndex_, nextIndex_));
             ((NamedFunctionBlock)currentParent_).getAnnotationsParams().addAllElts(annotationsParams_);
             ((NamedFunctionBlock)currentParent_).getAnnotationsIndexesParams().addAllElts(annotationsIndexesParams_);
             ((OperatorBlock)currentParent_).getImports().addAllElts(importedTypes_);
@@ -562,7 +561,7 @@ public final class FileResolver {
             currentParent_.getAnnotations().addAllElts(annotationsTypes_);
             currentParent_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
             ((ResultOperatorCreation)out_).setType((OperatorBlock) currentParent_);
-            nextIndex_ = until_ + 1;
+            nextIndex_ = incrementRowCol(until_, _file, tabWidth_, current_, enabledSpaces_);
         } else {
             out_ = new ResultTypeCreation();
             if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
@@ -579,18 +578,16 @@ public final class FileResolver {
             } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_FINAL)) {
                 finalType_ = true;
                 nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_FINAL.length(), _file, tabWidth_, current_, enabledSpaces_);
+            } else if (_file.substring(nextIndex_).startsWith(KEY_WORD_ABSTRACT_FINAL)) {
+                abstractType_ = true;
+                finalType_ = true;
+                nextIndex_ = incrementRowCol(nextIndex_, KEY_WORD_ABSTRACT_FINAL.length(), _file, tabWidth_, current_, enabledSpaces_);
             }
             if (abstractType_ || finalType_) {
-                while (nextIndex_ < len_) {
-                    currentChar_ = _file.charAt(nextIndex_);
-                    if (!enabledSpaces_.isOk()) {
-                        //ERROR
-                        return out_;
-                    }
-                    if (!Character.isWhitespace(currentChar_)) {
-                        break;
-                    }
-                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+                if (nextIndex_ < 0) {
+                    //ERROR
+                    return out_;
                 }
                 if (nextIndex_ > len_) {
                     //ERROR
@@ -621,17 +618,10 @@ public final class FileResolver {
                 //ERROR
                 return out_;
             }
-            while (nextIndex_ < len_) {
-                currentChar_ = _file.charAt(nextIndex_);
-                if (!enabledSpaces_.isOk()) {
-                    //ERROR
-                    return out_;
-                }
-                if (Character.isWhitespace(currentChar_)) {
-                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-                    continue;
-                }
-                break;
+            nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            if (nextIndex_ < 0) {
+                //ERROR
+                return out_;
             }
             if (!StringList.isWordChar(_file.charAt(nextIndex_)) && _file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
                 //ERROR
@@ -667,17 +657,10 @@ public final class FileResolver {
                 }
                 nextIndex_ = end_ + 1;
             }
-            while (nextIndex_ < len_) {
-                currentChar_ = _file.charAt(nextIndex_);
-                if (!enabledSpaces_.isOk()) {
-                    //ERROR
-                    return out_;
-                }
-                if (Character.isWhitespace(currentChar_)) {
-                    nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-                    continue;
-                }
-                break;
+            nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            if (nextIndex_ < 0) {
+                //ERROR
+                return out_;
             }
             StringBuilder str_ = new StringBuilder();
             NatTreeMap<Integer, String> superTypes_ = new NatTreeMap<Integer, String>();
@@ -764,13 +747,13 @@ public final class FileResolver {
             
             if (StringList.quickEq(type_, KEY_WORD_ENUM)) {
                 enableByEndLine_ = true;
-                typeBlock_ = new EnumBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                typeBlock_ = new EnumBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             } else if (StringList.quickEq(type_, KEY_WORD_CLASS)) {
-                typeBlock_ = new ClassBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                typeBlock_ = new ClassBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             } else if (StringList.quickEq(type_, KEY_WORD_INTERFACE)) {
-                typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             } else {
-                typeBlock_ = new AnnotationBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffesType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                typeBlock_ = new AnnotationBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             }
             typeBlock_.getImports().addAllElts(importedTypes_);
             typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
@@ -1001,7 +984,7 @@ public final class FileResolver {
                         Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
                         StringList annotations_ = new StringList();
                         if (trimmedInstruction_.charAt(0) == ANNOT) {
-                            ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_ + 1, -1);
+                            ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_);
                             par_.parse();
                             annotationsIndexes_ = par_.getAnnotationsIndexes();
                             annotations_ = par_.getAnnotations();
@@ -1042,7 +1025,7 @@ public final class FileResolver {
                         Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
                         StringList annotations_ = new StringList();
                         if (trimmedInstruction_.charAt(0) == ANNOT) {
-                            ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_ + 1, -1);
+                            ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_);
                             par_.parse();
                             annotationsIndexes_ = par_.getAnnotationsIndexes();
                             annotations_ = par_.getAnnotations();
@@ -1461,7 +1444,7 @@ public final class FileResolver {
                         StringList annotations_ = new StringList();
                         int deltaAccess_ = 0;
                         if (found_.trim().charAt(0) == ANNOT) {
-                            ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, instructionRealLocation_ + trFound_ + 1, -1);
+                            ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, instructionRealLocation_ + trFound_);
                             par_.parse();
                             annotationsIndexes_ = par_.getAnnotationsIndexes();
                             annotations_ = par_.getAnnotations();
@@ -1620,7 +1603,7 @@ public final class FileResolver {
                                     Numbers<Integer> annotationsIndexesParam_ = new Numbers<Integer>();
                                     StringList annotationsParam_ = new StringList();
                                     if (info_.trim().charAt(0) == ANNOT) {
-                                        ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_ + 1, -1);
+                                        ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_);
                                         par_.parse();
                                         annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                                         annotationsParam_ = par_.getAnnotations();
@@ -1874,39 +1857,7 @@ public final class FileResolver {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
                     if (StringList.isWordChar(ch_)) {
                         if (!nextPart_.isEmpty()) {
-                            if (nextPart_.charAt(0) == '+') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '-') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '*') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '%') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '/') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '!') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '=') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '<') {
-                                typeDeclaring_ = true;
-                                break;
-                            }
-                            if (nextPart_.charAt(0) == '>') {
+                            if (nextPart_.substring(0).trim().startsWith(String.valueOf(BEGIN_CALLING))) {
                                 typeDeclaring_ = true;
                                 break;
                             }
@@ -1979,6 +1930,36 @@ public final class FileResolver {
             return declTypeName_.toString();
         }
         return EMPTY_STRING;
+    }
+    private static boolean isOperatorCharacter(char _char) {
+        if (_char == '+') {
+            return true;
+        }
+        if (_char == '-') {
+            return true;
+        }
+        if (_char == '*') {
+            return true;
+        }
+        if (_char == '%') {
+            return true;
+        }
+        if (_char == '/') {
+            return true;
+        }
+        if (_char == '!') {
+            return true;
+        }
+        if (_char == '=') {
+            return true;
+        }
+        if (_char == '<') {
+            return true;
+        }
+        if (_char == '>') {
+            return true;
+        }
+        return false;
     }
     private static String getDeclaringTypeInstr(String _found) {
         int indexInstr_ = 0;
@@ -2234,7 +2215,7 @@ public final class FileResolver {
             }
         }
     }
-    private static int untilOperator(int _from, String _file) {
+    private static int untilOperator(int _from, String _file, int _tabWidth,RowCol _rc, EnablingSpaces _enabledSpaces) {
         int len_ = _file.length();
         int i_ = _from;
         Numbers<Integer> localCallings_ = new Numbers<Integer>();
@@ -2244,30 +2225,30 @@ public final class FileResolver {
             char locChar_ = _file.charAt(i_);
             if (localConstChar_) {
                 if (locChar_ == ESCAPE) {
-                    i_++;
-                    i_++;
+                    i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
                     continue;
                 }
                 if (locChar_ == DEL_CHAR) {
-                    i_++;
+                    i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
                     localConstChar_ = false;
                     continue;
                 }
-                i_++;
+                i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
                 continue;
             }
             if (localConstString_) {
                 if (locChar_ == ESCAPE) {
-                    i_++;
-                    i_++;
+                    i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
+                    i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
                     continue;
                 }
                 if (locChar_ == DEL_STRING) {
-                    i_++;
+                    i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
                     localConstString_ = false;
                     continue;
                 }
-                i_++;
+                i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
                 continue;
             }
             if (localCallings_.isEmpty() && locChar_ == BEGIN_BLOCK) {
@@ -2291,8 +2272,24 @@ public final class FileResolver {
             if (locChar_ == END_BLOCK) {
                 localCallings_.removeLast();
             }
-            i_++;
+            i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);
         }
         return -1;
+    }
+    private static int skipWhitespace(int _nextIndex, String _file, int _tabWidth,RowCol _rc, EnablingSpaces _enabledSpaces) {
+        int nextIndex_ = _nextIndex;
+        int len_ = _file.length();
+        while (nextIndex_ < len_) {
+            char currentChar_ = _file.charAt(nextIndex_);
+            if (!_enabledSpaces.isOk()) {
+                //ERROR
+                return -1;
+            }
+            if (!Character.isWhitespace(currentChar_)) {
+                break;
+            }
+            nextIndex_ = incrementRowCol(nextIndex_, _file, _tabWidth, _rc, _enabledSpaces);
+        }
+        return nextIndex_;
     }
 }

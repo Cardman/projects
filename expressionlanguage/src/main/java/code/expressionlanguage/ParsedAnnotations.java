@@ -98,6 +98,7 @@ public final class ParsedAnnotations {
                         annotation_.append(cur_);
                         annotations.add(annotation_.toString());
                         index = j_ + instructionLocation;
+                        index++;
                         j_++;
                         while (j_ < lenInst_) {
                             if (!Character.isWhitespace(instruction.charAt(j_))) {
@@ -117,6 +118,7 @@ public final class ParsedAnnotations {
                     annotation_.append(cur_);
                     annotations.add(annotation_.toString());
                     index = j_ + instructionLocation;
+                    index++;
                     j_++;
                     while (j_ < lenInst_) {
                         if (!Character.isWhitespace(instruction.charAt(j_))) {

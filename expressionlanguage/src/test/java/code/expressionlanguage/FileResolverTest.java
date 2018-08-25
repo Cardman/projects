@@ -37,6 +37,7 @@ import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NullCatchEval;
+import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.ReturnMehod;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
@@ -45,6 +46,7 @@ import code.expressionlanguage.methods.Throwing;
 import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.methods.WhileCondition;
 import code.expressionlanguage.stds.LgNames;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
 import code.util.StringList;
@@ -5080,7 +5082,8 @@ public final class FileResolverTest {
         assertEq(1,r_.getAnnotations().size());
         assertEq("@MyAnnot",r_.getAnnotations().first());
         assertEq(1,r_.getAnnotationsIndexes().size());
-        assertEq(20,r_.getAnnotationsIndexes().first());
+        assertEq(19,r_.getAnnotationsIndexes().first());
+        System.out.println(file_.substring(r_.getAccessOffset()));
     }
     @Test
     public void parseFile54Test() {
@@ -5516,6 +5519,122 @@ public final class FileResolverTest {
         assertEq(0, method_.getAnnotationsParams().size());
         assertEq(0, method_.getAnnotationsIndexesParams().size());
         assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile64Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$operator+ $long ($int a, $short b) {\n");
+        file_.append("\t$return plus(a;.;,b;.;):\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        assertEq(1, ops_.size());
+        OperatorBlock op_ = ops_.first();
+        assertEq("+", op_.getName());
+        assertEq(9, op_.getNameOffset());
+        assertEq("$long", op_.getReturnType());
+        assertEq(11, op_.getReturnTypeOffset());
+        assertEq(2, op_.getParametersTypes().size());
+        assertEq("$int", op_.getParametersTypes().get(0));
+        assertEq("$short", op_.getParametersTypes().get(1));
+        assertEq(2, op_.getParametersNames().size());
+        assertEq("a", op_.getParametersNames().get(0));
+        assertEq("b", op_.getParametersNames().get(1));
+        assertEq(2, op_.getParametersTypesOffset().size());
+        assertEq(17, op_.getParametersTypesOffset().get(0));
+        assertEq(25, op_.getParametersTypesOffset().get(1));
+        assertEq(2, op_.getParametersNamesOffset().size());
+        assertEq(22, op_.getParametersNamesOffset().get(0));
+        assertEq(32, op_.getParametersNamesOffset().get(1));
+        Block b_ = op_.getFirstChild();
+        assertTrue(b_ instanceof ReturnMehod);
+        assertEq(37, b_.getOffset().getOffset());
+        assertEq(39, b_.getOffset().getOffsetTrim());
+        ReturnMehod r_ = (ReturnMehod) b_;
+        assertEq("plus(a;.;,b;.;)", r_.getExpression());
+        assertEq(47, r_.getExpressionOffset());
+    }
+    @Test
+    public void parseFile65Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("@MyAnnot\n");
+        file_.append("$operator+ $long ($int a, $short b) {\n");
+        file_.append("\t$return plus(a;.;,b;.;):\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        assertEq(1, ops_.size());
+        OperatorBlock op_ = ops_.first();
+        assertEq(1, op_.getAnnotations().size());
+        assertEq("@MyAnnot", op_.getAnnotations().first());
+        assertEq(1, op_.getAnnotationsIndexes().size());
+        assertEq(0, op_.getAnnotationsIndexes().first());
+        assertEq("+", op_.getName());
+        assertEq(18, op_.getNameOffset());
+        assertEq("$long", op_.getReturnType());
+        assertEq(20, op_.getReturnTypeOffset());
+        assertEq(2, op_.getParametersTypes().size());
+        assertEq("$int", op_.getParametersTypes().get(0));
+        assertEq("$short", op_.getParametersTypes().get(1));
+        assertEq(2, op_.getParametersNames().size());
+        assertEq("a", op_.getParametersNames().get(0));
+        assertEq("b", op_.getParametersNames().get(1));
+        assertEq(2, op_.getParametersTypesOffset().size());
+        assertEq(26, op_.getParametersTypesOffset().get(0));
+        assertEq(34, op_.getParametersTypesOffset().get(1));
+        assertEq(2, op_.getParametersNamesOffset().size());
+        assertEq(31, op_.getParametersNamesOffset().get(0));
+        assertEq(41, op_.getParametersNamesOffset().get(1));
+        Block b_ = op_.getFirstChild();
+        assertTrue(b_ instanceof ReturnMehod);
+        assertEq(46, b_.getOffset().getOffset());
+        assertEq(48, b_.getOffset().getOffsetTrim());
+        ReturnMehod r_ = (ReturnMehod) b_;
+        assertEq("plus(a;.;,b;.;)", r_.getExpression());
+        assertEq(56, r_.getExpressionOffset());
+    }
+    @Test
+    public void parseFile66Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$operator+ $long (@MyAnnot\n$int a, $short b) {\n");
+        file_.append("\t$return plus(a;.;,b;.;):\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        CustList<OperatorBlock> ops_ = context_.getClasses().getOperators();
+        assertEq(1, ops_.size());
+        OperatorBlock op_ = ops_.first();
+        assertEq("+", op_.getName());
+        assertEq(9, op_.getNameOffset());
+        assertEq("$long", op_.getReturnType());
+        assertEq(11, op_.getReturnTypeOffset());
+        assertEq(2, op_.getAnnotationsParams().size());
+        assertEq(1, op_.getAnnotationsParams().first().size());
+        assertEq("@MyAnnot", op_.getAnnotationsParams().first().first());
+        assertEq(2, op_.getAnnotationsIndexesParams().size());
+        assertEq(1, op_.getAnnotationsIndexesParams().first().size());
+        assertEq(17, op_.getAnnotationsIndexesParams().first().first());
+        assertEq(2, op_.getParametersTypes().size());
+        assertEq("$int", op_.getParametersTypes().get(0));
+        assertEq("$short", op_.getParametersTypes().get(1));
+        assertEq(2, op_.getParametersNames().size());
+        assertEq("a", op_.getParametersNames().get(0));
+        assertEq("b", op_.getParametersNames().get(1));
+        assertEq(2, op_.getParametersTypesOffset().size());
+        assertEq(26, op_.getParametersTypesOffset().get(0));
+        assertEq(34, op_.getParametersTypesOffset().get(1));
+        assertEq(2, op_.getParametersNamesOffset().size());
+        assertEq(31, op_.getParametersNamesOffset().get(0));
+        assertEq(41, op_.getParametersNamesOffset().get(1));
+        Block b_ = op_.getFirstChild();
+        assertTrue(b_ instanceof ReturnMehod);
+        assertEq(46, b_.getOffset().getOffset());
+        assertEq(48, b_.getOffset().getOffsetTrim());
+        ReturnMehod r_ = (ReturnMehod) b_;
+        assertEq("plus(a;.;,b;.;)", r_.getExpression());
+        assertEq(56, r_.getExpressionOffset());
     }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;

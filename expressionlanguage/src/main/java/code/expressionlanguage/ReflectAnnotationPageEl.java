@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.NamedFunctionBlock;
+import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ArrayStruct;
@@ -43,6 +44,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         if (c.getId().eq(cid_)) {
                             if (c instanceof NamedFunctionBlock) {
                                 annotationsParams=((NamedFunctionBlock)c).getAnnotationsOpsParams();
+                            } else {
+                                annotationsParams = new CustList<CustList<CustList<OperationNode>>>();
                             }
                         }
                     }
@@ -55,7 +58,14 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                         if (m.getId().eq(mid_)) {
                             if (m instanceof NamedFunctionBlock) {
                                 annotationsParams=((NamedFunctionBlock)m).getAnnotationsOpsParams();
+                            } else {
+                                annotationsParams = new CustList<CustList<CustList<OperationNode>>>();
                             }
+                        }
+                    }
+                    for (OperatorBlock m: _context.getClasses().getOperators()) {
+                        if (m.getId().eq(mid_)) {
+                            annotationsParams=((NamedFunctionBlock)m).getAnnotationsOpsParams();
                         }
                     }
                 } else {
@@ -67,6 +77,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 GeneType type_ = _context.getClassBody(id_);
                 if (type_ instanceof Block) {
                     annotations=((Block)type_).getAnnotationsOps();
+                } else {
+                    annotations = new CustList<CustList<OperationNode>>();
                 }
             } else if (structBlock_ instanceof ConstructorMetaInfo){
                 ConstructorId cid_ = ((ConstructorMetaInfo)structBlock_).getRealId();
@@ -77,6 +89,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     if (c.getId().eq(cid_)) {
                         if (c instanceof Block) {
                             annotations=((Block)c).getAnnotationsOps();
+                        } else {
+                            annotations = new CustList<CustList<OperationNode>>();
                         }
                     }
                 }
@@ -89,7 +103,14 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     if (m.getId().eq(mid_)) {
                         if (m instanceof Block) {
                             annotations=((Block)m).getAnnotationsOps();
+                        } else {
+                            annotations = new CustList<CustList<OperationNode>>();
                         }
+                    }
+                }
+                for (OperatorBlock m: _context.getClasses().getOperators()) {
+                    if (m.getId().eq(mid_)) {
+                        annotations=((Block)m).getAnnotationsOps();
                     }
                 }
             } else {
@@ -102,6 +123,8 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     if (StringList.quickEq(f.getFieldName(), fieldId_)) {
                         if (f instanceof Block) {
                             annotations=((Block)f).getAnnotationsOps();
+                        } else {
+                            annotations = new CustList<CustList<OperationNode>>();
                         }
                     }
                 }
