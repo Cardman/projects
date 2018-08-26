@@ -13,6 +13,7 @@ public abstract class LeafPartType extends PartType {
         typeName = _type;
     }
     public abstract void checkExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location);
+    public abstract void checkDirectExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location);
     public abstract void checkDynExistence(Analyzable _an);
     public final String exportHeader() {
         return importedTypeName;

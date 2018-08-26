@@ -33,6 +33,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean finalType;
     private final boolean abstractType;
+    private final boolean staticType;
 
     public ClassBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -49,18 +50,25 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);
         finalType = StringList.quickEq(modifier_, VALUE_FINAL);
         abstractType = StringList.quickEq(modifier_, VALUE_ABSTRACT);
+        staticType = false;
     }
 
     public ClassBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
             String _templateDef, NatTreeMap<Integer, String> _directSuperTypes,
             boolean _finalType,
-            boolean _abstractType, OffsetsBlock _offset) {
+            boolean _abstractType, boolean _staticType,
+            OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
         finalType = _finalType;
         abstractType = _abstractType;
+        staticType = _staticType;
     }
 
+    @Override
+    public boolean isStaticType() {
+        return staticType;
+    }
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         Classes classesRef_ = _context.getClasses();
@@ -392,5 +400,12 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getImportedDirectGenericSuperInterfaces() {
         return importedDirectSuperInterfaces;
+    }
+
+    @Override
+    public StringList getImportedDirectSuperTypes() {
+        StringList l_ = new StringList(importedDirectSuperClass);
+        l_.addAllElts(importedDirectSuperInterfaces);
+        return l_;
     }
 }

@@ -29,4 +29,7 @@ public final class InnerPartType extends ParentPartType {
         return EMPTY_STRING;
     }
 
+    public boolean isRemovedBefore() {
+        return removedBefore;
+    }
 }

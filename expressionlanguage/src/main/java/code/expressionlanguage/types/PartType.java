@@ -7,6 +7,7 @@ public abstract class PartType {
 
     protected static final String EMPTY_STRING = "";
     private ParentPartType parent;
+    private PartType previousSibling;
     private PartType nextSibling;
     private int index;
     private int indexInType;
@@ -44,6 +45,12 @@ public abstract class PartType {
     }
     public final PartType getNextSibling() {
         return nextSibling;
+    }
+    public final void setPreviousSibling(PartType _previousSibling) {
+        previousSibling = _previousSibling;
+    }
+    public final PartType getPreviousSibling() {
+        return previousSibling;
     }
     public abstract PartType getFirstChild();
     public void setNextSibling(PartType _child) {

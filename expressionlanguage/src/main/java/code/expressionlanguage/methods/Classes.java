@@ -351,6 +351,20 @@ public final class Classes {
         String objectClassName_ = _context.getStandards().getAliasObject();
         if (ParserType.getIndexes(fullDef_) != null) {
             StringList params_ = Templates.getAllTypes(fullDef_);
+            StringList namesFromParent_ = new StringList();
+            RootBlock r_ = _root;
+            if (!r_.isStaticType()) {
+                while (r_.getParent() instanceof RootBlock) {
+                    r_ = (RootBlock) r_.getParent();
+                    for (TypeVar t: r_.getParamTypes()) {
+                        namesFromParent_.add(t.getName());
+                    }
+                    if (r_.isStaticType()) {
+                        break;
+                    }
+                }
+            }
+            namesFromParent_.removeDuplicates();
             for (String p: params_.mid(CustList.SECOND_INDEX)) {
                 if (p.isEmpty()) {
                     BadClassName badCl_ = new BadClassName();
@@ -379,6 +393,13 @@ public final class Classes {
                     addError(badCl_);
                 }
                 if (varTypes_.containsStr(parts_.first())) {
+                    BadClassName badCl_ = new BadClassName();
+                    badCl_.setClassName(fullDef_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    addError(badCl_);
+                }
+                if (namesFromParent_.containsStr(parts_.first())) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
@@ -1041,6 +1062,15 @@ public final class Classes {
                         enum_.setFileName(d_);
                         enum_.setRc(rc_);
                         addError(enum_);
+                    } else {
+                        RootBlock par_ = bl_.getParentType();
+                        while (par_ != null) {
+                            if (par_.isStaticType()) {
+                                break;
+                            }
+                            inherit_.addSegment(new ClassEdge(d_), new ClassEdge(par_.getFullName()));
+                            par_ = par_.getParentType();
+                        }
                     }
                     inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
                 }

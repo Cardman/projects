@@ -5657,6 +5657,70 @@ public final class FileResolverTest {
         assertNull(cl_.getNextSibling());
         assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
     }
+    @Test
+    public void parseFile68Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer<#T> {\n");
+        file_.append("\t$public {} $class Inner<#S>{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
+        assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block inner_ = cl_.getFirstChild();
+        assertTrue(inner_ instanceof ClassBlock);
+        assertNull(inner_.getNextSibling());
+        assertNull(cl_.getNextSibling());
+        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+    }
+    @Test
+    public void parseFile69Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer<#T> {\n");
+        file_.append("\t$public {} $static $class Inner<#T>{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
+        assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block inner_ = cl_.getFirstChild();
+        assertTrue(inner_ instanceof ClassBlock);
+        assertNull(inner_.getNextSibling());
+        assertNull(cl_.getNextSibling());
+        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+    }
+    @Test
+    public void parseFile1FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer {\n");
+        file_.append("\t$public {} $class Outer{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void parseFile2FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer<#T> {\n");
+        file_.append("\t$public {} $class Inner<#T>{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertTrue(!context_.getClasses().isEmptyErrors());
+    }
     private static int countCustomTypes(ContextEl _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getClasses().getClassBodies()) {

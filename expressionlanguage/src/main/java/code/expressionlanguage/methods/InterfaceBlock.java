@@ -18,6 +18,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     private final StringList allSuperTypes = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
+    private final boolean staticType;
 
     public InterfaceBlock(Element _el, ContextEl _importingPage, int _indexChild,
             BracedBlock _m) {
@@ -27,14 +28,20 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
             getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
             i_++;
         }
+        staticType = false;
     }
 
     public InterfaceBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
-            String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
+            String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, boolean _staticType, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
+        staticType = _staticType;
     }
 
+    @Override
+    public boolean isStaticType() {
+        return staticType;
+    }
     @Override
     public void setupBasicOverrides(ContextEl _context) {
         useSuperTypesOverrides(_context);
@@ -172,5 +179,10 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
 
     public StringList getImportedDirectSuperInterfaces() {
         return importedDirectSuperInterfaces;
+    }
+
+    @Override
+    public StringList getImportedDirectSuperTypes() {
+        return new StringList(importedDirectSuperInterfaces);
     }
 }

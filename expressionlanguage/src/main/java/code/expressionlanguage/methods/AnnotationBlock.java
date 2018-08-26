@@ -29,6 +29,10 @@ public final class AnnotationBlock extends RootBlock {
     }
 
     @Override
+    public boolean isStaticType() {
+        return true;
+    }
+    @Override
     public StringList getDirectGenericSuperTypesBuild(Analyzable _classes) {
         return new StringList(getDirectSuperTypes());
     }
@@ -110,6 +114,11 @@ public final class AnnotationBlock extends RootBlock {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
+    }
+
+    @Override
+    public StringList getImportedDirectSuperTypes() {
+        return allSuperTypes;
     }
     
 }

@@ -95,7 +95,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     RootBlock(ContextEl _importingPage, int _indexChild,
-            BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access, String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
+            BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name,
+            String _packageName, OffsetAccessInfo _access, String _templateDef,
+            NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         categoryOffset = _categoryOffset;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
@@ -115,6 +117,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
     }
 
+    public abstract boolean isStaticType();
+    public abstract StringList getImportedDirectSuperTypes();
     public NatTreeMap<Integer, Boolean> getExplicitDirectSuperTypes() {
         return explicitDirectSuperTypes;
     }
@@ -167,18 +171,33 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return direct_;
     }
 
+    public final RootBlock getParentType() {
+        BracedBlock p_ = getParent();
+        while (!(p_ instanceof RootBlock)) {
+            if (p_ == null) {
+                return null;
+            }
+            p_ = p_.getParent();
+        }
+        return (RootBlock) p_;
+    }
+
     public void buildMapParamType(ContextEl _analyze) {
         paramTypesMap = new StringMap<TypeVar>();
-        RowCol rc_ = getRowCol(0, idRowCol);
-        for (TypeVar t: paramTypes) {
-            StringList const_ = new StringList();
-            for (String c: t.getConstraints()) {
-                const_.add(_analyze.resolveTypeMapping(c,this, rc_));
+        RootBlock r_ = this;
+        while (r_ != null) {
+            RowCol rc_ = getRowCol(0, r_.idRowCol);
+            for (TypeVar t: r_.paramTypes) {
+                StringList const_ = new StringList();
+                for (String c: t.getConstraints()) {
+                    const_.add(_analyze.resolveTypeMapping(c,r_, rc_));
+                }
+                TypeVar t_ = new TypeVar();
+                t_.setConstraints(const_);
+                t_.setName(t.getName());
+                r_.paramTypesMap.put(t.getName(), t_);
             }
-            TypeVar t_ = new TypeVar();
-            t_.setConstraints(const_);
-            t_.setName(t.getName());
-            paramTypesMap.put(t.getName(), t_);
+            r_ = r_.getParentType();
         }
     }
 

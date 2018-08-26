@@ -55,6 +55,10 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
+    public boolean isStaticType() {
+        return true;
+    }
+    @Override
     public void setupBasicOverrides(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         Classes classesRef_ = _context.getClasses();
@@ -365,5 +369,12 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getImportedDirectGenericSuperInterfaces() {
         return importedDirectSuperInterfaces;
+    }
+
+    @Override
+    public StringList getImportedDirectSuperTypes() {
+        StringList l_ = new StringList(importedDirectSuperClass);
+        l_.addAllElts(importedDirectSuperInterfaces);
+        return l_;
     }
 }

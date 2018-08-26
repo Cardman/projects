@@ -1220,7 +1220,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
         setDirectImport(false);
-        String resType_ = PartTypeUtil.process(_in, this, r_, _location);
+        String resType_ = PartTypeUtil.processMapping(_in, this, r_, _location);
         return resType_;
     }
     @Override
@@ -1270,9 +1270,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     @Override
     public String lookupImportsDirect(String _type, AccessingImportingBlock _rooted) {
-        if (!StringList.isWord(_type.trim())) {
-            return EMPTY_TYPE;
+        if (_type.startsWith("..")) {
+            RootBlock par_ = ((RootBlock)_rooted).getParentType();
+            String type_ = StringList.concat(par_.getFullName(),_type);
+            if (classes.isCustomType(type_)) {
+                if (_rooted.isAccessibleType(type_, this)) {
+                    return type_;
+                }
+            }
         }
+        StringList parts_ = StringList.splitStrings(_type.trim(), "..");
         StringList types_ = new StringList();
         for (String i: _rooted.getImports()) {
             if (!i.contains(".")) {
@@ -1282,7 +1289,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _type.trim())) {
+            if (!StringList.quickEq(end_, parts_.first())) {
                 continue;
             }
             String typeLoc_ = removeDottedSpaces(i);
@@ -1305,7 +1312,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _type.trim())) {
+            if (!StringList.quickEq(end_, parts_.first())) {
                 continue;
             }
             String typeLoc_ = removeDottedSpaces(i);
@@ -1380,9 +1387,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     @Override
     public String lookupImportsIndirect(String _type, AccessingImportingBlock _rooted) {
-        if (!StringList.isWord(_type.trim())) {
-            return EMPTY_TYPE;
-        }
         StringList types_ = new StringList();
         for (String i: _rooted.getImports()) {
             if (!i.contains(".")) {

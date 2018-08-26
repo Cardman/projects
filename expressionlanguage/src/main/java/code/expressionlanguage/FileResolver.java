@@ -766,9 +766,9 @@ public final class FileResolver {
                 enableByEndLine_ = true;
                 typeBlock_ = new EnumBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             } else if (StringList.quickEq(type_, KEY_WORD_CLASS)) {
-                typeBlock_ = new ClassBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                typeBlock_ = new ClassBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, true, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             } else if (StringList.quickEq(type_, KEY_WORD_INTERFACE)) {
-                typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                typeBlock_ = new InterfaceBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, true, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             } else {
                 typeBlock_ = new AnnotationBlock(_context, _input.getIndexChild(), _input.getFileBlock(), beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
             }
@@ -790,6 +790,7 @@ public final class FileResolver {
         boolean commentedMultiLine_ = false;
         boolean constChar_ = false;
         boolean constString_ = false;
+        boolean declType_ = false;
         
         i_ = nextIndex_;
         boolean okType_ = false;
@@ -864,7 +865,7 @@ public final class FileResolver {
             }
             boolean endInstruction_ = false;
             if (parentheses_.isEmpty() && !const_) {
-                if (currentChar_ == END_LINE) {
+                if (currentChar_ == END_LINE && !declType_) {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == SEP_ENUM_CONST && enableByEndLine_) {
@@ -892,6 +893,10 @@ public final class FileResolver {
                             if (lastChar_ != END_ARRAY) {
                                 endInstruction_ = true;
                             }
+                        }
+                    } else {
+                        if (isKeyWordAccess(tr_)) {
+                            declType_ = true;
                         }
                     }
                 }
@@ -1616,7 +1621,7 @@ public final class FileResolver {
                                     } else if (templateDef_.length() == 0 && locChar_ != BEGIN_BLOCK) {
                                         if (!foundInherit_ && locChar_ != INHERIT) {
                                             if (typeNamePref_.length() == 0) {
-                                                beginDefinition_ = nextIndex_;
+                                                beginDefinition_ = locIndex_;
                                             }
                                             typeNamePref_.append(locChar_);
                                         }
@@ -1630,8 +1635,8 @@ public final class FileResolver {
                                         }
                                         str_.delete(0, str_.length());
                                         foundInherit_ = true;
-                                        nextIndex_ = incrementRowCol(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-                                        inheritIndex_ = nextIndex_;
+                                        locIndex_ = incrementRowCol(locIndex_, _file, tabWidth_, locRc_, enLoc_);
+                                        inheritIndex_ = locIndex_;
                                         continue;
                                     }
                                     if (locChar_ == BEGIN_BLOCK) {
@@ -1674,14 +1679,15 @@ public final class FileResolver {
                                 
                                 if (StringList.quickEq(type_, KEY_WORD_ENUM)) {
                                     enableByEndLine_ = true;
-                                    typeBlock_ = new EnumBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                                    typeBlock_ = new EnumBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
                                 } else if (StringList.quickEq(type_, KEY_WORD_CLASS)) {
-                                    typeBlock_ = new ClassBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                                    typeBlock_ = new ClassBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_), tempDef_, superTypes_, finalType_, abstractType_, staticType_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
                                 } else if (StringList.quickEq(type_, KEY_WORD_INTERFACE)) {
-                                    typeBlock_ = new InterfaceBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                                    typeBlock_ = new InterfaceBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, staticType_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
                                 } else {
-                                    typeBlock_ = new AnnotationBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(beginType_ - 1,beginType_ - 1));
+                                    typeBlock_ = new AnnotationBlock(_context, index_, currentParent_, beginDefinition_, categoryOffset_, baseName_, packageName_, new OffsetAccessInfo(accessOffsetType_ - 1, access_) , tempDef_, superTypes_, new OffsetsBlock(instructionRealLocation_ + trFound_, instructionLocation_ + trFound_));
                                 }
+                                declType_ = false;
                                 typeBlock_.getImports().addAllElts(importedTypes_);
                                 typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
                                 typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
