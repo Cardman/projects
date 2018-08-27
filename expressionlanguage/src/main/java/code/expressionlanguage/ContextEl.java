@@ -54,6 +54,7 @@ import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -328,7 +329,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
         page_ = new NewInstancingPageEl();
-        Struct str_ = null;
+        Struct str_ = NullStruct.NULL_VALUE;
         if (global_ != null) {
             str_ = global_.getStruct();
         }
@@ -1186,7 +1187,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(varsList_);
         setDirectImport(false);
-        String resType_ = PartTypeUtil.process(_in, this, r_, rc_);
+        String gl_ = getGlobalClass();
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, rc_);
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1213,8 +1215,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         RootBlock r_ = _currentBlock.getRooted();
         StringList variables_ = new StringList();
-        for (TypeVar t: r_.getParamTypes()) {
-            variables_.add(t.getName());
+        for (RootBlock r: r_.getSelfAndParentTypes()) {
+            for (TypeVar t: r.getParamTypes()) {
+                variables_.add(t.getName());
+            }
         }
         //No need to call Templates.isCorrect
         getAvailableVariables().clear();
@@ -1270,7 +1274,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     @Override
     public String lookupImportsDirect(String _type, AccessingImportingBlock _rooted) {
-        if (_type.startsWith("..")) {
+        String look_ = _type.trim();
+        if (look_.startsWith("..")) {
             RootBlock par_ = ((RootBlock)_rooted).getParentType();
             String type_ = StringList.concat(par_.getFullName(),_type);
             if (classes.isCustomType(type_)) {
@@ -1279,7 +1284,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
             }
         }
-        StringList parts_ = StringList.splitStrings(_type.trim(), "..");
+        StringList parts_ = StringList.splitStrings(look_, "..");
         StringList types_ = new StringList();
         for (String i: _rooted.getImports()) {
             if (!i.contains(".")) {
@@ -1288,11 +1293,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
                 continue;
             }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
             if (!StringList.quickEq(end_, parts_.first())) {
                 continue;
             }
-            String typeLoc_ = removeDottedSpaces(i);
+            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1311,11 +1317,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
                 continue;
             }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
             if (!StringList.quickEq(end_, parts_.first())) {
                 continue;
             }
-            String typeLoc_ = removeDottedSpaces(i);
+            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1348,7 +1355,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",_type.trim());
+            String typeLoc_ = StringList.concat(begin_,".",look_);
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1372,7 +1379,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",_type.trim());
+            String typeLoc_ = StringList.concat(begin_,".",look_);
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1387,6 +1394,17 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     @Override
     public String lookupImportsIndirect(String _type, AccessingImportingBlock _rooted) {
+        String look_ = _type.trim();
+        if (look_.startsWith("..")) {
+            RootBlock par_ = ((RootBlock)_rooted).getParentType();
+            String type_ = StringList.concat(par_.getFullName(),_type);
+            if (classes.isCustomType(type_)) {
+                if (_rooted.canAccessClass(type_, this)) {
+                    return type_;
+                }
+            }
+        }
+        StringList parts_ = StringList.splitStrings(look_, "..");
         StringList types_ = new StringList();
         for (String i: _rooted.getImports()) {
             if (!i.contains(".")) {
@@ -1395,11 +1413,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
                 continue;
             }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _type.trim())) {
+            if (!StringList.quickEq(end_, parts_.first())) {
                 continue;
             }
-            String typeLoc_ = removeDottedSpaces(i);
+            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1418,11 +1437,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
                 continue;
             }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _type.trim())) {
+            if (!StringList.quickEq(end_, parts_.first())) {
                 continue;
             }
-            String typeLoc_ = removeDottedSpaces(i);
+            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1455,7 +1475,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",_type.trim());
+            String typeLoc_ = StringList.concat(begin_,".",look_);
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }
@@ -1479,7 +1499,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 continue;
             }
             String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",_type.trim());
+            String typeLoc_ = StringList.concat(begin_,".",look_);
             if (!classes.isCustomType(typeLoc_)) {
                 continue;
             }

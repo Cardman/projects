@@ -1,5 +1,8 @@
 package code.expressionlanguage.types;
 
+import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.sml.RowCol;
 import code.util.NatTreeMap;
 
 
@@ -11,6 +14,7 @@ public abstract class PartType {
     private PartType nextSibling;
     private int index;
     private int indexInType;
+    private String analyzedType = EMPTY_STRING;
     public PartType(ParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
         index = _index;
@@ -34,6 +38,7 @@ public abstract class PartType {
         }
         return new ArraryPartType(_parent, _index, _indexInType);
     }
+    public abstract void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,RowCol _location);
     public int getIndex() {
         return index;
     }
@@ -55,5 +60,11 @@ public abstract class PartType {
     public abstract PartType getFirstChild();
     public void setNextSibling(PartType _child) {
         nextSibling = _child;
+    }
+    public String getAnalyzedType() {
+        return analyzedType;
+    }
+    public void setAnalyzedType(String _analyzedType) {
+        analyzedType = _analyzedType;
     }
 }

@@ -76,6 +76,9 @@ public final class FctOperation extends InvokingOperation {
         StringList l_ = clCur_.getNames();
         StringList bounds_ = new StringList();
         for (String c: l_) {
+            if (c.isEmpty()) {
+                continue;
+            }
             if (hasVoidPrevious(c, _conf)) {
                 return;
             }

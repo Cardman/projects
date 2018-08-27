@@ -133,6 +133,7 @@ public final class TypeUtil {
         for (RootBlock c: classes_.getClassBodies()) {
             RootBlock bl_ = c;
             _context.getAnalyzing().setCurrentBlock(bl_);
+            _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
             String d_ = c.getFullName();
             StringList ints_ = bl_.getStaticInitInterfaces();
             int len_ = ints_.size();
@@ -168,6 +169,7 @@ public final class TypeUtil {
                 String sup_ = ContextEl.removeDottedSpaces(ints_.get(i));
                 int offsetSup_ = bl_.getStaticInitInterfacesOffset().get(i);
                 _context.getAnalyzing().setCurrentBlock(bl_);
+                _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                 _context.getAnalyzing().setOffset(offsetSup_);
                 sup_ = _context.resolveCorrectType(sup_, true);
                 RootBlock rs_ = classes_.getClassBody(sup_);
@@ -178,6 +180,7 @@ public final class TypeUtil {
                     String sub_ = ContextEl.removeDottedSpaces(ints_.get(j));
                     int offsetSub_ = bl_.getStaticInitInterfacesOffset().get(j);
                     _context.getAnalyzing().setCurrentBlock(bl_);
+                    _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                     _context.getAnalyzing().setOffset(offsetSub_);
                     sub_ = _context.resolveCorrectType(sub_, true);
                     rs_ = classes_.getClassBody(sub_);

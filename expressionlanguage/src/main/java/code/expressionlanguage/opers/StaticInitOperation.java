@@ -54,6 +54,15 @@ public final class StaticInitOperation extends LeafOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
+        InstanceOperation ins_ = (InstanceOperation) getParent();
+        if (ins_.isIntermediateDottedOperation()) {
+            possibleInitClass = false;
+            Argument a_ = new Argument();
+            String argClName_ = _conf.getStandards().getAliasObject();
+            setArguments(a_);
+            setStaticResultClass(new ClassArgumentMatching(argClName_));
+            return;
+        }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
@@ -80,7 +89,6 @@ public final class StaticInitOperation extends LeafOperation {
         argClName_ = type_;
         setArguments(a_);
         setStaticResultClass(new ClassArgumentMatching(argClName_));
-        return;
     }
     @Override
     public final void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {

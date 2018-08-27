@@ -13,12 +13,14 @@ import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessConstructor;
 import code.expressionlanguage.methods.util.BadImplicitCast;
@@ -261,34 +263,20 @@ public final class InstanceOperation extends InvokingOperation {
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
             intern_ = false;
-//            if (StringList.isWord(realClassName_)) {
-//                needGlobalArgument();
-//                ClassArgumentMatching arg_ = getPreviousResultClass();
-//                if (arg_ == null) {
-//                    throw new NullGlobalObjectException(realClassName_+RETURN_LINE+_conf.joinPages());
-//                }
-//                //TODO wrap getDeclaredClasses
-//                for (Class<?> c:arg_.getDeclaredClasses()) {
-//                    if (StringList.quickEq(c.getSimpleName(), realClassName_)) {
-//                        intern_ = true;
-//                        if (!Modifier.isStatic(c.getModifiers())) {
-//                            firstArgs_.add(CustList.FIRST_INDEX, arg_);
-//                        }
-//                        realClassName_ = arg_.getName()+INTERN_CLASS+realClassName_;
-//                        break;
-//                    }
-//                }
-//            }
+            if (realClassName_.startsWith("..") && isStaticAccess()) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(static_);
+                LgNames stds_ = _conf.getStandards();
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
             analyzeCtor(_conf, realClassName_, firstArgs_, intern_);
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
-        if (isIntermediateDottedOperation()) {
-            arg_ = getPreviousResultClass();
-        } else {
-            arg_ = new ClassArgumentMatching(_conf.getGlobalClass());
-            setStaticAccess(_conf.isStaticContext());
-        }
+        arg_.setCheckOnlyNullPe(true);
         if (arg_ == null || arg_.isUndefined()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
@@ -298,8 +286,61 @@ public final class InstanceOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        firstArgs_.add(CustList.FIRST_INDEX, arg_);
-        realClassName_ = StringList.concat(arg_.getNames().join(""),String.valueOf(INTERN_CLASS),realClassName_);
+        StringMap<String> ownersMap_ = new StringMap<String>();
+        String idClass_ = Templates.getIdFromAllTypes(realClassName_);
+        for (String o: arg_.getNames()) {
+            StringList ids_ = new StringList(Templates.getIdFromAllTypes(o));
+            StringList owners_ = new StringList();
+            while (true) {
+                StringList new_ = new StringList();
+                for (String s: ids_) {
+                    GeneType g_ = _conf.getClassBody(s);
+                    if (!(g_ instanceof RootBlock)) {
+                        continue;
+                    }
+                    RootBlock sub_ = (RootBlock)g_;
+                    boolean add_ = false;
+                    for (Block b: Classes.getDirectChildren(sub_)) {
+                        if (!(b instanceof RootBlock)) {
+                            continue;
+                        }
+                        RootBlock inner_ = (RootBlock) b;
+                        if (StringList.quickEq(inner_.getName(), idClass_)) {
+                            owners_.add(s);
+                            add_ = true;
+                        }
+                    }
+                    if (add_) {
+                        continue;
+                    }
+                    for (String t: sub_.getImportedDirectSuperTypes()) {
+                        String id_ = Templates.getIdFromAllTypes(t);
+                        new_.add(id_);
+                    }
+                }
+                if (new_.isEmpty()) {
+                    break;
+                }
+                ids_ = new_;
+            }
+            owners_.removeDuplicates();
+            if (owners_.size() == 1) {
+                ownersMap_.put(o, owners_.first());
+            }
+        }
+        if (ownersMap_.size() != 1) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().addError(static_);
+            LgNames stds_ = _conf.getStandards();
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
+        String sub_ = ownersMap_.getKeys().first();
+        String sup_ = ownersMap_.values().first();
+        String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
+        realClassName_ = StringList.concat(new_,"..",realClassName_);
         analyzeCtor(_conf, realClassName_, firstArgs_, intern_);
     }
 

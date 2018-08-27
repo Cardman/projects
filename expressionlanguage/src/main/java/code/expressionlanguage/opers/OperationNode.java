@@ -203,6 +203,16 @@ public abstract class OperationNode {
 
     public static OperationNode createOperationNode(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
+        if (!_op.getOperators().isEmpty()) {
+            if (!_op.getValues().isEmpty()) {
+                String originalStr_ = _op.getFctName();
+                String str_ = originalStr_.trim();
+                if (StringList.quickEq(str_, prefixFunction(INTERN_BEAN))) {
+                    //qualified this
+                    return new QualifiedThisOperation(_index, _indexChild, _m, _op);
+                }
+            }
+        }
         if (_op.getOperators().isEmpty()) {
             ConstType ct_ = _op.getConstType();
             if (_op.getValues().isEmpty()) {
@@ -457,6 +467,9 @@ public abstract class OperationNode {
         StringMap<String> clCurNamesBase_ = new StringMap<String>();
         StringList classeNames_ = new StringList();
         for (String c: _class.getNames()) {
+            if (c.isEmpty()) {
+                continue;
+            }
             String base_ = Templates.getIdFromAllTypes(c);
             GeneType root_ = _cont.getClassBody(base_);
             if (_baseClass) {
@@ -834,6 +847,7 @@ public abstract class OperationNode {
             }
         }
         if (!_staticContext){
+            //TODO add numbering enclose
             int indexType_ = 0;
             for (GeneType t: roots_) {
                 String clCurName_ = _fromClasses.get(indexType_);

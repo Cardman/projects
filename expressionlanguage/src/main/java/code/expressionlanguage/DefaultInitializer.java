@@ -9,6 +9,7 @@ import code.expressionlanguage.opers.util.AnnotationStruct;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.CustStruct;
 import code.expressionlanguage.opers.util.EnumStruct;
+import code.expressionlanguage.opers.util.InnerCustStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -120,7 +121,10 @@ public class DefaultInitializer implements Initializer {
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, ObjectMap<ClassField,Struct> _fields) {
         if (_fieldName.isEmpty()) {
-            return new CustStruct(_className, _fields, _parent);
+            if (!_parent.isNull()) {
+                return new InnerCustStruct(_className, _fields, _parent);
+            }
+            return new CustStruct(_className, _fields);
         }
         return new EnumStruct(_className, _fields, _ordinal, _fieldName);
     }

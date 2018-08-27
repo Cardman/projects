@@ -325,6 +325,29 @@ public class ClassesTest {
         unfullValidateInheritingClasses(files_);
     }
     @Test
+    public void resolve15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.*;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public {} $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public {} $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $public {} $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public {} $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        unfullValidateInheritingClasses(files_);
+    }
+    @Test
     public void resolve1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

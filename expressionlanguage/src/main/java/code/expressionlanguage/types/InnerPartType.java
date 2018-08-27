@@ -1,6 +1,10 @@
 package code.expressionlanguage.types;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.sml.RowCol;
+import code.util.CustList;
 
 public final class InnerPartType extends ParentPartType {
 
@@ -13,9 +17,6 @@ public final class InnerPartType extends ParentPartType {
 
     @Override
     public String getBegin() {
-        if (removedBefore) {
-            return Templates.INNER_TYPE;
-        }
         return EMPTY_STRING;
     }
 
@@ -24,6 +25,18 @@ public final class InnerPartType extends ParentPartType {
         return Templates.INNER_TYPE;
     }
 
+    @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            RowCol _location) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
+        }
+        String t_ = ch_.last().getAnalyzedType();
+        setAnalyzedType(t_);
+    }
     @Override
     public String getEnd() {
         return EMPTY_STRING;

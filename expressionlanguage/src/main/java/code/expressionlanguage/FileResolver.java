@@ -2266,6 +2266,12 @@ public final class FileResolver {
             }
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
+                String nextPart_ = _found.substring(indexInstr_+1).trim();
+                if (nextPart_.startsWith("..") && !nextPart_.startsWith("...")) {
+                    declTypeName_.append(currentCharFound_);
+                    indexInstr_++;
+                    continue;
+                }
                 if (nbOpenedTmp_ == 0) {
                     declTypeName_.append(currentCharFound_);
                     typeDeclaring_ = true;

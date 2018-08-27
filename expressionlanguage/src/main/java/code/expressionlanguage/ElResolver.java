@@ -795,6 +795,12 @@ public final class ElResolver {
                         continue;
                     }
                     if (procWordFirstChar(_string, i_ + 1, INTERN_BEAN)) {
+                        int index_ = processPredefinedMethod(_string, i_, INTERN_BEAN, len_);
+                        if (index_ >= 0) {
+                            hatMethod_ = false;
+                            i_ = index_;
+                            continue;
+                        }
                         if (_conf.isInternGlobal()) {
                             int afterSuper_ = i_ + 1 + INTERN_BEAN.length();
                             String trim_ = _string.substring(afterSuper_).trim();

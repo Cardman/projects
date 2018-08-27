@@ -4,16 +4,23 @@ import code.expressionlanguage.ExecutableCode;
 import code.util.EntryCust;
 import code.util.ObjectMap;
 
-public final class CustStruct implements FieldableStruct {
+public final class InnerCustStruct implements FieldableStruct {
 
     private final String className;
 
     private final ObjectMap<ClassField,Struct> fields;
 
-    public CustStruct(String _className,
-            ObjectMap<ClassField,Struct> _fields) {
+    private final Struct parent;
+
+    public InnerCustStruct(String _className,
+            ObjectMap<ClassField,Struct> _fields, Struct _parent) {
         fields = _fields;
         className = _className;
+        parent = _parent;
+    }
+
+    public Struct getParent() {
+        return parent;
     }
 
     @Override

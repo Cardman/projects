@@ -1483,8 +1483,10 @@ public final class Classes {
         _context.setAnalyzing(new AnalyzedPageEl());
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             RootBlock bl_ = c.getValue();
+            _context.setGlobalClass(bl_.getGenericString());
             bl_.validateIds(_context);
         }
+        _context.setGlobalClass("");
         EqList<MethodId> idMethods_ = new EqList<MethodId>();
         for (OperatorBlock o: operators) {
             String name_ = o.getName();
@@ -2011,6 +2013,7 @@ public final class Classes {
                 }
             }
         }
+        _context.setGlobalClass("");
         for (OperatorBlock o : operators) {
             StringList params_ = o.getParametersNames();
             StringList types_ = o.getImportedParametersTypes();
@@ -2028,6 +2031,7 @@ public final class Classes {
         }
         _context.setAnnotAnalysis(true);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            _context.setGlobalClass(c.getValue().getGenericString());
             for (Block b:getSortedDescNodes(c.getValue())) {
                 _context.getAnalyzing().setCurrentBlock(b);
                 if (b instanceof AnnotationMethodBlock) {

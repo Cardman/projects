@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ReflectingType;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -534,74 +535,77 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return a_;
         }
         LgNames stds_ = _conf.getStandards();
-//      String null_;
-//      null_ = stds_.getAliasNullPe();
-        Argument needed_ = null;
-//      if (_class != null && !Modifier.isStatic(_class.getModifiers())) {
-//          Argument arg_ = _previous;
-//          if (arg_.isNull()) {
-//              throw new InvokeException(new StdStruct(new CustomError(_class.getName()+RETURN_LINE+_conf.joinPages()),null_));
-//          }
-//          needed_ = arg_;
-//          _arguments.add(CustList.FIRST_INDEX, arg_);
-//      }
-      String base_ = Templates.getIdFromAllTypes(_className);
-      if (!_conf.getClasses().isCustomType(base_)) {
-          ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
-          if (_conf.getException() != null) {
-              Argument a_ = new Argument();
-              return a_;
-          }
-          if (res_.getError() != null) {
-              _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
-              Argument a_ = new Argument();
-              return a_;
-          }
-          Argument arg_ = new Argument();
-          arg_.setStruct(res_.getResult());
-          return arg_;
-      }
-      String className_ = _className;
-      PageEl page_ = _conf.getOperationPageEl();
-      if (_format) {
-          className_ = page_.formatVarType(className_, _conf);
-      }
-      StringList params_ = new StringList();
-      int j_ = 0;
-      for (String c: _constId.getParametersTypes()) {
-          String class_ = c;
-          class_ = Templates.format(className_, class_, _conf);
-          if (j_ + 1 == _constId.getParametersTypes().size() && _constId.isVararg()) {
-              class_ = PrimitiveTypeUtil.getPrettyArrayType(class_);
-          }
-          params_.add(class_);
-          j_++;
-      }
-      int i_ = CustList.FIRST_INDEX;
-      for (Argument a: _arguments) {
-          if (i_ < params_.size()) {
-              Struct str_ = a.getStruct();
-              if (!str_.isNull()) {
-                  Mapping mapping_ = new Mapping();
-                  mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
-                  mapping_.setParam(params_.get(i_));
-                  if (!Templates.isCorrect(mapping_, _conf)) {
-                      String cast_;
-                      cast_ = stds_.getAliasCast();
-                      _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                      Argument a_ = new Argument();
-                      return a_;
-                  }
-              } else if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), a.getStruct(), _conf)){
+        String idCl_ = Templates.getIdFromAllTypes(_className);
+        GeneType g_ = _conf.getClassBody(idCl_);
+        Argument needed_ = new Argument();
+        if (g_ instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) g_;
+            if (!r_.isStaticType()) {
+                if (_previous.isNull()) {
                     _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
                     Argument a_ = new Argument();
-                  return a_;
-              }
-          }
-          i_++;
-      }
-      _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
-      return Argument.createVoid();
+                    return a_;
+                }
+                needed_.setStruct(_previous.getStruct());
+            }
+        }
+        String base_ = Templates.getIdFromAllTypes(_className);
+        if (!_conf.getClasses().isCustomType(base_)) {
+            ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
+            if (_conf.getException() != null) {
+                Argument a_ = new Argument();
+                return a_;
+            }
+            if (res_.getError() != null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            Argument arg_ = new Argument();
+            arg_.setStruct(res_.getResult());
+            return arg_;
+        }
+        String className_ = _className;
+        PageEl page_ = _conf.getOperationPageEl();
+        if (_format) {
+            className_ = page_.formatVarType(className_, _conf);
+        }
+        StringList params_ = new StringList();
+        int j_ = 0;
+        for (String c: _constId.getParametersTypes()) {
+            String class_ = c;
+            class_ = Templates.format(className_, class_, _conf);
+            if (j_ + 1 == _constId.getParametersTypes().size() && _constId.isVararg()) {
+                class_ = PrimitiveTypeUtil.getPrettyArrayType(class_);
+            }
+            params_.add(class_);
+            j_++;
+        }
+        int i_ = CustList.FIRST_INDEX;
+        for (Argument a: _arguments) {
+            if (i_ < params_.size()) {
+                Struct str_ = a.getStruct();
+                if (!str_.isNull()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
+                    mapping_.setParam(params_.get(i_));
+                    if (!Templates.isCorrect(mapping_, _conf)) {
+                        String cast_;
+                        cast_ = stds_.getAliasCast();
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                } else if (PrimitiveTypeUtil.primitiveTypeNullObject(params_.get(i_), a.getStruct(), _conf)){
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                    Argument a_ = new Argument();
+                    return a_;
+                }
+            }
+            i_++;
+        }
+        _conf.getContextEl().setCallCtor(new CustomFoundConstructor(className_, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
+        return Argument.createVoid();
     }
     public static Argument instancePrepareAnnotation(ExecutableCode _conf, String _className, StringMap<String> _fieldNames,CustList<Argument> _arguments) {
         if (_conf.getException() != null) {

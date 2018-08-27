@@ -182,22 +182,32 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return (RootBlock) p_;
     }
 
+    public final CustList<RootBlock> getSelfAndParentTypes() {
+        CustList<RootBlock> pars_ = new CustList<RootBlock>();
+        RootBlock c_ = this;
+        while (c_ != null) {
+            pars_.add(c_);
+            if (c_.isStaticType()) {
+                break;
+            }
+            c_ = c_.getParentType();
+        }
+        return pars_.getReverse();
+    }
     public void buildMapParamType(ContextEl _analyze) {
         paramTypesMap = new StringMap<TypeVar>();
-        RootBlock r_ = this;
-        while (r_ != null) {
-            RowCol rc_ = getRowCol(0, r_.idRowCol);
-            for (TypeVar t: r_.paramTypes) {
+        for (RootBlock r: getSelfAndParentTypes()) {
+            RowCol rc_ = getRowCol(0, r.idRowCol);
+            for (TypeVar t: r.paramTypes) {
                 StringList const_ = new StringList();
                 for (String c: t.getConstraints()) {
-                    const_.add(_analyze.resolveTypeMapping(c,r_, rc_));
+                    const_.add(_analyze.resolveTypeMapping(c,r, rc_));
                 }
                 TypeVar t_ = new TypeVar();
                 t_.setConstraints(const_);
                 t_.setName(t.getName());
-                r_.paramTypesMap.put(t.getName(), t_);
+                paramTypesMap.put(t.getName(), t_);
             }
-            r_ = r_.getParentType();
         }
     }
 
@@ -225,19 +235,29 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     @Override
-    public String getGenericString() {
-        String base_ = getFullName();
-        if (paramTypesMap.isEmpty()) {
-            return base_;
+    public final String getGenericString() {
+        String pkg_ = getPackageName();
+        StringBuilder generic_ = new StringBuilder();
+        if (!pkg_.isEmpty()) {
+            generic_.append(pkg_);
+            generic_.append(DOT);
         }
-        StringBuilder generic_ = new StringBuilder(base_);
-        StringList vars_ = new StringList();
-        for (TypeVar t:paramTypesMap.values()) {
-            vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+        for (RootBlock r: getSelfAndParentTypes()) {
+            generic_.append(r.getName());
+            if (r.paramTypes.isEmpty()) {
+                continue;
+            }
+            StringList vars_ = new StringList();
+            for (TypeVar t:r.paramTypes) {
+                vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+            }
+            generic_.append(Templates.TEMPLATE_BEGIN);
+            generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+            generic_.append(Templates.TEMPLATE_END);
+            if (r != this) {
+                generic_.append("..");
+            }
         }
-        generic_.append(Templates.TEMPLATE_BEGIN);
-        generic_.append(vars_.join(Templates.TEMPLATE_SEP));
-        generic_.append(Templates.TEMPLATE_END);
         return generic_.toString();
     }
 
@@ -304,8 +324,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             if (b instanceof InfoBlock) {
                 continue;
             }
+            if (b instanceof RootBlock) {
+                continue;
+            }
             if (!(b instanceof FunctionBlock)) {
-                //TODO intern classes
                 RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
                 String tagName_ = b.getTagName();
                 UnexpectedTagName unexp_ = new UnexpectedTagName();
@@ -313,6 +335,35 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 unexp_.setFoundTag(tagName_);
                 unexp_.setRc(where_);
                 _context.getClasses().addError(unexp_);
+            }
+        }
+        if (!isStaticType()) {
+            for (Block b: bl_) {
+                if (b instanceof InfoBlock) {
+                    continue;
+                }
+                if (b instanceof RootBlock) {
+                    if (((RootBlock)b).isStaticType()) {
+                        RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
+                        String tagName_ = b.getTagName();
+                        UnexpectedTagName unexp_ = new UnexpectedTagName();
+                        unexp_.setFileName(getFullName());
+                        unexp_.setFoundTag(tagName_);
+                        unexp_.setRc(where_);
+                        _context.getClasses().addError(unexp_);
+                    }
+                }
+                if (b instanceof FunctionBlock) {
+                    if (((FunctionBlock)b).isStaticContext()) {
+                        RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
+                        String tagName_ = b.getTagName();
+                        UnexpectedTagName unexp_ = new UnexpectedTagName();
+                        unexp_.setFileName(getFullName());
+                        unexp_.setFoundTag(tagName_);
+                        unexp_.setRc(where_);
+                        _context.getClasses().addError(unexp_);
+                    }
+                }
             }
         }
         for (Block b: bl_) {

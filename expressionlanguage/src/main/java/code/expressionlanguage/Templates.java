@@ -78,6 +78,43 @@ public final class Templates {
         return getAllTypes(_type).first();
     }
 
+    public static StringList getAllInnerTypes(String _type) {
+        StringList types_ = new StringList();
+        StringBuilder out_ = new StringBuilder();
+        int i_ = CustList.FIRST_INDEX;
+        int count_ = 0;
+        int len_ = _type.length();
+        while (i_ < len_) {
+            char curChar_ = _type.charAt(i_);
+            if (count_ > 0) {
+                if (curChar_ == Templates.LT) {
+                    count_++;
+                }
+                if (curChar_ == Templates.GT) {
+                    count_--;
+                }
+                out_.append(curChar_);
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.LT) {
+                out_.append(curChar_);
+                count_++;
+                i_++;
+                continue;
+            }
+            if (_type.substring(i_).startsWith("..")) {
+                types_.add(out_.toString());
+                out_.delete(0, out_.length());
+                i_++;
+            } else {
+                out_.append(curChar_);
+            }
+            i_++;
+        }
+        types_.add(out_.toString());
+        return types_;
+    }
     public static StringList getAllTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
@@ -387,6 +424,9 @@ public final class Templates {
         return root_.getGenericString();
     }
     public static CustList<TypeVar> getConstraints(String _className, Analyzable _context) {
+        if (_className.isEmpty()) {
+            return new CustList<TypeVar>();
+        }
         String types_ = getIdFromAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_).getComponent();
         GeneType root_ = _context.getClassBody(className_);
@@ -762,10 +802,27 @@ public final class Templates {
     }
 
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
-        StringList params_ = getAllTypes(_genericClass);
-        String base_ = params_.first();
-        int nbParams_ = params_.size() - 1;
-        String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-        return _context.getClassBody(baseArr_).getParamTypesMapValues().size() == nbParams_;
+        StringBuilder id_ = new StringBuilder();
+        for (String i: getAllInnerTypes(_genericClass)) {
+            if (i.isEmpty()) {
+                continue;
+            }
+            StringList params_ = getAllTypes(i);
+            String base_;
+            if (id_.length() > 0) {
+                base_ = StringList.concat(id_.toString(),"..",params_.first());
+                id_.delete(0, id_.length());
+            } else {
+                base_ = params_.first();
+            }
+            int nbParams_ = params_.size() - 1;
+            String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
+            boolean ex_ = _context.getClassBody(baseArr_).getParamTypes().size() == nbParams_;
+            if (!ex_) {
+                return false;
+            }
+            id_.append(baseArr_);
+        }
+        return true;
     }
 }

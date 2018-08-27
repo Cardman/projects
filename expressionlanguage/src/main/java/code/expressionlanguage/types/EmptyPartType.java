@@ -34,6 +34,15 @@ public final class EmptyPartType extends LeafPartType {
     }
 
     @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            RowCol _location) {
+        UnknownClassName un_ = new UnknownClassName();
+        un_.setClassName(EMPTY_STRING);
+        un_.setFileName(_rooted.getFile().getFileName());
+        un_.setRc(_location);
+        _an.getClasses().addError(un_);
+    }
+    @Override
     public void checkDynExistence(Analyzable _an) {
     }
 
