@@ -1721,6 +1721,14 @@ public final class Classes {
                 if (staticFields.getVal(clDecl_).getVal(fieldName_) != null) {
                     as_.setAssignedBefore(true);
                 } else {
+                    if (!c.getValue().isStaticType()) {
+                        //ERROR
+                        ClassField id_ = new ClassField(clDecl_, fieldName_);
+                        UnassignedFinalField un_ = new UnassignedFinalField(id_);
+                        un_.setFileName(c.getValue().getFile().getFileName());
+                        un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
+                        _context.getClasses().addError(un_);
+                    }
                     as_.setUnassignedBefore(true);
                 }
                 ass_.put(fieldName_, as_);

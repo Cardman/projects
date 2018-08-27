@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
@@ -19,6 +20,10 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         String className_ = method_.getClassName();
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
+        boolean static_ = true;
+        if (type_ instanceof RootBlock && !((RootBlock)type_).isStaticType()) {
+            static_ = false;
+        }
         if (type_.isAbstractType()) {
             LgNames stds_ = _context.getStandards();
             String null_;
@@ -35,7 +40,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         }
         if (!initClass) {
             initClass = true;
-            if (InvokingOperation.hasToExit(_context, className_)) {
+            if (static_ && InvokingOperation.hasToExit(_context, className_)) {
                 setWrapException(true);
                 return false;
             }
@@ -58,14 +63,28 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 a_.setStruct(a);
                 args_.add(a_);
             }
-            if (args_.size() != mid_.getParametersTypes().size()) {
-                LgNames stds_ = _context.getStandards();
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
-                return false;
+            Argument previous_;
+            if (static_) {
+                if (args_.size() != mid_.getParametersTypes().size()) {
+                    LgNames stds_ = _context.getStandards();
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                    return false;
+                }
+                previous_ = Argument.createVoid();
+            } else {
+                if (args_.size() != 1 + mid_.getParametersTypes().size()) {
+                    LgNames stds_ = _context.getStandards();
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                    return false;
+                }
+                previous_ = args_.first();
+                args_ = args_.mid(1);
             }
-            Argument arg_ = InvokingOperation.instancePrepare(_context, className_, mid_, Argument.createVoid(), args_);
+            Argument arg_ = InvokingOperation.instancePrepare(_context, className_, mid_, previous_, args_);
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;
