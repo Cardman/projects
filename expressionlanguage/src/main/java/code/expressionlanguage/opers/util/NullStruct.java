@@ -9,7 +9,10 @@ public final class NullStruct implements Struct {
 
     private NullStruct() {
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     @Override
     public boolean isNull() {
         return true;

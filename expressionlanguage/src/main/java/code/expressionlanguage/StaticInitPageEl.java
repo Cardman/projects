@@ -54,6 +54,10 @@ public final class StaticInitPageEl extends AbstractPageEl {
             en_.processBlock(_context);
             return;
         }
+        if (en_ instanceof RootBlock) {
+            en_.processBlock(_context);
+            return;
+        }
         if (en_ instanceof StaticBlock) {
             if (!processedBlocks.getVal((InitBlock)en_)) {
                 processedBlocks.put((InitBlock)en_, true);

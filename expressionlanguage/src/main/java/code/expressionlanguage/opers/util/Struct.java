@@ -7,6 +7,7 @@ public interface Struct {
     boolean isNull();
 
     boolean isArray();
+    Struct getParent();
 
 
     String getClassName(ExecutableCode _contextEl);

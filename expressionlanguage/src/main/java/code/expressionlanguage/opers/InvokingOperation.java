@@ -546,6 +546,19 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     Argument a_ = new Argument();
                     return a_;
                 }
+                StringList parts_ = Templates.getAllInnerTypes(_className);
+                String param_ = parts_.sub(0, parts_.size()-1).join("..");
+                String arg_ = _previous.getObjectClassName(_conf.getContextEl());
+                Mapping map_ = new Mapping();
+                map_.setArg(arg_);
+                map_.setParam(param_);
+                if (!Templates.isCorrect(map_, _conf)) {
+                    String cast_;
+                    cast_ = stds_.getAliasCast();
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                    Argument a_ = new Argument();
+                    return a_;
+                }
                 needed_.setStruct(_previous.getStruct());
             }
         }

@@ -17,7 +17,7 @@ public class ClassMethodIdResult {
     private boolean correctTemplated;
 
     private String returnType;
-
+    private int ancestor;
     public ClassMethodId getId() {
         return id;
     }
@@ -80,6 +80,14 @@ public class ClassMethodIdResult {
 
     public void setReturnType(String _returnType) {
         returnType = _returnType;
+    }
+
+    public int getAncestor() {
+        return ancestor;
+    }
+
+    public void setAncestor(int _ancestor) {
+        ancestor = _ancestor;
     }
 
 }

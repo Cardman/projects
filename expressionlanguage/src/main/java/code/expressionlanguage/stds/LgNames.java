@@ -223,6 +223,7 @@ public abstract class LgNames {
 
     private String aliasObjectsUtil;
     private String aliasSameRef;
+    private String aliasGetParent;
     private AliasReflection reflect = new AliasReflection();
     /**Called after setters*/
     public void build() {
@@ -967,6 +968,9 @@ public abstract class LgNames {
         params_ = new StringList(aliasObject,aliasObject);
         method_ = new StandardMethod(aliasSameRef, params_, aliasPrimBoolean, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasObject);
+        method_ = new StandardMethod(aliasGetParent, params_, aliasObject, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
         getStandards().put(aliasObjectsUtil, stdcl_);
         reflect.build(this);
         buildOther();
@@ -1593,6 +1597,10 @@ public abstract class LgNames {
         if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
             if (StringList.quickEq(name_, lgNames_.getAliasSameRef())) {
                 result_.setResult(new BooleanStruct(args_[0].sameReference(args_[1])));
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
+                result_.setResult(args_[0].getParent());
                 return result_;
             }
         }
@@ -4686,6 +4694,12 @@ public abstract class LgNames {
     public void setAliasSameRef(String _aliasSameRef) {
         aliasSameRef = _aliasSameRef;
     }
+    public String getAliasGetParent() {
+        return aliasGetParent;
+    }
+    public void setAliasGetParent(String _aliasGetParent) {
+        aliasGetParent = _aliasGetParent;
+    }
     public void setStandards(StringMap<StandardType> _standards) {
         standards = _standards;
     }
@@ -4993,4 +5007,5 @@ public abstract class LgNames {
         }
         return str_.toString();
     }
+    
 }

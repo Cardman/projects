@@ -24,7 +24,10 @@ public final class StdStruct implements Struct {
         instance = _instance;
         className = _className;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     public static Struct defaultClass(String _element, Analyzable _context) {
         if (PrimitiveTypeUtil.isPrimitive(_element, _context)) {
             Object def_ = PrimitiveTypeUtil.defaultValue(_element, _context).getInstance();

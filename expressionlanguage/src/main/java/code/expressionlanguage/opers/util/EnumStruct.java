@@ -24,6 +24,10 @@ public final class EnumStruct implements FieldableStruct, EnumerableStruct {
     }
 
     @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
+    @Override
     public boolean isNull() {
         return false;
     }

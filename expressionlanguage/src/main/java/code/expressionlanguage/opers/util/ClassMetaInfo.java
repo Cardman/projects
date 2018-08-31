@@ -113,7 +113,10 @@ public final class ClassMetaInfo implements Struct {
         finalType = false;
         access = _access;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     public boolean isEnum() {
         return category == ClassCategory.ENUM;
     }

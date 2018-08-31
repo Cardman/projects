@@ -44,6 +44,8 @@ public final class FctOperation extends InvokingOperation {
 
     private int naturalVararg = -1;
 
+    private int anc;
+
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -136,6 +138,7 @@ public final class FctOperation extends InvokingOperation {
         }
         ClassMethodIdReturn clMeth_;
         clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, import_, ClassArgumentMatching.toArgArray(firstArgs_));
+        anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
@@ -307,8 +310,13 @@ public final class FctOperation extends InvokingOperation {
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
+        Argument prev_ = new Argument();
         if (!staticMethod) {
-            if (_previous.isNull()) {
+            prev_.setStruct(_previous.getStruct());
+            for (int i = 0; i < anc; i++) {
+                prev_.setStruct(prev_.getStruct().getParent());
+            }
+            if (prev_.isNull()) {
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -319,13 +327,13 @@ public final class FctOperation extends InvokingOperation {
             classNameFound_ = classMethodId.getClassName();
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
-                String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
+                String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
                 lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = classMethodId.getConstraints();
             } else {
-                Struct previous_ = _previous.getStruct();
+                Struct previous_ = prev_.getStruct();
                 ContextEl context_ = _conf.getContextEl();
                 ClassMethodId methodToCall_ = polymorph(context_, previous_, classMethodId);
                 String argClassName_ = stds_.getStructClassName(previous_, context_);
@@ -346,7 +354,7 @@ public final class FctOperation extends InvokingOperation {
         if (!chidren_.isEmpty()) {
             offLoc_ = chidren_.last().getIndexInEl() + getOperations().getDelimiter().getIndexBegin();
         }
-        return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, offLoc_);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
     }
 
     @Override

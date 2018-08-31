@@ -55,7 +55,8 @@ public final class StaticInitOperation extends LeafOperation {
     @Override
     public void analyze(Analyzable _conf) {
         InstanceOperation ins_ = (InstanceOperation) getParent();
-        if (ins_.isIntermediateDottedOperation()) {
+        String className_ = methodName.trim().substring(INSTANCE.length()+1);
+        if (ins_.isIntermediateDottedOperation() || className_.trim().startsWith("..")) {
             possibleInitClass = false;
             Argument a_ = new Argument();
             String argClName_ = _conf.getStandards().getAliasObject();
@@ -65,7 +66,6 @@ public final class StaticInitOperation extends LeafOperation {
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        String className_ = methodName.trim().substring(INSTANCE.length()+1);
         className_ = _conf.resolveCorrectType(className_, false);
         String argClName_;
         String type_ = Templates.getIdFromAllTypes(className_);

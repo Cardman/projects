@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.ObjectMap;
 import code.util.StringMapObject;
@@ -13,7 +14,10 @@ public final class StringMapObjectStruct implements Struct {
     public StringMapObjectStruct(StringMapObject _bean) {
         bean = _bean;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     @Override
     public boolean isNull() {
         return false;

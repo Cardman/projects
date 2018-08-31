@@ -29,7 +29,10 @@ public final class ConstructorMetaInfo implements Struct {
     public String getClassName() {
         return className;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     public ConstructorId getRealId() {
         return realId;
     }

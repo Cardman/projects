@@ -15,7 +15,7 @@ public final class ClassMethodIdReturn {
     private boolean abstractMethod;
 
     private boolean varArgToCall;
-
+    private int ancestor;
     public ClassMethodIdReturn(boolean _foundMethod) {
         foundMethod = _foundMethod;
     }
@@ -78,6 +78,14 @@ public final class ClassMethodIdReturn {
 
     public void setVarArgToCall(boolean _varArgToCall) {
         varArgToCall = _varArgToCall;
+    }
+
+    public int getAncestor() {
+        return ancestor;
+    }
+
+    public void setAncestor(int _ancestor) {
+        ancestor = _ancestor;
     }
 
 }

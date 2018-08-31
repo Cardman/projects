@@ -19,6 +19,10 @@ public final class AnnotationStruct implements FieldableStruct {
     }
 
     @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
+    @Override
     public boolean isNull() {
         return false;
     }

@@ -19,6 +19,7 @@ import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.OperatorBlock;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.StaticAccessFieldError;
@@ -470,21 +471,25 @@ public abstract class OperationNode {
             if (c.isEmpty()) {
                 continue;
             }
+            StringList classeNamesLoc_ = new StringList();
             String base_ = Templates.getIdFromAllTypes(c);
             GeneType root_ = _cont.getClassBody(base_);
             if (_baseClass) {
-                classeNames_.add(root_.getFullName());
+                classeNamesLoc_.add(root_.getFullName());
             }
             if (_superClass) {
-                classeNames_.addAllElts(root_.getAllSuperTypes());
+                classeNamesLoc_.addAllElts(root_.getAllSuperTypes());
             }
-            for (String s: classeNames_) {
+            for (String s: classeNamesLoc_) {
                 clCurNamesBase_.put(s, base_);
                 clCurNames_.put(s, c);
             }
+            classeNames_.addAllElts(classeNamesLoc_);
         }
+        classeNames_.removeDuplicates();
         String objectType_ = _cont.getStandards().getAliasObject();
         ObjectNotNullMap<ClassField,Integer> imports_ = new ObjectNotNullMap<ClassField,Integer>();
+        ObjectNotNullMap<ClassField,Integer> ancestors_ = new ObjectNotNullMap<ClassField,Integer>();
         String glClass_ = _cont.getGlobalClass();
         String curClassBase_ = null;
         if (glClass_ != null) {
@@ -516,15 +521,85 @@ public abstract class OperationNode {
                 continue;
             }
             imports_.put(candidate_, 0);
+            ancestors_.put(candidate_, 0);
         }
-        int max_ = 0;
+        int maxAnc_ = 0;
+        for (String c: _class.getNames()) {
+            if (c.isEmpty()) {
+                continue;
+            }
+            int anc_ = 1;
+            boolean keepInstance_ = true;
+            String base_ = Templates.getIdFromAllTypes(c);
+            GeneType root_ = _cont.getClassBody(base_);
+            if (!(root_ instanceof RootBlock)) {
+                continue;
+            }
+            RootBlock r_ = (RootBlock) root_;
+            if (r_.isStaticType()) {
+                keepInstance_ = false;
+            }
+            for (RootBlock p : r_.getAllParentTypes()) {
+                String f_ = Templates.format(c, p.getGenericString(), _cont);
+                String baseLoc_ = Templates.getIdFromAllTypes(f_);
+                StringList classeNamesPar_ = new StringList();
+                if (_baseClass) {
+                    classeNamesPar_.add(p.getFullName());
+                }
+                if (_superClass) {
+                    classeNamesPar_.addAllElts(p.getAllSuperTypes());
+                }
+                for (String s: classeNamesPar_) {
+                    clCurNamesBase_.put(s, baseLoc_);
+                    clCurNames_.put(s, f_);
+                }
+                for (String s: classeNamesPar_) {
+                    if (StringList.quickEq(s, objectType_)) {
+                        continue;
+                    }
+                    ClassField candidate_ = new ClassField(s, _name);
+                    FieldInfo fi_ = _cont.getFieldInfo(candidate_);
+                    if (fi_ == null) {
+                        continue;
+                    }
+                    if (_static) {
+                        if (!fi_.isStaticField()) {
+                            continue;
+                        }
+                    } else {
+                        if (fi_.isStaticField()) {
+                            continue;
+                        }
+                    }
+                    String basLoc_ = clCurNamesBase_.getVal(s);
+                    if (!Classes.canAccessField(basLoc_, s, _name, _cont)) {
+                        continue;
+                    }
+                    if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
+                        continue;
+                    }
+                    if (!keepInstance_ && !_static) {
+                        continue;
+                    }
+                    imports_.put(candidate_, anc_);
+                    ancestors_.put(candidate_, anc_);
+                }
+                if (p.isStaticType()) {
+                    keepInstance_ = false;
+                }
+                anc_++;
+            }
+            maxAnc_ = Math.max(maxAnc_, anc_);
+        }
+        int max_ = maxAnc_;
         if (_import) {
             for (EntryCust<ClassField, Integer> e: _cont.lookupImportStaticFields(curClassBase_, _name, _cont.getCurrentBlock()).entryList()) {
                 if (imports_.contains(e.getKey())) {
                     continue;
                 }
-                max_ = Math.max(max_, e.getValue());
-                imports_.put(e.getKey(),e.getValue());
+                max_ = Math.max(max_, e.getValue()+maxAnc_);
+                imports_.put(e.getKey(),e.getValue()+maxAnc_);
+                ancestors_.put(e.getKey(),0);
             }
         }
         max_++;
@@ -546,11 +621,13 @@ public abstract class OperationNode {
                 } else {
                     formatted_ = cl_;
                 }
-                FieldInfo field_ = _cont.getFieldInfo(new ClassField(cl_, _name));
+                ClassField id_ = new ClassField(cl_, _name);
+                FieldInfo field_ = _cont.getFieldInfo(id_);
                 FieldResult r_ = new FieldResult();
                 String realType_ = field_.getType();
                 FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, false);
                 r_.setId(f_);
+                r_.setAnc(ancestors_.getVal(id_));
                 r_.setStatus(SearchingMemberStatus.UNIQ);
                 return r_;
             }
@@ -748,6 +825,7 @@ public abstract class OperationNode {
         idRet_.setReturnType(_res.getReturnType());
         idRet_.setStaticMethod(m_.isStaticMethod());
         idRet_.setAbstractMethod(m_.isAbstractMethod());
+        idRet_.setAncestor(_res.getAncestor());
         return idRet_;
     }
     ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
@@ -846,8 +924,66 @@ public abstract class OperationNode {
                 }
             }
         }
+        CustList<CustList<GeneType>> rootsAncs_ = new CustList<CustList<GeneType>>();
+        StringMap<Integer> superTypesAnc_ = new StringMap<Integer>();
+        StringMap<String> superTypesBaseAnc_ = new StringMap<String>();
+        for (String s: _fromClasses) {
+            String baseCurName_ = Templates.getIdFromAllTypes(s);
+            GeneType root_ = _conf.getClassBody(baseCurName_);
+            if (!(root_ instanceof RootBlock)) {
+                continue;
+            }
+            RootBlock r_ = (RootBlock) root_;
+            int anc_ = 1;
+            CustList<GeneType> rootsAnc_= new CustList<GeneType>();
+            boolean add_ = !root_.isStaticType();
+            for (RootBlock p: r_.getAllParentTypes()) {
+                if (add_) {
+                    rootsAnc_.add(p);
+                }
+                if (p.isStaticType()) {
+                    add_ = false;
+                }
+                String baseCur_ = p.getFullName();
+                for (String m: p.getAllSuperTypes()) {
+                    superTypesBaseAnc_.put(m, baseCur_);
+                    superTypesAnc_.put(m,anc_);
+                }
+                anc_++;
+            }
+            rootsAncs_.add(rootsAnc_);
+        }
+        for (EntryCust<String, Integer> t: superTypesAnc_.entryList()) {
+            GeneType root_ = _conf.getClassBody(t.getKey());
+            for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
+                if (!Classes.canAccess(glClass_, e, _conf)) {
+                    continue;
+                }
+                String subType_ = superTypesBaseAnc_.getVal(t.getKey());
+                if (!Classes.canAccess(subType_, e, _conf)) {
+                    continue;
+                }
+                if (e.isStaticMethod()) {
+                    MethodId id_ = e.getId();
+                    String returnType_ = e.getImportedReturnType();
+                    ParametersGroup p_ = new ParametersGroup();
+                    MethodId realId_ = id_;
+                    for (String c: realId_.getParametersTypes()) {
+                        p_.add(new ClassMatching(c));
+                    }
+                    MethodInfo mloc_ = new MethodInfo();
+                    mloc_.setClassName(t.getKey());
+                    mloc_.setStatic(true);
+                    mloc_.setConstraints(realId_);
+                    mloc_.setParameters(p_);
+                    mloc_.setReturnType(returnType_);
+                    mloc_.setAncestor(t.getValue());
+                    ClassMethodId clId_ = new ClassMethodId(t.getKey(), id_);
+                    methods_.put(clId_, mloc_);
+                }
+            }
+        }
         if (!_staticContext){
-            //TODO add numbering enclose
             int indexType_ = 0;
             for (GeneType t: roots_) {
                 String clCurName_ = _fromClasses.get(indexType_);
@@ -893,6 +1029,58 @@ public abstract class OperationNode {
                     }
                 }
                 indexType_++;
+            }
+            indexType_ = 0;
+            for (CustList<GeneType> l: rootsAncs_) {
+                String clCurName_ = _fromClasses.get(indexType_);
+                indexType_++;
+                int anc_ = 1;
+                for (GeneType t: l) {
+                    String f_ = Templates.format(clCurName_, t.getGenericString(), _conf);
+                    for (EntryCust<MethodId, EqList<ClassMethodId>> e: t.getAllOverridingMethods().entryList()) {
+                        for (ClassMethodId s: e.getValue()) {
+                            String name_ = s.getClassName();
+                            if (_accessFromSuper) {
+                                String base_ = Templates.getIdFromAllTypes(name_);
+                                if (StringList.quickEq(base_, t.getFullName())) {
+                                    continue;
+                                }
+                            }
+                            String formattedClass_;
+                            if (_superClass) {
+                                formattedClass_ = Templates.getFullTypeByBases(f_, name_, _conf);
+                            } else {
+                                String base_ = Templates.getIdFromAllTypes(name_);
+                                if (!StringList.quickEq(base_, t.getFullName())) {
+                                    continue;
+                                }
+                                formattedClass_ = f_;
+                            }
+                            MethodId id_ = s.getConstraints();
+                            GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
+                            if (!Classes.canAccess(glClass_, sup_, _conf)) {
+                                continue;
+                            }
+                            String ret_ = sup_.getImportedReturnType();
+                            ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
+                            ParametersGroup p_ = new ParametersGroup();
+                            MethodId realId_ = id_;
+                            for (String c: realId_.getParametersTypes()) {
+                                p_.add(new ClassMatching(c));
+                            }
+                            MethodInfo mloc_ = new MethodInfo();
+                            mloc_.setClassName(formattedClass_);
+                            mloc_.setStatic(false);
+                            mloc_.setConstraints(realId_);
+                            mloc_.setParameters(p_);
+                            mloc_.setReturnType(ret_);
+                            mloc_.setAncestor(anc_);
+                            ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
+                            methods_.put(clId_, mloc_);
+                        }
+                    }
+                    anc_++;
+                }
             }
         }
         if (_import) {
@@ -1001,6 +1189,7 @@ public abstract class OperationNode {
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
         res_.setReturnType(info_.getReturnType());
+        res_.setAncestor(info_.getAncestor());
         return res_;
     }
 
@@ -1171,6 +1360,12 @@ public abstract class OperationNode {
             return CustList.SWAP_SORT;
         }
         if (_o2.getImported() > _o1.getImported()) {
+            return CustList.NO_SWAP_SORT;
+        }
+        if (_o1.getAncestor() > _o2.getAncestor()) {
+            return CustList.SWAP_SORT;
+        }
+        if (_o2.getAncestor() > _o1.getAncestor()) {
             return CustList.NO_SWAP_SORT;
         }
         int len_ = _o1.getParameters().size();

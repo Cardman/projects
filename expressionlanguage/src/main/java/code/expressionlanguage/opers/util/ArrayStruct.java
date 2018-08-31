@@ -15,6 +15,11 @@ public final class ArrayStruct implements Struct {
     }
 
     @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
+
+    @Override
     public boolean isNull() {
         return false;
     }

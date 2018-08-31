@@ -3,7 +3,10 @@ package code.expressionlanguage.opers.util;
 import code.util.CustList;
 
 public abstract class CharSequenceStruct implements Struct {
-
+    @Override
+    public final Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     @Override
     public boolean sameReference(Struct _other) {
         if (!(_other instanceof CharSequenceStruct)) {

@@ -3,6 +3,11 @@ package code.expressionlanguage.opers.util;
 import code.util.Numbers;
 
 public abstract class NumberStruct implements Struct {
+
+    @Override
+    public final Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     public static NumberStruct wrapNb(Number _element) {
         if (_element instanceof Double) {
             return new DoubleStruct((Double) _element);

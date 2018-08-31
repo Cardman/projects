@@ -5,6 +5,7 @@ import code.expressionlanguage.methods.CustomFoundBlock;
 import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.Returnable;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.WithEl;
 import code.expressionlanguage.methods.util.ParentStackBlock;
@@ -29,6 +30,10 @@ public final class FieldInitPageEl extends AbstractPageEl {
             return;
         }
         if (en_ instanceof Returnable) {
+            en_.processBlock(_context);
+            return;
+        }
+        if (en_ instanceof RootBlock) {
             en_.processBlock(_context);
             return;
         }

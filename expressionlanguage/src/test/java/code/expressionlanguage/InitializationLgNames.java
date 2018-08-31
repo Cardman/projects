@@ -183,6 +183,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasForName("forName");
         _lgNames.setAliasObjectsUtil("$ObjectsUtil");
         _lgNames.setAliasSameRef("eq");
+        _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
         _lgNames.setAliasName("name");

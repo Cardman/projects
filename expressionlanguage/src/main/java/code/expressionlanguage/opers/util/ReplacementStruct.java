@@ -11,7 +11,10 @@ public final class ReplacementStruct implements Struct {
     public ReplacementStruct(Replacement _instance) {
         instance = _instance;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     @Override
     public boolean isNull() {
         return false;

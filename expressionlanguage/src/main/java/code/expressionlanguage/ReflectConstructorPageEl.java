@@ -1,7 +1,6 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
@@ -20,10 +19,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         String className_ = method_.getClassName();
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
-        boolean static_ = true;
-        if (type_ instanceof RootBlock && !((RootBlock)type_).isStaticType()) {
-            static_ = false;
-        }
+        boolean static_ = type_.isStaticType();
         if (type_.isAbstractType()) {
             LgNames stds_ = _context.getStandards();
             String null_;

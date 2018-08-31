@@ -17,6 +17,10 @@ public final class CustStruct implements FieldableStruct {
     }
 
     @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
+    @Override
     public boolean isNull() {
         return false;
     }

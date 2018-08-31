@@ -259,20 +259,18 @@ public final class InstanceOperation extends InvokingOperation {
             filter_.add(o);
         }
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
-        boolean intern_ = true;
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
-            intern_ = false;
-            if (realClassName_.startsWith("..") && isStaticAccess()) {
-                StaticAccessError static_ = new StaticAccessError();
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().addError(static_);
-                LgNames stds_ = _conf.getStandards();
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                return;
-            }
-            analyzeCtor(_conf, realClassName_, firstArgs_, intern_);
+            analyzeCtor(_conf, realClassName_, firstArgs_);
+            return;
+        }
+        if (realClassName_.startsWith("..")) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().addError(static_);
+            LgNames stds_ = _conf.getStandards();
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
@@ -341,10 +339,10 @@ public final class InstanceOperation extends InvokingOperation {
         String sup_ = ownersMap_.values().first();
         String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
         realClassName_ = StringList.concat(new_,"..",realClassName_);
-        analyzeCtor(_conf, realClassName_, firstArgs_, intern_);
+        analyzeCtor(_conf, realClassName_, firstArgs_);
     }
 
-    void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs, boolean _intern) {
+    void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
         String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = new CustList<OperationNode>();
@@ -389,6 +387,14 @@ public final class InstanceOperation extends InvokingOperation {
             call_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
+        if (!g_.isStaticType() && !isIntermediateDottedOperation() && isStaticAccess()) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().addError(static_);
+            setResultClass(new ClassArgumentMatching(realClassName_));
             return;
         }
         if (g_.isAbstractType() && !(g_ instanceof EnumBlock)) {
@@ -486,7 +492,7 @@ public final class InstanceOperation extends InvokingOperation {
             access_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(access_);
         }
-        possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst();
+        possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst() && g_.isStaticType();
         setResultClass(new ClassArgumentMatching(realClassName_));
     }
 

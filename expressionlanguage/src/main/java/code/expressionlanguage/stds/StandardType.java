@@ -40,6 +40,10 @@ public abstract class StandardType implements GeneType {
     public abstract StringList getDirectSuperTypes();
 
     public abstract StringList getDirectInterfaces();
+    @Override
+    public boolean isStaticType() {
+        return true;
+    }
     public final StringList getAllSuperTypes(LgNames _classes) {
         StringList list_ = new StringList();
         StringList current_ = new StringList(getName());

@@ -113,6 +113,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private NotInitializedClass initClass;
 
+    private Struct parent;
+
     private transient LgNames standards;
 
     private transient AnalyzedPageEl analyzing;
@@ -128,8 +130,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private transient ContextEl parentThread;
 
     private transient CustList<ContextEl> children = new CustList<ContextEl>();
-
-    private transient Struct parent;
 
     private transient String className = "";
     private transient ObjectMap<ClassField, Struct> fields = new ObjectMap<ClassField, Struct>();
@@ -173,6 +173,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         parent = _parent;
         init = _context.init;
         _context.children.add(this);
+    }
+    @Override
+    public Struct getParent() {
+        return parent;
     }
     @Override
     public void run() {

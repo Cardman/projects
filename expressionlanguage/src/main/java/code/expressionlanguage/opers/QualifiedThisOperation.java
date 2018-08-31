@@ -14,7 +14,6 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StaticAccessThisError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.InnerCustStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -25,7 +24,7 @@ import code.util.StringList;
 
 public final class QualifiedThisOperation extends LeafOperation {
 
-    private String className;
+    private int nbAncestors;
 
     public QualifiedThisOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -37,15 +36,13 @@ public final class QualifiedThisOperation extends LeafOperation {
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.SECOND_INDEX);
-        className = ContextEl.removeDottedSpaces(originalStr_);
-        if (className.isEmpty()) {
-            className = _conf.getGlobalClass();
+        String className_ = ContextEl.removeDottedSpaces(originalStr_);
+        if (className_.isEmpty()) {
+            className_ = _conf.getGlobalClass();
         } else {
-            className = _conf.resolveCorrectType(className,false);
+            className_ = _conf.resolveCorrectType(className_,false);
         }
-        String id_ = Templates.getIdFromAllTypes(className);
-        String gl_ = _conf.getGlobalClass();
-        gl_ = Templates.getIdFromAllTypes(gl_);
+        String id_ = Templates.getIdFromAllTypes(className_);
         GeneType g_ = _conf.getClassBody(id_);
         LgNames stds_ = _conf.getStandards();
         if (!(g_ instanceof RootBlock)) {
@@ -55,10 +52,11 @@ public final class QualifiedThisOperation extends LeafOperation {
         RootBlock r_ = (RootBlock) g_;
         for (RootBlock r: r_.getSelfAndParentTypes()) {
             if (PrimitiveTypeUtil.canBeUseAsArgument(id_, r.getFullName(),_conf)) {
-                className = Templates.getFullTypeByBases(r.getGenericString(), id_, _conf);
-                setResultClass(new ClassArgumentMatching(className));
+                className_ = Templates.getFullTypeByBases(r.getGenericString(), id_, _conf);
+                setResultClass(new ClassArgumentMatching(className_));
                 return;
             }
+            nbAncestors++;
         }
         String arg_ = stds_.getAliasObject();
         StaticAccessThisError static_ = new StaticAccessThisError();
@@ -113,14 +111,8 @@ public final class QualifiedThisOperation extends LeafOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         PageEl ip_ = _conf.getOperationPageEl();
         Struct struct_ = ip_.getGlobalArgument().getStruct();
-        String idCl_ = Templates.getIdFromAllTypes(className);
-        while (struct_ instanceof InnerCustStruct) {
-            String cl_ = struct_.getClassName(_conf);
-            String id_ = Templates.getIdFromAllTypes(cl_);
-            if (PrimitiveTypeUtil.canBeUseAsArgument(idCl_, id_, _conf)) {
-                break;
-            }
-            struct_ = ((InnerCustStruct)struct_).getParent();
+        for (int i = 0; i < nbAncestors; i++) {
+            struct_ = struct_.getParent();
         }
         a_ = new Argument();
         a_.setStruct(struct_);

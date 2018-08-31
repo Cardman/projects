@@ -2060,6 +2060,11 @@ public final class FileResolver {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
                     declTypeName_.append(currentCharFound_);
+                    String nextPart_ = _found.substring(indexInstr_+1).trim();
+                    if (nextPart_.startsWith("..") && !nextPart_.startsWith(VARARG)) {
+                        indexInstr_++;
+                        continue;
+                    }
                     if (indexInstr_ + 1 < instLen_ && _found.substring(indexInstr_ + 1).trim().startsWith(VARARG)) {
                         int offset_ = StringList.getFirstPrintableCharIndex(_found.substring(indexInstr_ + 1));
                         for (int i = CustList.FIRST_INDEX; i < offset_; i++) {
@@ -2131,6 +2136,12 @@ public final class FileResolver {
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
+                    String nextPart_ = _found.substring(indexInstr_+1).trim();
+                    if (nextPart_.startsWith("..") && !nextPart_.startsWith(VARARG)) {
+                        declTypeName_.append(currentCharFound_);
+                        indexInstr_++;
+                        continue;
+                    }
                     declTypeName_.append(currentCharFound_);
                     typeDeclaring_ = true;
                     break;
@@ -2266,13 +2277,13 @@ public final class FileResolver {
             }
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
-                String nextPart_ = _found.substring(indexInstr_+1).trim();
-                if (nextPart_.startsWith("..") && !nextPart_.startsWith("...")) {
-                    declTypeName_.append(currentCharFound_);
-                    indexInstr_++;
-                    continue;
-                }
                 if (nbOpenedTmp_ == 0) {
+                    String nextPart_ = _found.substring(indexInstr_+1).trim();
+                    if (nextPart_.startsWith("..") && !nextPart_.startsWith(VARARG)) {
+                        declTypeName_.append(currentCharFound_);
+                        indexInstr_++;
+                        continue;
+                    }
                     declTypeName_.append(currentCharFound_);
                     typeDeclaring_ = true;
                     break;

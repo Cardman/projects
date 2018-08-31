@@ -25,6 +25,10 @@ public final class CausingErrorStruct implements Struct {
         error = new CustomError(_message);
         cause = _cause;
     }
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     public Struct getCause() {
         return cause;
     }

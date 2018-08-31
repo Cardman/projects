@@ -803,11 +803,11 @@ public final class Templates {
 
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
         StringBuilder id_ = new StringBuilder();
-        for (String i: getAllInnerTypes(_genericClass)) {
-            if (i.isEmpty()) {
-                continue;
-            }
-            StringList params_ = getAllTypes(i);
+        StringList inners_ = getAllInnerTypes(_genericClass);
+        int len_ = inners_.size();
+        for (int i = 0; i < len_; i++) {
+            String i_ = inners_.get(i);
+            StringList params_ = getAllTypes(i_);
             String base_;
             if (id_.length() > 0) {
                 base_ = StringList.concat(id_.toString(),"..",params_.first());
@@ -817,7 +817,23 @@ public final class Templates {
             }
             int nbParams_ = params_.size() - 1;
             String baseArr_ = PrimitiveTypeUtil.getQuickComponentBaseType(base_).getComponent();
-            boolean ex_ = _context.getClassBody(baseArr_).getParamTypes().size() == nbParams_;
+            GeneType current_ = _context.getClassBody(baseArr_);
+            if (current_.isStaticType()) {
+                if (i + 1 < len_) {
+                    String idNext_ = getIdFromAllTypes(inners_.get(i+1));
+                    String baseArrNext_ = PrimitiveTypeUtil.getQuickComponentBaseType(idNext_).getComponent();
+                    String n_ = StringList.concat(baseArr_,"..",baseArrNext_);
+                    GeneType next_ = _context.getClassBody(n_);
+                    if (next_.isStaticType()) {
+                        if (nbParams_ != 0) {
+                            return false;
+                        }
+                        id_.append(baseArr_);
+                        continue;
+                    }
+                }
+            }
+            boolean ex_ = current_.getParamTypes().size() == nbParams_;
             if (!ex_) {
                 return false;
             }

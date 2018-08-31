@@ -15,4 +15,5 @@ public interface Parametrable {
     boolean isVararg();
 
     int getImported();
+    int getAncestor();
 }

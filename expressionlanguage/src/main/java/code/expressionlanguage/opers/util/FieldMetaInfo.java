@@ -32,6 +32,10 @@ public final class FieldMetaInfo implements Struct {
         enumElement = _enumElement;
         access = _access;
     }
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     public boolean isPublic() {
         return access == AccessEnum.PUBLIC;
     }

@@ -20,6 +20,7 @@ public interface GeneType extends AccessibleBlock {
     StringList getDirectSuperClasses(Analyzable _classes);
 
     boolean isFinalType();
+    boolean isStaticType();
     boolean isAbstractType();
 
     StringMap<TypeVar> getParamTypesMap();

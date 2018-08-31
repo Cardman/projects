@@ -64,5 +64,8 @@ public final class ConstructorInfo implements Parametrable, Displayable {
     public int getImported() {
         return 0;
     }
-
+    @Override
+    public int getAncestor() {
+        return 0;
+    }
 }

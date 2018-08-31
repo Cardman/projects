@@ -1650,6 +1650,7 @@ public final class Classes {
             }
             return false;
         }
+        //TODO get top level type
         if (StringList.quickEq(belong_.getFullName(), root_.getFullName())) {
             return true;
         }

@@ -11,7 +11,10 @@ public final class CharStruct implements Struct {
     public CharStruct(char _value) {
         value = _value;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     @Override
     public boolean isNull() {
         return false;

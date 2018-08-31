@@ -20,6 +20,7 @@ public final class MethodInfo implements Parametrable, Displayable {
     private boolean staticMethod;
 
     private int imported;
+    private int ancestor;
 
     @Override
     public String display() {
@@ -95,4 +96,14 @@ public final class MethodInfo implements Parametrable, Displayable {
     public void setImported(int _imported) {
         imported = _imported;
     }
+
+    @Override
+    public int getAncestor() {
+        return ancestor;
+    }
+
+    public void setAncestor(int _ancestor) {
+        ancestor = _ancestor;
+    }
+
 }

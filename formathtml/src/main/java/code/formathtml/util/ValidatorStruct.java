@@ -3,6 +3,7 @@ package code.formathtml.util;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.ObjectMap;
 
@@ -13,7 +14,10 @@ public final class ValidatorStruct implements Struct {
     public ValidatorStruct(Validator _translator) {
         translator = _translator;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     @Override
     public boolean isNull() {
         return false;

@@ -19,6 +19,7 @@ public final class InnerCustStruct implements FieldableStruct {
         parent = _parent;
     }
 
+    @Override
     public Struct getParent() {
         return parent;
     }

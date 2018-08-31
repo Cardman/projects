@@ -43,7 +43,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
     private String lastType = EMPTY_STRING;
 
     private int naturalVararg = -1;
-
+    private int anc;
     public ChoiceFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -96,6 +96,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
 
         trimMeth_ = methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1).trim();
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, ClassArgumentMatching.toArgArray(firstArgs_));
+        anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
@@ -206,8 +207,13 @@ public final class ChoiceFctOperation extends InvokingOperation {
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
+        Argument prev_ = new Argument();
         if (!staticMethod) {
-            if (_previous.isNull()) {
+            prev_.setStruct(_previous.getStruct());
+            for (int i = 0; i < anc; i++) {
+                prev_.setStruct(prev_.getStruct().getParent());
+            }
+            if (prev_.isNull()) {
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
@@ -217,7 +223,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             }
             classNameFound_ = classMethodId.getClassName();
 
-            String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
+            String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             if (staticChoiceMethodTemplate) {
                 classNameFound_ = Templates.format(argClassName_, classNameFound_, _conf);
                 Mapping map_ = new Mapping();
@@ -290,7 +296,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         if (!chidren_.isEmpty()) {
             offLoc_ = chidren_.last().getIndexInEl() + getOperations().getDelimiter().getIndexBegin();
         }
-        return callPrepare(_conf, classNameFound_, methodId_, _previous, firstArgs_, offLoc_);
+        return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
     }
 
     @Override

@@ -33,7 +33,10 @@ public final class MethodMetaInfo implements Struct {
         formattedReturnType = _formattedReturnType;
         formClassName = _formClassName;
     }
-
+    @Override
+    public Struct getParent() {
+        return NullStruct.NULL_VALUE;
+    }
     public boolean isPolymorph() {
         return polymorph;
     }

@@ -117,6 +117,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
     }
 
+    @Override
     public abstract boolean isStaticType();
     public abstract StringList getImportedDirectSuperTypes();
     public NatTreeMap<Integer, Boolean> getExplicitDirectSuperTypes() {
@@ -181,7 +182,18 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         return (RootBlock) p_;
     }
-
+    public final CustList<RootBlock> getAllParentTypesReverse() {
+        return getAllParentTypes().getReverse();
+    }
+    public final CustList<RootBlock> getAllParentTypes() {
+        CustList<RootBlock> pars_ = new CustList<RootBlock>();
+        RootBlock c_ = getParentType();
+        while (c_ != null) {
+            pars_.add(c_);
+            c_ = c_.getParentType();
+        }
+        return pars_;
+    }
     public final CustList<RootBlock> getSelfAndParentTypes() {
         CustList<RootBlock> pars_ = new CustList<RootBlock>();
         RootBlock c_ = this;
@@ -242,18 +254,22 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             generic_.append(pkg_);
             generic_.append(DOT);
         }
-        for (RootBlock r: getSelfAndParentTypes()) {
+        CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
             generic_.append(r.getName());
-            if (r.paramTypes.isEmpty()) {
-                continue;
+            generic_.append("..");
+        }
+        for (RootBlock r: pars_) {
+            generic_.append(r.getName());
+            if (!r.paramTypes.isEmpty()) {
+                StringList vars_ = new StringList();
+                for (TypeVar t:r.paramTypes) {
+                    vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
+                }
+                generic_.append(Templates.TEMPLATE_BEGIN);
+                generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+                generic_.append(Templates.TEMPLATE_END);
             }
-            StringList vars_ = new StringList();
-            for (TypeVar t:r.paramTypes) {
-                vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
-            }
-            generic_.append(Templates.TEMPLATE_BEGIN);
-            generic_.append(vars_.join(Templates.TEMPLATE_SEP));
-            generic_.append(Templates.TEMPLATE_END);
             if (r != this) {
                 generic_.append("..");
             }
