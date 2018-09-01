@@ -39,6 +39,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private int offset;
 
     private ClassMethodId method;
+    private String foundClass;
     private int ancestor;
     private boolean shiftArgument;
 
@@ -111,17 +112,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     return;
                 }
             }
-            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, stCtx_, str_, name_, true, true, true, ClassArgumentMatching.toArgArray(methodTypes_));
+            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, stCtx_, str_, name_, true, false, true, ClassArgumentMatching.toArgArray(methodTypes_));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             String foundClass_ = id_.getRealClass();
             foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            String type_ = str_.first();
+            foundClass = Templates.getFullTypeByBases(type_, foundClass_, _conf);
             MethodId idCt_ = id_.getRealId();
             method = new ClassMethodId(foundClass_, idCt_);
             ancestor = id_.getAncestor();
-            String fct_ = formatReturn(_conf, id_.getReturnType());
+            String fct_ = formatReturn(_conf, id_.getReturnType(), false);
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }
@@ -194,19 +197,24 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, static_, str_, name_, true, true, true, ClassArgumentMatching.toArgArray(methodTypes_));
+            ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, static_, str_, name_, true, false, true, ClassArgumentMatching.toArgArray(methodTypes_));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            method = id_.getId();
+            String foundClass_ = id_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            String type_ = str_.first();
+            foundClass = Templates.getFullTypeByBases(type_, foundClass_, _conf);
+            MethodId idCt_ = id_.getRealId();
+            method = new ClassMethodId(foundClass_, idCt_);
             ancestor = id_.getAncestor();
             shiftArgument = !static_;
-            String fct_ = formatReturn(_conf, id_.getReturnType());
+            String fct_ = formatReturn(_conf, id_.getReturnType(), !static_);
             setResultClass(new ClassArgumentMatching(fct_));
             return;
         }
-        boolean stCtx_ = _conf.isStaticContext();
+        boolean stCtx_ = isStaticAccess();
         String name_ = args_.get(1).trim();
         int vararg_ = -1;
         for (int i = 2; i < len_; i++) {
@@ -263,25 +271,30 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, stCtx_, str_, name_, true, true, true, ClassArgumentMatching.toArgArray(methodTypes_));
+        ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, stCtx_, str_, name_, true, false, true, ClassArgumentMatching.toArgArray(methodTypes_));
         if (!id_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         String foundClass_ = id_.getRealClass();
         foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+        String type_ = str_.first();
+        foundClass = Templates.getFullTypeByBases(type_, foundClass_, _conf);
         MethodId idCt_ = id_.getRealId();
         method = new ClassMethodId(foundClass_, idCt_);
         ancestor = id_.getAncestor();
-        String fct_ = formatReturn(_conf, id_.getReturnType());
+        String fct_ = formatReturn(_conf, id_.getReturnType(), false);
         setResultClass(new ClassArgumentMatching(fct_));
     }
 
-    private String formatReturn(Analyzable _an, String _returnType) {
+    private String formatReturn(Analyzable _an, String _returnType, boolean _demand) {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getAliasFct();
         StringList paramsReturn_ = new StringList();
         StringList params_ = method.getConstraints().getParametersTypes();
+        if (!method.getConstraints().isStaticMethod() && _demand) {
+            paramsReturn_.add(foundClass);
+        }
         if (method.getConstraints().isVararg()) {
             for (String p: params_.mid(0, params_.size() - 1)) {
                 paramsReturn_.add(p);

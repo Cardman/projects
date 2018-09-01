@@ -191,6 +191,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         }
         GeneMethod met_ = g_.first();
         MethodMetaInfo m_ = new MethodMetaInfo(met_.getAccess(), id_, fid_, met_.getModifier(), "", fid_, "", "");
+        m_.setPolymorph(l_.isPolymorph());
         Argument pr_ = new Argument();
         pr_.setStruct(m_);
         String cl_ = m_.getClassName(_conf);

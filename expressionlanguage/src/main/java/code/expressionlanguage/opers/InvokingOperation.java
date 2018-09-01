@@ -11,6 +11,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -36,7 +37,9 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldableStruct;
+import code.expressionlanguage.opers.util.LambdaMethodStruct;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -880,6 +883,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         String aliasField_ = stds_.getAliasField();
         String aliasMethod_ = stds_.getAliasMethod();
+        String aliasFct_ = stds_.getAliasFct();
         String aliasConstructor_ = stds_.getAliasConstructor();
         String aliasGetField_ = stds_.getAliasGetField();
         String aliasSetField_ = stds_.getAliasSetField();
@@ -897,6 +901,51 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 Argument a_ = new Argument();
                 return a_;
             }
+        }
+        if (StringList.quickEq(aliasFct_, _classNameFound)) {
+            LambdaMethodStruct l_ =  (LambdaMethodStruct) _previous.getStruct();
+            String id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
+            MethodId fid_ = l_.getFid();
+            GeneType t_ = _conf.getClassBody(id_);
+            CustList<GeneMethod> g_ = new CustList<GeneMethod>();
+            for (GeneMethod g: ContextEl.getMethodBlocks(t_)) {
+                if (g.getId().eq(fid_)) {
+                    g_.add(g);
+                }
+            }
+            GeneMethod met_ = g_.first();
+            MethodMetaInfo m_ = new MethodMetaInfo(met_.getAccess(), id_, fid_, met_.getModifier(), "", fid_, "", "");
+            Argument pr_ = new Argument();
+            pr_.setStruct(m_);
+            Argument instance_ = l_.getInstanceCall();
+            String obj_ = _conf.getStandards().getAliasObject();
+            obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
+            if (!l_.isShiftInstance()) {
+                ArrayStruct arr_ = new ArrayStruct(new Struct[_firstArgs.size()],obj_);
+                int j_ = 0;
+                for (Argument v: _firstArgs) {
+                    arr_.getInstance()[j_] = v.getStruct();
+                    j_++;
+                }
+                CustList<Argument> nList_ = new CustList<Argument>();
+                nList_.add(instance_);
+                nList_.add(new Argument(arr_));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            ArrayStruct arr_ = new ArrayStruct(new Struct[_firstArgs.size()-1],obj_);
+            int j_ = 0;
+            for (Argument v: _firstArgs.mid(0, _firstArgs.size() - 1)) {
+                arr_.getInstance()[j_] = v.getStruct();
+                j_++;
+            }
+            CustList<Argument> nList_ = new CustList<Argument>();
+            nList_.add(_firstArgs.first());
+            nList_.add(new Argument(arr_));
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
+            Argument a_ = new Argument();
+            return a_;
         }
         if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {
