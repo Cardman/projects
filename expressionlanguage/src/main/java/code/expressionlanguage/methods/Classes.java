@@ -2595,7 +2595,11 @@ public final class Classes {
             }
             RootBlock clblock_ = c.getValue();
             CustList<Block> bl_ = getDirectChildren(clblock_);
+            StringList inners_ = new StringList();
             for (Block b: bl_) {
+                if (b instanceof RootBlock) {
+                    inners_.add(((RootBlock) b).getFullName());
+                }
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
                     String m_ = method_.getFieldName();
@@ -2659,12 +2663,27 @@ public final class Classes {
                     infosConst_.put(id_, met_);
                 }
             }
+            RootBlock par_ = clblock_.getParentType();
+            String format_;
+            if (par_ != null) {
+                String gene_ = par_.getGenericString();
+                if (Templates.correctNbParameters(_name, _context)) {
+                    format_ = Templates.format(_name, gene_, _context);
+                } else {
+                    format_ = par_.getFullName();
+                }
+            } else {
+                format_ = "";
+            }
             AccessEnum acc_ = clblock_.getAccess();
+            boolean st_ = clblock_.isStaticType();
             if (clblock_ instanceof InterfaceBlock) {
-                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,acc_);
+                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), format_, inners_,
+                        infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
             }
             if (clblock_ instanceof AnnotationBlock) {
-                return new ClassMetaInfo(_name, new StringList(), infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,acc_);
+                return new ClassMetaInfo(_name, new StringList(), format_, inners_,
+                        infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,st_,acc_);
             }
             ClassCategory cat_ = ClassCategory.CLASS;
             if (clblock_ instanceof EnumBlock) {
@@ -2674,7 +2693,8 @@ public final class Classes {
             boolean final_ = clblock_.isFinalType();
             String superClass_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass();
             StringList superInterfaces_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperInterfaces();
-            return new ClassMetaInfo(_name, superClass_, superInterfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_);
+            return new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
+                    infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
         }
         return null;
     }

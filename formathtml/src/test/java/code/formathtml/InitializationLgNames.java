@@ -188,6 +188,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetField("get");
         _lgNames.setAliasSetField("set");
         _lgNames.setAliasGetClass("getClass");
+        _lgNames.setAliasGetEnclosingType("getEnclosingType");
+        _lgNames.setAliasGetDeclaredClasses("getDeclaredClasses");
         _lgNames.setAliasForName("forName");
         _lgNames.setAliasObjectsUtil("$ObjectsUtil");
         _lgNames.setAliasSameRef("eq");

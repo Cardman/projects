@@ -55,6 +55,8 @@ public class AliasReflection {
     private String aliasGetAnnotationsParameters;
     private String aliasClass;
     private String aliasGetClass;
+    private String aliasGetEnclosingType;
+    private String aliasGetDeclaredClasses;
     private String aliasGetDeclaredMethods;
     private String aliasGetDeclaredConstructors;
     private String aliasGetDeclaredFields;
@@ -143,8 +145,14 @@ public class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
-       params_ = new StringList(aliasObject_);
+        params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasGetClass, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetEnclosingType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredClasses, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasPrimBoolean_);
         method_ = new StandardMethod(aliasForName, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
@@ -160,6 +168,9 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsAbstract, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsStatic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsClass, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -686,6 +697,11 @@ public class AliasReflection {
                 result_.setResult(new BooleanStruct(class_.isAbstractType()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasIsStatic)) {
+                ClassMetaInfo class_ = (ClassMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(class_.isStaticType()));
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasIsArray)) {
                 ClassMetaInfo class_ = (ClassMetaInfo) _struct;
                 result_.setResult(new BooleanStruct(class_.isTypeArray()));
@@ -769,6 +785,30 @@ public class AliasReflection {
                 result_.setResult(new StringStruct(((ClassMetaInfo)_struct).getName()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
+                String t_ = ((ClassMetaInfo)_struct).getTypeOwner();
+                if (t_.isEmpty()) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
+                result_.setResult(_cont.getExtendedClassMetaInfo(t_));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredClasses)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                StringList methods_;
+                methods_ = cl_.getMemberTypes();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (String t: methods_) {
+                    methodsArr_[index_] = _cont.getExtendedClassMetaInfo(t);
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasGetOperators)) {
                 CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
@@ -839,7 +879,11 @@ public class AliasReflection {
                     RootBlock clblock_ = c.getValue();
                     String forName_ = Templates.getGenericString(k_, _cont);
                     CustList<Block> bl_ = Classes.getDirectChildren(clblock_);
+                    StringList inners_ = new StringList();
                     for (Block b: bl_) {
+                        if (b instanceof RootBlock) {
+                            inners_.add(((RootBlock) b).getFullName());
+                        }
                         if (b instanceof InfoBlock) {
                             InfoBlock method_ = (InfoBlock) b;
                             String m_ = method_.getFieldName();
@@ -891,9 +935,18 @@ public class AliasReflection {
                             infosConst_.put(id_, met_);
                         }
                     }
+                    RootBlock par_ = clblock_.getParentType();
+                    String format_;
+                    if (par_ != null) {
+                        format_ = par_.getFullName();
+                    } else {
+                        format_ = "";
+                    }
                     AccessEnum acc_ = clblock_.getAccess();
+                    boolean st_ = clblock_.isFinalType();
                     if (clblock_ instanceof InterfaceBlock) {
-                        classes_.add(new ClassMetaInfo(forName_, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,acc_));
+                        classes_.add(new ClassMetaInfo(forName_, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), format_, inners_,
+                                infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_));
                         continue;
                     }
                     ClassCategory cat_ = ClassCategory.CLASS;
@@ -906,7 +959,8 @@ public class AliasReflection {
                     boolean final_ = clblock_.isFinalType();
                     String superClass_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass();
                     StringList interfaces_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperInterfaces();
-                    classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_));
+                    classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, format_, inners_,
+                            infosFields_,infos_, infosConst_, cat_, abs_, final_,st_,acc_));
                 }
                 for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
                     ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
@@ -918,6 +972,7 @@ public class AliasReflection {
                     String k_ = c.getKey();
                     String forName_ = Templates.getGenericString(k_, _cont);
                     StandardType clblock_ = c.getValue();
+                    StringList inners_ = new StringList();
                     for (StandardField f: clblock_.getFields().values()) {
                         String m_ = f.getFieldName();
                         String ret_ = f.getClassName();
@@ -944,8 +999,10 @@ public class AliasReflection {
                         infosConst_.put(id_, met_);
                     }
                     AccessEnum acc_ = clblock_.getAccess();
+                    boolean st_ = clblock_.isFinalType();
                     if (clblock_ instanceof StandardInterface) {
-                        classes_.add(new ClassMetaInfo(forName_, ((StandardInterface)clblock_).getDirectInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,acc_));
+                        classes_.add(new ClassMetaInfo(forName_, ((StandardInterface)clblock_).getDirectInterfaces(), "",
+                                inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_));
                         continue;
                     }
                     ClassCategory cat_ = ClassCategory.CLASS;
@@ -956,7 +1013,8 @@ public class AliasReflection {
                     boolean final_ = clblock_.isFinalType();
                     String superClass_ = ((StandardClass) clblock_).getSuperClass(_cont);
                     StringList interfaces_ = ((StandardClass) clblock_).getDirectInterfaces();
-                    classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_));
+                    classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, "",
+                            inners_,infosFields_,infos_, infosConst_, cat_, abs_, final_,st_,acc_));
                 }
                 classes_.sortElts(new ClassNameCmp());
                 Struct[] ctorsArr_ = new Struct[classes_.size()];
@@ -1497,6 +1555,18 @@ public class AliasReflection {
     }
     public void setAliasGetClass(String _aliasGetClass) {
         aliasGetClass = _aliasGetClass;
+    }
+    public String getAliasGetEnclosingType() {
+        return aliasGetEnclosingType;
+    }
+    public void setAliasGetEnclosingType(String _aliasGetEnclosingType) {
+        aliasGetEnclosingType = _aliasGetEnclosingType;
+    }
+    public String getAliasGetDeclaredClasses() {
+        return aliasGetDeclaredClasses;
+    }
+    public void setAliasGetDeclaredClasses(String _aliasGetDeclaredClasses) {
+        aliasGetDeclaredClasses = _aliasGetDeclaredClasses;
     }
     public String getAliasGetDeclaredMethods() {
         return aliasGetDeclaredMethods;

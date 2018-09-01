@@ -4676,6 +4676,18 @@ public abstract class LgNames {
     public void setAliasGetClass(String _aliasGetClass) {
         reflect.setAliasGetClass(_aliasGetClass);
     }
+    public String getAliasGetEnclosingType() {
+        return reflect.getAliasGetEnclosingType();
+    }
+    public void setAliasGetEnclosingType(String _aliasGetEnclosingType) {
+        reflect.setAliasGetEnclosingType(_aliasGetEnclosingType);
+    }
+    public String getAliasGetDeclaredClasses() {
+        return reflect.getAliasGetDeclaredClasses();
+    }
+    public void setAliasGetDeclaredClasses(String _aliasGetDeclaredClasses) {
+        reflect.setAliasGetDeclaredClasses(_aliasGetDeclaredClasses);
+    }
     public String getAliasForName() {
         return reflect.getAliasForName();
     }

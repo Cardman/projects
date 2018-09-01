@@ -50,6 +50,7 @@ public final class StaticAccessOperation extends LeafOperation {
         } else {
             classStr_ = glClass_;
             if (classStr_ == null) {
+                classStr_ = _conf.getStandards().getAliasObject();
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(EMPTY_STRING);
                 un_.setFileName(_conf.getCurrentFileName());

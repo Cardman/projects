@@ -520,8 +520,8 @@ public abstract class OperationNode {
             if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
                 continue;
             }
-            imports_.put(candidate_, 0);
-            ancestors_.put(candidate_, 0);
+            imports_.add(candidate_, 0);
+            ancestors_.add(candidate_, 0);
         }
         int maxAnc_ = 0;
         for (String c: _class.getNames()) {
@@ -581,8 +581,8 @@ public abstract class OperationNode {
                     if (!keepInstance_ && !_static) {
                         continue;
                     }
-                    imports_.put(candidate_, anc_);
-                    ancestors_.put(candidate_, anc_);
+                    imports_.add(candidate_, anc_);
+                    ancestors_.add(candidate_, anc_);
                 }
                 if (p.isStaticType()) {
                     keepInstance_ = false;
@@ -598,8 +598,8 @@ public abstract class OperationNode {
                     continue;
                 }
                 max_ = Math.max(max_, e.getValue()+maxAnc_);
-                imports_.put(e.getKey(),e.getValue()+maxAnc_);
-                ancestors_.put(e.getKey(),0);
+                imports_.add(e.getKey(),e.getValue()+maxAnc_);
+                ancestors_.add(e.getKey(),0);
             }
         }
         max_++;
@@ -920,7 +920,7 @@ public abstract class OperationNode {
                     mloc_.setParameters(p_);
                     mloc_.setReturnType(returnType_);
                     ClassMethodId clId_ = new ClassMethodId(t, id_);
-                    methods_.put(clId_, mloc_);
+                    methods_.add(clId_, mloc_);
                 }
             }
         }
@@ -979,7 +979,7 @@ public abstract class OperationNode {
                     mloc_.setReturnType(returnType_);
                     mloc_.setAncestor(t.getValue());
                     ClassMethodId clId_ = new ClassMethodId(t.getKey(), id_);
-                    methods_.put(clId_, mloc_);
+                    methods_.add(clId_, mloc_);
                 }
             }
         }
@@ -1025,7 +1025,7 @@ public abstract class OperationNode {
                         mloc_.setParameters(p_);
                         mloc_.setReturnType(ret_);
                         ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
-                        methods_.put(clId_, mloc_);
+                        methods_.add(clId_, mloc_);
                     }
                 }
                 indexType_++;
@@ -1076,7 +1076,7 @@ public abstract class OperationNode {
                             mloc_.setReturnType(ret_);
                             mloc_.setAncestor(anc_);
                             ClassMethodId clId_ = new ClassMethodId(formattedClass_, id_);
-                            methods_.put(clId_, mloc_);
+                            methods_.add(clId_, mloc_);
                         }
                     }
                     anc_++;
@@ -1086,9 +1086,6 @@ public abstract class OperationNode {
         if (_import) {
             for (EntryCust<ClassMethodId, Integer> e: _conf.lookupImportStaticMethods(glClass_, _name, _conf.getCurrentBlock()).entryList()) {
                 ClassMethodId m = e.getKey();
-                if (methods_.contains(m)) {
-                    continue;
-                }
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();
                 GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
@@ -1105,7 +1102,7 @@ public abstract class OperationNode {
                 mloc_.setConstraints(realId_);
                 mloc_.setParameters(p_);
                 mloc_.setReturnType(returnType_);
-                methods_.put(m, mloc_);
+                methods_.add(m, mloc_);
             }
         }
         return methods_;

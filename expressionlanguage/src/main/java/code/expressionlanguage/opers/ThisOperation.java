@@ -6,6 +6,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StaticAccessThisError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -18,7 +21,11 @@ import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ThisOperation extends LeafOperation {
+public final class ThisOperation extends LeafOperation implements PossibleIntermediateDotted {
+
+    private ClassArgumentMatching previousResultClass;
+    private boolean intermediate;
+    private int nbAncestors;
 
     public ThisOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -27,12 +34,63 @@ public final class ThisOperation extends LeafOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
+        LgNames stds_ = _conf.getStandards();
+        if (isIntermediateDottedOperation()) {
+            MethodOperation m_ = getParent();
+            OperationNode o_ = m_.getFirstChild();
+            while (o_.getNextSibling() != this) {
+                o_ = o_.getNextSibling();
+            }
+            if (!(o_ instanceof StaticAccessOperation)) {
+                String arg_ = _conf.getGlobalClass();
+                if (arg_ == null) {
+                    arg_ = stds_.getAliasObject();
+                }
+                StaticAccessThisError static_ = new StaticAccessThisError();
+                static_.setClassName(arg_);
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(static_);
+                setResultClass(new ClassArgumentMatching(arg_));
+                return;
+            }
+            String access_ = previousResultClass.getNames().first();
+            String id_ = Templates.getIdFromAllTypes(access_);
+            GeneType g_ = _conf.getClassBody(id_);
+            if (!(g_ instanceof RootBlock)) {
+                StaticAccessThisError static_ = new StaticAccessThisError();
+                static_.setClassName(access_);
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(static_);
+                setResultClass(new ClassArgumentMatching(access_));
+                return;
+            }
+            RootBlock r_ = (RootBlock) g_;
+            for (RootBlock r: r_.getSelfAndParentTypes()) {
+                if (StringList.quickEq(r.getFullName(), id_)) {
+                    String className_ = Templates.getFullTypeByBases(r.getGenericString(), id_, _conf);
+                    setResultClass(new ClassArgumentMatching(className_));
+                    return;
+                }
+                nbAncestors++;
+            }
+            String arg_ = stds_.getAliasObject();
+            StaticAccessThisError static_ = new StaticAccessThisError();
+            static_.setClassName(access_);
+            static_.setFileName(_conf.getCurrentFileName());
+            static_.setRc(_conf.getCurrentLocation());
+            _conf.getClasses().addError(static_);
+            int off_ = StringList.getFirstPrintableCharIndex(access_);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+            setResultClass(new ClassArgumentMatching(arg_));
+            return;
+        }
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_) + relativeOff_;
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
         String arg_ = _conf.getGlobalClass();
         if (arg_ == null) {
             arg_ = stds_.getAliasObject();
@@ -91,6 +149,9 @@ public final class ThisOperation extends LeafOperation {
         Struct struct_ = ip_.getGlobalArgument().getStruct();
         a_ = new Argument();
         a_.setStruct(struct_);
+        for (int i = 0; i < nbAncestors; i++) {
+            a_.setStruct(a_.getStruct().getParent());
+        }
         return a_;
     }
     @Override
@@ -120,6 +181,39 @@ public final class ThisOperation extends LeafOperation {
     @Override
     public ConstructorId getConstId() {
         return null;
+    }
+
+    @Override
+    public final void setIntermediateDotted() {
+        intermediate = true;
+    }
+    @Override
+    public final boolean isIntermediateDottedOperation() {
+        return intermediate;
+    }
+
+    @Override
+    public final ClassArgumentMatching getPreviousResultClass() {
+        return previousResultClass;
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
+        setPreviousResultClass(_previousResultClass, false);
+    }
+
+    @Override
+    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, boolean _staticAccess) {
+        previousResultClass = _previousResultClass;
+    }
+
+    @Override
+    public Argument getPreviousArgument() {
+        return null;
+    }
+
+    @Override
+    public void setPreviousArgument(Argument _argument) {
     }
 
 }

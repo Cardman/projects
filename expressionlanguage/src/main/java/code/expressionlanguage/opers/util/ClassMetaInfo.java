@@ -21,6 +21,8 @@ public final class ClassMetaInfo implements Struct {
     private final String superClass;
 
     private final StringList superInterfaces = new StringList();
+    private final StringList memberTypes = new StringList();
+    private final String typeOwner;
 
     private final StringMap<FieldMetaInfo> fieldsInfos;
     private final ObjectNotNullMap<MethodId, MethodMetaInfo> methodsInfos;
@@ -32,12 +34,15 @@ public final class ClassMetaInfo implements Struct {
     private final boolean abstractType;
 
     private final boolean finalType;
+    private final boolean staticType;
 
     private final String variableOwner;
     private final AccessEnum access;
     public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
         name = _name;
         variableOwner = _variableOwner;
+        staticType = true;
+        typeOwner = EMPTY_STRING;
         if (_cat == ClassCategory.ARRAY) {
             String id_ = Templates.getIdFromAllTypes(_name);
             String comp_ = PrimitiveTypeUtil.getQuickComponentBaseType(id_).getComponent();
@@ -66,6 +71,7 @@ public final class ClassMetaInfo implements Struct {
         name = _name;
         access = _access;
         abstractType = true;
+        typeOwner = EMPTY_STRING;
         superClass = EMPTY_STRING;
         variableOwner = _variableOwner;
         fieldsInfos = new StringMap<FieldMetaInfo>();
@@ -73,17 +79,23 @@ public final class ClassMetaInfo implements Struct {
         constructorsInfos = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
         category = _cat;
         finalType = true;
+        staticType = true;
     }
     public ClassMetaInfo(String _name,
             String _superClass,
             StringList _superInterfaces,
+            String _typeOwner,
+            StringList _memberTypes,
             StringMap<FieldMetaInfo> _fields,
             ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
             ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
             ClassCategory _category,
             boolean _abstractType,
+            boolean _staticType,
             boolean _finalType, AccessEnum _access) {
         variableOwner = "";
+        memberTypes.addAllElts(_memberTypes);
+        typeOwner = _typeOwner;
         name = _name;
         superClass = _superClass;
         superInterfaces.addAllElts(_superInterfaces);
@@ -92,16 +104,20 @@ public final class ClassMetaInfo implements Struct {
         constructorsInfos = _constructors;
         category = _category;
         abstractType = _abstractType;
+        staticType = _staticType;
         finalType = _finalType;
         access = _access;
     }
 
     public ClassMetaInfo(String _name,
-            StringList _superInterfaces,StringMap<FieldMetaInfo> _fields,
+            StringList _superInterfaces,String _typeOwner,
+            StringList _memberTypes,StringMap<FieldMetaInfo> _fields,
             ObjectNotNullMap<MethodId, MethodMetaInfo> _methods,
             ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> _constructors,
-            ClassCategory _category, AccessEnum _access) {
+            ClassCategory _category, boolean _staticType, AccessEnum _access) {
         variableOwner = "";
+        typeOwner = _typeOwner;
+        memberTypes.addAllElts(_memberTypes);
         name = _name;
         superInterfaces.addAllElts(_superInterfaces);
         superClass = EMPTY_STRING;
@@ -110,6 +126,7 @@ public final class ClassMetaInfo implements Struct {
         constructorsInfos = _constructors;
         category = _category;
         abstractType = true;
+        staticType = _staticType;
         finalType = false;
         access = _access;
     }
@@ -207,6 +224,14 @@ public final class ClassMetaInfo implements Struct {
         return superClass;
     }
 
+    public StringList getMemberTypes() {
+        return memberTypes;
+    }
+
+    public String getTypeOwner() {
+        return typeOwner;
+    }
+
     public ClassCategory getCategory() {
         return category;
     }
@@ -224,6 +249,10 @@ public final class ClassMetaInfo implements Struct {
 
     public boolean isAbstractType() {
         return abstractType;
+    }
+
+    public boolean isStaticType() {
+        return staticType;
     }
 
     public boolean isFinalType() {

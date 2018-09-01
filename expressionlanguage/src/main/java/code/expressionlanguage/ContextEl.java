@@ -174,6 +174,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         init = _context.init;
         _context.children.add(this);
     }
+    public ContextEl getParentThread() {
+        return parentThread;
+    }
     @Override
     public Struct getParent() {
         return parent;
@@ -550,6 +553,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     continue;
                 }
                 StandardType clblock_ = c.getValue();
+                StringList inners_ = new StringList();
                 for (StandardField f: clblock_.getFields().values()) {
                     String m_ = f.getFieldName();
                     String ret_ = f.getClassName();
@@ -576,8 +580,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     infosConst_.put(id_, met_);
                 }
                 AccessEnum acc_ = clblock_.getAccess();
+                boolean st_ = clblock_.isStaticType();
                 if (clblock_ instanceof StandardInterface) {
-                    return new ClassMetaInfo(_name, ((StandardInterface)clblock_).getDirectInterfaces(), infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,acc_);
+                    return new ClassMetaInfo(_name, ((StandardInterface)clblock_).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
                 }
                 ClassCategory cat_ = ClassCategory.CLASS;
                 if (clblock_ instanceof StandardInterface) {
@@ -587,7 +592,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 boolean final_ = clblock_.isFinalType();
                 String superClass_ = ((StandardClass) clblock_).getSuperClass(this);
                 StringList superInterfaces_ = ((StandardClass) clblock_).getDirectInterfaces();
-                return new ClassMetaInfo(_name, superClass_, superInterfaces_, infosFields_,infos_, infosConst_, cat_, abs_, final_,acc_);
+                return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
             }
             return null;
         }
@@ -1560,7 +1565,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(_glClass, e, this)) {
                         continue;
                     }
-                    methods_.put(new ClassMethodId(s, e.getId()),import_);
+                    methods_.add(new ClassMethodId(s, e.getId()),import_);
                 }
             }
         }
@@ -1602,10 +1607,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         continue;
                     }
                     ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                    if (methods_.contains(clMet_)) {
-                        continue;
-                    }
-                    methods_.put(clMet_, import_);
+                    methods_.add(clMet_, import_);
                 }
             }
         }
@@ -1647,10 +1649,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         continue;
                     }
                     ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                    if (methods_.contains(clMet_)) {
-                        continue;
-                    }
-                    methods_.put(clMet_, import_);
+                    methods_.add(clMet_, import_);
                 }
             }
         }
@@ -1692,10 +1691,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         continue;
                     }
                     ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                    if (methods_.contains(clMet_)) {
-                        continue;
-                    }
-                    methods_.put(clMet_, import_);
+                    methods_.add(clMet_, import_);
                 }
             }
         }
@@ -1746,7 +1742,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!Classes.canAccess(_glClass, e, this)) {
                         continue;
                     }
-                    methods_.put(new ClassField(s, _method),import_);
+                    methods_.add(new ClassField(s, _method),import_);
                 }
             }
         }
@@ -1788,10 +1784,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         continue;
                     }
                     ClassField field_ = new ClassField(s, _method);
-                    if (methods_.contains(field_)) {
-                        continue;
-                    }
-                    methods_.put(field_, import_);
+                    methods_.add(field_, import_);
                 }
             }
         }
@@ -1833,10 +1826,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         continue;
                     }
                     ClassField field_ = new ClassField(s, _method);
-                    if (methods_.contains(field_)) {
-                        continue;
-                    }
-                    methods_.put(field_, import_);
+                    methods_.add(field_, import_);
                 }
             }
         }
@@ -1878,10 +1868,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         continue;
                     }
                     ClassField field_ = new ClassField(s, _method);
-                    if (methods_.contains(field_)) {
-                        continue;
-                    }
-                    methods_.put(field_, import_);
+                    methods_.add(field_, import_);
                 }
             }
         }

@@ -181,6 +181,7 @@ public final class NamePartType extends LeafPartType {
                     String type_ = getTypeName();
                     RootBlock c = (RootBlock)_rooted;
                     StringList allPossibleDirectSuperTypes_ = new StringList();
+                    CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
                     StringList allAncestors_ = new StringList();
                     RootBlock p_ = c;
                     Classes classes_ = _an.getClasses();
@@ -205,6 +206,7 @@ public final class NamePartType extends LeafPartType {
                                     RootBlock inner_ = (RootBlock) b;
                                     if (StringList.quickEq(inner_.getName(), type_)) {
                                         allPossibleDirectSuperTypes_.add(s);
+                                        innersCandidates_.add(inner_);
                                         add_ = true;
                                     }
                                 }
@@ -224,6 +226,11 @@ public final class NamePartType extends LeafPartType {
                     }
                     allPossibleDirectSuperTypes_.removeDuplicates();
                     if (allPossibleDirectSuperTypes_.size() == 1) {
+                        if (innersCandidates_.first().isStaticType()) {
+                            String new_ = allPossibleDirectSuperTypes_.first();
+                            setAnalyzedType(StringList.concat(new_,"..",type_));
+                            return;
+                        }
                         if (!Templates.correctNbParameters(_globalType, _an)) {
                             String new_ = allPossibleDirectSuperTypes_.first();
                             setAnalyzedType(StringList.concat(new_,"..",type_));
@@ -254,6 +261,7 @@ public final class NamePartType extends LeafPartType {
             String id_ = Templates.getIdFromAllTypes(owner_);
             Classes classes_ = _an.getClasses();
             StringList foundOwners_ = new StringList();
+            CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
             StringList c_ = new StringList(id_);
             String type_ = getTypeName();
             while (true) {
@@ -271,6 +279,7 @@ public final class NamePartType extends LeafPartType {
                         RootBlock inner_ = (RootBlock) b;
                         if (StringList.quickEq(inner_.getName(), type_)) {
                             foundOwners_.add(s);
+                            innersCandidates_.add(inner_);
                             add_ = true;
                         }
                     }
@@ -290,6 +299,12 @@ public final class NamePartType extends LeafPartType {
             foundOwners_.removeDuplicates();
             if (foundOwners_.size() == 1) {
                 String old_ = last_.getAnalyzedType();
+                if (innersCandidates_.first().isStaticType()) {
+                    String new_ = foundOwners_.first();
+                    last_.setAnalyzedType(new_);
+                    setAnalyzedType(StringList.concat(new_,"..",type_));
+                    return;
+                }
                 if (!Templates.correctNbParameters(old_, _an)) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
