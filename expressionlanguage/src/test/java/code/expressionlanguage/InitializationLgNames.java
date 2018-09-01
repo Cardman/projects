@@ -157,6 +157,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
         _lgNames.setAliasGetString("getString");
         _lgNames.setAliasClass("$Class");
+        _lgNames.setAliasFct("$Fct");
+        _lgNames.setAliasCall("call");
         _lgNames.setAliasAnnotation("$Annotation");
         _lgNames.setAliasAnnotated("$Annotated");
         _lgNames.setAliasGetDefaultValue("getDefaultValue");

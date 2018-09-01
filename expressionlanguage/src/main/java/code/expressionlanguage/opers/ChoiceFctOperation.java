@@ -84,6 +84,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         }
         String clCurName_ = className_;
         if (hasVoidPrevious(clCurName_, _conf)) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         StringList bounds_ = getBounds(clCurName_, _conf);

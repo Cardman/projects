@@ -353,6 +353,19 @@ public final class NamePartType extends LeafPartType {
             setAnalyzedType(type_);
             return;
         }
+        if (getParent() instanceof TemplatePartType) {
+            PartType prev_ = getParent().getFirstChild();
+            if (prev_ instanceof NamePartType) {
+                String base_ = ((NamePartType)prev_).getTypeName();
+                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                        setAnalyzedType(getTypeName().trim());
+                        return;
+                    }
+                }
+            }
+        }
+        
         String out_;
         if (_an.isDirectImport()) {
             out_ = _an.lookupImportsDirect(type_, _rooted);

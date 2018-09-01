@@ -78,6 +78,42 @@ public final class Templates {
         return getAllTypes(_type).first();
     }
 
+    public static StringList getAllSepCommaTypes(String _type) {
+        StringList types_ = new StringList();
+        StringBuilder out_ = new StringBuilder();
+        int i_ = CustList.FIRST_INDEX;
+        int count_ = 0;
+        int len_ = _type.length();
+        while (i_ < len_) {
+            char curChar_ = _type.charAt(i_);
+            if (count_ > 0) {
+                if (curChar_ == Templates.LT) {
+                    count_++;
+                }
+                if (curChar_ == Templates.GT) {
+                    count_--;
+                }
+                out_.append(curChar_);
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.LT) {
+                out_.append(curChar_);
+                count_++;
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.COMMA) {
+                types_.add(out_.toString());
+                out_.delete(0, out_.length());
+            } else {
+                out_.append(curChar_);
+            }
+            i_++;
+        }
+        types_.add(out_.toString());
+        return types_;
+    }
     public static StringList getAllInnerTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
@@ -103,7 +139,7 @@ public final class Templates {
                 i_++;
                 continue;
             }
-            if (_type.substring(i_).startsWith("..")) {
+            if (_type.substring(i_).startsWith(INNER_TYPE)) {
                 types_.add(out_.toString());
                 out_.delete(0, out_.length());
                 i_++;
@@ -315,7 +351,10 @@ public final class Templates {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
     }
     public static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
-        if (!isCorrectTemplate(_className, _inherit, _context, _exact)) {
+        String type_ = getIdFromAllTypes(_className);
+        String fct_ = _context.getStandards().getAliasFct();
+        boolean v_ = StringList.quickEq(type_, fct_);
+        if (!isCorrectTemplate(_className, _inherit, _context, v_, _exact)) {
             return false;
         }
         StringList current_ = new StringList(_className);
@@ -324,7 +363,7 @@ public final class Templates {
             for (String c: current_) {
                 StringList types_ = getAllTypes(c);
                 for (String n: types_.mid(1)) {
-                    if (!isCorrectTemplate(n, _inherit, _context)) {
+                    if (!isCorrectTemplate(n, _inherit, _context, v_)) {
                         return false;
                     }
                     next_.add(n);
@@ -337,11 +376,18 @@ public final class Templates {
         }
     }
     static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context) {
-        return isCorrectTemplate(_className, _inherit, _context, true);
+        return isCorrectTemplate(_className, _inherit, _context, false, true);
     }
-    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _exact) {
+    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _voidOk) {
+        return isCorrectTemplate(_className, _inherit, _context, _voidOk, true);
+    }
+    static boolean isCorrectTemplate(String _className, StringMap<StringList> _inherit, Analyzable _context, boolean _voidOk, boolean _exact) {
         StringList types_ = getAllTypes(_className);
         String className_ = types_.first();
+        String void_ = _context.getStandards().getAliasVoid();
+        if (_voidOk && StringList.quickEq(className_, void_)) {
+            return true;
+        }
         className_ = PrimitiveTypeUtil.getQuickComponentBaseType(className_).getComponent();
         if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
             return true;
@@ -545,18 +591,58 @@ public final class Templates {
             boolean ok_ = false;
             StringList names_ = arg_.getNames();
             for (String a: names_) {
-                MappingPairs m_ = getSimpleMapping(a,p,generalMapping_, _context);
-                if (m_ == null) {
-                    continue;
-                }
-                boolean locOk_ = true;
-                for (Matching n: m_.getPairsArgParam()) {
-                    if (!StringList.quickEq(n.getParam(), n.getArg())) {
-                        locOk_ = false;
+                CustList<Matching> matchs_ = new CustList<Matching>();
+                Matching match_ = new Matching();
+                match_.setArg(a);
+                match_.setParam(p);
+                matchs_.add(match_);
+                boolean okTree_ = true;
+                while (true) {
+                    CustList<Matching> new_ = new CustList<Matching>();
+                    for (Matching m: matchs_) {
+                        String a_ = m.getArg();
+                        String p_ = m.getParam();
+                        MappingPairs m_ = getSimpleMapping(a_,p_,generalMapping_, _context);
+                        if (m_ == null) {
+                            okTree_ = false;
+                            break;
+                        }
+                        boolean locOk_ = true;
+                        for (Matching n: m_.getPairsArgParam()) {
+                            if (n.getMatchEq() == MatchingEnum.EQ) {
+                                if (!StringList.quickEq(n.getParam(), n.getArg())) {
+                                    locOk_ = false;
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (StringList.quickEq(n.getParam(), n.getArg())) {
+                                continue;
+                            }
+                            Matching n_ = new Matching();
+                            if (n.getMatchEq() == MatchingEnum.SUB) {
+                                n_.setArg(n.getArg());
+                                n_.setParam(n.getParam());
+                            } else {
+                                n_.setArg(n.getParam());
+                                n_.setParam(n.getArg());
+                            }
+                            new_.add(n_);
+                        }
+                        if (!locOk_) {
+                            okTree_ = false;
+                            break;
+                        }
+                    }
+                    if (new_.isEmpty()) {
+                        break;
+                    }
+                    matchs_ = new_;
+                    if (!okTree_) {
                         break;
                     }
                 }
-                if (!locOk_) {
+                if (!okTree_) {
                     continue;
                 }
                 ok_ = true;
@@ -627,12 +713,31 @@ public final class Templates {
             }
         }
         int dim_ = dArg_.getDim();
+        String fct_ = _context.getStandards().getAliasFct();
         if (StringList.quickEq(baseArg_, baseParam_)) {
             int len_ = typesParam_.size();
             if (typesArg_.size() != len_) {
                 return null;
             }
             EqList<Matching> pairsArgParam_ = new EqList<Matching>();
+            if (StringList.quickEq(baseArg_, fct_)) {
+                int argCall_ = len_ - 1;
+                for (int i = CustList.SECOND_INDEX; i < argCall_; i++) {
+                    Matching match_ = new Matching();
+                    match_.setArg(typesArg_.get(i));
+                    match_.setParam(typesParam_.get(i));
+                    match_.setMatchEq(MatchingEnum.SUP);
+                    pairsArgParam_.add(match_);
+                }
+                Matching match_ = new Matching();
+                match_.setArg(typesArg_.last());
+                match_.setParam(typesParam_.last());
+                match_.setMatchEq(MatchingEnum.SUB);
+                pairsArgParam_.add(match_);
+                MappingPairs m_ = new MappingPairs();
+                m_.setPairsArgParam(pairsArgParam_);
+                return m_;
+            }
             for (int i = CustList.SECOND_INDEX; i < len_; i++) {
                 Matching match_ = new Matching();
                 match_.setArg(typesArg_.get(i));
@@ -642,6 +747,19 @@ public final class Templates {
             MappingPairs m_ = new MappingPairs();
             m_.setPairsArgParam(pairsArgParam_);
             return m_;
+        }
+        String obj_ = _context.getStandards().getAliasObject();
+        if (StringList.quickEq(baseArg_, fct_)) {
+            if (!StringList.quickEq(baseParam_, obj_)) {
+                return null;
+            }
+            EqList<Matching> pairsArgParam_ = new EqList<Matching>();
+            MappingPairs m_ = new MappingPairs();
+            m_.setPairsArgParam(pairsArgParam_);
+            return m_;
+        }
+        if (StringList.quickEq(baseParam_, fct_)) {
+            return null;
         }
         StringList curClasses_ = new StringList(dArg_.getComponent());
         StringList visitedClasses_ = new StringList(dArg_.getComponent());
@@ -804,6 +922,7 @@ public final class Templates {
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
         StringBuilder id_ = new StringBuilder();
         StringList inners_ = getAllInnerTypes(_genericClass);
+        String fct_ = _context.getStandards().getAliasFct();
         int len_ = inners_.size();
         for (int i = 0; i < len_; i++) {
             String i_ = inners_.get(i);
@@ -832,6 +951,13 @@ public final class Templates {
                         continue;
                     }
                 }
+            }
+            if (StringList.quickEq(baseArr_, fct_)) {
+                if (nbParams_ < 1) {
+                    return false;
+                }
+                id_.append(baseArr_);
+                continue;
             }
             boolean ex_ = current_.getParamTypes().size() == nbParams_;
             if (!ex_) {

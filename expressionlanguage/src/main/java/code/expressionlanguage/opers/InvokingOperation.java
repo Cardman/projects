@@ -341,7 +341,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return bounds_;
     }
-    final boolean hasVoidPrevious(String _cl, Analyzable _conf) {
+    static boolean hasVoidPrevious(String _cl, Analyzable _conf) {
         LgNames stds_ = _conf.getStandards();
         if (StringList.quickEq(_cl, stds_.getAliasVoid())) {
             Mapping mapping_ = new Mapping();
@@ -352,7 +352,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             cast_.setFileName(_conf.getCurrentFileName());
             cast_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(cast_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return true;
         }
         return false;

@@ -53,6 +53,8 @@ public class AliasReflection {
     private String aliasGetDefaultValue;
     private String aliasGetAnnotations;
     private String aliasGetAnnotationsParameters;
+    private String aliasFct;
+    private String aliasCall;
     private String aliasClass;
     private String aliasGetClass;
     private String aliasGetEnclosingType;
@@ -141,6 +143,11 @@ public class AliasReflection {
         String aliasVoid_ = _stds.getAliasVoid();
         String aliasError_ = _stds.getAliasError();
         String aliasEnum_ = _stds.getAliasEnum();
+        stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_ , MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasObject_);
+        method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        _stds.getStandards().put(aliasFct, stdcl_);
         stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasAnnotated , MethodModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
@@ -277,7 +284,6 @@ public class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetOperators, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
-        //TODO getOperators(), getOperators(id)
         params_ = new StringList(aliasPrimInt_);
         method_ = new StandardMethod(aliasArrayNewInstance, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasObject_), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1519,6 +1525,18 @@ public class AliasReflection {
     }
     public void setAliasClass(String _aliasClass) {
         aliasClass = _aliasClass;
+    }
+    public String getAliasFct() {
+        return aliasFct;
+    }
+    public void setAliasFct(String _aliasFct) {
+        aliasFct = _aliasFct;
+    }
+    public String getAliasCall() {
+        return aliasCall;
+    }
+    public void setAliasCall(String _aliasCall) {
+        aliasCall = _aliasCall;
     }
     public String getAliasAnnotation() {
         return aliasAnnotation;

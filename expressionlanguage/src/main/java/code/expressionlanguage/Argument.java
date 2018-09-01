@@ -33,6 +33,12 @@ public final class Argument {
 
     private Struct object = NullStruct.NULL_VALUE;
 
+    public Argument() {
+    }
+
+    public Argument(Struct _object) {
+        object = _object;
+    }
     public static Argument[] toArgArray(CustList<Argument> _args) {
         int len_ = _args.size();
         Argument[] args_;

@@ -82,6 +82,7 @@ public final class FctOperation extends InvokingOperation {
                 continue;
             }
             if (hasVoidPrevious(c, _conf)) {
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             bounds_.addAllElts(getBounds(c, _conf));

@@ -8,6 +8,7 @@ public final class Matching implements Equallable<Matching> {
 
     private String arg;
     private String param;
+    private MatchingEnum matchEq = MatchingEnum.EQ;
     public String getArg() {
         return arg;
     }
@@ -19,6 +20,13 @@ public final class Matching implements Equallable<Matching> {
     }
     public void setParam(String _param) {
         param = _param;
+    }
+    
+    public MatchingEnum getMatchEq() {
+        return matchEq;
+    }
+    public void setMatchEq(MatchingEnum _matchEq) {
+        matchEq = _matchEq;
     }
     @Override
     public boolean eq(Matching _g) {
