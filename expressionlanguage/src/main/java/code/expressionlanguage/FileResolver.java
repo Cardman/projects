@@ -1014,28 +1014,106 @@ public final class FileResolver {
                             typeOffset_ = par_.getIndex();
                             delta_ = typeOffset_ - instructionRealLocation_;
                         }
+                        String otherModifier_ = EMPTY_STRING;
+                        String infoModifiers_ = found_.trim();
+                        int finalOff_ = 0;
+                        boolean final_ = false;
+                        boolean meth_ = true;
+                        int deltaFinal_ = 0;
+                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_FINAL)) {
+                            otherModifier_ = prefixKeyWord(KEY_WORD_FINAL);
+                            int lenLoc_ = otherModifier_.length();
+                            deltaFinal_ = lenLoc_;
+                            String sub_ = infoModifiers_.substring(lenLoc_);
+                            int deltaSec_ = StringList.getFirstPrintableCharIndex(sub_);
+                            deltaFinal_ += deltaSec_;
+                            finalOff_ = typeOffset_;
+                            found_ = sub_.substring(deltaSec_);
+                            final_ = true;
+                            meth_ = false;
+                        }
+                        typeOffset_ += deltaFinal_;
                         String declaringType_ = getDeclaringTypeInstr(found_);
                         found_ = found_.substring(declaringType_.length());
-                        int fieldOffest_ = typeOffset_;
-                        fieldOffest_ += declaringType_.trim().length();
-                        fieldOffest_ += StringList.getFirstPrintableCharIndex(found_);
-                        int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
-                        fieldName_ = found_.substring(0, indexBeginCalling_);
-                        expression_ = found_.substring(found_.indexOf(END_CALLING)+1);
-                        expressionOffest_ = instructionLocation_ + trimmedInstruction_.indexOf(END_CALLING) + 1 + delta_;
-                        if (!expression_.trim().isEmpty()) {
-                            expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
+                        int trimmed_ = StringList.getFirstPrintableCharIndex(found_);
+                        String realFound_ = found_;
+                        found_ = found_.trim();
+                        //TODO static fields name
+                        int lenAfterModifiers_ = found_.length();
+                        int indexMod_ = 0;
+                        while (indexMod_ < lenAfterModifiers_) {
+                            char cur_ = found_.charAt(indexMod_);
+                            if (!StringList.isWordChar(cur_)) {
+                                if (cur_ != KEY_WORD_PREFIX) {
+                                    break;
+                                }
+                            }
+                            indexMod_++;
                         }
-                        br_ = new AnnotationMethodBlock(_context, index_, currentParent_,
-                                new OffsetStringInfo(typeOffset_, declaringType_.trim()),
-                                new OffsetStringInfo(fieldOffest_,fieldName_.trim()),
-                                new OffsetStringInfo(expressionOffest_,expression_.trim()),
-                                new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        while (indexMod_ < lenAfterModifiers_) {
+                            char cur_ = found_.charAt(indexMod_);
+                            if (!Character.isWhitespace(cur_)) {
+                                break;
+                            }
+                            indexMod_++;
+                        }
+                        if (found_.indexOf(BEGIN_CALLING, indexMod_) != indexMod_) {
+                            meth_ = false;
+                        }
+                        if (!meth_) {
+                            int fieldOffest_ = typeOffset_;
+                            fieldOffest_ += declaringType_.trim().length();
+                            fieldOffest_ += trimmed_;
+                            int sepOffest_ = found_.indexOf(PART_SEPARATOR);
+                            if (sepOffest_ >= 0) {
+                                fieldName_ = found_.substring(0, sepOffest_);
+                                expression_ = found_.substring(sepOffest_ + 1);
+                                sepOffest_ += fieldOffest_;
+                                sepOffest_++;
+                            } else {
+                                fieldName_ = found_;
+                                sepOffest_ = fieldOffest_;
+                            }
+                            br_ = new FieldBlock(_context, index_, currentParent_,
+                                    new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
+                                    new OffsetBooleanInfo(-1, true),
+                                    new OffsetBooleanInfo(finalOff_, final_),
+                                    new OffsetStringInfo(fieldOffest_,fieldName_.trim()),
+                                    new OffsetStringInfo(typeOffset_, declaringType_.trim()),
+                                    new OffsetStringInfo(sepOffest_, expression_),
+                                    new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        } else {
+                            found_ = realFound_;
+                            int fieldOffest_ = typeOffset_;
+                            fieldOffest_ += declaringType_.trim().length();
+                            fieldOffest_ += StringList.getFirstPrintableCharIndex(found_);
+                            int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
+                            fieldName_ = found_.substring(0, indexBeginCalling_);
+                            expression_ = found_.substring(found_.indexOf(END_CALLING)+1);
+                            expressionOffest_ = instructionLocation_ + trimmedInstruction_.indexOf(END_CALLING) + 1 + delta_;
+                            if (!expression_.trim().isEmpty()) {
+                                expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
+                            }
+                            br_ = new AnnotationMethodBlock(_context, index_, currentParent_,
+                                    new OffsetStringInfo(typeOffset_, declaringType_.trim()),
+                                    new OffsetStringInfo(fieldOffest_,fieldName_.trim()),
+                                    new OffsetStringInfo(expressionOffest_,expression_.trim()),
+                                    new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        }
                         br_.getAnnotations().addAllElts(annotations_);
                         br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                         currentParent_.appendChild(br_);
+                    } else {
+                        //implicit static block
+                        br_ = new StaticBlock(_context, index_, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        currentParent_.appendChild(br_);
+                    }
+                    if (currentChar_ == END_LINE) {
                         index_++;
                         indexes_.setLast(index_);
+                    } else if (br_ instanceof BracedBlock) {
+                        indexes_.add(0);
+                        currentParent_ = (BracedBlock) br_;
                     }
                 } else if (currentParent_ instanceof EnumBlock && enableByEndLine_) {
                     if (!trimmedInstruction_.isEmpty()) {
@@ -1734,7 +1812,6 @@ public final class FileResolver {
                                     }
                                     break;
                                 }
-                                //$class Inner
                                 String typeStr_ = getDeclaringTypeInstr(infoModifiers_);
                                 boolean ctor_ = false;
                                 boolean meth_ = false;

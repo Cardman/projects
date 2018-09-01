@@ -74,6 +74,7 @@ public final class ElResolver {
     private static final String THIS = "this";
     private static final String THAT = "that";
     private static final String CLASS = "class";
+    private static final String LAMBDA = "lambda";
     private static final String NULL_REF_STRING = "null";
     private static final String TRUE_STRING = "true";
     private static final String FALSE_STRING = "false";
@@ -474,6 +475,20 @@ public final class ElResolver {
                             return d_;
                         }
                         i_ = j_;
+                        continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, LAMBDA)) {
+                        //lambda
+                        int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
+                        int indexParRight_ = _string.indexOf(PAR_RIGHT,indexParLeft_+1);
+                        if (indexParRight_ < 0) {
+                            d_.setBadOffset(len_);
+                            return d_;
+                        }
+                        hatMethod_ = false;
+                        d_.getDelLambda().add(i_);
+                        d_.getDelLambda().add(indexParRight_);
+                        i_ = indexParRight_ + 1;
                         continue;
                     }
                     if (procWordFirstChar(_string, i_ + 1, STATIC_ACCESS)) {
@@ -1804,6 +1819,16 @@ public final class ElResolver {
             if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.VARARG);
+                op_.setOperators(new NatTreeMap<Integer, String>());
+                op_.setValue(_string, firstPrintChar_);
+                op_.setDelimiter(_d);
+                return op_;
+            }
+            begin_ = _d.getDelLambda().indexOfObj(_offset + firstPrintChar_);
+            end_ = _d.getDelLambda().indexOfObj(_offset + lastPrintChar_);
+            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.LAMBDA);
                 op_.setOperators(new NatTreeMap<Integer, String>());
                 op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);

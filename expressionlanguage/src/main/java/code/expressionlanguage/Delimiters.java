@@ -21,6 +21,7 @@ public final class Delimiters {
     private Numbers<Integer> delKeyWordStatic = new Numbers<Integer>();
     private Numbers<Integer> delCast = new Numbers<Integer>();
     private Numbers<Integer> delInstanceof = new Numbers<Integer>();
+    private Numbers<Integer> delLambda = new Numbers<Integer>();
     private Numbers<Integer> delVararg = new Numbers<Integer>();
     private Numbers<Integer> delClass = new Numbers<Integer>();
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
@@ -83,6 +84,14 @@ public final class Delimiters {
 
     public void setDelInstanceof(Numbers<Integer> _delInstanceof) {
         delInstanceof = _delInstanceof;
+    }
+
+    public Numbers<Integer> getDelLambda() {
+        return delLambda;
+    }
+
+    public void setDelLambda(Numbers<Integer> _delLambda) {
+        delLambda = _delLambda;
     }
 
     public Numbers<Integer> getDelVararg() {

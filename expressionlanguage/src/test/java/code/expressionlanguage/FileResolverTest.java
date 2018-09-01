@@ -5700,6 +5700,148 @@ public final class FileResolverTest {
         assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
     }
     @Test
+    public void parseFile70Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("\t$String exfield:\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof FieldBlock);
+        FieldBlock method_ = (FieldBlock) child_;
+        assertTrue(method_.isStaticField());
+        assertTrue(!method_.isFinalField());
+        assertEq(0, method_.getAnnotations().size());
+        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertSame(AccessEnum.PUBLIC, method_.getAccess());
+        assertEq("exfield", method_.getFieldName());
+        assertEq(86, method_.getFieldNameOffset());
+        assertEq(78, method_.getClassNameOffset());
+        assertEq("$String", method_.getClassName());
+        assertNull(child_.getNextSibling());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile71Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("\t$final $String exfield:\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof FieldBlock);
+        FieldBlock method_ = (FieldBlock) child_;
+        assertTrue(method_.isStaticField());
+        assertTrue(method_.isFinalField());
+        assertEq(0, method_.getAnnotations().size());
+        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertSame(AccessEnum.PUBLIC, method_.getAccess());
+        assertEq("exfield", method_.getFieldName());
+        assertEq(78, method_.getFinalFieldOffset());
+        assertEq(93, method_.getFieldNameOffset());
+        assertEq(85, method_.getClassNameOffset());
+        assertEq("$String", method_.getClassName());
+        assertNull(child_.getNextSibling());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile72Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("\t$String exfield = \"\":\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof FieldBlock);
+        FieldBlock method_ = (FieldBlock) child_;
+        assertTrue(method_.isStaticField());
+        assertTrue(!method_.isFinalField());
+        assertEq(0, method_.getAnnotations().size());
+        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertSame(AccessEnum.PUBLIC, method_.getAccess());
+        assertEq("exfield", method_.getFieldName());
+        assertEq(86, method_.getFieldNameOffset());
+        assertEq(78, method_.getClassNameOffset());
+        assertEq("$String", method_.getClassName());
+        assertEq(" \"\"", method_.getValue());
+        assertEq(95, method_.getValueOffset());
+        assertNull(child_.getNextSibling());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
+    public void parseFile73Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $annotation pkg.MyAnnot {\n");
+        file_.append("\t$final $String exfield = \"\":\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.MyAnnot");
+        assertTrue(r_ instanceof AnnotationBlock);
+        AnnotationBlock cl_ = (AnnotationBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(0,r_.getDirectSuperTypes().size());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof FieldBlock);
+        FieldBlock method_ = (FieldBlock) child_;
+        assertTrue(method_.isStaticField());
+        assertTrue(method_.isFinalField());
+        assertEq(0, method_.getAnnotations().size());
+        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertSame(AccessEnum.PUBLIC, method_.getAccess());
+        assertEq("exfield", method_.getFieldName());
+        assertEq(78, method_.getFinalFieldOffset());
+        assertEq(93, method_.getFieldNameOffset());
+        assertEq(85, method_.getClassNameOffset());
+        assertEq("$String", method_.getClassName());
+        assertEq(" \"\"", method_.getValue());
+        assertEq(102, method_.getValueOffset());
+        assertNull(child_.getNextSibling());
+        assertEq(1, countFileTypes(context_));
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");

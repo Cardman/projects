@@ -2175,13 +2175,216 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         assertEq(0, (Number)ret_.getObject());
     }
     @Test
-    public void calculateArgumentFailTest() {
+    public void calculateArgument54Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $final $int annotfield = 1i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int loc = $static(MyAnnot).annotfield;;;:\n");
+        xml_.append("  $if (loc;. != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class([$Annotation)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument55Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int annotfield = 1i:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ($static(MyAnnot).annotfield;;; != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class([$Annotation)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument56Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $final $int annotfield:\n");
+        xml_.append(" {\n");
+        xml_.append("  annotfield = 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ($static(MyAnnot).annotfield;;; != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class([$Annotation)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument57Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $final $int annotfield:\n");
+        xml_.append(" {\n");
+        xml_.append("  annotfield = $static(Ex).method():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int method(){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ($static(MyAnnot).annotfield;;; != 2i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class([$Annotation)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument58Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int annotfield = 1i:\n");
+        xml_.append(" {\n");
+        xml_.append("  annotfield;;;+=2i:\n");
+        xml_.append(" }n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ($static(MyAnnot).annotfield;;; != 3i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class([$Annotation)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String catching(){\n");
         xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
         xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
         xml_.append("  $return \"\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument2FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $final $int annotfield:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  [$Annotation arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class([$Annotation)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();

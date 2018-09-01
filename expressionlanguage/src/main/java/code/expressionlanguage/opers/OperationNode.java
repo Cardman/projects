@@ -230,6 +230,9 @@ public abstract class OperationNode {
             if (ct_ == ConstType.VARARG) {
                 return new VarargOperation(_index, _indexChild, _m, _op);
             }
+            if (ct_ == ConstType.LAMBDA) {
+                return new LambdaOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.CLASS_INFO) {
                 return new StaticInfoOperation(_index, _indexChild, _m, _op);
             }

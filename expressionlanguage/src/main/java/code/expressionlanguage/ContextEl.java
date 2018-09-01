@@ -1295,30 +1295,49 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         StringList parts_ = StringList.splitStrings(look_, "..");
         StringList types_ = new StringList();
-        for (String i: _rooted.getImports()) {
-            if (!i.contains(".")) {
-                continue;
+        CustList<StringList> imports_ = new CustList<StringList>();
+        CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
+            imports_.add(r_.getImports());
+            roots_.add(r_);
+            for (RootBlock r: r_.getAllParentTypes()) {
+                imports_.add(r.getImports());
+                roots_.add(r);
             }
-            if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, parts_.first())) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            if (_rooted.isAccessibleType(typeLoc_, this)) {
-                types_.add(typeLoc_);
-            }
+        } else {
+            imports_.add(_rooted.getImports());
+            roots_.add(_rooted);
         }
-        if (types_.size() == 1) {
-            return types_.first();
+        int i_ = 0;
+        for (StringList s: imports_) {
+            AccessingImportingBlock a_ = roots_.get(i_);
+            for (String i: s) {
+                if (!i.contains(".")) {
+                    continue;
+                }
+                if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, parts_.first())) {
+                    continue;
+                }
+                String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
+                if (!classes.isCustomType(typeLoc_)) {
+                    continue;
+                }
+                if (a_.isAccessibleType(typeLoc_, this)) {
+                    types_.add(typeLoc_);
+                }
+            }
+            if (types_.size() == 1) {
+                return types_.first();
+            }
+            types_.clear();
+            i_++;
         }
-        types_.clear();
         for (String i: _rooted.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1352,30 +1371,35 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
             }
         }
-        for (String i: _rooted.getImports()) {
-            if (!i.contains(".")) {
-                continue;
+        i_ = 0;
+        for (StringList s: imports_) {
+            AccessingImportingBlock a_ = roots_.get(i_);
+            for (String i: s) {
+                if (!i.contains(".")) {
+                    continue;
+                }
+                if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, "*")) {
+                    continue;
+                }
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
+                String typeLoc_ = StringList.concat(begin_,".",look_);
+                if (!classes.isCustomType(typeLoc_)) {
+                    continue;
+                }
+                if (a_.isAccessibleType(typeLoc_, this)) {
+                    types_.add(typeLoc_);
+                }
             }
-            if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
-                continue;
+            if (types_.size() == 1) {
+                return types_.first();
             }
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",look_);
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            if (_rooted.isAccessibleType(typeLoc_, this)) {
-                types_.add(typeLoc_);
-            }
+            types_.clear();
+            i_++;
         }
-        if (types_.size() == 1) {
-            return types_.first();
-        }
-        types_.clear();
         for (String i: _rooted.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1415,30 +1439,49 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         StringList parts_ = StringList.splitStrings(look_, "..");
         StringList types_ = new StringList();
-        for (String i: _rooted.getImports()) {
-            if (!i.contains(".")) {
-                continue;
+        CustList<StringList> imports_ = new CustList<StringList>();
+        CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
+            imports_.add(r_.getImports());
+            roots_.add(r_);
+            for (RootBlock r: r_.getAllParentTypes()) {
+                imports_.add(r.getImports());
+                roots_.add(r);
             }
-            if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, parts_.first())) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            if (_rooted.canAccessClass(typeLoc_, this)) {
-                types_.add(typeLoc_);
-            }
+        } else {
+            imports_.add(_rooted.getImports());
+            roots_.add(_rooted);
         }
-        if (types_.size() == 1) {
-            return types_.first();
+        int i_ = 0;
+        for (StringList s: imports_) {
+            AccessingImportingBlock a_ = roots_.get(i_);
+            for (String i: s) {
+                if (!i.contains(".")) {
+                    continue;
+                }
+                if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, parts_.first())) {
+                    continue;
+                }
+                String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
+                if (!classes.isCustomType(typeLoc_)) {
+                    continue;
+                }
+                if (a_.canAccessClass(typeLoc_, this)) {
+                    types_.add(typeLoc_);
+                }
+            }
+            if (types_.size() == 1) {
+                return types_.first();
+            }
+            types_.clear();
+            i_++;
         }
-        types_.clear();
         for (String i: _rooted.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1472,30 +1515,35 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
             }
         }
-        for (String i: _rooted.getImports()) {
-            if (!i.contains(".")) {
-                continue;
+        i_ = 0;
+        for (StringList s: imports_) {
+            AccessingImportingBlock a_ = roots_.get(i_);
+            for (String i: s) {
+                if (!i.contains(".")) {
+                    continue;
+                }
+                if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, "*")) {
+                    continue;
+                }
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
+                String typeLoc_ = StringList.concat(begin_,".",look_);
+                if (!classes.isCustomType(typeLoc_)) {
+                    continue;
+                }
+                if (a_.canAccessClass(typeLoc_, this)) {
+                    types_.add(typeLoc_);
+                }
             }
-            if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
-                continue;
+            if (types_.size() == 1) {
+                return types_.first();
             }
-            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")));
-            String typeLoc_ = StringList.concat(begin_,".",look_);
-            if (!classes.isCustomType(typeLoc_)) {
-                continue;
-            }
-            if (_rooted.canAccessClass(typeLoc_, this)) {
-                types_.add(typeLoc_);
-            }
+            types_.clear();
+            i_++;
         }
-        if (types_.size() == 1) {
-            return types_.first();
-        }
-        types_.clear();
         for (String i: _rooted.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1528,48 +1576,60 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return methods_;
         }
         AccessingImportingBlock type_ = _rooted.getImporting();
+        CustList<StringList> imports_ = new CustList<StringList>();
+        if (type_ instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) type_;
+            imports_.add(r_.getImports());
+            for (RootBlock r: r_.getAllParentTypes()) {
+                imports_.add(r.getImports());
+            }
+        } else {
+            imports_.add(type_.getImports());
+        }
         int import_ = 1;
-        for (String i: type_.getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
-                continue;
-            }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
+        for (StringList t: imports_) {
+            for (String i: t) {
+                if (!i.contains(".")) {
                     continue;
                 }
-            }
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _method.trim())) {
-                continue;
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
-                    if (!e.isStaticMethod()) {
+                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                if (!classes.isCustomType(typeLoc_)) {
+                    if (!standards.getStandards().contains(typeLoc_)) {
                         continue;
                     }
-                    if (!StringList.quickEq(end_, e.getId().getName())) {
-                        continue;
+                }
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, _method.trim())) {
+                    continue;
+                }
+                GeneType root_ = getClassBody(typeLoc_);
+                StringList typesLoc_ = new StringList(typeLoc_);
+                typesLoc_.addAllElts(root_.getAllSuperTypes());
+                for (String s: typesLoc_) {
+                    GeneType super_ = getClassBody(s);
+                    for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
+                        if (!e.isStaticMethod()) {
+                            continue;
+                        }
+                        if (!StringList.quickEq(end_, e.getId().getName())) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(typeLoc_, e, this)) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(_glClass, e, this)) {
+                            continue;
+                        }
+                        methods_.add(new ClassMethodId(s, e.getId()),import_);
                     }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    methods_.add(new ClassMethodId(s, e.getId()),import_);
                 }
             }
+            import_++;
         }
-        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1612,48 +1672,50 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
         }
         import_++;
-        for (String i: type_.getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
-                continue;
-            }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
+        for (StringList t: imports_) {
+            for (String i: t) {
+                if (!i.contains(".")) {
                     continue;
                 }
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
-                    if (!e.isStaticMethod()) {
+                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, "*")) {
+                    continue;
+                }
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                if (!classes.isCustomType(typeLoc_)) {
+                    if (!standards.getStandards().contains(typeLoc_)) {
                         continue;
                     }
-                    if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
-                        continue;
+                }
+                GeneType root_ = getClassBody(typeLoc_);
+                StringList typesLoc_ = new StringList(typeLoc_);
+                typesLoc_.addAllElts(root_.getAllSuperTypes());
+                for (String s: typesLoc_) {
+                    GeneType super_ = getClassBody(s);
+                    for (GeneMethod e: ContextEl.getMethodBlocks(super_)) {
+                        if (!e.isStaticMethod()) {
+                            continue;
+                        }
+                        if (!StringList.quickEq(_method.trim(), e.getId().getName())) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(typeLoc_, e, this)) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(_glClass, e, this)) {
+                            continue;
+                        }
+                        ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
+                        methods_.add(clMet_, import_);
                     }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
-                    methods_.add(clMet_, import_);
                 }
             }
+            import_++;
         }
-        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1706,47 +1768,59 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         int import_ = 1;
         AccessingImportingBlock type_ = _rooted.getImporting();
-        for (String i: type_.getImports()) {
-            if (!i.contains(".")) {
-                continue;
+        CustList<StringList> imports_ = new CustList<StringList>();
+        if (type_ instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) type_;
+            imports_.add(r_.getImports());
+            for (RootBlock r: r_.getAllParentTypes()) {
+                imports_.add(r.getImports());
             }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
-                continue;
-            }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
+        } else {
+            imports_.add(type_.getImports());
+        }
+        for (StringList t: imports_) {
+            for (String i: t) {
+                if (!i.contains(".")) {
                     continue;
                 }
-            }
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, _method.trim())) {
-                continue;
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneField e: ContextEl.getFieldBlocks(super_)) {
-                    if (!e.isStaticField()) {
+                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                if (!classes.isCustomType(typeLoc_)) {
+                    if (!standards.getStandards().contains(typeLoc_)) {
                         continue;
                     }
-                    if (!StringList.quickEq(end_, e.getFieldName())) {
-                        continue;
+                }
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, _method.trim())) {
+                    continue;
+                }
+                GeneType root_ = getClassBody(typeLoc_);
+                StringList typesLoc_ = new StringList(typeLoc_);
+                typesLoc_.addAllElts(root_.getAllSuperTypes());
+                for (String s: typesLoc_) {
+                    GeneType super_ = getClassBody(s);
+                    for (GeneField e: ContextEl.getFieldBlocks(super_)) {
+                        if (!e.isStaticField()) {
+                            continue;
+                        }
+                        if (!StringList.quickEq(end_, e.getFieldName())) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(typeLoc_, e, this)) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(_glClass, e, this)) {
+                            continue;
+                        }
+                        methods_.add(new ClassField(s, _method),import_);
                     }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    methods_.add(new ClassField(s, _method),import_);
                 }
             }
+            import_++;
         }
-        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;
@@ -1788,49 +1862,50 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
             }
         }
-        import_++;
-        for (String i: type_.getImports()) {
-            if (!i.contains(".")) {
-                continue;
-            }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
-                continue;
-            }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
-            String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, "*")) {
-                continue;
-            }
-            String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
-            if (!classes.isCustomType(typeLoc_)) {
-                if (!standards.getStandards().contains(typeLoc_)) {
+        for (StringList t: imports_) {
+            for (String i: t) {
+                if (!i.contains(".")) {
                     continue;
                 }
-            }
-            GeneType root_ = getClassBody(typeLoc_);
-            StringList typesLoc_ = new StringList(typeLoc_);
-            typesLoc_.addAllElts(root_.getAllSuperTypes());
-            for (String s: typesLoc_) {
-                GeneType super_ = getClassBody(s);
-                for (GeneField e: ContextEl.getFieldBlocks(super_)) {
-                    if (!e.isStaticField()) {
+                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                    continue;
+                }
+                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
+                if (!StringList.quickEq(end_, "*")) {
+                    continue;
+                }
+                String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
+                if (!classes.isCustomType(typeLoc_)) {
+                    if (!standards.getStandards().contains(typeLoc_)) {
                         continue;
                     }
-                    if (!StringList.quickEq(_method.trim(), e.getId().getFieldName())) {
-                        continue;
+                }
+                GeneType root_ = getClassBody(typeLoc_);
+                StringList typesLoc_ = new StringList(typeLoc_);
+                typesLoc_.addAllElts(root_.getAllSuperTypes());
+                for (String s: typesLoc_) {
+                    GeneType super_ = getClassBody(s);
+                    for (GeneField e: ContextEl.getFieldBlocks(super_)) {
+                        if (!e.isStaticField()) {
+                            continue;
+                        }
+                        if (!StringList.quickEq(_method.trim(), e.getId().getFieldName())) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(typeLoc_, e, this)) {
+                            continue;
+                        }
+                        if (!Classes.canAccess(_glClass, e, this)) {
+                            continue;
+                        }
+                        ClassField field_ = new ClassField(s, _method);
+                        methods_.add(field_, import_);
                     }
-                    if (!Classes.canAccess(typeLoc_, e, this)) {
-                        continue;
-                    }
-                    if (!Classes.canAccess(_glClass, e, this)) {
-                        continue;
-                    }
-                    ClassField field_ = new ClassField(s, _method);
-                    methods_.add(field_, import_);
                 }
             }
+            import_++;
         }
-        import_++;
         for (String i: type_.getFile().getImports()) {
             if (!i.contains(".")) {
                 continue;

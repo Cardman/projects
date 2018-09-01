@@ -846,13 +846,30 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     cont_.setException(new StdStruct(new CustomError(cont_.joinPages()),null_));
                     return Argument.createVoid();
                 }
-                if (InvokingOperation.hasToExit(_conf, className_)) {
-                    return Argument.createVoid();
+                String first_ = className_;
+                CustList<GeneType> need_ = new CustList<GeneType>();
+                if (type_ instanceof RootBlock) {
+                    CustList<RootBlock> needRoot_;
+                    needRoot_ = ((RootBlock)type_).getSelfAndParentTypes();
+                    first_ = needRoot_.first().getFullName();
+                    for (RootBlock r: needRoot_) {
+                        need_.add(r);
+                    }
+                    if (type_.isStaticType() && hasToExit(_conf, first_)) {
+                        return Argument.createVoid();
+                    }
+                } else {
+                    need_.add(type_);
                 }
+                Struct parent_ = NullStruct.NULL_VALUE;
                 Initializer in_ = cont_.getInit();
-                Struct struct_ = in_.processInit(cont_, NullStruct.NULL_VALUE, className_, EMPTY_STRING, 0);
+                for (GeneType r: need_) {
+                    String genStr_ = r.getGenericString();
+                    String form_ = Templates.format(className_, genStr_, cont_);
+                    parent_ = in_.processInit(cont_, parent_, form_, EMPTY_STRING, 0);
+                }
                 Argument a_ = new Argument();
-                a_.setStruct(struct_);
+                a_.setStruct(parent_);
                 return a_;
             }
             if (StringList.quickEq(aliasInit_, _methodId.getName())) {
