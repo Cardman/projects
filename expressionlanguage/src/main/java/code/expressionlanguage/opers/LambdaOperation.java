@@ -71,7 +71,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
                 String type_;
                 if (arg_.endsWith(VARARG_SUFFIX)) {
-                    if (i + 1 == len_) {
+                    if (i + 1 != len_) {
                         //last type => error
                         VarargError varg_ = new VarargError();
                         varg_.setFileName(_conf.getCurrentFileName());
@@ -156,7 +156,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
                 String type_;
                 if (arg_.endsWith(VARARG_SUFFIX)) {
-                    if (i + 1 == len_) {
+                    if (i + 1 != len_) {
                         //last type => error
                         VarargError varg_ = new VarargError();
                         varg_.setFileName(_conf.getCurrentFileName());
@@ -229,7 +229,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {
-                if (i + 1 == len_) {
+                if (i + 1 != len_) {
                     //last type => error
                     VarargError varg_ = new VarargError();
                     varg_.setFileName(_conf.getCurrentFileName());

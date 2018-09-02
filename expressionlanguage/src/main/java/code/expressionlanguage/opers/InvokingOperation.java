@@ -903,6 +903,104 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
         }
         if (StringList.quickEq(aliasFct_, _classNameFound)) {
+            LambdaMethodStruct l_ =  (LambdaMethodStruct) _previous.getStruct();
+            String type_ = l_.getClassName(_conf);
+            StringList parts_ = Templates.getAllTypes(type_);
+            StringList paramsFct_ = parts_.mid(1, parts_.size() - 2);
+            MethodId fid_ = l_.getFid();
+            if (!l_.isShiftInstance()) {
+                Argument instance_ = l_.getInstanceCall();
+                if (!fid_.isStaticMethod()) {
+                    if (instance_.isNull()) {
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                    String className_ = stds_.getStructClassName(instance_.getStruct(), _conf.getContextEl());
+                    String classFormat_ = l_.getFormClassName();
+                    classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+                    if (classFormat_ == null) {
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                }
+                if (_firstArgs.size() != paramsFct_.size()) {
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    Argument a_ = new Argument();
+                    return a_;
+                }
+                i_ = CustList.FIRST_INDEX;
+                for (Argument a: _firstArgs) {
+                    Struct str_ = a.getStruct();
+                    if (!str_.isNull()) {
+                        Mapping mapping_ = new Mapping();
+                        mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
+                        mapping_.setParam(paramsFct_.get(i_));
+                        if (!Templates.isCorrect(mapping_, _conf)) {
+                            if (_possibleOffset > -1) {
+                                _conf.setOffset(_possibleOffset);
+                            }
+                            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                            Argument a_ = new Argument();
+                            return a_;
+                        }
+                    } else if (PrimitiveTypeUtil.primitiveTypeNullObject(paramsFct_.get(i_), a.getStruct(), _conf)){
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                    i_++;
+                }
+            } else {
+                Argument instance_ = _firstArgs.first();
+                if (!fid_.isStaticMethod()) {
+                    if (instance_.isNull()) {
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                    String className_ = stds_.getStructClassName(instance_.getStruct(), _conf.getContextEl());
+                    String classFormat_ = l_.getFormClassName();
+                    classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+                    if (classFormat_ == null) {
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                }
+                if (_firstArgs.size() - 1 != paramsFct_.size()) {
+                    String null_;
+                    null_ = stds_.getAliasNullPe();
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                    Argument a_ = new Argument();
+                    return a_;
+                }
+                i_ = CustList.FIRST_INDEX;
+                for (Argument a: _firstArgs.mid(1)) {
+                    Struct str_ = a.getStruct();
+                    if (!str_.isNull()) {
+                        Mapping mapping_ = new Mapping();
+                        mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
+                        mapping_.setParam(paramsFct_.get(i_));
+                        if (!Templates.isCorrect(mapping_, _conf)) {
+                            if (_possibleOffset > -1) {
+                                _conf.setOffset(_possibleOffset);
+                            }
+                            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                            Argument a_ = new Argument();
+                            return a_;
+                        }
+                    } else if (PrimitiveTypeUtil.primitiveTypeNullObject(paramsFct_.get(i_), a.getStruct(), _conf)){
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                        Argument a_ = new Argument();
+                        return a_;
+                    }
+                    i_++;
+                }
+            }
             return prepareCallDyn(_previous, _firstArgs, _conf);
         }
         if (StringList.quickEq(aliasConstructor_, _classNameFound)) {

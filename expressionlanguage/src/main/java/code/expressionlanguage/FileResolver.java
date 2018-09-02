@@ -2314,11 +2314,11 @@ public final class FileResolver {
                         break;
                     }
                 }
-                if (foundTmp_) {
+                String nextPart_ = _found.substring(indexInstr_).trim();
+                if (foundTmp_ && !nextPart_.startsWith("..")) {
                     typeDeclaring_ = true;
                     break;
                 }
-                String nextPart_ = _found.substring(indexInstr_).trim();
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
                     if (StringList.isWordChar(ch_)) {
@@ -2336,7 +2336,7 @@ public final class FileResolver {
             }
             if (currentCharFound_ == BEGIN_ARRAY) {
                 String trimmed_ = declTypeName_.toString().trim();
-                if (trimmed_.length() > 0) {
+                if (nbOpenedTmp_ == 0 && trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
                     if (ch_ != BEGIN_ARRAY) {
                         break;

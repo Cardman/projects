@@ -480,6 +480,17 @@ public final class Templates {
     }
     public static String getMadeVarTypes(String _className, StringList _classNames,ExecutableCode _context) {
         String type_ = getIdFromAllTypes(_className);
+        String fct_ = _context.getStandards().getAliasFct();
+        if (StringList.quickEq(type_, fct_)) {
+            if (_classNames.isEmpty()) {
+                return null;
+            }
+            StringBuilder str_ = new StringBuilder(fct_);
+            str_.append(Templates.TEMPLATE_BEGIN);
+            str_.append(_classNames.join(Templates.TEMPLATE_SEP));
+            str_.append(Templates.TEMPLATE_END);
+            return str_.toString();
+        }
         GeneType root_ = _context.getClassBody(type_);
         String pref_ = getGenericString(type_, _context);
         StringMap<String> varTypes_ = new StringMap<String>();
