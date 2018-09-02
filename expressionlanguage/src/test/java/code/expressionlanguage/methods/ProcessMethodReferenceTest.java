@@ -663,7 +663,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("  $Fct<[$int,$int> g = $new Ex().$lambda(Ex,exmethtwo,$int...):\n");
         xml_.append("  $return $($int) f;.call(g;.,$new [$int[](5i,13i)):\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $int exmethtwo($int... p){\n");
+        xml_.append(" $public $normal $int exmethtwo($int... p){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
         xml_.append("  $foreach($int i:p;.;){\n");
