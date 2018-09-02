@@ -954,54 +954,57 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     }
                     i_++;
                 }
-            } else {
-                Argument instance_ = _firstArgs.first();
-                if (!fid_.isStaticMethod()) {
-                    if (instance_.isNull()) {
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
-                    String className_ = stds_.getStructClassName(instance_.getStruct(), _conf.getContextEl());
-                    String classFormat_ = l_.getFormClassName();
-                    classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-                    if (classFormat_ == null) {
+                return prepareCallDyn(_previous, _firstArgs, _conf);
+            }
+            Argument instance_ = _firstArgs.first();
+            if (!instance_.getStruct().isArray()) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            Struct[] real_ = (Struct[]) instance_.getStruct().getInstance();
+            Struct inst_ = real_[0];
+            String className_ = stds_.getStructClassName(inst_, _conf.getContextEl());
+            String classFormat_ = l_.getFormClassName();
+            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+            if (classFormat_ == null) {
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            if (real_.length != paramsFct_.size()) {
+                String null_;
+                null_ = stds_.getAliasNullPe();
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            i_ = CustList.FIRST_INDEX;
+            int len_ = real_.length;
+            CustList<Argument> ar_ = new CustList<Argument>();
+            for (int i = 0; i < len_; i++) {
+                Struct str_ = real_[i];
+                if (!str_.isNull()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(str_.getClassName(_conf));
+                    mapping_.setParam(paramsFct_.get(i_));
+                    if (!Templates.isCorrect(mapping_, _conf)) {
+                        if (_possibleOffset > -1) {
+                            _conf.setOffset(_possibleOffset);
+                        }
                         _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
                         Argument a_ = new Argument();
                         return a_;
                     }
-                }
-                if (_firstArgs.size() - 1 != paramsFct_.size()) {
-                    String null_;
-                    null_ = stds_.getAliasNullPe();
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+                } else if (PrimitiveTypeUtil.primitiveTypeNullObject(paramsFct_.get(i_), str_, _conf)){
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
                     Argument a_ = new Argument();
                     return a_;
                 }
-                i_ = CustList.FIRST_INDEX;
-                for (Argument a: _firstArgs.mid(1)) {
-                    Struct str_ = a.getStruct();
-                    if (!str_.isNull()) {
-                        Mapping mapping_ = new Mapping();
-                        mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
-                        mapping_.setParam(paramsFct_.get(i_));
-                        if (!Templates.isCorrect(mapping_, _conf)) {
-                            if (_possibleOffset > -1) {
-                                _conf.setOffset(_possibleOffset);
-                            }
-                            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                            Argument a_ = new Argument();
-                            return a_;
-                        }
-                    } else if (PrimitiveTypeUtil.primitiveTypeNullObject(paramsFct_.get(i_), a.getStruct(), _conf)){
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
-                    i_++;
-                }
+                ar_.add(new Argument(str_));
+                i_++;
             }
-            return prepareCallDyn(_previous, _firstArgs, _conf);
+            return prepareCallDyn(_previous, ar_, _conf);
         }
         if (StringList.quickEq(aliasConstructor_, _classNameFound)) {
             if (StringList.quickEq(aliasNewInstance_, _methodId.getName())) {

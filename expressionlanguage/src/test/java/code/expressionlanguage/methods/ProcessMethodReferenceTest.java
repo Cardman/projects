@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.expressionlanguage.Argument;
@@ -683,8 +682,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(27, (Number)ret_.getObject());
     }
-    //Ignore Because of instance of call method by indirect reference
-    @Ignore
+
     @Test
     public void calculateArgument20Test() {
         StringBuilder xml_ = new StringBuilder();
