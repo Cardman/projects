@@ -652,10 +652,41 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq("$Fct<java.lang.Number,$int>", (String)ret_.getObject());
     }
-    //Because of instance of call method by indirect reference
-    @Ignore
     @Test
     public void calculateArgument19Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $Fct<$Fct<[$int,$int>,[java.lang.Object,java.lang.Object> f = $static($Fct).$lambda($Fct<[$int,$int>,$false,call,java.lang.Object...):\n");
+        xml_.append("  $Fct<[$int,$int> g = $new Ex().$lambda(Ex,exmethtwo,$int...):\n");
+        xml_.append("  $return $($int) f;.call(g;.,$new [$int[](5i,13i)):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmethtwo($int... p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $foreach($int i:p;.;){\n");
+        xml_.append("   t;.+=i;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(27, (Number)ret_.getObject());
+    }
+    //Ignore Because of instance of call method by indirect reference
+    @Ignore
+    @Test
+    public void calculateArgument20Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
