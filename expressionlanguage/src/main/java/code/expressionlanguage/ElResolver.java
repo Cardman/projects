@@ -395,6 +395,10 @@ public final class ElResolver {
                             }
                             while (next_ < len_) {
                                 char curLoc_ = _string.charAt(next_);
+                                if (curLoc_ == ARR_LEFT) {
+                                    next_++;
+                                    continue;
+                                }
                                 if (StringList.isWordChar(curLoc_)) {
                                     next_++;
                                     continue;
@@ -430,9 +434,6 @@ public final class ElResolver {
                                 next_++;
                                 while (next_ < len_) {
                                     char curLoc_ = _string.charAt(next_);
-                                    if (nbOpened_ == 0) {
-                                        break;
-                                    }
                                     if (curLoc_ == LOWER_CHAR) {
                                         nbOpened_++;
                                         next_++;
@@ -441,6 +442,9 @@ public final class ElResolver {
                                     if (curLoc_ == GREATER_CHAR) {
                                         nbOpened_--;
                                         next_++;
+                                        if (nbOpened_ == 0 && !_string.substring(next_).trim().startsWith("..")) {
+                                            break;
+                                        }
                                         continue;
                                     }
                                     next_++;

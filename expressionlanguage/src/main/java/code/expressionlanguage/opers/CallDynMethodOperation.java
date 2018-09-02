@@ -6,10 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
 import code.expressionlanguage.methods.CustomReflectMethod;
@@ -19,13 +16,8 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.BadNumberArgMethod;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.LambdaMethodStruct;
-import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -115,7 +107,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
 
     @Override
     public void calculate(ExecutableCode _conf) {
-        // TODO Auto-generated method stub
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -158,7 +149,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        // TODO Auto-generated method stub
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> arguments_ = new CustList<Argument>();
         for (OperationNode o: chidren_) {
@@ -178,55 +168,6 @@ public final class CallDynMethodOperation extends InvokingOperation {
         return res_;
     }
 
-    static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ExecutableCode _conf) {
-        LambdaMethodStruct l_ =  (LambdaMethodStruct) _previous.getStruct();
-        String id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
-        MethodId fid_ = l_.getFid();
-        GeneType t_ = _conf.getClassBody(id_);
-        CustList<GeneMethod> g_ = new CustList<GeneMethod>();
-        for (GeneMethod g: ContextEl.getMethodBlocks(t_)) {
-            if (g.getId().eq(fid_)) {
-                g_.add(g);
-            }
-        }
-        GeneMethod met_ = g_.first();
-        MethodMetaInfo m_ = new MethodMetaInfo(met_.getAccess(), id_, fid_, met_.getModifier(), "", fid_, "", "");
-        m_.setPolymorph(l_.isPolymorph());
-        Argument pr_ = new Argument();
-        pr_.setStruct(m_);
-        String cl_ = m_.getClassName(_conf);
-        MethodId nMid_ = null;
-        for (GeneMethod g: ContextEl.getMethodBlocks(_conf.getClassBody(cl_))) {
-            if (StringList.quickEq(g.getName(), _conf.getStandards().getAliasInvoke())) {
-                nMid_ = g.getId();
-            }
-        }
-        Argument instance_ = l_.getInstanceCall();
-        String obj_ = _conf.getStandards().getAliasObject();
-        obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
-        if (!l_.isShiftInstance()) {
-            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
-            int i_ = 0;
-            for (Argument v: _values) {
-                arr_.getInstance()[i_] = v.getStruct();
-                i_++;
-            }
-            CustList<Argument> nList_ = new CustList<Argument>();
-            nList_.add(instance_);
-            nList_.add(new Argument(arr_));
-             return InvokingOperation.callPrepare(_conf, cl_, nMid_, pr_, nList_, -1);
-        }
-        ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()-1],obj_);
-        int i_ = 0;
-        for (Argument v: _values.mid(0, _values.size() - 1)) {
-            arr_.getInstance()[i_] = v.getStruct();
-            i_++;
-        }
-        CustList<Argument> nList_ = new CustList<Argument>();
-        nList_.add(_values.first());
-        nList_.add(new Argument(arr_));
-        return InvokingOperation.callPrepare(_conf, cl_, nMid_, pr_, nList_, -1);
-    }
     @Override
     public ConstructorId getConstId() {
         return null;

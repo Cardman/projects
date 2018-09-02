@@ -95,6 +95,18 @@ public final class NamePartType extends LeafPartType {
             setImportedTypeName(type_);
             return;
         }
+        if (getParent() instanceof TemplatePartType) {
+            PartType prev_ = getParent().getFirstChild();
+            if (prev_ instanceof NamePartType) {
+                String base_ = ((NamePartType)prev_).getTypeName();
+                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                        setImportedTypeName(getTypeName().trim());
+                        return;
+                    }
+                }
+            }
+        }
         String out_;
         if (_an.isDirectImport()) {
             out_ = _an.lookupImportsDirect(type_, _rooted);
@@ -424,6 +436,18 @@ public final class NamePartType extends LeafPartType {
         }
         if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
             setImportedTypeName(typeName_);
+            return;
+        }
+        if (getParent() instanceof TemplatePartType) {
+            PartType prev_ = getParent().getFirstChild();
+            if (prev_ instanceof NamePartType) {
+                String base_ = ((NamePartType)prev_).getTypeName();
+                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                        setImportedTypeName(getTypeName().trim());
+                    }
+                }
+            }
         }
     }
 
