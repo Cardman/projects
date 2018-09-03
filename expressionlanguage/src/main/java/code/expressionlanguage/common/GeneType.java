@@ -15,6 +15,7 @@ public interface GeneType extends AccessibleBlock {
 
     StringList getAllSuperClasses();
     StringList getAllSuperTypes();
+    GeneType getOuter();
 
     /** Copy the list*/
     StringList getDirectSuperClasses(Analyzable _classes);

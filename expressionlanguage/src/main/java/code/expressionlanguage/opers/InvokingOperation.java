@@ -907,55 +907,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String type_ = l_.getClassName(_conf);
             StringList parts_ = Templates.getAllTypes(type_);
             StringList paramsFct_ = parts_.mid(1, parts_.size() - 2);
-            MethodId fid_ = l_.getFid();
-            if (!l_.isShiftInstance()) {
-                Argument instance_ = l_.getInstanceCall();
-                if (!fid_.isStaticMethod()) {
-                    if (instance_.isNull()) {
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
-                    String className_ = stds_.getStructClassName(instance_.getStruct(), _conf.getContextEl());
-                    String classFormat_ = l_.getFormClassName();
-                    classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-                    if (classFormat_ == null) {
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
-                }
-                if (_firstArgs.size() != paramsFct_.size()) {
-                    String null_;
-                    null_ = stds_.getAliasNullPe();
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-                i_ = CustList.FIRST_INDEX;
-                for (Argument a: _firstArgs) {
-                    Struct str_ = a.getStruct();
-                    if (!str_.isNull()) {
-                        Mapping mapping_ = new Mapping();
-                        mapping_.setArg(a.getObjectClassName(_conf.getContextEl()));
-                        mapping_.setParam(paramsFct_.get(i_));
-                        if (!Templates.isCorrect(mapping_, _conf)) {
-                            if (_possibleOffset > -1) {
-                                _conf.setOffset(_possibleOffset);
-                            }
-                            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                            Argument a_ = new Argument();
-                            return a_;
-                        }
-                    } else if (PrimitiveTypeUtil.primitiveTypeNullObject(paramsFct_.get(i_), a.getStruct(), _conf)){
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
-                    i_++;
-                }
-                return prepareCallDyn(_previous, _firstArgs, _conf);
-            }
             Argument instance_ = _firstArgs.first();
             if (!instance_.getStruct().isArray()) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
@@ -965,12 +916,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Struct[] real_ = (Struct[]) instance_.getStruct().getInstance();
             Struct inst_ = real_[0];
             String className_ = stds_.getStructClassName(inst_, _conf.getContextEl());
-            String classFormat_ = l_.getFormClassName();
-            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_ == null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                Argument a_ = new Argument();
-                return a_;
+            if (l_.isShiftInstance()) {
+                String classFormat_ = l_.getFormClassName();
+                classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
+                if (classFormat_ == null) {
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                    Argument a_ = new Argument();
+                    return a_;
+                }
             }
             if (real_.length != paramsFct_.size()) {
                 String null_;

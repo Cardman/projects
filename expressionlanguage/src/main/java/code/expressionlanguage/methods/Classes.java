@@ -1650,8 +1650,9 @@ public final class Classes {
             }
             return false;
         }
-        //TODO get top level type
-        if (StringList.quickEq(belong_.getFullName(), root_.getFullName())) {
+        GeneType outBelong_ = belong_.getOuter();
+        GeneType outRoot_ = root_.getOuter();
+        if (StringList.quickEq(outBelong_.getFullName(), outRoot_.getFullName())) {
             return true;
         }
         return false;

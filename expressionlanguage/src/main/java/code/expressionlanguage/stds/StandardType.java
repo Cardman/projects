@@ -35,6 +35,10 @@ public abstract class StandardType implements GeneType {
         methods = _methods;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
     }
+    @Override
+    public GeneType getOuter() {
+        return this;
+    }
     /** Copy the list*/
     public abstract StringList getDirectSuperClasses();
     public abstract StringList getDirectSuperTypes();

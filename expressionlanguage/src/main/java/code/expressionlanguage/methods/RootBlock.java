@@ -118,6 +118,16 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     }
 
     @Override
+    public GeneType getOuter() {
+        RootBlock t = this;
+        RootBlock o = this;
+        while (t != null) {
+            o = t;
+            t = t.getParentType();
+        }
+        return o;
+    }
+    @Override
     public abstract boolean isStaticType();
     public abstract StringList getImportedDirectSuperTypes();
     public NatTreeMap<Integer, Boolean> getExplicitDirectSuperTypes() {
