@@ -2300,6 +2300,20 @@ public final class FileResolver {
         boolean foundTmp_ = false;
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
+            if (currentCharFound_ == BEGIN_ARRAY) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (Character.isWhitespace(currentCharFound_)) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            break;
+        }
+        while (indexInstr_ < instLen_) {
+            char currentCharFound_ = _found.charAt(indexInstr_);
             if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
                 String trimmed_ = declTypeName_.toString().trim();
                 if (StringList.quickEq(trimmed_,NEW)) {
@@ -2328,18 +2342,6 @@ public final class FileResolver {
                                 break;
                             }
                         }
-                    }
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == BEGIN_ARRAY) {
-                String trimmed_ = declTypeName_.toString().trim();
-                if (nbOpenedTmp_ == 0 && trimmed_.length() > 0) {
-                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (ch_ != BEGIN_ARRAY) {
-                        break;
                     }
                 }
                 declTypeName_.append(currentCharFound_);

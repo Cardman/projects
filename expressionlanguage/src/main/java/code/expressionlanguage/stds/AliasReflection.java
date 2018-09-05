@@ -148,6 +148,9 @@ public class AliasReflection {
         method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasFct, stdcl_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasAnnotated , MethodModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
@@ -205,6 +208,12 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetActualTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetGenericTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasIsInstance, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -321,12 +330,6 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetReturnType, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetActualTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
-        methods_.put(method_.getId(), method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericTypeArguments, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -1392,11 +1395,11 @@ public class AliasReflection {
                 int len_ = types_.size();
                 String clName_ = cl_.getName();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
+                Struct[] superInts_ = new Struct[len_-1];
                 for (int i = 1; i < len_; i++) {
                     String nameVar_ = types_.get(i);
                     nameVar_ = Templates.format(clName_, nameVar_, _cont);
-                    superInts_[i] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
+                    superInts_[i-1] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
                 result_.setResult(arr_);
@@ -1408,10 +1411,10 @@ public class AliasReflection {
                 String owner_ = types_.first();
                 int len_ = types_.size();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
-                Struct[] superInts_ = new Struct[len_];
+                Struct[] superInts_ = new Struct[len_-1];
                 for (int i = 1; i < len_; i++) {
                     String nameVar_ = types_.get(i);
-                    superInts_[i] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
+                    superInts_[i-1] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
                 result_.setResult(arr_);
