@@ -33,7 +33,7 @@ public final class TemplatePartType extends ParentPartType {
 
     @Override
     public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
-            RowCol _location) {
+            boolean _exact, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

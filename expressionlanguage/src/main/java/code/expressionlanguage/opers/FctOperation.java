@@ -326,6 +326,7 @@ public final class FctOperation extends InvokingOperation {
                 return a_;
             }
             classNameFound_ = classMethodId.getClassName();
+            prev_.setStruct(PrimitiveTypeUtil.getParent(classNameFound_, prev_.getStruct(), _conf));
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());

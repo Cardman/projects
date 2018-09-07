@@ -1197,7 +1197,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().addAllElts(varsList_);
         setDirectImport(false);
         String gl_ = getGlobalClass();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, rc_);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact, rc_);
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);

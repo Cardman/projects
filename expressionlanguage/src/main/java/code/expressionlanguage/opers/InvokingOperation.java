@@ -11,9 +11,9 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundAnnotation;
@@ -35,11 +35,14 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldableStruct;
+import code.expressionlanguage.opers.util.LambdaConstructorStruct;
 import code.expressionlanguage.opers.util.LambdaMethodStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -47,6 +50,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -548,9 +552,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     Argument a_ = new Argument();
                     return a_;
                 }
+                Argument prev_ = new Argument();
                 StringList parts_ = Templates.getAllInnerTypes(_className);
                 String param_ = parts_.sub(0, parts_.size()-1).join("..");
-                String arg_ = _previous.getObjectClassName(_conf.getContextEl());
+                String paramId_ = Templates.getIdFromAllTypes(param_);
+                prev_.setStruct(PrimitiveTypeUtil.getParent(paramId_, _previous.getStruct(), _conf));
+                String arg_ = prev_.getObjectClassName(_conf.getContextEl());
                 Mapping map_ = new Mapping();
                 map_.setArg(arg_);
                 map_.setParam(param_);
@@ -561,7 +568,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     Argument a_ = new Argument();
                     return a_;
                 }
-                needed_.setStruct(_previous.getStruct());
+                needed_.setStruct(prev_.getStruct());
             }
         }
         String base_ = Templates.getIdFromAllTypes(_className);
@@ -903,7 +910,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
         }
         if (StringList.quickEq(aliasFct_, _classNameFound)) {
-            LambdaMethodStruct l_ =  (LambdaMethodStruct) _previous.getStruct();
+            Struct l_ = _previous.getStruct();
             String type_ = l_.getClassName(_conf);
             StringList parts_ = Templates.getAllTypes(type_);
             StringList paramsFct_ = parts_.mid(1, parts_.size() - 2);
@@ -914,17 +921,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return a_;
             }
             Struct[] real_ = (Struct[]) instance_.getStruct().getInstance();
-            Struct inst_ = real_[0];
-            String className_ = stds_.getStructClassName(inst_, _conf.getContextEl());
-            if (l_.isShiftInstance()) {
-                String classFormat_ = l_.getFormClassName();
-                classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-                if (classFormat_ == null) {
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
-            }
             if (real_.length != paramsFct_.size()) {
                 String null_;
                 null_ = stds_.getAliasNullPe();
@@ -995,18 +991,76 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ExecutableCode _conf) {
-        LambdaMethodStruct l_ =  (LambdaMethodStruct) _previous.getStruct();
+        Struct ls_ = _previous.getStruct();
+        if (ls_ instanceof LambdaConstructorStruct) {
+            Argument result_ = new Argument();
+            LambdaConstructorStruct l_ = (LambdaConstructorStruct) ls_;
+            String forId_ = l_.getFormClassName();
+            LgNames lgNames_ = _conf.getStandards();
+            if (forId_.startsWith(ARR)) {
+                Numbers<Integer> dims_ = new Numbers<Integer>();
+                String size_;
+                size_ = lgNames_.getAliasBadSize();
+                for (Argument a: _values) {
+                    int dim_ = ((NumberStruct)a.getStruct()).getInstance().intValue();
+                    if (dim_ < 0) {
+                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),size_));
+                        return result_;
+                    }
+                    dims_.add(dim_);
+                }
+                if (StringList.quickEq(forId_, _conf.getStandards().getAliasVoid())) {
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),lgNames_.getAliasClassNotFoundError()));
+                    return result_;
+                }
+                result_.setStruct(PrimitiveTypeUtil.newCustomArray(forId_, dims_, _conf));
+                return result_;
+            }
+            ConstructorId cid_ = l_.getFid();
+            ConstructorMetaInfo c_ = new ConstructorMetaInfo(forId_, AccessEnum.PUBLIC, cid_, forId_, cid_, forId_, forId_);
+            Argument pr_ = new Argument();
+            pr_.setStruct(c_);
+            Argument instance_ = l_.getInstanceCall();
+            String obj_ = _conf.getStandards().getAliasObject();
+            obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
+            if (!l_.isShiftInstance()) {
+                ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()],obj_);
+                int i_ = 0;
+                for (Argument v: _values) {
+                    arr_.getInstance()[i_] = v.getStruct();
+                    i_++;
+                }
+                CustList<Argument> nList_ = new CustList<Argument>();
+                nList_.add(new Argument(arr_));
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
+            int i_ = 1;
+            arr_.getInstance()[0] = instance_.getStruct();
+            for (Argument v: _values) {
+                arr_.getInstance()[i_] = v.getStruct();
+                i_++;
+            }
+            CustList<Argument> nList_ = new CustList<Argument>();
+            nList_.add(new Argument(arr_));
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.CONSTRUCTOR, pr_, nList_));
+            Argument a_ = new Argument();
+            return a_;
+        }
+        LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
         String id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
         MethodId fid_ = l_.getFid();
-        GeneType t_ = _conf.getClassBody(id_);
-        CustList<GeneMethod> g_ = new CustList<GeneMethod>();
-        for (GeneMethod g: ContextEl.getMethodBlocks(t_)) {
-            if (g.getId().eq(fid_)) {
-                g_.add(g);
-            }
+        MethodModifier met_;
+        if (l_.isAbstractMethod()) {
+            met_ = MethodModifier.ABSTRACT;
+        } else if (fid_.isStaticMethod()) {
+            met_ = MethodModifier.STATIC;
+        } else {
+            met_ = MethodModifier.NORMAL;
         }
-        GeneMethod met_ = g_.first();
-        MethodMetaInfo m_ = new MethodMetaInfo(met_.getAccess(), id_, fid_, met_.getModifier(), "", fid_, "", "");
+        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC, id_, fid_, met_, "", fid_, "", "");
         m_.setPolymorph(l_.isPolymorph());
         Argument pr_ = new Argument();
         pr_.setStruct(m_);

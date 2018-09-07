@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.RootBlock;
@@ -56,20 +57,13 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             }
             String access_ = previousResultClass.getNames().first();
             String id_ = Templates.getIdFromAllTypes(access_);
-            GeneType g_ = _conf.getClassBody(id_);
-            if (!(g_ instanceof RootBlock)) {
-                StaticAccessThisError static_ = new StaticAccessThisError();
-                static_.setClassName(access_);
-                static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().addError(static_);
-                setResultClass(new ClassArgumentMatching(access_));
-                return;
-            }
+            String gl_ = _conf.getGlobalClass();
+            gl_ = Templates.getIdFromAllTypes(gl_);
+            GeneType g_ = _conf.getClassBody(gl_);
             RootBlock r_ = (RootBlock) g_;
-            for (RootBlock r: r_.getSelfAndParentTypes()) {
+            for (RootBlock r: r_.getSelfAndParentTypes().getReverse()) {
                 if (StringList.quickEq(r.getFullName(), id_)) {
-                    String className_ = Templates.getFullTypeByBases(r.getGenericString(), id_, _conf);
+                    String className_ = r.getGenericString();
                     setResultClass(new ClassArgumentMatching(className_));
                     return;
                 }
@@ -149,8 +143,12 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         Struct struct_ = ip_.getGlobalArgument().getStruct();
         a_ = new Argument();
         a_.setStruct(struct_);
-        for (int i = 0; i < nbAncestors; i++) {
-            a_.setStruct(a_.getStruct().getParent());
+        if (isIntermediateDottedOperation()) {
+            for (int i = 0; i < nbAncestors; i++) {
+                a_.setStruct(a_.getStruct().getParent());
+            }
+            String c_ = getResultClass().getNames().first();
+            a_.setStruct(PrimitiveTypeUtil.getParent(c_, a_.getStruct(), _conf));
         }
         return a_;
     }

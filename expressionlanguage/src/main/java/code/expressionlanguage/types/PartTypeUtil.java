@@ -290,7 +290,10 @@ public final class PartTypeUtil {
         }
         return out_.toString();
     }
-    public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
+    static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
+        return processAnalyze(_input, _globalType, _an, _rooted, true, _location);
+    }
+    public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input);
         if (indexes_ == null) {
             UnknownClassName un_ = new UnknownClassName();
@@ -319,7 +322,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                current_.analyze(_an, _globalType, _rooted, _location);
+                current_.analyze(_an, _globalType, _rooted, _exact, _location);
                 PartType next_ = createNextSibling(current_, loc_, dels_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -328,7 +331,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.analyze(_an, _globalType, _rooted, _location);
+                    par_.analyze(_an, _globalType, _rooted, _exact, _location);
                     stop_ = true;
                     break;
                 }

@@ -47,7 +47,7 @@ public final class VariablePartType extends LeafPartType {
     }
     @Override
     public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
-            RowCol _location) {
+            boolean _exact, RowCol _location) {
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();

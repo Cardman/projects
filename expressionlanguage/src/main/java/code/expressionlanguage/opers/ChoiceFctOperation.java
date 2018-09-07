@@ -223,7 +223,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 return a_;
             }
             classNameFound_ = classMethodId.getClassName();
-
+            prev_.setStruct(PrimitiveTypeUtil.getParent(classNameFound_, prev_.getStruct(), _conf));
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             if (staticChoiceMethodTemplate) {
                 classNameFound_ = Templates.format(argClassName_, classNameFound_, _conf);

@@ -1094,4 +1094,253 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(15, (Number)ret_.getObject());
     }
+
+    @Test
+    public void calculateArgument31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $int superfield=15i:\n");
+        xml_.append(" $public $normal $int get(){\n");
+        xml_.append("  $return superfield;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex:ExTwo {\n");
+        xml_.append(" $public $int field:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  Ex instance = $new Ex():\n");
+        xml_.append("  instance;.field=14i:\n");
+        xml_.append("  $Fct<$int> f = instance;.$lambda(ExTwo,get):\n");
+        xml_.append("  $return f;.call():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(){\n");
+        xml_.append("  $return field;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmethtwo($int p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeththree($int p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExTwo {\n");
+        xml_.append(" $public $int superfield=15i:\n");
+        xml_.append(" $public $abstract $int get():\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex:ExTwo {\n");
+        xml_.append(" $public $int field:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  Ex instance = $new Ex():\n");
+        xml_.append("  instance;.field=14i:\n");
+        xml_.append("  $Fct<$int> f = instance;.$lambda(ExTwo,get):\n");
+        xml_.append("  $return f;.call():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(){\n");
+        xml_.append("  $return field;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmethtwo($int p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeththree($int p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int field:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $Fct<Ex> c = $lambda(Ex,$new):\n");
+        xml_.append("  Ex instance = c;.call():\n");
+        xml_.append("  instance;.field=14i:\n");
+        xml_.append("  $return instance;.get():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(){\n");
+        xml_.append("  $return field;;;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument34Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public {} $class Inner {\n");
+        xml_.append("  $public $int field:\n");
+        xml_.append("  $public $normal $int get(){\n");
+        xml_.append("   $return field;;;:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $Fct<Ex,Ex..Inner> c = $lambda(Ex..Inner,$new):\n");
+        xml_.append("  Ex..Inner instance = c;.call($new Ex()):\n");
+        xml_.append("  instance;.field=14i:\n");
+        xml_.append("  $return instance;.get():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument35Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public {} $class Inner {\n");
+        xml_.append("  $public $int field:\n");
+        xml_.append("  $public $normal $int get(){\n");
+        xml_.append("   $return field;;;:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $Fct<Ex..Inner> c = $new Ex().$lambda(Inner,$new):\n");
+        xml_.append("  Ex..Inner instance = c;.call():\n");
+        xml_.append("  instance;.field=14i:\n");
+        xml_.append("  $return instance;.get():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument36Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public {} $class Inner {\n");
+        xml_.append("  $public $int field:\n");
+        xml_.append("  $public($int p){\n");
+        xml_.append("   field;;;=p;.;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $public $normal $int get(){\n");
+        xml_.append("   $return field;;;:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $Fct<$int,Ex..Inner> c = $new Ex().$lambda(Inner,$new,$int):\n");
+        xml_.append("  Ex..Inner instance = c;.call(14i):\n");
+        xml_.append("  $return instance;.get():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument1FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $abstract $class pkg.ExTwo {\n");
+        xml_.append(" $public $int superfield=15i:\n");
+        xml_.append(" $public $abstract $int get():\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex:ExTwo {\n");
+        xml_.append(" $public $int field:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  Ex instance = $new Ex():\n");
+        xml_.append("  instance;.field=14i:\n");
+        xml_.append("  $Fct<$int> f = instance;.$lambda(Ex,$super,get):\n");
+        xml_.append("  $return f;.call():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(){\n");
+        xml_.append("  $return field;;;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmethtwo($int p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+p;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmeththree($int p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

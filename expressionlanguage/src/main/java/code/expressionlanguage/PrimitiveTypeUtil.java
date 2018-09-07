@@ -233,6 +233,25 @@ public final class PrimitiveTypeUtil {
         superTypes_.removeDuplicates();
         return superTypes_;
     }
+    public static Struct getParent(String _required, Struct _current, ExecutableCode _an) {
+        String id_ = Templates.getIdFromAllTypes(_required);
+        Struct current_ = _current;
+        if (current_.isNull()) {
+            return current_;
+        }
+        String className_ = current_.getClassName(_an);
+        String cl_ = Templates.getIdFromAllTypes(className_);
+        while (!canBeUseAsArgument(id_, cl_, _an)) {
+            Struct par_ = current_.getParent();
+            if (par_.isNull()) {
+                break;
+            }
+            current_ = par_;
+            className_ = current_.getClassName(_an);
+            cl_ = Templates.getIdFromAllTypes(className_);
+        }
+        return current_;
+    }
     public static boolean primitiveTypeNullObject(String _className, Struct _instance, ExecutableCode _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }

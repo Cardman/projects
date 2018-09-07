@@ -407,7 +407,6 @@ public abstract class Block extends Blockable {
 
     protected static void tryBuildExpressionLanguage(Block _block, ContextEl _cont) {
         if (_block instanceof WithEl) {
-            _cont.getAnalyzing().setCurrentBlock(_block);
             ((WithEl)_block).buildExpressionLanguage(_cont);
             return;
         }

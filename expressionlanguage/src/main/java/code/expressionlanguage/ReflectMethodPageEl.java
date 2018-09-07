@@ -55,7 +55,12 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
         if (!calledMethod) {
             String className_ = methodToCall.getClassName();
             MethodId mid_ = methodToCall.getConstraints();
-            Argument instance_ = getArguments().first();
+            Argument instance_;
+            if (method_.isStatic()) {
+                instance_ = new Argument();
+            } else {
+                instance_ = getArguments().first();
+            }
             CustList<Argument> args_ = new CustList<Argument>();
             Struct struct_ = getArguments().last().getStruct();
             if (struct_.isNull()) {

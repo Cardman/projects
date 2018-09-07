@@ -441,6 +441,34 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         }
     }
     @Override
+    public void defaultAssignmentAfter(Analyzable _an, OperationNode _root) {
+        AssignedVariables vars_ = _an.getAssignedVariables().getFinalVariables().getVal(this);
+        StringMap<Assignment> res_ = vars_.getFields().getVal(_root);
+        for (EntryCust<String,Assignment> e: res_.entryList()) {
+            vars_.getFieldsRoot().put(e.getKey(), e.getValue().assignClassic());
+        }
+        CustList<StringMap<Assignment>> varsRes_;
+        varsRes_ = vars_.getVariables().getVal(_root);
+        vars_.getVariablesRoot().clear();
+        for (StringMap<Assignment> s: varsRes_) {
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().assignClassic());
+            }
+            vars_.getVariablesRoot().add(sm_);
+        }
+        CustList<StringMap<Assignment>> mutableRes_;
+        mutableRes_ = vars_.getMutableLoop().getVal(_root);
+        vars_.getMutableLoopRoot().clear();
+        for (StringMap<Assignment> s: mutableRes_) {
+            StringMap<SimpleAssignment> sm_ = new StringMap<SimpleAssignment>();
+            for (EntryCust<String, Assignment> e: s.entryList()) {
+                sm_.put(e.getKey(), e.getValue().assignClassic());
+            }
+            vars_.getMutableLoopRoot().add(sm_);
+        }
+    }
+    @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
         _an.setMerged(false);
         Block firstChild_ = getFirstChild();

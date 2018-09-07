@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.CustomFoundMethod;
@@ -89,7 +90,8 @@ public final class CallDynMethodOperation extends InvokingOperation {
         }
         for (int i = 0; i < nb_; i++) {
             ClassArgumentMatching a_ = firstArgs_.get(i);
-            ClassArgumentMatching p_ = new ClassArgumentMatching(param_.get(i));
+            String pa_ = param_.get(i);
+            ClassArgumentMatching p_ = new ClassArgumentMatching(pa_);
             Mapping m_ = new Mapping();
             m_.setArg(a_);
             m_.setParam(p_);
@@ -100,6 +102,9 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 cast_.setFileName(_conf.getCurrentFileName());
                 cast_.setRc(_conf.getCurrentLocation());
                 _conf.getClasses().addError(cast_);
+            }
+            if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
+                a_.setUnwrapObject(pa_);
             }
         }
         setResultClass(new ClassArgumentMatching(ret_));

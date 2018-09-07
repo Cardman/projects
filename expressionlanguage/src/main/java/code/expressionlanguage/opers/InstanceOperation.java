@@ -10,7 +10,6 @@ import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
-import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
@@ -181,8 +180,8 @@ public final class InstanceOperation extends InvokingOperation {
                         cast_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().addError(cast_);
                     }
-                    if (PrimitiveTypeUtil.isPrimitive(cp_, _conf)) {
-                        o.getResultClass().setUnwrapObject(cp_);
+                    if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
+                        o.getResultClass().setUnwrapObject(className);
                     }
                 }
                 setResultClass(new ClassArgumentMatching(cp_));
@@ -398,15 +397,6 @@ public final class InstanceOperation extends InvokingOperation {
             return;
         }
         if (g_.isAbstractType() && !(g_ instanceof EnumBlock)) {
-            IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-            call_.setType(realClassName_);
-            call_.setFileName(_conf.getCurrentFileName());
-            call_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().addError(call_);
-            setResultClass(new ClassArgumentMatching(realClassName_));
-            return;
-        }
-        if (g_ instanceof GeneInterface) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());

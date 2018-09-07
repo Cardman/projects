@@ -8,15 +8,25 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.BadOperandsNumber;
+import code.expressionlanguage.methods.util.IllegalCallCtorByType;
+import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.VarargError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.opers.util.LambdaConstructorStruct;
 import code.expressionlanguage.opers.util.LambdaMethodStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.SortedClassField;
@@ -42,6 +52,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private int ancestor;
     private boolean shiftArgument;
     private boolean polymorph;
+    private boolean abstractMethod;
+    private ConstructorId realId;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -61,9 +73,228 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String fromType_ = ContextEl.removeDottedSpaces(args_.first());
         StringList str_;
         CustList<ClassArgumentMatching> methodTypes_ = new CustList<ClassArgumentMatching>();
+        String name_ = args_.get(1).trim();
+        if (StringList.quickEq(name_, prefixFunction(INSTANCE))) {
+            if (!isIntermediateDottedOperation()) {
+                if (fromType_.trim().startsWith(ARR)) {
+                    String cl_ = _conf.resolveCorrectType(fromType_);
+                    int i_ = 2;
+                    StringList parts_ = new StringList();
+                    boolean err_ = false;
+                    for (int i = i_; i < len_; i++) {
+                        String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
+                        parts_.add(arg_);
+                        ClassArgumentMatching clArg_ = new ClassArgumentMatching(arg_);
+                        if (!clArg_.isNumericInt(_conf)) {
+                            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+                            un_.setRc(_conf.getCurrentLocation());
+                            un_.setFileName(_conf.getCurrentFileName());
+                            un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
+                            un_.setOperands(clArg_);
+                            _conf.getClasses().addError(un_);
+                            err_ = true;
+                        }
+                        methodTypes_.add(clArg_);
+                    }
+                    if (methodTypes_.isEmpty()) {
+                        BadOperandsNumber badCall_ = new BadOperandsNumber();
+                        badCall_.setOperandsNumber(0);
+                        badCall_.setFileName(_conf.getCurrentFileName());
+                        badCall_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(badCall_);
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                        return;
+                    }
+                    if (err_) {
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                        return;
+                    }
+                    String elt_ = cl_.substring(ARR.length());
+                    String out_ = PrimitiveTypeUtil.getPrettyArrayType(elt_, methodTypes_.size());
+                    foundClass = out_;
+                    parts_.add(out_);
+                    StringBuilder fct_ = new StringBuilder(stds_.getAliasFct());
+                    fct_.append(Templates.TEMPLATE_BEGIN);
+                    fct_.append(parts_.join(Templates.TEMPLATE_SEP));
+                    fct_.append(Templates.TEMPLATE_END);
+                    setResultClass(new ClassArgumentMatching(fct_.toString()));
+                    return;
+                }
+            }
+            int i_ = 2;
+            int vararg_ = -1;
+            for (int i = i_; i < len_; i++) {
+                String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
+                String type_;
+                if (arg_.endsWith(VARARG_SUFFIX)) {
+                    if (i + 1 != len_) {
+                        //last type => error
+                        VarargError varg_ = new VarargError();
+                        varg_.setFileName(_conf.getCurrentFileName());
+                        varg_.setRc(_conf.getCurrentLocation());
+                        varg_.setMethodName(VAR_ARG);
+                        _conf.getClasses().addError(varg_);
+                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                        return;
+                    }
+                    vararg_ = len_- i_;
+                    type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length());
+                    type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
+                } else {
+                    type_ = arg_;
+                }
+                arg_ = _conf.resolveCorrectType(type_);
+                methodTypes_.add(new ClassArgumentMatching(arg_));
+            }
+            if (!isIntermediateDottedOperation()) {
+                String cl_ = _conf.resolveCorrectType(fromType_);
+                String id_ = Templates.getIdFromAllTypes(cl_);
+                GeneType g_ = _conf.getClassBody(id_);
+                if (g_ == null || PrimitiveTypeUtil.isPrimitive(id_, _conf) || g_.isAbstractType()) {
+                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                    call_.setType(cl_);
+                    call_.setFileName(_conf.getCurrentFileName());
+                    call_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(call_);
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    return;
+                }
+                ConstrustorIdVarArg ctorRes_;
+                ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(cl_), ClassArgumentMatching.toArgArray(methodTypes_));
+                realId = ctorRes_.getRealId();
+                ConstructorId fid_ = ctorRes_.getConstId();
+                StringList parts_ = new StringList();
+                if (!g_.isStaticType()) {
+                    StringList innerParts_ = Templates.getAllInnerTypes(cl_);
+                    parts_.add(innerParts_.mid(0, innerParts_.size() - 1).join(".."));
+                }
+                StringList params_ = fid_.getParametersTypes();
+                if (fid_.isVararg()) {
+                    for (String p: params_.mid(0, params_.size() - 1)) {
+                        String p_ = p;
+                        parts_.add(p_);
+                    }
+                    String p_ = params_.last();
+                    parts_.add(PrimitiveTypeUtil.getPrettyArrayType(p_));
+                } else {
+                    for (String p: params_) {
+                        String p_ = p;
+                        parts_.add(p_);
+                    }
+                }
+                foundClass = cl_;
+                parts_.add(cl_);
+                StringBuilder fct_ = new StringBuilder(stds_.getAliasFct());
+                fct_.append(Templates.TEMPLATE_BEGIN);
+                fct_.append(parts_.join(Templates.TEMPLATE_SEP));
+                fct_.append(Templates.TEMPLATE_END);
+                setResultClass(new ClassArgumentMatching(fct_.toString()));
+                return;
+            }
+            String cl_ = fromType_.trim();
+            if (cl_.startsWith("..")) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(static_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
+            StringMap<String> ownersMap_ = new StringMap<String>();
+            for (String o: previousResultClass.getNames()) {
+                StringList ids_ = new StringList(Templates.getIdFromAllTypes(o));
+                StringList owners_ = new StringList();
+                while (true) {
+                    StringList new_ = new StringList();
+                    for (String s: ids_) {
+                        GeneType g_ = _conf.getClassBody(s);
+                        if (!(g_ instanceof RootBlock)) {
+                            continue;
+                        }
+                        RootBlock sub_ = (RootBlock)g_;
+                        boolean add_ = false;
+                        for (Block b: Classes.getDirectChildren(sub_)) {
+                            if (!(b instanceof RootBlock)) {
+                                continue;
+                            }
+                            RootBlock inner_ = (RootBlock) b;
+                            if (StringList.quickEq(inner_.getName(), cl_)) {
+                                owners_.add(s);
+                                add_ = true;
+                            }
+                        }
+                        if (add_) {
+                            continue;
+                        }
+                        for (String t: sub_.getImportedDirectSuperTypes()) {
+                            String id_ = Templates.getIdFromAllTypes(t);
+                            new_.add(id_);
+                        }
+                    }
+                    if (new_.isEmpty()) {
+                        break;
+                    }
+                    ids_ = new_;
+                }
+                owners_.removeDuplicates();
+                if (owners_.size() == 1) {
+                    ownersMap_.put(o, owners_.first());
+                }
+            }
+            if (ownersMap_.size() != 1) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(static_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
+            String sub_ = ownersMap_.getKeys().first();
+            String sup_ = ownersMap_.values().first();
+            String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
+            cl_ = StringList.concat(new_,"..",cl_);
+            foundClass = cl_;
+            shiftArgument = true;
+            String id_ = Templates.getIdFromAllTypes(cl_);
+            GeneType g_ = _conf.getClassBody(id_);
+            if (g_ == null || g_.isAbstractType()) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(cl_);
+                call_.setFileName(_conf.getCurrentFileName());
+                call_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(call_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
+            ConstrustorIdVarArg ctorRes_;
+            ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(cl_), ClassArgumentMatching.toArgArray(methodTypes_));
+            realId = ctorRes_.getRealId();
+            ConstructorId fid_ = ctorRes_.getConstId();
+            StringList parts_ = new StringList();
+            StringList params_ = fid_.getParametersTypes();
+            if (fid_.isVararg()) {
+                for (String p: params_.mid(0, params_.size() - 1)) {
+                    String p_ = p;
+                    parts_.add(p_);
+                }
+                String p_ = params_.last();
+                parts_.add(PrimitiveTypeUtil.getPrettyArrayType(p_));
+            } else {
+                for (String p: params_) {
+                    String p_ = p;
+                    parts_.add(p_);
+                }
+            }
+            parts_.add(cl_);
+            StringBuilder fct_ = new StringBuilder(stds_.getAliasFct());
+            fct_.append(Templates.TEMPLATE_BEGIN);
+            fct_.append(parts_.join(Templates.TEMPLATE_SEP));
+            fct_.append(Templates.TEMPLATE_END);
+            setResultClass(new ClassArgumentMatching(fct_.toString()));
+            return;
+        }
         if (!isIntermediateDottedOperation()) {
             str_ = resolveCorrectTypes(_conf, true, fromType_);
-            String name_ = args_.get(1).trim();
             int i_ = 2;
             boolean staticChoiceMethod_ = false;
             boolean accessFromSuper_ = false;
@@ -120,6 +351,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             MethodId idCt_ = id_.getRealId();
             method = new ClassMethodId(foundClass_, idCt_);
             ancestor = id_.getAncestor();
+            abstractMethod = id_.isAbstractMethod();
             shiftArgument = !id_.isStaticMethod();
             String fct_ = formatReturn(_conf, id_, shiftArgument);
             setResultClass(new ClassArgumentMatching(fct_));
@@ -142,7 +374,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         if (o_ instanceof StaticAccessOperation) {
             str_ = resolveCorrectTypes(_conf, false, fromType_);
-            String name_ = args_.get(1).trim();
             int vararg_ = -1;
             for (int i = 2; i < len_; i++) {
                 String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
@@ -184,7 +415,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         boolean stCtx_ = isStaticAccess();
         str_ = resolveCorrectTypes(_conf, !stCtx_, fromType_);
-        String name_ = args_.get(1).trim();
         int vararg_ = -1;
         int i_ = 2;
         boolean staticChoiceMethod_ = false;
@@ -269,6 +499,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String foundClass_ = id_.getRealClass();
         foundClass_ = Templates.getIdFromAllTypes(foundClass_);
         foundClass = id_.getId().getClassName();
+        abstractMethod = id_.isAbstractMethod();
         MethodId idCt_ = id_.getRealId();
         method = new ClassMethodId(foundClass_, idCt_);
         ancestor = id_.getAncestor();
@@ -362,9 +593,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String clArg_ = getResultClass().getNames().first();
         String ownerType_ = foundClass;
         ownerType_ = _conf.getOperationPageEl().formatVarType(ownerType_, _conf);
-        MethodId id_ = method.getConstraints();
         clArg_ = _conf.getOperationPageEl().formatVarType(clArg_, _conf);
-        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor);
+        if (method == null) {
+            LambdaConstructorStruct l_ = new LambdaConstructorStruct(clArg_, ownerType_, realId, shiftArgument);
+            l_.setInstanceCall(_previous);
+            arg_.setStruct(l_);
+            return arg_;
+        }
+        MethodId id_ = method.getConstraints();
+        LambdaMethodStruct l_ = new LambdaMethodStruct(clArg_, ownerType_, id_, polymorph, shiftArgument, ancestor,abstractMethod);
         l_.setInstanceCall(_previous);
         arg_.setStruct(l_);
         return arg_;

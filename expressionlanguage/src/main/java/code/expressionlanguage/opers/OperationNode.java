@@ -324,13 +324,15 @@ public abstract class OperationNode {
             String fctName_ = _op.getFctName().trim();
             if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall())) {
                 OperationNode ch_ = _m.getFirstChild();
-                StringList pr_ = ch_.getResultClass().getNames();
-                if (pr_.size() == 1) {
-                    String type_ = pr_.first();
-                    String id_ = Templates.getIdFromAllTypes(type_);
-                    String fct_ = _an.getStandards().getAliasFct();
-                    if (StringList.quickEq(id_, fct_)) {
-                        return new CallDynMethodOperation(_index, _indexChild, _m, _op);
+                if (ch_ != null) {
+                    StringList pr_ = ch_.getResultClass().getNames();
+                    if (pr_.size() == 1) {
+                        String type_ = pr_.first();
+                        String id_ = Templates.getIdFromAllTypes(type_);
+                        String fct_ = _an.getStandards().getAliasFct();
+                        if (StringList.quickEq(id_, fct_)) {
+                            return new CallDynMethodOperation(_index, _indexChild, _m, _op);
+                        }
                     }
                 }
             }

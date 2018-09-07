@@ -4,34 +4,28 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ExecutableCode;
 import code.util.ObjectMap;
 
-public class LambdaMethodStruct implements Struct {
+public class LambdaConstructorStruct implements Struct {
 
     private Argument instanceCall;
 
     private final String className;
     private final String formClassName;
 
-    private final MethodId fid;
-
-    private final boolean polymorph;
+    private final ConstructorId fid;
 
     private final boolean shiftInstance;
 
-    private final int ancestor;
-
-    private final boolean abstractMethod;
-
-    public LambdaMethodStruct(String _className,String _formClassName, MethodId _fid,
-            boolean _polymorph, boolean _shiftInstance, int _ancestor, boolean _abstractMethod) {
+    public LambdaConstructorStruct(String _className, String _formClassName, ConstructorId _fid,
+            boolean _shiftInstance) {
         className = _className;
         formClassName = _formClassName;
         fid = _fid;
-        polymorph = _polymorph;
         shiftInstance = _shiftInstance;
-        ancestor = _ancestor;
-        abstractMethod = _abstractMethod;
     }
 
+    public String getFormClassName() {
+        return formClassName;
+    }
     public Argument getInstanceCall() {
         return instanceCall;
     }
@@ -40,28 +34,14 @@ public class LambdaMethodStruct implements Struct {
         instanceCall = _instanceCall;
     }
 
-    public String getFormClassName() {
-        return formClassName;
-    }
-
-    public MethodId getFid() {
+    public ConstructorId getFid() {
         return fid;
-    }
-
-    public boolean isPolymorph() {
-        return polymorph;
     }
 
     public boolean isShiftInstance() {
         return shiftInstance;
     }
 
-    public int getAncestor() {
-        return ancestor;
-    }
-    public boolean isAbstractMethod() {
-        return abstractMethod;
-    }
     @Override
     public boolean isNull() {
         return false;
@@ -96,5 +76,4 @@ public class LambdaMethodStruct implements Struct {
     public ObjectMap<ClassField, Struct> getFields() {
         return null;
     }
-
 }

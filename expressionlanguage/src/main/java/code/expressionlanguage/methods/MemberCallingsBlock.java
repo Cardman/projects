@@ -68,6 +68,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             return;
         }
         while (true) {
+            _cont.getAnalyzing().setCurrentBlock(en_);
             en_.setAssignmentBefore(_cont, anEl_);
             en_.reach(_cont, anEl_);
             if (!anEl_.isReachable(en_)) {
@@ -133,6 +134,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 }
                 BracedBlock par_;
                 par_ = en_.getParent();
+                _cont.getAnalyzing().setCurrentBlock(par_);
                 par_.abrupt(_cont, anEl_);
                 par_.abruptGroup(_cont, anEl_);
                 par_.setAssignmentAfter(_cont, anEl_);

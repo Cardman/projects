@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -13,6 +14,7 @@ import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class NamePartType extends LeafPartType {
 
@@ -174,7 +176,7 @@ public final class NamePartType extends LeafPartType {
 
     @Override
     public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
-            RowCol _location) {
+            boolean _exact, RowCol _location) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -192,7 +194,7 @@ public final class NamePartType extends LeafPartType {
                 if (par_.isRemovedBefore()) {
                     String type_ = getTypeName();
                     RootBlock c = (RootBlock)_rooted;
-                    StringList allPossibleDirectSuperTypes_ = new StringList();
+                    StringMap<String> allPossibleDirectSuperTypes_ = new StringMap<String>();
                     CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
                     StringList allAncestors_ = new StringList();
                     RootBlock p_ = c;
@@ -202,6 +204,9 @@ public final class NamePartType extends LeafPartType {
                         p_ = p_.getParentType();
                     }
                     for (String a: allAncestors_) {
+                        GeneType g_ = _an.getClassBody(a);
+                        String genStr_ = g_.getGenericString();
+                        String f_ = Templates.format(_globalType, genStr_, _an);
                         StringList c_ = new StringList(a);
                         while (true) {
                             StringList new_ = new StringList();
@@ -217,7 +222,7 @@ public final class NamePartType extends LeafPartType {
                                     }
                                     RootBlock inner_ = (RootBlock) b;
                                     if (StringList.quickEq(inner_.getName(), type_)) {
-                                        allPossibleDirectSuperTypes_.add(s);
+                                        allPossibleDirectSuperTypes_.put(s,f_);
                                         innersCandidates_.add(inner_);
                                         add_ = true;
                                     }
@@ -235,20 +240,24 @@ public final class NamePartType extends LeafPartType {
                             }
                             c_ = new_;
                         }
+                        if (allPossibleDirectSuperTypes_.size() == 1) {
+                            break;
+                        }
                     }
-                    allPossibleDirectSuperTypes_.removeDuplicates();
                     if (allPossibleDirectSuperTypes_.size() == 1) {
                         if (innersCandidates_.first().isStaticType()) {
-                            String new_ = allPossibleDirectSuperTypes_.first();
+                            String new_ = allPossibleDirectSuperTypes_.getKey(0);
                             setAnalyzedType(StringList.concat(new_,"..",type_));
                             return;
                         }
-                        if (!Templates.correctNbParameters(_globalType, _an)) {
-                            String new_ = allPossibleDirectSuperTypes_.first();
+                        if (!_exact) {
+                            String new_ = allPossibleDirectSuperTypes_.getKey(0);
                             setAnalyzedType(StringList.concat(new_,"..",type_));
                             return;
                         }
-                        String new_ = Templates.getFullTypeByBases(_globalType, allPossibleDirectSuperTypes_.first(), _an);
+                        String sup_ = allPossibleDirectSuperTypes_.getKey(0);
+                        String sub_ = allPossibleDirectSuperTypes_.getValue(0);
+                        String new_ = Templates.getFullTypeByBases(sub_, sup_, _an);
                         setAnalyzedType(StringList.concat(new_,"..",type_));
                         return;
                     }

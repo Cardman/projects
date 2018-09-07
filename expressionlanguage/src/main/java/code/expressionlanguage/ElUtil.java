@@ -477,7 +477,7 @@ public final class ElUtil {
         if (!(bl_ instanceof ForMutableIterativeLoop)) {
             return false;
         }
-        if (_an.getForLoopPartState() == ForLoopPart.CONDITION) {
+        if (_an.getForLoopPartState() != ForLoopPart.INIT) {
             return false;
         }
         return isDeclaringVariable(_var);
@@ -490,7 +490,7 @@ public final class ElUtil {
         if (!(bl_ instanceof ForMutableIterativeLoop)) {
             return false;
         }
-        if (_an.getForLoopPartState() == ForLoopPart.CONDITION) {
+        if (_an.getForLoopPartState() != ForLoopPart.INIT) {
             return false;
         }
         return isDeclaringVariable(_par);
@@ -564,11 +564,20 @@ public final class ElUtil {
         }
         return false;
     }
+    public static boolean checkFinalVar(Analyzable _conf, Assignment _ass) {
+        if (!_ass.isUnassignedAfter()) {
+            return true;
+        }
+        return stepForLoop(_conf);
+    }
     public static boolean checkFinalField(Analyzable _conf, SettableAbstractFieldOperation _cst, StringMap<Assignment> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
         ClassField cl_ = _cst.getFieldId();
         if (cl_ == null) {
             return false;
+        }
+        if (stepForLoop(_conf)) {
+            return true;
         }
         boolean checkFinal_ = false;
         if (_conf.isAssignedFields()) {
@@ -592,6 +601,14 @@ public final class ElUtil {
             }
         }
         return checkFinal_;
+    }
+    public static boolean stepForLoop(Analyzable _conf) {
+        if (_conf.getCurrentBlock() instanceof ForMutableIterativeLoop) {
+            if (_conf.getForLoopPartState() == ForLoopPart.STEP) {
+                return true;
+            }
+        }
+        return false;
     }
     public static CustList<OperationNode> getDirectChildren(OperationNode _element) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();

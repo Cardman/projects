@@ -155,6 +155,7 @@ public abstract class SettableAbstractFieldOperation extends
             for (int i = 0; i < anc; i++) {
                 previous_.setStruct(previous_.getStruct().getParent());
             }
+            previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
         }
         return InvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
     }
@@ -568,6 +569,7 @@ public abstract class SettableAbstractFieldOperation extends
             for (int i = 0; i < anc; i++) {
                 previous_.setStruct(previous_.getStruct().getParent());
             }
+            previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
         }
         //Come from code directly so constant static fields can be initialized here
         return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
@@ -614,6 +616,7 @@ public abstract class SettableAbstractFieldOperation extends
         for (int i = 0; i < anc; i++) {
             previous_.setStruct(previous_.getStruct().getParent());
         }
+        previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
         left_.setStruct(_store);
         fieldType_ = _store.getClassName(_conf);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
@@ -686,6 +689,7 @@ public abstract class SettableAbstractFieldOperation extends
         for (int i = 0; i < anc; i++) {
             previous_.setStruct(previous_.getStruct().getParent());
         }
+        previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
         left_.setStruct(_store);
         fieldType_ = _store.getClassName(_conf);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
