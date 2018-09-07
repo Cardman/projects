@@ -1009,11 +1009,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     }
                     dims_.add(dim_);
                 }
-                if (StringList.quickEq(forId_, _conf.getStandards().getAliasVoid())) {
+                String c_ = forId_.substring(ARR.length());
+                if (StringList.quickEq(c_, _conf.getStandards().getAliasVoid())) {
                     _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),lgNames_.getAliasClassNotFoundError()));
                     return result_;
                 }
-                result_.setStruct(PrimitiveTypeUtil.newCustomArray(forId_, dims_, _conf));
+                result_.setStruct(PrimitiveTypeUtil.newCustomArray(c_, dims_, _conf));
                 return result_;
             }
             ConstructorId cid_ = l_.getFid();

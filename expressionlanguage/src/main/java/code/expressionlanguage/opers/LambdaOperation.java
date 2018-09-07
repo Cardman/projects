@@ -200,6 +200,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
+            String idClass_ = Templates.getIdFromAllTypes(cl_);
             StringMap<String> ownersMap_ = new StringMap<String>();
             for (String o: previousResultClass.getNames()) {
                 StringList ids_ = new StringList(Templates.getIdFromAllTypes(o));
@@ -218,7 +219,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                                 continue;
                             }
                             RootBlock inner_ = (RootBlock) b;
-                            if (StringList.quickEq(inner_.getName(), cl_)) {
+                            if (StringList.quickEq(inner_.getName(), idClass_)) {
                                 owners_.add(s);
                                 add_ = true;
                             }

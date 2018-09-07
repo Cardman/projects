@@ -978,8 +978,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int field:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  Ex instance = $new Ex():\n");
         xml_.append("  instance;.field=14i:\n");
         xml_.append("  $Fct<$int> f = instance;.$lambda(Ex,$that,get):\n");
@@ -1017,8 +1015,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int field:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  Ex instance = $new Ex():\n");
         xml_.append("  instance;.field=14i:\n");
         xml_.append("  $Fct<$int> f = instance;.$lambda(Ex,$classchoice,get):\n");
@@ -1062,8 +1058,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex:ExTwo {\n");
         xml_.append(" $public $int field:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  Ex instance = $new Ex():\n");
         xml_.append("  instance;.field=14i:\n");
         xml_.append("  $Fct<$int> f = instance;.$lambda(Ex,$super,get):\n");
@@ -1107,8 +1101,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex:ExTwo {\n");
         xml_.append(" $public $int field:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  Ex instance = $new Ex():\n");
         xml_.append("  instance;.field=14i:\n");
         xml_.append("  $Fct<$int> f = instance;.$lambda(ExTwo,get):\n");
@@ -1150,8 +1142,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex:ExTwo {\n");
         xml_.append(" $public $int field:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  Ex instance = $new Ex():\n");
         xml_.append("  instance;.field=14i:\n");
         xml_.append("  $Fct<$int> f = instance;.$lambda(ExTwo,get):\n");
@@ -1189,8 +1179,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int field:\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  $Fct<Ex> c = $lambda(Ex,$new):\n");
         xml_.append("  Ex instance = c;.call():\n");
         xml_.append("  instance;.field=14i:\n");
@@ -1223,8 +1211,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  $Fct<Ex,Ex..Inner> c = $lambda(Ex..Inner,$new):\n");
         xml_.append("  Ex..Inner instance = c;.call($new Ex()):\n");
         xml_.append("  instance;.field=14i:\n");
@@ -1254,8 +1240,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  $Fct<Ex..Inner> c = $new Ex().$lambda(Inner,$new):\n");
         xml_.append("  Ex..Inner instance = c;.call():\n");
         xml_.append("  instance;.field=14i:\n");
@@ -1288,8 +1272,6 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $long t:\n");
-        xml_.append("  t;.=8:\n");
         xml_.append("  $Fct<$int,Ex..Inner> c = $new Ex().$lambda(Inner,$new,$int):\n");
         xml_.append("  Ex..Inner instance = c;.call(14i):\n");
         xml_.append("  $return instance;.get():\n");
@@ -1305,6 +1287,59 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument37Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public {} $class Inner<#T> {\n");
+        xml_.append("  $public $int field:\n");
+        xml_.append("  $public($int p){\n");
+        xml_.append("   field;;;=p;.;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $public $normal $int get(){\n");
+        xml_.append("   $return field;;;:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<$int,Ex..Inner<java.lang.String>> c = $new Ex().$lambda(Inner<java.lang.String>,$new,$int):\n");
+        xml_.append("  Ex..Inner<java.lang.String> instance = c;.call(14i):\n");
+        xml_.append("  $return instance;.get():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument38Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $Fct<$int,[java.lang.String> c = $lambda([java.lang.String,$new,$int):\n");
+        xml_.append("  [java.lang.String instance = c;.call(1i):\n");
+        xml_.append("  $return instance;.length:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, (Number)ret_.getObject());
     }
     @Test
     public void calculateArgument1FailTest() {
