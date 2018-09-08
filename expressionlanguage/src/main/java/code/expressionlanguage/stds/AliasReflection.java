@@ -224,6 +224,9 @@ public class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasDefaultInstance, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasObject_);
+        method_ = new StandardMethod(aliasDefaultInstance, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_);
         method_ = new StandardMethod(aliasEnumValueOf, params_, aliasEnum_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -1102,6 +1105,28 @@ public class AliasReflection {
                 methods_ = cl_.getMethodsInfos();
                 String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasMethod_);
                 if (args_.length == 0) {
+                    if (cl_.isTypeArray()) {
+                        String instClassName_ = cl_.getName();
+                        MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
+                        String ret_ = instClassName_;
+                        AccessEnum acc_ = AccessEnum.PUBLIC;
+                        String formatRet_;
+                        MethodId fid_ = id_;
+                        String idCl_ = Templates.getIdFromAllTypes(instClassName_);
+                        String formCl_;
+                        if (Templates.correctNbParameters(instClassName_, _cont)) {
+                            formatRet_ = instClassName_;
+                            formCl_ = instClassName_;
+                        } else {
+                            formatRet_ = idCl_;
+                            formCl_ = idCl_;
+                        }
+                        Struct[] methodsArr_ = new Struct[1];
+                        methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, fid_, formatRet_, formCl_);
+                        ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                        result_.setResult(str_);
+                        return result_;
+                    }
                     Struct[] methodsArr_ = new Struct[methods_.size()];
                     int index_ = 0;
                     for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
@@ -1118,6 +1143,34 @@ public class AliasReflection {
                 StringList classesNames_ = new StringList();
                 for (Struct s: ((Struct[])args_[3].getInstance())) {
                     classesNames_.add(((ClassMetaInfo)s).getName());
+                }
+                if (cl_.isTypeArray()) {
+                    if (static_ || vararg_ || !classesNames_.isEmpty() || !StringList.quickEq(methodName_, lgNames_.getAliasClone())) {
+                        Struct[] methodsArr_ = new Struct[0];
+                        ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                        result_.setResult(str_);
+                        return result_;
+                    }
+                    String instClassName_ = cl_.getName();
+                    MethodId id_ = new MethodId(false, lgNames_.getAliasClone(), new StringList());
+                    String ret_ = instClassName_;
+                    AccessEnum acc_ = AccessEnum.PUBLIC;
+                    String formatRet_;
+                    MethodId fid_ = id_;
+                    String idCl_ = Templates.getIdFromAllTypes(instClassName_);
+                    String formCl_;
+                    if (Templates.correctNbParameters(instClassName_, _cont)) {
+                        formatRet_ = instClassName_;
+                        formCl_ = instClassName_;
+                    } else {
+                        formatRet_ = idCl_;
+                        formCl_ = idCl_;
+                    }
+                    Struct[] methodsArr_ = new Struct[1];
+                    methodsArr_[0] = new MethodMetaInfo(acc_, idCl_, id_, MethodModifier.FINAL, ret_, fid_, formatRet_, formCl_);
+                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
                 }
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();

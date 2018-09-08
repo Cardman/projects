@@ -15,11 +15,13 @@ import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StaticAccessError;
+import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
@@ -107,15 +109,24 @@ public final class FctOperation extends InvokingOperation {
             staticChoiceMethod_ = true;
         }
         boolean cloneArray_ = false;
-        if (StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
-            for (String b: bounds_) {
-                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
-                    cloneArray_ = true;
-                    break;
-                }
+        for (String b: bounds_) {
+            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                cloneArray_ = true;
+                break;
             }
         }
         if (cloneArray_) {
+            if (!StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
+                StringList classesNames_ = new StringList();
+                UndefinedMethodError undefined_ = new UndefinedMethodError();
+                MethodModifier mod_ = MethodModifier.FINAL;
+                undefined_.setClassName(bounds_);
+                undefined_.setId(new MethodId(mod_, trimMeth_, classesNames_));
+                undefined_.setFileName(_conf.getCurrentFileName());
+                undefined_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(undefined_);
+                return;
+            }
             StringList a_ = new StringList();
             for (String b: bounds_) {
                 if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
@@ -126,14 +137,12 @@ public final class FctOperation extends InvokingOperation {
             MethodId id_ = new MethodId(false, trimMeth_, new StringList());
             classMethodId = new ClassMethodId(foundClass_, id_);
             setResultClass(new ClassArgumentMatching(a_));
-            if (isIntermediateDottedOperation() && !staticMethod) {
-                Argument arg_ = getPreviousArgument();
-                if (Argument.isNullValue(arg_)) {
-                    StaticAccessError static_ = new StaticAccessError();
-                    static_.setFileName(_conf.getCurrentFileName());
-                    static_.setRc(_conf.getCurrentLocation());
-                    _conf.getClasses().addError(static_);
-                }
+            Argument arg_ = getPreviousArgument();
+            if (Argument.isNullValue(arg_)) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(static_);
             }
             return;
         }
@@ -327,6 +336,14 @@ public final class FctOperation extends InvokingOperation {
             }
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(classNameFound_, prev_.getStruct(), _conf));
+            if (prev_.getStruct().isArray()) {
+                int offLoc_ = -1;
+                if (!chidren_.isEmpty()) {
+                    offLoc_ = chidren_.last().getIndexInEl() + getOperations().getDelimiter().getIndexBegin();
+                }
+                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
+                return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
+            }
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());

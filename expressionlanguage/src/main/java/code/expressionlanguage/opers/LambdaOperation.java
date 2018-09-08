@@ -19,6 +19,7 @@ import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.IllegalCallCtorByType;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.methods.util.VarargError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -29,6 +30,7 @@ import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.LambdaConstructorStruct;
 import code.expressionlanguage.opers.util.LambdaMethodStruct;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -341,6 +343,54 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 arg_ = _conf.resolveCorrectType(type_);
                 methodTypes_.add(new ClassArgumentMatching(arg_));
             }
+            boolean cloneArray_ = false;
+            for (String b: str_) {
+                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                    cloneArray_ = true;
+                    break;
+                }
+            }
+            if (cloneArray_) {
+                if (!StringList.quickEq(name_, stds_.getAliasClone())) {
+                    StringList classesNames_ = new StringList();
+                    UndefinedMethodError undefined_ = new UndefinedMethodError();
+                    MethodModifier mod_ = MethodModifier.FINAL;
+                    undefined_.setClassName(str_);
+                    undefined_.setId(new MethodId(mod_, name_, classesNames_));
+                    undefined_.setFileName(_conf.getCurrentFileName());
+                    undefined_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(undefined_);
+                    return;
+                }
+                StringList a_ = new StringList();
+                for (String b: str_) {
+                    if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                        a_.add(b);
+                        foundClass = b;
+                    }
+                }
+                String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject());
+                MethodId id_ = new MethodId(false, name_, new StringList());
+                method = new ClassMethodId(foundClass_, id_);
+                shiftArgument = true;
+                StringBuilder fct_ = new StringBuilder(stds_.getAliasFct());
+                fct_.append(Templates.TEMPLATE_BEGIN);
+                fct_.append(foundClass);
+                fct_.append(Templates.TEMPLATE_SEP);
+                fct_.append(foundClass);
+                fct_.append(Templates.TEMPLATE_END);
+                setResultClass(new ClassArgumentMatching(fct_.toString()));
+                if (isIntermediateDottedOperation()) {
+                    Argument arg_ = getPreviousArgument();
+                    if (Argument.isNullValue(arg_)) {
+                        StaticAccessError static_ = new StaticAccessError();
+                        static_.setFileName(_conf.getCurrentFileName());
+                        static_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(static_);
+                    }
+                }
+                return;
+            }
             ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, false, str_, name_, accessSuper_, accessFromSuper_, false, ClassArgumentMatching.toArgArray(methodTypes_));
             if (!id_.isFoundMethod()) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -471,6 +521,51 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             bounds_.addAllElts(InvokingOperation.getBounds(c, _conf));
+        }
+        boolean cloneArray_ = false;
+        for (String b: bounds_) {
+            if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                cloneArray_ = true;
+                break;
+            }
+        }
+        if (cloneArray_) {
+            if (!StringList.quickEq(name_, stds_.getAliasClone())) {
+                StringList classesNames_ = new StringList();
+                UndefinedMethodError undefined_ = new UndefinedMethodError();
+                MethodModifier mod_ = MethodModifier.FINAL;
+                undefined_.setClassName(bounds_);
+                undefined_.setId(new MethodId(mod_, name_, classesNames_));
+                undefined_.setFileName(_conf.getCurrentFileName());
+                undefined_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(undefined_);
+                return;
+            }
+            StringList a_ = new StringList();
+            for (String b: bounds_) {
+                if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
+                    a_.add(b);
+                    foundClass = b;
+                }
+            }
+            String foundClass_ = PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject());
+            MethodId id_ = new MethodId(false, name_, new StringList());
+            method = new ClassMethodId(foundClass_, id_);
+            StringBuilder fct_ = new StringBuilder(stds_.getAliasFct());
+            fct_.append(Templates.TEMPLATE_BEGIN);
+            fct_.append(foundClass);
+            fct_.append(Templates.TEMPLATE_END);
+            setResultClass(new ClassArgumentMatching(fct_.toString()));
+            if (isIntermediateDottedOperation()) {
+                Argument arg_ = getPreviousArgument();
+                if (Argument.isNullValue(arg_)) {
+                    StaticAccessError static_ = new StaticAccessError();
+                    static_.setFileName(_conf.getCurrentFileName());
+                    static_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(static_);
+                }
+            }
+            return;
         }
         Mapping map_ = new Mapping();
         map_.setArg(new ClassArgumentMatching(bounds_));

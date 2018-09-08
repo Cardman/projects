@@ -20,6 +20,7 @@ public abstract class ProcessMethodCommon {
     protected static final String CUST = NUMBERS;
     protected static final String INTEGER = "java.lang.Integer";
     protected static final String STRING = "java.lang.String";
+    protected static final String BOOLEAN = "java.lang.Boolean";
 
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),_method.getParametersTypes());

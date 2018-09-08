@@ -151,7 +151,29 @@ public final class PrimitiveTypeUtil {
         }
         StringList superTypesFirst_ = getSuperTypesSet(_first, _vars, _conf);
         StringList superTypesSecond_ = getSuperTypesSet(_second, _vars, _conf);
-        StringList ints_ = superTypesFirst_.intersect(superTypesSecond_);
+        StringList superTypesFirstAdj_ = new StringList(superTypesFirst_);
+        StringList superTypesSecondAdj_ = new StringList(superTypesSecond_);
+        for (String f: superTypesFirstAdj_) {
+            for (String s: superTypesSecondAdj_) {
+                Mapping map_ = new Mapping();
+                map_.setArg(s);
+                map_.setParam(f);
+                map_.setMapping(_vars);
+                if (Templates.isCorrect(map_, _conf)) {
+                    superTypesSecondAdj_.add(f);
+                }
+                map_ = new Mapping();
+                map_.setArg(f);
+                map_.setParam(s);
+                map_.setMapping(_vars);
+                if (Templates.isCorrect(map_, _conf)) {
+                    superTypesFirstAdj_.add(s);
+                }
+            }
+        }
+        superTypesSecondAdj_.removeDuplicates();
+        superTypesFirstAdj_.removeDuplicates();
+        StringList ints_ = superTypesFirstAdj_.intersect(superTypesSecondAdj_);
         StringMap<String> basesGene_ = new StringMap<String>();
         StringList bases_ = new StringList();
         for (String l: ints_) {

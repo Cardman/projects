@@ -66,7 +66,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public final void analyze(Analyzable _conf) {
         String clCurName_ = _conf.getGlobalClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);

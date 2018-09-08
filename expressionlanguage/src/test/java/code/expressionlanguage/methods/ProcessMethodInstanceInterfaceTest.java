@@ -10,6 +10,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -2440,7 +2441,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
-        xml_.append("   $case($static(pkg.Ex).ONE;;;){\n");
+        xml_.append("   $case(ONE){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2486,7 +2487,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
-        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
+        xml_.append("   $case(TWO){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2533,7 +2534,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
+        xml_.append("   $case(TWO){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2582,7 +2583,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("   $default{\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
-        xml_.append("   $case(TWO;;;):\n");
+        xml_.append("   $case(TWO):\n");
         xml_.append("  }\n");
         xml_.append("  $return $values(pkg.Ex).length+r;.:\n");
         xml_.append(" }\n");
@@ -2626,9 +2627,9 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("  pkg.Ex var = $static(pkg.Ex).ONE;;;:\n");
         xml_.append("  $int r = 0i:\n");
         xml_.append("  $switch(var;.){\n");
-        xml_.append("   $case($static(pkg.Ex).ONE;;;):\n");
+        xml_.append("   $case(ONE):\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
+        xml_.append("   $case(TWO){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2678,7 +2679,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("    r;. = 2i:\n");
         xml_.append("   }\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
+        xml_.append("   $case(TWO){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2729,7 +2730,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("    $break:\n");
         xml_.append("   }\n");
         xml_.append("   $default:\n");
-        xml_.append("   $case($static(pkg.Ex).TWO;;;){\n");
+        xml_.append("   $case(TWO){\n");
         xml_.append("    r;. = 1i:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -3408,5 +3409,95 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct intern_ = elt_.getFields().getVal(new ClassField("pkg.ExThree", "ance"));
         assertEq(INTEGER, intern_.getClassName(cont_));
         assertEq(17, (Number)intern_.getInstance());
+    }
+    @Test
+    public void calculateArgument113Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final $int CST = 8i:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case($static(Ex).CST;;;){\n");
+        xml_.append("    t;.=10:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(11, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument114Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $final $int CST = 8i:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $switch(t;.){\n");
+        xml_.append("   $case(CST;;;){\n");
+        xml_.append("    t;.=10:\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(11, (Number)ret_.getObject());
+    }
+    @Test
+    public void instanceArgumentFailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO:\n");
+        xml_.append(" $public $int first:\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first;;;=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first;;;=5i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int doubleValue(){\n");
+        xml_.append("  pkg.Ex var = $static(pkg.Ex).TWO;;;:\n");
+        xml_.append("  $int r = 0i:\n");
+        xml_.append("  $switch(var;.){\n");
+        xml_.append("   $default{\n");
+        xml_.append("    r;. = 1i:\n");
+        xml_.append("   }\n");
+        xml_.append("   $case(TWO;;;):\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $values(pkg.Ex).length+r;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue():\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
 }

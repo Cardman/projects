@@ -366,4 +366,178 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(25, (Number)ret_.getObject());
     }
+
+    @Test
+    public void calculateArgument1013Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
+        xml_.append("  $int test = 5i:\n");
+        xml_.append("  $if (test;. = 6i & exmeth(str;.,test;.)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return str;.length():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean exmeth(java.lang.StringBuilder p, $int cst){\n");
+        xml_.append("  p;.;append(\"feed\"):\n");
+        xml_.append("  $return cst;.; > 3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument1014Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
+        xml_.append("  $int test = 3i:\n");
+        xml_.append("  $if (test;. = 3i & exmeth(str;.,test;.)){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return str;.length():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean exmeth(java.lang.StringBuilder p, $int cst){\n");
+        xml_.append("  p;.;append(\"feed\"):\n");
+        xml_.append("  $return cst;.; > 3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(4, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument1015Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
+        xml_.append("  $int test = 4i:\n");
+        xml_.append("  $if (test;. = 4i & exmeth(str;.,test;.)){\n");
+        xml_.append("   $return 1i+str;.length():\n");
+        xml_.append("  }\n");
+        xml_.append("  $return str;.length():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean exmeth(java.lang.StringBuilder p, $int cst){\n");
+        xml_.append("  p;.;append(\"feed\"):\n");
+        xml_.append("  $return cst;.; > 3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(5, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument1016Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
+        xml_.append("  $int test = 6i:\n");
+        xml_.append("  $if (test;. = 6i | exmeth(str;.,test;.)){\n");
+        xml_.append("   $return 1i+str;.length():\n");
+        xml_.append("  }\n");
+        xml_.append("  $return str;.length():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean exmeth(java.lang.StringBuilder p, $int cst){\n");
+        xml_.append("  p;.;append(\"feed\"):\n");
+        xml_.append("  $return cst;.; > 3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(1, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument1017Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
+        xml_.append("  $int test = 6i:\n");
+        xml_.append("  $if (test;. = 3i | exmeth(str;.,test;.)){\n");
+        xml_.append("   $return 1i+str;.length():\n");
+        xml_.append("  }\n");
+        xml_.append("  $return str;.length():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean exmeth(java.lang.StringBuilder p, $int cst){\n");
+        xml_.append("  p;.;append(\"feed\"):\n");
+        xml_.append("  $return cst;.; > 3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(5, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument1018Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
+        xml_.append("  $int test = -4i:\n");
+        xml_.append("  $if (test;. = -3i | exmeth(str;.,test;.)){\n");
+        xml_.append("   $return 1i+str;.length():\n");
+        xml_.append("  }\n");
+        xml_.append("  $return str;.length():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean exmeth(java.lang.StringBuilder p, $int cst){\n");
+        xml_.append("  p;.;append(\"feed\"):\n");
+        xml_.append("  $return cst;.; > 3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(4, (Number)ret_.getObject());
+    }
 }

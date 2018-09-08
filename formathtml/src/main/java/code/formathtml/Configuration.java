@@ -1056,4 +1056,13 @@ public class Configuration implements ExecutableCode {
         context.putMutableLoopVar(_string);
     }
 
+    @Override
+    public String getLookLocalClass() {
+        return context.getLookLocalClass();
+    }
+
+    @Override
+    public void setLookLocalClass(String _lookLocalClass) {
+        context.setLookLocalClass(_lookLocalClass);
+    }
 }

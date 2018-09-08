@@ -9,6 +9,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
@@ -140,9 +141,10 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
             _cont.getClasses().addError(un_);
         } else {
             String exp_ = names_.first();
-            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(exp_, _cont)) {
-                if (!StringList.quickEq(exp_, _cont.getStandards().getAliasString())) {
-                    if (!(_cont.getClassBody(exp_) instanceof EnumBlock)) {
+            String id_ = Templates.getIdFromAllTypes(exp_);
+            if (!PrimitiveTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
+                if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
+                    if (!(_cont.getClassBody(id_) instanceof EnumBlock)) {
                         UnexpectedTypeError un_ = new UnexpectedTypeError();
                         un_.setFileName(getFile().getFileName());
                         un_.setRc(getRowCol(0, valueOffset));

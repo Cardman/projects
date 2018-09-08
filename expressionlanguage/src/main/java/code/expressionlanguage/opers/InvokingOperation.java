@@ -671,11 +671,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (!_methodId.isStaticMethod()) {
             String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
             String classFormat_ = _classNameFound;
-            classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
-            if (classFormat_ == null) {
+            Mapping map_ = new Mapping();
+            map_.setArg(className_);
+            map_.setParam(_classNameFound);
+            if (!Templates.isCorrect(map_, _conf)) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
                 Argument a_ = new Argument();
                 return a_;
+            }
+            if (!_previous.getStruct().isArray()) {
+                classFormat_ = Templates.getFullTypeByBases(className_, classFormat_, _conf);
             }
             int i_ = 0;
             for (String c: _methodId.getParametersTypes()) {
@@ -869,6 +874,36 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     }
                 } else {
                     need_.add(type_);
+                }
+                if (!_firstArgs.isEmpty()) {
+                    Struct par_ = _firstArgs.first().getStruct();
+                    if (type_.isStaticType()) {
+                        par_ = NullStruct.NULL_VALUE;
+                    } else {
+                        if (par_.isNull()) {
+                            String null_;
+                            null_ = stds_.getAliasNullPe();
+                            cont_.setException(new StdStruct(new CustomError(cont_.joinPages()),null_));
+                            return Argument.createVoid();
+                        }
+                        String argCl_ = par_.getClassName(cont_);
+                        StringList inners_ = Templates.getAllInnerTypes(className_);
+                        String param_ = inners_.mid(0, inners_.size() - 1).join("..");
+                        Mapping map_ = new Mapping();
+                        map_.setArg(argCl_);
+                        map_.setParam(param_);
+                        if (!Templates.isCorrect(map_, cont_)) {
+                            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                            return Argument.createVoid();
+                        }
+                    }
+                    Initializer in_ = cont_.getInit();
+                    String genStr_ = type_.getGenericString();
+                    String form_ = Templates.format(className_, genStr_, cont_);
+                    par_ = in_.processInit(cont_, par_, form_, EMPTY_STRING, 0);
+                    Argument a_ = new Argument();
+                    a_.setStruct(par_);
+                    return a_;
                 }
                 Struct parent_ = NullStruct.NULL_VALUE;
                 Initializer in_ = cont_.getInit();

@@ -2142,4 +2142,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public void putMutableLoopVar(String _string) {
         analyzing.putMutableLoopVar(_string);
     }
+
+    @Override
+    public String getLookLocalClass() {
+        return analyzing.getLookLocalClass();
+    }
+
+    @Override
+    public void setLookLocalClass(String _lookLocalClass) {
+        analyzing.setLookLocalClass(_lookLocalClass);
+    }
 }

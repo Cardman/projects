@@ -82,6 +82,7 @@ public final class AnalyzedPageEl {
     private ForLoopPart forLoopPart;
     private AnalyzingEl analysisAss;
     private boolean annotAnalysis;
+    private String lookLocalClass = "";
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -601,5 +602,11 @@ public final class AnalyzedPageEl {
     }
     public StringList getLastMutableLoopVarsInfers() {
         return mutableLocalVarsInfers.last();
+    }
+    public String getLookLocalClass() {
+        return lookLocalClass;
+    }
+    public void setLookLocalClass(String _lookLocalClass) {
+        lookLocalClass = _lookLocalClass;
     }
 }

@@ -44,7 +44,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
                 return false;
             }
-            if (method_.isPolymorph() && !method_.isStatic()) {
+            if (method_.isPolymorph() && !method_.isStatic() && !method_.getClassName().startsWith("[")) {
                 Struct instance_ = getArguments().first().getStruct();
                 ClassMethodId clId_ = new ClassMethodId(method_.getClassName(), method_.getRealId());
                 methodToCall = InvokingOperation.polymorph(_context, instance_, clId_);

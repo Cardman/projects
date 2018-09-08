@@ -6492,6 +6492,56 @@ public final class ElRenderUtilTest {
         assertEq(4, (Number)op_.getArgument().getObject());
     }
     @Test
+    public void processEl306Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke(\"\")",0, context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertNotNull(context_.getContext().getException());
+    }
+    @Test
+    public void processEl307Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.Number[]())",0, context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertNotNull(context_.getContext().getException());
+    }
+    @Test
+    public void processEl308Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.String[]())",0, context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(arg_.getStruct().isArray());
+        assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
+        assertEq(0,((Struct[])arg_.getStruct().getInstance()).length);
+    }
+    @Test
+    public void processEl309Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.String[](\"sample\"))",0, context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(arg_.getStruct().isArray());
+        assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
+        assertEq(1,((Struct[])arg_.getStruct().getInstance()).length);
+        assertEq("java.lang.String",((Struct[])arg_.getStruct().getInstance())[0].getClassName(context_));
+        assertEq("sample",(String)((Struct[])arg_.getStruct().getInstance())[0].getInstance());
+    }
+    @Test
+    public void processEl310Test() {
+        Configuration context_ = contextEl(true,false,false);
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.Object).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.String[](\"sample\"))",0, context_);
+        assertTrue(context_.getClasses().isEmptyErrors());
+        assertTrue(arg_.getStruct().isArray());
+        assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
+        assertEq(1,((Struct[])arg_.getStruct().getInstance()).length);
+        assertEq("java.lang.String",((Struct[])arg_.getStruct().getInstance())[0].getClassName(context_));
+        assertEq("sample",(String)((Struct[])arg_.getStruct().getInstance())[0].getInstance());
+    }
+    @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);

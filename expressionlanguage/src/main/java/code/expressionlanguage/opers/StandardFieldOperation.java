@@ -22,7 +22,12 @@ public final class StandardFieldOperation extends
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
-            cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
+            String look_ = _conf.getLookLocalClass();
+            if (look_.isEmpty()) {
+                cl_ = new ClassArgumentMatching(_conf.getGlobalClass());
+            } else {
+                cl_ = new ClassArgumentMatching(look_);
+            }
         }
         if (cl_ == null || cl_.isUndefined()) {
             StaticAccessError static_ = new StaticAccessError();
