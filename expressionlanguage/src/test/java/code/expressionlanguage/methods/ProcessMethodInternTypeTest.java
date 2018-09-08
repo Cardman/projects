@@ -1155,7 +1155,42 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
     }
-
+    @Test
+    public void calculateArgument21Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $annotation pkg.Outer {\n");
+        xml_.append(" $class Inner<#A> {\n");
+        xml_.append("  $public #A field = $(#A)\"sample\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int method(){\n");
+        xml_.append("  Outer..Inner<java.lang.String> v:\n");
+        xml_.append("  v;. = $new Outer..Inner<java.lang.String>():\n");
+        xml_.append("  $if ($static($Class).getClass(v;.).getName() != \"pkg.Outer..Inner<java.lang.String>\") {\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (v;.field != \"sample\") {\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
     @Test
     public void calculateArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
