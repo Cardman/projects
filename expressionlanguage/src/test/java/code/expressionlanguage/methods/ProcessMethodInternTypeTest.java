@@ -971,6 +971,70 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         assertEq(0, (Number)ret_.getObject());
     }
     @Test
+    public void calculateArgument18Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append(" $public {} $static $class Inner {\n");
+        xml_.append("  $public {} $class InnerEx {\n");
+        xml_.append("   $public java.lang.String innerField = $static($Class).getClass($static(pkg.Outer..Inner).$this).getName():\n");
+        xml_.append("  }\n");
+        xml_.append("  $public $static ..Inner..InnerEx field = $new ..Inner().$new InnerEx():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public {} $class InnerTwo:OuterTwo<#C>..InnerThree<#C> {\n");
+        xml_.append(" }\n");
+        xml_.append(" $static{\n");
+        xml_.append("  $class(Outer..Inner).init():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
+        xml_.append(" $public {} $class InnerThree<#F>:OuterThree<#B>..InnerFive<#F> {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public {} $class InnerFour:..InnerThree<#B> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" $public {} $class InnerFive<#E> {\n");
+        xml_.append("  $public {} $class InnerInner<#G> {\n");
+        xml_.append("   $public $normal java.lang.String get(){\n");
+        xml_.append("    $return $static(OuterThree..InnerFive).$this.getLoc():\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $public $normal java.lang.String getLoc(){\n");
+        xml_.append("   $return $static($Class).getClass($this).getName()+CST:\n");
+        xml_.append("  }\n");
+        xml_.append("  $private $static $final java.lang.String CST = \"\":\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int method(){\n");
+        xml_.append("  Outer<java.lang.String>..InnerThree<java.lang.String>..InnerInner<java.lang.String> v:\n");
+        xml_.append("  v;. = $new Outer<java.lang.String>().$new InnerThree<java.lang.String>().$new InnerInner<java.lang.String>():\n");
+        xml_.append("  $if (v;.get() != \"pkgtwo.OuterTwo<java.lang.String>..InnerThree<java.lang.String>\") {\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -1249,5 +1313,98 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateArgument("pkg.Ex", id_, args_, cont_);
         assertNotNull(cont_.getException());
+    }
+    @Test
+    public void calculateArgument8FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" $public {} $class InnerFive<#E> {\n");
+        xml_.append("  $public {} $class InnerInner<#G> {\n");
+        xml_.append("   $public $static java.lang.String get(){\n");
+        xml_.append("    $return $static($Class).getClass($static(OuterThree..InnerFive).$this).getName():\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument9FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" $public {} $class InnerFive<#E> {\n");
+        xml_.append("  $public {} $static $class InnerInner<#G> {\n");
+        xml_.append("   $public $normal java.lang.String get(){\n");
+        xml_.append("    $return $static($Class).getClass($static(OuterThree..InnerFive).$this).getName():\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument10FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" $public {} $static $class InnerFive<#E> {\n");
+        xml_.append("  $public {} $class InnerInner<#G> {\n");
+        xml_.append("   $public $normal java.lang.String get(){\n");
+        xml_.append("    $return $static($Class).getClass($static(OuterThree).$this).getName():\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument11FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" $public {} $static $class InnerFive<#E> {\n");
+        xml_.append("  $public $static java.lang.String get(){\n");
+        xml_.append("   $return $static($Class).getClass($static(..InnerFive).$this).getName():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument12FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" $public {} $static $class InnerFive<#E> {\n");
+        xml_.append("  $public(){\n");
+        xml_.append("   $this($static($Class).getClass($static(..InnerFive).$this).getName()):\n");
+        xml_.append("  }\n");
+        xml_.append("  $public(java.lang.String p){\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl(true,false);
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
 }

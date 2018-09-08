@@ -63,6 +63,29 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             RootBlock r_ = (RootBlock) g_;
             for (RootBlock r: r_.getSelfAndParentTypes().getReverse()) {
                 if (StringList.quickEq(r.getFullName(), id_)) {
+                    if (_conf.isStaticContext()) {
+                        MethodOperation root_ = getParent();
+                        while (true) {
+                            MethodOperation par_ = root_.getParent();
+                            if (par_ == null) {
+                                break;
+                            }
+                            root_ = par_;
+                        }
+                        if (!(root_ instanceof AbstractInvokingConstructor)) {
+                            StaticAccessThisError static_ = new StaticAccessThisError();
+                            static_.setClassName(access_);
+                            static_.setFileName(_conf.getCurrentFileName());
+                            static_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().addError(static_);
+                        } else if (nbAncestors == 0){
+                            StaticAccessThisError static_ = new StaticAccessThisError();
+                            static_.setClassName(access_);
+                            static_.setFileName(_conf.getCurrentFileName());
+                            static_.setRc(_conf.getCurrentLocation());
+                            _conf.getClasses().addError(static_);
+                        }
+                    }
                     String className_ = r.getGenericString();
                     setResultClass(new ClassArgumentMatching(className_));
                     return;

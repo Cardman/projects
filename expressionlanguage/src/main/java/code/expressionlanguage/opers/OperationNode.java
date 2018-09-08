@@ -322,7 +322,7 @@ public abstract class OperationNode {
         }
         if (_op.isCall()) {
             String fctName_ = _op.getFctName().trim();
-            if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall())) {
+            if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall()) && _m != null) {
                 OperationNode ch_ = _m.getFirstChild();
                 if (ch_ != null) {
                     StringList pr_ = ch_.getResultClass().getNames();
