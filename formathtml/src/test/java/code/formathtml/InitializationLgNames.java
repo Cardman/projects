@@ -39,7 +39,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasIterator("iterator");
         _lgNames.setAliasIterable("$iterable");
         _lgNames.setAliasEnumParam("$Enum");
-        _lgNames.setAliasEnum("$enum");
+        _lgNames.setAliasEnum("$en");
         _lgNames.setAliasEnums("$enums");
         _lgNames.setAliasReplacement("code.util.Replacement");
 //        _lgNames.setAliasStore("$badStore");

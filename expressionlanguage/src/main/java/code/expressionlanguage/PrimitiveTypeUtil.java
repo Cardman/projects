@@ -215,7 +215,9 @@ public final class PrimitiveTypeUtil {
                         superTypes_.add(getPrettyArrayType(u, d_ + dLoc_));
                     }
                 }
-                superTypes_.add(getPrettyArrayType(obj_, d_));
+                for (int d = 1; d <= d_; d++) {
+                    superTypes_.add(getPrettyArrayType(obj_, d));
+                }
                 continue;
             }
             if (StringList.quickEq(base_, bool_)) {
@@ -225,7 +227,9 @@ public final class PrimitiveTypeUtil {
                 for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
                     superTypes_.add(getPrettyArrayType(t, d_));
                 }
-                superTypes_.add(getPrettyArrayType(obj_, d_));
+                for (int d = 1; d <= d_; d++) {
+                    superTypes_.add(getPrettyArrayType(obj_, d));
+                }
                 continue;
             }
             if (PrimitiveTypeUtil.isPrimitive(base_, _conf)) {
@@ -241,7 +245,9 @@ public final class PrimitiveTypeUtil {
                         }
                     }
                 }
-                superTypes_.add(getPrettyArrayType(obj_, d_));
+                for (int d = 1; d <= d_; d++) {
+                    superTypes_.add(getPrettyArrayType(obj_, d));
+                }
                 continue;
             }
             String id_ = Templates.getIdFromAllTypes(base_);
@@ -249,7 +255,9 @@ public final class PrimitiveTypeUtil {
             for (String t: TypeUtil.getAllGenericSuperTypes(g_, _conf)) {
                 superTypes_.add(getPrettyArrayType(t, d_));
             }
-            superTypes_.add(getPrettyArrayType(obj_, d_));
+            for (int d = 1; d <= d_; d++) {
+                superTypes_.add(getPrettyArrayType(obj_, d));
+            }
         }
         superTypes_.add(obj_);
         superTypes_.removeDuplicates();

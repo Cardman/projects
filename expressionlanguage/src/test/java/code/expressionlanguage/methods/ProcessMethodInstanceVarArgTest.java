@@ -302,7 +302,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $enum pre=$static(pkg.Ex).TWO;;;:\n");
+        xml_.append(" $public $en pre=$static(pkg.Ex).TWO;;;:\n");
         xml_.append(" $public java.lang.String inst=$static($enums).name(pre;;;):\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
@@ -354,7 +354,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExCont {\n");
-        xml_.append(" $public $enum pre=$static(pkg.Ex).TWO;;;:\n");
+        xml_.append(" $public $en pre=$static(pkg.Ex).TWO;;;:\n");
         xml_.append(" $public $int inst=$static($enums).ordinal(pre;;;):\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());

@@ -1314,7 +1314,187 @@ public class PrimitiveTypeUtilTest {
         assertTrue(res_.containsStr("[java.lang.Object"));
         assertTrue(res_.containsStr("java.lang.Object"));
     }
-    
+    @Test
+    public void getSuperTypesSet23Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[$boolean"), new StringMap<StringList>(), c_);
+        assertEq(5, res_.size());
+        assertTrue(res_.containsStr("[[$boolean"));
+        assertTrue(res_.containsStr("[[java.lang.Boolean"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet24Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[$byte"), new StringMap<StringList>(), c_);
+        assertEq(18, res_.size());
+        assertTrue(res_.containsStr("[[$byte"));
+        assertTrue(res_.containsStr("[[$double"));
+        assertTrue(res_.containsStr("[[java.lang.Double"));
+        assertTrue(res_.containsStr("[[java.lang.Number"));
+        assertTrue(res_.containsStr("[[$float"));
+        assertTrue(res_.containsStr("[[java.lang.Float"));
+        assertTrue(res_.containsStr("[[$long"));
+        assertTrue(res_.containsStr("[[java.lang.Long"));
+        assertTrue(res_.containsStr("[[$int"));
+        assertTrue(res_.containsStr("[[java.lang.Integer"));
+        assertTrue(res_.containsStr("[[$char"));
+        assertTrue(res_.containsStr("[[java.lang.Character"));
+        assertTrue(res_.containsStr("[[$short"));
+        assertTrue(res_.containsStr("[[java.lang.Short"));
+        assertTrue(res_.containsStr("[[java.lang.Byte"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet25Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[$char"), new StringMap<StringList>(), c_);
+        assertEq(14, res_.size());
+        assertTrue(res_.containsStr("[[$char"));
+        assertTrue(res_.containsStr("[[$double"));
+        assertTrue(res_.containsStr("[[java.lang.Double"));
+        assertTrue(res_.containsStr("[[java.lang.Number"));
+        assertTrue(res_.containsStr("[[$float"));
+        assertTrue(res_.containsStr("[[java.lang.Float"));
+        assertTrue(res_.containsStr("[[$long"));
+        assertTrue(res_.containsStr("[[java.lang.Long"));
+        assertTrue(res_.containsStr("[[$int"));
+        assertTrue(res_.containsStr("[[java.lang.Integer"));
+        assertTrue(res_.containsStr("[[java.lang.Character"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet26Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[java.lang.Boolean"), new StringMap<StringList>(), c_);
+        assertEq(4, res_.size());
+        assertTrue(res_.containsStr("[[java.lang.Boolean"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet27Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[java.lang.Byte"), new StringMap<StringList>(), c_);
+        assertEq(5, res_.size());
+        assertTrue(res_.containsStr("[[java.lang.Byte"));
+        assertTrue(res_.containsStr("[[java.lang.Number"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet28Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[java.lang.Character"), new StringMap<StringList>(), c_);
+        assertEq(4, res_.size());
+        assertTrue(res_.containsStr("[[java.lang.Character"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet29Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[pkg.ExThree"), map_, c_);
+        assertEq(4, res_.size());
+        assertTrue(res_.containsStr("[[pkg.ExThree"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet30Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[pkg.ExTwo"), map_, c_);
+        assertEq(5, res_.size());
+        assertTrue(res_.containsStr("[[pkg.ExTwo"));
+        assertTrue(res_.containsStr("[[pkg.ExThree"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet31Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[#T"), map_, c_);
+        assertEq(5, res_.size());
+        assertTrue(res_.containsStr("[[#T"));
+        assertTrue(res_.containsStr("[[java.lang.Number"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet32Test() {
+        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("S", new StringList("#T"));
+        map_.put("T", new StringList("java.lang.Number"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[#S"), map_, c_);
+        assertEq(6, res_.size());
+        assertTrue(res_.containsStr("[[#S"));
+        assertTrue(res_.containsStr("[[#T"));
+        assertTrue(res_.containsStr("[[java.lang.Number"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
+    @Test
+    public void getSuperTypesSet33Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo :pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put("T", new StringList("pkg.ExTwo"));
+        StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[#T"), map_, c_);
+        assertEq(6, res_.size());
+        assertTrue(res_.containsStr("[[#T"));
+        assertTrue(res_.containsStr("[[pkg.ExTwo"));
+        assertTrue(res_.containsStr("[[pkg.ExThree"));
+        assertTrue(res_.containsStr("[[java.lang.Object"));
+        assertTrue(res_.containsStr("[java.lang.Object"));
+        assertTrue(res_.containsStr("java.lang.Object"));
+    }
     @Test
     public void getTernarySubclasses1Test() {
         StringMap<String> files_ = new StringMap<String>();

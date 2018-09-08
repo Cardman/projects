@@ -5842,6 +5842,92 @@ public final class FileResolverTest {
         assertEq(1, countFileTypes(context_));
     }
     @Test
+    public void parseFile74Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer<#T> {\n");
+        file_.append("\t$public $static $class Inner<#T>{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
+        assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block inner_ = cl_.getFirstChild();
+        assertTrue(inner_ instanceof ClassBlock);
+        assertNull(inner_.getNextSibling());
+        assertNull(cl_.getNextSibling());
+        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+    }
+    @Test
+    public void parseFile75Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer<#T> {\n");
+        file_.append("\t$public $static $class Inner<#T>:pkg.Outer<#T>{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
+        assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block inner_ = cl_.getFirstChild();
+        assertTrue(inner_ instanceof ClassBlock);
+        assertNull(inner_.getNextSibling());
+        assertNull(cl_.getNextSibling());
+        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+    }
+    @Test
+    public void parseFile76Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer<#T> {\n");
+        file_.append("\t@Annot\n");
+        file_.append("\t$public $static $class Inner<#T>{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
+        assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block inner_ = cl_.getFirstChild();
+        assertTrue(inner_ instanceof ClassBlock);
+        assertNull(inner_.getNextSibling());
+        assertNull(cl_.getNextSibling());
+        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+    }
+    @Test
+    public void parseFile77Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.Outer<#T> {\n");
+        file_.append("\t@Annot\n");
+        file_.append("\t$public $static $class Inner<#T>:pkg.Outer<#T>{\n");
+        file_.append("\t}\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(2, countCustomTypes(context_));
+        assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
+        assertEq("pkg.Outer..Inner", getCustomTypes(context_,1).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkg.Outer");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        Block inner_ = cl_.getFirstChild();
+        assertTrue(inner_ instanceof ClassBlock);
+        assertNull(inner_.getNextSibling());
+        assertNull(cl_.getNextSibling());
+        assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");

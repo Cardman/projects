@@ -1874,6 +1874,136 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return ret_;
     }
 
+    public static StringList getWhitespaceSeparators(String _str) {
+        if (_str.isEmpty()) {
+            return new StringList();
+        }
+        StringList ret_ = new StringList();
+        boolean wasWordChar_ = false;
+        int i_ = CustList.FIRST_INDEX;
+        StringBuilder str_ = new StringBuilder();
+        while (true) {
+            if (i_ >= _str.length()) {
+                ret_.add(_str);
+                return ret_;
+            }
+            if (!Character.isWhitespace(_str.charAt(i_))) {
+                str_.append(_str.substring(CustList.FIRST_INDEX, i_));
+                break;
+            }
+            i_++;
+        }
+        while (true) {
+            if (i_ >= _str.length()) {
+                ret_.add(str_.toString());
+                break;
+            }
+            char char_ = _str.charAt(i_);
+            if (!Character.isWhitespace(char_)) {
+                if (!wasWordChar_) {
+                    ret_.add(str_.toString());
+                    str_ = new StringBuilder();
+                    wasWordChar_ = true;
+                }
+            } else {
+                if (wasWordChar_) {
+                    ret_.add(str_.toString());
+                    str_ = new StringBuilder();
+                    wasWordChar_ = false;
+                }
+            }
+            str_.append(char_);
+            i_++;
+        }
+        return ret_;
+    }
+    public static StringList getWhitespaceSeparators(StringBuilder _str) {
+        if (_str.length() == 0) {
+            return new StringList();
+        }
+        StringList ret_ = new StringList();
+        boolean wasWordChar_ = false;
+        int i_ = CustList.FIRST_INDEX;
+        StringBuilder str_ = new StringBuilder();
+        while (true) {
+            if (i_ >= _str.length()) {
+                ret_.add(_str.toString());
+                return ret_;
+            }
+            if (!Character.isWhitespace(_str.charAt(i_))) {
+                str_.append(_str.substring(CustList.FIRST_INDEX, i_));
+                break;
+            }
+            i_++;
+        }
+        while (true) {
+            if (i_ >= _str.length()) {
+                ret_.add(str_.toString());
+                break;
+            }
+            char char_ = _str.charAt(i_);
+            if (!Character.isWhitespace(char_)) {
+                if (!wasWordChar_) {
+                    ret_.add(str_.toString());
+                    str_ = new StringBuilder();
+                    wasWordChar_ = true;
+                }
+            } else {
+                if (wasWordChar_) {
+                    ret_.add(str_.toString());
+                    str_ = new StringBuilder();
+                    wasWordChar_ = false;
+                }
+            }
+            str_.append(char_);
+            i_++;
+        }
+        return ret_;
+    }
+    public static StringList getDollarWordSeparators(StringBuilder _str) {
+        if (_str.length() == 0) {
+            return new StringList();
+        }
+        StringList ret_ = new StringList();
+        boolean wasWordChar_ = false;
+        int i_ = CustList.FIRST_INDEX;
+        StringBuilder str_ = new StringBuilder();
+        while (true) {
+            if (i_ >= _str.length()) {
+                ret_.add(_str.toString());
+                return ret_;
+            }
+            if (isWordChar(_str.charAt(i_)) || _str.charAt(i_) == '$') {
+                str_.append(_str.substring(CustList.FIRST_INDEX, i_));
+                break;
+            }
+            i_++;
+        }
+        while (true) {
+            if (i_ >= _str.length()) {
+                ret_.add(str_.toString());
+                break;
+            }
+            char char_ = _str.charAt(i_);
+            if (isWordChar(char_) || char_ == '$') {
+                if (!wasWordChar_) {
+                    ret_.add(str_.toString());
+                    str_ = new StringBuilder();
+                    wasWordChar_ = true;
+                }
+            } else {
+                if (wasWordChar_) {
+                    ret_.add(str_.toString());
+                    str_ = new StringBuilder();
+                    wasWordChar_ = false;
+                }
+            }
+            str_.append(char_);
+            i_++;
+        }
+        return ret_;
+    }
+
     /**The returned String ends with a slash.*/
     public static String replaceBackSlashDot(String _path) {
         String path_ = StringList.replaceBackSlash(_path);

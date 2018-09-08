@@ -1038,7 +1038,6 @@ public final class FileResolver {
                         int trimmed_ = StringList.getFirstPrintableCharIndex(found_);
                         String realFound_ = found_;
                         found_ = found_.trim();
-                        //TODO static fields name
                         int lenAfterModifiers_ = found_.length();
                         int indexMod_ = 0;
                         while (indexMod_ < lenAfterModifiers_) {
@@ -1594,7 +1593,7 @@ public final class FileResolver {
                             if (!p_.isOk()) {
                                 return out_;
                             }
-                            if (p_.isFoundBrace()) {
+                            if (declType_ && currentChar_ == BEGIN_BLOCK) {
                                 //Inner types
                                 boolean staticType_ = false;
                                 boolean abstractType_ = false;
@@ -1775,6 +1774,7 @@ public final class FileResolver {
                                 br_ = typeBlock_;
                                 currentParent_.appendChild(br_);
                             } else {
+                                declType_ = false;
                                 String otherModifier_ = EMPTY_STRING;
                                 String infoModifiers_ = afterAccess_.trim();
                                 while (true) {
@@ -2066,6 +2066,38 @@ public final class FileResolver {
                     currentParent_ = currentParent_.getParent();
                 }
                 instruction_.delete(0, instruction_.length());
+            } else {
+                if (Character.isWhitespace(currentChar_) && !declType_) {
+                    StringList parts_ = StringList.getDollarWordSeparators(instruction_);
+                    StringList printable_ = new StringList();
+                    for (String p: parts_) {
+                        String t_ = p.trim();
+                        if (t_.isEmpty()) {
+                            continue;
+                        }
+                        printable_.add(t_);
+                    }
+                    if (printable_.size() > 1) {
+                        String category_ = printable_.last();
+                        if (isKeyWordCategory(category_)) {
+                            int nb_ = printable_.size() - 2;
+                            while (nb_ >= 0) {
+                                String mod_ = printable_.get(nb_);
+                                if (isKeyWordTypeModifier(mod_)) {
+                                    nb_--;
+                                    continue;
+                                }
+                                if (isKeyWordAccess(mod_)) {
+                                    break;
+                                }
+                                nb_--;
+                            }
+                            if (nb_ >= 0) {
+                                declType_ = true;
+                            }
+                        }
+                    }
+                }
             }
             i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
         }
@@ -2090,6 +2122,33 @@ public final class FileResolver {
             return true;
         }
         if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_PUBLIC)))  {
+            return true;
+        }
+        return false;
+    }
+    private static boolean isKeyWordCategory(String _key) {
+        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_CLASS))) {
+            return true;
+        }
+        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_ENUM))) {
+            return true;
+        }
+        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_INTERFACE)))  {
+            return true;
+        }
+        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_ANNOTATION)))  {
+            return true;
+        }
+        return false;
+    }
+    private static boolean isKeyWordTypeModifier(String _key) {
+        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_ABSTRACT))) {
+            return true;
+        }
+        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_STATIC))) {
+            return true;
+        }
+        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_FINAL)))  {
             return true;
         }
         return false;
