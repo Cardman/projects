@@ -2170,6 +2170,17 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         }
         return true;
     }
+    public static boolean isDollarWord(String _string) {
+        if (_string.isEmpty()) {
+            return false;
+        }
+        for (char c : _string.toCharArray()) {
+            if (!isWordChar(c) && c != '$') {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static boolean isWordChar(char _char) {
         if (_char == CHAR_WORD_OTHER) {

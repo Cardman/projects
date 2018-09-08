@@ -5928,6 +5928,90 @@ public final class FileResolverTest {
         assertSame(inner_,context_.getClasses().getClassBody("pkg.Outer..Inner"));
     }
     @Test
+    public void parseFile78Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("$public $class pkgtwo.Toto<#T> : hello.word<#T> : every.body<#T> {\n");
+        file_.append("\t$private $normal $void exfields(){\n");
+        file_.append("\t\t$class(MyClass).method():\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("<#T>",r_.getTemplateDef());
+        assertEq(2,r_.getDirectSuperTypes().size());
+        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
+        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof MethodBlock);
+        MethodBlock method_ = (MethodBlock) child_;
+        assertTrue(!method_.isStaticMethod());
+        assertTrue(!method_.isFinalMethod());
+        assertTrue(!method_.isAbstractMethod());
+        assertTrue(method_.isNormalMethod());
+        assertSame(AccessEnum.PRIVATE, method_.getAccess());
+        assertEq("exfields", method_.getName());
+        assertEq("$void", method_.getReturnType());
+        assertEq(0, method_.getParametersNames().size());
+        assertEq(0, method_.getParametersTypes().size());
+        assertEq(0, method_.getParametersTypesOffset().size());
+        assertEq(0, method_.getParametersNamesOffset().size());
+        Block instr_ = method_.getFirstChild();
+        assertTrue(instr_ instanceof Line);
+        Line th_ = (Line) instr_;
+        assertEq("$class(MyClass).method()",th_.getExpression());
+        instr_ = instr_.getNextSibling();
+        assertNull(instr_);
+    }
+    @Test
+    public void parseFile79Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("$public $class pkgtwo.Toto<#T> : hello.word<#T> : every.body<#T> {\n");
+        file_.append("\t$private $normal $void exfields(){\n");
+        file_.append("\t\t$class (MyClass).method():\n");
+        file_.append("\t}\n");
+        file_.append("}");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof ClassBlock);
+        ClassBlock cl_ = (ClassBlock) r_;
+        assertEq("<#T>",r_.getTemplateDef());
+        assertEq(2,r_.getDirectSuperTypes().size());
+        assertEq("hello.word<#T>",r_.getDirectSuperTypes().first());
+        assertEq("every.body<#T>",r_.getDirectSuperTypes().last());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof MethodBlock);
+        MethodBlock method_ = (MethodBlock) child_;
+        assertTrue(!method_.isStaticMethod());
+        assertTrue(!method_.isFinalMethod());
+        assertTrue(!method_.isAbstractMethod());
+        assertTrue(method_.isNormalMethod());
+        assertSame(AccessEnum.PRIVATE, method_.getAccess());
+        assertEq("exfields", method_.getName());
+        assertEq("$void", method_.getReturnType());
+        assertEq(0, method_.getParametersNames().size());
+        assertEq(0, method_.getParametersTypes().size());
+        assertEq(0, method_.getParametersTypesOffset().size());
+        assertEq(0, method_.getParametersNamesOffset().size());
+        Block instr_ = method_.getFirstChild();
+        assertTrue(instr_ instanceof Line);
+        Line th_ = (Line) instr_;
+        assertEq("$class (MyClass).method()",th_.getExpression());
+        instr_ = instr_.getNextSibling();
+        assertNull(instr_);
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");

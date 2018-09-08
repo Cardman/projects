@@ -964,6 +964,9 @@ public final class FileResolver {
                 enabledSpaces_.setCheckTabs(false);
             }
             if (currentChar_ == BEGIN_CALLING) {
+                if (StringList.quickEq(instruction_.substring(0, instruction_.lastIndexOf(String.valueOf(BEGIN_CALLING))).toString().trim(), prefixKeyWord(KEY_WORD_CLASS))) {
+                    declType_ = false;
+                }
                 parentheses_.add(i_);
             }
             if (currentChar_ == END_CALLING) {
@@ -2049,6 +2052,7 @@ public final class FileResolver {
                             br_ = new Line(_context, index_, currentParent_, new OffsetStringInfo(afterDeclareOffset_, inst_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                             currentParent_.appendChild(br_);
                         }
+                        declType_ = false;
                     }
                     if (currentChar_ == END_LINE) {
                         index_++;
@@ -2072,12 +2076,35 @@ public final class FileResolver {
                     StringList printable_ = new StringList();
                     for (String p: parts_) {
                         String t_ = p.trim();
-                        if (t_.isEmpty()) {
+                        if (!StringList.isDollarWord(t_)) {
                             continue;
                         }
                         printable_.add(t_);
                     }
-                    if (printable_.size() > 1) {
+                    boolean pr_ = true;
+                    if (printable_.size() == 1) {
+                        String category_ = printable_.last();
+                        if (isKeyWordCategory(category_)) {
+                            if (StringList.quickEq(category_, prefixKeyWord(KEY_WORD_CLASS))) {
+                                int j_ = i_ + 1;
+                                while (j_ < len_) {
+                                    char next_ = _file.charAt(j_);
+                                    if (Character.isWhitespace(next_)) {
+                                        j_++;
+                                        continue;
+                                    }
+                                    if (next_ == BEGIN_CALLING) {
+                                        pr_ = false;
+                                    }
+                                    break;
+                                }
+                            }
+                            if (pr_) {
+                                declType_ = true;
+                            }
+                        }
+                    }
+                    if (printable_.size() > 1 && pr_) {
                         String category_ = printable_.last();
                         if (isKeyWordCategory(category_)) {
                             int nb_ = printable_.size() - 2;
