@@ -1908,7 +1908,9 @@ public final class Classes {
                 StringList all_ = block_.getAllInterfaces();
                 StringList allCopy_ = new StringList(all_);
                 allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
-                RootBlock superType_ = classes_.getClassBody(un_.getSuperClass(_context));
+                String superClass_ = un_.getImportedDirectGenericSuperClass();
+                String superClassId_ = Templates.getIdFromAllTypes(superClass_);
+                RootBlock superType_ = classes_.getClassBody(superClassId_);
                 if (superType_ != null) {
                     allCopy_.removeAllElements(superType_.getAllInterfaces());
                 }

@@ -455,6 +455,22 @@ public abstract class OperationNode {
     }
 
     static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
+        FieldResult fr_ = resolveDeclaredCustField(_cont, _staticContext, _class, _baseClass, _superClass, _name, _import);
+        if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
+            return fr_;
+        }
+        StaticAccessFieldError access_ = new StaticAccessFieldError();
+        access_.setClassName(_class.getNames().join(""));
+        access_.setId(_name);
+        access_.setFileName(_cont.getCurrentFileName());
+        access_.setRc(_cont.getCurrentLocation());
+        _cont.getClasses().addError(access_);
+        FieldResult res_ = new FieldResult();
+        res_.setStatus(SearchingMemberStatus.ZERO);
+        return res_;
+    }
+
+    public static FieldResult resolveDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
         if (!_staticContext) {
             FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
@@ -462,22 +478,6 @@ public abstract class OperationNode {
             }
         }
         FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name, _import);
-        if (resSt_.getStatus() == SearchingMemberStatus.UNIQ) {
-            return resSt_;
-        }
-        //Errors
-        FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import);
-        if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
-            StaticAccessFieldError access_ = new StaticAccessFieldError();
-            access_.setClassName(_class.getNames().join(""));
-            access_.setId(_name);
-            access_.setFileName(_cont.getCurrentFileName());
-            access_.setRc(_cont.getCurrentLocation());
-            _cont.getClasses().addError(access_);
-            return resIns_;
-        }
-        resSt_ = new FieldResult();
-        resSt_.setStatus(SearchingMemberStatus.ZERO);
         return resSt_;
     }
     private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {

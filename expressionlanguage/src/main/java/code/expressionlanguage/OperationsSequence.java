@@ -29,6 +29,8 @@ public final class OperationsSequence {
 
     private boolean declaring;
 
+    private String extractType = "";
+
     public void setValue(String _string, int _offset) {
         values = new NatTreeMap<Integer,String>();
         values.put((int)CustList.FIRST_INDEX, _string);
@@ -282,4 +284,13 @@ public final class OperationsSequence {
     public void setDeclaring(boolean _declaring) {
         declaring = _declaring;
     }
+
+    public String getExtractType() {
+        return extractType;
+    }
+
+    public void setExtractType(String _extractType) {
+        extractType = _extractType;
+    }
+
 }

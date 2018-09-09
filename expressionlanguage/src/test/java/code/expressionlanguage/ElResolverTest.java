@@ -5,7 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.methods.RootBlock;
 import code.util.NatTreeMap;
+import code.util.StringMap;
 
 @SuppressWarnings("static-method")
 public class ElResolverTest {
@@ -3320,6 +3325,196 @@ public class ElResolverTest {
         assertEq("v; ", values_.getVal(0));
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(seq_.isInstanceTest());
+    }
+    @Test
+    public void getOperationsSequence195Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst = pkg.Ex.exmeth(0i):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl conf_ = contextEl();
+        Classes classes_ = conf_.getClasses();
+        Classes.buildPredefinedBracesBodies(conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        classes_.validateInheritingClasses(conf_);
+        classes_.validateSingleParameterizedClasses(conf_);
+        classes_.validateIds(conf_);
+        classes_.validateOverridingInherit(conf_);
+        addImportingPage(conf_, false);
+        conf_.setGlobalClass("pkg.ExTwo");
+        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        Block b_ = r_.getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(b_);
+        FieldBlock l_ = (FieldBlock) b_;
+        String el_ = l_.getValue();
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq(".", opers_.getVal(7));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq(" pkg.Ex", values_.getVal(0));
+        assertEq("exmeth(0i)", values_.getVal(8));
+        assertTrue(seq_.isDot());
+        assertEq("", seq_.getExtractType());
+        assertEq(1, d_.getDelKeyWordStaticExtract().size());
+        assertEq("pkg.Ex", d_.getDelKeyWordStaticExtract().first());
+    }
+    @Test
+    public void getOperationsSequence196Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst = Ex.exmeth(0i):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl conf_ = contextEl();
+        Classes classes_ = conf_.getClasses();
+        Classes.buildPredefinedBracesBodies(conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        classes_.validateInheritingClasses(conf_);
+        classes_.validateSingleParameterizedClasses(conf_);
+        classes_.validateIds(conf_);
+        classes_.validateOverridingInherit(conf_);
+        addImportingPage(conf_, false);
+        conf_.setGlobalClass("pkg.ExTwo");
+        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        Block b_ = r_.getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(b_);
+        FieldBlock l_ = (FieldBlock) b_;
+        String el_ = l_.getValue();
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq(".", opers_.getVal(3));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq(" Ex", values_.getVal(0));
+        assertEq("exmeth(0i)", values_.getVal(4));
+        assertTrue(seq_.isDot());
+        assertEq("", seq_.getExtractType());
+        assertEq(1, d_.getDelKeyWordStaticExtract().size());
+        assertEq("pkg.Ex", d_.getDelKeyWordStaticExtract().first());
+    }
+    @Test
+    public void getOperationsSequence197Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $String inst = $Class.forName(\"\"):\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl conf_ = contextEl();
+        Classes classes_ = conf_.getClasses();
+        Classes.buildPredefinedBracesBodies(conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        classes_.validateInheritingClasses(conf_);
+        classes_.validateSingleParameterizedClasses(conf_);
+        classes_.validateIds(conf_);
+        classes_.validateOverridingInherit(conf_);
+        addImportingPage(conf_, false);
+        conf_.setGlobalClass("pkg.ExTwo");
+        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        Block b_ = r_.getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(b_);
+        FieldBlock l_ = (FieldBlock) b_;
+        String el_ = l_.getValue();
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq(".", opers_.getVal(7));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq(" $Class", values_.getVal(0));
+        assertEq("forName(\"\")", values_.getVal(8));
+        assertTrue(seq_.isDot());
+        assertEq("", seq_.getExtractType());
+        assertEq(1, d_.getDelKeyWordStaticExtract().size());
+        assertEq("$Class", d_.getDelKeyWordStaticExtract().first());
+    }
+    @Test
+    public void getOperationsSequence198Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int inst = exmeth(5i):\n");
+        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int inst = ..Ex.exmeth(0i):\n");
+        xml_.append(" $public $static $class Ex{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl conf_ = contextEl();
+        Classes classes_ = conf_.getClasses();
+        Classes.buildPredefinedBracesBodies(conf_);
+        Classes.tryBuildBracedClassesBodies(files_, conf_);
+        classes_.validateInheritingClasses(conf_);
+        classes_.validateSingleParameterizedClasses(conf_);
+        classes_.validateIds(conf_);
+        classes_.validateOverridingInherit(conf_);
+        addImportingPage(conf_, false);
+        conf_.setGlobalClass("pkg.ExTwo");
+        RootBlock r_ = classes_.getClassBody("pkg.ExTwo");
+        Block b_ = r_.getFirstChild();
+        conf_.getAnalyzing().setCurrentBlock(b_);
+        FieldBlock l_ = (FieldBlock) b_;
+        String el_ = l_.getValue();
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq(".", opers_.getVal(5));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq(" ..Ex", values_.getVal(0));
+        assertEq("exmeth(0i)", values_.getVal(6));
+        assertTrue(seq_.isDot());
+        assertEq("", seq_.getExtractType());
+        assertEq(1, d_.getDelKeyWordStaticExtract().size());
+        assertEq("pkg.ExTwo..Ex", d_.getDelKeyWordStaticExtract().first());
     }
     @Test
     public void checkSyntaxDelimiters1Test() {

@@ -37,6 +37,29 @@ public final class StaticAccessOperation extends LeafOperation {
     @Override
     public void analyze(Analyzable _conf) {
         OperationsSequence op_ = getOperations();
+        String ext_ = op_.getExtractType();
+        ext_ = ContextEl.removeDottedSpaces(ext_);
+        if (!ext_.isEmpty()) {
+            Classes classes_ = _conf.getClasses();
+            if (classes_.isCustomType(ext_)) {
+                String glClass_ = _conf.getGlobalClass();
+                String curClassBase_ = null;
+                if (glClass_ != null) {
+                    curClassBase_ = Templates.getIdFromAllTypes(glClass_);
+                }
+                if (!Classes.canAccessClass(curClassBase_, ext_, _conf)) {
+                    BadAccessClass badAccess_ = new BadAccessClass();
+                    badAccess_.setId(ext_);
+                    badAccess_.setRc(_conf.getCurrentLocation());
+                    badAccess_.setFileName(_conf.getCurrentFileName());
+                    _conf.getClasses().addError(badAccess_);
+                }
+            }
+            Argument a_ = new Argument();
+            setArguments(a_);
+            setStaticResultClass(new ClassArgumentMatching(ext_));
+            return;
+        }
         int relativeOff_ = op_.getOffset();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();

@@ -1,4 +1,11 @@
 package code.expressionlanguage;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.FieldResult;
+import code.expressionlanguage.opers.util.SearchingMemberStatus;
+import code.util.BooleanList;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -330,6 +337,60 @@ public final class ElResolver {
                 continue;
             }
             if (curChar_ == EXTERN_CLASS) {
+                StringList parts_ = new StringList();
+                StringBuilder part_ = new StringBuilder();
+                BooleanList doubleDotted_ = new BooleanList();
+                int k_ = i_;
+                int lastDot_ = i_;
+                while (k_ < len_) {
+                    char locCar_ = _string.charAt(k_);
+                    if (StringList.isWordChar(locCar_) || locCar_ == '$') {
+                        part_.append(locCar_);
+                        k_++;
+                        continue;
+                    }
+                    if (Character.isWhitespace(locCar_)) {
+                        part_.append(locCar_);
+                        k_++;
+                        continue;
+                    }
+                    if (locCar_ == DOT_VAR) {
+                        lastDot_ = k_;
+                        parts_.add(part_.toString());
+                        part_.delete(0, part_.length());
+                        if (k_ + 1 < len_ && _string.charAt(k_ + 1) == DOT_VAR) {
+                            doubleDotted_.add(true);
+                            k_++;
+                        } else {
+                            doubleDotted_.add(false);
+                        }
+                        k_++;
+                        continue;
+                    }
+                    break;
+                }
+                StringBuilder allparts_ = new StringBuilder();
+                int partLen_ = parts_.size();
+                for (int i = 0; i < partLen_; i++) {
+                    allparts_.append(parts_.get(i));
+                    if (i + 1 < partLen_) {
+                        allparts_.append(DOT_VAR);
+                        if (doubleDotted_.get(i)) {
+                            allparts_.append(DOT_VAR);
+                        }
+                    }
+                }
+                if (_conf.getClassBody(allparts_.toString()) != null) {
+                    if (k_ >= len_) {
+                        d_.setBadOffset(len_);
+                        return d_;
+                    }
+                    d_.getDelKeyWordStatic().add(i_);
+                    d_.getDelKeyWordStatic().add(lastDot_);
+                    d_.getDelKeyWordStaticExtract().add(allparts_.toString());
+                    i_ = lastDot_;
+                    continue;
+                }
                 enabledMinus_ = true;
                 hatMethod_ = true;
                 if (i_ + 1 < len_) {
@@ -533,6 +594,7 @@ public final class ElResolver {
                                 if (_string.charAt(afterStatic_) == DOT_VAR) {
                                     d_.getDelKeyWordStatic().add(i_);
                                     d_.getDelKeyWordStatic().add(afterStatic_);
+                                    d_.getDelKeyWordStaticExtract().add(EMPTY_STRING);
                                     hatMethod_ = false;
                                     i_ = afterStatic_;
                                     break;
@@ -974,9 +1036,233 @@ public final class ElResolver {
                     info_.setKind(type_);
                     info_.setFirstChar(beginWord_);
                     info_.setLastChar(i_);
-                    info_.setName(_string.substring(beginWord_, i_));
-                    d_.getVariables().add(info_);
-                }
+                    String word_ = _string.substring(beginWord_, i_);
+                    String dot_ = String.valueOf(DOT_VAR);
+                    String look_ = _conf.getLookLocalClass();
+                    if (!look_.isEmpty()) {
+                        info_.setName(word_);
+                        d_.getVariables().add(info_);
+                    } else {
+                        //if the field exist then look for an imported type (without templates) then a complete type
+                        String prev_ = _string.substring(0, beginWord_).trim();
+                        if (prev_.endsWith(StringList.concat(dot_,dot_))) {
+                            int j_ = i_ + 1;
+                            int k_ = j_;
+                            StringList parts_ = new StringList();
+                            BooleanList doubleDotted_ = new BooleanList();
+                            StringBuilder part_ = new StringBuilder();
+                            boolean dotSeen_ = false;
+                            while (j_ < len_) {
+                                char locChar_ = _string.charAt(j_);
+                                if (StringList.isWordChar(locChar_) || locChar_ == '$') {
+                                    part_.append(locChar_);
+                                    j_++;
+                                    continue;
+                                }
+                                if (Character.isWhitespace(locChar_)) {
+                                    part_.append(locChar_);
+                                    j_++;
+                                    continue;
+                                }
+                                if (locChar_ == DOT_VAR) {
+                                    dotSeen_ = true;
+                                    k_ = j_;
+                                    parts_.add(part_.toString());
+                                    part_.delete(0, part_.length());
+                                    if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
+                                        doubleDotted_.add(true);
+                                        j_++;
+                                    } else {
+                                        doubleDotted_.add(false);
+                                    }
+                                    j_++;
+                                    continue;
+                                }
+                                break;
+                            }
+                            StringBuilder allparts_ = new StringBuilder(StringList.concat(dot_,dot_));
+                            allparts_.append(word_);
+                            if (!parts_.isEmpty()) {
+                                allparts_.append(DOT_VAR);
+                            }
+                            int partLen_ = parts_.size();
+                            for (int i = 0; i < partLen_; i++) {
+                                allparts_.append(parts_.get(i));
+                                if (i + 1 < partLen_) {
+                                    allparts_.append(DOT_VAR);
+                                    if (doubleDotted_.get(i)) {
+                                        allparts_.append(DOT_VAR);
+                                    }
+                                }
+                            }
+                            Block bl_ = _conf.getCurrentBlock();
+                            if (bl_ != null) {
+                                AccessingImportingBlock r_ = bl_.getImporting();
+                                String typeRes_ = _conf.lookupImportsIndirect(allparts_.toString(), r_);
+                                if (!typeRes_.isEmpty()) {
+                                    d_.getDelKeyWordStatic().add(beginWord_);
+                                    int next_;
+                                    if (dotSeen_) {
+                                        next_ = k_;
+                                    } else {
+                                        next_ = i_;
+                                    }
+                                    d_.getDelKeyWordStatic().add(next_);
+                                    d_.getDelKeyWordStaticExtract().add(typeRes_);
+                                    if (dotSeen_) {
+                                        i_ = k_;
+                                    }
+                                } else {
+                                    info_.setName(word_);
+                                    d_.getVariables().add(info_);
+                                }
+                            } else {
+                                info_.setName(word_);
+                                d_.getVariables().add(info_);
+                            }
+                        } else if (!prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
+                            String glClass_ = _conf.getGlobalClass();
+                            if (glClass_ != null) {
+                                ClassArgumentMatching clArg_ = new ClassArgumentMatching(glClass_);
+                                FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, _conf.isStaticContext(), clArg_, true, true, word_, _conf.getCurrentBlock() != null);
+                                if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
+                                    info_.setName(word_);
+                                    d_.getVariables().add(info_);
+                                } else {
+                                    int j_ = i_ + 1;
+                                    int k_ = j_;
+                                    StringList parts_ = new StringList();
+                                    BooleanList doubleDotted_ = new BooleanList();
+                                    StringBuilder part_ = new StringBuilder();
+                                    while (j_ < len_) {
+                                        char locChar_ = _string.charAt(j_);
+                                        if (StringList.isWordChar(locChar_) || locChar_ == '$') {
+                                            part_.append(locChar_);
+                                            j_++;
+                                            continue;
+                                        }
+                                        if (Character.isWhitespace(locChar_)) {
+                                            part_.append(locChar_);
+                                            j_++;
+                                            continue;
+                                        }
+                                        if (locChar_ == DOT_VAR) {
+                                            k_ = j_;
+                                            parts_.add(part_.toString());
+                                            part_.delete(0, part_.length());
+                                            if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
+                                                doubleDotted_.add(true);
+                                                j_++;
+                                            } else {
+                                                doubleDotted_.add(false);
+                                            }
+                                            j_++;
+                                            continue;
+                                        }
+                                        break;
+                                    }
+                                    StringBuilder allparts_ = new StringBuilder(word_);
+                                    if (!parts_.isEmpty()) {
+                                        allparts_.append(DOT_VAR);
+                                    }
+                                    int partLen_ = parts_.size();
+                                    for (int i = 0; i < partLen_; i++) {
+                                        allparts_.append(parts_.get(i));
+                                        if (i + 1 < partLen_) {
+                                            allparts_.append(DOT_VAR);
+                                            if (doubleDotted_.get(i)) {
+                                                allparts_.append(DOT_VAR);
+                                            }
+                                        }
+                                    }
+                                    if (_conf.getClassBody(allparts_.toString()) != null) {
+                                        d_.getDelKeyWordStatic().add(beginWord_);
+                                        d_.getDelKeyWordStatic().add(k_);
+                                        d_.getDelKeyWordStaticExtract().add(allparts_.toString());
+                                        i_ = k_;
+                                    } else {
+                                        Block bl_ = _conf.getCurrentBlock();
+                                        if (bl_ != null) {
+                                            AccessingImportingBlock r_ = bl_.getImporting();
+                                            String typeRes_ = _conf.lookupImportsIndirect(word_, r_);
+                                            if (!typeRes_.isEmpty()) {
+                                                d_.getDelKeyWordStatic().add(beginWord_);
+                                                d_.getDelKeyWordStatic().add(i_);
+                                                d_.getDelKeyWordStaticExtract().add(typeRes_);
+                                            } else {
+                                                info_.setName(word_);
+                                                d_.getVariables().add(info_);
+                                            }
+                                        } else {
+                                            info_.setName(word_);
+                                            d_.getVariables().add(info_);
+                                        }
+                                    }
+                                    
+                                }
+                            } else {
+                                int j_ = i_ + 1;
+                                int k_ = j_;
+                                StringList parts_ = new StringList();
+                                BooleanList doubleDotted_ = new BooleanList();
+                                StringBuilder part_ = new StringBuilder();
+                                while (j_ < len_) {
+                                    char locChar_ = _string.charAt(j_);
+                                    if (StringList.isWordChar(locChar_) || locChar_ == '$') {
+                                        part_.append(locChar_);
+                                        j_++;
+                                        continue;
+                                    }
+                                    if (Character.isWhitespace(locChar_)) {
+                                        part_.append(locChar_);
+                                        j_++;
+                                        continue;
+                                    }
+                                    if (locChar_ == DOT_VAR) {
+                                        k_ = j_;
+                                        parts_.add(part_.toString());
+                                        part_.delete(0, part_.length());
+                                        if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
+                                            doubleDotted_.add(true);
+                                            j_++;
+                                        } else {
+                                            doubleDotted_.add(false);
+                                        }
+                                        j_++;
+                                        continue;
+                                    }
+                                    break;
+                                }
+                                StringBuilder allparts_ = new StringBuilder(word_);
+                                if (!parts_.isEmpty()) {
+                                    allparts_.append(DOT_VAR);
+                                }
+                                int partLen_ = parts_.size();
+                                for (int i = 0; i < partLen_; i++) {
+                                    allparts_.append(parts_.get(i));
+                                    if (i + 1 < partLen_) {
+                                        allparts_.append(DOT_VAR);
+                                        if (doubleDotted_.get(i)) {
+                                            allparts_.append(DOT_VAR);
+                                        }
+                                    }
+                                }
+                                if (_conf.getClassBody(allparts_.toString()) != null) {
+                                    d_.getDelKeyWordStatic().add(beginWord_);
+                                    d_.getDelKeyWordStatic().add(k_);
+                                    d_.getDelKeyWordStaticExtract().add(allparts_.toString());
+                                    i_ = k_;
+                                } else {
+                                    info_.setName(word_);
+                                    d_.getVariables().add(info_);
+                                }
+                            }
+                        } else {
+                            info_.setName(word_);
+                            d_.getVariables().add(info_);
+                        }
+                    }
+                 }
                 String nextPart_ = _string.substring(i_).trim();
                 if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
                     d_.setBadOffset(i_);
@@ -1815,6 +2101,21 @@ public final class ElResolver {
         }
         int strLen_ = _string.length();
         len_ = lastPrintChar_+1;
+        int beginSt_;
+        int endSt_;
+        beginSt_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
+        endSt_ = _d.getDelKeyWordStatic().indexOfObj(_offset + strLen_);
+        if (beginSt_ > CustList.INDEX_NOT_FOUND_ELT && beginSt_ + 1 == endSt_) {
+            int ext_ = beginSt_ / 2;
+            String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.STATIC_ACCESS);
+            op_.setExtractType(extracted_);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         if (_string.charAt(i_) == EXTERN_CLASS) {
             int begin_;
             int end_;
@@ -1851,8 +2152,11 @@ public final class ElResolver {
             begin_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
             end_ = _d.getDelKeyWordStatic().indexOfObj(_offset + strLen_);
             if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+                int ext_ = begin_ / 2;
+                String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.STATIC_ACCESS);
+                op_.setExtractType(extracted_);
                 op_.setOperators(new NatTreeMap<Integer, String>());
                 op_.setValue(_string, firstPrintChar_);
                 op_.setDelimiter(_d);

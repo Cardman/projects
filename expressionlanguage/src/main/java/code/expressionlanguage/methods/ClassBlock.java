@@ -82,8 +82,12 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         }
         StringList classNames_ = allGenericSuperClasses_;
         String fullName_ = getFullName();
-        for (String b: getCustomDirectSuperClasses(_context)) {
-            ClassBlock bBl_ = (ClassBlock) classesRef_.getClassBody(b);
+        for (String b: getImportedDirectSuperTypes()) {
+            String id_ = Templates.getIdFromAllTypes(b);
+            RootBlock bBl_ = classesRef_.getClassBody(id_);
+            if (!(bBl_ instanceof ClassBlock)) {
+                continue;
+            }
             AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
             if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
                 continue;
@@ -247,25 +251,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
             }
         }
         return interfaces_;
-    }
-
-    public AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
-        CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
-        for (Block b: Classes.getDirectChildren(this)) {
-            if (b instanceof ConstructorBlock) {
-                ctors_.add((ConstructorBlock) b);
-            }
-        }
-        if (ctors_.isEmpty()) {
-            return getAccess();
-        }
-        AccessEnum a_ = AccessEnum.PRIVATE;
-        for (ConstructorBlock c: ctors_) {
-            if (c.getAccess().ordinal() < a_.ordinal()) {
-                a_ = c.getAccess();
-            }
-        }
-        return a_;
     }
 
     @Override

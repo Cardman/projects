@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.StringList;
 
 public final class Delimiters {
 
@@ -19,6 +20,7 @@ public final class Delimiters {
     private Numbers<Integer> delKeyWordSuper = new Numbers<Integer>();
     private Numbers<Integer> delKeyWordClassChoice = new Numbers<Integer>();
     private Numbers<Integer> delKeyWordStatic = new Numbers<Integer>();
+    private StringList delKeyWordStaticExtract = new StringList();
     private Numbers<Integer> delCast = new Numbers<Integer>();
     private Numbers<Integer> delInstanceof = new Numbers<Integer>();
     private Numbers<Integer> delLambda = new Numbers<Integer>();
@@ -69,6 +71,14 @@ public final class Delimiters {
 
     public void setDelKeyWordStatic(Numbers<Integer> _delKeyWordStatic) {
         delKeyWordStatic = _delKeyWordStatic;
+    }
+
+    public StringList getDelKeyWordStaticExtract() {
+        return delKeyWordStaticExtract;
+    }
+
+    public void setDelKeyWordStaticExtract(StringList _delKeyWordStaticExtract) {
+        delKeyWordStaticExtract = _delKeyWordStaticExtract;
     }
 
     public Numbers<Integer> getDelCast() {

@@ -217,7 +217,9 @@ public final class TypeUtil {
             StringList all_ = bl_.getAllInterfaces();
             StringList allCopy_ = new StringList(all_);
             allCopy_.removeAllElements(_context.getStandards().getPredefinedInterfacesInitOrder());
-            RootBlock superType_ = classes_.getClassBody(un_.getSuperClass(_context));
+            String clName_ = un_.getImportedDirectGenericSuperClass();
+            String id_ = Templates.getIdFromAllTypes(clName_);
+            RootBlock superType_ = classes_.getClassBody(id_);
             if (superType_ != null) {
                 allCopy_.removeAllElements(superType_.getAllInterfaces());
             }

@@ -182,6 +182,24 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return direct_;
     }
 
+    public final AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
+        CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
+        for (Block b: Classes.getDirectChildren(this)) {
+            if (b instanceof ConstructorBlock) {
+                ctors_.add((ConstructorBlock) b);
+            }
+        }
+        if (ctors_.isEmpty()) {
+            return getAccess();
+        }
+        AccessEnum a_ = AccessEnum.PRIVATE;
+        for (ConstructorBlock c: ctors_) {
+            if (c.getAccess().ordinal() < a_.ordinal()) {
+                a_ = c.getAccess();
+            }
+        }
+        return a_;
+    }
     public final RootBlock getParentType() {
         BracedBlock p_ = getParent();
         while (!(p_ instanceof RootBlock)) {
@@ -1234,8 +1252,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         if (!(this instanceof UniqueRootedBlock)) {
             return true;
         }
-        String superClass_ = ((UniqueRootedBlock)this).getSuperClass(_cont);
-        RootBlock clMeta_ = _cont.getClasses().getClassBody(superClass_);
+        String superClass_ = ((UniqueRootedBlock)this).getImportedDirectGenericSuperClass();
+        String superClassId_ = Templates.getIdFromAllTypes(superClass_);
+        RootBlock clMeta_ = _cont.getClasses().getClassBody(superClassId_);
         if (clMeta_ == null) {
             return true;
         }

@@ -6541,6 +6541,35 @@ public final class ElRenderUtilTest {
         assertEq("java.lang.String",((Struct[])arg_.getStruct().getInstance())[0].getClassName(context_));
         assertEq("sample",(String)((Struct[])arg_.getStruct().getInstance())[0].getInstance());
     }
+
+    @Test
+    public void processEl311Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("$math.abs(-8l)",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(8L, (Number)res_);
+    }
+    @Test
+    public void processEl312Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return 1i+$($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = contextEl(files_);
+        addImportingPage(cont_);
+        Argument arg_ = ElRenderUtil.processEl("pkg.Ex.exmeth()", 0, cont_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(9, (Number)res_);
+    }
     @Test
     public void processAffect1Test() {
         Configuration context_ = contextEl(true,false);

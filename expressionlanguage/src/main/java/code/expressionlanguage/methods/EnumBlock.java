@@ -72,8 +72,12 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         }
         StringList classNames_ = allGenericSuperClasses_;
         String fullName_ = getFullName();
-        for (String b: getCustomDirectSuperClasses(_context)) {
-            ClassBlock bBl_ = (ClassBlock) classesRef_.getClassBody(b);
+        for (String b: getImportedDirectSuperTypes()) {
+            String id_ = Templates.getIdFromAllTypes(b);
+            RootBlock bBl_ = classesRef_.getClassBody(id_);
+            if (!(bBl_ instanceof ClassBlock)) {
+                continue;
+            }
             AccessEnum acc_ = bBl_.getMaximumAccessConstructors(_context);
             if (acc_.ordinal() <= AccessEnum.PROTECTED.ordinal()) {
                 continue;
