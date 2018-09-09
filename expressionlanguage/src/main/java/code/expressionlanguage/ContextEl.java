@@ -1428,8 +1428,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public String lookupImportsIndirect(String _type, AccessingImportingBlock _rooted) {
         String look_ = _type.trim();
-        if (look_.startsWith("..")) {
-//            RootBlock par_ = ((RootBlock)_rooted).getParentType();
+        if (look_.startsWith("..") && _rooted instanceof GeneType) {
             GeneType par_ = (GeneType)_rooted;
             String type_ = StringList.concat(par_.getFullName(),_type);
             if (classes.isCustomType(type_)) {
