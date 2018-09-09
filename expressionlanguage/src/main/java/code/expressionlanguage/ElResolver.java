@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.FieldResult;
@@ -8,6 +9,7 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.Numbers;
 import code.util.StringList;
 
 
@@ -1098,6 +1100,35 @@ public final class ElResolver {
                             Block bl_ = _conf.getCurrentBlock();
                             if (bl_ != null) {
                                 AccessingImportingBlock r_ = bl_.getImporting();
+                                if (r_ instanceof RootBlock) {
+                                    boolean found_ = false;
+                                    while (r_ != null) {
+                                        String typeRes_ = _conf.lookupImportsIndirect(allparts_.toString(), r_);
+                                        if (!typeRes_.isEmpty()) {
+                                            found_ = true;
+                                            d_.getDelKeyWordStatic().add(beginWord_);
+                                            int next_;
+                                            if (dotSeen_) {
+                                                next_ = k_;
+                                            } else {
+                                                next_ = i_;
+                                            }
+                                            d_.getDelKeyWordStatic().add(next_);
+                                            d_.getDelKeyWordStaticExtract().add(typeRes_);
+                                            if (dotSeen_) {
+                                                i_ = k_;
+                                            }
+                                            break;
+                                        }
+                                        r_ = ((RootBlock)r_).getParentType();
+                                    }
+                                    if (found_) {
+                                        continue;
+                                    }
+                                    info_.setName(word_);
+                                    d_.getVariables().add(info_);
+                                    continue;
+                                }
                                 String typeRes_ = _conf.lookupImportsIndirect(allparts_.toString(), r_);
                                 if (!typeRes_.isEmpty()) {
                                     d_.getDelKeyWordStatic().add(beginWord_);
@@ -1131,6 +1162,7 @@ public final class ElResolver {
                                 } else {
                                     int j_ = i_ + 1;
                                     int k_ = j_;
+                                    Numbers<Integer> indexes_ = new Numbers<Integer>();
                                     StringList parts_ = new StringList();
                                     BooleanList doubleDotted_ = new BooleanList();
                                     StringBuilder part_ = new StringBuilder();
@@ -1148,6 +1180,7 @@ public final class ElResolver {
                                         }
                                         if (locChar_ == DOT_VAR) {
                                             k_ = j_;
+                                            indexes_.add(j_);
                                             parts_.add(part_.toString());
                                             part_.delete(0, part_.length());
                                             if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
@@ -1175,7 +1208,35 @@ public final class ElResolver {
                                             }
                                         }
                                     }
-                                    if (_conf.getClassBody(allparts_.toString()) != null) {
+                                    String id_ = allparts_.toString();
+                                    if (id_.indexOf(StringList.concat(dot_,dot_)) == -1) {
+                                        StringList candidates_ = new StringList();
+                                        int idLen_ = id_.length();
+                                        for (int i = 0; i < idLen_; i++) {
+                                            char sep_ = id_.charAt(i);
+                                            if (sep_ == DOT_VAR) {
+                                                candidates_.add(id_.substring(0, i));
+                                            }
+                                        }
+                                        boolean found_ = false;
+                                        int index_ = 0;
+                                        for (String c: candidates_) {
+                                            if (_conf.getClassBody(c) != null) {
+                                                int n_ = indexes_.get(index_);
+                                                d_.getDelKeyWordStatic().add(beginWord_);
+                                                d_.getDelKeyWordStatic().add(n_);
+                                                d_.getDelKeyWordStaticExtract().add(c);
+                                                i_ = n_;
+                                                found_ = true;
+                                                break;
+                                            }
+                                            index_++;
+                                        }
+                                        if (found_) {
+                                            continue;
+                                        }
+                                    }
+                                    if (_conf.getClassBody(id_) != null) {
                                         d_.getDelKeyWordStatic().add(beginWord_);
                                         d_.getDelKeyWordStatic().add(k_);
                                         d_.getDelKeyWordStaticExtract().add(allparts_.toString());
@@ -1184,9 +1245,12 @@ public final class ElResolver {
                                         Block bl_ = _conf.getCurrentBlock();
                                         if (bl_ != null) {
                                             AccessingImportingBlock r_ = bl_.getImporting();
-                                            String typeRes_ = _conf.lookupImportsIndirect(word_, r_);
+                                            String typeRes_ = _conf.lookupImportsIndirect(id_, r_);
                                             if (!typeRes_.isEmpty()) {
                                                 d_.getDelKeyWordStatic().add(beginWord_);
+                                                if (id_.contains(StringList.concat(dot_,dot_))) {
+                                                    i_ = Math.max(i_, k_);
+                                                }
                                                 d_.getDelKeyWordStatic().add(i_);
                                                 d_.getDelKeyWordStaticExtract().add(typeRes_);
                                             } else {
@@ -1284,6 +1348,11 @@ public final class ElResolver {
                 continue;
             }
             if (curChar_ == DOT_VAR) {
+                if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
+                    i_++;
+                    i_++;
+                    continue;
+                }
                 if (isNumber(i_ + 1, len_, _string)) {
                     enabledMinus_ = true;
                     NumberInfosOutput res_ = processNb(i_ + 1, len_, _string, true);
