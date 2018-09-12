@@ -878,24 +878,35 @@ public final class FileResolver {
                     String tr_ = instruction_.toString().trim();
                     if (tr_.isEmpty()) {
                         endInstruction_ = true;
-                    } else if (!StringList.quickEq(tr_, prefixKeyWord(KEY_WORD_RETURN)) && !isKeyWordAccess(tr_)) {
-                        char lastChar_ = tr_.charAt(tr_.length() - 1);
-                        if (currentParent_ instanceof AnnotationBlock) {
-                            if (lastChar_ != END_CALLING) {
-                                endInstruction_ = true;
-                            } else {
-                                String trLeft_ = tr_.substring(0, tr_.length() - 1).trim();
-                                if (!trLeft_.endsWith(String.valueOf(BEGIN_CALLING))) {
+                    } else if (!StringList.quickEq(tr_, prefixKeyWord(KEY_WORD_RETURN))) {
+                        StringList parts_ = StringList.getDollarWordSeparators(instruction_);
+                        StringList printable_ = new StringList();
+                        for (String p: parts_) {
+                            String t_ = p.trim();
+                            if (!StringList.isDollarWord(t_)) {
+                                continue;
+                            }
+                            printable_.add(t_);
+                        }
+                        String last_ = printable_.last();
+                        boolean empty_ = instruction_.substring(instruction_.lastIndexOf(last_)+last_.length()).trim().isEmpty();
+                        if (!isKeyWordAccess(last_) || !empty_) {
+                            char lastChar_ = tr_.charAt(tr_.length() - 1);
+                            if (currentParent_ instanceof AnnotationBlock) {
+                                if (lastChar_ != END_CALLING) {
+                                    endInstruction_ = true;
+                                } else {
+                                    String trLeft_ = tr_.substring(0, tr_.length() - 1).trim();
+                                    if (!trLeft_.endsWith(String.valueOf(BEGIN_CALLING))) {
+                                        endInstruction_ = true;
+                                    }
+                                }
+                            } else if (lastChar_ != PART_SEPARATOR) {
+                                if (lastChar_ != END_ARRAY) {
                                     endInstruction_ = true;
                                 }
                             }
-                        } else if (lastChar_ != PART_SEPARATOR) {
-                            if (lastChar_ != END_ARRAY) {
-                                endInstruction_ = true;
-                            }
-                        }
-                    } else {
-                        if (isKeyWordAccess(tr_)) {
+                        } else {
                             declType_ = true;
                         }
                     }
@@ -1986,8 +1997,8 @@ public final class FileResolver {
                                 typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
                                 typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
                                 typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
-                                typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
-                                typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
+                                typeBlock_.getAnnotations().addAllElts(annotations_);
+                                typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                                 br_ = typeBlock_;
                                 currentParent_.appendChild(br_);
                             } else {
@@ -2419,7 +2430,6 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
-        boolean foundTmp_ = false;
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
             if (declTypeName_.toString().trim().endsWith(VARARG)) {
@@ -2427,10 +2437,6 @@ public final class FileResolver {
                 break;
             }
             if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
-                if (foundTmp_) {
-                    typeDeclaring_ = true;
-                    break;
-                }
                 String nextPart_ = _found.substring(indexInstr_).trim();
                 String trimmed_ = declTypeName_.toString().trim();
                 if (trimmed_.length() > 0) {
@@ -2450,7 +2456,6 @@ public final class FileResolver {
             }
             if (currentCharFound_ == BEGIN_TEMPLATE) {
                 nbOpenedTmp_++;
-                foundTmp_ = true;
             }
             if (currentCharFound_ == END_TEMPLATE) {
                 nbOpenedTmp_--;
@@ -2486,15 +2491,24 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
-        boolean foundTmp_ = false;
+        while (indexInstr_ < instLen_) {
+            char currentCharFound_ = _found.charAt(indexInstr_);
+            if (currentCharFound_ == BEGIN_ARRAY) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            if (Character.isWhitespace(currentCharFound_)) {
+                declTypeName_.append(currentCharFound_);
+                indexInstr_++;
+                continue;
+            }
+            break;
+        }
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
             if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
                 String trimmed_ = declTypeName_.toString().trim();
-                if (foundTmp_) {
-                    typeDeclaring_ = true;
-                    break;
-                }
                 String nextPart_ = _found.substring(indexInstr_).trim();
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
@@ -2511,18 +2525,6 @@ public final class FileResolver {
                 indexInstr_++;
                 continue;
             }
-            if (currentCharFound_ == BEGIN_ARRAY) {
-                String trimmed_ = declTypeName_.toString().trim();
-                if (trimmed_.length() > 0) {
-                    char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (ch_ != BEGIN_ARRAY) {
-                        break;
-                    }
-                }
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
             if (currentCharFound_ == BEGIN_TEMPLATE) {
                 nbOpenedTmp_++;
                 declTypeName_.append(currentCharFound_);
@@ -2533,7 +2535,7 @@ public final class FileResolver {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith("..") && !nextPart_.startsWith(VARARG)) {
+                    if (nextPart_.startsWith("..")) {
                         declTypeName_.append(currentCharFound_);
                         indexInstr_++;
                         continue;
@@ -2616,7 +2618,6 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
-        boolean foundTmp_ = false;
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
             if (currentCharFound_ == BEGIN_ARRAY) {
@@ -2648,10 +2649,6 @@ public final class FileResolver {
                     }
                 }
                 String nextPart_ = _found.substring(indexInstr_).trim();
-                if (foundTmp_ && !nextPart_.startsWith("..")) {
-                    typeDeclaring_ = true;
-                    break;
-                }
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
                     if (StringList.isWordChar(ch_)) {
@@ -2677,7 +2674,7 @@ public final class FileResolver {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith("..") && !nextPart_.startsWith(VARARG)) {
+                    if (nextPart_.startsWith("..")) {
                         declTypeName_.append(currentCharFound_);
                         indexInstr_++;
                         continue;

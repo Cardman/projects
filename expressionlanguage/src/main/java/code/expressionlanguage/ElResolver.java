@@ -1041,7 +1041,19 @@ public final class ElResolver {
                     String word_ = _string.substring(beginWord_, i_);
                     String dot_ = String.valueOf(DOT_VAR);
                     String look_ = _conf.getLookLocalClass();
-                    if (!look_.isEmpty()) {
+                    int prChar_ = beginWord_ - 1;
+                    while (prChar_ >= 0) {
+                        char pr_ = _string.charAt(prChar_);
+                        if (Character.isWhitespace(pr_)) {
+                            prChar_--;
+                            continue;
+                        }
+                        break;
+                    }
+                    if (!d_.getVariables().isEmpty() && d_.getVariables().last().getLastChar() == prChar_) {
+                        info_.setName(word_);
+                        d_.getVariables().add(info_);
+                    } else if (!look_.isEmpty()) {
                         info_.setName(word_);
                         d_.getVariables().add(info_);
                     } else {
@@ -1326,7 +1338,7 @@ public final class ElResolver {
                             d_.getVariables().add(info_);
                         }
                     }
-                 }
+                }
                 String nextPart_ = _string.substring(i_).trim();
                 if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
                     d_.setBadOffset(i_);
