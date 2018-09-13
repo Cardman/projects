@@ -104,6 +104,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
                     if (!StringList.quickEq(f.getFieldName(), value.trim())) {
                         continue;
                     }
+                    _cont.setLookLocalClass(id_);
                     Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
                     _cont.setAnalyzingRoot(true);
                     OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
@@ -112,7 +113,6 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
                     _cont.setStaticContext(true);
                     defaultAssignmentBefore(_cont, op_);
                     op_.setStaticBlock(true);
-                    _cont.setLookLocalClass(id_);
                     op_.analyze(_cont);
                     _cont.setLookLocalClass(EMPTY_STRING);
                     op_.tryAnalyzeAssignmentAfter(_cont);

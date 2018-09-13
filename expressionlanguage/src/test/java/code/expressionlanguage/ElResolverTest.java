@@ -3622,6 +3622,27 @@ public class ElResolverTest {
         assertEq(1, d_.getDelKeyWordStaticExtract().size());
         assertEq("pkg.ExTwo..Ex", d_.getDelKeyWordStaticExtract().first());
     }
+
+    @Test
+    public void getOperationsSequence201Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "a<b>c";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("<", opers_.getVal(1));
+        assertEq(">", opers_.getVal(3));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(3, values_.size());
+        assertEq("a", values_.getVal(0));
+        assertEq("b", values_.getVal(2));
+        assertEq("c", values_.getVal(4));
+    
+        assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
+        assertTrue(!seq_.isInstanceTest());
+    }
     @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();

@@ -2032,7 +2032,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return true;
         }
         char first_ = sub_.charAt(0);
-        return !(StringList.isWordChar(first_) || first_ == KEY_WORD_PREFIX);
+        return !StringList.isDollarWordChar(first_);
     }
     private static String prefixKeyWord(String _keyWord) {
         return StringList.concat(String.valueOf(KEY_WORD_PREFIX), _keyWord);

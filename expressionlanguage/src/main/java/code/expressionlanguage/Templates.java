@@ -312,10 +312,7 @@ public final class Templates {
                             return false;
                         }
                         for (char h: trPart_.toCharArray()) {
-                            if (h == FileResolver.SUPPLEMENT_CHAR) {
-                                continue;
-                            }
-                            if (StringList.isWordChar(h)) {
+                            if (StringList.isDollarWordChar(h)) {
                                 continue;
                             }
                             return false;

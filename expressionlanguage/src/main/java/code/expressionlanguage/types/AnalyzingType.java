@@ -38,6 +38,7 @@ public class AnalyzingType {
     public void setupValues(String _string) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
+            values.put((int)CustList.FIRST_INDEX, _string);
             error = true;
             return;
         }

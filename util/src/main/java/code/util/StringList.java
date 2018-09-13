@@ -2182,6 +2182,12 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return true;
     }
 
+    public static boolean isDollarWordChar(char _char) {
+        if (_char == '$') {
+            return true;
+        }
+        return isWordChar(_char);
+    }
     public static boolean isWordChar(char _char) {
         if (_char == CHAR_WORD_OTHER) {
             return true;

@@ -1,6 +1,5 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.Templates;
 import code.util.NatTreeMap;
 import code.util.Numbers;
@@ -139,10 +138,7 @@ public final class ParserType {
             return false;
         }
         for (char c: _string.toCharArray()) {
-            if (StringList.isWordChar(c)) {
-                continue;
-            }
-            if (c == FileResolver.SUPPLEMENT_CHAR) {
+            if (StringList.isDollarWordChar(c)) {
                 continue;
             }
             if (c == Templates.PREFIX_VAR_TYPE_CHAR) {

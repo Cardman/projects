@@ -12,6 +12,8 @@ public class Composite implements Displayable {
 
     private Integer objInteger;
 
+    private CompositeSec composite = new CompositeSec();
+
     private int privateInt;
 
     private ValueChangeEvent changing;
@@ -49,6 +51,14 @@ public class Composite implements Displayable {
     public Composite(int _param, String..._strings) {
         privateInt = _param;
         strings = new StringList(_strings);
+    }
+
+    public CompositeSec getComposite() {
+        return composite;
+    }
+
+    public void setComposite(CompositeSec _composite) {
+        composite = _composite;
     }
 
     public void updateValue(ValueChangeEvent _changing) {

@@ -3,7 +3,6 @@ import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.BadLabelName;
@@ -266,10 +265,7 @@ public abstract class Block extends Blockable {
             String label_ = ((BreakableBlock)this).getLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
-                if (StringList.isWordChar(c)) {
-                    continue;
-                }
-                if (c == FileResolver.SUPPLEMENT_CHAR) {
+                if (StringList.isDollarWordChar(c)) {
                     continue;
                 }
                 wc_ = false;

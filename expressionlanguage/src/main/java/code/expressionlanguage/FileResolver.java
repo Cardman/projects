@@ -640,7 +640,7 @@ public final class FileResolver {
                 //ERROR
                 return out_;
             }
-            if (!StringList.isWordChar(_file.charAt(nextIndex_)) && _file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
+            if (!StringList.isDollarWordChar(_file.charAt(nextIndex_))) {
                 //ERROR
                 return out_;
             }
@@ -1105,7 +1105,7 @@ public final class FileResolver {
                                 return out_;
                             }
                             locIndex_ = skipWhitespace(locIndex_, _file, tabWidth_, locRc_,  enLoc_);
-                            if (!StringList.isWordChar(_file.charAt(locIndex_)) && _file.charAt(locIndex_) != KEY_WORD_PREFIX) {
+                            if (!StringList.isDollarWordChar(_file.charAt(locIndex_))) {
                                 //ERROR
                                 return out_;
                             }
@@ -1270,10 +1270,8 @@ public final class FileResolver {
                             int indexMod_ = 0;
                             while (indexMod_ < lenAfterModifiers_) {
                                 char cur_ = found_.charAt(indexMod_);
-                                if (!StringList.isWordChar(cur_)) {
-                                    if (cur_ != KEY_WORD_PREFIX) {
-                                        break;
-                                    }
+                                if (!StringList.isDollarWordChar(cur_)) {
+                                    break;
                                 }
                                 indexMod_++;
                             }
@@ -1863,7 +1861,7 @@ public final class FileResolver {
                                     return out_;
                                 }
                                 locIndex_ = skipWhitespace(locIndex_, _file, tabWidth_, locRc_,  enLoc_);
-                                if (!StringList.isWordChar(_file.charAt(locIndex_)) && _file.charAt(locIndex_) != KEY_WORD_PREFIX) {
+                                if (!StringList.isDollarWordChar(_file.charAt(locIndex_))) {
                                     //ERROR
                                     return out_;
                                 }
@@ -2053,10 +2051,8 @@ public final class FileResolver {
                                     int indexMod_ = 0;
                                     while (indexMod_ < lenAfterModifiers_) {
                                         char cur_ = infoModifiers_.charAt(indexMod_);
-                                        if (!StringList.isWordChar(cur_)) {
-                                            if (cur_ != KEY_WORD_PREFIX) {
-                                                break;
-                                            }
+                                        if (!StringList.isDollarWordChar(cur_)) {
+                                            break;
                                         }
                                         indexMod_++;
                                     }
@@ -2441,9 +2437,9 @@ public final class FileResolver {
                 String trimmed_ = declTypeName_.toString().trim();
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (StringList.isWordChar(ch_)) {
+                    if (StringList.isDollarWordChar(ch_)) {
                         if (!nextPart_.isEmpty()) {
-                            if (StringList.isWordChar(nextPart_.charAt(0))) {
+                            if (StringList.isDollarWordChar(nextPart_.charAt(0))) {
                                 typeDeclaring_ = true;
                                 break;
                             }
@@ -2512,7 +2508,7 @@ public final class FileResolver {
                 String nextPart_ = _found.substring(indexInstr_).trim();
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (StringList.isWordChar(ch_)) {
+                    if (StringList.isDollarWordChar(ch_)) {
                         if (!nextPart_.isEmpty()) {
                             if (nextPart_.substring(0).trim().startsWith(String.valueOf(BEGIN_CALLING))) {
                                 typeDeclaring_ = true;
@@ -2554,12 +2550,7 @@ public final class FileResolver {
                 continue;
             }
             // !Character.isWhitespace(currentCharFound_)
-            if (StringList.isWordChar(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == KEY_WORD_PREFIX) {
+            if (StringList.isDollarWordChar(currentCharFound_)) {
                 declTypeName_.append(currentCharFound_);
                 indexInstr_++;
                 continue;
@@ -2651,9 +2642,9 @@ public final class FileResolver {
                 String nextPart_ = _found.substring(indexInstr_).trim();
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
-                    if (StringList.isWordChar(ch_)) {
+                    if (StringList.isDollarWordChar(ch_)) {
                         if (!nextPart_.isEmpty()) {
-                            if (StringList.isWordChar(nextPart_.charAt(0))) {
+                            if (StringList.isDollarWordChar(nextPart_.charAt(0))) {
                                 typeDeclaring_ = true;
                                 break;
                             }
@@ -2693,12 +2684,7 @@ public final class FileResolver {
                 continue;
             }
             // !Character.isWhitespace(currentCharFound_)
-            if (StringList.isWordChar(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            if (currentCharFound_ == KEY_WORD_PREFIX) {
+            if (StringList.isDollarWordChar(currentCharFound_)) {
                 declTypeName_.append(currentCharFound_);
                 indexInstr_++;
                 continue;
@@ -2787,7 +2773,7 @@ public final class FileResolver {
             return true;
         }
         char first_ = sub_.charAt(0);
-        return !(StringList.isWordChar(first_) || first_ == KEY_WORD_PREFIX);
+        return !StringList.isDollarWordChar(first_);
     }
     private static String prefixKeyWord(String _keyWord) {
         return StringList.concat(String.valueOf(KEY_WORD_PREFIX), _keyWord);

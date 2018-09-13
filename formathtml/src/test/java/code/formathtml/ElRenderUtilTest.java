@@ -780,6 +780,24 @@ public final class ElRenderUtilTest {
     }
 
     @Test
+    public void processEl62Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Composite compos_ = new Composite();
+        compos_.setInteger(2);
+        addBean(context_, compos_, "code.expressionlanguage.classes.Composite");
+        StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
+        LoopVariable lv_ = new LoopVariable();
+        lv_.setStruct(new IntStruct(4));
+        lv_.setClassName("$int");
+        localVars_.put("v", lv_);
+        context_.getLastPage().getVars().putAllMap(localVars_);
+        Argument arg_ = ElRenderUtil.processEl("v;+integer",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(6,(Number) res_);
+    }
+    @Test
     public void processEl62FailTest() {
         Configuration context_ = contextEl();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -1626,7 +1644,16 @@ public final class ElRenderUtilTest {
         assertTrue(res_ instanceof Byte);
         assertEq(-1, (Number)res_);
     }
-
+    @Test
+    public void processEl123Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl("java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        int max_ = Byte.MAX_VALUE+Byte.MAX_VALUE;
+        assertEq(max_, (Number)res_);
+    }
     @Test
     public void processEl123FailTest() {
         Configuration context_ = contextEl();
@@ -5233,7 +5260,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("$static($Class).getAllClasses().length",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
-        assertEq(59, (Number)res_);
+        assertEq(60, (Number)res_);
     }
     @Test
     public void processEl278Test() {
@@ -6569,6 +6596,18 @@ public final class ElRenderUtilTest {
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(9, (Number)res_);
+    }
+
+    @Test
+    public void processEl313Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        BeanOne b_ = new BeanOne();
+        addBean(context_, b_, ALIAS_BEAN_ONE);
+        Argument arg_ = ElRenderUtil.processEl("composite.composite.integer",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(0, (Number)res_);
     }
     @Test
     public void processAffect1Test() {

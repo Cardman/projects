@@ -29,6 +29,7 @@ public final class CustLgNames extends BeanLgNames {
 
     private String aliasStringList = "code.util.StringList";
     private String aliasComposite = "code.expressionlanguage.classes.Composite";
+    private String aliasCompositeSec = "$CompositeSec";
     private String aliasInheritedComposite = "code.expressionlanguage.classes.InheritedComposite";
     private String aliasFailMethods = "code.expressionlanguage.classes.FailMethods";
     private String aliasNotRead = "NOT_READ";
@@ -185,8 +186,18 @@ public final class CustLgNames extends BeanLgNames {
         fields_.put(aliasIntegerField, field_);
         field_ = new StandardField(aliasObjIntegerField, getAliasInteger(), false, false, stdcl_);
         fields_.put(aliasObjIntegerField, field_);
+        field_ = new StandardField(aliasCompositeField, aliasCompositeSec, false, false, stdcl_);
+        fields_.put(aliasCompositeField, field_);
         std_ = stdcl_;
         getStandards().put(aliasComposite, std_);
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        fields_ = new StringMap<StandardField>();
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasCompositeSec, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        field_ = new StandardField(aliasIntegerField, getAliasPrimInteger(), false, false, stdcl_);
+        fields_.put(aliasIntegerField, field_);
+        std_ = stdcl_;
+        getStandards().put(aliasCompositeSec, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -487,6 +498,17 @@ public final class CustLgNames extends BeanLgNames {
                 }
                 return res_;
             }
+            if (StringList.quickEq(fieldName_, aliasCompositeField)) {
+                Composite cpt_ = (Composite) _instance.getInstance();
+                CompositeSec i_ = cpt_.getComposite();
+                res_.setResult(StdStruct.wrapStd(i_, _cont));
+                return res_;
+            }
+        }
+        if (StringList.quickEq(_classField.getClassName(), aliasCompositeSec)) {
+            CompositeSec cpt_ = (CompositeSec) _instance.getInstance();
+            res_.setResult(new IntStruct(cpt_.getInteger()));
+            return res_;
         }
         if (StringList.quickEq(_classField.getClassName(), aliasBeanOne)) {
             if (StringList.quickEq(fieldName_, aliasCompositeField)) {
@@ -558,6 +580,9 @@ public final class CustLgNames extends BeanLgNames {
     public String getOtherStructClassName(Object _struct, ContextEl _context) {
         if (_struct instanceof Composite) {
             return aliasComposite;
+        }
+        if (_struct instanceof CompositeSec) {
+            return aliasCompositeSec;
         }
         if (_struct instanceof Ints) {
             return aliasInts;

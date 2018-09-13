@@ -569,7 +569,7 @@ public final class Classes {
                     addError(b_);
                 }
                 for (char c: file_.toCharArray()) {
-                    if (StringList.isWordChar(c)) {
+                    if (StringList.isDollarWordChar(c)) {
                         continue;
                     }
                     if (c == DOT) {

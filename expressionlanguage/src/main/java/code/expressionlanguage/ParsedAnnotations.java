@@ -146,10 +146,7 @@ public final class ParsedAnnotations {
         }
     }
     private static boolean isPart(char _char) {
-        if (StringList.isWordChar(_char)) {
-            return true;
-        }
-        if (_char == FileResolver.SUPPLEMENT_CHAR) {
+        if (StringList.isDollarWordChar(_char)) {
             return true;
         }
         if (_char == '.') {
