@@ -203,6 +203,9 @@ public final class NamePartType extends LeafPartType {
                         allAncestors_.add(p_.getFullName());
                         p_ = p_.getParentType();
                     }
+                    if (!allAncestors_.isEmpty() && _globalType == null) {
+                        return;
+                    }
                     for (String a: allAncestors_) {
                         GeneType g_ = _an.getClassBody(a);
                         String genStr_ = g_.getGenericString();
@@ -400,6 +403,210 @@ public final class NamePartType extends LeafPartType {
             un_.setRc(_location);
             _an.getClasses().addError(un_);
             out_ = _an.getStandards().getAliasObject();
+        }
+        setAnalyzedType(out_);
+    }
+    @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            boolean _exact) {
+        CustList<PartType> previous_ = new CustList<PartType>();
+        InnerPartType i_ = null;
+        PartType parCur_ = null;
+        if (getParent() instanceof InnerPartType) {
+            parCur_ = this;
+            i_ = (InnerPartType) getParent();
+        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
+            parCur_ = getParent();
+            i_ = (InnerPartType) getParent().getParent();
+        }
+        if (i_ != null) {
+            PartType part_ = parCur_.getPreviousSibling();
+            if (part_ == null) {
+                InnerPartType par_ = i_;
+                if (par_.isRemovedBefore()) {
+                    String type_ = getTypeName();
+                    RootBlock c = (RootBlock)_rooted;
+                    StringMap<String> allPossibleDirectSuperTypes_ = new StringMap<String>();
+                    CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
+                    StringList allAncestors_ = new StringList();
+                    RootBlock p_ = c;
+                    Classes classes_ = _an.getClasses();
+                    while (p_ != null) {
+                        allAncestors_.add(p_.getFullName());
+                        p_ = p_.getParentType();
+                    }
+                    for (String a: allAncestors_) {
+                        GeneType g_ = _an.getClassBody(a);
+                        String genStr_ = g_.getGenericString();
+                        String f_ = Templates.format(_globalType, genStr_, _an);
+                        StringList c_ = new StringList(a);
+                        while (true) {
+                            StringList new_ = new StringList();
+                            for (String s: c_) {
+                                RootBlock sub_ = classes_.getClassBody(s);
+                                if (sub_ == null) {
+                                    continue;
+                                }
+                                boolean add_ = false;
+                                for (Block b: Classes.getDirectChildren(sub_)) {
+                                    if (!(b instanceof RootBlock)) {
+                                        continue;
+                                    }
+                                    RootBlock inner_ = (RootBlock) b;
+                                    if (StringList.quickEq(inner_.getName(), type_)) {
+                                        allPossibleDirectSuperTypes_.put(s,f_);
+                                        innersCandidates_.add(inner_);
+                                        add_ = true;
+                                    }
+                                }
+                                if (add_) {
+                                    continue;
+                                }
+                                for (String t: sub_.getImportedDirectSuperTypes()) {
+                                    String id_ = Templates.getIdFromAllTypes(t);
+                                    new_.add(id_);
+                                }
+                            }
+                            if (new_.isEmpty()) {
+                                break;
+                            }
+                            c_ = new_;
+                        }
+                        if (allPossibleDirectSuperTypes_.size() == 1) {
+                            break;
+                        }
+                    }
+                    if (allPossibleDirectSuperTypes_.size() == 1) {
+                        if (innersCandidates_.first().isStaticType()) {
+                            String new_ = allPossibleDirectSuperTypes_.getKey(0);
+                            setAnalyzedType(StringList.concat(new_,"..",type_));
+                            return;
+                        }
+                        if (!_exact) {
+                            String new_ = allPossibleDirectSuperTypes_.getKey(0);
+                            setAnalyzedType(StringList.concat(new_,"..",type_));
+                            return;
+                        }
+                        String sup_ = allPossibleDirectSuperTypes_.getKey(0);
+                        String sub_ = allPossibleDirectSuperTypes_.getValue(0);
+                        String new_ = Templates.getFullTypeByBases(sub_, sup_, _an);
+                        setAnalyzedType(StringList.concat(new_,"..",type_));
+                        return;
+                    }
+                    return;
+                }
+            }
+            while (part_ != null) {
+                previous_.add(part_);
+                part_ = part_.getPreviousSibling();
+            }
+        }
+        if (!previous_.isEmpty()) {
+            previous_ = previous_.getReverse();
+            PartType last_ = previous_.last();
+            String owner_ = last_.getAnalyzedType();
+            String id_ = Templates.getIdFromAllTypes(owner_);
+            Classes classes_ = _an.getClasses();
+            StringList foundOwners_ = new StringList();
+            CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
+            StringList c_ = new StringList(id_);
+            String type_ = getTypeName();
+            while (true) {
+                StringList new_ = new StringList();
+                for (String s: c_) {
+                    RootBlock sub_ = classes_.getClassBody(s);
+                    if (sub_ == null) {
+                        continue;
+                    }
+                    boolean add_ = false;
+                    for (Block b: Classes.getDirectChildren(sub_)) {
+                        if (!(b instanceof RootBlock)) {
+                            continue;
+                        }
+                        RootBlock inner_ = (RootBlock) b;
+                        if (StringList.quickEq(inner_.getName(), type_)) {
+                            foundOwners_.add(s);
+                            innersCandidates_.add(inner_);
+                            add_ = true;
+                        }
+                    }
+                    if (add_) {
+                        continue;
+                    }
+                    for (String t: sub_.getImportedDirectSuperTypes()) {
+                        String idLoc_ = Templates.getIdFromAllTypes(t);
+                        new_.add(idLoc_);
+                    }
+                }
+                if (new_.isEmpty()) {
+                    break;
+                }
+                c_ = new_;
+            }
+            foundOwners_.removeDuplicates();
+            if (foundOwners_.size() == 1) {
+                String old_ = last_.getAnalyzedType();
+                if (innersCandidates_.first().isStaticType()) {
+                    String new_ = foundOwners_.first();
+                    last_.setAnalyzedType(new_);
+                    setAnalyzedType(StringList.concat(new_,"..",type_));
+                    return;
+                }
+                if (!Templates.correctNbParameters(old_, _an)) {
+                    String new_ = foundOwners_.first();
+                    last_.setAnalyzedType(new_);
+                    setAnalyzedType(StringList.concat(new_,"..",type_));
+                    return;
+                }
+                String new_ = Templates.getFullTypeByBases(old_, foundOwners_.first(), _an);
+                last_.setAnalyzedType(new_);
+                setAnalyzedType(StringList.concat(new_,"..",type_));
+                return;
+            }
+            return;
+        }
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
+        if (_an.getClasses().isCustomType(type_)) {
+            if (_an.isDirectImport()) {
+                if (!_rooted.isAccessibleType(type_, _an)) {
+                    return;
+                }
+            } else if (!_rooted.canAccessClass(type_, _an)) {
+                return;
+            }
+            setAnalyzedType(type_);
+            return;
+        }
+        if (_an.getStandards().getStandards().contains(type_)) {
+            setAnalyzedType(type_);
+            return;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
+            setAnalyzedType(type_);
+            return;
+        }
+        if (getParent() instanceof TemplatePartType) {
+            PartType prev_ = getParent().getFirstChild();
+            if (prev_ instanceof NamePartType) {
+                String base_ = ((NamePartType)prev_).getTypeName();
+                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                        setAnalyzedType(getTypeName().trim());
+                        return;
+                    }
+                }
+            }
+        }
+        
+        String out_;
+        if (_an.isDirectImport()) {
+            out_ = _an.lookupImportsDirect(type_, _rooted);
+        } else {
+            out_ = _an.lookupImportsIndirect(type_, _rooted);
+        }
+        if (out_.isEmpty()) {
+            return;
         }
         setAnalyzedType(out_);
     }

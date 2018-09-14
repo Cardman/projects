@@ -38,6 +38,18 @@ public final class InnerPartType extends ParentPartType {
         setAnalyzedType(t_);
     }
     @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            boolean _exact) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
+        }
+        String t_ = ch_.last().getAnalyzedType();
+        setAnalyzedType(t_);
+    }
+    @Override
     public String getEnd() {
         return EMPTY_STRING;
     }

@@ -349,6 +349,62 @@ public final class PartTypeUtil {
         return root_.getAnalyzedType();
     }
 
+    public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact) {
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input);
+        if (indexes_ == null) {
+            return "";
+        }
+        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_);
+        CustList<NatTreeMap<Integer, String>> dels_;
+        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        boolean rem_ = loc_.isRemovedEmptyFirstChild();
+        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_);
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            PartType child_ = createFirstChild(current_, loc_, dels_);
+            if (child_ != null) {
+                ((ParentPartType)current_).appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                current_.analyze(_an, _globalType, _rooted, _exact);
+                if (current_.getAnalyzedType().isEmpty()) {
+                    return "";
+                }
+                PartType next_ = createNextSibling(current_, loc_, dels_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    par_.analyze(_an, _globalType, _rooted, _exact);
+                    if (par_.getAnalyzedType().isEmpty()) {
+                        return "";
+                    }
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        return root_.getAnalyzedType();
+    }
     public static String processExec(String _input,ExecutableCode _an) {
         StringBuilder out_ = new StringBuilder();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input);

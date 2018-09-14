@@ -62,6 +62,17 @@ public final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            boolean _exact) {
+        String type_ = getTypeName();
+        String t_ = StringList.removeAllSpaces(type_);
+        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        type_ = ContextEl.removeDottedSpaces(type_);
+        if (_an.getAvailableVariables().containsStr(type_)) {
+            setAnalyzedType(t_);
+        }
+    }
+    @Override
     public void checkDynExistence(Analyzable _an) {
         
     }

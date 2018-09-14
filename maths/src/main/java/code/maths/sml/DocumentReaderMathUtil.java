@@ -30,19 +30,11 @@ public final class DocumentReaderMathUtil {
     private static final String FIELD_POINTS = "points";
  
     public static LgInt getLgInt(Element _boolean) {
-        try {
-            return LgInt.newLgInt(_boolean.getAttribute(ATTR_VALUE));
-        } catch (Exception _0) {
-            return LgInt.zero();
-        }
+        return LgInt.newLgInt(_boolean.getAttribute(ATTR_VALUE));
     }
 
     public static Rate getRate(Element _boolean) {
-        try {
-            return Rate.newRate(_boolean.getAttribute(ATTR_VALUE));
-        } catch (Exception _0) {
-            return Rate.zero();
-        }
+        return Rate.newRate(_boolean.getAttribute(ATTR_VALUE));
     }
 
 

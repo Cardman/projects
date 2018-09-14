@@ -882,6 +882,10 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
+        return resolveDynamicType(_in, null);
+    }
+    @Override
     public String resolveTypeMapping(String _in, Block _currentBlock, RowCol _location) {
         return resolveDynamicType(_in, null);
     }

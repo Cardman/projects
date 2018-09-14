@@ -48,4 +48,21 @@ public final class TemplatePartType extends ParentPartType {
         t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
         setAnalyzedType(t_);
     }
+    @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            boolean _exact) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
+        }
+        String t_ = getBegin();
+        int len_ = ch_.size() - 1;
+        for (int i = 0; i < len_; i++) {
+            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
+        }
+        t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
+        setAnalyzedType(t_);
+    }
 }

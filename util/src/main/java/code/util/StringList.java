@@ -425,12 +425,16 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static String simpleStringsFormat(String _format, String... _args) {
+        if (_args == null) {
+            return _format;
+        }
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
         int length_ = _format.length();
         boolean escaped_ = false;
         boolean inside_ = false;
         int i_ = FIRST_INDEX;
+        int argLength_ = _args.length;
         while (i_ < length_) {
             char cur_ = _format.charAt(i_);
             if (cur_ == QUOTE) {
@@ -457,10 +461,10 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 inside_ = true;
             } else if (cur_ == RIGHT_BRACE) {
                 inside_ = false;
-                try {
-                    int argNb_ = Integer.parseInt(arg_.toString());
+                int argNb_ = Numbers.parseInt(arg_.toString());
+                if (argNb_ >= 0 && argNb_ < argLength_) {
                     str_.append(_args[argNb_]);
-                } catch (RuntimeException _0) {
+                } else {
                     str_.append(LEFT_BRACE);
                     str_.append(arg_);
                     str_.append(RIGHT_BRACE);
@@ -476,12 +480,16 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static String simpleNumberFormat(String _format, Number... _args) {
+        if (_args == null) {
+            return _format;
+        }
         StringBuilder str_ = new StringBuilder();
         StringBuilder arg_ = new StringBuilder();
         int length_ = _format.length();
         boolean escaped_ = false;
         boolean inside_ = false;
         int i_ = FIRST_INDEX;
+        int argLength_ = _args.length;
         while (i_ < length_) {
             char cur_ = _format.charAt(i_);
             if (cur_ == QUOTE) {
@@ -508,10 +516,17 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 inside_ = true;
             } else if (cur_ == RIGHT_BRACE) {
                 inside_ = false;
-                try {
-                    int argNb_ = Integer.parseInt(arg_.toString());
-                    str_.append(_args[argNb_].toString());
-                } catch (RuntimeException _0) {
+                int argNb_ = Numbers.parseInt(arg_.toString());
+                if (argNb_ >= 0 && argNb_ < argLength_) {
+                    Number a_ = _args[argNb_];
+                    if (a_ != null) {
+                        str_.append(a_.toString());
+                    } else {
+                        str_.append(LEFT_BRACE);
+                        str_.append(arg_);
+                        str_.append(RIGHT_BRACE);
+                    }
+                } else {
                     str_.append(LEFT_BRACE);
                     str_.append(arg_);
                     str_.append(RIGHT_BRACE);

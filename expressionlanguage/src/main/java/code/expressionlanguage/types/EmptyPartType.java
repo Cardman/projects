@@ -43,6 +43,10 @@ public final class EmptyPartType extends LeafPartType {
         _an.getClasses().addError(un_);
     }
     @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            boolean _exact) {
+    }
+    @Override
     public void checkDynExistence(Analyzable _an) {
     }
 

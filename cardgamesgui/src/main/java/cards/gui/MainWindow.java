@@ -790,9 +790,9 @@ public final class MainWindow extends NetGroupFrame {
         Numbers<Long> vl_=new Numbers<Long>();
         boolean read_ = false;
         StringList lines_ = new StringList();
-        try {
+        if (content_ != null) {
             lines_.addAllElts(StringList.splitChars(content_, LINE_RETURN));
-        } catch (NullPointerException _0) {
+        } else {
             read_ = false;
         }
         int total_ = GameEnum.values().length;
@@ -800,12 +800,8 @@ public final class MainWindow extends NetGroupFrame {
             read_ = false;
         }
         if (read_) {
-            try {
-                for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
-                    vl_.add(Long.parseLong(lines_.get(indice_)));
-                }
-            } catch (NumberFormatException _0) {
-                read_ = false;
+            for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
+                vl_.add(Numbers.parseLongZero(lines_.get(indice_)));
             }
         }
         if (!read_) {

@@ -102,6 +102,7 @@ public interface Analyzable {
     String resolveTypeMapping(String _in, Block _currentBlock,RowCol _location);
     String resolveCorrectType(String _in);
     String resolveCorrectType(String _in, boolean _exact);
+    String resolveCorrectTypeWithoutErrors(String _in, boolean _exact);
 
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseTypeBuildInherits(String _in, Block _currentBlock);

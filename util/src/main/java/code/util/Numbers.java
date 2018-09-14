@@ -210,6 +210,16 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
     public static int[] wrapIntArray(int... _ints) {
         return _ints;
     }
+    public static int parseInt(String _string) {
+        long int_ = parseLongZero(_string);
+        if (int_ < Integer.MIN_VALUE) {
+            return 0;
+        }
+        if (int_ > Integer.MAX_VALUE) {
+            return 0;
+        }
+        return (int) int_;
+    }
     //this long parser is very naive
     public static long parseLongZero(String _string) {
         if (_string.isEmpty()) {

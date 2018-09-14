@@ -1175,7 +1175,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         AccessingImportingBlock r_ = bl_.getImporting();
         StringList varsList_ = new StringList();
         StringMap<StringList> vars_ = new StringMap<StringList>();
-
+        
         boolean static_;
         if (bl_ instanceof InfoBlock) {
             static_ = ((InfoBlock)bl_).isStaticField();
@@ -1205,6 +1205,55 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             un_.setRc(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
+        }
+        return resType_;
+    }
+    /**Used at analyzing instructions*/
+    @Override
+    public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
+        if (isEnabledInternVars()) {
+            return EMPTY_TYPE;
+        }
+        Block bl_ = getCurrentBlock();
+        if (bl_ == null) {
+            GeneType g_ = getClassBody(_in.trim());
+            if (g_ != null) {
+                return _in.trim();
+            }
+            return EMPTY_TYPE;
+        }
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in.trim(), void_)) {
+            return EMPTY_TYPE;
+        }
+        AccessingImportingBlock r_ = bl_.getImporting();
+        StringList varsList_ = new StringList();
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+
+        boolean static_;
+        if (bl_ instanceof InfoBlock) {
+            static_ = ((InfoBlock)bl_).isStaticField();
+        } else {
+            FunctionBlock fct_ = bl_.getFunction();
+            if (fct_ == null) {
+                static_ = true;
+            } else {
+                static_ = fct_.isStaticContext();
+            }
+        }
+        if (!static_) {
+            for (TypeVar t: r_.getParamTypesMapValues()) {
+                varsList_.add(t.getName());
+                vars_.put(t.getName(), t.getConstraints());
+            }
+        }
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(varsList_);
+        setDirectImport(false);
+        String gl_ = getGlobalClass();
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
+        if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
+            return EMPTY_TYPE;
         }
         return resType_;
     }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Templates;
+import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -54,6 +55,7 @@ public final class ParserType {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
         if (_string.trim().isEmpty()) {
+            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
             a_.setError(true);
             return a_;
         }

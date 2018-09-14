@@ -40,7 +40,7 @@ public final class OpeningGame extends Thread {
     }
 
     private static void setProgress(int _perCentLoading) {
-        MainWindow.getDialog().setPerCent(String.valueOf(_perCentLoading));
+        MainWindow.getDialog().setPerCent(_perCentLoading);
     }
 
 //    @Override

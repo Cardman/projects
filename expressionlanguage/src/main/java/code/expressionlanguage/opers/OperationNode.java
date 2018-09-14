@@ -557,7 +557,10 @@ public abstract class OperationNode {
                 keepInstance_ = false;
             }
             for (RootBlock p : r_.getAllParentTypes()) {
-                String f_ = Templates.format(c, p.getGenericString(), _cont);
+                String f_ = p.getGenericString();
+                if (Templates.correctNbParameters(c, _cont)) {
+                    f_ = Templates.format(c, f_, _cont);
+                }
                 String baseLoc_ = Templates.getIdFromAllTypes(f_);
                 StringList classeNamesPar_ = new StringList();
                 if (_baseClass) {
@@ -634,7 +637,11 @@ public abstract class OperationNode {
                 String formatted_;
                 if (i == 0) {
                     String baseCl_ = clCurNames_.getVal(cl_);
-                    formatted_ = Templates.getFullTypeByBases(baseCl_, cl_, _cont);
+                    if (Templates.correctNbParameters(baseCl_, _cont)) {
+                        formatted_ = Templates.getFullTypeByBases(baseCl_, cl_, _cont);
+                    } else {
+                        formatted_ = cl_;
+                    }
                 } else {
                     formatted_ = cl_;
                 }
@@ -922,6 +929,18 @@ public abstract class OperationNode {
                 if (!Classes.canAccess(subType_, e, _conf)) {
                     continue;
                 }
+                if (_accessFromSuper) {
+                    StringList l_ = new StringList(superTypesBase_.values());
+                    if (l_.containsStr(t)) {
+                        continue;
+                    }
+                }
+                if (_superClass) {
+                    StringList l_ = new StringList(superTypesBase_.values());
+                    if (!l_.containsStr(t)) {
+                        continue;
+                    }
+                }
                 if (e.isStaticMethod()) {
                     MethodId id_ = e.getId();
                     String returnType_ = e.getImportedReturnType();
@@ -979,6 +998,18 @@ public abstract class OperationNode {
                 String subType_ = superTypesBaseAnc_.getVal(t.getKey());
                 if (!Classes.canAccess(subType_, e, _conf)) {
                     continue;
+                }
+                if (_accessFromSuper) {
+                    StringList l_ = new StringList(superTypesBaseAnc_.values());
+                    if (l_.containsStr(t.getKey())) {
+                        continue;
+                    }
+                }
+                if (_superClass) {
+                    StringList l_ = new StringList(superTypesBaseAnc_.values());
+                    if (!l_.containsStr(t.getKey())) {
+                        continue;
+                    }
                 }
                 if (e.isStaticMethod()) {
                     MethodId id_ = e.getId();

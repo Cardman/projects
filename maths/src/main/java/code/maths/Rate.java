@@ -61,6 +61,10 @@ public final class Rate implements Cmp<Rate>, Displayable {
             StringList numDen_ = StringList.splitStrings(tauxPris_, SEP_NUM_DEN);
             numerateur = new LgInt(numDen_.first());
             denominateur = new LgInt(numDen_.last());
+            if (denominateur.isZero()) {
+                numerateur = LgInt.zero();
+                denominateur = LgInt.one();
+            }
             simplifier();
         } else {
             numerateur = new LgInt(_chaine);

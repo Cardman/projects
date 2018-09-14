@@ -35,4 +35,11 @@ public final class ArraryPartType extends ParentPartType {
         setAnalyzedType(ch_);
     }
 
+    @Override
+    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+            boolean _exact) {
+        String ch_ = getFirstChild().getAnalyzedType();
+        ch_ = StringList.concat(getBegin(),ch_);
+        setAnalyzedType(ch_);
+    }
 }

@@ -39,6 +39,7 @@ public abstract class PartType {
         return new ArraryPartType(_parent, _index, _indexInType);
     }
     public abstract void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,boolean _exact, RowCol _location);
+    public abstract void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
     public int getIndex() {
         return index;
     }
