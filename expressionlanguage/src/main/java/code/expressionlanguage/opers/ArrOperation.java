@@ -52,9 +52,22 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             return;
         }
         ClassArgumentMatching class_ = getPreviousResultClass();
-        ClassArgumentMatching indexClass_ = chidren_.last().getResultClass();
-        setRelativeOffsetPossibleAnalyzable(chidren_.last().getIndexInEl(), _conf);
-        if (!indexClass_.isNumericInt(_conf)) {
+        OperationNode right_ = chidren_.last();
+        ClassArgumentMatching indexClass_ = right_.getResultClass();
+        setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _conf);
+        LgNames stds_ = _conf.getStandards();
+        String primInt_ = stds_.getAliasPrimInteger();
+        Argument rightArg_ = right_.getArgument();
+        boolean convertNumber_ = false;
+        if (rightArg_ != null && rightArg_.getObject() instanceof Number) {
+            Number value_ = (Number) rightArg_.getObject();
+            long valueUnwrapped_ = value_.longValue();
+            if (valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
+                right_.getResultClass().setUnwrapObject(primInt_);
+                convertNumber_ = true;
+            }
+        }
+        if (!convertNumber_ && !indexClass_.isNumericInt(_conf)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
@@ -77,7 +90,9 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             setResultClass(class_);
             return;
         }
-        indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf));
+        if (!convertNumber_) {
+            indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_, true, _conf));
+        }
         class_ = PrimitiveTypeUtil.getQuickComponentType(class_);
         setResultClass(class_);
     }
@@ -193,7 +208,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         return a_;
     }
     static void setCheckedElement(Struct _array,Object _index, Argument _element, ExecutableCode _conf) {
-        InvokingOperation.setElement(_array, _index, _element.getStruct(), _conf);
+        InvokingOperation.setElement(_array, _index, _element.getStruct(), _conf, false);
     }
     
     @Override
@@ -255,14 +270,14 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right) {
+            Argument _right, boolean _convert) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = _nodes.getVal(this).getArgument();
         setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
         OperationNode lastElement_ = chidren_.last();
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf));
+        a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf, _convert));
         if (_conf.getException() != null) {
             return a_;
         }
@@ -271,14 +286,14 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
+    public void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument();
         OperationNode lastElement_ = chidren_.last();
         Argument last_ = lastElement_.getArgument();
         Struct array_;
         array_ = getPreviousArgument().getStruct();
-        a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf));
+        a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf, _convert));
         if (_conf.getException() != null) {
             return;
         }
@@ -361,13 +376,13 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setSimpleArgument(a_, _conf);
     }
 
-    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf) {
+    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf, boolean _convert) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Object o_ = _index.getObject();
         if (_conf.getException() != null) {
             return _right.getStruct();
         }
-        InvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
+        InvokingOperation.setElement(_array, o_, _right.getStruct(), _conf, _convert);
         return _right.getStruct();
     }
 
@@ -394,7 +409,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_conf.getException() != null) {
             return _stored;
         }
-        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
+        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf, false);
         return res_.getStruct();
     }
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
@@ -420,7 +435,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_conf.getException() != null) {
             return _stored;
         }
-        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
+        InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf, false);
         if (_post) {
             return left_.getStruct();
         }

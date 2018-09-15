@@ -18,6 +18,7 @@ public final class Delimiters {
     private Numbers<Integer> delStringsChars = new Numbers<Integer>();
     private Numbers<Integer> delNumbers = new Numbers<Integer>();
     private Numbers<Integer> delKeyWordSuper = new Numbers<Integer>();
+    private Numbers<Integer> delKeyWordSuperAccess = new Numbers<Integer>();
     private Numbers<Integer> delKeyWordClassChoice = new Numbers<Integer>();
     private Numbers<Integer> delKeyWordStatic = new Numbers<Integer>();
     private StringList delKeyWordStaticExtract = new StringList();
@@ -57,6 +58,14 @@ public final class Delimiters {
 
     public void setDelKeyWordSuper(Numbers<Integer> _delKeyWordSuper) {
         delKeyWordSuper = _delKeyWordSuper;
+    }
+
+    public Numbers<Integer> getDelKeyWordSuperAccess() {
+        return delKeyWordSuperAccess;
+    }
+
+    public void setDelKeyWordSuperAccess(Numbers<Integer> _delKeyWordSuperAccess) {
+        delKeyWordSuperAccess = _delKeyWordSuperAccess;
     }
 
     public Numbers<Integer> getDelKeyWordClassChoice() {

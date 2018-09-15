@@ -37,6 +37,7 @@ public final class AffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
 
+    private boolean convertNumber;
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -146,6 +147,62 @@ public final class AffectationOperation extends MethodOperation {
         mapping_.setMapping(vars_);
         mapping_.setArg(clMatchRight_);
         mapping_.setParam(clMatchLeft_);
+        if (clMatchLeft_.isNumericInt(_conf)) {
+            String primInt_ = stds_.getAliasPrimInteger();
+            String primShort_ = stds_.getAliasPrimShort();
+            String primChar_ = stds_.getAliasPrimChar();
+            String primByte_ = stds_.getAliasPrimByte();
+            String int_ = stds_.getAliasInteger();
+            String short_ = stds_.getAliasShort();
+            String char_ = stds_.getAliasCharacter();
+            String byte_ = stds_.getAliasByte();
+            Argument rightArg_ = right_.getArgument();
+            if (rightArg_ != null && rightArg_.getObject() instanceof Number) {
+                Number value_ = (Number) rightArg_.getObject();
+                StringList first_ = clMatchLeft_.getNames();
+                long valueUnwrapped_ = value_.longValue();
+                if (first_.containsStr(primByte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+                if (first_.containsStr(primChar_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+                if (first_.containsStr(primShort_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+                if (first_.containsStr(primInt_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+                if (first_.containsStr(byte_) && valueUnwrapped_ >= Byte.MIN_VALUE && valueUnwrapped_ <= Byte.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+                if (first_.containsStr(char_) && valueUnwrapped_ >= Character.MIN_VALUE && valueUnwrapped_ <= Character.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+                if (first_.containsStr(short_) && valueUnwrapped_ >= Short.MIN_VALUE && valueUnwrapped_ <= Short.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+                if (first_.containsStr(int_) && valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
+                    right_.getResultClass().setUnwrapObject(clMatchLeft_);
+                    convertNumber = true;
+                    return;
+                }
+            }
+        }
         if (!Templates.isCorrect(mapping_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
@@ -304,7 +361,7 @@ public final class AffectationOperation extends MethodOperation {
     public void calculate(ExecutableCode _conf) {
         OperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = right_.getArgument();
-        settable.calculateSetting(_conf, rightArg_);
+        settable.calculateSetting(_conf, rightArg_, convertNumber);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
     }
@@ -314,7 +371,7 @@ public final class AffectationOperation extends MethodOperation {
             ContextEl _conf) {
         OperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = _nodes.getVal(right_).getArgument();
-        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_);
+        Argument arg_ = settable.calculateSetting(_nodes, _conf, rightArg_, convertNumber);
         if (_conf.calls()) {
             return arg_;
         }

@@ -915,6 +915,9 @@ public final class PrimitiveTypeUtil {
         if (out_.matchClass(_stds.getAliasPrimInteger())) {
             return true;
         }
+        if (out_.matchClass(_stds.getAliasPrimChar())) {
+            return true;
+        }
         if (out_.matchClass(_stds.getAliasPrimShort())) {
             return true;
         }

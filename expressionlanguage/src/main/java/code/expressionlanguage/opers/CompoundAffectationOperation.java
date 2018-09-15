@@ -31,7 +31,6 @@ import code.util.StringMap;
 public final class CompoundAffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
-
     private String oper;
 
     public CompoundAffectationOperation(int _index, int _indexChild,

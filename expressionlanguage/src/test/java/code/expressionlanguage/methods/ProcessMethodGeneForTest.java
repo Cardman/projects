@@ -543,6 +543,57 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         assertEq(0, (Number)ret_.getObject());
     }
     @Test
+    public void calculateArgument21Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $for($int i=4,j=7i:i;>0i:i;--,j;-=2i){\n");
+        xml_.append("   t;.+=i;+j;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(26, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument22Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $for($int i=4,j=7i:i;>0i:i;--,j;-=2i){\n");
+        xml_.append("   $if(i; == 4){\n");
+        xml_.append("    i;=0:\n");
+        xml_.append("   }\n");
+        xml_.append("   t;.+=i;+j;:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(7, (Number)ret_.getObject());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -678,6 +729,29 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append("  t;.=0i:\n");
         xml_.append("  $for(:t;.>0i:i;;;=0i){\n");
         xml_.append("   t;.+=0i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
+    @Test
+    public void calculateArgument8FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  $for($int i=4,j=7i:i;>0i:i;--,j;-=2i){\n");
+        xml_.append("   $if(i; == 4){\n");
+        xml_.append("    $long u = 0:\n");
+        xml_.append("    i;=u;.:\n");
+        xml_.append("   }\n");
+        xml_.append("   t;.+=i;+j;:\n");
         xml_.append("  }\n");
         xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");

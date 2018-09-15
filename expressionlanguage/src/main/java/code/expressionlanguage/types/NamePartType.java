@@ -89,6 +89,24 @@ public final class NamePartType extends LeafPartType {
             setImportedTypeName(type_);
             return;
         }
+        StringList parts_ = StringList.splitStrings(type_, ".");
+        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+            if (parts_.size() > 1) {
+                String p_ = parts_.last().trim();
+                if (_an.getStandards().getStandards().contains(p_)) {
+                    setImportedTypeName(p_);
+                    return;
+                }
+                String out_ = _an.getStandards().getAliasObject();
+                setImportedTypeName(out_);
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(type_);
+                un_.setFileName(_rooted.getFile().getFileName());
+                un_.setRc(_location);
+                _an.getClasses().addError(un_);
+                return;
+            }
+        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setImportedTypeName(type_);
             return;
@@ -148,6 +166,24 @@ public final class NamePartType extends LeafPartType {
             }
             setImportedTypeName(type_);
             return;
+        }
+        StringList parts_ = StringList.splitStrings(type_, ".");
+        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+            if (parts_.size() > 1) {
+                String p_ = parts_.last().trim();
+                if (_an.getStandards().getStandards().contains(p_)) {
+                    setImportedTypeName(p_);
+                    return;
+                }
+                String out_ = _an.getStandards().getAliasObject();
+                setImportedTypeName(out_);
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(type_);
+                un_.setFileName(_rooted.getFile().getFileName());
+                un_.setRc(_location);
+                _an.getClasses().addError(un_);
+                return;
+            }
         }
         if (_an.getStandards().getStandards().contains(type_)) {
             setImportedTypeName(type_);
@@ -369,6 +405,24 @@ public final class NamePartType extends LeafPartType {
             setAnalyzedType(type_);
             return;
         }
+        StringList parts_ = StringList.splitStrings(type_, ".");
+        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+            if (parts_.size() > 1) {
+                String p_ = parts_.last().trim();
+                if (_an.getStandards().getStandards().contains(p_)) {
+                    setAnalyzedType(p_);
+                    return;
+                }
+                String out_ = _an.getStandards().getAliasObject();
+                setAnalyzedType(out_);
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(type_);
+                un_.setFileName(_rooted.getFile().getFileName());
+                un_.setRc(_location);
+                _an.getClasses().addError(un_);
+                return;
+            }
+        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setAnalyzedType(type_);
             return;
@@ -578,6 +632,16 @@ public final class NamePartType extends LeafPartType {
             setAnalyzedType(type_);
             return;
         }
+        StringList parts_ = StringList.splitStrings(type_, ".");
+        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+            if (parts_.size() > 1) {
+                String p_ = parts_.last().trim();
+                if (_an.getStandards().getStandards().contains(p_)) {
+                    setAnalyzedType(p_);
+                }
+                return;
+            }
+        }
         if (_an.getStandards().getStandards().contains(type_)) {
             setAnalyzedType(type_);
             return;
@@ -645,6 +709,16 @@ public final class NamePartType extends LeafPartType {
         if (_an.getClasses().isCustomType(type_)) {
             setImportedTypeName(typeName_);
             return;
+        }
+        StringList parts_ = StringList.splitStrings(type_, ".");
+        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+            if (parts_.size() > 1) {
+                String p_ = parts_.last().trim();
+                if (_an.getStandards().getStandards().contains(p_)) {
+                    setImportedTypeName(p_);
+                }
+                return;
+            }
         }
         if (_an.getStandards().getStandards().contains(type_)) {
             setImportedTypeName(typeName_);

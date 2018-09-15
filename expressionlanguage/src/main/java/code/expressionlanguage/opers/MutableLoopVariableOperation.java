@@ -38,7 +38,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class MutableLoopVariableOperation extends LeafOperation implements SettableElResult {
+public final class MutableLoopVariableOperation extends LeafOperation implements SettableElResult {
 
     private boolean variable;
 
@@ -308,8 +308,8 @@ public class MutableLoopVariableOperation extends LeafOperation implements Setta
     @Override
     public Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
+            Argument _right, boolean _convert) {
+        Argument arg_ = getCommonSetting(_conf, _right,_convert);
         if (_conf.getException() == null) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
@@ -317,8 +317,8 @@ public class MutableLoopVariableOperation extends LeafOperation implements Setta
     }
 
     @Override
-    public void calculateSetting(ExecutableCode _conf, Argument _right) {
-        Argument arg_ = getCommonSetting(_conf, _right);
+    public void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
+        Argument arg_ = getCommonSetting(_conf, _right,_convert);
         if (_conf.getException() != null) {
             return;
         }
@@ -378,7 +378,7 @@ public class MutableLoopVariableOperation extends LeafOperation implements Setta
         }
         setSimpleArgument(arg_, _conf);
     }
-    Argument getCommonSetting(ExecutableCode _conf, Argument _right) {
+    Argument getCommonSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
         PageEl ip_ = _conf.getOperationPageEl();
         LgNames stds_ = _conf.getStandards();
         String cast_;
@@ -392,7 +392,7 @@ public class MutableLoopVariableOperation extends LeafOperation implements Setta
         String formattedClassVar_ = locVar_.getClassName();
         formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(locVar_.getStruct());
-        if (!_right.isNull()) {
+        if (!_right.isNull() && !_convert) {
             Mapping mapping_ = new Mapping();
             String base_ = _right.getObjectClassName(_conf.getContextEl());
             mapping_.setArg(base_);

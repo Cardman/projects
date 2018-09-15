@@ -1434,7 +1434,7 @@ public class AliasReflection {
                 }
                 int index_ = (Integer)args_[1].getInstance();
                 Struct value_ = args_[2];
-                InvokingOperation.setElement(inst_, index_, value_, _cont);
+                InvokingOperation.setElement(inst_, index_, value_, _cont, false);
                 if (_cont.getException() != null) {
                     return result_;
                 }

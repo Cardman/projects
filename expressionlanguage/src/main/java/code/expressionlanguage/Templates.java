@@ -33,6 +33,7 @@ public final class Templates {
     public static final String PREFIX_VAR_TYPE = "#";
     public static final char PREFIX_VAR_TYPE_CHAR = '#';
     public static final String INNER_TYPE = "..";
+    public static final String LANG = "$lang";
 
     public static final char LT = '<';
 

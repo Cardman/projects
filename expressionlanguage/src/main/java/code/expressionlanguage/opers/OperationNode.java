@@ -98,6 +98,7 @@ public abstract class OperationNode {
     protected static final String FIRST_OPT = "firstopt";
 
     protected static final String CLASS_CHOICE = "classchoice";
+    protected static final String SUPER_ACCESS_FCT = "superaccess";
     protected static final String INTERFACES = "interfaces";
     protected static final String INTERN_BEAN = "intern";
 
@@ -263,6 +264,9 @@ public abstract class OperationNode {
             if (ct_ == ConstType.CLASSCHOICE_KEYWORD) {
                 return new ChoiceFieldOperation(_index, _indexChild, _m, _op);
             }
+            if (ct_ == ConstType.SUPER_ACCESS_KEYWORD) {
+                return new SuperFromFieldOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.SUPER_KEYWORD) {
                 return new SuperFieldOperation(_index, _indexChild, _m, _op);
             }
@@ -353,6 +357,9 @@ public abstract class OperationNode {
             }
             if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE))) {
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
+            }
+            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(SUPER_ACCESS_FCT))) {
+                return new SuperFctOperation(_index, _indexChild, _m, _op);
             }
             if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES))) {
                 return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);

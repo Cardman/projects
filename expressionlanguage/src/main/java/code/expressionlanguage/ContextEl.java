@@ -1216,9 +1216,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         Block bl_ = getCurrentBlock();
         if (bl_ == null) {
-            GeneType g_ = getClassBody(_in.trim());
+            String tr_ = removeDottedSpaces(_in);
+            GeneType g_ = getClassBody(tr_);
             if (g_ != null) {
-                return _in.trim();
+                return tr_;
             }
             return EMPTY_TYPE;
         }

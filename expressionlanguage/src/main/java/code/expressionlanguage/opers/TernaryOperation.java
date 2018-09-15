@@ -143,6 +143,27 @@ public final class TernaryOperation extends MethodOperation {
                 vars_.put(t.getName(), t.getConstraints());
             }
         }
+        String void_ = stds_.getAliasVoid();
+        if (one_.containsStr(void_)) {
+            setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
+            ClassArgumentMatching cl_ = opTwo_.getResultClass();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(booleanType_);
+            un_.setOperands(cl_);
+            _conf.getClasses().addError(un_);
+        }
+        if (two_.containsStr(void_)) {
+            setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
+            ClassArgumentMatching cl_ = opThree_.getResultClass();
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(booleanType_);
+            un_.setOperands(cl_);
+            _conf.getClasses().addError(un_);
+        }
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
         if (res_.isUnwrapFirst()) {
             opTwo_.getResultClass().setUnwrapObject(res_.getTypes().first());

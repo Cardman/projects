@@ -1149,7 +1149,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return LgNames.getElement(array_, index_, _conf.getContextEl());
     }
-    public static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf) {
+    public static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf, boolean _convert) {
         LgNames stds_ = _conf.getStandards();
         String null_;
         String badIndex_;
@@ -1171,7 +1171,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return;
         }
         String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-        if (!_value.isNull()) {
+        if (!_value.isNull() && !_convert) {
             String elementType_ = valClass_;
             Mapping mapping_ = new Mapping();
             mapping_.setArg(elementType_);
@@ -1316,16 +1316,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return a_;
     }
-    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right,ExecutableCode _conf) {
+    public static Argument setField(FieldMetaInfo _meta, Argument _previous, Argument _right,ExecutableCode _conf, boolean _convert) {
         String baseClass_ = _meta.getDeclaringClass();
         baseClass_ = Templates.getIdFromAllTypes(baseClass_);
         String fieldName_ = _meta.getName();
         boolean isStaticField_ = _meta.isStaticField();
         boolean isFinalField_ = _meta.isFinalField();
         String type_ = _meta.getType();
-        return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
+        return setField(baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1, _convert);
     }
-    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset) {
+    public static Argument setField(String _className, String _fieldName, boolean _isStaticField, boolean _finalField, boolean _failIfFinal, String _returnType, Argument _previous, Argument _right,ExecutableCode _conf, int _possibleOffset, boolean _convert) {
         LgNames stds_ = _conf.getStandards();
         String cast_;
         cast_ = stds_.getAliasCast();
@@ -1348,7 +1348,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             fieldType_ = _returnType;
             Struct check_ = _right.getStruct();
-            if (!check_.isNull()) {
+            if (!check_.isNull() && !_convert) {
                 Mapping map_ = new Mapping();
                 String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
                 map_.setArg(rightClass_);
@@ -1401,7 +1401,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         fieldType_ = _returnType;
         fieldType_ = Templates.format(classNameFound_, fieldType_, _conf);
         Struct check_ = _right.getStruct();
-        if (!check_.isNull()) {
+        if (!check_.isNull() && !_convert) {
             Mapping map_ = new Mapping();
             String rightClass_ = stds_.getStructClassName(check_, _conf.getContextEl());
             map_.setArg(rightClass_);

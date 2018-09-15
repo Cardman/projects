@@ -425,14 +425,14 @@ public abstract class SettableAbstractFieldOperation extends
     @Override
     public final Argument calculateSetting(
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right) {
+            Argument _right, boolean _convert) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
             previous_ = _nodes.getVal(this).getPreviousArgument();
         } else {
             previous_ = _conf.getLastPage().getGlobalArgument();
         }
-        Argument arg_ = getCommonSetting(previous_, _conf, _right);
+        Argument arg_ = getCommonSetting(previous_, _conf, _right,_convert);
         if (_conf.callsOrException()) {
             return arg_;
         }
@@ -440,21 +440,21 @@ public abstract class SettableAbstractFieldOperation extends
         return arg_;
     }
     @Override
-    public final void calculateSetting(ExecutableCode _conf, Argument _right) {
+    public final void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
         Argument previous_;
         if (isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument();
         } else {
             previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
-        Argument arg_ = getCommonSetting(previous_, _conf, _right);
+        Argument arg_ = getCommonSetting(previous_, _conf, _right,_convert);
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
         if (statusInit_ != null) {
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
             if (_conf.getException() != null) {
                 return;
             }
-            arg_ = getCommonSetting(previous_, _conf, _right);
+            arg_ = getCommonSetting(previous_, _conf, _right,_convert);
         }
         if (_conf.getException() != null) {
             return;
@@ -552,7 +552,7 @@ public abstract class SettableAbstractFieldOperation extends
         setSimpleArgument(arg_, _conf);
         
     }
-    final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right) {
+    final Argument getCommonSetting(Argument _previous, ExecutableCode _conf, Argument _right, boolean _convert) {
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
@@ -572,7 +572,7 @@ public abstract class SettableAbstractFieldOperation extends
             previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
         }
         //Come from code directly so constant static fields can be initialized here
-        return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
+        return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_, _convert);
     }
     final Argument getCommonCompoundSetting(Argument _previous, Struct _store, ExecutableCode _conf, String _op, Argument _right) {
         int relativeOff_ = getOperations().getOffset();

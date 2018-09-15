@@ -316,6 +316,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 i_++;
                 staticChoiceMethod_ = true;
                 accessSuper_ = false;
+            } else if (StringList.quickEq(name_, prefixFunction(SUPER_ACCESS_FCT))) {
+                name_ = args_.get(i_).trim();
+                i_++;
+                staticChoiceMethod_ = true;
             } else {
                 polymorph = true;
             }
@@ -485,6 +489,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             i_++;
             staticChoiceMethod_ = true;
             accessSuper_ = false;
+        } else if (StringList.quickEq(name_, prefixFunction(SUPER_ACCESS_FCT))) {
+            name_ = args_.get(i_).trim();
+            i_++;
+            staticChoiceMethod_ = true;
         } else {
             polymorph = true;
         }
