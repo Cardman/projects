@@ -360,7 +360,17 @@ public final class ElRenderUtilTest {
         assertEq(true, (Boolean)res_);
     }
 
-
+    @Test
+    public void processEl30Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_, COMPOSITE);
+        Argument arg_ = ElRenderUtil.processEl("1+1=2|(integer>8)",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(true, (Boolean)res_);
+    }
 
 
 
@@ -6608,6 +6618,41 @@ public final class ElRenderUtilTest {
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
+    }
+    @Test
+    public void processEl314Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        BeanOne b_ = new BeanOne();
+        addBean(context_, b_, ALIAS_BEAN_ONE);
+        Argument arg_ = ElRenderUtil.processEl("(composite.composite.integer)",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(0, (Number)res_);
+    }
+
+    @Test
+    public void processEl315Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_, COMPOSITE);
+        Argument arg_ = ElRenderUtil.processEl("(integer)",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(0, (Number)res_);
+    }
+
+    @Test
+    public void processEl316Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Composite b_ = new Composite();
+        addBean(context_, b_, COMPOSITE);
+        Argument arg_ = ElRenderUtil.processEl("1+1=2|(integer<8)",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Boolean);
+        assertEq(true, (Boolean)res_);
     }
     @Test
     public void processAffect1Test() {

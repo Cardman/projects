@@ -44,10 +44,15 @@ public final class CastOperation extends AbstractUnaryOperation {
     @Override
     public void analyze(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
-        String res_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
-        res_ = _conf.resolveCorrectType(res_);
-        className = res_;
-        setResultClass(new ClassArgumentMatching(res_));
+        String ext_ = getOperations().getExtractType();
+        if (!ext_.isEmpty()) {
+            className = ext_;
+        } else {
+            String res_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
+            res_ = _conf.resolveCorrectType(res_);
+            className = res_;
+        }
+        setResultClass(new ClassArgumentMatching(className));
         if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
             getFirstChild().getResultClass().setUnwrapObject(className);
             Argument arg_ = getFirstChild().getArgument();

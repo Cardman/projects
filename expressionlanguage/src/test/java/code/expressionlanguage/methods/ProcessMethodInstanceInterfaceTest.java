@@ -3465,6 +3465,71 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq(11, (Number)ret_.getObject());
     }
     @Test
+    public void calculateArgument75Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
+        xml_.append(" $public $int inst=2i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public [pkg.ExThree third=([pkg.ExThree)$new [pkg.ExThree[]($new pkg.ExThree()):\n");
+        xml_.append(" $public $int fourth=third;;;length:\n");
+        xml_.append(" $public $int sec:\n");
+        xml_.append(" {\n");
+        xml_.append("  sec;;;+=8i:\n");
+        xml_.append("  third;;;[0i]=$null:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  sec;;;+=16i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $int ance:\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  $this(17i):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  $if(i;.;>0){\n");
+        xml_.append("   ance;;;=i;.;:\n");
+        xml_.append("   $return:\n");
+        xml_.append("  }\n");
+        xml_.append("  ance;;;=i;.;:\n");
+        xml_.append("  ance;;;+=i;.;:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "sec"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(24, (Number)field_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "fourth"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(1, (Number)field_.getInstance());
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExTwo", "third"));
+        assertEq(ARR_CUST, field_.getClassName(cont_));
+        assertEq(1, ((Struct[])field_.getInstance()).length);
+        Struct elt_ = ((Struct[])field_.getInstance()) [0];
+        assertTrue(elt_.isNull());
+    }
+    @Test
     public void instanceArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {\n");

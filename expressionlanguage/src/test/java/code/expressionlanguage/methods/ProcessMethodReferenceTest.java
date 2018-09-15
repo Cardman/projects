@@ -1639,6 +1639,45 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         assertEq("sample", (String)ret_.getObject());
     }
     @Test
+    public void calculateArgument48Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#S> {\n");
+        xml_.append(" $public #S field:\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExTwo<java.lang.Number> sub = $new ExTwo<java.lang.Number>():\n");
+        xml_.append("  $return sub;.exmethtwo($null).intValue():\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal #S exmethtwo(#S p){\n");
+        xml_.append("  ExTwo<#S> sub = (ExTwo<#S>)$new ExTwo<#S>():\n");
+        xml_.append("  sub;.field;;;=$(#S)2i:\n");
+        xml_.append("  $Fct<Ex<#S>,#S,#S> f = $lambda(Ex<#S>,transform,#S):\n");
+        xml_.append("  $return f;.call(sub;.,$(#S)5i):\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal #S transform(#S p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return $(#S)($($int)t;.+$($int)p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<#T>:Ex<#T> {\n");
+        xml_.append(" $public $normal #T transform(#T p){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $return $(#T)(2i*$($int)t;.+2i*$($int)p;.;):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(26, (Number)ret_.getObject());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $abstract $class pkg.ExTwo {\n");
