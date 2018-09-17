@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.sml.RowCol;
@@ -18,75 +19,93 @@ public final class PartTypeUtilTest {
 
     @Test
     public void getAllTypes1Test(){
-        assertEq(new StringList("String"), PartTypeUtil.getAllTypes("String"));
+        Options opt_ = new Options();
+        assertEq(new StringList("String"), PartTypeUtil.getAllTypes("String",opt_));
     }
     @Test
     public void getAllTypes2Test(){
-        assertEq(new StringList("Map","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>",opt_));
     }
     @Test
     public void getAllTypes3Test(){
-        assertEq(new StringList("Map","String","Map<String,Rate>"), PartTypeUtil.getAllTypes("Map<String,Map<String,Rate>>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map","String","Map<String,Rate>"), PartTypeUtil.getAllTypes("Map<String,Map<String,Rate>>",opt_));
     }
     @Test
     public void getAllTypes4Test(){
-        assertEq(new StringList("List","Boolean"), PartTypeUtil.getAllTypes("List<Boolean>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("List","Boolean"), PartTypeUtil.getAllTypes("List<Boolean>",opt_));
     }
     @Test
     public void getAllTypes5Test(){
-        assertEq(new StringList("CustList","BooleanList"), PartTypeUtil.getAllTypes("CustList<BooleanList>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("CustList","BooleanList"), PartTypeUtil.getAllTypes("CustList<BooleanList>",opt_));
     }
     @Test
     public void getAllTypes6Test(){
-        assertEq(new StringList("Outer..Map"), PartTypeUtil.getAllTypes("Outer..Map"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Outer..Map"), PartTypeUtil.getAllTypes("Outer..Map",opt_));
     }
     @Test
     public void getAllTypes7Test(){
-        assertEq(new StringList("Map"), PartTypeUtil.getAllTypes("..Map"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map"), PartTypeUtil.getAllTypes("..Map",opt_));
     }
     @Test
     public void getAllTypes8Test(){
-        assertEq(new StringList("Map..Inner","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map..Inner","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner",opt_));
     }
     @Test
     public void getAllTypes9Test(){
-        assertEq(new StringList("Map..Inner","String","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner<Boolean,Number>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map..Inner","String","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner<Boolean,Number>",opt_));
     }
     @Test
     public void getAllTypes10Test(){
-        assertEq(new StringList("Map..Inner","String","Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate..Denominator>..Inner<Boolean,Number>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map..Inner","String","Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate..Denominator>..Inner<Boolean,Number>",opt_));
     }
     @Test
     public void getAllTypes11Test(){
-        assertEq(new StringList("Map..Inner","String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String..Character,Rate>..Inner<Boolean,Number>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map..Inner","String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String..Character,Rate>..Inner<Boolean,Number>",opt_));
     }
     @Test
     public void getAllTypes12Test(){
-        assertEq(new StringList("Map..Inner","String"), PartTypeUtil.getAllTypes("Map<String>..Inner"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map..Inner","String"), PartTypeUtil.getAllTypes("Map<String>..Inner",opt_));
     }
     @Test
     public void getAllTypes13Test(){
-        assertEq(new StringList("[String"), PartTypeUtil.getAllTypes("[String"));
+        Options opt_ = new Options();
+        assertEq(new StringList("[String"), PartTypeUtil.getAllTypes("[String",opt_));
     }
     @Test
     public void getAllTypes14Test(){
-        assertEq(new StringList("Map","[String","Rate"), PartTypeUtil.getAllTypes("Map<[String,Rate>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map","[String","Rate"), PartTypeUtil.getAllTypes("Map<[String,Rate>",opt_));
     }
     @Test
     public void getAllTypes15Test(){
-        assertEq(new StringList("[Map","String","Rate"), PartTypeUtil.getAllTypes("[Map<String,Rate>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("[Map","String","Rate"), PartTypeUtil.getAllTypes("[Map<String,Rate>",opt_));
     }
     @Test
     public void getAllTypes16Test(){
-        assertEq(new StringList("[Map..Inner","String"), PartTypeUtil.getAllTypes("[Map<String>..Inner"));
+        Options opt_ = new Options();
+        assertEq(new StringList("[Map..Inner","String"), PartTypeUtil.getAllTypes("[Map<String>..Inner",opt_));
     }
     @Test
     public void getAllTypes17Test(){
-        assertEq(new StringList("Map..Inner","String","[Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,[Rate..Denominator>..Inner<Boolean,Number>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map..Inner","String","[Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,[Rate..Denominator>..Inner<Boolean,Number>",opt_));
     }
     @Test
     public void getAllTypes18Test(){
-        assertEq(new StringList("Map..Inner","[String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
+        Options opt_ = new Options();
+        assertEq(new StringList("Map..Inner","[String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>",opt_));
     }
     @Test
     public void process1Test() {

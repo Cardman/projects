@@ -417,6 +417,7 @@ public final class FileResolver {
         }
     }
     private static ResultCreation createType(ContextEl _context, String _fileName, String _file, InputTypeCreation _input, StringList _import) {
+        Options options_ = _context.getOptions();
         EnablingSpaces enabledSpaces_ = _input.getEnabledSpaces();
         ResultCreation out_ = new ResultTypeCreation();
         AccessEnum access_;
@@ -514,7 +515,7 @@ public final class FileResolver {
             String declaringType_ = EMPTY_STRING;
             String afterModifier_ = info_;
             info_ = afterModifier_.trim();
-            declaringType_ = getDeclaringTypeOper(info_);
+            declaringType_ = getDeclaringTypeOper(info_, options_);
             int declTypeLen_ = declaringType_.length();
             String afterType_ = info_.substring(declTypeLen_);
             info_ = afterType_.trim();
@@ -547,7 +548,7 @@ public final class FileResolver {
                 annotationsIndexesParams_.add(annotationsIndexesParam_);
                 annotationsParams_.add(annotationsParam_);
                 offestsTypes_.add(paramOffest_);
-                String paramType_ = getDeclaringParamType(info_);
+                String paramType_ = getDeclaringParamType(info_, options_);
                 parametersType_.add(paramType_.trim());
                 String afterParamType_ = info_.substring(paramType_.length());
                 info_ = afterParamType_.trim();
@@ -1261,7 +1262,7 @@ public final class FileResolver {
                                 meth_ = false;
                             }
                             typeOffset_ += deltaFinal_;
-                            String declaringType_ = getDeclaringTypeInstr(found_);
+                            String declaringType_ = getDeclaringTypeInstr(found_,options_);
                             found_ = found_.substring(declaringType_.length());
                             int trimmed_ = StringList.getFirstPrintableCharIndex(found_);
                             String realFound_ = found_;
@@ -1488,7 +1489,7 @@ public final class FileResolver {
                                 typeOffset_ = par_.getIndex();
                                 delta_ = typeOffset_ - instructionLocation_;
                             }
-                            String declaringType_ = getDeclaringTypeInstr(info_);
+                            String declaringType_ = getDeclaringTypeInstr(info_,options_);
                             typeOffset_ += delta_;
                             typeOffset_ += StringList.getFirstPrintableCharIndex(declaringType_);
                             int variableOffset_ = typeOffset_ + declaringType_.length();
@@ -1585,7 +1586,7 @@ public final class FileResolver {
                             delta_ = typeOffset_ - instructionLocation_;
                         }
                         typeOffset_ += delta_;
-                        String declaringType_ = getDeclaringTypeInstr(exp_);
+                        String declaringType_ = getDeclaringTypeInstr(exp_,options_);
                         int varOffset_ = typeOffset_ + declaringType_.length();
                         exp_ = exp_.substring(declaringType_.length());
                         String variable_ = exp_.substring(0, exp_.indexOf(FOR_BLOCKS));
@@ -1633,7 +1634,7 @@ public final class FileResolver {
                             delta_ = typeOffset_ - instructionLocation_;
                         }
                         typeOffset_ += delta_;
-                        String declaringType_ = getDeclaringTypeInstr(exp_);
+                        String declaringType_ = getDeclaringTypeInstr(exp_,options_);
                         typeOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                         int varOffset_ = typeOffset_ + declaringType_.length();
                         exp_ = exp_.substring(declaringType_.length());
@@ -1710,7 +1711,7 @@ public final class FileResolver {
                             delta_ = typeOffset_ - instructionLocation_;
                         }
                         typeOffset_ += delta_;
-                        String declaringType_ = getDeclaringTypeInstr(exp_);
+                        String declaringType_ = getDeclaringTypeInstr(exp_,options_);
                         typeOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                         int initOff_ = typeOffset_ + declaringType_.length();
                         exp_ = exp_.substring(declaringType_.length());
@@ -2037,7 +2038,7 @@ public final class FileResolver {
                                     }
                                     break;
                                 }
-                                String typeStr_ = getDeclaringTypeInstr(infoModifiers_);
+                                String typeStr_ = getDeclaringTypeInstr(infoModifiers_,options_);
                                 boolean ctor_ = false;
                                 boolean meth_ = false;
                                 if (typeStr_.isEmpty()) {
@@ -2095,7 +2096,7 @@ public final class FileResolver {
                                         typeOffset_ = modifierOffest_ + prefixKeyWord(modifier_).length();
                                         typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
                                         info_ = afterModifier_.trim();
-                                        declaringType_ = getDeclaringTypeInstr(info_);
+                                        declaringType_ = getDeclaringTypeInstr(info_,options_);
                                         String afterType_ = info_.substring(declaringType_.length());
                                         methodNameOffest_ = typeOffset_ + declaringType_.length();
                                         methodNameOffest_ += StringList.getFirstPrintableCharIndex(afterType_);
@@ -2141,7 +2142,7 @@ public final class FileResolver {
                                         annotationsIndexesParams_.add(annotationsIndexesParam_);
                                         annotationsParams_.add(annotationsParam_);
                                         offestsTypes_.add(paramOffest_);
-                                        String paramType_ = getDeclaringParamType(info_);
+                                        String paramType_ = getDeclaringParamType(info_, options_);
                                         parametersType_.add(paramType_.trim());
                                         String afterParamType_ = info_.substring(paramType_.length());
                                         info_ = afterParamType_.trim();
@@ -2204,7 +2205,7 @@ public final class FileResolver {
                                         info_ = afterFinal_.trim();
                                     }
                                     int typeOffest_ = i_ - found_.length() + delta_;
-                                    String declaringType_ = getDeclaringTypeInstr(info_);
+                                    String declaringType_ = getDeclaringTypeInstr(info_,options_);
                                     String afterType_ = info_.substring(declaringType_.length());
                                     int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
                                     String expression_ = EMPTY_STRING;
@@ -2238,7 +2239,7 @@ public final class FileResolver {
                                 deltaAfter_ += StringList.getFirstPrintableCharIndex(found_.substring(delta_));
                             }
                             found_ = found_.substring(delta_);
-                            String declaringType_ = getDeclaringTypeInstr(found_);
+                            String declaringType_ = getDeclaringTypeInstr(found_,options_);
                             boolean typeDeclaring_ = !declaringType_.trim().isEmpty();
                             String info_;
                             int realTypeOffset_;
@@ -2420,7 +2421,7 @@ public final class FileResolver {
         }
         return false;
     }
-    private static String getDeclaringParamType(String _found) {
+    private static String getDeclaringParamType(String _found, Options _options) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
         boolean typeDeclaring_ = false;
@@ -2481,25 +2482,27 @@ public final class FileResolver {
         }
         return EMPTY_STRING;
     }
-    private static String getDeclaringTypeOper(String _found) {
+    private static String getDeclaringTypeOper(String _found, Options _options) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (currentCharFound_ == BEGIN_ARRAY) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
+        if (!_options.isDoubleBracketsArray()) {
+            while (indexInstr_ < instLen_) {
+                char currentCharFound_ = _found.charAt(indexInstr_);
+                if (currentCharFound_ == BEGIN_ARRAY) {
+                    declTypeName_.append(currentCharFound_);
+                    indexInstr_++;
+                    continue;
+                }
+                if (Character.isWhitespace(currentCharFound_)) {
+                    declTypeName_.append(currentCharFound_);
+                    indexInstr_++;
+                    continue;
+                }
+                break;
             }
-            if (Character.isWhitespace(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            break;
         }
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
@@ -2509,11 +2512,9 @@ public final class FileResolver {
                 if (trimmed_.length() > 0) {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
                     if (StringList.isDollarWordChar(ch_)) {
-                        if (!nextPart_.isEmpty()) {
-                            if (nextPart_.substring(0).trim().startsWith(String.valueOf(BEGIN_CALLING))) {
-                                typeDeclaring_ = true;
-                                break;
-                            }
+                        if (nextPart_.substring(0).trim().startsWith(String.valueOf(BEGIN_CALLING))) {
+                            typeDeclaring_ = true;
+                            break;
                         }
                     }
                 }
@@ -2568,6 +2569,46 @@ public final class FileResolver {
             // !Character.isWhitespace(currentCharFound_)
             break;
         }
+        if (_options.isDoubleBracketsArray()) {
+            boolean ok_ = false;
+            if (indexInstr_ < instLen_) {
+                char currentCharFound_ = _found.charAt(indexInstr_);
+                if (currentCharFound_ == '[') {
+                    ok_ = true;
+                    while (indexInstr_ < instLen_) {
+                        currentCharFound_ = _found.charAt(indexInstr_);
+                        if (Character.isWhitespace(currentCharFound_)) {
+                            declTypeName_.append(currentCharFound_);
+                            indexInstr_++;
+                            continue;
+                        }
+                        if (currentCharFound_ == '[') {
+                            declTypeName_.append(currentCharFound_);
+                            if (!ok_) {
+                                break;
+                            }
+                            ok_ = false;
+                            indexInstr_++;
+                            continue;
+                        }
+                        if (currentCharFound_ == ']') {
+                            declTypeName_.append(currentCharFound_);
+                            if (ok_) {
+                                ok_ = false;
+                                break;
+                            }
+                            ok_ = true;
+                            indexInstr_++;
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (ok_) {
+                typeDeclaring_ = true;
+            }
+        }
         if (typeDeclaring_) {
             return declTypeName_.toString();
         }
@@ -2603,25 +2644,27 @@ public final class FileResolver {
         }
         return false;
     }
-    private static String getDeclaringTypeInstr(String _found) {
+    private static String getDeclaringTypeInstr(String _found, Options _options) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
-        while (indexInstr_ < instLen_) {
-            char currentCharFound_ = _found.charAt(indexInstr_);
-            if (currentCharFound_ == BEGIN_ARRAY) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
+        if (!_options.isDoubleBracketsArray()) {
+            while (indexInstr_ < instLen_) {
+                char currentCharFound_ = _found.charAt(indexInstr_);
+                if (currentCharFound_ == BEGIN_ARRAY) {
+                    declTypeName_.append(currentCharFound_);
+                    indexInstr_++;
+                    continue;
+                }
+                if (Character.isWhitespace(currentCharFound_)) {
+                    declTypeName_.append(currentCharFound_);
+                    indexInstr_++;
+                    continue;
+                }
+                break;
             }
-            if (Character.isWhitespace(currentCharFound_)) {
-                declTypeName_.append(currentCharFound_);
-                indexInstr_++;
-                continue;
-            }
-            break;
         }
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
@@ -2701,6 +2744,46 @@ public final class FileResolver {
             }
             // !Character.isWhitespace(currentCharFound_)
             break;
+        }
+        if (_options.isDoubleBracketsArray()) {
+            boolean ok_ = false;
+            if (indexInstr_ < instLen_) {
+                char currentCharFound_ = _found.charAt(indexInstr_);
+                if (currentCharFound_ == '[') {
+                    ok_ = true;
+                    while (indexInstr_ < instLen_) {
+                        currentCharFound_ = _found.charAt(indexInstr_);
+                        if (Character.isWhitespace(currentCharFound_)) {
+                            declTypeName_.append(currentCharFound_);
+                            indexInstr_++;
+                            continue;
+                        }
+                        if (currentCharFound_ == '[') {
+                            declTypeName_.append(currentCharFound_);
+                            if (!ok_) {
+                                break;
+                            }
+                            ok_ = false;
+                            indexInstr_++;
+                            continue;
+                        }
+                        if (currentCharFound_ == ']') {
+                            declTypeName_.append(currentCharFound_);
+                            if (ok_) {
+                                ok_ = false;
+                                break;
+                            }
+                            ok_ = true;
+                            indexInstr_++;
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            if (ok_) {
+                typeDeclaring_ = true;
+            }
         }
         if (typeDeclaring_) {
             return declTypeName_.toString();

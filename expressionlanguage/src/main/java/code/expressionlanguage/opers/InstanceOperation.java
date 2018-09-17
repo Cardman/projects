@@ -38,12 +38,11 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class InstanceOperation extends InvokingOperation {
+public final class InstanceOperation extends AbstractInstancingOperation {
 
     private boolean possibleInitClass;
 
@@ -129,7 +128,7 @@ public final class InstanceOperation extends InvokingOperation {
                 String type_ = EMPTY_STRING;
                 if (m_ == null && _conf.getCurrentBlock() instanceof InfoBlock) {
                     InfoBlock i_ = (InfoBlock) _conf.getCurrentBlock();
-                    type_ = i_.getClassName();
+                    type_ = i_.getImportedClassName();
                 } else if (!(m_ instanceof AffectationOperation)) {
                     //ERROR
                     type_ = EMPTY_STRING;
@@ -723,13 +722,6 @@ public final class InstanceOperation extends InvokingOperation {
         String lastType_ = Templates.format(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
         return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
-    }
-
-    @Override
-    void calculateChildren() {
-        NatTreeMap<Integer, String> vs_ = getOperations().getValues();
-        vs_.removeKey(vs_.firstKey());
-        getChildren().putAllMap(vs_);
     }
 
     @Override

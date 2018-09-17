@@ -7,6 +7,8 @@ public final class Options {
     private boolean multipleAffectations;
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
+    //TODO je vais grouper les nombres a virgules et les champs.
+    private boolean doubleBracketsArray;
 
     public boolean applyEqPlus() {
         if (!isMultipleAffectations()) {
@@ -54,4 +56,13 @@ public final class Options {
     public void setQuickCompare(boolean _quickCompare) {
         quickCompare = _quickCompare;
     }
+
+    public boolean isDoubleBracketsArray() {
+        return doubleBracketsArray;
+    }
+
+    public void setDoubleBracketsArray(boolean _doubleBracketsArray) {
+        doubleBracketsArray = _doubleBracketsArray;
+    }
+
 }

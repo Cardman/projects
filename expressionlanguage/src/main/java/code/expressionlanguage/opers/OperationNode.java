@@ -10,6 +10,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
@@ -324,62 +325,133 @@ public abstract class OperationNode {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
         }
-        if (_op.isCall()) {
-            String fctName_ = _op.getFctName().trim();
-            if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall()) && _m != null) {
-                OperationNode ch_ = _m.getFirstChild();
-                if (ch_ != null) {
-                    StringList pr_ = ch_.getResultClass().getNames();
-                    if (pr_.size() == 1) {
-                        String type_ = pr_.first();
-                        String id_ = Templates.getIdFromAllTypes(type_);
-                        String fct_ = _an.getStandards().getAliasFct();
-                        if (StringList.quickEq(id_, fct_)) {
-                            return new CallDynMethodOperation(_index, _indexChild, _m, _op);
+        Options opt_ = _an.getOptions();
+        if (opt_.isDoubleBracketsArray()) {
+            if (_op.isCallDbArray()) {
+                String fctName_ = _op.getFctName().trim();
+                if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall()) && _m != null) {
+                    OperationNode ch_ = _m.getFirstChild();
+                    if (ch_ != null) {
+                        StringList pr_ = ch_.getResultClass().getNames();
+                        if (pr_.size() == 1) {
+                            String type_ = pr_.first();
+                            String id_ = Templates.getIdFromAllTypes(type_);
+                            String fct_ = _an.getStandards().getAliasFct();
+                            if (StringList.quickEq(id_, fct_)) {
+                                return new CallDynMethodOperation(_index, _indexChild, _m, _op);
+                            }
                         }
                     }
                 }
+                if (_op.isInstance()) {
+                    if (fctName_.isEmpty()) {
+                        return new InferArrayInstancing(_index, _indexChild, _m, _op);
+                    }
+                    char op_ = _op.getOperators().firstValue().charAt(0);
+                    if (op_ == '{') {
+                        return new ElementArrayInstancing(_index, _indexChild, _m, _op);
+                    }
+                    if (op_ == '[') {
+                        return new DimensionArrayInstancing(_index, _indexChild, _m, _op);
+                    }
+                    return new StandardInstancingOperation(_index, _indexChild, _m, _op);
+                }
+                if (fctName_.isEmpty()) {
+                    return new IdOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_, prefixFunction(VALUE_OF))) {
+                    return new EnumValueOfOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_, prefixFunction(VALUES))) {
+                    return new ValuesOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
+                    return new TernaryOperation(_index, _indexChild, _m, _op);
+                }
+                if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE))) {
+                    return new ChoiceFctOperation(_index, _indexChild, _m, _op);
+                }
+                if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(SUPER_ACCESS_FCT))) {
+                    return new SuperFctOperation(_index, _indexChild, _m, _op);
+                }
+                if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES))) {
+                    return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
+                }
+                if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
+                    return new FirstOptOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_,prefixFunction(CURRENT))) {
+                    return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_,prefixFunction(SUPER_ACCESS))) {
+                    return new SuperInvokingConstructor(_index, _indexChild, _m, _op);
+                }
+                return new FctOperation(_index, _indexChild, _m, _op);
             }
-            if (fctName_.isEmpty()) {
-                return new IdOperation(_index, _indexChild, _m, _op);
+            if (_op.isArray()) {
+                return new ArrOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_, prefixFunction(VALUE_OF))) {
-                return new EnumValueOfOperation(_index, _indexChild, _m, _op);
+            if (_op.isDot()) {
+                return new DotOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_, prefixFunction(VALUES))) {
-                return new ValuesOperation(_index, _indexChild, _m, _op);
+        } else {
+            if (_op.isCall()) {
+                String fctName_ = _op.getFctName().trim();
+                if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall()) && _m != null) {
+                    OperationNode ch_ = _m.getFirstChild();
+                    if (ch_ != null) {
+                        StringList pr_ = ch_.getResultClass().getNames();
+                        if (pr_.size() == 1) {
+                            String type_ = pr_.first();
+                            String id_ = Templates.getIdFromAllTypes(type_);
+                            String fct_ = _an.getStandards().getAliasFct();
+                            if (StringList.quickEq(id_, fct_)) {
+                                return new CallDynMethodOperation(_index, _indexChild, _m, _op);
+                            }
+                        }
+                    }
+                }
+                if (fctName_.isEmpty()) {
+                    return new IdOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_, prefixFunction(VALUE_OF))) {
+                    return new EnumValueOfOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_, prefixFunction(VALUES))) {
+                    return new ValuesOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
+                    return new TernaryOperation(_index, _indexChild, _m, _op);
+                }
+                if (fctName_.startsWith(prefixFunction(INSTANCE))) {
+                    return new InstanceOperation(_index, _indexChild, _m, _op);
+                }
+                if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE))) {
+                    return new ChoiceFctOperation(_index, _indexChild, _m, _op);
+                }
+                if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(SUPER_ACCESS_FCT))) {
+                    return new SuperFctOperation(_index, _indexChild, _m, _op);
+                }
+                if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES))) {
+                    return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
+                }
+                if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
+                    return new FirstOptOperation(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_,prefixFunction(CURRENT))) {
+                    return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
+                }
+                if (StringList.quickEq(fctName_,prefixFunction(SUPER_ACCESS))) {
+                    return new SuperInvokingConstructor(_index, _indexChild, _m, _op);
+                }
+                return new FctOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
-                return new TernaryOperation(_index, _indexChild, _m, _op);
+            if (_op.isArray()) {
+                return new ArrOperation(_index, _indexChild, _m, _op);
             }
-            if (fctName_.startsWith(prefixFunction(INSTANCE))) {
-                return new InstanceOperation(_index, _indexChild, _m, _op);
+            if (_op.isDot()) {
+                return new DotOperation(_index, _indexChild, _m, _op);
             }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE))) {
-                return new ChoiceFctOperation(_index, _indexChild, _m, _op);
-            }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(SUPER_ACCESS_FCT))) {
-                return new SuperFctOperation(_index, _indexChild, _m, _op);
-            }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES))) {
-                return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
-            }
-            if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
-                return new FirstOptOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringList.quickEq(fctName_,prefixFunction(CURRENT))) {
-                return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
-            }
-            if (StringList.quickEq(fctName_,prefixFunction(SUPER_ACCESS))) {
-                return new SuperInvokingConstructor(_index, _indexChild, _m, _op);
-            }
-            return new FctOperation(_index, _indexChild, _m, _op);
-        }
-        if (_op.isArray()) {
-            return new ArrOperation(_index, _indexChild, _m, _op);
-        }
-        if (_op.isDot()) {
-            return new DotOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.POST_INCR_PRIO) {
             return new SemiAffectationOperation(_index, _indexChild, _m, _op, true);

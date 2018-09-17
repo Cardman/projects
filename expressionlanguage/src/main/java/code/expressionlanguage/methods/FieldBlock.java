@@ -19,6 +19,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.opers.AbstractInstancingOperation;
 import code.expressionlanguage.opers.AbstractUnaryOperation;
 import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.ArrayFieldOperation;
@@ -29,7 +30,6 @@ import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.IdOperation;
-import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PrimitiveBoolOperation;
@@ -381,7 +381,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (o instanceof ArrOperation) {
                 continue;
             }
-            if (o instanceof InstanceOperation) {
+            if (o instanceof AbstractInstancingOperation) {
                 continue;
             }
             return false;

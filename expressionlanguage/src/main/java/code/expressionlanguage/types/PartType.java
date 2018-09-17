@@ -1,6 +1,8 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Options;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.sml.RowCol;
 import code.util.NatTreeMap;
@@ -20,7 +22,34 @@ public abstract class PartType {
         index = _index;
         indexInType = _indexInType;
     }
-    static PartType createPartType(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, NatTreeMap<Integer, String> _dels, boolean _removedFirst) {
+    static PartType createPartType(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, NatTreeMap<Integer, String> _dels, boolean _removedFirst, Options _options) {
+        if (_analyze.isError()) {
+            return new EmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index));
+        }
+        if (_analyze.getOperators().isEmpty()) {
+            if (_analyze.getKind() == KindPartType.TYPE_NAME) {
+                return new NamePartType(_parent, _index, _indexInType, _dels.getValue(_index));
+            }
+            return new VariablePartType(_parent, _index, _indexInType, _dels.getValue(_index));
+        }
+        if (_analyze.getPrio() == ParserType.TMP_PRIO) {
+            return new TemplatePartType(_parent, _index, _indexInType);
+        }
+        if (_analyze.getPrio() == ParserType.INT_PRIO) {
+            return new InnerPartType(_parent, _index, _indexInType, _removedFirst);
+        }
+        String beg_;
+        String end_;
+        if (_options.isDoubleBracketsArray()) {
+            beg_ = "";
+            end_ = "[]";
+        } else {
+            beg_ = Templates.ARR_BEG_STRING;
+            end_ = "";
+        }
+        return new ArraryPartType(_parent, _index, _indexInType);
+    }
+    static PartType createPartTypeExec(ParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, NatTreeMap<Integer, String> _dels, boolean _removedFirst) {
         if (_analyze.isError()) {
             return new EmptyPartType(_parent, _index, _indexInType, _dels.getValue(_index));
         }

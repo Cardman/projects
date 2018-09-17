@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.Numbers;
 
 public final class OperationsSequence {
     private static final char DOT_VAR = '.';
@@ -31,14 +32,17 @@ public final class OperationsSequence {
 
     private String extractType = "";
 
+    private int countArrays;
+    private boolean instance;
     public void setValue(String _string, int _offset) {
         values = new NatTreeMap<Integer,String>();
         values.put((int)CustList.FIRST_INDEX, _string);
         offset = _offset;
     }
 
-    public void setupValues(String _string, boolean _is, boolean _annot) {
+    public void setupValues(String _string, boolean _is, boolean _annot, boolean _instance, Numbers<Integer> _nb) {
         values = new NatTreeMap<Integer,String>();
+        instance = _instance;
         if (operators.isEmpty() && !_annot) {
             priority = ElResolver.BAD_PRIO;
             return;
@@ -52,6 +56,7 @@ public final class OperationsSequence {
         }
         String op_ = operators.firstValue();
         boolean pureDot_ = false;
+        boolean initArrayDim_ = false;
         if (!op_.isEmpty()) {
             if (_annot && op_.charAt(0) == ARR_ANNOT) {
                 int beginValuePart_ = CustList.FIRST_INDEX;
@@ -81,7 +86,15 @@ public final class OperationsSequence {
             if (op_.charAt(0) != DOT_VAR) {
                 if (priority == ElResolver.FCT_OPER_PRIO && !declaring) {
                     int afterLastPar_ = operators.lastKey()+1;
-                    if (!_string.substring(afterLastPar_).trim().isEmpty()) {
+                    StringBuilder filter_ = new StringBuilder(_string);
+                    countArrays = _nb.size() / 2;
+                    for (int i : _nb.getReverse()) {
+                        filter_.deleteCharAt(i);
+                    }
+                    if (op_.charAt(0) == ARR && _instance) {
+                        initArrayDim_ = true;
+                    }
+                    if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
                         operators.clear();
                         operators.put(afterLastPar_, "");
                         priority = ElResolver.BAD_PRIO;
@@ -149,6 +162,19 @@ public final class OperationsSequence {
             values.put(beginValuePart_, str_);
             return;
         }
+        if (initArrayDim_) {
+            int i_ = CustList.SECOND_INDEX;
+            int nbKeys_ = operators.size();
+            while (i_ < nbKeys_) {
+                beginValuePart_ = operators.getKey(i_ - 1) + operators.getValue(i_ - 1).length();
+                endValuePart_ = operators.getKey(i_);
+                str_ = _string.substring(beginValuePart_, endValuePart_);
+                values.put(beginValuePart_, str_);
+                i_++;
+                i_++;
+            }
+            return;
+        }
         if (priority == ElResolver.FCT_OPER_PRIO) {
             int i_ = CustList.SECOND_INDEX;
             int nbKeys_ = operators.size();
@@ -175,6 +201,9 @@ public final class OperationsSequence {
         values.put(beginValuePart_, str_);
     }
 
+    public int getCountArrays() {
+        return countArrays;
+    }
     public boolean isError() {
         return priority == ElResolver.BAD_PRIO;
     }
@@ -206,7 +235,7 @@ public final class OperationsSequence {
     public void setUseFct(boolean _useFct) {
         useFct = _useFct;
     }
-
+    
     public boolean isCall() {
         if (priority != ElResolver.FCT_OPER_PRIO) {
             return false;
@@ -216,6 +245,21 @@ public final class OperationsSequence {
             return false;
         }
         return str_.charAt(0) == PAR;
+    }
+
+    public boolean isCallDbArray() {
+        if (priority != ElResolver.FCT_OPER_PRIO) {
+            return false;
+        }
+        String str_ = operators.firstValue();
+        if (str_.isEmpty()) {
+            return false;
+        }
+        return str_.charAt(0) == PAR || instance;
+    }
+
+    public boolean isInstance() {
+        return instance;
     }
 
     public boolean isArray() {

@@ -54,7 +54,7 @@ public final class StaticInitOperation extends LeafOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
-        InstanceOperation ins_ = (InstanceOperation) getParent();
+        InvokingOperation ins_ = (InvokingOperation) getParent();
         String className_ = methodName.trim().substring(INSTANCE.length()+1);
         if (ins_.isIntermediateDottedOperation() || className_.trim().startsWith("..")) {
             possibleInitClass = false;

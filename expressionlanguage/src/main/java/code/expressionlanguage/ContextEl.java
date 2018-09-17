@@ -1253,6 +1253,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         setDirectImport(false);
         String gl_ = getGlobalClass();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
+        if (resType_.trim().isEmpty()) {
+            return EMPTY_TYPE;
+        }
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
             return EMPTY_TYPE;
         }

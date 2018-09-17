@@ -7,6 +7,7 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
@@ -349,7 +350,8 @@ public final class Classes {
         String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();
         String objectClassName_ = _context.getStandards().getAliasObject();
-        if (ParserType.getIndexes(fullDef_) != null) {
+        Options options_ = _context.getOptions();
+        if (ParserType.getIndexes(fullDef_, options_) != null) {
             StringList params_ = Templates.getAllTypes(fullDef_);
             StringList namesFromParent_ = new StringList();
             RootBlock r_ = _root;
