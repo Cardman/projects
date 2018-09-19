@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
@@ -20,6 +21,11 @@ public final class DotOperation extends MethodOperation {
     @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (chidren_.isEmpty()) {
+            String obj_ = _conf.getStandards().getAliasObject();
+            setResultClass(new ClassArgumentMatching(obj_));
+            return;
+        }
         setResultClass(chidren_.last().getResultClass());
     }
     @Override
@@ -61,6 +67,9 @@ public final class DotOperation extends MethodOperation {
     @Override
     public void quickCalculate(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (chidren_.isEmpty()) {
+            return;
+        }
         setSimpleArgumentAna(chidren_.last().getArgument(), _conf);
     }
     @Override

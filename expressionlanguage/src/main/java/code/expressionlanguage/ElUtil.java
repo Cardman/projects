@@ -68,7 +68,7 @@ public final class ElUtil {
         _conf.setAnalyzingRoot(false);
         OperationsSequence opTwoLeft_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _left, _conf, dLeft_);
         OperationNode opLeft_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoLeft_, _conf);
-        if (opLeft_ == null) {
+        if (opTwoLeft_.isError()) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(dLeft_.getBadOffset());
             badEl_.setEl(_left);
@@ -92,7 +92,7 @@ public final class ElUtil {
         }
         OperationsSequence opTwoRight_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _right, _conf, dRight_);
         OperationNode opRight_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwoRight_, _conf);
-        if (opRight_ == null) {
+        if (opTwoRight_.isError()) {
             BadElError badEl_ = new BadElError();
             badEl_.setOffsetInEl(dRight_.getBadOffset());
             badEl_.setEl(_right);

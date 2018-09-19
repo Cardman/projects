@@ -306,28 +306,33 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             }
         }
         for (EntryCust<String, ClassArgumentMatching> e: suppliedFieldsType_.entryList()) {
-            String paramName_ = fieldsTypes_.getVal(e.getKey());
-            ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
-            ClassArgumentMatching arg_ = e.getValue();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
-                if (param_.isArray()) {
-                    ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
-                        fieldNames.put(e.getKey(), paramName_);
-                        continue;
-                    }
+            for (EntryCust<String, String> f: fieldsTypes_.entryList()) {
+                if (!StringList.quickEq(e.getKey(), f.getKey())) {
+                    continue;
                 }
-                //ERROR
-                StringMap<StringList> vars_ = new StringMap<StringList>();
-                Mapping mapping_ = new Mapping();
-                mapping_.setMapping(vars_);
-                mapping_.setArg(arg_);
-                mapping_.setParam(param_);
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().addError(cast_);
+                String paramName_ = f.getValue();
+                ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
+                ClassArgumentMatching arg_ = e.getValue();
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf)) {
+                    if (param_.isArray()) {
+                        ClassArgumentMatching c_ = PrimitiveTypeUtil.getQuickComponentType(param_);
+                        if (PrimitiveTypeUtil.canBeUseAsArgument(c_, arg_, _conf)) {
+                            fieldNames.put(e.getKey(), paramName_);
+                            continue;
+                        }
+                    }
+                    //ERROR
+                    StringMap<StringList> vars_ = new StringMap<StringList>();
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setMapping(vars_);
+                    mapping_.setArg(arg_);
+                    mapping_.setParam(param_);
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(cast_);
+                }
             }
         }
         setResultClass(new ClassArgumentMatching(className));

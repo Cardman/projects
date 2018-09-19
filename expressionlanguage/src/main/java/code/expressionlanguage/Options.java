@@ -7,7 +7,6 @@ public final class Options {
     private boolean multipleAffectations;
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
-    //TODO je vais grouper les nombres a virgules et les champs.
     private boolean doubleBracketsArray;
 
     public boolean applyEqPlus() {

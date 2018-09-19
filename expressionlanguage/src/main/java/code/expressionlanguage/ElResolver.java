@@ -1634,6 +1634,25 @@ public final class ElResolver {
             }
             if (brackets_) {
                 if (curChar_ == ARR_LEFT) {
+                    int j_ = i_ + 1;
+                    boolean skip_ = false;
+                    while (j_ < len_) {
+                        char nextChar_ = _string.charAt(j_);
+                        if (Character.isWhitespace(nextChar_)) {
+                            j_++;
+                            continue;
+                        }
+                        if (nextChar_ == ARR_RIGHT) {
+                            skip_ = true;
+                        }
+                        break;
+                    }
+                    if (skip_) {
+                        d_.getDimsAddonIndexes().add(i_);
+                        d_.getDimsAddonIndexes().add(j_);
+                        i_ = j_ + 1;
+                        continue;
+                    }
                     parsBrackets_.put(i_, curChar_);
                 }
                 if (curChar_ == ARR_RIGHT) {
@@ -1729,26 +1748,6 @@ public final class ElResolver {
             }
             if (brackets_) {
                 if (curChar_ == ARR_LEFT) {
-                    int j_ = i_ + 1;
-                    boolean skip_ = false;
-                    while (j_ < len_) {
-                        char nextChar_ = _string.charAt(j_);
-                        if (Character.isWhitespace(nextChar_)) {
-                            j_++;
-                            continue;
-                        }
-                        if (nextChar_ == ARR_RIGHT) {
-                            skip_ = true;
-                        }
-                        break;
-                    }
-                    if (skip_) {
-                        d_.getDimsAddonIndexes().add(i_);
-                        d_.getDimsAddonIndexes().add(j_);
-                        i_ = j_ + 1;
-                        parsBrackets_.removeKey(parsBrackets_.lastKey());
-                        continue;
-                    }
                     idOp_ = true;
                 }
                 if (curChar_ == ARR_RIGHT) {
@@ -3245,8 +3244,6 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setUseFct(useFct_);
         op_.setFctName(fctName_);
-        System.out.println(instance_+":"+_string);
-//        boolean annotation_ = _conf.isAnnotAnalysis();
         op_.setupValues(_string, is_, braces_, instance_, laterIndexesDouble_);
         op_.setExtractType(extracted_);
         op_.setDelimiter(_d);

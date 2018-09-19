@@ -2,7 +2,6 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Options;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.sml.RowCol;
 import code.util.NatTreeMap;
@@ -37,15 +36,6 @@ public abstract class PartType {
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
             return new InnerPartType(_parent, _index, _indexInType, _removedFirst);
-        }
-        String beg_;
-        String end_;
-        if (_options.isDoubleBracketsArray()) {
-            beg_ = "";
-            end_ = "[]";
-        } else {
-            beg_ = Templates.ARR_BEG_STRING;
-            end_ = "";
         }
         return new ArraryPartType(_parent, _index, _indexInType);
     }

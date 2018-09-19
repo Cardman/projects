@@ -114,7 +114,7 @@ public final class ElRenderUtil {
         context_.setAnalyzingRoot(false);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, context_, d_);
         OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        if (op_ == null) {
+        if (opTwo_.isError()) {
             _conf.setOffset(d_.getBadOffset());
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -179,7 +179,7 @@ public final class ElRenderUtil {
         }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        if (op_ == null) {
+        if (opTwo_.isError()) {
             context_.setRootAffect(false);
             context_.setAnalyzingRoot(false);
             BadElRender badEl_ = new BadElRender();

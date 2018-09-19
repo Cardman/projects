@@ -33,6 +33,7 @@ public final class OperationsSequence {
     private String extractType = "";
 
     private int countArrays;
+    private Numbers<Integer> errorParts = new Numbers<Integer>();
     private boolean instance;
     public void setValue(String _string, int _offset) {
         values = new NatTreeMap<Integer,String>();
@@ -87,10 +88,14 @@ public final class OperationsSequence {
                 if (priority == ElResolver.FCT_OPER_PRIO && !declaring) {
                     int afterLastPar_ = operators.lastKey()+1;
                     StringBuilder filter_ = new StringBuilder(_string);
-                    countArrays = _nb.size() / 2;
                     for (int i : _nb.getReverse()) {
+                        if (i < afterLastPar_) {
+                            break;
+                        }
                         filter_.deleteCharAt(i);
+                        countArrays++;
                     }
+                    countArrays/=2;
                     if (op_.charAt(0) == ARR && _instance) {
                         initArrayDim_ = true;
                     }
@@ -168,6 +173,14 @@ public final class OperationsSequence {
             while (i_ < nbKeys_) {
                 beginValuePart_ = operators.getKey(i_ - 1) + operators.getValue(i_ - 1).length();
                 endValuePart_ = operators.getKey(i_);
+                if (i_ + 1 < nbKeys_) {
+                    int b_ = operators.getKey(i_) + operators.getValue(i_).length();
+                    int e_ = operators.getKey(i_ + 1);
+                    String err_ = _string.substring(b_, e_);
+                    if (!err_.trim().isEmpty()) {
+                        errorParts.add(b_);
+                    }
+                }
                 str_ = _string.substring(beginValuePart_, endValuePart_);
                 values.put(beginValuePart_, str_);
                 i_++;
@@ -201,11 +214,14 @@ public final class OperationsSequence {
         values.put(beginValuePart_, str_);
     }
 
+    public Numbers<Integer> getErrorParts() {
+        return errorParts;
+    }
     public int getCountArrays() {
         return countArrays;
     }
     public boolean isError() {
-        return priority == ElResolver.BAD_PRIO;
+        return priority == ElResolver.BAD_PRIO || !errorParts.isEmpty();
     }
 
     public boolean isInstanceTest() {

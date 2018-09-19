@@ -36,9 +36,6 @@ public final class ParserType {
                 }
                 indexes_.add(i_);
             }
-            if (curChar_ == Templates.ARR_BEG) {
-                indexes_.add(i_);
-            }
             if (curChar_ == Templates.SEP_CLASS_CHAR) {
                 if (i_ + 1 < len_ && _input.charAt(i_ + 1) == Templates.SEP_CLASS_CHAR) {
                     indexes_.add(i_);
@@ -74,9 +71,6 @@ public final class ParserType {
                 if (count_ == 0) {
                     return null;
                 }
-                indexes_.add(i_);
-            }
-            if (curChar_ == Templates.ARR_BEG) {
                 indexes_.add(i_);
             }
             if (curChar_ == Templates.SEP_CLASS_CHAR) {
@@ -140,7 +134,15 @@ public final class ParserType {
             }
             if (arr_) {
                 a_.setPrio(ARR_PRIO);
-                a_.setupArrayValues(_string, _options);
+                int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
+                if (last_ < 0) {
+                    a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+                    a_.setError(true);
+                    return a_;
+                }
+                String str_ = _string.substring(0, j_);
+                a_.getValues().put((int)CustList.FIRST_INDEX, str_);
+                a_.getOperators().put(last_, "[]");
                 return a_;
             }
         } else {
@@ -209,6 +211,36 @@ public final class ParserType {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValueExec(_string, _offset);
             return a_;
+        }
+        int j_ = _string.length()-1;
+        boolean arr_ = true;
+        while (j_ >= 0) {
+            char locChar_ = _string.charAt(j_);
+            if (Character.isWhitespace(locChar_)) {
+                j_--;
+                continue;
+            }
+            if (locChar_ != ']') {
+                arr_ = false;
+            }
+            break;
+        }
+        if (arr_) {
+            j_--;
+            while (j_ >= 0) {
+                char locChar_ = _string.charAt(j_);
+                if (Character.isWhitespace(locChar_)) {
+                    j_--;
+                    continue;
+                }
+                if (locChar_ != '[') {
+                    arr_ = false;
+                }
+                break;
+            }
+        }
+        if (arr_) {
+            a_.setPrio(ARR_PRIO);
         }
         if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
             a_.setPrio(ARR_PRIO);

@@ -7,6 +7,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
+import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
@@ -29,7 +30,19 @@ public final class ElementArrayInstancing extends AbstractArrayElementOperation 
         String className_ = m_.trim().substring(INSTANCE.length()+1);
         className_ = className_.trim();
         className_ = _conf.resolveCorrectType(className_);
-
+        if (!className_.startsWith(ARR)) {
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
+            un_.setOperands(new StringList(className_));
+            _conf.getClasses().addError(un_);
+            String obj_ = _conf.getStandards().getAliasObject();
+            obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
+            ClassArgumentMatching class_ = new ClassArgumentMatching(obj_);
+            setResultClass(class_);
+            return;
+        }
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         String glClass_ = _conf.getGlobalClass();
