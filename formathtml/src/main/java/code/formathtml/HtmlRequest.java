@@ -101,7 +101,8 @@ final class HtmlRequest {
                 _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.ATTRIBUTE_CLASS_NAME));
                 _conf.getLastPage().setLookForAttrValue(true);
                 _conf.getLastPage().setOffset(0);
-                if (!ElRenderUtil.okType(_conf, className_)) {
+                String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                if (res_.isEmpty()) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -114,6 +115,7 @@ final class HtmlRequest {
                     _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return;
                 }
+                className_ = res_;
                 ImportingPage ip_ = _conf.getLastPage();
                 ip_.setProcessingAttribute(StringList.concat(_conf.getPrefix(),FormatHtml.VAR_METHOD));
                 ip_.setLookForAttrValue(true);

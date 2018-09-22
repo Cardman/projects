@@ -21,8 +21,8 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  [$int a:\n");
-        xml_.append("  a;.=$new [$int(2i):\n");
+        xml_.append("  $int[] a:\n");
+        xml_.append("  a;.=$new $int[2i]:\n");
         xml_.append("  a;.[0i]=8i:\n");
         xml_.append("  a;.[1i]=16i:\n");
         xml_.append("  $foreach($int i:a;.){\n");
@@ -50,8 +50,8 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  [$int a:\n");
-        xml_.append("  a;.=$new [$int(0i):\n");
+        xml_.append("  $int[] a:\n");
+        xml_.append("  a;.=$new $int[0i]:\n");
         xml_.append("  $foreach($int i:a;.){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
@@ -77,8 +77,8 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  [$int a:\n");
-        xml_.append("  a;.=$new [$int(2i):\n");
+        xml_.append("  $int[] a:\n");
+        xml_.append("  a;.=$new $int[2i]:\n");
         xml_.append("  a;.[0i]=8b:\n");
         xml_.append("  a;.[1i]=16b:\n");
         xml_.append("  $foreach($int i:a;.){\n");
@@ -106,8 +106,8 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  [java.lang.Integer a:\n");
-        xml_.append("  a;.=$new [java.lang.Integer(4i):\n");
+        xml_.append("  java.lang.Integer[] a:\n");
+        xml_.append("  a;.=$new java.lang.Integer[4i]:\n");
         xml_.append("  a;.[0i]=$null:\n");
         xml_.append("  a;.[1i]=1i:\n");
         xml_.append("  a;.[2i]=$null:\n");
@@ -139,8 +139,8 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  [$int a:\n");
-        xml_.append("  a;.=$new [$int(2i):\n");
+        xml_.append("  $int[] a:\n");
+        xml_.append("  a;.=$new $int[2i]:\n");
         xml_.append("  a;.[0i]=8i:\n");
         xml_.append("  a;.[0i]+=6i:\n");
         xml_.append("  a;.[1i]=16i:\n");

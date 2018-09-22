@@ -78,8 +78,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String name_ = args_.get(1).trim();
         if (StringList.quickEq(name_, prefixFunction(INSTANCE))) {
             if (!isIntermediateDottedOperation()) {
-                if (fromType_.trim().startsWith(ARR)) {
-                    String cl_ = _conf.resolveCorrectType(fromType_);
+                String cl_ = _conf.resolveCorrectType(fromType_);
+                if (cl_.startsWith(ARR)) {
                     int i_ = 2;
                     StringList parts_ = new StringList();
                     boolean err_ = false;
@@ -344,8 +344,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 } else {
                     type_ = arg_;
                 }
-                arg_ = _conf.resolveCorrectType(type_);
-                methodTypes_.add(new ClassArgumentMatching(arg_));
+                methodTypes_.add(new ClassArgumentMatching(type_));
             }
             boolean cloneArray_ = false;
             for (String b: str_) {
@@ -450,8 +449,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 } else {
                     type_ = arg_;
                 }
-                arg_ = _conf.resolveCorrectType(type_);
-                methodTypes_.add(new ClassArgumentMatching(arg_));
+                methodTypes_.add(new ClassArgumentMatching(type_));
             }
             ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, true, str_, name_, true, false, false, ClassArgumentMatching.toArgArray(methodTypes_));
             if (!id_.isFoundMethod()) {
@@ -516,8 +514,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             } else {
                 type_ = arg_;
             }
-            arg_ = _conf.resolveCorrectType(type_);
-            methodTypes_.add(new ClassArgumentMatching(arg_));
+            methodTypes_.add(new ClassArgumentMatching(type_));
         }
         StringList l_ = previousResultClass.getNames();
         StringList bounds_ = new StringList();

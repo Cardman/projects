@@ -18,7 +18,6 @@ import code.expressionlanguage.opers.DeclaringOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.EmptyPartOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.InstanceOperation;
 import code.expressionlanguage.opers.LeafOperation;
 import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
@@ -27,6 +26,7 @@ import code.expressionlanguage.opers.PossibleIntermediateDotted;
 import code.expressionlanguage.opers.PreAnalyzableOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.opers.SettableElResult;
+import code.expressionlanguage.opers.StandardInstancingOperation;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.StaticInitOperation;
 import code.expressionlanguage.opers.VariableOperation;
@@ -289,8 +289,8 @@ public final class ElUtil {
         String fieldName_ = _calcul.getFieldName();
         boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         _conf.setStaticContext(hiddenVarTypes_ || op_ instanceof AbstractInvokingConstructor);
-        if (op_ instanceof InstanceOperation) {
-            ((InstanceOperation)op_).setFieldName(fieldName_);
+        if (op_ instanceof StandardInstancingOperation) {
+            ((StandardInstancingOperation)op_).setFieldName(fieldName_);
         }
         CustList<OperationNode> all_ = getSortedDescNodes(op_, hiddenVarTypes_, _conf);
         return all_;
@@ -396,8 +396,8 @@ public final class ElUtil {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
-            if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof InstanceOperation) {
-                if (((InstanceOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
+            if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
+                if (((StandardInstancingOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
                     Delimiters d_ = block_.getOperations().getDelimiter();
                     OperationsSequence opSeq_ = new OperationsSequence();
                     opSeq_.setFctName(block_.getOperations().getFctName());
@@ -413,8 +413,8 @@ public final class ElUtil {
         int curKey_ = block_.getChildren().getKey(0);
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof InstanceOperation) {
-            if (((InstanceOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
+        if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
+            if (((StandardInstancingOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
                 opSeq_.setDelimiter(new Delimiters());
@@ -443,7 +443,7 @@ public final class ElUtil {
         }
         NatTreeMap<Integer,String> children_ = p_.getChildren();
         int delta_ = 1;
-        if (p_ instanceof InstanceOperation) {
+        if (p_ instanceof StandardInstancingOperation) {
             if (p_.getFirstChild() instanceof StaticInitOperation) {
                 delta_ = 0;
             }

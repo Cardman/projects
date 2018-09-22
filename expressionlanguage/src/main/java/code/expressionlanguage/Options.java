@@ -7,7 +7,7 @@ public final class Options {
     private boolean multipleAffectations;
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
-    private boolean doubleBracketsArray;
+    private boolean doubleBracketsArray = true;
 
     public boolean applyEqPlus() {
         if (!isMultipleAffectations()) {

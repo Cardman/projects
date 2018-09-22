@@ -8795,7 +8795,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new [$int(2i)\" className='[$int'/>{array;.length}_{array;.[0i]}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new $int[2i]\" className='$int[]'/>{array;.length}_{array;.[0i]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8829,7 +8829,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new [[$int(2i)\" className='[[$int'/>{array;.length}_{array;.[0i]}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"array\" expression=\"$new $int[2i][]\" className='$int[][]'/>{array;.length}_{array;.[0i]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8862,7 +8862,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className='[[$int'/><c:set var=\"array\" expression=\"$new [$int(1i)\" className='[$int'/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new $int[2i][]\" className='$int[][]'/><c:set var=\"array\" expression=\"$new $int[1i]\" className='$int[]'/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8896,7 +8896,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[$int(2i)\" className=\"[[$int\"/><c:set var=\"array\" expression=\"$new [$int(1i)\" className=\"[$int\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new $int[2i][]\" className=\"$int[][]\"/><c:set var=\"array\" expression=\"$new $int[1i]\" className=\"$int[]\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8929,7 +8929,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new java.lang.Integer[2i][]\" className=\"java.lang.Integer[][]\"/><c:set var=\"array\" expression=\"$new java.lang.Integer[1i]\" className=\"java.lang.Integer[]\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -8962,7 +8962,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Object(2i)\" className=\"[[java.lang.Object\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new java.lang.Object[2i][]\" className=\"java.lang.Object[][]\"/><c:set var=\"array\" expression=\"$new java.lang.Integer[1i]\" className=\"java.lang.Integer[]\"/><c:set expression=\"arrays;.[0i]=array;.\"/>{arrays;.length}_{arrays;.[0i].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9199,7 +9199,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [java.lang.String(2i)\" className=\"[java.lang.String\"/><c:set expression=\"arrays;.[0i]=&quot;ab&quot;\"/>{arrays;.length}_{arrays;.[0i]}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new java.lang.String[2i]\" className=\"java.lang.String[]\"/><c:set expression=\"arrays;.[0i]=&quot;ab&quot;\"/>{arrays;.length}_{arrays;.[0i]}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

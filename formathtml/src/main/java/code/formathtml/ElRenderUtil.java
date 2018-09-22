@@ -11,7 +11,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.StdStruct;
@@ -28,19 +27,6 @@ public final class ElRenderUtil {
     private static final String TEMPLATE_BEGIN = "<";
     private static final String PREFIX_VAR_TYPE = "#";
 
-    public static boolean okType(Configuration _cont, String _className) {
-        StringMap<StringList> map_;
-        map_ = new StringMap<StringList>();
-        String glClass_ = _cont.getOperationPageEl().getGlobalClass();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _cont)) {
-                map_.put(t.getName(), t.getConstraints());
-            }
-        }
-        return correctClassParts(_className, map_, _cont);
-    }
-
-    /**Calls Templates.isCorrect*/
     public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Configuration _context) {
         String cl_ = _context.resolveDynamicType(_className, null);
         return Templates.isCorrectTemplateAll(cl_, _mapping, _context, true);

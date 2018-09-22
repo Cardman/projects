@@ -2488,22 +2488,6 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
-        if (!_options.isDoubleBracketsArray()) {
-            while (indexInstr_ < instLen_) {
-                char currentCharFound_ = _found.charAt(indexInstr_);
-                if (currentCharFound_ == BEGIN_ARRAY) {
-                    declTypeName_.append(currentCharFound_);
-                    indexInstr_++;
-                    continue;
-                }
-                if (Character.isWhitespace(currentCharFound_)) {
-                    declTypeName_.append(currentCharFound_);
-                    indexInstr_++;
-                    continue;
-                }
-                break;
-            }
-        }
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
             if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
@@ -2569,45 +2553,43 @@ public final class FileResolver {
             // !Character.isWhitespace(currentCharFound_)
             break;
         }
-        if (_options.isDoubleBracketsArray()) {
-            boolean ok_ = false;
-            if (indexInstr_ < instLen_) {
-                char currentCharFound_ = _found.charAt(indexInstr_);
-                if (currentCharFound_ == '[') {
-                    ok_ = true;
-                    while (indexInstr_ < instLen_) {
-                        currentCharFound_ = _found.charAt(indexInstr_);
-                        if (Character.isWhitespace(currentCharFound_)) {
-                            declTypeName_.append(currentCharFound_);
-                            indexInstr_++;
-                            continue;
-                        }
-                        if (currentCharFound_ == '[') {
-                            declTypeName_.append(currentCharFound_);
-                            if (!ok_) {
-                                break;
-                            }
-                            ok_ = false;
-                            indexInstr_++;
-                            continue;
-                        }
-                        if (currentCharFound_ == ']') {
-                            declTypeName_.append(currentCharFound_);
-                            if (ok_) {
-                                ok_ = false;
-                                break;
-                            }
-                            ok_ = true;
-                            indexInstr_++;
-                            continue;
-                        }
-                        break;
+        boolean ok_ = false;
+        if (indexInstr_ < instLen_) {
+            char currentCharFound_ = _found.charAt(indexInstr_);
+            if (currentCharFound_ == '[') {
+                ok_ = true;
+                while (indexInstr_ < instLen_) {
+                    currentCharFound_ = _found.charAt(indexInstr_);
+                    if (Character.isWhitespace(currentCharFound_)) {
+                        declTypeName_.append(currentCharFound_);
+                        indexInstr_++;
+                        continue;
                     }
+                    if (currentCharFound_ == '[') {
+                        declTypeName_.append(currentCharFound_);
+                        if (!ok_) {
+                            break;
+                        }
+                        ok_ = false;
+                        indexInstr_++;
+                        continue;
+                    }
+                    if (currentCharFound_ == ']') {
+                        declTypeName_.append(currentCharFound_);
+                        if (ok_) {
+                            ok_ = false;
+                            break;
+                        }
+                        ok_ = true;
+                        indexInstr_++;
+                        continue;
+                    }
+                    break;
                 }
             }
-            if (ok_) {
-                typeDeclaring_ = true;
-            }
+        }
+        if (ok_) {
+            typeDeclaring_ = true;
         }
         if (typeDeclaring_) {
             return declTypeName_.toString();
@@ -2650,22 +2632,6 @@ public final class FileResolver {
         boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
-        if (!_options.isDoubleBracketsArray()) {
-            while (indexInstr_ < instLen_) {
-                char currentCharFound_ = _found.charAt(indexInstr_);
-                if (currentCharFound_ == BEGIN_ARRAY) {
-                    declTypeName_.append(currentCharFound_);
-                    indexInstr_++;
-                    continue;
-                }
-                if (Character.isWhitespace(currentCharFound_)) {
-                    declTypeName_.append(currentCharFound_);
-                    indexInstr_++;
-                    continue;
-                }
-                break;
-            }
-        }
         while (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
             if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
@@ -2745,45 +2711,44 @@ public final class FileResolver {
             // !Character.isWhitespace(currentCharFound_)
             break;
         }
-        if (_options.isDoubleBracketsArray()) {
-            boolean ok_ = false;
-            if (indexInstr_ < instLen_) {
-                char currentCharFound_ = _found.charAt(indexInstr_);
-                if (currentCharFound_ == '[') {
-                    ok_ = true;
-                    while (indexInstr_ < instLen_) {
-                        currentCharFound_ = _found.charAt(indexInstr_);
-                        if (Character.isWhitespace(currentCharFound_)) {
-                            declTypeName_.append(currentCharFound_);
-                            indexInstr_++;
-                            continue;
-                        }
-                        if (currentCharFound_ == '[') {
-                            declTypeName_.append(currentCharFound_);
-                            if (!ok_) {
-                                break;
-                            }
-                            ok_ = false;
-                            indexInstr_++;
-                            continue;
-                        }
-                        if (currentCharFound_ == ']') {
-                            declTypeName_.append(currentCharFound_);
-                            if (ok_) {
-                                ok_ = false;
-                                break;
-                            }
-                            ok_ = true;
-                            indexInstr_++;
-                            continue;
-                        }
-                        break;
+
+        boolean ok_ = false;
+        if (indexInstr_ < instLen_) {
+            char currentCharFound_ = _found.charAt(indexInstr_);
+            if (currentCharFound_ == '[') {
+                ok_ = true;
+                while (indexInstr_ < instLen_) {
+                    currentCharFound_ = _found.charAt(indexInstr_);
+                    if (Character.isWhitespace(currentCharFound_)) {
+                        declTypeName_.append(currentCharFound_);
+                        indexInstr_++;
+                        continue;
                     }
+                    if (currentCharFound_ == '[') {
+                        declTypeName_.append(currentCharFound_);
+                        if (!ok_) {
+                            break;
+                        }
+                        ok_ = false;
+                        indexInstr_++;
+                        continue;
+                    }
+                    if (currentCharFound_ == ']') {
+                        declTypeName_.append(currentCharFound_);
+                        if (ok_) {
+                            ok_ = false;
+                            break;
+                        }
+                        ok_ = true;
+                        indexInstr_++;
+                        continue;
+                    }
+                    break;
                 }
             }
-            if (ok_) {
-                typeDeclaring_ = true;
-            }
+        }
+        if (ok_) {
+            typeDeclaring_ = true;
         }
         if (typeDeclaring_) {
             return declTypeName_.toString();

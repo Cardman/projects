@@ -433,7 +433,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
         xml_.append("  $if (m;.invoke($null,one;.,two;.) != 10i){\n");
         xml_.append("   $return 2i:\n");
         xml_.append("  }\n");
-        xml_.append("  [$Method a = $static($Class).getOperators(\"-\",$class(Ex),$class(Ex)):\n");
+        xml_.append("  $Method[] a = $static($Class).getOperators(\"-\",$class(Ex),$class(Ex)):\n");
         xml_.append("  $if (a;.length != 0i){\n");
         xml_.append("   $return 1i:\n");
         xml_.append("  }\n");

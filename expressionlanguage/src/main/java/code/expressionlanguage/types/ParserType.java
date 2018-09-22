@@ -104,58 +104,51 @@ public final class ParserType {
             a_.setupValue(_string, _offset, _options);
             return a_;
         }
-        if (_options.isDoubleBracketsArray()) {
-            int j_ = _string.length()-1;
-            boolean arr_ = true;
+
+        int j_ = _string.length()-1;
+        boolean arr_ = true;
+        while (j_ >= 0) {
+            char locChar_ = _string.charAt(j_);
+            if (Character.isWhitespace(locChar_)) {
+                j_--;
+                continue;
+            }
+            if (locChar_ != ']') {
+                arr_ = false;
+            }
+            break;
+        }
+        if (arr_) {
+            j_--;
             while (j_ >= 0) {
                 char locChar_ = _string.charAt(j_);
                 if (Character.isWhitespace(locChar_)) {
                     j_--;
                     continue;
                 }
-                if (locChar_ != ']') {
+                if (locChar_ != '[') {
                     arr_ = false;
                 }
                 break;
             }
-            if (arr_) {
-                j_--;
-                while (j_ >= 0) {
-                    char locChar_ = _string.charAt(j_);
-                    if (Character.isWhitespace(locChar_)) {
-                        j_--;
-                        continue;
-                    }
-                    if (locChar_ != '[') {
-                        arr_ = false;
-                    }
-                    break;
-                }
-            }
-            if (arr_) {
-                if (j_ >= 0) {
-                    a_.setPrio(ARR_PRIO);
-                    int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
-                    if (last_ < 0) {
-                        a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-                        a_.setError(true);
-                        return a_;
-                    }
-                    String str_ = _string.substring(0, j_);
-                    a_.getValues().put((int)CustList.FIRST_INDEX, str_);
-                    a_.getOperators().put(last_, "[]");
+        }
+        if (arr_) {
+            if (j_ >= 0) {
+                a_.setPrio(ARR_PRIO);
+                int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
+                if (last_ < 0) {
+                    a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+                    a_.setError(true);
                     return a_;
                 }
-                a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-                a_.setError(true);
+                String str_ = _string.substring(0, j_);
+                a_.getValues().put((int)CustList.FIRST_INDEX, str_);
+                a_.getOperators().put(last_, "[]");
                 return a_;
             }
-        } else {
-            if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
-                a_.setPrio(ARR_PRIO);
-                a_.setupArrayValues(_string, _options);
-                return a_;
-            }
+            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+            a_.setError(true);
+            return a_;
         }
         int count_ = 0;
         int len_ = _string.length();

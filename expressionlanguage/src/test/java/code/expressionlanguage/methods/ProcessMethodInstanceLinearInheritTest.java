@@ -369,7 +369,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [pkg.ExThree third=$new [pkg.ExThree(1i):\n");
+        xml_.append(" $public pkg.ExThree[] third=$new pkg.ExThree[1i]:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");
         xml_.append("  sec;;;+=8i:\n");
@@ -436,7 +436,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [pkg.ExThree third=$new [pkg.ExThree(1i):\n");
+        xml_.append(" $public pkg.ExThree[] third=$new pkg.ExThree[1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");
@@ -619,7 +619,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [pkg.ExThree third=$new [pkg.ExThree[]($new pkg.ExThree()):\n");
+        xml_.append(" $public pkg.ExThree[] third=$new pkg.ExThree[]{$new pkg.ExThree()}:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");
@@ -686,7 +686,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [[pkg.ExThree third=$new [pkg.ExThree(1i,1i):\n");
+        xml_.append(" $public pkg.ExThree[][] third=$new pkg.ExThree[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");
@@ -913,7 +913,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         assertEq(17, (Number)field_.getInstance());
     }
 
-    @Test//
+    @Test
     public void instanceArgument33Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -1904,7 +1904,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [java.lang.Object third=$new [java.lang.Object(1i):\n");
+        xml_.append(" $public java.lang.Object[] third=$new java.lang.Object[1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public pkg.ExThree elt:\n");
@@ -1979,7 +1979,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public pkg.ExThree elt:\n");
@@ -2054,7 +2054,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [java.lang.Object third=$new [java.lang.Object(1i):\n");
+        xml_.append(" $public java.lang.Object[] third=$new java.lang.Object[1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -2129,7 +2129,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -2322,7 +2322,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
-        xml_.append(" $public $final [$int ance=$new [$int[](34i):\n");
+        xml_.append(" $public $final $int[] ance=$new $int[]{34i}:\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -2870,10 +2870,10 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [pkg.ExThree third=$new [pkg.ExThree(1i):\n");
-        xml_.append(" $public [pkg.ExThree thirdCopy=third;;;clone():\n");
-        xml_.append(" $public [pkg.ExThree fourth=third;;;:\n");
-        xml_.append(" $public [pkg.ExThree five:\n");
+        xml_.append(" $public pkg.ExThree[] third=$new pkg.ExThree[1i]:\n");
+        xml_.append(" $public pkg.ExThree[] thirdCopy=third;;;clone():\n");
+        xml_.append(" $public pkg.ExThree[] fourth=third;;;:\n");
+        xml_.append(" $public pkg.ExThree[] five:\n");
         xml_.append(" $public $boolean eqone = third;;; = fourth;;;:\n");
         xml_.append(" $public $boolean eqtwo = third;;; = thirdCopy;;;:\n");
         xml_.append(" $public $boolean eqthree = $true:\n");
@@ -2968,11 +2968,11 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [pkg.ExThree third=$new [pkg.ExThree(1i):\n");
-        xml_.append(" $public [pkg.ExThree thirdCopy=third;;;clone():\n");
-        xml_.append(" $public [pkg.ExThree fourth=third;;;:\n");
-        xml_.append(" $public [pkg.ExThree five:\n");
-        xml_.append(" $public [$int six = $new [$int[](0i):\n");
+        xml_.append(" $public pkg.ExThree[] third=$new pkg.ExThree[1i]:\n");
+        xml_.append(" $public pkg.ExThree[] thirdCopy=third;;;clone():\n");
+        xml_.append(" $public pkg.ExThree[] fourth=third;;;:\n");
+        xml_.append(" $public pkg.ExThree[] five:\n");
+        xml_.append(" $public $int[] six = $new $int[]{0i}:\n");
         xml_.append(" $public $boolean eqone = third;;; = fourth;;;:\n");
         xml_.append(" $public $boolean eqtwo = third;;; = thirdCopy;;;:\n");
         xml_.append(" $public $boolean eqthree = $true:\n");

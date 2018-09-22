@@ -1624,10 +1624,10 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F:[java.lang.Object> {}\n");
+        xml_.append("$public $interface pkg.Ex<#F:java.lang.Object[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E:[java.lang.Object> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<#E:java.lang.Object[]> :pkg.Ex<#E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1642,10 +1642,10 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F:[java.lang.Object> {}\n");
+        xml_.append("$public $interface pkg.Ex<#F:java.lang.Object[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E:[java.lang.Object> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<#E:java.lang.Object[]> :pkg.Ex<#E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1660,10 +1660,10 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F:[java.lang.Object> {}\n");
+        xml_.append("$public $interface pkg.Ex<#F:java.lang.Object[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E:[java.lang.Object> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<#E:java.lang.Object[]> :pkg.Ex<#E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1986,7 +1986,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -1998,7 +1998,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[java.lang.Number> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -2010,7 +2010,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -2022,7 +2022,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[java.lang.Number> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -2146,7 +2146,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:[pkg.ExThree> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:pkg.ExThree[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2164,7 +2164,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExThree> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2182,7 +2182,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:pkg.ExTwo[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2200,7 +2200,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2218,7 +2218,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2236,7 +2236,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2254,7 +2254,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2272,7 +2272,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2290,7 +2290,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2308,7 +2308,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExThree> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2326,7 +2326,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:[pkg.ExThree> {}\n");
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -2532,7 +2532,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = Templates.getAllGenericSuperTypes("pkg.Ex<#E>", cont_);
@@ -2545,7 +2545,7 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:[java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<#T:java.lang.Number[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = Templates.getAllGenericSuperTypes("java.lang.Object", cont_);

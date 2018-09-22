@@ -57,9 +57,9 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T> {\n");
-        xml_.append(" $public [#T inst:\n");
+        xml_.append(" $public #T[] inst:\n");
         xml_.append(" $public (#T i){\n");
-        xml_.append("  inst;;;=$new [#T[](i;.;):\n");
+        xml_.append("  inst;;;=$new #T[]{i;.;}:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());

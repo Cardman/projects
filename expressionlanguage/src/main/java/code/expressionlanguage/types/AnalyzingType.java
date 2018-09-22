@@ -23,40 +23,26 @@ public final class AnalyzingType {
         offset = _offset;
     }
     public void setupArrayValues(String _string, Options _options) {
-        if (_options.isDoubleBracketsArray()) {
-            int j_ = _string.length()-1;
-            while (_string.charAt(j_) != ']') {
-                j_--;
-            }
-            while (_string.charAt(j_) != '[') {
-                j_--;
-            }
-            int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
-            if (last_ < 0) {
-                values = new NatTreeMap<Integer,String>();
-                values.put((int)CustList.FIRST_INDEX, _string);
-                error = true;
-                return;
-            }
-            String str_ = _string.substring(0, j_);
+
+        int j_ = _string.length()-1;
+        while (_string.charAt(j_) != ']') {
+            j_--;
+        }
+        while (_string.charAt(j_) != '[') {
+            j_--;
+        }
+        int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
+        if (last_ < 0) {
             values = new NatTreeMap<Integer,String>();
-            values.put((int)CustList.FIRST_INDEX, str_);
-            operators = new NatTreeMap<Integer,String>();
-            operators.put(last_, "[]");
+            values.put((int)CustList.FIRST_INDEX, _string);
+            error = true;
             return;
         }
-        int first_ = StringList.getFirstPrintableCharIndex(_string);
-        int arr_ = first_;
-        first_++;
-        int offset_ = StringList.getFirstPrintableCharIndex(_string.substring(first_));
-        if (offset_ > 0) {
-            first_ += offset_;
-        }
-        String str_ = _string.substring(first_);
+        String str_ = _string.substring(0, j_);
         values = new NatTreeMap<Integer,String>();
-        values.put(first_, str_);
+        values.put((int)CustList.FIRST_INDEX, str_);
         operators = new NatTreeMap<Integer,String>();
-        operators.put(arr_, Templates.ARR_BEG_STRING);
+        operators.put(last_, "[]");
     }
     public void setupValues(String _string, Options _options) {
         values = new NatTreeMap<Integer,String>();

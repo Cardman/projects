@@ -349,7 +349,8 @@ public final class FormatHtml {
                 ip_.setProcessingAttribute(ATTRIBUTE_NAME);
                 ip_.setOffset(0);
                 ip_.setLookForAttrValue(true);
-                if (!ElRenderUtil.okType(_conf, searchedClass_)) {
+                String res_ = _conf.resolveCorrectTypeWithoutErrors(searchedClass_, true);
+                if (res_.isEmpty()) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(searchedClass_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -362,10 +363,10 @@ public final class FormatHtml {
                     _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return;
                 }
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(searchedClass_, lgNames_.getStructClassName(bean_, context_), context_)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(res_, lgNames_.getStructClassName(bean_, context_), context_)) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(lgNames_.getStructClassName(bean_, context_));
-                    mapping_.setParam(searchedClass_);
+                    mapping_.setParam(res_);
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
@@ -1659,7 +1660,8 @@ public final class FormatHtml {
         }
         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
         _ip.setLookForAttrValue(true);
-        if (!ElRenderUtil.okType(_conf, className_)) {
+        String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+        if (res_.isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(className_);
             un_.setFileName(_conf.getCurrentFileName());
@@ -1672,6 +1674,7 @@ public final class FormatHtml {
             _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return;
         }
+        className_ = res_;
         checkClass(_conf, _ip, className_, ret_.getStruct());
         if (_conf.getContext().getException() != null) {
             return;
@@ -1718,7 +1721,8 @@ public final class FormatHtml {
             _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            if (!ElRenderUtil.okType(_conf, className_)) {
+            String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+            if (res_.isEmpty()) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(className_);
                 un_.setFileName(_conf.getCurrentFileName());
@@ -1729,6 +1733,9 @@ public final class FormatHtml {
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setRc(_conf.getCurrentLocation());
                 _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                className_ = _conf.getStandards().getAliasObject();
+            } else {
+                className_ = res_;
             }
         } else {
             className_ = _conf.getStandards().getAliasObject();
@@ -1806,17 +1813,21 @@ public final class FormatHtml {
                     return vi_;
                 }
                 className_ = lgNames_.getStructClassName(struct_, _conf.toContextEl());
-            } else if (!ElRenderUtil.okType(_conf, className_)){
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(className_);
-                un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().getErrorsDet().add(un_);
-                BadElRender badEl_ = new BadElRender();
-                badEl_.setErrors(_conf.getClasses().getErrorsDet());
-                badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setRc(_conf.getCurrentLocation());
-                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            } else {
+                String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                if (res_.isEmpty()) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(className_);
+                    un_.setFileName(_conf.getCurrentFileName());
+                    un_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().getErrorsDet().add(un_);
+                    BadElRender badEl_ = new BadElRender();
+                    badEl_.setErrors(_conf.getClasses().getErrorsDet());
+                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setRc(_conf.getCurrentLocation());
+                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                }
+                className_ = res_;
             }
         } else {
             if (className_.isEmpty()) {
@@ -1860,7 +1871,9 @@ public final class FormatHtml {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (ElRenderUtil.okType(_conf, className_)) {
+                    String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                    if (!res_.isEmpty()) {
+                        className_ = res_;
                         if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                             struct_ = NullStruct.NULL_VALUE;
                         } else {
@@ -1877,12 +1890,15 @@ public final class FormatHtml {
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setRc(_conf.getCurrentLocation());
                         _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        className_ = _conf.getStandards().getAliasObject();
                     }
                 } else if (_element.hasAttribute(IS_CHAR_CONST_ATTRIBUTE)){
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (ElRenderUtil.okType(_conf, className_)) {
+                    String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                    if (!res_.isEmpty()) {
+                        className_ = res_;
                         if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                             struct_ = NullStruct.NULL_VALUE;
                         } else {
@@ -1899,12 +1915,15 @@ public final class FormatHtml {
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setRc(_conf.getCurrentLocation());
                         _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        className_ = _conf.getStandards().getAliasObject();
                     }
                 } else if (_element.hasAttribute(IS_BOOL_CONST_ATTRIBUTE)){
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (ElRenderUtil.okType(_conf, className_)) {
+                    String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                    if (!res_.isEmpty()) {
+                        className_ = res_;
                         if (!_element.hasAttribute(EXPRESSION_ATTRIBUTE)) {
                             struct_ = NullStruct.NULL_VALUE;
                         } else {
@@ -1921,12 +1940,15 @@ public final class FormatHtml {
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setRc(_conf.getCurrentLocation());
                         _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        className_ = _conf.getStandards().getAliasObject();
                     }
                 } else if (StringList.isNumber(expression_)) {
                     _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _ip.setLookForAttrValue(true);
                     _ip.setOffset(0);
-                    if (ElRenderUtil.okType(_conf, className_)) {
+                    String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                    if (!res_.isEmpty()) {
+                        className_ = res_;
                         _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(0);
@@ -1942,6 +1964,7 @@ public final class FormatHtml {
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setRc(_conf.getCurrentLocation());
                         _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        className_ = _conf.getStandards().getAliasObject();
                     }
                 } else {
                     _ip.setProcessingAttribute(EXPRESSION_ATTRIBUTE);
@@ -1953,7 +1976,8 @@ public final class FormatHtml {
                         _ip.setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                         _ip.setLookForAttrValue(true);
                         _ip.setOffset(0);
-                        if (!ElRenderUtil.okType(_conf, className_)) {
+                        String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                        if (res_.isEmpty()) {
                             UnknownClassName un_ = new UnknownClassName();
                             un_.setClassName(className_);
                             un_.setFileName(_conf.getCurrentFileName());
@@ -1964,6 +1988,9 @@ public final class FormatHtml {
                             badEl_.setFileName(_conf.getCurrentFileName());
                             badEl_.setRc(_conf.getCurrentLocation());
                             _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                            className_ = _conf.getStandards().getAliasObject();
+                        } else {
+                            className_ = res_;
                         }
                     }
                 }
@@ -2308,7 +2335,8 @@ public final class FormatHtml {
                     _conf.getLastPage().setProcessingAttribute(ATTRIBUTE_CLASS_NAME);
                     _conf.getLastPage().setOffset(0);
                     _conf.getLastPage().setLookForAttrValue(false);
-                    if (!ElRenderUtil.okType(_conf, className_)) {
+                    String res_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                    if (res_.isEmpty()) {
                         UnknownClassName un_ = new UnknownClassName();
                         un_.setClassName(className_);
                         un_.setFileName(_conf.getCurrentFileName());
@@ -2321,6 +2349,7 @@ public final class FormatHtml {
                         _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                         return;
                     }
+                    className_ = res_;
                     String var_ = elt_.getAttribute(ATTRIBUTE_VAR);
                     if (!StringList.isWord(var_)) {
                         BadVariableName b_ = new BadVariableName();
@@ -4856,7 +4885,8 @@ public final class FormatHtml {
             indexClassName_ = _conf.getStandards().getAliasPrimLong();
         }
         if (!indexClassName_.isEmpty()) {
-            if (!ElRenderUtil.okType(_conf, indexClassName_)) {
+            String rest_ = _conf.resolveCorrectTypeWithoutErrors(indexClassName_, true);
+            if (rest_.isEmpty()) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(indexClassName_);
                 un_.setFileName(_conf.getCurrentFileName());
@@ -4869,6 +4899,7 @@ public final class FormatHtml {
                 _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                 return;
             }
+            indexClassName_ = rest_;
         }
         String className_;
         if (iterationNb_) {
@@ -4877,7 +4908,8 @@ public final class FormatHtml {
             if (className_.isEmpty()) {
                 className_ = primLong_;
             }
-            if (!ElRenderUtil.okType(_conf, className_)) {
+            String rest_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+            if (rest_.isEmpty()) {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(className_);
                 un_.setFileName(_conf.getCurrentFileName());
@@ -4890,6 +4922,7 @@ public final class FormatHtml {
                 _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                 return;
             }
+            className_ = rest_;
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
             lv_.setElement((Number)PrimitiveTypeUtil.convert(className_, int_, _conf.toContextEl()).getInstance());
@@ -4899,7 +4932,8 @@ public final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(ATTRIBUTE_CLASS_NAME);
             if (!className_.isEmpty()) {
-                if (!ElRenderUtil.okType(_conf, className_)) {
+                String rest_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                if (rest_.isEmpty()) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -4912,6 +4946,7 @@ public final class FormatHtml {
                     _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return;
                 }
+                className_ = rest_;
             }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
@@ -4922,7 +4957,8 @@ public final class FormatHtml {
             LoopVariable lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(KEY_CLASS_NAME_ATTRIBUTE);
             if (!className_.isEmpty()) {
-                if (!ElRenderUtil.okType(_conf, className_)) {
+                String rest_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                if (rest_.isEmpty()) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -4935,6 +4971,7 @@ public final class FormatHtml {
                     _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return;
                 }
+                className_ = rest_;
             }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);
@@ -4947,7 +4984,8 @@ public final class FormatHtml {
             lv_ = new LoopVariable();
             className_ = currentForNode_.getAttribute(VAR_CLASS_NAME_ATTRIBUTE);
             if (!className_.isEmpty()) {
-                if (!ElRenderUtil.okType(_conf, className_)) {
+                String rest_ = _conf.resolveCorrectTypeWithoutErrors(className_, true);
+                if (rest_.isEmpty()) {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());
@@ -4960,6 +4998,7 @@ public final class FormatHtml {
                     _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return;
                 }
+                className_ = rest_;
             }
             lv_.setClassName(className_);
             lv_.setIndexClassName(indexClassName_);

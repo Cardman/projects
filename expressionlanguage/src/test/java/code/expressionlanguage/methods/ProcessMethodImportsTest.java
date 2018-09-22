@@ -128,7 +128,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
-        xml_.append("  $return $static($Class).getClass($new [ExTwo(1i)).getName():\n");
+        xml_.append("  $return $static($Class).getClass($new ExTwo[1i]).getName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -152,7 +152,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
-        xml_.append("  $return $static($Class).getClass($new [ExTwo[]($new ExTwo())).getName():\n");
+        xml_.append("  $return $static($Class).getClass($new ExTwo[]{$new ExTwo()}).getName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -177,7 +177,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  java.lang.String out =\"\":\n");
-        xml_.append("  $foreach(ExTwo e: $new [ExTwo[]($new ExTwo(1i),$new ExTwo(7i))){\n");
+        xml_.append("  $foreach(ExTwo e: $new ExTwo[]{$new ExTwo(1i),$new ExTwo(7i)}){\n");
         xml_.append("   out;.+=e;inst:\n");
         xml_.append("   out;.+=\".\":\n");
         xml_.append("  }\n");
@@ -210,7 +210,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  java.lang.String out =\"\":\n");
-        xml_.append("  $foreach(ExTwo e: $new [ExTwo[]($new ExTwo(10i),$new ExTwo(0i))){\n");
+        xml_.append("  $foreach(ExTwo e: $new ExTwo[]{$new ExTwo(10i),$new ExTwo(0i)}){\n");
         xml_.append("   $try{\n");
         xml_.append("    out;.+=1000i/e;inst:\n");
         xml_.append("   }\n");
@@ -248,7 +248,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  java.lang.String out =\"\":\n");
-        xml_.append("  $foreach(ExTwo e: $new [ExTwo[]($new ExTwo(10i),$new ExTwo(0i))){\n");
+        xml_.append("  $foreach(ExTwo e: $new ExTwo[]{$new ExTwo(10i),$new ExTwo(0i)}){\n");
         xml_.append("   $try{\n");
         xml_.append("    out;.+=1000i/e;getter():\n");
         xml_.append("   }\n");
@@ -289,7 +289,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  java.lang.String out =\"\":\n");
-        xml_.append("  $foreach(ExTwo e: $new [ExTwo[]($new ExTwo(10i),$new ExTwo(0i))){\n");
+        xml_.append("  $foreach(ExTwo e: $new ExTwo[]{$new ExTwo(10i),$new ExTwo(0i)}){\n");
         xml_.append("   $try{\n");
         xml_.append("    out;.+=1000i/e;$classchoice(ExTwo)getter():\n");
         xml_.append("   }\n");
@@ -330,7 +330,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  java.lang.String out =\"\":\n");
-        xml_.append("  $foreach(ExTwo e: $new [ExTwo[]($new ExTwo(0i),$new ExThree(1i,11i))){\n");
+        xml_.append("  $foreach(ExTwo e: $new ExTwo[]{$new ExTwo(0i),$new ExThree(1i,11i)}){\n");
         xml_.append("   $try{\n");
         xml_.append("    out;.+=1000i/e;getter():\n");
         xml_.append("   }\n");
@@ -382,7 +382,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append(" $public $static java.lang.String exmeth(){\n");
         xml_.append("  java.lang.String out =\"\":\n");
         xml_.append("  ExTwo c=$new ExTwo(1i):\n");
-        xml_.append("  $foreach(ExTwo e: $new [ExTwo[]($new ExTwo(0i),$new ExThree(1i,11i))){\n");
+        xml_.append("  $foreach(ExTwo e: $new ExTwo[]{$new ExTwo(0i),$new ExThree(1i,11i)}){\n");
         xml_.append("   out;.+=e;getter(c;.):\n");
         xml_.append("   out;.+=\".\":\n");
         xml_.append("   out;.+=e;$classchoice(ExTwo)inst:\n");
@@ -528,7 +528,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("pkgthree.ExThree;\n");
         xml_.append("$public $class pkgtwo.ExTwo<#K:ExThree> {\n");
-        xml_.append(" $public $final [#K array = $new [#K(2i):\n");
+        xml_.append(" $public $final #K[] array = $new #K[2i]:\n");
         xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
         xml_.append("  array;;;[_index;.;]=_v;.;:\n");
         xml_.append("  $int unused=_v;.;get():\n");
@@ -581,7 +581,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("pkgthree.ExThree;\n");
         xml_.append("$public $class pkgtwo.ExTwo<#K:ExThree> {\n");
-        xml_.append(" $public $final [#K array = $new [#K(2i):\n");
+        xml_.append(" $public $final #K[] array = $new #K[2i]:\n");
         xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
         xml_.append("  array;;;[_index;.;]=_v;.;:\n");
         xml_.append("  $int unused=_v;.;get():\n");
@@ -634,7 +634,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("pkgthree.ExThree;\n");
         xml_.append("$public $class pkgtwo.ExTwo<#K:ExThree> {\n");
-        xml_.append(" $public $final [#K array = $new [#K(2i):\n");
+        xml_.append(" $public $final #K[] array = $new #K[2i]:\n");
         xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
         xml_.append("  array;;;[_index;.;]=_v;.;:\n");
         xml_.append("  $int unused=_v;.;get():\n");
@@ -687,7 +687,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("pkgthree.ExThree;\n");
         xml_.append("$public $class pkgtwo.ExTwo<#K:ExThree> {\n");
-        xml_.append(" $public $final [#K array = $new [#K(2i):\n");
+        xml_.append(" $public $final #K[] array = $new #K[2i]:\n");
         xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
         xml_.append("  array;;;[_index;.;]=_v;.;:\n");
         xml_.append("  $int unused=_v;.;get():\n");
@@ -740,7 +740,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("pkgthree.ExThree;\n");
         xml_.append("$public $class pkgtwo.ExTwo<#K:ExThree> {\n");
-        xml_.append(" $public $final [#K array = $new [#K(2i):\n");
+        xml_.append(" $public $final #K[] array = $new #K[2i]:\n");
         xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
         xml_.append("  array;;;[_index;.;]=_v;.;:\n");
         xml_.append("  $int unused=_v;.;get():\n");
@@ -869,7 +869,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public {pkgthree.ExThree;} $class pkgtwo.ExTwo<#K:ExThree> {\n");
-        xml_.append(" $public $final [#K array = $new [#K(2i):\n");
+        xml_.append(" $public $final #K[] array = $new #K[2i]:\n");
         xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
         xml_.append("  array;;;[_index;.;]=_v;.;:\n");
         xml_.append("  $int unused=_v;.;get():\n");
@@ -1219,10 +1219,10 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");
-        xml_.append(" $private [#U list:\n");
+        xml_.append(" $private #U[] list:\n");
         xml_.append(" $private $int length:\n");
         xml_.append(" $public (){\n");
-        xml_.append("  list;;;=$new [#U(0i):\n");
+        xml_.append("  list;;;=$new #U[0i]:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void addElts(#U... elt){\n");
         xml_.append("  addInnerlyElts(elt;.;):\n");
@@ -1242,7 +1242,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("  add(length;;;,elt;.;):\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void add($int index,#U elt){\n");
-        xml_.append("  [#U newlist=$new [#U(length;;;+1i):\n");
+        xml_.append("  #U[] newlist=$new #U[length;;;+1i]:\n");
         xml_.append("  $iter($int i=0i:index;.;:1i){\n");
         xml_.append("   newlist;.[i;]=list;;;[i;]:\n");
         xml_.append("  }\n");

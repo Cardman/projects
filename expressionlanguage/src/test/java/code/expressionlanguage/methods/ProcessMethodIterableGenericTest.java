@@ -336,12 +336,12 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T> {\n");
         xml_.append(" $public $int nb:\n");
-        xml_.append(" $public [#T inst:\n");
+        xml_.append(" $public #T[] inst:\n");
         xml_.append(" $public (#T i){\n");
         xml_.append("  $this(i;.;,2i):\n");
         xml_.append(" }\n");
         xml_.append(" $public (#T i,$int j){\n");
-        xml_.append("  inst;;;=$new [#T[](i;.;):\n");
+        xml_.append("  inst;;;=$new #T[]{i;.;}:\n");
         xml_.append("  nb;;;=j;.;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -577,7 +577,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
         xml_.append(" $public $int res:\n");
         xml_.append(" {\n");
-        xml_.append("  inst;;;addElts($new [java.lang.Number[](3i,1i,2i)):\n");
+        xml_.append("  inst;;;addElts($new java.lang.Number[]{3i,1i,2i}):\n");
         xml_.append("  res;;;=inst;;;size():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -832,7 +832,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get($new [java.lang.Number[](1i,2i)):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get($new java.lang.Number[]{1i,2i}):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
         xml_.append("   ance;;;=2i:\n");
@@ -1160,14 +1160,14 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public pkg.ExTwo<[java.lang.Number> inst:\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number[]> inst:\n");
         xml_.append(" $public pkg.ExTwo<java.lang.String> ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
         xml_.append("   ance;;;=$new pkg.ExTwo<java.lang.String>(8i):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
-        xml_.append("   inst;;;=(ExTwo<[java.lang.Number>)$new pkg.ExTwo<[java.lang.Number>($new [java.lang.Number[](8i)):\n");
+        xml_.append("   inst;;;=(ExTwo<java.lang.Number[]>)$new pkg.ExTwo<java.lang.Number[]>($new java.lang.Number[]{8i}):\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1260,7 +1260,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$superaccess(pkg.ExTwo<java.lang.Number>)get($new [java.lang.Number[](1i,2i)):\n");
+        xml_.append("   ance;;;=inst;;;$superaccess(pkg.ExTwo<java.lang.Number>)get($new java.lang.Number[]{1i,2i}):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
         xml_.append("   ance;;;=2i:\n");
@@ -1479,16 +1479,16 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");
-        xml_.append(" $private [#U list:\n");
+        xml_.append(" $private #U[] list:\n");
         xml_.append(" $private $int length:\n");
         xml_.append(" $public (){\n");
-        xml_.append("  list;;;=$new [#U(0i):\n");
+        xml_.append("  list;;;=$new #U[0i]:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void add(#U elt){\n");
         xml_.append("  add(length;;;,elt;.;):\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void add($int index,#U elt){\n");
-        xml_.append("  [#U newlist=$new [#U(length;;;+1i):\n");
+        xml_.append("  #U[] newlist=$new #U[length;;;+1i]:\n");
         xml_.append("  $iter($int i=0i:index;.;:1i){\n");
         xml_.append("   newlist;.[i;]=list;;;[i;]:\n");
         xml_.append("  }\n");
@@ -1524,10 +1524,10 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
     private static String getCustomSecondList() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");
-        xml_.append(" $private [#U list:\n");
+        xml_.append(" $private #U[] list:\n");
         xml_.append(" $private $int length:\n");
         xml_.append(" $public (){\n");
-        xml_.append("  list;;;=$new [#U(0i):\n");
+        xml_.append("  list;;;=$new #U[0i]:\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void addElts(#U... elt){\n");
         xml_.append("  addInnerlyElts(elt;.;):\n");
@@ -1541,7 +1541,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("  add(length;;;,elt;.;):\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void add($int index,#U elt){\n");
-        xml_.append("  [#U newlist=$new [#U(length;;;+1i):\n");
+        xml_.append("  #U[] newlist=$new #U[length;;;+1i]:\n");
         xml_.append("  $iter($int i=0i:index;.;:1i){\n");
         xml_.append("   newlist;.[i;]=list;;;[i;]:\n");
         xml_.append("  }\n");

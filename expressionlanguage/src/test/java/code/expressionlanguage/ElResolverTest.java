@@ -681,19 +681,18 @@ public class ElResolverTest {
     public void getOperationsSequence39Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "$new [java.lang.Integer(\"8\")";
+        String el_ = "$new java.lang.Integer[]{8i}";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(2, opers_.size());
-        assertEq("(", opers_.getVal(23));
-        assertEq(")", opers_.getVal(27));
+        assertEq("{", opers_.getVal(24));
+        assertEq("}", opers_.getVal(27));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("$new [java.lang.Integer", values_.getVal(0));
-        assertEq("\"8\"", values_.getVal(24));
-    
-        assertTrue(seq_.isCall());
+        assertEq("$new java.lang.Integer[]", values_.getVal(0));
+        assertEq("8i", values_.getVal(25));
+        assertTrue(seq_.isInstance());
     }
 
     @Test
@@ -3643,6 +3642,158 @@ public class ElResolverTest {
         assertEq(ElResolver.CMP_PRIO, seq_.getPriority());
         assertTrue(!seq_.isInstanceTest());
     }
+
+    @Test
+    public void getOperationsSequence202Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new java.lang.Integer[8i]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("[", opers_.getVal(22));
+        assertEq("]", opers_.getVal(25));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$new java.lang.Integer", values_.getVal(0));
+        assertEq("8i", values_.getVal(23));
+        assertTrue(seq_.isInstance());
+        assertEq(0, seq_.getCountArrays());
+    }
+
+    @Test
+    public void getOperationsSequence203Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new java.lang.Integer[8i][]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("[", opers_.getVal(22));
+        assertEq("]", opers_.getVal(25));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$new java.lang.Integer", values_.getVal(0));
+        assertEq("8i", values_.getVal(23));
+        assertTrue(seq_.isInstance());
+        assertEq(1, seq_.getCountArrays());
+    }
+
+    @Test
+    public void getOperationsSequence204Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new java.lang.Integer[8i][5i]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(4, opers_.size());
+        assertEq("[", opers_.getVal(22));
+        assertEq("]", opers_.getVal(25));
+        assertEq("[", opers_.getVal(26));
+        assertEq("]", opers_.getVal(29));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(3, values_.size());
+        assertEq("$new java.lang.Integer", values_.getVal(0));
+        assertEq("8i", values_.getVal(23));
+        assertEq("5i", values_.getVal(27));
+        assertTrue(seq_.isInstance());
+        assertEq(0, seq_.getCountArrays());
+    }
+
+    @Test
+    public void getOperationsSequence205Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new java.lang.Integer[8i][][]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("[", opers_.getVal(22));
+        assertEq("]", opers_.getVal(25));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$new java.lang.Integer", values_.getVal(0));
+        assertEq("8i", values_.getVal(23));
+        assertTrue(seq_.isInstance());
+        assertEq(2, seq_.getCountArrays());
+    }
+    @Test
+    public void getOperationsSequence206Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new List<java.lang.Integer>[8i]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("[", opers_.getVal(28));
+        assertEq("]", opers_.getVal(31));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$new List<java.lang.Integer>", values_.getVal(0));
+        assertEq("8i", values_.getVal(29));
+        assertTrue(seq_.isInstance());
+        assertEq(0, seq_.getCountArrays());
+    }
+    @Test
+    public void getOperationsSequence207Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new List<java.lang.Integer[]>[8i]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("[", opers_.getVal(30));
+        assertEq("]", opers_.getVal(33));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$new List<java.lang.Integer[]>", values_.getVal(0));
+        assertEq("8i", values_.getVal(31));
+        assertTrue(seq_.isInstance());
+        assertEq(0, seq_.getCountArrays());
+    }
+    @Test
+    public void getOperationsSequence208Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new List<java.lang.Integer[]>[8i][]";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("[", opers_.getVal(30));
+        assertEq("]", opers_.getVal(33));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$new List<java.lang.Integer[]>", values_.getVal(0));
+        assertEq("8i", values_.getVal(31));
+        assertTrue(seq_.isInstance());
+        assertEq(1, seq_.getCountArrays());
+    }
+
+    @Test
+    public void getOperationsSequence209Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "$new java.lang.Integer(8i)";
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(2, opers_.size());
+        assertEq("(", opers_.getVal(22));
+        assertEq(")", opers_.getVal(25));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("$new java.lang.Integer", values_.getVal(0));
+        assertEq("8i", values_.getVal(23));
+        assertTrue(seq_.isInstance());
+        assertEq(0, seq_.getCountArrays());
+    }
     @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();
@@ -3721,6 +3872,19 @@ public class ElResolverTest {
         assertEq(11, d_.getIndexEnd());
     }
 
+    @Test
+    public void checkSyntaxDelimiters7Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = " {$new $int[]\\{1i,3i\\}}";
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 2, '{', '}');
+        assertEq(3, d_.getAllowedOperatorsIndexes().size());
+        assertEq(14, d_.getAllowedOperatorsIndexes().first().intValue());
+        assertEq(17, d_.getAllowedOperatorsIndexes().get(1).intValue());
+        assertEq(21, d_.getAllowedOperatorsIndexes().last().intValue());
+        assertEq(2, d_.getIndexBegin());
+        assertEq(21, d_.getIndexEnd());
+    }
     @Test
     public void checkSyntaxDelimiters1FailTest() {
         ContextEl conf_ = contextEl();

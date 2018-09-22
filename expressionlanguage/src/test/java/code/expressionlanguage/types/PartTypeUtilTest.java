@@ -467,6 +467,87 @@ public final class PartTypeUtilTest {
         String solved_ = PartTypeUtil.processAnalyze("Outer<#D>..InnerThree<#H>..InnerInner<#I>", "",context_, root_, rc_);
         assertEq("pkgtwo.OuterThree<#D>..InnerFive<#H>..InnerInner<#I>", solved_);
     }
+    @Test
+    public void process13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+        RowCol rc_ = new RowCol();
+        String solved_ = PartTypeUtil.processAnalyze("OuterTwo[]", "", context_, root_, rc_);
+        assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
+        assertEq("[pkgtwo.OuterTwo", solved_);
+    }
+    @Test
+    public void process14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#S>: OuterTwo<#S> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+        RowCol rc_ = new RowCol();
+        String solved_ = PartTypeUtil.processAnalyze("OuterTwo<java.lang.Number>[]", "", context_, root_, rc_);
+        assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
+        assertEq("[pkgtwo.OuterTwo<java.lang.Number>", solved_);
+    }
+    @Test
+    public void process15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append(" $public {} $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public {} $class InnerTwo:OuterTwo<#C>..InnerThree<#C> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
+        xml_.append(" $public {} $class InnerThree<#F>:OuterThree<#B>..InnerFive<#F> {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public {} $class InnerFour:..InnerThree<#B> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
+        xml_.append(" $public {} $class InnerFive<#E> {\n");
+        xml_.append("  $public {} $class InnerInner<#G> {\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+        RowCol rc_ = new RowCol();
+        context_.getAvailableVariables().add("D");
+        context_.getAvailableVariables().add("H");
+        context_.getAvailableVariables().add("I");
+        String solved_ = PartTypeUtil.processAnalyze("Outer<#D[]>..InnerThree<#H[]>..InnerInner<#I[]>[]", "",context_, root_, rc_);
+        assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
+    }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         Classes classes_ = cont_.getClasses();

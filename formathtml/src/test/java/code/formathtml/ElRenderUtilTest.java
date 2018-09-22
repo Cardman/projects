@@ -832,7 +832,7 @@ public final class ElRenderUtilTest {
     public void processEl63Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [$int(1i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new $int[1i]",0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName(context_.getContext()));
         assertEq(1, ((Struct[])res_.getInstance()).length);
@@ -843,7 +843,7 @@ public final class ElRenderUtilTest {
     public void processEl64Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [[$int(1i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new $int[1i][]",0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_ARR_INT, res_.getClassName(context_.getContext()));
         assertEq(1, ((Struct[])res_.getInstance()).length);
@@ -854,7 +854,7 @@ public final class ElRenderUtilTest {
     public void processEl65Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [java.lang.Integer(2i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new java.lang.Integer[2i]",0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_INTEGER, res_.getClassName(context_.getContext()));
         assertEq(2, ((Struct[])res_.getInstance()).length);
@@ -866,7 +866,7 @@ public final class ElRenderUtilTest {
     public void processEl66Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [[java.lang.Integer(2i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new java.lang.Integer[2i][]",0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_ARR_INTEGER, res_.getClassName(context_.getContext()));
         assertEq(2, ((Struct[])res_.getInstance()).length);
@@ -1277,7 +1277,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         context_.getLastPage().setLocalVars(localVars_);
-        Argument arg_ = ElRenderUtil.processEl("$new [$int(1i)[0i]",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("($new $int[1i])[0i]",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
@@ -1287,7 +1287,7 @@ public final class ElRenderUtilTest {
     public void processEl96Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [$int[](2i)", 0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new $int[]{2i}", 0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName(context_.getContext()));
         Struct[] o_ = (Struct[]) res_.getInstance();
@@ -1299,7 +1299,7 @@ public final class ElRenderUtilTest {
     public void processEl97Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [$int[](3i,7i)", 0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new $int[]{3i,7i}", 0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName(context_.getContext()));
         Struct[] o_ = (Struct[]) res_.getInstance();
@@ -1312,7 +1312,7 @@ public final class ElRenderUtilTest {
     public void processEl98Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [$int[]()", 0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new $int[]{}", 0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_INT, res_.getClassName(context_.getContext()));
         Struct[] o_ = (Struct[]) res_.getInstance();
@@ -1323,7 +1323,7 @@ public final class ElRenderUtilTest {
     public void processEl99Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [java.lang.Integer[](3i,7i)", 0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new java.lang.Integer[]{3i,7i}", 0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_INTEGER, res_.getClassName(context_.getContext()));
         Struct[] o_ = (Struct[]) res_.getInstance();
@@ -1761,7 +1761,7 @@ public final class ElRenderUtilTest {
     public void processEl131Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [$int(1i,1i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new $int[1i][1i]",0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_ARR_INT, res_.getClassName(context_.getContext()));
         assertEq(1, ((Struct[])res_.getInstance()).length);
@@ -1774,7 +1774,7 @@ public final class ElRenderUtilTest {
     public void processEl132Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$new [java.lang.Integer(1i,1i)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$new java.lang.Integer[1i][1i]",0, context_);
         Struct res_ = arg_.getStruct();
         assertEq(ARR_ARR_INTEGER, res_.getClassName(context_.getContext()));
         assertEq(1, ((Struct[])res_.getInstance()).length);
@@ -2255,7 +2255,7 @@ public final class ElRenderUtilTest {
     public void processEl7FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$new [$int(-1i)",0, context_);
+        ElRenderUtil.processEl("$new $int[-1i]",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
@@ -2264,7 +2264,7 @@ public final class ElRenderUtilTest {
     public void processEl8FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$new [java.lang.Integer(-1i)",0, context_);
+        ElRenderUtil.processEl("$new java.lang.Integer[-1i]",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
@@ -3736,7 +3736,7 @@ public final class ElRenderUtilTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
         xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return $class([#T).getName():\n");
+        xml_.append("  $return $class(#T[]).getName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -3753,7 +3753,7 @@ public final class ElRenderUtilTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
         xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return $class(pkg.Ex<[#T>).getName():\n");
+        xml_.append("  $return $class(pkg.Ex<#T[]>).getName():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -3769,7 +3769,7 @@ public final class ElRenderUtilTest {
     public void processEl237Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static($Class).getClass($new [$int[](1i)).getName()",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getClass($new $int[]{1i}).getName()",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("[$int", (String)res_);
@@ -3943,7 +3943,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$true,$class($int))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke($null,$new [$int[](4i,6i)):\n");
+        xml_.append("  $return $($int) m;.invoke($null,$new $int[]{4i,6i}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -3988,7 +3988,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$true,$class($int))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke($null,$new [java.lang.Object[]($new [java.lang.Object[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke($null,$new java.lang.Object[]{$new java.lang.Object[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4253,7 +4253,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$true,$class($int))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke($null,$new [java.lang.Object[]($new [$int[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke($null,$new java.lang.Object[]{$new $int[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4342,7 +4342,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int inst:\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke($new pkg.Ex<java.lang.Integer>(),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke($new pkg.Ex<java.lang.Integer>(),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4439,7 +4439,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class($Method).getDeclaredMethods(\"invoke\",$false,$true,$class(java.lang.Object),$class(java.lang.Object))[0i]:\n");
         xml_.append("  $Method mtwo = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(mtwo;.,$new pkg.Ex<java.lang.Integer>(),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(mtwo;.,$new pkg.Ex<java.lang.Integer>(),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4491,7 +4491,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static java.lang.Object exmeth(){\n");
         xml_.append("  $Method m = $class($Method).getDeclaredMethods(\"invoke\",$false,$true,$class(java.lang.Object),$class(java.lang.Object))[0i]:\n");
         xml_.append("  $Method mtwo = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"set\",$true,$false,$class($int))[0i]:\n");
-        xml_.append("  $return m;.invoke(mtwo;.,$null,$new [java.lang.Object[](4i)):\n");
+        xml_.append("  $return m;.invoke(mtwo;.,$null,$new java.lang.Object[]{4i}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4539,7 +4539,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.ExAbs).getDeclaredConstructors($false)[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(),$new [java.lang.Object[]($new [$int[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(),$new java.lang.Object[]{$new $int[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4588,7 +4588,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).getDeclaredConstructors($false)[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4637,7 +4637,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4686,7 +4686,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i,$null),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i,$null),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4735,7 +4735,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i,\"\"),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i,\"\"),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4781,7 +4781,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).makeGeneric().getDeclaredConstructors($false)[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(),$new [java.lang.Object[]($new [$int[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(),$new java.lang.Object[]{$new $int[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4831,7 +4831,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$false,$true,$class($int))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).getDeclaredConstructors($false,$class($int),$class($int))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i,2i),$new [java.lang.Object[]($new [$int[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(1i,2i),$new java.lang.Object[]{$new $int[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4881,7 +4881,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).makeGeneric($class(java.lang.Integer)).getDeclaredConstructors($false,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(9i),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(9i),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4933,7 +4933,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).makeGeneric($class(java.lang.Integer)).getDeclaredConstructors($true,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance($new [java.lang.Object[]($new [java.lang.Integer[](9i,4i))),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance($new java.lang.Object[]{$new java.lang.Integer[]{9i,4i}}),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -4987,7 +4987,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).makeGeneric($class(java.lang.Integer)).getDeclaredConstructors($true,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance($(java.lang.Object)$null),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance($(java.lang.Object)$null),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5039,7 +5039,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).makeGeneric($class(java.lang.Integer)).getDeclaredConstructors($true,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance(9i,4i),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance(9i,4i),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5092,7 +5092,7 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method m = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex).makeGeneric($class(java.lang.Integer)).getDeclaredConstructors($true,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(c;.newInstance($null),$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(c;.newInstance($null),$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -5187,10 +5187,10 @@ public final class ElRenderUtilTest {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $Method mthree = $class($Constructor).getDeclaredMethods(\"newInstance\",$false,$true,$class(java.lang.Object))[0i]:\n");
         xml_.append("  $Constructor c = $class(pkg.Ex<java.lang.Integer>).getDeclaredConstructors($false)[0i]:\n");
-        xml_.append("  pkg.Ex<java.lang.Integer> res = $(pkg.Ex<java.lang.Integer>) mthree;.invoke(c;.,$(java.lang.Object)$new [java.lang.Object[]()):\n");
+        xml_.append("  pkg.Ex<java.lang.Integer> res = $(pkg.Ex<java.lang.Integer>) mthree;.invoke(c;.,$(java.lang.Object)$new java.lang.Object[]{}):\n");
         xml_.append("  $Method m = $class($Method).getDeclaredMethods(\"invoke\",$false,$true,$class(java.lang.Object),$class(java.lang.Object))[0i]:\n");
         xml_.append("  $Method mtwo = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"exmeth\",$false,$true,$class(java.lang.Integer))[0i]:\n");
-        xml_.append("  $return $($int) m;.invoke(mtwo;.,res;.,$new [java.lang.Object[]($new [java.lang.Integer[](4i,6i))):\n");
+        xml_.append("  $return $($int) m;.invoke(mtwo;.,res;.,$new java.lang.Object[]{$new java.lang.Integer[]{4i,6i}}):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -6548,7 +6548,7 @@ public final class ElRenderUtilTest {
     public void processEl308Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.String[]())",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertTrue(arg_.getStruct().isArray());
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
@@ -6558,7 +6558,7 @@ public final class ElRenderUtilTest {
     public void processEl309Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.String[](\"sample\"))",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertTrue(arg_.getStruct().isArray());
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
@@ -6570,7 +6570,7 @@ public final class ElRenderUtilTest {
     public void processEl310Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.Object).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.String[](\"sample\"))",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.Object).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertTrue(arg_.getStruct().isArray());
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
@@ -6653,6 +6653,17 @@ public final class ElRenderUtilTest {
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
+    }
+
+    @Test
+    public void processEl317Test() {
+        Configuration context_ = contextEl();
+        addImportingPage(context_);
+        Argument arg_ = ElRenderUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"+$new $int[]\\{0i,1i\\}.length} ", context_, 2 ,'{','}');
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("9 hello world {every body ;)2", (String)res_);
+        assertEq(71, context_.getNextIndex());
     }
     @Test
     public void processAffect1Test() {
@@ -7133,8 +7144,8 @@ public final class ElRenderUtilTest {
     public void processAffect25Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static [$int inst=$new [$int(1i):\n");
-        xml_.append(" $public $static [$int exmeth(){\n");
+        xml_.append(" $public $static $int[] inst=$new $int[1i]:\n");
+        xml_.append(" $public $static $int[] exmeth(){\n");
         xml_.append("  $return inst;;;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");

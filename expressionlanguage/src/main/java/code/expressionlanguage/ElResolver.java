@@ -135,7 +135,6 @@ public final class ElResolver {
     static Delimiters commonCheck(String _string, Analyzable _conf, int _minIndex, boolean _delimiters, Delimiters _d) {
         char begin_ = _d.getBegin();
         char end_ = _d.getEnd();
-        Options opt_ = _conf.getOptions();
         boolean partOfString_ = _d.isPartOfString();
 
         Delimiters d_ = new Delimiters();
@@ -498,42 +497,32 @@ public final class ElResolver {
                         enabledMinus_ = true;
                         hatMethod_ = true;
                         int j_ = i_ + 1;
-                        if (!opt_.isDoubleBracketsArray()) {
-                            while (j_ < len_) {
-                                if (_string.charAt(j_) == PAR_LEFT) {
-                                    d_.getCallings().add(j_);
+
+                        int count_ = 0;
+                        while (j_ < len_) {
+                            char curLoc_ = _string.charAt(j_);
+                            if (curLoc_ == Templates.LT) {
+                                count_++;
+                                j_++;
+                                continue;
+                            }
+                            if (curLoc_ == Templates.GT) {
+                                count_--;
+                                j_++;
+                                continue;
+                            }
+                            if (curLoc_ == PAR_LEFT) {
+                                d_.getCallings().add(j_);
+                                hatMethod_ = false;
+                                break;
+                            }
+                            if (curLoc_ == ARR_LEFT) {
+                                if (count_ == 0) {
                                     hatMethod_ = false;
                                     break;
                                 }
-                                j_++;
                             }
-                        } else {
-                            int count_ = 0;
-                            while (j_ < len_) {
-                                char curLoc_ = _string.charAt(j_);
-                                if (curLoc_ == Templates.LT) {
-                                    count_++;
-                                    j_++;
-                                    continue;
-                                }
-                                if (curLoc_ == Templates.GT) {
-                                    count_--;
-                                    j_++;
-                                    continue;
-                                }
-                                if (curLoc_ == PAR_LEFT) {
-                                    d_.getCallings().add(j_);
-                                    hatMethod_ = false;
-                                    break;
-                                }
-                                if (curLoc_ == ARR_LEFT) {
-                                    if (count_ == 0) {
-                                        hatMethod_ = false;
-                                        break;
-                                    }
-                                }
-                                j_++;
-                            }
+                            j_++;
                         }
                         if (j_ >= len_) {
                             d_.setBadOffset(len_ - 1);
@@ -1367,39 +1356,19 @@ public final class ElResolver {
                     if (cast_) {
                         char locCar_ = _string.charAt(j_);
                         if (!StringList.isDollarWordChar(locCar_)) {
-                            if (!opt_.isDoubleBracketsArray()) {
-                                if (locCar_ == ARR_LEFT || locCar_ == Templates.PREFIX_VAR_TYPE_CHAR) {
-                                    if (locCar_ == ARR_LEFT) {
-                                        strType_ = true;
-                                    }
+                            if (locCar_ == Templates.PREFIX_VAR_TYPE_CHAR) {
+                                type_ = true;
+                            } else if (locCar_ == DOT_VAR) {
+                                if (_string.charAt(j_ + 1) == DOT_VAR) {
+                                    doubleDot_ = true;
                                     type_ = true;
-                                } else if (locCar_ == DOT_VAR) {
-                                    if (_string.charAt(j_ + 1) == DOT_VAR) {
-                                        doubleDot_ = true;
-                                        type_ = true;
-                                        strType_ = true;
-                                        j_++;
-                                    } else {
-                                        cast_ = false;
-                                    }
+                                    strType_ = true;
+                                    j_++;
                                 } else {
                                     cast_ = false;
                                 }
                             } else {
-                                if (locCar_ == Templates.PREFIX_VAR_TYPE_CHAR) {
-                                    type_ = true;
-                                } else if (locCar_ == DOT_VAR) {
-                                    if (_string.charAt(j_ + 1) == DOT_VAR) {
-                                        doubleDot_ = true;
-                                        type_ = true;
-                                        strType_ = true;
-                                        j_++;
-                                    } else {
-                                        cast_ = false;
-                                    }
-                                } else {
-                                    cast_ = false;
-                                }
+                                cast_ = false;
                             }
                         }
                         int k_ = indexParRight_+1;
@@ -1456,34 +1425,26 @@ public final class ElResolver {
                                     j_++;
                                     continue;
                                 }
-                                if (opt_.isDoubleBracketsArray()) {
-                                    int next_ = j_ + 1;
-                                    while (next_ < indexParRight_) {
-                                        char nChar_ = _string.charAt(next_);
-                                        if (Character.isWhitespace(nChar_)) {
-                                            next_++;
-                                        }
-                                        if (nChar_ == ARR_RIGHT) {
-                                            type_ = true;
-                                        } else {
-                                            cast_ = false;
-                                        }
-                                        break;
+                                int next_ = j_ + 1;
+                                while (next_ < indexParRight_) {
+                                    char nChar_ = _string.charAt(next_);
+                                    if (Character.isWhitespace(nChar_)) {
+                                        next_++;
                                     }
-                                    if (!cast_) {
-                                        break;
+                                    if (nChar_ == ARR_RIGHT) {
+                                        type_ = true;
+                                    } else {
+                                        cast_ = false;
                                     }
+                                    break;
+                                }
+                                break;
+                            }
+                            if (locCar_ == ARR_RIGHT) {
+                                if (count_ > 0) {
+                                    type_ = true;
                                     j_++;
                                     continue;
-                                }
-                            }
-                            if (opt_.isDoubleBracketsArray()) {
-                                if (locCar_ == ARR_RIGHT) {
-                                    if (count_ > 0) {
-                                        type_ = true;
-                                        j_++;
-                                        continue;
-                                    }
                                 }
                             }
                             if (StringList.isDollarWordChar(locCar_)) {
@@ -1637,64 +1598,52 @@ public final class ElResolver {
                 }
                 parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
-            boolean braces_ = false;
-            boolean brackets_ = false;
-            if (_conf.isAnnotAnalysis() || opt_.isDoubleBracketsArray()) {
-                braces_ = true;
+            if (curChar_ == ANN_ARR_LEFT) {
+                parsBrackets_.put(i_, curChar_);
             }
-            if (!_conf.isAnnotAnalysis() || opt_.isDoubleBracketsArray()) {
-                brackets_ = true;
-            }
-            if (braces_) {
-                if (curChar_ == ANN_ARR_LEFT) {
-                    parsBrackets_.put(i_, curChar_);
+            if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
+                if (parsBrackets_.isEmpty()) {
+                    d_.setBadOffset(i_);
+                    return d_;
                 }
-                if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
-                    if (parsBrackets_.isEmpty()) {
-                        d_.setBadOffset(i_);
-                        return d_;
-                    }
-                    if (parsBrackets_.lastValue() != ANN_ARR_LEFT) {
-                        d_.setBadOffset(i_);
-                        return d_;
-                    }
-                    parsBrackets_.removeKey(parsBrackets_.lastKey());
+                if (parsBrackets_.lastValue() != ANN_ARR_LEFT) {
+                    d_.setBadOffset(i_);
+                    return d_;
                 }
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
-            if (brackets_) {
-                if (curChar_ == ARR_LEFT) {
-                    int j_ = i_ + 1;
-                    boolean skip_ = false;
-                    while (j_ < len_) {
-                        char nextChar_ = _string.charAt(j_);
-                        if (Character.isWhitespace(nextChar_)) {
-                            j_++;
-                            continue;
-                        }
-                        if (nextChar_ == ARR_RIGHT) {
-                            skip_ = true;
-                        }
-                        break;
-                    }
-                    if (skip_) {
-                        d_.getDimsAddonIndexes().add(i_);
-                        d_.getDimsAddonIndexes().add(j_);
-                        i_ = j_ + 1;
+            if (curChar_ == ARR_LEFT) {
+                int j_ = i_ + 1;
+                boolean skip_ = false;
+                while (j_ < len_) {
+                    char nextChar_ = _string.charAt(j_);
+                    if (Character.isWhitespace(nextChar_)) {
+                        j_++;
                         continue;
                     }
-                    parsBrackets_.put(i_, curChar_);
-                }
-                if (curChar_ == ARR_RIGHT) {
-                    if (parsBrackets_.isEmpty()) {
-                        d_.setBadOffset(i_);
-                        return d_;
+                    if (nextChar_ == ARR_RIGHT) {
+                        skip_ = true;
                     }
-                    if (parsBrackets_.lastValue() != ARR_LEFT) {
-                        d_.setBadOffset(i_);
-                        return d_;
-                    }
-                    parsBrackets_.removeKey(parsBrackets_.lastKey());
+                    break;
                 }
+                if (skip_) {
+                    d_.getDimsAddonIndexes().add(i_);
+                    d_.getDimsAddonIndexes().add(j_);
+                    i_ = j_ + 1;
+                    continue;
+                }
+                parsBrackets_.put(i_, curChar_);
+            }
+            if (curChar_ == ARR_RIGHT) {
+                if (parsBrackets_.isEmpty()) {
+                    d_.setBadOffset(i_);
+                    return d_;
+                }
+                if (parsBrackets_.lastValue() != ARR_LEFT) {
+                    d_.setBadOffset(i_);
+                    return d_;
+                }
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
             if (curChar_ == SEP_ARG) {
                 if (parsBrackets_.isEmpty() && !_conf.isMerged()) {
@@ -1767,21 +1716,17 @@ public final class ElResolver {
             if (curChar_ == MOD_CHAR) {
                 idOp_ = true;
             }
-            if (braces_) {
-                if (curChar_ == ANN_ARR_LEFT) {
-                    idOp_ = true;
-                }
-                if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
-                    idOp_ = true;
-                }
+            if (curChar_ == ANN_ARR_LEFT) {
+                idOp_ = true;
             }
-            if (brackets_) {
-                if (curChar_ == ARR_LEFT) {
-                    idOp_ = true;
-                }
-                if (curChar_ == ARR_RIGHT) {
-                    idOp_ = true;
-                }
+            if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
+                idOp_ = true;
+            }
+            if (curChar_ == ARR_LEFT) {
+                idOp_ = true;
+            }
+            if (curChar_ == ARR_RIGHT) {
+                idOp_ = true;
             }
             if (curChar_ == PAR_LEFT) {
                 idOp_ = true;
@@ -2536,9 +2481,6 @@ public final class ElResolver {
         if (char_ == '{') {
             return false;
         }
-        if (char_ == '}') {
-            return false;
-        }
         if (char_ == '?') {
             return false;
         }
@@ -2586,7 +2528,6 @@ public final class ElResolver {
     }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
             Analyzable _conf, Delimiters _d) {
-        Options opt_ = _conf.getOptions();
         NatTreeMap<Integer,String> operators_;
         operators_ = new NatTreeMap<Integer,String>();
         NatTreeMap<Integer,Character> parsBrackets_;
@@ -2861,20 +2802,14 @@ public final class ElResolver {
         String fctName_ = EMPTY_STRING;
         boolean enabledId_ = false;
         boolean declaring_ = false;
-        boolean braces_ = false;
-        boolean brackets_ = false;
-        boolean dbl_ = opt_.isDoubleBracketsArray();
-        if (_conf.isAnnotAnalysis() || dbl_) {
-            braces_ = true;
-        }
-        if (!_conf.isAnnotAnalysis() || dbl_) {
-            brackets_ = true;
-        }
+//        boolean braces_ = true;
+//        boolean brackets_ = true;
+//        boolean dbl_ = true;
         boolean instance_ = false;
         if (_string.charAt(firstPrintChar_) == EXTERN_CLASS && procWordFirstChar(_string, firstPrintChar_ + 1, INSTANCE)) {
             instance_ = true;
         }
-        if (braces_ && _string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {
+        if (_string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {
             instance_ = true;
         }
         Numbers<Integer> laterIndexesDouble_ = new Numbers<Integer>();
@@ -2932,100 +2867,77 @@ public final class ElResolver {
                         operators_.put(i_, String.valueOf(PAR_RIGHT));
                     }
                 }
-                if (braces_) {
-                    if (curChar_ == ANN_ARR_LEFT) {
-                        if (parsBrackets_.isEmpty() && !declaring_) {
-                            if (FCT_OPER_PRIO <= prio_) {
-                                useFct_ = false;
-                                if (dbl_) {
-                                    if (instance_) {
-                                        fctName_ = _string.substring(firstPrintChar_, i_);
-                                        operators_.put(i_, ANN_ARR);
-                                    } else {
-                                        fctName_ = EMPTY_STRING;
-                                        instance_ = false;
-                                        operators_.clear();
-                                        if (firstPrintChar_ == i_) {
-                                            operators_.put(i_, ANN_ARR);
-                                        } else {
-                                            operators_.put(i_, EMPTY_STRING);
-                                        }
-                                    }
+                if (curChar_ == ANN_ARR_LEFT) {
+                    if (parsBrackets_.isEmpty() && !declaring_) {
+                        if (FCT_OPER_PRIO <= prio_) {
+                            useFct_ = false;
+                            if (instance_) {
+                                fctName_ = _string.substring(firstPrintChar_, i_);
+                                operators_.put(i_, ANN_ARR);
+                            } else {
+                                fctName_ = EMPTY_STRING;
+                                instance_ = false;
+                                operators_.clear();
+                                if (firstPrintChar_ == i_) {
+                                    operators_.put(i_, ANN_ARR);
                                 } else {
-                                    fctName_ = EMPTY_STRING;
-                                    operators_.clear();
-                                    if (firstPrintChar_ == i_) {
-                                        operators_.put(i_, ANN_ARR);
-                                    } else {
-                                        operators_.put(i_, EMPTY_STRING);
-                                    }
+                                    operators_.put(i_, EMPTY_STRING);
                                 }
                             }
                         }
-                        parsBrackets_.put(i_, curChar_);
                     }
-                    if (curChar_ == ANN_ARR_RIGHT) {
-                        parsBrackets_.removeKey(parsBrackets_.lastKey());
-                        if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
-                            if (!operators_.lastValue().isEmpty()) {
-                                operators_.put(i_, String.valueOf(ANN_ARR_RIGHT));
-                            }
-                            enabledId_ = true;
+                    parsBrackets_.put(i_, curChar_);
+                }
+                if (curChar_ == ANN_ARR_RIGHT) {
+                    parsBrackets_.removeKey(parsBrackets_.lastKey());
+                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
+                        if (!operators_.lastValue().isEmpty()) {
+                            operators_.put(i_, String.valueOf(ANN_ARR_RIGHT));
                         }
+                        enabledId_ = true;
                     }
                 }
-                if (brackets_) {
-                    if (curChar_ == ARR_LEFT) {
-                        if (parsBrackets_.isEmpty() && !declaring_) {
-                            if (FCT_OPER_PRIO <= prio_) {
-                                useFct_ = false;
-                                if (dbl_) {
-                                    if (instance_) {
-                                        if (operators_.isEmpty()) {
-                                            fctName_ = _string.substring(firstPrintChar_, i_);
-                                            operators_.put(i_, ARR);
-                                        } else {
-                                            String op_ = operators_.firstValue();
-                                            if (!op_.isEmpty() && op_.charAt(0) == ARR_LEFT) {
-                                                operators_.put(i_, ARR);
-                                            } else {
-                                                fctName_ = EMPTY_STRING;
-                                                instance_ = false;
-                                                operators_.clear();
-                                                operators_.put(i_, ARR);
-                                            }
-                                        }
+                if (curChar_ == ARR_LEFT) {
+                    if (parsBrackets_.isEmpty() && !declaring_) {
+                        if (FCT_OPER_PRIO <= prio_) {
+                            useFct_ = false;
+
+                            if (instance_) {
+                                if (operators_.isEmpty()) {
+                                    fctName_ = _string.substring(firstPrintChar_, i_);
+                                    operators_.put(i_, ARR);
+                                } else {
+                                    String op_ = operators_.firstValue();
+                                    if (!op_.isEmpty() && op_.charAt(0) == ARR_LEFT) {
+                                        operators_.put(i_, ARR);
                                     } else {
                                         fctName_ = EMPTY_STRING;
                                         instance_ = false;
                                         operators_.clear();
-                                        if (firstPrintChar_ == i_) {
-                                            operators_.put(i_, ARR);
-                                        } else {
-                                            operators_.put(i_, EMPTY_STRING);
-                                        }
-                                    }
-                                } else {
-                                    fctName_ = EMPTY_STRING;
-                                    operators_.clear();
-                                    if (firstPrintChar_ == i_) {
                                         operators_.put(i_, ARR);
-                                    } else {
-                                        operators_.put(i_, EMPTY_STRING);
                                     }
+                                }
+                            } else {
+                                fctName_ = EMPTY_STRING;
+                                instance_ = false;
+                                operators_.clear();
+                                if (firstPrintChar_ == i_) {
+                                    operators_.put(i_, ARR);
+                                } else {
+                                    operators_.put(i_, EMPTY_STRING);
                                 }
                             }
                         }
-                        parsBrackets_.put(i_, curChar_);
                     }
-                    if (curChar_ == ARR_RIGHT) {
-                        parsBrackets_.removeKey(parsBrackets_.lastKey());
-                        if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
-                            if (!operators_.lastValue().isEmpty()) {
-                                operators_.put(i_, String.valueOf(ARR_RIGHT));
-                            }
-                            enabledId_ = true;
+                    parsBrackets_.put(i_, curChar_);
+                }
+                if (curChar_ == ARR_RIGHT) {
+                    parsBrackets_.removeKey(parsBrackets_.lastKey());
+                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO && !declaring_) {
+                        if (!operators_.lastValue().isEmpty()) {
+                            operators_.put(i_, String.valueOf(ARR_RIGHT));
                         }
+                        enabledId_ = true;
                     }
                 }
                 if (parsBrackets_.isEmpty() && !declaring_) {
@@ -3246,7 +3158,7 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setUseFct(useFct_);
         op_.setFctName(fctName_);
-        op_.setupValues(_string, is_, braces_, instance_, laterIndexesDouble_, escapings_);
+        op_.setupValues(_string, is_, true, instance_, laterIndexesDouble_, escapings_);
         op_.setExtractType(extracted_);
         op_.setDelimiter(_d);
         return op_;

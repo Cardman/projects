@@ -107,7 +107,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  [$int t = $new [$int[](4i):\n");
+        xml_.append("  $int[] t = $new $int[]{4i}:\n");
         xml_.append("  t;.[0]=8:\n");
         xml_.append("  $return 1i+t;.[0]:\n");
         xml_.append(" }\n");
@@ -193,7 +193,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  [$int t = $new [$int[](4i):\n");
+        xml_.append("  $int[] t = $new $int[]{4i}:\n");
         xml_.append("  $long u=8:\n");
         xml_.append("  t;.[0]=u;.:\n");
         xml_.append("  $return 1i+t;.[0]:\n");

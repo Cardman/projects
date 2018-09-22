@@ -29,7 +29,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -114,7 +114,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -206,7 +206,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -298,7 +298,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -389,7 +389,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -480,7 +480,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -1080,7 +1080,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [pkg.ExThree third=$new [pkg.ExThree[]($new pkg.ExThree()):\n");
+        xml_.append(" $public pkg.ExThree[] third=$new pkg.ExThree[]{$new pkg.ExThree()}:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");
@@ -1334,7 +1334,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -1432,7 +1432,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -1710,7 +1710,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -1803,7 +1803,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -1896,7 +1896,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -2254,12 +2254,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public [java.lang.Object array=$new [java.lang.Object(1i):\n");
+        xml_.append(" $public java.lang.Object[] array=$new java.lang.Object[1i]:\n");
         xml_.append(" $public $int elt=2i:\n");
         xml_.append(" {\n");
         xml_.append("  ref()[0i]=getter():\n");
         xml_.append(" }\n");
-        xml_.append(" $public $final [java.lang.Object ref(){\n");
+        xml_.append(" $public $final java.lang.Object[] ref(){\n");
         xml_.append("  $return array;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public $final $int getter(){\n");
@@ -2294,7 +2294,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo: pkg.ExFour :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -2915,7 +2915,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -3012,7 +3012,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -3109,7 +3109,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -3206,7 +3206,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -3306,7 +3306,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Int:pkg.Int4{\n");
-        xml_.append(" $public [[java.lang.Object third=$new [java.lang.Object(1i,1i):\n");
+        xml_.append(" $public java.lang.Object[][] third=$new java.lang.Object[1i][1i]:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" $public java.lang.Object elt:\n");
@@ -3475,7 +3475,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public [pkg.ExThree third=([pkg.ExThree)$new [pkg.ExThree[]($new pkg.ExThree()):\n");
+        xml_.append(" $public pkg.ExThree[] third=(pkg.ExThree[])$new pkg.ExThree[]{$new pkg.ExThree()}:\n");
         xml_.append(" $public $int fourth=third;;;length:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");

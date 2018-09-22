@@ -214,7 +214,16 @@ public final class ConstantOperation extends LeafOperation {
                 }
                 strBuilder_.append(c);
             }
-            a_.setObject(strBuilder_.toString().charAt(0));
+            String c_ = strBuilder_.toString();
+            if (!c_.isEmpty()) {
+                a_.setObject(c_.charAt(0));
+            } else {
+                BadFormatNumber badFormat_ = new BadFormatNumber();
+                badFormat_.setNumber(str_);
+                badFormat_.setFileName(_conf.getCurrentFileName());
+                badFormat_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(badFormat_);
+            }
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
             return;

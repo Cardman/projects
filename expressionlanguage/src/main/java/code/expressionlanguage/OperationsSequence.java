@@ -44,11 +44,7 @@ public final class OperationsSequence {
     public void setupValues(String _string, boolean _is, boolean _annot, boolean _instance, Numbers<Integer> _nb, Numbers<Integer> _esc) {
         values = new NatTreeMap<Integer,String>();
         instance = _instance;
-        if (operators.isEmpty() && !_annot) {
-            priority = ElResolver.BAD_PRIO;
-            return;
-        }
-        if (operators.isEmpty() && _annot) {
+        if (operators.isEmpty()) {
             priority = ElResolver.FCT_OPER_PRIO;
             values.put((int)CustList.FIRST_INDEX, _string);
             fctName = _string;
@@ -59,7 +55,7 @@ public final class OperationsSequence {
         boolean pureDot_ = false;
         boolean initArrayDim_ = false;
         if (!op_.isEmpty()) {
-            if (_annot && op_.charAt(0) == ARR_ANNOT) {
+            if (op_.charAt(0) == ARR_ANNOT) {
                 int beginValuePart_ = CustList.FIRST_INDEX;
                 int endValuePart_ = operators.firstKey();
                 String str_ = _string.substring(beginValuePart_, endValuePart_);
