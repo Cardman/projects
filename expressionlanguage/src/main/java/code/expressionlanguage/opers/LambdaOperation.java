@@ -125,28 +125,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             int i_ = 2;
             int vararg_ = -1;
-            for (int i = i_; i < len_; i++) {
-                String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
-                String type_;
-                if (arg_.endsWith(VARARG_SUFFIX)) {
-                    if (i + 1 != len_) {
-                        //last type => error
-                        VarargError varg_ = new VarargError();
-                        varg_.setFileName(_conf.getCurrentFileName());
-                        varg_.setRc(_conf.getCurrentLocation());
-                        varg_.setMethodName(VAR_ARG);
-                        _conf.getClasses().addError(varg_);
-                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                        return;
-                    }
-                    vararg_ = len_- i_;
-                    type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length());
-                    type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
-                } else {
-                    type_ = arg_;
-                }
-                arg_ = _conf.resolveCorrectType(type_);
-                methodTypes_.add(new ClassArgumentMatching(arg_));
+            MethodId argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, args_);
+            if (argsRes_ == null) {
+                return;
+            }
+            if (argsRes_.isVararg()) {
+                vararg_ = len_- i_;
+            }
+            for (String s: argsRes_.getParametersTypes()) {
+                methodTypes_.add(new ClassArgumentMatching(s));
             }
             if (!isIntermediateDottedOperation()) {
                 String cl_ = _conf.resolveCorrectType(fromType_);
@@ -324,27 +311,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 polymorph = true;
             }
             int vararg_ = -1;
-            for (int i = i_; i < len_; i++) {
-                String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
-                String type_;
-                if (arg_.endsWith(VARARG_SUFFIX)) {
-                    if (i + 1 != len_) {
-                        //last type => error
-                        VarargError varg_ = new VarargError();
-                        varg_.setFileName(_conf.getCurrentFileName());
-                        varg_.setRc(_conf.getCurrentLocation());
-                        varg_.setMethodName(VAR_ARG);
-                        _conf.getClasses().addError(varg_);
-                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                        return;
-                    }
-                    vararg_ = len_- i_;
-                    type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length());
-                    type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
-                } else {
-                    type_ = arg_;
-                }
-                methodTypes_.add(new ClassArgumentMatching(type_));
+            MethodId argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, args_);
+            if (argsRes_ == null) {
+                return;
+            }
+            if (argsRes_.isVararg()) {
+                vararg_ = len_- i_;
+            }
+            for (String s: argsRes_.getParametersTypes()) {
+                methodTypes_.add(new ClassArgumentMatching(s));
             }
             boolean cloneArray_ = false;
             for (String b: str_) {
@@ -429,27 +404,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (o_ instanceof StaticAccessOperation) {
             str_ = resolveCorrectTypes(_conf, false, fromType_);
             int vararg_ = -1;
-            for (int i = 2; i < len_; i++) {
-                String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
-                String type_;
-                if (arg_.endsWith(VARARG_SUFFIX)) {
-                    if (i + 1 != len_) {
-                        //last type => error
-                        VarargError varg_ = new VarargError();
-                        varg_.setFileName(_conf.getCurrentFileName());
-                        varg_.setRc(_conf.getCurrentLocation());
-                        varg_.setMethodName(VAR_ARG);
-                        _conf.getClasses().addError(varg_);
-                        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                        return;
-                    }
-                    vararg_ = len_- 2;
-                    type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length());
-                    type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
-                } else {
-                    type_ = arg_;
-                }
-                methodTypes_.add(new ClassArgumentMatching(type_));
+            MethodId argsRes_ = resolveArguments(2, _conf, EMPTY_STRING, false, args_);
+            if (argsRes_ == null) {
+                return;
+            }
+            if (argsRes_.isVararg()) {
+                vararg_ = len_- 2;
+            }
+            for (String s: argsRes_.getParametersTypes()) {
+                methodTypes_.add(new ClassArgumentMatching(s));
             }
             ClassMethodIdReturn id_ = OperationNode.getDeclaredCustMethod(_conf, vararg_, true, str_, name_, true, false, false, ClassArgumentMatching.toArgArray(methodTypes_));
             if (!id_.isFoundMethod()) {
@@ -494,27 +457,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         } else {
             polymorph = true;
         }
-        for (int i = i_; i < len_; i++) {
-            String arg_ = ContextEl.removeDottedSpaces(args_.get(i));
-            String type_;
-            if (arg_.endsWith(VARARG_SUFFIX)) {
-                if (i + 1 != len_) {
-                    //last type => error
-                    VarargError varg_ = new VarargError();
-                    varg_.setFileName(_conf.getCurrentFileName());
-                    varg_.setRc(_conf.getCurrentLocation());
-                    varg_.setMethodName(VAR_ARG);
-                    _conf.getClasses().addError(varg_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
-                }
-                vararg_ = len_- i_;
-                type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length());
-                type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
-            } else {
-                type_ = arg_;
-            }
-            methodTypes_.add(new ClassArgumentMatching(type_));
+        MethodId argsRes_ = resolveArguments(i_, _conf, EMPTY_STRING, false, args_);
+        if (argsRes_ == null) {
+            return;
+        }
+        if (argsRes_.isVararg()) {
+            vararg_ = len_- i_;
+        }
+        for (String s: argsRes_.getParametersTypes()) {
+            methodTypes_.add(new ClassArgumentMatching(s));
         }
         StringList l_ = previousResultClass.getNames();
         StringList bounds_ = new StringList();
@@ -619,6 +570,40 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
     }
 
+    private MethodId resolveArguments(int _from,Analyzable _conf, String _name,boolean _static, StringList _params){
+        StringList out_ = new StringList();
+        LgNames stds_ = _conf.getStandards();
+        int len_ = _params.size();
+        int vararg_ = -1;
+        for (int i = _from; i < len_; i++) {
+            String arg_ = ContextEl.removeDottedSpaces(_params.get(i));
+            String type_;
+            boolean wrap_ = false;
+            if (arg_.endsWith(VARARG_SUFFIX)) {
+                if (i + 1 != len_) {
+                    //last type => error
+                    VarargError varg_ = new VarargError();
+                    varg_.setFileName(_conf.getCurrentFileName());
+                    varg_.setRc(_conf.getCurrentLocation());
+                    varg_.setMethodName(VAR_ARG);
+                    _conf.getClasses().addError(varg_);
+                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    return null;
+                }
+                wrap_ = true;
+                vararg_ = len_- _from;
+                type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length());
+            } else {
+                type_ = arg_;
+            }
+            arg_ = _conf.resolveCorrectType(type_);
+            if (wrap_) {
+                arg_ = PrimitiveTypeUtil.getPrettyArrayType(arg_);
+            }
+            out_.add(arg_);
+        }
+        return new MethodId(_static, _name, out_, vararg_ != -1);
+    }
     private StringList resolveCorrectTypes(Analyzable _an, boolean _exact, String _type) {
         String type_ = _an.resolveCorrectType(_type, _exact);
         return InvokingOperation.getBounds(type_, _an);

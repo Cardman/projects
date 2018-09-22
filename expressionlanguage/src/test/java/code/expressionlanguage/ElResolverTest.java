@@ -4018,7 +4018,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "v '";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test

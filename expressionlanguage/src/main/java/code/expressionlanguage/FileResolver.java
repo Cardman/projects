@@ -2433,6 +2433,16 @@ public final class FileResolver {
                 typeDeclaring_ = true;
                 break;
             }
+            if (currentCharFound_ == ']' && nbOpenedTmp_ == 0) {
+                String nextPart_ = _found.substring(indexInstr_+1).trim();
+                if (!nextPart_.isEmpty()) {
+                    if (StringList.isDollarWordChar(nextPart_.charAt(0))) {
+                        declTypeName_.append(currentCharFound_);
+                        typeDeclaring_ = true;
+                        break;
+                    }
+                }
+            }
             if (Character.isWhitespace(currentCharFound_) && nbOpenedTmp_ == 0) {
                 String nextPart_ = _found.substring(indexInstr_).trim();
                 String trimmed_ = declTypeName_.toString().trim();
@@ -2460,6 +2470,10 @@ public final class FileResolver {
                     declTypeName_.append(currentCharFound_);
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
                     if (nextPart_.startsWith("..") && !nextPart_.startsWith(VARARG)) {
+                        indexInstr_++;
+                        continue;
+                    }
+                    if (nextPart_.startsWith(String.valueOf("["))) {
                         indexInstr_++;
                         continue;
                     }

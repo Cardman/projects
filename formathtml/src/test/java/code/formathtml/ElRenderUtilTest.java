@@ -6659,11 +6659,11 @@ public final class ElRenderUtilTest {
     public void processEl317Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"+$new $int[]\\{0i,1i\\}.length} ", context_, 2 ,'{','}');
+        Argument arg_ = ElRenderUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]\\{0i,1i\\}.length} ", context_, 2 ,'{','}');
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
-        assertEq("9 hello world {every body ;)2", (String)res_);
-        assertEq(71, context_.getNextIndex());
+        assertEq("9 hello world {every body ;)\\\"2", (String)res_);
+        assertEq(75, context_.getNextIndex());
     }
     @Test
     public void processAffect1Test() {

@@ -184,51 +184,6 @@ public final class ElResolver {
                     constChar_ = false;
                     enabledMinus_ = true;
                     i_++;
-                    if (i_ < len_) {
-                        String nextPart_ = _string.substring(i_).trim();
-                        if (nextPart_.charAt(0) == end_) {
-                            continue;
-                        }
-                        if (nextPart_.charAt(0) == DELIMITER_CHAR) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (nextPart_.charAt(0) == DELIMITER_STRING) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (_conf.isAnnotAnalysis()) {
-                            if (nextPart_.charAt(0) == ANN_ARR_LEFT) {
-                                d_.setBadOffset(i_);
-                                return d_;
-                            }
-                        } else {
-                            if (nextPart_.charAt(0) == ARR_LEFT) {
-                                d_.setBadOffset(i_);
-                                return d_;
-                            }
-                        }
-                        if (nextPart_.charAt(0) == PAR_LEFT) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (nextPart_.charAt(0) == DOT_VAR) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (StringList.isDollarWordChar(nextPart_.charAt(0))) {
-                            String is_ = StringList.concat(String.valueOf(EXTERN_CLASS),INSTANCEOF);
-                            if (procWordFirstChar(nextPart_, 0, is_)) {
-                                continue;
-                            }
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (nextPart_.charAt(0) == Templates.PREFIX_VAR_TYPE_CHAR) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                    }
                     continue;
                 }
                 i_ = index_;
@@ -255,47 +210,6 @@ public final class ElResolver {
                     constString_ = false;
                     enabledMinus_ = true;
                     i_++;
-                    if (i_ < len_) {
-                        String nextPart_ = _string.substring(i_).trim();
-                        if (nextPart_.charAt(0) == end_) {
-                            continue;
-                        }
-                        if (nextPart_.charAt(0) == DELIMITER_CHAR) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (nextPart_.charAt(0) == DELIMITER_STRING) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (_conf.isAnnotAnalysis()) {
-                            if (nextPart_.charAt(0) == ANN_ARR_LEFT) {
-                                d_.setBadOffset(i_);
-                                return d_;
-                            }
-                        } else {
-                            if (nextPart_.charAt(0) == ARR_LEFT) {
-                                d_.setBadOffset(i_);
-                                return d_;
-                            }
-                        }
-                        if (nextPart_.charAt(0) == PAR_LEFT) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (StringList.isDollarWordChar(nextPart_.charAt(0))) {
-                            String is_ = StringList.concat(String.valueOf(EXTERN_CLASS),INSTANCEOF);
-                            if (procWordFirstChar(nextPart_, 0, is_)) {
-                                continue;
-                            }
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                        if (nextPart_.charAt(0) == Templates.PREFIX_VAR_TYPE_CHAR) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                    }
                     continue;
                 }
                 i_ = index_;
@@ -1224,19 +1138,6 @@ public final class ElResolver {
                     d_.setBadOffset(i_);
                     return d_;
                 }
-                if (_conf.isAnnotAnalysis()) {
-                    if (nextPart_.isEmpty()) {
-                        continue;
-                    }
-                    char nextChar_ = nextPart_.charAt(0);
-                    if (nextChar_ == ANN_ARR_RIGHT) {
-                        continue;
-                    }
-                }
-                if (!isCorrectNbEndWord(nextPart_, end_)) {
-                    d_.setBadOffset(i_+1);
-                    return d_;
-                }
                 continue;
             }
             if (curChar_ == DOT_VAR) {
@@ -1279,20 +1180,20 @@ public final class ElResolver {
             }
             if (curChar_ == ESCAPE_META_CHAR) {
                 if (_delimiters) {
-                    if (i_ + 1 < len_ && _string.substring(i_+1).trim().startsWith(String.valueOf(ANN_ARR_LEFT)) && begin_ == ANN_ARR_LEFT) {
+                    if (i_ + 1 < len_ && _string.substring(i_+1).trim().startsWith(String.valueOf(begin_))) {
                         d_.getEscapings().add(i_);
                         int j_ = i_ + 1;
-                        while (_string.charAt(j_) != ANN_ARR_LEFT) {
+                        while (_string.charAt(j_) != begin_) {
                             j_++;
                         }
                         beginOrEnd_ = true;
                         i_ = j_;
                         continue;
                     }
-                    if (i_ + 1 < len_ && _string.substring(i_+1).trim().startsWith(String.valueOf(ANN_ARR_RIGHT)) && end_ == ANN_ARR_RIGHT) {
+                    if (i_ + 1 < len_ && _string.substring(i_+1).trim().startsWith(String.valueOf(end_))) {
                         d_.getEscapings().add(i_);
                         int j_ = i_ + 1;
-                        while (_string.charAt(j_) != ANN_ARR_RIGHT) {
+                        while (_string.charAt(j_) != end_) {
                             j_++;
                         }
                         beginOrEnd_ = true;
@@ -1307,10 +1208,28 @@ public final class ElResolver {
                 constChar_ = true;
                 nbChars_ = 0;
                 d_.getDelStringsChars().add(i_);
+                i_++;
+                continue;
             }
             if (curChar_ == DELIMITER_STRING) {
                 constString_ = true;
                 d_.getDelStringsChars().add(i_);
+                i_++;
+                continue;
+            }
+            if (partOfString_ && curChar_ == end_) {
+                if (!beginOrEnd_) {
+                    partOfString_ = false;
+                    break;
+                }
+                beginOrEnd_ = false;
+            }
+            if (partOfString_ && curChar_ == begin_) {
+                if (!beginOrEnd_) {
+                    d_.setBadOffset(i_);
+                    return d_;
+                }
+                beginOrEnd_ = false;
             }
             if (curChar_ == GET_VAR && parsBrackets_.isEmpty()) {
                 foundSemiColumn_ = true;
@@ -1506,12 +1425,6 @@ public final class ElResolver {
                             cast_ = false;
                             break;
                         }
-//                        if (!StringList.isDollarWord(part_.toString().trim())) {
-//                            cast_ = false;
-//                        }
-//                        if (StringList.quickEq(prefix(THIS), part_.toString().trim())) {
-//                            cast_ = false;
-//                        }
                         if (count_ != 0) {
                             cast_ = false;
                         } else if (foundLtGt_) {
@@ -1601,7 +1514,7 @@ public final class ElResolver {
             if (curChar_ == ANN_ARR_LEFT) {
                 parsBrackets_.put(i_, curChar_);
             }
-            if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
+            if (curChar_ == ANN_ARR_RIGHT) {
                 if (parsBrackets_.isEmpty()) {
                     d_.setBadOffset(i_);
                     return d_;
@@ -1719,7 +1632,7 @@ public final class ElResolver {
             if (curChar_ == ANN_ARR_LEFT) {
                 idOp_ = true;
             }
-            if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
+            if (curChar_ == ANN_ARR_RIGHT) {
                 idOp_ = true;
             }
             if (curChar_ == ARR_LEFT) {
@@ -1746,20 +1659,8 @@ public final class ElResolver {
             if (plusMinus_) {
                 enabledMinus_ = false;
             }
-            if (partOfString_ && curChar_ == end_) {
-                if (!beginOrEnd_) {
-                    partOfString_ = false;
-                    break;
-                }
-                beginOrEnd_ = false;
-            }
-            if (partOfString_ && curChar_ == begin_) {
-                if (!beginOrEnd_) {
-                    d_.setBadOffset(i_);
-                    return d_;
-                }
-                beginOrEnd_ = false;
-            }
+            
+            
             if (_conf.isRootAffect() || applyMultipleAffectations(_conf)) {
                 boolean compound_ = false;
                 if (curChar_ == PLUS_CHAR) {
@@ -2458,34 +2359,6 @@ public final class ElResolver {
         return true;
     }
 
-    static boolean isCorrectNbEndWord(String _string, char _end) {
-        if (_string.isEmpty()) {
-            return true;
-        }
-        char char_ = _string.charAt(0);
-        if (char_ == _end) {
-            return true;
-        }
-        if (char_ == Templates.PREFIX_VAR_TYPE_CHAR) {
-            return false;
-        }
-        if (char_ == DELIMITER_CHAR) {
-            return false;
-        }
-        if (char_ == DELIMITER_STRING) {
-            return false;
-        }
-        if (char_ == ':') {
-            return false;
-        }
-        if (char_ == '{') {
-            return false;
-        }
-        if (char_ == '?') {
-            return false;
-        }
-        return true;
-    }
     static void processExp(int _start, int _max, String _string, NumberInfosOutput _output) {
         StringBuilder exp_ = _output.getInfos().getExponentialPart();
         int len_ = _max;

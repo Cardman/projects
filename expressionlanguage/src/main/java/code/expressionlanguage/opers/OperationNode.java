@@ -10,7 +10,6 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
@@ -325,8 +324,6 @@ public abstract class OperationNode {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
         }
-        Options opt_ = _an.getOptions();
-
         if (_op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
             if (StringList.quickEq(fctName_, _an.getStandards().getAliasCall()) && _m != null) {
