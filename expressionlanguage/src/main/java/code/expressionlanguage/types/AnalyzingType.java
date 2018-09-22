@@ -7,7 +7,7 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 
-public class AnalyzingType {
+public final class AnalyzingType {
 
     private Numbers<Integer> indexes = new Numbers<Integer>();
     private NatTreeMap<Integer, String> operators = new NatTreeMap<Integer, String>();
@@ -81,6 +81,12 @@ public class AnalyzingType {
         }
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
+        if (!str_.trim().isEmpty() && prio == ParserType.TMP_PRIO) {
+            values = new NatTreeMap<Integer,String>();
+            values.put((int)CustList.FIRST_INDEX, _string);
+            error = true;
+            return;
+        }
         values.put(beginValuePart_, str_);
     }
     public void setupValueExec(String _string, int _offset) {
@@ -125,6 +131,12 @@ public class AnalyzingType {
         }
         beginValuePart_ = endValuePart_ + operators.lastValue().length();
         str_ = _string.substring(beginValuePart_);
+        if (!str_.trim().isEmpty() && prio == ParserType.TMP_PRIO) {
+            values = new NatTreeMap<Integer,String>();
+            values.put((int)CustList.FIRST_INDEX, _string);
+            error = true;
+            return;
+        }
         values.put(beginValuePart_, str_);
     }
     public boolean isRemovedEmptyFirstChild() {

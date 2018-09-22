@@ -126,13 +126,13 @@ public final class ElResolver {
         d_.setBegin(_begin);
         d_.setEnd(_end);
         d_.setPartOfString(true);
-        return commonCheck(_string, _conf, _minIndex, d_);
+        return commonCheck(_string, _conf, _minIndex, true, d_);
     }
 
     public static Delimiters checkSyntax(String _string, Analyzable _conf, int _elOffest) {
-        return commonCheck(_string, _conf, _elOffest, new Delimiters());
+        return commonCheck(_string, _conf, _elOffest, false,new Delimiters());
     }
-    static Delimiters commonCheck(String _string, Analyzable _conf, int _minIndex, Delimiters _d) {
+    static Delimiters commonCheck(String _string, Analyzable _conf, int _minIndex, boolean _delimiters, Delimiters _d) {
         char begin_ = _d.getBegin();
         char end_ = _d.getEnd();
         Options opt_ = _conf.getOptions();
@@ -151,6 +151,7 @@ public final class ElResolver {
         int len_ = _string.length();
         int i_ = _minIndex;
         int lastDoubleDot_ = i_;
+        boolean beginOrEnd_ = false;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
                 break;
@@ -1288,6 +1289,28 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == ESCAPE_META_CHAR) {
+                if (_delimiters) {
+                    if (i_ + 1 < len_ && _string.substring(i_+1).trim().startsWith(String.valueOf(ANN_ARR_LEFT)) && begin_ == ANN_ARR_LEFT) {
+                        d_.getEscapings().add(i_);
+                        int j_ = i_ + 1;
+                        while (_string.charAt(j_) != ANN_ARR_LEFT) {
+                            j_++;
+                        }
+                        beginOrEnd_ = true;
+                        i_ = j_;
+                        continue;
+                    }
+                    if (i_ + 1 < len_ && _string.substring(i_+1).trim().startsWith(String.valueOf(ANN_ARR_RIGHT)) && end_ == ANN_ARR_RIGHT) {
+                        d_.getEscapings().add(i_);
+                        int j_ = i_ + 1;
+                        while (_string.charAt(j_) != ANN_ARR_RIGHT) {
+                            j_++;
+                        }
+                        beginOrEnd_ = true;
+                        i_ = j_;
+                        continue;
+                    }
+                }
                 d_.setBadOffset(i_);
                 return d_;
             }
@@ -1401,7 +1424,9 @@ public final class ElResolver {
                     StringBuilder part_ = new StringBuilder();
                     StringList partsFields_ = new StringList();
                     Numbers<Integer> begins_ = new Numbers<Integer>();
+                    Numbers<Integer> ends_ = new Numbers<Integer>();
                     int fChar_ = -1;
+                    int lChar_ = -1;
                     if (cast_ && !strType_) {
                         while (j_ < indexParRight_) {
                             char locCar_ = _string.charAt(j_);
@@ -1465,6 +1490,11 @@ public final class ElResolver {
                                 if (fChar_ == -1) {
                                     fChar_ = j_;
                                 }
+                                if (lChar_ != -1 && lChar_ + 1 != j_ && count_ == 0) {
+                                    cast_ = false;
+                                    break;
+                                }
+                                lChar_ = j_;
                                 part_.append(locCar_);
                                 j_++;
                                 continue;
@@ -1495,8 +1525,10 @@ public final class ElResolver {
                                 indexes_.add(j_);
                                 partsFields_.add(part_.toString());
                                 begins_.add(fChar_);
+                                ends_.add(lChar_);
                                 part_.delete(0, part_.length());
                                 fChar_ = -1;
+                                lChar_ = -1;
                                 if (_string.charAt(j_ + 1) == DOT_VAR) {
                                     doubleDot_ = true;
                                     type_ = true;
@@ -1513,12 +1545,12 @@ public final class ElResolver {
                             cast_ = false;
                             break;
                         }
-                        if (!StringList.isDollarWord(part_.toString().trim())) {
-                            cast_ = false;
-                        }
-                        if (StringList.quickEq(prefix(THIS), part_.toString().trim())) {
-                            cast_ = false;
-                        }
+//                        if (!StringList.isDollarWord(part_.toString().trim())) {
+//                            cast_ = false;
+//                        }
+//                        if (StringList.quickEq(prefix(THIS), part_.toString().trim())) {
+//                            cast_ = false;
+//                        }
                         if (count_ != 0) {
                             cast_ = false;
                         } else if (foundLtGt_) {
@@ -1541,6 +1573,7 @@ public final class ElResolver {
                     if (cast_) {
                         partsFields_.add(part_.toString());
                         begins_.add(fChar_);
+                        ends_.add(lChar_);
                         boolean field_ = true;
                         String glClass_ = _conf.getGlobalClass();
                         if (glClass_ != null) {
@@ -1571,11 +1604,7 @@ public final class ElResolver {
                                 VariableInfo infoLoc_ = new VariableInfo();
                                 infoLoc_.setKind(w_);
                                 infoLoc_.setFirstChar(begins_.get(i));
-                                if (indexes_.isValidIndex(i)) {
-                                    infoLoc_.setLastChar(indexes_.get(i));
-                                } else {
-                                    infoLoc_.setLastChar(j_);
-                                }
+                                infoLoc_.setLastChar(ends_.get(i)+1);
                                 infoLoc_.setName(partsFields_.get(i).trim());
                                 d_.getVariables().add(infoLoc_);
                             }
@@ -1620,7 +1649,7 @@ public final class ElResolver {
                 if (curChar_ == ANN_ARR_LEFT) {
                     parsBrackets_.put(i_, curChar_);
                 }
-                if (curChar_ == ANN_ARR_RIGHT) {
+                if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
                     if (parsBrackets_.isEmpty()) {
                         d_.setBadOffset(i_);
                         return d_;
@@ -1742,7 +1771,7 @@ public final class ElResolver {
                 if (curChar_ == ANN_ARR_LEFT) {
                     idOp_ = true;
                 }
-                if (curChar_ == ANN_ARR_RIGHT) {
+                if (curChar_ == ANN_ARR_RIGHT && (beginOrEnd_ || curChar_ != end_)) {
                     idOp_ = true;
                 }
             }
@@ -1773,12 +1802,18 @@ public final class ElResolver {
                 enabledMinus_ = false;
             }
             if (partOfString_ && curChar_ == end_) {
-                partOfString_ = false;
-                break;
+                if (!beginOrEnd_) {
+                    partOfString_ = false;
+                    break;
+                }
+                beginOrEnd_ = false;
             }
             if (partOfString_ && curChar_ == begin_) {
-                d_.setBadOffset(i_);
-                return d_;
+                if (!beginOrEnd_) {
+                    d_.setBadOffset(i_);
+                    return d_;
+                }
+                beginOrEnd_ = false;
             }
             if (_conf.isRootAffect() || applyMultipleAffectations(_conf)) {
                 boolean compound_ = false;
@@ -1861,6 +1896,7 @@ public final class ElResolver {
         StringList parts_ = new StringList();
         StringList partsFields_ = new StringList();
         Numbers<Integer> begins_ = new Numbers<Integer>();
+        Numbers<Integer> ends_ = new Numbers<Integer>();
         int fChar_ = -1;
         int lChar_ = -1;
         BooleanList doubleDotted_ = new BooleanList();
@@ -1879,7 +1915,7 @@ public final class ElResolver {
                 if (lChar_ != -1 && lChar_ + 1 != j_) {
                     String tr_ = part_.toString().trim();
                     foundThis_ = StringList.quickEq(prefix(THIS), tr_);
-                    addLast_ = foundThis_;
+                    addLast_ = !foundThis_;
                     break;
                 }
                 lChar_ = j_;
@@ -1920,6 +1956,7 @@ public final class ElResolver {
                 parts_.add(part_.toString());
                 partsFields_.add(part_.toString());
                 begins_.add(fChar_);
+                ends_.add(lChar_);
                 part_.delete(0, part_.length());
                 fChar_ = -1;
                 lChar_ = -1;
@@ -1940,61 +1977,12 @@ public final class ElResolver {
             break;
         }
         if (addLast_ && !begins_.containsObj(-1) && fChar_ > -1) {
+            k_ = j_;
             partsFields_.add(part_.toString());
             begins_.add(fChar_);
+            ends_.add(lChar_);
         }
         String glClass_ = _conf.getGlobalClass();
-        if (glClass_ == null && !_conf.isEnabledInternVars()) {
-            StringBuilder allparts_ = new StringBuilder();
-            int partLen_ = partsFields_.size();
-            for (int i = 0; i < partLen_; i++) {
-                allparts_.append(partsFields_.get(i));
-                if (i + 1 < partLen_) {
-                    allparts_.append(DOT_VAR);
-                    if (doubleDotted_.get(i)) {
-                        allparts_.append(DOT_VAR);
-                    }
-                }
-            }
-            String id_ = allparts_.toString();
-            String dot_ = String.valueOf(DOT_VAR);
-            if (id_.indexOf(StringList.concat(dot_,dot_)) == -1) {
-                StringList candidates_ = new StringList();
-                int idLen_ = id_.length();
-                for (int i = 0; i < idLen_; i++) {
-                    char sep_ = id_.charAt(i);
-                    if (sep_ == DOT_VAR) {
-                        candidates_.add(id_.substring(0, i));
-                    }
-                }
-                boolean found_ = false;
-                int index_ = 0;
-                for (String c: candidates_) {
-                    if (_conf.getClassBody(c) != null) {
-                        int n_ = indexes_.get(index_);
-                        d_.getDelKeyWordStatic().add(i_);
-                        d_.getDelKeyWordStatic().add(n_);
-                        d_.getDelKeyWordStaticExtract().add(c);
-                        i_ = n_;
-                        found_ = true;
-                        break;
-                    }
-                    index_++;
-                }
-                if (found_) {
-                    return i_;
-                }
-            }
-            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(id_, false);
-            if (!typeRes_.isEmpty()) {
-                d_.getDelKeyWordStatic().add(i_);
-                i_ = k_;
-                d_.getDelKeyWordStatic().add(i_);
-                d_.getDelKeyWordStaticExtract().add(typeRes_);
-                return i_;
-            }
-            return k_;
-        }
         boolean field_ = false;
         if (glClass_ != null && !foundThis_ && !partsFields_.isEmpty()) {
             field_ = true;
@@ -2027,22 +2015,12 @@ public final class ElResolver {
                 VariableInfo infoLoc_ = new VariableInfo();
                 infoLoc_.setKind(type_);
                 infoLoc_.setFirstChar(begins_.get(i));
-                if (indexes_.isValidIndex(i)) {
-                    infoLoc_.setLastChar(indexes_.get(i));
-                } else {
-                    infoLoc_.setLastChar(j_);
-                }
+                infoLoc_.setLastChar(ends_.get(i)+1);
                 infoLoc_.setName(partsFields_.get(i).trim());
                 d_.getVariables().add(infoLoc_);
             }
-            d_.getAllowedOperatorsIndexes().add(i_);
             d_.getAllowedOperatorsIndexes().addAllElts(indexes_);
-            if (addLast_) {
-                i_ = j_;
-            } else {
-                i_ = k_;
-            }
-            return i_;
+            return k_;
         }
         StringBuilder allparts_ = new StringBuilder();
         int partLen_ = partsFields_.size();
@@ -2057,8 +2035,8 @@ public final class ElResolver {
         }
         String id_ = allparts_.toString();
         String dot_ = String.valueOf(DOT_VAR);
+        StringList candidates_ = new StringList();
         if (id_.indexOf(StringList.concat(dot_,dot_)) == -1) {
-            StringList candidates_ = new StringList();
             int idLen_ = id_.length();
             for (int i = 0; i < idLen_; i++) {
                 char sep_ = id_.charAt(i);
@@ -2069,11 +2047,12 @@ public final class ElResolver {
             boolean found_ = false;
             int index_ = 0;
             for (String c: candidates_) {
-                if (_conf.getClassBody(c) != null) {
+                String tr_ = ContextEl.removeDottedSpaces(c);
+                if (_conf.getClassBody(tr_) != null) {
                     int n_ = indexes_.get(index_);
                     d_.getDelKeyWordStatic().add(i_);
                     d_.getDelKeyWordStatic().add(n_);
-                    d_.getDelKeyWordStaticExtract().add(c);
+                    d_.getDelKeyWordStaticExtract().add(tr_);
                     i_ = n_;
                     found_ = true;
                     break;
@@ -2084,6 +2063,13 @@ public final class ElResolver {
                 return i_;
             }
         }
+        String tr_ = ContextEl.removeDottedSpaces(id_);
+        if (_conf.getClassBody(tr_) != null) {
+            d_.getDelKeyWordStatic().add(i_);
+            d_.getDelKeyWordStatic().add(k_);
+            d_.getDelKeyWordStaticExtract().add(tr_);
+            return k_;
+        }
         String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(id_, false);
         if (!typeRes_.isEmpty()) {
             d_.getDelKeyWordStatic().add(i_);
@@ -2092,7 +2078,19 @@ public final class ElResolver {
             d_.getDelKeyWordStaticExtract().add(typeRes_);
             return i_;
         }
-        return i_;
+        int index_ = 0;
+        for (String c: candidates_) {
+            tr_ = _conf.resolveCorrectTypeWithoutErrors(c,false);
+            if (!tr_.isEmpty()) {
+                int n_ = indexes_.get(index_);
+                d_.getDelKeyWordStatic().add(i_);
+                d_.getDelKeyWordStatic().add(n_);
+                d_.getDelKeyWordStaticExtract().add(tr_);
+                return n_;
+            }
+            index_++;
+        }
+        return j_;
     }
     static IndexUnicodeEscape processStrings(String _string, int _max, IndexUnicodeEscape _infos, char _delimiter) {
         int i_ = _infos.getIndex();
@@ -2880,10 +2878,14 @@ public final class ElResolver {
             instance_ = true;
         }
         Numbers<Integer> laterIndexesDouble_ = new Numbers<Integer>();
+        Numbers<Integer> escapings_ = new Numbers<Integer>();
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (_d.getDimsAddonIndexes().containsObj(i_+_offset)) {
                 laterIndexesDouble_.add(i_);
+            }
+            if (_d.getEscapings().containsObj(i_+_offset)) {
+                escapings_.add(i_);
             }
             if (_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
                 if (curChar_ == PAR_LEFT) {
@@ -3244,7 +3246,7 @@ public final class ElResolver {
         op_.setOperators(operators_);
         op_.setUseFct(useFct_);
         op_.setFctName(fctName_);
-        op_.setupValues(_string, is_, braces_, instance_, laterIndexesDouble_);
+        op_.setupValues(_string, is_, braces_, instance_, laterIndexesDouble_, escapings_);
         op_.setExtractType(extracted_);
         op_.setDelimiter(_d);
         return op_;

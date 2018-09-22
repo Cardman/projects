@@ -466,17 +466,17 @@ public class ElResolverTest {
     public void getOperationsSequence27Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "v.a";
+        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
+        String el_ = "composite.integer";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(1));
+        assertEq(".", opers_.getVal(9));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("v", values_.getVal(0));
-        assertEq("a", values_.getVal(2));
-    
+        assertEq("composite", values_.getVal(0));
+        assertEq("integer", values_.getVal(10));
         assertTrue(seq_.isDot());
     }
 
@@ -1939,17 +1939,17 @@ public class ElResolverTest {
     public void getOperationsSequence109Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "news.a()";
+        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
+        String el_ = "composite.getOverridenFour(0)";
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
-//        assertEq(0, opers_.size());
         assertEq(1, opers_.size());
-        assertEq(".", opers_.getVal(4));
+        assertEq(".", opers_.getVal(9));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(2, values_.size());
-        assertEq("news", values_.getVal(0));
-        assertEq("a()", values_.getVal(5));
+        assertEq("composite", values_.getVal(0));
+        assertEq("getOverridenFour(0)", values_.getVal(10));
         assertTrue(seq_.isDot());
     }
 
@@ -3822,7 +3822,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "a.$static";
-        assertEq(8, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -3990,7 +3990,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "v.";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4485,6 +4485,9 @@ public class ElResolverTest {
         _conf.setAnalyzing(new AnalyzedPageEl());
     }
 
+    private static void addBeanClassName(ContextEl _conf, String _bean) {
+        _conf.setGlobalClass(_bean);
+    }
     private ContextEl contextEl() {
         ContextEl cont_ = new ContextEl();
         InitializationLgNames.initAdvStandards(cont_);

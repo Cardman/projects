@@ -32,6 +32,7 @@ public final class Delimiters {
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
     private Numbers<Integer> dimsAddonIndexes = new Numbers<Integer>();
+    private Numbers<Integer> escapings = new Numbers<Integer>();
 
     public int getBadOffset() {
         return badOffset;
@@ -212,6 +213,14 @@ public final class Delimiters {
 
     public void setDimsAddonIndexes(Numbers<Integer> _dimsAddonIndexes) {
         dimsAddonIndexes = _dimsAddonIndexes;
+    }
+
+    public Numbers<Integer> getEscapings() {
+        return escapings;
+    }
+
+    public void setEscapings(Numbers<Integer> _escapings) {
+        escapings = _escapings;
     }
 
 }

@@ -133,16 +133,21 @@ public final class ParserType {
                 }
             }
             if (arr_) {
-                a_.setPrio(ARR_PRIO);
-                int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
-                if (last_ < 0) {
-                    a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-                    a_.setError(true);
+                if (j_ >= 0) {
+                    a_.setPrio(ARR_PRIO);
+                    int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
+                    if (last_ < 0) {
+                        a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+                        a_.setError(true);
+                        return a_;
+                    }
+                    String str_ = _string.substring(0, j_);
+                    a_.getValues().put((int)CustList.FIRST_INDEX, str_);
+                    a_.getOperators().put(last_, "[]");
                     return a_;
                 }
-                String str_ = _string.substring(0, j_);
-                a_.getValues().put((int)CustList.FIRST_INDEX, str_);
-                a_.getOperators().put(last_, "[]");
+                a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+                a_.setError(true);
                 return a_;
             }
         } else {
@@ -190,8 +195,8 @@ public final class ParserType {
             i_++;
         }
         a_.getOperators().putAllMap(operators_);
-        a_.setupValues(_string, _options);
         a_.setPrio(prio_);
+        a_.setupValues(_string, _options);
         return a_;
     }
     public static AnalyzingType analyzeLocalExec(int _offset, String _string, Numbers<Integer> _indexes) {
@@ -240,7 +245,22 @@ public final class ParserType {
             }
         }
         if (arr_) {
-            a_.setPrio(ARR_PRIO);
+            if (j_ >= 0) {
+                a_.setPrio(ARR_PRIO);
+                int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
+                if (last_ < 0) {
+                    a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+                    a_.setError(true);
+                    return a_;
+                }
+                String str_ = _string.substring(0, j_);
+                a_.getValues().put((int)CustList.FIRST_INDEX, str_);
+                a_.getOperators().put(last_, "[]");
+                return a_;
+            }
+            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+            a_.setError(true);
+            return a_;
         }
         if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
             a_.setPrio(ARR_PRIO);
@@ -285,8 +305,8 @@ public final class ParserType {
             i_++;
         }
         a_.getOperators().putAllMap(operators_);
-        a_.setupValuesExec(_string);
         a_.setPrio(prio_);
+        a_.setupValuesExec(_string);
         return a_;
     }
     private static boolean isVar(String _string) {

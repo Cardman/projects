@@ -31,8 +31,6 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         setClassName(_conf.getStandards().getAliasObject());
-        String className_ = me_.trim().substring(INSTANCE.length()+1);
-        className_ = className_.trim();
 
         int nbParents_ = 0;
         MethodOperation m_ = getParent();
@@ -61,12 +59,11 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
             }
         }
         if (type_.isEmpty() || StringList.quickEq(type_, TypeUtil.VAR_TYPE)) {
-            int len_ = className_.length();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-            un_.setOperands(new StringList(className_.substring(0, len_-ARR_DYN.length())));
+            un_.setOperands(new StringList(me_));
             _conf.getClasses().addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));

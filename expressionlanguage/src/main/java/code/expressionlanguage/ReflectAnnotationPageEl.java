@@ -240,7 +240,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     @Override
     public boolean receive(Argument _argument, ContextEl _context) {
         getLastEl().setArgument(_argument, _context);
-        return true;
+        return _context.processException();
     }
 
     public boolean isOnParameters() {
