@@ -197,13 +197,16 @@ public final class Templates {
     }
 
     /**Calls Templates.isCorrect*/
-    public static boolean correctClassPartsDynamic(String _className, ExecutableCode _context, boolean _exact) {
+    public static String correctClassPartsDynamic(String _className, ExecutableCode _context, boolean _exact) {
         String className_ = PartTypeUtil.processExec(_className, _context);
         if (className_.isEmpty()) {
-            return false;
+            return "";
         }
         StringMap<StringList> mapping_ = new StringMap<StringList>();
-        return isCorrectTemplateAll(className_, mapping_, _context, _exact);
+        if (isCorrectTemplateAll(className_, mapping_, _context, _exact)) {
+            return className_;
+        }
+        return "";
     }
 
     static StringList getAllGenericSuperTypes(String _className, ContextEl _context) {
@@ -503,7 +506,7 @@ public final class Templates {
             i_++;
         }
         String formatted_ = getFormattedType(pref_, varTypes_);
-        if (!correctClassPartsDynamic(formatted_, _context, true)) {
+        if (!isCorrectTemplateAll(formatted_, new StringMap<StringList>(), _context, true)) {
             return null;
         }
         return formatted_;

@@ -828,18 +828,19 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 Boolean init_ = (Boolean) _firstArgs.last().getObject();
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
-                if (!Templates.correctClassPartsDynamic(clDyn_, _conf, gene_)) {
+                String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_);
+                if (res_.isEmpty()) {
                     _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
                     Argument a_ = new Argument();
                     return a_;
                 }
                 if (init_) {
-                    if (hasToExit(_conf, clDyn_)) {
+                    if (hasToExit(_conf, res_)) {
                         return Argument.createVoid();
                     }
                 }
                 Argument a_ = new Argument();
-                a_.setStruct(_conf.getExtendedClassMetaInfo(clDyn_));
+                a_.setStruct(_conf.getExtendedClassMetaInfo(res_));
                 return a_;
             }
             if (StringList.quickEq(aliasDefaultInstance_, _methodId.getName())) {
@@ -854,12 +855,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     cont_.setException(new StdStruct(new CustomError(cont_.joinPages()),null_));
                     return Argument.createVoid();
                 }
-                if (!Templates.correctClassPartsDynamic(className_, cont_, true)) {
+                String res_ = Templates.correctClassPartsDynamic(className_, _conf, true);
+                if (res_.isEmpty()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
                     cont_.setException(new StdStruct(new CustomError(cont_.joinPages()),null_));
                     return Argument.createVoid();
                 }
+                className_ = res_;
                 String first_ = className_;
                 CustList<GeneType> need_ = new CustList<GeneType>();
                 if (type_ instanceof RootBlock) {

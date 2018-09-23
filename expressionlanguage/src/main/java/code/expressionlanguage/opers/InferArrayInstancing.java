@@ -6,7 +6,11 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
+import code.expressionlanguage.methods.NamedFunctionBlock;
+import code.expressionlanguage.methods.ReturnMehod;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
@@ -25,24 +29,38 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
 
     @Override
     public void analyze(Analyzable _conf) {
-        // TODO Auto-generated method stub
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String me_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(me_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         setClassName(_conf.getStandards().getAliasObject());
 
-        int nbParents_ = 0;
+        int nbParentsInfer_ = 0;
         MethodOperation m_ = getParent();
         while (m_ != null) {
             if (!(m_ instanceof AbstractArrayElementOperation)) {
+                if (m_ instanceof IdOperation) {
+                    m_ = m_.getParent();
+                    continue;
+                }
                 break;
             }
-            nbParents_++;
+            nbParentsInfer_++;
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;
-        if (m_ == null && _conf.getCurrentBlock() instanceof InfoBlock) {
+        Block cur_ = _conf.getCurrentBlock();
+        if (m_ == null && cur_ instanceof ReturnMehod) {
+            FunctionBlock f_ = cur_.getFunction();
+            if (f_ instanceof NamedFunctionBlock) {
+                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
+                String ret_ = n_.getImportedReturnType();
+                String void_ = _conf.getStandards().getAliasVoid();
+                if (!StringList.quickEq(ret_, void_)) {
+                    type_ = ret_;
+                }
+            }
+        } else if (m_ == null && cur_ instanceof InfoBlock) {
             InfoBlock i_ = (InfoBlock) _conf.getCurrentBlock();
             type_ = i_.getImportedClassName();
         } else if (!(m_ instanceof AffectationOperation)) {
@@ -70,7 +88,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
             return;
         }
         String n_ = type_;
-        String cp_ = PrimitiveTypeUtil.getQuickComponentType(n_, nbParents_);
+        String cp_ = PrimitiveTypeUtil.getQuickComponentType(n_, nbParentsInfer_);
         String classNameFinal_ = PrimitiveTypeUtil.getQuickComponentType(cp_);
         setClassName(classNameFinal_);
         StringMap<StringList> map_;

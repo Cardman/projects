@@ -1205,7 +1205,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument34Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public {} $class Inner {\n");
+        xml_.append(" $public $class Inner {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public $normal $int get(){\n");
         xml_.append("   $return field;;;:\n");
@@ -1234,7 +1234,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument35Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public {} $class Inner {\n");
+        xml_.append(" $public $class Inner {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public $normal $int get(){\n");
         xml_.append("   $return field;;;:\n");
@@ -1263,7 +1263,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument36Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public {} $class Inner {\n");
+        xml_.append(" $public $class Inner {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1294,7 +1294,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument37Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public {} $class Inner<#T> {\n");
+        xml_.append(" $public $class Inner<#T> {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1346,7 +1346,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument39Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public {} $class Inner {\n");
+        xml_.append(" $public $class Inner {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1376,7 +1376,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument40Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public {} $class Inner<#U> {\n");
+        xml_.append(" $public $class Inner<#U> {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1413,7 +1413,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument41Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public {} $class Inner<#U> {\n");
+        xml_.append(" $public $class Inner<#U> {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1450,7 +1450,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument42Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public {} $class Inner<#U> {\n");
+        xml_.append(" $public $class Inner<#U> {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1484,7 +1484,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument43Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public {} $class Inner<#U> {\n");
+        xml_.append(" $public $class Inner<#U> {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1571,7 +1571,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument46Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public {} $class Inner<#U> {\n");
+        xml_.append(" $public $class Inner<#U> {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1607,7 +1607,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     public void calculateArgument47Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public {} $class Inner<#U> {\n");
+        xml_.append(" $public $class Inner<#U> {\n");
         xml_.append("  $public $int field:\n");
         xml_.append("  $public($int p){\n");
         xml_.append("   field;;;=p;.;:\n");
@@ -1695,13 +1695,16 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int[] exmeththree($int p){\n");
         xml_.append("  $return $null:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $int[] exmeththree($int[][] p){\n");
+        xml_.append(" $public $static $int[][] exmeththree($int[][] p){\n");
         xml_.append("  $return $null:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $int[] exmeththree(ExTwo<$int[]>[] p){\n");
+        xml_.append(" $public $static $int[][] exmeththree($int[][]... p){\n");
         xml_.append("  $return $null:\n");
         xml_.append(" }\n");
-        xml_.append(" $public $static $int[] exmeththree(ExTwo<$int[]> p){\n");
+        xml_.append(" $public $static ExTwo<$int[]>[] exmeththree(ExTwo<$int[]>[] p){\n");
+        xml_.append("  $return $null:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static ExTwo<$int[]> exmeththree(ExTwo<$int[]> p){\n");
         xml_.append("  $return $null:\n");
         xml_.append(" }\n");
         xml_.append("}\n");

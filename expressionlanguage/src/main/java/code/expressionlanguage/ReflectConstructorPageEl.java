@@ -27,7 +27,8 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
             return false;
         }
-        if (!Templates.correctClassPartsDynamic(className_, _context, true)) {
+        String res_ = Templates.correctClassPartsDynamic(className_, _context, true);
+        if (res_.isEmpty()) {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasNullPe();
@@ -36,7 +37,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         }
         if (!initClass) {
             initClass = true;
-            if (static_ && InvokingOperation.hasToExit(_context, className_)) {
+            if (static_ && InvokingOperation.hasToExit(_context, res_)) {
                 setWrapException(true);
                 return false;
             }
@@ -80,7 +81,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 previous_ = args_.first();
                 args_ = args_.mid(1);
             }
-            Argument arg_ = InvokingOperation.instancePrepare(_context, className_, mid_, previous_, args_);
+            Argument arg_ = InvokingOperation.instancePrepare(_context, res_, mid_, previous_, args_);
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;

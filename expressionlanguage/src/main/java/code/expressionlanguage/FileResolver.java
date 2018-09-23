@@ -493,19 +493,21 @@ public final class FileResolver {
             //ERROR
             return out_;
         }
-        ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-        StringList importedTypes_ = p_.getImportedTypes();
-        Numbers<Integer> offsetsImports_ = p_.getOffsetsImports();
-        nextIndex_ = p_.getNextIndex();
-        if (!p_.isOk()) {
-            //ERROR
-            return out_;
-        }
+        StringList importedTypes_;
+        Numbers<Integer> offsetsImports_;
         boolean enableByEndLine_ = false;
         BracedBlock currentParent_;
         Numbers<Integer> braces_ = new Numbers<Integer>();
         boolean allowedComments_ = false;
         if (oper_) {
+            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            importedTypes_ = p_.getImportedTypes();
+            offsetsImports_ = p_.getOffsetsImports();
+            nextIndex_ = p_.getNextIndex();
+            if (!p_.isOk()) {
+                //ERROR
+                return out_;
+            }
             out_ = new ResultOperatorCreation();
             int until_ = untilOperator(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
             String header_ = _file.substring(nextIndex_, until_);
@@ -583,6 +585,14 @@ public final class FileResolver {
             ((ResultOperatorCreation)out_).setType((OperatorBlock) currentParent_);
             nextIndex_ = incrementRowCol(until_, _file, tabWidth_, current_, enabledSpaces_);
         } else {
+//            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+//            importedTypes_ = p_.getImportedTypes();
+//            offsetsImports_ = p_.getOffsetsImports();
+//            nextIndex_ = p_.getNextIndex();
+//            if (!p_.isOk()) {
+//                //ERROR
+//                return out_;
+//            }
             out_ = new ResultTypeCreation();
             if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
                 //ERROR
@@ -638,6 +648,14 @@ public final class FileResolver {
             }
             nextIndex_ = skipWhitespace(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
             if (nextIndex_ < 0) {
+                //ERROR
+                return out_;
+            }
+            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
+            importedTypes_ = p_.getImportedTypes();
+            offsetsImports_ = p_.getOffsetsImports();
+            nextIndex_ = p_.getNextIndex();
+            if (!p_.isOk()) {
                 //ERROR
                 return out_;
             }
@@ -890,8 +908,7 @@ public final class FileResolver {
                             printable_.add(t_);
                         }
                         String last_ = printable_.last();
-                        boolean empty_ = instruction_.substring(instruction_.lastIndexOf(last_)+last_.length()).trim().isEmpty();
-                        if (!isKeyWordAccess(last_) || !empty_) {
+                        if (!isKeyWordCategory(last_)) {
                             char lastChar_ = tr_.charAt(tr_.length() - 1);
                             if (currentParent_ instanceof AnnotationBlock) {
                                 if (lastChar_ != END_CALLING) {
@@ -981,7 +998,13 @@ public final class FileResolver {
                 }
                 parentheses_.add(i_);
             }
+            if (currentChar_ == BEGIN_ARRAY) {
+                parentheses_.add(i_);
+            }
             if (currentChar_ == END_CALLING) {
+                parentheses_.removeLast();
+            }
+            if (currentChar_ == END_ARRAY) {
                 parentheses_.removeLast();
             }
             if (currentChar_ == BEGIN_BLOCK) {
@@ -1065,13 +1088,6 @@ public final class FileResolver {
                             enLoc_.setOk(enabledSpaces_.isOk());
                             enLoc_.setOnlySpacesLine(enabledSpaces_.isOnlySpacesLine());
                             enLoc_.setTabWidth(enabledSpaces_.getTabWidth());
-                            p_ = new ParsedImportedTypes(locIndex_, _file, tabWidth_, locRc_, enLoc_);
-                            importedTypes_ = p_.getImportedTypes();
-                            offsetsImports_ = p_.getOffsetsImports();
-                            locIndex_ = p_.getNextIndex();
-                            if (!p_.isOk()) {
-                                return out_;
-                            }
                             //Inner types
                             boolean abstractType_ = false;
                             boolean finalType_ = false;
@@ -1106,6 +1122,13 @@ public final class FileResolver {
                                 return out_;
                             }
                             locIndex_ = skipWhitespace(locIndex_, _file, tabWidth_, locRc_,  enLoc_);
+                            ParsedImportedTypes p_ = new ParsedImportedTypes(locIndex_, _file, tabWidth_, locRc_, enLoc_);
+                            importedTypes_ = p_.getImportedTypes();
+                            offsetsImports_ = p_.getOffsetsImports();
+                            locIndex_ = p_.getNextIndex();
+                            if (!p_.isOk()) {
+                                return out_;
+                            }
                             if (!StringList.isDollarWordChar(_file.charAt(locIndex_))) {
                                 //ERROR
                                 return out_;
@@ -1814,13 +1837,6 @@ public final class FileResolver {
                             enLoc_.setOk(enabledSpaces_.isOk());
                             enLoc_.setOnlySpacesLine(enabledSpaces_.isOnlySpacesLine());
                             enLoc_.setTabWidth(enabledSpaces_.getTabWidth());
-                            p_ = new ParsedImportedTypes(locIndex_, _file, tabWidth_, locRc_, enLoc_);
-                            importedTypes_ = p_.getImportedTypes();
-                            offsetsImports_ = p_.getOffsetsImports();
-                            locIndex_ = p_.getNextIndex();
-                            if (!p_.isOk()) {
-                                return out_;
-                            }
                             if (declType_ && currentChar_ == BEGIN_BLOCK) {
                                 //Inner types
                                 boolean staticType_ = false;
@@ -1862,6 +1878,16 @@ public final class FileResolver {
                                     return out_;
                                 }
                                 locIndex_ = skipWhitespace(locIndex_, _file, tabWidth_, locRc_,  enLoc_);
+                                if (locIndex_ < 0) {
+                                    return out_;
+                                }
+                                ParsedImportedTypes p_ = new ParsedImportedTypes(locIndex_, _file, tabWidth_, locRc_, enLoc_);
+                                importedTypes_ = p_.getImportedTypes();
+                                offsetsImports_ = p_.getOffsetsImports();
+                                locIndex_ = p_.getNextIndex();
+                                if (!p_.isOk()) {
+                                    return out_;
+                                }
                                 if (!StringList.isDollarWordChar(_file.charAt(locIndex_))) {
                                     //ERROR
                                     return out_;
@@ -2433,7 +2459,7 @@ public final class FileResolver {
                 typeDeclaring_ = true;
                 break;
             }
-            if (currentCharFound_ == ']' && nbOpenedTmp_ == 0) {
+            if (currentCharFound_ == END_ARRAY && nbOpenedTmp_ == 0) {
                 String nextPart_ = _found.substring(indexInstr_+1).trim();
                 if (!nextPart_.isEmpty()) {
                     if (StringList.isDollarWordChar(nextPart_.charAt(0))) {
@@ -2535,6 +2561,11 @@ public final class FileResolver {
                         indexInstr_++;
                         continue;
                     }
+                    if (nextPart_.startsWith(String.valueOf(BEGIN_ARRAY))) {
+                        declTypeName_.append(currentCharFound_);
+                        indexInstr_++;
+                        continue;
+                    }
                     declTypeName_.append(currentCharFound_);
                     typeDeclaring_ = true;
                     break;
@@ -2570,7 +2601,7 @@ public final class FileResolver {
         boolean ok_ = false;
         if (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
-            if (currentCharFound_ == '[') {
+            if (currentCharFound_ == BEGIN_ARRAY) {
                 ok_ = true;
                 while (indexInstr_ < instLen_) {
                     currentCharFound_ = _found.charAt(indexInstr_);
@@ -2579,7 +2610,7 @@ public final class FileResolver {
                         indexInstr_++;
                         continue;
                     }
-                    if (currentCharFound_ == '[') {
+                    if (currentCharFound_ == BEGIN_ARRAY) {
                         declTypeName_.append(currentCharFound_);
                         if (!ok_) {
                             break;
@@ -2588,7 +2619,7 @@ public final class FileResolver {
                         indexInstr_++;
                         continue;
                     }
-                    if (currentCharFound_ == ']') {
+                    if (currentCharFound_ == END_ARRAY) {
                         declTypeName_.append(currentCharFound_);
                         if (ok_) {
                             ok_ = false;
@@ -2693,6 +2724,11 @@ public final class FileResolver {
                         indexInstr_++;
                         continue;
                     }
+                    if (nextPart_.startsWith(String.valueOf(BEGIN_ARRAY))) {
+                        declTypeName_.append(currentCharFound_);
+                        indexInstr_++;
+                        continue;
+                    }
                     declTypeName_.append(currentCharFound_);
                     typeDeclaring_ = true;
                     break;
@@ -2729,7 +2765,7 @@ public final class FileResolver {
         boolean ok_ = false;
         if (indexInstr_ < instLen_) {
             char currentCharFound_ = _found.charAt(indexInstr_);
-            if (currentCharFound_ == '[') {
+            if (currentCharFound_ == BEGIN_ARRAY) {
                 ok_ = true;
                 while (indexInstr_ < instLen_) {
                     currentCharFound_ = _found.charAt(indexInstr_);
@@ -2738,7 +2774,7 @@ public final class FileResolver {
                         indexInstr_++;
                         continue;
                     }
-                    if (currentCharFound_ == '[') {
+                    if (currentCharFound_ == BEGIN_ARRAY) {
                         declTypeName_.append(currentCharFound_);
                         if (!ok_) {
                             break;
@@ -2747,7 +2783,7 @@ public final class FileResolver {
                         indexInstr_++;
                         continue;
                     }
-                    if (currentCharFound_ == ']') {
+                    if (currentCharFound_ == END_ARRAY) {
                         declTypeName_.append(currentCharFound_);
                         if (ok_) {
                             ok_ = false;
