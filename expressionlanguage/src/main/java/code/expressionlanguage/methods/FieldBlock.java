@@ -45,7 +45,6 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -82,17 +81,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private int accessOffset;
 
     private CustList<OperationNode> opValue;
-
-    public FieldBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        fieldName = _el.getAttribute(ATTRIBUTE_NAME);
-        className = _el.getAttribute(ATTRIBUTE_CLASS);
-        value = _el.getAttribute(ATTRIBUTE_VALUE);
-        staticField = _el.hasAttribute(ATTRIBUTE_STATIC);
-        finalField = _el.hasAttribute(ATTRIBUTE_FINAL);
-        access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
-    }
 
     public FieldBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetAccessInfo _access,
@@ -410,11 +398,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_FIELD;
     }
 
     @Override

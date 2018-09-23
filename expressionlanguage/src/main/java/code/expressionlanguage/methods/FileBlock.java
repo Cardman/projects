@@ -24,10 +24,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         predefined = _predefined;
     }
 
-    public FileBlock() {
-        super(null, null, 0, null);
-    }
-
     public boolean isPredefined() {
         return predefined;
     }
@@ -48,11 +44,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     @Override
     public Numbers<Integer> getImportsOffset() {
         return importsOffset;
-    }
-
-    @Override
-    public String getTagName() {
-        return null;
     }
 
     @Override

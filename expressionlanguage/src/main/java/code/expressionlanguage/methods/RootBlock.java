@@ -32,7 +32,6 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
-import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -83,16 +82,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private StringList staticInitInterfaces = new StringList();
     private StringList staticInitImportedInterfaces = new StringList();
     private Numbers<Integer> staticInitInterfacesOffset = new Numbers<Integer>();
-
-    RootBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
-        name = _el.getAttribute(ATTRIBUTE_NAME);
-        packageName = _el.getAttribute(ATTRIBUTE_PACKAGE);
-        access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
-        templateDef = _el.getAttribute(ATTRIBUTE_TEMPLATE_DEF);
-    }
 
     RootBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name,
@@ -174,12 +163,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
 
     public StringList getDirectSuperTypes() {
         return directSuperTypes;
-    }
-
-    public final StringList getCustomDirectSuperClasses(ContextEl _context) {
-        StringList direct_ = getDirectSuperClasses(_context);
-        direct_.removeAllObj(_context.getStandards().getAliasObject());
-        return direct_;
     }
 
     public final AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
@@ -373,10 +356,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
             if (!(b instanceof FunctionBlock)) {
                 RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
-                String tagName_ = b.getTagName();
                 UnexpectedTagName unexp_ = new UnexpectedTagName();
                 unexp_.setFileName(getFullName());
-                unexp_.setFoundTag(tagName_);
+                unexp_.setFoundTag(EMPTY_STRING);
                 unexp_.setRc(where_);
                 _context.getClasses().addError(unexp_);
             }
@@ -389,10 +371,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (b instanceof RootBlock) {
                     if (((RootBlock)b).isStaticType()) {
                         RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
-                        String tagName_ = b.getTagName();
                         UnexpectedTagName unexp_ = new UnexpectedTagName();
                         unexp_.setFileName(getFullName());
-                        unexp_.setFoundTag(tagName_);
+                        unexp_.setFoundTag(EMPTY_STRING);
                         unexp_.setRc(where_);
                         _context.getClasses().addError(unexp_);
                     }
@@ -400,10 +381,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 if (b instanceof FunctionBlock) {
                     if (((FunctionBlock)b).isStaticContext()) {
                         RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
-                        String tagName_ = b.getTagName();
                         UnexpectedTagName unexp_ = new UnexpectedTagName();
                         unexp_.setFileName(getFullName());
-                        unexp_.setFoundTag(tagName_);
+                        unexp_.setFoundTag(EMPTY_STRING);
                         unexp_.setRc(where_);
                         _context.getClasses().addError(unexp_);
                     }
@@ -849,25 +829,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             }
         }
     }
-    public final StringList getDirectSubTypes(ContextEl _conf) {
-        StringList subTypes_ = new StringList();
-        Classes classes_ = _conf.getClasses();
-        String baseClassFound_ = getFullName();
-        for (RootBlock c: classes_.getClassBodies()) {
-            String name_ = c.getFullName();
-            RootBlock r_ = classes_.getClassBody(name_);
-            if (r_ instanceof InterfaceBlock) {
-                if (((InterfaceBlock) r_).getDirectSuperInterfaces().containsStr(baseClassFound_)) {
-                    subTypes_.add(name_);
-                }
-            } else {
-                if (r_.getDirectSuperClasses(_conf).containsStr(baseClassFound_)) {
-                    subTypes_.add(name_);
-                }
-            }
-        }
-        return subTypes_;
-    }
+    
     final StringMap<ClassMethodId> getConcreteMethodsToCallFromClass(MethodId _realId, ContextEl _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
         Classes classes_ = _conf.getClasses();

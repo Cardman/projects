@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
@@ -83,6 +84,7 @@ public abstract class ProcessMethodCommon {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
+        ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
         return ct_;
@@ -94,6 +96,7 @@ public abstract class ProcessMethodCommon {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
+        ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         ct_.getOptions().setMultipleAffectations(_multAff);
         ct_.getOptions().setEqPlus(_eqPlus);
         InitializationLgNames.initAdvStandards(ct_);

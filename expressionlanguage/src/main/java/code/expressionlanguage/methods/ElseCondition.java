@@ -12,17 +12,11 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
 public final class ElseCondition extends BracedStack implements BlockCondition, IncrNextGroup {
-
-    public ElseCondition(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public ElseCondition(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -126,11 +120,6 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         mutableVars_ = buildAssMutableLoopAfterIf(false, prev_, _an, _anEl);
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_ELSE;
     }
 
     @Override

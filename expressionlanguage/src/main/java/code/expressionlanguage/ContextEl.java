@@ -67,7 +67,6 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.ElementOffsetsNext;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -118,8 +117,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private transient LgNames standards;
 
     private transient AnalyzedPageEl analyzing;
-
-    private transient ElementOffsetsNext elements;
 
     private transient Classes classes;
 
@@ -728,14 +725,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     public void setFilesConfName(String _filesConfName) {
         filesConfName = _filesConfName;
-    }
-
-    public ElementOffsetsNext getElements() {
-        return elements;
-    }
-
-    public void setElements(ElementOffsetsNext _elements) {
-        elements = _elements;
     }
 
     @Override

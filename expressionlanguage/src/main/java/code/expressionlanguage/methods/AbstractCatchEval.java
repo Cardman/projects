@@ -11,18 +11,12 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.TryBlockStack;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
 public abstract class AbstractCatchEval extends BracedStack implements Eval,
         IncrCurrentGroup, IncrNextGroup {
-
-    public AbstractCatchEval(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public AbstractCatchEval(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetsBlock _offset) {
@@ -156,10 +150,6 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
         return true;
     }
 
-    @Override
-    public final String getTagName() {
-        return TAG_CATCH;
-    }
     @Override
     public final void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();

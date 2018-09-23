@@ -28,11 +28,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
     }
 
     @Override
-    public String getTagName() {
-        return TAG_WHILE;
-    }
-
-    @Override
     boolean canBeIncrementedNextGroup() {
         return true;
     }

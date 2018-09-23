@@ -34,7 +34,6 @@ import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -68,20 +67,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
 
     private Boolean nativeCmp;
 
-    public ForEachLoop(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        className = _el.getAttribute(ATTRIBUTE_CLASS);
-        variableName = _el.getAttribute(ATTRIBUTE_VAR);
-        expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
-        String classIndex_ = _el.getAttribute(ATTRIBUTE_CLASS_INDEX);
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
-        }
-        classIndexName = classIndex_;
-        setAlwaysSkipped(true);
-    }
-
     public ForEachLoop(ContextEl _importingPage, int _indexChild,
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -101,7 +86,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         label = _label.getInfo();
         labelOffset = _label.getOffset();
         classIndexNameOffset = _classIndex.getOffset();
-        setAlwaysSkipped(true);
     }
 
     @Override
@@ -551,11 +535,6 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_FOREACH;
     }
 
     @Override

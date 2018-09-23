@@ -11,7 +11,6 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.Struct;
-import code.sml.Element;
 import code.util.CustList;
 
 public final class Throwing extends AbruptBlock implements StackableBlock {
@@ -22,19 +21,9 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
 
     private CustList<OperationNode> opThrow;
 
-    public Throwing(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
-        setExitable(true);
-        setStoppable(true);
-    }
-
     public Throwing(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-        setExitable(true);
-        setStoppable(true);
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
     }
@@ -69,10 +58,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-    }
-    @Override
-    public String getTagName() {
-        return TAG_THROW;
     }
 
     @Override

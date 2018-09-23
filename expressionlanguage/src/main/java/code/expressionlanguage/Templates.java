@@ -43,38 +43,6 @@ public final class Templates {
     private Templates() {
     }
 
-    static StringList getTypes(String _type) {
-        StringList types_ = new StringList();
-        int i_ = _type.indexOf(String.valueOf(LT));
-        if (i_ == CustList.INDEX_NOT_FOUND_ELT) {
-            return types_;
-        }
-        i_++;
-        int nbGt_ = 0;
-        int nbLt_ = 0;
-        int first_ = i_;
-        while (true) {
-            if (i_ >= _type.length() - 1) {
-                types_.add(_type.substring(first_, i_));
-                break;
-            }
-            if (_type.charAt(i_) == COMMA) {
-                if (nbGt_ == nbLt_) {
-                    types_.add(_type.substring(first_, i_));
-                    first_ = i_ + 1;
-                }
-            }
-            if (_type.charAt(i_) == LT) {
-                nbGt_++;
-            }
-            if (_type.charAt(i_) == GT) {
-                nbLt_++;
-            }
-            i_++;
-        }
-        return types_;
-    }
-
     public static String getIdFromAllTypes(String _type) {
         return getAllTypes(_type).first();
     }
@@ -288,65 +256,6 @@ public final class Templates {
             }
         }
         return generic_;
-    }
-    static boolean isCorrectWrite(String _className, Analyzable _context) {
-        StringList current_ = new StringList(_className);
-        boolean already_ = false;
-        while (true) {
-            StringList next_ = new StringList();
-            for (String c: current_) {
-                StringList elts_ = getAllTypes(c);
-                if (elts_ == null) {
-                    return false;
-                }
-                String base_ = elts_.first();
-                String trimBase_ = base_.trim();
-                if (trimBase_.isEmpty()) {
-                    return false;
-                }
-                String compo_ = PrimitiveTypeUtil.getQuickComponentBaseType(trimBase_).getComponent();
-                compo_ = compo_.trim();
-                if (PrimitiveTypeUtil.isPrimitive(trimBase_, _context) && already_) {
-                    return false;
-                }
-                if (!compo_.startsWith(PREFIX_VAR_TYPE)) {
-                    for (String p: StringList.splitStrings(compo_, SEP_CLASS)) {
-                        String trPart_ = p.trim();
-                        if (trPart_.isEmpty()) {
-                            return false;
-                        }
-                        for (char h: trPart_.toCharArray()) {
-                            if (StringList.isDollarWordChar(h)) {
-                                continue;
-                            }
-                            return false;
-                        }
-                    }
-                } else {
-                    String compoLoc_ = compo_.substring(PREFIX_VAR_TYPE.length());
-                    if (!StringList.isWord(compoLoc_.trim())) {
-                        return false;
-                    }
-                }
-                int nbParams_ = elts_.size();
-                for (int i = CustList.SECOND_INDEX; i < nbParams_; i++) {
-                    String baseLoc_ = elts_.get(i).trim();
-                    String compoLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseLoc_).getComponent();
-                    if (compoLoc_.startsWith(PREFIX_VAR_TYPE)) {
-                        if (!StringList.isWord(compoLoc_.substring(PREFIX_VAR_TYPE.length()).trim())) {
-                            return false;
-                        }
-                        continue;
-                    }
-                    next_.add(baseLoc_);
-                }
-            }
-            if (next_.isEmpty()) {
-                return true;
-            }
-            already_ = true;
-            current_ = next_;
-        }
     }
     static boolean isCorrectTemplateAll(String _className, StringMap<StringList> _inherit, Analyzable _context) {
         return isCorrectTemplateAll(_className, _inherit, _context, true);
@@ -726,6 +635,7 @@ public final class Templates {
         }
         int dim_ = dArg_.getDim();
         String fct_ = _context.getStandards().getAliasFct();
+        String obj_ = _context.getStandards().getAliasObject();
         if (StringList.quickEq(baseArg_, baseParam_)) {
             int len_ = typesParam_.size();
             if (typesArg_.size() != len_) {
@@ -741,11 +651,14 @@ public final class Templates {
                     match_.setMatchEq(MatchingEnum.SUP);
                     pairsArgParam_.add(match_);
                 }
-                Matching match_ = new Matching();
-                match_.setArg(typesArg_.last());
-                match_.setParam(typesParam_.last());
-                match_.setMatchEq(MatchingEnum.SUB);
-                pairsArgParam_.add(match_);
+                String p_ = typesParam_.last();
+                if (!StringList.quickEq(p_, obj_)) {
+                    Matching match_ = new Matching();
+                    match_.setArg(typesArg_.last());
+                    match_.setParam(typesParam_.last());
+                    match_.setMatchEq(MatchingEnum.SUB);
+                    pairsArgParam_.add(match_);
+                }
                 MappingPairs m_ = new MappingPairs();
                 m_.setPairsArgParam(pairsArgParam_);
                 return m_;
@@ -760,7 +673,6 @@ public final class Templates {
             m_.setPairsArgParam(pairsArgParam_);
             return m_;
         }
-        String obj_ = _context.getStandards().getAliasObject();
         if (StringList.quickEq(baseArg_, fct_)) {
             if (!StringList.quickEq(baseParam_, obj_)) {
                 return null;

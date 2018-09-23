@@ -9,7 +9,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Numbers;
@@ -45,39 +44,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private CustList<StringList> annotationsParams = new CustList<StringList>();
     private CustList<Numbers<Integer>> annotationsIndexesParams = new CustList<Numbers<Integer>>();
     private CustList<CustList<CustList<OperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<OperationNode>>>();
-
-    public NamedFunctionBlock(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        name = _el.getAttribute(ATTRIBUTE_NAME);
-        parametersTypes = new StringList();
-        importedParametersTypes = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        boolean varargs_ = false;
-        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
-            String className_ = _el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_));
-            if (!_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_+1))) {
-                varargs_ = className_.endsWith(VARARG);
-                if (varargs_) {
-                    parametersTypes.add(className_.substring(CustList.FIRST_INDEX, className_.length()-VARARG.length()));
-                } else {
-                    parametersTypes.add(className_);
-                }
-            } else {
-                parametersTypes.add(className_);
-            }
-            i_++;
-        }
-        varargs = varargs_;
-        access = AccessEnum.getAccessByName(_el.getAttribute(ATTRIBUTE_ACCESS));
-        returnType = _el.getAttribute(ATTRIBUTE_CLASS);
-        parametersNames = new StringList();
-        i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_VAR,i_))) {
-            parametersNames.add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_VAR,i_)));
-            i_++;
-        }
-    }
 
     public NamedFunctionBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,

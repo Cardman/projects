@@ -28,7 +28,6 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -67,23 +66,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
 
     private CustList<OperationNode> opStep;
 
-    public ForIterativeLoop(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        className = _el.getAttribute(ATTRIBUTE_CLASS);
-        variableName = _el.getAttribute(ATTRIBUTE_VAR);
-        init = _el.getAttribute(ATTRIBUTE_INIT);
-        expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
-        step = _el.getAttribute(ATTRIBUTE_STEP);
-        eq = _el.hasAttribute(ATTRIBUTE_EQ);
-        String classIndex_ = _el.getAttribute(ATTRIBUTE_CLASS_INDEX);
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
-        }
-        classIndexName = classIndex_;
-        setAlwaysSkipped(true);
-    }
-
     public ForIterativeLoop(ContextEl _importingPage, int _indexChild,
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
@@ -110,7 +92,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         classIndexNameOffset = _classIndex.getOffset();
         label = _label.getInfo();
         labelOffset = _label.getOffset();
-        setAlwaysSkipped(true);
     }
 
     @Override
@@ -632,11 +613,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_FOR;
     }
 
     @Override

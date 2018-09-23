@@ -14,7 +14,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -27,11 +26,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     private ConstructorId constIdSameClass;
 
     private boolean implicitCallSuper;
-
-    public ConstructorBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public ConstructorBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,
@@ -143,11 +137,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     @Override
     public boolean isStaticContext() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_CONSTRUCTOR;
     }
 
     @Override

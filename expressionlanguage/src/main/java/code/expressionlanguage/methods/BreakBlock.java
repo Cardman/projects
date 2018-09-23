@@ -13,7 +13,6 @@ import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
 import code.expressionlanguage.stacks.TryBlockStack;
-import code.sml.Element;
 import code.util.IdList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -23,16 +22,9 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     private String label;
     private int labelOffset;
 
-    public BreakBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        setStoppable(true);
-    }
-
     public BreakBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-        setStoppable(true);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }
@@ -121,11 +113,6 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_BREAK;
     }
 
     @Override

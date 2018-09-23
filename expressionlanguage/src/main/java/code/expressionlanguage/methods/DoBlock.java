@@ -12,7 +12,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
-import code.sml.Element;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -21,11 +20,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
 
     private String label;
     private int labelOffset;
-
-    public DoBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public DoBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
@@ -129,11 +123,6 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_DO;
     }
 
     @Override

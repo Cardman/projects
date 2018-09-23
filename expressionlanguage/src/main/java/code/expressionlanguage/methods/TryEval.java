@@ -10,7 +10,6 @@ import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.stacks.TryBlockStack;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -19,11 +18,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
 
     private String label;
     private int labelOffset;
-
-    public TryEval(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public TryEval(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
@@ -91,11 +85,6 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_TRY;
     }
 
     @Override

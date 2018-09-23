@@ -6,7 +6,6 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -15,11 +14,6 @@ import code.util.StringMap;
 public abstract class BracedBlock extends Block implements BracedBlockInt {
 
     private Block firstChild;
-
-    BracedBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _indexChild, _m);
-    }
 
     BracedBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetsBlock _offset) {

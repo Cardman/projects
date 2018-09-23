@@ -14,7 +14,6 @@ import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.Element;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -34,24 +33,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     private final boolean finalType;
     private final boolean abstractType;
     private final boolean staticType;
-
-    public ClassBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        String superClass_ = _el.getAttribute(ATTRIBUTE_SUPER_CLASS);
-        if (!superClass_.trim().isEmpty()) {
-            getDirectSuperTypes().add(superClass_);
-        }
-        int i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
-            getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
-            i_++;
-        }
-        String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);
-        finalType = StringList.quickEq(modifier_, VALUE_FINAL);
-        abstractType = StringList.quickEq(modifier_, VALUE_ABSTRACT);
-        staticType = false;
-    }
 
     public ClassBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
@@ -266,11 +247,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_CLASS;
     }
 
     @Override

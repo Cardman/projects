@@ -16,6 +16,7 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ArrayStruct;
@@ -7579,6 +7580,7 @@ public final class ElRenderUtilTest {
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);
@@ -7596,6 +7598,7 @@ public final class ElRenderUtilTest {
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
         cont_.getOptions().setCatChars(_catChars);
@@ -7619,6 +7622,7 @@ public final class ElRenderUtilTest {
     private Configuration contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
         Configuration conf_ = new Configuration();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);

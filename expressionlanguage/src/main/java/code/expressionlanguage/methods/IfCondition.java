@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.IfBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -22,11 +21,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
 
     private String label;
     private int labelOffset;
-
-    public IfCondition(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public IfCondition(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
@@ -108,10 +102,6 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         return false;
     }
 
-    @Override
-    public String getTagName() {
-        return TAG_IF;
-    }
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         if (canBeIncrementedCurGroup()) {

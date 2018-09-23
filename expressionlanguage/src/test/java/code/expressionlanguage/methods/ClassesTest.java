@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -26,6 +27,7 @@ public class ClassesTest {
     public void emptyClassesTest() {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -844,165 +846,7 @@ public class ClassesTest {
         }
         return ms_;
     }
-    @Test
-    public void getSortedSuperInterfaces1Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex {}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = new ContextEl();
-        Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
-        assertEq(1, s_.size());
-        assertEq("pkg.Ex", s_.first());
-    }
-
-    @Test
-    public void getSortedSuperInterfaces2Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex :pkg.ExTwo{}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo {}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = new ContextEl();
-        Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
-        assertEq(2, s_.size());
-        assertEq("pkg.ExTwo", s_.first());
-        assertEq("pkg.Ex", s_.last());
-    }
-
-    @Test
-    public void getSortedSuperInterfaces3Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo {}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExThree {}\n");
-        files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = new ContextEl();
-        Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
-        assertEq(3, s_.size());
-        assertEq("pkg.ExTwo", s_.first());
-        assertEq("pkg.ExThree", s_.get(1));
-        assertEq("pkg.Ex", s_.last());
-    }
-
-    @Test
-    public void getSortedSuperInterfaces4Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree:pkg.ExFour{}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo {}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExThree {}\n");
-        files_.put("pkg/ExThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFour {}\n");
-        files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = new ContextEl();
-        Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
-        assertEq(4, s_.size());
-        assertEq("pkg.ExTwo", s_.first());
-        assertEq("pkg.ExThree", s_.get(1));
-        assertEq("pkg.ExFour", s_.get(2));
-        assertEq("pkg.Ex", s_.last());
-    }
-
-    @Test
-    public void getSortedSuperInterfaces5Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{}\n");
-        files_.put("pkg/ExThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFour {}\n");
-        files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = new ContextEl();
-        Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex"),cont_);
-        assertEq(4, s_.size());
-        assertEq("pkg.ExFour", s_.first());
-        assertEq("pkg.ExTwo", s_.get(1));
-        assertEq("pkg.ExThree", s_.get(2));
-        assertEq("pkg.Ex", s_.last());
-    }
-
-    @Test
-    public void getSortedSuperInterfaces6Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        StringBuilder xml_;
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex :pkg.ExTwo:pkg.ExThree{}\n");
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo :pkg.ExFour{}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExThree :pkg.ExFour{}\n");
-        files_.put("pkg/ExThree", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFour {}\n");
-        files_.put("pkg/ExFour", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFive :pkg.ExTwo:pkg.ExThree{}\n");
-        files_.put("pkg/ExFive", xml_.toString());
-        ContextEl cont_ = new ContextEl();
-        Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        Classes.buildPredefinedBracesBodies(cont_);
-        Classes.tryBuildBracedClassesBodies(files_, cont_);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        StringList s_ = classes_.getSortedSuperInterfaces(new StringList("pkg.Ex","pkg.ExFive"),cont_);
-        assertEq(5, s_.size());
-        assertEq("pkg.ExFour", s_.first());
-        assertEq("pkg.ExTwo", s_.get(1));
-        assertEq("pkg.ExThree", s_.get(2));
-        assertEq("pkg.Ex", s_.get(3));
-        assertEq("pkg.ExFive", s_.last());
-    }
+    
 
     @Test
     public void getAllOverridingMethods1Test() {
@@ -1241,6 +1085,7 @@ public class ClassesTest {
     }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1258,6 +1103,7 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1275,6 +1121,7 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1287,6 +1134,7 @@ public class ClassesTest {
     }
     private ContextEl failValidateInheritingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1299,6 +1147,7 @@ public class ClassesTest {
     }
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();

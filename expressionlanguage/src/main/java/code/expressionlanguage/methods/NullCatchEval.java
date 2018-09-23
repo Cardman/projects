@@ -5,14 +5,8 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.ReadWrite;
-import code.sml.Element;
 
 public final class NullCatchEval extends AbstractCatchEval {
-
-    public NullCatchEval(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public NullCatchEval(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetsBlock _offset) {

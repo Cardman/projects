@@ -28,7 +28,6 @@ import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -44,19 +43,9 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
 
     private CustList<OperationNode> opRet;
 
-    public ReturnMehod(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
-        setExitable(true);
-        setStoppable(true);
-    }
-
     public ReturnMehod(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
-        setExitable(true);
-        setStoppable(true);
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
     }
@@ -196,11 +185,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_RETURN;
     }
 
     @Override

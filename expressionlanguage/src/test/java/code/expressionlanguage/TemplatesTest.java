@@ -35,26 +35,6 @@ public class TemplatesTest {
     private static final String ARR_VAR_T = "[#T";
 
     @Test
-    public void getTypes1Test(){
-        assertEq(new StringList(), Templates.getTypes("String"));
-    }
-    @Test
-    public void getTypes2Test(){
-        assertEq(new StringList("String","Rate"), Templates.getTypes("Map<String,Rate>"));
-    }
-    @Test
-    public void getTypes3Test(){
-        assertEq(new StringList("String","Map<String,Rate>"), Templates.getTypes("Map<String,Map<String,Rate>>"));
-    }
-    @Test
-    public void getTypes4Test(){
-        assertEq(new StringList("Boolean"), Templates.getTypes("List<Boolean>"));
-    }
-    @Test
-    public void getTypes5Test(){
-        assertEq(new StringList("BooleanList"), Templates.getTypes("CustList<BooleanList>"));
-    }
-    @Test
     public void getAllTypes1Test(){
         assertEq(new StringList("String"), Templates.getAllTypes("String"));
     }
@@ -737,143 +717,6 @@ public class TemplatesTest {
         assertEq("pkg.ExThree<#V>", t_);
     }
     @Test
-    public void isCorrectWrite1Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("java.lang.String", context_));
-    }
-
-    @Test
-    public void isCorrectWrite2Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite(context_.getStandards().getAliasPrimInteger(), context_));
-    }
-
-    @Test
-    public void isCorrectWrite3Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("[java.lang.String", context_));
-    }
-
-    @Test
-    public void isCorrectWrite4Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("[$int", context_));
-    }
-
-    @Test
-    public void isCorrectWrite5Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("#E", context_));
-    }
-
-    @Test
-    public void isCorrectWrite6Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("[#E", context_));
-    }
-
-    @Test
-    public void isCorrectWrite7Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<#E>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite8Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<[#E>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite9Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<[$int>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite10Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<java.lang.String>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite11Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite12Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String>,java.lang.String>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite13Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite15Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<java.lang.String,java.lang.String>>>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite16Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<$int>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite17Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<code.util.CustList<$int,java.lang.String>>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite18Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<[$int.int>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite19Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(Templates.isCorrectWrite("code.util.CustList<code.util.CustList<[$int.int,java.lang.String>>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite20Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E.int>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite21Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<#E<java.lang.String>>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite22Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<,>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite23Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<java.lang;String>", context_));
-    }
-
-    @Test
-    public void isCorrectWrite24Test() {
-        ContextEl context_ = simpleContextEl();
-        assertTrue(!Templates.isCorrectWrite("code.util.CustList<<java.lang.String>>", context_));
-    }
-    @Test
     public void isCorrect1Test() {
         ContextEl context_ = simpleContextEl();
         Mapping m_ = new Mapping();
@@ -1087,6 +930,41 @@ public class TemplatesTest {
         assertTrue(Templates.isCorrect(m_,context_));
     }
 
+    @Test
+    public void isCorrect13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("$Fct<$void>");
+        m_.setParam("$Fct<java.lang.Object>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("$Fct<java.lang.Object>");
+        m_.setParam("$Fct<$void>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("$Fct<$void>");
+        m_.setParam("$Fct<$void>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,context_));
+    }
     @Test
     public void isCorrect17Test() {
         ContextEl context_ = simpleContextEl();
@@ -2554,6 +2432,7 @@ public class TemplatesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -2567,6 +2446,7 @@ public class TemplatesTest {
     }
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;

@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.common.GeneType;
-import code.sml.Element;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -21,11 +20,6 @@ public final class AnnotationBlock extends RootBlock {
             NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name,
                 _packageName, _access, _templateDef, _directSuperTypes, _offset);
-    }
-
-    public AnnotationBlock(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
     }
 
     @Override
@@ -94,11 +88,6 @@ public final class AnnotationBlock extends RootBlock {
     @Override
     public StringList getAllGenericInterfaces(Analyzable _classes) {
         return new StringList();
-    }
-
-    @Override
-    public String getTagName() {
-        return null;
     }
 
     @Override

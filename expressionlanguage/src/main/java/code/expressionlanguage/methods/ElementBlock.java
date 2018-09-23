@@ -18,7 +18,6 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -44,14 +43,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     private int fieldNameOffest;
 
     private int valueOffest;
-
-    public ElementBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        fieldName = _el.getAttribute(ATTRIBUTE_NAME);
-        value = _el.getAttribute(ATTRIBUTE_VALUE);
-        tempClass = _el.getAttribute(ATTRIBUTE_NAME);
-    }
 
     public ElementBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _fieldName,
@@ -205,11 +196,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_ELEMENT;
     }
 
     @Override

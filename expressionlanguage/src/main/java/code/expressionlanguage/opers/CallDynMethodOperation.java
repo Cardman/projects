@@ -107,6 +107,10 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 a_.setUnwrapObject(pa_);
             }
         }
+        String void_ = stds_.getAliasVoid();
+        if (StringList.quickEq(ret_, void_)) {
+            ret_ = stds_.getAliasObject();
+        }
         setResultClass(new ClassArgumentMatching(ret_));
     }
 

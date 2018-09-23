@@ -10,7 +10,6 @@ import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -28,16 +27,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
 
     private final String declaringType;
 
-    public MethodBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        String modifier_ = _el.getAttribute(ATTRIBUTE_MODIFIER);
-        staticMethod = StringList.quickEq(modifier_, VALUE_STATIC);
-        finalMethod = StringList.quickEq(modifier_, VALUE_FINAL);
-        abstractMethod = StringList.quickEq(modifier_, VALUE_ABSTRACT);
-        normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
-        declaringType = getRooted().getFullName();
-    }
     public MethodBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,
             OffsetAccessInfo _access,
@@ -184,11 +173,6 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     @Override
     public boolean isStaticContext() {
         return staticMethod;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_METHOD;
     }
 
     @Override

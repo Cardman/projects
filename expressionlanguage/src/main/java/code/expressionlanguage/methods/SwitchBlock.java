@@ -25,7 +25,6 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -43,12 +42,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
     private CustList<OperationNode> opValue;
 
     private boolean enumTest;
-
-    public SwitchBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        value = _el.getAttribute(ATTRIBUTE_VALUE);
-    }
 
     public SwitchBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
@@ -331,11 +324,6 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         mutableVars_ = buildAssMutableLoopAfterSwitch(def_, emptyEndCases_, ch_, _an, _anEl);
         assTar_.getMutableLoopRoot().clear();
         assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_SWITCH;
     }
 
     @Override

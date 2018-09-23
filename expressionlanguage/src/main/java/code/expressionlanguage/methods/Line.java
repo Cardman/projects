@@ -16,7 +16,6 @@ import code.expressionlanguage.opers.InterfaceInvokingConstructor;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SuperInvokingConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -27,12 +26,6 @@ public final class Line extends Leaf implements StackableBlock {
     private int expressionOffset;
 
     private CustList<OperationNode> opExp;
-
-    public Line(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
-    }
 
     public Line(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _left, OffsetsBlock _offset) {
@@ -134,11 +127,6 @@ public final class Line extends Leaf implements StackableBlock {
             return false;
         }
         return opExp.last() instanceof CurrentInvokingConstructor;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_LINE;
     }
 
     @Override

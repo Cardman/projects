@@ -1727,6 +1727,60 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         assertEq(14, (Number)ret_.getObject());
     }
     @Test
+    public void calculateArgument50Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $Fct<$void> f = $static().$lambda(Ex,exmethtwo):\n");
+        xml_.append("  $if (f;.call() = $null){\n");
+        xml_.append("   $return 14i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return -14i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmethtwo(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument51Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t;.=8:\n");
+        xml_.append("  $Fct<java.lang.Object> f = $static().$lambda(Ex,exmethtwo):\n");
+        xml_.append("  $if (f;.call() = $null){\n");
+        xml_.append("   $return 14i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return -14i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $void exmethtwo(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $abstract $class pkg.ExTwo {\n");

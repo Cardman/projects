@@ -13,7 +13,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stacks.LoopBlockStack;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -23,11 +22,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
 
     private String label;
     private int labelOffset;
-
-    public WhileCondition(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public WhileCondition(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
@@ -253,11 +247,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     @Override
     boolean canBeLastOfBlockGroup() {
         return true;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_WHILE;
     }
 
     @Override

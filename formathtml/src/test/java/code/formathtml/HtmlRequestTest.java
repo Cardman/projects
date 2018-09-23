@@ -11,6 +11,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.formathtml.classes.BeanFour;
@@ -598,6 +599,7 @@ public class HtmlRequestTest {
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
+        context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
         context_.initError();

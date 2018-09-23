@@ -10,7 +10,6 @@ import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.variables.LocalVariable;
-import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -25,13 +24,6 @@ public final class CatchEval extends AbstractCatchEval {
     private final String variableName;
 
     private int variableNameOffset;
-
-    public CatchEval(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        className = _el.getAttribute(ATTRIBUTE_CLASS);
-        variableName = _el.getAttribute(ATTRIBUTE_VAR);
-    }
 
     public CatchEval(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _className, OffsetStringInfo _variable, OffsetsBlock _offset) {

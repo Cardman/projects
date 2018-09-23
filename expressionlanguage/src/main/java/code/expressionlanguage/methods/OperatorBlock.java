@@ -11,7 +11,6 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -22,10 +21,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
 
     private Numbers<Integer> importsOffset = new Numbers<Integer>();
 
-    public OperatorBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
     public OperatorBlock(ContextEl _importingPage,
             int _indexChild, BracedBlock _m,
             OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -143,11 +138,6 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     @Override
     public boolean isStaticContext() {
         return true;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_METHOD;
     }
 
     @Override

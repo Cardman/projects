@@ -16,12 +16,10 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadClassName;
-import code.expressionlanguage.methods.util.BadFileName;
 import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.BadMethodName;
 import code.expressionlanguage.methods.util.BadParamName;
 import code.expressionlanguage.methods.util.ClassEdge;
-import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
 import code.expressionlanguage.methods.util.DuplicateMethod;
 import code.expressionlanguage.methods.util.DuplicateParamName;
@@ -30,9 +28,7 @@ import code.expressionlanguage.methods.util.EmptyTagName;
 import code.expressionlanguage.methods.util.ErrorList;
 import code.expressionlanguage.methods.util.FoundErrorInterpret;
 import code.expressionlanguage.methods.util.FoundWarningInterpret;
-import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.methods.util.WarningList;
 import code.expressionlanguage.opers.Calculation;
@@ -42,7 +38,6 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
 import code.expressionlanguage.opers.util.FieldInfo;
@@ -63,12 +58,6 @@ import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.ParserType;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
-import code.sml.Element;
-import code.sml.ElementOffsetsNext;
-import code.sml.Node;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -83,8 +72,6 @@ public final class Classes {
 
     public static final String EXT = "cdm";
     public static final String TEMP_PREFIX = "tmp";
-    private static final String EXT_PRO = "pro";
-    private static final char SEP_FILE = '/';
     private static final char DOT = '.';
     private static final String LOC_VAR = ".";
 
@@ -122,191 +109,14 @@ public final class Classes {
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<OperatorBlock>();
     }
-    private void processPredefinedClass(String _fileName,String _content, ContextEl _context) {
-        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_content);
-        Document doc_ = res_.getDocument();
-        _context.setHtml(_content);
-        _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
-        Element root_ = doc_.getDocumentElement();
-        FileBlock fileBlock_ = new FileBlock();
-        fileBlock_.setFileName(_fileName);
-        Block bl_ = Block.createOperationNode(root_, _context, 0, fileBlock_);
-        fileBlock_.appendChild(bl_);
-        int tabWidth_ = _context.getTabWidth();
-        RootBlock cl_ = (RootBlock) bl_;
-        ElementOffsetsNext e_ = _context.getElements();
-        ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(_content, e_, root_, tabWidth_);
-        processCustomClass(_fileName, fileBlock_, cl_, true, _content, _context, ne_);
-    }
-    private void processCustomClass(String _fileName,FileBlock _fileBlock, RootBlock _root, boolean _predefined, String _content, ContextEl _context, ElementOffsetsNext _elt) {
-        if (classesBodies.contains(_root.getFullName())) {
-            DuplicateType d_ = new DuplicateType();
-            d_.setId(_root.getFullName());
-            d_.setFileName(_root.getFile().getFileName());
-            d_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-            addError(d_);
-        }
-        filesBodies.put(_fileName, _fileBlock);
-        RootBlock bl_ = _root;
-        ElementOffsetsNext ne_ = _elt;
-        bl_.setAttributes(ne_.getAttributes());
-        bl_.setEndHeader(ne_.getEndHeader());
-        bl_.setTabs(ne_.getTabs());
-        bl_.setOffsets(ne_.getOffsets());
-        RootBlock cl_ = bl_;
-        String packageName_;
-        packageName_ = cl_.getPackageName();
-        LgNames lgNames_ = _context.getStandards();
-        if (!_predefined) {
-            if (packageName_.isEmpty()) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(cl_.getFullName());
-                badCl_.setFileName(cl_.getFile().getFileName());
-                badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                addError(badCl_);
-            }
-            StringList elements_ = StringList.splitChars(packageName_, DOT);
-            for (String e: elements_) {
-                if (!StringList.isWord(e)) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(cl_.getFullName());
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    addError(badCl_);
-                }
-            }
-            String className_;
-            className_ = cl_.getName();
-            if (!StringList.isWord(className_)) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(cl_.getFullName());
-                badCl_.setFileName(cl_.getFile().getFileName());
-                badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                addError(badCl_);
-            }
-        }
-        String fullDef_ = cl_.getFullDefinition();
-        StringList params_ = Templates.getAllTypes(fullDef_);
-        StringList varTypes_ = new StringList();
-        String objectClassName_ = _context.getStandards().getAliasObject();
-        if (params_ != null) {
-            for (String p: params_.mid(CustList.SECOND_INDEX)) {
-                if (p.isEmpty()) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    addError(badCl_);
-                    continue;
-                }
-                if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    addError(badCl_);
-                }
-                String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
-                TypeVar type_ = new TypeVar();
-                int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
-                StringList parts_ = StringList.splitInTwo(name_, indexDef_);
-                if (!StringList.isWord(parts_.first())) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    addError(badCl_);
-                }
-                if (varTypes_.containsStr(parts_.first())) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    addError(badCl_);
-                }
-                varTypes_.add(parts_.first());
-                StringList constraints_ = new StringList();
-                if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
-                    for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                        if (!isCorrectTemplate(b, _context, cl_)) {
-                            BadClassName badCl_ = new BadClassName();
-                            badCl_.setClassName(fullDef_);
-                            badCl_.setFileName(cl_.getFile().getFileName());
-                            badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                            addError(badCl_);
-                        }
-                        constraints_.add(b);
-                    }
-                } else {
-                    constraints_.add(objectClassName_);
-                }
-                type_.setConstraints(constraints_);
-                type_.setName(parts_.first());
-                cl_.getParamTypes().add(type_);
-            }
-        } else {
-            BadClassName badCl_ = new BadClassName();
-            badCl_.setClassName(fullDef_);
-            badCl_.setFileName(cl_.getFile().getFileName());
-            badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            addError(badCl_);
-        }
-        int indexSuperType_= -1;
-        for (String s: cl_.getDirectGenericSuperTypesBuild(_context)) {
-            indexSuperType_++;
-            if (!isCorrectTemplate(s, _context, cl_)) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(s);
-                badCl_.setFileName(cl_.getFile().getFileName());
-                badCl_.setRc(cl_.getRowCol(0, cl_.getRowColDirectSuperTypes().getKey(indexSuperType_)));
-                addError(badCl_);
-            }
-        }
-        for (TypeVar t: cl_.getParamTypes()) {
-            for (String u: t.getConstraints()) {
-                if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                    continue;
-                }
-                if (!cl_.getParamTypesMap().contains(u.substring(1))) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(u);
-                    badCl_.setFileName(cl_.getFile().getFileName());
-                    badCl_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-                    addError(badCl_);
-                }
-            }
-        }
-        if (lgNames_.getStandards().contains(cl_.getFullName())) {
-            DuplicateType d_ = new DuplicateType();
-            d_.setId(cl_.getFullName());
-            d_.setFileName(cl_.getFile().getFileName());
-            d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            addError(d_);
-        }
-        if (PrimitiveTypeUtil.isPrimitive(cl_.getFullName(), _context)) {
-            DuplicateType d_ = new DuplicateType();
-            d_.setId(cl_.getFullName());
-            d_.setFileName(cl_.getFile().getFileName());
-            d_.setRc(cl_.getRowCol(0, cl_.getIdRowCol()));
-            addError(d_);
-        }
-        Block rootBl_ = cl_;
-        CustList<Block> all_ = getSortedDescNodesRoot(rootBl_, _context);
-        for (Block b: all_) {
-            b.setupChars(_content);
-            b.setCompleteGroup();
-            b.setNullAssociateElement();
-        }
-        String fullName_ = cl_.getFullName();
-        classesBodies.put(fullName_, cl_);
-    }
+    
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
     }
     public StringMap<FileBlock> getFilesBodies() {
         return filesBodies;
     }
-    //TODO remainder
+
     public void processBracedClass(RootBlock _root, boolean _predefined, ContextEl _context) {
         String fullName_ = _root.getFullName();
         if (classesBodies.contains(fullName_)) {
@@ -500,7 +310,7 @@ public final class Classes {
         }
         classesBodies.put(fullName_, _root);
     }
-    //TODO remainer
+
     private static boolean isCorrectTemplate(String _temp, ContextEl _context, RootBlock _type) {
         RowCol rc_ = new RowCol();
         String temp_ = PartTypeUtil.processTypeHeaders(_temp, _context, _type, rc_);
@@ -559,123 +369,7 @@ public final class Classes {
         Classes cl_ = _context.getClasses();
         cl_.getLocks().init(_context);
     }
-    public void tryBuildClassesBodies(StringMap<String> _files, ContextEl _context) {
-        for (EntryCust<String,String> f: _files.entryList()) {
-            String file_ = f.getKey();
-            try {
-                if (file_.isEmpty()) {
-                    BadFileName b_ = new BadFileName();
-                    b_.setClassName(file_);
-                    b_.setFileName(file_);
-                    b_.setRc(new RowCol());
-                    addError(b_);
-                }
-                for (char c: file_.toCharArray()) {
-                    if (StringList.isDollarWordChar(c)) {
-                        continue;
-                    }
-                    if (c == DOT) {
-                        continue;
-                    }
-                    if (c == SEP_FILE) {
-                        continue;
-                    }
-                    BadFileName b_ = new BadFileName();
-                    b_.setClassName(file_);
-                    b_.setFileName(file_);
-                    b_.setRc(new RowCol());
-                    addError(b_);
-                }
-                if (StringList.indexesOfChar(file_, DOT).size() != 1) {
-                    BadFileName b_ = new BadFileName();
-                    b_.setClassName(file_);
-                    b_.setFileName(file_);
-                    b_.setRc(new RowCol());
-                    addError(b_);
-                }
-                if (file_.lastIndexOf(SEP_FILE) > file_.indexOf(DOT)) {
-                    BadFileName b_ = new BadFileName();
-                    b_.setClassName(file_);
-                    b_.setFileName(file_);
-                    b_.setRc(new RowCol());
-                    addError(b_);
-                }
-                if (!file_.endsWith(StringList.concat(String.valueOf(DOT),EXT))) {
-                    BadFileName b_ = new BadFileName();
-                    b_.setClassName(file_);
-                    b_.setFileName(file_);
-                    b_.setRc(new RowCol());
-                    addError(b_);
-                }
-                for (String s: StringList.splitChars(file_, SEP_FILE)) {
-                    if (StringList.isWord(s)) {
-                        continue;
-                    }
-                    if (s.isEmpty()) {
-                        BadFileName b_ = new BadFileName();
-                        b_.setClassName(file_);
-                        b_.setFileName(file_);
-                        b_.setRc(new RowCol());
-                        addError(b_);
-                    }
-                    for (String e: StringList.splitChars(s, DOT)) {
-                        if (StringList.isWord(e)) {
-                            continue;
-                        }
-                        BadFileName b_ = new BadFileName();
-                        b_.setClassName(file_);
-                        b_.setFileName(file_);
-                        b_.setRc(new RowCol());
-                        addError(b_);
-                    }
-                }
-                String content_ = f.getValue();
-                DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(content_);
-                Document doc_ = res_.getDocument();
-                if (doc_ == null) {
-                    BadFileName bad_ = new BadFileName();
-                    bad_.setRc(res_.getLocation());
-                    bad_.setFileName(file_);
-                    addError(bad_);
-                    continue;
-                }
-                _context.setHtml(content_);
-                _context.setElements(new ElementOffsetsNext(new RowCol(), 0, 0));
-                Element root_ = doc_.getDocumentElement();
-                FileBlock fileBlock_ = new FileBlock();
-                fileBlock_.setFileName(file_);
-                Block bl_ = Block.createOperationNode(root_, _context, 0, fileBlock_);
-                if (!(bl_ instanceof RootBlock)) {
-                    UnexpectedTagName un_ = new UnexpectedTagName();
-                    un_.setFileName(bl_.getFile().getFileName());
-                    un_.setRc(bl_.getRowCol(0, bl_.getOffset().getOffsetTrim()));
-                    addError(un_);
-                }
-                int tabWidth_ = _context.getTabWidth();
-                RootBlock cl_ = (RootBlock) bl_;
-                ElementOffsetsNext e_ = _context.getElements();
-                ElementOffsetsNext ne_ = DocumentBuilder.getIndexesOfElementOrAttribute(content_, e_, root_, tabWidth_);
-                fileBlock_.appendChild(cl_);
-                processCustomClass(file_, fileBlock_, cl_, false, content_, _context, ne_);
-            } catch (RuntimeException _0) {
-                BadClassName bad_ = new BadClassName();
-                bad_.setClassName(_0.getMessage());
-                bad_.setRc(new RowCol());
-                bad_.setFileName(file_);
-                addError(bad_);
-            }
-        }
-        LgNames stds_ = _context.getStandards();
-        String content_ = PredefinedClasses.getIterableType(_context);
-        processPredefinedClass(stds_.getAliasIterable(), content_, _context);
-        content_ = PredefinedClasses.getIteratorType(_context);
-        processPredefinedClass(stds_.getAliasIteratorType(), content_, _context);
-        content_ = PredefinedClasses.getEnumType(_context);
-        processPredefinedClass(stds_.getAliasEnum(), content_, _context);
-        content_ = PredefinedClasses.getEnumParamType(_context);
-        processPredefinedClass(stds_.getAliasEnumParam(), content_, _context);
-        _context.setHtml(EMPTY_STRING);
-    }
+    
     public static void buildPredefinedBracesBodies(ContextEl _context) {
         _context.setAnalyzing(new AnalyzedPageEl());
         LgNames stds_ = _context.getStandards();
@@ -751,60 +445,7 @@ public final class Classes {
             FileResolver.parseFile(file_, content_, false, _context);
         }
     }
-    public static CustList<Block> getSortedDescNodesRoot(Block _root, ContextEl _context) {
-        CustList<Block> list_ = new CustList<Block>();
-        if (_root == null) {
-            return list_;
-        }
-        Block c_ = _root;
-        while (true) {
-            if (c_ == null) {
-                break;
-            }
-            list_.add(c_);
-            Block next_ = createFirstChild(c_, _context);
-            if (next_ != null) {
-                next_.setupMetrics(_context);
-                ((BracedBlock) c_).appendChild(next_);
-                c_ = next_;
-                continue;
-            }
-            next_ = createNextSibling(c_, _context);
-            if (next_ != null) {
-                next_.getParent().appendChild(next_);
-                next_.setupMetrics(_context);
-                c_ = next_;
-                continue;
-            }
-            next_ = c_.getParent();
-            if (next_ == _root) {
-                c_ = null;
-                continue;
-            }
-            if (next_ != null) {
-                Block nextAfter_ = createNextSibling(next_, _context);
-                while (nextAfter_ == null) {
-                    Block par_ = next_.getParent();
-                    if (par_ == _root) {
-                        break;
-                    }
-                    if (par_ == null) {
-                        break;
-                    }
-                    nextAfter_ = createNextSibling(par_, _context);
-                    next_ = par_;
-                }
-                if (nextAfter_ != null) {
-                    nextAfter_.getParent().appendChild(nextAfter_);
-                    nextAfter_.setupMetrics(_context);
-                    c_ = nextAfter_;
-                    continue;
-                }
-            }
-            c_ = null;
-        }
-        return list_;
-    }
+    
     public static CustList<Block> getSortedDescNodes(Block _root) {
         CustList<Block> list_ = new CustList<Block>();
         if (_root == null) {
@@ -827,44 +468,6 @@ public final class Classes {
         return list_;
     }
 
-    private static Block createFirstChild(Block _block, ContextEl _context) {
-        if (!(_block instanceof BracedBlock)) {
-            return null;
-        }
-        BracedBlock block_ = (BracedBlock) _block;
-        Element elt_ = block_.getAssociateElement();
-        Node first_ = elt_.getFirstChild();
-        while (first_ != null) {
-            if (first_ instanceof Element) {
-                break;
-            }
-            first_ = first_.getNextSibling();
-        }
-        if (first_ == null) {
-            return null;
-        }
-        Element eltFirst_ = (Element) first_;
-        return Block.createOperationNode(eltFirst_, _context, CustList.FIRST_INDEX, block_);
-    }
-
-    private static Block createNextSibling(Block _block, ContextEl _context) {
-        BracedBlock p_ = _block.getParent();
-        if (p_ == null) {
-            return null;
-        }
-        Node n_ = _block.getAssociateElement().getNextSibling();
-        while (n_ != null) {
-            if (n_ instanceof Element) {
-                break;
-            }
-            n_ = n_.getNextSibling();
-        }
-        if (n_ == null) {
-            return null;
-        }
-        Element next_ = (Element) n_;
-        return Block.createOperationNode(next_, _context, _block.getIndexChild() + 1, p_);
-    }
     public static Block getNext(Block _current, Block _root) {
         Block n_ = _current.getFirstChild();
         if (n_ != null) {
@@ -922,71 +525,7 @@ public final class Classes {
         }
         return list_;
     }
-    public static CustList<InterfaceNode> getSortedDescNodes(InterfaceNode _root) {
-        CustList<InterfaceNode> list_ = new CustList<InterfaceNode>();
-        if (_root == null) {
-            return list_;
-        }
-        InterfaceNode c_ = _root;
-        if (c_.getFirstChild() == null) {
-            list_.add(c_);
-            return list_;
-        }
-        while (true) {
-            if (c_ == null) {
-                break;
-            }
-            list_.add(c_);
-            c_ = getNext(c_, _root);
-        }
-        return list_;
-    }
-
-    public static InterfaceNode getNext(InterfaceNode _current, InterfaceNode _root) {
-        InterfaceNode n_ = _current.getFirstChild();
-        if (n_ != null) {
-            return n_;
-        }
-        n_ = _current.getNextSibling();
-        if (n_ != null) {
-            return n_;
-        }
-        n_ = _current.getParent();
-        if (n_ == _root) {
-            return null;
-        }
-        if (n_ != null) {
-            InterfaceNode next_ = n_.getNextSibling();
-            while (next_ == null) {
-                InterfaceNode par_ = n_.getParent();
-                if (par_ == _root) {
-                    break;
-                }
-                if (par_ == null) {
-                    break;
-                }
-                next_ = par_.getNextSibling();
-                n_ = par_;
-            }
-            if (next_ != null) {
-                return next_;
-            }
-        }
-        return null;
-    }
-    public static CustList<InterfaceNode> getDirectChildren(InterfaceNode _element) {
-        CustList<InterfaceNode> list_ = new CustList<InterfaceNode>();
-        if (_element == null) {
-            return list_;
-        }
-        InterfaceNode firstChild_ = _element.getFirstChild();
-        InterfaceNode elt_ = firstChild_;
-        while (elt_ != null) {
-            list_.add(elt_);
-            elt_ = elt_.getNextSibling();
-        }
-        return list_;
-    }
+    
     public void validateInheritingClasses(ContextEl _context) {
         _context.setAnalyzing(new AnalyzedPageEl());
         Graph<ClassEdge> inherit_;
@@ -1303,184 +842,6 @@ public final class Classes {
         return baseParams_;
     }
 
-    public StringList getSortedSuperInterfaces(StringList _already, String _interface, ContextEl _context) {
-        StringList superInterfaces_ = new StringList(_interface);
-        StringList currentInterfaces_ = new StringList(_interface);
-        while (true) {
-            StringList nextInterfaces_ = new StringList();
-            for (String c: currentInterfaces_) {
-                String baseClass_ = Templates.getIdFromAllTypes(c);
-                RootBlock int_ = getClassBody(baseClass_);
-                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses(_context);
-                for (String s:directSuperInterfaces_) {
-                    superInterfaces_.add(s);
-                    nextInterfaces_.add(s);
-                }
-            }
-            if (nextInterfaces_.isEmpty()) {
-                break;
-            }
-            currentInterfaces_ = nextInterfaces_;
-        }
-        StringList superInterfacesSet_ = new StringList();
-        for (String s: superInterfaces_.getReverse()) {
-            if (_already.containsStr(s)) {
-                continue;
-            }
-            if (!superInterfacesSet_.containsStr(s)) {
-                superInterfacesSet_.add(s);
-            }
-        }
-        return superInterfacesSet_;
-    }
-    public StringList breadthFirst(String _parent, ContextEl _context) {
-
-        StringList all_ = new StringList();
-        StringList nodeQueue_ = new StringList();
-        nodeQueue_.add(_parent);
-
-        while (!nodeQueue_.isEmpty()) {
-            String current_ = nodeQueue_.first();
-            nodeQueue_.remove(0);
-            all_.add(current_);
-            RootBlock info_ = getClassBody(current_);
-            StringList direct_ = info_.getDirectSubTypes(_context);
-            for (String c : direct_) {
-                nodeQueue_.add(c);
-            }
-        }
-        StringList unique_ = new StringList();
-        for (String c: all_) {
-            if (!unique_.containsStr(c)) {
-                unique_.add(c);
-            }
-        }
-        return unique_;
-    }
-
-    public StringList getSortedSuperInterfaces(StringList _interfaces, ContextEl _context) {
-        StringList sortedSuperInterfaces_ = new StringList();
-        for (String i: _interfaces) {
-            StringList superInterfaces_ = new StringList(i);
-            StringList currentInterfaces_ = new StringList(i);
-            while (true) {
-                StringList nextInterfaces_ = new StringList();
-                for (String c: currentInterfaces_) {
-                    String baseClass_ = Templates.getIdFromAllTypes(c);
-                    RootBlock int_ = getClassBody(baseClass_);
-                    StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses(_context);
-                    for (String s:directSuperInterfaces_) {
-                        if (superInterfaces_.containsStr(s)) {
-                            continue;
-                        }
-                        superInterfaces_.add(s);
-                        nextInterfaces_.add(s);
-                    }
-                }
-                if (nextInterfaces_.isEmpty()) {
-                    break;
-                }
-                currentInterfaces_ = nextInterfaces_;
-            }
-            StringMap<InterfaceNode> is_ = new StringMap<InterfaceNode>();
-            InterfaceNode i_ = new InterfaceNode();
-            i_.setInterfaceName(superInterfaces_.first());
-            is_.put(superInterfaces_.first(), i_);
-            for (String s: superInterfaces_) {
-                String baseClass_ = Templates.getIdFromAllTypes(s);
-                RootBlock int_ = getClassBody(baseClass_);
-                StringList directSuperInterfaces_ = int_.getCustomDirectSuperClasses(_context);
-                InterfaceNode current_ = is_.getVal(s);
-                for (String r: directSuperInterfaces_) {
-                    InterfaceNode intNode_ = is_.getVal(r);
-                    if (intNode_ != null) {
-                        continue;
-                    }
-                    InterfaceNode child_ = current_.getFirstChild();
-                    int index_ = CustList.FIRST_INDEX;
-                    if (child_ != null) {
-                        InterfaceNode loc_ = child_;
-                        while (true) {
-                            if (loc_ == null) {
-                                break;
-                            }
-                            index_++;
-                            InterfaceNode next_ = loc_.getNextSibling();
-                            if (next_ == null) {
-                                child_ = loc_;
-                            }
-                            loc_ = next_;
-                        }
-                    }
-                    InterfaceNode ic_ = new InterfaceNode();
-                    ic_.setParent(current_);
-                    ic_.setInterfaceName(r);
-                    is_.put(r, ic_);
-                    if (child_ == null) {
-                        ic_.setIndexChild(0);
-                        current_.setFirstChild(ic_);
-                        continue;
-                    }
-                    ic_.setIndexChild(index_);
-                    child_.setNextSibling(ic_);
-                }
-            }
-            CustList<InterfaceNode> all_ = new CustList<InterfaceNode>();
-            for (InterfaceNode s: getSortedDescNodes(i_)) {
-                all_.add(s);
-            }
-            int order_ = 0;
-            while (true) {
-                CustList<InterfaceNode> next_ = new CustList<InterfaceNode>();
-                for (InterfaceNode e: all_) {
-                    if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-                        continue;
-                    }
-                    InterfaceNode cur_ = e;
-                    boolean tonumber_ = true;
-                    while (cur_ != null) {
-                        int index_ = cur_.getIndexChild() - 1;
-                        if (index_ >= CustList.FIRST_INDEX) {
-                            CustList<InterfaceNode> sn_ = getDirectChildren(cur_.getParent());
-                            InterfaceNode s_ = sn_.get(index_);
-                            InterfaceNode prev_ = s_;
-                            if (prev_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                                tonumber_ = false;
-                                break;
-                            }
-                        }
-                        cur_ = cur_.getParent();
-                    }
-                    if (!tonumber_) {
-                        continue;
-                    }
-                    CustList<InterfaceNode> list_ = getDirectChildren(e);
-                    if (!list_.isEmpty()) {
-                        InterfaceNode op_ = list_.last();
-                        if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                            continue;
-                        }
-                    }
-                    next_.add(e);
-                }
-                if (next_.isEmpty()) {
-                    break;
-                }
-                for (InterfaceNode o: next_) {
-                    o.setOrder(order_);
-                    order_++;
-                }
-            }
-            all_.sortElts(new ComparatorInterfaceNode());
-            for (InterfaceNode j: all_) {
-                String name_ = j.getInterfaceName();
-                if (!sortedSuperInterfaces_.containsStr(name_)) {
-                    sortedSuperInterfaces_.add(name_);
-                }
-            }
-        }
-        return sortedSuperInterfaces_;
-    }
     public void validateIds(ContextEl _context) {
         _context.setAnalyzing(new AnalyzedPageEl());
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
@@ -2201,155 +1562,7 @@ public final class Classes {
         _context.setAnalyzing(null);
         return success_;
     }
-    //validate missing return
-    //validate break,continue ancestors / try/catch/finally / switch/case/default
-    //validate dead code
-    public void validateReturns(ContextEl _context) {
-        AnalyzedPageEl page_ = new AnalyzedPageEl();
-        _context.setAnalyzing(page_);
-        LgNames stds_ = _context.getStandards();
-        String void_ = stds_.getAliasVoid();
-        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            String className_ = c.getKey();
-            CustList<Block> bl_ = getDirectChildren(c.getValue());
-            for (Block b: bl_) {
-                if (b instanceof AloneBlock) {
-                    CustList<Block> chSort_ = getSortedDescNodes(b);
-                    CustList<Block> all_ = new CustList<Block>();
-                    for (Block s: chSort_) {
-                        all_.add(s);
-                    }
-                    int order_ = 0;
-                    while (true) {
-                        CustList<Block> next_ = new CustList<Block>();
-                        for (Block e: all_) {
-                            if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-                                continue;
-                            }
-                            CustList<Block> list_ = getDirectChildren(e);
-                            boolean allNb_ = true;
-                            for (Block s: list_) {
-                                Block op_ = s;
-                                if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                                    allNb_ = false;
-                                    break;
-                                }
-                            }
-                            if (!allNb_) {
-                                continue;
-                            }
-                            next_.add(e);
-                        }
-                        if (next_.isEmpty()) {
-                            break;
-                        }
-                        for (Block o: next_) {
-                            o.setOrder(order_);
-                            order_++;
-                        }
-                    }
-                    all_.sortElts(new ComparatorBlockOrder());
-                    for (Block d: all_) {
-                        d.setAlwaysSkipped();
-                    }
-                    for (Block d: all_) {
-                        d.setExitable();
-                    }
-                    for (Block d: all_) {
-                        d.setStoppable();
-                    }
-                    for (Block d: all_) {
-                        RowCol rc_ = d.existDeadCodeInBlock(0, _context.getTabWidth());
-                        if (rc_.getRow() > 0) {
-                            DeadCodeMethod deadCode_ = new DeadCodeMethod();
-                            deadCode_.setFileName(className_);
-                            deadCode_.setRc(rc_);
-                            deadCode_.setId(EMPTY_STRING);
-                            addError(deadCode_);
-                        }
-                    }
-                }
-                if (b instanceof Returnable) {
-                    Returnable method_ = (Returnable) b;
-                    if (method_ instanceof MethodBlock) {
-                        if (((MethodBlock)b).isAbstractMethod()) {
-                            continue;
-                        }
-                    }
-                    CustList<Block> chSort_ = getSortedDescNodes(b);
-                    CustList<Block> all_ = new CustList<Block>();
-                    for (Block s: chSort_) {
-                        all_.add(s);
-                    }
-                    int order_ = 0;
-                    while (true) {
-                        CustList<Block> next_ = new CustList<Block>();
-                        for (Block e: all_) {
-                            if (e.getOrder() > CustList.INDEX_NOT_FOUND_ELT) {
-                                continue;
-                            }
-                            CustList<Block> list_ = getDirectChildren(e);
-                            boolean allNb_ = true;
-                            for (Block s: list_) {
-                                Block op_ = s;
-                                if (op_.getOrder() == CustList.INDEX_NOT_FOUND_ELT) {
-                                    allNb_ = false;
-                                    break;
-                                }
-                            }
-                            if (!allNb_) {
-                                continue;
-                            }
-                            next_.add(e);
-                        }
-                        if (next_.isEmpty()) {
-                            break;
-                        }
-                        for (Block o: next_) {
-                            o.setOrder(order_);
-                            order_++;
-                        }
-                    }
-                    all_.sortElts(new ComparatorBlockOrder());
-                    for (Block d: all_) {
-                        d.setAlwaysSkipped();
-                    }
-                    for (Block d: all_) {
-                        d.setExitable();
-                    }
-                    for (Block d: all_) {
-                        d.setStoppable();
-                    }
-                    Block r_ = all_.last();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    int len_ = types_.size();
-                    EqList<ClassName> pTypes_ = new EqList<ClassName>();
-                    for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                        String n_ = types_.get(i);
-                        pTypes_.add(new ClassName(n_, i + 1 == len_ && method_.isVarargs()));
-                    }
-                    if (!r_.isExitable() && !StringList.quickEq(method_.getImportedReturnType(), void_)) {
-                        MissingReturnMethod miss_ = new MissingReturnMethod();
-                        miss_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
-                        miss_.setFileName(className_);
-                        miss_.setId(method_.getSignature());
-                        miss_.setReturning(method_.getImportedReturnType());
-                        addError(miss_);
-                    }
-                    for (Block d: all_) {
-                        RowCol rc_ = d.existDeadCodeInBlock(0, _context.getTabWidth());
-                        if (rc_.getRow() > 0) {
-                            DeadCodeMethod deadCode_ = new DeadCodeMethod();
-                            deadCode_.setFileName(className_);
-                            deadCode_.setRc(rc_);
-                            deadCode_.setId(method_.getSignature());
-                            addError(deadCode_);
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
 
     public CustList<RootBlock> getClassBodies() {
         return classesBodies.values();

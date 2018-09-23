@@ -12,7 +12,6 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.Element;
 import code.util.CustList;
 
 public abstract class Condition extends BracedStack implements StackableBlockGroup {
@@ -22,12 +21,6 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
     private int conditionOffset;
 
     private CustList<OperationNode> opCondition;
-
-    public Condition(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        condition = _el.getAttribute(ATTRIBUTE_CONDITION);
-    }
 
     public Condition(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {

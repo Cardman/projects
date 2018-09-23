@@ -10,17 +10,11 @@ import code.expressionlanguage.methods.util.DeadCodeMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
-
-    public MemberCallingsBlock(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     MemberCallingsBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetsBlock _offset) {

@@ -11,7 +11,6 @@ import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.variables.LocalVariable;
-import code.sml.Element;
 import code.util.StringList;
 
 public final class DeclareVariable extends Leaf implements InitVariable {
@@ -27,12 +26,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     private boolean finalVariable;
 
     private int finalVariableOffset;
-
-    DeclareVariable(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        className = _el.getAttribute(ATTRIBUTE_CLASS);
-    }
 
     public DeclareVariable(boolean _merged, ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
@@ -86,11 +79,6 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_DECLARE;
     }
 
     @Override

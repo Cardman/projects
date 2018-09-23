@@ -8,6 +8,7 @@ public final class Options {
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
     private boolean doubleBracketsArray = true;
+    private VariableSuffix suffixVar = VariableSuffix.NONE;
 
     public boolean applyEqPlus() {
         if (!isMultipleAffectations()) {
@@ -62,6 +63,14 @@ public final class Options {
 
     public void setDoubleBracketsArray(boolean _doubleBracketsArray) {
         doubleBracketsArray = _doubleBracketsArray;
+    }
+
+    public VariableSuffix getSuffixVar() {
+        return suffixVar;
+    }
+
+    public void setSuffixVar(VariableSuffix _suffixVar) {
+        suffixVar = _suffixVar;
     }
 
 }

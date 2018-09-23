@@ -27,7 +27,6 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -67,20 +66,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
     private CustList<OperationNode> opExp;
 
     private CustList<OperationNode> opStep;
-    public ForMutableIterativeLoop(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        className = _el.getAttribute(ATTRIBUTE_CLASS);
-        init = _el.getAttribute(ATTRIBUTE_INIT);
-        expression = _el.getAttribute(ATTRIBUTE_EXPRESSION);
-        step = _el.getAttribute(ATTRIBUTE_STEP);
-        String classIndex_ = _el.getAttribute(ATTRIBUTE_CLASS_INDEX);
-        if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimLong();
-        }
-        classIndexName = classIndex_;
-        setAlwaysSkipped(true);
-    }
 
     public ForMutableIterativeLoop(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetBooleanInfo _final,
@@ -106,7 +91,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         labelOffset = _label.getOffset();
         finalVariable = _final.isInfo();
         finalOffset = _final.getOffset();
-        setAlwaysSkipped(true);
     }
 
     @Override
@@ -901,11 +885,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             return getExpressionEl();
         }
         return getStepEl();
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_FOR;
     }
 
     @Override

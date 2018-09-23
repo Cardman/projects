@@ -6,9 +6,7 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneInterface;
-import code.sml.Element;
 import code.sml.RowCol;
-import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -19,17 +17,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     private final StringList allSuperTypes = new StringList();
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean staticType;
-
-    public InterfaceBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        int i_ = CustList.FIRST_INDEX;
-        while (_el.hasAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_))) {
-            getDirectSuperTypes().add(_el.getAttribute(StringList.concatNbs(ATTRIBUTE_CLASS,i_)));
-            i_++;
-        }
-        staticType = false;
-    }
 
     public InterfaceBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
@@ -85,11 +72,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public String getTagName() {
-        return TAG_INTERFACE;
-    }
-
-    @Override
     public StringList getDirectSuperClasses(Analyzable _classes) {
         StringList classes_ = new StringList();
         for (String s: getDirectSuperTypes()) {
@@ -142,19 +124,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
             }
         }
         return allGenericSuperClasses_;
-    }
-
-    public StringList getDirectSuperInterfaces() {
-        StringList classes_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            int index_ = s.indexOf(LT);
-            if (index_ > CustList.INDEX_NOT_FOUND_ELT) {
-                classes_.add(s.substring(CustList.FIRST_INDEX, index_));
-            } else {
-                classes_.add(s);
-            }
-        }
-        return classes_;
     }
 
     @Override

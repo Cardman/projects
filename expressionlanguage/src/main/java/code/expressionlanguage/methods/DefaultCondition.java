@@ -7,14 +7,8 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.sml.Element;
 
 public final class DefaultCondition extends SwitchPartBlock implements IncrNextGroup {
-
-    public DefaultCondition(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public DefaultCondition(ContextEl _importingPage,
             int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
@@ -49,11 +43,6 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
     @Override
     boolean canBeLastOfBlockGroup() {
         return true;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_DEFAULT;
     }
 
     @Override

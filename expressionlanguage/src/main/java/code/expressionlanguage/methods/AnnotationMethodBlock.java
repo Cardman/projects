@@ -26,7 +26,6 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -39,11 +38,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     private int defaultValueOffset;
 
     private CustList<OperationNode> opValue;
-
-    public AnnotationMethodBlock(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public AnnotationMethodBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m,
@@ -182,11 +176,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     @Override
     public boolean isNormalMethod() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return null;
     }
 
     @Override

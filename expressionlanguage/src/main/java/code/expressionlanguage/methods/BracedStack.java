@@ -22,7 +22,6 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdList;
@@ -31,11 +30,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class BracedStack extends BracedBlock {
-
-    BracedStack(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     BracedStack(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetsBlock _offset) {

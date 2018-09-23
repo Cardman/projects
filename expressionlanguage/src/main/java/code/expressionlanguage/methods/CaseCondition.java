@@ -25,7 +25,6 @@ import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stacks.SwitchBlockStack;
-import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -36,12 +35,6 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
     private boolean possibleSkipNexts;
 
     private int valueOffset;
-
-    public CaseCondition(Element _el, ContextEl _importingPage,
-            int _indexChild, BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-        value = _el.getAttribute(ATTRIBUTE_VALUE);
-    }
 
     public CaseCondition(ContextEl _importingPage,
             int _indexChild, BracedBlock _m, OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -231,11 +224,6 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public String getTagName() {
-        return TAG_CASE;
     }
 
     @Override

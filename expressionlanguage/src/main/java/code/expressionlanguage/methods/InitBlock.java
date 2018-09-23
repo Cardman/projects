@@ -9,17 +9,11 @@ import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
-import code.sml.Element;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
 
 public abstract class InitBlock extends MemberCallingsBlock implements AloneBlock {
-
-    public InitBlock(Element _el, ContextEl _importingPage, int _indexChild,
-            BracedBlock _m) {
-        super(_el, _importingPage, _indexChild, _m);
-    }
 
     public InitBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m,
             OffsetsBlock _offset) {

@@ -5,6 +5,7 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Options;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -94,6 +95,7 @@ public final class ReadConfiguration {
         }
         if (!found_) {
             ContextEl context_ = new ContextEl();
+            context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
             context_.setStandards(stds_);
             _configuration.setContext(context_);
         }
@@ -135,6 +137,10 @@ public final class ReadConfiguration {
             }
             if (StringList.quickEq(fieldName_, "eqPlus")) {
                 options_.setEqPlus(StringList.quickEq(c.getAttribute("value"), "true"));
+                continue;
+            }
+            if (StringList.quickEq(fieldName_, "suffixVar")) {
+                options_.setSuffixVar(VariableSuffix.getVariableSuffixByName(c.getAttribute("value")));
                 continue;
             }
         }

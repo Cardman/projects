@@ -4654,6 +4654,7 @@ public class ElResolverTest {
     }
     private ContextEl contextEl() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;
