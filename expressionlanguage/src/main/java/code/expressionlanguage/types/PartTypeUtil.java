@@ -191,7 +191,7 @@ public final class PartTypeUtil {
                 break;
             }
             if (current_ instanceof LeafPartType) {
-                ((LeafPartType)current_).checkDirectExistence(_an, _rooted, _location);
+                ((LeafPartType)current_).checkDirectExistence(_an, dels_, _rooted, _location);
                 out_.append(((LeafPartType)current_).exportHeader());
             }
             PartType child_ = createFirstChild(current_, loc_, dels_, options_);
@@ -327,7 +327,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                current_.analyze(_an, _globalType, _rooted, _exact, _location);
+                current_.analyze(_an, dels_, _globalType, _rooted, _exact, _location);
                 PartType next_ = createNextSibling(current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -336,7 +336,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.analyze(_an, _globalType, _rooted, _exact, _location);
+                    par_.analyze(_an, dels_, _globalType, _rooted, _exact, _location);
                     stop_ = true;
                     break;
                 }
@@ -379,7 +379,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                current_.analyze(_an, _globalType, _rooted, _exact);
+                current_.analyze(_an, dels_, _globalType, _rooted, _exact);
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
@@ -391,7 +391,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.analyze(_an, _globalType, _rooted, _exact);
+                    par_.analyze(_an, dels_, _globalType, _rooted, _exact);
                     if (par_.getAnalyzedType().isEmpty()) {
                         return "";
                     }
@@ -429,7 +429,7 @@ public final class PartTypeUtil {
                 break;
             }
             if (current_ instanceof LeafPartType) {
-                ((LeafPartType)current_).checkDynExistence(_an);
+                ((LeafPartType)current_).checkDynExistence(_an, dels_);
                 String t_ = ((LeafPartType)current_).exportHeader();
                 if (t_.trim().isEmpty()) {
                     return "";

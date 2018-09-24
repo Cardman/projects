@@ -7583,6 +7583,7 @@ public final class ElRenderUtilTest {
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
+        cont_.getOptions().setCatChars(true);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -7625,6 +7626,7 @@ public final class ElRenderUtilTest {
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
+        cont_.getOptions().setCatChars(true);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

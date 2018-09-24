@@ -317,7 +317,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         OperationNode op_ = getElCondition().getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (op_.getArgument() == null) {
+        if (arg_ == null) {
             accessible_ = true;
         } else if (!(arg_.getObject() instanceof Boolean)) {
             accessible_ = true;
@@ -332,7 +332,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         OperationNode op_ = getElCondition().getRoot();
         boolean proc_ = true;
         Argument arg_ = op_.getArgument();
-        if (op_.getArgument() == null) {
+        if (arg_ == null) {
             proc_ = false;
         } else if (!(arg_.getObject() instanceof Boolean)) {
             proc_ = false;

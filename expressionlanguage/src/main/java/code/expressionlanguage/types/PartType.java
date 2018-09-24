@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Options;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.sml.RowCol;
+import code.util.CustList;
 import code.util.NatTreeMap;
 
 
@@ -57,8 +58,8 @@ public abstract class PartType {
         }
         return new ArraryPartType(_parent, _index, _indexInType);
     }
-    public abstract void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,boolean _exact, RowCol _location);
-    public abstract void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
+    public abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact, RowCol _location);
+    public abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
     public int getIndex() {
         return index;
     }

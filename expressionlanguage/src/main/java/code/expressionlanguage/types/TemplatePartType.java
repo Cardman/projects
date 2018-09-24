@@ -5,6 +5,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.sml.RowCol;
 import code.util.CustList;
+import code.util.NatTreeMap;
 import code.util.StringList;
 
 public final class TemplatePartType extends ParentPartType {
@@ -32,7 +33,7 @@ public final class TemplatePartType extends ParentPartType {
     }
 
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
@@ -49,7 +50,7 @@ public final class TemplatePartType extends ParentPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();

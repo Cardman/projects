@@ -857,7 +857,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
     public void calculateArgument23Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class {pkgthree.*;pkgtwo.*;} pkg.Ex {\n");
+        xml_.append("$public $class [pkgthree.*;pkgtwo.*;] pkg.Ex {\n");
         xml_.append(" $public SecList<ExTwo<ExThree>> inst=$new SecList<ExTwo<ExThree>>():\n");
         xml_.append(" $public $int res:\n");
         xml_.append(" {\n");
@@ -868,7 +868,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class {pkgthree.ExThree;} pkgtwo.ExTwo<#K:ExThree> {\n");
+        xml_.append("$public $class [pkgthree.ExThree;] pkgtwo.ExTwo<#K:ExThree> {\n");
         xml_.append(" $public $final #K[] array = $new #K[2i]:\n");
         xml_.append(" $public $final pkgtwo.ExTwo<#K> pass(#K _v, $int _index){\n");
         xml_.append("  array;;;[_index;.;]=_v;.;:\n");

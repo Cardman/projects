@@ -585,14 +585,6 @@ public final class FileResolver {
             ((ResultOperatorCreation)out_).setType((OperatorBlock) currentParent_);
             nextIndex_ = incrementRowCol(until_, _file, tabWidth_, current_, enabledSpaces_);
         } else {
-//            ParsedImportedTypes p_ = new ParsedImportedTypes(nextIndex_, _file, tabWidth_, current_, enabledSpaces_);
-//            importedTypes_ = p_.getImportedTypes();
-//            offsetsImports_ = p_.getOffsetsImports();
-//            nextIndex_ = p_.getNextIndex();
-//            if (!p_.isOk()) {
-//                //ERROR
-//                return out_;
-//            }
             out_ = new ResultTypeCreation();
             if (_file.charAt(nextIndex_) != KEY_WORD_PREFIX) {
                 //ERROR
@@ -843,17 +835,55 @@ public final class FileResolver {
                 i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
                 continue;
             }
-            boolean const_ = false;
-            if (constString_ || constChar_) {
-                const_ = true;
-            }
-            if (!const_) {
-                if (!enabledSpaces_.isOk()) {
-                    //ERROR
-                    return out_;
+            if (constChar_) {
+                instruction_.append(currentChar_);
+                if (currentChar_ == ESCAPE) {
+                    if (i_ + 1 >= len_) {
+                        //ERROR
+                        break;
+                    }
+                    instruction_.append(_file.charAt(i_+1));
+                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                    continue;
                 }
+                if (currentChar_ == DEL_CHAR) {
+                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                    constChar_ = false;
+                    allowedComments_ = false;
+                    enabledSpaces_.setCheckTabs(true);
+                    continue;
+                }
+                i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                continue;
             }
-            if (currentChar_ == BEGIN_COMMENT && !const_) {
+            if (constString_) {
+                instruction_.append(currentChar_);
+                if (currentChar_ == ESCAPE) {
+                    if (i_ + 1 >= len_) {
+                        //ERROR
+                        break;
+                    }
+                    instruction_.append(_file.charAt(i_+1));
+                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                    continue;
+                }
+                if (currentChar_ == DEL_STRING) {
+                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                    constString_ = false;
+                    allowedComments_ = false;
+                    enabledSpaces_.setCheckTabs(true);
+                    continue;
+                }
+                i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                continue;
+            }
+            if (!enabledSpaces_.isOk()) {
+                //ERROR
+                return out_;
+            }
+            if (currentChar_ == BEGIN_COMMENT) {
                 if (i_ + 1 >= len_) {
                     //ERROR
                     break;
@@ -882,8 +912,28 @@ public final class FileResolver {
                     continue;
                 }
             }
+            if (currentChar_ == DEL_CHAR) {
+                if (instruction_.length() == 0) {
+                    instructionLocation_ = i_;
+                }
+                instruction_.append(currentChar_);
+                constChar_ = true;
+                enabledSpaces_.setCheckTabs(false);
+                i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                continue;
+            }
+            if (currentChar_ == DEL_STRING) {
+                if (instruction_.length() == 0) {
+                    instructionLocation_ = i_;
+                }
+                instruction_.append(currentChar_);
+                constString_ = true;
+                enabledSpaces_.setCheckTabs(false);
+                i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
+                continue;
+            }
             boolean endInstruction_ = false;
-            if (parentheses_.isEmpty() && !const_) {
+            if (parentheses_.isEmpty()) {
                 if (currentChar_ == END_LINE && !declType_) {
                     endInstruction_ = true;
                 }
@@ -898,34 +948,20 @@ public final class FileResolver {
                     if (tr_.isEmpty()) {
                         endInstruction_ = true;
                     } else if (!StringList.quickEq(tr_, prefixKeyWord(KEY_WORD_RETURN))) {
-                        StringList parts_ = StringList.getDollarWordSeparators(instruction_);
-                        StringList printable_ = new StringList();
-                        for (String p: parts_) {
-                            String t_ = p.trim();
-                            if (!StringList.isDollarWord(t_)) {
-                                continue;
-                            }
-                            printable_.add(t_);
-                        }
-                        String last_ = printable_.last();
-                        if (!isKeyWordCategory(last_)) {
-                            char lastChar_ = tr_.charAt(tr_.length() - 1);
-                            if (currentParent_ instanceof AnnotationBlock) {
-                                if (lastChar_ != END_CALLING) {
-                                    endInstruction_ = true;
-                                } else {
-                                    String trLeft_ = tr_.substring(0, tr_.length() - 1).trim();
-                                    if (!trLeft_.endsWith(String.valueOf(BEGIN_CALLING))) {
-                                        endInstruction_ = true;
-                                    }
-                                }
-                            } else if (lastChar_ != PART_SEPARATOR) {
-                                if (lastChar_ != END_ARRAY) {
+                        char lastChar_ = tr_.charAt(tr_.length() - 1);
+                        if (currentParent_ instanceof AnnotationBlock) {
+                            if (lastChar_ != END_CALLING) {
+                                endInstruction_ = true;
+                            } else {
+                                String trLeft_ = tr_.substring(0, tr_.length() - 1).trim();
+                                if (!trLeft_.endsWith(String.valueOf(BEGIN_CALLING))) {
                                     endInstruction_ = true;
                                 }
                             }
-                        } else {
-                            declType_ = true;
+                        } else if (lastChar_ != PART_SEPARATOR) {
+                            if (lastChar_ != END_ARRAY) {
+                                endInstruction_ = true;
+                            }
                         }
                     }
                 }
@@ -937,60 +973,12 @@ public final class FileResolver {
                 }
                 instruction_.append(currentChar_);
             }
-            if (constChar_) {
-                if (currentChar_ == ESCAPE) {
-                    if (i_ + 1 >= len_) {
-                        //ERROR
-                        break;
-                    }
-                    instruction_.append(_file.charAt(i_+1));
-                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                    continue;
-                }
-                if (currentChar_ == DEL_CHAR) {
-                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                    constChar_ = false;
-                    enabledSpaces_.setCheckTabs(true);
-                    continue;
-                }
-                i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                continue;
-            }
-            if (constString_) {
-                if (currentChar_ == ESCAPE) {
-                    if (i_ + 1 >= len_) {
-                        //ERROR
-                        break;
-                    }
-                    instruction_.append(_file.charAt(i_+1));
-                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                    continue;
-                }
-                if (currentChar_ == DEL_STRING) {
-                    i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                    constString_ = false;
-                    enabledSpaces_.setCheckTabs(true);
-                    continue;
-                }
-                i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
-                continue;
-            }
             if (!Character.isWhitespace(currentChar_)) {
                 allowedComments_ = false;
             } else if (currentChar_ == LINE_RETURN) {
                 if (instruction_.toString().trim().isEmpty()) {
                     allowedComments_ = true;
                 }
-            }
-            if (currentChar_ == DEL_CHAR) {
-                constChar_ = true;
-                enabledSpaces_.setCheckTabs(false);
-            }
-            if (currentChar_ == DEL_STRING) {
-                constString_ = true;
-                enabledSpaces_.setCheckTabs(false);
             }
             if (currentChar_ == BEGIN_CALLING) {
                 if (StringList.quickEq(instruction_.substring(0, instruction_.lastIndexOf(String.valueOf(BEGIN_CALLING))).toString().trim(), prefixKeyWord(KEY_WORD_CLASS))) {
@@ -2318,7 +2306,7 @@ public final class FileResolver {
                 instruction_.delete(0, instruction_.length());
                 declType_ = false;
             } else {
-                if (Character.isWhitespace(currentChar_) && !declType_) {
+                if (StringList.isDollarWordChar(currentChar_) && i_ + 1 < len_ && !StringList.isDollarWordChar(_file.charAt(i_ + 1))) {
                     StringList parts_ = StringList.getDollarWordSeparators(instruction_);
                     StringList printable_ = new StringList();
                     for (String p: parts_) {
@@ -2328,67 +2316,26 @@ public final class FileResolver {
                         }
                         printable_.add(t_);
                     }
-                    if (printable_.size() == 1) {
-                        boolean pr_ = true;
-                        String category_ = printable_.last();
-                        if (isKeyWordCategory(category_)) {
-                            if (StringList.quickEq(category_, prefixKeyWord(KEY_WORD_CLASS))) {
-                                int j_ = i_ + 1;
-                                while (j_ < len_) {
-                                    char next_ = _file.charAt(j_);
-                                    if (Character.isWhitespace(next_)) {
-                                        j_++;
-                                        continue;
-                                    }
-                                    if (next_ == BEGIN_CALLING) {
-                                        pr_ = false;
-                                    }
-                                    break;
-                                }
+                    String category_ = printable_.last();
+                    if (isKeyWordCategory(category_)) {
+                        int j_ = i_ + 1;
+                        boolean pr_ = false;
+                        while (j_ < len_) {
+                            char next_ = _file.charAt(j_);
+                            if (Character.isWhitespace(next_)) {
+                                j_++;
+                                continue;
                             }
-                            if (pr_) {
-                                declType_ = true;
+                            if (StringList.isDollarWordChar(next_)) {
+                                pr_ = true;
                             }
+                            if (next_ == BEGIN_ARRAY) {
+                                pr_ = true;
+                            }
+                            break;
                         }
-                    }
-                    if (printable_.size() > 1) {
-                        String category_ = printable_.last();
-                        if (isKeyWordCategory(category_)) {
-                            int nb_ = parts_.size() - 1;
-                            while (nb_ >= 0) {
-                                String mod_ = parts_.get(nb_).trim();
-                                if (StringList.quickEq(category_, mod_)) {
-                                    nb_--;
-                                    break;
-                                }
-                                if (!StringList.isDollarWord(mod_)) {
-                                    if (!mod_.isEmpty()) {
-                                        nb_=-1;
-                                        break;
-                                    }
-                                }
-                                nb_--;
-                            }
-                            while (nb_ >= 0) {
-                                String mod_ = parts_.get(nb_).trim();
-                                if (isKeyWordTypeModifier(mod_)) {
-                                    nb_--;
-                                    continue;
-                                }
-                                if (!StringList.isDollarWord(mod_)) {
-                                    if (!mod_.isEmpty()) {
-                                        nb_=-1;
-                                        break;
-                                    }
-                                }
-                                if (isKeyWordAccess(mod_)) {
-                                    break;
-                                }
-                                nb_--;
-                            }
-                            if (nb_ >= 0) {
-                                declType_ = true;
-                            }
+                        if (pr_) {
+                            declType_ = true;
                         }
                     }
                 }
@@ -2405,21 +2352,6 @@ public final class FileResolver {
         out_.setOk(okType_);
         return out_;
     }
-    private static boolean isKeyWordAccess(String _key) {
-        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_PRIVATE))) {
-            return true;
-        }
-        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_PACKAGE))) {
-            return true;
-        }
-        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_PROTECTED)))  {
-            return true;
-        }
-        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_PUBLIC)))  {
-            return true;
-        }
-        return false;
-    }
     private static boolean isKeyWordCategory(String _key) {
         if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_CLASS))) {
             return true;
@@ -2431,18 +2363,6 @@ public final class FileResolver {
             return true;
         }
         if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_ANNOTATION)))  {
-            return true;
-        }
-        return false;
-    }
-    private static boolean isKeyWordTypeModifier(String _key) {
-        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_ABSTRACT))) {
-            return true;
-        }
-        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_STATIC))) {
-            return true;
-        }
-        if (StringList.quickEq(_key, prefixKeyWord(KEY_WORD_FINAL)))  {
             return true;
         }
         return false;

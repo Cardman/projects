@@ -3,6 +3,8 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.sml.RowCol;
+import code.util.CustList;
+import code.util.NatTreeMap;
 
 public abstract class LeafPartType extends PartType {
 
@@ -13,8 +15,8 @@ public abstract class LeafPartType extends PartType {
         typeName = _type;
     }
     public abstract void checkExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location);
-    public abstract void checkDirectExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location);
-    public abstract void checkDynExistence(Analyzable _an);
+    public abstract void checkDirectExistence(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted,RowCol _location);
+    public abstract void checkDynExistence(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels);
     public final String exportHeader() {
         return importedTypeName;
     }

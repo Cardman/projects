@@ -4931,7 +4931,7 @@ public final class FileResolverTest {
         file_.append("pkg.ExTwo;\n");
         file_.append("/* multi line\n");
         file_.append("comment*/\n");
-        file_.append("$public $class {pkg.ExThree;$static pkg.ExFour.methodtwo;} pkgtwo.ExClass {\n");
+        file_.append("$public $class [pkg.ExThree;$static pkg.ExFour.methodtwo;] pkgtwo.ExClass {\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER}):\n");
         file_.append("}");
         ContextEl context_ = simpleContext();
@@ -5640,7 +5640,7 @@ public final class FileResolverTest {
     public void parseFile67Test() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");
-        file_.append("\t$public $class {} Inner{\n");
+        file_.append("\t$public $class [] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
@@ -5661,7 +5661,7 @@ public final class FileResolverTest {
     public void parseFile68Test() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<#T> {\n");
-        file_.append("\t$public $class {} Inner<#S>{\n");
+        file_.append("\t$public $class [] Inner<#S>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
@@ -5682,7 +5682,7 @@ public final class FileResolverTest {
     public void parseFile69Test() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<#T> {\n");
-        file_.append("\t$public $static $class {} Inner<#T>{\n");
+        file_.append("\t$public $static $class [] Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
@@ -6088,7 +6088,7 @@ public final class FileResolverTest {
         file_.append("/* multi line\n");
         file_.append("comment*/\n");
         file_.append("$public $annotation pkg.MyAnnot {\n");
-        file_.append(" $public $class {my.Class;} StaticInner{\n");
+        file_.append(" $public $class [my.Class;] StaticInner{\n");
         file_.append(" }\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
@@ -6142,7 +6142,7 @@ public final class FileResolverTest {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");
         file_.append("\t@MyAnnot\n");
-        file_.append("\t$public $class {my.Import;} Inner{\n");
+        file_.append("\t$public $class [my.Import;] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
@@ -6445,7 +6445,7 @@ public final class FileResolverTest {
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");
-        file_.append("\t$public $class {} Outer{\n");
+        file_.append("\t$public $class [] Outer{\n");
         file_.append("\t}\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
@@ -6456,7 +6456,7 @@ public final class FileResolverTest {
     public void parseFile2FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<#T> {\n");
-        file_.append("\t$public $class {} Inner<#T>{\n");
+        file_.append("\t$public $class [] Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
         ContextEl context_ = simpleContext();
@@ -6510,6 +6510,8 @@ public final class FileResolverTest {
     private static ContextEl simpleContext() {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         LgNames stds_ = cont_.getStandards();

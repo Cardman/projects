@@ -3511,6 +3511,8 @@ public class PrimitiveTypeUtilTest {
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_;
         classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
@@ -3526,6 +3528,8 @@ public class PrimitiveTypeUtilTest {
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;

@@ -96,6 +96,8 @@ public final class ReadConfiguration {
         if (!found_) {
             ContextEl context_ = new ContextEl();
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+            context_.getOptions().setCatChars(true);
+            context_.getOptions().setMultipleAffectations(false);
             context_.setStandards(stds_);
             _configuration.setContext(context_);
         }

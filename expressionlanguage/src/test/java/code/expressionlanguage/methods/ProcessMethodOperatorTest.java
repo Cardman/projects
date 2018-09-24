@@ -46,7 +46,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument2Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.Ex;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.Ex;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -76,7 +76,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument3Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.Ex;$static pkg.Ex.cst;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.Ex;$static pkg.Ex.cst;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst;;;:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -107,7 +107,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument4Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.Ex;$static pkg.Ex.cst;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.Ex;$static pkg.Ex.cst;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst():\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -140,13 +140,13 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument5Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.Ex;$static pkg.Ex.cst;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.Ex;$static pkg.Ex.cst;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst():\n");
         xml_.append("}\n");
-        xml_.append("$operator=={pkg.Ex;} $boolean (Ex a, Ex b){\n");
+        xml_.append("$operator==[pkg.Ex;] $boolean (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a==b;.;a:\n");
         xml_.append("}\n");
-        xml_.append("$operator!={pkg.Ex;} $boolean (Ex a, Ex b){\n");
+        xml_.append("$operator!=[pkg.Ex;] $boolean (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a!=b;.;a:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -190,7 +190,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument6Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -220,7 +220,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument7Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.Ex;$static pkg.Ex.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.Ex;$static pkg.Ex.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst;;;:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -251,7 +251,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument8Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.Ex;$static pkg.Ex.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.Ex;$static pkg.Ex.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst():\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -284,7 +284,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument9Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.*;$static pkg.Ex.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.*;$static pkg.Ex.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst;;;:\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -315,7 +315,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument10Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.*;$static pkg.Ex.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.*;$static pkg.Ex.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst():\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -348,7 +348,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument11Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.*;$static pkg.Ex.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.*;$static pkg.Ex.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst():\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -382,7 +382,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument12Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.*;$static pkg.Ex.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.*;$static pkg.Ex.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst():\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -416,7 +416,7 @@ public final class ProcessMethodOperatorTest extends ProcessMethodCommon {
     @Test
     public void calculateArgument13Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+{pkg.*;$static pkg.Ex.*;} $int (Ex a, Ex b){\n");
+        xml_.append("$operator+[pkg.*;$static pkg.Ex.*;] $int (Ex a, Ex b){\n");
         xml_.append(" $return a;.;a+b;.;a+cst():\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");

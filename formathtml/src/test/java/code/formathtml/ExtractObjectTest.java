@@ -1610,6 +1610,8 @@ public class ExtractObjectTest {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        context_.getOptions().setCatChars(true);
+        context_.getOptions().setMultipleAffectations(false);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
         context_.initError();

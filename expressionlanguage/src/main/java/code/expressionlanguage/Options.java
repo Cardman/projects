@@ -3,11 +3,10 @@ package code.expressionlanguage;
 public final class Options {
 
     private boolean eqPlus;
-    private boolean catChars = true;
-    private boolean multipleAffectations;
+    private boolean catChars;
+    private boolean multipleAffectations = true;
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
-    private boolean doubleBracketsArray = true;
     private VariableSuffix suffixVar = VariableSuffix.NONE;
 
     public boolean applyEqPlus() {
@@ -55,14 +54,6 @@ public final class Options {
 
     public void setQuickCompare(boolean _quickCompare) {
         quickCompare = _quickCompare;
-    }
-
-    public boolean isDoubleBracketsArray() {
-        return doubleBracketsArray;
-    }
-
-    public void setDoubleBracketsArray(boolean _doubleBracketsArray) {
-        doubleBracketsArray = _doubleBracketsArray;
     }
 
     public VariableSuffix getSuffixVar() {

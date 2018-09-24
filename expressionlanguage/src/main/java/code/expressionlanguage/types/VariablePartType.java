@@ -6,6 +6,8 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
+import code.util.CustList;
+import code.util.NatTreeMap;
 import code.util.StringList;
 
 public final class VariablePartType extends LeafPartType {
@@ -31,7 +33,7 @@ public final class VariablePartType extends LeafPartType {
     }
 
     @Override
-    public void checkDirectExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
+    public void checkDirectExistence(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted,RowCol _location) {
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
@@ -46,7 +48,7 @@ public final class VariablePartType extends LeafPartType {
         setImportedTypeName(t_);
     }
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
@@ -62,7 +64,7 @@ public final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
@@ -73,7 +75,7 @@ public final class VariablePartType extends LeafPartType {
         }
     }
     @Override
-    public void checkDynExistence(Analyzable _an) {
+    public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
         
     }
 

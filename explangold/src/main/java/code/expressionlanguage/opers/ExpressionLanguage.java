@@ -14,6 +14,8 @@ public final class ExpressionLanguage {
 
     private final OperationNode root;
     private final CustList<OperationNode> operations;
+    private final boolean alwaysCalculated;
+    private final SettableElResult settable;
     private final IdMap<OperationNode,ArgumentsPair> arguments;
     private OperationNode currentOper;
     private Argument argument;
@@ -22,6 +24,26 @@ public final class ExpressionLanguage {
         operations = _operations;
         root = operations.last();
         arguments = buildArguments();
+        alwaysCalculated = root.isCalculated(arguments);
+        settable = buildSettable();
+    }
+
+    private SettableElResult buildSettable() {
+        return getSettable(operations);
+    }
+
+    public static SettableElResult getSettable(CustList<OperationNode> _operations) {
+        OperationNode root_ = _operations.last();
+        if (root_ instanceof SettableElResult) {
+            return (SettableElResult) root_;
+        }
+        if (_operations.size() > 1){
+            OperationNode beforeLast_ = _operations.getPrev(_operations.getLastIndex());
+            if (beforeLast_ instanceof SettableElResult) {
+                return (SettableElResult) beforeLast_;
+            }
+        }
+        return null;
     }
 
     private IdMap<OperationNode,ArgumentsPair> buildArguments() {
@@ -44,6 +66,9 @@ public final class ExpressionLanguage {
         }
         return arguments_;
     }
+    public SettableElResult getSettable() {
+        return settable;
+    }
 
     public Argument getArgument() {
         return argument;
@@ -56,14 +81,6 @@ public final class ExpressionLanguage {
 
     public boolean isFinished() {
         return argument != null;
-    }
-
-    public ClassArgumentMatching getClassArgumentMatching() {
-        return root.getResultClass();
-    }
-
-    public Struct getConstValue() {
-        return root.getArgument().getStruct();
     }
 
     public void finish() {
@@ -80,8 +97,29 @@ public final class ExpressionLanguage {
     public Argument calculateMember(ContextEl _context, int _offset) {
         return ElUtil.tryToCalculate(_context, this, _offset);
     }
+    public void affectLeftMember(ContextEl _context, String _oper) {
+        ElUtil.tryToCalculateLeftAffect(this, _context, _oper);
+    }
+    public void affectRightMember(ContextEl _context, String _oper) {
+        ElUtil.tryToCalculateRightAffect(this, _context, _oper);
+    }
+    public void affectAllMember(ContextEl _context, String _oper) {
+        ElUtil.tryToCalculateAllAffect(this, _context, _oper);
+    }
     public CustList<OperationNode> getOperations() {
         return operations;
+    }
+
+    public ClassArgumentMatching getClassArgumentMatching() {
+        return root.getResultClass();
+    }
+
+    public boolean isAlwaysCalculated() {
+        return alwaysCalculated;
+    }
+
+    public Struct getConstValue() {
+        return root.getArgument().getStruct();
     }
 
     public OperationNode getRoot() {

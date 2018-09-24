@@ -4,6 +4,8 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
+import code.util.CustList;
+import code.util.NatTreeMap;
 
 public final class EmptyPartType extends LeafPartType {
 
@@ -23,7 +25,7 @@ public final class EmptyPartType extends LeafPartType {
     }
 
     @Override
-    public void checkDirectExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
+    public void checkDirectExistence(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted,RowCol _location) {
         UnknownClassName un_ = new UnknownClassName();
         un_.setClassName(EMPTY_STRING);
         un_.setFileName(_rooted.getFile().getFileName());
@@ -34,7 +36,7 @@ public final class EmptyPartType extends LeafPartType {
     }
 
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         UnknownClassName un_ = new UnknownClassName();
         un_.setClassName(EMPTY_STRING);
@@ -43,11 +45,11 @@ public final class EmptyPartType extends LeafPartType {
         _an.getClasses().addError(un_);
     }
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
     }
     @Override
-    public void checkDynExistence(Analyzable _an) {
+    public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
     }
 
 }

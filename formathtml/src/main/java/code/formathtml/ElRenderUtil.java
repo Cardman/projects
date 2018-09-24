@@ -8,73 +8,12 @@ import code.expressionlanguage.Delimiters;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BadElRender;
-import code.sml.RowCol;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
 
 public final class ElRenderUtil {
-    private static final String TEMPLATE_SEP = ",";
-    private static final String TEMPLATE_END = ">";
-    private static final String TEMPLATE_BEGIN = "<";
-    private static final String PREFIX_VAR_TYPE = "#";
-
-    public static boolean correctClassParts(String _className, StringMap<StringList> _mapping, Configuration _context) {
-        String cl_ = _context.resolveDynamicType(_className, null);
-        return Templates.isCorrectTemplateAll(cl_, _mapping, _context, true);
-    }
-
-    public static boolean existAllClassParts(String _className, StringList _variables, ContextEl _context) {
-        Classes classes_ = _context.getClasses();
-        LgNames stds_ = _context.getStandards();
-        String void_ = stds_.getAliasVoid();
-        for (String s: StringList.splitStrings(_className, TEMPLATE_BEGIN,TEMPLATE_SEP,TEMPLATE_END)) {
-            if (s.isEmpty()) {
-                continue;
-            }
-            String baseName_ = PrimitiveTypeUtil.getQuickComponentBaseType(s).getComponent();
-            if (StringList.quickEq(baseName_, void_)) {
-                return false;
-            }
-            if (baseName_.startsWith(PREFIX_VAR_TYPE)) {
-                if (!_variables.containsStr(baseName_.substring(1))) {
-                    return false;
-                }
-                continue;
-            }
-            boolean custClass_ = false;
-            custClass_ = classes_.isCustomType(baseName_) || _context.getStandards().getStandards().contains(baseName_);
-            if (!custClass_) {
-                if (!PrimitiveTypeUtil.isPrimitive(baseName_, _context)) {
-                    if (_context.getAnalyzing() != null) {
-                        String trim_ = ContextEl.removeDottedSpaces(baseName_);
-                        String res_ = _context.lookupImportsIndirect(trim_, _context.getCurrentBlock().getRooted());
-                        if (res_.isEmpty()) {
-                            UnexpectedTypeError un_ = new UnexpectedTypeError();
-                            un_.setFileName(_context.getCurrentBlock().getFile().getFileName());
-                            un_.setRc(new RowCol());
-                            un_.setType(trim_);
-                            _context.getClasses().addError(un_);
-                            res_ = _context.getStandards().getAliasObject();
-                            return false;
-                        }
-                    } else {
-                        return false;
-                    }               
-                }
-            }
-        }
-        return true;
-    }
-
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
         ContextEl context_ = _conf.toContextEl();
         context_.setAnalyzing(new AnalyzedPageEl());

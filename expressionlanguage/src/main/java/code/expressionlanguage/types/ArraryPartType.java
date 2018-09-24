@@ -4,6 +4,8 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.sml.RowCol;
+import code.util.CustList;
+import code.util.NatTreeMap;
 import code.util.StringList;
 
 public final class ArraryPartType extends ParentPartType {
@@ -28,7 +30,7 @@ public final class ArraryPartType extends ParentPartType {
     }
 
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
@@ -36,7 +38,7 @@ public final class ArraryPartType extends ParentPartType {
     }
 
     @Override
-    public void analyze(Analyzable _an, String _globalType, AccessingImportingBlock _rooted,
+    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);

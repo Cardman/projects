@@ -64,7 +64,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
         OperationNode op_ = cond_.getElCondition().getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
-        if (op_.getArgument() == null) {
+        if (arg_ == null) {
             accessible_ = true;
         } else if (!(arg_.getObject() instanceof Boolean)) {
             accessible_ = true;

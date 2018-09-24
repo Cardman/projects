@@ -77,7 +77,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         OperationNode op_ = getElCondition().getRoot();
         boolean proc_ = true;
         Argument arg_ = op_.getArgument();
-        if (op_.getArgument() == null) {
+        if (arg_ == null) {
             proc_ = false;
         } else if (!(arg_.getObject() instanceof Boolean)) {
             proc_ = false;

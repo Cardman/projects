@@ -28,6 +28,8 @@ public class ClassesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1086,6 +1088,8 @@ public class ClassesTest {
     private ContextEl validateStaticFields(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1104,6 +1108,8 @@ public class ClassesTest {
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1122,6 +1128,8 @@ public class ClassesTest {
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1135,6 +1143,8 @@ public class ClassesTest {
     private ContextEl failValidateInheritingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1148,6 +1158,8 @@ public class ClassesTest {
     private ContextEl unfullValidateOverridingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setCatChars(true);
+        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();

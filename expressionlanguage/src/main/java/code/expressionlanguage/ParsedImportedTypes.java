@@ -5,8 +5,8 @@ import code.util.Numbers;
 import code.util.StringList;
 
 public final class ParsedImportedTypes {
-    private static final char BEGIN_BLOCK = '{';
-    private static final char END_BLOCK = '}';
+    private static final char BEGIN_BLOCK = '[';
+    private static final char END_BLOCK = ']';
     private static final char END_IMPORTS = ';';
 
     private final StringList importedTypes = new StringList();
