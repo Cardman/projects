@@ -932,7 +932,10 @@ public class Configuration implements ExecutableCode {
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
     }
-
+    @Override
+    public String resolveBaseTypeInherits(String _in, Block _currentBlock,RowCol _location) {
+        return context.resolveBaseTypeInherits(_in, _currentBlock, _location);
+    }
     @Override
     public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(
             String _glClass, String _method, Block _rooted) {

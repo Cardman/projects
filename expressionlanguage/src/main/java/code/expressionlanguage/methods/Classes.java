@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
+import code.expressionlanguage.ClassDeepCmp;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.ElUtil;
@@ -525,7 +526,390 @@ public final class Classes {
         }
         return list_;
     }
-    
+    public void validateInheritingClasses(ContextEl _context, boolean _predefined) {
+        _context.setAnalyzing(new AnalyzedPageEl());
+        String objectClassName_ = _context.getStandards().getAliasObject();
+        String enumClassName_ = _context.getStandards().getAliasEnum();
+        String enumParamClassName_ = _context.getStandards().getAliasEnumParam();
+        CustList<RootBlock> clBodies_ = classesBodies.values();
+        if (clBodies_.isEmpty()) {
+            return;
+        }
+        clBodies_.sortElts(new ClassDeepCmp());
+        int rk_ = clBodies_.first().getSelfAndParentTypes().size();
+        int rkMax_ = clBodies_.last().getSelfAndParentTypes().size();
+        StringList possibleDirectBase_ = new StringList();
+        Graph<ClassEdge> inherit_;
+        for (int i = rk_; i <= rkMax_; i++) {
+            inherit_ = new Graph<ClassEdge>();
+            CustList<RootBlock> curList_ = new CustList<RootBlock>();
+            for (RootBlock c: clBodies_) {
+                int rkLoc_ = c.getSelfAndParentTypes().size();
+                if (rkLoc_ != i) {
+                    continue;
+                }
+                possibleDirectBase_.add(c.getFullName());
+            }
+            for (RootBlock c: clBodies_) {
+                int rkLoc_ = c.getSelfAndParentTypes().size();
+                if (rkLoc_ != i) {
+                    continue;
+                }
+                curList_.add(c);
+                if (_predefined) {
+                    continue;
+                }
+                String d_ = c.getFullName();
+                RootBlock bl_ = c;
+                _context.getAnalyzing().setCurrentBlock(bl_);
+                boolean int_ = bl_ instanceof InterfaceBlock;
+                int nbDirectSuperClass_ = 0;
+                int index_ = -1;
+                for (EntryCust<Integer, String> t: bl_.getRowColDirectSuperTypes().entryList()) {
+                    index_++;
+                    String v_ = t.getValue();
+                    v_ = ContextEl.removeDottedSpaces(v_);
+                    String base_ = Templates.getIdFromAllTypes(v_);
+                    int offset_ = bl_.getRowColDirectSuperTypes().getKey(index_);
+                    RowCol rc_ = bl_.getRowCol(0, offset_);
+                    if (StringList.quickEq(base_, enumParamClassName_)) {
+                        Boolean exp_ = bl_.getExplicitDirectSuperTypes().getVal(offset_);
+                        if (exp_) {
+                            UnknownClassName undef_;
+                            undef_ = new UnknownClassName();
+                            undef_.setClassName(base_);
+                            undef_.setFileName(d_);
+                            undef_.setRc(rc_);
+                            addError(undef_);
+                        }
+                        continue;
+                    }
+                    if (StringList.quickEq(base_, enumClassName_) && !StringList.quickEq(d_, enumParamClassName_)) {
+                        Boolean exp_ = bl_.getExplicitDirectSuperTypes().getVal(offset_);
+                        if (exp_) {
+                            UnknownClassName undef_;
+                            undef_ = new UnknownClassName();
+                            undef_.setClassName(base_);
+                            undef_.setFileName(d_);
+                            undef_.setRc(rc_);
+                            addError(undef_);
+                        }
+                        continue;
+                    }
+                    String type_ = base_;
+                    base_ = _context.resolveBaseTypeInherits(base_, bl_, rc_);
+                    if (!possibleDirectBase_.containsStr(base_)) {
+                        UnknownClassName undef_;
+                        undef_ = new UnknownClassName();
+                        undef_.setClassName(type_);
+                        undef_.setFileName(d_);
+                        undef_.setRc(rc_);
+                        addError(undef_);
+                    } else {
+                        RootBlock super_ = classesBodies.getVal(base_);
+                        if (super_ instanceof UniqueRootedBlock) {
+                            nbDirectSuperClass_++;
+                        }
+                        if (int_) {
+                            if (!(super_ instanceof InterfaceBlock)) {
+                                BadInheritedClass enum_;
+                                enum_ = new BadInheritedClass();
+                                String n_ = base_;
+                                enum_.setClassName(n_);
+                                enum_.setFileName(d_);
+                                enum_.setRc(rc_);
+                                addError(enum_);
+                            }
+                        } else if (super_.isFinalType()) {
+                            BadInheritedClass enum_;
+                            enum_ = new BadInheritedClass();
+                            String n_ = base_;
+                            enum_.setClassName(n_);
+                            enum_.setFileName(d_);
+                            enum_.setRc(rc_);
+                            addError(enum_);
+                        } else {
+                            RootBlock par_ = bl_.getParentType();
+                            while (par_ != null) {
+                                if (par_.isStaticType()) {
+                                    break;
+                                }
+                                inherit_.addSegment(new ClassEdge(d_), new ClassEdge(par_.getFullName()));
+                                par_ = par_.getParentType();
+                            }
+                        }
+                        inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
+                    }
+                }
+                if (nbDirectSuperClass_ > 1) {
+                    BadInheritedClass enum_;
+                    enum_ = new BadInheritedClass();
+                    enum_.setClassName(EMPTY_STRING);
+                    enum_.setFileName(d_);
+                    enum_.setRc(bl_.getRowCol(0, bl_.getIdRowCol()));
+                    addError(enum_);
+                }
+            }
+            if (!isEmptyErrors()) {
+                return;
+            }
+            EqList<ClassEdge> cycle_ = inherit_.elementsCycle();
+            if (!cycle_.isEmpty()) {
+                for (ClassEdge c: cycle_) {
+                    BadInheritedClass b_;
+                    b_ = new BadInheritedClass();
+                    String n_ = c.getId();
+                    RootBlock type_ = classesBodies.getVal(n_);
+                    b_.setClassName(n_);
+                    b_.setFileName(n_);
+                    b_.setRc(type_.getRowCol(0, type_.getIdRowCol()));
+                    addError(b_);
+                }
+                return;
+            }
+            StringList filter_ = new StringList();
+            for (RootBlock s: curList_) {
+                String c = s.getFullName();
+                RootBlock dBl_ = s;
+                if (dBl_.getFile().isPredefined()) {
+                    continue;
+                }
+                filter_.add(c);
+            }
+            TypeUtil.buildBaseInherits(_context, filter_);
+        }
+        Classes classes_ = _context.getClasses();
+        for (RootBlock c: classes_.getClassBodies()) {
+            if (c.getFile().isPredefined() != _predefined) {
+                continue;
+            }
+            RootBlock bl_ = c;
+            _context.getAnalyzing().setCurrentBlock(bl_);
+            bl_.buildDirectGenericSuperTypes(_context);
+        }
+        for (RootBlock c: classes_.getClassBodies()) {
+            if (c.getFile().isPredefined() != _predefined) {
+                continue;
+            }
+            RootBlock bl_ = c;
+            _context.getAnalyzing().setCurrentBlock(bl_);
+            bl_.buildMapParamType(_context);
+        }
+        for (RootBlock c: classes_.getClassBodies()) {
+            if (c.getFile().isPredefined() != _predefined) {
+                continue;
+            }
+            StringList allPossibleDirectSuperTypes_ = new StringList();
+            StringList allDirectSuperTypes_ = new StringList();
+            StringList allAncestors_ = new StringList();
+            RootBlock p_ = c.getParentType();
+            while (p_ != null) {
+                allAncestors_.add(p_.getFullName());
+                p_ = p_.getParentType();
+            }
+            for (String s: c.getImportedDirectSuperTypes()) {
+                GeneType s_ = _context.getClassBody(s);
+                if (!(s_ instanceof RootBlock)) {
+                    continue;
+                }
+                if (((RootBlock)s_).isStaticType()) {
+                    continue;
+                }
+                allDirectSuperTypes_.add(s_.getFullName());
+            }
+            for (String a: allAncestors_) {
+                RootBlock a_ = classes_.getClassBody(a);
+                for (Block m: Classes.getDirectChildren(a_)) {
+                    if (!(m instanceof RootBlock)) {
+                        continue;
+                    }
+                    RootBlock m_ = (RootBlock) m;
+                    allPossibleDirectSuperTypes_.add(m_.getFullName());
+                }
+                for (String s: a_.getAllSuperTypes()) {
+                    GeneType g_ = _context.getClassBody(s);
+                    if (!(g_ instanceof RootBlock)) {
+                        continue;
+                    }
+                    RootBlock s_ = (RootBlock) g_;
+                    for (Block m: Classes.getDirectChildren(s_)) {
+                        if (!(m instanceof RootBlock)) {
+                            continue;
+                        }
+                        RootBlock m_ = (RootBlock) m;
+                        allPossibleDirectSuperTypes_.add(m_.getFullName());
+                    }
+                }
+            }
+            if (!allPossibleDirectSuperTypes_.containsAllObj(allDirectSuperTypes_)) {
+                for (String s: allDirectSuperTypes_) {
+                    if (!allPossibleDirectSuperTypes_.containsObj(s)) {
+                        BadInheritedClass enum_;
+                        enum_ = new BadInheritedClass();
+                        enum_.setClassName(s);
+                        enum_.setFileName(c.getFullName());
+                        enum_.setRc(new RowCol());
+                        classes_.addError(enum_);
+                    }
+                }
+            }
+        }
+        LgNames stds_ = _context.getStandards();
+        for (EntryCust<String, RootBlock> s: classesBodies.entryList()) {
+            String c = s.getKey();
+            RootBlock dBl_ = s.getValue();
+            if (dBl_.getFile().isPredefined() != _predefined) {
+                continue;
+            }
+            Mapping mapping_ = new Mapping();
+            StringMap<StringList> cts_ = new StringMap<StringList>();
+            StringList variables_ = new StringList();
+            boolean ok_ = true;
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+                cts_.put(t.getName(), t.getConstraints());
+                variables_.add(t.getName());
+            }
+            if (!variables_.isEmpty() && dBl_ instanceof AnnotationBlock) {
+                BadInheritedClass b_;
+                b_ = new BadInheritedClass();
+                b_.setClassName(c);
+                b_.setFileName(c);
+                b_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                addError(b_);
+                continue;
+            }
+            mapping_.setMapping(cts_);
+            if (!ok_) {
+                continue;
+            }
+            if (mapping_.isCyclic(objectClassName_)) {
+                BadInheritedClass b_;
+                b_ = new BadInheritedClass();
+                //TODO better message
+                b_.setClassName(c);
+                b_.setFileName(c);
+                b_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                addError(b_);
+                continue;
+            }
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+                boolean existNative_ = false;
+                boolean existCustom_ = false;
+                StringList upper_ = Mapping.getAllUpperBounds(cts_, t.getName(),objectClassName_);
+                StringList upperNotObj_ = new StringList();
+                for (String b: upper_) {
+                    String baseParams_ = Templates.getIdFromAllTypes(b);
+                    String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_).getComponent();
+                    upperNotObj_.add(b);
+                    if (classesBodies.contains(base_)) {
+                        existCustom_ = true;
+                    } else {
+                        existNative_ = true;
+                    }
+                }
+                boolean okLoc_ = true;
+                if (existNative_ && existCustom_) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    //TODO all conflicting classes
+                    un_.setClassName(c);
+                    un_.setFileName(c);
+                    un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                    addError(un_);
+                    okLoc_ = false;
+                    ok_ = false;
+                }
+                StringMap<StringList> baseParams_ = getBaseParams(upper_);
+                for (EntryCust<String, StringList> e: baseParams_.entryList()) {
+                    if (e.getValue().size() > 1) {
+                        DuplicateGenericSuperTypes duplicate_;
+                        duplicate_ = new DuplicateGenericSuperTypes();
+                        duplicate_.setFileName(c);
+                        duplicate_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        duplicate_.setGenericSuperTypes(e.getValue());
+                        addError(duplicate_);
+                    }
+                }
+                if (okLoc_) {
+                    int nbAbs_ = 0;
+                    int nbFinal_ = 0;
+                    if (existNative_) {
+                        for (String b: upperNotObj_) {
+                            String baseParamsUpp_ = Templates.getIdFromAllTypes(b);
+                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
+                            StandardType type_ = stds_.getStandards().getVal(base_);
+                            if (!(type_ instanceof StandardClass)) {
+                                continue;
+                            }
+                            StandardClass class_ = (StandardClass) type_;
+                            if (class_.isFinalType()) {
+                                nbFinal_++;
+                            }
+                            if (class_.isAbstractType()) {
+                                nbAbs_++;
+                            }
+                        }
+                    } else {
+                        for (String b: upperNotObj_) {
+                            String baseParamsUpp_ = Templates.getIdFromAllTypes(b);
+                            String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParamsUpp_).getComponent();
+                            RootBlock r_ = getClassBody(base_);
+                            if (!(r_ instanceof UniqueRootedBlock)) {
+                                continue;
+                            }
+                            if (r_ instanceof EnumBlock) {
+                                nbFinal_++;
+                                continue;
+                            }
+                            if (r_.isAbstractType()) {
+                                nbAbs_++;
+                            }
+                            if (r_.isFinalType()) {
+                                nbFinal_++;
+                            }
+                        }
+                    }
+                    if (nbAbs_ > 1 || nbFinal_ > 0) {
+                        //error
+                        BadInheritedClass inh_;
+                        inh_ = new BadInheritedClass();
+                        inh_.setFileName(c);
+                        inh_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        inh_.setClassName(c);
+                        addError(inh_);
+                        ok_ = false;
+                    }
+                }
+            }
+            if (!ok_) {
+                continue;
+            }
+            StringMap<StringList> map_;
+            map_ = new StringMap<StringList>();
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+                map_.put(t.getName(), t.getConstraints());
+            }
+            for (TypeVar t: dBl_.getParamTypesMapValues()) {
+                for (String b: t.getConstraints()) {
+                    if (!Templates.isCorrectTemplateAll(b, map_, _context, true)) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(b);
+                        un_.setFileName(c);
+                        un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        addError(un_);
+                    }
+                }
+            }
+            for (String t: dBl_.getDirectGenericSuperTypes(_context)) {
+                if (!Templates.isCorrectTemplateAll(t, map_, _context, true)) {
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(t);
+                    un_.setFileName(c);
+                    un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                    addError(un_);
+                }
+            }
+        }
+    }
     public void validateInheritingClasses(ContextEl _context) {
         _context.setAnalyzing(new AnalyzedPageEl());
         Graph<ClassEdge> inherit_;

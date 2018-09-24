@@ -42,6 +42,40 @@ public final class TypeUtil {
     private TypeUtil() {
     }
 
+    public static void buildInherits(ContextEl _context, StringList _types){
+        for (String c: _types) {
+            GeneType dBl_ = _context.getClassBody(c);
+            buildInherits(dBl_, _context);
+        }
+        for (GeneType c: _context.getClassBodies()) {
+            if (!_types.containsStr(c.getFullName())) {
+                continue;
+            }
+            if (c instanceof GeneClass) {
+                c.getAllSuperTypes().addAllElts(((GeneClass)c).getAllSuperClasses(_context));
+                c.getAllSuperTypes().addAllElts(((GeneClass)c).getAllInterfaces());
+            } else if (c instanceof GeneInterface){
+                c.getAllSuperTypes().addAllElts(((GeneInterface)c).getAllSuperClasses());
+            }
+        }
+    }
+    public static void buildBaseInherits(ContextEl _context, StringList _types) {
+        for (String c: _types) {
+            GeneType dBl_ = _context.getClassBody(c);
+            buildInherits(dBl_, _context);
+        }
+        for (GeneType c: _context.getClassBodies()) {
+            if (!_types.containsStr(c.getFullName())) {
+                continue;
+            }
+            if (c instanceof GeneClass) {
+                c.getAllSuperTypes().addAllElts(((GeneClass)c).getAllSuperClasses(_context));
+                c.getAllSuperTypes().addAllElts(((GeneClass)c).getAllInterfaces());
+            } else if (c instanceof GeneInterface){
+                c.getAllSuperTypes().addAllElts(((GeneInterface)c).getAllSuperClasses());
+            }
+        }
+    }
     public static void buildInherits(ContextEl _context, StringList _types, boolean _cust) {
         for (String c: _types) {
             GeneType dBl_ = _context.getClassBody(c);
@@ -58,71 +92,69 @@ public final class TypeUtil {
                 c.getAllSuperTypes().addAllElts(((GeneInterface)c).getAllSuperClasses());
             }
         }
-        if (_cust) {
-            Classes classes_ = _context.getClasses();
-            for (RootBlock c: classes_.getClassBodies()) {
-                RootBlock bl_ = c;
-                _context.getAnalyzing().setCurrentBlock(bl_);
-                bl_.buildMapParamType(_context);
+        Classes classes_ = _context.getClasses();
+        for (RootBlock c: classes_.getClassBodies()) {
+            RootBlock bl_ = c;
+            _context.getAnalyzing().setCurrentBlock(bl_);
+            bl_.buildMapParamType(_context);
+        }
+        for (RootBlock c: classes_.getClassBodies()) {
+            RootBlock bl_ = c;
+            _context.getAnalyzing().setCurrentBlock(bl_);
+            bl_.buildDirectGenericSuperTypes(_context);
+        }
+        for (RootBlock c: classes_.getClassBodies()) {
+            StringList allPossibleDirectSuperTypes_ = new StringList();
+            StringList allDirectSuperTypes_ = new StringList();
+            StringList allAncestors_ = new StringList();
+            RootBlock p_ = c.getParentType();
+            while (p_ != null) {
+                allAncestors_.add(p_.getFullName());
+                p_ = p_.getParentType();
             }
-            for (RootBlock c: classes_.getClassBodies()) {
-                RootBlock bl_ = c;
-                _context.getAnalyzing().setCurrentBlock(bl_);
-                bl_.buildDirectGenericSuperTypes(_context);
-            }
-            for (RootBlock c: classes_.getClassBodies()) {
-                StringList allPossibleDirectSuperTypes_ = new StringList();
-                StringList allDirectSuperTypes_ = new StringList();
-                StringList allAncestors_ = new StringList();
-                RootBlock p_ = c.getParentType();
-                while (p_ != null) {
-                    allAncestors_.add(p_.getFullName());
-                    p_ = p_.getParentType();
+            for (String s: c.getImportedDirectSuperTypes()) {
+                GeneType s_ = _context.getClassBody(s);
+                if (!(s_ instanceof RootBlock)) {
+                    continue;
                 }
-                for (String s: c.getImportedDirectSuperTypes()) {
-                    GeneType s_ = _context.getClassBody(s);
-                    if (!(s_ instanceof RootBlock)) {
+                if (((RootBlock)s_).isStaticType()) {
+                    continue;
+                }
+                allDirectSuperTypes_.add(s_.getFullName());
+            }
+            for (String a: allAncestors_) {
+                RootBlock a_ = classes_.getClassBody(a);
+                for (Block m: Classes.getDirectChildren(a_)) {
+                    if (!(m instanceof RootBlock)) {
                         continue;
                     }
-                    if (((RootBlock)s_).isStaticType()) {
+                    RootBlock m_ = (RootBlock) m;
+                    allPossibleDirectSuperTypes_.add(m_.getFullName());
+                }
+                for (String s: a_.getAllSuperTypes()) {
+                    GeneType g_ = _context.getClassBody(s);
+                    if (!(g_ instanceof RootBlock)) {
                         continue;
                     }
-                    allDirectSuperTypes_.add(s_.getFullName());
-                }
-                for (String a: allAncestors_) {
-                    RootBlock a_ = classes_.getClassBody(a);
-                    for (Block m: Classes.getDirectChildren(a_)) {
+                    RootBlock s_ = (RootBlock) g_;
+                    for (Block m: Classes.getDirectChildren(s_)) {
                         if (!(m instanceof RootBlock)) {
                             continue;
                         }
                         RootBlock m_ = (RootBlock) m;
                         allPossibleDirectSuperTypes_.add(m_.getFullName());
                     }
-                    for (String s: a_.getAllSuperTypes()) {
-                        GeneType g_ = _context.getClassBody(s);
-                        if (!(g_ instanceof RootBlock)) {
-                            continue;
-                        }
-                        RootBlock s_ = (RootBlock) g_;
-                        for (Block m: Classes.getDirectChildren(s_)) {
-                            if (!(m instanceof RootBlock)) {
-                                continue;
-                            }
-                            RootBlock m_ = (RootBlock) m;
-                            allPossibleDirectSuperTypes_.add(m_.getFullName());
-                        }
-                    }
                 }
-                if (!allPossibleDirectSuperTypes_.containsAllObj(allDirectSuperTypes_)) {
-                    for (String s: allDirectSuperTypes_) {
-                        if (!allPossibleDirectSuperTypes_.containsObj(s)) {
-                            BadInheritedClass enum_;
-                            enum_ = new BadInheritedClass();
-                            enum_.setClassName(s);
-                            enum_.setFileName(c.getFullName());
-                            enum_.setRc(new RowCol());
-                            classes_.addError(enum_);
-                        }
+            }
+            if (!allPossibleDirectSuperTypes_.containsAllObj(allDirectSuperTypes_)) {
+                for (String s: allDirectSuperTypes_) {
+                    if (!allPossibleDirectSuperTypes_.containsObj(s)) {
+                        BadInheritedClass enum_;
+                        enum_ = new BadInheritedClass();
+                        enum_.setClassName(s);
+                        enum_.setFileName(c.getFullName());
+                        enum_.setRc(new RowCol());
+                        classes_.addError(enum_);
                     }
                 }
             }
@@ -264,6 +296,9 @@ public final class TypeUtil {
         if (_type instanceof GeneClass) {
             GeneClass type_ = (GeneClass) _context.getClassBody(typeName_);
             typeName_ = type_.getSuperClass(_context);
+            if (_type instanceof RootBlock) {
+                ((RootBlock)_type).getImportedDirectBaseSuperTypes().add(typeName_);
+            }
             while (true) {
                 _type.getAllSuperClasses().add(typeName_);
                 if (StringList.quickEq(typeName_, aliasObject_)) {
@@ -275,6 +310,9 @@ public final class TypeUtil {
             typeName_ = _type.getFullName();
             type_ = (GeneClass) _context.getClassBody(typeName_);
             StringList allSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
+            if (_type instanceof RootBlock) {
+                ((RootBlock)_type).getImportedDirectBaseSuperTypes().addAllElts(allSuperInterfaces_);
+            }
             StringList currentSuperInterfaces_ = new StringList(type_.getDirectInterfaces(_context));
             for (String s: _type.getAllSuperClasses()) {
                 allSuperInterfaces_.addAllElts(((GeneClass)_context.getClassBody(s)).getDirectInterfaces(_context));
@@ -304,6 +342,9 @@ public final class TypeUtil {
             GeneInterface type_ = (GeneInterface) _context.getClassBody(typeName_);
             StringList allSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
             StringList currentSuperInterfaces_ = new StringList(type_.getDirectSuperClasses(_context));
+            if (_type instanceof RootBlock) {
+                ((RootBlock)_type).getImportedDirectBaseSuperTypes().addAllElts(allSuperInterfaces_);
+            }
             while (true) {
                 StringList newSuperInterfaces_ = new StringList();
                 for (String c: currentSuperInterfaces_) {

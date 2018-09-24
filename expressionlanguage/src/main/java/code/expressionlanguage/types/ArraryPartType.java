@@ -28,7 +28,16 @@ public final class ArraryPartType extends ParentPartType {
     public String getEnd() {
         return EMPTY_STRING;
     }
-
+    @Override
+    public void analyzeDepends(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+        String ch_ = getFirstChild().getAnalyzedType();
+        ch_ = StringList.concat(getBegin(),ch_);
+        setAnalyzedType(ch_);
+        StringList ts_ = getFirstChild().getTypeNames();
+        getTypeNames().addAllElts(ts_);
+    }
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {

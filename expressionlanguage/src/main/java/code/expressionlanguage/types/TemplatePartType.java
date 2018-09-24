@@ -33,6 +33,29 @@ public final class TemplatePartType extends ParentPartType {
     }
 
     @Override
+    public void analyzeDepends(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
+        }
+        StringList types_ = getTypeNames();
+        int len_ = ch_.size();
+        for (int i = 0; i < len_; i++) {
+            types_.addAllElts(ch_.get(i).getTypeNames());
+        }
+        String t_ = getBegin();
+        len_ = ch_.size() - 1;
+        for (int i = 0; i < len_; i++) {
+            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
+        }
+        t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
+        setAnalyzedType(t_);
+    }
+    @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();

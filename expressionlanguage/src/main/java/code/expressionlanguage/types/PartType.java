@@ -6,6 +6,7 @@ import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 
 public abstract class PartType {
@@ -17,6 +18,7 @@ public abstract class PartType {
     private int index;
     private int indexInType;
     private String analyzedType = EMPTY_STRING;
+    private StringList typeNames = new StringList();
     public PartType(ParentPartType _parent, int _index, int _indexInType) {
         parent = _parent;
         index = _index;
@@ -60,6 +62,17 @@ public abstract class PartType {
     }
     public abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact, RowCol _location);
     public abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
+    public abstract void analyzeDepends(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact, RowCol _location);
+    public StringList getTypeNames() {
+        return typeNames;
+    }
+    public boolean isStoppedDepends() {
+        return typeNames == null;
+    }
+    public void stopDepends() {
+        typeNames = null;
+    }
+
     public int getIndex() {
         return index;
     }

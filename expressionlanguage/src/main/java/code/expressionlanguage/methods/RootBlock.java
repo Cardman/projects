@@ -67,6 +67,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private StringMap<TypeVar> paramTypesMap = new StringMap<TypeVar>();
 
     private final StringList directSuperTypes = new StringList();
+    private final StringList importedDirectBaseSuperTypes = new StringList();
 
     private NatTreeMap<Integer, String> rowColDirectSuperTypes;
     private NatTreeMap<Integer, Boolean> explicitDirectSuperTypes = new NatTreeMap<Integer, Boolean>();
@@ -165,6 +166,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return directSuperTypes;
     }
 
+    public StringList getImportedDirectBaseSuperTypes() {
+        return importedDirectBaseSuperTypes;
+    }
     public final AccessEnum getMaximumAccessConstructors(ContextEl _cont) {
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
         for (Block b: Classes.getDirectChildren(this)) {

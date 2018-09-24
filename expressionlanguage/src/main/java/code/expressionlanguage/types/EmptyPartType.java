@@ -36,6 +36,16 @@ public final class EmptyPartType extends LeafPartType {
     }
 
     @Override
+    public void analyzeDepends(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+        UnknownClassName un_ = new UnknownClassName();
+        un_.setClassName(EMPTY_STRING);
+        un_.setFileName(_rooted.getFile().getFileName());
+        un_.setRc(_location);
+        _an.getClasses().addError(un_);
+    }
+    @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         UnknownClassName un_ = new UnknownClassName();

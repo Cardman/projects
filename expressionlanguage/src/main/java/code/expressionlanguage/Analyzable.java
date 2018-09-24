@@ -105,6 +105,7 @@ public interface Analyzable {
     String resolveCorrectTypeWithoutErrors(String _in, boolean _exact);
 
     String resolveBaseType(String _in, Block _currentBlock,RowCol _location);
+    String resolveBaseTypeInherits(String _in, Block _currentBlock,RowCol _location);
     String resolveBaseTypeBuildInherits(String _in, Block _currentBlock);
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);

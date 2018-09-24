@@ -6,7 +6,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustBase;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.LgAdv;
 import code.expressionlanguage.NumberInfos;
@@ -34,6 +33,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.ReplacementStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
+import code.expressionlanguage.opers.util.SimpleObjectStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringBuilderStruct;
 import code.expressionlanguage.opers.util.StringStruct;
@@ -978,7 +978,7 @@ public abstract class LgNames {
     public void setupOverrides(ContextEl _cont) {
         _cont.setAnalyzing(new AnalyzedPageEl());
         StringList keys_ = standards.getKeys();
-        TypeUtil.buildInherits(_cont, keys_, false);
+        TypeUtil.buildInherits(_cont, keys_);
         for (StandardType t: standards.values()) {
             TypeUtil.buildOverrides(t, _cont);
         }
@@ -3021,7 +3021,7 @@ public abstract class LgNames {
                 }
             }
         } else if (StringList.quickEq(type_, objectType_)) {
-            result_.setResult(new StdStruct(new CustBase(), objectType_));
+            result_.setResult(new SimpleObjectStruct());
         } else if (lgNames_ instanceof LgAdv) {
             result_ = ((LgAdv)lgNames_).getOtherResult(_cont, _method, args_);
         } else {

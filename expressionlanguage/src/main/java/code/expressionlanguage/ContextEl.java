@@ -1280,6 +1280,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     @Override
     public String resolveBaseTypeBuildInherits(String _in, Block _currentBlock) {
+        //TODO => use resolveBaseTypeInherits
         String res_ = removeDottedSpaces(_in);
         RootBlock b_ = classes.getClassBody(res_);
         if (b_ != null) {
@@ -1322,6 +1323,23 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return res_;
         }
         return lookupImportsDirect(_in, _currentBlock.getRooted());
+    }
+    @Override
+    public String resolveBaseTypeInherits(String _in, Block _currentBlock,RowCol _location) {
+        //TODO resolve
+        String type_ = _in;
+        String id_ = Templates.getIdFromAllTypes(type_);
+        StringList parts_ = Templates.getAllInnerTypes(id_);
+        if (!parts_.isEmpty()) {
+            if (parts_.first().isEmpty()) {
+                
+            } else {
+                for (String p: parts_) {
+                    
+                }
+            }
+        }
+        return EMPTY_TYPE;
     }
     @Override
     public String lookupImportsDirect(String _type, AccessingImportingBlock _rooted) {

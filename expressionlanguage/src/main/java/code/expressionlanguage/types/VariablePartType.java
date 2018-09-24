@@ -48,6 +48,24 @@ public final class VariablePartType extends LeafPartType {
         setImportedTypeName(t_);
     }
     @Override
+    public void analyzeDepends(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+        String type_ = getTypeName();
+        String t_ = StringList.removeAllSpaces(type_);
+        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        type_ = ContextEl.removeDottedSpaces(type_);
+        if (!_an.getAvailableVariables().containsStr(type_)) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(type_);
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
+            stopDepends();
+        }
+        setAnalyzedType(t_);
+    }
+    @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         String type_ = getTypeName();

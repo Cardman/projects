@@ -22,7 +22,6 @@ public final class NamePartType extends LeafPartType {
     public NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
     }
-    
     @Override
     public void checkDirectExistence(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted,RowCol _location) {
         StringList pr_ = new StringList();
@@ -217,6 +216,244 @@ public final class NamePartType extends LeafPartType {
             out_ = _an.getStandards().getAliasObject();
         }
         setImportedTypeName(out_);
+    }
+    @Override
+    public void analyzeDepends(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+        CustList<PartType> previous_ = new CustList<PartType>();
+        InnerPartType i_ = null;
+        PartType parCur_ = null;
+        if (getParent() instanceof InnerPartType) {
+            parCur_ = this;
+            i_ = (InnerPartType) getParent();
+        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
+            parCur_ = getParent();
+            i_ = (InnerPartType) getParent().getParent();
+        }
+        if (i_ != null) {
+            PartType part_ = parCur_.getPreviousSibling();
+            if (part_ == null) {
+                InnerPartType par_ = i_;
+                if (par_.isRemovedBefore()) {
+                    String type_ = getTypeName();
+                    RootBlock c = (RootBlock)_rooted;
+                    StringList allPossibleDirectSuperTypes_ = new StringList();
+                    CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
+                    StringList allAncestors_ = new StringList();
+                    RootBlock p_ = c;
+                    Classes classes_ = _an.getClasses();
+                    StringList deps_ = new StringList();
+                    while (p_ != null) {
+                        allAncestors_.add(p_.getFullName());
+                        p_ = p_.getParentType();
+                    }
+                    if (!allAncestors_.isEmpty() && _globalType == null) {
+                        return;
+                    }
+                    for (String a: allAncestors_) {
+                        StringList c_ = new StringList(a);
+                        while (true) {
+                            StringList new_ = new StringList();
+                            for (String s: c_) {
+                                RootBlock sub_ = classes_.getClassBody(s);
+                                if (sub_ == null) {
+                                    continue;
+                                }
+                                boolean add_ = false;
+                                for (Block b: Classes.getDirectChildren(sub_)) {
+                                    if (!(b instanceof RootBlock)) {
+                                        continue;
+                                    }
+                                    RootBlock inner_ = (RootBlock) b;
+                                    if (StringList.quickEq(inner_.getName(), type_)) {
+                                        allPossibleDirectSuperTypes_.add(s);
+                                        innersCandidates_.add(inner_);
+                                        add_ = true;
+                                    }
+                                }
+                                if (add_) {
+                                    continue;
+                                }
+                                if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
+                                    deps_.add(s);
+                                }
+                                for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                                    new_.add(t);
+                                }
+                            }
+                            if (new_.isEmpty()) {
+                                break;
+                            }
+                            c_ = new_;
+                        }
+                        if (allPossibleDirectSuperTypes_.size() == 1) {
+                            break;
+                        }
+                    }
+                    if (allPossibleDirectSuperTypes_.size() == 1) {
+                        String new_ = allPossibleDirectSuperTypes_.first();
+                        setAnalyzedType(StringList.concat(new_,"..",type_));
+                        getTypeNames().addAllElts(deps_);
+                        return;
+                    }
+                    //ERROR
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(type_);
+                    un_.setFileName(_rooted.getFile().getFileName());
+                    un_.setRc(_location);
+                    _an.getClasses().addError(un_);
+                    stopDepends();
+                    return;
+                }
+            }
+            while (part_ != null) {
+                previous_.add(part_);
+                part_ = part_.getPreviousSibling();
+            }
+        }
+        if (!previous_.isEmpty()) {
+            previous_ = previous_.getReverse();
+            PartType last_ = previous_.last();
+            String owner_ = last_.getAnalyzedType();
+            String id_ = Templates.getIdFromAllTypes(owner_);
+            Classes classes_ = _an.getClasses();
+            StringList foundOwners_ = new StringList();
+            StringList deps_ = new StringList();
+            CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
+            StringList c_ = new StringList(id_);
+            String type_ = getTypeName();
+            while (true) {
+                StringList new_ = new StringList();
+                for (String s: c_) {
+                    RootBlock sub_ = classes_.getClassBody(s);
+                    if (sub_ == null) {
+                        continue;
+                    }
+                    boolean add_ = false;
+                    for (Block b: Classes.getDirectChildren(sub_)) {
+                        if (!(b instanceof RootBlock)) {
+                            continue;
+                        }
+                        RootBlock inner_ = (RootBlock) b;
+                        if (StringList.quickEq(inner_.getName(), type_)) {
+                            foundOwners_.add(s);
+                            innersCandidates_.add(inner_);
+                            add_ = true;
+                        }
+                    }
+                    if (add_) {
+                        continue;
+                    }
+                    if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
+                        deps_.add(s);
+                    }
+                    for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                        new_.add(t);
+                    }
+                }
+                if (new_.isEmpty()) {
+                    break;
+                }
+                c_ = new_;
+            }
+            foundOwners_.removeDuplicates();
+            if (foundOwners_.size() == 1) {
+                String new_ = foundOwners_.first();
+                setAnalyzedType(StringList.concat(new_,"..",type_));
+                getTypeNames().addAllElts(deps_);
+                return;
+            }
+            //ERROR
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(type_);
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
+            stopDepends();
+            return;
+        }
+        String type_ = getTypeName();
+        type_ = ContextEl.removeDottedSpaces(type_);
+        if (_an.getClasses().isCustomType(type_)) {
+            if (_an.isDirectImport()) {
+                if (!_rooted.isAccessibleType(type_, _an)) {
+                    BadAccessClass err_ = new BadAccessClass();
+                    err_.setFileName(_rooted.getFile().getFileName());
+                    err_.setRc(new RowCol());
+                    err_.setId(type_);
+                    _an.getClasses().addError(err_);
+                }
+            } else if (!_rooted.canAccessClass(type_, _an)) {
+                BadAccessClass err_ = new BadAccessClass();
+                err_.setFileName(_rooted.getFile().getFileName());
+                err_.setRc(new RowCol());
+                err_.setId(type_);
+                _an.getClasses().addError(err_);
+            }
+            setAnalyzedType(type_);
+            return;
+        }
+        StringList parts_ = StringList.splitStrings(type_, ".");
+        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+            if (parts_.size() > 1) {
+                String p_ = parts_.last().trim();
+                if (_an.getStandards().getStandards().contains(p_)) {
+                    setAnalyzedType(p_);
+                    return;
+                }
+                String out_ = _an.getStandards().getAliasObject();
+                setAnalyzedType(out_);
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(type_);
+                un_.setFileName(_rooted.getFile().getFileName());
+                un_.setRc(_location);
+                _an.getClasses().addError(un_);
+                stopDepends();
+                return;
+            }
+        }
+        if (_an.getStandards().getStandards().contains(type_)) {
+            setAnalyzedType(type_);
+            return;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
+            setAnalyzedType(type_);
+            return;
+        }
+        if (getParent() instanceof TemplatePartType) {
+            PartType prev_ = getParent().getFirstChild();
+            if (prev_ instanceof NamePartType) {
+                String base_ = ((NamePartType)prev_).getTypeName();
+                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                        setAnalyzedType(getTypeName().trim());
+                        return;
+                    }
+                    UnknownClassName un_ = new UnknownClassName();
+                    un_.setClassName(type_);
+                    un_.setFileName(_rooted.getFile().getFileName());
+                    un_.setRc(_location);
+                    _an.getClasses().addError(un_);
+                    String out_ = _an.getStandards().getAliasObject();
+                    setAnalyzedType(out_);
+                    stopDepends();
+                    return;
+                }
+            }
+        }
+        
+        String out_ = _an.lookupImportsIndirect(type_, _rooted);
+        if (out_.isEmpty()) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(type_);
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
+            out_ = _an.getStandards().getAliasObject();
+            stopDepends();
+        }
+        setAnalyzedType(out_);
     }
 
     @Override
