@@ -3670,7 +3670,7 @@ public final class ElRenderUtilTest {
     public void processEl230Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([$int).getName()",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class($int[]).getName()",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("[$int", (String)res_);
@@ -3679,7 +3679,7 @@ public final class ElRenderUtilTest {
     public void processEl231Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.Integer).getName()",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class(java.lang.Integer[]).getName()",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("[java.lang.Integer", (String)res_);
@@ -3699,7 +3699,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$class([pkg.Ex).getName()", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class(pkg.Ex[]).getName()", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("[pkg.Ex", (String)res_);
@@ -3713,7 +3713,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$class([pkg.Ex).getName()", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class(pkg.Ex[]).getName()", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("[pkg.Ex", (String)res_);
@@ -3727,7 +3727,7 @@ public final class ElRenderUtilTest {
         files_.put("pkg/Ex", xml_.toString());
         Configuration cont_ = contextEl(files_, true,false);
         addImportingPage(cont_);
-        Argument arg_ = ElRenderUtil.processEl("$class([pkg.Ex<java.lang.Integer>).getName()", 0, cont_);
+        Argument arg_ = ElRenderUtil.processEl("$class(pkg.Ex<java.lang.Integer>[]).getName()", 0, cont_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("[pkg.Ex<java.lang.Integer>", (String)res_);
@@ -6533,7 +6533,7 @@ public final class ElRenderUtilTest {
     public void processEl306Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke(\"\")",0, context_);
+        ElRenderUtil.processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke(\"\")",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
@@ -6541,7 +6541,7 @@ public final class ElRenderUtilTest {
     public void processEl307Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new [java.lang.Number[]())",0, context_);
+        ElRenderUtil.processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertNotNull(context_.getContext().getException());
     }
@@ -6549,7 +6549,7 @@ public final class ElRenderUtilTest {
     public void processEl308Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertTrue(arg_.getStruct().isArray());
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
@@ -6559,7 +6559,7 @@ public final class ElRenderUtilTest {
     public void processEl309Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.String).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertTrue(arg_.getStruct().isArray());
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));
@@ -6571,7 +6571,7 @@ public final class ElRenderUtilTest {
     public void processEl310Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$class([java.lang.Object).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$class(java.lang.Object[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})",0, context_);
         assertTrue(context_.getClasses().isEmptyErrors());
         assertTrue(arg_.getStruct().isArray());
         assertEq("[java.lang.String",arg_.getStruct().getClassName(context_));

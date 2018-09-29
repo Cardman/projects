@@ -9604,7 +9604,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new [[java.lang.Integer(2i)\" className=\"[[java.lang.Integer\"/><c:set var=\"array\" expression=\"$new [java.lang.Integer(1i)\" className=\"[java.lang.Integer\"/><c:set expression=\"arrays;.[0i]=arrays;.\"/>{arrays;.length}_{arrays;.[0].length}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"arrays\" expression=\"$new java.lang.Integer[2i][]\" className=\"java.lang.Integer[][]\"/><c:set var=\"array\" expression=\"$new java.lang.Integer[1i]\" className=\"java.lang.Integer[]\"/><c:set expression=\"arrays;.[0i]=arrays;.\"/>{arrays;.length}_{arrays;.[0].length}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
