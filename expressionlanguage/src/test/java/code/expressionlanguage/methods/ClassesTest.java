@@ -1096,7 +1096,7 @@ public class ClassesTest {
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_);
+        classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateSingleParameterizedClasses(cont_);
         classes_.validateIds(cont_);
@@ -1117,7 +1117,7 @@ public class ClassesTest {
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_);
+        classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateSingleParameterizedClasses(cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1136,7 +1136,7 @@ public class ClassesTest {
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_);
+        classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
@@ -1151,7 +1151,7 @@ public class ClassesTest {
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_);
+        classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), !classes_.isEmptyErrors());
         return cont_;
     }
@@ -1166,7 +1166,7 @@ public class ClassesTest {
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_);
+        classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateSingleParameterizedClasses(cont_);
         classes_.validateIds(cont_);

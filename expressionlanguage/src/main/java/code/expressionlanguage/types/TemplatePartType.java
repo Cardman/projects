@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.RootBlock;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -34,8 +35,8 @@ public final class TemplatePartType extends ParentPartType {
 
     @Override
     public void analyzeDepends(Analyzable _an,
-            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+            CustList<NatTreeMap<Integer, String>> _dels,
+            RootBlock _rooted, boolean _exact, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

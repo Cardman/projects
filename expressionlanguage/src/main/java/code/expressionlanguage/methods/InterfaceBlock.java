@@ -72,22 +72,6 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public StringList getDirectSuperClasses(Analyzable _classes) {
-        StringList classes_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_=_classes.resolveBaseTypeBuildInherits(base_,this);
-            if (isAccessibleType(base_, _classes)) {
-                classes_.add(base_);
-            }
-        }
-        if (classes_.isEmpty()) {
-            classes_.add(_classes.getStandards().getAliasObject());
-        }
-        return classes_;
-    }
-
-    @Override
     public RootBlock belong() {
         return this;
     }
@@ -127,7 +111,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     }
 
     @Override
-    public void buildDirectGenericSuperTypes(Analyzable _classes) {
+    public void buildDirectGenericSuperTypes(ContextEl _classes) {
         NatTreeMap<Integer, String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;

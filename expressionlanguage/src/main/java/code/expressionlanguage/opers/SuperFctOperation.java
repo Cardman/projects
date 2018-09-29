@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -15,7 +16,9 @@ import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.StaticAccessError;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
@@ -27,6 +30,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class SuperFctOperation extends InvokingOperation {
 
@@ -67,14 +71,35 @@ public final class SuperFctOperation extends InvokingOperation {
         int varargOnly_ = lookOnlyForVarArg();
         LgNames stds_ = _conf.getStandards();
         boolean import_ = false;
+        ClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
+            clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
             import_ = true;
             setStaticAccess(_conf.isStaticContext());
+        } else {
+            clCur_ = getPreviousResultClass();
         }
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(className_, true);
+        Mapping map_ = new Mapping();
+        map_.setParam(className_);
+        map_.setArg(clCur_);
+        StringMap<StringList> mapping_ = new StringMap<StringList>();
+        for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
+            mapping_.put(t.getName(), t.getConstraints());
+        }
+        map_.setMapping(mapping_);
+        if (!Templates.isCorrect(map_, _conf)) {
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(map_);
+            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setFileName(_conf.getCurrentFileName());
+            _conf.getClasses().addError(cast_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
         String clCurName_ = className_;
         if (hasVoidPrevious(clCurName_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));

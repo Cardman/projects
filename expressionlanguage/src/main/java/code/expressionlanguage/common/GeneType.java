@@ -17,9 +17,6 @@ public interface GeneType extends AccessibleBlock {
     StringList getAllSuperTypes();
     GeneType getOuter();
 
-    /** Copy the list*/
-    StringList getDirectSuperClasses(Analyzable _classes);
-
     boolean isFinalType();
     boolean isStaticType();
     boolean isAbstractType();

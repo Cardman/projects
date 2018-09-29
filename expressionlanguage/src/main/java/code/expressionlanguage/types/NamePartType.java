@@ -6,7 +6,6 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AccessingImportingBlock;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.BadAccessClass;
@@ -22,205 +21,11 @@ public final class NamePartType extends LeafPartType {
     public NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
     }
-    @Override
-    public void checkDirectExistence(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, AccessingImportingBlock _rooted,RowCol _location) {
-        StringList pr_ = new StringList();
-        String suppl_ = EMPTY_STRING;
-        InnerPartType i_ = null;
-        PartType parCur_ = null;
-        if (getParent() instanceof InnerPartType) {
-            parCur_ = this;
-            i_ = (InnerPartType) getParent();
-        } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
-            parCur_ = getParent();
-            i_ = (InnerPartType) getParent().getParent();
-        }
-        if (i_ != null) {
-            PartType part_ = parCur_.getPreviousSibling();
-            if (part_ == null) {
-                InnerPartType par_ = i_;
-                if (par_.isRemovedBefore()) {
-                    suppl_ = ((RootBlock)_rooted).getParentType().getGenericString();
-                    pr_.add(suppl_);
-                }
-            }
-            while (part_ != null) {
-                PartType f_ = part_;
-                while (f_.getFirstChild() != null) {
-                    f_ = f_.getFirstChild();
-                }
-                if (f_ instanceof LeafPartType) {
-                    pr_.add(((LeafPartType)f_).exportHeader());
-                }
-                part_ = part_.getPreviousSibling();
-            }
-            pr_ = pr_.getReverse();
-        }
-        String typeName_ = getTypeName();
-        String type_ = typeName_;
-        if (!pr_.isEmpty()) {
-            type_ = StringList.concat(pr_.join(".."),"..",type_);
-        }
-        type_ = ContextEl.removeDottedSpaces(type_);
-        if (_an.getClasses().isCustomType(type_)) {
-            if (_an.isDirectImport()) {
-                if (!_rooted.isAccessibleType(type_, _an)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(_rooted.getFile().getFileName());
-                    err_.setRc(new RowCol());
-                    err_.setId(type_);
-                    _an.getClasses().addError(err_);
-                }
-            } else if (!_rooted.canAccessClass(type_, _an)) {
-                BadAccessClass err_ = new BadAccessClass();
-                err_.setFileName(_rooted.getFile().getFileName());
-                err_.setRc(new RowCol());
-                err_.setId(type_);
-                _an.getClasses().addError(err_);
-            }
-            if (!pr_.isEmpty()) {
-                if (!suppl_.isEmpty()) {
-                    setImportedTypeName(StringList.concat(suppl_,"..",typeName_));
-                    return;
-                }
-                setImportedTypeName(typeName_);
-                return;
-            }
-            setImportedTypeName(type_);
-            return;
-        }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
-            if (parts_.size() > 1) {
-                String p_ = parts_.last().trim();
-                if (_an.getStandards().getStandards().contains(p_)) {
-                    setImportedTypeName(p_);
-                    return;
-                }
-                String out_ = _an.getStandards().getAliasObject();
-                setImportedTypeName(out_);
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(type_);
-                un_.setFileName(_rooted.getFile().getFileName());
-                un_.setRc(_location);
-                _an.getClasses().addError(un_);
-                return;
-            }
-        }
-        if (_an.getStandards().getStandards().contains(type_)) {
-            setImportedTypeName(type_);
-            return;
-        }
-        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
-            setImportedTypeName(type_);
-            return;
-        }
-        if (getParent() instanceof TemplatePartType) {
-            PartType prev_ = getParent().getFirstChild();
-            if (prev_ instanceof NamePartType) {
-                String base_ = ((NamePartType)prev_).getTypeName();
-                if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
-                    if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
-                        setImportedTypeName(getTypeName().trim());
-                        return;
-                    }
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(type_);
-                    un_.setFileName(_rooted.getFile().getFileName());
-                    un_.setRc(_location);
-                    _an.getClasses().addError(un_);
-                    String out_ = _an.getStandards().getAliasObject();
-                    setImportedTypeName(out_);
-                    return;
-                }
-            }
-        }
-        String out_;
-        if (_an.isDirectImport()) {
-            out_ = _an.lookupImportsDirect(type_, _rooted);
-        } else {
-            out_ = _an.lookupImportsIndirect(type_, _rooted);
-        }
-        if (out_.isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(type_);
-            un_.setFileName(_rooted.getFile().getFileName());
-            un_.setRc(_location);
-            _an.getClasses().addError(un_);
-            out_ = _an.getStandards().getAliasObject();
-        }
-        setImportedTypeName(out_);
-    }
 
     @Override
-    public void checkExistence(Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
-        String type_ = getTypeName();
-        type_ = ContextEl.removeDottedSpaces(type_);
-        if (_an.getClasses().isCustomType(type_)) {
-            if (_an.isDirectImport()) {
-                if (!_rooted.isAccessibleType(type_, _an)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(_rooted.getFile().getFileName());
-                    err_.setRc(new RowCol());
-                    err_.setId(type_);
-                    _an.getClasses().addError(err_);
-                }
-            } else if (!_rooted.canAccessClass(type_, _an)) {
-                BadAccessClass err_ = new BadAccessClass();
-                err_.setFileName(_rooted.getFile().getFileName());
-                err_.setRc(new RowCol());
-                err_.setId(type_);
-                _an.getClasses().addError(err_);
-            }
-            setImportedTypeName(type_);
-            return;
-        }
-        StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
-            if (parts_.size() > 1) {
-                String p_ = parts_.last().trim();
-                if (_an.getStandards().getStandards().contains(p_)) {
-                    setImportedTypeName(p_);
-                    return;
-                }
-                String out_ = _an.getStandards().getAliasObject();
-                setImportedTypeName(out_);
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(type_);
-                un_.setFileName(_rooted.getFile().getFileName());
-                un_.setRc(_location);
-                _an.getClasses().addError(un_);
-                return;
-            }
-        }
-        if (_an.getStandards().getStandards().contains(type_)) {
-            setImportedTypeName(type_);
-            return;
-        }
-        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
-            setImportedTypeName(type_);
-            return;
-        }
-        String out_;
-        if (_an.isDirectImport()) {
-            out_ = _an.lookupImportsDirect(type_, _rooted);
-        } else {
-            out_ = _an.lookupImportsIndirect(type_, _rooted);
-        }
-        if (out_.isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(type_);
-            un_.setFileName(_rooted.getFile().getFileName());
-            un_.setRc(_location);
-            _an.getClasses().addError(un_);
-            out_ = _an.getStandards().getAliasObject();
-        }
-        setImportedTypeName(out_);
-    }
-    @Override
     public void analyzeDepends(Analyzable _an,
-            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+            CustList<NatTreeMap<Integer, String>> _dels,
+            RootBlock _rooted, boolean _exact, RowCol _location) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -231,25 +36,23 @@ public final class NamePartType extends LeafPartType {
             parCur_ = getParent();
             i_ = (InnerPartType) getParent().getParent();
         }
+        String fullName_ = _rooted.getFullName();
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
             if (part_ == null) {
                 InnerPartType par_ = i_;
                 if (par_.isRemovedBefore()) {
                     String type_ = getTypeName();
-                    RootBlock c = (RootBlock)_rooted;
+                    RootBlock c = _rooted;
                     StringList allPossibleDirectSuperTypes_ = new StringList();
                     CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
                     StringList allAncestors_ = new StringList();
-                    RootBlock p_ = c;
+                    RootBlock p_ = c.getParentType();
                     Classes classes_ = _an.getClasses();
                     StringList deps_ = new StringList();
                     while (p_ != null) {
                         allAncestors_.add(p_.getFullName());
                         p_ = p_.getParentType();
-                    }
-                    if (!allAncestors_.isEmpty() && _globalType == null) {
-                        return;
                     }
                     for (String a: allAncestors_) {
                         StringList c_ = new StringList(a);
@@ -261,14 +64,10 @@ public final class NamePartType extends LeafPartType {
                                     continue;
                                 }
                                 boolean add_ = false;
-                                for (Block b: Classes.getDirectChildren(sub_)) {
-                                    if (!(b instanceof RootBlock)) {
-                                        continue;
-                                    }
-                                    RootBlock inner_ = (RootBlock) b;
-                                    if (StringList.quickEq(inner_.getName(), type_)) {
+                                for (RootBlock b: Classes.accessedClassMembers(a,fullName_, sub_, _an)) {
+                                    if (StringList.quickEq(b.getName(), type_)) {
                                         allPossibleDirectSuperTypes_.add(s);
-                                        innersCandidates_.add(inner_);
+                                        innersCandidates_.add(b);
                                         add_ = true;
                                     }
                                 }
@@ -331,14 +130,10 @@ public final class NamePartType extends LeafPartType {
                         continue;
                     }
                     boolean add_ = false;
-                    for (Block b: Classes.getDirectChildren(sub_)) {
-                        if (!(b instanceof RootBlock)) {
-                            continue;
-                        }
-                        RootBlock inner_ = (RootBlock) b;
-                        if (StringList.quickEq(inner_.getName(), type_)) {
+                    for (RootBlock b: Classes.accessedClassMembers(id_, fullName_,sub_, _an)) {
+                        if (StringList.quickEq(b.getName(), type_)) {
                             foundOwners_.add(s);
-                            innersCandidates_.add(inner_);
+                            innersCandidates_.add(b);
                             add_ = true;
                         }
                     }
@@ -376,15 +171,7 @@ public final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
-            if (_an.isDirectImport()) {
-                if (!_rooted.isAccessibleType(type_, _an)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(_rooted.getFile().getFileName());
-                    err_.setRc(new RowCol());
-                    err_.setId(type_);
-                    _an.getClasses().addError(err_);
-                }
-            } else if (!_rooted.canAccessClass(type_, _an)) {
+            if (!_rooted.canAccessClass(type_, _an)) {
                 BadAccessClass err_ = new BadAccessClass();
                 err_.setFileName(_rooted.getFile().getFileName());
                 err_.setRc(new RowCol());
@@ -501,14 +288,10 @@ public final class NamePartType extends LeafPartType {
                                     continue;
                                 }
                                 boolean add_ = false;
-                                for (Block b: Classes.getDirectChildren(sub_)) {
-                                    if (!(b instanceof RootBlock)) {
-                                        continue;
-                                    }
-                                    RootBlock inner_ = (RootBlock) b;
-                                    if (StringList.quickEq(inner_.getName(), type_)) {
+                                for (RootBlock b: Classes.accessedClassMembers(a, _globalType, sub_, _an)) {
+                                    if (StringList.quickEq(b.getName(), type_)) {
                                         allPossibleDirectSuperTypes_.put(s,f_);
-                                        innersCandidates_.add(inner_);
+                                        innersCandidates_.add(b);
                                         add_ = true;
                                     }
                                 }
@@ -578,14 +361,10 @@ public final class NamePartType extends LeafPartType {
                         continue;
                     }
                     boolean add_ = false;
-                    for (Block b: Classes.getDirectChildren(sub_)) {
-                        if (!(b instanceof RootBlock)) {
-                            continue;
-                        }
-                        RootBlock inner_ = (RootBlock) b;
-                        if (StringList.quickEq(inner_.getName(), type_)) {
+                    for (RootBlock b: Classes.accessedClassMembers(id_, _globalType, sub_, _an)) {
+                        if (StringList.quickEq(b.getName(), type_)) {
                             foundOwners_.add(s);
-                            innersCandidates_.add(inner_);
+                            innersCandidates_.add(b);
                             add_ = true;
                         }
                     }
@@ -633,15 +412,7 @@ public final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
-            if (_an.isDirectImport()) {
-                if (!_rooted.isAccessibleType(type_, _an)) {
-                    BadAccessClass err_ = new BadAccessClass();
-                    err_.setFileName(_rooted.getFile().getFileName());
-                    err_.setRc(new RowCol());
-                    err_.setId(type_);
-                    _an.getClasses().addError(err_);
-                }
-            } else if (!_rooted.canAccessClass(type_, _an)) {
+            if (!_rooted.canAccessClass(type_, _an)) {
                 BadAccessClass err_ = new BadAccessClass();
                 err_.setFileName(_rooted.getFile().getFileName());
                 err_.setRc(new RowCol());
@@ -698,12 +469,7 @@ public final class NamePartType extends LeafPartType {
             }
         }
         
-        String out_;
-        if (_an.isDirectImport()) {
-            out_ = _an.lookupImportsDirect(type_, _rooted);
-        } else {
-            out_ = _an.lookupImportsIndirect(type_, _rooted);
-        }
+        String out_ = _an.lookupImportsIndirect(type_, _rooted);
         if (out_.isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(type_);
@@ -756,14 +522,10 @@ public final class NamePartType extends LeafPartType {
                                     continue;
                                 }
                                 boolean add_ = false;
-                                for (Block b: Classes.getDirectChildren(sub_)) {
-                                    if (!(b instanceof RootBlock)) {
-                                        continue;
-                                    }
-                                    RootBlock inner_ = (RootBlock) b;
-                                    if (StringList.quickEq(inner_.getName(), type_)) {
+                                for (RootBlock b: Classes.accessedClassMembers(a, _globalType, sub_, _an)) {
+                                    if (StringList.quickEq(b.getName(), type_)) {
                                         allPossibleDirectSuperTypes_.put(s,f_);
-                                        innersCandidates_.add(inner_);
+                                        innersCandidates_.add(b);
                                         add_ = true;
                                     }
                                 }
@@ -827,14 +589,10 @@ public final class NamePartType extends LeafPartType {
                         continue;
                     }
                     boolean add_ = false;
-                    for (Block b: Classes.getDirectChildren(sub_)) {
-                        if (!(b instanceof RootBlock)) {
-                            continue;
-                        }
-                        RootBlock inner_ = (RootBlock) b;
-                        if (StringList.quickEq(inner_.getName(), type_)) {
+                    for (RootBlock b: Classes.accessedClassMembers(id_, _globalType, sub_, _an)) {
+                        if (StringList.quickEq(b.getName(), type_)) {
                             foundOwners_.add(s);
-                            innersCandidates_.add(inner_);
+                            innersCandidates_.add(b);
                             add_ = true;
                         }
                     }
@@ -876,11 +634,7 @@ public final class NamePartType extends LeafPartType {
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
-            if (_an.isDirectImport()) {
-                if (!_rooted.isAccessibleType(type_, _an)) {
-                    return;
-                }
-            } else if (!_rooted.canAccessClass(type_, _an)) {
+            if (!_rooted.canAccessClass(type_, _an)) {
                 return;
             }
             setAnalyzedType(type_);
@@ -918,12 +672,7 @@ public final class NamePartType extends LeafPartType {
             }
         }
         
-        String out_;
-        if (_an.isDirectImport()) {
-            out_ = _an.lookupImportsDirect(type_, _rooted);
-        } else {
-            out_ = _an.lookupImportsIndirect(type_, _rooted);
-        }
+        String out_ = _an.lookupImportsIndirect(type_, _rooted);
         if (out_.isEmpty()) {
             return;
         }

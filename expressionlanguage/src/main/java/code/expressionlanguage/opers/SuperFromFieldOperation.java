@@ -1,11 +1,16 @@
 package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class SuperFromFieldOperation extends
         SettableAbstractFieldOperation {
@@ -24,6 +29,29 @@ public final class SuperFromFieldOperation extends
         int lenPref_ = className_.indexOf(PAR_LEFT)+1;
         className_ = className_.substring(lenPref_);
         className_ = _conf.resolveCorrectType(className_, true);
+        ClassArgumentMatching clCur_;
+        if (!isIntermediateDottedOperation()) {
+            clCur_ = new ClassArgumentMatching(_conf.getGlobalClass());
+        } else {
+            clCur_ = getPreviousResultClass();
+        }
+        Mapping map_ = new Mapping();
+        map_.setParam(className_);
+        map_.setArg(clCur_);
+        StringMap<StringList> mapping_ = new StringMap<StringList>();
+        for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
+            mapping_.put(t.getName(), t.getConstraints());
+        }
+        map_.setMapping(mapping_);
+        if (!Templates.isCorrect(map_, _conf)) {
+            BadImplicitCast cast_ = new BadImplicitCast();
+            cast_.setMapping(map_);
+            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setFileName(_conf.getCurrentFileName());
+            _conf.getClasses().addError(cast_);
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return null;
+        }
         if (StringList.quickEq(className_, stds_.getAliasObject())) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return null;

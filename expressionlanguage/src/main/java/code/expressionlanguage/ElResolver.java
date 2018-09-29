@@ -71,6 +71,7 @@ public final class ElResolver {
     private static final String INSTANCE = "new";
     private static final String SUPER = "super";
     private static final String SUPER_ACCESS = "superaccess";
+    private static final String THIS_ACCESS = "thisaccess";
     private static final String STATIC_ACCESS = "static";
     private static final String VAR_ARG = "vararg";
     private static final String FIRST_OPT = "firstopt";
@@ -721,6 +722,76 @@ public final class ElResolver {
                         d_.getDelKeyWordSuperAccess().add(afterClassChoice_);
                         i_ = afterClassChoice_;
                         continue;
+                    }
+                    if (procWordFirstChar(_string, i_ + 1, THIS_ACCESS)) {
+                        enabledMinus_ = true;
+                        hatMethod_ = true;
+                        int afterClassChoice_ = i_ + 1 + THIS_ACCESS.length();
+                        boolean foundHat_ = false;
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
+                                foundHat_ = true;
+                                break;
+                            }
+                            if (!Character.isWhitespace(_string.charAt(afterClassChoice_))) {
+                                d_.setBadOffset(afterClassChoice_);
+                                return d_;
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (!foundHat_) {
+                            d_.setBadOffset(len_ - 1);
+                            return d_;
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        while (afterClassChoice_ < len_) {
+                            if (_string.charAt(afterClassChoice_) == PAR_RIGHT) {
+                                break;
+                            }
+                            afterClassChoice_++;
+                        }
+                        if (afterClassChoice_ + 1 >= len_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        afterClassChoice_++;
+                        while (afterClassChoice_ < len_) {
+                            char loc_ = _string.charAt(afterClassChoice_);
+                            if (!Character.isWhitespace(loc_)) {
+                                break;
+                            }
+                            afterClassChoice_++;
+                        }
+                        boolean pass_ = false;
+                        while (afterClassChoice_ < len_) {
+                            char loc_ = _string.charAt(afterClassChoice_);
+                            if (!StringList.isDollarWordChar(loc_)) {
+                                break;
+                            }
+                            pass_ = true;
+                            afterClassChoice_++;
+                        }
+                        hatMethod_ = false;
+                        if (!pass_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        if (afterClassChoice_ >= len_) {
+                            d_.setBadOffset(afterClassChoice_);
+                            return d_;
+                        }
+                        if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
+                            //fct
+                            d_.getCallings().add(afterClassChoice_);
+                            i_ = afterClassChoice_;
+                            continue;
+                        }
+                        //field
+                        d_.setBadOffset(afterClassChoice_);
+                        return d_;
                     }
                     if (procWordFirstChar(_string, i_ + 1, INTERFACES)) {
                         enabledMinus_ = true;

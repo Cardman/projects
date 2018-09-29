@@ -32,6 +32,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.types.PartTypeUtil;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -120,6 +121,33 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     @Override
     public abstract boolean isStaticType();
     public abstract StringList getImportedDirectSuperTypes();
+    public final StringList getDepends(Analyzable _an) {
+        NatTreeMap<Integer, String> rcs_;
+        rcs_ = getRowColDirectSuperTypes();
+        StringList varsList_ = new StringList();
+        for (RootBlock r: getSelfAndParentTypes()) {
+            for (TypeVar t: r.paramTypes) {
+                varsList_.add(t.getName());
+            }
+        }
+        _an.getAvailableVariables().clear();
+        _an.getAvailableVariables().addAllElts(varsList_);
+        _an.setDirectImport(false);
+        StringList all_ = new StringList();
+        int i_ = 0;
+        for (String s: getDirectSuperTypes()) {
+            int index_ = rcs_.getKey(i_);
+            i_++;
+            RowCol rc_ = getRowCol(0,index_);
+            StringList list_ = PartTypeUtil.processAnalyzeDepends(s, _an, this, true, rc_);
+            if (list_ == null) {
+                return null;
+            }
+            all_.addAllElts(list_);
+        }
+        all_.removeDuplicates();
+        return all_;
+    }
     public NatTreeMap<Integer, Boolean> getExplicitDirectSuperTypes() {
         return explicitDirectSuperTypes;
     }
@@ -526,7 +554,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         TypeUtil.buildOverrides(this, _context);
     }
 
-    public abstract void buildDirectGenericSuperTypes(Analyzable _classes);
+    public abstract void buildDirectGenericSuperTypes(ContextEl _classes);
 
     public abstract StringList getAllGenericInterfaces(Analyzable _classes);
 
@@ -950,21 +978,6 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 String name_ = subInt_.getClassName();
                 MethodBlock sub_ = Classes.getMethodBodiesById(_context, name_, subInt_.getConstraints()).first();
                 if (sub_.isStaticMethod()) {
-                    StringMap<StringList> vars_ = new StringMap<StringList>();
-                    StringList retClasses_ = new StringList();
-                    for (ClassMethodId s: e.getValue()) {
-                        String supName_ = s.getClassName();
-                        MethodBlock sup_ = Classes.getMethodBodiesById(_context, supName_, s.getConstraints()).first();
-                        if (sup_.isStaticMethod()) {
-                            continue;
-                        }
-                        retClasses_.add(sup_.getImportedReturnType());
-                    }
-                    if (!retClasses_.isEmpty() && PrimitiveTypeUtil.getSubslass(retClasses_, vars_, _context).isEmpty()) {
-                        for (ClassMethodId c: classes_) {
-                            addClass(output_, e.getKey(), c);
-                        }
-                    }
                     continue;
                 }
                 String subType_ = sub_.getImportedReturnType();
@@ -1212,7 +1225,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 return true;
             }
         }
-        return false;
+        return StringList.quickEq(getOuter().getFullName(), r_.getOuter().getFullName());
     }
     private boolean optionalCallConstr(ContextEl _cont) {
         if (!(this instanceof UniqueRootedBlock)) {

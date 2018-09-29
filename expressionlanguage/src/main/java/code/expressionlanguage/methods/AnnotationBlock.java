@@ -47,11 +47,6 @@ public final class AnnotationBlock extends RootBlock {
     }
 
     @Override
-    public StringList getDirectSuperClasses(Analyzable _classes) {
-        return new StringList(_classes.getStandards().getAliasAnnotation());
-    }
-
-    @Override
     public boolean isFinalType() {
         return true;
     }
@@ -82,7 +77,7 @@ public final class AnnotationBlock extends RootBlock {
     }
 
     @Override
-    public void buildDirectGenericSuperTypes(Analyzable _classes) {
+    public void buildDirectGenericSuperTypes(ContextEl _classes) {
     }
 
     @Override

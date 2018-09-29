@@ -977,8 +977,7 @@ public abstract class LgNames {
     }
     public void setupOverrides(ContextEl _cont) {
         _cont.setAnalyzing(new AnalyzedPageEl());
-        StringList keys_ = standards.getKeys();
-        TypeUtil.buildInherits(_cont, keys_);
+        TypeUtil.buildInherits(_cont);
         for (StandardType t: standards.values()) {
             TypeUtil.buildOverrides(t, _cont);
         }

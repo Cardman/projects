@@ -99,6 +99,7 @@ public abstract class OperationNode {
 
     protected static final String CLASS_CHOICE = "classchoice";
     protected static final String SUPER_ACCESS_FCT = "superaccess";
+    protected static final String THIS_ACCESS_FCT = "thisaccess";
     protected static final String INTERFACES = "interfaces";
     protected static final String INTERN_BEAN = "intern";
 

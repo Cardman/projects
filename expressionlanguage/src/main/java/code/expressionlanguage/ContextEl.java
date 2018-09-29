@@ -32,6 +32,7 @@ import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.util.BadAccessClass;
+import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.LocalThrowing;
@@ -70,10 +71,12 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.graphs.SortedGraph;
 import code.util.ints.MathFactory;
 
 public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,ExecutableCode {
@@ -598,12 +601,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public CustList<GeneType> getClassBodies() {
         CustList<GeneType> types_ = new CustList<GeneType>();
-        if (classes == null) {
-            for (StandardType t: standards.getStandards().values()) {
-                types_.add(t);
-            }
-            return types_;
-        }
         for (StandardType t: standards.getStandards().values()) {
             types_.add(t);
         }
@@ -617,7 +614,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         CustList<GeneMethod> methods_ = new CustList<GeneMethod>();
         String base_ = Templates.getIdFromAllTypes(_genericClassName);
         GeneType r_ = getClassBody(base_);
-        if (classes == null || !classes.isCustomType(_genericClassName)) {
+        if (!classes.isCustomType(_genericClassName)) {
             for (EntryCust<MethodId, StandardMethod> m: ((StandardType)r_).getMethods().entryList()) {
                 if (m.getKey().eq(_id)) {
                     methods_.add(m.getValue());
@@ -1251,9 +1248,54 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return resType_;
     }
 
+    public StringList getSortedTypes(boolean _predefined) {
+        SortedGraph<ClassInheritsDeps> gr_;
+        gr_ = new SortedGraph<ClassInheritsDeps>();
+        EqList<ClassInheritsDeps> absDeps_ = new EqList<ClassInheritsDeps>();
+        for (RootBlock b: classes.getClassBodies()) {
+            if (b.getFile().isPredefined() != _predefined) {
+                continue;
+            }
+            StringList deps_ = b.getDepends(this);
+            if (deps_ == null) {
+                return null;
+            }
+            String c_ = b.getFullName();
+            if (deps_.isEmpty()) {
+                absDeps_.add(new ClassInheritsDeps(c_));
+            }
+            for (String d: deps_) {
+                gr_.addSegment(new ClassInheritsDeps(c_), new ClassInheritsDeps(d));
+            }
+        }
+        EqList<ClassInheritsDeps> cycle_ = gr_.elementsCycle();
+        if (!cycle_.isEmpty()) {
+            for (ClassInheritsDeps c: cycle_) {
+                BadInheritedClass enum_;
+                enum_ = new BadInheritedClass();
+                enum_.setClassName(c.getClassField());
+                enum_.setFileName(c.getClassField());
+                enum_.setRc(new RowCol());
+                classes.addError(enum_);
+            }
+            return null;
+        }
+        EqList<ClassInheritsDeps> sort_;
+        sort_ = new EqList<ClassInheritsDeps>();
+        sort_.addAllElts(absDeps_);
+        for (ClassInheritsDeps e: gr_.process()) {
+            if (!sort_.containsObj(e)) {
+                sort_.add(e);
+            }
+        }
+        StringList sortTypes_ = new StringList();
+        for (ClassInheritsDeps e: sort_) {
+            sortTypes_.add(e.getClassField());
+        }
+        return sortTypes_;
+    }
     /**Used at building mapping constraints*/
-    @Override
-    public String resolveTypeMapping(String _in, Block _currentBlock,
+    public String resolveTypeMapping(String _in, RootBlock _currentBlock,
             RowCol _location) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
@@ -1264,9 +1306,8 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             classes.addError(un_);
             return standards.getAliasObject();
         }
-        RootBlock r_ = _currentBlock.getRooted();
         StringList variables_ = new StringList();
-        for (RootBlock r: r_.getSelfAndParentTypes()) {
+        for (RootBlock r: _currentBlock.getSelfAndParentTypes()) {
             for (TypeVar t: r.getParamTypes()) {
                 variables_.add(t.getName());
             }
@@ -1275,18 +1316,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().clear();
         getAvailableVariables().addAllElts(variables_);
         setDirectImport(false);
-        String resType_ = PartTypeUtil.processMapping(_in, this, r_, _location);
+        String gl_ = _currentBlock.getGenericString();
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true, _location);
         return resType_;
-    }
-    @Override
-    public String resolveBaseTypeBuildInherits(String _in, Block _currentBlock) {
-        //TODO => use resolveBaseTypeInherits
-        String res_ = removeDottedSpaces(_in);
-        RootBlock b_ = classes.getClassBody(res_);
-        if (b_ != null) {
-            return res_;
-        }
-        return lookupImportsDirect(_in, _currentBlock.getRooted());
     }
     @Override
     public String resolveBaseType(String _in, Block _currentBlock,RowCol _location) {
@@ -1325,21 +1357,72 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return lookupImportsDirect(_in, _currentBlock.getRooted());
     }
     @Override
-    public String resolveBaseTypeInherits(String _in, Block _currentBlock,RowCol _location) {
-        //TODO resolve
+    public String resolveBaseTypeInherits(String _in, RootBlock _currentBlock,RowCol _location, StringList _builtTypes) {
         String type_ = _in;
-        String id_ = Templates.getIdFromAllTypes(type_);
-        StringList parts_ = Templates.getAllInnerTypes(id_);
-        if (!parts_.isEmpty()) {
-            if (parts_.first().isEmpty()) {
-                
-            } else {
-                for (String p: parts_) {
-                    
+        RootBlock r_ = _currentBlock;
+        String idSup_ = Templates.getIdFromAllTypes(type_);
+        StringList inners_ = Templates.getAllInnerTypes(idSup_);
+        String base_ = inners_.first();
+        if (base_.isEmpty()) {
+            if (inners_.size() == 1) {
+                return EMPTY_TYPE;
+            }
+            String baseInn_ = inners_.get(1);
+            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
+            RootBlock p_ = r_.getParentType();
+            while (p_ != null) {
+                allAncestors_.add(p_);
+                p_ = p_.getParentType();
+            }
+            String name_ = EMPTY_TYPE;
+            for (RootBlock a: allAncestors_) {
+                String id_ = a.getFullName();
+                StringList builtInners_ = TypeUtil.getBuiltInners(id_, baseInn_, false, this);
+                if (builtInners_.size() == 1) {
+                    name_ = builtInners_.first();
+                    break;
                 }
             }
+            return name_;
         }
-        return EMPTY_TYPE;
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in, void_)) {
+            return EMPTY_TYPE;
+        }
+        String resDir_ = removeDottedSpaces(_in);
+        RootBlock b_ = classes.getClassBody(resDir_);
+        if (b_ != null) {
+            if (b_.getAccess().ordinal() > AccessEnum.PROTECTED.ordinal()) {
+                if (b_.getAccess() == AccessEnum.PACKAGE) {
+                    if (!StringList.quickEq(b_.getPackageName(), r_.getPackageName())) {
+                        return EMPTY_TYPE;
+                    }
+                } else {
+                    return EMPTY_TYPE;
+                }
+            }
+            return resDir_;
+        }
+        String res_ = lookupImportsDirect(base_, r_);
+        if (res_.isEmpty()) {
+            return EMPTY_TYPE;
+        }
+        boolean err_ = false;
+        for (String i: inners_.mid(1)) {
+            if (!_builtTypes.containsStr(res_)) {
+                return EMPTY_TYPE;
+            }
+            StringList builtInners_ = TypeUtil.getBuiltInners(res_, i, false, this);
+            if (builtInners_.size() != 1) {
+                err_ = true;
+                break;
+            }
+            res_ = builtInners_.first();
+        }
+        if (err_) {
+            return EMPTY_TYPE;
+        }
+        return res_;
     }
     @Override
     public String lookupImportsDirect(String _type, AccessingImportingBlock _rooted) {

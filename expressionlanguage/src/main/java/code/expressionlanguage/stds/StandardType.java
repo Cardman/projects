@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -35,6 +36,9 @@ public abstract class StandardType implements GeneType {
         methods = _methods;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
     }
+    /** Copy the list*/
+    public abstract StringList getDirectSuperClasses(Analyzable _classes);
+
     @Override
     public GeneType getOuter() {
         return this;

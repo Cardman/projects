@@ -184,7 +184,53 @@ public class RootBlockTest {
         assertEq("pkg.Ex", res_.getClassName());
         assertEq(resId_, res_.getConstraints());
     }
-
+    @Test
+    public void test1() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {\n");
+        xml_.append(" $private $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
+        assertEq(0, map_.size());
+        StringList superTypes_;
+        map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new StringList("#E")));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+        MethodId id_ = new MethodId(false,"instancemethod", new StringList("#E"));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.Ex");
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        assertEq(2, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        assertTrue(concrete_.contains("pkg.Ex"));
+        res_ = concrete_.getVal("pkg.Ex");
+        resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+    }
     @Test
     public void test2() {
         StringMap<String> files_ = new StringMap<String>();
@@ -792,6 +838,30 @@ public class RootBlockTest {
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new StringList()));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex", superTypes_.first());
+        MethodId id_ = new MethodId(false,"instancemethod", new StringList());
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.Ex");
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        assertEq(2, concrete_.size());
+        assertTrue(concrete_.contains("pkg.Ex"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new StringList());
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        assertTrue(concrete_.contains("pkg.Ex"));
+        res_ = concrete_.getVal("pkg.Ex");
+        resId_ = new MethodId(false,"instancemethod", new StringList());
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        r_ = classes_.getClassBody("pkg.ExTwo");
+        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new StringList());
+        assertEq("pkg.ExTwo", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void test18() {
@@ -884,6 +954,107 @@ public class RootBlockTest {
         superTypes_ = map_.getVal(new MethodId(false, "instancemethod", new StringList("#F")));
         assertEq(1, superTypes_.size());
         assertEq("pkg.Int<#F>", superTypes_.first());
+    }
+    @Test
+    public void test20() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#E> {\n");
+        xml_.append(" $private $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
+        assertEq(0, map_.size());
+        StringList superTypes_;
+        map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new StringList("#E")));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+        MethodId id_ = new MethodId(false,"instancemethod", new StringList("#E"));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.Ex");
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+    }
+    @Test
+    public void test21() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#E> {\n");
+        xml_.append(" $private $normal $void instancemethod(#E i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.ExThree<#S> {\n");
+        xml_.append(" $protected $normal $void instancemethod(#S i){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>:pkg.ExThree<#T>{\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateSingleParameterizedClasses(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateIds(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        ObjectMap<MethodId, StringList> map_ = toList(classes_.getClassBody("pkg.ExTwo").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        StringList superTypes_;
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new StringList("#T")));
+        assertEq(2, superTypes_.size());
+        assertEq("pkg.Ex<#T>", superTypes_.first());
+        assertEq("pkg.ExThree<#T>", superTypes_.last());
+        map_ = toList(classes_.getClassBody("pkg.Ex").getAllOverridingMethods());
+        assertEq(1, map_.size());
+        superTypes_ = map_.getVal(new MethodId(false,"instancemethod", new StringList("#E")));
+        assertEq(1, superTypes_.size());
+        assertEq("pkg.Ex<#E>", superTypes_.first());
+        MethodId id_ = new MethodId(false,"instancemethod", new StringList("#E"));
+        MethodId resId_;
+        ClassMethodId res_;
+        RootBlock r_ = classes_.getClassBody("pkg.Ex");
+        StringMap<ClassMethodId> concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new StringList("#E"));
+        assertEq("pkg.Ex", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
+        id_ = new MethodId(false,"instancemethod", new StringList("#S"));
+        r_ = classes_.getClassBody("pkg.ExThree");
+        concrete_ = TypeUtil.getConcreteMethodsToCall(r_, id_, cont_);
+        assertEq(1, concrete_.size());
+        assertTrue(concrete_.contains("pkg.ExTwo"));
+        res_ = concrete_.getVal("pkg.ExTwo");
+        resId_ = new MethodId(false,"instancemethod", new StringList("#S"));
+        assertEq("pkg.ExThree", res_.getClassName());
+        assertEq(resId_, res_.getConstraints());
     }
     @Test
     public void testMockOverrides() {
@@ -1014,7 +1185,7 @@ public class RootBlockTest {
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateInheritingClasses(cont_);
+        classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }

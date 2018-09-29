@@ -118,7 +118,6 @@ public final class StandardClass extends StandardType implements GeneClass {
         return getDirectSuperTypes();
     }
 
-    @Override
     public String getSuperClass(Analyzable _classes) {
         for (String s: getDirectSuperTypes()) {
             String base_ = Templates.getIdFromAllTypes(s);
@@ -129,7 +128,6 @@ public final class StandardClass extends StandardType implements GeneClass {
         return _classes.getStandards().getAliasObject();
     }
 
-    @Override
     public StringList getDirectInterfaces(Analyzable _classes) {
         StringList interfaces_ = new StringList();
         for (String s: getDirectSuperTypes()) {
@@ -140,7 +138,7 @@ public final class StandardClass extends StandardType implements GeneClass {
         }
         return interfaces_;
     }
-    @Override
+
     public StringList getAllSuperClasses(Analyzable _classes) {
         return allSuperClasses;
     }

@@ -9,7 +9,6 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.AbstractMethod;
@@ -191,8 +190,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             String idClass_ = Templates.getIdFromAllTypes(cl_);
             StringMap<String> ownersMap_ = new StringMap<String>();
+            String glClass_ = _conf.getGlobalClass();
             for (String o: previousResultClass.getNames()) {
-                StringList ids_ = new StringList(Templates.getIdFromAllTypes(o));
+                String idRoot_ = Templates.getIdFromAllTypes(o);
+                StringList ids_ = new StringList(idRoot_);
                 StringList owners_ = new StringList();
                 while (true) {
                     StringList new_ = new StringList();
@@ -203,12 +204,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         }
                         RootBlock sub_ = (RootBlock)g_;
                         boolean add_ = false;
-                        for (Block b: Classes.getDirectChildren(sub_)) {
-                            if (!(b instanceof RootBlock)) {
-                                continue;
-                            }
-                            RootBlock inner_ = (RootBlock) b;
-                            if (StringList.quickEq(inner_.getName(), idClass_)) {
+                        for (RootBlock b: Classes.accessedClassMembers(idRoot_, glClass_, sub_, _conf)) {
+                            if (StringList.quickEq(b.getName(), idClass_)) {
                                 owners_.add(s);
                                 add_ = true;
                             }

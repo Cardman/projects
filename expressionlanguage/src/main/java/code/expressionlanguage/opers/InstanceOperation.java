@@ -12,7 +12,6 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.EnumBlock;
@@ -284,8 +283,10 @@ public final class InstanceOperation extends AbstractInstancingOperation {
         }
         StringMap<String> ownersMap_ = new StringMap<String>();
         String idClass_ = Templates.getIdFromAllTypes(realClassName_);
+        String glClass_ = _conf.getGlobalClass();
         for (String o: arg_.getNames()) {
-            StringList ids_ = new StringList(Templates.getIdFromAllTypes(o));
+            String idRoot_ = Templates.getIdFromAllTypes(o);
+            StringList ids_ = new StringList(idRoot_);
             StringList owners_ = new StringList();
             while (true) {
                 StringList new_ = new StringList();
@@ -296,12 +297,8 @@ public final class InstanceOperation extends AbstractInstancingOperation {
                     }
                     RootBlock sub_ = (RootBlock)g_;
                     boolean add_ = false;
-                    for (Block b: Classes.getDirectChildren(sub_)) {
-                        if (!(b instanceof RootBlock)) {
-                            continue;
-                        }
-                        RootBlock inner_ = (RootBlock) b;
-                        if (StringList.quickEq(inner_.getName(), idClass_)) {
+                    for (RootBlock b: Classes.accessedClassMembers(idRoot_,glClass_, sub_, _conf)) {
+                        if (StringList.quickEq(b.getName(), idClass_)) {
                             owners_.add(s);
                             add_ = true;
                         }

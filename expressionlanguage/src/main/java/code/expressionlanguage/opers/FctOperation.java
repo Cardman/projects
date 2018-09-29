@@ -3,7 +3,9 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ExecutableCode;
+import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -14,7 +16,9 @@ import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.StaticAccessError;
+import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UndefinedMethodError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -31,6 +35,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class FctOperation extends InvokingOperation {
 
@@ -78,6 +83,52 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         StringList l_ = clCur_.getNames();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        String trimMeth_ = methodName.trim();
+        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
+        int varargOnly_ = lookOnlyForVarArg();
+        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
+
+        boolean staticChoiceMethod_ = false;
+        boolean accessSuperTypes_ = true;
+        boolean accessFromSuper_ = false;
+        if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(DOT_VAR))))) {
+            trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
+            staticChoiceMethod_ = true;
+            accessFromSuper_ = true;
+        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(THAT, String.valueOf(DOT_VAR))))) {
+            trimMeth_ = trimMeth_.substring(THAT.length() + 2);
+            staticChoiceMethod_ = true;
+        } else if (ElResolver.procWordFirstChar(trimMeth_, 0, prefixFunction(THIS_ACCESS_FCT))) {
+            String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
+            int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
+            className_ = className_.substring(lenPref_);
+            className_ = _conf.resolveCorrectType(className_, true);
+            Mapping map_ = new Mapping();
+            map_.setParam(className_);
+            map_.setArg(clCur_);
+            StringMap<StringList> mapping_ = new StringMap<StringList>();
+            for (TypeVar t: Templates.getConstraints(_conf.getGlobalClass(), _conf)) {
+                mapping_.put(t.getName(), t.getConstraints());
+            }
+            map_.setMapping(mapping_);
+            if (!Templates.isCorrect(map_, _conf)) {
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(map_);
+                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setFileName(_conf.getCurrentFileName());
+                _conf.getClasses().addError(cast_);
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
+            trimMeth_ = trimMeth_.substring(trimMeth_.lastIndexOf(PAR_RIGHT) + 1).trim();
+            l_ = getBounds(className_, _conf);
+            accessSuperTypes_ = false;
+        }
+        boolean cloneArray_ = false;
         StringList bounds_ = new StringList();
         for (String c: l_) {
             if (c.isEmpty()) {
@@ -89,26 +140,6 @@ public final class FctOperation extends InvokingOperation {
             }
             bounds_.addAllElts(getBounds(c, _conf));
         }
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        String trimMeth_ = methodName.trim();
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
-        int varargOnly_ = lookOnlyForVarArg();
-        if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
-
-        boolean staticChoiceMethod_ = false;
-        boolean accessFromSuper_ = false;
-        if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(DOT_VAR))))) {
-            trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
-            staticChoiceMethod_ = true;
-            accessFromSuper_ = true;
-        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(THAT, String.valueOf(DOT_VAR))))) {
-            trimMeth_ = trimMeth_.substring(THAT.length() + 2);
-            staticChoiceMethod_ = true;
-        }
-        boolean cloneArray_ = false;
         for (String b: bounds_) {
             if (b.startsWith(PrimitiveTypeUtil.ARR_CLASS)) {
                 cloneArray_ = true;
@@ -147,7 +178,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, accessFromSuper_, import_, ClassArgumentMatching.toArgArray(firstArgs_));
+        clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));

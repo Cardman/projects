@@ -420,28 +420,17 @@ public final class PrimitiveTypeUtil {
     /** Only "object" classes are used as arguments */
     public static StringList getSubclasses(StringList _classNames, Analyzable _context) {
         StringList types_ = new StringList();
-        LgNames stds_ = _context.getStandards();
-        String voidType_ = stds_.getAliasVoid();
         for (String i: _classNames) {
             boolean sub_ = true;
-            if (StringList.quickEq(i, voidType_)) {
-                for (String j: _classNames) {
-                    if (!StringList.quickEq(i, j)) {
-                        sub_ = false;
-                        break;
-                    }
+            for (String j: _classNames) {
+                String baseSup_ = Templates.getIdFromAllTypes(i);
+                String baseSub_ = Templates.getIdFromAllTypes(j);
+                if (StringList.quickEq(baseSup_, baseSub_)) {
+                    continue;
                 }
-            } else {
-                for (String j: _classNames) {
-                    String baseSup_ = Templates.getIdFromAllTypes(i);
-                    String baseSub_ = Templates.getIdFromAllTypes(j);
-                    if (StringList.quickEq(baseSup_, baseSub_)) {
-                        continue;
-                    }
-                    if (canBeUseAsArgument(baseSup_, baseSub_, _context)) {
-                        sub_ = false;
-                        break;
-                    }
+                if (canBeUseAsArgument(baseSup_, baseSub_, _context)) {
+                    sub_ = false;
+                    break;
                 }
             }
             if (!sub_) {
@@ -456,54 +445,44 @@ public final class PrimitiveTypeUtil {
     static StringList getTernarySubclasses(StringList _classNames, StringMap<StringList> _map, Analyzable _context) {
         StringList types_ = new StringList();
         LgNames stds_ = _context.getStandards();
-        String voidType_ = stds_.getAliasVoid();
         String obj_ = stds_.getAliasObject();
         Mapping m_ = new Mapping();
         m_.setMapping(_map);
         for (String i: _classNames) {
             boolean sub_ = true;
-            if (StringList.quickEq(i, voidType_)) {
-                for (String j: _classNames) {
-                    if (!StringList.quickEq(i, j)) {
-                        sub_ = false;
-                        break;
-                    }
+            for (String j: _classNames) {
+                String baseSup_ = Templates.getIdFromAllTypes(i);
+                String baseSub_ = Templates.getIdFromAllTypes(j);
+                DimComp baseArrSub_ = getQuickComponentBaseType(baseSub_);
+                if (StringList.quickEq(baseSup_, baseSub_)) {
+                    continue;
                 }
-            } else {
-                for (String j: _classNames) {
-                    String baseSup_ = Templates.getIdFromAllTypes(i);
-                    String baseSub_ = Templates.getIdFromAllTypes(j);
-                    DimComp baseArrSub_ = getQuickComponentBaseType(baseSub_);
-                    if (StringList.quickEq(baseSup_, baseSub_)) {
-                        continue;
-                    }
-                    if (isPrimitive(baseSup_, _context) && !isPrimitive(baseSub_, _context)) {
-                        continue;
-                    }
-                    int dimSup_ = baseArrSub_.getDim();
-                    if (baseArrSub_.getComponent().startsWith(Templates.PREFIX_VAR_TYPE)) {
-                        boolean inh_ = false;
-                        String b_ = baseArrSub_.getComponent().substring(Templates.PREFIX_VAR_TYPE.length());
-                        for (String u: Mapping.getAllBounds(_map, b_, obj_)) {
-                            String a_ = getPrettyArrayType(u, dimSup_);
-                            if (StringList.quickEq(a_, baseSup_)) {
-                                inh_ = true;
-                                break;
-                            }
-                        }
-                        if (inh_) {
-                            sub_ = false;
+                if (isPrimitive(baseSup_, _context) && !isPrimitive(baseSub_, _context)) {
+                    continue;
+                }
+                int dimSup_ = baseArrSub_.getDim();
+                if (baseArrSub_.getComponent().startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    boolean inh_ = false;
+                    String b_ = baseArrSub_.getComponent().substring(Templates.PREFIX_VAR_TYPE.length());
+                    for (String u: Mapping.getAllBounds(_map, b_, obj_)) {
+                        String a_ = getPrettyArrayType(u, dimSup_);
+                        if (StringList.quickEq(a_, baseSup_)) {
+                            inh_ = true;
                             break;
                         }
-                        continue;
                     }
-                    if (baseSup_.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                        continue;
-                    }
-                    if (canBeUseAsArgument(baseSup_, baseSub_, _context)) {
+                    if (inh_) {
                         sub_ = false;
                         break;
                     }
+                    continue;
+                }
+                if (baseSup_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    continue;
+                }
+                if (canBeUseAsArgument(baseSup_, baseSub_, _context)) {
+                    sub_ = false;
+                    break;
                 }
             }
             if (!sub_) {

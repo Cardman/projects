@@ -3347,7 +3347,7 @@ public class ElResolverTest {
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
-        classes_.validateInheritingClasses(conf_);
+        classes_.validateInheritingClasses(conf_, false);
         classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
@@ -3394,7 +3394,7 @@ public class ElResolverTest {
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
-        classes_.validateInheritingClasses(conf_);
+        classes_.validateInheritingClasses(conf_, false);
         classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
@@ -3441,7 +3441,7 @@ public class ElResolverTest {
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
-        classes_.validateInheritingClasses(conf_);
+        classes_.validateInheritingClasses(conf_, false);
         classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
@@ -3490,7 +3490,7 @@ public class ElResolverTest {
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
-        classes_.validateInheritingClasses(conf_);
+        classes_.validateInheritingClasses(conf_, false);
         classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
@@ -3547,7 +3547,7 @@ public class ElResolverTest {
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
-        classes_.validateInheritingClasses(conf_);
+        classes_.validateInheritingClasses(conf_, false);
         classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
@@ -3596,7 +3596,7 @@ public class ElResolverTest {
         Classes classes_ = conf_.getClasses();
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
-        classes_.validateInheritingClasses(conf_);
+        classes_.validateInheritingClasses(conf_, false);
         classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);

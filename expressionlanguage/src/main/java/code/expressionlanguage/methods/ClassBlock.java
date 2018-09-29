@@ -188,22 +188,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public String getSuperClass(Analyzable _context) {
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _context.resolveBaseTypeBuildInherits(base_, this);
-            RootBlock r_ = _context.getClasses().getClassBody(base_);
-            if (!(r_ instanceof ClassBlock)) {
-                continue;
-            }
-            if (isAccessibleType(base_, _context)) {
-                return base_;
-            }
-        }
-        return _context.getStandards().getAliasObject();
-    }
-
-    @Override
     public StringList getAllSuperClasses() {
         return allSuperClasses;
     }
@@ -215,23 +199,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     public StringList getAllInterfaces() {
         return allInterfaces;
-    }
-
-    @Override
-    public StringList getDirectInterfaces(Analyzable _classes) {
-        StringList interfaces_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_ = _classes.resolveBaseTypeBuildInherits(base_, this);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (!(r_ instanceof InterfaceBlock)) {
-                continue;
-            }
-            if (isAccessibleType(base_, _classes)) {
-                interfaces_.add(base_);
-            }
-        }
-        return interfaces_;
     }
 
     @Override
@@ -247,26 +214,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     @Override
     boolean canBeLastOfBlockGroup() {
         return false;
-    }
-
-    @Override
-    public StringList getDirectSuperClasses(Analyzable _context) {
-        StringList classes_ = new StringList();
-        for (String s: getDirectSuperTypes()) {
-            String base_ = Templates.getIdFromAllTypes(s);
-            base_=_context.resolveBaseTypeBuildInherits(base_,this);
-            RootBlock r_ = _context.getClasses().getClassBody(base_);
-            if (!(r_ instanceof ClassBlock)) {
-                continue;
-            }
-            if (isAccessibleType(base_, _context)) {
-                classes_.add(base_);
-            }
-        }
-        if (classes_.isEmpty()) {
-            classes_.add(_context.getStandards().getAliasObject());
-        }
-        return classes_;
     }
 
     @Override
@@ -304,21 +251,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
-    public StringList getAllSuperClasses(Analyzable _classes) {
-        StringList superClasses_ = new StringList();
-        String current_ = getFullName();
-        String objectAlias_ = _classes.getStandards().getAliasObject();
-        while (!StringList.quickEq(current_, objectAlias_)) {
-            UniqueRootedBlock r_ = (UniqueRootedBlock) _classes.getClasses().getClassBody(current_);
-            String superClass_ = r_.getSuperClass(_classes);
-            superClasses_.add(superClass_);
-            current_ = superClass_;
-        }
-        return superClasses_;
-    }
-
-    @Override
-    public void buildDirectGenericSuperTypes(Analyzable _classes) {
+    public void buildDirectGenericSuperTypes(ContextEl _classes) {
         NatTreeMap<Integer, String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;

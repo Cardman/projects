@@ -885,20 +885,12 @@ public class Configuration implements ExecutableCode {
     public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
         return PartTypeUtil.processExec(_in, context);
     }
-    @Override
-    public String resolveTypeMapping(String _in, Block _currentBlock, RowCol _location) {
-        return resolveDynamicType(_in, null);
-    }
 
     @Override
     public int getGlobalOffset() {
         return context.getGlobalOffset();
     }
 
-    @Override
-    public String resolveBaseTypeBuildInherits(String _in, Block _currentBlock) {
-        return ContextEl.removeDottedSpaces(_in);
-    }
     @Override
     public String resolveBaseType(String _in, Block _currentBlock,
             RowCol _location) {
@@ -933,8 +925,8 @@ public class Configuration implements ExecutableCode {
         return context.getAnalyzing();
     }
     @Override
-    public String resolveBaseTypeInherits(String _in, Block _currentBlock,RowCol _location) {
-        return context.resolveBaseTypeInherits(_in, _currentBlock, _location);
+    public String resolveBaseTypeInherits(String _in, RootBlock _currentBlock,RowCol _location, StringList _builtTypes) {
+        return context.resolveBaseTypeInherits(_in, _currentBlock, _location, _builtTypes);
     }
     @Override
     public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(
