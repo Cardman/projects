@@ -34,15 +34,7 @@ final class WildCardPartType extends ParentPartType {
     public void analyzeDepends(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact, RowCol _location) {
-        if (getParent() == null) {
-            stopDepends();
-            return;
-        }
-        if (getParent() instanceof WildCardPartType) {
-            stopDepends();
-            return;
-        }
-        if (getParent() instanceof ArraryPartType) {
+        if (!(getParent() instanceof TemplatePartType)) {
             stopDepends();
             return;
         }
@@ -56,13 +48,7 @@ final class WildCardPartType extends ParentPartType {
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         String ch_ = getFirstChild().getAnalyzedType();
-        if (getParent() == null) {
-            return;
-        }
-        if (getParent() instanceof WildCardPartType) {
-            return;
-        }
-        if (getParent() instanceof ArraryPartType) {
+        if (!(getParent() instanceof TemplatePartType)) {
             return;
         }
         ch_ = StringList.concat(getBegin(),ch_);
@@ -72,13 +58,7 @@ final class WildCardPartType extends ParentPartType {
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
-        if (getParent() instanceof WildCardPartType) {
-            return;
-        }
-        if (getParent() instanceof ArraryPartType) {
-            return;
-        }
-        if (getParent() == null) {
+        if (!(getParent() instanceof TemplatePartType)) {
             return;
         }
         String ch_ = getFirstChild().getAnalyzedType();

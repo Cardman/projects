@@ -19,6 +19,10 @@ final class EmptyWildCardPart extends LeafPartType {
     public void analyzeDepends(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels, RootBlock _rooted,
             boolean _exact, RowCol _location) {
+        if (!(getParent() instanceof TemplatePartType)) {
+            stopDepends();
+            return;
+        }
         setAnalyzedType(Templates.SUB_TYPE);
     }
 
@@ -26,6 +30,9 @@ final class EmptyWildCardPart extends LeafPartType {
     public void analyze(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+        if (!(getParent() instanceof TemplatePartType)) {
+            return;
+        }
         setAnalyzedType(Templates.SUB_TYPE);
     }
 
@@ -33,6 +40,9 @@ final class EmptyWildCardPart extends LeafPartType {
     public void analyze(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             AccessingImportingBlock _rooted, boolean _exact) {
+        if (!(getParent() instanceof TemplatePartType)) {
+            return;
+        }
         setAnalyzedType(Templates.SUB_TYPE);
     }
 
@@ -40,6 +50,9 @@ final class EmptyWildCardPart extends LeafPartType {
     @Override
     public void checkDynExistence(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels) {
+        if (!(getParent() instanceof TemplatePartType)) {
+            return;
+        }
         setImportedTypeName(Templates.SUB_TYPE);
     }
 
