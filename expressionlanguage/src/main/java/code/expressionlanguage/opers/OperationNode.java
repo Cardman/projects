@@ -472,9 +472,9 @@ public abstract class OperationNode {
         nextSibling = _nextSibling;
     }
 
-    static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
-        FieldResult fr_ = resolveDeclaredCustField(_cont, _staticContext, _class, _baseClass, _superClass, _name, _import);
-        if (fr_.getStatus() == SearchingMemberStatus.UNIQ) {
+    static FieldResult getDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
+        FieldResult fr_ = resolveDeclaredCustField(_cont, _staticContext, _class, _baseClass, _superClass, _name, _import, _aff);
+        if (fr_.getStatus() == SearchingMemberStatus.UNIQ && fr_.getId().getType() != null) {
             return fr_;
         }
         StaticAccessFieldError access_ = new StaticAccessFieldError();
@@ -488,17 +488,17 @@ public abstract class OperationNode {
         return res_;
     }
 
-    public static FieldResult resolveDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
+    public static FieldResult resolveDeclaredCustField(Analyzable _cont, boolean _staticContext, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         if (!_staticContext) {
-            FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import);
+            FieldResult resIns_ = getDeclaredCustFieldByContext(_cont, false, _class, _baseClass, _superClass, _name, _import, _aff);
             if (resIns_.getStatus() == SearchingMemberStatus.UNIQ) {
                 return resIns_;
             }
         }
-        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name, _import);
+        FieldResult resSt_ = getDeclaredCustFieldByContext(_cont, true, _class, _baseClass, _superClass, _name, _import,_aff);
         return resSt_;
     }
-    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import) {
+    private static FieldResult getDeclaredCustFieldByContext(Analyzable _cont, boolean _static, ClassArgumentMatching _class, boolean _baseClass, boolean _superClass, String _name, boolean _import, boolean _aff) {
         StringMap<String> clCurNames_ = new StringMap<String>();
         StringMap<String> clCurNamesBase_ = new StringMap<String>();
         StringList classeNames_ = new StringList();
@@ -667,7 +667,7 @@ public abstract class OperationNode {
                 FieldInfo field_ = _cont.getFieldInfo(id_);
                 FieldResult r_ = new FieldResult();
                 String realType_ = field_.getType();
-                FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, false);
+                FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, _aff);
                 r_.setId(f_);
                 r_.setAnc(ancestors_.getVal(id_));
                 r_.setStatus(SearchingMemberStatus.UNIQ);
@@ -1078,7 +1078,7 @@ public abstract class OperationNode {
                             continue;
                         }
                         String ret_ = sup_.getImportedReturnType();
-                        ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
+                        ret_ = Templates.wildCardFormat(formattedClass_, ret_, _conf, true);
                         ParametersGroup p_ = new ParametersGroup();
                         MethodId realId_ = id_;
                         for (String c: realId_.getParametersTypes()) {
@@ -1128,7 +1128,7 @@ public abstract class OperationNode {
                                 continue;
                             }
                             String ret_ = sup_.getImportedReturnType();
-                            ret_ = Templates.generalFormat(formattedClass_, ret_, _conf);
+                            ret_ = Templates.wildCardFormat(formattedClass_, ret_, _conf, true);
                             ParametersGroup p_ = new ParametersGroup();
                             MethodId realId_ = id_;
                             for (String c: realId_.getParametersTypes()) {
@@ -1300,7 +1300,11 @@ public abstract class OperationNode {
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
-            map_.setParam(Templates.generalFormat(_class, _params[i].getClassName(), _context));
+            String wc_ = Templates.wildCardFormat(_class, _params[i].getClassName(), _context, false);
+            if (wc_ == null) {
+                return false;
+            }
+            map_.setParam(wc_);
             if (!Templates.isCorrect(map_, _context)) {
                 return false;
             }
@@ -1316,12 +1320,20 @@ public abstract class OperationNode {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
             String param_ = _params[last_].getClassName();
-            map_.setParam(Templates.generalFormat(_class, param_, _context));
+            String wc_ = Templates.wildCardFormat(_class, param_, _context, false);
+            if (wc_ == null) {
+                return false;
+            }
+            map_.setParam(wc_);
             if (Templates.isGenericCorrect(map_, _context)) {
                 return true;
             }
             param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-            map_.setParam(Templates.generalFormat(_class, param_, _context));
+            wc_ = Templates.wildCardFormat(_class, param_, _context, false);
+            if (wc_ == null) {
+                return false;
+            }
+            map_.setParam(wc_);
             return Templates.isGenericCorrect(map_, _context);
         }
         len_ = _argsClass.length;
@@ -1332,7 +1344,11 @@ public abstract class OperationNode {
         for (TypeVar t: vars_) {
             map_.getMapping().put(t.getName(), t.getConstraints());
         }
-        map_.setParam(Templates.generalFormat(_class, param_, _context));
+        String wc_ = Templates.wildCardFormat(_class, param_, _context, false);
+        if (wc_ == null) {
+            return false;
+        }
+        map_.setParam(wc_);
         for (int i = startOpt_; i < len_; i++) {
             map_.setArg(_argsClass[i]);
             if (!Templates.isGenericCorrect(map_, _context)) {
@@ -1364,7 +1380,7 @@ public abstract class OperationNode {
             map_.getMapping().put(t.getName(), t.getConstraints());
         }
         map_.setArg(_argsClass[last_]);
-        map_.setParam(Templates.generalFormat(_class, param_, _context));
+        map_.setParam(Templates.wildCardFormat(_class, param_, _context, false));
         return !Templates.isGenericCorrect(map_, _context);
     }
     static ClassMatching[] getParameters(Identifiable _id) {
@@ -1487,8 +1503,10 @@ public abstract class OperationNode {
             String paramOne_ = one_.getClassName();
             ClassMatching two_ = _o2.getParameters().get(i);
             String paramTwo_ = two_.getClassName();
-            one_ = new ClassMatching(Templates.generalFormat(glClassOne_, paramOne_, context_));
-            two_ = new ClassMatching(Templates.generalFormat(glClassTwo_, paramTwo_, context_));
+            String wcOne_ = Templates.wildCardFormat(glClassOne_, paramOne_, context_, false);
+            String wcTwo_ = Templates.wildCardFormat(glClassTwo_, paramTwo_, context_, false);
+            one_ = new ClassMatching(wcOne_);
+            two_ = new ClassMatching(wcTwo_);
             if (one_.matchClass(two_)) {
                 continue;
             }
@@ -1554,8 +1572,10 @@ public abstract class OperationNode {
             String paramTwo_ = two_.getClassName();
             paramTwo_ = StringList.replace(paramTwo_, VARARG_SUFFIX, EMPTY_STRING);
             paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
-            one_ = new ClassMatching(Templates.generalFormat(glClassOne_, paramOne_, context_));
-            two_ = new ClassMatching(Templates.generalFormat(glClassTwo_, paramTwo_, context_));
+            String wcOne_ = Templates.wildCardFormat(glClassOne_, paramOne_, context_, false);
+            String wcTwo_ = Templates.wildCardFormat(glClassTwo_, paramTwo_, context_, false);
+            one_ = new ClassMatching(wcOne_);
+            two_ = new ClassMatching(wcTwo_);
             if (!one_.matchClass(two_)) {
                 if (one_.isAssignableFrom(two_, map_, context_)) {
                     return CustList.SWAP_SORT;

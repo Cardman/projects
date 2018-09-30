@@ -27,7 +27,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
             classNames.add(s);
         }
     }
-
+    
     public ConstructorId format(String _genericClass, Analyzable _classes) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();

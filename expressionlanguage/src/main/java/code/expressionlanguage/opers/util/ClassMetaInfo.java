@@ -22,6 +22,8 @@ public final class ClassMetaInfo implements Struct {
 
     private final StringList superInterfaces = new StringList();
     private final StringList memberTypes = new StringList();
+    private final StringList upperBounds = new StringList();
+    private final StringList lowerBounds = new StringList();
     private final String typeOwner;
 
     private final StringMap<FieldMetaInfo> fieldsInfos;
@@ -67,8 +69,10 @@ public final class ClassMetaInfo implements Struct {
         finalType = true;
     }
 
-    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner, AccessEnum _access) {
+    public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, StringList _upperBounds, StringList _lowerBounds, String _variableOwner, AccessEnum _access) {
         name = _name;
+        upperBounds.addAllElts(_upperBounds);
+        lowerBounds.addAllElts(_lowerBounds);
         access = _access;
         abstractType = true;
         typeOwner = EMPTY_STRING;
@@ -168,9 +172,11 @@ public final class ClassMetaInfo implements Struct {
         GeneType g_ = _cont.getClassBody(id_);
         CustList<TypeVar> vars_;
         vars_ = g_.getParamTypesMapValues();
+        StringList upperBounds_ = new StringList();
+        StringList lowerBounds_ = new StringList();
         for (TypeVar b: vars_) {
             String pref_ = StringList.concat(Templates.PREFIX_VAR_TYPE, b.getName());
-            list_.add(new ClassMetaInfo(pref_, _cont, ClassCategory.VARIABLE, name, g_.getAccess()));
+            list_.add(new ClassMetaInfo(pref_, _cont, ClassCategory.VARIABLE, upperBounds_, lowerBounds_, name, g_.getAccess()));
         }
         return list_;
     }
@@ -197,6 +203,9 @@ public final class ClassMetaInfo implements Struct {
     }
     public boolean isTypeEnum() {
         return category == ClassCategory.ENUM;
+    }
+    public boolean isTypeWildCard() {
+        return category == ClassCategory.WILD_CARD;
     }
     public boolean isTypeClass() {
         return category == ClassCategory.CLASS;

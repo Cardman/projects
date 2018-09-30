@@ -213,6 +213,22 @@ public final class StandardInstancingOperation extends
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
+        for (String p:Templates.getAllTypes(realClassName_).mid(1)){
+            if (p.startsWith(Templates.SUB_TYPE)) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(realClassName_);
+                call_.setFileName(_conf.getCurrentFileName());
+                call_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(call_);
+            }
+            if (p.startsWith(Templates.SUP_TYPE)) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(realClassName_);
+                call_.setFileName(_conf.getCurrentFileName());
+                call_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(call_);
+            }
+        }
         if (!g_.isStaticType() && !isIntermediateDottedOperation() && isStaticAccess()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());

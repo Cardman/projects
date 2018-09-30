@@ -276,6 +276,13 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                 String type_ = out_.first();
                 Mapping mapping_ = new Mapping();
                 String paramArg_ = Templates.getAllTypes(type_).last();
+                if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+                    paramArg_ = _cont.getStandards().getAliasObject();
+                } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
+                    paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
+                } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
+                    paramArg_ = _cont.getStandards().getAliasObject();
+                }
                 if (StringList.quickEq(className.trim(), TypeUtil.VAR_TYPE)) {
                     importedClassName = paramArg_;
                 } else {

@@ -22,28 +22,7 @@ public final class AnalyzingType {
         values.put((int)CustList.FIRST_INDEX, _string);
         offset = _offset;
     }
-    public void setupArrayValues(String _string, Options _options) {
 
-        int j_ = _string.length()-1;
-        while (_string.charAt(j_) != ']') {
-            j_--;
-        }
-        while (_string.charAt(j_) != '[') {
-            j_--;
-        }
-        int last_ = StringList.getLastPrintableCharIndex(_string.substring(0, j_));
-        if (last_ < 0) {
-            values = new NatTreeMap<Integer,String>();
-            values.put((int)CustList.FIRST_INDEX, _string);
-            error = true;
-            return;
-        }
-        String str_ = _string.substring(0, j_);
-        values = new NatTreeMap<Integer,String>();
-        values.put((int)CustList.FIRST_INDEX, str_);
-        operators = new NatTreeMap<Integer,String>();
-        operators.put(last_, "[]");
-    }
     public void setupValues(String _string, Options _options) {
         values = new NatTreeMap<Integer,String>();
         if (operators.isEmpty()) {
@@ -85,14 +64,32 @@ public final class AnalyzingType {
         int arr_ = first_;
         first_++;
         int offset_ = StringList.getFirstPrintableCharIndex(_string.substring(first_));
-        if (offset_ > 0) {
+        if (offset_ >= 0) {
             first_ += offset_;
+        } else {
+            error = true;
         }
         String str_ = _string.substring(first_);
         values = new NatTreeMap<Integer,String>();
         values.put(first_, str_);
         operators = new NatTreeMap<Integer,String>();
         operators.put(arr_, Templates.ARR_BEG_STRING);
+    }
+    public void setupWildCardValues(String _op,String _string) {
+        int first_ = StringList.getFirstPrintableCharIndex(_string);
+        int arr_ = first_;
+        first_++;
+        int offset_ = StringList.getFirstPrintableCharIndex(_string.substring(first_));
+        if (offset_ >= 0) {
+            first_ += offset_;
+        } else {
+            error = true;
+        }
+        String str_ = _string.substring(first_);
+        values = new NatTreeMap<Integer,String>();
+        values.put(first_, str_);
+        operators = new NatTreeMap<Integer,String>();
+        operators.put(arr_, _op);
     }
     public void setupValuesExec(String _string) {
         values = new NatTreeMap<Integer,String>();

@@ -23,11 +23,14 @@ public final class FieldInfo {
         enumField = _enumField;
     }
     public static FieldInfo newFieldInfo(String _name,String _declaringClass, String _type,
-            boolean _staticField, boolean _finalField, boolean _enumField, Analyzable _cont, boolean _eqType) {
+            boolean _staticField, boolean _finalField, boolean _enumField, Analyzable _cont, boolean _aff) {
         String formattedType_ = _type;
-        if (!_eqType) {
-            formattedType_ = Templates.generalFormat(_declaringClass, formattedType_, _cont);
-        }
+        formattedType_ = Templates.wildCardFormat(_declaringClass, formattedType_, _cont, !_aff);
+        return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _enumField);
+    }
+    public static FieldInfo newFieldMetaInfo(String _name,String _declaringClass, String _type,
+            boolean _staticField, boolean _finalField, boolean _enumField, Analyzable _cont) {
+        String formattedType_ = _type;
         return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _enumField);
     }
     public ClassField getClassField() {

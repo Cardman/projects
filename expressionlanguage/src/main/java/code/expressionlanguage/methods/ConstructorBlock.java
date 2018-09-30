@@ -67,18 +67,6 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
         }
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
-    public ConstructorId getFormattedId(String _genericClass, ContextEl _classes) {
-        String name_ = Templates.format(_genericClass, getName(), _classes);
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            String formatted_ = Templates.format(_genericClass, n_, _classes);
-            pTypes_.add(formatted_);
-        }
-        return new ConstructorId(name_, pTypes_, isVarargs());
-    }
     public void setupInstancingStep(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());

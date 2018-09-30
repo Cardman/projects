@@ -152,6 +152,7 @@ public final class ElResolver {
         int i_ = _minIndex;
         int lastDoubleDot_ = i_;
         boolean beginOrEnd_ = false;
+        boolean aff_ = false;
         while (i_ < len_) {
             if (!Character.isWhitespace(_string.charAt(i_))) {
                 break;
@@ -977,7 +978,7 @@ public final class ElResolver {
                         }
                     }
                 }
-                i_ = processFieldsStaticAccess(_conf, _string, i_, d_);
+                i_ = processFieldsStaticAccess(_conf, _string, i_, d_, aff_);
                 continue;
             }
             if (StringList.isWordChar(curChar_)) {
@@ -1191,7 +1192,7 @@ public final class ElResolver {
                                 d_.getVariables().add(info_);
                             }
                         } else if (!prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
-                            i_ = processFieldsStaticAccess(_conf, _string, beginWord_, d_);
+                            i_ = processFieldsStaticAccess(_conf, _string, beginWord_, d_, aff_);
                         } else {
                             info_.setName(word_);
                             d_.getVariables().add(info_);
@@ -1409,6 +1410,20 @@ public final class ElResolver {
                                 j_++;
                                 continue;
                             }
+                            if (locCar_ == Templates.SUB_TYPE_CHAR) {
+                                if (count_ > 0) {
+                                    type_ = true;
+                                    j_++;
+                                    continue;
+                                }
+                            }
+                            if (locCar_ == Templates.SUP_TYPE_CHAR) {
+                                if (count_ > 0) {
+                                    type_ = true;
+                                    j_++;
+                                    continue;
+                                }
+                            }
                             if (locCar_ == ARR_LEFT) {
                                 if (count_ > 0) {
                                     type_ = true;
@@ -1524,19 +1539,23 @@ public final class ElResolver {
                         if (glClass_ != null) {
                             ClassArgumentMatching clArg_ = new ClassArgumentMatching(glClass_);
                             String word_ = partsFields_.first().toString();
-                            FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, _conf.isStaticContext(), clArg_, true, true, word_, _conf.getCurrentBlock() != null);
-                            if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
+                            FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, _conf.isStaticContext(), clArg_, true, true, word_, _conf.getCurrentBlock() != null, false);
+                            if (fr_.getStatus() != SearchingMemberStatus.UNIQ || fr_.getId().getType() == null) {
                                 field_ = false;
                             } else {
                                 String o_ = fr_.getId().getType();
                                 for (String p: partsFields_.mid(1)) {
                                     ClassArgumentMatching out_ = new ClassArgumentMatching(o_);
-                                    FieldResult n_ = OperationNode.resolveDeclaredCustField(_conf, false, out_, true, true, p.trim(), false);
+                                    FieldResult n_ = OperationNode.resolveDeclaredCustField(_conf, false, out_, true, true, p.trim(), false, false);
                                     if (n_.getStatus() != SearchingMemberStatus.UNIQ) {
                                         field_ = false;
                                         break;
                                     }
                                     o_ = n_.getId().getType();
+                                    if (o_ == null) {
+                                        field_ = false;
+                                        break;
+                                    }
                                 }
                             }
                         } else {
@@ -1680,6 +1699,11 @@ public final class ElResolver {
                 idOp_ = true;
             }
             if (curChar_ == EQ_CHAR) {
+                if (parsBrackets_.isEmpty()) {
+                    if (i_ + 1 < len_ && _string.charAt(i_ + 1) != EQ_CHAR) {
+                        aff_ = true;
+                    }
+                }
                 idOp_ = true;
             }
             if (curChar_ == NEG_BOOL_CHAR) {
@@ -1805,7 +1829,7 @@ public final class ElResolver {
         d_.setBadOffset(i_);
         return d_;
     }
-    static int processFieldsStaticAccess(Analyzable _conf, String _string, int _from, Delimiters _d) {
+    static int processFieldsStaticAccess(Analyzable _conf, String _string, int _from, Delimiters _d, boolean _aff) {
         Delimiters d_ = _d;
         int i_ = _from;
         int len_ = _string.length();
@@ -1822,6 +1846,7 @@ public final class ElResolver {
         boolean addLast_ = true;
         int j_ = i_;
         int k_ = i_;
+        boolean aff_ = false;
 
         while (j_ < len_) {
             char locChar_ = _string.charAt(j_);
@@ -1891,6 +1916,13 @@ public final class ElResolver {
                 j_++;
                 continue;
             }
+            if (locChar_ == EQ_CHAR) {
+                if (j_ + 1 < len_ && _string.charAt(j_ + 1) != EQ_CHAR) {
+                    if (applyMultipleAffectations(_conf) || !_aff) {
+                        aff_ = true;
+                    }
+                }
+            }
             break;
         }
         if (addLast_ && !begins_.containsObj(-1) && fChar_ > -1) {
@@ -1905,19 +1937,27 @@ public final class ElResolver {
             field_ = true;
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(glClass_);
             String word_ = partsFields_.first().trim();
-            FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, _conf.isStaticContext(), clArg_, true, true, word_, _conf.getCurrentBlock() != null);
-            if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
+            boolean realAff_ = aff_ && partsFields_.size() == 1;
+            FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, _conf.isStaticContext(), clArg_, true, true, word_, _conf.getCurrentBlock() != null, realAff_);
+            if (fr_.getStatus() != SearchingMemberStatus.UNIQ || fr_.getId().getType() == null) {
                 field_ = false;
             } else {
                 String o_ = fr_.getId().getType();
+                int index_ = 1;
                 for (String p: partsFields_.mid(1)) {
+                    realAff_ = aff_ && partsFields_.size() == index_+1;
                     ClassArgumentMatching out_ = new ClassArgumentMatching(o_);
-                    FieldResult n_ = OperationNode.resolveDeclaredCustField(_conf, false, out_, true, true, p.trim(), false);
+                    FieldResult n_ = OperationNode.resolveDeclaredCustField(_conf, false, out_, true, true, p.trim(), false, realAff_);
                     if (n_.getStatus() != SearchingMemberStatus.UNIQ) {
                         field_ = false;
                         break;
                     }
+                    index_++;
                     o_ = n_.getId().getType();
+                    if (o_ == null) {
+                        field_ = false;
+                        break;
+                    }
                 }
             }
         } else {

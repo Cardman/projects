@@ -828,7 +828,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 Boolean init_ = (Boolean) _firstArgs.last().getObject();
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
-                String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_);
+                String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_, false);
                 if (res_.isEmpty()) {
                     _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
                     Argument a_ = new Argument();
@@ -855,7 +855,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     cont_.setException(new StdStruct(new CustomError(cont_.joinPages()),null_));
                     return Argument.createVoid();
                 }
-                String res_ = Templates.correctClassPartsDynamic(className_, _conf, true);
+                String res_ = Templates.correctClassPartsDynamic(className_, _conf, true, true);
                 if (res_.isEmpty()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();

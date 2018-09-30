@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public abstract class LeafPartType extends PartType {
+abstract class LeafPartType extends PartType {
 
     private String typeName;
     private String importedTypeName = EMPTY_STRING;

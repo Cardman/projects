@@ -16,7 +16,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class NamePartType extends LeafPartType {
+final class NamePartType extends LeafPartType {
 
     public NamePartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
@@ -329,12 +329,6 @@ public final class NamePartType extends LeafPartType {
                         setAnalyzedType(StringList.concat(new_,"..",type_));
                         return;
                     }
-                    //ERROR
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(type_);
-                    un_.setFileName(_rooted.getFile().getFileName());
-                    un_.setRc(_location);
-                    _an.getClasses().addError(un_);
                     return;
                 }
             }
@@ -383,41 +377,30 @@ public final class NamePartType extends LeafPartType {
             }
             foundOwners_.removeDuplicates();
             if (foundOwners_.size() == 1) {
-                String old_ = last_.getAnalyzedType();
                 if (innersCandidates_.first().isStaticType()) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
                     return;
                 }
-                if (!Templates.correctNbParameters(old_, _an)) {
+                if (!Templates.correctNbParameters(owner_, _an)) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
                     return;
                 }
-                String new_ = Templates.getFullTypeByBases(old_, foundOwners_.first(), _an);
+                String new_ = Templates.getFullTypeByBases(owner_, foundOwners_.first(), _an);
                 last_.setAnalyzedType(new_);
                 setAnalyzedType(StringList.concat(new_,"..",type_));
                 return;
             }
-            //ERROR
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(type_);
-            un_.setFileName(_rooted.getFile().getFileName());
-            un_.setRc(_location);
-            _an.getClasses().addError(un_);
             return;
         }
         String type_ = getTypeName();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getClasses().isCustomType(type_)) {
             if (!_rooted.canAccessClass(type_, _an)) {
-                BadAccessClass err_ = new BadAccessClass();
-                err_.setFileName(_rooted.getFile().getFileName());
-                err_.setRc(new RowCol());
-                err_.setId(type_);
-                _an.getClasses().addError(err_);
+                return;
             }
             setAnalyzedType(type_);
             return;
@@ -430,13 +413,6 @@ public final class NamePartType extends LeafPartType {
                     setAnalyzedType(p_);
                     return;
                 }
-                String out_ = _an.getStandards().getAliasObject();
-                setAnalyzedType(out_);
-                UnknownClassName un_ = new UnknownClassName();
-                un_.setClassName(type_);
-                un_.setFileName(_rooted.getFile().getFileName());
-                un_.setRc(_location);
-                _an.getClasses().addError(un_);
                 return;
             }
         }
@@ -457,13 +433,6 @@ public final class NamePartType extends LeafPartType {
                         setAnalyzedType(getTypeName().trim());
                         return;
                     }
-                    UnknownClassName un_ = new UnknownClassName();
-                    un_.setClassName(type_);
-                    un_.setFileName(_rooted.getFile().getFileName());
-                    un_.setRc(_location);
-                    _an.getClasses().addError(un_);
-                    String out_ = _an.getStandards().getAliasObject();
-                    setAnalyzedType(out_);
                     return;
                 }
             }
@@ -471,12 +440,7 @@ public final class NamePartType extends LeafPartType {
         
         String out_ = _an.lookupImportsIndirect(type_, _rooted);
         if (out_.isEmpty()) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName(type_);
-            un_.setFileName(_rooted.getFile().getFileName());
-            un_.setRc(_location);
-            _an.getClasses().addError(un_);
-            out_ = _an.getStandards().getAliasObject();
+            return;
         }
         setAnalyzedType(out_);
     }
@@ -611,20 +575,19 @@ public final class NamePartType extends LeafPartType {
             }
             foundOwners_.removeDuplicates();
             if (foundOwners_.size() == 1) {
-                String old_ = last_.getAnalyzedType();
                 if (innersCandidates_.first().isStaticType()) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
                     return;
                 }
-                if (!Templates.correctNbParameters(old_, _an)) {
+                if (!Templates.correctNbParameters(owner_, _an)) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
                     return;
                 }
-                String new_ = Templates.getFullTypeByBases(old_, foundOwners_.first(), _an);
+                String new_ = Templates.getFullTypeByBases(owner_, foundOwners_.first(), _an);
                 last_.setAnalyzedType(new_);
                 setAnalyzedType(StringList.concat(new_,"..",type_));
                 return;

@@ -8,7 +8,7 @@ import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 
-public final class EmptyPartType extends LeafPartType {
+final class EmptyPartType extends LeafPartType {
 
     public EmptyPartType(ParentPartType _parent, int _index, int _indexInType, String _type) {
         super(_parent, _index, _indexInType, _type);
@@ -27,11 +27,6 @@ public final class EmptyPartType extends LeafPartType {
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
-        UnknownClassName un_ = new UnknownClassName();
-        un_.setClassName(EMPTY_STRING);
-        un_.setFileName(_rooted.getFile().getFileName());
-        un_.setRc(_location);
-        _an.getClasses().addError(un_);
     }
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,

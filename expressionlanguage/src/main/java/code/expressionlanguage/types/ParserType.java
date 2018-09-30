@@ -9,9 +9,10 @@ import code.util.StringList;
 
 public final class ParserType {
 
-    static final int ARR_PRIO = 1;
-    static final int INT_PRIO = 2;
-    static final int TMP_PRIO = 3;
+    static final int WILD_CARD_PRIO = 1;
+    static final int ARR_PRIO = 2;
+    static final int INT_PRIO = 3;
+    static final int TMP_PRIO = 4;
     public static Numbers<Integer> getIndexes(String _input, Options _options) {
         int count_ = 0;
         int len_ = _input.length();
@@ -104,7 +105,24 @@ public final class ParserType {
             a_.setupValue(_string, _offset, _options);
             return a_;
         }
-
+        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+            a_.setKind(KindPartType.EMPTY_WILD_CARD);
+            a_.setupValue(_string, _offset, _options);
+            return a_;
+        }
+        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
+            a_.setPrio(WILD_CARD_PRIO);
+            a_.setupWildCardValues(Templates.SUB_TYPE, _string);
+            return a_;
+        }
+        if (_string.trim().startsWith(Templates.SUP_TYPE)) {
+            if (StringList.quickEq(_string.trim(), Templates.SUP_TYPE)) {
+                a_.setError(true);
+            }
+            a_.setPrio(WILD_CARD_PRIO);
+            a_.setupWildCardValues(Templates.SUP_TYPE, _string);
+            return a_;
+        }
         int j_ = _string.length()-1;
         boolean arr_ = true;
         while (j_ >= 0) {
@@ -208,6 +226,24 @@ public final class ParserType {
         if (isTypeLeaf(_string)) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValueExec(_string, _offset);
+            return a_;
+        }
+        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+            a_.setKind(KindPartType.EMPTY_WILD_CARD);
+            a_.setupValueExec(_string, _offset);
+            return a_;
+        }
+        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
+            a_.setPrio(WILD_CARD_PRIO);
+            a_.setupWildCardValues(Templates.SUB_TYPE, _string);
+            return a_;
+        }
+        if (_string.trim().startsWith(Templates.SUP_TYPE)) {
+            if (StringList.quickEq(_string.trim(), Templates.SUP_TYPE)) {
+                a_.setError(true);
+            }
+            a_.setPrio(WILD_CARD_PRIO);
+            a_.setupWildCardValues(Templates.SUP_TYPE, _string);
             return a_;
         }
         int j_ = _string.length()-1;

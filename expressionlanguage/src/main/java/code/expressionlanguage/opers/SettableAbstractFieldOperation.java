@@ -77,9 +77,25 @@ public abstract class SettableAbstractFieldOperation extends
         String fieldName_ = getFieldName(_conf);
         boolean baseAccess_ = isBaseAccess(_conf);
         boolean superAccess_ = isSuperAccess(_conf);
+        boolean affect_ = false;
+        if (getParent() instanceof DotOperation && isIntermediateDottedOperation()) {
+            if (getParent().getParent() instanceof AffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
+                affect_ = true;
+            } else if (getParent().getParent() instanceof CompoundAffectationOperation && getParent().getParent().getFirstChild() == getParent()) {
+                affect_ = true;
+            } else if (getParent().getParent() instanceof SemiAffectationOperation) {
+                affect_ = true;
+            }
+        } else if (getParent() instanceof AffectationOperation && getParent().getFirstChild() == this) {
+            affect_ = true;
+        } else if (getParent() instanceof CompoundAffectationOperation && getParent().getFirstChild() == this) {
+            affect_ = true;
+        } else if (getParent() instanceof SemiAffectationOperation) {
+            affect_ = true;
+        }
         FieldResult r_;
         FieldInfo e_;
-        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_);
+        r_ = getDeclaredCustField(_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_);
         anc = r_.getAnc();
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             UndefinedFieldError und_ = new UndefinedFieldError();

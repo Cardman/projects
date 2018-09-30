@@ -418,7 +418,7 @@ public final class Classes {
         cl_.expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasIterable());
+        locVar_.setClassName(StringList.concat(stds_.getAliasIterable(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.iteratorVarCust = locName_;
         String iterator_ = stds_.getAliasSimpleIterator();
@@ -426,14 +426,14 @@ public final class Classes {
         cl_.expsIteratorCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasIteratorType());
+        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.hasNextVarCust = locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
         cl_.expsHasNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
         locName_ = _context.getNextTempVar();
         locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasIteratorType());
+        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.nextVarCust = locName_;
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
@@ -611,6 +611,9 @@ public final class Classes {
                     }
                 }
             }
+        }
+        if (!isEmptyErrors()) {
+            return;
         }
         checkTemplatesDef(_context, _predefined, objectClassName_);
     }
@@ -1185,6 +1188,13 @@ public final class Classes {
                 StringList upper_ = Mapping.getAllUpperBounds(cts_, t.getName(),_objectClassName);
                 StringList upperNotObj_ = new StringList();
                 for (String b: upper_) {
+                    if (b.startsWith("[")) {
+                        UnknownClassName un_ = new UnknownClassName();
+                        un_.setClassName(c);
+                        un_.setFileName(c);
+                        un_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        addError(un_);
+                    }
                     String baseParams_ = Templates.getIdFromAllTypes(b);
                     String base_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseParams_).getComponent();
                     upperNotObj_.add(b);
@@ -2437,9 +2447,8 @@ public final class Classes {
                     MethodId fid_;
                     String formCl_ = method_.getDeclaringType();
                     if (Templates.correctNbParameters(_name, _context)) {
-                        formatRet_ = Templates.format(_name, ret_, _context);
+                        formatRet_ = Templates.wildCardFormat(_name, ret_, _context, true);
                         fid_ = id_.format(_name, _context);
-                        formCl_ = Templates.format(_name,formCl_,_context);
                     } else {
                         formatRet_ = ret_;
                         fid_ = id_;
@@ -2469,9 +2478,8 @@ public final class Classes {
                     String ret_ = method_.getImportedReturnType();
                     String formCl_ = method_.getDeclaringType();
                     if (Templates.correctNbParameters(_name, _context)) {
-                        formatRet_ = Templates.format(_name, ret_, _context);
+                        formatRet_ = Templates.wildCardFormat(_name, ret_, _context,true);
                         fid_ = id_.format(_name, _context);
-                        formCl_ = Templates.format(_name,formCl_,_context);
                     } else {
                         formatRet_ = ret_;
                         fid_ = id_;

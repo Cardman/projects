@@ -4880,6 +4880,14 @@ public abstract class LgNames {
     public void setAliasIsClass(String _aliasIsClass) {
         reflect.setAliasIsClass(_aliasIsClass);
     }
+    
+    public String getAliasIsWildCard() {
+        return reflect.getAliasIsWildCard();
+    }
+    public void setAliasIsWildCard(String _aliasIsWildCard) {
+        reflect.setAliasIsWildCard(_aliasIsWildCard);
+    }
+
     public String getAliasIsInterface() {
         return reflect.getAliasIsInterface();
     }
@@ -4909,6 +4917,12 @@ public abstract class LgNames {
     }
     public void setAliasIsAnnotation(String _aliasIsAnnotation) {
         reflect.setAliasIsAnnotation(_aliasIsAnnotation);
+    }
+    public String getAliasMakeWildCard() {
+        return reflect.getAliasMakeWildCard();
+    }
+    public void setAliasMakeWildCard(String _aliasMakeWildCard) {
+        reflect.setAliasMakeWildCard(_aliasMakeWildCard);
     }
     public String getAliasIsInstance() {
         return reflect.getAliasIsInstance();

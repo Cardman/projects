@@ -1,6 +1,6 @@
 package code.expressionlanguage.types;
 
-public abstract class ParentPartType extends PartType {
+abstract class ParentPartType extends PartType {
 
     public ParentPartType(ParentPartType _parent, int _index, int _indexInType) {
         super(_parent, _index, _indexInType);

@@ -1,7 +1,6 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.sml.RowCol;
@@ -9,15 +8,17 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-final class ArraryPartType extends ParentPartType {
+final class WildCardPartType extends ParentPartType {
 
-    public ArraryPartType(ParentPartType _parent, int _index, int _indexInType) {
+    private String prefix;
+    public WildCardPartType(ParentPartType _parent, int _index, int _indexInType, String _prefix) {
         super(_parent, _index, _indexInType);
+        prefix = _prefix;
     }
 
     @Override
     public String getBegin() {
-        return Templates.ARR_BEG_STRING;
+        return prefix;
     }
 
     @Override
@@ -33,6 +34,18 @@ final class ArraryPartType extends ParentPartType {
     public void analyzeDepends(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact, RowCol _location) {
+        if (getParent() == null) {
+            stopDepends();
+            return;
+        }
+        if (getParent() instanceof WildCardPartType) {
+            stopDepends();
+            return;
+        }
+        if (getParent() instanceof ArraryPartType) {
+            stopDepends();
+            return;
+        }
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
@@ -43,6 +56,15 @@ final class ArraryPartType extends ParentPartType {
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, RowCol _location) {
         String ch_ = getFirstChild().getAnalyzedType();
+        if (getParent() == null) {
+            return;
+        }
+        if (getParent() instanceof WildCardPartType) {
+            return;
+        }
+        if (getParent() instanceof ArraryPartType) {
+            return;
+        }
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }
@@ -50,6 +72,15 @@ final class ArraryPartType extends ParentPartType {
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
+        if (getParent() instanceof WildCardPartType) {
+            return;
+        }
+        if (getParent() instanceof ArraryPartType) {
+            return;
+        }
+        if (getParent() == null) {
+            return;
+        }
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);

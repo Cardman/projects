@@ -228,11 +228,13 @@ public final class InitializationLgNames {
         _lgNames.setAliasIsPackage("isPackage");
         _lgNames.setAliasIsPrivate("isPrivate");
         _lgNames.setAliasIsClass("isClass");
+        _lgNames.setAliasIsWildCard("isWildCard");
         _lgNames.setAliasIsInterface("isInterface");
         _lgNames.setAliasIsEnum("isEnum");
         _lgNames.setAliasIsPrimitive("isPrimitive");
         _lgNames.setAliasIsArray("isArray");
         _lgNames.setAliasIsAnnotation("isAnnotation");
+        _lgNames.setAliasMakeWildCard("makeWildCard");
         _lgNames.setAliasIsInstance("isInstance");
         _lgNames.setAliasIsAssignableFrom("isAssignableFrom");
         _lgNames.setAliasInit("init");

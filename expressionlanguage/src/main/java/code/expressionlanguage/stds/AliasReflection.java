@@ -67,6 +67,7 @@ public class AliasReflection {
     private String aliasGetInterfaces;
     private String aliasGetGenericInterfaces;
     private String aliasMakeArray;
+    private String aliasMakeWildCard;
     private String aliasGetComponentType;
     private String aliasGetTypeParameters;
 
@@ -85,6 +86,7 @@ public class AliasReflection {
     private String aliasIsPackage;
     private String aliasIsPrivate;
     private String aliasIsClass;
+    private String aliasIsWildCard;
     private String aliasIsInterface;
     private String aliasIsEnum;
     private String aliasIsPrimitive;
@@ -139,6 +141,7 @@ public class AliasReflection {
         String aliasObject_ = _stds.getAliasObject();
         String aliasString_ = _stds.getAliasString();
         String aliasPrimBoolean_ = _stds.getAliasPrimBoolean();
+        String aliasBoolean_ = _stds.getAliasBoolean();
         String aliasPrimInt_ = _stds.getAliasPrimInteger();
         String aliasVoid_ = _stds.getAliasVoid();
         String aliasError_ = _stds.getAliasError();
@@ -184,6 +187,9 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsClass, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasIsWildCard, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsEnum, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
@@ -268,6 +274,9 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMakeArray, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasBoolean_);
+        method_ = new StandardMethod(aliasMakeWildCard, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetComponentType, params_, aliasClass, false, MethodModifier.FINAL, stdcl_);
@@ -719,6 +728,23 @@ public class AliasReflection {
                 result_.setResult(new BooleanStruct(class_.isTypeArray()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasMakeWildCard)) {
+                ClassMetaInfo class_ = (ClassMetaInfo) _struct;
+                Struct isUpper_ = args_[0];
+                String varOwn_ = class_.getVariableOwner();
+                String nameCl_ = class_.getName();
+                if (isUpper_.isNull()) {
+                    result_.setResult(_cont.getExtendedClassMetaInfo(Templates.SUB_TYPE, varOwn_));
+                    return result_;
+                }
+                Boolean isUpperValue_ = (Boolean) isUpper_.getInstance();
+                if (isUpperValue_) {
+                    result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUB_TYPE,nameCl_), varOwn_));
+                } else {
+                    result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUP_TYPE,nameCl_), varOwn_));
+                }
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasIsAnnotation)) {
                 ClassMetaInfo class_ = (ClassMetaInfo) _struct;
                 result_.setResult(new BooleanStruct(class_.isTypeAnnotation()));
@@ -727,6 +753,11 @@ public class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasIsClass)) {
                 ClassMetaInfo class_ = (ClassMetaInfo) _struct;
                 result_.setResult(new BooleanStruct(class_.isTypeClass()));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasIsWildCard)) {
+                ClassMetaInfo class_ = (ClassMetaInfo) _struct;
+                result_.setResult(new BooleanStruct(class_.isTypeWildCard()));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasIsEnum)) {
@@ -1277,6 +1308,14 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasMakeArray)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                if (cl_.isTypeWildCard()) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
+                if (cl_.isTypeVariable()) {
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
                 String clName_ = cl_.getName();
                 String owner_ = cl_.getVariableOwner();
                 if (StringList.quickEq(clName_, aliasVoid_)) {
@@ -1378,6 +1417,14 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayNewInstance)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                if (cl_.isTypeWildCard()) {
+                    result_.setError(lgNames_.getAliasNullPe());
+                    return result_;
+                }
+                if (cl_.isTypeVariable()) {
+                    result_.setError(lgNames_.getAliasNullPe());
+                    return result_;
+                }
                 Numbers<Integer> dims_ = new Numbers<Integer>();
                 String size_;
                 size_ = lgNames_.getAliasBadSize();
@@ -1792,6 +1839,12 @@ public class AliasReflection {
     public void setAliasIsClass(String _aliasIsClass) {
         aliasIsClass = _aliasIsClass;
     }
+    public String getAliasIsWildCard() {
+        return aliasIsWildCard;
+    }
+    public void setAliasIsWildCard(String _aliasIsWildCard) {
+        aliasIsWildCard = _aliasIsWildCard;
+    }
     public String getAliasIsInterface() {
         return aliasIsInterface;
     }
@@ -1821,6 +1874,12 @@ public class AliasReflection {
     }
     public void setAliasIsAnnotation(String _aliasIsAnnotation) {
         aliasIsAnnotation = _aliasIsAnnotation;
+    }
+    public String getAliasMakeWildCard() {
+        return aliasMakeWildCard;
+    }
+    public void setAliasMakeWildCard(String _aliasMakeWildCard) {
+        aliasMakeWildCard = _aliasMakeWildCard;
     }
     public String getAliasIsInstance() {
         return aliasIsInstance;

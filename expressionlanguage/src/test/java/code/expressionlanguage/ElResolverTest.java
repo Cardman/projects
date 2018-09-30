@@ -3794,6 +3794,71 @@ public class ElResolverTest {
         assertTrue(seq_.isInstance());
         assertEq(0, seq_.getCountArrays());
     }
+
+    @Test
+    public void getOperationsSequence210Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
+        String el_ = "composite.integer.int";
+        Delimiters d_ = new Delimiters();
+        d_.getAllowedOperatorsIndexes().add(9);
+        d_.getAllowedOperatorsIndexes().add(17);
+        VariableInfo vi_ = new VariableInfo();
+        vi_.setFirstChar(0);
+        vi_.setLastChar(9);
+        d_.getVariables().add(vi_);
+        vi_ = new VariableInfo();
+        vi_.setFirstChar(10);
+        vi_.setLastChar(17);
+        d_.getVariables().add(vi_);
+        vi_ = new VariableInfo();
+        vi_.setFirstChar(18);
+        vi_.setLastChar(21);
+        d_.getVariables().add(vi_);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq(".", opers_.getVal(17));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("composite.integer", values_.getVal(0));
+        assertEq("int", values_.getVal(18));
+        assertTrue(seq_.isDot());
+    }
+
+    @Test
+    public void getOperationsSequence211Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
+        String el_ = "integer=1=0";
+        conf_.setRootAffect(true);
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        conf_.setAnalyzingRoot(true);
+        OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
+        NatTreeMap<Integer,String> opers_ = seq_.getOperators();
+        assertEq(1, opers_.size());
+        assertEq("=", opers_.getVal(7));
+        NatTreeMap<Integer,String> values_ = seq_.getValues();
+        assertEq(2, values_.size());
+        assertEq("integer", values_.getVal(0));
+        assertEq("1=0", values_.getVal(8));
+        assertEq(ElResolver.AFF_PRIO, seq_.getPriority());
+        assertTrue(!seq_.isCallDbArray());
+        assertEq(0, seq_.getCountArrays());
+    }
+    @Test
+    public void checkSyntax1Test() {
+        ContextEl conf_ = contextEl(true,false);
+        addImportingPage(conf_, false);
+        addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
+        String el_ = "1==0";
+        conf_.setRootAffect(true);
+        Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
+        assertEq(1, d_.getAllowedOperatorsIndexes().size());
+        assertEq(1, d_.getAllowedOperatorsIndexes().first().intValue());
+    }
     @Test
     public void checkSyntaxDelimiters1Test() {
         ContextEl conf_ = contextEl();
@@ -4657,6 +4722,15 @@ public class ElResolverTest {
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setMultipleAffectations(false);
         cont_.getOptions().setCatChars(true);
+        InitializationLgNames.initAdvStandards(cont_);
+        cont_.initError();
+        return cont_;
+    }
+    private ContextEl contextEl(boolean _aff, boolean _catChar) {
+        ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        cont_.getOptions().setMultipleAffectations(_aff);
+        cont_.getOptions().setCatChars(_catChar);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;

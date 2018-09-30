@@ -120,7 +120,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
             int index_ = rcs_.getKey(i_);
             i_++;
             RowCol rc_ = getRowCol(0,index_);
-            String s_ = _classes.resolveTypeMapping(s, this,rc_);
+            String s_ = _classes.resolveTypeMapping(s, this,rc_, true);
             String base_ = Templates.getIdFromAllTypes(s_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof InterfaceBlock)) {

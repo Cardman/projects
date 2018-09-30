@@ -147,6 +147,22 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     return;
                 }
+                for (String p:Templates.getAllTypes(cl_).mid(1)){
+                    if (p.startsWith(Templates.SUB_TYPE)) {
+                        IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                        call_.setType(cl_);
+                        call_.setFileName(_conf.getCurrentFileName());
+                        call_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(call_);
+                    }
+                    if (p.startsWith(Templates.SUP_TYPE)) {
+                        IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                        call_.setType(cl_);
+                        call_.setFileName(_conf.getCurrentFileName());
+                        call_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(call_);
+                    }
+                }
                 ConstrustorIdVarArg ctorRes_;
                 ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(cl_), ClassArgumentMatching.toArgArray(methodTypes_));
                 realId = ctorRes_.getRealId();
@@ -191,6 +207,24 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String idClass_ = Templates.getIdFromAllTypes(cl_);
             StringMap<String> ownersMap_ = new StringMap<String>();
             String glClass_ = _conf.getGlobalClass();
+            for (String o: previousResultClass.getNames()) {
+                for (String p:Templates.getAllTypes(o).mid(1)){
+                    if (p.startsWith(Templates.SUB_TYPE)) {
+                        IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                        call_.setType(o);
+                        call_.setFileName(_conf.getCurrentFileName());
+                        call_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(call_);
+                    }
+                    if (p.startsWith(Templates.SUP_TYPE)) {
+                        IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                        call_.setType(o);
+                        call_.setFileName(_conf.getCurrentFileName());
+                        call_.setRc(_conf.getCurrentLocation());
+                        _conf.getClasses().addError(call_);
+                    }
+                }
+            }
             for (String o: previousResultClass.getNames()) {
                 String idRoot_ = Templates.getIdFromAllTypes(o);
                 StringList ids_ = new StringList(idRoot_);
@@ -252,6 +286,22 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 _conf.getClasses().addError(call_);
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
+            }
+            for (String p:Templates.getAllTypes(cl_).mid(1)){
+                if (p.startsWith(Templates.SUB_TYPE)) {
+                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                    call_.setType(cl_);
+                    call_.setFileName(_conf.getCurrentFileName());
+                    call_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(call_);
+                }
+                if (p.startsWith(Templates.SUP_TYPE)) {
+                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                    call_.setType(cl_);
+                    call_.setFileName(_conf.getCurrentFileName());
+                    call_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(call_);
+                }
             }
             ConstrustorIdVarArg ctorRes_;
             ctorRes_ = getDeclaredCustConstructor(_conf, vararg_, new ClassArgumentMatching(cl_), ClassArgumentMatching.toArgArray(methodTypes_));

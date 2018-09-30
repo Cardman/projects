@@ -9,7 +9,7 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class InnerPartType extends ParentPartType {
+final class InnerPartType extends ParentPartType {
 
     private boolean removedBefore;
 

@@ -34,6 +34,7 @@ import code.expressionlanguage.methods.StaticBlock;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.CallConstructor;
+import code.expressionlanguage.methods.util.IllegalCallCtorByType;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
@@ -1184,6 +1185,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         setDirectImport(false);
         String gl_ = getGlobalClass();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact, rc_);
+        if (resType_.trim().isEmpty()) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_in);
+            un_.setFileName(r_.getFile().getFileName());
+            un_.setRc(rc_);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
         if (!Templates.isCorrectTemplateAll(resType_, vars_, this, _exact)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1296,7 +1305,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     /**Used at building mapping constraints*/
     public String resolveTypeMapping(String _in, RootBlock _currentBlock,
-            RowCol _location) {
+            RowCol _location, boolean _wildCard) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -1318,6 +1327,32 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
         String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true, _location);
+        if (resType_.trim().isEmpty()) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_in);
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setRc(_location);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
+        if (_wildCard) {
+            for (String p:Templates.getAllTypes(resType_).mid(1)){
+                if (p.startsWith(Templates.SUB_TYPE)) {
+                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                    call_.setType(resType_);
+                    call_.setFileName(_currentBlock.getFile().getFileName());
+                    call_.setRc(_location);
+                    classes.addError(call_);
+                }
+                if (p.startsWith(Templates.SUP_TYPE)) {
+                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                    call_.setType(resType_);
+                    call_.setFileName(_currentBlock.getFile().getFileName());
+                    call_.setRc(_location);
+                    classes.addError(call_);
+                }
+            }
+        }
         return resType_;
     }
     @Override
@@ -2107,8 +2142,25 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     public ClassMetaInfo getExtendedClassMetaInfo(String _name, String _variableOwner) {
+        if (StringList.quickEq(_name, Templates.SUB_TYPE)) {
+            StringList upperBounds_ = new StringList();
+            StringList lowerBounds_ = new StringList();
+            return new ClassMetaInfo(_name, this, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+        }
+        if (_name.startsWith(Templates.SUB_TYPE)) {
+            StringList upperBounds_ = new StringList(_name.substring(Templates.SUB_TYPE.length()));
+            StringList lowerBounds_ = new StringList();
+            return new ClassMetaInfo(_name, this, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+        }
+        if (_name.startsWith(Templates.SUP_TYPE)) {
+            StringList upperBounds_ = new StringList();
+            StringList lowerBounds_ = new StringList(_name.substring(Templates.SUB_TYPE.length()));
+            return new ClassMetaInfo(_name, this, ClassCategory.WILD_CARD,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
+        }
         if (_name.startsWith(Templates.PREFIX_VAR_TYPE)) {
-            return new ClassMetaInfo(_name, this, ClassCategory.VARIABLE,_variableOwner, AccessEnum.PUBLIC);
+            StringList upperBounds_ = new StringList();
+            StringList lowerBounds_ = new StringList();
+            return new ClassMetaInfo(_name, this, ClassCategory.VARIABLE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_name);
         String compo_ = dc_.getComponent();
@@ -2147,7 +2199,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                return FieldInfo.newFieldInfo(name_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock, this, true);
+                return FieldInfo.newFieldMetaInfo(name_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock, this);
             }
         } else if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
@@ -2159,7 +2211,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 String type_ = f_.getImportedClassName();
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
-                return FieldInfo.newFieldInfo(name_, g_.getFullName(), type_, static_, final_, false, this, true);
+                return FieldInfo.newFieldMetaInfo(name_, g_.getFullName(), type_, static_, final_, false, this);
             }
         }
         return null;

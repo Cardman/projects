@@ -48,6 +48,5 @@ public abstract class Leaf extends Block implements WithEl {
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        // TODO Auto-generated method stub
     }
 }

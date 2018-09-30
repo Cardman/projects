@@ -241,12 +241,7 @@ public final class PartTypeUtil {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
         if (indexes_ == null) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName("");
-            un_.setFileName(_rooted.getFile().getFileName());
-            un_.setRc(_location);
-            _an.getClasses().addError(un_);
-            return _an.getStandards().getAliasObject();
+            return "";
         }
         AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
         CustList<NatTreeMap<Integer, String>> dels_;
@@ -268,6 +263,9 @@ public final class PartTypeUtil {
             boolean stop_ = false;
             while (true) {
                 current_.analyze(_an, dels_, _globalType, _rooted, _exact, _location);
+                if (current_.getAnalyzedType().isEmpty()) {
+                    return "";
+                }
                 PartType next_ = createNextSibling(current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
@@ -277,6 +275,9 @@ public final class PartTypeUtil {
                 }
                 if (par_ == root_) {
                     par_.analyze(_an, dels_, _globalType, _rooted, _exact, _location);
+                    if (par_.getAnalyzedType().isEmpty()) {
+                        return "";
+                    }
                     stop_ = true;
                     break;
                 }

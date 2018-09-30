@@ -86,6 +86,7 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return new MethodId(isStaticMethod(), name_, pTypes_, isVararg());
     }
 
+
     @Override
     public String getName() {
         return name;

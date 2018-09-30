@@ -252,7 +252,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get(\"\"):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<!java.lang.String>)get(\"\"):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
         xml_.append("   ance;;;=2i:\n");
@@ -428,7 +428,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public java.lang.Number ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   inst;;;$classchoice(pkg.ExThree)get=\"\":\n");
+        xml_.append("   inst;;;$classchoice(pkg.ExThree<!java.lang.String>)get=\"\":\n");
         xml_.append("   inst;;;get;;;=1i:\n");
         xml_.append("   ance;;;=inst;;;getter():\n");
         xml_.append("  }\n");
@@ -784,7 +784,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get(1i):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<!java.lang.Number>)get(1i):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
         xml_.append("   ance;;;=2i:\n");
@@ -832,7 +832,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get($new java.lang.Number[]{1i,2i}):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<!java.lang.Number>)get($new java.lang.Number[]{1i,2i}):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
         xml_.append("   ance;;;=2i:\n");
@@ -880,9 +880,58 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get(\"\"):\n");
+//        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<!java.lang.String>)get(\"\"):\n");
+        xml_.append("   ance;;;=((pkg.ExTwo<!java.lang.Number>)inst;;;).get(1i):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicArrayStoreException e){\n");
+        xml_.append("   ance;;;=2i:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U> :pkg.ExTwo<#U>{\n");
+        xml_.append(" $public $normal $int get(#U... i){\n");
+        xml_.append("  $return 3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(3, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument1422Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
+        xml_.append(" $public $int ance:\n");
+        xml_.append(" {\n");
+        xml_.append("  $try{\n");
+        xml_.append("   ance;;;=((pkg.ExTwo<!java.lang.String>)inst;;;).get(\"\"):\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Object e){\n");
         xml_.append("   ance;;;=2i:\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
@@ -928,9 +977,9 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get(8i,\"\"):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<!java.lang.Object>)get(8i,\"\"):\n");
         xml_.append("  }\n");
-        xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicArrayStoreException e){\n");
+        xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
         xml_.append("   ance;;;=2i:\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
@@ -976,7 +1025,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get($null):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<!java.lang.Number>)get($new java.lang.Number[]{$null}):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicArrayStoreException e){\n");
         xml_.append("   ance;;;=2i:\n");
@@ -1016,6 +1065,54 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         assertEq(4, (Number)field_.getInstance());
     }
     @Test
+    public void instanceArgument1442Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
+        xml_.append(" $public $int ance:\n");
+        xml_.append(" {\n");
+        xml_.append("  $try{\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<!java.lang.Number>)get($null):\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(code.util.exceptions.NullObjectException e){\n");
+        xml_.append("   ance;;;=2i:\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("  $return 3i+i;.;length:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U> :pkg.ExTwo<#U>{\n");
+        xml_.append(" $public $normal $int get(#U... i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+    }
+    @Test
     public void instanceArgument145Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -1024,7 +1121,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $try{\n");
-        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo)get($null):\n");
+        xml_.append("   ance;;;=inst;;;$classchoice(pkg.ExTwo<?>)get($null):\n");
         xml_.append("  }\n");
         xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicArrayStoreException e){\n");
         xml_.append("   ance;;;=2i:\n");

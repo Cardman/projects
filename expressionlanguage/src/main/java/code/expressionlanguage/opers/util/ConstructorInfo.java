@@ -68,4 +68,5 @@ public final class ConstructorInfo implements Parametrable, Displayable {
     public int getAncestor() {
         return 0;
     }
+
 }

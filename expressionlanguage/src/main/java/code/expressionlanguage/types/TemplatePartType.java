@@ -9,7 +9,7 @@ import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
-public final class TemplatePartType extends ParentPartType {
+final class TemplatePartType extends ParentPartType {
 
     public TemplatePartType(ParentPartType _parent, int _index, int _indexInType) {
         super(_parent, _index, _indexInType);

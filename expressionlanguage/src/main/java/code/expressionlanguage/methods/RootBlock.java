@@ -256,7 +256,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (TypeVar t: r.paramTypes) {
                 StringList const_ = new StringList();
                 for (String c: t.getConstraints()) {
-                    const_.add(_analyze.resolveTypeMapping(c,r, rc_));
+                    const_.add(_analyze.resolveTypeMapping(c,r, rc_, false));
                 }
                 TypeVar t_ = new TypeVar();
                 t_.setConstraints(const_);
