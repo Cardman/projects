@@ -456,12 +456,8 @@ public final class Templates {
         }
         return getFormattedType(_second, varTypes_);
     }
-    public static String generalFormat(String _first, String _second, Analyzable _classes) {
-        StringMap<String> varTypes_ = getVarTypes(_first, false, _classes);
-        return getFormattedType(_second, varTypes_);
-    }
     public static String format(String _first, String _second, Analyzable _context) {
-        StringMap<String> varTypes_ = getVarTypes(_first, true, _context);
+        StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return getFormattedType(_second, varTypes_);
     }
     public static String getGenericString(String _className, Analyzable _classes) {
@@ -514,29 +510,12 @@ public final class Templates {
         }
         return formatted_;
     }
-    static StringMap<String> getVarTypes(String _className, boolean _checkExact,Analyzable _context) {
+    static StringMap<String> getVarTypes(String _className, Analyzable _context) {
         StringList types_ = getAllTypes(_className);
         String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-
-        String objType_ = _context.getStandards().getAliasObject();
         GeneType root_ = _context.getClassBody(className_);
         StringMap<String> varTypes_ = new StringMap<String>();
         CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
-        if (typeVar_.size() != types_.size() - 1 && !_checkExact) {
-            Mapping map_ = new Mapping();
-            for (TypeVar t: typeVar_) {
-                map_.getMapping().put(t.getName(), t.getConstraints());
-            }
-            for (TypeVar t: typeVar_) {
-                StringList bounds_ = map_.getAllUpperBounds(t.getName(), objType_);
-                if (bounds_.size() == 1) {
-                    varTypes_.put(t.getName(), bounds_.first());
-                } else {
-                    varTypes_.put(t.getName(), objType_);
-                }
-            }
-            return varTypes_;
-        }
         int i_ = CustList.FIRST_INDEX;
         for (TypeVar t: typeVar_) {
             i_++;

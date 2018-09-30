@@ -14383,7 +14383,6 @@ public class FightFacadeTest extends InitializationDataBase {
         savedFight_.setNbRounds(_currentFight.getNbRounds());
         savedFight_.setWinningMoney(_currentFight.getWinningMoney());
         savedFight_.setCatchingBall(_currentFight.getCatchingBall());
-        savedFight_.setBeginRound(_currentFight.getBeginRound());
         savedFight_.setCurrentUser(_currentFight.getCurrentUser());
         savedFight_.setState(_currentFight.getState());
         savedFight_.setUsedItemsWhileRound(_currentFight.getUsedItemsWhileRound());

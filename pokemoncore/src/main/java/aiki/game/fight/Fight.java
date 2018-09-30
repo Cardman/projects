@@ -413,9 +413,6 @@ public final class Fight {
     private transient boolean lettingUserAttackWithStatus = true;
 
     /***/
-    private boolean beginRound;
-
-    /***/
     private transient boolean endRound;
 
     /***/
@@ -682,11 +679,6 @@ public final class Fight {
             return true;
         }
         return false;
-//        return beginRound;
-    }
-
-    public void setBeginRound(boolean _beginRound) {
-        beginRound = _beginRound;
     }
 
     public FightType getFightType() {

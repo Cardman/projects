@@ -376,7 +376,7 @@ public class TemplatesTest {
         ContextEl context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
-        assertEq(second_,Templates.generalFormat(first_, second_, context_));
+        assertEq(second_,Templates.wildCardFormat(first_, second_, context_,true));
     }
 
 
@@ -451,7 +451,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.generalFormat(first_, second_, cont_));
+        assertEq("#E",Templates.wildCardFormat(first_, second_, cont_, true));
     }
 
     @Test
@@ -463,7 +463,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
+        assertEq("java.lang.String",Templates.wildCardFormat(first_, second_, cont_,true));
     }
 
     @Test
@@ -475,7 +475,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",Templates.generalFormat(first_, second_, cont_));
+        assertEq("java.lang.Object",Templates.wildCardFormat(first_, second_, cont_,true));
     }
 
     @Test
@@ -487,7 +487,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
+        assertEq("java.lang.String",Templates.wildCardFormat(first_, second_, cont_,true));
     }
 
     @Test
@@ -499,7 +499,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.generalFormat(first_, second_, cont_));
+        assertEq("java.lang.String",Templates.wildCardFormat(first_, second_, cont_,true));
     }
 
     @Test
@@ -511,7 +511,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
-        assertEq("#V",Templates.generalFormat(first_, second_, cont_));
+        assertEq("#V",Templates.wildCardFormat(first_, second_, cont_,true));
     }
 
     @Test
@@ -523,7 +523,7 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",Templates.generalFormat(first_, second_, cont_));
+        assertEq("code.util.CustList<#V>",Templates.wildCardFormat(first_, second_, cont_,true));
     }
 
     @Test
@@ -533,9 +533,9 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String first_ = "pkg.Ex";
+        String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
         String second_ = "code.util.CustList<#T>";
-        assertEq("code.util.CustList<java.lang.Number>",Templates.generalFormat(first_, second_, cont_));
+        assertEq("code.util.CustList<java.lang.Number>",Templates.wildCardFormat(first_, second_, cont_,true));
     }
     @Test
     public void generalFormat17Test() {
@@ -547,9 +547,9 @@ public class TemplatesTest {
         xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#U> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String first_ = "pkg.ExTwo";
+        String first_ = "pkg.ExTwo<java.lang.Number,java.lang.Number>";
         String second_ = "pkg.Ex<#T,#T>";
-        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",Templates.generalFormat(first_, second_, cont_));
+        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",Templates.wildCardFormat(first_, second_, cont_,true));
     }
 
     @Test

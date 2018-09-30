@@ -2092,7 +2092,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(TIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2145,7 +2144,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2199,7 +2197,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
         fighter_.setClone(Rate.one());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2250,7 +2247,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
         activity_.increment();
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2303,7 +2299,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         activity_.increment();
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2362,7 +2357,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         activity_.increment();
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2413,7 +2407,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2467,7 +2460,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2521,7 +2513,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2578,7 +2569,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2633,7 +2623,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
         fighter_.setCurrentAbility(GARDE_MAGIK);
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2685,7 +2674,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
         fighter_.setCurrentAbility(GARDE_MAGIK);
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2739,7 +2727,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("249/3250"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2795,7 +2782,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("249/3250"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2847,7 +2833,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("53549/6500"),fighter_.getRemainingHp());
         fighter_.setClone(Rate.one());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2907,7 +2892,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("0"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         fight_.getEffects().clear();
@@ -2961,7 +2945,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         FightEndRound.effectEndRoundSingleRelation(fight_, thrower_, eff_, SIPHON, diff_, _data_);
@@ -3013,7 +2996,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         activity_.increment();
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("113349/6500"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         FightEndRound.effectEndRoundSingleRelation(fight_, thrower_, eff_, SIPHON, diff_, _data_);
@@ -3066,7 +3048,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("249/3250"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         FightEndRound.effectEndRoundSingleRelation(fight_, thrower_, eff_, SIPHON, diff_, _data_);
@@ -3121,7 +3102,6 @@ public class FightEndRoundTest extends InitializationDataBase {
         assertEq(0, activity_.getNbTurn());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("0"),fighter_.getRemainingHp());
-        fight_.setBeginRound(true);
         EffectEndRoundSingleRelation eff_;
         eff_ = (EffectEndRoundSingleRelation) _data_.getMove(SIPHON).getEffects().last();
         FightEndRound.effectEndRoundSingleRelation(fight_, thrower_, eff_, SIPHON, diff_, _data_);

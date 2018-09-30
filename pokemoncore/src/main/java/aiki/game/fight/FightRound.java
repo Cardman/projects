@@ -286,7 +286,6 @@ final class FightRound {
             creature_.initRoundFrontFighter();
         }
         _fight.getNbRounds().increment();
-        _fight.setBeginRound(false);
     }
 
     static void beginRound(Fight _fight, Player _user, Difficulty _diff, DataBase _import) {

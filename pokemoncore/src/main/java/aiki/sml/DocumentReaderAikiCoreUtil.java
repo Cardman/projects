@@ -252,7 +252,6 @@ public final class DocumentReaderAikiCoreUtil {
     private static final String FIELD_BEAT_GYM_TRAINER = "beatGymTrainer";
     private static final String FIELD_BEAT_TRAINER = "beatTrainer";
     private static final String FIELD_BEGIN = "begin";
-    private static final String FIELD_BEGIN_ROUND = "beginRound";
     private static final String FIELD_BELONGING_TO_PLAYER = "belongingToPlayer";
     private static final String FIELD_BLOCKS = "blocks";
     private static final String FIELD_BONUS_STAT_RANK = "bonusStatRank";
@@ -3882,10 +3881,6 @@ public final class DocumentReaderAikiCoreUtil {
         }
         if (StringList.quickEq(_fieldName, FIELD_CATCHING_BALL)) {
             _object.setCatchingBall(DocumentReaderCoreUtil.getString(_element));
-            return;
-        }
-        if (StringList.quickEq(_fieldName, FIELD_BEGIN_ROUND)) {
-            _object.setBeginRound(DocumentReaderCoreUtil.getBoolean(_element));
             return;
         }
         if (StringList.quickEq(_fieldName, FIELD_CURRENT_USER)) {

@@ -230,7 +230,6 @@ final class FightEndRound {
     //}
 
     static void processEndRound(Fight _fight,Difficulty _diff,DataBase _import){
-        _fight.setBeginRound(true);
         //_fight.getEffects().clear();
         CustList<EndRoundMainElements> liste_=_import.getEvtEndRound();
         int nb_=liste_.size();

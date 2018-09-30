@@ -138,7 +138,6 @@ final class FightInitialization {
         _fight.setLostObjects(new StringList());
         _fight.setCurrentUser(new TeamPosition((byte) 0, Fighter.BACK));
         _fight.setLettingUserAttackWithStatus(true);
-        _fight.setBeginRound(true);
         _fight.setFullHealing(false);
         _fight.setEndRound(false);
         _fight.setState(FightState.ATTAQUES);
