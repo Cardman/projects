@@ -48,7 +48,6 @@ public final class OperationsSequence {
             priority = ElResolver.FCT_OPER_PRIO;
             values.put((int)CustList.FIRST_INDEX, _string);
             fctName = _string;
-            operators.put(_string.length(), "");
             return;
         }
         String op_ = operators.firstValue();

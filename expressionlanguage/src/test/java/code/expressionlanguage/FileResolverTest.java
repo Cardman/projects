@@ -6510,7 +6510,6 @@ public final class FileResolverTest {
     private static ContextEl simpleContext() {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setCatChars(true);
         cont_.getOptions().setMultipleAffectations(false);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();

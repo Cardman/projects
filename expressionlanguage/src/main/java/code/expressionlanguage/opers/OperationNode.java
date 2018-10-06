@@ -226,6 +226,9 @@ public abstract class OperationNode {
             if (str_.isEmpty()) {
                 return new EmptyPartOperation(_index, _indexChild, _m, _op);
             }
+            if (ct_ == ConstType.SIMPLE_ANNOTATION) {
+                return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.STATIC_ACCESS) {
                 return new StaticAccessOperation(_index, _indexChild, _m, _op);
             }

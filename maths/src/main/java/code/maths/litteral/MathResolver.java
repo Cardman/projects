@@ -73,6 +73,7 @@ public final class MathResolver {
             }
             i_++;
         }
+        int beginIndex_ = i_;
         if (i_ >= len_) {
             _error.setIndex(i_);
             _error.setError(true);
@@ -80,7 +81,6 @@ public final class MathResolver {
             return d_;
         }
         i_ = CustList.FIRST_INDEX;
-        boolean enabledMinus_ = true;
         int beginCharString_ = 0;
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
@@ -99,7 +99,6 @@ public final class MathResolver {
                     }
                     if (curChar_ == DELIMITER_STRING_END) {
                         constString_ = false;
-                        enabledMinus_ = true;
                         d_.getDelimitersStringsChars().put(beginCharString_, i_);
                         i_++;
                         continue;
@@ -128,7 +127,6 @@ public final class MathResolver {
                 return d_;
             }
             if (StringList.isWordChar(curChar_)) {
-                enabledMinus_ = true;
                 if (i_ + 1 < len_) {
                     if (Character.isWhitespace(_string.charAt(i_ + 1))) {
                         int j_ = i_ + 2;
@@ -210,59 +208,85 @@ public final class MathResolver {
                     return d_;
                 }
             }
-            boolean pureBinaryOp_ = false;
-            if (curChar_ == PLUS_CHAR) {
-                pureBinaryOp_ = true;
-            }
+            boolean escapeOpers_ = false;
+            boolean addOp_ = true;
             if (curChar_ == MULT_CHAR) {
-                pureBinaryOp_ = true;
+                escapeOpers_ = true;
             }
             if (curChar_ == DIV_CHAR) {
-                pureBinaryOp_ = true;
+                escapeOpers_ = true;
             }
-            if (pureBinaryOp_) {
-                enabledMinus_ = false;
-            } else if (!Character.isWhitespace(curChar_) && curChar_ != MINUS_CHAR){
-                enabledMinus_ = true;
+            if (curChar_ == PLUS_CHAR){
+                escapeOpers_ = true;
+                if (beginIndex_ == i_) {
+                    addOp_ = false;
+                }
             }
-            if (!enabledMinus_ && curChar_ == MINUS_CHAR) {
-                i_++;
+            if (curChar_ == MINUS_CHAR){
+                escapeOpers_ = true;
+                if (beginIndex_ == i_) {
+                    addOp_ = false;
+                }
+            }
+            if (curChar_ == AND_CHAR) {
+                escapeOpers_ = true;
+            }
+            if (curChar_ == OR_CHAR) {
+                escapeOpers_ = true;
+            }
+            if (curChar_ == LOWER_CHAR) {
+                escapeOpers_ = true;
+            }
+            if (curChar_ == GREATER_CHAR) {
+                escapeOpers_ = true;
+            }
+            if (curChar_ == EQ_CHAR) {
+                escapeOpers_ = true;
+            }
+            if (curChar_ == NEG_BOOL_CHAR) {
+                escapeOpers_ = true;
+                if (beginIndex_ == i_) {
+                    addOp_ = false;
+                }
+            }
+            if (curChar_ == PAR_LEFT) {
+                escapeOpers_ = true;
+            }
+            if (curChar_ == SEP_ARG) {
+                escapeOpers_ = true;
+            }
+            if (escapeOpers_) {
+                int j_ = i_ + 1;
+                if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
+                    j_++;
+                }
+                while (j_ < len_) {
+                    char curLoc_ = _string.charAt(j_);
+                    if (Character.isWhitespace(curLoc_)) {
+                        j_++;
+                        continue;
+                    }
+                    if (curLoc_ == PLUS_CHAR) {
+                        j_++;
+                        continue;
+                    }
+                    if (curLoc_ == MINUS_CHAR) {
+                        j_++;
+                        continue;
+                    }
+                    if (curLoc_ == NEG_BOOL_CHAR) {
+                        j_++;
+                        continue;
+                    }
+                    break;
+                }
+                if (addOp_) {
+                    d_.getAllowedOperatorsIndexes().add(i_);
+                }
+                i_ = j_;
                 continue;
             }
             boolean idOp_ = false;
-            if (curChar_ == AND_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == OR_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == LOWER_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == GREATER_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == EQ_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == NEG_BOOL_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == PLUS_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == MINUS_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == MULT_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == DIV_CHAR) {
-                idOp_ = true;
-            }
-            if (curChar_ == PAR_LEFT) {
-                idOp_ = true;
-            }
             if (curChar_ == PAR_RIGHT) {
                 idOp_ = true;
             }
@@ -271,25 +295,6 @@ public final class MathResolver {
             }
             if (idOp_) {
                 d_.getAllowedOperatorsIndexes().add(i_);
-            }
-            if (curChar_ == MINUS_CHAR) {
-                enabledMinus_ = false;
-            }
-            boolean compound_ = false;
-            if (curChar_ == LOWER_CHAR) {
-                compound_ = true;
-            } else if (curChar_ == GREATER_CHAR) {
-                compound_ = true;
-            } else if (curChar_ == NEG_BOOL_CHAR) {
-                compound_ = true;
-            }
-            if (compound_) {
-                if (i_ + 1 < len_) {
-                    char next_ = _string.charAt(i_ + 1);
-                    if (next_ == EQ_CHAR) {
-                        i_++;
-                    }
-                }
             }
             i_++;
         }
@@ -383,11 +388,9 @@ public final class MathResolver {
             operators_.put(firstPrintChar_, String.valueOf(MINUS_CHAR));
             i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
         } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
-            if (firstPrintChar_ < lastPrintChar_ && _string.charAt(firstPrintChar_+1) != EQ_CHAR) {
-                prio_ = UNARY_PRIO;
-                operators_.put(firstPrintChar_, String.valueOf(NEG_BOOL_CHAR));
-                i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
-            }
+            prio_ = UNARY_PRIO;
+            operators_.put(firstPrintChar_, String.valueOf(NEG_BOOL_CHAR));
+            i_ = incrementUnary(_string,  firstPrintChar_ + 1, lastPrintChar_);
         }
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);

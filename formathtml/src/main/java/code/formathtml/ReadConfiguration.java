@@ -96,7 +96,6 @@ public final class ReadConfiguration {
         if (!found_) {
             ContextEl context_ = new ContextEl();
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-            context_.getOptions().setCatChars(true);
             context_.getOptions().setMultipleAffectations(false);
             context_.setStandards(stds_);
             _configuration.setContext(context_);
@@ -131,14 +130,6 @@ public final class ReadConfiguration {
             }
             if (StringList.quickEq(fieldName_, "initializeStaticClassFirst")) {
                 options_.setInitializeStaticClassFirst(StringList.quickEq(c.getAttribute("value"), "true"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "catChars")) {
-                options_.setCatChars(StringList.quickEq(c.getAttribute("value"), "true"));
-                continue;
-            }
-            if (StringList.quickEq(fieldName_, "eqPlus")) {
-                options_.setEqPlus(StringList.quickEq(c.getAttribute("value"), "true"));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "suffixVar")) {

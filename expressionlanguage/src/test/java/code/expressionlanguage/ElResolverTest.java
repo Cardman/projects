@@ -2034,11 +2034,10 @@ public class ElResolverTest {
         assertEq(1, opers_.size());
         assertEq("+", opers_.getVal(0));
         NatTreeMap<Integer,String> values_ = seq_.getValues();
-        assertEq(2, values_.size());
-        assertEq("", values_.getVal(0));
+        assertEq(1, values_.size());
         assertEq("a", values_.getVal(1));
     
-        assertEq(ElResolver.ADD_PRIO, seq_.getPriority());
+        assertEq(ElResolver.UNARY_PRIO, seq_.getPriority());
     }
 
     @Test
@@ -4721,7 +4720,6 @@ public class ElResolverTest {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setMultipleAffectations(false);
-        cont_.getOptions().setCatChars(true);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;
@@ -4730,7 +4728,6 @@ public class ElResolverTest {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         cont_.getOptions().setMultipleAffectations(_aff);
-        cont_.getOptions().setCatChars(_catChar);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
         return cont_;

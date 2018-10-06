@@ -2,35 +2,10 @@ package code.expressionlanguage;
 
 public final class Options {
 
-    private boolean eqPlus;
-    private boolean catChars;
     private boolean multipleAffectations = true;
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
     private VariableSuffix suffixVar = VariableSuffix.NONE;
-
-    public boolean applyEqPlus() {
-        if (!isMultipleAffectations()) {
-            return true;
-        }
-        return eqPlus;
-    }
-
-    public boolean isEqPlus() {
-        return eqPlus;
-    }
-
-    public void setEqPlus(boolean _eqPlus) {
-        eqPlus = _eqPlus;
-    }
-
-    public boolean isCatChars() {
-        return catChars;
-    }
-
-    public void setCatChars(boolean _catChars) {
-        catChars = _catChars;
-    }
 
     public boolean isMultipleAffectations() {
         return multipleAffectations;

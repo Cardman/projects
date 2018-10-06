@@ -61,17 +61,7 @@ public final class AddOperation extends NumericOperation {
         ResultOperand res_ = new ResultOperand();
         String stringType_ = _cont.getStandards().getAliasString();
         String stringBuilderType_ = _cont.getStandards().getAliasStringBuilder();
-        String charType_ = _cont.getStandards().getAliasPrimChar();
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            if (_cont.getOptions().isCatChars()) {
-                if (PrimitiveTypeUtil.toPrimitive(_a, true, _cont).matchClass(charType_)) {
-                    if (PrimitiveTypeUtil.toPrimitive(_b, true, _cont).matchClass(charType_)) {
-                        res_.setResult(new ClassArgumentMatching(stringType_));
-                        res_.setCatChars(true);
-                        return res_;
-                    }
-                }
-            }
             int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
             int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
             if (oa_ > 0 && ob_ > 0) {

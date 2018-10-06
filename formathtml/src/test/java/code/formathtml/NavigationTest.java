@@ -8742,7 +8742,6 @@ public class NavigationTest {
         Navigation nav_ = new Navigation();
         ContextEl context_ = new ContextEl();
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        context_.getOptions().setCatChars(true);
         context_.getOptions().setMultipleAffectations(false);
         nav_.getSession().setStandards(InitializationLgNames.initStandards(context_));
         nav_.getSession().setContext(context_);
@@ -8754,7 +8753,6 @@ public class NavigationTest {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        context_.getOptions().setCatChars(true);
         context_.getOptions().setMultipleAffectations(false);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);

@@ -1669,16 +1669,20 @@ public final class ElRenderUtilTest {
     public void processEl123FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("+1b",0, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        Argument arg_ = ElRenderUtil.processEl("+1b",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1, (Number) res_);
     }
 
     @Test
     public void processEl124Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("+-1b",0, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        Argument arg_ = ElRenderUtil.processEl("+-1b",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-1, (Number) res_);
     }
 
     @Test
@@ -3452,7 +3456,7 @@ public final class ElRenderUtilTest {
     public void processEl211Test() {
         Configuration context_ = contextEl(true,false,true);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("'1'+'2'",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("\"\"+$new $char[]{'1','2'}[0]+$new $char[]{'1','2'}[1]",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("12", (String)res_);
@@ -3525,8 +3529,10 @@ public final class ElRenderUtilTest {
     public void processEl213FailTest() {
         Configuration context_ = contextEl(true,false,true);
         addImportingPage(context_);
-        ElRenderUtil.processEl("('1'+'2')*3i",0, context_);
-        assertTrue(!context_.getClasses().isEmptyErrors());
+        Argument arg_ = ElRenderUtil.processEl("('1'+'2')*'3'",0, context_);
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(5049, (Number)res_);
     }
     @Test
     public void processEl219Test() {
@@ -7581,9 +7587,7 @@ public final class ElRenderUtilTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
-        cont_.getOptions().setCatChars(true);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -7600,9 +7604,7 @@ public final class ElRenderUtilTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
-        cont_.getOptions().setCatChars(_catChars);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -7624,9 +7626,7 @@ public final class ElRenderUtilTest {
         Configuration conf_ = new Configuration();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setEqPlus(_eqPlus);
         cont_.getOptions().setMultipleAffectations(_multiple);
-        cont_.getOptions().setCatChars(true);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

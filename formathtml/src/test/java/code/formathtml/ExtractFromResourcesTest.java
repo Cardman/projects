@@ -109,7 +109,6 @@ public class ExtractFromResourcesTest {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        context_.getOptions().setCatChars(true);
         context_.getOptions().setMultipleAffectations(false);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         context_.initError();

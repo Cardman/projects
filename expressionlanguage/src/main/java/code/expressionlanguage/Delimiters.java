@@ -28,6 +28,7 @@ public final class Delimiters {
     private Numbers<Integer> delLambda = new Numbers<Integer>();
     private Numbers<Integer> delVararg = new Numbers<Integer>();
     private Numbers<Integer> delClass = new Numbers<Integer>();
+    private Numbers<Integer> delSimpleAnnotations = new Numbers<Integer>();
     private Numbers<Integer> callings = new Numbers<Integer>();
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
@@ -140,6 +141,14 @@ public final class Delimiters {
 
     public void setDelClass(Numbers<Integer> _delClass) {
         delClass = _delClass;
+    }
+
+    public Numbers<Integer> getDelSimpleAnnotations() {
+        return delSimpleAnnotations;
+    }
+
+    public void setDelSimpleAnnotations(Numbers<Integer> _delSimpleAnnotations) {
+        delSimpleAnnotations = _delSimpleAnnotations;
     }
 
     public Numbers<Integer> getCallings() {
