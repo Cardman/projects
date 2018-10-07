@@ -115,7 +115,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         page_.setCurrentBlock(this);
         String className_ = getClassName();
         className_ = StringList.concat(className_, tempClass);
-        importedClassName = _cont.resolveCorrectType(className_, true);
+        importedClassName = _cont.resolveCorrectType(className_);
     }
     @Override
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {

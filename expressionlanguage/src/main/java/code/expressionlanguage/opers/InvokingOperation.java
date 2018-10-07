@@ -596,7 +596,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         int j_ = 0;
         for (String c: _constId.getParametersTypes()) {
             String class_ = c;
-            class_ = Templates.format(className_, class_, _conf);
+            class_ = Templates.quickFormat(className_, class_, _conf);
             if (j_ + 1 == _constId.getParametersTypes().size() && _constId.isVararg()) {
                 class_ = PrimitiveTypeUtil.getPrettyArrayType(class_);
             }
@@ -685,7 +685,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             int i_ = 0;
             for (String c: _methodId.getParametersTypes()) {
                 String c_ = c;
-                c_ = Templates.format(classFormat_, c_, _conf);
+                c_ = Templates.quickFormat(classFormat_, c_, _conf);
                 if (i_ + 1 == _methodId.getParametersTypes().size() && _methodId.isVararg()) {
                     c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
                 }
@@ -902,7 +902,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     }
                     Initializer in_ = cont_.getInit();
                     String genStr_ = type_.getGenericString();
-                    String form_ = Templates.format(className_, genStr_, cont_);
+                    String form_ = Templates.quickFormat(className_, genStr_, cont_);
                     par_ = in_.processInit(cont_, par_, form_, EMPTY_STRING, 0);
                     Argument a_ = new Argument();
                     a_.setStruct(par_);
@@ -912,7 +912,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 Initializer in_ = cont_.getInit();
                 for (GeneType r: need_) {
                     String genStr_ = r.getGenericString();
-                    String form_ = Templates.format(className_, genStr_, cont_);
+                    String form_ = Templates.quickFormat(className_, genStr_, cont_);
                     parent_ = in_.processInit(cont_, parent_, form_, EMPTY_STRING, 0);
                 }
                 Argument a_ = new Argument();
@@ -1402,7 +1402,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
         fieldType_ = _returnType;
-        fieldType_ = Templates.format(classNameFound_, fieldType_, _conf);
+        fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);
         Struct check_ = _right.getStruct();
         if (!check_.isNull() && !_convert) {
             Mapping map_ = new Mapping();

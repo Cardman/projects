@@ -45,9 +45,8 @@ public final class OperationsSequence {
         values = new NatTreeMap<Integer,String>();
         instance = _instance;
         if (operators.isEmpty()) {
-            priority = ElResolver.FCT_OPER_PRIO;
             values.put((int)CustList.FIRST_INDEX, _string);
-            fctName = _string;
+            constType = ConstType.ERROR;
             return;
         }
         String op_ = operators.firstValue();

@@ -230,7 +230,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         page_.setGlobalOffset(getClassNameOffset());
         page_.setOffset(0);
         page_.setCurrentBlock(this);
-        importedClassName = _cont.resolveCorrectType(className, true);
+        importedClassName = _cont.resolveCorrectType(className);
     }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {

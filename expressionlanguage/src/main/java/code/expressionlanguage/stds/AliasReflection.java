@@ -66,6 +66,8 @@ public class AliasReflection {
     private String aliasGetGenericSuperClass;
     private String aliasGetInterfaces;
     private String aliasGetGenericInterfaces;
+    private String aliasGetLowerBounds;
+    private String aliasGetUpperBounds;
     private String aliasMakeArray;
     private String aliasMakeWildCard;
     private String aliasGetComponentType;
@@ -268,6 +270,12 @@ public class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetGenericInterfaces, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetUpperBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetLowerBounds, params_, PrimitiveTypeUtil.getPrettyArrayType(aliasClass), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasClass);
         method_ = new StandardMethod(aliasMakeGeneric, params_, aliasClass, true, MethodModifier.FINAL, stdcl_);
@@ -563,7 +571,7 @@ public class AliasReflection {
                 FieldMetaInfo field_ = (FieldMetaInfo) _struct;
                 String owner_ = field_.getDeclaringClass();
                 String typeField_ = field_.getType();
-                typeField_ = Templates.format(owner_, typeField_, _cont);
+                typeField_ = Templates.reflectFormat(owner_, typeField_, _cont);
                 result_.setResult(_cont.getExtendedClassMetaInfo(typeField_,owner_));
                 return result_;
             }
@@ -1108,7 +1116,7 @@ public class AliasReflection {
                 ConstructorId idToSearch_ = new ConstructorId(instClassName_, classesNames_, vararg_);
                 for (EntryCust<ConstructorId, ConstructorMetaInfo> e: ctors_.entryList()) {
                     ConstructorId id_ = e.getKey();
-                    if (id_.format(instClassName_, _cont).eq(idToSearch_)) {
+                    if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
                         candidates_.add(e.getValue());
                     }
                 }
@@ -1209,7 +1217,7 @@ public class AliasReflection {
                 MethodId idToSearch_ = new MethodId(static_, methodName_, classesNames_, vararg_);
                 for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
                     MethodId id_ = e.getKey();
-                    if (id_.format(instClassName_, _cont).eq(idToSearch_)) {
+                    if (id_.reflectFormat(instClassName_, _cont).eq(idToSearch_)) {
                         candidates_.add(e.getValue());
                     }
                 }
@@ -1271,7 +1279,7 @@ public class AliasReflection {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
-                genericSuperClassName_ = Templates.format(cl_.getName(), genericSuperClassName_, _cont);
+                genericSuperClassName_ = Templates.reflectFormat(cl_.getName(), genericSuperClassName_, _cont);
                 ClassMetaInfo superCl_ = _cont.getExtendedClassMetaInfo(genericSuperClassName_);
                 result_.setResult(superCl_);
                 return result_;
@@ -1299,8 +1307,38 @@ public class AliasReflection {
                 Struct[] superInts_ = new Struct[len_];
                 for (int i = 0; i < len_; i++) {
                     String int_ = geneInterfaces_.get(i);
-                    int_ = Templates.format(cl_.getName(), int_, _cont);
+                    int_ = Templates.reflectFormat(cl_.getName(), int_, _cont);
                     superInts_[i] = _cont.getExtendedClassMetaInfo(int_);
+                }
+                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                result_.setResult(arr_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetLowerBounds)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                StringList geneInterfaces_ = cl_.getLowerBounds();
+                int len_ = geneInterfaces_.size();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
+                Struct[] superInts_ = new Struct[len_];
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    int_ = Templates.reflectFormat(cl_.getName(), int_, _cont);
+                    superInts_[i] = _cont.getExtendedClassMetaInfo(int_,cl_.getName());
+                }
+                ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
+                result_.setResult(arr_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetUpperBounds)) {
+                ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
+                StringList geneInterfaces_ = cl_.getUpperBounds();
+                int len_ = geneInterfaces_.size();
+                String className_= PrimitiveTypeUtil.getPrettyArrayType(aliasClass_);
+                Struct[] superInts_ = new Struct[len_];
+                for (int i = 0; i < len_; i++) {
+                    String int_ = geneInterfaces_.get(i);
+                    int_ = Templates.reflectFormat(cl_.getName(), int_, _cont);
+                    superInts_[i] = _cont.getExtendedClassMetaInfo(int_,cl_.getName());
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
                 result_.setResult(arr_);
@@ -1382,7 +1420,7 @@ public class AliasReflection {
                 Struct[] superInts_ = new Struct[len_];
                 for (int i = 0; i < len_; i++) {
                     String nameVar_ = list_.get(i).getName();
-                    nameVar_ = Templates.format(clName_, nameVar_, _cont);
+                    nameVar_ = Templates.reflectFormat(clName_, nameVar_, _cont);
                     superInts_[i] = _cont.getExtendedClassMetaInfo(nameVar_);
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
@@ -1498,7 +1536,7 @@ public class AliasReflection {
                 Struct[] superInts_ = new Struct[len_-1];
                 for (int i = 1; i < len_; i++) {
                     String nameVar_ = types_.get(i);
-                    nameVar_ = Templates.format(clName_, nameVar_, _cont);
+                    nameVar_ = Templates.reflectFormat(clName_, nameVar_, _cont);
                     superInts_[i-1] = _cont.getExtendedClassMetaInfo(nameVar_, owner_);
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
@@ -1730,6 +1768,18 @@ public class AliasReflection {
     }
     public void setAliasGetGenericInterfaces(String _aliasGetGenericInterfaces) {
         aliasGetGenericInterfaces = _aliasGetGenericInterfaces;
+    }
+    public String getAliasGetLowerBounds() {
+        return aliasGetLowerBounds;
+    }
+    public void setAliasGetLowerBounds(String _aliasGetLowerBounds) {
+        aliasGetLowerBounds = _aliasGetLowerBounds;
+    }
+    public String getAliasGetUpperBounds() {
+        return aliasGetUpperBounds;
+    }
+    public void setAliasGetUpperBounds(String _aliasGetUpperBounds) {
+        aliasGetUpperBounds = _aliasGetUpperBounds;
     }
     public String getAliasGetComponentType() {
         return aliasGetComponentType;

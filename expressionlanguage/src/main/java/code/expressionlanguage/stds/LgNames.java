@@ -4756,6 +4756,19 @@ public abstract class LgNames {
     public void setAliasGetGenericInterfaces(String _aliasGetGenericInterfaces) {
         reflect.setAliasGetGenericInterfaces(_aliasGetGenericInterfaces);
     }
+    
+    public String getAliasGetLowerBounds() {
+        return reflect.getAliasGetLowerBounds();
+    }
+    public void setAliasGetLowerBounds(String _aliasGetLowerBounds) {
+        reflect.setAliasGetLowerBounds(_aliasGetLowerBounds);
+    }
+    public String getAliasGetUpperBounds() {
+        return reflect.getAliasGetUpperBounds();
+    }
+    public void setAliasGetUpperBounds(String _aliasGetUpperBounds) {
+        reflect.setAliasGetUpperBounds(_aliasGetUpperBounds);
+    }
     public String getAliasGetComponentType() {
         return reflect.getAliasGetComponentType();
     }

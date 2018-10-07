@@ -145,11 +145,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             _stds.getAnalyzing().setOffset(parametersTypesOffset.get(i_));
             if (p.isEmpty()) {
                 String p_ = _stds.getStandards().getAliasVoid();
-                params_.add(_stds.resolveCorrectType(p_, true));
+                params_.add(_stds.resolveCorrectType(p_));
                 i_++;
                 continue;
             }
-            params_.add(_stds.resolveCorrectType(p, true));
+            params_.add(_stds.resolveCorrectType(p));
             i_++;
         }
         importedParametersTypes.clear();
@@ -165,7 +165,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         }
         _stds.getAnalyzing().setCurrentBlock(this);
         _stds.getAnalyzing().setOffset(returnTypeOffset);
-        importedReturnType = _stds.resolveCorrectType(returnType, true);
+        importedReturnType = _stds.resolveCorrectType(returnType);
     }
     public String getReturnType() {
         return returnType;

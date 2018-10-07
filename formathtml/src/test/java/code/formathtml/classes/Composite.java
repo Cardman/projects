@@ -24,8 +24,6 @@ public class Composite implements Displayable {
 
     private StringMap<Integer> map;
 
-    private MyMap<String, Integer> myMap;
-
     private String string;
 
     private char myChar = 't';
@@ -212,14 +210,6 @@ public class Composite implements Displayable {
         return list_;
     }
 
-    public MyMap<String, Integer> getMyMap() {
-        return myMap;
-    }
-
-    public void setMyMap(MyMap<String, Integer> _myMap) {
-        myMap = _myMap;
-    }
-
     public String internMethod() {
         return "sample";
     }
@@ -238,7 +228,7 @@ public class Composite implements Displayable {
 
     @Override
     public String display() {
-        return new StringBuilder().append(integer).append(",").append(privateInt).append(",").append(strings.display()).append(",").append(tree).append(",").append(map).append(",").append(myMap).toString();
+        return new StringBuilder().append(integer).append(",").append(privateInt).append(",").append(strings.display()).toString();
     }
 
     public char getMyChar() {

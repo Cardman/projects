@@ -714,22 +714,11 @@ public final class Classes {
                             if (!builtTypes_.getVal(id_)) {
                                 break;
                             }
-                            StringList builtInners_ = TypeUtil.getBuiltInners(id_, baseInn_,true, _context);
-                            if (builtInners_.size() != 1) {
-                                //ERROR
-                                UnknownClassName undef_;
-                                undef_ = new UnknownClassName();
-                                undef_.setClassName(base_);
-                                undef_.setFileName(r_.getFile().getFileName());
-                                undef_.setRc(rc_);
-                                addError(undef_);
-                                continue;
+                            StringList builtInners_ = TypeUtil.getBuiltInners(c,id_, baseInn_,true, _context);
+                            if (builtInners_.size() == 1) {
+                                name_ = builtInners_.first();
+                                break;
                             }
-                            name_ = builtInners_.first();
-                            if (name_.isEmpty()) {
-                                ready_ = false;
-                            }
-                            break;
                         }
                         if (name_.isEmpty()) {
                             ready_ = false;
@@ -739,7 +728,7 @@ public final class Classes {
                         index_++;
                         continue;
                     }
-                    String res_ = _context.resolveBaseType(base_, r_, rc_);
+                    String res_ = _context.resolveBaseType(base_, r_, rc_, inners_.size() == 1);
                     if (res_.isEmpty()) {
                         //ERROR
                         UnknownClassName undef_;
@@ -757,7 +746,7 @@ public final class Classes {
                             ready_ = false;
                             break;
                         }
-                        StringList builtInners_ = TypeUtil.getBuiltInners(res_, i, true, _context);
+                        StringList builtInners_ = TypeUtil.getBuiltInners(c,res_, i, true, _context);
                         if (builtInners_.size() != 1) {
                             err_ = true;
                             //ERROR
@@ -783,6 +772,19 @@ public final class Classes {
                     index_++;
                 }
                 if (!ready_) {
+                    continue;
+                }
+                StringList dup_ = new StringList(foundNames_);
+                int oldSize_ = dup_.size();
+                dup_.removeDuplicates();
+                int newSize_ = dup_.size();
+                if (oldSize_ != newSize_) {
+                    UnknownClassName undef_;
+                    undef_ = new UnknownClassName();
+                    undef_.setClassName(r_.getFullName());
+                    undef_.setFileName(r_.getFile().getFileName());
+                    undef_.setRc(r_.getRowCol(0, 0));
+                    addError(undef_);
                     continue;
                 }
                 int indexType_ = -1;
@@ -1053,6 +1055,19 @@ public final class Classes {
                         }
                         inherit_.addSegment(new ClassEdge(d_), new ClassEdge(base_));
                     }
+                }
+                StringList dup_ = new StringList(names_);
+                int oldSize_ = dup_.size();
+                dup_.removeDuplicates();
+                int newSize_ = dup_.size();
+                if (oldSize_ != newSize_) {
+                    UnknownClassName undef_;
+                    undef_ = new UnknownClassName();
+                    undef_.setClassName(bl_.getFullName());
+                    undef_.setFileName(bl_.getFile().getFileName());
+                    undef_.setRc(bl_.getRowCol(0, 0));
+                    addError(undef_);
+                    continue;
                 }
                 dirSuperTypes_.put(d_, names_);
                 if (nbDirectSuperClass_ > 1) {
@@ -1444,6 +1459,12 @@ public final class Classes {
                 continue;
             }
             bl_.setupBasicOverrides(_context);
+        }
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            RootBlock bl_ = c.getValue();
+            if (bl_.getFile().isPredefined()) {
+                continue;
+            }
             if (bl_ instanceof AnnotationBlock) {
                 continue;
             }
@@ -1540,51 +1561,6 @@ public final class Classes {
                     if (StringList.quickEq(outGl_, outOwner_)) {
                         inners_.add(r_);
                     }
-                }
-            }
-        }
-        return inners_;
-    }
-    public static CustList<RootBlock> accessedClassMembersInherit(String _className, RootBlock _clOwner, Analyzable _context) {
-        String idRoot_ = Templates.getIdFromAllTypes(_className);
-        GeneType root_ = _context.getClassBody(idRoot_);
-        String pkgRoot_ = root_.getPackageName();
-        String pkgOwner_ = _clOwner.getPackageName();
-        String ownerName_ = _clOwner.getFullName();
-        CustList<RootBlock> inners_ = new CustList<RootBlock>();
-        String outOwner_ = _clOwner.getOuter().getFullName();
-        String outRoot_ = root_.getOuter().getFullName();
-        
-        for (Block b: Classes.getDirectChildren(_clOwner)) {
-            if (!(b instanceof RootBlock)) {
-                continue;
-            }
-            RootBlock r_ = (RootBlock) b;
-            if (r_.getAccess() == AccessEnum.PUBLIC) {
-                inners_.add(r_);
-                continue;
-            }
-            if (r_.getAccess() == AccessEnum.PROTECTED) {
-                boolean okRoot_ = false;
-                if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idRoot_, _context)) {
-                    okRoot_ = true;
-                } else if (StringList.quickEq(pkgOwner_, pkgRoot_)){
-                    okRoot_ = true;
-                }
-                if (okRoot_) {
-                    inners_.add(r_);
-                    continue;
-                }
-            }
-            if (r_.getAccess() == AccessEnum.PACKAGE) {
-                if (StringList.quickEq(pkgOwner_, pkgRoot_)) {
-                    inners_.add(r_);
-                    continue;
-                }
-            }
-            if (r_.getAccess() == AccessEnum.PRIVATE) {
-                if (StringList.quickEq(outRoot_, outOwner_)) {
-                    inners_.add(r_);
                 }
             }
         }
@@ -2448,7 +2424,7 @@ public final class Classes {
                     String formCl_ = method_.getDeclaringType();
                     if (Templates.correctNbParameters(_name, _context)) {
                         formatRet_ = Templates.wildCardFormat(_name, ret_, _context, true);
-                        fid_ = id_.format(_name, _context);
+                        fid_ = id_.reflectFormat(_name, _context);
                     } else {
                         formatRet_ = ret_;
                         fid_ = id_;
@@ -2479,7 +2455,7 @@ public final class Classes {
                     String formCl_ = method_.getDeclaringType();
                     if (Templates.correctNbParameters(_name, _context)) {
                         formatRet_ = Templates.wildCardFormat(_name, ret_, _context,true);
-                        fid_ = id_.format(_name, _context);
+                        fid_ = id_.reflectFormat(_name, _context);
                     } else {
                         formatRet_ = ret_;
                         fid_ = id_;
@@ -2493,7 +2469,7 @@ public final class Classes {
             if (par_ != null) {
                 String gene_ = par_.getGenericString();
                 if (Templates.correctNbParameters(_name, _context)) {
-                    format_ = Templates.format(_name, gene_, _context);
+                    format_ = Templates.quickFormat(_name, gene_, _context);
                 } else {
                     format_ = par_.getFullName();
                 }

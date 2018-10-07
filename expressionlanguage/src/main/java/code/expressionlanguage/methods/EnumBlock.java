@@ -111,7 +111,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     continue;
                 }
                 String formattedSuper_ = Templates.getFullTypeByBases(gene_, s, _context);
-                MethodId id_ = m.getId().format(formattedSuper_, _context);
+                MethodId id_ = m.getId().quickFormat(formattedSuper_, _context);
                 for (String c: classes_) {
                     CustList<MethodBlock> mBases_ = Classes.getMethodBodiesById(_context,c, id_);
                     if (mBases_.isEmpty()) {
@@ -131,8 +131,8 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
                     }
                     String retBase_ = m.getImportedReturnType();
                     String retDerive_ = mBase_.getImportedReturnType();
-                    String formattedRetDer_ = Templates.format(c, retDerive_, _context);
-                    String formattedRetBase_ = Templates.format(s, retBase_, _context);
+                    String formattedRetDer_ = Templates.quickFormat(c, retDerive_, _context);
+                    String formattedRetBase_ = Templates.quickFormat(s, retBase_, _context);
                     Mapping mapping_ = new Mapping();
                     mapping_.getMapping().putAllMap(vars_);
                     mapping_.setArg(formattedRetDer_);
@@ -248,6 +248,7 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
         NatTreeMap<Integer, String> rcs_;
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
+        importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
             i_++;
@@ -256,26 +257,13 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             String base_ = Templates.getIdFromAllTypes(s_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {
-                continue;
+                importedDirectSuperInterfaces.add(s_);
+            } else {
+                importedDirectSuperClass = s_;
             }
-            importedDirectSuperClass = s_;
         }
         if (importedDirectSuperClass.isEmpty()) {
             importedDirectSuperClass = _classes.getStandards().getAliasObject();
-        }
-        importedDirectSuperInterfaces.clear();
-        i_ = 0;
-        for (String s: getDirectSuperTypes()) {
-            int index_ = rcs_.getKey(i_);
-            i_++;
-            RowCol rc_ = getRowCol(0,index_);
-            String s_ = _classes.resolveTypeMapping(s, this,rc_, true);
-            String base_ = Templates.getIdFromAllTypes(s_);
-            RootBlock r_ = _classes.getClasses().getClassBody(base_);
-            if (!(r_ instanceof InterfaceBlock)) {
-                continue;
-            }
-            importedDirectSuperInterfaces.add(s_);
         }
     }
 

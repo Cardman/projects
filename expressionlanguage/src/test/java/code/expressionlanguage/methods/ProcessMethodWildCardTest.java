@@ -50,6 +50,212 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         assertEq(9, (Number)field_.getInstance());
     }
     @Test
+    public void instanceArgument100Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Integer> inst=$new pkg.ExThree<java.lang.Integer>():\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice(pkg.ExTwo<?java.lang.Integer>)get():\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
+        xml_.append(" $public $normal #T get(){\n");
+        xml_.append("  $return (#T)1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:java.lang.Number> :pkg.ExTwo<#U>{\n");
+        xml_.append(" $public $normal #U get(){\n");
+        xml_.append("  $return (#U)3i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExThree<java.lang.Integer>", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(1, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument101Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<!java.lang.Number> inst=$new pkg.ExTwo<java.lang.Number>():\n");
+        xml_.append(" $public $int ance=inst;;;get(8I,5I):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#T... a){\n");
+        xml_.append("  $int sum = 0l:\n");
+        xml_.append("  $foreach(#T i:a;.;){\n");
+        xml_.append("   sum;. += i;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+sum;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(14, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument102Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<!java.lang.Number> inst=$new pkg.ExTwo<java.lang.Number>():\n");
+        xml_.append(" $public $int ance=inst;;;get($vararg(java.lang.Number)):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#T... a){\n");
+        xml_.append("  $int sum = 0l:\n");
+        xml_.append("  $foreach(#T i:a;.;){\n");
+        xml_.append("   sum;. += i;intValue():\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+sum;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExTwo<java.lang.Number>", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(1, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument103Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice(pkg.ExTwo<?>)get($null):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(java.lang.String i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:java.lang.Number> :pkg.ExTwo<#U>{\n");
+        xml_.append(" $public $normal $int get(#U i){\n");
+        xml_.append("  $return 3i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(java.lang.String i){\n");
+        xml_.append("  $return 4i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument104Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number> inst=$new pkg.ExThree<java.lang.Number>():\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice(pkg.ExTwo<?>)get($null):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(java.lang.String i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:java.lang.Number> :pkg.ExTwo<#U>{\n");
+        xml_.append(" $public $normal $int get(#U i){\n");
+        xml_.append("  $return 3i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(java.lang.String i){\n");
+        xml_.append("  $return 4i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExThree<java.lang.Number>", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+    }
+    @Test
     public void instanceArgument123Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
@@ -156,6 +362,39 @@ public final class ProcessMethodWildCardTest extends ProcessMethodCommon {
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument1FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.ExTwo<java.lang.Number,java.lang.Number> inst=$new pkg.ExThree<java.lang.Number,java.lang.Number>():\n");
+        xml_.append(" $public $int ance=inst;;;$classchoice(pkg.ExTwo<?,?>)get($null):\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#V i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:java.lang.Number,#W:java.lang.Number> :pkg.ExTwo<#U,#W>{\n");
+        xml_.append(" $public $normal $int get(#U i){\n");
+        xml_.append("  $return 3i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#W i){\n");
+        xml_.append("  $return 4i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
     }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();

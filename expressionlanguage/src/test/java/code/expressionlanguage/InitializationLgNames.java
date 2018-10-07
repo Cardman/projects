@@ -200,6 +200,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetGenericSuperClass("getGenericSuperClass");
         _lgNames.setAliasGetInterfaces("getInterfaces");
         _lgNames.setAliasGetGenericInterfaces("getGenericInterfaces");
+        _lgNames.setAliasGetLowerBounds("getLowerBounds");
+        _lgNames.setAliasGetUpperBounds("getUpperBounds");
         _lgNames.setAliasGetComponentType("getComponentType");
         _lgNames.setAliasMakeArray("makeArray");
         _lgNames.setAliasGetParameterTypes("getParameterTypes");

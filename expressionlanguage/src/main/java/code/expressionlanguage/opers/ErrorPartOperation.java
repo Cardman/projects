@@ -10,9 +10,9 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.EqList;
 
-public final class EmptyPartOperation extends AbstractFieldOperation {
+public final class ErrorPartOperation extends AbstractFieldOperation {
 
-    public EmptyPartOperation(int _indexInEl, int _indexChild,
+    public ErrorPartOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
     }

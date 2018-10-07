@@ -21,9 +21,6 @@ public class Composite {
     private StringMap<Integer> map;
 
 
-    private MyMap<String, Integer> myMap;
-
-
     private String string;
 
     public Composite() {
@@ -165,14 +162,6 @@ public class Composite {
 
     public void setMap(StringMap<Integer> _map) {
         map = _map;
-    }
-
-    public MyMap<String, Integer> getMyMap() {
-        return myMap;
-    }
-
-    public void setMyMap(MyMap<String, Integer> _myMap) {
-        myMap = _myMap;
     }
 
 

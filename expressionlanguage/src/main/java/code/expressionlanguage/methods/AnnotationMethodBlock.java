@@ -88,7 +88,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public MethodId getFormattedId(ContextEl _context) {
+    public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
         return getId();
     }
 

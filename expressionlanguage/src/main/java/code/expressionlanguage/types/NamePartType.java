@@ -230,8 +230,17 @@ final class NamePartType extends LeafPartType {
             }
         }
         
-        String out_ = _an.lookupImportsIndirect(type_, _rooted);
+        String out_ = _an.lookupImportType(type_, _rooted);
         if (out_.isEmpty()) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(type_);
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
+            out_ = _an.getStandards().getAliasObject();
+            stopDepends();
+        }
+        if (!_rooted.canAccessClass(out_, _an)) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(type_);
             un_.setFileName(_rooted.getFile().getFileName());
@@ -278,7 +287,7 @@ final class NamePartType extends LeafPartType {
                     for (String a: allAncestors_) {
                         GeneType g_ = _an.getClassBody(a);
                         String genStr_ = g_.getGenericString();
-                        String f_ = Templates.format(_globalType, genStr_, _an);
+                        String f_ = Templates.quickFormat(_globalType, genStr_, _an);
                         StringList c_ = new StringList(a);
                         while (true) {
                             StringList new_ = new StringList();
@@ -390,6 +399,9 @@ final class NamePartType extends LeafPartType {
                     return;
                 }
                 String new_ = Templates.getFullTypeByBases(owner_, foundOwners_.first(), _an);
+                if (new_ == null) {
+                    return;
+                }
                 last_.setAnalyzedType(new_);
                 setAnalyzedType(StringList.concat(new_,"..",type_));
                 return;
@@ -438,8 +450,11 @@ final class NamePartType extends LeafPartType {
             }
         }
         
-        String out_ = _an.lookupImportsIndirect(type_, _rooted);
+        String out_ = _an.lookupImportType(type_, _rooted);
         if (out_.isEmpty()) {
+            return;
+        }
+        if (!_rooted.canAccessClass(out_, _an)) {
             return;
         }
         setAnalyzedType(out_);
@@ -476,7 +491,7 @@ final class NamePartType extends LeafPartType {
                     for (String a: allAncestors_) {
                         GeneType g_ = _an.getClassBody(a);
                         String genStr_ = g_.getGenericString();
-                        String f_ = Templates.format(_globalType, genStr_, _an);
+                        String f_ = Templates.quickFormat(_globalType, genStr_, _an);
                         StringList c_ = new StringList(a);
                         while (true) {
                             StringList new_ = new StringList();
@@ -588,6 +603,9 @@ final class NamePartType extends LeafPartType {
                     return;
                 }
                 String new_ = Templates.getFullTypeByBases(owner_, foundOwners_.first(), _an);
+                if (new_ == null) {
+                    return;
+                }
                 last_.setAnalyzedType(new_);
                 setAnalyzedType(StringList.concat(new_,"..",type_));
                 return;
@@ -635,8 +653,11 @@ final class NamePartType extends LeafPartType {
             }
         }
         
-        String out_ = _an.lookupImportsIndirect(type_, _rooted);
+        String out_ = _an.lookupImportType(type_, _rooted);
         if (out_.isEmpty()) {
+            return;
+        }
+        if (!_rooted.canAccessClass(out_, _an)) {
             return;
         }
         setAnalyzedType(out_);

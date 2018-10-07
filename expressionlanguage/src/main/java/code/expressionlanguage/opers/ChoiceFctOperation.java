@@ -78,10 +78,8 @@ public final class ChoiceFctOperation extends InvokingOperation {
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
         className_ = className_.substring(lenPref_);
-        className_ = _conf.resolveCorrectType(className_, false);
-        if (className_.contains(Templates.TEMPLATE_BEGIN)) {
-            staticChoiceMethodTemplate = true;
-        }
+        className_ = _conf.resolveCorrectType(className_);
+        staticChoiceMethodTemplate = true;
         String clCurName_ = className_;
         if (hasVoidPrevious(clCurName_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -226,7 +224,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             prev_.setStruct(PrimitiveTypeUtil.getParent(classNameFound_, prev_.getStruct(), _conf));
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             if (staticChoiceMethodTemplate) {
-                classNameFound_ = Templates.format(argClassName_, classNameFound_, _conf);
+                classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
                 Mapping map_ = new Mapping();
                 map_.setArg(argClassName_);
                 map_.setParam(classNameFound_);
@@ -238,7 +236,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 }
                 String base_ = Templates.getIdFromAllTypes(classNameFound_);
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-                lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
+                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
             } else {
                 classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
@@ -250,7 +248,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                     return a_;
                 }
                 classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
-                methodId_ = realId.format(classNameFound_, _conf);
+                methodId_ = realId.quickFormat(classNameFound_, _conf);
                 if (!methodId_.isVararg()) {
                     lastType_ = EMPTY_STRING;
                     naturalVararg_ = -1;

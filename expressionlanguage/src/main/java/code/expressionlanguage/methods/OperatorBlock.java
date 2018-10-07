@@ -54,23 +54,21 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(_genericClass, n_, _context);
+            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override
-    public MethodId getFormattedId(ContextEl _context) {
-        String className_ = EMPTY_STRING;
-        String current_ = _context.getClassBody(className_).getGenericString();
+    public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(current_, n_, _context);
+            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
@@ -173,7 +171,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
         return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
     }
     @Override
-    public boolean isAccessibleType(String _type, Analyzable _analyzable) {
+    public boolean isAccessibleType(String _type, Analyzable _analyzable, boolean _excludeProtected) {
         return _analyzable.getClassBody(_type).getAccess() == AccessEnum.PUBLIC;
     }
     @Override

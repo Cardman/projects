@@ -1,9 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.util.CustList;
@@ -78,28 +76,20 @@ public final class StandardMethod extends StandardNamedFunction implements GeneM
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(_genericClass, n_, _context);
-            pTypes_.add(formatted_);
+            pTypes_.add(n_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
 
     @Override
-    public MethodId getFormattedId(ContextEl _context) {
-        String className_ = getDeclaringType();
-        StringList vars_ = new StringList();
-        for (TypeVar t: _context.getClassBody(className_).getParamTypesMapValues()) {
-            vars_.add(StringList.concat(Templates.PREFIX_VAR_TYPE,t.getName()));
-        }
-        String current_ = className_;
+    public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(current_, n_, _context);
-            pTypes_.add(formatted_);
+            pTypes_.add(n_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }

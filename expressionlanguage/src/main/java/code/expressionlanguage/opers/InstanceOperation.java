@@ -716,7 +716,7 @@ public final class InstanceOperation extends AbstractInstancingOperation {
                 return Argument.createVoid();
             }
         }
-        String lastType_ = Templates.format(className_, lastType, _conf);
+        String lastType_ = Templates.quickFormat(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
         return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }

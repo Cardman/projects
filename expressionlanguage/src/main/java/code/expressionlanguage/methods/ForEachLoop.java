@@ -306,6 +306,16 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
                     }
                 }
             } else {
+                if (out_.isEmpty()) {
+                    Mapping mapping_ = new Mapping();
+                    mapping_.setArg(_cont.getStandards().getAliasObject());
+                    mapping_.setParam(_cont.getStandards().getAliasIterable());
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(mapping_);
+                    cast_.setFileName(getFile().getFileName());
+                    cast_.setRc(getRowCol(0, expressionOffset));
+                    _cont.getClasses().addError(cast_);
+                }
                 String iterable_ = _cont.getStandards().getAliasIterable();
                 for (String e: out_) {
                     Mapping mapping_ = new Mapping();

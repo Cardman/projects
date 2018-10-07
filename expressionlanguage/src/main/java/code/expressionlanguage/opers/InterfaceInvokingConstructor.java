@@ -178,7 +178,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String superClass_ = Templates.getFullTypeByBases(clCurName_, cl_, _conf);
         String superClassBase_ = Templates.getIdFromAllTypes(superClass_);
         String lastType_ = getLastType();
-        lastType_ = Templates.format(superClass_, lastType_, _conf);
+        lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
@@ -195,7 +195,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         int j_ = 0;
         for (String c: ctorId_.getParametersTypes()) {
             String c_ = c;
-            c_ = Templates.format(classFormat_, c_, _conf);
+            c_ = Templates.quickFormat(classFormat_, c_, _conf);
             if (j_ + 1 == ctorId_.getParametersTypes().size() && ctorId_.isVararg()) {
                 c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
             }

@@ -2240,12 +2240,12 @@ public final class ElResolver {
         }
         int strLen_ = _string.length();
         len_ = lastPrintChar_+1;
-        int beginSt_;
-        int endSt_;
-        beginSt_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
-        endSt_ = _d.getDelKeyWordStatic().indexOfObj(_offset + strLen_);
-        if (beginSt_ > CustList.INDEX_NOT_FOUND_ELT && beginSt_ + 1 == endSt_) {
-            int ext_ = beginSt_ / 2;
+        int begin_;
+        int end_;
+        begin_ = _d.getDelKeyWordStatic().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordStatic().indexOfObj(_offset + strLen_);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            int ext_ = begin_ / 2;
             String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_ACCESS);
@@ -2255,9 +2255,9 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        beginSt_ = _d.getDelSimpleAnnotations().indexOfObj(_offset + firstPrintChar_);
-        endSt_ = _d.getDelSimpleAnnotations().indexOfObj(_offset + lastPrintChar_);
-        if (beginSt_ > CustList.INDEX_NOT_FOUND_ELT && beginSt_ + 1 == endSt_) {
+        begin_ = _d.getDelSimpleAnnotations().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelSimpleAnnotations().indexOfObj(_offset + lastPrintChar_);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SIMPLE_ANNOTATION);
             op_.setOperators(new NatTreeMap<Integer, String>());
@@ -2266,39 +2266,67 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
+        begin_ = _d.getDelVararg().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelVararg().indexOfObj(_offset + lastPrintChar_);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.VARARG);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelLambda().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelLambda().indexOfObj(_offset + lastPrintChar_);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.LAMBDA);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelClass().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelClass().indexOfObj(_offset + lastPrintChar_);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.CLASS_INFO);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelKeyWordSuper().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordSuper().indexOfObj(_offset + lastPrintChar_ + 1);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.SUPER_KEYWORD);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string.substring(firstPrintChar_+SUPER.length() + 2, lastPrintChar_ + 1), firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelKeyWordClassChoice().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordClassChoice().indexOfObj(_offset + lastPrintChar_ + 1);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
+        begin_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + lastPrintChar_ + 1);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         if (_string.charAt(i_) == EXTERN_CLASS) {
-            int begin_;
-            int end_;
-            begin_ = _d.getDelVararg().indexOfObj(_offset + firstPrintChar_);
-            end_ = _d.getDelVararg().indexOfObj(_offset + lastPrintChar_);
-            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
-                OperationsSequence op_ = new OperationsSequence();
-                op_.setConstType(ConstType.VARARG);
-                op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string, firstPrintChar_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
-            begin_ = _d.getDelLambda().indexOfObj(_offset + firstPrintChar_);
-            end_ = _d.getDelLambda().indexOfObj(_offset + lastPrintChar_);
-            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
-                OperationsSequence op_ = new OperationsSequence();
-                op_.setConstType(ConstType.LAMBDA);
-                op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string, firstPrintChar_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
-            begin_ = _d.getDelClass().indexOfObj(_offset + firstPrintChar_);
-            end_ = _d.getDelClass().indexOfObj(_offset + lastPrintChar_);
-            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
-                OperationsSequence op_ = new OperationsSequence();
-                op_.setConstType(ConstType.CLASS_INFO);
-                op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string, firstPrintChar_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
             String sub_ = _string.substring(firstPrintChar_ + 1, len_);
             if (StringList.quickEq(sub_, THIS)) {
                 OperationsSequence op_ = new OperationsSequence();
@@ -2339,36 +2367,6 @@ public final class ElResolver {
                 op_.setConstType(ConstType.FALSE_CST);
                 op_.setOperators(new NatTreeMap<Integer, String>());
                 op_.setValue(_string, firstPrintChar_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
-            begin_ = _d.getDelKeyWordSuper().indexOfObj(_offset + firstPrintChar_);
-            end_ = _d.getDelKeyWordSuper().indexOfObj(_offset + lastPrintChar_ + 1);
-            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
-                OperationsSequence op_ = new OperationsSequence();
-                op_.setConstType(ConstType.SUPER_KEYWORD);
-                op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string.substring(firstPrintChar_+SUPER.length() + 2, lastPrintChar_ + 1), firstPrintChar_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
-            begin_ = _d.getDelKeyWordClassChoice().indexOfObj(_offset + firstPrintChar_);
-            end_ = _d.getDelKeyWordClassChoice().indexOfObj(_offset + lastPrintChar_ + 1);
-            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
-                OperationsSequence op_ = new OperationsSequence();
-                op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
-                op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
-                op_.setDelimiter(_d);
-                return op_;
-            }
-            begin_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + firstPrintChar_);
-            end_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + lastPrintChar_ + 1);
-            if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
-                OperationsSequence op_ = new OperationsSequence();
-                op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
-                op_.setOperators(new NatTreeMap<Integer, String>());
-                op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -2480,9 +2478,6 @@ public final class ElResolver {
         String fctName_ = EMPTY_STRING;
         boolean enabledId_ = false;
         boolean declaring_ = false;
-//        boolean braces_ = true;
-//        boolean brackets_ = true;
-//        boolean dbl_ = true;
         boolean instance_ = false;
         if (_string.charAt(firstPrintChar_) == EXTERN_CLASS && procWordFirstChar(_string, firstPrintChar_ + 1, INSTANCE)) {
             instance_ = true;
@@ -2776,9 +2771,9 @@ public final class ElResolver {
                             }
                         }
                     }
-                    if (curChar_ == EXTERN_CLASS && procWordFirstChar(_string, i_ + 1, INSTANCEOF)) {
-                        if (prio_ > CMP_PRIO) {
-                            int min_ = _d.getDelInstanceof().indexOfObj(i_+_offset);
+                    if (prio_ > CMP_PRIO) {
+                        int min_ = _d.getDelInstanceof().indexOfObj(i_+_offset);
+                        if (min_ >= 0 && min_ % 2 == 0) {
                             int next_ = _d.getDelInstanceof().get(min_+1) - _offset - 1;
                             if (next_ == lastPrintChar_) {
                                 is_ = true;

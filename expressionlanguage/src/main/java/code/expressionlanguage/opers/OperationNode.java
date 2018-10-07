@@ -216,15 +216,18 @@ public abstract class OperationNode {
                 }
             }
         }
+        ConstType ct_ = _op.getConstType();
+        if (_op.getConstType() == ConstType.ERROR) {
+            return new ErrorPartOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.getOperators().isEmpty()) {
-            ConstType ct_ = _op.getConstType();
             if (_op.getValues().isEmpty()) {
-                return new EmptyPartOperation(_index, _indexChild, _m, _op);
+                return new ErrorPartOperation(_index, _indexChild, _m, _op);
             }
             String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
             String str_ = originalStr_.trim();
             if (str_.isEmpty()) {
-                return new EmptyPartOperation(_index, _indexChild, _m, _op);
+                return new ErrorPartOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.SIMPLE_ANNOTATION) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
@@ -580,7 +583,7 @@ public abstract class OperationNode {
             for (RootBlock p : r_.getAllParentTypes()) {
                 String f_ = p.getGenericString();
                 if (Templates.correctNbParameters(c, _cont)) {
-                    f_ = Templates.format(c, f_, _cont);
+                    f_ = Templates.quickFormat(c, f_, _cont);
                 }
                 String baseLoc_ = Templates.getIdFromAllTypes(f_);
                 StringList classeNamesPar_ = new StringList();
@@ -666,11 +669,17 @@ public abstract class OperationNode {
                 } else {
                     formatted_ = cl_;
                 }
+                if (formatted_ == null) {
+                    continue;
+                }
                 ClassField id_ = new ClassField(cl_, _name);
                 FieldInfo field_ = _cont.getFieldInfo(id_);
                 FieldResult r_ = new FieldResult();
                 String realType_ = field_.getType();
                 FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, _aff);
+                if (f_ == null) {
+                    continue;
+                }
                 r_.setId(f_);
                 r_.setAnc(ancestors_.getVal(id_));
                 r_.setStatus(SearchingMemberStatus.UNIQ);
@@ -741,7 +750,7 @@ public abstract class OperationNode {
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             out_.setRealId(undefined_.getId());
-            out_.setConstId(undefined_.getId().format(clCurName_, _conf));
+            out_.setConstId(undefined_.getId().quickFormat(clCurName_, _conf));
             return out_;
         }
         StringMap<StringList> map_;
@@ -780,7 +789,7 @@ public abstract class OperationNode {
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
             out_.setRealId(undefined_.getId());
-            out_.setConstId(undefined_.getId().format(clCurName_, _conf));
+            out_.setConstId(undefined_.getId().quickFormat(clCurName_, _conf));
             return out_;
         }
         ConstructorId ctor_ = signatures_.first().getConstraints();
@@ -790,7 +799,7 @@ public abstract class OperationNode {
             out_.setVarArgToCall(true);
         }
         out_.setRealId(ctor_);
-        out_.setConstId(ctor_.format(clCurName_, _conf));
+        out_.setConstId(ctor_.quickFormat(clCurName_, _conf));
         CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_conf,clCurName_, ctor_);
         out_.setCtor(ctors_.first());
         return out_;
@@ -1075,6 +1084,9 @@ public abstract class OperationNode {
                             }
                             formattedClass_ = clCurName_;
                         }
+                        if (formattedClass_ == null) {
+                            continue;
+                        }
                         MethodId id_ = s.getConstraints();
                         GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
                         if (!Classes.canAccess(glClass_, sup_, _conf)) {
@@ -1082,6 +1094,9 @@ public abstract class OperationNode {
                         }
                         String ret_ = sup_.getImportedReturnType();
                         ret_ = Templates.wildCardFormat(formattedClass_, ret_, _conf, true);
+                        if (ret_ == null) {
+                            continue;
+                        }
                         ParametersGroup p_ = new ParametersGroup();
                         MethodId realId_ = id_;
                         for (String c: realId_.getParametersTypes()) {
@@ -1105,7 +1120,7 @@ public abstract class OperationNode {
                 indexType_++;
                 int anc_ = 1;
                 for (GeneType t: l) {
-                    String f_ = Templates.format(clCurName_, t.getGenericString(), _conf);
+                    String f_ = Templates.quickFormat(clCurName_, t.getGenericString(), _conf);
                     for (EntryCust<MethodId, EqList<ClassMethodId>> e: t.getAllOverridingMethods().entryList()) {
                         for (ClassMethodId s: e.getValue()) {
                             String name_ = s.getClassName();
@@ -1125,6 +1140,9 @@ public abstract class OperationNode {
                                 }
                                 formattedClass_ = f_;
                             }
+                            if (formattedClass_ == null) {
+                                continue;
+                            }
                             MethodId id_ = s.getConstraints();
                             GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
                             if (!Classes.canAccess(glClass_, sup_, _conf)) {
@@ -1132,6 +1150,9 @@ public abstract class OperationNode {
                             }
                             String ret_ = sup_.getImportedReturnType();
                             ret_ = Templates.wildCardFormat(formattedClass_, ret_, _conf, true);
+                            if (ret_ == null) {
+                                continue;
+                            }
                             ParametersGroup p_ = new ParametersGroup();
                             MethodId realId_ = id_;
                             for (String c: realId_.getParametersTypes()) {
@@ -1243,7 +1264,7 @@ public abstract class OperationNode {
             if (info_.isStatic()) {
                 id_ = constraints_;
             } else {
-                id_ = constraints_.format(baseClassName_, _conf);
+                id_ = constraints_.quickFormat(baseClassName_, _conf);
             }
             res_.setCorrectTemplated(true);
         }
@@ -1331,11 +1352,7 @@ public abstract class OperationNode {
             if (Templates.isGenericCorrect(map_, _context)) {
                 return true;
             }
-            param_ = PrimitiveTypeUtil.getQuickComponentType(param_);
-            wc_ = Templates.wildCardFormat(_class, param_, _context, false);
-            if (wc_ == null) {
-                return false;
-            }
+            wc_ = PrimitiveTypeUtil.getQuickComponentType(wc_);
             map_.setParam(wc_);
             return Templates.isGenericCorrect(map_, _context);
         }
@@ -1508,6 +1525,17 @@ public abstract class OperationNode {
             String paramTwo_ = two_.getClassName();
             String wcOne_ = Templates.wildCardFormat(glClassOne_, paramOne_, context_, false);
             String wcTwo_ = Templates.wildCardFormat(glClassTwo_, paramTwo_, context_, false);
+            if (wcOne_ == null) {
+                if (wcTwo_ != null) {
+                    return CustList.SWAP_SORT;
+                }
+                _o1.getParameters().setError(true);
+                _o2.getParameters().setError(true);
+                return CustList.NO_SWAP_SORT;
+            }
+            if (wcTwo_ == null) {
+                return CustList.NO_SWAP_SORT;
+            }
             one_ = new ClassMatching(wcOne_);
             two_ = new ClassMatching(wcTwo_);
             if (one_.matchClass(two_)) {
@@ -1577,6 +1605,17 @@ public abstract class OperationNode {
             paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
             String wcOne_ = Templates.wildCardFormat(glClassOne_, paramOne_, context_, false);
             String wcTwo_ = Templates.wildCardFormat(glClassTwo_, paramTwo_, context_, false);
+            if (wcOne_ == null) {
+                if (wcTwo_ != null) {
+                    return CustList.SWAP_SORT;
+                }
+                _o1.getParameters().setError(true);
+                _o2.getParameters().setError(true);
+                return CustList.NO_SWAP_SORT;
+            }
+            if (wcTwo_ == null) {
+                return CustList.NO_SWAP_SORT;
+            }
             one_ = new ClassMatching(wcOne_);
             two_ = new ClassMatching(wcTwo_);
             if (!one_.matchClass(two_)) {

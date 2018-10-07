@@ -106,7 +106,7 @@ public final class FctOperation extends InvokingOperation {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
-            className_ = _conf.resolveCorrectType(className_, true);
+            className_ = _conf.resolveCorrectType(className_);
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);
@@ -379,7 +379,7 @@ public final class FctOperation extends InvokingOperation {
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-                lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
+                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = classMethodId.getConstraints();
             } else {
@@ -388,7 +388,7 @@ public final class FctOperation extends InvokingOperation {
                 ClassMethodId methodToCall_ = polymorph(context_, previous_, classMethodId);
                 String argClassName_ = stds_.getStructClassName(previous_, context_);
                 String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);
-                lastType_ = Templates.format(fullClassNameFound_, lastType_, _conf);
+                lastType_ = Templates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments, _conf);
                 methodId_ = methodToCall_.getConstraints();
                 classNameFound_ = methodToCall_.getClassName();

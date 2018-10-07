@@ -80,23 +80,37 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(_genericClass, n_, _context);
+            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
     }
-
-    @Override
-    public MethodId getFormattedId(ContextEl _context) {
-        String className_ = declaringType;
-        String current_ = _context.getClassBody(className_).getGenericString();
+    
+    public MethodId getWildCardFormattedId(String _genericClass, ContextEl _context) {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(current_, n_, _context);
+            String formatted_ = Templates.wildCardFormat(_genericClass, n_, _context, false);
+            if (formatted_ == null) {
+                return null;
+            }
+            pTypes_.add(formatted_);
+        }
+        return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());
+    }
+
+    @Override
+    public MethodId getQuickFormattedId(String _genericClass, ContextEl _context) {
+        String name_ = getName();
+        StringList types_ = getImportedParametersTypes();
+        int len_ = types_.size();
+        StringList pTypes_ = new StringList();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            String formatted_ = Templates.quickFormat(_genericClass, n_, _context);
             pTypes_.add(formatted_);
         }
         return new MethodId(isStaticMethod(), name_, pTypes_, isVarargs());

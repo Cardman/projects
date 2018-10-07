@@ -31,7 +31,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         String clCurName_ = _conf.getGlobalClass();
         String base_ = Templates.getIdFromAllTypes(clCurName_);
         UniqueRootedBlock unique_ =(UniqueRootedBlock) classes_.getClassBody(base_);
-        String superClass_ = Templates.format(clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
+        String superClass_ = Templates.quickFormat(clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
         return new ClassArgumentMatching(superClass_);
     }
 
@@ -55,10 +55,10 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         CustList<Argument> firstArgs_;
         String calledCtor_ = base_;
         String calledCtorTemp_ = gl_;
-        String superClass_ = Templates.format(gl_, unique_.getImportedDirectGenericSuperClass(), _conf);
+        String superClass_ = Templates.quickFormat(gl_, unique_.getImportedDirectGenericSuperClass(), _conf);
         String superClassBase_ = Templates.getIdFromAllTypes(superClass_);
         String lastType_ = getLastType();
-        lastType_ = Templates.format(superClass_, lastType_, _conf);
+        lastType_ = Templates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
         ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments, _conf);
@@ -75,7 +75,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         int j_ = 0;
         for (String c: ctorId_.getParametersTypes()) {
             String c_ = c;
-            c_ = Templates.format(classFormat_, c_, _conf);
+            c_ = Templates.quickFormat(classFormat_, c_, _conf);
             if (j_ + 1 == ctorId_.getParametersTypes().size() && ctorId_.isVararg()) {
                 c_ = PrimitiveTypeUtil.getPrettyArrayType(c_);
             }

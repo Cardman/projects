@@ -13,7 +13,7 @@ import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.DeclaringOperation;
 import code.expressionlanguage.opers.DotOperation;
-import code.expressionlanguage.opers.EmptyPartOperation;
+import code.expressionlanguage.opers.ErrorPartOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.LeafOperation;
 import code.expressionlanguage.opers.MethodOperation;
@@ -91,7 +91,7 @@ public final class ElUtil {
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(badEl_);
-            EmptyPartOperation e_ = new EmptyPartOperation(0, 0, null, null);
+            ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, null);
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
             Block currentBlock_ = _conf.getCurrentBlock();

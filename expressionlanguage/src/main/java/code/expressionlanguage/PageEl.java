@@ -48,7 +48,7 @@ public abstract class PageEl {
         String gl_ = globalClass;
         gl_ = Templates.getIdFromAllTypes(gl_);
         gl_ = Templates.getFullTypeByBases(objClass_, gl_, _cont);
-        return Templates.format(gl_, _varType, _cont);
+        return Templates.quickFormat(gl_, _varType, _cont);
     }
 
     public Argument getGlobalArgument() {

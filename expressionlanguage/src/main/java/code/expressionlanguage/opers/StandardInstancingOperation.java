@@ -102,7 +102,7 @@ public final class StandardInstancingOperation extends
         }
         ClassArgumentMatching arg_ = getPreviousResultClass();
         arg_.setCheckOnlyNullPe(true);
-        if (arg_ == null || arg_.isUndefined()) {
+        if (arg_ == null || arg_.isUndefined() || arg_.isArray()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
             static_.setRc(_conf.getCurrentLocation());
@@ -114,6 +114,26 @@ public final class StandardInstancingOperation extends
         StringMap<String> ownersMap_ = new StringMap<String>();
         String idClass_ = Templates.getIdFromAllTypes(realClassName_);
         String glClass_ = _conf.getGlobalClass();
+        for (String o: arg_.getNames()) {
+            boolean ok_ = true;
+            for (String p: Templates.getAllTypes(o).mid(1)) {
+                if (p.startsWith(Templates.SUB_TYPE)) {
+                    ok_ = false;
+                }
+                if (p.startsWith(Templates.SUP_TYPE)) {
+                    ok_ = false;
+                }
+            }
+            if (!ok_) {
+                StaticAccessError static_ = new StaticAccessError();
+                static_.setFileName(_conf.getCurrentFileName());
+                static_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(static_);
+                LgNames stds_ = _conf.getStandards();
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
+            }
+        }
         for (String o: arg_.getNames()) {
             String idRoot_ = Templates.getIdFromAllTypes(o);
             StringList ids_ = new StringList(idRoot_);
@@ -464,7 +484,7 @@ public final class StandardInstancingOperation extends
                 return Argument.createVoid();
             }
         }
-        String lastType_ = Templates.format(className_, lastType, _conf);
+        String lastType_ = Templates.quickFormat(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments, _conf);
         return instancePrepare(_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex, true);
     }

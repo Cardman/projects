@@ -26,6 +26,9 @@ public final class FieldInfo {
             boolean _staticField, boolean _finalField, boolean _enumField, Analyzable _cont, boolean _aff) {
         String formattedType_ = _type;
         formattedType_ = Templates.wildCardFormat(_declaringClass, formattedType_, _cont, !_aff);
+        if (formattedType_ == null) {
+            return null;
+        }
         return new FieldInfo(_name, _declaringClass, formattedType_, _type, _staticField, _finalField, _enumField);
     }
     public static FieldInfo newFieldMetaInfo(String _name,String _declaringClass, String _type,

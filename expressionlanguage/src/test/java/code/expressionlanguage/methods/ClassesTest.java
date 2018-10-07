@@ -640,6 +640,190 @@ public class ClassesTest {
         failValidateInheritingClasses(files_);
     }
     @Test
+    public void resolve11FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $protected $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve12FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$protected $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $public $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve13FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:pkgtwo.OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $protected $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve14FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerTwo:pkgtwo.OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$protected $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $public $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve15FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $static $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $protected $static $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve16FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $static $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerTwo:OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$protected $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $public $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve17FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $static $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerTwo:pkgtwo.OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $protected $static $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
+    public void resolve18FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer: OuterTwo {\n");
+        xml_.append(" $public $static $class Inner {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerTwo:pkgtwo.OuterTwo..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$protected $class pkgtwo.OuterTwo {\n");
+        xml_.append(" $public $static $class InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $class InnerFour:..InnerThree {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        failValidateInheritingClasses(files_);
+    }
+    @Test
     public void getMethodBodiesByFormattedId1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

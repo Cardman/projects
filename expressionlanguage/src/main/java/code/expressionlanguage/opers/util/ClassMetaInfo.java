@@ -144,6 +144,12 @@ public final class ClassMetaInfo implements Struct {
     public String getVariableOwner() {
         return variableOwner;
     }
+    public StringList getLowerBounds() {
+        return lowerBounds;
+    }
+    public StringList getUpperBounds() {
+        return upperBounds;
+    }
     public CustList<ClassMetaInfo> getBounds(ContextEl _cont) {
         CustList<ClassMetaInfo> list_;
         list_ = new CustList<ClassMetaInfo>();

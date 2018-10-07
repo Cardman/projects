@@ -207,7 +207,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String idClass_ = Templates.getIdFromAllTypes(cl_);
             StringMap<String> ownersMap_ = new StringMap<String>();
             String glClass_ = _conf.getGlobalClass();
+            boolean ok_ = true;
             for (String o: previousResultClass.getNames()) {
+                if (o.startsWith(ARR)) {
+                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                    call_.setType(o);
+                    call_.setFileName(_conf.getCurrentFileName());
+                    call_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(call_);
+                    ok_ = false;
+                    continue;
+                }
                 for (String p:Templates.getAllTypes(o).mid(1)){
                     if (p.startsWith(Templates.SUB_TYPE)) {
                         IllegalCallCtorByType call_ = new IllegalCallCtorByType();
@@ -215,6 +225,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         call_.setFileName(_conf.getCurrentFileName());
                         call_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().addError(call_);
+                        ok_ = false;
                     }
                     if (p.startsWith(Templates.SUP_TYPE)) {
                         IllegalCallCtorByType call_ = new IllegalCallCtorByType();
@@ -222,8 +233,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         call_.setFileName(_conf.getCurrentFileName());
                         call_.setRc(_conf.getCurrentLocation());
                         _conf.getClasses().addError(call_);
+                        ok_ = false;
                     }
                 }
+            }
+            if (!ok_) {
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             for (String o: previousResultClass.getNames()) {
                 String idRoot_ = Templates.getIdFromAllTypes(o);

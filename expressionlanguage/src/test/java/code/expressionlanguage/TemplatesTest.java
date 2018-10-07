@@ -2616,7 +2616,7 @@ public class TemplatesTest {
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
         String res_ = Templates.format(first_, second_, cont_);
-        assertEq("pkg.ExTwo<?[java.lang.Number>", res_);
+        assertNull(res_);
     }
 
 
@@ -2720,6 +2720,20 @@ public class TemplatesTest {
     }
 
 
+    @Test
+    public void isCorrectTemplateAll14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo<?#T>> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(!Templates.isCorrectTemplateAll("pkg.Ex<pkg.ExTwo<?pkg.ExTwo<?java.lang.Number>>>", t_,cont_));
+    }
 
 
 

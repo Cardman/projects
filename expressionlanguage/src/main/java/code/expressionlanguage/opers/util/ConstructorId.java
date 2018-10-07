@@ -28,13 +28,25 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         }
     }
     
-    public ConstructorId format(String _genericClass, Analyzable _classes) {
+    public ConstructorId reflectFormat(String _genericClass, Analyzable _classes) {
         StringList types_ = getParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);
-            String formatted_ = Templates.format(_genericClass, n_, _classes);
+            String formatted_ = Templates.reflectFormat(_genericClass, n_, _classes);
+            pTypes_.add(formatted_);
+        }
+        return new ConstructorId(_genericClass, pTypes_, isVararg());
+    }
+    
+    public ConstructorId quickFormat(String _genericClass, Analyzable _classes) {
+        StringList types_ = getParametersTypes();
+        int len_ = types_.size();
+        StringList pTypes_ = new StringList();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String n_ = types_.get(i);
+            String formatted_ = Templates.quickFormat(_genericClass, n_, _classes);
             pTypes_.add(formatted_);
         }
         return new ConstructorId(_genericClass, pTypes_, isVararg());

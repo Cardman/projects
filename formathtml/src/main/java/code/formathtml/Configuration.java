@@ -892,12 +892,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveBaseType(String _in, Block _currentBlock,
-            RowCol _location) {
-        return ContextEl.removeDottedSpaces(_in);
-    }
-
-    @Override
     public ClassMetaInfo getExtendedClassMetaInfo(String _name) {
         return context.getExtendedClassMetaInfo(_name);
     }
@@ -924,10 +918,7 @@ public class Configuration implements ExecutableCode {
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
     }
-    @Override
-    public String resolveBaseTypeInherits(String _in, RootBlock _currentBlock,RowCol _location, StringList _builtTypes) {
-        return context.resolveBaseTypeInherits(_in, _currentBlock, _location, _builtTypes);
-    }
+
     @Override
     public ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(
             String _glClass, String _method, Block _rooted) {
@@ -951,12 +942,7 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportsDirect(String _type, AccessingImportingBlock _rooted) {
-        return ContextEl.removeDottedSpaces(_type);
-    }
-
-    @Override
-    public String lookupImportsIndirect(String _type, AccessingImportingBlock _rooted) {
+    public String lookupImportType(String _type, AccessingImportingBlock _rooted) {
         return ContextEl.removeDottedSpaces(_type);
     }
 
