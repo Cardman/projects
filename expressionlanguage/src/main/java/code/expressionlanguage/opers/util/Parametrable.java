@@ -16,4 +16,6 @@ public interface Parametrable {
 
     int getImported();
     int getAncestor();
+    boolean isVarArgWrap();
+    void setVarArgWrap(boolean v);
 }

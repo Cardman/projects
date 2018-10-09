@@ -696,7 +696,6 @@ public abstract class OperationNode {
         String clCurName_ = _class.getNames().first();
         LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getGlobalClass();
-        CustList<ConstructorId> possibleMethods_ = new CustList<ConstructorId>();
         for (ClassArgumentMatching c:_args) {
             if (c.matchVoid(_conf)) {
                 Mapping mapping_ = new Mapping();
@@ -719,10 +718,12 @@ public abstract class OperationNode {
                 return out_;
             }
         }
+        Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId();
+            boolean varArg_ = ctor_.isVararg();
             if (_varargOnly > -1) {
-                if (!ctor_.isVararg()) {
+                if (!varArg_) {
                     continue;
                 }
             }
@@ -731,12 +732,20 @@ public abstract class OperationNode {
                 continue;
             }
             ClassMatching[] p_ = getParameters(ctor_);
-            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, ctor_.isVararg(), p_, _args)) {
+            ParametersGroup pg_ = new ParametersGroup();
+            for (String c: ctor_.getParametersTypes()) {
+                pg_.add(new ClassMatching(c));
+            }
+            ConstructorInfo mloc_ = new ConstructorInfo();
+            mloc_.setConstraints(ctor_);
+            mloc_.setParameters(pg_);
+            mloc_.setClassName(clCurName_);
+            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, varArg_, mloc_, p_, _args)) {
                 continue;
             }
-            possibleMethods_.add(ctor_);
+            signatures_.add(mloc_);
         }
-        if (possibleMethods_.isEmpty()) {
+        if (signatures_.isEmpty()) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
                 classesNames_.add(c.getNames().join(""));
@@ -762,18 +771,6 @@ public abstract class OperationNode {
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
         gr_.setGlobalClass(glClass_);
-        Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
-        for (ConstructorId m: possibleMethods_) {
-            ParametersGroup p_ = new ParametersGroup();
-            for (String c: m.getParametersTypes()) {
-                p_.add(new ClassMatching(c));
-            }
-            ConstructorInfo mloc_ = new ConstructorInfo();
-            mloc_.setConstraints(m);
-            mloc_.setParameters(p_);
-            mloc_.setClassName(clCurName_);
-            signatures_.add(mloc_);
-        }
         sortCtors(signatures_, gr_);
         if (gr_.isAmbigous()) {
             StringList classesNames_ = new StringList();
@@ -795,7 +792,8 @@ public abstract class OperationNode {
         ConstructorId ctor_ = signatures_.first().getConstraints();
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, clCurName_, ctor_, _args)) {
+//        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, clCurName_, ctor_, _args))
+        if (_varargOnly == -1 && signatures_.first().isVarArgWrap()) {
             out_.setVarArgToCall(true);
         }
         out_.setRealId(ctor_);
@@ -882,7 +880,7 @@ public abstract class OperationNode {
         idRet_.setAncestor(_res.getAncestor());
         return idRet_;
     }
-    ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
+    static ClassMethodIdReturn getOperator(Analyzable _cont, String _op, ClassArgumentMatching... _argsClass) {
         ObjectNotNullMap<ClassMethodId, MethodInfo> ops_ = getOperators(_cont);
         ClassMethodIdResult res_ = getCustResult(_cont, -1, ops_, _op, _argsClass);
         ClassMethodIdReturn idRet_ = new ClassMethodIdReturn(res_.getStatus() == SearchingMemberStatus.UNIQ);
@@ -903,7 +901,7 @@ public abstract class OperationNode {
         idRet_.setAbstractMethod(false);
         return idRet_;
     }
-    ObjectNotNullMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
+    static ObjectNotNullMap<ClassMethodId, MethodInfo> getOperators(Analyzable _cont){
         String objType_ = _cont.getStandards().getAliasObject();
         ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
         methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
@@ -1200,13 +1198,14 @@ public abstract class OperationNode {
     private static ClassMethodIdResult getCustResult(Analyzable _conf, int _varargOnly,
             ObjectNotNullMap<ClassMethodId, MethodInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
-        CustList<ClassMethodId> possibleMethods_ = new CustList<ClassMethodId>();
         String glClass_ = _conf.getGlobalClass();
+        Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
         for (EntryCust<ClassMethodId, MethodInfo> e: _methods.entryList()) {
             ClassMethodId key_ = e.getKey();
             MethodId id_ = key_.getConstraints();
+            boolean varArg_ = id_.isVararg();
             if (_varargOnly > -1) {
-                if (!id_.isVararg()) {
+                if (!varArg_) {
                     continue;
                 }
             }
@@ -1214,13 +1213,14 @@ public abstract class OperationNode {
                 continue;
             }
             ClassMatching[] p_ = getParameters(id_);
-            String formattedType_ = e.getValue().getClassName();
-            if (!isPossibleMethod(_conf, formattedType_, _varargOnly, id_.isVararg(), p_, _argsClass)) {
+            MethodInfo mi_ = e.getValue();
+            String formattedType_ = mi_.getClassName();
+            if (!isPossibleMethod(_conf, formattedType_, _varargOnly, varArg_, mi_, p_, _argsClass)) {
                 continue;
             }
-            possibleMethods_.add(key_);
+            signatures_.add(mi_);
         }
-        if (possibleMethods_.isEmpty()) {
+        if (signatures_.isEmpty()) {
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
@@ -1234,11 +1234,6 @@ public abstract class OperationNode {
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
         gr_.setGlobalClass(glClass_);
-        Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
-        for (ClassMethodId m: possibleMethods_) {
-            MethodInfo info_ = _methods.getVal(m);
-            signatures_.add(info_);
-        }
         _conf.setAmbigous(false);
         sortFct(signatures_, gr_);
         if (gr_.isAmbigous()) {
@@ -1270,7 +1265,8 @@ public abstract class OperationNode {
         }
         res_.setId(new ClassMethodId(realClass_, id_));
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, realClass_, constraints_, _argsClass)) {
+//        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, realClass_, constraints_, _argsClass))
+        if (_varargOnly == -1 && info_.isVarArgWrap()) {
             res_.setVarArgToCall(true);
         }
         res_.setRealId(constraints_);
@@ -1280,7 +1276,7 @@ public abstract class OperationNode {
         return res_;
     }
 
-    static boolean isPossibleMethod(Analyzable _context, String _class, int _varargOnly, boolean _vararg, ClassMatching[] _params,
+    static boolean isPossibleMethod(Analyzable _context, String _class, int _varargOnly, boolean _vararg, Parametrable _id,ClassMatching[] _params,
     ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
@@ -1352,6 +1348,7 @@ public abstract class OperationNode {
             if (Templates.isGenericCorrect(map_, _context)) {
                 return true;
             }
+            _id.setVarArgWrap(true);
             wc_ = PrimitiveTypeUtil.getQuickComponentType(wc_);
             map_.setParam(wc_);
             return Templates.isGenericCorrect(map_, _context);
@@ -1375,33 +1372,8 @@ public abstract class OperationNode {
                 return false;
             }
         }
+        _id.setVarArgWrap(true);
         return true;
-    }
-    static boolean varArgWrap(Analyzable _context, String _globalClass, String _class, Identifiable _id,
-    ClassArgumentMatching... _argsClass) {
-        if (!_id.isVararg()) {
-            return false;
-        }
-        ClassMatching[] p_ = getParameters(_id);
-        if (p_.length != _argsClass.length) {
-            return true;
-        }
-        String glClass_ = _globalClass;
-        CustList<TypeVar> vars_;
-        if (glClass_ != null) {
-            vars_ = Templates.getConstraints(glClass_, _context);
-        } else {
-            vars_ = new CustList<TypeVar>();
-        }
-        Mapping map_ = new Mapping();
-        int last_ = p_.length - 1;
-        String param_ = p_[last_].getClassName();
-        for (TypeVar t: vars_) {
-            map_.getMapping().put(t.getName(), t.getConstraints());
-        }
-        map_.setArg(_argsClass[last_]);
-        map_.setParam(Templates.wildCardFormat(_class, param_, _context, false));
-        return !Templates.isGenericCorrect(map_, _context);
     }
     static ClassMatching[] getParameters(Identifiable _id) {
         StringList params_ = _id.getParametersTypes();
@@ -1471,7 +1443,6 @@ public abstract class OperationNode {
         Analyzable context_ = _context.getContext();
         StringMap<StringList> map_;
         map_ = _context.getMap();
-        String glClass_ = _context.getGlobalClass();
         String glClassOne_ = _o1.getClassName();
         String glClassTwo_ = _o2.getClassName();
         if (_o1.isStatic()) {
@@ -1503,8 +1474,8 @@ public abstract class OperationNode {
                 if (len_ > _o2.getParameters().size()) {
                     return CustList.NO_SWAP_SORT;
                 }
-                boolean varOne_ = varArgWrap(context_, glClass_, glClassOne_, _o1.getId(), _context.getArgumentsArray());
-                boolean varTwo_ = varArgWrap(context_, glClass_, glClassTwo_, _o2.getId(), _context.getArgumentsArray());
+                boolean varOne_ = _o1.isVarArgWrap();
+                boolean varTwo_ = _o2.isVarArgWrap();
                 if (varOne_ && !varTwo_) {
                     return CustList.SWAP_SORT;
                 }

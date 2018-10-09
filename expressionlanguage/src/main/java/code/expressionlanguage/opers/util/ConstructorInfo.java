@@ -9,6 +9,8 @@ public final class ConstructorInfo implements Parametrable, Displayable {
 
     private ParametersGroup parameters;
 
+    private boolean varArgWrap;
+
     @Override
     public String display() {
         return constraints.getSignature();
@@ -67,6 +69,16 @@ public final class ConstructorInfo implements Parametrable, Displayable {
     @Override
     public int getAncestor() {
         return 0;
+    }
+
+    @Override
+    public boolean isVarArgWrap() {
+        return varArgWrap;
+    }
+
+    @Override
+    public void setVarArgWrap(boolean _v) {
+        varArgWrap = _v;
     }
 
 }

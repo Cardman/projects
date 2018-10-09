@@ -218,39 +218,14 @@ public final class Templates {
         String geneSubType_ = _context.getClassBody(baseSubType_).getGenericString();
         StringList curClasses_ = new StringList(geneSubType_);
         String generic_ = null;
-//        StringList genericParts_ = null;
         if (StringList.quickEq(_subType, _superType)) {
-//            genericParts_ = getAllTypes(_subType);
             generic_ = _subType;
         } else if (StringList.quickEq(baseSubType_, baseSuperType_)) {
-//            genericParts_ = getAllTypes(_subType);
             generic_ = _subType;
         }
         if (generic_ == null) {
-            for (String c: curClasses_) {
-                if (!correctNbParameters(c, _context)) {
-                    return null;
-                }
-            }
             generic_ = requestGenericSuperType(_subType, curClasses_, _superType, _context);
         }
-//        if (generic_ == null) {
-//            return null;
-//        }
-//        String base_ = genericParts_.first();
-//        if (genericParts_.size() == 1) {
-//            return base_;
-//        }
-//        StringBuilder formatted_ = new StringBuilder(base_);
-//        formatted_.append(TEMPLATE_BEGIN);
-//        StringList formattedParts_ = new StringList();
-//        for (String p : genericParts_.mid(1)) {
-//            formattedParts_.add(Templates.format(_subType, p, _context));
-//        }
-//        formatted_.append(formattedParts_.join(COMMA));
-//        formatted_.append(TEMPLATE_END);
-//        return formatted_.toString();
-//        return Templates.format(_subType, generic_, _context);
         return generic_;
     }
 
@@ -957,34 +932,27 @@ public final class Templates {
         if (StringList.quickEq(baseParam_, fct_)) {
             return null;
         }
-        String idArg_ = Templates.getIdFromAllTypes(baseArrayArg_);
-        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
-        StringList curClasses_ = new StringList(geneSubType_);
-//        StringList retTypesParam_ = null;
         String generic_ = null;
-        if (baseArg_.startsWith(PREFIX_VAR_TYPE)) {
-            curClasses_ = new StringList();
-            for (String c: _m.getAllUpperBounds(baseArg_.substring(1), objType_)) {
-                String idBound_ = Templates.getIdFromAllTypes(c);
-                String geneSubTypeBounds_ = _context.getClassBody(idBound_).getGenericString();
-                curClasses_.add(geneSubTypeBounds_);
-            }
-            for (String c: curClasses_) {
-                if (StringList.quickEq(c, _param)) {
-//                    retTypesParam_ = typesParam_;
+        if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
+            String cmp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param).getComponent();
+            for (String c: _m.getAllUpperBounds(baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
+                if (StringList.quickEq(c, cmp_)) {
                     generic_ = c;
+                    break;
+                }
+                String idArg_ = Templates.getIdFromAllTypes(c);
+                String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
+                StringList curClasses_ = new StringList(geneSubType_);
+                generic_ = requestGenericSuperType(c, curClasses_, _param, _context);
+                if (generic_ != null) {
                     break;
                 }
             }
         }
         if (generic_ == null) {
-            for (String c: curClasses_) {
-                String baseClass_ = getIdFromAllTypes(c);
-                baseClass_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseClass_).getComponent();
-                if (!correctNbParameters(c, _context)) {
-                    return null;
-                }
-            }
+            String idArg_ = Templates.getIdFromAllTypes(baseArrayArg_);
+            String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
+            StringList curClasses_ = new StringList(geneSubType_);
             generic_ = requestGenericSuperType(baseArrayArg_, curClasses_, _param, _context);
         }
         if (generic_ == null) {

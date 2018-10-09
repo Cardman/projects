@@ -2121,10 +2121,99 @@ public class TemplatesTest {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        cont_.getClasses();
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
+        m_.setArg("#U");
+        m_.setParam("pkg.ExTwo<java.lang.Number>");
+        assertTrue(Templates.isCorrect(m_, cont_));
+    }
+    @Test
+    public void isCorrect78Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
+        m_.setArg("#U");
+        m_.setParam("pkg.Ex<java.lang.Number>");
+        assertTrue(Templates.isCorrect(m_, cont_));
     }
 
+    @Test
+    public void isCorrect79Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
+        m_.setArg("[#U");
+        m_.setParam("[pkg.ExTwo<java.lang.Number>");
+        assertTrue(Templates.isCorrect(m_, cont_));
+    }
+
+    @Test
+    public void isCorrect80Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
+        m_.setArg("[#U");
+        m_.setParam("[pkg.Ex<java.lang.Number>");
+        assertTrue(Templates.isCorrect(m_, cont_));
+    }
+    @Test
+    public void isCorrect81Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U,#V:pkg.ExTwo<java.lang.Number>>{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("U", new StringList("java.lang.Object"));
+        m_.getMapping().put("V", new StringList("pkg.ExTwo<#U>"));
+        m_.setArg("[#V");
+        m_.setParam("[pkg.Ex<#U>");
+        assertTrue(Templates.isCorrect(m_, cont_));
+    }
     @Test
     public void isCorrectTemplate51Test() {
         StringMap<String> files_ = new StringMap<String>();

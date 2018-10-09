@@ -73,7 +73,7 @@ public final class TypeUtil {
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
                 _context.getAnalyzing().setCurrentBlock(bl_);
                 _context.getAnalyzing().setOffset(offset_);
-                base_ = _context.resolveCorrectType(base_);
+                base_ = _context.resolveCorrectType(base_,false);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (r_ == null) {
                     UnknownClassName undef_;
@@ -102,7 +102,7 @@ public final class TypeUtil {
                 _context.getAnalyzing().setCurrentBlock(bl_);
                 _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                 _context.getAnalyzing().setOffset(offsetSup_);
-                sup_ = _context.resolveCorrectType(sup_);
+                sup_ = _context.resolveCorrectType(sup_,false);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
@@ -113,7 +113,7 @@ public final class TypeUtil {
                     _context.getAnalyzing().setCurrentBlock(bl_);
                     _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                     _context.getAnalyzing().setOffset(offsetSub_);
-                    sub_ = _context.resolveCorrectType(sub_);
+                    sub_ = _context.resolveCorrectType(sub_,false);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;

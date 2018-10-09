@@ -22,6 +22,8 @@ public final class MethodInfo implements Parametrable, Displayable {
     private int imported;
     private int ancestor;
 
+    private boolean varArgWrap;
+
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
@@ -104,6 +106,16 @@ public final class MethodInfo implements Parametrable, Displayable {
 
     public void setAncestor(int _ancestor) {
         ancestor = _ancestor;
+    }
+
+    @Override
+    public boolean isVarArgWrap() {
+        return varArgWrap;
+    }
+
+    @Override
+    public void setVarArgWrap(boolean _v) {
+        varArgWrap = _v;
     }
 
 }
