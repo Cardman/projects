@@ -698,7 +698,7 @@ public final class Classes {
                             index_++;
                             continue;
                         }
-                        String baseInn_ = inners_.get(1);
+                        String baseInn_ = inners_.get(1).trim();
                         CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
                         RootBlock p_ = r_.getParentType();
                         while (p_ != null) {
@@ -746,7 +746,7 @@ public final class Classes {
                             ready_ = false;
                             break;
                         }
-                        StringList builtInners_ = TypeUtil.getBuiltInners(c,res_, i, true, _context);
+                        StringList builtInners_ = TypeUtil.getBuiltInners(c,res_, i.trim(), true, _context);
                         if (builtInners_.size() != 1) {
                             err_ = true;
                             //ERROR
@@ -1504,7 +1504,7 @@ public final class Classes {
         }
         return false;
     }
-    public static CustList<RootBlock> accessedClassMembers(String _className, String _glClass,RootBlock _clOwner, Analyzable _context) {
+    public static CustList<RootBlock> accessedClassMembers(boolean _protectedInc,String _className, String _glClass,RootBlock _clOwner, Analyzable _context) {
         String idRoot_ = Templates.getIdFromAllTypes(_className);
         GeneType root_ = _context.getClassBody(idRoot_);
         String pkgRoot_ = root_.getPackageName();
@@ -1532,15 +1532,21 @@ public final class Classes {
             String pkgGl_ = rGl_.getPackageName();
             if (r_.getAccess() == AccessEnum.PROTECTED) {
                 boolean okRoot_ = false;
-                if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idRoot_, _context)) {
-                    okRoot_ = true;
-                } else if (StringList.quickEq(pkgOwner_, pkgRoot_)){
+                if (_protectedInc) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idRoot_, _context)) {
+                        okRoot_ = true;
+                    }
+                }
+                if (StringList.quickEq(pkgOwner_, pkgRoot_)){
                     okRoot_ = true;
                 }
                 boolean okGl_ = false;
-                if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idGl_, _context)) {
-                    okGl_ = true;
-                } else if (StringList.quickEq(pkgOwner_, pkgGl_)){
+                if (_protectedInc) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idGl_, _context)) {
+                        okGl_ = true;
+                    }
+                }
+                if (StringList.quickEq(pkgOwner_, pkgGl_)){
                     okGl_ = true;
                 }
                 if (okGl_ && okRoot_) {

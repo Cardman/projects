@@ -64,7 +64,7 @@ final class NamePartType extends LeafPartType {
                                     continue;
                                 }
                                 boolean add_ = false;
-                                for (RootBlock b: Classes.accessedClassMembers(a,fullName_, sub_, _an)) {
+                                for (RootBlock b: Classes.accessedClassMembers(false, a,fullName_, sub_, _an)) {
                                     if (StringList.quickEq(b.getName(), type_)) {
                                         allPossibleDirectSuperTypes_.add(s);
                                         innersCandidates_.add(b);
@@ -130,7 +130,7 @@ final class NamePartType extends LeafPartType {
                         continue;
                     }
                     boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(id_, fullName_,sub_, _an)) {
+                    for (RootBlock b: Classes.accessedClassMembers(false, id_, fullName_,sub_, _an)) {
                         if (StringList.quickEq(b.getName(), type_)) {
                             foundOwners_.add(s);
                             innersCandidates_.add(b);
@@ -254,7 +254,7 @@ final class NamePartType extends LeafPartType {
 
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact, RowCol _location) {
+            boolean _exact, boolean _protectedInc, RowCol _location) {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
@@ -297,7 +297,7 @@ final class NamePartType extends LeafPartType {
                                     continue;
                                 }
                                 boolean add_ = false;
-                                for (RootBlock b: Classes.accessedClassMembers(a, _globalType, sub_, _an)) {
+                                for (RootBlock b: Classes.accessedClassMembers(_protectedInc, a, _globalType, sub_, _an)) {
                                     if (StringList.quickEq(b.getName(), type_)) {
                                         allPossibleDirectSuperTypes_.put(s,f_);
                                         innersCandidates_.add(b);
@@ -364,7 +364,7 @@ final class NamePartType extends LeafPartType {
                         continue;
                     }
                     boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(id_, _globalType, sub_, _an)) {
+                    for (RootBlock b: Classes.accessedClassMembers(_protectedInc, id_, _globalType, sub_, _an)) {
                         if (StringList.quickEq(b.getName(), type_)) {
                             foundOwners_.add(s);
                             innersCandidates_.add(b);
@@ -501,7 +501,7 @@ final class NamePartType extends LeafPartType {
                                     continue;
                                 }
                                 boolean add_ = false;
-                                for (RootBlock b: Classes.accessedClassMembers(a, _globalType, sub_, _an)) {
+                                for (RootBlock b: Classes.accessedClassMembers(true, a, _globalType, sub_, _an)) {
                                     if (StringList.quickEq(b.getName(), type_)) {
                                         allPossibleDirectSuperTypes_.put(s,f_);
                                         innersCandidates_.add(b);
@@ -568,7 +568,7 @@ final class NamePartType extends LeafPartType {
                         continue;
                     }
                     boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(id_, _globalType, sub_, _an)) {
+                    for (RootBlock b: Classes.accessedClassMembers(true, id_, _globalType, sub_, _an)) {
                         if (StringList.quickEq(b.getName(), type_)) {
                             foundOwners_.add(s);
                             innersCandidates_.add(b);

@@ -789,15 +789,15 @@ public abstract class OperationNode {
             out_.setConstId(undefined_.getId().quickFormat(clCurName_, _conf));
             return out_;
         }
-        ConstructorId ctor_ = signatures_.first().getConstraints();
+        ConstructorInfo cInfo_ = signatures_.first();
+        ConstructorId ctor_ = cInfo_.getConstraints();
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-//        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, clCurName_, ctor_, _args))
         if (_varargOnly == -1 && signatures_.first().isVarArgWrap()) {
             out_.setVarArgToCall(true);
         }
         out_.setRealId(ctor_);
-        out_.setConstId(ctor_.quickFormat(clCurName_, _conf));
+        out_.setConstId(cInfo_.getFormatted());
         CustList<GeneConstructor> ctors_ = Classes.getConstructorBodiesById(_conf,clCurName_, ctor_);
         out_.setCtor(ctors_.first());
         return out_;
@@ -1248,24 +1248,10 @@ public abstract class OperationNode {
         MethodInfo info_ = _methods.getVal(new ClassMethodId(className_, realId_));
         String baseClassName_ = info_.getClassName();
         ClassMethodIdResult res_ = new ClassMethodIdResult();
-        MethodId id_;
-        String realClass_;
-        boolean correctTemplated_ = Templates.correctNbParameters(baseClassName_, _conf);
-        if (!correctTemplated_) {
-            realClass_ = Templates.getGenericString(baseClassName_, _conf);
-            id_ = constraints_;
-        } else {
-            realClass_ = baseClassName_;
-            if (info_.isStatic()) {
-                id_ = constraints_;
-            } else {
-                id_ = constraints_.quickFormat(baseClassName_, _conf);
-            }
-            res_.setCorrectTemplated(true);
-        }
+        MethodId id_ = info_.getFormatted();
+        String realClass_ = baseClassName_;
         res_.setId(new ClassMethodId(realClass_, id_));
         res_.setStatus(SearchingMemberStatus.UNIQ);
-//        if (_varargOnly == -1 && varArgWrap(_conf, glClass_, realClass_, constraints_, _argsClass))
         if (_varargOnly == -1 && info_.isVarArgWrap()) {
             res_.setVarArgToCall(true);
         }
@@ -1308,7 +1294,10 @@ public abstract class OperationNode {
             vars_ = new CustList<TypeVar>();
         }
         int len_ = nbDem_;
+        StringList formatPar_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            String wc_ = Templates.wildCardFormat(_class, _params[i].getClassName(), _context, false);
+            formatPar_.add(wc_);
             if (_argsClass[i].isVariable()) {
                 if (_params[i].isPrimitive(_context)) {
                     return false;
@@ -1320,7 +1309,6 @@ public abstract class OperationNode {
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
-            String wc_ = Templates.wildCardFormat(_class, _params[i].getClassName(), _context, false);
             if (wc_ == null) {
                 return false;
             }
@@ -1330,6 +1318,10 @@ public abstract class OperationNode {
             }
         }
         if (checkOnlyDem_) {
+            if (_vararg) {
+                formatPar_.setLast(PrimitiveTypeUtil.getQuickComponentType(formatPar_.last()));
+            }
+            _id.format(formatPar_);
             return true;
         }
         if (_params.length == _argsClass.length) {
@@ -1344,13 +1336,15 @@ public abstract class OperationNode {
             if (wc_ == null) {
                 return false;
             }
+            String compo_ = PrimitiveTypeUtil.getQuickComponentType(wc_);
+            formatPar_.add(compo_);
+            _id.format(formatPar_);
             map_.setParam(wc_);
             if (Templates.isGenericCorrect(map_, _context)) {
                 return true;
             }
             _id.setVarArgWrap(true);
-            wc_ = PrimitiveTypeUtil.getQuickComponentType(wc_);
-            map_.setParam(wc_);
+            map_.setParam(compo_);
             return Templates.isGenericCorrect(map_, _context);
         }
         len_ = _argsClass.length;
@@ -1365,6 +1359,8 @@ public abstract class OperationNode {
         if (wc_ == null) {
             return false;
         }
+        formatPar_.add(wc_);
+        _id.format(formatPar_);
         map_.setParam(wc_);
         for (int i = startOpt_; i < len_; i++) {
             map_.setArg(_argsClass[i]);
@@ -1490,12 +1486,10 @@ public abstract class OperationNode {
         }
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             ClassArgumentMatching selected_ = _context.get(i);
-            ClassMatching one_ = _o1.getParameters().get(i);
-            String paramOne_ = one_.getClassName();
-            ClassMatching two_ = _o2.getParameters().get(i);
-            String paramTwo_ = two_.getClassName();
-            String wcOne_ = Templates.wildCardFormat(glClassOne_, paramOne_, context_, false);
-            String wcTwo_ = Templates.wildCardFormat(glClassTwo_, paramTwo_, context_, false);
+            ClassMatching one_;
+            ClassMatching two_;
+            String wcOne_ = _o1.getFormatted().getParametersTypes().get(i);
+            String wcTwo_ = _o2.getFormatted().getParametersTypes().get(i);
             if (wcOne_ == null) {
                 if (wcTwo_ != null) {
                     return CustList.SWAP_SORT;
@@ -1566,16 +1560,14 @@ public abstract class OperationNode {
             return CustList.NO_SWAP_SORT;
         }
         if (vararg_) {
-            ClassMatching one_ = _o1.getParameters().last();
-            String paramOne_ = one_.getClassName();
-            paramOne_ = StringList.replace(paramOne_, VARARG_SUFFIX, EMPTY_STRING);
+            ClassMatching one_;
+            String paramOne_ = _o1.getFormatted().getParametersTypes().last();
             paramOne_ = PrimitiveTypeUtil.getPrettyArrayType(paramOne_);
-            ClassMatching two_ = _o2.getParameters().last();
-            String paramTwo_ = two_.getClassName();
-            paramTwo_ = StringList.replace(paramTwo_, VARARG_SUFFIX, EMPTY_STRING);
+            ClassMatching two_;
+            String paramTwo_ = _o2.getFormatted().getParametersTypes().last();
             paramTwo_ = PrimitiveTypeUtil.getPrettyArrayType(paramTwo_);
-            String wcOne_ = Templates.wildCardFormat(glClassOne_, paramOne_, context_, false);
-            String wcTwo_ = Templates.wildCardFormat(glClassTwo_, paramTwo_, context_, false);
+            String wcOne_ = paramOne_;
+            String wcTwo_ = paramTwo_;
             if (wcOne_ == null) {
                 if (wcTwo_ != null) {
                     return CustList.SWAP_SORT;

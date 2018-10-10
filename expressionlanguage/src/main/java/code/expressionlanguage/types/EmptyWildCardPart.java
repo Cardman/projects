@@ -29,7 +29,7 @@ final class EmptyWildCardPart extends LeafPartType {
     @Override
     public void analyze(Analyzable _an,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+            AccessingImportingBlock _rooted, boolean _exact, boolean _protected, RowCol _location) {
         if (!(getParent() instanceof TemplatePartType)) {
             return;
         }

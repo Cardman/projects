@@ -734,6 +734,23 @@ public final class PartTypeUtilTest {
         assertEq("pkgtwo.OuterThree<![pkgthree.OuterFour>", solved_);
     }
     @Test
+    public void process23Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+        RowCol rc_ = new RowCol();
+        String solved_ = PartTypeUtil.processAnalyze("$Fct<?>", "", context_, root_, rc_);
+        assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
+        assertEq("$Fct<?>", solved_);
+    }
+    @Test
     public void process1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -763,6 +780,38 @@ public final class PartTypeUtilTest {
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
         String solved_ = PartTypeUtil.processAnalyze("$Fct<$void,$int>", "", context_, root_, rc_);
+        assertEq("", solved_);
+    }
+    @Test
+    public void process3FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+        RowCol rc_ = new RowCol();
+        String solved_ = PartTypeUtil.processAnalyze("$Fct<!java.lang.Number,?java.lang.Number>", "", context_, root_, rc_);
+        assertEq("", solved_);
+    }
+    @Test
+    public void process4FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterTwo;\n");
+        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        Classes cl_ = context_.getClasses();
+        RootBlock root_ = cl_.getClassBody("pkg.Outer");
+        RowCol rc_ = new RowCol();
+        String solved_ = PartTypeUtil.processAnalyze("$Fct<java.lang.Number,?java.lang.Number>", "", context_, root_, rc_);
         assertEq("", solved_);
     }
     @Test

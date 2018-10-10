@@ -1,4 +1,5 @@
 package code.expressionlanguage.opers.util;
+import code.util.StringList;
 import code.util.ints.Displayable;
 
 public final class MethodInfo implements Parametrable, Displayable {
@@ -10,6 +11,7 @@ public final class MethodInfo implements Parametrable, Displayable {
     private static final String DOT = ".";
 
     private MethodId constraints;
+    private MethodId formatted;
 
     private ParametersGroup parameters;
 
@@ -118,4 +120,13 @@ public final class MethodInfo implements Parametrable, Displayable {
         varArgWrap = _v;
     }
 
+    @Override
+    public void format(StringList _params) {
+        formatted = new MethodId(staticMethod, constraints.getName(), _params, isVararg());
+    }
+
+    @Override
+    public MethodId getFormatted() {
+        return formatted;
+    }
 }

@@ -553,9 +553,9 @@ public final class Templates {
             }
             String sub_ = _type.substring(diese_+1, i);
             if (_varTypes.contains(sub_)) {
-                int j_ = diese_ -1;
+                int j_ = str_.length() -1;
                 while (j_ >= 0) {
-                    if (_type.charAt(j_) != ARR_BEG) {
+                    if (str_.charAt(j_) != ARR_BEG) {
                         break;
                     }
                     j_--;
@@ -584,9 +584,9 @@ public final class Templates {
         if (var_) {
             String sub_ = _type.substring(diese_+1);
             if (_varTypes.contains(sub_)) {
-                int j_ = diese_ -1;
+                int j_ = str_.length() -1;
                 while (j_ >= 0) {
-                    if (_type.charAt(j_) != ARR_BEG) {
+                    if (str_.charAt(j_) != ARR_BEG) {
                         break;
                     }
                     j_--;
@@ -634,9 +634,9 @@ public final class Templates {
             }
             String sub_ = _type.substring(diese_+1, i);
             if (_varTypes.contains(sub_)) {
-                int j_ = diese_ -1;
+                int j_ = str_.length() -1;
                 while (j_ >= 0) {
-                    if (_type.charAt(j_) != ARR_BEG) {
+                    if (str_.charAt(j_) != ARR_BEG) {
                         break;
                     }
                     j_--;
@@ -665,9 +665,9 @@ public final class Templates {
         if (var_) {
             String sub_ = _type.substring(diese_+1);
             if (_varTypes.contains(sub_)) {
-                int j_ = diese_ -1;
+                int j_ = str_.length() -1;
                 while (j_ >= 0) {
-                    if (_type.charAt(j_) != ARR_BEG) {
+                    if (str_.charAt(j_) != ARR_BEG) {
                         break;
                     }
                     j_--;
@@ -841,17 +841,39 @@ public final class Templates {
             if (StringList.quickEq(baseArg_, fct_)) {
                 int argCall_ = len_ - 1;
                 for (int i = CustList.SECOND_INDEX; i < argCall_; i++) {
+                    String arg_ = typesArg_.get(i);
+                    String param_ = typesParam_.get(i);
+                    if (StringList.quickEq(arg_, SUB_TYPE)) {
+                        if (StringList.quickEq(param_, SUB_TYPE)) {
+                            continue;
+                        }
+                        return null;
+                    }
+                    if (StringList.quickEq(param_, SUB_TYPE)) {
+                        continue;
+                    }
                     Matching match_ = new Matching();
-                    match_.setArg(typesArg_.get(i));
-                    match_.setParam(typesParam_.get(i));
+                    match_.setArg(arg_);
+                    match_.setParam(param_);
                     match_.setMatchEq(MatchingEnum.SUP);
                     pairsArgParam_.add(match_);
                 }
+                String a_ = typesArg_.last();
                 String p_ = typesParam_.last();
-                if (!StringList.quickEq(p_, obj_)) {
+                boolean add_ = true;
+                if (StringList.quickEq(a_, SUB_TYPE)) {
+                    if (!StringList.quickEq(p_, SUB_TYPE)) {
+                        return null;
+                    }
+                    add_ = false;
+                }
+                if (StringList.quickEq(p_, SUB_TYPE)) {
+                    add_ = false;
+                }
+                if (!StringList.quickEq(p_, obj_) && add_) {
                     Matching match_ = new Matching();
-                    match_.setArg(typesArg_.last());
-                    match_.setParam(typesParam_.last());
+                    match_.setArg(a_);
+                    match_.setParam(p_);
                     match_.setMatchEq(MatchingEnum.SUB);
                     pairsArgParam_.add(match_);
                 }
@@ -948,8 +970,7 @@ public final class Templates {
                     break;
                 }
             }
-        }
-        if (generic_ == null) {
+        } else {
             String idArg_ = Templates.getIdFromAllTypes(baseArrayArg_);
             String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
             StringList curClasses_ = new StringList(geneSubType_);

@@ -58,7 +58,7 @@ final class TemplatePartType extends ParentPartType {
     }
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact, RowCol _location) {
+            boolean _exact, boolean _protected, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

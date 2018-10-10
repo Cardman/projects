@@ -41,7 +41,7 @@ final class ArraryPartType extends ParentPartType {
     }
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact, RowCol _location) {
+            boolean _exact, boolean _protected, RowCol _location) {
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);

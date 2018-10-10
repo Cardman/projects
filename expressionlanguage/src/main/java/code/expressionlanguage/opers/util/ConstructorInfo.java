@@ -1,9 +1,11 @@
 package code.expressionlanguage.opers.util;
+import code.util.StringList;
 import code.util.ints.Displayable;
 
 public final class ConstructorInfo implements Parametrable, Displayable {
 
     private ConstructorId constraints;
+    private ConstructorId formatted;
 
     private String className;
 
@@ -81,4 +83,13 @@ public final class ConstructorInfo implements Parametrable, Displayable {
         varArgWrap = _v;
     }
 
+    @Override
+    public void format(StringList _params) {
+        formatted = new ConstructorId(className, _params, isVararg());
+    }
+
+    @Override
+    public ConstructorId getFormatted() {
+        return formatted;
+    }
 }

@@ -167,7 +167,7 @@ public final class PartTypeUtil {
         return out_.toString();
     }
     static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
-        return processAnalyze(_input, _globalType, _an, _rooted, true, _location);
+        return processAnalyze(_input, _globalType, _an, _rooted, true, true, _location);
     }
     public static StringList processAnalyzeDepends(String _input, Analyzable _an, RootBlock _rooted, boolean _exact, RowCol _location) {
         Options options_ = _an.getOptions();
@@ -237,7 +237,7 @@ public final class PartTypeUtil {
         allDeps_.removeDuplicates();
         return allDeps_;
     }
-    public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact, RowCol _location) {
+    public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact, boolean _protectedInc, RowCol _location) {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
         if (indexes_ == null) {
@@ -262,7 +262,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                current_.analyze(_an, dels_, _globalType, _rooted, _exact, _location);
+                current_.analyze(_an, dels_, _globalType, _rooted, _exact, _protectedInc, _location);
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
@@ -274,7 +274,7 @@ public final class PartTypeUtil {
                     break;
                 }
                 if (par_ == root_) {
-                    par_.analyze(_an, dels_, _globalType, _rooted, _exact, _location);
+                    par_.analyze(_an, dels_, _globalType, _rooted, _exact, _protectedInc, _location);
                     if (par_.getAnalyzedType().isEmpty()) {
                         return "";
                     }

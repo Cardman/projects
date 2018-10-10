@@ -823,13 +823,14 @@ public final class TypeUtil {
                 }
                 RootBlock sub_ = (RootBlock)g_;
                 boolean add_ = false;
-                for (RootBlock b: Classes.accessedClassMembers(_root,_gl,sub_, _an)) {
+                for (RootBlock b: Classes.accessedClassMembers(false, _root,_gl,sub_, _an)) {
                     if (_staticOnly) {
                         if (!b.isStaticType()) {
                             continue;
                         }
                     }
-                    if (StringList.quickEq(b.getName(), _innerName)) {
+                    String name_ = b.getName();
+                    if (StringList.quickEq(name_, _innerName)) {
                         owners_.add(s);
                         add_ = true;
                     }

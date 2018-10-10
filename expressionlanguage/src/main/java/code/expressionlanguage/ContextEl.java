@@ -1184,7 +1184,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().addAllElts(varsList_);
         setDirectImport(false);
         String gl_ = getGlobalClass();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact, rc_);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact, true, rc_);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1326,7 +1326,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().addAllElts(variables_);
         setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true, _location);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true, !_wildCard, _location);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1423,7 +1423,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (inners_.size() == 1) {
                 return EMPTY_TYPE;
             }
-            String baseInn_ = inners_.get(1);
+            String baseInn_ = inners_.get(1).trim();
             CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
             RootBlock p_ = r_.getParentType();
             while (p_ != null) {
@@ -1466,7 +1466,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!_builtTypes.containsStr(res_)) {
                 return EMPTY_TYPE;
             }
-            StringList builtInners_ = TypeUtil.getBuiltInners(fullName_, res_, i, false, this);
+            StringList builtInners_ = TypeUtil.getBuiltInners(fullName_, res_, i.trim(), false, this);
             if (builtInners_.size() != 1) {
                 err_ = true;
                 break;

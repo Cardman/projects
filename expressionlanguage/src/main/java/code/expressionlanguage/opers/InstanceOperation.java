@@ -297,7 +297,7 @@ public final class InstanceOperation extends AbstractInstancingOperation {
                     }
                     RootBlock sub_ = (RootBlock)g_;
                     boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(idRoot_,glClass_, sub_, _conf)) {
+                    for (RootBlock b: Classes.accessedClassMembers(true,idRoot_,glClass_, sub_, _conf)) {
                         if (StringList.quickEq(b.getName(), idClass_)) {
                             owners_.add(s);
                             add_ = true;

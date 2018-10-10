@@ -38,6 +38,14 @@ final class WildCardPartType extends ParentPartType {
             stopDepends();
             return;
         }
+        PartType prev_ = getParent().getFirstChild();
+        if (prev_ instanceof NamePartType) {
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                stopDepends();
+                return;
+            }
+        }
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
@@ -46,10 +54,17 @@ final class WildCardPartType extends ParentPartType {
     }
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact, RowCol _location) {
+            boolean _exact, boolean _protected, RowCol _location) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
             return;
+        }
+        PartType prev_ = getParent().getFirstChild();
+        if (prev_ instanceof NamePartType) {
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                return;
+            }
         }
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
@@ -60,6 +75,13 @@ final class WildCardPartType extends ParentPartType {
             boolean _exact) {
         if (!(getParent() instanceof TemplatePartType)) {
             return;
+        }
+        PartType prev_ = getParent().getFirstChild();
+        if (prev_ instanceof NamePartType) {
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                return;
+            }
         }
         String ch_ = getFirstChild().getAnalyzedType();
         ch_ = StringList.concat(getBegin(),ch_);
