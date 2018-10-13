@@ -14,7 +14,7 @@ public final class InitializationLgNames {
         lgNames_.setupOverrides(_context);
         return lgNames_;
     }
-    private static void basicStandards(LgNames _lgNames) {
+    public static void basicStandards(LgNames _lgNames) {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");

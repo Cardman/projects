@@ -117,7 +117,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 ((BracedBlock)en_).abruptGroup(_cont, anEl_);
             }
             en_.setAssignmentAfter(_cont, anEl_);
-            if (en_ instanceof BreakableBlock && !((BreakableBlock)en_).getLabel().isEmpty()) {
+            if (en_ instanceof BreakableBlock && !((BreakableBlock)en_).getRealLabel().isEmpty()) {
                 labels_.removeLast();
             }
             while (true) {
@@ -160,7 +160,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
                 page_.removeVars();
                 page_.removeMutableLoopVars();
                 page_.removeCatchVars();
-                if (par_ instanceof BreakableBlock && !((BreakableBlock)par_).getLabel().isEmpty()) {
+                if (par_ instanceof BreakableBlock && !((BreakableBlock)par_).getRealLabel().isEmpty()) {
                     labels_.removeLast();
                 }
                 en_ = par_;

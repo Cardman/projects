@@ -619,7 +619,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                                 continue;
                             }
                             String ret_ = m_.getImportedReturnType();
-                            ret_ = Templates.wildCardFormat(formattedType_, ret_, _context, true);
+                            ret_ = Templates.wildCardFormat(false, formattedType_, ret_, _context, true);
                             if (ret_ == null) {
                                 continue;
                             }

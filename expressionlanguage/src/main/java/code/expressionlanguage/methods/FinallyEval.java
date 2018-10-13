@@ -23,7 +23,7 @@ public final class FinallyEval extends BracedStack implements Eval, IncrNextGrou
     }
 
     @Override
-    public String getLabel() {
+    public String getRealLabel() {
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
             if (p_ == null) {

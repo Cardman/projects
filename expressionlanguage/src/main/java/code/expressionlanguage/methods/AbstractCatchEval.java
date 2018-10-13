@@ -24,7 +24,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
     }
 
     @Override
-    public String getLabel() {
+    public String getRealLabel() {
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof TryEval)) {
             if (p_ == null) {
@@ -77,15 +77,20 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
             catch_.add((AbstractCatchEval) try_);
             try_ = try_.getPreviousSibling();
         }
+        if (!(try_ instanceof TryEval)) {
+            super.setAssignmentBeforeNextSibling(_an, _anEl);
+            return;
+        }
+        TryEval tryBl_ = (TryEval)try_;
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         if (finClause_) {
-            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextSibling(_an, _anEl, catch_));
-            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextSibling(_an, _anEl, catch_));
-            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextSibling(_an, _anEl, catch_));
+            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
+            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
+            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
         } else {
-            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextSibling(_an, _anEl, new CustList<AbstractCatchEval>()));
-            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextSibling(_an, _anEl, new CustList<AbstractCatchEval>()));
-            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextSibling(_an, _anEl, new CustList<AbstractCatchEval>()));
+            assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AbstractCatchEval>()));
+            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AbstractCatchEval>()));
+            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AbstractCatchEval>()));
         }
         id_.put(nextSibling_, assBl_);
     }

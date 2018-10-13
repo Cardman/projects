@@ -44,7 +44,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                     childOfLoop_ = true;
                     break;
                 }
-                if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
                     childOfLoop_ = true;
                     break;
                 }
@@ -73,7 +73,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                     childOfLoop_ = true;
                     break;
                 }
-                if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
                     childOfLoop_ = true;
                     break;
                 }
@@ -122,7 +122,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
                     loop_ = (Loop) br_;
                     break;
                 }
-                if (StringList.quickEq(label, ((BreakableBlock) br_).getLabel())){
+                if (StringList.quickEq(label, ((BreakableBlock) br_).getRealLabel())){
                     br_.removeLocalVars(ip_);
                     loop_ = (Loop) br_;
                     break;

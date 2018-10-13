@@ -25,7 +25,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
     }
 
     @Override
-    public String getLabel() {
+    public String getRealLabel() {
         Block p_ = getPreviousSibling();
         while (!(p_ instanceof IfCondition)) {
             if (p_ == null) {

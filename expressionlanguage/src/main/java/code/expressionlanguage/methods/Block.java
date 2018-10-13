@@ -187,7 +187,7 @@ public abstract class Block extends Blockable {
     }
     public void setAssignmentBefore(Analyzable _an, AnalyzingEl _anEl) {
         if (this instanceof BreakableBlock) {
-            String label_ = ((BreakableBlock)this).getLabel();
+            String label_ = ((BreakableBlock)this).getRealLabel();
             boolean wc_ = true;
             for (char c: label_.toCharArray()) {
                 if (StringList.isDollarWordChar(c)) {

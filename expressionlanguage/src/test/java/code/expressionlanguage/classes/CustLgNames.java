@@ -63,6 +63,7 @@ public final class CustLgNames extends LgNames {
         StandardField field_;
         StringList params_;
         StandardMethod method_;
+        StandardConstructor ctor_;
         StandardType std_;
         StandardClass stdcl_;
         CustList<StandardConstructor> constructors_;
@@ -116,6 +117,11 @@ public final class CustLgNames extends LgNames {
 //        method_ = new StandardMethod(getAliasHasNext(), params_, getAliasPrimBoolean(), false, MethodModifier.FINAL, aliasSimpleIteratorType);
 //        methods_.put(method_.getId(), method_);
         stdcl_ = new StandardClass(aliasStringList, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
+        ctor_ = new StandardConstructor(new StringList(getAliasString()), true, stdcl_);
+        constructors_.add(ctor_);
+        params_ = new StringList(getAliasPrimInteger());
+        method_ = new StandardMethod("get", params_, getAliasString(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         getStandards().put(aliasStringList, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();

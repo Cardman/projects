@@ -372,78 +372,102 @@ public class TemplatesTest {
     }
 
     @Test
-    public void generalFormat1Test() {
+    public void wildCardFormat1Test() {
         ContextEl context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
-        assertEq(second_,Templates.wildCardFormat(first_, second_, context_,true));
+        assertEq(second_,Templates.wildCardFormat(false, first_, second_, context_,true));
     }
 
 
+    @Test
+    public void wildCardFormat2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
 
+    @Test
+    public void wildCardFormat3Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<?#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Test
+    public void wildCardFormat4Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<!#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
 
 
     @Test
-    public void generalFormat9Test() {
+    public void wildCardFormat5Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<?[#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat6Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat7Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<!#T>";
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat8Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+
+    @Test
+    public void wildCardFormat9Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -451,11 +475,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",Templates.wildCardFormat(first_, second_, cont_, true));
+        assertEq("#E",Templates.wildCardFormat(false, first_, second_, cont_, true));
     }
 
     @Test
-    public void generalFormat10Test() {
+    public void wildCardFormat10Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -463,11 +487,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.wildCardFormat(first_, second_, cont_,true));
+        assertEq("java.lang.String",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
 
     @Test
-    public void generalFormat11Test() {
+    public void wildCardFormat11Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -475,11 +499,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",Templates.wildCardFormat(first_, second_, cont_,true));
+        assertEq("java.lang.Object",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
 
     @Test
-    public void generalFormat12Test() {
+    public void wildCardFormat12Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -487,11 +511,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.wildCardFormat(first_, second_, cont_,true));
+        assertEq("java.lang.String",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
 
     @Test
-    public void generalFormat13Test() {
+    public void wildCardFormat13Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -499,23 +523,23 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",Templates.wildCardFormat(first_, second_, cont_,true));
+        assertEq("java.lang.String",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
 
     @Test
-    public void generalFormat14Test() {
+    public void wildCardFormat14Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
-        String second_ = "#V";
-        assertEq("#V",Templates.wildCardFormat(first_, second_, cont_,true));
+        String second_ = "[#T";
+        assertEq("[java.lang.String",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
 
     @Test
-    public void generalFormat15Test() {
+    public void wildCardFormat15Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -523,11 +547,11 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",Templates.wildCardFormat(first_, second_, cont_,true));
+        assertEq("code.util.CustList<#V>",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
 
     @Test
-    public void generalFormat16Test() {
+    public void wildCardFormat16Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#T:java.lang.Number,#U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -535,10 +559,10 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
         String second_ = "code.util.CustList<#T>";
-        assertEq("code.util.CustList<java.lang.Number>",Templates.wildCardFormat(first_, second_, cont_,true));
+        assertEq("code.util.CustList<java.lang.Number>",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
     @Test
-    public void generalFormat17Test() {
+    public void wildCardFormat17Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<#E:java.lang.Number,#F> {}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -549,9 +573,392 @@ public class TemplatesTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.ExTwo<java.lang.Number,java.lang.Number>";
         String second_ = "pkg.Ex<#T,#T>";
-        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",Templates.wildCardFormat(first_, second_, cont_,true));
+        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",Templates.wildCardFormat(false, first_, second_, cont_,true));
     }
 
+    @Test
+    public void wildCardFormat18Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<#T>";
+        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat19Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<?#T>";
+        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat20Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<!#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat21Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<?[#T>";
+        assertEq("pkg.Ex<?[java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat22Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat23Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<!#T>";
+        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat24Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<![java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat25Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<#T>";
+        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat26Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<?#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat27Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<!#T>";
+        assertEq("pkg.Ex<!java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat28Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<?[#T>";
+        assertEq("pkg.Ex<?>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat29Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<![java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,true));
+    }
+
+    @Test
+    public void wildCardFormat30Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<!#T>";
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<?#T>";
+        assertEq("pkg.Ex<?java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<![#T>";
+        assertEq("pkg.Ex<java.lang.Object>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat33Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<?[#T>";
+        assertEq("pkg.Ex<?[java.lang.Number>",Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat34Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "pkg.Ex<#T>";
+        assertNull(Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat35Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.Ex<#T>";
+        assertNull(Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat36Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.Ex<#T>";
+        assertNull(Templates.wildCardFormat(false, first_, second_, context_,false));
+    }
+
+    @Test
+    public void wildCardFormat37Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "#T";
+        assertEq("java.lang.Object",Templates.wildCardFormat(false, first_, second_, cont_, true));
+    }
+
+    @Test
+    public void wildCardFormat38Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "[#T";
+        assertEq("[java.lang.Object",Templates.wildCardFormat(false, first_, second_, cont_, true));
+    }
+
+    @Test
+    public void wildCardFormat39Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "#T";
+        assertEq("java.lang.Number",Templates.wildCardFormat(false, first_, second_, cont_, true));
+    }
+
+    @Test
+    public void wildCardFormat40Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "[#T";
+        assertEq("[java.lang.Number",Templates.wildCardFormat(false, first_, second_, cont_, true));
+    }
+
+    @Test
+    public void wildCardFormat41Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "#T";
+        assertEq("java.lang.Object",Templates.wildCardFormat(false, first_, second_, cont_, true));
+    }
+
+    @Test
+    public void wildCardFormat42Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "[#T";
+        assertEq("[java.lang.Object",Templates.wildCardFormat(false, first_, second_, cont_, true));
+    }
+
+    @Test
+    public void wildCardFormat43Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "#T";
+        assertNull(Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
+
+    @Test
+    public void wildCardFormat44Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?>";
+        String second_ = "[#T";
+        assertNull(Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
+
+    @Test
+    public void wildCardFormat45Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "#T";
+        assertNull(Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
+
+    @Test
+    public void wildCardFormat46Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "[#T";
+        assertNull(Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
+
+    @Test
+    public void wildCardFormat47Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "#T";
+        assertEq("java.lang.Number",Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
+
+    @Test
+    public void wildCardFormat48Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "[#T";
+        assertEq("[java.lang.Number",Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
+
+    @Test
+    public void wildCardFormat49Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "#V";
+        assertNull(Templates.wildCardFormat(false, first_, second_, cont_, false));
+    }
     @Test
     public void getGenericTypeByBases1Test() {
         ContextEl context_ = simpleContextEl();
@@ -2291,6 +2698,27 @@ public class TemplatesTest {
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex<?java.lang.Integer,java.lang.Integer>");
         m_.setParam("pkg.Ex<?java.lang.Number,java.lang.Number>");
+        assertTrue(!Templates.isCorrect(m_, cont_));
+    }
+    @Test
+    public void isCorrect89Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree<#U,#V:pkg.ExTwo<#U>>{}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.getMapping().put("U", new StringList("java.lang.Object"));
+        m_.getMapping().put("V", new StringList("pkg.ExTwo<#U>"));
+        m_.setArg("[#V");
+        m_.setParam("[pkg.ExThree<#U>");
         assertTrue(!Templates.isCorrect(m_, cont_));
     }
     @Test

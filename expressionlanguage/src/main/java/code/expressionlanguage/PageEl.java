@@ -7,8 +7,6 @@ import code.util.StringMap;
 
 public abstract class PageEl {
 
-    private Argument rightArgument;
-
     private String globalClass;
 
     private Argument globalArgument;
@@ -20,14 +18,6 @@ public abstract class PageEl {
     private StringMap<LocalVariable> localVars = new StringMap<LocalVariable>();
 
     private StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
-
-    public Argument getRightArgument() {
-        return rightArgument;
-    }
-
-    public void setRightArgument(Argument _rightArgument) {
-        rightArgument = _rightArgument;
-    }
 
     public String getGlobalClass() {
         return globalClass;

@@ -30,8 +30,12 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         labelOffset = _label.getOffset();
     }
 
-    @Override
     public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public String getRealLabel() {
         return label;
     }
     public int getLabelOffset() {
@@ -66,14 +70,14 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
             _an.getClasses().addError(un_);
             StringMap<SimpleAssignment> fieldsAfter_;
-            fieldsAfter_ =buildAssListFieldAfter(_an, _anEl);
+            fieldsAfter_ =buildAssListFieldAfterLoop(_an, _anEl);
             varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
             CustList<StringMap<SimpleAssignment>> varsAfter_;
-            varsAfter_ =buildAssListLocVarAfter(_an, _anEl);
+            varsAfter_ =buildAssListLocVarAfterLoop(_an, _anEl);
             varsWhile_.getVariablesRoot().clear();
             varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
             CustList<StringMap<SimpleAssignment>> mutableAfter_;
-            mutableAfter_ =buildAssListMutableLoopAfter(_an, _anEl);
+            mutableAfter_ =buildAssListMutableLoopAfterLoop(_an, _anEl);
             varsWhile_.getMutableLoopRoot().clear();
             varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
             return;
@@ -93,14 +97,14 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
         processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
         processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
-        fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
+        fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;
-        varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
+        varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
         varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-        mutableAfter_ = buildAssListMutableLoopAfter(_an, _anEl);
+        mutableAfter_ = buildAssListMutableLoopAfterLoop(_an, _anEl);
         varsWhile_.getMutableLoopRoot().clear();
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }

@@ -57,29 +57,6 @@ public final class ElUtil {
         Argument arg_ = _right.getArgument();
         return arg_;
     }
-    public static void tryToCalculateLeftAffect(ExpressionLanguage _left, ContextEl _conf, String _op) {
-        if (_left.isFinished()) {
-            return;
-        }
-        IdMap<OperationNode, ArgumentsPair> allLeft_ = _left.getArguments();
-        calculate(allLeft_, _left, _conf, 0);
-        if (_conf.callsOrException()) {
-            return;
-        }
-        _left.finish();
-    }
-    public static void tryToCalculateRightAffect(ExpressionLanguage _right, ContextEl _conf, String _op) {
-        if (_right.isFinished()) {
-            return;
-        }
-        IdMap<OperationNode, ArgumentsPair> allRight_ = _right.getArguments();
-        calculate(allRight_, _right, _conf, 0);
-        if (_conf.callsOrException()) {
-            return;
-        }
-        _right.finish();
-        _conf.getLastPage().setRightArgument(_right.getArgument());
-    }
 
 
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {

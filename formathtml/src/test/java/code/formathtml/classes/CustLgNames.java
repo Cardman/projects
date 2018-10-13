@@ -460,7 +460,7 @@ public final class CustLgNames extends BeanLgNames {
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasStringList)) {
-            res_.setResult(new StdStruct(new StringList(), aliasPickableList));
+            res_.setResult(new StdStruct(new StringList(), aliasStringList));
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasInheritedComposite)) {

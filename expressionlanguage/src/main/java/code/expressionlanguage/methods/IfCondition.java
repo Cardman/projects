@@ -29,8 +29,12 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         labelOffset = _label.getOffset();
     }
 
-    @Override
     public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public String getRealLabel() {
         return label;
     }
 

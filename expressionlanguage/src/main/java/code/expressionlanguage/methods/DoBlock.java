@@ -27,8 +27,12 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
         labelOffset = _label.getOffset();
     }
 
-    @Override
     public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public String getRealLabel() {
         return label;
     }
 
@@ -98,9 +102,9 @@ public final class DoBlock extends BracedStack implements Loop, IncrCurrentGroup
             id_.put(nextSibling_, assBl_);
             return;
         }
-        assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeNextSibling(_an, _anEl));
-        assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeNextSibling(_an, _anEl));
-        assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeNextSibling(_an, _anEl));
+        assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_an, _anEl));
+        assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeIncrPart(_an, _anEl));
+        assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeIncrPart(_an, _anEl));
         id_.put(nextSibling_, assBl_);
     }
     

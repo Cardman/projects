@@ -740,7 +740,7 @@ public abstract class OperationNode {
             mloc_.setConstraints(ctor_);
             mloc_.setParameters(pg_);
             mloc_.setClassName(clCurName_);
-            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, varArg_, mloc_, p_, _args)) {
+            if (!isPossibleMethod(_conf, clCurName_, _varargOnly, mloc_, p_, _args)) {
                 continue;
             }
             signatures_.add(mloc_);
@@ -1091,7 +1091,7 @@ public abstract class OperationNode {
                             continue;
                         }
                         String ret_ = sup_.getImportedReturnType();
-                        ret_ = Templates.wildCardFormat(formattedClass_, ret_, _conf, true);
+                        ret_ = Templates.wildCardFormat(false, formattedClass_, ret_, _conf, true);
                         if (ret_ == null) {
                             continue;
                         }
@@ -1147,7 +1147,7 @@ public abstract class OperationNode {
                                 continue;
                             }
                             String ret_ = sup_.getImportedReturnType();
-                            ret_ = Templates.wildCardFormat(formattedClass_, ret_, _conf, true);
+                            ret_ = Templates.wildCardFormat(false, formattedClass_, ret_, _conf, true);
                             if (ret_ == null) {
                                 continue;
                             }
@@ -1215,7 +1215,7 @@ public abstract class OperationNode {
             ClassMatching[] p_ = getParameters(id_);
             MethodInfo mi_ = e.getValue();
             String formattedType_ = mi_.getClassName();
-            if (!isPossibleMethod(_conf, formattedType_, _varargOnly, varArg_, mi_, p_, _argsClass)) {
+            if (!isPossibleMethod(_conf, formattedType_, _varargOnly, mi_, p_, _argsClass)) {
                 continue;
             }
             signatures_.add(mi_);
@@ -1262,12 +1262,14 @@ public abstract class OperationNode {
         return res_;
     }
 
-    static boolean isPossibleMethod(Analyzable _context, String _class, int _varargOnly, boolean _vararg, Parametrable _id,ClassMatching[] _params,
+    static boolean isPossibleMethod(Analyzable _context, String _class, int _varargOnly, Parametrable _id,ClassMatching[] _params,
     ClassArgumentMatching... _argsClass) {
         int startOpt_ = _argsClass.length;
         boolean checkOnlyDem_ = true;
         int nbDem_ = _params.length;
-        if (!_vararg) {
+        boolean static_ = _id.isStatic();
+        boolean vararg_ = _id.isVararg();
+        if (!vararg_) {
             if (_params.length != _argsClass.length) {
                 return false;
             }
@@ -1296,7 +1298,7 @@ public abstract class OperationNode {
         int len_ = nbDem_;
         StringList formatPar_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String wc_ = Templates.wildCardFormat(_class, _params[i].getClassName(), _context, false);
+            String wc_ = Templates.wildCardFormat(static_, _class, _params[i].getClassName(), _context, false);
             formatPar_.add(wc_);
             if (_argsClass[i].isVariable()) {
                 if (_params[i].isPrimitive(_context)) {
@@ -1318,7 +1320,7 @@ public abstract class OperationNode {
             }
         }
         if (checkOnlyDem_) {
-            if (_vararg) {
+            if (vararg_) {
                 formatPar_.setLast(PrimitiveTypeUtil.getQuickComponentType(formatPar_.last()));
             }
             _id.format(formatPar_);
@@ -1332,7 +1334,7 @@ public abstract class OperationNode {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
             String param_ = _params[last_].getClassName();
-            String wc_ = Templates.wildCardFormat(_class, param_, _context, false);
+            String wc_ = Templates.wildCardFormat(static_, _class, param_, _context, false);
             if (wc_ == null) {
                 return false;
             }
@@ -1355,7 +1357,7 @@ public abstract class OperationNode {
         for (TypeVar t: vars_) {
             map_.getMapping().put(t.getName(), t.getConstraints());
         }
-        String wc_ = Templates.wildCardFormat(_class, param_, _context, false);
+        String wc_ = Templates.wildCardFormat(static_, _class, param_, _context, false);
         if (wc_ == null) {
             return false;
         }

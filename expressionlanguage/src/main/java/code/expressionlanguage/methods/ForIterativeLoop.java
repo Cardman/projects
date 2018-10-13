@@ -94,8 +94,12 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         labelOffset = _label.getOffset();
     }
 
-    @Override
     public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public String getRealLabel() {
         return label;
     }
 
@@ -457,12 +461,12 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;
-        fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
+        fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
-        varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
+        varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
         varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-        mutableAfter_ = buildAssListMutableLoopAfter(_an, _anEl);
+        mutableAfter_ = buildAssListMutableLoopAfterLoop(_an, _anEl);
         varsWhile_.getMutableLoopRoot().clear();
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }

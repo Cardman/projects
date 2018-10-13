@@ -356,7 +356,7 @@ public final class Classes {
         if (!classes_.isEmptyErrors()) {
             return;
         }
-        classes_.validateSingleParameterizedClasses(_context);
+        
         classes_.validateIds(_context);
         classes_.validateOverridingInherit(_context);
         if (!classes_.isEmptyErrors()) {
@@ -615,6 +615,7 @@ public final class Classes {
         if (!isEmptyErrors()) {
             return;
         }
+        classes_.validateSingleParameterizedClasses(_context);
         checkTemplatesDef(_context, _predefined, objectClassName_);
     }
     public void validateInheritingClassesId(ContextEl _context, boolean _predefined) {
@@ -1231,6 +1232,34 @@ public final class Classes {
                     ok_ = false;
                 }
                 StringMap<StringList> baseParams_ = getBaseParams(upper_);
+                for (EntryCust<String, StringList> e: baseParams_.entryList()) {
+                    if (e.getValue().size() > 1) {
+                        DuplicateGenericSuperTypes duplicate_;
+                        duplicate_ = new DuplicateGenericSuperTypes();
+                        duplicate_.setFileName(c);
+                        duplicate_.setRc(dBl_.getRowCol(0, dBl_.getIdRowCol()));
+                        duplicate_.setGenericSuperTypes(e.getValue());
+                        addError(duplicate_);
+                    }
+                }
+                StringList all_ = new StringList();
+                for (String u: upper_) {
+                    String idUpper_ = Templates.getIdFromAllTypes(u);
+                    RootBlock r_ = getClassBody(idUpper_);
+                    if (r_ == null) {
+                        continue;
+                    }
+                    StringList genericSuperTypes_ = r_.getAllGenericSuperTypes(_context);
+                    all_.add(u);
+                    for (String v: genericSuperTypes_) {
+                        String formattedType_ = Templates.format(u, v, _context);
+                        if (formattedType_ == null) {
+                            continue;
+                        }
+                        all_.add(formattedType_);
+                    }
+                }
+                baseParams_ = getBaseParams(all_);
                 for (EntryCust<String, StringList> e: baseParams_.entryList()) {
                     if (e.getValue().size() > 1) {
                         DuplicateGenericSuperTypes duplicate_;
@@ -2428,8 +2457,9 @@ public final class Classes {
                     String formatRet_;
                     MethodId fid_;
                     String formCl_ = method_.getDeclaringType();
+                    boolean static_ = method_.isStaticMethod();
                     if (Templates.correctNbParameters(_name, _context)) {
-                        formatRet_ = Templates.wildCardFormat(_name, ret_, _context, true);
+                        formatRet_ = Templates.wildCardFormat(static_, _name, ret_, _context, true);
                         fid_ = id_.reflectFormat(_name, _context);
                     } else {
                         formatRet_ = ret_;
@@ -2460,7 +2490,7 @@ public final class Classes {
                     String ret_ = method_.getImportedReturnType();
                     String formCl_ = method_.getDeclaringType();
                     if (Templates.correctNbParameters(_name, _context)) {
-                        formatRet_ = Templates.wildCardFormat(_name, ret_, _context,true);
+                        formatRet_ = Templates.wildCardFormat(false, _name, ret_, _context,true);
                         fid_ = id_.reflectFormat(_name, _context);
                     } else {
                         formatRet_ = ret_;

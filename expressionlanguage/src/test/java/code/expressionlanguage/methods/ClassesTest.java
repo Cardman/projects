@@ -1489,7 +1489,6 @@ public class ClassesTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateSingleParameterizedClasses(cont_);
         classes_.validateIds(cont_);
         classes_.validateOverridingInherit(cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1508,8 +1507,6 @@ public class ClassesTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
-        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateSingleParameterizedClasses(cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateIds(cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1555,7 +1552,6 @@ public class ClassesTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         classes_.validateInheritingClasses(cont_, false);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
-        classes_.validateSingleParameterizedClasses(cont_);
         classes_.validateIds(cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;

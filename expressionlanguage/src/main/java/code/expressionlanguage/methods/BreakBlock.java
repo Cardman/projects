@@ -52,7 +52,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
                         break;
                     }
                 } else {
-                    if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                    if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
                         childOfBreakable_ = true;
                         break;
                     }
@@ -84,7 +84,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
                         break;
                     }
                 } else {
-                    if (StringList.quickEq(label, ((BreakableBlock)b_).getLabel())){
+                    if (StringList.quickEq(label, ((BreakableBlock)b_).getRealLabel())){
                         childOfBreakable_ = true;
                         break;
                     }
@@ -136,7 +136,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
                     }
                 } else {
                     BreakableBlock br_ = (BreakableBlock) bl_.getBlock();
-                    if (StringList.quickEq(label, br_.getLabel())){
+                    if (StringList.quickEq(label, br_.getRealLabel())){
                         bl_.getCurrentVisitedBlock().removeLocalVars(ip_);
                         break;
                     }

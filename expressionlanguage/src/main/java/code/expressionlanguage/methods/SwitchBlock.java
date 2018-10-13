@@ -50,8 +50,12 @@ public final class SwitchBlock extends BracedStack implements BreakableBlock {
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }
-
+    
     @Override
+    public String getRealLabel() {
+        return label;
+    }
+
     public String getLabel() {
         return label;
     }

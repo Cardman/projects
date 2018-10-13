@@ -25,8 +25,12 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         labelOffset = _label.getOffset();
     }
 
-    @Override
     public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public String getRealLabel() {
         return label;
     }
 
@@ -45,9 +49,9 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
         Block nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         CustList<AbstractCatchEval> catchs_ = new CustList<AbstractCatchEval>();
-        assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextSibling(_an, _anEl,catchs_));
-        assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextSibling(_an, _anEl,catchs_));
-        assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextSibling(_an, _anEl,catchs_));
+        assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(this,_an, _anEl,catchs_));
+        assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(this,_an, _anEl,catchs_));
+        assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(this,_an, _anEl,catchs_));
         id_.put(nextSibling_, assBl_);
     }
     @Override

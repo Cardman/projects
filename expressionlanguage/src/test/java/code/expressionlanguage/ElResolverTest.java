@@ -3347,7 +3347,6 @@ public class ElResolverTest {
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
         addImportingPage(conf_, false);
@@ -3394,7 +3393,6 @@ public class ElResolverTest {
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
         addImportingPage(conf_, false);
@@ -3441,7 +3439,6 @@ public class ElResolverTest {
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
         addImportingPage(conf_, false);
@@ -3490,7 +3487,6 @@ public class ElResolverTest {
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
         addImportingPage(conf_, false);
@@ -3547,7 +3543,6 @@ public class ElResolverTest {
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
         addImportingPage(conf_, false);
@@ -3596,7 +3591,6 @@ public class ElResolverTest {
         Classes.buildPredefinedBracesBodies(conf_);
         Classes.tryBuildBracedClassesBodies(files_, conf_);
         classes_.validateInheritingClasses(conf_, false);
-        classes_.validateSingleParameterizedClasses(conf_);
         classes_.validateIds(conf_);
         classes_.validateOverridingInherit(conf_);
         addImportingPage(conf_, false);

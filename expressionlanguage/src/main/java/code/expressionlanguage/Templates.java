@@ -355,17 +355,20 @@ public final class Templates {
         }
         return true;
     }
-    public static String wildCardFormat(String _first, String _second, Analyzable _classes, boolean _returnMode) {
+    public static String wildCardFormat(boolean _staticMember,String _first, String _second, Analyzable _classes, boolean _returnMode) {
+        if (_staticMember) {
+            return _second;
+        }
         DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_second);
+        StringList types_ = getAllTypes(_first);
+        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
+        GeneType root_ = _classes.getClassBody(className_);
+        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
+        String objType_ = _classes.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
-            StringList types_ = getAllTypes(_first);
-            String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
 
-            String objType_ = _classes.getStandards().getAliasObject();
-            GeneType root_ = _classes.getClassBody(className_);
-            CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
             int index_ = -1;
             for (TypeVar t: typeVar_) {
                 index_++;
@@ -391,14 +394,12 @@ public final class Templates {
                             return PrimitiveTypeUtil.getPrettyArrayType(objType_,arr_);
                         }
                     }
+                    return PrimitiveTypeUtil.getPrettyArrayType(formatted_,arr_);
                 }
             }
+            return null;
         }
-        StringList types_ = getAllTypes(_first);
-        String className_ = PrimitiveTypeUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        GeneType root_ = _classes.getClassBody(className_);
         StringMap<String> varTypes_ = new StringMap<String>();
-        CustList<TypeVar> typeVar_ = root_.getParamTypesMapValues();
         if (typeVar_.size() == types_.size() - 1){
             int i_ = CustList.FIRST_INDEX;
             for (TypeVar t: typeVar_) {
@@ -407,7 +408,7 @@ public final class Templates {
                 varTypes_.put(t.getName(), arg_);
             }
         }
-        return getFormattedType(_second, varTypes_);
+        return getWildCardFormattedType(objType_,_second, varTypes_, _returnMode);
     }
     public static String reflectFormat(String _first, String _second, Analyzable _context) {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
@@ -608,6 +609,127 @@ public final class Templates {
                 sub_ = _type.substring(diese_);
                 str_.append(sub_);
             }
+        }
+        return str_.toString();
+    }
+    static String getWildCardFormattedType(String _objType,String _type, StringMap<String> _varTypes, boolean _return) {
+        if (_varTypes.isEmpty()) {
+            return _type;
+        }
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _type.length();
+        int diese_ = 0;
+        boolean var_ = false;
+        for (int i = 0; i < len_; i++) {
+            if (_type.charAt(i) == PREFIX_VAR_TYPE_CHAR) {
+                var_ = true;
+                diese_ = i;
+                continue;
+            }
+            if (!var_) {
+                str_.append(_type.charAt(i));
+                continue;
+            }
+            if (StringList.isWordChar(_type.charAt(i))) {
+                continue;
+            }
+            String sub_ = _type.substring(diese_+1, i);
+            if (_varTypes.contains(sub_)) {
+                String value_ = _varTypes.getVal(sub_);
+                int max_ = str_.length() -1;
+                int j_ = max_;
+                while (j_ >= 0) {
+                    if (str_.charAt(j_) != ARR_BEG) {
+                        break;
+                    }
+                    j_--;
+                }
+                if (StringList.quickEq(value_, SUB_TYPE)) {
+                    if (_return) {
+                        if (j_ >= 0 && (str_.charAt(j_) == SUB_TYPE_CHAR || str_.charAt(j_) == SUP_TYPE_CHAR)) {
+                            j_--;
+                        }
+                        str_.delete(j_+1, max_+1);
+                        str_.append(SUB_TYPE);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
+                        str_.delete(j_, max_+1);
+                        str_.append(_objType);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    return null;
+                }
+                if (value_.startsWith(SUB_TYPE)) {
+                    String bound_= value_.substring(SUB_TYPE.length());
+                    if (_return) {
+                        if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
+                            str_.delete(j_, max_+1);
+                            str_.append(SUB_TYPE);
+                            str_.append(_type.charAt(i));
+                            var_ = false;
+                            continue;
+                        }
+                        if (j_ >= 0 && str_.charAt(j_) != SUB_TYPE_CHAR) {
+                            str_.insert(j_ +1, SUB_TYPE);
+                        }
+                        str_.append(bound_);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
+                        str_.append(bound_);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    return null;
+                }
+                if (value_.startsWith(SUP_TYPE)) {
+                    String bound_= value_.substring(SUP_TYPE.length());
+                    if (_return) {
+                        if (j_ >= 0 && str_.charAt(j_) == SUB_TYPE_CHAR) {
+                            str_.delete(j_, max_+1);
+                            str_.append(SUB_TYPE);
+                            str_.append(_type.charAt(i));
+                            var_ = false;
+                            continue;
+                        }
+                        if (j_ >= 0 && str_.charAt(j_) != SUP_TYPE_CHAR) {
+                            str_.insert(j_ +1, SUP_TYPE);
+                        }
+                        str_.append(bound_);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    if (j_ >= 0 && str_.charAt(j_) == SUB_TYPE_CHAR) {
+                        str_.append(bound_);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    if (j_ >= 0 && str_.charAt(j_) == SUP_TYPE_CHAR) {
+                        str_.delete(j_, max_+1);
+                        str_.append(_objType);
+                        str_.append(_type.charAt(i));
+                        var_ = false;
+                        continue;
+                    }
+                    return null;
+                }
+                str_.append(value_);
+            } else {
+                sub_ = _type.substring(diese_, i);
+                str_.append(sub_);
+            }
+            str_.append(_type.charAt(i));
+            var_ = false;
         }
         return str_.toString();
     }

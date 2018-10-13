@@ -306,7 +306,7 @@ public abstract class BracedStack extends BracedBlock {
             _an.getClasses().addError(un_);
         }
     }
-    protected StringMap<AssignmentBefore> buildAssListFieldBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListFieldBeforeIncrPart(Analyzable _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -328,11 +328,11 @@ public abstract class BracedStack extends BracedBlock {
         if (_anEl.canCompleteNormallyGroup(last_)) {
             AssignedVariables ass_ = id_.getVal(last_);
             StringMap<SimpleAssignment> v_ = ass_.getFieldsRoot();
-            return beforeNextSibling(list_, v_, breakAss_);
+            return beforeIncrPart(list_, v_, breakAss_);
         }
-        return beforeNextSibling(list_, new StringMap<SimpleAssignment>(), breakAss_);
+        return beforeIncrPart(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarBeforeIncrPart(Analyzable _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -363,16 +363,16 @@ public abstract class BracedStack extends BracedBlock {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
                 if (v_.isValidIndex(i)) {
-                    varsList_.add(beforeNextSibling(cond_, v_.get(i), breakAss_));
+                    varsList_.add(beforeIncrPart(cond_, v_.get(i), breakAss_));
                 }
             } else {
-                varsList_.add(beforeNextSibling(cond_, new StringMap<SimpleAssignment>(), breakAss_));
+                varsList_.add(beforeIncrPart(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
         }
         
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopBeforeNextSibling(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopBeforeIncrPart(Analyzable _an, AnalyzingEl _anEl) {
         Block last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -403,16 +403,16 @@ public abstract class BracedStack extends BracedBlock {
                 AssignedVariables ass_ = id_.getVal(last_);
                 CustList<StringMap<SimpleAssignment>> v_ = ass_.getMutableLoopRoot();
                 if (v_.isValidIndex(i)) {
-                    varsList_.add(beforeNextSibling(cond_, v_.get(i), breakAss_));
+                    varsList_.add(beforeIncrPart(cond_, v_.get(i), breakAss_));
                 }
             } else {
-                varsList_.add(beforeNextSibling(cond_, new StringMap<SimpleAssignment>(), breakAss_));
+                varsList_.add(beforeIncrPart(cond_, new StringMap<SimpleAssignment>(), breakAss_));
             }
         }
         
         return varsList_;
     }
-    private static StringMap<AssignmentBefore> beforeNextSibling(StringMap<SimpleAssignment> _loop, StringMap<SimpleAssignment> _last,
+    private static StringMap<AssignmentBefore> beforeIncrPart(StringMap<SimpleAssignment> _loop, StringMap<SimpleAssignment> _last,
             CustList<StringMap<AssignmentBefore>> _continuable) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
         for (EntryCust<String, SimpleAssignment> e: _loop.entryList()) {
@@ -809,7 +809,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         return out_;
     }
-    protected StringMap<SimpleAssignment> buildAssListFieldAfter(Analyzable _an, AnalyzingEl _anEl) {
+    protected StringMap<SimpleAssignment> buildAssListFieldAfterLoop(Analyzable _an, AnalyzingEl _anEl) {
         CustList<BreakBlock> breaks_ = getBreakables(_anEl);
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
@@ -824,9 +824,9 @@ public abstract class BracedStack extends BracedBlock {
             StringMap<AssignmentBefore> vars_ = ass_.getFieldsRootBefore();
             breakAss_.add(vars_);
         }
-        return buildAssAfter(list_, breakAss_);
+        return buildAssAfterLoop(list_, breakAss_);
     }
-    protected CustList<StringMap<SimpleAssignment>> buildAssListLocVarAfter(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<SimpleAssignment>> buildAssListLocVarAfterLoop(Analyzable _an, AnalyzingEl _anEl) {
         CustList<BreakBlock> breaks_ = getBreakables(_anEl);
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
@@ -849,11 +849,11 @@ public abstract class BracedStack extends BracedBlock {
                 breakAss_.add(vars_.get(i));
             }
             StringMap<BooleanAssignment> cond_ = list_.get(i);
-            varsList_.add(buildAssAfter(cond_, breakAss_));
+            varsList_.add(buildAssAfterLoop(cond_, breakAss_));
         }
         return varsList_;
     }
-    protected CustList<StringMap<SimpleAssignment>> buildAssListMutableLoopAfter(Analyzable _an, AnalyzingEl _anEl) {
+    protected CustList<StringMap<SimpleAssignment>> buildAssListMutableLoopAfterLoop(Analyzable _an, AnalyzingEl _anEl) {
         CustList<BreakBlock> breaks_ = getBreakables(_anEl);
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
@@ -876,10 +876,33 @@ public abstract class BracedStack extends BracedBlock {
                 breakAss_.add(vars_.get(i));
             }
             StringMap<BooleanAssignment> cond_ = list_.get(i);
-            varsList_.add(buildAssAfter(cond_, breakAss_));
+            varsList_.add(buildAssAfterLoop(cond_, breakAss_));
         }
         return varsList_;
     }
+    protected static StringMap<SimpleAssignment> buildAssAfterLoop(StringMap<BooleanAssignment> _loop, CustList<StringMap<AssignmentBefore>> _breakAss) {
+        StringMap<SimpleAssignment> out_ = new StringMap<SimpleAssignment>();
+        for (EntryCust<String,BooleanAssignment> e: _loop.entryList()) {
+            BooleanAssignment ba_ = e.getValue();
+            boolean ass_ = ba_.isAssignedAfterWhenFalse();
+            boolean unass_ = ba_.isUnassignedAfterWhenFalse();
+            String key_ = e.getKey();
+            for (StringMap<AssignmentBefore> b: _breakAss) {
+                if (!b.contains(key_)) {
+                    continue;
+                }
+                if (!b.getVal(key_).isAssignedBefore()) {
+                    ass_ = false;
+                }
+                if (!b.getVal(key_).isUnassignedBefore()) {
+                    unass_ = false;
+                }
+            }
+            out_.put(key_, Assignment.assignClassic(ass_, unass_));
+        }
+        return out_;
+    }
+
     protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterFinally(CustList<Block> _blocks,Analyzable _an, AnalyzingEl _anEl) {
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
@@ -1270,9 +1293,9 @@ public abstract class BracedStack extends BracedBlock {
         }
         return out_;
     }
-    protected StringMap<AssignmentBefore> buildAssFieldsBefNextSibling(Analyzable _an, AnalyzingEl _anEl,
+    protected StringMap<AssignmentBefore> buildAssFieldsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
-        CustList<AbruptBlock> abr_ = getAbruptTry(_an, _anEl);
+        CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
         CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
         CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
@@ -1286,20 +1309,31 @@ public abstract class BracedStack extends BracedBlock {
             }
         }
         for (AbstractCatchEval c: _catchs) {
-            catchs_.add(id_.getVal(c).getFieldsRoot());
+            for (AbruptBlock a: c.getAbruptTry(_an, _anEl)) {
+                if (a instanceof Throwing) {
+                    throws_.add(id_.getVal(a).getFields().lastValue());
+                } else {
+                    others_.add(id_.getVal(a).getFieldsRootBefore());
+                }
+            }
         }
-        StringMap<SimpleAssignment> tryAfter_ = id_.getVal(this).getFieldsRoot();
-        StringMap<AssignmentBefore> tryBefore_ = id_.getVal(this).getFieldsRootBefore();
-        return buildAssBefNextSibling(tryAfter_, tryBefore_, throws_, others_, catchs_);
+        for (AbstractCatchEval c: _catchs) {
+            if (_anEl.canCompleteNormally(c)) {
+                catchs_.add(id_.getVal(c).getFieldsRoot());
+            }
+        }
+        StringMap<SimpleAssignment> tryAfter_ = id_.getVal(_try).getFieldsRoot();
+        StringMap<AssignmentBefore> tryBefore_ = id_.getVal(_try).getFieldsRootBefore();
+        return buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_, catchs_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextSibling(Analyzable _an, AnalyzingEl _anEl,
+    protected CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
-        CustList<AbruptBlock> abr_ = getAbruptTry(_an, _anEl);
+        CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(this).getVariablesRoot();
-        CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(this).getVariablesRootBefore();
+        CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(_try).getVariablesRoot();
+        CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(_try).getVariablesRootBefore();
         int loopLen_ = tryAfters_.size();
         for (int i = 0; i < loopLen_; i++) {
             StringMap<SimpleAssignment> tryAfter_ = tryAfters_.get(i);
@@ -1321,23 +1355,40 @@ public abstract class BracedStack extends BracedBlock {
                 }
             }
             for (AbstractCatchEval c: _catchs) {
-                CustList<StringMap<SimpleAssignment>> li_ = id_.getVal(c).getVariablesRoot();
-                if (li_.isValidIndex(i)) {
-                    catchs_.add(li_.get(i));
+                for (AbruptBlock a: c.getAbruptTry(_an, _anEl)) {
+                    if (a instanceof Throwing) {
+                        CustList<StringMap<Assignment>> li_ = id_.getVal(a).getVariables().lastValue();
+                        if (li_.isValidIndex(i)) {
+                            throws_.add(li_.get(i));
+                        }
+                    } else {
+                        CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
+                        if (li_.isValidIndex(i)) {
+                            others_.add(li_.get(i));
+                        }
+                    }
                 }
             }
-            out_.add(buildAssBefNextSibling(tryAfter_, tryBefore_, throws_, others_,catchs_));
+            for (AbstractCatchEval c: _catchs) {
+                if (_anEl.canCompleteNormally(c)) {
+                    CustList<StringMap<SimpleAssignment>> li_ = id_.getVal(c).getVariablesRoot();
+                    if (li_.isValidIndex(i)) {
+                        catchs_.add(li_.get(i));
+                    }
+                }
+            }
+            out_.add(buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_,catchs_));
         }
         return out_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssMutableLoopBefNextSibling(Analyzable _an, AnalyzingEl _anEl,
+    protected CustList<StringMap<AssignmentBefore>> buildAssMutableLoopBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
-        CustList<AbruptBlock> abr_ = getAbruptTry(_an, _anEl);
+        CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
         IdMap<Block, AssignedVariables> id_;
         id_ = _an.getAssignedVariables().getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(this).getMutableLoopRoot();
-        CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(this).getMutableLoopRootBefore();
+        CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(_try).getMutableLoopRoot();
+        CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(_try).getMutableLoopRootBefore();
         int loopLen_ = tryAfters_.size();
         for (int i = 0; i < loopLen_; i++) {
             StringMap<SimpleAssignment> tryAfter_ = tryAfters_.get(i);
@@ -1359,16 +1410,33 @@ public abstract class BracedStack extends BracedBlock {
                 }
             }
             for (AbstractCatchEval c: _catchs) {
-                CustList<StringMap<SimpleAssignment>> li_ = id_.getVal(c).getMutableLoopRoot();
-                if (li_.isValidIndex(i)) {
-                    catchs_.add(li_.get(i));
+                for (AbruptBlock a: c.getAbruptTry(_an, _anEl)) {
+                    if (a instanceof Throwing) {
+                        CustList<StringMap<Assignment>> li_ = id_.getVal(a).getMutableLoop().lastValue();
+                        if (li_.isValidIndex(i)) {
+                            throws_.add(li_.get(i));
+                        }
+                    } else {
+                        CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getMutableLoopRootBefore();
+                        if (li_.isValidIndex(i)) {
+                            others_.add(li_.get(i));
+                        }
+                    }
                 }
             }
-            out_.add(buildAssBefNextSibling(tryAfter_, tryBefore_, throws_, others_,catchs_));
+            for (AbstractCatchEval c: _catchs) {
+                if (_anEl.canCompleteNormally(c)) {
+                    CustList<StringMap<SimpleAssignment>> li_ = id_.getVal(c).getMutableLoopRoot();
+                    if (li_.isValidIndex(i)) {
+                        catchs_.add(li_.get(i));
+                    }
+                }
+            }
+            out_.add(buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_,catchs_));
         }
         return out_;
     }
-    protected static StringMap<AssignmentBefore> buildAssBefNextSibling(StringMap<SimpleAssignment> _tryAfter,
+    protected static StringMap<AssignmentBefore> buildAssBefNextCatchFinally(StringMap<SimpleAssignment> _tryAfter,
             StringMap<AssignmentBefore> _tryBefore,CustList<StringMap<Assignment>> _throws,
             CustList<StringMap<AssignmentBefore>> _others, CustList<StringMap<SimpleAssignment>> _catchs) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
@@ -1454,27 +1522,5 @@ public abstract class BracedStack extends BracedBlock {
             breaks_.add(f.getKey());
         }
         return breaks_;
-    }
-    protected static StringMap<SimpleAssignment> buildAssAfter(StringMap<BooleanAssignment> _loop, CustList<StringMap<AssignmentBefore>> _breakAss) {
-        StringMap<SimpleAssignment> out_ = new StringMap<SimpleAssignment>();
-        for (EntryCust<String,BooleanAssignment> e: _loop.entryList()) {
-            BooleanAssignment ba_ = e.getValue();
-            boolean ass_ = ba_.isAssignedAfterWhenFalse();
-            boolean unass_ = ba_.isUnassignedAfterWhenFalse();
-            String key_ = e.getKey();
-            for (StringMap<AssignmentBefore> b: _breakAss) {
-                if (!b.contains(key_)) {
-                    continue;
-                }
-                if (!b.getVal(key_).isAssignedBefore()) {
-                    ass_ = false;
-                }
-                if (!b.getVal(key_).isUnassignedBefore()) {
-                    unass_ = false;
-                }
-            }
-            out_.put(key_, Assignment.assignClassic(ass_, unass_));
-        }
-        return out_;
     }
 }

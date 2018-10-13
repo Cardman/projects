@@ -12,7 +12,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringList;
 
-public class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
+public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     private boolean init;
     private CustList<OperationNode> ops;

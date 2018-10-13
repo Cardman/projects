@@ -15,6 +15,7 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.EmptyTagName;
+import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
@@ -26,6 +27,7 @@ import code.expressionlanguage.opers.util.BooleanAssignment;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.LoopBlockStack;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -93,8 +95,12 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         finalOffset = _final.getOffset();
     }
 
-    @Override
     public String getLabel() {
+        return label;
+    }
+
+    @Override
+    public String getRealLabel() {
         return label;
     }
 
@@ -244,9 +250,9 @@ public final class ForMutableIterativeLoop extends BracedStack implements
                 }
             }
         } else {
-            fields_ = buildAssListFieldBeforeNextSibling(_an, _an.getAnalysisAss());
-            variables_ = buildAssListLocVarBeforeNextSibling(_an, _an.getAnalysisAss());
-            mutable_ = buildAssListMutableLoopBeforeNextSibling(_an, _an.getAnalysisAss());
+            fields_ = buildAssListFieldBeforeIncrPart(_an, _an.getAnalysisAss());
+            variables_ = buildAssListLocVarBeforeIncrPart(_an, _an.getAnalysisAss());
+            mutable_ = buildAssListMutableLoopBeforeIncrPart(_an, _an.getAnalysisAss());
         }
         vars_.getFieldsBefore().put(_root, fields_);
         vars_.getVariablesBefore().put(_root, variables_);
@@ -317,6 +323,16 @@ public final class ForMutableIterativeLoop extends BracedStack implements
             opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         }
         if (!opExp.isEmpty()) {
+            OperationNode elCondition_ = opExp.last();
+            LgNames stds_ = _cont.getStandards();
+            if (!elCondition_.getResultClass().isBoolType(_cont)) {
+                UnexpectedTypeError un_ = new UnexpectedTypeError();
+                un_.setFileName(getFile().getFileName());
+                un_.setRc(getRowCol(0, expressionOffset));
+                un_.setType(opExp.last().getResultClass());
+                _cont.getClasses().addError(un_);
+            }
+            elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
             buildConditions(_cont);
         } else {
             AssignedBooleanVariables res_ = (AssignedBooleanVariables) _cont.getAnalyzing().getAssignedVariables().getFinalVariables().getVal(this);
@@ -506,14 +522,14 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         processFinalVars(_an, _anEl, allDesc_, varsWhile_, varsHypot_);
         processFinalMutableLoop(_an, _anEl, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
-        fieldsAfter_= buildAssListFieldAfter(_an, _anEl);
+        fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;
-        varsAfter_ = buildAssListLocVarAfter(_an, _anEl);
+        varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
         varsWhile_.getVariablesRoot().clear();
         varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-        mutableAfter_ = buildAssListMutableLoopAfter(_an, _anEl);
+        mutableAfter_ = buildAssListMutableLoopAfterLoop(_an, _anEl);
         varsWhile_.getMutableLoopRoot().clear();
         varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
     }
