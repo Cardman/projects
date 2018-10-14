@@ -106,6 +106,7 @@ public interface Analyzable {
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
 
+    String lookupImportMemberType(String _type, AccessingImportingBlock _rooted);
     String lookupImportType(String _type, AccessingImportingBlock _rooted);
 
     boolean isDirectImport();

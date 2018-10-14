@@ -30,7 +30,7 @@ final class InnerPartType extends ParentPartType {
 
     @Override
     public void analyzeDepends(Analyzable _an,
-            CustList<NatTreeMap<Integer, String>> _dels,
+            int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
@@ -42,6 +42,20 @@ final class InnerPartType extends ParentPartType {
         int len_ = ch_.size();
         for (int i = 0; i < len_; i++) {
             types_.addAllElts(ch_.get(i).getTypeNames());
+        }
+        String t_ = ch_.last().getAnalyzedType();
+        setAnalyzedType(t_);
+    }
+    @Override
+    public void analyzeInherits(Analyzable _an, int _index,
+            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            AccessingImportingBlock _rooted, boolean _exact,
+            boolean _protected, RowCol _location) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
         }
         String t_ = ch_.last().getAnalyzedType();
         setAnalyzedType(t_);

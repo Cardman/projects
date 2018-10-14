@@ -672,6 +672,7 @@ public final class Classes {
                 StringList foundNames_ = new StringList();
                 for (EntryCust<Integer, String> e: r_.getRowColDirectSuperTypes().entryList()) {
                     String s = e.getValue();
+                    s = ContextEl.removeDottedSpaces(s);
                     String idSuper_ = Templates.getIdFromAllTypes(s);
                     int offset_ = r_.getRowColDirectSuperTypes().getKey(index_);
                     RowCol rc_ = r_.getRowCol(0, offset_);
@@ -686,7 +687,7 @@ public final class Classes {
                         continue;
                     }
                     StringList inners_ = Templates.getAllInnerTypes(idSuper_);
-                    String base_ = inners_.first();
+                    String base_ = inners_.first().trim();
                     if (base_.isEmpty()) {
                         if (inners_.size() == 1) {
                             //ERROR
@@ -872,7 +873,7 @@ public final class Classes {
                         continue;
                     }
                     if (s_ instanceof UniqueRootedBlock) {
-                        dirSuper_ = s_.getFullName();
+                        dirSuper_ = f;
                     }
                     r_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                 }
@@ -886,7 +887,7 @@ public final class Classes {
                         for (String d: sup_.getImportedDirectBaseSuperTypes()) {
                             RootBlock sTwo_ = getClassBody(d);
                             if (sTwo_ instanceof UniqueRootedBlock) {
-                                dirSup_ = sTwo_.getFullName();
+                                dirSup_ = d;
                             }
                         }
                         s_ = dirSup_;
@@ -1119,7 +1120,7 @@ public final class Classes {
                     }
                     if (s_ instanceof UniqueRootedBlock) {
                         nbDirectSuperClass_++;
-                        dirSuper_ = s_.getFullName();
+                        dirSuper_ = f;
                     }
                     r_.getAllSuperTypes().addAllElts(s_.getAllSuperTypes());
                 }
@@ -1132,7 +1133,7 @@ public final class Classes {
                         for (String d: sup_.getImportedDirectBaseSuperTypes()) {
                             RootBlock sTwo_ = getClassBody(d);
                             if (sTwo_ instanceof UniqueRootedBlock) {
-                                dirSup_ = sTwo_.getFullName();
+                                dirSup_ = d;
                             }
                         }
                         s_ = dirSup_;

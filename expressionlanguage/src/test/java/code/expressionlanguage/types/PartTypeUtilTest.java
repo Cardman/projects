@@ -831,7 +831,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo", 0, context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -860,7 +860,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<OuterFour>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<OuterFour>",0, context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -891,7 +891,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<OuterFive<OuterFour>>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<OuterFive<OuterFour>>", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -920,7 +920,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer..InnerTwo");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo..InnerThree",context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo..InnerThree",0,context_, root_, true, rc_);
         assertEq(0, solved_.size());
     }
     @Test
@@ -948,7 +948,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer..InnerTwo");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree", 0,context_, root_, true, rc_);
         assertEq(1, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
     }
@@ -985,7 +985,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree..InnerInner", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree..InnerInner", 0,context_, root_, true, rc_);
         assertEq(2, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
         assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
@@ -1025,7 +1025,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer..InnerTwo..InnerSubTwo");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("..InnerThree..InnerInner", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("..InnerThree..InnerInner", 0,context_, root_, true, rc_);
         assertEq(3, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
         assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
@@ -1056,7 +1056,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer..InnerTwo");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer..InnerThree", 0,context_, root_, true, rc_);
         assertEq(1, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
     }
@@ -1085,7 +1085,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer..InnerTwo");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<java.lang.Number>..InnerThree", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<java.lang.Number>..InnerThree", 0,context_, root_, true, rc_);
         assertEq(1, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
     }
@@ -1114,7 +1114,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer..InnerTwo");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<java.lang.Number>..InnerThree<java.lang.String>",context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<java.lang.Number>..InnerThree<java.lang.String>",0,context_, root_, true, rc_);
         assertEq(1, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
     }
@@ -1143,7 +1143,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer..InnerTwo");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("..InnerThree<java.lang.String>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("..InnerThree<java.lang.String>", 0,context_, root_, true, rc_);
         assertEq(1, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
     }
@@ -1183,7 +1183,7 @@ public final class PartTypeUtilTest {
         context_.getAvailableVariables().add("D");
         context_.getAvailableVariables().add("H");
         context_.getAvailableVariables().add("I");
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<#D>..InnerThree<#H>..InnerInner<#I>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<#D>..InnerThree<#H>..InnerInner<#I>", 0,context_, root_, true, rc_);
         assertEq(2, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
         assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
@@ -1205,7 +1205,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo[]", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo[]", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -1226,7 +1226,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo<java.lang.Number>[]", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo<java.lang.Number>[]", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -1266,7 +1266,7 @@ public final class PartTypeUtilTest {
         context_.getAvailableVariables().add("D");
         context_.getAvailableVariables().add("H");
         context_.getAvailableVariables().add("I");
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<#D[]>..InnerThree<#H[]>..InnerInner<#I[]>[]", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("Outer<#D[]>..InnerThree<#H[]>..InnerInner<#I[]>[]", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(2, solved_.size());
         assertTrue(solved_.containsStr("pkg.Outer"));
@@ -1285,7 +1285,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("$Fct<$void>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("$Fct<$void>", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -1314,7 +1314,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<?OuterFour>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<?OuterFour>", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -1343,7 +1343,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<?>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<?>", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -1372,7 +1372,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<!OuterFour>", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterThree<!OuterFour>", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -1393,7 +1393,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo<?java.lang.Number>[]", context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("OuterTwo<?java.lang.Number>[]", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }

@@ -74,8 +74,9 @@ abstract class PartType {
         return new WildCardPartType(_parent, _index, _indexInType, _analyze.getOperators().firstValue());
     }
     public abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact, boolean _protected, RowCol _location);
+    public abstract void analyzeInherits(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact, boolean _protected, RowCol _location);
     public abstract void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,boolean _exact);
-    public abstract void analyzeDepends(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, RootBlock _rooted,boolean _exact, RowCol _location);
+    public abstract void analyzeDepends(Analyzable _an, int _index, CustList<NatTreeMap<Integer, String>>_dels, RootBlock _rooted,boolean _exact, RowCol _location);
     public StringList getTypeNames() {
         return typeNames;
     }

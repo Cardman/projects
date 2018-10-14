@@ -1305,7 +1305,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     /**Used at building mapping constraints*/
     public String resolveTypeMapping(String _in, RootBlock _currentBlock,
-            RowCol _location, boolean _wildCard) {
+            RowCol _location) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
@@ -1326,7 +1326,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().addAllElts(variables_);
         setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true, !_wildCard, _location);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true, true, _location);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
@@ -1335,22 +1335,54 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             classes.addError(un_);
             return standards.getAliasObject();
         }
-        if (_wildCard) {
-            for (String p:Templates.getAllTypes(resType_).mid(1)){
-                if (p.startsWith(Templates.SUB_TYPE)) {
-                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                    call_.setType(resType_);
-                    call_.setFileName(_currentBlock.getFile().getFileName());
-                    call_.setRc(_location);
-                    classes.addError(call_);
-                }
-                if (p.startsWith(Templates.SUP_TYPE)) {
-                    IllegalCallCtorByType call_ = new IllegalCallCtorByType();
-                    call_.setType(resType_);
-                    call_.setFileName(_currentBlock.getFile().getFileName());
-                    call_.setRc(_location);
-                    classes.addError(call_);
-                }
+        return resType_;
+    }
+    /**Used at building mapping constraints*/
+    public String resolveTypeInherits(String _in, RootBlock _currentBlock,
+            RowCol _location, int _index) {
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in.trim(), void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setRc(_location);
+            un_.setType(_in);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
+        StringList variables_ = new StringList();
+        for (RootBlock r: _currentBlock.getSelfAndParentTypes()) {
+            for (TypeVar t: r.getParamTypes()) {
+                variables_.add(t.getName());
+            }
+        }
+        //No need to call Templates.isCorrect
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(variables_);
+        setDirectImport(false);
+        String gl_ = _currentBlock.getGenericString();
+        String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _index, gl_, this, _currentBlock, true, false, _location);
+        if (resType_.trim().isEmpty()) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_in);
+            un_.setFileName(_currentBlock.getFile().getFileName());
+            un_.setRc(_location);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
+        for (String p:Templates.getAllTypes(resType_).mid(1)){
+            if (p.startsWith(Templates.SUB_TYPE)) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(resType_);
+                call_.setFileName(_currentBlock.getFile().getFileName());
+                call_.setRc(_location);
+                classes.addError(call_);
+            }
+            if (p.startsWith(Templates.SUP_TYPE)) {
+                IllegalCallCtorByType call_ = new IllegalCallCtorByType();
+                call_.setType(resType_);
+                call_.setFileName(_currentBlock.getFile().getFileName());
+                call_.setRc(_location);
+                classes.addError(call_);
             }
         }
         return resType_;
@@ -1479,6 +1511,125 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return res_;
     }
 
+    @Override
+    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted) {
+        String prefixedType_ = getPrefixedMemberType(_type, _rooted);
+        if (prefixedType_.isEmpty()) {
+            return EMPTY_TYPE;
+        }
+        String trQual_ = prefixedType_.trim();
+        String typeFound_ = trQual_;
+        boolean stQualifier_ = startsWithPrefixKeyWord(trQual_, KEY_WORD_STATIC);
+        if (stQualifier_) {
+            typeFound_ = typeFound_.substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+        }
+        StringList inners_ = Templates.getAllInnerTypes(typeFound_);
+        String res_ = inners_.first();
+        String fullName_;
+        if (_rooted instanceof RootBlock) {
+            fullName_ = ((RootBlock)_rooted).getFullName();
+        } else {
+            fullName_ = null;
+        }
+        int index_ = 1;
+        int max_ = inners_.size() - 1;
+        for (String i: inners_.mid(1)) {
+            StringList builtInners_ = TypeUtil.getBuiltInners(fullName_,res_, i.trim(), stQualifier_ || index_ < max_, this);
+            if (builtInners_.size() == 1) {
+                res_ = builtInners_.first();
+                index_++;
+                continue;
+            }
+            return EMPTY_TYPE;
+        }
+        return res_;
+    }
+    public String getPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
+        String look_ = _type.trim();
+        StringList types_ = new StringList();
+        CustList<StringList> imports_ = new CustList<StringList>();
+        CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
+        if (_rooted instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _rooted;
+            imports_.add(r_.getImports());
+            roots_.add(r_);
+            for (RootBlock r: r_.getAllParentTypes()) {
+                imports_.add(r.getImports());
+                roots_.add(r);
+            }
+        } else {
+            imports_.add(_rooted.getImports());
+            roots_.add(_rooted);
+        }
+        for (StringList s: imports_) {
+            for (String i: s) {
+                if (!i.contains("..")) {
+                    continue;
+                }
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
+                if (!StringList.quickEq(end_, look_)) {
+                    continue;
+                }
+                String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
+                types_.add(typeLoc_);
+            }
+            if (types_.size() == 1) {
+                return types_.first();
+            }
+            types_.clear();
+        }
+        for (String i: _rooted.getFile().getImports()) {
+            if (!i.contains("..")) {
+                continue;
+            }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")+2));
+            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
+            if (!StringList.quickEq(end_, look_)) {
+                continue;
+            }
+            String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
+            types_.add(typeLoc_);
+        }
+        if (types_.size() == 1) {
+            return types_.first();
+        }
+        types_.clear();
+        for (StringList s: imports_) {
+            for (String i: s) {
+                if (!i.contains("..")) {
+                    continue;
+                }
+                String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
+                if (!StringList.quickEq(end_, "*")) {
+                    continue;
+                }
+                String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")));
+                String typeLoc_ = StringList.concat(begin_,"..",look_);
+                types_.add(typeLoc_);
+            }
+            if (types_.size() == 1) {
+                return types_.first();
+            }
+            types_.clear();
+        }
+        for (String i: _rooted.getFile().getImports()) {
+            if (!i.contains("..")) {
+                continue;
+            }
+            String end_ = removeDottedSpaces(i.substring(i.lastIndexOf("..")+2));
+            if (!StringList.quickEq(end_, "*")) {
+                continue;
+            }
+            String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf("..")));
+            String typeLoc_ = StringList.concat(begin_,"..",look_);
+            types_.add(typeLoc_);
+        }
+        if (types_.size() == 1) {
+            return types_.first();
+        }
+        return EMPTY_TYPE;
+    }
     @Override
     public String lookupImportType(String _type, AccessingImportingBlock _rooted) {
         String look_ = _type.trim();
@@ -2068,7 +2219,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return null;
     }
 
-    private static boolean startsWithPrefixKeyWord(String _found, String _keyWord) {
+    public static boolean startsWithPrefixKeyWord(String _found, String _keyWord) {
         String prefix_ = prefixKeyWord(_keyWord);
         if (!_found.startsWith(prefix_)) {
             return false;
@@ -2080,7 +2231,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         char first_ = sub_.charAt(0);
         return !StringList.isDollarWordChar(first_);
     }
-    private static String prefixKeyWord(String _keyWord) {
+    public static String prefixKeyWord(String _keyWord) {
         return StringList.concat(String.valueOf(KEY_WORD_PREFIX), _keyWord);
     }
 

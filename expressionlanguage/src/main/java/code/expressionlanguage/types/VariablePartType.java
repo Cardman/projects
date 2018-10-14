@@ -19,8 +19,16 @@ final class VariablePartType extends LeafPartType {
 
     @Override
     public void analyzeDepends(Analyzable _an,
-            CustList<NatTreeMap<Integer, String>> _dels,
+            int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact, RowCol _location) {
+        if (getParent() instanceof InnerPartType) {
+            stopDepends();
+            return;
+        }
+        if (getParent() instanceof TemplatePartType && getIndex() == 0) {
+            stopDepends();
+            return;
+        }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
@@ -36,8 +44,34 @@ final class VariablePartType extends LeafPartType {
         setAnalyzedType(t_);
     }
     @Override
+    public void analyzeInherits(Analyzable _an, int _index,
+            CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
+            AccessingImportingBlock _rooted, boolean _exact,
+            boolean _protected, RowCol _location) {
+        if (getParent() instanceof InnerPartType) {
+            return;
+        }
+        if (getParent() instanceof TemplatePartType && getIndex() == 0) {
+            return;
+        }
+        String type_ = getTypeName();
+        String t_ = StringList.removeAllSpaces(type_);
+        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        type_ = ContextEl.removeDottedSpaces(type_);
+        if (!_an.getAvailableVariables().containsStr(type_)) {
+            return;
+        }
+        setAnalyzedType(t_);
+    }
+    @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact, boolean _protected, RowCol _location) {
+        if (getParent() instanceof InnerPartType) {
+            return;
+        }
+        if (getParent() instanceof TemplatePartType && getIndex() == 0) {
+            return;
+        }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
@@ -50,6 +84,12 @@ final class VariablePartType extends LeafPartType {
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
+        if (getParent() instanceof InnerPartType) {
+            return;
+        }
+        if (getParent() instanceof TemplatePartType && getIndex() == 0) {
+            return;
+        }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();

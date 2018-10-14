@@ -258,9 +258,9 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            i_++;
             RowCol rc_ = getRowCol(0,index_);
-            String s_ = _classes.resolveTypeMapping(s, this,rc_, true);
+            String s_ = _classes.resolveTypeInherits(s, this,rc_,i_);
+            i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);
             if (!(r_ instanceof ClassBlock)) {

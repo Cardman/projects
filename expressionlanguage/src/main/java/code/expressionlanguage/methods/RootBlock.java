@@ -137,9 +137,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         int i_ = 0;
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            i_++;
             RowCol rc_ = getRowCol(0,index_);
-            StringList list_ = PartTypeUtil.processAnalyzeDepends(s, _an, this, true, rc_);
+            StringList list_ = PartTypeUtil.processAnalyzeDepends(s, i_,_an, this, true, rc_);
+            i_++;
             if (list_ == null) {
                 return null;
             }
@@ -256,7 +256,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             for (TypeVar t: r.paramTypes) {
                 StringList const_ = new StringList();
                 for (String c: t.getConstraints()) {
-                    const_.add(_analyze.resolveTypeMapping(c,r, rc_, false));
+                    const_.add(_analyze.resolveTypeMapping(c,r, rc_));
                 }
                 TypeVar t_ = new TypeVar();
                 t_.setConstraints(const_);
