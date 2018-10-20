@@ -17,6 +17,8 @@ abstract class ParentPartType extends PartType {
         }
         p_.setNextSibling(_child);
     }
+    public abstract String getPrettyBegin();
+    public abstract String getPrettyEnd();
     public abstract String getBegin();
     public abstract String getSeparator(int _index);
     public abstract String getEnd();

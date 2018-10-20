@@ -187,6 +187,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasSetPolymorph("setPolymorph");
         _lgNames.setAliasIsAbstract("isAbstract");
         _lgNames.setAliasGetName("getName");
+        _lgNames.setAliasGetPrettyName("getPrettyName");
         _lgNames.setAliasGetField("get");
         _lgNames.setAliasSetField("set");
         _lgNames.setAliasGetClass("getClass");

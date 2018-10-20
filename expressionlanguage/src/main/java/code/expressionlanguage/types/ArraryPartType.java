@@ -16,6 +16,11 @@ final class ArraryPartType extends ParentPartType {
     }
 
     @Override
+    public String getPrettyBegin() {
+        return EMPTY_STRING;
+    }
+
+    @Override
     public String getBegin() {
         return Templates.ARR_BEG_STRING;
     }
@@ -25,6 +30,10 @@ final class ArraryPartType extends ParentPartType {
         return EMPTY_STRING;
     }
 
+    @Override
+    public String getPrettyEnd() {
+        return "[]";
+    }
     @Override
     public String getEnd() {
         return EMPTY_STRING;

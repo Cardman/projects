@@ -16,6 +16,10 @@ final class TemplatePartType extends ParentPartType {
     }
 
     @Override
+    public String getPrettyBegin() {
+        return EMPTY_STRING;
+    }
+    @Override
     public String getBegin() {
         return EMPTY_STRING;
     }
@@ -28,6 +32,10 @@ final class TemplatePartType extends ParentPartType {
         return Templates.TEMPLATE_SEP;
     }
 
+    @Override
+    public String getPrettyEnd() {
+        return Templates.TEMPLATE_END;
+    }
     @Override
     public String getEnd() {
         return Templates.TEMPLATE_END;

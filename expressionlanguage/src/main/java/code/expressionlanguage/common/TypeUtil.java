@@ -73,7 +73,7 @@ public final class TypeUtil {
                 String base_ = ContextEl.removeDottedSpaces(ints_.get(i));
                 _context.getAnalyzing().setCurrentBlock(bl_);
                 _context.getAnalyzing().setOffset(offset_);
-                base_ = _context.resolveCorrectType(base_,false);
+                base_ = _context.resolveIdType(base_);
                 RootBlock r_ = classes_.getClassBody(base_);
                 if (r_ == null) {
                     UnknownClassName undef_;
@@ -102,7 +102,7 @@ public final class TypeUtil {
                 _context.getAnalyzing().setCurrentBlock(bl_);
                 _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                 _context.getAnalyzing().setOffset(offsetSup_);
-                sup_ = _context.resolveCorrectType(sup_,false);
+                sup_ = _context.resolveIdType(sup_);
                 RootBlock rs_ = classes_.getClassBody(sup_);
                 if (rs_ == null) {
                     continue;
@@ -113,7 +113,7 @@ public final class TypeUtil {
                     _context.getAnalyzing().setCurrentBlock(bl_);
                     _context.getAnalyzing().setGlobalClass(bl_.getGenericString());
                     _context.getAnalyzing().setOffset(offsetSub_);
-                    sub_ = _context.resolveCorrectType(sub_,false);
+                    sub_ = _context.resolveIdType(sub_);
                     rs_ = classes_.getClassBody(sub_);
                     if (rs_ == null) {
                         continue;
@@ -804,14 +804,21 @@ public final class TypeUtil {
         return eq_;
     }
 
-    public static StringList getBuiltInners(String _gl, String _root, String _innerName, boolean _static,Analyzable _an) {
+    public static StringList getBuiltInners(boolean _protectedInc,String _gl, String _root, String _innerName, boolean _static,Analyzable _an) {
         StringList inners_ = new StringList();
-        for (String o: getBuildingOwners(_gl, _root, _innerName, _static, _an)) {
+        for (String o: getOwners(true,_protectedInc, _gl, _root, _innerName, _static, _an)) {
             inners_.add(StringList.concat(o,"..",_innerName));
         }
         return inners_;
     }
-    public static StringList getBuildingOwners(String _gl, String _root, String _innerName, boolean _staticOnly,Analyzable _an) {
+    public static StringList getInners(boolean _protectedInc,String _gl, String _root, String _innerName, boolean _static,Analyzable _an) {
+        StringList inners_ = new StringList();
+        for (String o: getOwners(false,_protectedInc, _gl, _root, _innerName, _static, _an)) {
+            inners_.add(StringList.concat(o,"..",_innerName));
+        }
+        return inners_;
+    }
+    public static StringList getOwners(boolean _inherits,boolean _protectedInc,String _gl, String _root, String _innerName, boolean _staticOnly,Analyzable _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         while (true) {
@@ -823,7 +830,7 @@ public final class TypeUtil {
                 }
                 RootBlock sub_ = (RootBlock)g_;
                 boolean add_ = false;
-                for (RootBlock b: Classes.accessedClassMembers(false, _root,_gl,sub_, _an)) {
+                for (RootBlock b: Classes.accessedClassMembers(_inherits, _protectedInc, _root,_gl,sub_, _an)) {
                     if (_staticOnly) {
                         if (!b.isStaticType()) {
                             continue;
@@ -847,7 +854,49 @@ public final class TypeUtil {
             }
             ids_ = new_;
         }
+        owners_.removeDuplicates();
         return owners_;
+    }
+    public static TypeOwnersDepends getOwnersDepends(boolean _protectedInc,String _gl, String _root, String _innerName, Analyzable _an) {
+        TypeOwnersDepends out_ = new TypeOwnersDepends();
+        StringList ids_ = new StringList(_root);
+        StringList owners_ = new StringList();
+        StringList depends_ = new StringList();
+        while (true) {
+            StringList new_ = new StringList();
+            for (String s: ids_) {
+                GeneType g_ = _an.getClassBody(s);
+                if (!(g_ instanceof RootBlock)) {
+                    continue;
+                }
+                RootBlock sub_ = (RootBlock)g_;
+                boolean add_ = false;
+                for (RootBlock b: Classes.accessedClassMembers(true, _protectedInc, _root,_gl,sub_, _an)) {
+                    String name_ = b.getName();
+                    if (StringList.quickEq(name_, _innerName)) {
+                        owners_.add(s);
+                        add_ = true;
+                    }
+                }
+                if (add_) {
+                    continue;
+                }
+                if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
+                    depends_.add(s);
+                }
+                for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                    new_.add(t);
+                }
+            }
+            if (new_.isEmpty()) {
+                break;
+            }
+            ids_ = new_;
+        }
+        owners_.removeDuplicates();
+        out_.getTypeOwners().addAllElts(owners_);
+        out_.getDepends().addAllElts(depends_);
+        return out_;
     }
     public static EqList<ClassMethodId> getAllDuplicates(GeneType _type, ContextEl _classes) {
         EqList<ClassMethodId> list_;

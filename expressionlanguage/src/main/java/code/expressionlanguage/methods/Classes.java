@@ -708,21 +708,77 @@ public final class Classes {
                             p_ = p_.getParentType();
                         }
                         String name_ = EMPTY_STRING;
+                        boolean realdAncestors_ = true;
                         for (RootBlock a: allAncestors_) {
                             String id_ = a.getFullName();
                             if (!builtTypes_.contains(id_)) {
                                 continue;
                             }
                             if (!builtTypes_.getVal(id_)) {
+                                realdAncestors_ = false;
                                 break;
                             }
-                            StringList builtInners_ = TypeUtil.getBuiltInners(c,id_, baseInn_,true, _context);
+                        }
+                        if (!realdAncestors_) {
+                            ready_ = false;
+                            break;
+                        }
+                        for (RootBlock a: allAncestors_) {
+                            String id_ = a.getFullName();
+                            if (!builtTypes_.contains(id_)) {
+                                continue;
+                            }
+                            StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == 2,c,id_, baseInn_,true, _context);
                             if (builtInners_.size() == 1) {
                                 name_ = builtInners_.first();
                                 break;
                             }
                         }
                         if (name_.isEmpty()) {
+                            String resImport_ = _context.lookupImportMemberType(baseInn_, r_, true);
+                            if (resImport_.isEmpty()) {
+                                UnknownClassName undef_;
+                                undef_ = new UnknownClassName();
+                                undef_.setClassName(base_);
+                                undef_.setFileName(r_.getFile().getFileName());
+                                undef_.setRc(rc_);
+                                addError(undef_);
+                                index_++;
+                                continue;
+                            }
+                            name_ = resImport_;
+                            if (!builtTypes_.getVal(name_)) {
+                                ready_ = false;
+                                break;
+                            }
+                        }
+                        boolean err_ = false;
+                        int i_ = 2;
+                        for (String i: inners_.mid(2)) {
+                            if (!builtTypes_.getVal(name_)) {
+                                ready_ = false;
+                                break;
+                            }
+                            StringList builtInners_ = TypeUtil.getBuiltInners(i_ + 1 == inners_.size(), c,name_, i.trim(), true, _context);
+                            if (builtInners_.size() != 1) {
+                                err_ = true;
+                                //ERROR
+                                UnknownClassName undef_;
+                                undef_ = new UnknownClassName();
+                                undef_.setClassName(base_);
+                                undef_.setFileName(r_.getFile().getFileName());
+                                undef_.setRc(rc_);
+                                addError(undef_);
+                                break;
+                            }
+                            i_++;
+                            name_ = builtInners_.first();
+                        }
+                        if (err_) {
+                            index_++;
+                            continue;
+                        }
+                        if (!builtTypes_.getVal(name_)) {
                             ready_ = false;
                             break;
                         }
@@ -743,12 +799,13 @@ public final class Classes {
                         continue;
                     }
                     boolean err_ = false;
+                    int i_ = 1;
                     for (String i: inners_.mid(1)) {
                         if (!builtTypes_.getVal(res_)) {
                             ready_ = false;
                             break;
                         }
-                        StringList builtInners_ = TypeUtil.getBuiltInners(c,res_, i.trim(), true, _context);
+                        StringList builtInners_ = TypeUtil.getBuiltInners(i_ + 1 == inners_.size(),c,res_, i.trim(), true, _context);
                         if (builtInners_.size() != 1) {
                             err_ = true;
                             //ERROR
@@ -760,6 +817,7 @@ public final class Classes {
                             addError(undef_);
                             break;
                         }
+                        i_++;
                         res_ = builtInners_.first();
                     }
                     if (err_) {
@@ -1534,7 +1592,7 @@ public final class Classes {
         }
         return false;
     }
-    public static CustList<RootBlock> accessedClassMembers(boolean _protectedInc,String _className, String _glClass,RootBlock _clOwner, Analyzable _context) {
+    public static CustList<RootBlock> accessedClassMembers(boolean _inherits,boolean _protectedInc,String _className, String _glClass,RootBlock _clOwner, Analyzable _context) {
         String idRoot_ = Templates.getIdFromAllTypes(_className);
         GeneType root_ = _context.getClassBody(idRoot_);
         String pkgRoot_ = root_.getPackageName();
@@ -1577,6 +1635,9 @@ public final class Classes {
                     }
                 }
                 if (StringList.quickEq(pkgOwner_, pkgGl_)){
+                    okGl_ = true;
+                }
+                if (_inherits && _protectedInc) {
                     okGl_ = true;
                 }
                 if (okGl_ && okRoot_) {

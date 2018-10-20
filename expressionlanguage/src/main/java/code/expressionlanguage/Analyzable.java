@@ -2,6 +2,7 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeOwnersDepends;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -100,13 +101,15 @@ public interface Analyzable {
     StringList getNeedInterfaces();
 
     String resolveCorrectType(String _in);
+    String resolveIdType(String _in);
     String resolveCorrectType(String _in, boolean _exact);
     String resolveCorrectTypeWithoutErrors(String _in, boolean _exact);
 
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);
     ObjectMap<ClassField,Integer> lookupImportStaticFields(String _glClass,String _field, Block _rooted);
 
-    String lookupImportMemberType(String _type, AccessingImportingBlock _rooted);
+    String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits);
+    TypeOwnersDepends lookupImportMemberTypeDeps(String _type, AccessingImportingBlock _rooted);
     String lookupImportType(String _type, AccessingImportingBlock _rooted);
 
     boolean isDirectImport();

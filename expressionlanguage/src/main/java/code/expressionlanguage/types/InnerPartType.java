@@ -19,6 +19,10 @@ final class InnerPartType extends ParentPartType {
     }
 
     @Override
+    public String getPrettyBegin() {
+        return EMPTY_STRING;
+    }
+    @Override
     public String getBegin() {
         return EMPTY_STRING;
     }
@@ -27,7 +31,14 @@ final class InnerPartType extends ParentPartType {
     public String getSeparator(int _index) {
         return Templates.INNER_TYPE;
     }
-
+    @Override
+    public String getPrettyEnd() {
+        return EMPTY_STRING;
+    }
+    @Override
+    public String getEnd() {
+        return EMPTY_STRING;
+    }
     @Override
     public void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
@@ -83,10 +94,6 @@ final class InnerPartType extends ParentPartType {
         }
         String t_ = ch_.last().getAnalyzedType();
         setAnalyzedType(t_);
-    }
-    @Override
-    public String getEnd() {
-        return EMPTY_STRING;
     }
 
     public boolean isRemovedBefore() {

@@ -40,7 +40,7 @@ public final class QualifiedThisOperation extends LeafOperation {
         if (className_.isEmpty()) {
             className_ = _conf.getGlobalClass();
         } else {
-            className_ = _conf.resolveCorrectType(className_,false);
+            className_ = _conf.resolveIdType(className_);
         }
         String id_ = Templates.getIdFromAllTypes(className_);
         GeneType g_ = _conf.getClassBody(id_);

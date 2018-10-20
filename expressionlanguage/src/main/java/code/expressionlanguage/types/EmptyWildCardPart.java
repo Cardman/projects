@@ -65,5 +65,4 @@ final class EmptyWildCardPart extends LeafPartType {
         }
         setImportedTypeName(Templates.SUB_TYPE);
     }
-
 }

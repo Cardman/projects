@@ -9,8 +9,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.AbstractMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
@@ -243,36 +242,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             for (String o: previousResultClass.getNames()) {
                 String idRoot_ = Templates.getIdFromAllTypes(o);
-                StringList ids_ = new StringList(idRoot_);
-                StringList owners_ = new StringList();
-                while (true) {
-                    StringList new_ = new StringList();
-                    for (String s: ids_) {
-                        GeneType g_ = _conf.getClassBody(s);
-                        if (!(g_ instanceof RootBlock)) {
-                            continue;
-                        }
-                        RootBlock sub_ = (RootBlock)g_;
-                        boolean add_ = false;
-                        for (RootBlock b: Classes.accessedClassMembers(true, idRoot_, glClass_, sub_, _conf)) {
-                            if (StringList.quickEq(b.getName(), idClass_)) {
-                                owners_.add(s);
-                                add_ = true;
-                            }
-                        }
-                        if (add_) {
-                            continue;
-                        }
-                        for (String t: sub_.getImportedDirectSuperTypes()) {
-                            String id_ = Templates.getIdFromAllTypes(t);
-                            new_.add(id_);
-                        }
-                    }
-                    if (new_.isEmpty()) {
-                        break;
-                    }
-                    ids_ = new_;
-                }
+                StringList owners_ = TypeUtil.getOwners(false,true, glClass_, idRoot_, idClass_, false, _conf);
                 owners_.removeDuplicates();
                 if (owners_.size() == 1) {
                     ownersMap_.put(o, owners_.first());

@@ -294,6 +294,7 @@ public final class PartTypeUtil {
         }
         return root_.getAnalyzedType();
     }
+
     public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact, boolean _protectedInc, RowCol _location) {
         Options options_ = _an.getOptions();
         Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
@@ -408,6 +409,60 @@ public final class PartTypeUtil {
             }
         }
         return root_.getAnalyzedType();
+    }
+    public static String processPrettyType(String _input,ExecutableCode _an) {
+        StringBuilder out_ = new StringBuilder();
+        Numbers<Integer> indexes_ = ParserType.getIndexesExec(_input);
+        AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
+        CustList<NatTreeMap<Integer, String>> dels_;
+        dels_ = new CustList<NatTreeMap<Integer, String>>();
+        boolean rem_ = loc_.isRemovedEmptyFirstChild();
+        PartType root_ = PartType.createPartTypeExec(null, 0, 0, loc_, loc_.getValues(), rem_);
+        addValues(root_, dels_, loc_);
+        PartType current_ = root_;
+        while (true) {
+            if (current_ == null) {
+                break;
+            }
+            if (current_ instanceof LeafPartType) {
+                String t_ = ((LeafPartType)current_).getTypeName();
+                out_.append(t_);
+            }
+            PartType child_ = createFirstChildExec(current_, loc_, dels_);
+            if (child_ != null) {
+                out_.append(((ParentPartType)current_).getPrettyBegin());
+                ((ParentPartType)current_).appendChild(child_);
+                current_ = child_;
+                continue;
+            }
+            boolean stop_ = false;
+            while (true) {
+                PartType next_ = createNextSiblingExec(current_, loc_, dels_);
+                ParentPartType par_ = current_.getParent();
+                if (next_ != null) {
+                    out_.append(par_.getSeparator(current_.getIndex()));
+                    par_.appendChild(next_);
+                    current_ = next_;
+                    break;
+                }
+                if (par_ == root_) {
+                    out_.append(par_.getPrettyEnd());
+                    stop_ = true;
+                    break;
+                }
+                if (par_ == null) {
+                    stop_ = true;
+                    break;
+                }
+                out_.append(par_.getPrettyEnd());
+                dels_.removeLast();
+                current_ = par_;
+            }
+            if (stop_) {
+                break;
+            }
+        }
+        return out_.toString();
     }
     public static String processExec(String _input,ExecutableCode _an) {
         StringBuilder out_ = new StringBuilder();

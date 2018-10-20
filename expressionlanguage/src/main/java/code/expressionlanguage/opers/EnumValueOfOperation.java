@@ -52,7 +52,7 @@ public final class EnumValueOfOperation extends MethodOperation {
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         String clName_;
-        clName_ = _conf.resolveCorrectType(className);
+        clName_ = _conf.resolveIdType(className);
         if (!(classes_.getClassBody(clName_) instanceof EnumBlock)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_conf.getCurrentFileName());

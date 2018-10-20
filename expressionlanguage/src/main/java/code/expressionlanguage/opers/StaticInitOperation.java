@@ -66,7 +66,7 @@ public final class StaticInitOperation extends LeafOperation {
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        className_ = _conf.resolveCorrectType(className_, false);
+        className_ = _conf.resolveCorrectType(className_);
         String argClName_;
         String type_ = Templates.getIdFromAllTypes(className_);
         String glClass_ = _conf.getGlobalClass();

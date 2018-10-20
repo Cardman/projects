@@ -66,6 +66,9 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         return new ExpressionLanguage(opRet);
     }
 
+    public CustList<OperationNode> getOpRet() {
+        return opRet;
+    }
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         FunctionBlock f_ = getFunction();

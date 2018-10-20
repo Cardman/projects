@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
@@ -35,7 +34,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String clCurName_ = _conf.getGlobalClass();
         String cl_ = getMethodName();
         cl_ = cl_.substring(cl_.indexOf(PAR_LEFT)+1, cl_.lastIndexOf(PAR_RIGHT));
-        cl_ = ContextEl.removeDottedSpaces(cl_);
+        cl_ = _conf.resolveIdType(cl_);
         if (!(_conf.getClasses().getClassBody(cl_) instanceof InterfaceBlock)) {
             BadConstructorCall call_ = new BadConstructorCall();
             call_.setFileName(_conf.getCurrentFileName());

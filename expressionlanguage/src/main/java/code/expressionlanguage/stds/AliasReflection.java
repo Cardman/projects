@@ -8,6 +8,7 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessEnum;
+import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
@@ -39,6 +40,7 @@ import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.opers.util.annotation.ExportAnnotationUtil;
+import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.Numbers;
@@ -118,6 +120,7 @@ public class AliasReflection {
     private String aliasIsPolymorph;
     private String aliasSetPolymorph;
     private String aliasGetName;
+    private String aliasGetPrettyName;
     private String aliasGetField;
     private String aliasSetField;
     private String aliasGetGenericType;
@@ -159,6 +162,9 @@ public class AliasReflection {
         stdcl_ = new StandardClass(aliasClass, fields_, constructors_, methods_, aliasAnnotated , MethodModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetPrettyName, params_, aliasString_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasGetClass, params_, aliasClass, false, MethodModifier.STATIC, stdcl_);
@@ -836,6 +842,11 @@ public class AliasReflection {
                 result_.setResult(new StringStruct(((ClassMetaInfo)_struct).getName()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetPrettyName)) {
+                String nameCl_ = ((ClassMetaInfo)_struct).getName();
+                result_.setResult(new StringStruct(PartTypeUtil.processPrettyType(nameCl_, _cont)));
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasGetEnclosingType)) {
                 String t_ = ((ClassMetaInfo)_struct).getTypeOwner();
                 if (t_.isEmpty()) {
@@ -1000,11 +1011,14 @@ public class AliasReflection {
                                 infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_));
                         continue;
                     }
+                    if (clblock_ instanceof AnnotationBlock) {
+                        classes_.add(new ClassMetaInfo(forName_, new StringList(), format_, inners_,
+                                infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,st_,acc_));
+                        continue;
+                    }
                     ClassCategory cat_ = ClassCategory.CLASS;
                     if (clblock_ instanceof EnumBlock) {
                         cat_ = ClassCategory.ENUM;
-                    } else if (clblock_ instanceof InterfaceBlock) {
-                        cat_ = ClassCategory.INTERFACE;
                     }
                     boolean abs_ = clblock_.isAbstractType();
                     boolean final_ = clblock_.isFinalType();
@@ -2074,6 +2088,12 @@ public class AliasReflection {
     }
     public void setAliasGetName(String _aliasGetName) {
         aliasGetName = _aliasGetName;
+    }
+    public String getAliasGetPrettyName() {
+        return aliasGetPrettyName;
+    }
+    public void setAliasGetPrettyName(String _aliasGetPrettyName) {
+        aliasGetPrettyName = _aliasGetPrettyName;
     }
     public String getAliasGetField() {
         return aliasGetField;

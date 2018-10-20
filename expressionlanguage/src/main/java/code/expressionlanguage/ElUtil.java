@@ -60,6 +60,8 @@ public final class ElUtil {
 
 
     public static CustList<OperationNode> getAnalyzedOperations(String _el, ContextEl _conf, Calculation _calcul) {
+        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
+        _conf.setStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         if (d_.getBadOffset() >= 0) {
             BadElError badEl_ = new BadElError();
@@ -92,7 +94,6 @@ public final class ElUtil {
         }
         _conf.setAnalyzingRoot(false);
         String fieldName_ = _calcul.getFieldName();
-        boolean hiddenVarTypes_ = _calcul.isStaticBlock();
         _conf.setStaticContext(hiddenVarTypes_ || op_ instanceof AbstractInvokingConstructor);
         if (op_ instanceof StandardInstancingOperation) {
             ((StandardInstancingOperation)op_).setFieldName(fieldName_);

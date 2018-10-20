@@ -11,6 +11,7 @@ import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeOwnersDepends;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -873,6 +874,10 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
+    public String resolveIdType(String _in) {
+        return resolveDynamicType(_in, null);
+    }
+    @Override
     public String resolveCorrectType(String _in) {
         return resolveDynamicType(_in, null);
     }
@@ -947,7 +952,12 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted) {
+    public TypeOwnersDepends lookupImportMemberTypeDeps(String _type,
+            AccessingImportingBlock _rooted) {
+        return new TypeOwnersDepends();
+    }
+    @Override
+    public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
         return ContextEl.removeDottedSpaces(_type);
     }
 

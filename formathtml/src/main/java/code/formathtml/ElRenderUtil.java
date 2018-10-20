@@ -85,6 +85,9 @@ public final class ElRenderUtil {
         context_.getAnalyzing().setVars(_conf.getVars());
         context_.getAnalyzing().setCatchVars(_conf.getCatchVars());
         context_.getAnalyzing().getParameters().putAllMap(_conf.getParameters());
+        Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
+        boolean static_ = argGl_ == null || argGl_.isNull();
+        _conf.setStaticContext(static_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         if (d_.getBadOffset() >= 0) {
             context_.setRootAffect(false);
@@ -115,9 +118,6 @@ public final class ElRenderUtil {
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
-        Argument argGl_ = _conf.getOperationPageEl().getGlobalArgument();
-        boolean static_ = argGl_ == null || argGl_.isNull();
-        _conf.setStaticContext(static_);
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, _conf);
         if (!_conf.getClasses().isEmptyErrors()) {
             context_.setRootAffect(false);

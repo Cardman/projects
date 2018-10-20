@@ -22,10 +22,18 @@ final class WildCardPartType extends ParentPartType {
     }
 
     @Override
+    public String getPrettyBegin() {
+        return prefix;
+    }
+    @Override
     public String getSeparator(int _index) {
         return EMPTY_STRING;
     }
 
+    @Override
+    public String getPrettyEnd() {
+        return EMPTY_STRING;
+    }
     @Override
     public String getEnd() {
         return EMPTY_STRING;

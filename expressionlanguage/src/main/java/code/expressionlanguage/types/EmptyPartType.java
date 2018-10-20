@@ -41,5 +41,4 @@ final class EmptyPartType extends LeafPartType {
     @Override
     public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
     }
-
 }

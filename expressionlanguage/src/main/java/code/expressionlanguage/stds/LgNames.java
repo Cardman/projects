@@ -4668,6 +4668,12 @@ public abstract class LgNames {
     public void setAliasGetName(String _aliasGetName) {
         reflect.setAliasGetName(_aliasGetName);
     }
+    public String getAliasGetPrettyName() {
+        return reflect.getAliasGetPrettyName();
+    }
+    public void setAliasGetPrettyName(String _aliasGetName) {
+        reflect.setAliasGetPrettyName(_aliasGetName);
+    }
     public String getAliasGetField() {
         return reflect.getAliasGetField();
     }

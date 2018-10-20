@@ -5,6 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
+import code.expressionlanguage.common.TypeOwnersDepends;
+import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
@@ -29,14 +31,26 @@ final class NamePartType extends LeafPartType {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
+        int sizeDels_ = -1;
+        int indexDels_ = -1;
+        boolean lastInner_ = false;
         if (getParent() instanceof InnerPartType) {
             parCur_ = this;
             i_ = (InnerPartType) getParent();
+            sizeDels_ = _dels.get(_dels.size() - 1).size();
+            indexDels_ = getIndex();
         } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
             parCur_ = getParent();
             i_ = (InnerPartType) getParent().getParent();
+            sizeDels_ = _dels.get(_dels.size() - 2).size();
+            indexDels_ = getParent().getIndex();
         }
         String fullName_ = _rooted.getFullName();
+        if (i_ != null) {
+            if (sizeDels_ == indexDels_ + 1) {
+                lastInner_ = true;
+            }
+        }
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
             if (part_ == null) {
@@ -44,7 +58,6 @@ final class NamePartType extends LeafPartType {
                 if (par_.isRemovedBefore()) {
                     String type_ = getTypeName();
                     RootBlock c = _rooted;
-                    StringList allPossibleDirectSuperTypes_ = new StringList();
                     CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
                     StringList allAncestors_ = new StringList();
                     RootBlock p_ = c.getParentType();
@@ -55,45 +68,25 @@ final class NamePartType extends LeafPartType {
                         p_ = p_.getParentType();
                     }
                     for (String a: allAncestors_) {
-                        StringList c_ = new StringList(a);
-                        while (true) {
-                            StringList new_ = new StringList();
-                            for (String s: c_) {
-                                RootBlock sub_ = classes_.getClassBody(s);
-                                if (sub_ == null) {
-                                    continue;
-                                }
-                                boolean add_ = false;
-                                for (RootBlock b: Classes.accessedClassMembers(false, a,fullName_, sub_, _an)) {
-                                    if (StringList.quickEq(b.getName(), type_)) {
-                                        allPossibleDirectSuperTypes_.add(s);
-                                        innersCandidates_.add(b);
-                                        add_ = true;
-                                    }
-                                }
-                                if (add_) {
-                                    continue;
-                                }
-                                if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
-                                    deps_.add(s);
-                                }
-                                for (String t: sub_.getImportedDirectBaseSuperTypes()) {
-                                    new_.add(t);
-                                }
-                            }
-                            if (new_.isEmpty()) {
-                                break;
-                            }
-                            c_ = new_;
+                        TypeOwnersDepends res_ = TypeUtil.getOwnersDepends(lastInner_, fullName_, a, type_, _an);
+                        StringList owners_ = res_.getTypeOwners();
+                        if (owners_.size() == 1) {
+                            String in_ = StringList.concat(owners_.first(),"..",type_);
+                            RootBlock inner_ = classes_.getClassBody(in_);
+                            innersCandidates_.add(inner_);
+                            deps_ = res_.getDepends();
+                            getTypeNames().addAllElts(deps_);
+                            String new_ = owners_.first();
+                            setAnalyzedType(StringList.concat(new_,"..",type_));
+                            return;
                         }
-                        if (allPossibleDirectSuperTypes_.size() == 1) {
-                            break;
-                        }
-                    }
-                    if (allPossibleDirectSuperTypes_.size() == 1) {
-                        String new_ = allPossibleDirectSuperTypes_.first();
-                        setAnalyzedType(StringList.concat(new_,"..",type_));
+                        deps_ = res_.getDepends();
                         getTypeNames().addAllElts(deps_);
+                    }
+                    TypeOwnersDepends res_ = _an.lookupImportMemberTypeDeps(type_, _rooted);
+                    StringList owners_ = res_.getTypeOwners();
+                    if (owners_.size() == 1) {
+                        setAnalyzedType(owners_.first());
                         return;
                     }
                     //ERROR
@@ -117,46 +110,19 @@ final class NamePartType extends LeafPartType {
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
             Classes classes_ = _an.getClasses();
-            StringList foundOwners_ = new StringList();
             StringList deps_ = new StringList();
             CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
-            StringList c_ = new StringList(id_);
             String type_ = getTypeName();
-            while (true) {
-                StringList new_ = new StringList();
-                for (String s: c_) {
-                    RootBlock sub_ = classes_.getClassBody(s);
-                    if (sub_ == null) {
-                        continue;
-                    }
-                    boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(false, id_, fullName_,sub_, _an)) {
-                        if (StringList.quickEq(b.getName(), type_)) {
-                            foundOwners_.add(s);
-                            innersCandidates_.add(b);
-                            add_ = true;
-                        }
-                    }
-                    if (add_) {
-                        continue;
-                    }
-                    if (!sub_.getImportedDirectBaseSuperTypes().isEmpty()) {
-                        deps_.add(s);
-                    }
-                    for (String t: sub_.getImportedDirectBaseSuperTypes()) {
-                        new_.add(t);
-                    }
-                }
-                if (new_.isEmpty()) {
-                    break;
-                }
-                c_ = new_;
-            }
-            foundOwners_.removeDuplicates();
-            if (foundOwners_.size() == 1) {
-                String new_ = foundOwners_.first();
-                setAnalyzedType(StringList.concat(new_,"..",type_));
+            TypeOwnersDepends res_ = TypeUtil.getOwnersDepends(lastInner_, fullName_, id_, type_, _an);
+            StringList owners_ = res_.getTypeOwners();
+            if (owners_.size() == 1) {
+                String in_ = StringList.concat(owners_.first(),"..",type_);
+                RootBlock inner_ = classes_.getClassBody(in_);
+                innersCandidates_.add(inner_);
+                deps_ = res_.getDepends();
                 getTypeNames().addAllElts(deps_);
+                String new_ = owners_.first();
+                setAnalyzedType(StringList.concat(new_,"..",type_));
                 return;
             }
             //ERROR
@@ -260,12 +226,24 @@ final class NamePartType extends LeafPartType {
         CustList<PartType> previous_ = new CustList<PartType>();
         InnerPartType i_ = null;
         PartType parCur_ = null;
+        int sizeDels_ = -1;
+        int indexDels_ = -1;
         if (getParent() instanceof InnerPartType) {
             parCur_ = this;
             i_ = (InnerPartType) getParent();
+            sizeDels_ = _dels.get(_dels.size() - 1).size();
+            indexDels_ = getIndex();
         } else if (getParent() instanceof TemplatePartType && getParent().getParent() instanceof InnerPartType && getIndex() == 0) {
             parCur_ = getParent();
             i_ = (InnerPartType) getParent().getParent();
+            sizeDels_ = _dels.get(_dels.size() - 2).size();
+            indexDels_ = getParent().getIndex();
+        }
+        boolean lastInner_ = false;
+        if (i_ != null) {
+            if (sizeDels_ == indexDels_ + 1) {
+                lastInner_ = true;
+            }
         }
         if (i_ != null) {
             PartType part_ = parCur_.getPreviousSibling();
@@ -287,43 +265,19 @@ final class NamePartType extends LeafPartType {
                         return;
                     }
                     for (String a: allAncestors_) {
-                        GeneType g_ = _an.getClassBody(a);
-                        String genStr_ = g_.getGenericString();
-                        String f_ = Templates.quickFormat(_globalType, genStr_, _an);
-                        StringList c_ = new StringList(a);
-                        while (true) {
-                            StringList new_ = new StringList();
-                            for (String s: c_) {
-                                RootBlock sub_ = classes_.getClassBody(s);
-                                if (sub_ == null) {
-                                    continue;
-                                }
-                                boolean add_ = false;
-                                for (RootBlock b: Classes.accessedClassMembers(false, a, _globalType, sub_, _an)) {
-                                    if (StringList.quickEq(b.getName(), type_)) {
-                                        allPossibleDirectSuperTypes_.put(s,f_);
-                                        innersCandidates_.add(b);
-                                        add_ = true;
-                                    }
-                                }
-                                if (add_) {
-                                    continue;
-                                }
-                                for (String t: sub_.getImportedDirectSuperTypes()) {
-                                    String id_ = Templates.getIdFromAllTypes(t);
-                                    new_.add(id_);
-                                }
-                            }
-                            if (new_.isEmpty()) {
-                                break;
-                            }
-                            c_ = new_;
-                        }
-                        if (allPossibleDirectSuperTypes_.size() == 1) {
+                        StringList owners_ = TypeUtil.getOwners(true, lastInner_, _globalType, a, type_, false, _an);
+                        if (owners_.size() == 1) {
+                            RootBlock g_ = classes_.getClassBody(a);
+                            String genStr_ = g_.getGenericString();
+                            String f_ = Templates.quickFormat(_globalType, genStr_, _an);
+                            allPossibleDirectSuperTypes_.put(owners_.first(),f_);
+                            String in_ = StringList.concat(owners_.first(),"..",type_);
+                            RootBlock inner_ = classes_.getClassBody(in_);
+                            innersCandidates_.add(inner_);
                             break;
                         }
                     }
-                    if (allPossibleDirectSuperTypes_.size() == 1) {
+                    if (innersCandidates_.size() == 1) {
                         if (innersCandidates_.first().isStaticType()) {
                             String new_ = allPossibleDirectSuperTypes_.getKey(0);
                             setAnalyzedType(StringList.concat(new_,"..",type_));
@@ -340,6 +294,11 @@ final class NamePartType extends LeafPartType {
                         setAnalyzedType(StringList.concat(new_,"..",type_));
                         return;
                     }
+                    String owner_ = _an.lookupImportMemberType(type_, _rooted,true);
+                    if (!owner_.isEmpty()) {
+                        setAnalyzedType(owner_);
+                        return;
+                    }
                     return;
                 }
             }
@@ -354,41 +313,12 @@ final class NamePartType extends LeafPartType {
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
             Classes classes_ = _an.getClasses();
-            StringList foundOwners_ = new StringList();
-            CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
-            StringList c_ = new StringList(id_);
             String type_ = getTypeName();
-            while (true) {
-                StringList new_ = new StringList();
-                for (String s: c_) {
-                    RootBlock sub_ = classes_.getClassBody(s);
-                    if (sub_ == null) {
-                        continue;
-                    }
-                    boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(false, id_, _globalType, sub_, _an)) {
-                        if (StringList.quickEq(b.getName(), type_)) {
-                            foundOwners_.add(s);
-                            innersCandidates_.add(b);
-                            add_ = true;
-                        }
-                    }
-                    if (add_) {
-                        continue;
-                    }
-                    for (String t: sub_.getImportedDirectSuperTypes()) {
-                        String idLoc_ = Templates.getIdFromAllTypes(t);
-                        new_.add(idLoc_);
-                    }
-                }
-                if (new_.isEmpty()) {
-                    break;
-                }
-                c_ = new_;
-            }
-            foundOwners_.removeDuplicates();
+            StringList foundOwners_ = TypeUtil.getOwners(true, lastInner_, _globalType, id_, type_, false, _an);
             if (foundOwners_.size() == 1) {
-                if (innersCandidates_.first().isStaticType()) {
+                String in_ = StringList.concat(foundOwners_.first(),"..",type_);
+                RootBlock inner_ = classes_.getClassBody(in_);
+                if (inner_.isStaticType()) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
@@ -494,51 +424,19 @@ final class NamePartType extends LeafPartType {
                         return;
                     }
                     for (String a: allAncestors_) {
-                        GeneType g_ = _an.getClassBody(a);
-                        String genStr_ = g_.getGenericString();
-                        String f_ = Templates.quickFormat(_globalType, genStr_, _an);
-                        StringList c_ = new StringList(a);
-                        while (true) {
-                            StringList new_ = new StringList();
-                            for (String s: c_) {
-                                RootBlock sub_ = classes_.getClassBody(s);
-                                if (sub_ == null) {
-                                    continue;
-                                }
-                                boolean add_ = false;
-                                for (RootBlock b: Classes.accessedClassMembers(_protectedInc, a, _globalType, sub_, _an)) {
-                                    if (StringList.quickEq(b.getName(), type_)) {
-                                        allPossibleDirectSuperTypes_.put(s,f_);
-                                        innersCandidates_.add(b);
-                                        add_ = true;
-                                    }
-                                }
-                                if (add_) {
-                                    continue;
-                                }
-                                for (String t: sub_.getImportedDirectSuperTypes()) {
-                                    String id_ = Templates.getIdFromAllTypes(t);
-                                    new_.add(id_);
-                                }
-                            }
-                            if (new_.isEmpty()) {
-                                break;
-                            }
-                            c_ = new_;
-                        }
-                        if (allPossibleDirectSuperTypes_.size() == 1) {
+                        StringList owners_ = TypeUtil.getOwners(false, _protectedInc, _globalType, a, type_, false, _an);
+                        if (owners_.size() == 1) {
+                            GeneType g_ = _an.getClassBody(a);
+                            String genStr_ = g_.getGenericString();
+                            String f_ = Templates.quickFormat(_globalType, genStr_, _an);
+                            allPossibleDirectSuperTypes_.put(owners_.first(),f_);
+                            String in_ = StringList.concat(owners_.first(),"..",type_);
+                            RootBlock inner_ = classes_.getClassBody(in_);
+                            innersCandidates_.add(inner_);
                             break;
                         }
                     }
-                    if (allPossibleDirectSuperTypes_.size() == 1) {
-//                        if (i_.getParent() == null) {
-//                            setAnalyzedType(c.getImportedDirectBaseSuperTypes().get(_index));
-//                        } else {
-//                            setAnalyzedType(StringList.concat(new_,"..",type_));
-//                        }
-//                        if (!_protectedInc && i_.getParent() == null) {
-//                            
-//                        }
+                    if (innersCandidates_.size() == 1) {
                         if (innersCandidates_.first().isStaticType()) {
                             String new_ = allPossibleDirectSuperTypes_.getKey(0);
                             setAnalyzedType(StringList.concat(new_,"..",type_));
@@ -556,7 +454,7 @@ final class NamePartType extends LeafPartType {
                         return;
                     }
                     if (_protectedInc) {
-                        String res_ = _an.lookupImportMemberType(type_, _rooted);
+                        String res_ = _an.lookupImportMemberType(type_, _rooted, false);
                         if (!res_.isEmpty()) {
                             setAnalyzedType(res_);
                             return;
@@ -576,41 +474,12 @@ final class NamePartType extends LeafPartType {
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
             Classes classes_ = _an.getClasses();
-            StringList foundOwners_ = new StringList();
-            CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
-            StringList c_ = new StringList(id_);
             String type_ = getTypeName();
-            while (true) {
-                StringList new_ = new StringList();
-                for (String s: c_) {
-                    RootBlock sub_ = classes_.getClassBody(s);
-                    if (sub_ == null) {
-                        continue;
-                    }
-                    boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(_protectedInc, id_, _globalType, sub_, _an)) {
-                        if (StringList.quickEq(b.getName(), type_)) {
-                            foundOwners_.add(s);
-                            innersCandidates_.add(b);
-                            add_ = true;
-                        }
-                    }
-                    if (add_) {
-                        continue;
-                    }
-                    for (String t: sub_.getImportedDirectSuperTypes()) {
-                        String idLoc_ = Templates.getIdFromAllTypes(t);
-                        new_.add(idLoc_);
-                    }
-                }
-                if (new_.isEmpty()) {
-                    break;
-                }
-                c_ = new_;
-            }
-            foundOwners_.removeDuplicates();
+            StringList foundOwners_ = TypeUtil.getOwners(false, _protectedInc, _globalType, id_, type_, false, _an);
             if (foundOwners_.size() == 1) {
-                if (innersCandidates_.first().isStaticType()) {
+                String in_ = StringList.concat(foundOwners_.first(),"..",type_);
+                RootBlock inner_ = classes_.getClassBody(in_);
+                if (inner_.isStaticType()) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
@@ -713,43 +582,19 @@ final class NamePartType extends LeafPartType {
                         p_ = p_.getParentType();
                     }
                     for (String a: allAncestors_) {
-                        GeneType g_ = _an.getClassBody(a);
-                        String genStr_ = g_.getGenericString();
-                        String f_ = Templates.quickFormat(_globalType, genStr_, _an);
-                        StringList c_ = new StringList(a);
-                        while (true) {
-                            StringList new_ = new StringList();
-                            for (String s: c_) {
-                                RootBlock sub_ = classes_.getClassBody(s);
-                                if (sub_ == null) {
-                                    continue;
-                                }
-                                boolean add_ = false;
-                                for (RootBlock b: Classes.accessedClassMembers(true, a, _globalType, sub_, _an)) {
-                                    if (StringList.quickEq(b.getName(), type_)) {
-                                        allPossibleDirectSuperTypes_.put(s,f_);
-                                        innersCandidates_.add(b);
-                                        add_ = true;
-                                    }
-                                }
-                                if (add_) {
-                                    continue;
-                                }
-                                for (String t: sub_.getImportedDirectSuperTypes()) {
-                                    String id_ = Templates.getIdFromAllTypes(t);
-                                    new_.add(id_);
-                                }
-                            }
-                            if (new_.isEmpty()) {
-                                break;
-                            }
-                            c_ = new_;
-                        }
-                        if (allPossibleDirectSuperTypes_.size() == 1) {
+                        StringList owners_ = TypeUtil.getOwners(false, true, _globalType, a, type_, false, _an);
+                        if (owners_.size() == 1) {
+                            GeneType g_ = _an.getClassBody(a);
+                            String genStr_ = g_.getGenericString();
+                            String f_ = Templates.quickFormat(_globalType, genStr_, _an);
+                            allPossibleDirectSuperTypes_.put(owners_.first(),f_);
+                            String in_ = StringList.concat(owners_.first(),"..",type_);
+                            RootBlock inner_ = classes_.getClassBody(in_);
+                            innersCandidates_.add(inner_);
                             break;
                         }
                     }
-                    if (allPossibleDirectSuperTypes_.size() == 1) {
+                    if (innersCandidates_.size() == 1) {
                         if (innersCandidates_.first().isStaticType()) {
                             String new_ = allPossibleDirectSuperTypes_.getKey(0);
                             setAnalyzedType(StringList.concat(new_,"..",type_));
@@ -766,7 +611,7 @@ final class NamePartType extends LeafPartType {
                         setAnalyzedType(StringList.concat(new_,"..",type_));
                         return;
                     }
-                    String res_ = _an.lookupImportMemberType(type_, _rooted);
+                    String res_ = _an.lookupImportMemberType(type_, _rooted, false);
                     if (!res_.isEmpty()) {
                         setAnalyzedType(res_);
                         return;
@@ -785,41 +630,12 @@ final class NamePartType extends LeafPartType {
             String owner_ = last_.getAnalyzedType();
             String id_ = Templates.getIdFromAllTypes(owner_);
             Classes classes_ = _an.getClasses();
-            StringList foundOwners_ = new StringList();
-            CustList<RootBlock> innersCandidates_ = new CustList<RootBlock>();
-            StringList c_ = new StringList(id_);
             String type_ = getTypeName();
-            while (true) {
-                StringList new_ = new StringList();
-                for (String s: c_) {
-                    RootBlock sub_ = classes_.getClassBody(s);
-                    if (sub_ == null) {
-                        continue;
-                    }
-                    boolean add_ = false;
-                    for (RootBlock b: Classes.accessedClassMembers(true, id_, _globalType, sub_, _an)) {
-                        if (StringList.quickEq(b.getName(), type_)) {
-                            foundOwners_.add(s);
-                            innersCandidates_.add(b);
-                            add_ = true;
-                        }
-                    }
-                    if (add_) {
-                        continue;
-                    }
-                    for (String t: sub_.getImportedDirectSuperTypes()) {
-                        String idLoc_ = Templates.getIdFromAllTypes(t);
-                        new_.add(idLoc_);
-                    }
-                }
-                if (new_.isEmpty()) {
-                    break;
-                }
-                c_ = new_;
-            }
-            foundOwners_.removeDuplicates();
+            StringList foundOwners_ = TypeUtil.getOwners(false, true, _globalType, id_, type_, false, _an);
             if (foundOwners_.size() == 1) {
-                if (innersCandidates_.first().isStaticType()) {
+                String in_ = StringList.concat(foundOwners_.first(),"..",type_);
+                RootBlock inner_ = classes_.getClassBody(in_);
+                if (inner_.isStaticType()) {
                     String new_ = foundOwners_.first();
                     last_.setAnalyzedType(new_);
                     setAnalyzedType(StringList.concat(new_,"..",type_));
@@ -891,6 +707,7 @@ final class NamePartType extends LeafPartType {
         }
         setAnalyzedType(out_);
     }
+
     @Override
     public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {
         StringList pr_ = new StringList();
@@ -957,5 +774,6 @@ final class NamePartType extends LeafPartType {
             }
         }
     }
+
 
 }

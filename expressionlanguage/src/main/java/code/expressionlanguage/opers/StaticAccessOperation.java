@@ -69,7 +69,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = _conf.resolveCorrectType(realCl_, false);
+            classStr_ = _conf.resolveIdType(realCl_);
         } else {
             classStr_ = glClass_;
             if (classStr_ == null) {
