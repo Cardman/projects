@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
@@ -27,7 +26,6 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -87,6 +85,7 @@ public final class FctOperation extends InvokingOperation {
         String trimMeth_ = methodName.trim();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
+        ClassMethodId idMethod_ = lookOnlyForId();
         if (hasVoidArguments(chidren_, firstArgs_, off_, _conf)) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -127,6 +126,14 @@ public final class FctOperation extends InvokingOperation {
             trimMeth_ = trimMeth_.substring(trimMeth_.lastIndexOf(PAR_RIGHT) + 1).trim();
             l_ = getBounds(className_, _conf);
             accessSuperTypes_ = false;
+        }
+        ClassMethodId feed_ = null;
+        if (idMethod_ != null) {
+            String idClass_ = idMethod_.getClassName();
+            boolean vararg_ = idMethod_.getConstraints().isVararg();
+            StringList params_ = idMethod_.getConstraints().getParametersTypes();
+            boolean static_ = isStaticAccess();
+            feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
         }
         boolean cloneArray_ = false;
         StringList bounds_ = new StringList();
@@ -178,7 +185,7 @@ public final class FctOperation extends InvokingOperation {
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, ClassArgumentMatching.toArgArray(firstArgs_));
+        clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, import_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
@@ -353,20 +360,12 @@ public final class FctOperation extends InvokingOperation {
         String classNameFound_;
         Argument prev_ = new Argument();
         if (!staticMethod) {
-            prev_.setStruct(_previous.getStruct());
-            for (int i = 0; i < anc; i++) {
-                prev_.setStruct(prev_.getStruct().getParent());
-            }
-            if (prev_.isNull()) {
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            classNameFound_ = classMethodId.getClassName();
+            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
+            if (_conf.getException() != null) {
                 Argument a_ = new Argument();
                 return a_;
             }
-            classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(classNameFound_, prev_.getStruct(), _conf));
             if (prev_.getStruct().isArray()) {
                 int offLoc_ = -1;
                 if (!chidren_.isEmpty()) {

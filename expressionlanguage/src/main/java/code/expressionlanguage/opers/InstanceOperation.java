@@ -383,7 +383,7 @@ public final class InstanceOperation extends AbstractInstancingOperation {
             }
             blockIndex = _conf.getCurrentChildTypeIndex();
         }
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), constId, ClassArgumentMatching.toArgArray(_firstArgs));
         constId = ctorRes_.getRealId();
         className = ctorRes_.getConstId().getName();
         if (ctorRes_.isVarArgToCall()) {

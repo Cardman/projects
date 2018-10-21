@@ -63,7 +63,7 @@ final class WildCardPartType extends ParentPartType {
     @Override
     public void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact,
+            RootBlock _rooted, boolean _exact,
             boolean _protected, RowCol _location) {
         String ch_ = getFirstChild().getAnalyzedType();
         if (!(getParent() instanceof TemplatePartType)) {
@@ -111,6 +111,24 @@ final class WildCardPartType extends ParentPartType {
             }
         }
         String ch_ = getFirstChild().getAnalyzedType();
+        ch_ = StringList.concat(getBegin(),ch_);
+        setAnalyzedType(ch_);
+    }
+    @Override
+    public void analyzeAccessibleId(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels,
+            AccessingImportingBlock _rooted) {
+        String ch_ = getFirstChild().getAnalyzedType();
+        if (!(getParent() instanceof TemplatePartType)) {
+            return;
+        }
+        PartType prev_ = getParent().getFirstChild();
+        if (prev_ instanceof NamePartType) {
+            String base_ = ((NamePartType)prev_).getTypeName();
+            if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                return;
+            }
+        }
         ch_ = StringList.concat(getBegin(),ch_);
         setAnalyzedType(ch_);
     }

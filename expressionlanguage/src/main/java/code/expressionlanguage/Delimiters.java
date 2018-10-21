@@ -26,6 +26,7 @@ public final class Delimiters {
     private StringList delCastExtract = new StringList();
     private Numbers<Integer> delInstanceof = new Numbers<Integer>();
     private Numbers<Integer> delLambda = new Numbers<Integer>();
+    private Numbers<Integer> delIds = new Numbers<Integer>();
     private Numbers<Integer> delVararg = new Numbers<Integer>();
     private Numbers<Integer> delClass = new Numbers<Integer>();
     private Numbers<Integer> delSimpleAnnotations = new Numbers<Integer>();
@@ -125,6 +126,14 @@ public final class Delimiters {
 
     public void setDelLambda(Numbers<Integer> _delLambda) {
         delLambda = _delLambda;
+    }
+
+    public Numbers<Integer> getDelIds() {
+        return delIds;
+    }
+
+    public void setDelIds(Numbers<Integer> _delIds) {
+        delIds = _delIds;
     }
 
     public Numbers<Integer> getDelVararg() {

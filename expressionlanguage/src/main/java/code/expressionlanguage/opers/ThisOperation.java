@@ -167,11 +167,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         a_ = new Argument();
         a_.setStruct(struct_);
         if (isIntermediateDottedOperation()) {
-            for (int i = 0; i < nbAncestors; i++) {
-                a_.setStruct(a_.getStruct().getParent());
-            }
             String c_ = getResultClass().getNames().first();
-            a_.setStruct(PrimitiveTypeUtil.getParent(c_, a_.getStruct(), _conf));
+            a_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors, c_, a_.getStruct(), _conf));
         }
         return a_;
     }

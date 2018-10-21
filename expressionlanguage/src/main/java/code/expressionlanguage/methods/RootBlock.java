@@ -84,6 +84,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private StringList staticInitInterfaces = new StringList();
     private StringList staticInitImportedInterfaces = new StringList();
     private Numbers<Integer> staticInitInterfacesOffset = new Numbers<Integer>();
+    private Numbers<Integer> ancestorsIndexes = new Numbers<Integer>();
 
     RootBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name,
@@ -104,6 +105,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
             String type_ = ContextEl.removeDottedSpaces(t.getValue());
             directSuperTypes.add(type_);
+            ancestorsIndexes.add(-1);
             explicitDirectSuperTypes.put(t.getKey(), true);
         }
     }
@@ -147,6 +149,9 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         }
         all_.removeDuplicates();
         return all_;
+    }
+    public Numbers<Integer> getAncestorsIndexes() {
+        return ancestorsIndexes;
     }
     public NatTreeMap<Integer, Boolean> getExplicitDirectSuperTypes() {
         return explicitDirectSuperTypes;

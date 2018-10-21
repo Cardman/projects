@@ -1700,7 +1700,7 @@ public final class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(methodName_,GET)) {
-                res_.setResult(new StdStruct(i_.get((Integer)_args[0]),getAliasObject()));
+                res_.setResult(StdStruct.wrapStd(i_.get((Integer)_args[0]),_cont));
                 return res_;
             }
         }
@@ -1712,7 +1712,7 @@ public final class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(methodName_,LAST)) {
-                res_.setResult(new StdStruct(i_.last(),getAliasObject()));
+                res_.setResult(StdStruct.wrapStd(i_.last(), _cont));
                 return res_;
             }
             if (StringList.quickEq(methodName_,CLEAR)) {

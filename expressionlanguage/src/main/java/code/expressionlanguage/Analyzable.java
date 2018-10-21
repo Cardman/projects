@@ -102,6 +102,8 @@ public interface Analyzable {
 
     String resolveCorrectType(String _in);
     String resolveIdType(String _in);
+    String resolveAccessibleIdType(String _in);
+    String resolveCorrectAccessibleType(String _in, String _fromType);
     String resolveCorrectType(String _in, boolean _exact);
     String resolveCorrectTypeWithoutErrors(String _in, boolean _exact);
 

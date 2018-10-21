@@ -723,16 +723,20 @@ public final class Classes {
                             ready_ = false;
                             break;
                         }
+                        int ancestorIndex_ = 0;
                         for (RootBlock a: allAncestors_) {
                             String id_ = a.getFullName();
                             if (!builtTypes_.contains(id_)) {
+                                ancestorIndex_++;
                                 continue;
                             }
                             StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == 2,c,id_, baseInn_,true, _context);
                             if (builtInners_.size() == 1) {
+                                r_.getAncestorsIndexes().set(index_, ancestorIndex_);
                                 name_ = builtInners_.first();
                                 break;
                             }
+                            ancestorIndex_++;
                         }
                         if (name_.isEmpty()) {
                             String resImport_ = _context.lookupImportMemberType(baseInn_, r_, true);
@@ -1069,7 +1073,7 @@ public final class Classes {
                         continue;
                     }
                     String type_ = base_;
-                    base_ = _context.resolveBaseTypeInherits(base_, bl_, rc_, possibleQualifiers_);
+                    base_ = _context.resolveBaseTypeInherits(base_, index_, bl_, rc_, possibleQualifiers_);
                     if (base_.isEmpty()) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();

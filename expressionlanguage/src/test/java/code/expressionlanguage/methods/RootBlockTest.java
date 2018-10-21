@@ -1006,6 +1006,30 @@ public class RootBlockTest {
         assertEq(resId_, res_.getConstraints());
     }
     @Test
+    public void overrideFailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#U:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("  $return 1i:\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal $int get(#U i){\n");
+        xml_.append("  $return 2i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree:ExTwo<java.lang.Number,java.lang.Number> {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Classes classes_ = cont_.getClasses();
+        classes_.validateIds(cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateOverridingInherit(cont_);
+        assertTrue(classes_.displayErrors(),!classes_.isEmptyErrors());
+    }
+    @Test
     public void testMockOverrides() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

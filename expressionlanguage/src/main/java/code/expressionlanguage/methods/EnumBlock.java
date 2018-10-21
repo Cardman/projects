@@ -7,11 +7,9 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.util.BadAccessMethod;
 import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.BadReturnTypeInherit;
-import code.expressionlanguage.methods.util.DuplicateParamMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -77,22 +75,6 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
             inherit_.setFileName(fullName_);
             inherit_.setRc(getRowCol(0, getIdRowCol()));
             classesRef_.addError(inherit_);
-        }
-        for (Block b: Classes.getDirectChildren(this)) {
-            if (!(b instanceof ConstructorBlock)) {
-                continue;
-            }
-            ConstructorBlock c_ = (ConstructorBlock) b;
-            for (String s: classNames_) {
-                if (TypeUtil.getConstructorBodiesByFormattedId(_context, s, c_.getId()).size() > 1) {
-                    DuplicateParamMethod duplicate_ = new DuplicateParamMethod();
-                    duplicate_.setFileName(getFullName());
-                    duplicate_.setRc(c_.getRowCol(0, c_.getAccessOffset()));
-                    duplicate_.setCommonSignature(c_.getId().getSignature());
-                    duplicate_.setOtherType(s);
-                    classesRef_.addError(duplicate_);
-                }
-            }
         }
         useSuperTypesOverrides(_context);
         StringMap<StringList> vars_ = new StringMap<StringList>();

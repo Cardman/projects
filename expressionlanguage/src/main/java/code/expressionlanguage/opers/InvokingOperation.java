@@ -36,9 +36,11 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstructorMetaInfo;
+import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.LambdaConstructorStruct;
+import code.expressionlanguage.opers.util.LambdaFieldStruct;
 import code.expressionlanguage.opers.util.LambdaMethodStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
@@ -131,6 +133,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
         for (OperationNode o: _children) {
+            if (o instanceof IdFctOperation) {
+                continue;
+            }
             firstArgs_.add(o.getResultClass());
         }
         return firstArgs_;
@@ -181,6 +186,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             CustList<Argument> optArgs_ = new CustList<Argument>();
             int lenCh_ = _children.size();
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+                if (_children.get(i) instanceof IdFctOperation) {
+                    continue;
+                }
                 Argument a_ = _nodes.get(i);
                 if (i >= _natVararg) {
                     optArgs_.add(a_);
@@ -205,7 +213,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
-        CustList<Argument> firstArgs_ = new CustList<Argument>(_nodes);
+        CustList<Argument> firstArgs_ = new CustList<Argument>();
+        int lenCh_ = _children.size();
+        for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
+            if (_children.get(i) instanceof IdFctOperation) {
+                continue;
+            }
+            Argument a_ = _nodes.get(i);
+            firstArgs_.add(a_);
+        }
         return firstArgs_;
     }
     static CustList<Argument> quickListArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes, Analyzable _context) {
@@ -462,6 +478,22 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return firstOpt_;
     }
+    final ClassMethodId lookOnlyForId() {
+        OperationNode first_ = getFirstChild();
+        if (first_ == null) {
+            return null;
+        }
+        if (first_ instanceof StaticInitOperation) {
+            first_ = first_.getNextSibling();
+            if (first_ == null) {
+                return null;
+            }
+        }
+        if (!(first_ instanceof IdFctOperation)) {
+            return null;
+        }
+        return ((IdFctOperation)first_).getMethod();
+    }
     @Override
     public final void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
             OperationNode _nextSibling, OperationNode _previous) {
@@ -547,16 +579,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (g_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) g_;
             if (!r_.isStaticType()) {
-                if (_previous.isNull()) {
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
                 Argument prev_ = new Argument();
                 StringList parts_ = Templates.getAllInnerTypes(_className);
                 String param_ = parts_.sub(0, parts_.size()-1).join("..");
                 String paramId_ = Templates.getIdFromAllTypes(param_);
-                prev_.setStruct(PrimitiveTypeUtil.getParent(paramId_, _previous.getStruct(), _conf));
+                prev_.setStruct(PrimitiveTypeUtil.getParent(0,paramId_, _previous.getStruct(), _conf));
+                if (_conf.getException() != null) {
+                    Argument a_ = new Argument();
+                    return a_;
+                }
                 String arg_ = prev_.getObjectClassName(_conf.getContextEl());
                 Mapping map_ = new Mapping();
                 map_.setArg(arg_);
@@ -1088,6 +1119,47 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Argument a_ = new Argument();
             return a_;
         }
+        if (ls_ instanceof LambdaFieldStruct) {
+            LambdaFieldStruct l_ =  (LambdaFieldStruct) ls_;
+            boolean aff_ = l_.isAffect();
+            ClassField idField_ = l_.getFid();
+            FieldInfo fi_ = _conf.getFieldInfo(idField_);
+            boolean static_ = fi_.isStaticField();
+            boolean final_ = fi_.isFinalField();
+            String name_ = idField_.getFieldName();
+            String clName_ = idField_.getClassName();
+            String retField_ = l_.getReturnFieldType();
+            FieldMetaInfo f_ = new FieldMetaInfo(clName_, name_, retField_, static_, final_, false, AccessEnum.PUBLIC);
+            Argument pr_ = new Argument();
+            pr_.setStruct(f_);
+            ReflectingType type_;
+            if (aff_) {
+                type_ = ReflectingType.SET_FIELD;
+            } else {
+                type_ = ReflectingType.GET_FIELD;
+            }
+            Argument instance_ = l_.getInstanceCall();
+            String obj_ = _conf.getStandards().getAliasObject();
+            obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
+            if (!l_.isShiftInstance()) {
+                CustList<Argument> nList_ = new CustList<Argument>();
+                nList_.add(instance_);
+                if (aff_) {
+                    nList_.add(_values.last());
+                }
+                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(type_, pr_, nList_));
+                Argument a_ = new Argument();
+                return a_;
+            }
+            CustList<Argument> nList_ = new CustList<Argument>();
+            nList_.add(_values.first());
+            if (aff_) {
+                nList_.add(_values.last());
+            }
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(type_, pr_, nList_));
+            Argument a_ = new Argument();
+            return a_;
+        }
         LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
         String id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
         MethodId fid_ = l_.getFid();
@@ -1115,6 +1187,20 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             CustList<Argument> nList_ = new CustList<Argument>();
             nList_.add(instance_);
+            nList_.add(new Argument(arr_));
+            _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
+            Argument a_ = new Argument();
+            return a_;
+        }
+        if (!StringList.isWord(fid_.getName())) {
+            ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
+            int i_ = 1;
+            arr_.getInstance()[0] = instance_.getStruct();
+            for (Argument v: _values) {
+                arr_.getInstance()[i_] = v.getStruct();
+                i_++;
+            }
+            CustList<Argument> nList_ = new CustList<Argument>();
             nList_.add(new Argument(arr_));
             _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
             Argument a_ = new Argument();

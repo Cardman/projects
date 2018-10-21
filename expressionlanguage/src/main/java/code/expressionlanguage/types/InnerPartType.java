@@ -60,7 +60,7 @@ final class InnerPartType extends ParentPartType {
     @Override
     public void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact,
+            RootBlock _rooted, boolean _exact,
             boolean _protected, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
@@ -96,6 +96,19 @@ final class InnerPartType extends ParentPartType {
         setAnalyzedType(t_);
     }
 
+    @Override
+    public void analyzeAccessibleId(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels,
+            AccessingImportingBlock _rooted) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
+        }
+        String t_ = ch_.last().getAnalyzedType();
+        setAnalyzedType(t_);
+    }
     public boolean isRemovedBefore() {
         return removedBefore;
     }

@@ -27,7 +27,7 @@ final class EmptyPartType extends LeafPartType {
     @Override
     public void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact,
+            RootBlock _rooted, boolean _exact,
             boolean _protected, RowCol _location) {
     }
     @Override
@@ -37,6 +37,11 @@ final class EmptyPartType extends LeafPartType {
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
+    }
+    @Override
+    public void analyzeAccessibleId(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels,
+            AccessingImportingBlock _rooted) {
     }
     @Override
     public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {

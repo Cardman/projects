@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -24,7 +23,6 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -69,6 +67,7 @@ public final class SuperFctOperation extends InvokingOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
         int varargOnly_ = lookOnlyForVarArg();
+        ClassMethodId idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
         boolean import_ = false;
         ClassArgumentMatching clCur_;
@@ -114,7 +113,15 @@ public final class SuperFctOperation extends InvokingOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
 
         trimMeth_ = methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1).trim();
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodId feed_ = null;
+        if (idMethod_ != null) {
+            String idClass_ = idMethod_.getClassName();
+            boolean vararg_ = idMethod_.getConstraints().isVararg();
+            StringList params_ = idMethod_.getConstraints().getParametersTypes();
+            boolean static_ = isStaticAccess();
+            feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+        }
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
@@ -221,7 +228,6 @@ public final class SuperFctOperation extends InvokingOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
         MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;
@@ -230,19 +236,12 @@ public final class SuperFctOperation extends InvokingOperation {
         Argument prev_ = new Argument();
         if (!staticMethod) {
             prev_.setStruct(_previous.getStruct());
-            for (int i = 0; i < anc; i++) {
-                prev_.setStruct(prev_.getStruct().getParent());
-            }
-            if (prev_.isNull()) {
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            classNameFound_ = classMethodId.getClassName();
+            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
+            if (_conf.getException() != null) {
                 Argument a_ = new Argument();
                 return a_;
             }
-            classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(classNameFound_, prev_.getStruct(), _conf));
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             String base_ = Templates.getIdFromAllTypes(classNameFound_);
             String fullClassNameFound_ = Templates.getFullTypeByBases(argClassName_, base_, _conf);

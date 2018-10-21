@@ -238,6 +238,9 @@ public abstract class OperationNode {
             if (ct_ == ConstType.VARARG) {
                 return new VarargOperation(_index, _indexChild, _m, _op);
             }
+            if (ct_ == ConstType.ID) {
+                return new IdFctOperation(_index, _indexChild, _m, _op);
+            }
             if (ct_ == ConstType.LAMBDA) {
                 return new LambdaOperation(_index, _indexChild, _m, _op);
             }
@@ -692,7 +695,7 @@ public abstract class OperationNode {
     }
     
     static ConstrustorIdVarArg getDeclaredCustConstructor(Analyzable _conf, int _varargOnly, ClassArgumentMatching _class,
-    ClassArgumentMatching... _args) {
+            ConstructorId _uniqueId, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getNames().first();
         LgNames stds_ = _conf.getStandards();
         String glClass_ = _conf.getGlobalClass();
@@ -724,6 +727,11 @@ public abstract class OperationNode {
             boolean varArg_ = ctor_.isVararg();
             if (_varargOnly > -1) {
                 if (!varArg_) {
+                    continue;
+                }
+            }
+            if (_uniqueId != null) {
+                if (!_uniqueId.eq(ctor_)) {
                     continue;
                 }
             }
@@ -805,9 +813,9 @@ public abstract class OperationNode {
 
     static ClassMethodIdReturn getDeclaredCustMethod(Analyzable _conf, int _varargOnly,
     boolean _staticContext, StringList _classes, String _name,
-    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassArgumentMatching... _argsClass) {
+    boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
         ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
-        methods_ = getDeclaredCustMethodByType(_conf, _staticContext,_varargOnly, _accessFromSuper, _superClass, _classes, _name, _import, _argsClass);
+        methods_ = getDeclaredCustMethodByType(_conf, _staticContext,_varargOnly, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId, _argsClass);
         ClassMethodIdResult res_= getCustResult(_conf, _varargOnly, methods_, _name, _argsClass);
         if (res_.getStatus() == SearchingMemberStatus.UNIQ) {
             return toFoundMethod(_conf, res_);
@@ -926,7 +934,7 @@ public abstract class OperationNode {
     }
     private static ObjectNotNullMap<ClassMethodId, MethodInfo>
     getDeclaredCustMethodByType(Analyzable _conf, boolean _staticContext, int _varargOnly, boolean _accessFromSuper,
-        boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassArgumentMatching... _argsClass) {
+        boolean _superClass, StringList _fromClasses, String _name, boolean _import, ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
         String glClass_ = _conf.getGlobalClass();
         CustList<GeneType> roots_ = new CustList<GeneType>();
         ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
@@ -948,6 +956,11 @@ public abstract class OperationNode {
             }
         }
         for (String t: superTypes_) {
+            if (_uniqueId != null) {
+                if (!StringList.quickEq(_uniqueId.getClassName(), t)) {
+                    continue;
+                }
+            }
             GeneType root_ = _conf.getClassBody(t);
             for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
                 if (!Classes.canAccess(glClass_, e, _conf)) {
@@ -971,6 +984,11 @@ public abstract class OperationNode {
                 }
                 if (e.isStaticMethod()) {
                     MethodId id_ = e.getId();
+                    if (_uniqueId != null) {
+                        if (!_uniqueId.getConstraints().eq(id_)) {
+                            continue;
+                        }
+                    }
                     String returnType_ = e.getImportedReturnType();
                     ParametersGroup p_ = new ParametersGroup();
                     MethodId realId_ = id_;
@@ -1018,6 +1036,11 @@ public abstract class OperationNode {
             rootsAncs_.add(rootsAnc_);
         }
         for (EntryCust<String, Integer> t: superTypesAnc_.entryList()) {
+            if (_uniqueId != null) {
+                if (!StringList.quickEq(_uniqueId.getClassName(), t.getKey())) {
+                    continue;
+                }
+            }
             GeneType root_ = _conf.getClassBody(t.getKey());
             for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
                 if (!Classes.canAccess(glClass_, e, _conf)) {
@@ -1041,6 +1064,11 @@ public abstract class OperationNode {
                 }
                 if (e.isStaticMethod()) {
                     MethodId id_ = e.getId();
+                    if (_uniqueId != null) {
+                        if (!_uniqueId.getConstraints().eq(id_)) {
+                            continue;
+                        }
+                    }
                     String returnType_ = e.getImportedReturnType();
                     ParametersGroup p_ = new ParametersGroup();
                     MethodId realId_ = id_;
@@ -1066,8 +1094,17 @@ public abstract class OperationNode {
                 for (EntryCust<MethodId, EqList<ClassMethodId>> e: t.getAllOverridingMethods().entryList()) {
                     for (ClassMethodId s: e.getValue()) {
                         String name_ = s.getClassName();
+                        MethodId id_ = s.getConstraints();
+                        String base_ = Templates.getIdFromAllTypes(name_);
+                        if (_uniqueId != null) {
+                            if (!StringList.quickEq(_uniqueId.getClassName(), base_)) {
+                                continue;
+                            }
+                            if (!_uniqueId.getConstraints().eq(id_)) {
+                                continue;
+                            }
+                        }
                         if (_accessFromSuper) {
-                            String base_ = Templates.getIdFromAllTypes(name_);
                             if (StringList.quickEq(base_, t.getFullName())) {
                                 continue;
                             }
@@ -1076,7 +1113,6 @@ public abstract class OperationNode {
                         if (_superClass) {
                             formattedClass_ = Templates.getFullTypeByBases(clCurName_, name_, _conf);
                         } else {
-                            String base_ = Templates.getIdFromAllTypes(name_);
                             if (!StringList.quickEq(base_, t.getFullName())) {
                                 continue;
                             }
@@ -1085,7 +1121,6 @@ public abstract class OperationNode {
                         if (formattedClass_ == null) {
                             continue;
                         }
-                        MethodId id_ = s.getConstraints();
                         GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
                         if (!Classes.canAccess(glClass_, sup_, _conf)) {
                             continue;
@@ -1122,8 +1157,17 @@ public abstract class OperationNode {
                     for (EntryCust<MethodId, EqList<ClassMethodId>> e: t.getAllOverridingMethods().entryList()) {
                         for (ClassMethodId s: e.getValue()) {
                             String name_ = s.getClassName();
+                            String base_ = Templates.getIdFromAllTypes(name_);
+                            MethodId id_ = s.getConstraints();
+                            if (_uniqueId != null) {
+                                if (!StringList.quickEq(_uniqueId.getClassName(), base_)) {
+                                    continue;
+                                }
+                                if (!_uniqueId.getConstraints().eq(id_)) {
+                                    continue;
+                                }
+                            }
                             if (_accessFromSuper) {
-                                String base_ = Templates.getIdFromAllTypes(name_);
                                 if (StringList.quickEq(base_, t.getFullName())) {
                                     continue;
                                 }
@@ -1132,7 +1176,6 @@ public abstract class OperationNode {
                             if (_superClass) {
                                 formattedClass_ = Templates.getFullTypeByBases(f_, name_, _conf);
                             } else {
-                                String base_ = Templates.getIdFromAllTypes(name_);
                                 if (!StringList.quickEq(base_, t.getFullName())) {
                                     continue;
                                 }
@@ -1141,7 +1184,6 @@ public abstract class OperationNode {
                             if (formattedClass_ == null) {
                                 continue;
                             }
-                            MethodId id_ = s.getConstraints();
                             GeneMethod sup_ = _conf.getMethodBodiesById(name_, id_).first();
                             if (!Classes.canAccess(glClass_, sup_, _conf)) {
                                 continue;
@@ -1176,6 +1218,14 @@ public abstract class OperationNode {
                 ClassMethodId m = e.getKey();
                 String clName_ = m.getClassName();
                 MethodId id_ = m.getConstraints();
+                if (_uniqueId != null) {
+                    if (!StringList.quickEq(_uniqueId.getClassName(), clName_)) {
+                        continue;
+                    }
+                    if (!_uniqueId.getConstraints().eq(id_)) {
+                        continue;
+                    }
+                }
                 GeneMethod method_ = _conf.getMethodBodiesById(clName_, id_).first();
                 String returnType_ = method_.getImportedReturnType();
                 ParametersGroup p_ = new ParametersGroup();

@@ -1270,10 +1270,115 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return res_;
     }
+    @Override
+    public String resolveAccessibleIdType(String _in) {
+        Block bl_ = getCurrentBlock();
+        RowCol rc_ = getCurrentLocation();
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in.trim(), void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(bl_.getFile().getFileName());
+            un_.setRc(rc_);
+            un_.setType(_in);
+            classes.addError(un_);
+            return EMPTY_TYPE;
+        }
+        AccessingImportingBlock r_ = bl_.getImporting();
+        StringList inners_ = Templates.getAllInnerTypes(_in);
+        
+        String base_ = inners_.first().trim();
+        String res_ = removeDottedSpaces(base_);
+        if (standards.getStandards().contains(res_)) {
+            return res_;
+        }
+        RootBlock b_ = classes.getClassBody(res_);
+        if (b_ == null) {
+            String id_ = lookupImportType(base_, r_);
+            if (id_.isEmpty()) {
+                UnknownClassName undef_;
+                undef_ = new UnknownClassName();
+                undef_.setClassName(base_);
+                undef_.setFileName(r_.getFile().getFileName());
+                undef_.setRc(rc_);
+                classes.addError(undef_);
+                return EMPTY_TYPE;
+            }
+            res_ = id_;
+            b_ = classes.getClassBody(id_);
+        }
+        for (String i: inners_.mid(1)) {
+            String resId_ = StringList.concat(res_,"..",i.trim());
+            RootBlock inner_ = classes.getClassBody(resId_);
+            if (inner_ == null) {
+                //ERROR
+                UnknownClassName undef_;
+                undef_ = new UnknownClassName();
+                undef_.setClassName(base_);
+                undef_.setFileName(r_.getFile().getFileName());
+                undef_.setRc(rc_);
+                classes.addError(undef_);
+                return EMPTY_TYPE;
+            }
+            res_ = resId_;
+        }
+        return res_;
+    }
     /**Used at analyzing instructions*/
     @Override
     public String resolveCorrectType(String _in) {
         return resolveCorrectType(_in, true);
+    }
+    @Override
+    public String resolveCorrectAccessibleType(String _in, String _fromType) {
+        Block bl_ = getCurrentBlock();
+        RowCol rc_ = getCurrentLocation();
+        String void_ = standards.getAliasVoid();
+        if (StringList.quickEq(_in.trim(), void_)) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(bl_.getFile().getFileName());
+            un_.setRc(rc_);
+            un_.setType(_in);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
+        AccessingImportingBlock r_ = bl_.getImporting();
+        StringList varsList_ = new StringList();
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        String idFromType_ = Templates.getIdFromAllTypes(_fromType);
+        RootBlock from_ = classes.getClassBody(idFromType_);
+        if (from_ == null) {
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(bl_.getFile().getFileName());
+            un_.setRc(rc_);
+            un_.setType(_in);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
+        for (TypeVar t: from_.getParamTypesMapValues()) {
+            varsList_.add(t.getName());
+            vars_.put(t.getName(), t.getConstraints());
+        }
+        getAvailableVariables().clear();
+        getAvailableVariables().addAllElts(varsList_);
+        setDirectImport(false);
+        String resType_ = PartTypeUtil.processAnalyzeAccessibleId(_in, this, r_);
+        if (resType_.trim().isEmpty()) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_in);
+            un_.setFileName(r_.getFile().getFileName());
+            un_.setRc(rc_);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
+        if (!Templates.isCorrectTemplateAll(resType_, vars_, this, true)) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(_in);
+            un_.setFileName(r_.getFile().getFileName());
+            un_.setRc(rc_);
+            classes.addError(un_);
+            return standards.getAliasObject();
+        }
+        return resType_;
     }
     /**Used at analyzing instructions*/
     @Override
@@ -1574,7 +1679,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return true;
     }
 
-    public String resolveBaseTypeInherits(String _in, RootBlock _currentBlock,RowCol _location, StringList _builtTypes) {
+    public String resolveBaseTypeInherits(String _in, int _indexType,RootBlock _currentBlock,RowCol _location, StringList _builtTypes) {
         String type_ = _in;
         RootBlock r_ = _currentBlock;
         String fullName_ = r_.getFullName();
@@ -1593,13 +1698,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 p_ = p_.getParentType();
             }
             String name_ = EMPTY_TYPE;
+            int indexAncestor_ = 0;
             for (RootBlock a: allAncestors_) {
                 String id_ = a.getFullName();
                 StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == 2,fullName_, id_, baseInn_, false, this);
                 if (builtInners_.size() == 1) {
+                    r_.getAncestorsIndexes().set(_indexType, indexAncestor_);
                     name_ = builtInners_.first();
                     break;
                 }
+                indexAncestor_++;
             }
             if (name_.isEmpty()) {
                 return lookupImportMemberType(baseInn_, r_, true);

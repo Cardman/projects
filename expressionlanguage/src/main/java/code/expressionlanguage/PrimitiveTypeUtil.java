@@ -263,17 +263,26 @@ public final class PrimitiveTypeUtil {
         superTypes_.removeDuplicates();
         return superTypes_;
     }
-    public static Struct getParent(String _required, Struct _current, ExecutableCode _an) {
+    public static Struct getParent(int _nbAncestors,String _required, Struct _current, ExecutableCode _an) {
         String id_ = Templates.getIdFromAllTypes(_required);
-        Struct current_ = _current;
-        if (current_.isNull()) {
-            return current_;
+        Argument arg_ = new Argument(_current);
+        for (int i = 0; i < _nbAncestors; i++) {
+            arg_.setStruct(arg_.getStruct().getParent());
         }
+        LgNames lgNames_ = _an.getStandards();
+        String npe_ = lgNames_.getAliasNullPe();
+        String cast_ = lgNames_.getAliasCast();
+        if (arg_.isNull()) {
+            _an.setException(new StdStruct(new CustomError(_an.joinPages()),npe_));
+            return arg_.getStruct();
+        }
+        Struct current_ = arg_.getStruct();
         String className_ = current_.getClassName(_an);
         String cl_ = Templates.getIdFromAllTypes(className_);
         while (!canBeUseAsArgument(id_, cl_, _an)) {
             Struct par_ = current_.getParent();
             if (par_.isNull()) {
+                _an.setException(new StdStruct(new CustomError(_an.joinPages()),cast_));
                 break;
             }
             current_ = par_;

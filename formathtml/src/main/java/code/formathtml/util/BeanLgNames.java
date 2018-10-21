@@ -192,7 +192,7 @@ public abstract class BeanLgNames extends LgNames {
                     res_.setResult(new StdStruct(db_, getAliasDataBase()));
                     return res_;
                 }
-                res_.setResult(new StdStruct(db_, getAliasObject()));
+                res_.setResult(StdStruct.wrapStd(db_, _cont));
                 return res_;
             }
             if (StringList.quickEq(_method.getConstraints().getName(), GET_FORMS)) {
@@ -270,7 +270,7 @@ public abstract class BeanLgNames extends LgNames {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new StdStruct(message_, getAliasObject()));
+                res_.setResult(StdStruct.wrapStd(message_, _cont));
                 return res_;
             }
         }

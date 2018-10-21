@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
 import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.NumberStruct;
@@ -72,6 +73,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
+        ClassMethodId idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_, _conf);
         ClassArgumentMatching clArg_ = getFrom(_conf);
@@ -80,8 +82,15 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             checkPositionBasis(_conf);
             return;
         }
+        ConstructorId feed_ = null;
+        if (idMethod_ != null) {
+            String idClass_ = idMethod_.getClassName();
+            boolean vararg_ = idMethod_.getConstraints().isVararg();
+            StringList params_ = idMethod_.getConstraints().getParametersTypes();
+            feed_ = new ConstructorId(idClass_, params_, vararg_);
+        }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, clArg_, feed_, ClassArgumentMatching.toArgArray(firstArgs_));
         if (ctorRes_ == null) {
             StringList cl_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {

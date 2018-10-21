@@ -167,11 +167,10 @@ public abstract class SettableAbstractFieldOperation extends
         }
         Argument previous_ = new Argument();
         if (!staticField_) {
-            previous_.setStruct(_previous.getStruct());
-            for (int i = 0; i < anc; i++) {
-                previous_.setStruct(previous_.getStruct().getParent());
-            }
-            previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
+            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+        }
+        if (_conf.getException() != null) {
+            return Argument.createVoid();
         }
         return InvokingOperation.getField(className_, fieldName_, staticField_, previous_, _conf, off_);
     }
@@ -581,11 +580,10 @@ public abstract class SettableAbstractFieldOperation extends
         String fieldName_ = fieldId_.getFieldName();
         Argument previous_ = new Argument();
         if (!isStatic_) {
-            previous_.setStruct(_previous.getStruct());
-            for (int i = 0; i < anc; i++) {
-                previous_.setStruct(previous_.getStruct().getParent());
-            }
-            previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
+            previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
+        }
+        if (_conf.getException() != null) {
+            return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here
         return InvokingOperation.setField(className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_, _convert);
@@ -628,11 +626,7 @@ public abstract class SettableAbstractFieldOperation extends
             return a_;
         }
         Argument previous_ = new Argument();
-        previous_.setStruct(_previous.getStruct());
-        for (int i = 0; i < anc; i++) {
-            previous_.setStruct(previous_.getStruct().getParent());
-        }
-        previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
+        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         left_.setStruct(_store);
         fieldType_ = _store.getClassName(_conf);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
@@ -701,11 +695,7 @@ public abstract class SettableAbstractFieldOperation extends
             return a_;
         }
         Argument previous_ = new Argument();
-        previous_.setStruct(_previous.getStruct());
-        for (int i = 0; i < anc; i++) {
-            previous_.setStruct(previous_.getStruct().getParent());
-        }
-        previous_.setStruct(PrimitiveTypeUtil.getParent(className_, previous_.getStruct(), _conf));
+        previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         left_.setStruct(_store);
         fieldType_ = _store.getClassName(_conf);
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);

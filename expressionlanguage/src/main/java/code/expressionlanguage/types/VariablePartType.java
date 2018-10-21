@@ -46,7 +46,7 @@ final class VariablePartType extends LeafPartType {
     @Override
     public void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact,
+            RootBlock _rooted, boolean _exact,
             boolean _protected, RowCol _location) {
         if (getParent() instanceof InnerPartType) {
             return;
@@ -97,6 +97,25 @@ final class VariablePartType extends LeafPartType {
         if (_an.getAvailableVariables().containsStr(type_)) {
             setAnalyzedType(t_);
         }
+    }
+    @Override
+    public void analyzeAccessibleId(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels,
+            AccessingImportingBlock _rooted) {
+        if (getParent() instanceof InnerPartType) {
+            return;
+        }
+        if (getParent() instanceof TemplatePartType && getIndex() == 0) {
+            return;
+        }
+        String type_ = getTypeName();
+        String t_ = StringList.removeAllSpaces(type_);
+        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        type_ = ContextEl.removeDottedSpaces(type_);
+        if (!_an.getAvailableVariables().containsStr(type_)) {
+            return;
+        }
+        setAnalyzedType(t_);
     }
     @Override
     public void checkDynExistence(Analyzable _an,CustList<NatTreeMap<Integer, String>>_dels) {

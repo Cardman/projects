@@ -69,6 +69,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         String trimMeth_ = methodName.trim();
         int varargOnly_ = lookOnlyForVarArg();
+        ClassMethodId idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
@@ -92,9 +93,16 @@ public final class ChoiceFctOperation extends InvokingOperation {
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-
         trimMeth_ = methodName.substring(methodName.lastIndexOf(PAR_RIGHT)+1).trim();
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, ClassArgumentMatching.toArgArray(firstArgs_));
+        ClassMethodId feed_ = null;
+        if (idMethod_ != null) {
+            String idClass_ = idMethod_.getClassName();
+            boolean vararg_ = idMethod_.getConstraints().isVararg();
+            StringList params_ = idMethod_.getConstraints().getParametersTypes();
+            boolean static_ = isStaticAccess();
+            feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
+        }
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, feed_,ClassArgumentMatching.toArgArray(firstArgs_));
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
@@ -208,20 +216,12 @@ public final class ChoiceFctOperation extends InvokingOperation {
         String classNameFound_;
         Argument prev_ = new Argument();
         if (!staticMethod) {
-            prev_.setStruct(_previous.getStruct());
-            for (int i = 0; i < anc; i++) {
-                prev_.setStruct(prev_.getStruct().getParent());
-            }
-            if (prev_.isNull()) {
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            classNameFound_ = classMethodId.getClassName();
+            prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
+            if (_conf.getException() != null) {
                 Argument a_ = new Argument();
                 return a_;
             }
-            classNameFound_ = classMethodId.getClassName();
-            prev_.setStruct(PrimitiveTypeUtil.getParent(classNameFound_, prev_.getStruct(), _conf));
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             if (staticChoiceMethodTemplate) {
                 classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);

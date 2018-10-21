@@ -67,7 +67,7 @@ final class TemplatePartType extends ParentPartType {
     @Override
     public void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
-            AccessingImportingBlock _rooted, boolean _exact,
+            RootBlock _rooted, boolean _exact,
             boolean _protected, RowCol _location) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
@@ -103,6 +103,24 @@ final class TemplatePartType extends ParentPartType {
     @Override
     public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>>_dels, String _globalType, AccessingImportingBlock _rooted,
             boolean _exact) {
+        CustList<PartType> ch_ = new CustList<PartType>();
+        PartType f_ = getFirstChild();
+        while (f_ != null) {
+            ch_.add(f_);
+            f_ = f_.getNextSibling();
+        }
+        String t_ = getBegin();
+        int len_ = ch_.size() - 1;
+        for (int i = 0; i < len_; i++) {
+            t_ = StringList.concat(t_, ch_.get(i).getAnalyzedType(),getSeparator(i));
+        }
+        t_ = StringList.concat(t_, ch_.last().getAnalyzedType(),getEnd());
+        setAnalyzedType(t_);
+    }
+    @Override
+    public void analyzeAccessibleId(Analyzable _an,
+            CustList<NatTreeMap<Integer, String>> _dels,
+            AccessingImportingBlock _rooted) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

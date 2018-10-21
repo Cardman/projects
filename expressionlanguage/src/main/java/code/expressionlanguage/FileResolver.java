@@ -2445,7 +2445,6 @@ public final class FileResolver {
     private static String getDeclaringTypeOper(String _found, Options _options) {
         int indexInstr_ = 0;
         int instLen_ = _found.length();
-        boolean typeDeclaring_ = false;
         StringBuilder declTypeName_ = new StringBuilder();
         int nbOpenedTmp_ = 0;
         while (indexInstr_ < instLen_) {
@@ -2457,7 +2456,6 @@ public final class FileResolver {
                     char ch_ = trimmed_.charAt(trimmed_.length() - 1);
                     if (StringList.isDollarWordChar(ch_)) {
                         if (nextPart_.substring(0).trim().startsWith(String.valueOf(BEGIN_CALLING))) {
-                            typeDeclaring_ = true;
                             break;
                         }
                     }
@@ -2487,7 +2485,6 @@ public final class FileResolver {
                         continue;
                     }
                     declTypeName_.append(currentCharFound_);
-                    typeDeclaring_ = true;
                     break;
                 }
                 declTypeName_.append(currentCharFound_);
@@ -2553,13 +2550,7 @@ public final class FileResolver {
                 }
             }
         }
-        if (ok_) {
-            typeDeclaring_ = true;
-        }
-        if (typeDeclaring_) {
-            return declTypeName_.toString();
-        }
-        return EMPTY_STRING;
+        return declTypeName_.toString();
     }
     private static boolean isOperatorCharacter(char _char) {
         if (_char == '+') {

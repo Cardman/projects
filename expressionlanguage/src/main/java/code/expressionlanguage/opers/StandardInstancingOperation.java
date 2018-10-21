@@ -23,6 +23,7 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.IllegalCallCtorByType;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.stds.LgNames;
@@ -180,6 +181,7 @@ public final class StandardInstancingOperation extends
             return;
         }
         int varargOnly_ = lookOnlyForVarArg();
+        ClassMethodId idMethod_ = lookOnlyForId();
         ConstrustorIdVarArg ctorRes_ = null;
 
         realClassName_ = _conf.resolveCorrectType(realClassName_);
@@ -248,7 +250,14 @@ public final class StandardInstancingOperation extends
             }
             blockIndex = _conf.getCurrentChildTypeIndex();
         }
-        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), ClassArgumentMatching.toArgArray(_firstArgs));
+        ConstructorId feed_ = null;
+        if (idMethod_ != null) {
+            String idClass_ = idMethod_.getClassName();
+            boolean vararg_ = idMethod_.getConstraints().isVararg();
+            StringList params_ = idMethod_.getConstraints().getParametersTypes();
+            feed_ = new ConstructorId(idClass_, params_, vararg_);
+        }
+        ctorRes_ = getDeclaredCustConstructor(_conf, varargOnly_, new ClassArgumentMatching(realClassName_), feed_, ClassArgumentMatching.toArgArray(_firstArgs));
         constId = ctorRes_.getRealId();
         className = ctorRes_.getConstId().getName();
         if (ctorRes_.isVarArgToCall()) {
