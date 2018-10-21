@@ -2721,6 +2721,75 @@ public class TemplatesTest {
         m_.setParam("[pkg.ExThree<#U>");
         assertTrue(!Templates.isCorrect(m_, cont_));
     }
+
+    @Test
+    public void isCorrect90Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("$Fct<$void>");
+        m_.setParam("$Fct");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect91Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("$Fct");
+        m_.setParam("$Fct<java.lang.Object>");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+
+    @Test
+    public void isCorrect92Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("$Fct");
+        m_.setParam("java.lang.Object");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,context_));
+    }
+    @Test
+    public void isCorrectTemplate48Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isCorrectTemplate("$Fct", t_,cont_));
+    }
+    @Test
+    public void isCorrectTemplate49Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isCorrectTemplate("$Fct<?>", t_,cont_));
+    }
+    @Test
+    public void isCorrectTemplate50Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(Templates.isCorrectTemplate("$Fct<?,?>", t_,cont_));
+    }
     @Test
     public void isCorrectTemplate51Test() {
         StringMap<String> files_ = new StringMap<String>();

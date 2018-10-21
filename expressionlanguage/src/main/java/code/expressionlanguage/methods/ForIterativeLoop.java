@@ -10,8 +10,10 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
@@ -229,6 +231,42 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             b_.setRc(getRowCol(0, variableNameOffset));
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
+        }
+        Options opt_ = _cont.getOptions();
+        if (opt_.getSuffixVar() == VariableSuffix.NONE) {
+            if (!variableName.isEmpty() && Character.isDigit(variableName.charAt(0))) {
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(getFile().getFileName());
+                b_.setRc(getRowCol(0, variableNameOffset));
+                b_.setVarName(variableName);
+                _cont.getClasses().addError(b_);
+            }
+        }
+        if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
+            if (_cont.getAnalyzing().containsLocalVar(variableName)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableName);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffset));
+                _cont.getClasses().addError(d_);
+                return;
+            }
+            if (_cont.getAnalyzing().containsCatchVar(variableName)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableName);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffset));
+                _cont.getClasses().addError(d_);
+                return;
+            }
+            if (_cont.getParameters().contains(variableName)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableName);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffset));
+                _cont.getClasses().addError(d_);
+                return;
+            }
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);

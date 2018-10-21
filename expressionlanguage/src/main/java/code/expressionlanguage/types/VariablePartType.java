@@ -31,7 +31,12 @@ final class VariablePartType extends LeafPartType {
         }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
-        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        String trim_ = type_.trim();
+        if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            type_ = trim_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        } else {
+            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
+        }
         type_ = ContextEl.removeDottedSpaces(type_);
         if (!_an.getAvailableVariables().containsStr(type_)) {
             UnknownClassName un_ = new UnknownClassName();
@@ -56,7 +61,13 @@ final class VariablePartType extends LeafPartType {
         }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
-        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        String trim_ = type_.trim();
+        if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            type_ = trim_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        } else {
+            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
+        }
+//        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (!_an.getAvailableVariables().containsStr(type_)) {
             return;
@@ -74,7 +85,13 @@ final class VariablePartType extends LeafPartType {
         }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
-        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        String trim_ = type_.trim();
+        if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            type_ = trim_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        } else {
+            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
+        }
+//        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (!_an.getAvailableVariables().containsStr(type_)) {
             return;
@@ -92,7 +109,13 @@ final class VariablePartType extends LeafPartType {
         }
         String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
-        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        String trim_ = type_.trim();
+        if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {
+            type_ = trim_.substring(Templates.PREFIX_VAR_TYPE.length()).trim();
+        } else {
+            t_ = StringList.concat(Templates.PREFIX_VAR_TYPE,t_);
+        }
+//        type_ = type_.trim().substring(Templates.PREFIX_VAR_TYPE.length()).trim();
         type_ = ContextEl.removeDottedSpaces(type_);
         if (_an.getAvailableVariables().containsStr(type_)) {
             setAnalyzedType(t_);

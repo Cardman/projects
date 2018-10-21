@@ -1538,8 +1538,19 @@ public final class FileResolver {
                         br_ = new ElseIfCondition(_context, index_, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_ELSE)) {
-                        br_ = new ElseCondition(_context, index_, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                        currentParent_.appendChild(br_);
+                        String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_ELSE)).length()).trim();
+                        if (startsWithPrefixKeyWord(exp_,KEY_WORD_IF)) {
+                            exp_ = exp_.substring((prefixKeyWord(KEY_WORD_IF)).length());
+                            int conditionOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_ELSEIF).length();
+                            conditionOffest_ += exp_.indexOf(BEGIN_CALLING)+1;
+                            exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
+                            conditionOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+                            br_ = new ElseIfCondition(_context, index_, currentParent_, new OffsetStringInfo(conditionOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            currentParent_.appendChild(br_);
+                        } else {
+                            br_ = new ElseCondition(_context, index_, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            currentParent_.appendChild(br_);
+                        }
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_DO)) {
                         String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_DO)).length());
                         String label_ = exp_.trim();
@@ -1731,26 +1742,45 @@ public final class FileResolver {
                         initOff_ += StringList.getFirstPrintableCharIndex(init_);
                         exp_ = exp_.substring(init_.length()+1);
                         nextElt_ = getIndex(exp_);
-                        int toOff_ = initOff_ + nextElt_;
-                        String to_ = exp_.substring(0, nextElt_);
-                        toOff_ += StringList.getFirstPrintableCharIndex(to_);
-                        int expOff_ = toOff_ + nextElt_;
-                        int stepOff_ = expOff_ + 1;
-                        exp_ = exp_.substring(nextElt_ + 1);
-                        String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
-                        stepOff_ += StringList.getFirstPrintableCharIndex(step_);
-                        label_ = label_.substring(lastPar_ + 1);
-                        if (!label_.isEmpty()) {
-                            labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                        if (nextElt_ == -1) {
+                            int varOffset_ = typeOffset_ + declaringType_.length();
+                            varOffset_ += StringList.getFirstPrintableCharIndex(init_);
+                            int expOffset_ = varOffset_;
+                            expOffset_ += exp_.indexOf(FOR_BLOCKS);
+                            exp_ = exp_.substring(exp_.indexOf(FOR_BLOCKS) + 1, exp_.lastIndexOf(END_CALLING));
+                            expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
+                            label_ = label_.substring(lastPar_ + 1);
+                            if (!label_.isEmpty()) {
+                                labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                            }
+                            br_ = new ForEachLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, init_.trim()),
+                                    new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            br_.getAnnotations().addAllElts(annotations_);
+                            br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                            currentParent_.appendChild(br_);
+                        } else {
+                            int toOff_ = initOff_ + nextElt_;
+                            String to_ = exp_.substring(0, nextElt_);
+                            toOff_ += StringList.getFirstPrintableCharIndex(to_);
+                            int expOff_ = toOff_ + nextElt_;
+                            int stepOff_ = expOff_ + 1;
+                            exp_ = exp_.substring(nextElt_ + 1);
+                            String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
+                            stepOff_ += StringList.getFirstPrintableCharIndex(step_);
+                            label_ = label_.substring(lastPar_ + 1);
+                            if (!label_.isEmpty()) {
+                                labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                            }
+                            br_ = new ForMutableIterativeLoop(_context, index_, currentParent_,
+                                    new OffsetBooleanInfo(finalOffset_, finalLocalVar_),
+                                    new OffsetStringInfo(typeOffset_,declaringType_.trim()),
+                                    new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
+                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            br_.getAnnotations().addAllElts(annotations_);
+                            br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                            currentParent_.appendChild(br_);
                         }
-                        br_ = new ForMutableIterativeLoop(_context, index_, currentParent_,
-                                new OffsetBooleanInfo(finalOffset_, finalLocalVar_),
-                                new OffsetStringInfo(typeOffset_,declaringType_.trim()),
-                                new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                        br_.getAnnotations().addAllElts(annotations_);
-                        br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-                        currentParent_.appendChild(br_);
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_SWITCH)) {
                         String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_SWITCH)).length());
                         int valueOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_SWITCH).length();
@@ -2767,6 +2797,18 @@ public final class FileResolver {
             if (locChar_ == END_CALLING) {
                 localCallings_.removeLast();
             }
+            if (locChar_ == BEGIN_ARRAY) {
+                localCallings_.add(indexInstr_);
+            }
+            if (locChar_ == END_ARRAY) {
+                localCallings_.removeLast();
+            }
+            if (locChar_ == BEGIN_BLOCK) {
+                localCallings_.add(indexInstr_);
+            }
+            if (locChar_ == END_BLOCK) {
+                localCallings_.removeLast();
+            }
             indexInstr_++;
         }
         return -1;
@@ -2919,6 +2961,12 @@ public final class FileResolver {
                 localCallings_.add(i_);
             }
             if (locChar_ == END_BLOCK) {
+                localCallings_.removeLast();
+            }
+            if (locChar_ == BEGIN_ARRAY) {
+                localCallings_.add(i_);
+            }
+            if (locChar_ == END_ARRAY) {
                 localCallings_.removeLast();
             }
             i_=incrementRowCol(i_, _file, _tabWidth, _rc, _enabledSpaces);

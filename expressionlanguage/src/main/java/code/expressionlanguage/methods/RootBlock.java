@@ -5,8 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
@@ -537,6 +539,18 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     badMeth_.setRc(r_);
                     badMeth_.setName(name_);
                     _context.getClasses().addError(badMeth_);
+                }
+                String trName_ = name_.trim();
+                Options opt_ = _context.getOptions();
+                if (opt_.getSuffixVar() == VariableSuffix.NONE) {
+                    if (!trName_.isEmpty() && Character.isDigit(trName_.charAt(0))) {
+                        RowCol r_ = m_.getRowCol(0, m_.getFieldNameOffset());
+                        BadFieldName badMeth_ = new BadFieldName();
+                        badMeth_.setFileName(className_);
+                        badMeth_.setRc(r_);
+                        badMeth_.setName(name_);
+                        _context.getClasses().addError(badMeth_);
+                    }
                 }
                 for (String m: idsField_) {
                     if (StringList.quickEq(m, name_)) {

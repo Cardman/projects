@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
@@ -170,6 +171,27 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertEq(9, (Number)ret_.getObject());
     }
 
+    @Test
+    public void calculateArgument16Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t:\n");
+        xml_.append("  t=8:\n");
+        xml_.append("  $return 1i+($int)t:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(9, (Number)ret_.getObject());
+    }
     @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();

@@ -61,6 +61,7 @@ public final class ElResolver {
     private static final String GET_CATCH_VAR = ";..";
     private static final String GET_LOC_VAR = ";.";
     private static final String GET_ATTRIBUTE = ";";
+    private static final String SIMPLE_SIFFIX = ";";
     private static final String GET_PARAM = ";.;";
     private static final String GET_FIELD = ";;;";
     private static final char ANNOT = '@';
@@ -165,6 +166,7 @@ public final class ElResolver {
             d_.setBadOffset(i_);
             return d_;
         }
+        Options opt_ = _conf.getOptions();
         i_ = _minIndex;
         int nbChars_ = 0;
         while (i_ < len_) {
@@ -1009,21 +1011,143 @@ public final class ElResolver {
                 ConstType type_ = ConstType.NOTHING;
                 boolean tolerateDot_ = false;
                 VariableInfo info_ = new VariableInfo();
-                if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
-                    if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
-                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
-                            type_ = ConstType.CUST_FIELD;
+                boolean other_ = false;
+                if (opt_.getSuffixVar() == VariableSuffix.DISTINCT) {
+                    if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
+                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
+                            if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                                type_ = ConstType.CUST_FIELD;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+GET_FIELD.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += GET_FIELD.length();
+                                d_.getVariables().add(info_);
+                                tolerateDot_ = true;
+                            } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
+                                d_.setBadOffset(i_+2);
+                                return d_;
+                            } else {
+                                type_ = ConstType.LOOP_INDEX;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+GET_INDEX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += GET_INDEX.length();
+                                d_.getVariables().add(info_);
+                            }
+                        } else if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
+                            if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
+                                type_ = ConstType.CATCH_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+GET_CATCH_VAR.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += GET_CATCH_VAR.length();
+                                d_.getVariables().add(info_);
+                            } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                                type_ = ConstType.PARAM;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+GET_PARAM.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += GET_PARAM.length();
+                                d_.getVariables().add(info_);
+                            } else {
+                                type_ = ConstType.LOC_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+GET_LOC_VAR.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += GET_LOC_VAR.length();
+                                d_.getVariables().add(info_);
+                            }
+                        } else {
+                            type_ = ConstType.LOOP_VAR;
                             info_.setKind(type_);
                             info_.setFirstChar(beginWord_);
-                            info_.setLastChar(i_+GET_FIELD.length());
+                            info_.setLastChar(i_ + GET_ATTRIBUTE.length());
                             info_.setName(_string.substring(beginWord_, i_));
-                            i_ += GET_FIELD.length();
+                            i_ += GET_ATTRIBUTE.length();
                             d_.getVariables().add(info_);
-                            tolerateDot_ = true;
-                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
-                            d_.setBadOffset(i_+2);
-                            return d_;
+                        }
+                    } else {
+                        other_ = true;
+                    }
+                } else if (opt_.getSuffixVar() == VariableSuffix.FIELDS) {
+                    if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
+                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
+                            if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                                type_ = ConstType.CUST_FIELD;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+GET_FIELD.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += GET_FIELD.length();
+                                d_.getVariables().add(info_);
+                                tolerateDot_ = true;
+                            } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
+                                d_.setBadOffset(i_+2);
+                                return d_;
+                            } else {
+                                type_ = ConstType.LOOP_INDEX;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+GET_INDEX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += GET_INDEX.length();
+                                d_.getVariables().add(info_);
+                            }
                         } else {
+                            String word_ = _string.substring(beginWord_, i_);
+                            if (_conf.getParameters().contains(word_)) {
+                                type_ = ConstType.PARAM;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else if (_conf.getAnalyzing().containsCatchVar(word_)) {
+                                type_ = ConstType.CATCH_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else if (_conf.containsMutableLoopVar(word_)) {
+                                type_ = ConstType.LOOP_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else if (_conf.getAnalyzing().containsVar(word_)) {
+                                type_ = ConstType.LOOP_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else {
+                                type_ = ConstType.LOC_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            }
+                        }
+                    } else {
+                        other_ = true;
+                    }
+                } else if (opt_.getSuffixVar() == VariableSuffix.MERGED) {
+                    if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
+                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
                             type_ = ConstType.LOOP_INDEX;
                             info_.setKind(type_);
                             info_.setFirstChar(beginWord_);
@@ -1031,147 +1155,268 @@ public final class ElResolver {
                             info_.setName(_string.substring(beginWord_, i_));
                             i_ += GET_INDEX.length();
                             d_.getVariables().add(info_);
-                        }
-                    } else if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
-                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
-                            type_ = ConstType.CATCH_VAR;
-                            info_.setKind(type_);
-                            info_.setFirstChar(beginWord_);
-                            info_.setLastChar(i_+GET_CATCH_VAR.length());
-                            info_.setName(_string.substring(beginWord_, i_));
-                            i_ += GET_CATCH_VAR.length();
-                            d_.getVariables().add(info_);
-                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
-                            type_ = ConstType.PARAM;
-                            info_.setKind(type_);
-                            info_.setFirstChar(beginWord_);
-                            info_.setLastChar(i_+GET_PARAM.length());
-                            info_.setName(_string.substring(beginWord_, i_));
-                            i_ += GET_PARAM.length();
-                            d_.getVariables().add(info_);
                         } else {
-                            type_ = ConstType.LOC_VAR;
-                            info_.setKind(type_);
-                            info_.setFirstChar(beginWord_);
-                            info_.setLastChar(i_+GET_LOC_VAR.length());
-                            info_.setName(_string.substring(beginWord_, i_));
-                            i_ += GET_LOC_VAR.length();
-                            d_.getVariables().add(info_);
+                            String word_ = _string.substring(beginWord_, i_);
+                            if (_conf.getParameters().contains(word_)) {
+                                type_ = ConstType.PARAM;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else if (_conf.getAnalyzing().containsCatchVar(word_)) {
+                                type_ = ConstType.CATCH_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else if (_conf.containsMutableLoopVar(word_)) {
+                                type_ = ConstType.LOOP_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else if (_conf.getAnalyzing().containsVar(word_)) {
+                                type_ = ConstType.LOOP_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else if (_conf.getAnalyzing().containsLocalVar(word_)) {
+                                type_ = ConstType.LOC_VAR;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            } else {
+                                type_ = ConstType.CUST_FIELD;
+                                info_.setKind(type_);
+                                info_.setFirstChar(beginWord_);
+                                info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                                info_.setName(_string.substring(beginWord_, i_));
+                                i_ += SIMPLE_SIFFIX.length();
+                                d_.getVariables().add(info_);
+                            }
                         }
                     } else {
+                        other_ = true;
+                    }
+                } else {
+                    String word_ = _string.substring(beginWord_, i_);
+                    if (_conf.getParameters().contains(word_)) {
+                        type_ = ConstType.PARAM;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_);
+                        info_.setName(_string.substring(beginWord_, i_));
+                        d_.getVariables().add(info_);
+                    } else if (_conf.getAnalyzing().containsCatchVar(word_)) {
+                        type_ = ConstType.CATCH_VAR;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_);
+                        info_.setName(_string.substring(beginWord_, i_));
+                        d_.getVariables().add(info_);
+                    } else if (_conf.containsMutableLoopVar(word_)) {
                         type_ = ConstType.LOOP_VAR;
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
-                        info_.setLastChar(i_ + GET_ATTRIBUTE.length());
+                        info_.setLastChar(i_);
                         info_.setName(_string.substring(beginWord_, i_));
-                        i_ += GET_ATTRIBUTE.length();
                         d_.getVariables().add(info_);
-                    }
-                } else if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
-                    tolerateDot_ = true;
-                    type_ = ConstType.WORD;
-                    info_.setKind(type_);
-                    info_.setFirstChar(beginWord_);
-                    info_.setLastChar(i_);
-                    String word_ = _string.substring(beginWord_, i_);
-                    String dot_ = String.valueOf(DOT_VAR);
-                    String look_ = _conf.getLookLocalClass();
-                    int prChar_ = beginWord_ - 1;
-                    while (prChar_ >= 0) {
-                        char pr_ = _string.charAt(prChar_);
-                        if (Character.isWhitespace(pr_)) {
-                            prChar_--;
-                            continue;
-                        }
-                        break;
-                    }
-                    int prIndex_ = -1;
-                    if (!d_.getVariables().isEmpty()) {
-                        VariableInfo vi_ = d_.getVariables().last();
-                        if (vi_.getKind() == ConstType.WORD) {
-                            Numbers<Integer> indexes_ = d_.getAllowedOperatorsIndexes();
-                            if (!indexes_.isEmpty()) {
-                                int lastOp_ = indexes_.last();
-                                if (lastOp_ == prChar_ && _string.charAt(lastOp_) == DOT_VAR) {
-                                    prIndex_ = prChar_;
-                                }
-                            }
-                        } else {
-                            prIndex_ = prChar_ + 1;
-                        }
-                    }
-                    if (!d_.getVariables().isEmpty() && d_.getVariables().last().getLastChar() == prIndex_) {
-                        info_.setName(word_);
+                    } else if (_conf.getAnalyzing().containsVar(word_)) {
+                        type_ = ConstType.LOOP_VAR;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_);
+                        info_.setName(_string.substring(beginWord_, i_));
                         d_.getVariables().add(info_);
-                    } else if (!look_.isEmpty()) {
-                        info_.setName(word_);
+                    } else if (_conf.getAnalyzing().containsLocalVar(word_)) {
+                        type_ = ConstType.LOC_VAR;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_);
+                        info_.setName(_string.substring(beginWord_, i_));
                         d_.getVariables().add(info_);
                     } else {
-                        //if the field exist then look for an imported type (without templates) then a complete type
-                        String prev_ = _string.substring(0, beginWord_).trim();
-                        if (prev_.endsWith(StringList.concat(dot_,dot_))) {
-                            int j_ = beginWord_;
-                            StringList parts_ = new StringList();
-                            StringBuilder part_ = new StringBuilder();
-                            while (j_ < len_) {
-                                char locChar_ = _string.charAt(j_);
-                                if (StringList.isDollarWordChar(locChar_)) {
-                                    part_.append(locChar_);
-                                    j_++;
-                                    continue;
+                        other_ = true;
+                    }
+                }
+                if (other_) {
+                    if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+                        tolerateDot_ = true;
+                        type_ = ConstType.WORD;
+                        info_.setKind(type_);
+                        info_.setFirstChar(beginWord_);
+                        info_.setLastChar(i_);
+                        String word_ = _string.substring(beginWord_, i_);
+                        String dot_ = String.valueOf(DOT_VAR);
+                        String look_ = _conf.getLookLocalClass();
+                        int prChar_ = beginWord_ - 1;
+                        while (prChar_ >= 0) {
+                            char pr_ = _string.charAt(prChar_);
+                            if (Character.isWhitespace(pr_)) {
+                                prChar_--;
+                                continue;
+                            }
+                            break;
+                        }
+                        int prIndex_ = -1;
+                        if (!d_.getVariables().isEmpty()) {
+                            VariableInfo vi_ = d_.getVariables().last();
+                            if (vi_.getKind() == ConstType.WORD) {
+                                Numbers<Integer> indexes_ = d_.getAllowedOperatorsIndexes();
+                                if (!indexes_.isEmpty()) {
+                                    int lastOp_ = indexes_.last();
+                                    if (lastOp_ == prChar_ && _string.charAt(lastOp_) == DOT_VAR) {
+                                        prIndex_ = prChar_;
+                                    }
                                 }
-                                if (Character.isWhitespace(locChar_)) {
-                                    part_.append(locChar_);
-                                    j_++;
-                                    continue;
-                                }
-                                if (locChar_ == DOT_VAR) {
-                                    parts_.add(part_.toString());
-                                    part_.delete(0, part_.length());
-                                    if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
-                                        j_++;
+                            } else {
+                                prIndex_ = prChar_ + 1;
+                            }
+                        }
+                        if (!d_.getVariables().isEmpty() && d_.getVariables().last().getLastChar() == prIndex_) {
+                            info_.setName(word_);
+                            d_.getVariables().add(info_);
+                        } else if (!look_.isEmpty()) {
+                            info_.setName(word_);
+                            d_.getVariables().add(info_);
+                        } else {
+                            //if the field exist then look for an imported type (without templates) then a complete type
+                            String prev_ = _string.substring(0, beginWord_).trim();
+                            if (prev_.endsWith(StringList.concat(dot_,dot_))) {
+                                int j_ = beginWord_;
+                                StringList parts_ = new StringList();
+                                StringBuilder part_ = new StringBuilder();
+                                while (j_ < len_) {
+                                    char locChar_ = _string.charAt(j_);
+                                    if (StringList.isDollarWordChar(locChar_)) {
+                                        part_.append(locChar_);
                                         j_++;
                                         continue;
                                     }
+                                    if (Character.isWhitespace(locChar_)) {
+                                        part_.append(locChar_);
+                                        j_++;
+                                        continue;
+                                    }
+                                    if (locChar_ == DOT_VAR) {
+                                        parts_.add(part_.toString());
+                                        part_.delete(0, part_.length());
+                                        if (j_ + 1 < len_ && _string.charAt(j_ + 1) == DOT_VAR) {
+                                            j_++;
+                                            j_++;
+                                            continue;
+                                        }
+                                    }
+                                    break;
                                 }
-                                break;
-                            }
-                            StringBuilder allparts_ = new StringBuilder(StringList.concat(dot_,dot_));
-                            int partLen_ = parts_.size();
-                            for (int i = 0; i < partLen_; i++) {
-                                allparts_.append(parts_.get(i));
-                                if (i + 1 < partLen_) {
-                                    allparts_.append(DOT_VAR);
-                                    allparts_.append(DOT_VAR);
+                                StringBuilder allparts_ = new StringBuilder(StringList.concat(dot_,dot_));
+                                int partLen_ = parts_.size();
+                                for (int i = 0; i < partLen_; i++) {
+                                    allparts_.append(parts_.get(i));
+                                    if (i + 1 < partLen_) {
+                                        allparts_.append(DOT_VAR);
+                                        allparts_.append(DOT_VAR);
+                                    }
                                 }
-                            }
-                            String id_ = allparts_.toString();
-                            String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(id_, false);
-                            if (!typeRes_.isEmpty()) {
-                                d_.getDelKeyWordStatic().add(lastDoubleDot_);
-                                int next_;
-                                next_ = j_;
-                                d_.getDelKeyWordStatic().add(next_);
-                                d_.getDelKeyWordStaticExtract().add(typeRes_);
-                                i_ = next_;
+                                String id_ = allparts_.toString();
+                                String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(id_, false);
+                                if (!typeRes_.isEmpty()) {
+                                    d_.getDelKeyWordStatic().add(lastDoubleDot_);
+                                    int next_;
+                                    next_ = j_;
+                                    d_.getDelKeyWordStatic().add(next_);
+                                    d_.getDelKeyWordStaticExtract().add(typeRes_);
+                                    i_ = next_;
+                                } else {
+                                    info_.setName(word_);
+                                    d_.getVariables().add(info_);
+                                }
+                            } else if (!prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
+                                i_ = processFieldsStaticAccess(_conf, ctorCall_, _string, beginWord_, d_, aff_);
                             } else {
                                 info_.setName(word_);
                                 d_.getVariables().add(info_);
                             }
-                        } else if (!prev_.endsWith(dot_) && i_ < len_ &&_string.charAt(i_) == DOT_VAR) {
-                            i_ = processFieldsStaticAccess(_conf, ctorCall_, _string, beginWord_, d_, aff_);
-                        } else {
-                            info_.setName(word_);
-                            d_.getVariables().add(info_);
                         }
+                    } else {
+                        int j_ = i_;
+                        while (_string.charAt(j_) != PAR_LEFT) {
+                            j_++;
+                        }
+                        d_.getCallings().add(j_);
                     }
-                } else {
-                    int j_ = i_;
-                    while (_string.charAt(j_) != PAR_LEFT) {
-                        j_++;
-                    }
-                    d_.getCallings().add(j_);
                 }
+//                if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
+//                    if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
+//                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+//                            type_ = ConstType.CUST_FIELD;
+//                            info_.setKind(type_);
+//                            info_.setFirstChar(beginWord_);
+//                            info_.setLastChar(i_+GET_FIELD.length());
+//                            info_.setName(_string.substring(beginWord_, i_));
+//                            i_ += GET_FIELD.length();
+//                            d_.getVariables().add(info_);
+//                            tolerateDot_ = true;
+//                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
+//                            d_.setBadOffset(i_+2);
+//                            return d_;
+//                        } else {
+//                            type_ = ConstType.LOOP_INDEX;
+//                            info_.setKind(type_);
+//                            info_.setFirstChar(beginWord_);
+//                            info_.setLastChar(i_+GET_INDEX.length());
+//                            info_.setName(_string.substring(beginWord_, i_));
+//                            i_ += GET_INDEX.length();
+//                            d_.getVariables().add(info_);
+//                        }
+//                    } else if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
+//                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
+//                            type_ = ConstType.CATCH_VAR;
+//                            info_.setKind(type_);
+//                            info_.setFirstChar(beginWord_);
+//                            info_.setLastChar(i_+GET_CATCH_VAR.length());
+//                            info_.setName(_string.substring(beginWord_, i_));
+//                            i_ += GET_CATCH_VAR.length();
+//                            d_.getVariables().add(info_);
+//                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+//                            type_ = ConstType.PARAM;
+//                            info_.setKind(type_);
+//                            info_.setFirstChar(beginWord_);
+//                            info_.setLastChar(i_+GET_PARAM.length());
+//                            info_.setName(_string.substring(beginWord_, i_));
+//                            i_ += GET_PARAM.length();
+//                            d_.getVariables().add(info_);
+//                        } else {
+//                            type_ = ConstType.LOC_VAR;
+//                            info_.setKind(type_);
+//                            info_.setFirstChar(beginWord_);
+//                            info_.setLastChar(i_+GET_LOC_VAR.length());
+//                            info_.setName(_string.substring(beginWord_, i_));
+//                            i_ += GET_LOC_VAR.length();
+//                            d_.getVariables().add(info_);
+//                        }
+//                    } else {
+//                        type_ = ConstType.LOOP_VAR;
+//                        info_.setKind(type_);
+//                        info_.setFirstChar(beginWord_);
+//                        info_.setLastChar(i_ + GET_ATTRIBUTE.length());
+//                        info_.setName(_string.substring(beginWord_, i_));
+//                        i_ += GET_ATTRIBUTE.length();
+//                        d_.getVariables().add(info_);
+//                    }
+//                }
                 String nextPart_ = _string.substring(i_).trim();
                 if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
                     d_.setBadOffset(i_);

@@ -9,9 +9,11 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -95,6 +97,54 @@ public final class VariableOperation extends LeafOperation implements
                 b_.setRc(page_.getTrace());
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
+            }
+            Options opt_ = _conf.getOptions();
+            if (opt_.getSuffixVar() == VariableSuffix.NONE) {
+                if (!str_.isEmpty() && Character.isDigit(str_.charAt(0))) {
+                    BadVariableName b_ = new BadVariableName();
+                    b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                    b_.setRc(page_.getTrace());
+                    b_.setVarName(str_);
+                    _conf.getClasses().addError(b_);
+                }
+            }
+            if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
+                if (_conf.getAnalyzing().containsCatchVar(variableName)) {
+                    DuplicateVariable d_ = new DuplicateVariable();
+                    d_.setId(str_);
+                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                    d_.setRc(page_.getTrace());
+                    _conf.getClasses().addError(d_);
+                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+                    return;
+                }
+                if (_conf.getAnalyzing().containsMutableLoopVar(str_)) {
+                    DuplicateVariable d_ = new DuplicateVariable();
+                    d_.setId(str_);
+                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                    d_.setRc(page_.getTrace());
+                    _conf.getClasses().addError(d_);
+                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+                    return;
+                }
+                if (_conf.getAnalyzing().containsVar(str_)) {
+                    DuplicateVariable d_ = new DuplicateVariable();
+                    d_.setId(str_);
+                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                    d_.setRc(page_.getTrace());
+                    _conf.getClasses().addError(d_);
+                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+                    return;
+                }
+                if (_conf.getParameters().contains(str_)) {
+                    DuplicateVariable d_ = new DuplicateVariable();
+                    d_.setId(str_);
+                    d_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                    d_.setRc(page_.getTrace());
+                    _conf.getClasses().addError(d_);
+                    setResultClass(new ClassArgumentMatching(_conf.getCurrentVarSetting()));
+                    return;
+                }
             }
             String c_ = _conf.getCurrentVarSetting();
             if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {

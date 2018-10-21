@@ -65,7 +65,18 @@ public final class CallDynMethodOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (chidren_.size() != param_.size()) {
+        if (all_.size() == 1) {
+            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            return;
+        }
+        boolean allParamWildCard_ = true;
+        for (String p :param_) {
+            if (!StringList.quickEq(p, Templates.SUB_TYPE)) {
+                allParamWildCard_ = false;
+                break;
+            }
+        }
+        if (firstArgs_.size() != param_.size()) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: firstArgs_) {
                 classesNames_.add(c.getNames().join(""));
@@ -80,35 +91,37 @@ public final class CallDynMethodOperation extends InvokingOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        int nb_ = param_.size();
-        StringMap<StringList> map_ = new StringMap<StringList>();
-        String glClass_ = _conf.getGlobalClass();
-        if (glClass_ != null) {
-            for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
-                map_.put(t.getName(), t.getConstraints());
+        if (!allParamWildCard_) {
+            int nb_ = param_.size();
+            StringMap<StringList> map_ = new StringMap<StringList>();
+            String glClass_ = _conf.getGlobalClass();
+            if (glClass_ != null) {
+                for (TypeVar t: Templates.getConstraints(glClass_, _conf)) {
+                    map_.put(t.getName(), t.getConstraints());
+                }
             }
-        }
-        for (int i = 0; i < nb_; i++) {
-            ClassArgumentMatching a_ = firstArgs_.get(i);
-            String pa_ = param_.get(i);
-            ClassArgumentMatching p_ = new ClassArgumentMatching(pa_);
-            Mapping m_ = new Mapping();
-            m_.setArg(a_);
-            m_.setParam(p_);
-            m_.setMapping(map_);
-            if (!Templates.isCorrect(m_, _conf)) {
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(m_);
-                cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
-                _conf.getClasses().addError(cast_);
-            }
-            if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
-                a_.setUnwrapObject(pa_);
+            for (int i = 0; i < nb_; i++) {
+                ClassArgumentMatching a_ = firstArgs_.get(i);
+                String pa_ = param_.get(i);
+                ClassArgumentMatching p_ = new ClassArgumentMatching(pa_);
+                Mapping m_ = new Mapping();
+                m_.setArg(a_);
+                m_.setParam(p_);
+                m_.setMapping(map_);
+                if (!Templates.isCorrect(m_, _conf)) {
+                    BadImplicitCast cast_ = new BadImplicitCast();
+                    cast_.setMapping(m_);
+                    cast_.setFileName(_conf.getCurrentFileName());
+                    cast_.setRc(_conf.getCurrentLocation());
+                    _conf.getClasses().addError(cast_);
+                }
+                if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
+                    a_.setUnwrapObject(pa_);
+                }
             }
         }
         String void_ = stds_.getAliasVoid();
-        if (StringList.quickEq(ret_, void_)) {
+        if (StringList.quickEq(ret_, void_) || StringList.quickEq(ret_, Templates.SUB_TYPE)) {
             ret_ = stds_.getAliasObject();
         }
         setResultClass(new ClassArgumentMatching(ret_));

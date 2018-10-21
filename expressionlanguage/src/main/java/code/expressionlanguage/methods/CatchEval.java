@@ -5,7 +5,9 @@ import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
+import code.expressionlanguage.Options;
 import code.expressionlanguage.ReadWrite;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.stacks.TryBlockStack;
@@ -76,6 +78,50 @@ public final class CatchEval extends AbstractCatchEval {
         }
         if (getFirstChild() == null) {
             return;
+        }
+        Options opt_ = _cont.getOptions();
+        if (opt_.getSuffixVar() == VariableSuffix.NONE) {
+            if (!variableName.isEmpty() && Character.isDigit(variableName.charAt(0))) {
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(getFile().getFileName());
+                b_.setRc(getRowCol(0, variableNameOffset));
+                b_.setVarName(variableName);
+                _cont.getClasses().addError(b_);
+            }
+        }
+        if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
+            if (_cont.getAnalyzing().containsLocalVar(variableName)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableName);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffset));
+                _cont.getClasses().addError(d_);
+                return;
+            }
+            if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableName);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffset));
+                _cont.getClasses().addError(d_);
+                return;
+            }
+            if (_cont.getAnalyzing().containsVar(variableName)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableName);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffset));
+                _cont.getClasses().addError(d_);
+                return;
+            }
+            if (_cont.getParameters().contains(variableName)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableName);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffset));
+                _cont.getClasses().addError(d_);
+                return;
+            }
         }
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(importedClassName);

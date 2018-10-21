@@ -6,6 +6,7 @@ public final class Options {
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
     private VariableSuffix suffixVar = VariableSuffix.NONE;
+    private boolean varTypeFirst = true;
 
     public boolean isMultipleAffectations() {
         return multipleAffectations;
@@ -37,6 +38,14 @@ public final class Options {
 
     public void setSuffixVar(VariableSuffix _suffixVar) {
         suffixVar = _suffixVar;
+    }
+
+    public boolean isVarTypeFirst() {
+        return varTypeFirst;
+    }
+
+    public void setVarTypeFirst(boolean _varTypeFirst) {
+        varTypeFirst = _varTypeFirst;
     }
 
 }

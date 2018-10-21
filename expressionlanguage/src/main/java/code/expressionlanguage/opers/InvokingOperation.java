@@ -979,10 +979,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
         }
         if (StringList.quickEq(aliasFct_, _classNameFound)) {
-            Struct l_ = _previous.getStruct();
-            String type_ = l_.getClassName(_conf);
-            StringList parts_ = Templates.getAllTypes(type_);
-            StringList paramsFct_ = parts_.mid(1, parts_.size() - 2);
             Argument instance_ = _firstArgs.first();
             if (!instance_.getStruct().isArray()) {
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
@@ -990,37 +986,11 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return a_;
             }
             Struct[] real_ = (Struct[]) instance_.getStruct().getInstance();
-            if (real_.length != paramsFct_.size()) {
-                String null_;
-                null_ = stds_.getAliasNullPe();
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
-                Argument a_ = new Argument();
-                return a_;
-            }
-            i_ = CustList.FIRST_INDEX;
-            int len_ = real_.length;
             CustList<Argument> ar_ = new CustList<Argument>();
+            int len_ = real_.length;
             for (int i = 0; i < len_; i++) {
                 Struct str_ = real_[i];
-                if (!str_.isNull()) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(str_.getClassName(_conf));
-                    mapping_.setParam(paramsFct_.get(i_));
-                    if (!Templates.isCorrect(mapping_, _conf)) {
-                        if (_possibleOffset > -1) {
-                            _conf.setOffset(_possibleOffset);
-                        }
-                        _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
-                        Argument a_ = new Argument();
-                        return a_;
-                    }
-                } else if (PrimitiveTypeUtil.primitiveTypeNullObject(paramsFct_.get(i_), str_, _conf)){
-                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
-                    Argument a_ = new Argument();
-                    return a_;
-                }
                 ar_.add(new Argument(str_));
-                i_++;
             }
             return prepareCallDyn(_previous, ar_, _conf);
         }
@@ -1061,11 +1031,40 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     public static Argument prepareCallDyn(Argument _previous, CustList<Argument> _values, ExecutableCode _conf) {
         Struct ls_ = _previous.getStruct();
+        String typeFct_ = ls_.getClassName(_conf);
+        StringList parts_ = Templates.getAllTypes(typeFct_);
+        StringList paramsFct_ = parts_.mid(1, parts_.size() - 2);
+        LgNames lgNames_ = _conf.getStandards();
+        int valuesSize_ = _values.size();
+        if (valuesSize_ != paramsFct_.size()) {
+            String null_;
+            null_ = lgNames_.getAliasNullPe();
+            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            Argument a_ = new Argument();
+            return a_;
+        }
+        for (int i = 0; i < valuesSize_; i++) {
+            Struct str_ = _values.get(i).getStruct();
+            if (!str_.isNull()) {
+                Mapping mapping_ = new Mapping();
+                mapping_.setArg(str_.getClassName(_conf));
+                mapping_.setParam(paramsFct_.get(i));
+                if (!Templates.isCorrect(mapping_, _conf)) {
+                    String cast_ = lgNames_.getAliasCast();
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+                    Argument a_ = new Argument();
+                    return a_;
+                }
+            } else if (PrimitiveTypeUtil.primitiveTypeNullObject(paramsFct_.get(i), str_, _conf)){
+                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),lgNames_.getAliasNullPe()));
+                Argument a_ = new Argument();
+                return a_;
+            }
+        }
         if (ls_ instanceof LambdaConstructorStruct) {
             Argument result_ = new Argument();
             LambdaConstructorStruct l_ = (LambdaConstructorStruct) ls_;
             String forId_ = l_.getFormClassName();
-            LgNames lgNames_ = _conf.getStandards();
             if (forId_.startsWith(ARR)) {
                 Numbers<Integer> dims_ = new Numbers<Integer>();
                 String size_;

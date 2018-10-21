@@ -24,7 +24,7 @@ public final class PartTypeUtil {
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_, _options);
+        PartType root_ = PartType.createPartType(null,null, 0, 0, loc_, loc_.getValues(), rem_, _options);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
@@ -38,7 +38,7 @@ public final class PartTypeUtil {
                     out_.append(((LeafPartType)current_).getTypeName());
                 }
             }
-            PartType child_ = createFirstChild(current_, loc_, dels_, _options);
+            PartType child_ = createFirstChild(null,current_, loc_, dels_, _options);
             if (child_ != null) {
                 if (count_ == 0) {
                     id_.append(((ParentPartType)current_).getBegin());
@@ -51,7 +51,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                PartType next_ = createNextSibling(current_, loc_, dels_, _options);
+                PartType next_ = createNextSibling(null,current_, loc_, dels_, _options);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     if (par_ instanceof TemplatePartType) {
@@ -120,7 +120,7 @@ public final class PartTypeUtil {
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
@@ -130,7 +130,7 @@ public final class PartTypeUtil {
             if (current_ instanceof LeafPartType) {
                 out_.append(((LeafPartType)current_).getTypeName());
             }
-            PartType child_ = createFirstChild(current_, loc_, dels_, options_);
+            PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 out_.append(((ParentPartType)current_).getBegin());
                 ((ParentPartType)current_).appendChild(child_);
@@ -139,7 +139,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                PartType next_ = createNextSibling(current_, loc_, dels_, options_);
+                PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     out_.append(par_.getSeparator(current_.getIndex()));
@@ -184,7 +184,7 @@ public final class PartTypeUtil {
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         StringList allDeps_ = new StringList();
@@ -192,7 +192,7 @@ public final class PartTypeUtil {
             if (current_ == null) {
                 break;
             }
-            PartType child_ = createFirstChild(current_, loc_, dels_, options_);
+            PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
                 current_ = child_;
@@ -206,7 +206,7 @@ public final class PartTypeUtil {
                     return null;
                 }
                 allDeps_.addAllElts(deps_);
-                PartType next_ = createNextSibling(current_, loc_, dels_, options_);
+                PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     par_.appendChild(next_);
@@ -247,14 +247,14 @@ public final class PartTypeUtil {
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
             if (current_ == null) {
                 break;
             }
-            PartType child_ = createFirstChild(current_, loc_, dels_, options_);
+            PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
                 current_ = child_;
@@ -266,7 +266,7 @@ public final class PartTypeUtil {
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
-                PartType next_ = createNextSibling(current_, loc_, dels_, options_);
+                PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     par_.appendChild(next_);
@@ -305,14 +305,14 @@ public final class PartTypeUtil {
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
             if (current_ == null) {
                 break;
             }
-            PartType child_ = createFirstChild(current_, loc_, dels_, options_);
+            PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
                 current_ = child_;
@@ -324,7 +324,7 @@ public final class PartTypeUtil {
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
-                PartType next_ = createNextSibling(current_, loc_, dels_, options_);
+                PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     par_.appendChild(next_);
@@ -363,14 +363,14 @@ public final class PartTypeUtil {
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
             if (current_ == null) {
                 break;
             }
-            PartType child_ = createFirstChild(current_, loc_, dels_, options_);
+            PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
                 current_ = child_;
@@ -382,7 +382,7 @@ public final class PartTypeUtil {
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
-                PartType next_ = createNextSibling(current_, loc_, dels_, options_);
+                PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     par_.appendChild(next_);
@@ -420,14 +420,14 @@ public final class PartTypeUtil {
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null, 0, 0, loc_, loc_.getValues(), rem_, options_);
+        PartType root_ = PartType.createPartType(_an, null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
             if (current_ == null) {
                 break;
             }
-            PartType child_ = createFirstChild(current_, loc_, dels_, options_);
+            PartType child_ = createFirstChild(_an, current_, loc_, dels_, options_);
             if (child_ != null) {
                 ((ParentPartType)current_).appendChild(child_);
                 current_ = child_;
@@ -439,7 +439,7 @@ public final class PartTypeUtil {
                 if (current_.getAnalyzedType().isEmpty()) {
                     return "";
                 }
-                PartType next_ = createNextSibling(current_, loc_, dels_, options_);
+                PartType next_ = createNextSibling(_an, current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     par_.appendChild(next_);
@@ -582,7 +582,7 @@ public final class PartTypeUtil {
         }
         return out_.toString();
     }
-    static PartType createFirstChild(PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels, Options _options) {
+    static PartType createFirstChild(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels, Options _options) {
         if (!(_parent instanceof ParentPartType)) {
             return null;
         }
@@ -603,7 +603,7 @@ public final class PartTypeUtil {
         String v_ = last_.firstValue();
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
         boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartType(par_, 0, off_, an_, last_, rem_, _options);
+        PartType p_ = PartType.createPartType(_an, par_, 0, off_, an_, last_, rem_, _options);
         addValues(p_, _dels, an_);
         return p_;
     }
@@ -632,7 +632,7 @@ public final class PartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
-    static PartType createNextSibling(PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels, Options _options) {
+    static PartType createNextSibling(Analyzable _an, PartType _parent, AnalyzingType _analyze, CustList<NatTreeMap<Integer, String>> _dels, Options _options) {
         ParentPartType par_ = _parent.getParent();
         if (par_ == null) {
             return null;
@@ -655,7 +655,7 @@ public final class PartTypeUtil {
         String v_ = last_.getValue(indexNext_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_, _analyze.getIndexes(), _options);
         boolean rem_ = an_.isRemovedEmptyFirstChild();
-        PartType p_ = PartType.createPartType(par_,indexNext_, off_, an_, last_, rem_, _options);
+        PartType p_ = PartType.createPartType(_an,par_,indexNext_, off_, an_, last_, rem_, _options);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;

@@ -60,7 +60,11 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
     @Override
     public boolean accessibleCondition() {
-        Condition cond_ = (Condition) getPreviousSibling();
+        Block prev_ = getPreviousSibling();
+        if (!(prev_ instanceof Condition)) {
+            return true;
+        }
+        Condition cond_ = (Condition) prev_;
         OperationNode op_ = cond_.getElCondition().getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();

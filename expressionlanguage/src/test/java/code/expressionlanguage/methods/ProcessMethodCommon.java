@@ -103,4 +103,30 @@ public abstract class ProcessMethodCommon {
         ct_.initError();
         return ct_;
     }
+    protected static ContextEl contextEl(VariableSuffix _suf,int... _m) {
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = new ContextEl();
+        } else {
+            ct_ = new ContextEl(_m[0]);
+        }
+        ct_.getOptions().setSuffixVar(_suf);
+        ct_.getOptions().setMultipleAffectations(false);
+        InitializationLgNames.initAdvStandards(ct_);
+        ct_.initError();
+        return ct_;
+    }
+    protected static ContextEl contextEl(VariableSuffix _suf,boolean _multAff, boolean _eqPlus,int... _m) {
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = new ContextEl();
+        } else {
+            ct_ = new ContextEl(_m[0]);
+        }
+        ct_.getOptions().setSuffixVar(_suf);
+        ct_.getOptions().setMultipleAffectations(_multAff);
+        InitializationLgNames.initAdvStandards(ct_);
+        ct_.initError();
+        return ct_;
+    }
 }

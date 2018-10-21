@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
@@ -1542,5 +1543,38 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument1049Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return $static(pkg.ExTwo).getstatic()+8i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $int myf=2i:\n");
+        xml_.append(" $public $static $int getstatic(){\n");
+        xml_.append("  $int loc = 0i:\n");
+        xml_.append("  $if(loc = 0i){\n");
+        xml_.append("   $int myf = 10i:\n");
+        xml_.append("   loc += myf:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return myf+loc:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(20, (Number)ret_.getObject());
     }
 }

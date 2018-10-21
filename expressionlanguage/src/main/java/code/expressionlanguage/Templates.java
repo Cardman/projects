@@ -1339,9 +1339,6 @@ public final class Templates {
                 }
             }
             if (StringList.quickEq(baseArr_, fct_)) {
-                if (nbParams_ < 1) {
-                    return false;
-                }
                 id_.append(baseArr_);
                 continue;
             }

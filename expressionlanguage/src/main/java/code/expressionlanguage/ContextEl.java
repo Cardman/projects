@@ -2529,6 +2529,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public StringList getAvailableVariables() {
+        if (analyzing == null) {
+            return new StringList();
+        }
         return analyzing.getAvailableVariables();
     }
 
