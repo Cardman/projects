@@ -58,7 +58,6 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.ParserType;
-import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.sml.RowCol;
 import code.util.CustList;
@@ -224,13 +223,6 @@ public final class Classes {
                 StringList constraints_ = new StringList();
                 if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
                     for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
-                        if (!isCorrectTemplate(b, _context, _root)) {
-                            BadClassName badCl_ = new BadClassName();
-                            badCl_.setClassName(b);
-                            badCl_.setFileName(_root.getFile().getFileName());
-                            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                            addError(badCl_);
-                        }
                         constraints_.add(b);
                     }
                 } else {
@@ -263,39 +255,6 @@ public final class Classes {
             _root.getExplicitDirectSuperTypes().put(-1, false);
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
-        int indexSuperType_= -1;
-        for (String s: _root.getDirectGenericSuperTypesBuild(_context)) {
-            indexSuperType_++;
-            if (!isCorrectTemplate(s, _context, _root)) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(s);
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getRowColDirectSuperTypes().getKey(indexSuperType_)));
-                addError(badCl_);
-            }
-        }
-        CustList<TypeVar> tvs_ = _root.getParamTypes();
-        for (TypeVar t: tvs_) {
-            for (String u: t.getConstraints()) {
-                if (!u.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                    continue;
-                }
-                boolean found_ = false;
-                for (TypeVar v: tvs_) {
-                    if (StringList.quickEq(v.getName(), u.substring(1))) {
-                        found_ = true;
-                        break;
-                    }
-                }
-                if (!found_) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(u);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
-                }
-            }
-        }
         if (lgNames_.getStandards().contains(fullName_)) {
             DuplicateType d_ = new DuplicateType();
             d_.setId(fullName_);
@@ -313,14 +272,6 @@ public final class Classes {
         classesBodies.put(fullName_, _root);
     }
 
-    private static boolean isCorrectTemplate(String _temp, ContextEl _context, RootBlock _type) {
-        RowCol rc_ = new RowCol();
-        String temp_ = PartTypeUtil.processTypeHeaders(_temp, _context, _type, rc_);
-        if (PrimitiveTypeUtil.isPrimitive(temp_, _context)) {
-            return false;
-        }
-        return true;
-    }
     public boolean isEmptyErrors() {
         return errorsDet.isEmpty();
     }

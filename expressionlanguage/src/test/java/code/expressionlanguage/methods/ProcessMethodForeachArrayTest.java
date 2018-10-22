@@ -161,5 +161,36 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(30, (Number)ret_.getObject());
     }
-
+    @Test
+    public void calculateArgument73Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t:\n");
+        xml_.append("  t;.=0i:\n");
+        xml_.append("  java.lang.Integer[] a:\n");
+        xml_.append("  a;.=$new java.lang.Integer[4i]:\n");
+        xml_.append("  a;.[0i]=$null:\n");
+        xml_.append("  a;.[1i]=1i:\n");
+        xml_.append("  a;.[2i]=$null:\n");
+        xml_.append("  a;.[3i]=$null:\n");
+        xml_.append("  $foreach(java.lang.Integer i:a;.){\n");
+        xml_.append("   $if(i;=$null){\n");
+        xml_.append("    t;.+=([i]):\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  $return t;.:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(5, (Number)ret_.getObject());
+    }
 }

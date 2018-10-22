@@ -27,6 +27,7 @@ public final class Delimiters {
     private Numbers<Integer> delInstanceof = new Numbers<Integer>();
     private Numbers<Integer> delLambda = new Numbers<Integer>();
     private Numbers<Integer> delIds = new Numbers<Integer>();
+    private Numbers<Integer> delLoopVars = new Numbers<Integer>();
     private Numbers<Integer> delVararg = new Numbers<Integer>();
     private Numbers<Integer> delClass = new Numbers<Integer>();
     private Numbers<Integer> delSimpleAnnotations = new Numbers<Integer>();
@@ -134,6 +135,14 @@ public final class Delimiters {
 
     public void setDelIds(Numbers<Integer> _delIds) {
         delIds = _delIds;
+    }
+
+    public Numbers<Integer> getDelLoopVars() {
+        return delLoopVars;
+    }
+
+    public void setDelLoopVars(Numbers<Integer> _delLoopVars) {
+        delLoopVars = _delLoopVars;
     }
 
     public Numbers<Integer> getDelVararg() {

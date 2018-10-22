@@ -296,6 +296,37 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return paramTypes;
     }
 
+    public final String getWildCardString() {
+        String pkg_ = getPackageName();
+        StringBuilder generic_ = new StringBuilder();
+        if (!pkg_.isEmpty()) {
+            generic_.append(pkg_);
+            generic_.append(DOT);
+        }
+        CustList<RootBlock> pars_ = getSelfAndParentTypes();
+        for (RootBlock r: pars_.first().getAllParentTypesReverse()) {
+            generic_.append(r.getName());
+            generic_.append("..");
+        }
+        for (RootBlock r: pars_) {
+            generic_.append(r.getName());
+            if (!r.paramTypes.isEmpty()) {
+                StringList vars_ = new StringList();
+                int count_ = r.paramTypes.size();
+                for (int i = 0; i < count_; i++) {
+                    vars_.add(Templates.SUB_TYPE);
+                }
+                generic_.append(Templates.TEMPLATE_BEGIN);
+                generic_.append(vars_.join(Templates.TEMPLATE_SEP));
+                generic_.append(Templates.TEMPLATE_END);
+            }
+            if (r != this) {
+                generic_.append("..");
+            }
+        }
+        return generic_.toString();
+    }
+
     @Override
     public final String getGenericString() {
         String pkg_ = getPackageName();

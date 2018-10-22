@@ -7,10 +7,13 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
+import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
@@ -20,6 +23,7 @@ import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.StringList;
 
 public final class ValuesOperation extends LeafOperation {
 
@@ -43,7 +47,8 @@ public final class ValuesOperation extends LeafOperation {
         Classes classes_ = _conf.getClasses();
         String clName_;
         clName_ = _conf.resolveIdType(className);
-        if (!(classes_.getClassBody(clName_) instanceof EnumBlock)) {
+        RootBlock r_ = classes_.getClassBody(clName_);
+        if (!(r_ instanceof EnumBlock)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_conf.getCurrentFileName());
             un_.setRc(_conf.getCurrentLocation());
@@ -63,14 +68,19 @@ public final class ValuesOperation extends LeafOperation {
             badAccess_.setRc(_conf.getCurrentLocation());
             badAccess_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(badAccess_);
-            String argClName_ = _conf.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
-            return;
         }
-        if (classes_.getClassBody(clName_).getParamTypes().isEmpty()) {
-            className = clName_;
+        StringList allElements_ = new StringList();
+        for (Block e: Classes.getDirectChildren(r_)) {
+            if (e instanceof ElementBlock) {
+                String type_ = ((ElementBlock)e).getImportedClassName();
+                allElements_.add(type_);
+            }
+        }
+        allElements_.removeDuplicates();
+        if (allElements_.size() == 1) {
+            className = allElements_.first();
         } else {
-            className = _conf.getStandards().getAliasEnum();
+            className = r_.getWildCardString();
         }
         String ret_ = PrimitiveTypeUtil.getPrettyArrayType(className);
         setResultClass(new ClassArgumentMatching(ret_));

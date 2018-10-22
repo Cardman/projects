@@ -1012,6 +1012,8 @@ public final class ElResolver {
                 boolean tolerateDot_ = false;
                 VariableInfo info_ = new VariableInfo();
                 boolean other_ = false;
+                String prev_ = _string.substring(0, beginWord_).trim();
+                String word_ = _string.substring(beginWord_, i_);
                 if (opt_.getSuffixVar() == VariableSuffix.DISTINCT) {
                     if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
                         if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
@@ -1020,7 +1022,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+GET_FIELD.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += GET_FIELD.length();
                                 d_.getVariables().add(info_);
                                 tolerateDot_ = true;
@@ -1032,7 +1034,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+GET_INDEX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += GET_INDEX.length();
                                 d_.getVariables().add(info_);
                             }
@@ -1050,7 +1052,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+GET_PARAM.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += GET_PARAM.length();
                                 d_.getVariables().add(info_);
                             } else {
@@ -1058,7 +1060,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+GET_LOC_VAR.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += GET_LOC_VAR.length();
                                 d_.getVariables().add(info_);
                             }
@@ -1067,7 +1069,7 @@ public final class ElResolver {
                             info_.setKind(type_);
                             info_.setFirstChar(beginWord_);
                             info_.setLastChar(i_ + GET_ATTRIBUTE.length());
-                            info_.setName(_string.substring(beginWord_, i_));
+                            info_.setName(word_);
                             i_ += GET_ATTRIBUTE.length();
                             d_.getVariables().add(info_);
                         }
@@ -1082,7 +1084,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+GET_FIELD.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += GET_FIELD.length();
                                 d_.getVariables().add(info_);
                                 tolerateDot_ = true;
@@ -1094,18 +1096,30 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+GET_INDEX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += GET_INDEX.length();
                                 d_.getVariables().add(info_);
                             }
                         } else {
-                            String word_ = _string.substring(beginWord_, i_);
-                            if (_conf.getParameters().contains(word_)) {
+                            if (prev_.endsWith(String.valueOf(DOT_VAR))) {
+                                if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+                                    type_ = ConstType.WORD;
+                                    info_.setKind(type_);
+                                    info_.setFirstChar(beginWord_);
+                                    info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                                    info_.setName(word_);
+                                    i_ += SIMPLE_SIFFIX.length();
+                                    d_.getVariables().add(info_);
+                                    tolerateDot_ = true;
+                                } else {
+                                    other_ = true;
+                                }
+                            } else if (_conf.getParameters().contains(word_)) {
                                 type_ = ConstType.PARAM;
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else if (_conf.getAnalyzing().containsCatchVar(word_)) {
@@ -1113,7 +1127,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else if (_conf.containsMutableLoopVar(word_)) {
@@ -1121,7 +1135,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else if (_conf.getAnalyzing().containsVar(word_)) {
@@ -1129,7 +1143,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else {
@@ -1137,7 +1151,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             }
@@ -1152,17 +1166,28 @@ public final class ElResolver {
                             info_.setKind(type_);
                             info_.setFirstChar(beginWord_);
                             info_.setLastChar(i_+GET_INDEX.length());
-                            info_.setName(_string.substring(beginWord_, i_));
+                            info_.setName(word_);
                             i_ += GET_INDEX.length();
                             d_.getVariables().add(info_);
                         } else {
-                            String word_ = _string.substring(beginWord_, i_);
-                            if (_conf.getParameters().contains(word_)) {
+                            if (prev_.endsWith(String.valueOf(DOT_VAR))) {
+                                if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+                                    type_ = ConstType.WORD;
+                                    info_.setKind(type_);
+                                    info_.setFirstChar(beginWord_);
+                                    info_.setLastChar(i_+SIMPLE_SIFFIX.length());
+                                    info_.setName(word_);
+                                    i_ += SIMPLE_SIFFIX.length();
+                                    d_.getVariables().add(info_);
+                                } else {
+                                     other_ = true;
+                                }
+                            } else if (_conf.getParameters().contains(word_)) {
                                 type_ = ConstType.PARAM;
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else if (_conf.getAnalyzing().containsCatchVar(word_)) {
@@ -1170,7 +1195,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else if (_conf.containsMutableLoopVar(word_)) {
@@ -1178,7 +1203,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else if (_conf.getAnalyzing().containsVar(word_)) {
@@ -1186,7 +1211,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else if (_conf.getAnalyzing().containsLocalVar(word_)) {
@@ -1194,7 +1219,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_ + SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             } else {
@@ -1202,7 +1227,7 @@ public final class ElResolver {
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
                                 info_.setLastChar(i_+SIMPLE_SIFFIX.length());
-                                info_.setName(_string.substring(beginWord_, i_));
+                                info_.setName(word_);
                                 i_ += SIMPLE_SIFFIX.length();
                                 d_.getVariables().add(info_);
                             }
@@ -1211,41 +1236,52 @@ public final class ElResolver {
                         other_ = true;
                     }
                 } else {
-                    String word_ = _string.substring(beginWord_, i_);
-                    if (_conf.getParameters().contains(word_)) {
+                    tolerateDot_ = true;
+                    if (prev_.endsWith(String.valueOf(DOT_VAR))) {
+                        if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
+                            type_ = ConstType.WORD;
+                            info_.setKind(type_);
+                            info_.setFirstChar(beginWord_);
+                            info_.setLastChar(i_);
+                            info_.setName(word_);
+                            d_.getVariables().add(info_);
+                        } else {
+                            other_ = true;
+                        }
+                    } else if (_conf.getParameters().contains(word_)) {
                         type_ = ConstType.PARAM;
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(i_);
-                        info_.setName(_string.substring(beginWord_, i_));
+                        info_.setName(word_);
                         d_.getVariables().add(info_);
                     } else if (_conf.getAnalyzing().containsCatchVar(word_)) {
                         type_ = ConstType.CATCH_VAR;
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(i_);
-                        info_.setName(_string.substring(beginWord_, i_));
+                        info_.setName(word_);
                         d_.getVariables().add(info_);
                     } else if (_conf.containsMutableLoopVar(word_)) {
                         type_ = ConstType.LOOP_VAR;
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(i_);
-                        info_.setName(_string.substring(beginWord_, i_));
+                        info_.setName(word_);
                         d_.getVariables().add(info_);
                     } else if (_conf.getAnalyzing().containsVar(word_)) {
                         type_ = ConstType.LOOP_VAR;
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(i_);
-                        info_.setName(_string.substring(beginWord_, i_));
+                        info_.setName(word_);
                         d_.getVariables().add(info_);
                     } else if (_conf.getAnalyzing().containsLocalVar(word_)) {
                         type_ = ConstType.LOC_VAR;
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(i_);
-                        info_.setName(_string.substring(beginWord_, i_));
+                        info_.setName(word_);
                         d_.getVariables().add(info_);
                     } else {
                         other_ = true;
@@ -1258,7 +1294,6 @@ public final class ElResolver {
                         info_.setKind(type_);
                         info_.setFirstChar(beginWord_);
                         info_.setLastChar(i_);
-                        String word_ = _string.substring(beginWord_, i_);
                         String dot_ = String.valueOf(DOT_VAR);
                         String look_ = _conf.getLookLocalClass();
                         int prChar_ = beginWord_ - 1;
@@ -1293,7 +1328,6 @@ public final class ElResolver {
                             d_.getVariables().add(info_);
                         } else {
                             //if the field exist then look for an imported type (without templates) then a complete type
-                            String prev_ = _string.substring(0, beginWord_).trim();
                             if (prev_.endsWith(StringList.concat(dot_,dot_))) {
                                 int j_ = beginWord_;
                                 StringList parts_ = new StringList();
@@ -1358,65 +1392,6 @@ public final class ElResolver {
                         d_.getCallings().add(j_);
                     }
                 }
-//                if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
-//                    if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
-//                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
-//                            type_ = ConstType.CUST_FIELD;
-//                            info_.setKind(type_);
-//                            info_.setFirstChar(beginWord_);
-//                            info_.setLastChar(i_+GET_FIELD.length());
-//                            info_.setName(_string.substring(beginWord_, i_));
-//                            i_ += GET_FIELD.length();
-//                            d_.getVariables().add(info_);
-//                            tolerateDot_ = true;
-//                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
-//                            d_.setBadOffset(i_+2);
-//                            return d_;
-//                        } else {
-//                            type_ = ConstType.LOOP_INDEX;
-//                            info_.setKind(type_);
-//                            info_.setFirstChar(beginWord_);
-//                            info_.setLastChar(i_+GET_INDEX.length());
-//                            info_.setName(_string.substring(beginWord_, i_));
-//                            i_ += GET_INDEX.length();
-//                            d_.getVariables().add(info_);
-//                        }
-//                    } else if (i_ + 1 < len_ && _string.charAt(i_ + 1) == DOT_VAR) {
-//                        if (i_ + 2 < len_ && _string.charAt(i_ + 2) == DOT_VAR) {
-//                            type_ = ConstType.CATCH_VAR;
-//                            info_.setKind(type_);
-//                            info_.setFirstChar(beginWord_);
-//                            info_.setLastChar(i_+GET_CATCH_VAR.length());
-//                            info_.setName(_string.substring(beginWord_, i_));
-//                            i_ += GET_CATCH_VAR.length();
-//                            d_.getVariables().add(info_);
-//                        } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
-//                            type_ = ConstType.PARAM;
-//                            info_.setKind(type_);
-//                            info_.setFirstChar(beginWord_);
-//                            info_.setLastChar(i_+GET_PARAM.length());
-//                            info_.setName(_string.substring(beginWord_, i_));
-//                            i_ += GET_PARAM.length();
-//                            d_.getVariables().add(info_);
-//                        } else {
-//                            type_ = ConstType.LOC_VAR;
-//                            info_.setKind(type_);
-//                            info_.setFirstChar(beginWord_);
-//                            info_.setLastChar(i_+GET_LOC_VAR.length());
-//                            info_.setName(_string.substring(beginWord_, i_));
-//                            i_ += GET_LOC_VAR.length();
-//                            d_.getVariables().add(info_);
-//                        }
-//                    } else {
-//                        type_ = ConstType.LOOP_VAR;
-//                        info_.setKind(type_);
-//                        info_.setFirstChar(beginWord_);
-//                        info_.setLastChar(i_ + GET_ATTRIBUTE.length());
-//                        info_.setName(_string.substring(beginWord_, i_));
-//                        i_ += GET_ATTRIBUTE.length();
-//                        d_.getVariables().add(info_);
-//                    }
-//                }
                 String nextPart_ = _string.substring(i_).trim();
                 if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
                     d_.setBadOffset(i_);
@@ -2601,6 +2576,17 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
+        begin_ = _d.getDelLoopVars().indexOfObj(_offset + firstPrintChar_);
+        end_ = _d.getDelLoopVars().indexOfObj(_offset + lastPrintChar_);
+        if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            String name_ = StringList.getWordsSeparators(_string.substring(firstPrintChar_+1, lastPrintChar_)).get(1);
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.LOOP_INDEX);
+            op_.setOperators(new NatTreeMap<Integer, String>());
+            op_.setValue(name_, firstPrintChar_);
+            op_.setDelimiter(_d);
+            return op_;
+        }
         begin_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelKeyWordSuperAccess().indexOfObj(_offset + lastPrintChar_ + 1);
         if (begin_ > CustList.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
@@ -3150,6 +3136,16 @@ public final class ElResolver {
         Delimiters d_ = _d;
         if (indexParRight_ >= 0 && !d_.getCallings().containsObj(i_)) {
             String sub_ = _string.substring(i_ + 1, indexParRight_);
+            String subTrim_ = sub_.trim();
+            int arrRight_ = subTrim_.indexOf(ARR_RIGHT);
+            if (subTrim_.startsWith(ARR) && arrRight_ > -1) {
+                String name_ = subTrim_.substring(1, arrRight_).trim();
+                if (_conf.getAnalyzing().containsVar(name_)) {
+                    _d.getDelLoopVars().add(i_);
+                    _d.getDelLoopVars().add(indexParRight_);
+                    return indexParRight_ + 1;
+                }
+            }
             int j_ = i_ + 1;
             while (true) {
                 char locChar_ = _string.charAt(j_);

@@ -103,69 +103,6 @@ public final class PartTypeUtil {
         list_.add(0, id_.toString());
         return list_;
     }
-    public static String processTypeHeaders(String _input,Analyzable _an, RootBlock _rooted,RowCol _location) {
-        StringBuilder out_ = new StringBuilder();
-        Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
-        if (indexes_ == null) {
-            UnknownClassName un_ = new UnknownClassName();
-            un_.setClassName("");
-            un_.setFileName(_rooted.getFile().getFileName());
-            un_.setRc(_location);
-            _an.getClasses().addError(un_);
-            out_.append(_an.getStandards().getAliasObject());
-            return out_.toString();
-        }
-        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
-        CustList<NatTreeMap<Integer, String>> dels_;
-        dels_ = new CustList<NatTreeMap<Integer, String>>();
-        boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(_an,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
-        addValues(root_, dels_, loc_);
-        PartType current_ = root_;
-        while (true) {
-            if (current_ == null) {
-                break;
-            }
-            if (current_ instanceof LeafPartType) {
-                out_.append(((LeafPartType)current_).getTypeName());
-            }
-            PartType child_ = createFirstChild(_an,current_, loc_, dels_, options_);
-            if (child_ != null) {
-                out_.append(((ParentPartType)current_).getBegin());
-                ((ParentPartType)current_).appendChild(child_);
-                current_ = child_;
-                continue;
-            }
-            boolean stop_ = false;
-            while (true) {
-                PartType next_ = createNextSibling(_an,current_, loc_, dels_, options_);
-                ParentPartType par_ = current_.getParent();
-                if (next_ != null) {
-                    out_.append(par_.getSeparator(current_.getIndex()));
-                    par_.appendChild(next_);
-                    current_ = next_;
-                    break;
-                }
-                if (par_ == root_) {
-                    out_.append(par_.getEnd());
-                    stop_ = true;
-                    break;
-                }
-                if (par_ == null) {
-                    stop_ = true;
-                    break;
-                }
-                out_.append(par_.getEnd());
-                dels_.removeLast();
-                current_ = par_;
-            }
-            if (stop_) {
-                break;
-            }
-        }
-        return out_.toString();
-    }
     static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted,RowCol _location) {
         return processAnalyze(_input, _globalType, _an, _rooted, true, true, _location);
     }
