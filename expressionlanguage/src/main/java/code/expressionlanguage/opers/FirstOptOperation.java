@@ -30,14 +30,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
-    }
-
-    @Override
-    public void analyze(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
@@ -72,17 +65,8 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             setSimpleArgument(new Argument());
             return;
         }
-        if (chidren_.size() != CustList.ONE_ELEMENT) {
-            VarargError varg_ = new VarargError();
-            varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setRc(_conf.getCurrentLocation());
-            varg_.setMethodName(FIRST_OPT);
-            _conf.getClasses().addError(varg_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            setSimpleArgument(new Argument());
-            return;
-        }
-        setResultClass(chidren_.first().getResultClass());
+        OperationNode child_ = getFirstChild();
+        setResultClass(child_.getResultClass());
     }
 
     @Override

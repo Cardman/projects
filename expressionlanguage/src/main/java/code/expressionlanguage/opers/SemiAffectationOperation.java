@@ -48,17 +48,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyzeUnary(Analyzable _conf) {
         OperationNode leftEl_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();
-        if (leftEl_ == null) {
-            UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-            un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().addError(un_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-            return;
-        }
         settable = AffectationOperation.tryGetSettable(this);
         if (settable == null) {
             leftEl_.setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
@@ -239,10 +231,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             }
         }
         vars_.getFields().put(this, fieldsAfter_);
-    }
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
     }
     @Override
     public void calculate(ExecutableCode _conf) {

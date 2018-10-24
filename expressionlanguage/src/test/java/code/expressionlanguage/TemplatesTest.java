@@ -2758,6 +2758,63 @@ public class TemplatesTest {
         assertTrue(Templates.isCorrect(m_,context_));
     }
     @Test
+    public void isCorrect93Test() {
+        ContextEl context_ = simpleContextEl();
+        Mapping m_ = new Mapping();
+        m_.setArg("#T");
+        m_.setParam("[#T");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+    @Test
+    public void isCorrect94Test() {
+        ContextEl context_ = simpleContextEl();
+        Mapping m_ = new Mapping();
+        m_.setArg("[#T");
+        m_.setParam("#T");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+    @Test
+    public void isCorrect95Test() {
+        ContextEl context_ = simpleContextEl();
+        Mapping m_ = new Mapping();
+        m_.setArg("java.lang.Number");
+        m_.setParam("#T");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(!Templates.isCorrect(m_,context_));
+    }
+    @Test
+    public void isCorrect96Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        Mapping m_ = new Mapping();
+        m_.setArg("$int");
+        m_.setParam("pkg.Ex<java.lang.Number>");
+        assertTrue(!Templates.isCorrect(m_, cont_));
+    }
+    @Test
+    public void isCorrect97Test() {
+        ContextEl context_ = simpleContextEl();
+        Mapping m_ = new Mapping();
+        m_.setArg("");
+        m_.setParam("#T");
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        t_.put("T", new StringList("java.lang.Object"));
+        m_.setMapping(t_);
+        assertTrue(Templates.isCorrect(m_,context_));
+    }
+    @Test
     public void isCorrectTemplate48Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

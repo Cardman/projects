@@ -1169,6 +1169,7 @@ public final class ElResolver {
                             info_.setName(word_);
                             i_ += GET_INDEX.length();
                             d_.getVariables().add(info_);
+                            tolerateDot_ = true;
                         } else {
                             if (prev_.endsWith(String.valueOf(DOT_VAR))) {
                                 if (i_ >= len_ || _string.substring(i_).trim().charAt(0) != PAR_LEFT) {
@@ -1179,6 +1180,7 @@ public final class ElResolver {
                                     info_.setName(word_);
                                     i_ += SIMPLE_SIFFIX.length();
                                     d_.getVariables().add(info_);
+                                    tolerateDot_ = true;
                                 } else {
                                      other_ = true;
                                 }
@@ -3139,12 +3141,9 @@ public final class ElResolver {
             String subTrim_ = sub_.trim();
             int arrRight_ = subTrim_.indexOf(ARR_RIGHT);
             if (subTrim_.startsWith(ARR) && arrRight_ > -1) {
-                String name_ = subTrim_.substring(1, arrRight_).trim();
-                if (_conf.getAnalyzing().containsVar(name_)) {
-                    _d.getDelLoopVars().add(i_);
-                    _d.getDelLoopVars().add(indexParRight_);
-                    return indexParRight_ + 1;
-                }
+                _d.getDelLoopVars().add(i_);
+                _d.getDelLoopVars().add(indexParRight_);
+                return indexParRight_ + 1;
             }
             int j_ = i_ + 1;
             while (true) {

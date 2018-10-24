@@ -37,12 +37,7 @@ public final class CastOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-    }
-
-    @Override
-    public void analyze(Analyzable _conf) {
+    public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         String ext_ = getOperations().getExtractType();
         if (!ext_.isEmpty()) {

@@ -5,8 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -19,19 +17,9 @@ public final class IdOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (chidren_.size() != 1) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-            BadOperandsNumber badNb_ = new BadOperandsNumber();
-            badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setOperandsNumber(chidren_.size());
-            badNb_.setRc(_conf.getCurrentLocation());
-            _conf.getClasses().addError(badNb_);
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
-            return;
-        }
-        setResultClass(chidren_.first().getResultClass());
+    public void analyzeUnary(Analyzable _conf) {
+        OperationNode first_ = getFirstChild();
+        setResultClass(first_.getResultClass());
     }
 
     @Override
@@ -60,11 +48,5 @@ public final class IdOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        analyzeStdAssignmentBeforeNextSibling(_conf, _nextSibling, _previous);
     }
 }

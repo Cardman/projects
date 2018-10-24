@@ -27,20 +27,16 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    public void analyzeUnary(Analyzable _conf) {
         LgNames stds_ = _conf.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
-        if (chidren_.isEmpty()) {
-            setResultClass(new ClassArgumentMatching(booleanPrimType_));
-            return;
-        }
+        OperationNode child_ = getFirstChild();
         ClassArgumentMatching clMatch_;
-        clMatch_ = chidren_.first().getResultClass();
+        clMatch_ = child_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         String booleanType_ = stds_.getAliasBoolean();
         if (!clMatch_.isBoolType(_conf)) {
-            ClassArgumentMatching cl_ = chidren_.first().getResultClass();
+            ClassArgumentMatching cl_ = child_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
@@ -94,11 +90,6 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
     void calculateChildren() {
         NatTreeMap<Integer, String> vs_ = getOperations().getValues();
         getChildren().putAllMap(vs_);
-    }
-
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
     }
 
     @Override

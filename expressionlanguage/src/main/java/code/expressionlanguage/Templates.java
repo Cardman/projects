@@ -912,6 +912,12 @@ public final class Templates {
                 MappingPairs m_ = new MappingPairs();
                 return m_;
             }
+            if (!baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
+                return null;
+            }
+            if (dArg_.getDim() != dParam_.getDim()) {
+                return null;
+            }
             if (_m.inheritArgParam(baseArrayParam_.substring(1), baseArrayArg_.substring(1))) {
                 MappingPairs m_ = new MappingPairs();
                 return m_;

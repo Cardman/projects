@@ -29,15 +29,10 @@ public final class UnaryOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyze(Analyzable _conf) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
+    public void analyzeUnary(Analyzable _conf) {
+        OperationNode child_ = getFirstChild();
         LgNames stds_ = _conf.getStandards();
-        if (chidren_.isEmpty()) {
-            String exp_ = _conf.getStandards().getAliasNumber();
-            setResultClass(new ClassArgumentMatching(exp_));
-            return;
-        }
-        ClassArgumentMatching clMatch_ = chidren_.first().getResultClass();
+        ClassArgumentMatching clMatch_ = child_.getResultClass();
         String oper_ = getOperations().getOperators().firstValue();
         ClassMethodIdReturn cust_ = getOperator(_conf, oper_, clMatch_);
         if (cust_.isFoundMethod()) {
@@ -48,10 +43,9 @@ public final class UnaryOperation extends AbstractUnaryOperation {
             classMethodId = new ClassMethodId(foundClass_, id_);
             MethodId realId_ = cust_.getRealId();
             CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-            for (OperationNode o: chidren_) {
-                firstArgs_.add(o.getResultClass());
-            }
-            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            firstArgs_.add(child_.getResultClass());
+            CustList<OperationNode> children_ = new CustList<OperationNode>(child_);
+            InvokingOperation.unwrapArgsFct(children_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
             return;
         }
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
@@ -183,11 +177,5 @@ public final class UnaryOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeAssignmentAfter(Analyzable _conf) {
         analyzeStdAssignmentAfter(_conf);
-    }
-
-    @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-        
     }
 }

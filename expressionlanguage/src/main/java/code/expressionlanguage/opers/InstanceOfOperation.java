@@ -35,12 +35,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-    }
-
-    @Override
-    public void analyze(Analyzable _conf) {
+    public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         String method_ = prefixFunction(INSTANCEOF);

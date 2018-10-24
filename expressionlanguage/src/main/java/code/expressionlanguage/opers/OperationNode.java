@@ -564,6 +564,22 @@ public abstract class OperationNode {
             if (!Classes.canAccessField(curClassBase_, s, _name, _cont)) {
                 continue;
             }
+            String formatted_;
+            String baseCl_ = clCurNames_.getVal(s);
+            if (Templates.correctNbParameters(baseCl_, _cont)) {
+                formatted_ = Templates.getFullTypeByBases(baseCl_, s, _cont);
+            } else {
+                formatted_ = s;
+            }
+            if (formatted_ == null) {
+                continue;
+            }
+            String realType_ = fi_.getType();
+            boolean finalField_ = fi_.isFinalField();
+            boolean staticField_ = fi_.isStaticField();
+            if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, staticField_, _cont, _aff) == null) {
+                continue;
+            }
             imports_.add(candidate_, 0);
             ancestors_.add(candidate_, 0);
         }
@@ -628,6 +644,22 @@ public abstract class OperationNode {
                     if (!keepInstance_ && !_static) {
                         continue;
                     }
+                    String formatted_;
+                    String baseCl_ = clCurNames_.getVal(s);
+                    if (Templates.correctNbParameters(baseCl_, _cont)) {
+                        formatted_ = Templates.getFullTypeByBases(baseCl_, s, _cont);
+                    } else {
+                        formatted_ = s;
+                    }
+                    if (formatted_ == null) {
+                        continue;
+                    }
+                    String realType_ = fi_.getType();
+                    boolean finalField_ = fi_.isFinalField();
+                    boolean staticField_ = fi_.isStaticField();
+                    if (FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, finalField_, staticField_, _cont, _aff) == null) {
+                        continue;
+                    }
                     imports_.add(candidate_, anc_);
                     ancestors_.add(candidate_, anc_);
                 }
@@ -639,18 +671,7 @@ public abstract class OperationNode {
             maxAnc_ = Math.max(maxAnc_, anc_);
         }
         int max_ = maxAnc_;
-        if (_import) {
-            for (EntryCust<ClassField, Integer> e: _cont.lookupImportStaticFields(curClassBase_, _name, _cont.getCurrentBlock()).entryList()) {
-                if (imports_.contains(e.getKey())) {
-                    continue;
-                }
-                max_ = Math.max(max_, e.getValue()+maxAnc_);
-                imports_.add(e.getKey(),e.getValue()+maxAnc_);
-                ancestors_.add(e.getKey(),0);
-            }
-        }
-        max_++;
-        for (int i = 0; i < max_; i++) {
+        for (int i = 0; i <= maxAnc_; i++) {
             StringList subClasses_ = new StringList();
             for (EntryCust<ClassField,Integer> e: imports_.entryList()) {
                 if (e.getValue().intValue() != i) {
@@ -661,32 +682,53 @@ public abstract class OperationNode {
             StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
             if (subs_.size() == CustList.ONE_ELEMENT) {
                 String cl_ = subs_.first();
+                String baseCl_ = clCurNames_.getVal(cl_);
                 String formatted_;
-                if (i == 0) {
-                    String baseCl_ = clCurNames_.getVal(cl_);
-                    if (Templates.correctNbParameters(baseCl_, _cont)) {
-                        formatted_ = Templates.getFullTypeByBases(baseCl_, cl_, _cont);
-                    } else {
-                        formatted_ = cl_;
-                    }
+                if (Templates.correctNbParameters(baseCl_, _cont)) {
+                    formatted_ = Templates.getFullTypeByBases(baseCl_, cl_, _cont);
                 } else {
                     formatted_ = cl_;
-                }
-                if (formatted_ == null) {
-                    continue;
                 }
                 ClassField id_ = new ClassField(cl_, _name);
                 FieldInfo field_ = _cont.getFieldInfo(id_);
                 FieldResult r_ = new FieldResult();
                 String realType_ = field_.getType();
                 FieldInfo f_ = FieldInfo.newFieldInfo(_name, formatted_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, _aff);
-                if (f_ == null) {
-                    continue;
-                }
                 r_.setId(f_);
                 r_.setAnc(ancestors_.getVal(id_));
                 r_.setStatus(SearchingMemberStatus.UNIQ);
                 return r_;
+            }
+        }
+        if (_import) {
+            Block curBlock_ = _cont.getCurrentBlock();
+            int maxLoc_ = maxAnc_ + 1;
+            for (EntryCust<ClassField, Integer> e: _cont.lookupImportStaticFields(curClassBase_, _name, curBlock_).entryList()) {
+                max_ = Math.max(max_, e.getValue()+maxAnc_);
+                imports_.add(e.getKey(),e.getValue()+maxAnc_);
+                ancestors_.add(e.getKey(),0);
+            }
+            for (int i = maxLoc_; i <= max_; i++) {
+                StringList subClasses_ = new StringList();
+                for (EntryCust<ClassField,Integer> e: imports_.entryList()) {
+                    if (e.getValue().intValue() != i) {
+                        continue;
+                    }
+                    subClasses_.add(e.getKey().getClassName());
+                }
+                StringList subs_ = PrimitiveTypeUtil.getSubclasses(subClasses_, _cont);
+                if (subs_.size() == CustList.ONE_ELEMENT) {
+                    String cl_ = subs_.first();
+                    ClassField id_ = new ClassField(cl_, _name);
+                    FieldInfo field_ = _cont.getFieldInfo(id_);
+                    FieldResult r_ = new FieldResult();
+                    String realType_ = field_.getType();
+                    FieldInfo f_ = FieldInfo.newFieldInfo(_name, cl_, realType_, _static, field_.isFinalField(), field_.isEnumField(), _cont, _aff);
+                    r_.setId(f_);
+                    r_.setAnc(ancestors_.getVal(id_));
+                    r_.setStatus(SearchingMemberStatus.UNIQ);
+                    return r_;
+                }
             }
         }
         FieldResult r_ = new FieldResult();

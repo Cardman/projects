@@ -44,6 +44,15 @@ public final class OperationsSequence {
                 values.put(beginValuePart_, str_);
             }
         }
+        if (priority == MathResolver.FCT_OPER_PRIO) {
+            int afterLastPar_ = operators.lastKey()+1;
+            if (!_string.substring(afterLastPar_).trim().isEmpty()) {
+                operators.clear();
+                operators.put(afterLastPar_, "");
+                priority = MathResolver.BAD_PRIO;
+                return;
+            }
+        }
         if (useFct && operators.size() == 2) {
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             endValuePart_ = operators.getKey(CustList.SECOND_INDEX);

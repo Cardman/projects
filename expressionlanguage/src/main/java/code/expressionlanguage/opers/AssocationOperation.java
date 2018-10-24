@@ -36,11 +36,6 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     }
 
     @Override
-    public void analyzeAssignmentBeforeNextSibling(Analyzable _conf,
-            OperationNode _nextSibling, OperationNode _previous) {
-    }
-
-    @Override
     public void preAnalyze(Analyzable _conf) {
         if (!StringList.isWord(fieldName.trim())) {
             BadFieldName err_ = new BadFieldName();
@@ -91,7 +86,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
         }
     }
     @Override
-    public void analyze(Analyzable _conf) {
+    public void analyzeUnary(Analyzable _conf) {
         MethodOperation mOp_ = getParent();
         LgNames std_ = _conf.getStandards();
         String objCl_ = std_.getAliasObject();
