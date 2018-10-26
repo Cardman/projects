@@ -1901,7 +1901,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={true}))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={1}))", (String)ret_.getObject());
     }
 
     @Test
@@ -2051,7 +2051,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
-        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=))", (String)ret_.getObject());
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo=;))", (String)ret_.getObject());
     }
     @Test
     public void calculateArgument51Test() {
@@ -2381,6 +2381,47 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         Argument ret_ = new Argument();
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument60Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$static pkg.ExTwo.*;\n");
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" MyAnnotTwo info()@MyAnnotTwo(infoInt=3i):\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" $int infoInt()2i:\n");
+        xml_.append(" $boolean[] infoIntTwo(){$false}:\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4i))\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static java.lang.String catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 1i){\n");
+        xml_.append("   $return \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.[0i]) != $class(MyAnnot)){\n");
+        xml_.append("   $return \"\":\n");
+        xml_.append("  }\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr;.[0i]:\n");
+        xml_.append("  $return $static($Annotation).getString(a;.):\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq("@pkg.MyAnnot(info=@pkg.MyAnnotTwo(infoInt=4,infoIntTwo={0}))", (String)ret_.getObject());
     }
     @Test
     public void calculateArgument1FailTest() {

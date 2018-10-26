@@ -291,6 +291,12 @@ public final class PrimitiveTypeUtil {
         }
         return current_;
     }
+    public static String toNumberString(Number _nb) {
+        if (_nb instanceof Double || _nb instanceof Float) {
+            return Double.toString(_nb.doubleValue());
+        }
+        return Long.toString(_nb.longValue());
+    }
     public static boolean primitiveTypeNullObject(String _className, Struct _instance, ExecutableCode _context) {
         return primitiveTypeNullObject(_className, _instance, _context.getStandards());
     }

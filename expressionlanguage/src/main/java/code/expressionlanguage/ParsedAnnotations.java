@@ -24,11 +24,6 @@ public final class ParsedAnnotations {
         instruction = _instruction;
         instructionLocation = _instructionLocation;
     }
-    public ParsedAnnotations(String _instruction, int _instructionLocation, int _beforeAnnot) {
-        instruction = _instruction;
-        instructionLocation = _instructionLocation;
-        beforeAnnot = _beforeAnnot;
-    }
     public void parse() {
         int lenInst_ = instruction.length();
         int j_ = 0;
