@@ -23,7 +23,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  t;.=0i:\n");
         xml_.append("  $iter($int i=0i:4i:1i){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;=2){\n");
+        xml_.append("   $if(i;==2){\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=10i:\n");
@@ -32,7 +32,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -53,7 +53,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $while($true){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=10i:\n");
@@ -63,7 +63,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -85,7 +85,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $while($true){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -96,7 +96,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -117,7 +117,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $while($true){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    $return t;.:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=10i:\n");
@@ -126,7 +126,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -148,12 +148,12 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $while($true){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=3){\n");
+        xml_.append("   $if(i;.==3){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    i;.+=1i:\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=10i:\n");
@@ -163,7 +163,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -185,7 +185,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $while($true){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -196,7 +196,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -218,7 +218,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $while(i;.<10i){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
@@ -229,7 +229,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -249,7 +249,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(i;.<10i){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
@@ -260,7 +260,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -280,7 +280,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(i;.<10i){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -291,7 +291,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -313,7 +313,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(i;.<10i){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -324,7 +324,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -347,7 +347,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(i;.<10i){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -358,7 +358,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -382,7 +382,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(i;.<10i){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=7i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -393,7 +393,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -417,7 +417,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while($true){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=7i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -428,7 +428,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -457,11 +457,11 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while($true){\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=7i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
-        xml_.append("   $if(i;.=5){\n");
+        xml_.append("   $if(i;.==5){\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=10i:\n");
@@ -471,7 +471,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -493,7 +493,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $do{\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
@@ -504,7 +504,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -526,7 +526,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $do{\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
@@ -536,7 +536,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -553,11 +553,11 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $do{\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $break:\n");
         xml_.append("   }\n");
-        xml_.append("   $if(i;.=5){\n");
+        xml_.append("   $if(i;.==5){\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=10i:\n");
@@ -567,7 +567,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -589,7 +589,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  i;.=0i:\n");
         xml_.append("  $do{\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;.=2){\n");
+        xml_.append("   $if(i;.==2){\n");
         xml_.append("    p;.=6i:\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
@@ -600,7 +600,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
@@ -614,7 +614,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  t;.=0i:\n");
         xml_.append("  $iter($int i=0i:4i:1i)label{\n");
         xml_.append("   t;.+=1i:\n");
-        xml_.append("   $if(i;=2){\n");
+        xml_.append("   $if(i;==2){\n");
         xml_.append("    $break label:\n");
         xml_.append("   }\n");
         xml_.append("   t;.+=10i:\n");
@@ -623,7 +623,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -643,11 +643,11 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("  $iter($int i=0i:4i:1i)label{\n");
         xml_.append("   $iter($int j=0i:4i:1i)labeltwo{\n");
         xml_.append("    t;.+=1i:\n");
-        xml_.append("    $if(j;=2){\n");
+        xml_.append("    $if(j;==2){\n");
         xml_.append("     $break labeltwo:\n");
         xml_.append("    }\n");
         xml_.append("    t;.+=10i:\n");
-        xml_.append("    $if(i;=2){\n");
+        xml_.append("    $if(i;==2){\n");
         xml_.append("     $break label:\n");
         xml_.append("    }\n");
         xml_.append("    t;.+=100i:\n");
@@ -657,7 +657,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -681,11 +681,11 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("   j;.=0i:\n");
         xml_.append("   $while($true)labeltwo{\n");
         xml_.append("    t;.+=1i:\n");
-        xml_.append("    $if(j;.=2){\n");
+        xml_.append("    $if(j;.==2){\n");
         xml_.append("     $break labeltwo:\n");
         xml_.append("    }\n");
         xml_.append("    t;.+=10i:\n");
-        xml_.append("    $if(i;.=2){\n");
+        xml_.append("    $if(i;.==2){\n");
         xml_.append("     o;.=10i:\n");
         xml_.append("     $break label:\n");
         xml_.append("    }\n");
@@ -698,7 +698,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -722,12 +722,12 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append("   j;.=0i:\n");
         xml_.append("   $while($true)labeltwo{\n");
         xml_.append("    t;.+=1i:\n");
-        xml_.append("    $if(j;.=2){\n");
+        xml_.append("    $if(j;.==2){\n");
         xml_.append("     o;.=10i:\n");
         xml_.append("     $break labeltwo:\n");
         xml_.append("    }\n");
         xml_.append("    t;.+=10i:\n");
-        xml_.append("    $if(i;.=2){\n");
+        xml_.append("    $if(i;.==2){\n");
         xml_.append("     $break label:\n");
         xml_.append("    }\n");
         xml_.append("    t;.+=100i:\n");
@@ -739,7 +739,7 @@ public final class ProcessMethodBreakLoopTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());

@@ -482,7 +482,8 @@ final class ExtractObject {
         lvTwo_.setStruct(_objTwo);
         String nameTwo_ = ip_.getNextTempVar();
         ip_.putLocalVar(nameTwo_, lvTwo_);
-        Argument arg_ = ElRenderUtil.processEl(StringList.concat(nameOne_,GET_LOC_VAR,CMP,nameTwo_,GET_LOC_VAR), 0, _conf);
+        String el_ = StringList.concat(nameOne_,GET_LOC_VAR,CMP,CMP,nameTwo_,GET_LOC_VAR);
+        Argument arg_ = ElRenderUtil.processEl(el_, 0, _conf);
         ip_.removeLocalVar(nameOne_);
         ip_.removeLocalVar(nameTwo_);
         if (_conf.getContext().getException() != null) {

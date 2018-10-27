@@ -1734,7 +1734,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
         xml_.append("  $Fct<$void> f = $static().$lambda(Ex,exmethtwo):\n");
-        xml_.append("  $if (f;.call() = $null){\n");
+        xml_.append("  $if (f;.call() == $null){\n");
         xml_.append("   $return 14i:\n");
         xml_.append("  }\n");
         xml_.append("  $return -14i:\n");
@@ -1743,7 +1743,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1761,7 +1761,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
         xml_.append("  $Fct<java.lang.Object> f = $static().$lambda(Ex,exmethtwo):\n");
-        xml_.append("  $if (f;.call() = $null){\n");
+        xml_.append("  $if (f;.call() == $null){\n");
         xml_.append("   $return 14i:\n");
         xml_.append("  }\n");
         xml_.append("  $return -14i:\n");
@@ -1770,7 +1770,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

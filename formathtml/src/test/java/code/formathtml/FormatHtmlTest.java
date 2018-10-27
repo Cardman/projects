@@ -60,10 +60,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><ul><li>FIRST</li><li>SECOND</li></ul></body></html>", render_);
     }
     @Test
@@ -91,10 +91,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>NOT EMPTY</body></html>", render_);
     }
     @Test
@@ -122,10 +122,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>NEXT</body></html>", render_);
     }
     @Test
@@ -153,10 +153,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>NEXT</body></html>", render_);
     }
 
@@ -185,10 +185,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><ul>FIRST<br/><li>FIRST</li><li>SECOND</li></ul><ul>SECOND<br/><li>FIRST</li><li>SECOND</li></ul></div><br/></body></html>", render_);
     }
 
@@ -219,10 +219,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><table><c:tmp><tr><td>ONE</td><td>1</td></tr></c:tmp><c:tmp><tr><td>TWO</td><td>2</td></tr></c:tmp></table></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><table><c_tmp><tr><td>ONE</td><td>1</td></tr></c_tmp><c_tmp><tr><td>TWO</td><td>2</td></tr></c_tmp></table></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", render_);
     }
 
@@ -253,10 +253,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><table><c:tmp><tr><td>{tree[0]null!key.length()}</td><td>1</td></tr></c:tmp><c:tmp><tr><td>{tree[1]null!key.length()}</td><td>2</td></tr></c:tmp></table></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><table><c_tmp><tr><td>{tree[0]goto!key.length()}</td><td>1</td></tr></c_tmp><c_tmp><tr><td>{tree[1]goto!key.length()}</td><td>2</td></tr></c_tmp></table></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><table><tr><td>3</td><td>1</td></tr><tr><td>3</td><td>2</td></tr></table></body></html>", render_);
     }
 
@@ -285,10 +285,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>{composite.strings[0].length()}</li></c:tmp><c:tmp><li>{composite.strings[1].length()}</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>{composite.strings[0].length()}</li></c_tmp><c_tmp><li>{composite.strings[1].length()}</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><ul><li>5</li><li>6</li></ul></body></html>", render_);
     }
 
@@ -317,7 +317,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
@@ -347,9 +347,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -378,9 +378,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -409,9 +407,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -440,9 +436,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -471,9 +465,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -502,13 +496,13 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
-//    @Ignore
+
     @Test
     public void processHtml16Test() {
         String locale_ = "en";
@@ -536,10 +530,10 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><table><c:tmp><tr><td>ONE</td><td>1</td></tr></c:tmp><c:tmp><tr><td>TWO</td><td>2</td></tr></c:tmp></table></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><table><c_tmp><tr><td>ONE</td><td>1</td></tr></c_tmp><c_tmp><tr><td>TWO</td><td>2</td></tr></c_tmp></table></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", render_);
     }
 
@@ -549,7 +543,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><table><c:for key=\"k\" value=\"v\" map=\"map\" orderedKeys=\"getKeys\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><table><c:for key=\"k\" value=\"v\" map=\"map\"><tr><td>{k;}</td><td>{v;}</td></tr></c:for></table></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -571,9 +565,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><table><c:tmp><tr><td>ONE</td><td>1</td></tr></c:tmp><c:tmp><tr><td>TWO</td><td>2</td></tr></c:tmp></table></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", render_);
     }
 
@@ -602,7 +596,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
@@ -634,7 +628,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
@@ -664,9 +658,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
@@ -697,9 +691,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
@@ -730,9 +724,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option></select></body></html>", render_);
     }
 
@@ -763,7 +757,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">1</option><option selected=\"selected\" value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
@@ -795,9 +789,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
@@ -828,9 +822,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumber\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
@@ -859,10 +853,10 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>0</li></c:tmp><c:tmp><li>1</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>0</li></c_tmp><c_tmp><li>1</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><ul><li>0</li><li>1</li></ul></body></html>", render_);
     }
 
@@ -893,10 +887,10 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - 1;<br/>THREE - 4;5;6;<br/>TWO - 2;3;<br/></body></html>", render_);
     }
 
@@ -927,10 +921,10 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <a title=\"sample_title\">{getDouble(0)};</a><br/></c:tmp><c:tmp>THREE - <a title=\"sample_title\">{getDouble(1)};</a><br/></c:tmp><c:tmp>TWO - <a title=\"sample_title\">{getDouble(2)};</a><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <a title=\"sample_title\">{getDouble(0)};</a><br/></c_tmp><c_tmp>THREE - <a title=\"sample_title\">{getDouble(1)};</a><br/></c_tmp><c_tmp>TWO - <a title=\"sample_title\">{getDouble(2)};</a><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <a title=\"sample_title\">0;</a><br/>THREE - <a title=\"sample_title\">2;</a><br/>TWO - <a title=\"sample_title\">4;</a><br/></body></html>", render_);
     }
 
@@ -961,10 +955,10 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE;<c:tmp>4</c:tmp><c:tmp>5</c:tmp><c:tmp>6</c:tmp><br/></c:tmp><c:tmp>THREE;<c:tmp>2</c:tmp><c:tmp>3</c:tmp><br/></c:tmp><c:tmp>TWO;<c:tmp>2</c:tmp><c:tmp>3</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE;<c_tmp>4</c_tmp><c_tmp>5</c_tmp><c_tmp>6</c_tmp><br/></c_tmp><c_tmp>THREE;<c_tmp>2</c_tmp><c_tmp>3</c_tmp><br/></c_tmp><c_tmp>TWO;<c_tmp>2</c_tmp><c_tmp>3</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE;456<br/>THREE;23<br/>TWO;23<br/></body></html>", render_);
     }
 
@@ -993,7 +987,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" id=\"element\" name=\"\" c:validator=\"\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
@@ -1023,7 +1017,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" id=\"element\" name=\"\" c:validator=\"\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
@@ -1055,7 +1049,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\"><option value=\"TWO\">1</option></select></body></html>", render_);
     }
@@ -1087,7 +1081,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\"><option selected=\"selected\" value=\"TWO\">1</option></select></body></html>", render_);
     }
@@ -1117,7 +1111,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
@@ -1147,9 +1141,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -1178,9 +1172,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -1209,9 +1203,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\" selected=\"selected\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -1240,9 +1234,9 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -1271,9 +1265,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option selected=\"selected\" value=\"TWO\">TWO</option><option value=\"THREE\" selected=\"selected\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -1302,9 +1296,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option selected=\"selected\" value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -1333,7 +1327,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
@@ -1365,7 +1359,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
@@ -1395,9 +1389,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
@@ -1428,9 +1422,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
@@ -1461,9 +1455,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", render_);
     }
 
@@ -1494,9 +1488,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option><option value=\"THREE\" selected=\"selected\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option><option value=\"THREE\" selected=\"selected\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
@@ -1527,9 +1521,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\" selected=\"selected\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
 
@@ -1560,9 +1554,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" name=\"bean_one.chosenNumbers\" multiple=\"multiple\"><option selected=\"selected\" value=\"ONE\">1</option><option value=\"TWO\">2</option></select></body></html>", render_);
     }
 
@@ -1591,7 +1585,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" c:groupId=\"element\" name=\"\" c:validator=\"\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
@@ -1620,7 +1614,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" c:groupId=\"element\" name=\"\" c:validator=\"\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option><option value=\"THREE\">3</option><option value=\"FOUR\">4</option><option value=\"FIVE\">5</option><option value=\"SIX\">6</option></select></body></html>", render_);
     }
@@ -1650,7 +1644,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>NOT EMPTY</body></html>", render_);
     }
@@ -1678,10 +1672,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EMPTY</body></html>", render_);
     }
 
@@ -1708,10 +1702,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EMPTY</body></html>", render_);
     }
 
@@ -1739,7 +1733,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE ELEMENT</body></html>", render_);
     }
@@ -1767,7 +1761,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body/></html>", render_);
     }
@@ -1795,7 +1789,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><br/></body></html>", render_);
     }
@@ -1824,7 +1818,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body/></html>", render_);
     }
@@ -1853,7 +1847,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><br/></body></html>", render_);
     }
@@ -1880,10 +1874,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EMPTY</body></html>", render_);
     }
 
@@ -1910,10 +1904,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EMPTY</body></html>", render_);
     }
 
@@ -1940,10 +1934,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div>EMPTY</div><br/></body></html>", render_);
     }
 
@@ -1972,7 +1966,7 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>\t\n\tNOT EMPTY</body></html>", render_);
     }
@@ -2000,10 +1994,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>EMPTYEND</body></html>", render_);
     }
 
@@ -2033,10 +2027,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>END</body></html>", render_);
     }
 
@@ -2063,10 +2057,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>EMPTY</c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>EMPTY</c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div>EMPTY\t\n\t</div><br/></body></html>", render_);
     }
 
@@ -2095,10 +2089,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><ul><li>0</li><li>1</li></ul></body></html>", render_);
     }
 
@@ -2127,10 +2121,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><ul><li>FIRST</li><li>SECOND</li></ul></body></html>", render_);
     }
 
@@ -2159,10 +2153,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>FIRST-FIRST-FIRST-SECOND-SECOND-FIRST-SECOND-SECOND-</body></html>", render_);
     }
 
@@ -2191,10 +2185,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><ul>FIRST<br/><li>FIRST</li><li>SECOND</li></ul><ul>SECOND<br/><li>FIRST</li><li>SECOND</li></ul></body></html>", render_);
     }
 
@@ -2223,10 +2217,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><ul>FIRST<br/><li>FIRST</li><li>SECOND</li></ul><ul>SECOND<br/><li>FIRST</li><li>SECOND</li></ul></div><br/></body></html>", render_);
     }
 
@@ -2255,10 +2249,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><ul>FIRST<br/><li>FIRST</li><li>SECOND</li></ul><ul>SECOND<br/><li>FIRST</li><li>SECOND</li></ul></div><br/></body></html>", render_);
     }
 
@@ -2288,7 +2282,6 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><div><input n-i=\"0\" type=\"text\" name=\"bean_one.composite.strings[0]\" value=\"FIRST\" varValue=\"s;\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.composite.strings[1]\" value=\"SECOND\" varValue=\"s;\"/></div><br/></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><input n-i=\"0\" type=\"text\" name=\"bean_one.s;\" value=\"FIRST\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.s;\" value=\"SECOND\"/></div><br/></body></html>", render_);
     }
 
@@ -2318,7 +2311,6 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><div><input n-i=\"0\" type=\"text\" name=\"bean_one.getComposites()[0].string\" value=\"0\" varValue=\"c;string\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.getComposites()[1].string\" value=\"1\" varValue=\"c;string\"/></div><br/></body></html>", render_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><div><input n-i=\"0\" type=\"text\" name=\"bean_one.c;string\" value=\"0\"/><input n-i=\"1\" type=\"text\" name=\"bean_one.c;string\" value=\"1\"/></div><br/></body></html>", render_);
     }
 
@@ -2328,9 +2320,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><c:for var=\"t\" list=\"composite.strings\"><c:for var=\"u\" list=\"composite.strings\"><span class=\"$getSpanClasses({s;;},{t;;},{u;;})\">IN</span></c:for></c:for></c:for></div><br/></body></html>";
         String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><c:for var=\"t\" list=\"composite.strings\"><c:for var=\"u\" list=\"composite.strings\"><span class=\"$getSpanClasses(,,)\">IN</span></c:for></c:for></c:for></div><br/></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><c:for var=\"t\" list=\"composite.strings\"><c:for var=\"u\" list=\"composite.strings\"><span class=\"{getSpanClasses(,,)}\">IN</span></c:for></c:for></c:for></div><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2359,9 +2349,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><c:for var=\"t\" list=\"composite.strings\"><c:for var=\"u\" list=\"composite.strings\"><span class=\"$getSpanClasses({s;;},{t;;},{u;;})\">IN</span></c:for></c:for></c:for></div><br/></body></html>";
         String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><span class=\"$getSpanClass()\">IN</span></c:for></div><br/></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><span class=\"{getSpanClass()}\">IN</span></c:for></div><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2390,9 +2378,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><c:for var=\"t\" list=\"composite.strings\"><c:for var=\"u\" list=\"composite.strings\"><span class=\"$getSpanClasses({s;;},{t;;},{u;;})\">IN</span></c:for></c:for></c:for></div><br/></body></html>";
         String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><span class=\"$commonClass\">IN</span></c:for></div><br/></body></html>";
-//        String html_ = "<html xmlns:c='javahtml'><body><div><c:for var=\"s\" list=\"composite.strings\"><span class=\"{commonClass}\">IN</span></c:for></div><br/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2421,7 +2407,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\" orderedKeys=\"sortedNumberKeys\">{k;} - <c:for var=\"w\" list=\"v;\"><input type=\"text\" name=\"w;\"/></c:for><br/></c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <c:for var=\"w\" list=\"v;\"><input type=\"text\" name=\"w;\"/></c:for><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -2443,11 +2429,11 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input n-i=\"0\" type=\"text\" name=\"bean_one.numbers[0]sortedNumberKeys!value[0]\"/><br/>THREE - <input n-i=\"1\" type=\"text\" name=\"bean_one.numbers[1]sortedNumberKeys!value[0]\"/><input n-i=\"2\" type=\"text\" name=\"bean_one.numbers[1]sortedNumberKeys!value[1]\"/><input n-i=\"3\" type=\"text\" name=\"bean_one.numbers[1]sortedNumberKeys!value[2]\"/><br/>TWO - <input n-i=\"4\" type=\"text\" name=\"bean_one.numbers[2]sortedNumberKeys!value[0]\"/><input n-i=\"5\" type=\"text\" name=\"bean_one.numbers[2]sortedNumberKeys!value[1]\"/><br/></body></html>", render_);
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input n-i=\"0\" type=\"text\" name=\"bean_one.w;\"/><br/>THREE - <input n-i=\"1\" type=\"text\" name=\"bean_one.w;\"/><input n-i=\"2\" type=\"text\" name=\"bean_one.w;\"/><input n-i=\"3\" type=\"text\" name=\"bean_one.w;\"/><br/>TWO - <input n-i=\"4\" type=\"text\" name=\"bean_one.w;\"/><input n-i=\"5\" type=\"text\" name=\"bean_one.w;\"/><br/></body></html>", render_);
     }
 
@@ -2457,7 +2443,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\" orderedKeys=\"sortedNumberKeys\">{k;} - <input type=\"text\" id=\"numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -2479,10 +2465,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input type=\"text\" id=\"numbers[0]sortedNumberKeys!key\"/><br/>THREE - <input type=\"text\" id=\"numbers[1]sortedNumberKeys!key\"/><br/>TWO - <input type=\"text\" id=\"numbers[2]sortedNumberKeys!key\"/><br/></body></html>", render_);
     }
 
@@ -2513,10 +2499,10 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><span id=\"numbers[0]sortedNumberKeys!value.getReverse()[0]\"/><span id=\"numbers[1]sortedNumberKeys!value.getReverse()[0]\"/><span id=\"numbers[1]sortedNumberKeys!value.getReverse()[1]\"/><span id=\"numbers[1]sortedNumberKeys!value.getReverse()[2]\"/><span id=\"numbers[2]sortedNumberKeys!value.getReverse()[0]\"/><span id=\"numbers[2]sortedNumberKeys!value.getReverse()[1]\"/></body></html>", render_);
     }
 
@@ -2526,7 +2512,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\" orderedKeys=\"sortedNumberKeys\"><span c:groupId=\"`k;;`\"/></c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\"><span c:groupId=\"`k;;`\"/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -2548,10 +2534,10 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><span c:groupId=\"0\"/><span c:groupId=\"1\"/><span c:groupId=\"2\"/></body></html>", render_);
     }
 
@@ -2639,7 +2625,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2</body></html>", render_);
     }
@@ -2669,7 +2655,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>[FIRST,SECOND]</body></html>", render_);
     }
@@ -2699,7 +2685,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a>FIRST</a><a>SECOND</a></body></html>", render_);
     }
@@ -2729,7 +2715,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a>SECOND</a><a>FIRST</a></body></html>", render_);
     }
@@ -2759,7 +2745,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>5</body></html>", render_);
     }
@@ -2789,7 +2775,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>8</body></html>", render_);
     }
@@ -2819,7 +2805,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>8.0</body></html>", render_);
     }
@@ -2849,7 +2835,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>8</body></html>", render_);
     }
@@ -2879,7 +2865,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>-1_9_8.0_t</body></html>", render_);
     }
@@ -2909,7 +2895,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>DISPLAY</body></html>", render_);
     }
@@ -2939,7 +2925,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>NULL_VAR</body></html>", render_);
     }
@@ -2950,7 +2936,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='$int'/>{class(\"java.lang.String\",composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {class(\"java.lang.String\",composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='$int'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='$int'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'>{c;strings.get(0i)} {class(\"java.lang.String\",c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" expression=\"0\" className='$int'/>{($(java.lang.String)composite.strings.get(0i)).charAt(n;.)} {composite.strings.get(n;.)} {($(java.lang.String)composite.getStringElt(n;.)).charAt(n;.)} <c:set var=\"l\" expression=\"2\" className='$int'/>{composite.summum(l;.)}<c:set var=\"l\" expression=\"1\" className='$int'/>{composite.strings.get(l;.)}<c:for var=\"c\" list=\"getComposites()\" className='code.formathtml.classes.Composite'>{c;strings.get(0i)} {($(java.lang.String)c;strings.get(0i)).length()} {c;summum(l;.)}</c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -2972,7 +2958,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>F FIRST F 7SECONDF 1 1S 1 1</body></html>", render_);
     }
@@ -3399,7 +3385,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\" orderedKeys=\"sortedNumberKeys\">{k;} - <input type=\"text\" id=\"\\`numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"\\`numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -3421,10 +3407,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input type=\"text\" id=\"`numbers[0]sortedNumberKeys!key\"/><br/>THREE - <input type=\"text\" id=\"`numbers[1]sortedNumberKeys!key\"/><br/>TWO - <input type=\"text\" id=\"`numbers[2]sortedNumberKeys!key\"/><br/></body></html>", render_);
     }
 
@@ -3434,7 +3420,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\" orderedKeys=\"sortedNumberKeys\">{k;} - <input type=\"text\" id=\"\\\\numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"\\\\numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -3456,10 +3442,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input type=\"text\" id=\"\\numbers[0]sortedNumberKeys!key\"/><br/>THREE - <input type=\"text\" id=\"\\numbers[1]sortedNumberKeys!key\"/><br/>TWO - <input type=\"text\" id=\"\\numbers[2]sortedNumberKeys!key\"/><br/></body></html>", render_);
     }
 
@@ -3469,7 +3455,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\" orderedKeys=\"sortedNumberKeys\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -3491,10 +3477,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input type=\"text\" id=\"00\"/><br/>THREE - <input type=\"text\" id=\"11\"/><br/>TWO - <input type=\"text\" id=\"22\"/><br/></body></html>", render_);
     }
 
@@ -3525,10 +3511,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/>2 - <input type=\"text\" id=\"22\"/><br/></body></html>", render_);
     }
 
@@ -3560,10 +3546,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/>2 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -3595,10 +3581,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/>2 - <input type=\"text\" id=\"22\"/><br/></body></html>", render_);
     }
 
@@ -3630,10 +3616,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/>2 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -3665,10 +3651,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/>0 - <input type=\"text\" id=\"22\"/><br/></body></html>", render_);
     }
 
@@ -3700,10 +3686,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/>0 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -3735,10 +3721,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/>0 - <input type=\"text\" id=\"22\"/><br/></body></html>", render_);
     }
 
@@ -3770,10 +3756,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/>0 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -3805,10 +3791,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -3840,10 +3826,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/></body></html>", render_);
     }
 
@@ -3875,10 +3861,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -3910,10 +3896,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>0 - <input type=\"text\" id=\"00\"/><br/></body></html>", render_);
     }
 
@@ -3945,10 +3931,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -3980,10 +3966,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/></body></html>", render_);
     }
 
@@ -4015,10 +4001,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/>1 - <input type=\"text\" id=\"11\"/><br/></body></html>", render_);
     }
 
@@ -4049,10 +4035,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2 - <input type=\"text\" id=\"00\"/><br/></body></html>", render_);
     }
 
@@ -4083,10 +4069,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>true</body></html>", render_);
     }
 
@@ -4118,10 +4104,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><c:tmp>ONE - <c:tmp>1;</c:tmp><br/></c:tmp><c:tmp>THREE - <c:tmp>4;</c:tmp><c:tmp>5;</c:tmp><c:tmp>6;</c:tmp><br/></c:tmp><c:tmp>TWO - <c:tmp>2;</c:tmp><c:tmp>3;</c:tmp><br/></c:tmp></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_tmp>ONE - <c_tmp>1;</c_tmp><br/></c_tmp><c_tmp>THREE - <c_tmp>4;</c_tmp><c_tmp>5;</c_tmp><c_tmp>6;</c_tmp><br/></c_tmp><c_tmp>TWO - <c_tmp>2;</c_tmp><c_tmp>3;</c_tmp><br/></c_tmp></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body/></html>", render_);
     }
 
@@ -4150,10 +4136,10 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualNoPrefix("<html><body><ul><c:tmp><li>FIRST</li></c:tmp><c:tmp><li>SECOND</li></c:tmp></ul></body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><ul><c_tmp><li>FIRST</li></c_tmp><c_tmp><li>SECOND</li></c_tmp></ul></body></html>", render_);
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>NOT EMPTY</body></html>", render_);
     }
 
@@ -4182,9 +4168,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumbers\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
 
@@ -4213,9 +4199,9 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><select className=\"code.formathtml.classes.EnumNumber\" name=\"sample_select\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"\" multiple='multiple' name=\"bean_one.chosenNumbers\"><option selected=\"selected\" value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option selected=\"selected\" value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
     @Test
@@ -4247,7 +4233,7 @@ public class FormatHtmlTest {
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
-        //FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
     }
 
     @Test
@@ -4279,7 +4265,7 @@ public class FormatHtmlTest {
         setup(conf_);
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
-        //FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
     }
 
     @Test
@@ -4307,7 +4293,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
     }
@@ -4318,7 +4304,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className=\"util.Map\"/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"l\" expression=\"composite.strings\" className=\"lse\"/><c:for var=\"e\" list=\"l;.getReverse()\"><a>{e;}</a></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -4338,7 +4324,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
     }
@@ -4367,7 +4353,7 @@ public class FormatHtmlTest {
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setHtml(html_);
         setup(conf_);
-        //String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
+        
         FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
     }
@@ -4400,9 +4386,9 @@ public class FormatHtmlTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
+
+
+
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
@@ -4436,9 +4422,9 @@ public class FormatHtmlTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
+
+
+
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
@@ -4473,9 +4459,9 @@ public class FormatHtmlTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
+
+
+
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
@@ -4510,9 +4496,9 @@ public class FormatHtmlTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
+
+
+
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
@@ -4547,9 +4533,9 @@ public class FormatHtmlTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
+
+
+
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
@@ -4583,9 +4569,9 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
+
+
+
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
@@ -4622,9 +4608,9 @@ public class FormatHtmlTest {
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
+
+
+
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
@@ -4638,7 +4624,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><p class=\"$typedString\"></p></body></html>";
-//        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><p class=\"{typedString}\"></p></body></html>";
+
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -4659,10 +4645,10 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
+
+
+
+
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4697,10 +4683,10 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
+
+
+
+
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4715,7 +4701,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><p class=\"$typedString\"></p></body></html>";
-//        String html_ = "<html c:bean=\"bean_two\" xmlns:c='javahtml'><body><p class=\"{typedString}\"></p></body></html>";
+
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -4735,10 +4721,10 @@ public class FormatHtmlTest {
         conf_.setTranslators(new StringMap<Translator>());
         conf_.getTranslators().put("trans", new MyTranslator());
         Document doc_ = DocumentBuilder.parseSax(html_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
+
+
+
+
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
@@ -4775,13 +4761,13 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        assertXMLEqualNoPrefix("<html><body><c:message value=\"msg_example,three\"><param value=\"''\"/></c:message></body></html>", render_);
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_message value=\"msg_example,three\"><param value=\"''\"/></c_message></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &lt;''&gt;</body></html>", render_);
     }
 
@@ -4814,13 +4800,13 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        assertXMLEqualNoPrefix("<html><body><c:message quoted=\"\" value=\"msg_example,three\"><param value=\"''''\"/></c:message></body></html>", render_);
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_message quoted=\"\" value=\"msg_example,three\"><param value=\"''''\"/></c_message></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &lt;''&gt;</body></html>", render_);
     }
 
@@ -4853,12 +4839,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt;</body></html>", render_);
     }
@@ -4892,16 +4878,16 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-        //assertEq("<html><body>desc &amp;lt;''&amp;gt; &amp;amp;</body></html>", render_);
+
+
+
+
+
+
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt; &amp;amp;</body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt; &amp;</body></html>", render_);
+
     }
 
     @Test
@@ -4933,12 +4919,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Description &amp; &lt;a href=\"\"&gt;two&lt;/a&gt;</body></html>", render_);
     }
@@ -4972,12 +4958,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Description <a href=\"\">two</a></body></html>", render_);
     }
@@ -5011,15 +4997,15 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt;</body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body>desc &lt;''&gt;</body></html>", render_);
+
     }
 
     @Test
@@ -5051,12 +5037,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a class=\"a_class\">EXAMPLE</a></body></html>", render_);
     }
@@ -5090,12 +5076,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><title>My page title</title></head><body><a class=\"a_class\">EXAMPLE</a></body></html>", render_);
     }
@@ -5129,12 +5115,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Description <a href=\"\"><span>two</span></a></body></html>", render_);
     }
@@ -5169,12 +5155,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt;</body></html>", render_);
     }
@@ -5208,16 +5194,16 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-        //assertEq("<html><body>desc &amp;lt;''&amp;gt; &amp;amp;</body></html>", render_);
+
+
+
+
+
+
+        
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt; &amp;</body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt; &amp;</body></html>", render_);
+
     }
 
     @Test
@@ -5249,12 +5235,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Description &amp; &lt;a href=\"\"&gt;two&lt;/a&gt;</body></html>", render_);
     }
@@ -5288,12 +5274,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Description <a href=\"\">two</a></body></html>", render_);
     }
@@ -5327,15 +5313,15 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &lt;''&gt;</body></html>", render_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body>desc &lt;''&gt;</body></html>", render_);
+
     }
 
     @Test
@@ -5367,12 +5353,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a class=\"a_class\">EXAMPLE</a></body></html>", render_);
     }
@@ -5406,12 +5392,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><title>My page title</title></head><body><a class=\"a_class\">EXAMPLE</a></body></html>", render_);
     }
@@ -5445,12 +5431,12 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>Description <a href=\"\"><span>two</span></a></body></html>", render_);
     }
@@ -5484,15 +5470,15 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><input message=\"msg_example,three\" param0=\"'\" type=\"submit\" value=\"desc &amp;lt;'&amp;gt;\"/></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><input type=\"submit\" value=\"desc &amp;lt;''&amp;gt;\"/></body></html>", render_);
     }
 
@@ -5526,13 +5512,13 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><input type=\"submit\" value=\"desc &amp;lt;TITLE&amp;gt;\"/></body></html>", render_);
     }
@@ -5567,13 +5553,13 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><input type=\"submit\" value=\"desc &amp;lt;TITLE&amp;gt;\"/></body></html>", render_);
     }
@@ -5607,14 +5593,14 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>desc &amp;lt;''&amp;gt;</body></html>", render_);
     }
@@ -5648,14 +5634,14 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a href='' n-a='0' title=\"desc &amp;lt;sample&amp;gt;\" c:command='$bean_two.ex'>Content</a></body></html>", render_);
     }
@@ -5690,14 +5676,14 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", render_);
     }
@@ -5732,14 +5718,14 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, beanTwo_, locale_, files_);
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", render_);
     }
@@ -5774,17 +5760,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, beanTwo_);
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><form><input name=\"typedString\" type=\"text\"/><input type=\"text\"/></form></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><form n-f=\"0\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\"/><input type=\"text\"/></form></body></html>", render_);
     }
 
@@ -5799,7 +5785,7 @@ public class FormatHtmlTest {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanThree bean_ = new BeanThree();
-        //bean_.setClassName(BeanThree.class.getName());
+        
         bean_.setScope("session");
         Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
@@ -5818,24 +5804,24 @@ public class FormatHtmlTest {
         bean_.getNumbersTwo().add(2);
         bean_.getNumbersTwo().add(4);
         bean_.getNumbersTwo().add(6);
-//        bean_.setIndex(1);
+
         bean_.setIndex(4);
         bean_.setIndexTwo(6);
         Document doc_ = DocumentBuilder.parseSax(html_);
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_three", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html bean=\"bean_three\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input name=\"index\" type=\"radio\" value=\"2\" varValue=\"numbers[0]\"/><input checked=\"checked\" name=\"index\" type=\"radio\" value=\"4\" varValue=\"numbers[1]\"/><input name=\"index\" type=\"radio\" value=\"6\" varValue=\"numbers[2]\"/><input name=\"indexTwo\" type=\"radio\" value=\"2\" varValue=\"numbersTwo[0]\"/><input name=\"indexTwo\" type=\"radio\" value=\"4\" varValue=\"numbersTwo[1]\"/><input checked=\"checked\" name=\"indexTwo\" type=\"radio\" value=\"6\" varValue=\"numbersTwo[2]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"2\"/><input n-i=\"0\" checked=\"checked\" name=\"bean_three.index\" type=\"radio\" value=\"4\"/><input n-i=\"0\" name=\"bean_three.index\" type=\"radio\" value=\"6\"/><input n-i=\"1\" name=\"bean_three.indexTwo\" type=\"radio\" value=\"2\"/><input n-i=\"1\" name=\"bean_three.indexTwo\" type=\"radio\" value=\"4\"/><input n-i=\"1\" checked=\"checked\" name=\"bean_three.indexTwo\" type=\"radio\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
     }
 
@@ -5850,7 +5836,7 @@ public class FormatHtmlTest {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
-        //bean_.setClassName(BeanThree.class.getName());
+        
         bean_.setScope("session");
         Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
@@ -5867,17 +5853,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_six", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumOne\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"ONE\"/><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumOne\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
     }
 
@@ -5893,7 +5879,7 @@ public class FormatHtmlTest {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
-        //bean_.setClassName(BeanThree.class.getName());
+        
         bean_.setScope("session");
         Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
@@ -5910,17 +5896,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_six", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" checked=\"checked\" type=\"radio\" name=\"myEnumTwo\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" checked=\"checked\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"ONE\"/><input n-i=\"0\" className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumTwo\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
     }
 
@@ -5935,7 +5921,7 @@ public class FormatHtmlTest {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         BeanSix bean_ = new BeanSix();
-        //bean_.setClassName(BeanThree.class.getName());
+        
         bean_.setScope("session");
         Configuration conf_ = newConfiguration();
         conf_.setBeans(new StringMap<Bean>());
@@ -5952,17 +5938,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         conf_.setHtml(html_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_six", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html bean=\"bean_six\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumThree\" value=\"ONE\"/><input className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<form n-f=\"0\" action=\"\" c:command=\"page1.html\" name=\"myform\"><input n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"ONE\"/><input n-i=\"0\" c:className=\"code.formathtml.classes.EnumNumber\" type=\"radio\" name=\"bean_six.myEnumThree\" value=\"TWO\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", render_);
     }
 
@@ -5996,16 +5982,16 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, beanTwo_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_two");
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><form n-f=\"0\"><input n-i=\"0\" name=\"bean_two.typedString\" type=\"text\"/><input type=\"text\"/></form></body></html>", render_);
     }
@@ -6035,16 +6021,16 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select n-i=\"0\" c:className=\"\" name=\"bean_one.chosenNumber\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
@@ -6074,16 +6060,16 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><select c:className=\"\" name=\"\"><option value=\"ONE\">ONE</option><option value=\"TWO\">TWO</option><option value=\"THREE\">THREE</option><option value=\"FOUR\">FOUR</option><option value=\"FIVE\">FIVE</option><option value=\"SIX\">SIX</option></select></body></html>", render_);
     }
@@ -6114,19 +6100,19 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        assertXMLEqualNoPrefix("<html><body><c:field value=\"bean_one.combobox\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><c_field value=\"bean_one.combobox\"/></body></html>", render_);
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><c_field value=\"combobox\"/></body></html>", render_);
     }
 
@@ -6156,17 +6142,17 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        assertXMLEqualNoPrefix("<html><body><c:field value=\"1\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><c_field value=\"1\"/></body></html>", render_);
     }
@@ -6197,17 +6183,17 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        assertXMLEqualNoPrefix("<html><body><c:field/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><c_field/></body></html>", render_);
     }
@@ -6237,16 +6223,16 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><a n-a=\"0\" href=\"$bean_one.element\">LINK_ONE</a><a n-a=\"1\" c:command=\"$bean_one.element\" href=\"\">LINK_TWO</a><a/></body></html>", render_);
     }
@@ -6276,16 +6262,16 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><form n-f=\"0\" action=\"$bean_one.element\">LINK_ONE</form><form n-f=\"1\" action=\"\" c:command=\"$bean_one.element\">LINK_TWO</form><form n-f=\"2\"/></body></html>", render_);
     }
@@ -6314,16 +6300,16 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         conf_.setDocument(doc_);
         setup(conf_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, beanTwo_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, beanTwo_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, beanTwo_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, beanTwo_);
-//        render_ = FormatHtml.processMessages(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, beanTwo_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, beanTwo_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_two");
+
+
+
+
+
+
+
+
+
+
         String render_ = FormatHtml.processHtml(doc_, "bean_two", conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><form n-f=\"0\"><textarea n-i=\"0\" name=\"bean_two.typedString\">TYPED</textarea></form></body></html>", render_);
     }
@@ -6355,17 +6341,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-        //render_ = FormatHtml.processImages(render_, files_);
+
+
+
+
+
+
+
+
+
+
+        
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>NO IMAGE</body></html>", render_);
     }
 
@@ -6396,17 +6382,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-        //render_ = FormatHtml.processImages(render_, files_);
+
+
+
+
+
+
+
+
+
+
+        
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"encoded_image\"/></body></html>", render_);
     }
 
@@ -6437,17 +6423,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-        //render_ = FormatHtml.processImages(render_, files_);
+
+
+
+
+
+
+
+
+
+
+        
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"\"/></body></html>", render_);
     }
 
@@ -6479,17 +6465,17 @@ public class FormatHtmlTest {
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"data:image/png;base64,encoded_image\"/></body></html>", render_);
     }
 
@@ -6520,17 +6506,17 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"data:image/jpg;base64,encoded_image\"/></body></html>", render_);
     }
 
@@ -6561,18 +6547,18 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"\"/></body></html>", render_);
     }
 
@@ -6603,18 +6589,18 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"\"/></body></html>", render_);
     }
 
@@ -6645,19 +6631,19 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"\"/></body></html>", render_);
     }
 
@@ -6688,19 +6674,19 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link/></head><body><img src=\"\"/></body></html>", render_);
     }
 
@@ -6731,19 +6717,19 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link rel=\"stylesheet\">CONTENT</link></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -6775,20 +6761,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head><style>.classTest{color:blue;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -6820,20 +6806,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head/><style>CONTENT.classTest{color:blue;}</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><style>.classTest{color:blue;}CONTENT</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -6865,20 +6851,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head/><style>.classTest{color:blue;}</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><style>.classTest{color:blue;}</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -6910,20 +6896,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head/><style>CONTENT.classTest{color:blue;}</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><style>CONTENT.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -6955,20 +6941,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head/><style>.classTest{color:blue;}</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><style>.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -7001,21 +6987,21 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head><style>.classTest{color:blue;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
-//        assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link href=\"main.css\" rel=\"stylesheet\"/><link href=\"main2.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}.secClassTest{color:red;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}.secClassTest{color:red;}</style><link href=\"main2.css\" rel=\"stylesheet\"/></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -7048,20 +7034,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head/><style>CONTENT.classTest{color:blue;}</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><style>CONTENT.classTest{color:blue;}.secClassTest{color:red;}</style><link href=\"main.css\" rel=\"stylesheet\"/><link href=\"main2.css\" rel=\"stylesheet\"/></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -7094,20 +7080,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head/><style>.classTest{color:blue;}</style><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><style>.classTest{color:blue;}.secClassTest{color:red;}</style><link href=\"main.css\" rel=\"stylesheet\"/><link href=\"main2.css\" rel=\"stylesheet\"/></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -7139,20 +7125,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head><style>.classTest{color:blue;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -7186,20 +7172,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><head><style>.classTest{color:blue;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><body><p>ERROR</p><img src=\"\"/></body></html>", render_);
     }
 
@@ -7230,20 +7216,20 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        render_ = FormatHtml.processScript(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"\"/></body></html>", render_);
     }
 
@@ -7276,20 +7262,20 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        render_ = FormatHtml.processScript(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><script/><img src=\"\"/></body></html>", render_);
     }
 
@@ -7322,20 +7308,20 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        render_ = FormatHtml.processScript(render_, files_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><script href=\"myscript.js\" type=\"text/javascript\">function displayResult() { document.getElementById(\"myHeader\").innerHTML = \"Have a nice day!\"; }</script><img src=\"\"/></body></html>", render_);
     }
 
@@ -7366,21 +7352,21 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        render_ = FormatHtml.processScript(render_, files_);
-//        render_ = FormatHtml.processSpansErrors(render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"\"/></body></html>", render_);
     }
 
@@ -7413,20 +7399,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        render_ = FormatHtml.processSpansErrors(render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><span/><img src=\"\"/></body></html>", render_);
     }
 
@@ -7459,20 +7445,20 @@ public class FormatHtmlTest {
         conf_.setHtml(html_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-//        String render_ = FormatHtml.processHtml(doc_.getDocumentElement(), conf_, files_, bean_);
-//        render_ = removeTags(render_);
-//        render_ = FormatHtml.processVarInputValue(render_, bean_);
-//        render_ = FormatHtml.formatClassAndMessage(render_, bean_);
-//        render_ = FormatHtml.formatNamedVariables(render_, conf_, files_, bean_);
-//        render_ = FormatHtml.processMessages(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processSubmitTags(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processTitles(conf_, render_, bean_, locale_, files_);
-//        render_ = FormatHtml.processRadio(render_, bean_);
-//        render_ = FormatHtml.processVarInputName(render_, "bean_one");
-//        render_ = FormatHtml.processImages(render_, files_);
-//        render_ = FormatHtml.processImagesTags(render_);
-//        render_ = FormatHtml.processCss(render_, files_);
-//        render_ = FormatHtml.processSpansErrors(render_);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><span c:for=\"id_loc\"> </span><img src=\"\"/></body></html>", render_);
     }
 
@@ -8003,7 +7989,7 @@ public class FormatHtmlTest {
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body> NEXT<form n-f=\"0\" action=\"\" c:command=\"go\">0</form><form n-f=\"1\" action=\"go\">0</form></body></html>", render_);
     }
 
-    //infinite loop
+    
     @Ignore
     @Test
     public void processImports8Test() {
@@ -8041,7 +8027,7 @@ public class FormatHtmlTest {
         setup(conf_);
         String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
         assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>HEAD<a href=\"\"/>HEAD<a href=\"\"/>HEAD<a href=\"\"/>HEAD<a href=\"\"/></body></html>", render_);
-//        assertEq("<html><body>HEAD<a href=\"\"/>HEAD<a href=\"\"/></body></html>", render_);
+
     }
 
     @Test
@@ -9095,7 +9081,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"new.util.List()\" className=\"java.util.List\"/><c:set expression='list;.add(class(\"java.lang.Object\",1i))'/><c:set expression='list;.add(class(\"java.lang.Object\",2i))'/><c:set var=\"listTwo\" expression=\"new.util.List(list;.)\" className=\"util.List\"/>{listTwo;.size()}</body></html>";
+
         String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"list\" expression=\"$new code.formathtml.classes.GeneObjs()\" className=\"code.formathtml.classes.GeneObjs\"/><c:set expression='list;.add($(java.lang.Object)1i)'/><c:set expression='list;.add($(java.lang.Object)2i)'/><c:set var=\"listTwo\" expression=\"$new code.formathtml.classes.GeneObjs(list;.)\" className=\"code.formathtml.classes.GeneObjs\"/>{listTwo;.size()}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
@@ -9378,9 +9364,9 @@ public class FormatHtmlTest {
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
-//        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><a c:command=\"go\" href=\"\">TITLE2</a></body></html>", render_);
-//        assertEq(0, beanTwo_.getForms().size());
+
+
+
     }
 
     @Test
@@ -9419,9 +9405,9 @@ public class FormatHtmlTest {
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
-//        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><a c:command=\"go\" href=\"\">TITLE2</a></body></html>", render_);
-//        assertEq(0, beanTwo_.getForms().size());
+
+
+
     }
 
     @Test
@@ -9460,9 +9446,9 @@ public class FormatHtmlTest {
         setup(conf_);
         FormatHtml.processImports(html_, conf_, locale_, files_);
         assertNotNull(conf_.getContext().getException());
-//        String render_ = FormatHtml.processImports(html_, conf_, locale_, files_);
-//        assertXMLEqualRuntime("<html xmlns:c='javahtml'><body><a c:command=\"go\" href=\"\">TITLE2</a></body></html>", render_);
-//        assertEq(0, beanTwo_.getForms().size());
+
+
+
     }
 
     @Test
@@ -9634,57 +9620,6 @@ public class FormatHtmlTest {
         _conf.setSepPrefix("c");
         _conf.setupValiatorsTranslators("en");
     }
-//    @Ignore
-//    @Test
-//    public void testCheckSyntax() {
-//        String locale_ = "en";
-//        String folder_ = "messages";
-//        String relative_ = "sample/file";
-//        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'>\n";
-//        html_ += "<body>\n";
-//        html_ += "<c:set var='className' expression='java.lang.Integer' isstringconst=''/>\n";
-//        html_ += "<c:set var='class' expression='static.java$lang$Class.forName(className;.)'/>\n";
-//        html_ += "<c:set expression='static.java$lang$System.out.println(className;.)'/>\n";
-//        html_ += "<c:set var='methodName' expression='parseInt' isstringconst=''/>\n";
-//        html_ += "<c:set var='className' expression='java.lang.String' isstringconst=''/>\n";
-//        html_ += "<c:set var='classArg' expression='static.java$lang$Class.forName(className;.)' className='java.lang.Class'/>\n";
-//        html_ += "<c:set var='method' expression='class;.getMethod(?java.lang.Class,methodName;.,classArg;.?)'/>\n";
-//        html_ += "<c:set var='dynamicArg' expression='118218' isstringconst=''/>\n";
-//        html_ += "<c:set var='nullValue' className='java.lang.Object'/>\n";
-//        html_ += "<c:set var='return' expression='method;.invoke(?java.lang.Object,nullValue;.,dynamicArg;.?)' className='java.lang.Integer'/>\n";
-//        html_ += "{return;.}";
-//        html_ += "<form c:command=\"$validateIntsSave\">\n";
-//        html_ += "<c:for var=\"i\" list=\"arrayInt\">\n";
-//        html_ += "{i;;}_&amp;_{i;}_&amp;_{souligneur;}\n";
-//        html_ += "<input type=\"text\" className=\"java.lang.Integer\" name=\"i;\" varValue=\"i;\"/>\n";
-//        html_ += "</c:for>\n";
-//        html_ += "</form>\n";
-//        html_ += "</body>\n";
-//        html_ += "</html>";
-//        StringMap<String> files_ = new StringMap<String>();
-//        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-//        files_.put("page1.html", html_);
-//        BeanSeven bean_ = new BeanSeven();
-//        bean_.getComposite().getStrings().add("FIRST");
-//        bean_.getComposite().getStrings().add("SECOND");
-//        bean_.getComposite().setInteger(5);
-//        bean_.getComposites().get(0).setStrings(new StringList("F"));
-//        bean_.getComposites().get(1).setStrings(new StringList("S"));
-//        Configuration conf_ = newConfiguration();
-//        conf_.setBeans(new StringMap<Bean>());
-//        conf_.getBeans().put("bean_seven", bean_);
-//        conf_.setMessagesFolder(folder_);
-//        conf_.setProperties(new StringMap<String>());
-//        conf_.getProperties().put("msg_example", relative_);
-//        conf_.setTranslators(new StringMap<Translator>());
-//        conf_.getTranslators().put("trans", new MyTranslator());
-//        conf_.setMathFactory(new SimpleMathFactory());
-//        Document doc_ = DocumentBuilder.parseSax(html_);
-//        conf_.setHtml(html_);
-//        conf_.setDocument(doc_);
-//        FormatHtml.processHtml(doc_, "bean_seven", conf_, locale_, files_);
-//    }
 
     private static void assertXmlEqualRuntime(String _htmlExp, String _htmlRes) {
         assertTrue(DocumentBuilder.equalsDocs(_htmlExp, _htmlRes));
@@ -9694,7 +9629,6 @@ public class FormatHtmlTest {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        context_.getOptions().setMultipleAffectations(false);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
         context_.initError();

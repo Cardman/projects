@@ -666,7 +666,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("  $switch(t;.)label{\n");
         xml_.append("   $case(10):\n");
         xml_.append("   $case(8){\n");
-        xml_.append("    $if(t;.=8i){\n");
+        xml_.append("    $if(t;.==8i){\n");
         xml_.append("     $break label:\n");
         xml_.append("    }\n");
         xml_.append("    i;.=16:\n");
@@ -679,7 +679,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -701,7 +701,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("  $switch(t;.)label{\n");
         xml_.append("   $case(10):\n");
         xml_.append("   $case(8){\n");
-        xml_.append("    $if(t;.=8i){\n");
+        xml_.append("    $if(t;.==8i){\n");
         xml_.append("     $break label:\n");
         xml_.append("    }\n");
         xml_.append("    i;.=16:\n");
@@ -714,7 +714,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -741,10 +741,10 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    $switch(u;.)labeltwo{\n");
         xml_.append("     $case(10):\n");
         xml_.append("     $case(8){\n");
-        xml_.append("      $if(u;.=10i){\n");
+        xml_.append("      $if(u;.==10i){\n");
         xml_.append("       $break labeltwo:\n");
         xml_.append("      }\n");
-        xml_.append("      $if(t;.=8i){\n");
+        xml_.append("      $if(t;.==8i){\n");
         xml_.append("       $break label:\n");
         xml_.append("      }\n");
         xml_.append("      i;.=26:\n");
@@ -753,7 +753,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("      i;.=22:\n");
         xml_.append("     }\n");
         xml_.append("    }\n");
-        xml_.append("    $if(t;.=8i){\n");
+        xml_.append("    $if(t;.==8i){\n");
         xml_.append("     $break label:\n");
         xml_.append("    }\n");
         xml_.append("    i;.=16:\n");
@@ -766,7 +766,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -793,10 +793,10 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("    $switch(u;.)labeltwo{\n");
         xml_.append("     $case(10):\n");
         xml_.append("     $case(8){\n");
-        xml_.append("      $if(u;.=10i){\n");
+        xml_.append("      $if(u;.==10i){\n");
         xml_.append("       $break labeltwo:\n");
         xml_.append("      }\n");
-        xml_.append("      $if(t;.=8i){\n");
+        xml_.append("      $if(t;.==8i){\n");
         xml_.append("       $break label:\n");
         xml_.append("      }\n");
         xml_.append("      i;.=26:\n");
@@ -806,7 +806,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("     }\n");
         xml_.append("    }\n");
         xml_.append("    i;.=16:\n");
-        xml_.append("    $if(t;.=10i){\n");
+        xml_.append("    $if(t;.==10i){\n");
         xml_.append("     $break label:\n");
         xml_.append("    }\n");
         xml_.append("   }\n");
@@ -818,7 +818,7 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

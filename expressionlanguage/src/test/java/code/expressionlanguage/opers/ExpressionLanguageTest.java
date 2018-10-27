@@ -44,7 +44,7 @@ public class ExpressionLanguageTest {
     public void processEl1Test() {
         Argument arg_ = directCalculate("5");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(5L, (Number)res_);
     }
     @Test
@@ -58,28 +58,28 @@ public class ExpressionLanguageTest {
     public void processEl3Test() {
         Argument arg_ = directCalculate("(1+2)*3");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(9L, (Number)res_);
     }
     @Test
     public void processEl4Test() {
-        Argument arg_ = directCalculate("1--1");
+        Argument arg_ = directCalculate("1- -1");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(2L, (Number)res_);
     }
     @Test
     public void processEl5Test() {
         Argument arg_ = directCalculate("1+2*3");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(7L, (Number)res_);
     }
     @Test
     public void processEl6Test() {
-        Argument arg_ = directCalculate("--1");
+        Argument arg_ = directCalculate("- -1");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(1L, (Number)res_);
     }
     @Test
@@ -182,7 +182,7 @@ public class ExpressionLanguageTest {
     }
     @Test
     public void processEl21Test() {
-        Argument arg_ = directCalculate("1+1=2");
+        Argument arg_ = directCalculate("1+1==2");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -196,28 +196,28 @@ public class ExpressionLanguageTest {
     }
     @Test
     public void processEl23Test() {
-        Argument arg_ = directCalculate("1+1=2&1+0=8");
+        Argument arg_ = directCalculate("1+1==2&&1+0==8");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
     }
     @Test
     public void processEl24Test() {
-        Argument arg_ = directCalculate("1+1!=2|1+7=8");
+        Argument arg_ = directCalculate("1+1!=2||1+7==8");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
     @Test
     public void processEl25Test() {
-        Argument arg_ = directCalculate("1+1=2&(1+0=8|3*3=9)");
+        Argument arg_ = directCalculate("1+1==2&&(1+0==8||3*3==9)");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
     @Test
     public void processEl26Test() {
-        Argument arg_ = directCalculate("1+1=2|1+6=8&1=1");
+        Argument arg_ = directCalculate("1+1==2||1+6==8&&1==1");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -232,7 +232,7 @@ public class ExpressionLanguageTest {
 
     @Test
     public void processEl29Test() {
-        Argument arg_ = directCalculate("1+1=2|1/0>8");
+        Argument arg_ = directCalculate("1+1==2||1/0>8");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -460,7 +460,7 @@ public class ExpressionLanguageTest {
     public void processEl119Test() {
         Argument arg_ = directCalculate("(1b+2b)*3");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(9L, (Number)res_);
     }
 
@@ -468,13 +468,13 @@ public class ExpressionLanguageTest {
     public void processEl120Test() {
         Argument arg_ = directCalculate("(1s+2b)*3");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(9L, (Number)res_);
     }
 
     @Test
     public void processEl121Test() {
-        Argument arg_ = directCalculate("--1b");
+        Argument arg_ = directCalculate("- -1b");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(1, (Number)res_);
@@ -523,7 +523,7 @@ public class ExpressionLanguageTest {
     public void processEl128Test() {
         Argument arg_ = directCalculate("1_0+2*3");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(16L, (Number)res_);
     }
 
@@ -584,7 +584,7 @@ public class ExpressionLanguageTest {
     public void processEl135Test() {
         Argument arg_ = directCalculate("1 + 2 ");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(3L, (Number)res_);
     }
 
@@ -901,7 +901,7 @@ public class ExpressionLanguageTest {
     public void processEl198Test() {
         Argument arg_ = directCalculate("$(java.lang.Number)5");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(5L, (Number)res_);
     }
     @Test
@@ -993,8 +993,162 @@ public class ExpressionLanguageTest {
     public void processEl219Test() {
         Argument arg_ = directCalculate("6 + $($int) - $static($math).quot(8,5) - 2");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(3, (Number)res_);
+    }
+    @Test
+    public void processEl320Test() {
+        Argument arg_ = directCalculate("0x1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl321Test() {
+        Argument arg_ = directCalculate("0xffffffffffffffff");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
+    public void processEl322Test() {
+        Argument arg_ = directCalculate("0x1p0");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl323Test() {
+        Argument arg_ = directCalculate("0x1.0p0");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl324Test() {
+        Argument arg_ = directCalculate("0x1.1p4");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(17, (Number)res_);
+    }
+    @Test
+    public void processEl325Test() {
+        Argument arg_ = directCalculate("0x110.0p-4");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(17, (Number)res_);
+    }
+    @Test
+    public void processEl326Test() {
+        Argument arg_ = directCalculate("0x1l");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl327Test() {
+        Argument arg_ = directCalculate("0x1xl");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl328Test() {
+        Argument arg_ = directCalculate("0b1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl329Test() {
+        Argument arg_ = directCalculate("0b10");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(2, (Number)res_);
+    }
+    @Test
+    public void processEl330Test() {
+        Argument arg_ = directCalculate("01");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl331Test() {
+        Argument arg_ = directCalculate("017_7777_7777_7777_7777_7777l");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
+    public void processEl332Test() {
+        Argument arg_ = directCalculate("007_7777_7777_7777_7777_7777l");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(Long.MAX_VALUE, (Number)res_);
+    }
+    @Test
+    public void processEl333Test() {
+        Argument arg_ = directCalculate("0377_7777_7777i");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
+    public void processEl334Test() {
+        Argument arg_ = directCalculate("0177_7777_7777i");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(Integer.MAX_VALUE, (Number)res_);
+    }
+    @Test
+    public void processEl335Test() {
+        Argument arg_ = directCalculate("1&2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(0, (Number)res_);
+    }
+    @Test
+    public void processEl336Test() {
+        Argument arg_ = directCalculate("1|2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(3, (Number)res_);
+    }
+    @Test
+    public void processEl337Test() {
+        Argument arg_ = directCalculate("1^2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(3, (Number)res_);
+    }
+    @Test
+    public void processEl338Test() {
+        Argument arg_ = directCalculate("1^3");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(2, (Number)res_);
+    }
+    @Test
+    public void processEl339Test() {
+        Argument arg_ = directCalculate("1c|2c");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(3, (Number)res_);
+    }
+    @Test
+    public void processEl340Test() {
+        Argument arg_ = directCalculate("~0");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
+    public void processEl341Test() {
+        Argument arg_ = directCalculate("~-1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(0, (Number)res_);
     }
     private Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
@@ -1012,7 +1166,7 @@ public class ExpressionLanguageTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         files_.put("pkg/ExTwo", addonFileStaticResult(_el));
-        return contextEl(files_);
+        return contextEl(files_,true,false);
     }
     private Argument calculateIndirectLocalVars(String _el, String _var, String _className) {
         StringMap<String> files_ = new StringMap<String>();
@@ -1370,7 +1524,6 @@ public class ExpressionLanguageTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setMultipleAffectations(_multiple);
         initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -1388,7 +1541,6 @@ public class ExpressionLanguageTest {
     private ContextEl contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setMultipleAffectations(_multiple);
         initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

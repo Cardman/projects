@@ -36,7 +36,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -67,7 +67,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -99,7 +99,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -133,7 +133,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         CustLgNames custLgNames_ = (CustLgNames) cont_.getStandards();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -173,7 +173,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -218,7 +218,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -247,7 +247,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -295,7 +295,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -325,7 +325,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -373,7 +373,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -401,7 +401,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -446,7 +446,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -475,7 +475,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -523,7 +523,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -552,7 +552,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -596,7 +596,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -690,7 +690,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -698,7 +698,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -709,7 +709,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -729,14 +729,14 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -744,7 +744,7 @@ public final class ProcessMethodCallsRecursiveTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");

@@ -525,14 +525,14 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $int t:\n");
         xml_.append("  t;.=0i:\n");
-        xml_.append("  $for($int i=4i:i;=0i:i;--){\n");
+        xml_.append("  $for($int i=4i:i;==0i:i;--){\n");
         xml_.append("   t;.+=i;:\n");
         xml_.append("  }\n");
         xml_.append("  $return $($int)t;.:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

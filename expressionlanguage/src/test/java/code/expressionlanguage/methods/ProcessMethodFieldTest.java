@@ -24,7 +24,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -35,7 +35,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -43,7 +43,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -72,7 +72,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -86,7 +86,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -94,7 +94,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -123,7 +123,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -140,7 +140,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -148,7 +148,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -177,7 +177,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -195,7 +195,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -203,7 +203,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -232,7 +232,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -252,7 +252,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -260,7 +260,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -289,7 +289,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -312,7 +312,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -320,7 +320,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -349,7 +349,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{\n");
@@ -372,7 +372,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -380,7 +380,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -418,7 +418,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -470,7 +470,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -499,7 +499,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -552,7 +552,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -581,7 +581,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -635,7 +635,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -664,7 +664,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -721,7 +721,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -750,7 +750,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -808,7 +808,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -837,7 +837,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -868,7 +868,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(12);
+        ContextEl cont_ = contextEl(true,false,12);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -900,7 +900,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -953,7 +953,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -982,7 +982,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -1041,7 +1041,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1061,7 +1061,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1072,7 +1072,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1080,7 +1080,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1112,7 +1112,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1123,7 +1123,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1131,7 +1131,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1164,7 +1164,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1175,7 +1175,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1183,7 +1183,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1221,7 +1221,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1232,7 +1232,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1240,7 +1240,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1283,7 +1283,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1294,7 +1294,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1302,7 +1302,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1354,7 +1354,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -1390,7 +1390,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(2);
+        ContextEl cont_ = contextEl(true,false,2);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -1411,7 +1411,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1422,7 +1422,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1430,7 +1430,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1458,7 +1458,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1469,7 +1469,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1477,7 +1477,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1506,7 +1506,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.ExTwo {\n");
@@ -1517,7 +1517,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1525,7 +1525,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("   t;.+=2:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
-        xml_.append("  $if(t;.%2=0){\n");
+        xml_.append("  $if(t;.%2==0){\n");
         xml_.append("   t;.+=8:\n");
         xml_.append("   $return 1i+$($int)t;.:\n");
         xml_.append("  }\n");
@@ -1554,14 +1554,14 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int myf=2i:\n");
         xml_.append(" $public $static $int getstatic(){\n");
         xml_.append("  $int loc = 0i:\n");
-        xml_.append("  $if(loc = 0i){\n");
+        xml_.append("  $if(loc == 0i){\n");
         xml_.append("   $int myf = 10i:\n");
         xml_.append("   loc += myf:\n");
         xml_.append("  }\n");
@@ -1587,14 +1587,14 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $int myf=2i:\n");
         xml_.append(" $public $normal $int getstatic(){\n");
         xml_.append("  $int loc = 0i:\n");
-        xml_.append("  $if(loc = 0i){\n");
+        xml_.append("  $if(loc == 0i){\n");
         xml_.append("   $int myf = 10i:\n");
         xml_.append("   loc += myf:\n");
         xml_.append("  }\n");
@@ -1620,14 +1620,14 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $int myf=2i:\n");
         xml_.append(" $public $normal $int getstatic(){\n");
         xml_.append("  $int loc = 0i:\n");
-        xml_.append("  $if(loc = 0i){\n");
+        xml_.append("  $if(loc == 0i){\n");
         xml_.append("   $int myf = 10i:\n");
         xml_.append("   loc += $this.myf:\n");
         xml_.append("  }\n");
@@ -1652,14 +1652,14 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl(VariableSuffix.NONE);
+        ContextEl cont_ = contextEl(VariableSuffix.NONE,true,false);
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static $int myf=2i:\n");
         xml_.append(" $public $static $int getstatic(){\n");
         xml_.append("  $int loc = 0i:\n");
-        xml_.append("  $if(loc = 0i){\n");
+        xml_.append("  $if(loc == 0i){\n");
         xml_.append("   $int myf = 10i:\n");
         xml_.append("   loc += ExTwo.myf:\n");
         xml_.append("  }\n");

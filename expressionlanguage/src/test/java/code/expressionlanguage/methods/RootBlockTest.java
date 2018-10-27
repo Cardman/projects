@@ -1145,7 +1145,6 @@ public class RootBlockTest {
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -1159,7 +1158,6 @@ public class RootBlockTest {
     private static ContextEl failValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setMultipleAffectations(false);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();

@@ -283,10 +283,10 @@ public final class CustBeanLgNames extends BeanLgNames {
         params_ = new StringList();
         method_ = new StandardMethod(GET_COMPOSITES,params_,getCustList(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(getAliasLong());
+        params_ = new StringList(getAliasPrimLong());
         method_ = new StandardMethod(GET_SPAN_CLASS,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(getAliasLong(),getAliasLong(),getAliasLong());
+        params_ = new StringList(getAliasPrimLong(),getAliasPrimLong(),getAliasPrimLong());
         method_ = new StandardMethod(GET_SPAN_CLASSES,params_,getAliasString(), false, MethodModifier.NORMAL,cl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(getAliasString());

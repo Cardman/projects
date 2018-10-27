@@ -18,6 +18,8 @@ public final class NumberInfos {
 
     private int firstDigit;
 
+    private int base;
+
     public boolean isPositive() {
         return positive;
     }
@@ -80,6 +82,14 @@ public final class NumberInfos {
 
     public void setFirstDigit(int _firstDigit) {
         firstDigit = _firstDigit;
+    }
+
+    public int getBase() {
+        return base;
+    }
+
+    public void setBase(int _base) {
+        base = _base;
     }
 
 }

@@ -25,7 +25,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append("  $iter($int i=0i:4i:1i){\n");
         xml_.append("   $try{\n");
         xml_.append("    t;.+=1i:\n");
-        xml_.append("    $if(i;%2=0){\n");
+        xml_.append("    $if(i;%2==0){\n");
         xml_.append("     $continue:\n");
         xml_.append("    }\n");
         xml_.append("    t;.+=10i:\n");
@@ -38,7 +38,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -59,7 +59,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append("  $iter($int i=0i:4i:1i){\n");
         xml_.append("   $try{\n");
         xml_.append("    t;.+=1i:\n");
-        xml_.append("    $if(i;%2=0){\n");
+        xml_.append("    $if(i;%2==0){\n");
         xml_.append("     $continue:\n");
         xml_.append("    }\n");
         xml_.append("    t;.+=10i:\n");
@@ -73,7 +73,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -95,7 +95,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append("   $try{\n");
         xml_.append("    $try{\n");
         xml_.append("     t;.+=1i:\n");
-        xml_.append("     $if(i;%2=0){\n");
+        xml_.append("     $if(i;%2==0){\n");
         xml_.append("      $continue:\n");
         xml_.append("     }\n");
         xml_.append("     t;.+=10i:\n");
@@ -112,7 +112,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -135,7 +135,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append("   $if($true){\n");
         xml_.append("    $try{\n");
         xml_.append("     t;.+=1i:\n");
-        xml_.append("     $if(i;%2=0){\n");
+        xml_.append("     $if(i;%2==0){\n");
         xml_.append("      $continue:\n");
         xml_.append("     }\n");
         xml_.append("     t;.+=10i:\n");
@@ -149,7 +149,7 @@ public final class ProcessMethodContinueLoopFinallyTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

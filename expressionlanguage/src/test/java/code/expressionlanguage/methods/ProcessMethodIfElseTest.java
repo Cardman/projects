@@ -480,7 +480,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append("  $if(t;.<0) label {\n");
         xml_.append("   u;.=-8i:\n");
         xml_.append("  }\n");
-        xml_.append("  $elseif(t;.=0) {\n");
+        xml_.append("  $elseif(t;.==0) {\n");
         xml_.append("   u;.=4i:\n");
         xml_.append("  }\n");
         xml_.append("  $else{\n");
@@ -490,7 +490,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

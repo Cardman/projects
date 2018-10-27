@@ -112,6 +112,7 @@ public abstract class OperationNode {
     protected static final String DOT = ".";
 
     protected static final String NEG_BOOL = "!";
+    protected static final String NEG_BOOL_BIN = "~";
 
     protected static final String UNARY_PLUS = "+";
 
@@ -409,6 +410,9 @@ public abstract class OperationNode {
             if (StringList.quickEq(value_, NEG_BOOL)) {
                 return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
             }
+            if (StringList.quickEq(value_, NEG_BOOL_BIN)) {
+                return new UnaryBinOperation(_index, _indexChild, _m, _op);
+            }
             if (StringList.quickEq(value_, MINUS) || StringList.quickEq(value_, PLUS)) {
                 return new UnaryOperation(_index, _indexChild, _m, _op);
             }
@@ -434,6 +438,15 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.EQ_PRIO) {
             return new EqOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getPriority() == ElResolver.BIT_AND_PRIO) {
+            return new BitAndOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getPriority() == ElResolver.BIT_XOR_PRIO) {
+            return new BitXorOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getPriority() == ElResolver.BIT_OR_PRIO) {
+            return new BitOrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AND_PRIO) {
             return new AndOperation(_index, _indexChild, _m, _op);

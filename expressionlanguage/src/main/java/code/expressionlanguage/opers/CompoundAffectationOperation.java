@@ -81,7 +81,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         cast_.setMapping(mapping_);
         cast_.setFileName(_conf.getCurrentFileName());
         cast_.setRc(_conf.getCurrentLocation());
-        if (StringList.quickEq(oper, Block.EQ_PLUS) || StringList.quickEq(oper, Block.PLUS_EQ)) {
+        if (StringList.quickEq(oper, Block.PLUS_EQ)) {
             if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
                 if (!clMatchLeft_.matchClass(_conf.getStandards().getAliasString())) {
                     _conf.getClasses().addError(cast_);
@@ -91,12 +91,18 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 _conf.getClasses().addError(cast_);
                 return;
             }
-        } else if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ)) {
-            if (!clMatchLeft_.isBoolType(_conf)) {
-                _conf.getClasses().addError(cast_);
-                return;
+        } else if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ) || StringList.quickEq(oper, Block.XOR_EQ)) {
+            boolean okRes_ = false;
+            if (clMatchLeft_.isBoolType(_conf) && clMatchRight_.isBoolType(_conf)) {
+                okRes_ = true;
+            } else {
+                int oa_ = PrimitiveTypeUtil.getIntOrderClass(clMatchLeft_, _conf);
+                int ob_ = PrimitiveTypeUtil.getIntOrderClass(clMatchRight_, _conf);
+                if (oa_ > 0 && ob_ > 0) {
+                    okRes_ = true;
+                }
             }
-            if (!clMatchRight_.isBoolType(_conf)) {
+            if (!okRes_) {
                 _conf.getClasses().addError(cast_);
                 return;
             }
@@ -107,9 +113,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
             _conf.getClasses().addError(cast_);
             return;
         }
+        ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, true, _conf);
         if (!isString_) {
-            elt_.getResultClass().setUnwrapObject(clMatchLeft_);
-            right_.getResultClass().setUnwrapObject(clMatchLeft_);
+            elt_.getResultClass().setUnwrapObject(unwrapped_);
+            right_.getResultClass().setUnwrapObject(unwrapped_);
         }
     }
 

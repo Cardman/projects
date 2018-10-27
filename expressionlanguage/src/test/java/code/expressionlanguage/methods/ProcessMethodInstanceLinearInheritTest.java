@@ -2541,7 +2541,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument66Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -2564,7 +2564,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $final $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ance;;;=1i:\n");
         xml_.append("  } $else {\n");
         xml_.append("   ance;;;=2i:\n");
@@ -2598,7 +2598,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument67Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -2622,7 +2622,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public $final $int ancetwo:\n");
         xml_.append(" {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ance;;;=1i:\n");
         xml_.append("  } $else {\n");
         xml_.append("   ance;;;=2i:\n");
@@ -2630,7 +2630,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" }\n");
         xml_.append(" {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ancetwo;;;=10i:\n");
         xml_.append("  } $else {\n");
         xml_.append("   ancetwo;;;=20i:\n");
@@ -2667,13 +2667,13 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument68Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance:\n");
         xml_.append(" $static {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ance;;;=1i:\n");
         xml_.append("  } $else {\n");
         xml_.append("   ance;;;=2i:\n");
@@ -2692,14 +2692,14 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument69Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance:\n");
         xml_.append(" $public $static $final $int ancetwo:\n");
         xml_.append(" $static {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ance;;;=1i:\n");
         xml_.append("  } $else {\n");
         xml_.append("   ance;;;=2i:\n");
@@ -2707,7 +2707,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" }\n");
         xml_.append(" $static {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ancetwo;;;=10i:\n");
         xml_.append("  } $else {\n");
         xml_.append("   ancetwo;;;=20i:\n");
@@ -2862,7 +2862,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument72Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -2874,15 +2874,15 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public pkg.ExThree[] thirdCopy=third;;;clone():\n");
         xml_.append(" $public pkg.ExThree[] fourth=third;;;:\n");
         xml_.append(" $public pkg.ExThree[] five:\n");
-        xml_.append(" $public $boolean eqone = third;;; = fourth;;;:\n");
-        xml_.append(" $public $boolean eqtwo = third;;; = thirdCopy;;;:\n");
+        xml_.append(" $public $boolean eqone = third;;; == fourth;;;:\n");
+        xml_.append(" $public $boolean eqtwo = third;;; == thirdCopy;;;:\n");
         xml_.append(" $public $boolean eqthree = $true:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");
         xml_.append("  sec;;;+=8i:\n");
         xml_.append("  third;;;[0i]=$new pkg.ExThree():\n");
         xml_.append("  five;;;=third;;;clone():\n");
-        xml_.append("  eqthree;;;=third;;;=five;;;:\n");
+        xml_.append("  eqthree;;;=third;;;==five;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public (){\n");
         xml_.append("  sec;;;+=16i:\n");
@@ -2960,7 +2960,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument73Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i:\n");
@@ -2973,15 +2973,15 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append(" $public pkg.ExThree[] fourth=third;;;:\n");
         xml_.append(" $public pkg.ExThree[] five:\n");
         xml_.append(" $public $int[] six = $new $int[]{0i}:\n");
-        xml_.append(" $public $boolean eqone = third;;; = fourth;;;:\n");
-        xml_.append(" $public $boolean eqtwo = third;;; = thirdCopy;;;:\n");
+        xml_.append(" $public $boolean eqone = third;;; == fourth;;;:\n");
+        xml_.append(" $public $boolean eqtwo = third;;; == thirdCopy;;;:\n");
         xml_.append(" $public $boolean eqthree = $true:\n");
         xml_.append(" $public $int sec:\n");
         xml_.append(" {\n");
         xml_.append("  sec;;;+=8i+(six[0i]):\n");
         xml_.append("  third;;;[0i]=$new pkg.ExThree():\n");
         xml_.append("  five;;;=third;;;clone():\n");
-        xml_.append("  eqthree;;;=third;;;=five;;;:\n");
+        xml_.append("  eqthree;;;=third;;;==five;;;:\n");
         xml_.append(" }\n");
         xml_.append(" $public (){\n");
         xml_.append("  sec;;;+=16i:\n");
@@ -3071,13 +3071,13 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument2FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $final $int ance:\n");
         xml_.append(" {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ance;;;=0i:\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
@@ -3101,13 +3101,13 @@ public final class ProcessMethodInstanceLinearInheritTest extends
     @Test
     public void instanceArgument4FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance:\n");
         xml_.append(" $static {\n");
         xml_.append("  $int loc=1i:\n");
-        xml_.append("  $if (loc;.=1i){\n");
+        xml_.append("  $if (loc;.==1i){\n");
         xml_.append("   ance;;;=0i:\n");
         xml_.append("  }\n");
         xml_.append(" }\n");

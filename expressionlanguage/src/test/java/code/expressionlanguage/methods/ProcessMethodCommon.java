@@ -85,7 +85,6 @@ public abstract class ProcessMethodCommon {
             ct_ = new ContextEl(_m[0]);
         }
         ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        ct_.getOptions().setMultipleAffectations(false);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
         return ct_;
@@ -98,7 +97,6 @@ public abstract class ProcessMethodCommon {
             ct_ = new ContextEl(_m[0]);
         }
         ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        ct_.getOptions().setMultipleAffectations(_multAff);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
         return ct_;
@@ -111,7 +109,6 @@ public abstract class ProcessMethodCommon {
             ct_ = new ContextEl(_m[0]);
         }
         ct_.getOptions().setSuffixVar(_suf);
-        ct_.getOptions().setMultipleAffectations(false);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
         return ct_;
@@ -124,7 +121,6 @@ public abstract class ProcessMethodCommon {
             ct_ = new ContextEl(_m[0]);
         }
         ct_.getOptions().setSuffixVar(_suf);
-        ct_.getOptions().setMultipleAffectations(_multAff);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
         return ct_;

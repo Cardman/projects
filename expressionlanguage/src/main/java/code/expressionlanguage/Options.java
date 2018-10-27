@@ -2,20 +2,25 @@ package code.expressionlanguage;
 
 public final class Options {
 
-    private boolean multipleAffectations = true;
     private boolean initializeStaticClassFirst = true;
     private boolean quickCompare = true;
     private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
+    private boolean upperLong;
+    private boolean endLineSemiColumn;
 
-    public boolean isMultipleAffectations() {
-        return multipleAffectations;
+    public char getEndLine() {
+        if (endLineSemiColumn) {
+            return ';';
+        }
+        return ':';
     }
-
-    public void setMultipleAffectations(boolean _multipleAffectations) {
-        multipleAffectations = _multipleAffectations;
+    public char getSuffix() {
+        if (!endLineSemiColumn) {
+            return ';';
+        }
+        return ':';
     }
-
     public boolean isInitializeStaticClassFirst() {
         return initializeStaticClassFirst;
     }
@@ -46,6 +51,22 @@ public final class Options {
 
     public void setVarTypeFirst(boolean _varTypeFirst) {
         varTypeFirst = _varTypeFirst;
+    }
+
+    public boolean isUpperLong() {
+        return upperLong;
+    }
+
+    public void setUpperLong(boolean _upperLong) {
+        upperLong = _upperLong;
+    }
+
+    public boolean isEndLineSemiColumn() {
+        return endLineSemiColumn;
+    }
+
+    public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
+        endLineSemiColumn = _endLineSemiColumn;
     }
 
 }

@@ -486,7 +486,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append("  inst;;;add(1i):\n");
         xml_.append("  inst;;;add(2i):\n");
         xml_.append("  $foreach(java.lang.Number e:inst;;;){\n");
-        xml_.append("   $if (e;=$null){\n");
+        xml_.append("   $if (e;==$null){\n");
         xml_.append("    $continue:\n");
         xml_.append("   }\n");
         xml_.append("   res;;;+=e;intValue():\n");
@@ -496,7 +496,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1132,7 +1132,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T> {\n");
         xml_.append(" $public $normal $int get($int... i){\n");
-        xml_.append("  $return 1i+$bool(i;.;=$null,0i,-2i):\n");
+        xml_.append("  $return 1i+$bool(i;.;==$null,0i,-2i):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1143,7 +1143,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1526,7 +1526,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<#T> {\n");
         xml_.append(" $public $normal $int get($int... i){\n");
-        xml_.append("  $return 1i+$bool(i;.;=$null,0i,-2i):\n");
+        xml_.append("  $return 1i+$bool(i;.;==$null,0i,-2i):\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -1537,7 +1537,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();

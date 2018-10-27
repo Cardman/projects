@@ -95,8 +95,8 @@ public final class ReadConfiguration {
         }
         if (!found_) {
             ContextEl context_ = new ContextEl();
+            context_.getOptions().setUpperLong(true);
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-            context_.getOptions().setMultipleAffectations(false);
             context_.setStandards(stds_);
             _configuration.setContext(context_);
         }
@@ -124,10 +124,6 @@ public final class ReadConfiguration {
         Options options_ = new Options();
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
-            if (StringList.quickEq(fieldName_, "multipleAffectations")) {
-                options_.setMultipleAffectations(StringList.quickEq(c.getAttribute("value"), "true"));
-                continue;
-            }
             if (StringList.quickEq(fieldName_, "initializeStaticClassFirst")) {
                 options_.setInitializeStaticClassFirst(StringList.quickEq(c.getAttribute("value"), "true"));
                 continue;

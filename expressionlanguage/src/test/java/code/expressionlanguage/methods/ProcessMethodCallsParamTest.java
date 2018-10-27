@@ -47,7 +47,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -95,7 +95,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -142,7 +142,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -171,7 +171,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("   $continue:\n");
         xml_.append("  }\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -193,7 +193,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -221,7 +221,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("   $continue:\n");
         xml_.append("  }\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -246,7 +246,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -275,7 +275,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
         xml_.append("   $int elt=5i:\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -301,7 +301,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -331,7 +331,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append("  $while(exmethparam(p;.)):\n");
         xml_.append("  $foreach($int i:exmethlist()){\n");
-        xml_.append("   $if(i;%2=0i){\n");
+        xml_.append("   $if(i;%2==0i){\n");
         xml_.append("    t;.+=i;:\n");
         xml_.append("   }\n");
         xml_.append("   $else{\n");
@@ -356,7 +356,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -374,7 +374,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
         xml_.append("  $int test = 5i:\n");
-        xml_.append("  $if (test;. = 6i & exmeth(str;.,test;.)){\n");
+        xml_.append("  $if (test;. == 6i && exmeth(str;.,test;.)){\n");
         xml_.append("   $return 1i:\n");
         xml_.append("  }\n");
         xml_.append("  $return str;.length():\n");
@@ -385,7 +385,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -403,7 +403,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
         xml_.append("  $int test = 3i:\n");
-        xml_.append("  $if (test;. = 3i & exmeth(str;.,test;.)){\n");
+        xml_.append("  $if (test;. == 3i && exmeth(str;.,test;.)){\n");
         xml_.append("   $return 1i:\n");
         xml_.append("  }\n");
         xml_.append("  $return str;.length():\n");
@@ -414,7 +414,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -432,7 +432,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
         xml_.append("  $int test = 4i:\n");
-        xml_.append("  $if (test;. = 4i & exmeth(str;.,test;.)){\n");
+        xml_.append("  $if (test;. == 4i && exmeth(str;.,test;.)){\n");
         xml_.append("   $return 1i+str;.length():\n");
         xml_.append("  }\n");
         xml_.append("  $return str;.length():\n");
@@ -443,7 +443,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -461,7 +461,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
         xml_.append("  $int test = 6i:\n");
-        xml_.append("  $if (test;. = 6i | exmeth(str;.,test;.)){\n");
+        xml_.append("  $if (test;. == 6i || exmeth(str;.,test;.)){\n");
         xml_.append("   $return 1i+str;.length():\n");
         xml_.append("  }\n");
         xml_.append("  $return str;.length():\n");
@@ -472,7 +472,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -490,7 +490,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
         xml_.append("  $int test = 6i:\n");
-        xml_.append("  $if (test;. = 3i | exmeth(str;.,test;.)){\n");
+        xml_.append("  $if (test;. == 3i || exmeth(str;.,test;.)){\n");
         xml_.append("   $return 1i+str;.length():\n");
         xml_.append("  }\n");
         xml_.append("  $return str;.length():\n");
@@ -501,7 +501,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -519,7 +519,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int exmeth(){\n");
         xml_.append("  java.lang.StringBuilder str = $new java.lang.StringBuilder():\n");
         xml_.append("  $int test = -4i:\n");
-        xml_.append("  $if (test;. = -3i | exmeth(str;.,test;.)){\n");
+        xml_.append("  $if (test;. == -3i || exmeth(str;.,test;.)){\n");
         xml_.append("   $return 1i+str;.length():\n");
         xml_.append("  }\n");
         xml_.append("  $return str;.length():\n");
@@ -530,7 +530,7 @@ public final class ProcessMethodCallsParamTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

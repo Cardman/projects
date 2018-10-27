@@ -65,9 +65,10 @@ public final class AddOperation extends NumericOperation {
             int oa_ = PrimitiveTypeUtil.getOrderClass(_a, _cont);
             int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
             if (oa_ > 0 && ob_ > 0) {
-                _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont));
-                _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont));
-                res_.setResult(getQuickResultClass(_a, oa_, _cont, _b, ob_));
+                ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
+                _a.setUnwrapObject(out_);
+                _b.setUnwrapObject(out_);
+                res_.setResult(out_);
                 return res_;
             }
             boolean str_ = false;
@@ -107,9 +108,10 @@ public final class AddOperation extends NumericOperation {
             res_.setResult(arg_);
             return res_;
         }
-        _a.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_a, true, _cont));
-        _b.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(_b, true, _cont));
-        res_.setResult(getResultClass(_a, _cont, _b));
+        ClassArgumentMatching out_ = getResultClass(_a, _cont, _b);
+        _a.setUnwrapObject(out_);
+        _b.setUnwrapObject(out_);
+        res_.setResult(out_);
         return res_;
     }
 

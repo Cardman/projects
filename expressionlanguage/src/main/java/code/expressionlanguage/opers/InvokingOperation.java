@@ -579,16 +579,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (g_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) g_;
             if (!r_.isStaticType()) {
-                Argument prev_ = new Argument();
                 StringList parts_ = Templates.getAllInnerTypes(_className);
                 String param_ = parts_.sub(0, parts_.size()-1).join("..");
-                String paramId_ = Templates.getIdFromAllTypes(param_);
-                prev_.setStruct(PrimitiveTypeUtil.getParent(0,paramId_, _previous.getStruct(), _conf));
-                if (_conf.getException() != null) {
+                if (_previous.isNull()) {
+                    String npe_;
+                    npe_ = stds_.getAliasNullPe();
+                    _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
                     Argument a_ = new Argument();
                     return a_;
                 }
-                String arg_ = prev_.getObjectClassName(_conf.getContextEl());
+                String arg_ = _previous.getObjectClassName(_conf.getContextEl());
                 Mapping map_ = new Mapping();
                 map_.setArg(arg_);
                 map_.setParam(param_);
@@ -599,7 +599,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     Argument a_ = new Argument();
                     return a_;
                 }
-                needed_.setStruct(prev_.getStruct());
+                needed_.setStruct(_previous.getStruct());
             }
         }
         String base_ = Templates.getIdFromAllTypes(_className);
@@ -1124,6 +1124,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             ClassField idField_ = l_.getFid();
             FieldInfo fi_ = _conf.getFieldInfo(idField_);
             boolean static_ = fi_.isStaticField();
+            int nbAncestors_ = l_.getAncestor();
             boolean final_ = fi_.isFinalField();
             String name_ = idField_.getFieldName();
             String clName_ = idField_.getClassName();
@@ -1140,18 +1141,23 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Argument instance_ = l_.getInstanceCall();
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = PrimitiveTypeUtil.getPrettyArrayType(obj_);
-            if (!l_.isShiftInstance()) {
-                CustList<Argument> nList_ = new CustList<Argument>();
-                nList_.add(instance_);
-                if (aff_) {
-                    nList_.add(_values.last());
-                }
-                _conf.getContextEl().setReflectMethod(new CustomReflectMethod(type_, pr_, nList_));
-                Argument a_ = new Argument();
-                return a_;
-            }
             CustList<Argument> nList_ = new CustList<Argument>();
-            nList_.add(_values.first());
+            Argument realInstance_;
+            if (static_) {
+                realInstance_ = new Argument();
+            } else if (!l_.isShiftInstance()) {
+                realInstance_ = instance_;
+            } else {
+                realInstance_ = _values.first();
+            }
+            if (!static_) {
+                Struct value_ = realInstance_.getStruct();
+                realInstance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, clName_, value_, _conf));
+                if (_conf.getException() != null) {
+                    return new Argument();
+                }
+            }
+            nList_.add(realInstance_);
             if (aff_) {
                 nList_.add(_values.last());
             }
@@ -1160,12 +1166,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return a_;
         }
         LambdaMethodStruct l_ =  (LambdaMethodStruct) ls_;
+        int nbAncestors_ = l_.getAncestor();
         String id_ = Templates.getIdFromAllTypes(l_.getFormClassName());
         MethodId fid_ = l_.getFid();
         MethodModifier met_;
+        boolean static_ = fid_.isStaticMethod();
         if (l_.isAbstractMethod()) {
             met_ = MethodModifier.ABSTRACT;
-        } else if (fid_.isStaticMethod()) {
+        } else if (static_) {
             met_ = MethodModifier.STATIC;
         } else {
             met_ = MethodModifier.NORMAL;
@@ -1185,6 +1193,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 i_++;
             }
             CustList<Argument> nList_ = new CustList<Argument>();
+            if (!static_) {
+                Struct value_ = instance_.getStruct();
+                instance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
+                if (_conf.getException() != null) {
+                    return new Argument();
+                }
+            }
             nList_.add(instance_);
             nList_.add(new Argument(arr_));
             _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
@@ -1212,7 +1227,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             i_++;
         }
         CustList<Argument> nList_ = new CustList<Argument>();
-        nList_.add(_values.first());
+        Argument firstValue_ = _values.first();
+        Struct value_ = firstValue_.getStruct();
+        firstValue_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
+        if (_conf.getException() != null) {
+            return new Argument();
+        }
+        nList_.add(firstValue_);
         nList_.add(new Argument(arr_));
         _conf.getContextEl().setReflectMethod(new CustomReflectMethod(ReflectingType.METHOD, pr_, nList_));
         Argument a_ = new Argument();
@@ -1382,10 +1403,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return Argument.createVoid();
         }
         String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
-        String classNameFound_ = fieldId_.getClassName();
         String base_ = Templates.getIdFromAllTypes(argClassName_);
-        if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
-            _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+        if (!PrimitiveTypeUtil.canBeUseAsArgument(_className, base_, _conf)) {
+            _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE,_conf.joinPages())),cast_));
             return arg_;
         }
         if (arg_.getStruct() instanceof FieldableStruct) {
@@ -1423,7 +1443,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String fieldType_;
         Classes classes_ = _conf.getClasses();
         ClassField fieldId_ = new ClassField(_className, _fieldName);
-        String className_ = _className;
         if (_isStaticField) {
             if (_finalField && _failIfFinal) {
                 String npe_;
@@ -1431,7 +1450,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),npe_));
                 return Argument.createVoid();
             }
-            if (InvokingOperation.hasToExit(_conf, className_)) {
+            if (InvokingOperation.hasToExit(_conf, _className)) {
                 return Argument.createVoid();
             }
             fieldType_ = _returnType;
@@ -1458,7 +1477,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (_right.getStruct() instanceof NumberStruct || _right.getStruct() instanceof CharStruct) {
                 _right.setStruct(PrimitiveTypeUtil.convertObject(cl_, _right.getStruct(), _conf));
             }
-            if (classes_.isCustomType(className_)) {
+            if (classes_.isCustomType(_className)) {
                 classes_.initializeStaticField(fieldId_, _right.getStruct());
                 return _right;
             }
@@ -1477,14 +1496,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return Argument.createVoid();
         }
         String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
-        String classNameFound_ = fieldId_.getClassName();
         String base_ = Templates.getIdFromAllTypes(argClassName_);
-        classNameFound_ = fieldId_.getClassName();
+        String classNameFound_ = _className;
         if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, base_, _conf)) {
             _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
             return Argument.createVoid();
         }
-        classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
         fieldType_ = _returnType;
         fieldType_ = Templates.quickFormat(classNameFound_, fieldType_, _conf);

@@ -52,7 +52,6 @@ public final class FileResolver {
     public static final char SUPPLEMENT_CHAR = '$';
     private static final char INHERIT = ':';
     private static final char FOR_BLOCKS = ':';
-    private static final char END_LINE = ':';
     private static final char END_IMPORTS = ';';
     private static final char LINE_RETURN = '\n';
     private static final char TAB = '\t';
@@ -805,6 +804,7 @@ public final class FileResolver {
 
         i_ = nextIndex_;
         boolean okType_ = false;
+        char endLine_ = _context.getOptions().getEndLine();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (commentedSingleLine_) {
@@ -934,7 +934,7 @@ public final class FileResolver {
             }
             boolean endInstruction_ = false;
             if (parentheses_.isEmpty()) {
-                if (currentChar_ == END_LINE && !declType_) {
+                if (currentChar_ == endLine_ && !declType_) {
                     endInstruction_ = true;
                 }
                 if (currentChar_ == SEP_ENUM_CONST && enableByEndLine_) {
@@ -1343,7 +1343,7 @@ public final class FileResolver {
                         br_ = new StaticBlock(_context, index_, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
                     }
-                    if (currentChar_ == END_LINE) {
+                    if (currentChar_ == endLine_) {
                         index_++;
                         indexes_.setLast(index_);
                     } else if (br_ instanceof BracedBlock) {
@@ -1401,7 +1401,7 @@ public final class FileResolver {
                         index_++;
                         indexes_.setLast(index_);
                     }
-                    if (currentChar_ == END_LINE) {
+                    if (currentChar_ == endLine_) {
                         enableByEndLine_ = false;
                     }
                 } else if (currentChar_ != END_BLOCK) {
@@ -1651,19 +1651,19 @@ public final class FileResolver {
                         String variable_ = exp_.substring(0, exp_.indexOf(PART_SEPARATOR));
                         varOffset_ += StringList.getFirstPrintableCharIndex(variable_);
                         exp_ = exp_.substring(exp_.indexOf(PART_SEPARATOR) + 1);
-                        int nextElt_ = getIndex(exp_);
+                        int nextElt_ = getIndex(exp_,endLine_);
                         int initOff_ = varOffset_ + nextElt_;
                         String init_ = exp_.substring(0, nextElt_);
                         initOff_ += StringList.getFirstPrintableCharIndex(init_);
                         exp_ = exp_.substring(init_.length()+1);
-                        nextElt_ = getIndex(exp_);
+                        nextElt_ = getIndex(exp_, endLine_);
                         int toOff_ = initOff_ + nextElt_;
                         boolean eq_ = false;
                         String to_ = exp_.substring(0, nextElt_);
                         toOff_ += StringList.getFirstPrintableCharIndex(to_);
                         int expOff_ = toOff_ + nextElt_;
                         int stepOff_ = expOff_ + 1;
-                        if (exp_.charAt(nextElt_ + 1) == END_LINE) {
+                        if (exp_.charAt(nextElt_ + 1) == endLine_) {
                             eq_ = true;
                             nextElt_++;
                             stepOff_++;
@@ -1724,49 +1724,77 @@ public final class FileResolver {
                         String declaringType_ = getDeclaringTypeInstr(exp_,options_);
                         int initOff_ = typeOffset_ + declaringType_.length();
                         exp_ = exp_.substring(declaringType_.length());
-                        int nextElt_ = getIndex(exp_);
-                        String init_ = exp_.substring(0, nextElt_);
-                        initOff_ += StringList.getFirstPrintableCharIndex(init_);
-                        exp_ = exp_.substring(init_.length()+1);
-                        int toOff_ = initOff_ + nextElt_;
-                        nextElt_ = getIndex(exp_);
-                        if (nextElt_ == -1) {
-                            int varOffset_ = typeOffset_ + declaringType_.length();
-                            varOffset_ += StringList.getFirstPrintableCharIndex(init_);
-                            int expOffset_ = varOffset_;
-                            expOffset_ += init_.length();
-                            exp_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
-                            expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
-                            label_ = label_.substring(lastPar_ + 1);
-                            if (!label_.isEmpty()) {
-                                labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                        boolean ok_ = false;
+                        if (options_.getSuffixVar() == VariableSuffix.NONE) {
+                            int nextElt_ = getIndex(exp_,FOR_BLOCKS);
+                            if (nextElt_ > -1) {
+                                String init_ = exp_.substring(0, nextElt_);
+                                initOff_ += StringList.getFirstPrintableCharIndex(init_);
+                                exp_ = exp_.substring(init_.length()+1);
+                                int varOffset_ = typeOffset_ + declaringType_.length();
+                                varOffset_ += StringList.getFirstPrintableCharIndex(init_);
+                                int expOffset_ = varOffset_;
+                                expOffset_ += init_.length();
+                                exp_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
+                                expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
+                                label_ = label_.substring(lastPar_ + 1);
+                                if (!label_.isEmpty()) {
+                                    labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                                }
+                                br_ = new ForEachLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, init_.trim()),
+                                        new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                br_.getAnnotations().addAllElts(annotations_);
+                                br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                                currentParent_.appendChild(br_);
+                                ok_ = true;
                             }
-                            br_ = new ForEachLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, init_.trim()),
-                                    new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                            br_.getAnnotations().addAllElts(annotations_);
-                            br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-                            currentParent_.appendChild(br_);
-                        } else {
-                            String to_ = exp_.substring(0, nextElt_);
-                            toOff_ += StringList.getFirstPrintableCharIndex(to_);
-                            int expOff_ = toOff_ + nextElt_;
-                            int stepOff_ = expOff_ + 1;
-                            exp_ = exp_.substring(nextElt_ + 1);
-                            String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
-                            stepOff_ += StringList.getFirstPrintableCharIndex(step_);
-                            label_ = label_.substring(lastPar_ + 1);
-                            if (!label_.isEmpty()) {
-                                labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                        }
+                        if (!ok_) {
+                            int nextElt_ = getIndex(exp_,endLine_);
+                            String init_ = exp_.substring(0, nextElt_);
+                            initOff_ += StringList.getFirstPrintableCharIndex(init_);
+                            exp_ = exp_.substring(init_.length()+1);
+                            int toOff_ = initOff_ + nextElt_;
+                            nextElt_ = getIndex(exp_,endLine_);
+                            if (nextElt_ == -1) {
+                                int varOffset_ = typeOffset_ + declaringType_.length();
+                                varOffset_ += StringList.getFirstPrintableCharIndex(init_);
+                                int expOffset_ = varOffset_;
+                                expOffset_ += init_.length();
+                                exp_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
+                                expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
+                                label_ = label_.substring(lastPar_ + 1);
+                                if (!label_.isEmpty()) {
+                                    labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                                }
+                                br_ = new ForEachLoop(_context, index_, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, init_.trim()),
+                                        new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                br_.getAnnotations().addAllElts(annotations_);
+                                br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                                currentParent_.appendChild(br_);
+                            } else {
+                                String to_ = exp_.substring(0, nextElt_);
+                                toOff_ += StringList.getFirstPrintableCharIndex(to_);
+                                int expOff_ = toOff_ + nextElt_;
+                                int stepOff_ = expOff_ + 1;
+                                exp_ = exp_.substring(nextElt_ + 1);
+                                String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
+                                stepOff_ += StringList.getFirstPrintableCharIndex(step_);
+                                label_ = label_.substring(lastPar_ + 1);
+                                if (!label_.isEmpty()) {
+                                    labelOff_ += StringList.getFirstPrintableCharIndex(label_);
+                                }
+                                br_ = new ForMutableIterativeLoop(_context, index_, currentParent_,
+                                        new OffsetBooleanInfo(finalOffset_, finalLocalVar_),
+                                        new OffsetStringInfo(typeOffset_,declaringType_.trim()),
+                                        new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
+                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                br_.getAnnotations().addAllElts(annotations_);
+                                br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
+                                currentParent_.appendChild(br_);
                             }
-                            br_ = new ForMutableIterativeLoop(_context, index_, currentParent_,
-                                    new OffsetBooleanInfo(finalOffset_, finalLocalVar_),
-                                    new OffsetStringInfo(typeOffset_,declaringType_.trim()),
-                                    new OffsetStringInfo(initOff_,init_.trim()), new OffsetStringInfo(toOff_,to_.trim()),  new OffsetStringInfo(stepOff_,step_.trim()), new OffsetStringInfo(indexClassOffest_,indexClassName_.trim()),
-                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                            br_.getAnnotations().addAllElts(annotations_);
-                            br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-                            currentParent_.appendChild(br_);
                         }
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_SWITCH)) {
                         String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_SWITCH)).length());
@@ -2064,42 +2092,68 @@ public final class FileResolver {
                                 boolean meth_ = false;
                                 if (!field_ && !ctor_) {
                                     infoModifiers_ = trimmedAfterAccess_;
-                                    while (true) {
-                                        String otherModifier_ = EMPTY_STRING;
-                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_NORMAL)) {
-                                            otherModifier_ = prefixKeyWord(KEY_WORD_NORMAL);
-                                            int lenLoc_ = otherModifier_.length();
-                                            String sub_ = infoModifiers_.substring(lenLoc_);
-                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-                                            infoModifiers_ = sub_.substring(delta_);
-                                            continue;
-                                        }
-                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_ABSTRACT)) {
-                                            otherModifier_ = prefixKeyWord(KEY_WORD_ABSTRACT);
-                                            int lenLoc_ = otherModifier_.length();
-                                            String sub_ = infoModifiers_.substring(lenLoc_);
-                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-                                            infoModifiers_ = sub_.substring(delta_);
-                                            continue;
-                                        }
-                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_STATIC)) {
-                                            otherModifier_ = prefixKeyWord(KEY_WORD_STATIC);
-                                            int lenLoc_ = otherModifier_.length();
-                                            String sub_ = infoModifiers_.substring(lenLoc_);
-                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-                                            infoModifiers_ = sub_.substring(delta_);
-                                            continue;
-                                        }
-                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_FINAL)) {
-                                            otherModifier_ = prefixKeyWord(KEY_WORD_FINAL);
-                                            int lenLoc_ = otherModifier_.length();
-                                            String sub_ = infoModifiers_.substring(lenLoc_);
-                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-                                            infoModifiers_ = sub_.substring(delta_);
-                                            continue;
-                                        }
-                                        break;
+                                    String otherModifier_ = EMPTY_STRING;
+                                    if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_NORMAL)) {
+                                        otherModifier_ = prefixKeyWord(KEY_WORD_NORMAL);
+                                        int lenLoc_ = otherModifier_.length();
+                                        String sub_ = infoModifiers_.substring(lenLoc_);
+                                        int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                        infoModifiers_ = sub_.substring(delta_);
+                                    } else if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_ABSTRACT)) {
+                                        otherModifier_ = prefixKeyWord(KEY_WORD_ABSTRACT);
+                                        int lenLoc_ = otherModifier_.length();
+                                        String sub_ = infoModifiers_.substring(lenLoc_);
+                                        int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                        infoModifiers_ = sub_.substring(delta_);
+                                    } else if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_STATIC)) {
+                                        otherModifier_ = prefixKeyWord(KEY_WORD_STATIC);
+                                        int lenLoc_ = otherModifier_.length();
+                                        String sub_ = infoModifiers_.substring(lenLoc_);
+                                        int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                        infoModifiers_ = sub_.substring(delta_);
+                                    } else if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_FINAL)) {
+                                        otherModifier_ = prefixKeyWord(KEY_WORD_FINAL);
+                                        int lenLoc_ = otherModifier_.length();
+                                        String sub_ = infoModifiers_.substring(lenLoc_);
+                                        int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+                                        infoModifiers_ = sub_.substring(delta_);
                                     }
+//                                    while (true) {
+//                                        String otherModifier_ = EMPTY_STRING;
+//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_NORMAL)) {
+//                                            otherModifier_ = prefixKeyWord(KEY_WORD_NORMAL);
+//                                            int lenLoc_ = otherModifier_.length();
+//                                            String sub_ = infoModifiers_.substring(lenLoc_);
+//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+//                                            infoModifiers_ = sub_.substring(delta_);
+//                                            continue;
+//                                        }
+//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_ABSTRACT)) {
+//                                            otherModifier_ = prefixKeyWord(KEY_WORD_ABSTRACT);
+//                                            int lenLoc_ = otherModifier_.length();
+//                                            String sub_ = infoModifiers_.substring(lenLoc_);
+//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+//                                            infoModifiers_ = sub_.substring(delta_);
+//                                            continue;
+//                                        }
+//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_STATIC)) {
+//                                            otherModifier_ = prefixKeyWord(KEY_WORD_STATIC);
+//                                            int lenLoc_ = otherModifier_.length();
+//                                            String sub_ = infoModifiers_.substring(lenLoc_);
+//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+//                                            infoModifiers_ = sub_.substring(delta_);
+//                                            continue;
+//                                        }
+//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_FINAL)) {
+//                                            otherModifier_ = prefixKeyWord(KEY_WORD_FINAL);
+//                                            int lenLoc_ = otherModifier_.length();
+//                                            String sub_ = infoModifiers_.substring(lenLoc_);
+//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
+//                                            infoModifiers_ = sub_.substring(delta_);
+//                                            continue;
+//                                        }
+//                                        break;
+//                                    }
                                     String typeStr_ = getDeclaringTypeBlock(infoModifiers_,options_);
                                     infoModifiers_ = infoModifiers_.substring(typeStr_.length());
                                     int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
@@ -2125,6 +2179,11 @@ public final class FileResolver {
                                     }
                                 }
                                 if (meth_||ctor_) {
+                                    if (currentParent_ instanceof InterfaceBlock) {
+                                        if (word_.isEmpty()) {
+                                            accessFct_ = AccessEnum.PUBLIC;
+                                        }
+                                    }
 
                                     //constructors or methods or types
                                     int modifierOffest_ = accessOffest_ + word_.length();
@@ -2154,7 +2213,11 @@ public final class FileResolver {
                                         String afterModifier_ = info_.substring((prefModifier_).length());
                                         typeOffset_ = modifierOffest_ + prefModifier_.length();
                                         if (modifier_.isEmpty()) {
-                                            modifier_ = KEY_WORD_NORMAL;
+                                            if (currentParent_ instanceof InterfaceBlock) {
+                                                modifier_ = KEY_WORD_ABSTRACT;
+                                            } else {
+                                                modifier_ = KEY_WORD_NORMAL;
+                                            }
                                         }
                                         typeOffset_ += StringList.getFirstPrintableCharIndex(afterModifier_);
                                         info_ = afterModifier_.trim();
@@ -2336,7 +2399,7 @@ public final class FileResolver {
                             currentParent_.appendChild(br_);
                         }
                     }
-                    if (currentChar_ == END_LINE) {
+                    if (currentChar_ == endLine_) {
                         index_++;
                         indexes_.setLast(index_);
                     } else if (br_ instanceof BracedBlock) {
@@ -2878,7 +2941,7 @@ public final class FileResolver {
         }
         return EMPTY_STRING;
     }
-    private static int getIndex(String _info) {
+    private static int getIndex(String _info, char _endLine) {
         int indexInstr_ = 0;
         int instrLen_ = _info.length();
         Numbers<Integer> localCallings_ = new Numbers<Integer>();
@@ -2914,7 +2977,7 @@ public final class FileResolver {
                 indexInstr_++;
                 continue;
             }
-            if (localCallings_.isEmpty() && locChar_ == END_LINE) {
+            if (localCallings_.isEmpty() && locChar_ == _endLine) {
                 return indexInstr_;
             }
             if (locChar_ == DEL_CHAR) {

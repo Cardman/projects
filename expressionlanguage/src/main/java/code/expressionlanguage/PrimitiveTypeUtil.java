@@ -863,6 +863,28 @@ public final class PrimitiveTypeUtil {
         }
         return 0;
     }
+    public static int getIntOrderClass(ClassArgumentMatching _class, Analyzable _context) {
+        return getIntOrderClass(_class, _context.getStandards());
+    }
+    public static int getIntOrderClass(ClassArgumentMatching _class, LgNames _stds) {
+        ClassArgumentMatching class_ = toPrimitive(_class, true, _stds);
+        if (class_.matchClass(_stds.getAliasPrimLong())) {
+            return LONG_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimInteger())) {
+            return INT_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimChar())) {
+            return CHAR_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimShort())) {
+            return SHORT_CASTING;
+        }
+        if (class_.matchClass(_stds.getAliasPrimByte())) {
+            return BYTE_CASTING;
+        }
+        return 0;
+    }
     public static boolean isPrimitiveOrWrapper(ClassArgumentMatching _className, Analyzable _context) {
         for (String c: _className.getNames()) {
             if (isPrimitiveOrWrapper(c, _context.getStandards())) {

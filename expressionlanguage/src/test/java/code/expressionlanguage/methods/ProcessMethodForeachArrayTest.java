@@ -113,7 +113,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append("  a;.[2i]=$null:\n");
         xml_.append("  a;.[3i]=$null:\n");
         xml_.append("  $foreach(java.lang.Integer i:a;.){\n");
-        xml_.append("   $if(i;=$null){\n");
+        xml_.append("   $if(i;==$null){\n");
         xml_.append("    t;.+=i;;:\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -121,7 +121,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
@@ -175,7 +175,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append("  a;.[2i]=$null:\n");
         xml_.append("  a;.[3i]=$null:\n");
         xml_.append("  $foreach(java.lang.Integer i:a;.){\n");
-        xml_.append("   $if(i;=$null){\n");
+        xml_.append("   $if(i;==$null){\n");
         xml_.append("    t;.+=([i]):\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -183,7 +183,7 @@ public final class ProcessMethodForeachArrayTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = contextEl(true,false);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

@@ -79,9 +79,60 @@ public final class ParsedArgument {
         }
         nbFormatted_.append(_infosNb.getIntPart());
         String nb_ = StringList.removeChars(StringList.removeAllSpaces(nbFormatted_.toString()), '_');
-        Long longValue_ = LgNames.parseLongTen(nb_);
-        if (longValue_ == null) {
-            return out_;
+        Long longValue_;
+        if (_infosNb.getBase() == 10) {
+            longValue_ = LgNames.parseLongTen(nb_);
+            if (longValue_ == null) {
+                return out_;
+            }
+        } else if (_infosNb.getBase() == 16) {
+            if (nb_.length() > 16) {
+                return out_;
+            }
+            boolean[] bits_ = LgNames.parseLongSixteenToBits(nb_);
+            longValue_ = LgNames.toLong(bits_);
+        } else if (_infosNb.getBase() == 2) {
+            if (nb_.length() > 64) {
+                return out_;
+            }
+            boolean[] bits_ = LgNames.parseLongBinaryToBits(nb_);
+            longValue_ = LgNames.toLong(bits_);
+        } else {
+            if (suffix_ == 'L' || suffix_ == 'l') {
+                if (nb_.length() > 22) {
+                    return out_;
+                }
+                int sub_ = 0;
+                boolean[] bits_ = new boolean[64];
+                if (nb_.length() == 22) {
+                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1') {
+                        return out_;
+                    }
+                    bits_[sub_] = nb_.charAt(0) == '1';
+                    sub_ = 1;
+                }
+                String subString_ = nb_.substring(sub_);
+                boolean[] bitsOutTrunc_ = LgNames.parseLongOctalToBits(subString_);
+                for (int i = 1; i < 64; i++) {
+                    bits_[i] = bitsOutTrunc_[i-1];
+                }
+                longValue_ = LgNames.toLong(bits_);
+            } else {
+                Long lg_ = LgNames.parseLong(nb_, 8);
+                if (lg_ == null) {
+                    return out_;
+                }
+                long value_ = lg_;
+                if (value_ >= Integer.MAX_VALUE + 1l) {
+                    while (value_ > Integer.MAX_VALUE + 1l) {
+                        value_ -= Integer.MAX_VALUE;
+                        value_ --;
+                    }
+                    value_ -= Integer.MAX_VALUE;
+                    value_ --;
+                }
+                longValue_ = value_;
+            }
         }
         if (suffix_ == 'L' || suffix_ == 'l') {
             if (suffix_ == 'l') {

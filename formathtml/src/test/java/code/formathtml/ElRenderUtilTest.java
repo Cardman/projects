@@ -57,7 +57,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("5",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(5L, (Number)res_);
     }
     @Test
@@ -76,7 +76,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("(1+2)*3",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(9L, (Number)res_);
     }
 
@@ -84,9 +84,9 @@ public final class ElRenderUtilTest {
     public void processEl4Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("1--1",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1- -1",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(2L, (Number)res_);
     }
 
@@ -96,7 +96,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("1+2*3",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(7L, (Number)res_);
     }
 
@@ -104,9 +104,9 @@ public final class ElRenderUtilTest {
     public void processEl6Test() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("--1",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("- -1",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(1L, (Number)res_);
     }
 
@@ -271,9 +271,9 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processEl21Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("1+1=2",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1==2",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -291,9 +291,9 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processEl23Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("1+1=2&1+0=8",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1==2&&1+0==8",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(false, (Boolean)res_);
@@ -301,9 +301,9 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processEl24Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("1+1!=2|1+7=8",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1!=2||1+7==8",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -311,18 +311,18 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processEl25Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("1+1=2&(1+0=8|3*3=9)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1==2&&(1+0==8||3*3==9)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
     }
     @Test
     public void processEl26Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("1+1=2|1+6=8&1=1",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1==2||1+6==8&&1==1",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -353,9 +353,9 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processEl29Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("1+1=2|1/0>8",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1==2||1/0>8",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -363,11 +363,11 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processEl30Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
-        Argument arg_ = ElRenderUtil.processEl("1+1=2|(integer>8)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1==2||(integer>8)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -486,7 +486,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
-        Argument arg_ = ElRenderUtil.processEl("getOverridenThree(1)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("getOverridenThree(1L)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("Long", (String)res_);
@@ -510,7 +510,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
-        Argument arg_ = ElRenderUtil.processEl("getOverridenThree(1.0)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("getOverridenThree(1.0D)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("Double", (String)res_);
@@ -1084,7 +1084,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("$static($math).abs(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(20L, (Number)res_);
     }
 
@@ -1102,7 +1102,7 @@ public final class ElRenderUtilTest {
         context_.getLastPage().setLocalVars(localVars_);
         Argument arg_ = ElRenderUtil.processEl("(v;.[0i]+2)*2",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(20L, (Number)res_);
     }
 
@@ -1622,7 +1622,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("(1b+2b)*3",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(9L, (Number)res_);
     }
 
@@ -1632,15 +1632,15 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("(1s+2b)*3",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(9L, (Number)res_);
     }
 
     @Test
     public void processEl121Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("--1b",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("- -1b",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(1, (Number)res_);
@@ -1707,7 +1707,7 @@ public final class ElRenderUtilTest {
         assertEq(43, nextIndex_);
         arg_ = ElRenderUtil.processEl(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, nextIndex_+1 ,'{','}');
         res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(40, (Number) res_);
         nextIndex_ = context_.getNextIndex();
         assertEq(48, nextIndex_);
@@ -1726,7 +1726,7 @@ public final class ElRenderUtilTest {
         assertEq(30, nextIndex_);
         arg_ = ElRenderUtil.processEl(" {(\"hello \"+\"world\").length()}{5*8} ", context_, nextIndex_+1 ,'{','}');
         res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(40, (Number) res_);
         nextIndex_ = context_.getNextIndex();
         assertEq(35, nextIndex_);
@@ -1738,7 +1738,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("1_0+2*3",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(16L, (Number)res_);
     }
 
@@ -1813,7 +1813,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("1 + 2 ",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(3L, (Number)res_);
     }
 
@@ -3230,7 +3230,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("$(java.lang.Number)5",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(5L, (Number)res_);
     }
     @Test
@@ -3540,7 +3540,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("6 + $($int) - $static($math).quot(8,5) - 2",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Long);
+        assertTrue(res_ instanceof Integer);
         assertEq(3, (Number)res_);
     }
     @Test
@@ -6652,11 +6652,11 @@ public final class ElRenderUtilTest {
 
     @Test
     public void processEl316Test() {
-        Configuration context_ = contextEl();
+        Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
         Composite b_ = new Composite();
         addBean(context_, b_, COMPOSITE);
-        Argument arg_ = ElRenderUtil.processEl("1+1=2|(integer<8)",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("1+1==2||(integer<8)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
         assertEq(true, (Boolean)res_);
@@ -7587,7 +7587,6 @@ public final class ElRenderUtilTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -7604,7 +7603,6 @@ public final class ElRenderUtilTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
@@ -7626,7 +7624,6 @@ public final class ElRenderUtilTest {
         Configuration conf_ = new Configuration();
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        cont_.getOptions().setMultipleAffectations(_multiple);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());

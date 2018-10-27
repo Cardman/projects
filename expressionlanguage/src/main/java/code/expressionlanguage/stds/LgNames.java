@@ -1275,20 +1275,7 @@ public abstract class LgNames {
             }
         }
         if (instance_ instanceof SimpleItr) {
-            try {
-                if (StringList.quickEq(name_, lgNames_.getAliasNext())) {
-                    Object resObj_ = ((SimpleItr)instance_).next();
-                    result_.setResult(StdStruct.wrapStd(resObj_, _cont));
-                    return result_;
-                }
-                if (StringList.quickEq(name_, lgNames_.getAliasHasNext())) {
-                    result_.setResult(new BooleanStruct(((SimpleItr)instance_).hasNext()));
-                    return result_;
-                }
-            } catch (Throwable _0) {
-                result_.setError(lgNames_.getAliasError());
-                return result_;
-            }
+            return lgNames_.prIterator(_cont, name_, _struct);
         }
         if (StringList.quickEq(type_, replType_)) {
             Replacement one_ = (Replacement) instance_;
@@ -1569,6 +1556,19 @@ public abstract class LgNames {
         } else {
             result_ = lgNames_.getOtherResult(_cont, _struct, _method, argsObj_);
         }
+        return result_;
+    }
+
+    ResultErrorStd prIterator(ContextEl _cont, String _name, Struct _struct) {
+        ResultErrorStd result_ = new ResultErrorStd();
+        Object instance_ = _struct.getInstance();
+        LgNames lgNames_ = _cont.getStandards();
+        if (StringList.quickEq(_name, lgNames_.getAliasNext())) {
+            Object resObj_ = ((SimpleItr)instance_).next();
+            result_.setResult(StdStruct.wrapStd(resObj_, _cont));
+            return result_;
+        }
+        result_.setResult(new BooleanStruct(((SimpleItr)instance_).hasNext()));
         return result_;
     }
     public static ResultErrorStd invokeStdMethod(Analyzable _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
@@ -2403,25 +2403,76 @@ public abstract class LgNames {
             }
             return Double.NEGATIVE_INFINITY;
         }
+        long expNbLong_ = expNb_.longValue();
+        if (_nb.getBase() == 16) {
+            StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
+            merged_.append(int_);
+            merged_.append(dec_);
+            double parsed_ = parseDoubleSixteen(merged_.toString());
+            long delta_ = expNbLong_;
+            delta_ -= 4 * dec_.length();
+            double p_ = 1.0;
+            long absExpNbLong_ = Math.abs(delta_);
+            for (int i = 0; i < absExpNbLong_; i++) {
+                p_ *= 2;
+            }
+            if (delta_ > 0) {
+                return parsed_ * p_;
+            }
+            return parsed_ / p_;
+        }
+        if (_nb.getBase() == 2) {
+            StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
+            merged_.append(int_);
+            merged_.append(dec_);
+            double parsed_ = parseDoubleBinary(merged_.toString());
+            long delta_ = expNbLong_;
+            delta_ -= dec_.length();
+            double p_ = 1.0;
+            long absExpNbLong_ = Math.abs(delta_);
+            for (int i = 0; i < absExpNbLong_; i++) {
+                p_ *= 2;
+            }
+            if (delta_ > 0) {
+                return parsed_ * p_;
+            }
+            return parsed_ / p_;
+        }
+        if (_nb.getBase() == 8) {
+            StringBuilder merged_ = new StringBuilder(int_.length()+dec_.length());
+            merged_.append(int_);
+            merged_.append(dec_);
+            double parsed_ = parseDoubleOctal(merged_.toString());
+            long delta_ = expNbLong_;
+            delta_ -= 3*dec_.length();
+            double p_ = 1.0;
+            long absExpNbLong_ = Math.abs(delta_);
+            for (int i = 0; i < absExpNbLong_; i++) {
+                p_ *= 2;
+            }
+            if (delta_ > 0) {
+                return parsed_ * p_;
+            }
+            return parsed_ / p_;
+        }
         if (dec_.length() == 0) {
-            if (expNb_.longValue() == 0) {
-                Long long_;
+            if (expNbLong_ == 0) {
+                double long_;
                 if (int_.length() > MAX_DIGITS_DOUBLE) {
                     return processBigNumbers(int_, positive_, MAX_DIGITS_DOUBLE);
                 }
-                long_ = parseLongTen(int_.toString());
+                long_ = parseQuickLongTen(int_.toString());
                 if (!positive_) {
-                    return -long_.doubleValue();
+                    return -long_;
                 }
-                return long_.doubleValue();
+                return long_;
             }
-            long expNbLong_ = expNb_.longValue();
-            Long long_;
+            double long_;
             if (int_.length() > MAX_DIGITS_DOUBLE) {
-                long_ = parseLongTen(int_.substring(0, MAX_DIGITS_DOUBLE + 1));
+                long_ = parseQuickLongTen(int_.substring(0, MAX_DIGITS_DOUBLE + 1));
                 expNbLong_ += int_.length() - MAX_DIGITS_DOUBLE - 1;
             } else {
-                long_ = parseLongTen(int_.toString());
+                long_ = parseQuickLongTen(int_.toString());
             }
             double power_ = 1;
             long absExp_ = Math.abs(expNbLong_);
@@ -2430,33 +2481,32 @@ public abstract class LgNames {
             }
             if (!positive_) {
                 if (expNbLong_ > 0) {
-                    return -long_.doubleValue() * power_;
+                    return -long_ * power_;
                 }
-                return -long_.doubleValue() / power_;
+                return -long_ / power_;
             }
             if (expNbLong_ > 0) {
-                return long_.doubleValue() * power_;
+                return long_ * power_;
             }
-            return long_.doubleValue() / power_;
+            return long_ / power_;
         }
-        long expNbLong_ = expNb_.longValue();
         if (expNbLong_ >= dec_.length()) {
             //try to get "double" as int
             StringBuilder number_ = new StringBuilder(int_.length()+dec_.length());
-            number_.append(int_);
-            number_.append(dec_);
-            int diff_ = (int)expNbLong_-dec_.length();
-            for (long i = 0; i < diff_; i++) {
-                number_.append("0");
-            }
-            if (number_.length() > MAX_DIGITS_DOUBLE) {
-                return processBigNumbers(number_, positive_, MAX_DIGITS_DOUBLE);
-            }
-            Long long_ = parseLongTen(number_.toString());
-            if (!positive_) {
-                return -long_.doubleValue();
-            }
-            return long_.doubleValue();
+                    number_.append(int_);
+                    number_.append(dec_);
+                    int diff_ = (int)expNbLong_-dec_.length();
+                    for (long i = 0; i < diff_; i++) {
+                        number_.append("0");
+                    }
+                    if (number_.length() > MAX_DIGITS_DOUBLE) {
+                        return processBigNumbers(number_, positive_, MAX_DIGITS_DOUBLE);
+                    }
+                    double long_ = parseQuickLongTen(number_.toString());
+                    if (!positive_) {
+                        return -long_;
+                    }
+                    return long_;
         }
         if (-expNbLong_ >= int_.length()) {
             StringBuilder number_ = new StringBuilder(int_);
@@ -2481,10 +2531,10 @@ public abstract class LgNames {
             double value_;
             int diff_;
             if (decCopy_.length() > MAX_DIGITS_DOUBLE) {
-                value_ = parseLongTen(decCopy_.substring(0, MAX_DIGITS_DOUBLE + 1)).doubleValue();
+                value_ = parseQuickLongTen(decCopy_.substring(0, MAX_DIGITS_DOUBLE + 1));
                 diff_ = (int) (-expNbLong_ - int_.length() + MAX_DIGITS_DOUBLE + 1 + nbLeadingZeros_);
             } else {
-                value_ = parseLongTen(decCopy_.toString()).doubleValue();
+                value_ = parseQuickLongTen(decCopy_.toString());
                 diff_ = (int) (-expNbLong_ + dec_.length());
             }
             double power_ = 1;
@@ -2500,28 +2550,28 @@ public abstract class LgNames {
         StringBuilder numberDec_ = new StringBuilder();
         if (expNbLong_ > 0) {
             //expNbLong_ < dec_.length() => dec_.length() > 0 => numberInt_.length() > 0
-            //-expNbLong_ < int_.length()
-            numberInt_.append(int_);
+                    //-expNbLong_ < int_.length()
+                    numberInt_.append(int_);
             numberInt_.append(dec_.substring(0, (int) expNbLong_));
             numberDec_.append(dec_.substring((int)expNbLong_));
         } else if (expNbLong_ == 0) {
             //expNbLong_ < dec_.length() => 0 < dec_.length()
-            //-expNbLong_ < int_.length() => 0 < int_.length() => numberInt_.length() > 0
-            numberInt_.append(int_);
-            numberDec_.append(dec_);
+                    //-expNbLong_ < int_.length() => 0 < int_.length() => numberInt_.length() > 0
+                    numberInt_.append(int_);
+                    numberDec_.append(dec_);
         } else {
             //expNbLong_ < 0
             int del_ = int_.length() +(int)expNbLong_;
             //-expNbLong_ < int_.length() => 0 < -expNbLong_ < int_.length() => 0 < int_.length()
-            //-expNbLong_ < int_.length() => 0 < expNbLong_ + int_.length() => numberInt_.length() > 0
-            numberInt_.append(int_.substring(0, del_));
-            numberDec_.append(int_.substring(del_));
-            numberDec_.append(dec_);
+                    //-expNbLong_ < int_.length() => 0 < expNbLong_ + int_.length() => numberInt_.length() > 0
+                    numberInt_.append(int_.substring(0, del_));
+                    numberDec_.append(int_.substring(del_));
+                    numberDec_.append(dec_);
         }
         if (numberInt_.length() > MAX_DIGITS_DOUBLE) {
             return processBigNumbers(numberInt_, positive_, MAX_DIGITS_DOUBLE);
         }
-        Long longValue_ = parseLongTen(numberInt_.toString());
+        double longValue_ = parseQuickLongTen(numberInt_.toString());
         StringBuilder decCopy_ = new StringBuilder();
         int nbLeadingZeros_ = 0;
         int index_ = 0;
@@ -2536,23 +2586,23 @@ public abstract class LgNames {
         decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
         if (decCopy_.length() == 0) {
             if (!positive_) {
-                return -longValue_.doubleValue();
+                return -longValue_;
             }
-            return longValue_.doubleValue();
+            return longValue_;
         }
-        double decValue_ = parseLongTen(decCopy_.toString()).doubleValue();
+        double decValue_ = parseQuickLongTen(decCopy_.toString());
         double power_ = 1;
         int logDec_ = numberDec_.length();
         for (int i = 0; i < logDec_; i++) {
             power_ *= 10d;
         }
         if (!positive_) {
-            return -longValue_.doubleValue() - decValue_ / power_;
+            return -longValue_ - decValue_ / power_;
         }
-        return longValue_.doubleValue() + decValue_ / power_;
+        return longValue_ + decValue_ / power_;
     }
     private static Double processBigNumbers(StringBuilder _nb, boolean _positive, int _max) {
-        Long long_ = parseLongTen(_nb.substring(0, _max + 1).toString());
+        Long long_ = parseQuickLongTen(_nb.substring(0, _max + 1).toString());
         double power_ = 1;
         int logDec_ = _nb.length() - _max - 1;
         for (int i = 0; i < logDec_; i++) {
@@ -2569,26 +2619,235 @@ public abstract class LgNames {
         int result_ = 0;
         int i_ = 0;
         int max_ = _string.length();
-        int digit_;
-        int ch_ = _string.charAt(i_);
-        if (ch_ >= 'A' && ch_ <= 'F') {
-            ch_ = ch_ - 'A' + 'a';
-        }
-        i_++;
-        digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
-        result_ = -digit_;
         while (i_ < max_) {
             // Accumulating negatively avoids surprises near MAX_VALUE
-            ch_ = _string.charAt(i_);
+            int ch_ = _string.charAt(i_);
             if (ch_ >= 'A' && ch_ <= 'F') {
                 ch_ = ch_ - 'A' + 'a';
             }
             i_++;
-            digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            int digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
             result_ *= HEX_BASE;
             result_ -= digit_;
         }
         return (char)-result_;
+    }
+    public static boolean[] toBits(long _l) {
+        boolean[] bits_ = new boolean[64];
+        long t_ = _l;
+        if (_l < 0) {
+            bits_[0] = true;
+            t_ = Long.MAX_VALUE + _l + 1;
+        }
+        int k_ = 63;
+        for (int i = 0; i < 63; i++) {
+            if (t_ % 2 == 1) {
+                bits_[k_] = true;
+            }
+            k_--;
+            t_ /= 2;
+        }
+        return bits_;
+    }
+    public static boolean[] toBits(int _l) {
+        boolean[] bits_ = new boolean[32];
+        long t_ = _l;
+        if (_l < 0) {
+            bits_[0] = true;
+            t_ = Integer.MAX_VALUE + _l + 1;
+        }
+        int k_ = 31;
+        for (int i = 0; i < 31; i++) {
+            if (t_ % 2 == 1) {
+                bits_[k_] = true;
+            }
+            k_--;
+            t_ /= 2;
+        }
+        return bits_;
+    }
+    public static long toLong(boolean[] _bits) {
+        long s_ = 0;
+        for (int i = 1; i < 64; i++) {
+            s_ *= 2;
+            if (_bits[i]) {
+                s_++;
+            }
+        }
+        if (_bits[0]) {
+            return s_ - Long.MAX_VALUE - 1;
+        }
+        return s_;
+    }
+    public static int toInt(boolean[] _bits) {
+        int s_ = 0;
+        for (int i = 1; i < 32; i++) {
+            s_ *= 2;
+            if (_bits[i]) {
+                s_++;
+            }
+        }
+        if (_bits[0]) {
+            return s_ - Integer.MAX_VALUE - 1;
+        }
+        return s_;
+    }
+    public static long toLong(boolean[] _bits, long _max, boolean _strNeg) {
+        long s_ = 0;
+        for (int i = 1; i < 64; i++) {
+            s_ *= 2;
+            if (_bits[i]) {
+                s_++;
+            }
+        }
+        if (_strNeg) {
+            return s_ - _max - 1;
+        }
+        return s_;
+    }
+
+    public static boolean[] parseLongSixteenToBits(String _string) {
+        StringBuilder str_;
+        if (_string.length() < 16) {
+            str_ = new StringBuilder();
+            int add_ = 16 - _string.length();
+            for (int i = 0; i < add_; i++) {
+                str_.append("0");
+            }
+            for (int i = add_; i < 16; i++) {
+                str_.append(_string.charAt(i - add_));
+            }
+        } else {
+            str_ = new StringBuilder(_string);
+        }
+        boolean[] out_ = new boolean[str_.length() * 4];
+        int i_ = 0;
+        int j_ = 0;
+        int max_ = str_.length();
+        while (i_ < max_) {
+            // Accumulating negatively avoids surprises near MAX_VALUE
+            int ch_ = str_.charAt(i_);
+            if (ch_ >= 'A' && ch_ <= 'F') {
+                ch_ = ch_ - 'A' + 'a';
+            }
+            i_++;
+            int digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            int t_ = digit_;
+            int k_ = 3;
+            for (int j = 0; j < 4; j++) {
+                if (t_ % 2 == 1) {
+                    out_[j_ + k_] = true;
+                }
+                k_--;
+                t_ /= 2;
+            }
+            j_ += 4;
+        }
+        return out_;
+    }
+    public static boolean[] parseLongOctalToBits(String _string) {
+        StringBuilder str_;
+        if (_string.length() < 21) {
+            str_ = new StringBuilder();
+            int add_ = 21 - _string.length();
+            for (int i = 0; i < add_; i++) {
+                str_.append("0");
+            }
+            for (int i = add_; i < 21; i++) {
+                str_.append(_string.charAt(i - add_));
+            }
+        } else {
+            str_ = new StringBuilder(_string);
+        }
+        int j_ = 0;
+        boolean[] out_ = new boolean[str_.length()*3];
+        int i_ = 0;
+        int max_ = str_.length();
+        while (i_ < max_) {
+            int ch_ = str_.charAt(i_);
+            i_++;
+            int digit_ = ch_ - '0';
+            int t_ = digit_;
+            int k_ = 2;
+            for (int j = 0; j < 3; j++) {
+                if (t_ % 2 == 1) {
+                    out_[j_ + k_] = true;
+                }
+                k_--;
+                t_ /= 2;
+            }
+            j_ += 3;
+        }
+        return out_;
+    }
+    public static boolean[] parseLongBinaryToBits(String _string) {
+        StringBuilder str_;
+        if (_string.length() < 64) {
+            str_ = new StringBuilder();
+            int add_ = 64 - _string.length();
+            for (int i = 0; i < add_; i++) {
+                str_.append("0");
+            }
+            for (int i = add_; i < 64; i++) {
+                str_.append(_string.charAt(i - add_));
+            }
+        } else {
+            str_ = new StringBuilder(_string);
+        }
+        boolean[] out_ = new boolean[str_.length()];
+        int i_ = 0;
+        int max_ = str_.length();
+        while (i_ < max_) {
+            // Accumulating negatively avoids surprises near MAX_VALUE
+            int ch_ = str_.charAt(i_);
+            if (ch_ == '1') {
+                out_[i_] = true;
+            }
+            i_++;
+        }
+        return out_;
+    }
+    public static double parseDoubleSixteen(String _string) {
+        double result_ = 0;
+        int i_ = 0;
+        int max_ = _string.length();
+        while (i_ < max_) {
+            int ch_ = _string.charAt(i_);
+            if (ch_ >= 'A' && ch_ <= 'F') {
+                ch_ = ch_ - 'A' + 'a';
+            }
+            i_++;
+            int digit_ = Math.min(ch_ - '0', 10) + Math.max(ch_ - 'a', 0);
+            result_ *= HEX_BASE;
+            result_ += digit_;
+        }
+        return result_;
+    }
+    public static double parseDoubleOctal(String _string) {
+        double result_ = 0;
+        int i_ = 0;
+        int max_ = _string.length();
+        while (i_ < max_) {
+            int ch_ = _string.charAt(i_);
+            i_++;
+            int digit_ = ch_ - '0';
+            result_ *= 8;
+            result_ += digit_;
+        }
+        return result_;
+    }
+    public static double parseDoubleBinary(String _string) {
+        double result_ = 0;
+        int i_ = 0;
+        int max_ = _string.length();
+        while (i_ < max_) {
+            int ch_ = _string.charAt(i_);
+            i_++;
+            int digit_ = ch_ - '0';
+            result_ *= 2;
+            result_ += digit_;
+        }
+        return result_;
     }
     //this long parser is very naive
     public static Long parseLongTen(String _string) {
@@ -2628,6 +2887,34 @@ public abstract class LgNames {
             if (result_ < limit_ + digit_) {
                 return null;
             }
+            result_ -= digit_;
+        }
+        if (negative_) {
+            return result_;
+        }
+        return -result_;
+    }
+    public static long parseQuickLongTen(String _string) {
+        long result_ = 0;
+        boolean negative_ = false;
+        int i_ = 0;
+        int max_ = _string.length();
+        int digit_;
+
+        if (_string.charAt(0) == '-') {
+            negative_ = true;
+            i_++;
+        }
+        int ch_ = _string.charAt(i_);
+        i_++;
+        digit_ = ch_ - '0';
+        result_ = -digit_;
+        while (i_ < max_) {
+            // Accumulating negatively avoids surprises near MAX_VALUE
+            ch_ = _string.charAt(i_);
+            i_++;
+            digit_ = ch_ - '0';
+            result_ *= DEFAULT_RADIX;
             result_ -= digit_;
         }
         if (negative_) {
@@ -4508,28 +4795,28 @@ public abstract class LgNames {
     public void setAliasClassNotFoundError(String _aliasClassNotFoundError) {
         reflect.setAliasClassNotFoundError(_aliasClassNotFoundError);
     }
-    
+
     public String getAliasGetVariableOwner() {
         return reflect.getAliasGetVariableOwner();
     }
     public void setAliasGetVariableOwner(String _aliasTypeVariable) {
         reflect.setAliasGetVariableOwner(_aliasTypeVariable);
     }
-    
+
     public String getAliasGetGenericVariableOwner() {
         return reflect.getAliasGetGenericVariableOwner();
     }
     public void setAliasGetGenericVariableOwner(String _aliasTypeVariable) {
         reflect.setAliasGetGenericVariableOwner(_aliasTypeVariable);
     }
-    
+
     public String getAliasGetString() {
         return reflect.getAliasGetString();
     }
     public void setAliasGetString(String _aliasTypeVariable) {
         reflect.setAliasGetString(_aliasTypeVariable);
     }
-   
+
     public String getAliasClass() {
         return reflect.getAliasClass();
     }
@@ -4762,7 +5049,7 @@ public abstract class LgNames {
     public void setAliasGetGenericInterfaces(String _aliasGetGenericInterfaces) {
         reflect.setAliasGetGenericInterfaces(_aliasGetGenericInterfaces);
     }
-    
+
     public String getAliasGetLowerBounds() {
         return reflect.getAliasGetLowerBounds();
     }
@@ -4781,7 +5068,7 @@ public abstract class LgNames {
     public void setAliasGetComponentType(String _aliasGetComponentType) {
         reflect.setAliasGetComponentType(_aliasGetComponentType);
     }
-    
+
     public String getAliasMakeArray() {
         return reflect.getAliasMakeArray();
     }
@@ -4899,7 +5186,7 @@ public abstract class LgNames {
     public void setAliasIsClass(String _aliasIsClass) {
         reflect.setAliasIsClass(_aliasIsClass);
     }
-    
+
     public String getAliasIsWildCard() {
         return reflect.getAliasIsWildCard();
     }
@@ -5062,5 +5349,5 @@ public abstract class LgNames {
         }
         return str_.toString();
     }
-    
+
 }

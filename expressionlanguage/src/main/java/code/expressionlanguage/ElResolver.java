@@ -17,13 +17,16 @@ public final class ElResolver {
     public static final int AFF_PRIO = 1;
     public static final int OR_PRIO = 2;
     public static final int AND_PRIO = 3;
-    public static final int EQ_PRIO = 4;
-    public static final int CMP_PRIO = 5;
-    public static final int ADD_PRIO = 6;
-    public static final int MULT_PRIO = 7;
-    public static final int UNARY_PRIO = 8;
-    public static final int POST_INCR_PRIO = 9;
-    public static final int FCT_OPER_PRIO = 10;
+    public static final int BIT_OR_PRIO = 4;
+    public static final int BIT_XOR_PRIO = 5;
+    public static final int BIT_AND_PRIO = 6;
+    public static final int EQ_PRIO = 7;
+    public static final int CMP_PRIO = 8;
+    public static final int ADD_PRIO = 9;
+    public static final int MULT_PRIO = 10;
+    public static final int UNARY_PRIO = 11;
+    public static final int POST_INCR_PRIO = 12;
+    public static final int FCT_OPER_PRIO = 13;
     public static final byte UNICODE_SIZE = 4;
 
     private static final String EMPTY_STRING = "";
@@ -46,7 +49,6 @@ public final class ElResolver {
     private static final char PAR_LEFT = '(';
     private static final char PAR_RIGHT = ')';
     private static final char SEP_ARG = ',';
-    private static final char GET_VAR = ';';
     private static final char DOT_VAR = '.';
     private static final char EXP = 'e';
     private static final char DOUBLE = 'd';
@@ -120,6 +122,8 @@ public final class ElResolver {
     private static final char AND_CHAR = '&';
 
     private static final char OR_CHAR = '|';
+    private static final char XOR_CHAR = '^';
+    private static final char NEG_BOOL = '~';
 
     private ElResolver() {
     }
@@ -167,6 +171,7 @@ public final class ElResolver {
             return d_;
         }
         Options opt_ = _conf.getOptions();
+        char suffix_ = opt_.getSuffix();
         i_ = _minIndex;
         int nbChars_ = 0;
         while (i_ < len_) {
@@ -952,8 +957,8 @@ public final class ElResolver {
                 continue;
             }
             if (StringList.isWordChar(curChar_)) {
-                if (isNumber(i_, len_, _string)) {
-                    NumberInfosOutput res_ = processNb(i_, len_, _string, false);
+                if (isNumber(i_, len_, _string, opt_)) {
+                    NumberInfosOutput res_ = processNb(i_, len_, _string, false, opt_);
                     int nextIndex_ = res_.getNextIndex();
                     if (nextIndex_ < 0) {
                         d_.setBadOffset(-nextIndex_);
@@ -1015,9 +1020,9 @@ public final class ElResolver {
                 String prev_ = _string.substring(0, beginWord_).trim();
                 String word_ = _string.substring(beginWord_, i_);
                 if (opt_.getSuffixVar() == VariableSuffix.DISTINCT) {
-                    if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
-                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
-                            if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                    if (i_ < len_ && _string.charAt(i_) == suffix_) {
+                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == suffix_) {
+                            if (i_ + 2 < len_ && _string.charAt(i_ + 2) == suffix_) {
                                 type_ = ConstType.CUST_FIELD;
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
@@ -1047,7 +1052,7 @@ public final class ElResolver {
                                 info_.setName(_string.substring(beginWord_, i_));
                                 i_ += GET_CATCH_VAR.length();
                                 d_.getVariables().add(info_);
-                            } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                            } else if (i_ + 2 < len_ && _string.charAt(i_ + 2) == suffix_) {
                                 type_ = ConstType.PARAM;
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
@@ -1077,9 +1082,9 @@ public final class ElResolver {
                         other_ = true;
                     }
                 } else if (opt_.getSuffixVar() == VariableSuffix.FIELDS) {
-                    if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
-                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
-                            if (i_ + 2 < len_ && _string.charAt(i_ + 2) == GET_VAR) {
+                    if (i_ < len_ && _string.charAt(i_) == suffix_) {
+                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == suffix_) {
+                            if (i_ + 2 < len_ && _string.charAt(i_ + 2) == suffix_) {
                                 type_ = ConstType.CUST_FIELD;
                                 info_.setKind(type_);
                                 info_.setFirstChar(beginWord_);
@@ -1160,8 +1165,8 @@ public final class ElResolver {
                         other_ = true;
                     }
                 } else if (opt_.getSuffixVar() == VariableSuffix.MERGED) {
-                    if (i_ < len_ && _string.charAt(i_) == GET_VAR) {
-                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == GET_VAR) {
+                    if (i_ < len_ && _string.charAt(i_) == suffix_) {
+                        if (i_ + 1 < len_ && _string.charAt(i_ + 1) == suffix_) {
                             type_ = ConstType.LOOP_INDEX;
                             info_.setKind(type_);
                             info_.setFirstChar(beginWord_);
@@ -1395,7 +1400,7 @@ public final class ElResolver {
                     }
                 }
                 String nextPart_ = _string.substring(i_).trim();
-                if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == GET_VAR)) {
+                if (!tolerateDot_ && !nextPart_.isEmpty() && (nextPart_.charAt(0) == DOT_VAR || nextPart_.charAt(0) == suffix_)) {
                     d_.setBadOffset(i_);
                     return d_;
                 }
@@ -1408,8 +1413,8 @@ public final class ElResolver {
                     i_++;
                     continue;
                 }
-                if (isNumber(i_ + 1, len_, _string)) {
-                    NumberInfosOutput res_ = processNb(i_ + 1, len_, _string, true);
+                if (isNumber(i_ + 1, len_, _string, opt_)) {
+                    NumberInfosOutput res_ = processNb(i_ + 1, len_, _string, true, opt_);
                     int nextIndex_ = res_.getNextIndex();
                     if (nextIndex_ < 0) {
                         d_.setBadOffset(-nextIndex_);
@@ -1424,7 +1429,7 @@ public final class ElResolver {
                 if (i_ + 1 < len_ && Character.isWhitespace(_string.charAt(i_ + 1))) {
                     String nextPart_ = _string.substring(i_ + 1).trim();
                     int lenLoc_ = nextPart_.length();
-                    if (isNumber(0, lenLoc_, nextPart_)) {
+                    if (isNumber(0, lenLoc_, nextPart_, opt_)) {
                         d_.setBadOffset(-i_-1);
                         return d_;
                     }
@@ -1491,24 +1496,8 @@ public final class ElResolver {
                 }
                 beginOrEnd_ = false;
             }
-            if (curChar_ == GET_VAR && parsBrackets_.isEmpty()) {
+            if (curChar_ == suffix_ && parsBrackets_.isEmpty()) {
                 foundSemiColumn_ = true;
-            } 
-            if (curChar_ == NEG_BOOL_CHAR || curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR  || curChar_ == EQ_CHAR) {
-                int j_ = i_ + 1;
-                boolean exist_ = false;
-                while (j_ < len_) {
-                    if (Character.isWhitespace(_string.charAt(j_))) {
-                        exist_ = true;
-                        j_++;
-                        continue;
-                    }
-                    if (_string.charAt(j_) == EQ_CHAR && exist_) {
-                        d_.setBadOffset(i_+1);
-                        return d_;
-                    }
-                    break;
-                }
             }
             if (curChar_ == PAR_LEFT) {
                 int j_ = indexAfterPossibleCast(_conf, ctorCall_, _string, i_, len_, d_);
@@ -1584,6 +1573,7 @@ public final class ElResolver {
             }
             boolean escapeOpers_ = false;
             boolean addOp_ = true;
+            boolean andOr_ = false;
             if (curChar_ == MULT_CHAR) {
                 escapeOpers_ = true;
             }
@@ -1610,12 +1600,17 @@ public final class ElResolver {
                 }
             }
             if (curChar_ == AND_CHAR) {
+                andOr_ = true;
                 escapeOpers_ = true;
             }
             if (curChar_ == OR_CHAR) {
+                andOr_ = true;
                 escapeOpers_ = true;
             }
             if (curChar_ == LOWER_CHAR) {
+                escapeOpers_ = true;
+            }
+            if (curChar_ == XOR_CHAR) {
                 escapeOpers_ = true;
             }
             if (curChar_ == GREATER_CHAR) {
@@ -1649,7 +1644,9 @@ public final class ElResolver {
             }
             if (escapeOpers_) {
                 int j_ = i_ + 1;
-                if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
+                if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
+                    j_++;
+                } else if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
                     j_++;
                 }
                 while (j_ < len_) {
@@ -1673,6 +1670,10 @@ public final class ElResolver {
                         continue;
                     }
                     if (curLoc_ == NEG_BOOL_CHAR) {
+                        j_++;
+                        continue;
+                    }
+                    if (curLoc_ == NEG_BOOL) {
                         j_++;
                         continue;
                     }
@@ -1868,9 +1869,7 @@ public final class ElResolver {
             }
             if (locChar_ == EQ_CHAR) {
                 if (j_ + 1 < len_ && _string.charAt(j_ + 1) != EQ_CHAR) {
-                    if (applyMultipleAffectations(_conf) || !_aff) {
-                        aff_ = true;
-                    }
+                    aff_ = true;
                 }
             }
             break;
@@ -2158,7 +2157,7 @@ public final class ElResolver {
         return index_;
     }
 
-    static boolean isNumber(int _start, int _max, String _string) {
+    static boolean isNumber(int _start, int _max, String _string, Options _opt) {
         if (_start >= _string.length()) {
             return false;
         }
@@ -2167,7 +2166,7 @@ public final class ElResolver {
         boolean var_ = false;
         while (k_ < _max) {
             if (!StringList.isWordChar(_string.charAt(k_))) {
-                if (_string.charAt(k_) == GET_VAR) {
+                if (_string.charAt(k_) == _opt.getSuffix()) {
                     var_ = true;
                 }
                 break;
@@ -2189,7 +2188,7 @@ public final class ElResolver {
         return Character.isDigit(first_) && !var_;
     }
 
-    static NumberInfosOutput processNb(int _start, int _max, String _string, boolean _seenDot) {
+    static NumberInfosOutput processNb(int _start, int _max, String _string, boolean _seenDot, Options _opt) {
         //_string.charAt(_start) is digit
         NumberInfosOutput output_ = new NumberInfosOutput();
         NumberInfos nbInfos_ = new NumberInfos();
@@ -2200,15 +2199,54 @@ public final class ElResolver {
         nbInfos_.setIntPart(intPart_);
         nbInfos_.setDecimalPart(decPart_);
         nbInfos_.setExponentialPart(expPart_);
+        int start_ = _start;
+        char startChar_ = _string.charAt(start_);
+        int base_ = 10;
         if (_seenDot) {
             nbInfos_.setDotted(true);
-            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
-            decPart_.append(_string.charAt(_start));
+            nbInfos_.setSuffix(DOUBLE);
+            decPart_.append(startChar_);
         } else {
-            intPart_.append(_string.charAt(_start));
+            if (startChar_ == '0') {
+                if (start_ + 1 < _max && _string.charAt(start_ + 1) == 'x') {
+                    base_ = 16;
+                    start_++;
+                    start_++;
+                    if (start_ >= _max) {
+                        output_.setNextIndex(-start_);
+                        return output_;
+                    }
+                    startChar_ = _string.charAt(start_);
+                    intPart_.append(startChar_);
+                } else if (start_ + 1 < _max && _string.charAt(start_ + 1) == 'b') {
+                    base_ = 2;
+                    start_++;
+                    start_++;
+                    if (start_ >= _max) {
+                        output_.setNextIndex(-start_);
+                        return output_;
+                    }
+                    startChar_ = _string.charAt(start_);
+                    intPart_.append(startChar_);
+                } else if (start_ + 1 < _max && Character.isDigit(_string.charAt(start_ + 1))){
+                    base_ = 8;
+                    start_++;
+                    if (start_ >= _max) {
+                        output_.setNextIndex(-start_);
+                        return output_;
+                    }
+                    startChar_ = _string.charAt(start_);
+                    intPart_.append(startChar_);
+                } else {
+                    intPart_.append(startChar_);
+                }
+            } else {
+                intPart_.append(startChar_);
+            }
         }
+        nbInfos_.setBase(base_);
         int len_ = _max;
-        int j_ = _start + 1;
+        int j_ = start_ + 1;
         boolean dot_ = false;
         boolean exp_ = false;
         int iExp_ = j_;
@@ -2223,12 +2261,16 @@ public final class ElResolver {
                     if (j_ + 1 < len_ && Character.isWhitespace(_string.charAt(j_ + 1))) {
                         String nextPart_ = _string.substring(j_ + 1).trim();
                         if (nextPart_.isEmpty()) {
-                            nbInfos_.setDotted(true);
-                            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
-                            output_.setNextIndex(j_ + 1);
+                            if (base_ == 10) {
+                                nbInfos_.setDotted(true);
+                                nbInfos_.setSuffix(DOUBLE);
+                                output_.setNextIndex(j_ + 1);
+                                return output_;
+                            }
+                            output_.setNextIndex(-(j_ + 1));
                             return output_;
                         }
-                        if (!isCorrectNbEnd(nextPart_)) {
+                        if (!isCorrectNbEnd(nextPart_, _opt)) {
                             output_.setNextIndex(-(j_ + 1));
                             return output_;
                         }
@@ -2241,29 +2283,58 @@ public final class ElResolver {
                 }
                 break;
             }
-            if (Character.toLowerCase(current_) == EXP) {
+            boolean isExp_;
+            if (base_ == 10) {
+                isExp_ = Character.toLowerCase(current_) == EXP;
+            } else {
+                isExp_ = Character.toLowerCase(current_) == 'p';
+            }
+            if (isExp_) {
                 if (j_ + 1 < len_ && Character.isWhitespace(_string.charAt(j_ + 1))) {
                     output_.setNextIndex(-(j_ + 1));
                     return output_;
                 }
-                nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
+                nbInfos_.setSuffix(DOUBLE);
                 iExp_ = j_;
                 exp_ = true;
                 break;
             }
-            if (Character.isLetter(current_)) {
-                if (!isNbSuffix(current_)) {
-                    output_.setNextIndex(-j_);
+            if (base_ == 10) {
+                if (Character.isLetter(current_)) {
+                    if (!isNbSuffix(current_)) {
+                        output_.setNextIndex(-j_);
+                        return output_;
+                    }
+                    nbInfos_.setSuffix(current_);
+                    String nextPart_ = _string.substring(j_ + 1).trim();
+                    if (!isCorrectNbEnd(nextPart_, _opt)) {
+                        output_.setNextIndex(-j_);
+                        return output_;
+                    }
+                    output_.setNextIndex(j_ + 1);
                     return output_;
                 }
-                nbInfos_.setSuffix(current_);
-                String nextPart_ = _string.substring(j_ + 1).trim();
-                if (!isCorrectNbEnd(nextPart_)) {
-                    output_.setNextIndex(-j_);
+            } else {
+                if (!isDigit(current_, base_) && Character.isLetter(current_)) {
+                    if (current_ == 'x') {
+                        if (j_ + 1 < len_) {
+                            current_ = _string.charAt(j_ + 1);
+                            j_++;
+                        }
+                    }
+                    if (!isNbSuffix(current_)) {
+                        output_.setNextIndex(-j_);
+                        return output_;
+                    }
+                    nbInfos_.setSuffix(current_);
+                    String nextPart_ = _string.substring(j_ + 1).trim();
+                    if (!isCorrectNbEnd(nextPart_, _opt)) {
+                        output_.setNextIndex(-j_);
+                        return output_;
+                    }
+                    output_.setNextIndex(j_ + 1);
                     return output_;
                 }
-                output_.setNextIndex(j_ + 1);
-                return output_;
             }
             if (_seenDot) {
                 decPart_.append(current_);
@@ -2274,23 +2345,29 @@ public final class ElResolver {
         }
         if (j_ + 1 >= len_ && dot_) {
             nbInfos_.setDotted(true);
-            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
+            nbInfos_.setSuffix(DOUBLE);
             output_.setNextIndex(j_ + 1);
             return output_;
         }
         if (dot_) {
-            nbInfos_.setSuffix(Character.toUpperCase(DOUBLE));
+            nbInfos_.setSuffix(DOUBLE);
             nbInfos_.setDotted(true);
             char next_ = _string.charAt(j_ + 1);
-            if (Character.toLowerCase(next_) == EXP) {
-                exp_ = true;
+            if (base_ == 10) {
+                if (Character.toLowerCase(next_) == EXP) {
+                    exp_ = true;
+                }
+            } else {
+                if (Character.toLowerCase(next_) == 'p') {
+                    exp_ = true;
+                }
             }
-            if (!Character.isDigit(next_) && next_ != NB_INTERN_SP && !exp_) {
+            if (!isDigit(next_, base_) && next_ != NB_INTERN_SP && !exp_) {
                 if (isNbSuffix(next_)) {
                     j_++;
                 }
                 String nextPart_ = _string.substring(j_ + 1).trim();
-                if (!isCorrectNbEnd(nextPart_)) {
+                if (!isCorrectNbEnd(nextPart_, _opt)) {
                     output_.setNextIndex(-(j_ + 1));
                     return output_;
                 }
@@ -2300,22 +2377,33 @@ public final class ElResolver {
             j_++;
             if (exp_) {
                 //_string.charAt(j_) == EXP
-                processExp(j_, len_, _string, output_);
+                processExp(_opt, j_, len_, _string, output_);
                 return output_;
             }
             while (j_ < len_) {
-                if (!Character.isDigit(_string.charAt(j_)) && _string.charAt(j_) != NB_INTERN_SP) {
+                char curChar_ = _string.charAt(j_);
+                if (!isDigit(curChar_, base_) && curChar_ != NB_INTERN_SP) {
                     break;
                 }
-                decPart_.append(_string.charAt(j_));
+                decPart_.append(curChar_);
                 j_++;
             }
             if (j_ >= len_) {
                 output_.setNextIndex(j_);
                 return output_;
             }
-            if (Character.toLowerCase(_string.charAt(j_)) == EXP) {
-                processExp(j_, len_, _string, output_);
+            next_ = _string.charAt(j_);
+            if (base_ == 10) {
+                if (Character.toLowerCase(next_) == EXP) {
+                    exp_ = true;
+                }
+            } else {
+                if (Character.toLowerCase(next_) == 'p') {
+                    exp_ = true;
+                }
+            }
+            if (exp_) {
+                processExp(_opt, j_, len_, _string, output_);
                 return output_;
             }
             if (Character.isLetter(_string.charAt(j_)) && !isNbSuffix(_string.charAt(j_))) {
@@ -2328,7 +2416,7 @@ public final class ElResolver {
                 j_++;
             }
             String nextPart_ = _string.substring(j_).trim();
-            if (!isCorrectNbEnd(nextPart_)) {
+            if (!isCorrectNbEnd(nextPart_, _opt)) {
                 output_.setNextIndex(-j_);
                 return output_;
             }
@@ -2341,19 +2429,48 @@ public final class ElResolver {
         }
         if (exp_) {
             //_string.charAt(iExp_) == EXP
-            processExp(iExp_, len_, _string, output_);
+            processExp(_opt, iExp_, len_, _string, output_);
             return output_;
         }
         String next_ = _string.substring(j_).trim();
-        if (!isCorrectNbEnd(next_)) {
+        if (!isCorrectNbEnd(next_, _opt)) {
             output_.setNextIndex(-j_);
             return output_;
         }
         if (!_seenDot) {
-            nbInfos_.setSuffix(Character.toUpperCase(LONG));
+            if (_opt.isUpperLong()) {
+                nbInfos_.setSuffix(Character.toUpperCase(LONG));
+            } else {
+                nbInfos_.setSuffix(INTEGER);
+            }
         }
         output_.setNextIndex(j_);
         return output_;
+    }
+    static boolean isDigit(char _char, int _base) {
+        boolean ok_ = false;
+        if (_base == 10) {
+            ok_ = Character.isDigit(_char);
+        } else if (_base == 16) {
+            if (_char >= MIN_ENCODE_DIGIT && _char <= MAX_ENCODE_DIGIT) {
+                ok_ = true;
+            }
+            if (_char >= MIN_ENCODE_LOW_LETTER && _char <= MAX_ENCODE_LOW_LETTER) {
+                ok_ = true;
+            }
+            if (_char >= MIN_ENCODE_UPP_LETTER && _char <= MAX_ENCODE_UPP_LETTER) {
+                ok_ = true;
+            }
+        } else if (_base == 2) {
+            if (_char == '0' || _char == '1') {
+                ok_ = true;
+            }
+        } else {
+            if (_char >= MIN_ENCODE_DIGIT && _char <= '7') {
+                ok_ = true;
+            }
+        }
+        return ok_;
     }
     static boolean isNbSuffix(char _char) {
         char lower_ = Character.toLowerCase(_char);
@@ -2381,7 +2498,7 @@ public final class ElResolver {
         return false;
     }
 
-    static boolean isCorrectNbEnd(String _string) {
+    static boolean isCorrectNbEnd(String _string, Options _opt) {
         if (_string.isEmpty()) {
             return true;
         }
@@ -2398,7 +2515,7 @@ public final class ElResolver {
         if (char_ == DOT_VAR) {
             return false;
         }
-        if (char_ == GET_VAR) {
+        if (char_ == _opt.getSuffix()) {
             return false;
         }
         if (char_ == EXTERN_CLASS) {
@@ -2420,7 +2537,7 @@ public final class ElResolver {
         return true;
     }
 
-    static void processExp(int _start, int _max, String _string, NumberInfosOutput _output) {
+    static void processExp(Options _opt,int _start, int _max, String _string, NumberInfosOutput _output) {
         StringBuilder exp_ = _output.getInfos().getExponentialPart();
         int len_ = _max;
         int j_ = _start;
@@ -2454,7 +2571,7 @@ public final class ElResolver {
             j_++;
         }
         nextPart_ = _string.substring(j_).trim();
-        if (!isCorrectNbEnd(nextPart_)) {
+        if (!isCorrectNbEnd(nextPart_, _opt)) {
             _output.setNextIndex(-j_);
             return;
         }
@@ -2718,7 +2835,7 @@ public final class ElResolver {
                 }
             }
         }
-        if (preIncr_ && applyMultipleAffectations(_conf)) {
+        if (preIncr_) {
             prio_ = UNARY_PRIO;
             String ch_ = String.valueOf(_string.charAt(firstPrintChar_));
             operators_.put(firstPrintChar_, StringList.concat(EMPTY_STRING,ch_,ch_));
@@ -2727,9 +2844,9 @@ public final class ElResolver {
             prio_ = UNARY_PRIO;
             operators_.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
             i_ = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
-        } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR) {
+        } else if (_string.charAt(firstPrintChar_) == NEG_BOOL_CHAR || _string.charAt(firstPrintChar_) == NEG_BOOL) {
             prio_ = UNARY_PRIO;
-            operators_.put(firstPrintChar_, String.valueOf(NEG_BOOL_CHAR));
+            operators_.put(firstPrintChar_, String.valueOf(_string.charAt(firstPrintChar_)));
             i_ = incrementUnary(_string, firstPrintChar_ + 1, lastPrintChar_, _offset, _d);
         } else if (_d.getDelCast().contains(firstPrintChar_+_offset)) {
             prio_ = UNARY_PRIO;
@@ -2895,80 +3012,26 @@ public final class ElResolver {
                         }
                     }
                     if (curChar_ == NEG_BOOL_CHAR || curChar_ == EQ_CHAR) {
-                        boolean processNextEq_ = false;
-                        if (curChar_ == NEG_BOOL_CHAR) {
-                            processNextEq_ = true;
-                        } else if (applyMultipleAffectations(_conf)) {
-                            processNextEq_ = true;
-                        }
-                        if (processNextEq_) {
-                            if (i_ + 1 < _string.length()) {
-                                char nextChar_ = _string.charAt(i_ + 1);
-                                if (nextChar_ != EQ_CHAR) {
-                                    processNextEq_ = false;
-                                }
-                            } else {
+                        boolean processNextEq_ = true;
+                        if (i_ + 1 < _string.length()) {
+                            char nextChar_ = _string.charAt(i_ + 1);
+                            if (nextChar_ != EQ_CHAR) {
                                 processNextEq_ = false;
                             }
+                        } else {
+                            processNextEq_ = false;
                         }
                         if (processNextEq_) {
                             builtOperator_.append(curChar_);
+                            builtOperator_.append(EQ_CHAR);
                             if (prio_ > EQ_PRIO) {
                                 prio_ = EQ_PRIO;
                             }
                             if (prio_ == EQ_PRIO) {
                                 clearOperators_ = true;
                                 foundOperator_ = true;
-                                builtOperator_.append(EQ_CHAR);
                             }
                             increment_ = 2;
-                        } else if (curChar_ == NEG_BOOL_CHAR) {
-                            builtOperator_.append(curChar_);
-                            if (i_ + 1 < _string.length()) {
-                                if (prio_ > EQ_PRIO) {
-                                    prio_ = EQ_PRIO;
-                                    clearOperators_ = true;
-                                    foundOperator_ = true;
-                                }
-                            } else {
-                                prio_ = EQ_PRIO;
-                                foundOperator_ = true;
-                            }
-                        } else if (!applyMultipleAffectations(_conf)) {
-                            builtOperator_.append(EQ_CHAR);
-                            if (_conf.isAnalyzingRoot() && _conf.isRootAffect()) {
-                                if (i_ + 1 < _string.length()) {
-                                    char nextChar_ = _string.charAt(i_ + 1);
-                                    if (prio_ > AFF_PRIO) {
-                                        clearOperators_ = true;
-                                        prio_ = AFF_PRIO;
-                                        foundOperator_ = true;
-                                    }
-                                    increment_ = 1;
-                                    if (nextChar_ == PLUS_CHAR) {
-                                        increment_ = 2;
-                                        builtOperator_.append(PLUS_CHAR);
-                                    }
-                                } else {
-                                    if (prio_ > EQ_PRIO) {
-                                        prio_ = EQ_PRIO;
-                                    }
-                                    if (prio_ == EQ_PRIO) {
-                                        clearOperators_ = true;
-                                        foundOperator_ = true;
-                                    }
-                                    increment_ = 1;
-                                }
-                            } else {
-                                if (prio_ > EQ_PRIO) {
-                                    prio_ = EQ_PRIO;
-                                }
-                                if (prio_ == EQ_PRIO) {
-                                    clearOperators_ = true;
-                                    foundOperator_ = true;
-                                }
-                                increment_ = 1;
-                            }
                         } else {
                             builtOperator_.append(curChar_);
                             if (prio_ > AFF_PRIO) {
@@ -2980,46 +3043,56 @@ public final class ElResolver {
                         }
                     }
                     int prioOpMult_ = 0;
+                    boolean andOr_ = false;
                     if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
                         prioOpMult_ = ADD_PRIO;
                     } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR || curChar_ == MOD_CHAR) {
                         prioOpMult_ = MULT_PRIO;
                     } else if (curChar_ == AND_CHAR) {
                         prioOpMult_ = AND_PRIO;
+                        andOr_ = true;
                     } else if (curChar_ == OR_CHAR) {
                         prioOpMult_ = OR_PRIO;
+                        andOr_ = true;
+                    } else if (curChar_ == XOR_CHAR) {
+                        prioOpMult_ = BIT_XOR_PRIO;
                     }
                     if (prioOpMult_ > 0) {
                         builtOperator_.append(curChar_);
-                        if (_conf.isAnalyzingRoot() && _conf.isRootAffect() || applyMultipleAffectations(_conf)) {
-                            if (i_ + 1 < len_) {
-                                char nextChar_ = _string.charAt(i_ + 1);
-                                if (prioOpMult_ == ADD_PRIO && nextChar_ == curChar_ && (i_ + 2 == len_ || applyMultipleAffectations(_conf))) {
-                                    if (prio_ > POST_INCR_PRIO) {
-                                        clearOperators_ = true;
-                                        prio_ = POST_INCR_PRIO;
-                                        foundOperator_ = true;
-                                    }
-                                    increment_ = 2;
-                                    builtOperator_.append(nextChar_);
-                                } else if (nextChar_ == EQ_CHAR) {
-                                    if (prio_ > AFF_PRIO) {
-                                        clearOperators_ = true;
-                                        prio_ = AFF_PRIO;
-                                        foundOperator_ = true;
-                                    }
-                                    increment_ = 2;
-                                    builtOperator_.append(EQ_CHAR);
-                                } else {
-                                    if (prio_ > prioOpMult_) {
-                                        prio_ = prioOpMult_;
-                                    }
-                                    if (prio_ == prioOpMult_) {
-                                        clearOperators_ = true;
-                                        foundOperator_ = true;
-                                    }
+                        if (i_ + 1 < len_) {
+                            char nextChar_ = _string.charAt(i_ + 1);
+                            if (prioOpMult_ == ADD_PRIO && nextChar_ == curChar_) {
+                                if (prio_ > POST_INCR_PRIO) {
+                                    clearOperators_ = true;
+                                    prio_ = POST_INCR_PRIO;
+                                    foundOperator_ = true;
                                 }
+                                increment_ = 2;
+                                builtOperator_.append(nextChar_);
+                            } else if (andOr_ && nextChar_ == curChar_) {
+                                builtOperator_.append(curChar_);
+                                if (prio_ > prioOpMult_) {
+                                    prio_ = prioOpMult_;
+                                }
+                                if (prio_ == prioOpMult_) {
+                                    clearOperators_ = true;
+                                    foundOperator_ = true;
+                                }
+                                increment_ = 2;
+                            } else if (nextChar_ == EQ_CHAR) {
+                                if (prio_ > AFF_PRIO) {
+                                    clearOperators_ = true;
+                                    prio_ = AFF_PRIO;
+                                    foundOperator_ = true;
+                                }
+                                increment_ = 2;
+                                builtOperator_.append(EQ_CHAR);
                             } else {
+                                if (curChar_ == AND_CHAR) {
+                                    prioOpMult_ = BIT_AND_PRIO;
+                                } else if (curChar_ == OR_CHAR) {
+                                    prioOpMult_ = BIT_OR_PRIO;
+                                }
                                 if (prio_ > prioOpMult_) {
                                     prio_ = prioOpMult_;
                                 }
@@ -3099,29 +3172,25 @@ public final class ElResolver {
         return op_;
     }
 
-    static boolean applyMultipleAffectations(Analyzable _an) {
-        if (_an.getOptions().isMultipleAffectations()) {
-            return true;
-        }
-        return _an.isAnnotAnalysis();
-    }
     static int incrementUnary(String _string, int _from, int _to, int _offset, Delimiters _d) {
         int j_ = _from;
         while (j_ <= _to) {
             char ch_ = _string.charAt(j_);
             if (ch_ != MINUS_CHAR) {
-                if (ch_ != PLUS_CHAR) {
-                    if (ch_ != NEG_BOOL_CHAR) {
-                        if (!Character.isWhitespace(ch_)) {
-                            int sum_ = _offset + j_;
-                            int indexCast_ = _d.getDelCast().indexOfObj(sum_);
-                            if (indexCast_ > -1) {
-                                int next_ = _d.getDelCast().get(indexCast_ + 1);
-                                next_ -= _offset;
-                                j_ = next_ + 1;
-                                continue;
+                if (ch_ != NEG_BOOL) {
+                    if (ch_ != PLUS_CHAR) {
+                        if (ch_ != NEG_BOOL_CHAR) {
+                            if (!Character.isWhitespace(ch_)) {
+                                int sum_ = _offset + j_;
+                                int indexCast_ = _d.getDelCast().indexOfObj(sum_);
+                                if (indexCast_ > -1) {
+                                    int next_ = _d.getDelCast().get(indexCast_ + 1);
+                                    next_ -= _offset;
+                                    j_ = next_ + 1;
+                                    continue;
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
@@ -3136,6 +3205,7 @@ public final class ElResolver {
         int len_ = _max;
         int indexParRight_ = _string.indexOf(PAR_RIGHT, i_+1);
         Delimiters d_ = _d;
+        Options opt_ = _conf.getOptions();
         if (indexParRight_ >= 0 && !d_.getCallings().containsObj(i_)) {
             String sub_ = _string.substring(i_ + 1, indexParRight_);
             String subTrim_ = sub_.trim();
@@ -3156,7 +3226,7 @@ public final class ElResolver {
             boolean cast_ = true;
             boolean type_ = false;
             boolean doubleDot_ = false;
-            if (isNumber(j_, indexParRight_, _string)) {
+            if (isNumber(j_, indexParRight_, _string, opt_)) {
                 cast_ = false;
             }
             if (j_ >= indexParRight_) {
