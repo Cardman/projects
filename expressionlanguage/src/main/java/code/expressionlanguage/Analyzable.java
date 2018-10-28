@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
@@ -119,6 +120,8 @@ public interface Analyzable {
     void setDirectImport(boolean _directImport);
     StringList getAvailableVariables();
     StringList getVariablesNames();
+    SortedClassField getCurrentInitizedField();
+    void setCurrentInitizedField(SortedClassField _field);
 
     boolean isAssignedStaticFields();
 

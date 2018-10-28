@@ -31,7 +31,6 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -79,6 +78,7 @@ public final class ElUtil {
                 e_.tryAnalyzeAssignmentAfter(_conf);
                 currentBlock_.defaultAssignmentAfter(_conf, e_);
             }
+            e_.setOrder(0);
             return new CustList<OperationNode>(e_);
         }
         _conf.setAnalyzingRoot(true);
@@ -145,6 +145,7 @@ public final class ElUtil {
             if (!_context.isAnnotAnalysis()) {
                 current_.tryAnalyzeAssignmentAfter(_context);
             }
+            current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
             if (current_ instanceof StaticInitOperation) {
                 next_ = createFirstChild(current_.getParent(), _context, 1);
@@ -187,6 +188,7 @@ public final class ElUtil {
                 if (!_context.isAnnotAnalysis()) {
                     par_.tryAnalyzeAssignmentAfter(_context);
                 }
+                current_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;
             }
@@ -274,6 +276,20 @@ public final class ElUtil {
             _context.getClasses().addError(badEl_);
         }
         return op_;
+    }
+    public static boolean isDeclaringField(SettableAbstractFieldOperation _var, Analyzable _an) {
+        Block bl_ = _an.getCurrentBlock();
+        if (!(bl_ instanceof FieldBlock)) {
+            return false;
+        }
+        return isDeclaringVariable(_var);
+    }
+    public static boolean isDeclaringField(MethodOperation _par, Analyzable _an) {
+        Block bl_ = _an.getCurrentBlock();
+        if (!(bl_ instanceof FieldBlock)) {
+            return false;
+        }
+        return isDeclaringVariable(_par);
     }
     public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
@@ -395,14 +411,22 @@ public final class ElUtil {
             } else if (!fromCurClass_) {
                 checkFinal_ = true;
             } else {
-                if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
+                if (isDeclaringField(_cst, _conf)) {
+                    checkFinal_ = false;
+                } else if (!_ass.contains(cl_.getFieldName())) {
+                    checkFinal_ = false;
+                } else if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
                     checkFinal_ = true;
                 }
             }
         } else if (!fromCurClass_) {
             checkFinal_ = true;
         } else {
-            if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
+            if (isDeclaringField(_cst, _conf)) {
+                checkFinal_ = false;
+            } else if (!_ass.contains(cl_.getFieldName())) {
+                checkFinal_ = false;
+            } else if (!_ass.getVal(cl_.getFieldName()).isUnassignedAfter()) {
                 checkFinal_ = true;
             }
         }
@@ -449,13 +473,12 @@ public final class ElUtil {
         }
         _context.getLastPage().setTranslatedOffset(0);
     }
-    public static void tryCalculate(FieldBlock _field, ContextEl _context, EqList<SortedClassField> _list) {
+    public static void tryCalculate(FieldBlock _field, String _fieldName, ContextEl _context, EqList<SortedClassField> _list) {
         RootBlock r_ = (RootBlock) _field.getParent();
-        String fieldName_ = _field.getFieldName();
-        ClassField key_ = new ClassField(r_.getFullName(), fieldName_);
+        ClassField key_ = new ClassField(r_.getFullName(), _fieldName);
         for (SortedClassField f: _list) {
             if (f.getClassField().eq(key_)) {
-                tryCalculate(_field.getOpValue(), _context, 0, _list, f);
+                tryCalculate(_field, _context, 0, _list, f);
                 if (f.isOk()) {
                     _context.getClasses().initializeStaticField(key_, f.getStruct());
                 }
@@ -463,25 +486,39 @@ public final class ElUtil {
             }
         }
     }
-    static void tryCalculate(CustList<OperationNode> _nodes, ContextEl _context, int _offset, EqList<SortedClassField> _list, SortedClassField _current) {
+    static void tryCalculate(FieldBlock _field, ContextEl _context, int _offset, EqList<SortedClassField> _list, SortedClassField _current) {
         AnalyzedPageEl pageEl_ = _context.getAnalyzing();
+        pageEl_.setCurrentInitizedField(_current);
         pageEl_.setTranslatedOffset(_offset);
-        for (OperationNode o: _nodes) {
-            if (!o.isCalculated()) {
-                o.tryCalculateNode(_context, _list, _current);
+        CustList<OperationNode> nodes_ = _field.getOpValue();
+        String fieldName_ = _current.getClassField().getFieldName();
+        OperationNode root_ = nodes_.last();
+        if (!(root_ instanceof DeclaringOperation)) {
+            for (OperationNode o: nodes_) {
+                if (!o.isCalculated()) {
+                    o.tryCalculateNode(_context, _list, _current);
+                }
+            }
+            if (!(root_ instanceof AffectationOperation)) {
+                _current.setOk(false);
+                pageEl_.setTranslatedOffset(0);
+            }
+        } else {
+            MethodOperation m_ = (MethodOperation)root_;
+            int index_ = _field.getFieldName().indexOfObj(fieldName_);
+            CustList<OperationNode> ch_ = m_.getChildrenNodes();
+            int from_;
+            int to_ = ch_.get(index_).getOrder() + 1;
+            if (index_ == 0) {
+                from_ = 0;
+            } else {
+                from_ = ch_.get(index_-1).getOrder() + 1;
+            }
+            for (OperationNode o: nodes_.sub(from_, to_)) {
+                if (!o.isCalculated()) {
+                    o.tryCalculateNode(_context, _list, _current);
+                }
             }
         }
-        Argument arg_ = _nodes.last().getArgument();
-        if (arg_ == null) {
-            _current.setOk(false);
-            pageEl_.setTranslatedOffset(0);
-            return;
-        }
-        ClassField key_ = _current.getClassField();
-        FieldInfo fm_ = _context.getFieldInfo(key_);
-        Struct str_ = arg_.getStruct();
-        str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _context);
-        _current.setStruct(str_);
-        pageEl_.setTranslatedOffset(0);
     }
 }

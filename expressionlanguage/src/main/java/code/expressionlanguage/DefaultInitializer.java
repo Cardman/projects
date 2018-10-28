@@ -42,13 +42,14 @@ public class DefaultInitializer implements Initializer {
                     continue;
                 }
                 Struct str_ = f_.getDefaultValue();
-                String fieldName_ = f_.getFieldName();
                 String fieldDeclClass_ = f_.getImportedClassName();
-                ClassField key_ = new ClassField(c, fieldName_);
-                if (str_ != null) {
-                    fields_.put(key_, str_);
-                } else {
-                    fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                for (String f: f_.getFieldName()) {
+                    ClassField key_ = new ClassField(c, f);
+                    if (str_ != null) {
+                        fields_.put(key_, str_);
+                    } else {
+                        fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                    }
                 }
             }
         }

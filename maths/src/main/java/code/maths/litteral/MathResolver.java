@@ -394,108 +394,117 @@ public final class MathResolver {
         }
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
-            if (_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
-                if (curChar_ == PAR_LEFT) {
-                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                        useFct_ = true;
-                        fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
-                        operators_.put(i_, String.valueOf(PAR_LEFT));
-                    }
-                    parsBrackets_.put(i_, curChar_);
+            if (!_d.getAllowedOperatorsIndexes().containsObj(i_+_offset)) {
+                i_++;
+                continue;
+            }
+
+            if (curChar_ == PAR_LEFT) {
+                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                    useFct_ = true;
+                    fctName_ = _string.substring(CustList.FIRST_INDEX, i_);
+                    operators_.put(i_, String.valueOf(PAR_LEFT));
                 }
-                if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
-                    operators_.put(i_, String.valueOf(SEP_ARG));
+                parsBrackets_.put(i_, curChar_);
+            }
+            if (curChar_ == SEP_ARG && parsBrackets_.size() == 1 && prio_ == FCT_OPER_PRIO) {
+                operators_.put(i_, String.valueOf(SEP_ARG));
+            }
+            if (curChar_ == PAR_RIGHT) {
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
+                if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
+                    operators_.put(i_, String.valueOf(PAR_RIGHT));
                 }
-                if (curChar_ == PAR_RIGHT) {
-                    parsBrackets_.removeKey(parsBrackets_.lastKey());
-                    if (parsBrackets_.isEmpty() && prio_ == FCT_OPER_PRIO) {
-                        operators_.put(i_, String.valueOf(PAR_RIGHT));
-                    }
-                }
-                if (parsBrackets_.isEmpty() && i_ + 2 <= len_) {
-                    StringBuilder builtOperator_ = new StringBuilder();
-                    boolean clearOperators_ = false;
-                    boolean foundOperator_ = false;
-                    int increment_ = 1;
-                    if (curChar_ == NEG_BOOL_CHAR) {
-                        builtOperator_.append(NEG_BOOL_CHAR);
-                        if (i_ + 1 < _string.length()) {
-                            char nextChar_ = _string.charAt(i_ + 1);
-                            if (nextChar_ == EQ_CHAR) {
-                                if (prio_ > EQ_PRIO) {
-                                    clearOperators_ = true;
-                                    prio_ = EQ_PRIO;
-                                }
-                                if (prio_ == EQ_PRIO) {
-                                    builtOperator_.append(EQ_CHAR);
-                                    foundOperator_ = true;
-                                }
-                                if (foundOperator_) {
-                                    increment_ = 2;
-                                }
-                            } else {
-                                if (prio_ > EQ_PRIO) {
-                                    prio_ = EQ_PRIO;
-                                    clearOperators_ = true;
-                                    foundOperator_ = true;
-                                }
-                            }
-                        } else {
+                i_++;
+                continue;
+            }
+            if (!parsBrackets_.isEmpty()) {
+                i_++;
+                continue;
+            }
+            if (i_ + 2 > len_) {
+                i_++;
+                continue;
+            }
+            StringBuilder builtOperator_ = new StringBuilder();
+            boolean clearOperators_ = false;
+            boolean foundOperator_ = false;
+            int increment_ = 1;
+            if (curChar_ == NEG_BOOL_CHAR) {
+                builtOperator_.append(NEG_BOOL_CHAR);
+                if (i_ + 1 < _string.length()) {
+                    char nextChar_ = _string.charAt(i_ + 1);
+                    if (nextChar_ == EQ_CHAR) {
+                        if (prio_ > EQ_PRIO) {
+                            clearOperators_ = true;
+                            prio_ = EQ_PRIO;
+                        }
+                        if (prio_ == EQ_PRIO) {
+                            builtOperator_.append(EQ_CHAR);
+                            foundOperator_ = true;
+                        }
+                        if (foundOperator_) {
+                            increment_ = 2;
+                        }
+                    } else {
+                        if (prio_ > EQ_PRIO) {
                             prio_ = EQ_PRIO;
                             clearOperators_ = true;
                             foundOperator_ = true;
                         }
                     }
-                    int prioOpMult_ = 0;
-                    if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
-                        prioOpMult_ = ADD_PRIO;
-                    } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR) {
-                        prioOpMult_ = MULT_PRIO;
-                    } else if (curChar_ == AND_CHAR) {
-                        prioOpMult_ = AND_PRIO;
-                    } else if (curChar_ == EQ_CHAR) {
-                        prioOpMult_ = EQ_PRIO;
-                    } else if (curChar_ == OR_CHAR) {
-                        prioOpMult_ = OR_PRIO;
-                    }
-                    if (prioOpMult_ > 0) {
-                        builtOperator_.append(curChar_);
-                        if (prio_ > prioOpMult_) {
-                            clearOperators_ = true;
-                            prio_ = prioOpMult_;
-                        }
-                        if (prio_ == prioOpMult_) {
-                            foundOperator_ = true;
-                        }
-                    }
-                    if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
-                        builtOperator_.append(curChar_);
-                        if (prio_ > CMP_PRIO) {
-                            clearOperators_ = true;
-                            prio_ = CMP_PRIO;
-                        }
-                        if (prio_ == CMP_PRIO) {
-                            foundOperator_ = true;
-                        }
-                        char nextChar_ = _string.charAt(i_ + 1);
-                        if (nextChar_ == EQ_CHAR) {
-                            builtOperator_.append(nextChar_);
-                            increment_++;
-                        }
-                    }
-                    if (foundOperator_) {
-                        if (clearOperators_) {
-                            useFct_ = false;
-                            fctName_ = EMPTY_STRING;
-                            operators_.clear();
-                        }
-                        operators_.put(i_,builtOperator_.toString());
-                    }
-                    i_ += increment_;
-                    continue;
+                } else {
+                    prio_ = EQ_PRIO;
+                    clearOperators_ = true;
+                    foundOperator_ = true;
                 }
             }
-            i_++;
+            int prioOpMult_ = 0;
+            if (curChar_ == MINUS_CHAR || curChar_ == PLUS_CHAR) {
+                prioOpMult_ = ADD_PRIO;
+            } else if (curChar_ == MULT_CHAR || curChar_ == DIV_CHAR) {
+                prioOpMult_ = MULT_PRIO;
+            } else if (curChar_ == AND_CHAR) {
+                prioOpMult_ = AND_PRIO;
+            } else if (curChar_ == EQ_CHAR) {
+                prioOpMult_ = EQ_PRIO;
+            } else if (curChar_ == OR_CHAR) {
+                prioOpMult_ = OR_PRIO;
+            }
+            if (prioOpMult_ > 0) {
+                builtOperator_.append(curChar_);
+                if (prio_ > prioOpMult_) {
+                    clearOperators_ = true;
+                    prio_ = prioOpMult_;
+                }
+                if (prio_ == prioOpMult_) {
+                    foundOperator_ = true;
+                }
+            }
+            if (curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) {
+                builtOperator_.append(curChar_);
+                if (prio_ > CMP_PRIO) {
+                    clearOperators_ = true;
+                    prio_ = CMP_PRIO;
+                }
+                if (prio_ == CMP_PRIO) {
+                    foundOperator_ = true;
+                }
+                char nextChar_ = _string.charAt(i_ + 1);
+                if (nextChar_ == EQ_CHAR) {
+                    builtOperator_.append(nextChar_);
+                    increment_++;
+                }
+            }
+            if (foundOperator_) {
+                if (clearOperators_) {
+                    useFct_ = false;
+                    fctName_ = EMPTY_STRING;
+                    operators_.clear();
+                }
+                operators_.put(i_,builtOperator_.toString());
+            }
+            i_ += increment_;
         }
         OperationsSequence op_ = new OperationsSequence();
         op_.setPriority(prio_);

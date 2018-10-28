@@ -2167,6 +2167,11 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String method(){\n");
+        xml_.append("  $return pkg.Outer..InnerTwo.method():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.OuterTwo {\n");
@@ -2188,7 +2193,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Outer..InnerTwo", id_, args_, cont_);
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("pkgtwo.OuterThree..InnerFive", (String)ret_.getObject());
     }
     @Test
@@ -2204,6 +2209,11 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("  $public $static java.lang.String method(){\n");
         xml_.append("   $return $Class.getClass(CST).getName():\n");
         xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String method(){\n");
+        xml_.append("  $return pkg.Outer..InnerTwo.method():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -2229,7 +2239,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Outer..InnerTwo", id_, args_, cont_);
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive", (String)ret_.getObject());
     }
     @Test
@@ -2245,6 +2255,11 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("  $public $static java.lang.String method(){\n");
         xml_.append("   $return $Class.getClass(CST).getName():\n");
         xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String method(){\n");
+        xml_.append("  $return pkg.Outer..InnerTwo.method():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -2268,7 +2283,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Outer..InnerTwo", id_, args_, cont_);
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("pkgtwo.OuterThree..InnerFive", (String)ret_.getObject());
     }
     @Test
@@ -2284,6 +2299,11 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("  $public $static java.lang.String method(){\n");
         xml_.append("   $return $Class.getClass(CST).getName():\n");
         xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String method(){\n");
+        xml_.append("  $return pkg.Outer..InnerTwo.method():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -2311,7 +2331,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Outer..InnerTwo", id_, args_, cont_);
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive", (String)ret_.getObject());
     }
     @Test
@@ -2327,6 +2347,11 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         xml_.append("  $public $static java.lang.String method(){\n");
         xml_.append("   $return $Class.getClass(CST).getName():\n");
         xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static java.lang.String method(){\n");
+        xml_.append("  $return pkg.Outer..InnerTwo.method():\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -2354,7 +2379,7 @@ public final class ProcessMethodInternTypeTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Outer..InnerTwo", id_, args_, cont_);
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq("pkgtwo.OuterFour..InnerFive..InnerSix", (String)ret_.getObject());
     }
     @Test

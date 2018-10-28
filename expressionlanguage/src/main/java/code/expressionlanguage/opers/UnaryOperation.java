@@ -49,6 +49,20 @@ public final class UnaryOperation extends AbstractUnaryOperation {
             return;
         }
         ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, true, _conf);
+        if (child_ instanceof ConstantOperation) {
+            Argument arg_ = ((ConstantOperation) child_).getArgument();
+            Object instance_ = arg_.getObject();
+            if (instance_ instanceof Byte) {
+                clMatch_.setUnwrapObject(cl_);
+                setResultClass(cl_);
+                return;
+            }
+            if (instance_ instanceof Short) {
+                clMatch_.setUnwrapObject(cl_);
+                setResultClass(cl_);
+                return;
+            }
+        }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (cl_ == null) {
             String exp_ = _conf.getStandards().getAliasNumber();

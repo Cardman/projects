@@ -58,6 +58,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
@@ -557,13 +558,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 StandardType clblock_ = c.getValue();
                 StringList inners_ = new StringList();
                 for (StandardField f: clblock_.getFields().values()) {
-                    String m_ = f.getFieldName();
                     String ret_ = f.getClassName();
                     boolean staticElement_ = f.isStaticField();
                     boolean finalElement_ = f.isFinalField();
                     AccessEnum acc_ = f.getAccess();
-                    FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, false, acc_);
-                    infosFields_.put(m_, met_);
+                    for (String g: f.getFieldName()) {
+                        FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, false, acc_);
+                        infosFields_.put(g, met_);
+                    }
                 }
                 for (StandardMethod m: clblock_.getMethods().values()) {
                     MethodId id_ = m.getId();
@@ -2268,7 +2270,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         if (!e.isStaticField()) {
                             continue;
                         }
-                        if (!StringList.quickEq(end_, e.getFieldName())) {
+                        if (!e.getFieldName().containsStr(end_)) {
                             continue;
                         }
                         if (!Classes.canAccess(typeLoc_, e, this)) {
@@ -2310,7 +2312,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!e.isStaticField()) {
                         continue;
                     }
-                    if (!StringList.quickEq(end_, e.getFieldName())) {
+                    if (!e.getFieldName().containsStr(end_)) {
                         continue;
                     }
                     if (!Classes.canAccess(typeLoc_, e, this)) {
@@ -2352,7 +2354,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                         if (!e.isStaticField()) {
                             continue;
                         }
-                        if (!StringList.quickEq(_method.trim(), e.getId().getFieldName())) {
+                        if (!e.getFieldName().containsStr(_method.trim())) {
                             continue;
                         }
                         if (!Classes.canAccess(typeLoc_, e, this)) {
@@ -2395,7 +2397,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                     if (!e.isStaticField()) {
                         continue;
                     }
-                    if (!StringList.quickEq(_method.trim(), e.getId().getFieldName())) {
+                    if (!e.getFieldName().containsStr(_method.trim())) {
                         continue;
                     }
                     if (!Classes.canAccess(typeLoc_, e, this)) {
@@ -2470,32 +2472,31 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public FieldInfo getFieldInfo(ClassField _classField) {
         GeneType g_ = getClassBody(_classField.getClassName());
+        String search_ = _classField.getFieldName();
         if (g_ instanceof RootBlock) {
             for (Block b: Classes.getDirectChildren((Block) g_)) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
                 }
                 InfoBlock i_ = (InfoBlock) b;
-                String name_ = i_.getFieldName();
-                if (!StringList.quickEq(name_, _classField.getFieldName())) {
+                if (!i_.getFieldName().containsStr(search_)) {
                     continue;
                 }
                 String type_ = i_.getImportedClassName();
                 boolean final_ = i_.isFinalField();
                 boolean static_ = i_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(name_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock, this);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, i_ instanceof ElementBlock, this);
             }
         } else if (g_ instanceof StandardType) {
             for (EntryCust<String, StandardField> f: ((StandardType)g_).getFields().entryList()) {
                 StandardField f_ = f.getValue();
-                String name_ = f_.getFieldName();
-                if (!StringList.quickEq(name_, _classField.getFieldName())) {
+                if (!f_.getFieldName().containsStr(search_)) {
                     continue;
                 }
                 String type_ = f_.getImportedClassName();
                 boolean final_ = f_.isFinalField();
                 boolean static_ = f_.isStaticField();
-                return FieldInfo.newFieldMetaInfo(name_, g_.getFullName(), type_, static_, final_, false, this);
+                return FieldInfo.newFieldMetaInfo(search_, g_.getFullName(), type_, static_, final_, false, this);
             }
         }
         return null;
@@ -2634,4 +2635,15 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public void setLookLocalClass(String _lookLocalClass) {
         analyzing.setLookLocalClass(_lookLocalClass);
     }
+
+    @Override
+    public SortedClassField getCurrentInitizedField() {
+        return analyzing.getCurrentInitizedField();
+    }
+
+    @Override
+    public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
+        analyzing.setCurrentInitizedField(_currentInitizedField);
+    }
+
 }

@@ -1671,7 +1671,7 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("+1b",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Integer);
+        assertTrue(res_ instanceof Byte);
         assertEq(1, (Number) res_);
     }
 
@@ -3221,7 +3221,7 @@ public final class ElRenderUtilTest {
         ctx_.setAnalyzing(null);
         ElRenderUtil.calculate(all_, context_);
         Object res_ = op_.getArgument().getObject();
-        assertTrue(res_ instanceof Integer);
+        assertTrue(res_ instanceof Byte);
         assertEq(1, (Number)res_);
     }
     @Test

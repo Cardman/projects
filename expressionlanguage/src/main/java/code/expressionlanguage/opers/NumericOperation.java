@@ -26,6 +26,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
+import code.util.Numbers;
 import code.util.StringList;
 
 public abstract class NumericOperation extends MethodOperation {
@@ -54,6 +55,10 @@ public abstract class NumericOperation extends MethodOperation {
             o_ = AddOperation.addOne(_left, _conf, _arg);
         } else if (StringList.quickEq(_op, Block.DECR)) {
             o_ = AddOperation.removeOne(_left, _conf, _arg);
+        } else if (StringList.quickEq(_op, Block.SHIFT_LEFT_EQ)) {
+            o_ = calculateShiftLeft(_left, _right, _conf, _arg);
+        } else if (StringList.quickEq(_op, Block.SHIFT_RIGHT_EQ)) {
+            o_ = calculateShiftRight(_left, _right, _conf, _arg);
         } else if (StringList.quickEq(_op, Block.AND_EQ)) {
             o_ = calculateAnd(_left, _right, _conf, _arg);
             LgNames stds_ = _conf.getStandards();
@@ -529,6 +534,110 @@ public abstract class NumericOperation extends MethodOperation {
         }
         long value_ = LgNames.toLong(bits_);
         o_.setStruct(new LongStruct(value_));
+        return o_;
+    }
+    static Argument calculateShiftLeft(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
+        LgNames stds_ = _an.getStandards();
+        String int_ = stds_.getAliasPrimInteger();
+        if (_order.matchClass(int_)) {
+            Argument o_ = new Argument();
+            Object a_ = _a.getObject();
+            Object b_ = _b.getObject();
+            int left_;
+            int right_;
+            if (a_ instanceof Number) {
+                left_ = ((Number)a_).intValue();
+            } else {
+                left_ = (Character)a_;
+            }
+            if (b_ instanceof Number) {
+                right_ = ((Number)b_).intValue();
+            } else {
+                right_ = (Character)b_;
+            }
+            boolean[] bitsRight_ = LgNames.toBits(right_);
+            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
+            int power_ = 1;
+            for (int i = 0; i< value_; i++) {
+                power_ *= 2;
+            }
+            o_.setStruct(new IntStruct(left_*power_));
+            return o_;
+        }
+        Argument o_ = new Argument();
+        Object a_ = _a.getObject();
+        Object b_ = _b.getObject();
+        long left_;
+        long right_;
+        if (a_ instanceof Number) {
+            left_ = ((Number)a_).longValue();
+        } else {
+            left_ = (Character)a_;
+        }
+        if (b_ instanceof Number) {
+            right_ = ((Number)b_).longValue();
+        } else {
+            right_ = (Character)b_;
+        }
+        boolean[] bitsRight_ = LgNames.toBits(right_);
+        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
+        long power_ = 1;
+        for (int i = 0; i< value_; i++) {
+            power_ *= 2;
+        }
+        o_.setStruct(new LongStruct(left_*power_));
+        return o_;
+    }
+    static Argument calculateShiftRight(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
+        LgNames stds_ = _an.getStandards();
+        String int_ = stds_.getAliasPrimInteger();
+        if (_order.matchClass(int_)) {
+            Argument o_ = new Argument();
+            Object a_ = _a.getObject();
+            Object b_ = _b.getObject();
+            int left_;
+            int right_;
+            if (a_ instanceof Number) {
+                left_ = ((Number)a_).intValue();
+            } else {
+                left_ = (Character)a_;
+            }
+            if (b_ instanceof Number) {
+                right_ = ((Number)b_).intValue();
+            } else {
+                right_ = (Character)b_;
+            }
+            boolean[] bitsRight_ = LgNames.toBits(right_);
+            int value_ = LgNames.toUnsignedInt(bitsRight_,5);
+            int power_ = 1;
+            for (int i = 0; i< value_; i++) {
+                power_ *= 2;
+            }
+            o_.setStruct(new IntStruct(Numbers.quot(left_, power_)));
+            return o_;
+        }
+        Argument o_ = new Argument();
+        Object a_ = _a.getObject();
+        Object b_ = _b.getObject();
+        long left_;
+        long right_;
+        if (a_ instanceof Number) {
+            left_ = ((Number)a_).longValue();
+        } else {
+            left_ = (Character)a_;
+        }
+        if (b_ instanceof Number) {
+            right_ = ((Number)b_).longValue();
+        } else {
+            right_ = (Character)b_;
+        }
+        boolean[] bitsRight_ = LgNames.toBits(right_);
+        long value_ = LgNames.toUnsignedLong(bitsRight_,6);
+        long power_ = 1;
+        for (int i = 0; i< value_; i++) {
+            power_ *= 2;
+        }
+        o_.setStruct(new LongStruct(Numbers.quot(left_, power_)));
         return o_;
     }
     static ClassArgumentMatching getResultClass(ClassArgumentMatching _a, Analyzable _cont, ClassArgumentMatching _b) {

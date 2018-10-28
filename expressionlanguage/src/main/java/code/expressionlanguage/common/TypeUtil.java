@@ -163,11 +163,17 @@ public final class TypeUtil {
                     }
                     if (b instanceof GeneField) {
                         GeneField a_ = (GeneField) b;
-                        String name_ = a_.getFieldName();
                         if (!a_.isStaticField()) {
                             continue;
                         }
-                        if (_context.getClasses().getStaticField(new ClassField(i, name_)) == null) {
+                        boolean allCst_ = true;
+                        for (String n: a_.getFieldName()) {
+                            if (_context.getClasses().getStaticField(new ClassField(i, n)) == null) {
+                                allCst_ = false;
+                                break;
+                            }
+                        }
+                        if (!allCst_) {
                             filteredStatic_.add(i);
                         }
                     }

@@ -1533,7 +1533,7 @@ public final class Classes {
             CustList<Block> bl_ = getDirectChildren((Block) access_);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
-                    if (StringList.quickEq(((InfoBlock)b).getFieldName(), _name)) {
+                    if (((InfoBlock)b).getFieldName().containsStr(_name)) {
                         return canAccess(_className,(InfoBlock)b, _context);
                     }
                 }
@@ -1541,7 +1541,7 @@ public final class Classes {
             return false;
         }
         for (StandardField f: _context.getStandards().getStandards().getVal(baseClass_).getFields().values()) {
-            if (StringList.quickEq(f.getFieldName(), _name)) {
+            if (f.getFieldName().containsStr(_name)) {
                 return canAccess(_className,f, _context);
             }
         }
@@ -1717,23 +1717,24 @@ public final class Classes {
                 if (!f_.isStaticField()) {
                     continue;
                 }
-                AssignmentBefore as_ = new AssignmentBefore();
                 String clDecl_ = c.getKey();
-                String fieldName_ = f_.getFieldName();
-                if (staticFields.getVal(clDecl_).getVal(fieldName_) != null) {
-                    as_.setAssignedBefore(true);
-                } else {
-                    if (!c.getValue().isStaticType()) {
-                        //ERROR
-                        ClassField id_ = new ClassField(clDecl_, fieldName_);
-                        UnassignedFinalField un_ = new UnassignedFinalField(id_);
-                        un_.setFileName(c.getValue().getFile().getFileName());
-                        un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
-                        _context.getClasses().addError(un_);
+                for (String f: f_.getFieldName()) {
+                    AssignmentBefore as_ = new AssignmentBefore();
+                    if (staticFields.getVal(clDecl_).getVal(f) != null) {
+                        as_.setAssignedBefore(true);
+                    } else {
+                        if (!c.getValue().isStaticType()) {
+                            //ERROR
+                            ClassField id_ = new ClassField(clDecl_, f);
+                            UnassignedFinalField un_ = new UnassignedFinalField(id_);
+                            un_.setFileName(c.getValue().getFile().getFileName());
+                            un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
+                            _context.getClasses().addError(un_);
+                        }
+                        as_.setUnassignedBefore(true);
                     }
-                    as_.setUnassignedBefore(true);
+                    ass_.put(f, as_);
                 }
-                ass_.put(fieldName_, as_);
             }
             AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
             StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
@@ -1748,10 +1749,17 @@ public final class Classes {
             for (Block b: bl_) {
                 if (b instanceof FieldBlock) {
                     FieldBlock f_ = (FieldBlock) b;
-                    if (cstFields_.containsObj(new ClassField(c.getKey(), f_.getFieldName()))) {
+                    boolean cst_ = false;
+                    for (String f: f_.getFieldName()) {
+                        if (cstFields_.containsObj(new ClassField(c.getKey(), f))) {
+                            cst_ = true;
+                            break;
+                        }
+                    }
+                    if (cst_) {
                         page_.setCurrentBlock(b);
-                        b.setAssignmentBefore(_context, null);
-                        b.setAssignmentAfter(_context, null);
+                        f_.setAssignmentBefore(_context, null);
+                        f_.setAssignmentAfter(_context);
                         assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(f_).getFieldsRoot());
                         continue;
                     }
@@ -1817,10 +1825,11 @@ public final class Classes {
                 }
                 if (b instanceof FieldBlock) {
                     InfoBlock f_ = (InfoBlock) b;
-                    AssignmentBefore as_ = new AssignmentBefore();
-                    String fieldName_ = f_.getFieldName();
-                    as_.setUnassignedBefore(true);
-                    ass_.put(fieldName_, as_);
+                    for (String f: f_.getFieldName()) {
+                        AssignmentBefore as_ = new AssignmentBefore();
+                        as_.setUnassignedBefore(true);
+                        ass_.put(f, as_);
+                    }
                 }
             }
             AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
@@ -1885,7 +1894,7 @@ public final class Classes {
                         //error
                         for (Block b: bl_) {
                             if (b instanceof InfoBlock) {
-                                if (StringList.quickEq(((InfoBlock)b).getFieldName(), fieldName_)) {
+                                if (((InfoBlock)b).getFieldName().containsStr(fieldName_)) {
                                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                                     un_.setFileName(c.getValue().getFile().getFileName());
                                     un_.setRc(b.getRowCol(0, ((InfoBlock) b).getFieldNameOffset()));
@@ -2073,7 +2082,9 @@ public final class Classes {
                 if (!i_.isStaticField()) {
                     continue;
                 }
-                cl_.put(i_.getFieldName(), null);
+                for (String f: i_.getFieldName()) {
+                    cl_.put(f, null);
+                }
             }
             staticFields.put(c.getKey(), cl_);
         }
@@ -2097,7 +2108,9 @@ public final class Classes {
                 }
                 AssignmentBefore as_ = new AssignmentBefore();
                 as_.setUnassignedBefore(true);
-                ass_.put(f_.getFieldName(), as_);
+                for (String f: f_.getFieldName()) {
+                    ass_.put(f, as_);
+                }
             }
             AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
             StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
@@ -2114,18 +2127,16 @@ public final class Classes {
                 if (!f_.isFinalField()) {
                     continue;
                 }
-                if (f_.getValue().trim().isEmpty()) {
-                    f_.setAssignmentBefore(_context, null);
-                    f_.setAssignmentAfter(_context, null);
-                    continue;
-                }
                 page_.setGlobalClass(c.getValue().getGenericString());
                 page_.setCurrentBlock(f_);
                 f_.setAssignmentBefore(_context, null);
                 f_.buildExpressionLanguage(_context);
                 f_.setAssignmentAfter(_context, null);
-                cstFields_.add(new ClassField(c.getKey(), f_.getFieldName()));
-                success_.add(cstFields_.last());
+                String cl_ = c.getKey();
+                for (String f: f_.getFieldName()) {
+                    cstFields_.add(new ClassField(cl_, f));
+                    success_.add(cstFields_.last());
+                }
             }
         }
         EqList<ClassField> filteredCstFields_ = new EqList<ClassField>();
@@ -2134,22 +2145,25 @@ public final class Classes {
         for (ClassField c: cstFields_) {
             RootBlock r_ = classesBodies.getVal(c.getClassName());
             CustList<Block> bl_ = getDirectChildren(r_);
+            String fieldName_ = c.getFieldName();
             for (Block b: bl_) {
                 if (!(b instanceof FieldBlock)) {
                     continue;
                 }
                 FieldBlock f_ = (FieldBlock) b;
-                if (StringList.quickEq(f_.getFieldName(), c.getFieldName())) {
-                    if (!f_.isSimpleStaticConstant()) {
-                        continue;
-                    }
-                    filteredCstFields_.add(new ClassField(c.getClassName(), f_.getFieldName()));
-                    EqList<ClassField> deps_ = f_.getStaticConstantDependencies(_context);
-                    if (deps_.isEmpty()) {
-                        absDeps_.add(new SortedClassField(c));
-                    }
-                    for (ClassField d: deps_) {
-                        gr_.addSegment(new SortedClassField(c), new SortedClassField(d));
+                for (String f: f_.getFieldName()) {
+                    if (StringList.quickEq(f, fieldName_)) {
+                        if (!f_.isSimpleStaticConstant(f)) {
+                            continue;
+                        }
+                        filteredCstFields_.add(new ClassField(c.getClassName(), f));
+                        EqList<ClassField> deps_ = f_.getStaticConstantDependencies(_context,f);
+                        if (deps_.isEmpty()) {
+                            absDeps_.add(new SortedClassField(c));
+                        }
+                        for (ClassField d: deps_) {
+                            gr_.addSegment(new SortedClassField(c), new SortedClassField(d));
+                        }
                     }
                 }
             }
@@ -2184,6 +2198,7 @@ public final class Classes {
         }
         for (SortedClassField e: sort_) {
             ClassField c_ = e.getClassField();
+            String fieldName_ = c_.getFieldName();
             RootBlock r_ = classesBodies.getVal(c_.getClassName());
             CustList<Block> bl_ = getDirectChildren(r_);
             for (Block b: bl_) {
@@ -2191,8 +2206,10 @@ public final class Classes {
                     continue;
                 }
                 FieldBlock f_ = (FieldBlock) b;
-                if (StringList.quickEq(f_.getFieldName(), c_.getFieldName())) {
-                    ElUtil.tryCalculate(f_, _context, sort_);
+                for (String f: f_.getFieldName()) {
+                    if (StringList.quickEq(f, fieldName_)) {
+                        ElUtil.tryCalculate(f_, f, _context, sort_);
+                    }
                 }
             }
         }
@@ -2371,15 +2388,16 @@ public final class Classes {
                     if (!method_.isStaticField()) {
                         continue;
                     }
-                    String m_ = method_.getFieldName();
                     String c_ = method_.getImportedClassName();
-                    for (EntryCust<String, Struct> f: staticFields.getVal(base_).entryList()) {
-                        if (f.getValue() != null) {
-                            continue;
-                        }
-                        if (StringList.quickEq(f.getKey(), m_)) {
-                            f.setValue(StdStruct.defaultClass(c_, _context));
-                            break;
+                    for (String f: method_.getFieldName()) {
+                        for (EntryCust<String, Struct> e: staticFields.getVal(base_).entryList()) {
+                            if (e.getValue() != null) {
+                                continue;
+                            }
+                            if (StringList.quickEq(e.getKey(), f)) {
+                                e.setValue(StdStruct.defaultClass(c_, _context));
+                                break;
+                            }
                         }
                     }
                 }
@@ -2394,7 +2412,7 @@ public final class Classes {
             for (Block b: bl_) {
                 if (b instanceof ElementBlock) {
                     ElementBlock method_ = (ElementBlock) b;
-                    String m_ = method_.getFieldName();
+                    String m_ = method_.getUniqueFieldName();
                     for (EntryCust<String, Struct> f: staticFields.getVal(base_).entryList()) {
                         if (StringList.quickEq(f.getKey(), m_)) {
                             f.setValue(NullStruct.NULL_VALUE);
@@ -2457,14 +2475,15 @@ public final class Classes {
                 }
                 if (b instanceof InfoBlock) {
                     InfoBlock method_ = (InfoBlock) b;
-                    String m_ = method_.getFieldName();
                     String ret_ = method_.getImportedClassName();
                     boolean enumElement_ = b instanceof ElementBlock;
                     boolean staticElement_ = method_.isStaticField();
                     boolean finalElement_ = method_.isFinalField();
                     AccessEnum acc_ = method_.getAccess();
-                    FieldMetaInfo met_ = new FieldMetaInfo(_name, m_, ret_, staticElement_, finalElement_, enumElement_, acc_);
-                    infosFields_.put(m_, met_);
+                    for (String f: method_.getFieldName()) {
+                        FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, enumElement_, acc_);
+                        infosFields_.put(f, met_);
+                    }
                 }
                 if (b instanceof MethodBlock) {
                     MethodBlock method_ = (MethodBlock) b;

@@ -2464,4 +2464,36 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.getClasses().isEmptyErrors());
     }
+    @Test
+    public void calculateArgument3FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $final $int annotfield:\n");
+        xml_.append(" {\n");
+        xml_.append("  annotfield = 1i:\n");
+        xml_.append("  annotfield = 1i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $if ($static(MyAnnot).annotfield;;; != 1i){\n");
+        xml_.append("   $return 3i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations():\n");
+        xml_.append("  $if (arr;.length != 0i){\n");
+        xml_.append("   $return 2i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $if ($static($Class).getClass(arr;.) != $class($Annotation[])){\n");
+        xml_.append("   $return 1i:\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i:\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEl(true,false);
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.getClasses().isEmptyErrors());
+    }
 }

@@ -12,6 +12,7 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
+import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
@@ -23,6 +24,8 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -319,8 +322,28 @@ public final class AffectationOperation extends MethodOperation {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)firstChild_;
             fromCurClass_ = cst_.isFromCurrentClass(_conf);
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
+            ClassField cl_ = cst_.getFieldId();
+//            String fieldName_ = "";
+//            if (cl_ != null) {
+//                fieldName_ = cl_.getFieldName();
+//            }
+//            for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
+//                if (fromCurClass_ && StringList.quickEq(fieldName_, e.getKey()) && ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
+//                    FieldInfo meta_ = _conf.getFieldInfo(cl_);
+//                    if (meta_ != null && meta_.isFinalField()) {
+//                        //error if final field
+//                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
+//                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
+//                        un_.setFileName(_conf.getCurrentFileName());
+//                        un_.setRc(_conf.getCurrentLocation());
+//                        _conf.getClasses().addError(un_);
+//                    }
+//                }
+//                boolean ass_ = StringList.quickEq(fieldName_, e.getKey()) || e.getValue().isAssignedAfter();
+//                boolean unass_ = !StringList.quickEq(fieldName_,e.getKey()) && e.getValue().isUnassignedAfter();
+//                fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
+//            }
             if (ElUtil.checkFinalField(_conf, cst_, fieldsAfterLast_)) {
-                ClassField cl_ = cst_.getFieldId();
                 FieldInfo meta_ = _conf.getFieldInfo(cl_);
                 if (meta_.isFinalField()) {
                     //error if final field
@@ -356,6 +379,51 @@ public final class AffectationOperation extends MethodOperation {
     }
     public SettableElResult getSettable() {
         return settable;
+    }
+    @Override
+    public void quickCalculate(Analyzable _conf) {
+        if (!_conf.isGearConst()) {
+            return;
+        }
+        Block block_ = _conf.getCurrentBlock();
+        if (!(block_ instanceof FieldBlock)) {
+            return;
+        }
+        FieldBlock fieldBlock_ = (FieldBlock) block_;
+        if (!fieldBlock_.isStaticField()) {
+            return;
+        }
+        if (!fieldBlock_.isFinalField()) {
+            return;
+        }
+        if (!(settable instanceof StandardFieldOperation)) {
+            return;
+        }
+        StandardFieldOperation fieldRef_ = (StandardFieldOperation) settable;
+        if (!ElUtil.isDeclaringField(fieldRef_, _conf)) {
+            return;
+        }
+        OperationNode lastChild_ = getFirstChild().getNextSibling();
+        Argument value_ = lastChild_.getArgument();
+        ClassField id_ = fieldRef_.getFieldId();
+        if (id_ == null) {
+            return;
+        }
+        String name_ = id_.getFieldName();
+        SortedClassField sort_ = _conf.getCurrentInitizedField();
+        if (!StringList.quickEq(name_, sort_.getClassField().getFieldName())) {
+            return;
+        }
+        if (value_ == null) {
+            sort_.setOk(false);
+            return;
+        }
+        ClassField key_ = sort_.getClassField();
+        FieldInfo fm_ = _conf.getFieldInfo(key_);
+        Struct str_ = value_.getStruct();
+        str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _conf);
+        sort_.setStruct(str_);
+        _conf.getClasses().initializeStaticField(key_, str_);
     }
     @Override
     public void calculate(ExecutableCode _conf) {

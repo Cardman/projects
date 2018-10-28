@@ -561,40 +561,42 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             } else if (b instanceof InfoBlock) {
                 InfoBlock method_ = (InfoBlock) b;
                 method_.buildImportedType(_context);
-                String name_ = method_.getFieldName();
+                StringList name_ = method_.getFieldName();
                 InfoBlock m_ = (InfoBlock) b;
-                if (!StringList.isWord(name_)) {
-                    RowCol r_ = m_.getRowCol(0, m_.getFieldNameOffset());
-                    BadFieldName badMeth_ = new BadFieldName();
-                    badMeth_.setFileName(className_);
-                    badMeth_.setRc(r_);
-                    badMeth_.setName(name_);
-                    _context.getClasses().addError(badMeth_);
-                }
-                String trName_ = name_.trim();
-                Options opt_ = _context.getOptions();
-                if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-                    if (!trName_.isEmpty() && Character.isDigit(trName_.charAt(0))) {
+                for (String n: name_) {
+                    if (!StringList.isWord(n)) {
                         RowCol r_ = m_.getRowCol(0, m_.getFieldNameOffset());
                         BadFieldName badMeth_ = new BadFieldName();
                         badMeth_.setFileName(className_);
                         badMeth_.setRc(r_);
-                        badMeth_.setName(name_);
+                        badMeth_.setName(n);
                         _context.getClasses().addError(badMeth_);
                     }
-                }
-                for (String m: idsField_) {
-                    if (StringList.quickEq(m, name_)) {
-                        RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
-                        DuplicateField duplicate_;
-                        duplicate_ = new DuplicateField();
-                        duplicate_.setRc(r_);
-                        duplicate_.setFileName(className_);
-                        duplicate_.setId(name_);
-                        _context.getClasses().addError(duplicate_);
+                    String trName_ = n.trim();
+                    Options opt_ = _context.getOptions();
+                    if (opt_.getSuffixVar() == VariableSuffix.NONE) {
+                        if (!trName_.isEmpty() && Character.isDigit(trName_.charAt(0))) {
+                            RowCol r_ = m_.getRowCol(0, m_.getFieldNameOffset());
+                            BadFieldName badMeth_ = new BadFieldName();
+                            badMeth_.setFileName(className_);
+                            badMeth_.setRc(r_);
+                            badMeth_.setName(n);
+                            _context.getClasses().addError(badMeth_);
+                        }
                     }
+                    for (String m: idsField_) {
+                        if (StringList.quickEq(m, n)) {
+                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            DuplicateField duplicate_;
+                            duplicate_ = new DuplicateField();
+                            duplicate_.setRc(r_);
+                            duplicate_.setFileName(className_);
+                            duplicate_.setId(n);
+                            _context.getClasses().addError(duplicate_);
+                        }
+                    }
+                    idsField_.add(n);
                 }
-                idsField_.add(name_);
             }
         }
     }

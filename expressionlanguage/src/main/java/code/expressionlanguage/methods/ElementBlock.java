@@ -99,7 +99,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
-    public String getFieldName() {
+    public StringList getFieldName() {
+        return new StringList(fieldName);
+    }
+
+    public String getUniqueFieldName() {
         return fieldName;
     }
 
@@ -204,7 +208,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         if (ip_ instanceof StaticInitPageEl) {
             ip_.setGlobalOffset(fieldNameOffest);
             ip_.setOffset(0);
-            String name_ = getFieldName();
             Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
             Argument arg_ = el_.calculateMember(_cont, valueOffest - fieldNameOffest - 1 - NEW.length() - importedClassName.length());
@@ -215,7 +218,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();
             RootBlock r_ = getRooted();
-            ClassField staticField_ = new ClassField(r_.getFullName(), name_);
+            ClassField staticField_ = new ClassField(r_.getFullName(), fieldName);
             _cont.getClasses().initializeStaticField(staticField_, struct_);
         }
         processBlock(_cont);
@@ -235,10 +238,5 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     @Override
     public String getImportedClassName() {
         return importedClassName;
-    }
-
-    @Override
-    public ClassField getId() {
-        return new ClassField(getRooted().getFullName(), getFieldName());
     }
 }

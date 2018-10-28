@@ -7,48 +7,13 @@ import code.expressionlanguage.stds.LgNames;
 
 public final class PredefinedClasses {
 
-    private static final String PUBLIC_ACCESS = "PUBLIC";
-
     private PredefinedClasses() {
     }
     public static boolean isPredefined(String _type, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         return stds_.getPredefinedClasses().containsStr(_type);
     }
-    public static String getIterableType(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        StringBuilder iterable_ = new StringBuilder("<interface access='").append(PUBLIC_ACCESS).append("' name='").append(stds_.getAliasIterable()).append("' template='&lt;#T&gt;'>\n");
-        iterable_.append("<method access='").append(PUBLIC_ACCESS).append("' modifier='abstract' name='").append(stds_.getAliasIterator()).append("' class='").append(stds_.getAliasIteratorType()).append("&lt;#T&gt;'/>\n");
-        iterable_.append("</interface>\n");
-        return iterable_.toString();
-    }
 
-    public static String getIteratorType(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        StringBuilder iterable_ = new StringBuilder("<interface access='").append(PUBLIC_ACCESS).append("' name='").append(stds_.getAliasIteratorType()).append("' template='&lt;#T&gt;'>\n");
-        iterable_.append("<method access='").append(PUBLIC_ACCESS).append("' modifier='abstract' name='").append(stds_.getAliasNext()).append("' class='#T'/>\n");
-        iterable_.append("<method access='").append(PUBLIC_ACCESS).append("' modifier='abstract' name='").append(stds_.getAliasHasNext()).append("' class='").append(stds_.getAliasPrimBoolean()).append("'/>\n");
-        iterable_.append("</interface>\n");
-        return iterable_.toString();
-    }
-
-    public static String getEnumType(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        StringBuilder iterable_ = new StringBuilder("<interface access='").append(PUBLIC_ACCESS).append("' name='").append(stds_.getAliasEnum()).append("'>\n");
-        iterable_.append("<method access='").append(PUBLIC_ACCESS).append("' modifier='abstract' name='").append(stds_.getAliasName()).append("' class='").append(stds_.getAliasString()).append("'/>\n");
-        iterable_.append("<method access='").append(PUBLIC_ACCESS).append("' modifier='abstract' name='").append(stds_.getAliasOrdinal()).append("' class='").append(stds_.getAliasPrimInteger()).append("'/>\n");
-        iterable_.append("</interface>\n");
-        return iterable_.toString();
-    }
-
-    public static String getEnumParamType(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        String type_ = stds_.getAliasEnumParam();
-        String typeSup_ = stds_.getAliasEnum();
-        StringBuilder iterable_ = new StringBuilder("<interface access='").append(PUBLIC_ACCESS).append("' name='").append(type_).append("' template='&lt;#T:").append(type_).append("&lt;#T&gt;&gt;' class0='").append(typeSup_).append("'>\n");
-        iterable_.append("</interface>\n");
-        return iterable_.toString();
-    }
     public static String getBracedIterableType(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         StringBuilder iterable_ = new StringBuilder("$public $interface ").append(stds_.getAliasIterable()).append("<#T>{\n");

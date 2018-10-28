@@ -304,7 +304,7 @@ public abstract class MethodOperation extends OperationNode {
             child_ = sibling_;
         }
     }
-    final CustList<OperationNode> getChildrenNodes() {
+    public final CustList<OperationNode> getChildrenNodes() {
         CustList<OperationNode> chidren_ = new CustList<OperationNode>();
         for (OperationNode o: ElUtil.getDirectChildren(this)) {
             chidren_.add(o);

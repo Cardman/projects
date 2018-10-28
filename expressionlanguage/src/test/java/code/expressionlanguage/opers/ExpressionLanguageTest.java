@@ -489,7 +489,7 @@ public class ExpressionLanguageTest {
     }
     @Test
     public void processEl123Test() {
-        Argument arg_ = directCalculate("java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE");
+        Argument arg_ = directCalculate("($int)(java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE)");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         int max_ = Byte.MAX_VALUE+Byte.MAX_VALUE;
@@ -499,7 +499,7 @@ public class ExpressionLanguageTest {
     public void processEl123FailTest() {
         Argument arg_ = directCalculate("+1b");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Integer);
+        assertTrue(res_ instanceof Byte);
         assertEq(1, (Number) res_);
     }
 
@@ -934,7 +934,7 @@ public class ExpressionLanguageTest {
 
     @Test
     public void processEl210Test() {
-        Argument arg_ = directCalculate("'1'+'2'");
+        Argument arg_ = directCalculate("($int)('1'+'2')");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(99, (Number)res_);
@@ -1150,6 +1150,76 @@ public class ExpressionLanguageTest {
         assertTrue(res_ instanceof Integer);
         assertEq(0, (Number)res_);
     }
+    @Test
+    public void processEl342Test() {
+        Argument arg_ = directCalculate("1<<2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(4, (Number)res_);
+    }
+    @Test
+    public void processEl343Test() {
+        Argument arg_ = directCalculate("4>>2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl344Test() {
+        Argument arg_ = directCalculate("1<<34");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(4, (Number)res_);
+    }
+    @Test
+    public void processEl345Test() {
+        Argument arg_ = directCalculate("4>>34");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl346Test() {
+        Argument arg_ = directCalculate("1l<<2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(4, (Number)res_);
+    }
+    @Test
+    public void processEl347Test() {
+        Argument arg_ = directCalculate("4l>>2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl348Test() {
+        Argument arg_ = directCalculate("1l<<66");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(4, (Number)res_);
+    }
+    @Test
+    public void processEl349Test() {
+        Argument arg_ = directCalculate("4l>>66");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl350Test() {
+        Argument arg_ = directCalculate("-1<<2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-4, (Number)res_);
+    }
+    @Test
+    public void processEl351Test() {
+        Argument arg_ = directCalculate("-4>>2");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-1, (Number)res_);
+    }
     private Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
@@ -1252,6 +1322,7 @@ public class ExpressionLanguageTest {
     }
     private Argument calculatePrepareStaticResult(ContextEl _context, boolean _exc) {
         RootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
+        _context.getLastPage().setGlobalClass("code.formathtml.classes.Apply");
         FieldBlock f_ = (FieldBlock) cl_.getFirstChild();
         ExpressionLanguage el_ = f_.getValueEl();
         Argument arg_ = el_.calculateMember(_context);

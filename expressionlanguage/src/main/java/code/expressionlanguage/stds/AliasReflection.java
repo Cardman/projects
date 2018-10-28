@@ -948,14 +948,15 @@ public class AliasReflection {
                         }
                         if (b instanceof InfoBlock) {
                             InfoBlock method_ = (InfoBlock) b;
-                            String m_ = method_.getFieldName();
                             String ret_ = method_.getImportedClassName();
                             boolean enumElement_ = b instanceof ElementBlock;
                             boolean staticElement_ = method_.isStaticField();
                             boolean finalElement_ = method_.isFinalField();
                             AccessEnum acc_ = method_.getAccess();
-                            FieldMetaInfo met_ = new FieldMetaInfo(forName_, m_, ret_, staticElement_, finalElement_, enumElement_, acc_);
-                            infosFields_.put(m_, met_);
+                            for (String f: method_.getFieldName()) {
+                                FieldMetaInfo met_ = new FieldMetaInfo(forName_, f, ret_, staticElement_, finalElement_, enumElement_, acc_);
+                                infosFields_.put(f, met_);
+                            }
                         }
                         if (b instanceof MethodBlock) {
                             MethodBlock method_ = (MethodBlock) b;
@@ -1039,13 +1040,14 @@ public class AliasReflection {
                     StandardType clblock_ = c.getValue();
                     StringList inners_ = new StringList();
                     for (StandardField f: clblock_.getFields().values()) {
-                        String m_ = f.getFieldName();
                         String ret_ = f.getClassName();
                         boolean staticElement_ = f.isStaticField();
                         boolean finalElement_ = f.isFinalField();
                         AccessEnum acc_ = f.getAccess();
-                        FieldMetaInfo met_ = new FieldMetaInfo(k_, m_, ret_, staticElement_, finalElement_, false, acc_);
-                        infosFields_.put(m_, met_);
+                        for (String g: f.getFieldName()) {
+                            FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, false, acc_);
+                            infosFields_.put(g, met_);
+                        }
                     }
                     for (StandardMethod m: clblock_.getMethods().values()) {
                         MethodId id_ = m.getId();

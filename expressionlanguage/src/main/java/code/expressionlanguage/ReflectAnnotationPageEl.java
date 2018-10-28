@@ -19,7 +19,6 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private boolean retrievedAnnot;
@@ -120,12 +119,13 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 String idClass_ = Templates.getIdFromAllTypes(cl_);
                 GeneType type_ = _context.getClassBody(idClass_);
                 for (GeneField f: ContextEl.getFieldBlocks(type_)) {
-                    if (StringList.quickEq(f.getFieldName(), fieldId_)) {
-                        if (f instanceof Block) {
-                            annotations=((Block)f).getAnnotationsOps();
-                        } else {
-                            annotations = new CustList<CustList<OperationNode>>();
-                        }
+                    if (!f.getFieldName().containsStr(fieldId_)) {
+                        continue;
+                    }
+                    if (f instanceof Block) {
+                        annotations=((Block)f).getAnnotationsOps();
+                    } else {
+                        annotations = new CustList<CustList<OperationNode>>();
                     }
                 }
             }

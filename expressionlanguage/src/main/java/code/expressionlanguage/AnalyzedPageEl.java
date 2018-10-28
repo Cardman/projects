@@ -7,6 +7,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
@@ -83,6 +84,7 @@ public final class AnalyzedPageEl {
     private AnalyzingEl analysisAss;
     private boolean annotAnalysis;
     private String lookLocalClass = "";
+    private SortedClassField currentInitizedField;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -608,5 +610,13 @@ public final class AnalyzedPageEl {
     }
     public void setLookLocalClass(String _lookLocalClass) {
         lookLocalClass = _lookLocalClass;
+    }
+
+    public SortedClassField getCurrentInitizedField() {
+        return currentInitizedField;
+    }
+
+    public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
+        currentInitizedField = _currentInitizedField;
     }
 }

@@ -550,6 +550,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     abstract boolean isCallMethodCtor();
     public static boolean hasToExit(ExecutableCode _conf, String _className) {
         Classes classes_ = _conf.getClasses();
+        String idClass_ = Templates.getIdFromAllTypes(_className);
+        ContextEl cont_ = _conf.getContextEl();
+        if (!cont_.isEmptyPages()) {
+            String curClass_ = cont_.getLastPage().getGlobalClass();
+            if (curClass_ != null) {
+                curClass_ = Templates.getIdFromAllTypes(curClass_);
+                if (StringList.quickEq(curClass_, idClass_)) {
+                    return false;
+                }
+            }
+        }
         if (classes_.isCustomType(_className)) {
             InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), _className);
             if (res_ == InitClassState.NOT_YET) {
@@ -1314,7 +1325,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 continue;
             }
             ElementBlock b_ = (ElementBlock)b;
-            String fieldName_ = b_.getFieldName();
+            String fieldName_ = b_.getUniqueFieldName();
             enums_.add(classes_.getStaticField(new ClassField(id_, fieldName_)));
         }
         Struct[] o_ = new Struct[enums_.size()];
@@ -1348,7 +1359,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 continue;
             }
             ElementBlock b_ = (ElementBlock)b;
-            String fieldName_ = b_.getFieldName();
+            String fieldName_ = b_.getUniqueFieldName();
             if (StringList.quickEq(fieldName_, (String) _name.getObject())) {
                 Argument argres_ = new Argument();
                 argres_.setStruct(classes_.getStaticField(new ClassField(_class, fieldName_)));

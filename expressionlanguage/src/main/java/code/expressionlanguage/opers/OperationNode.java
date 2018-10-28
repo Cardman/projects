@@ -128,6 +128,8 @@ public abstract class OperationNode {
 
     protected static final String MINUS = "-";
 
+    protected static final String SHIFT_LEFT = "<<";
+    protected static final String SHIFT_RIGHT = ">>";
     protected static final String LOWER_EQ = "<=";
 
     protected static final String LOWER = "<";
@@ -427,6 +429,13 @@ public abstract class OperationNode {
         if (_op.getPriority() == ElResolver.ADD_PRIO) {
             return new AddOperation(_index, _indexChild, _m, _op);
         }
+        if (_op.getPriority() == ElResolver.SHIFT_PRIO) {
+            String value_ = _op.getOperators().firstValue().trim();
+            if (StringList.quickEq(value_, SHIFT_LEFT)) {
+                return new ShiftLeftOperation(_index, _indexChild, _m, _op);
+            }
+            return new ShiftRightOperation(_index, _indexChild, _m, _op);
+        }
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
             if (_op.isInstanceTest()) {
                 return new InstanceOfOperation(_index, _indexChild, _m, _op);
@@ -453,6 +462,9 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.OR_PRIO) {
             return new OrOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
+            return new ShortTernaryOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
             if (_an.isAnnotAnalysis()) {
@@ -1918,15 +1930,18 @@ public abstract class OperationNode {
     }
 
     public final void setSimpleArgumentAna(Argument _argument, Analyzable _conf) {
-        argument = _argument;
         PossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
         }
         String un_ = resultClass.getUnwrapObject();
         if (!un_.isEmpty()) {
-            argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, argument.getStruct(), _conf.getStandards()));
+            if (_argument.isNull()) {
+                return;
+            }
+            _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getStandards()));
         }
+        argument = _argument;
     }
     public final boolean isStaticBlock() {
         return staticBlock;

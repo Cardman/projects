@@ -30,6 +30,8 @@ public abstract class Block extends Blockable {
     public static final String EQ = "=";
     public static final String OR_EQ = "|=";
     public static final String AND_EQ = "&=";
+    public static final String SHIFT_LEFT_EQ = "<<=";
+    public static final String SHIFT_RIGHT_EQ = ">>=";
     public static final String XOR_EQ = "^=";
     public static final String PLUS_EQ = "+=";
     public static final String MINUS_EQ = "-=";

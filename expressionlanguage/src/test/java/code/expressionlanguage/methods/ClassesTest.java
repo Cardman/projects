@@ -1664,6 +1664,24 @@ public class ClassesTest {
         assertTrue(str_.getInstance() instanceof Integer);
         assertEq(129, ((Number)str_.getInstance()).intValue());
     }
+    @Test
+    public void calculateStaticField8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static $final $int myf=2i,mys=myf;;;+3i:\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = validateStaticFields(files_);
+        assertEq(2, ctx_.getClasses().staticFieldCount());
+        Struct str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "myf"));
+        assertTrue(str_.getInstance() instanceof Integer);
+        assertEq(2, ((Number)str_.getInstance()).intValue());
+        str_ = ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo", "mys"));
+        assertTrue(str_.getInstance() instanceof Integer);
+        assertEq(5, ((Number)str_.getInstance()).intValue());
+    }
     private ContextEl validateStaticFields(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);

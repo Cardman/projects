@@ -7,42 +7,39 @@ import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FieldInitPageEl;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.StaticInitPageEl;
-import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.AbstractInstancingOperation;
 import code.expressionlanguage.opers.AbstractUnaryOperation;
+import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.ArrOperation;
 import code.expressionlanguage.opers.ArrayFieldOperation;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ChoiceFctOperation;
 import code.expressionlanguage.opers.ConstantOperation;
+import code.expressionlanguage.opers.DeclaringOperation;
 import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.IdOperation;
+import code.expressionlanguage.opers.MethodOperation;
 import code.expressionlanguage.opers.NumericOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PrimitiveBoolOperation;
 import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
+import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.TernaryOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldableStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
@@ -54,9 +51,7 @@ import code.util.StringMap;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
 
-    private final String fieldName;
-
-    private int fieldNameOffset;
+    private final StringList fieldName;
 
     private final String className;
 
@@ -85,7 +80,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public FieldBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetAccessInfo _access,
             OffsetBooleanInfo _static, OffsetBooleanInfo _final,
-            OffsetStringInfo _name, OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
+            StringList _name, OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_importingPage, _indexChild, _m, _offset);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
@@ -93,8 +88,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         staticFieldOffset = _static.getOffset();
         finalField = _final.isInfo();
         finalFieldOffset = _final.getOffset();
-        fieldName = _name.getInfo();
-        fieldNameOffset = _name.getOffset();
+        fieldName = _name;
         className = _type.getInfo();
         classNameOffset = _type.getOffset();
         value = _value.getInfo();
@@ -103,7 +97,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public int getFieldNameOffset() {
-        return fieldNameOffset;
+        return valueOffset;
     }
 
     public int getClassNameOffset() {
@@ -174,7 +168,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public String getFieldName() {
+    public StringList getFieldName() {
         return fieldName;
     }
 
@@ -235,150 +229,231 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public void buildExpressionLanguage(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (value.trim().isEmpty()) {
-            return;
-        }
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
-        if (opValue.isEmpty()) {
-            return;
-        }
-        StringMap<StringList> vars_ = new StringMap<StringList>();
-        if (!staticField) {
-            String globalClass_ = page_.getGlobalClass();
-            String curClassBase_ = Templates.getIdFromAllTypes(globalClass_);
-            for (TypeVar t: _cont.getClasses().getClassBody(curClassBase_).getParamTypesMapValues()) {
-                vars_.put(t.getName(), t.getConstraints());
-            }
-        }
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
-        ClassArgumentMatching arg_ = opValue.last().getResultClass();
-        mapping_.setArg(arg_);
-        mapping_.setParam(importedClassName);
-        if (!Templates.isGenericCorrect(mapping_, _cont)) {
-            BadImplicitCast cast_ = new BadImplicitCast();
-            cast_.setMapping(mapping_);
-            cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, valueOffset));
-            _cont.getClasses().addError(cast_);
-        }
-        if (PrimitiveTypeUtil.isPrimitive(importedClassName, _cont)) {
-            opValue.last().getResultClass().setUnwrapObject(importedClassName);
-        }
     }
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
-        boolean ass_ = false;
-        boolean unass_ = true;
-        if (!value.trim().isEmpty()) {
-            ass_ = true;
-            unass_ = false;
-        }
+    }
+    public void setAssignmentAfter(Analyzable _an) {
         AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
         AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
         StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
-        for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-            as_.put(e.getKey(), e.getValue().assignAfterClassic());
-        }
-        if (!ass_) {
-            for (EntryCust<String, SimpleAssignment> e: as_.entryList()) {
-                if (!StringList.quickEq(e.getKey(),fieldName)) {
-                    continue;
-                }
+        OperationNode last_ = opValue.last();
+        if (last_ instanceof AffectationOperation) {
+            AffectationOperation aff_ = (AffectationOperation) last_;
+            SettableElResult el_ = aff_.getSettable();
+            if (!(el_ instanceof SettableAbstractFieldOperation)) {
                 return;
             }
+            SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) el_;
+            ClassField id_ = field_.getFieldId();
+            if (id_ == null) {
+                return;
+            }
+            String fieldName_ = id_.getFieldName();
+            for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+                if (StringList.quickEq(e.getKey(), fieldName_)) {
+                    as_.put(fieldName_, Assignment.assignClassic(true, false));
+                } else {
+                    as_.put(e.getKey(),e.getValue().assignAfterClassic());
+                }
+            }
+            return;
         }
-        as_.put(fieldName, Assignment.assignClassic(ass_, unass_));
+        if (last_ instanceof DeclaringOperation) {
+            CustList<OperationNode> ch_ = ((MethodOperation) last_).getChildrenNodes();
+            for (OperationNode o: ch_) {
+                if (!(o instanceof AffectationOperation)) {
+                    for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+                        as_.put(e.getKey(),e.getValue().assignAfterClassic());
+                    }
+                    continue;
+                }
+                AffectationOperation aff_ = (AffectationOperation) o;
+                SettableElResult el_ = aff_.getSettable();
+                if (!(el_ instanceof SettableAbstractFieldOperation)) {
+                    continue;
+                }
+                SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) el_;
+                ClassField id_ = field_.getFieldId();
+                if (id_ == null) {
+                    continue;
+                }
+                String fieldName_ = id_.getFieldName();
+                for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+                    if (StringList.quickEq(e.getKey(), fieldName_)) {
+                        as_.put(fieldName_, Assignment.assignClassic(true, false));
+                    } else {
+                        as_.put(e.getKey(),e.getValue().assignAfterClassic());
+                    }
+                }
+            }
+            return;
+        }
+        for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
+            as_.put(e.getKey(),e.getValue().assignAfterClassic());
+        }
     }
-    public boolean isSimpleStaticConstant() {
+    public boolean isSimpleStaticConstant(String _name) {
         if (!isStaticField()) {
             return false;
         }
         if (!isFinalField()) {
             return false;
         }
-        for (OperationNode o: opValue) {
-            OperationsSequence op_ = o.getOperations();
-            if (op_.getConstType() == ConstType.NUMBER) {
-                continue;
-            }
-            if (op_.getConstType() == ConstType.STRING) {
-                continue;
-            }
-            if (op_.getConstType() == ConstType.CHARACTER) {
-                continue;
-            }
-            if (op_.getConstType() == ConstType.TRUE_CST) {
-                continue;
-            }
-            if (op_.getConstType() == ConstType.FALSE_CST) {
-                continue;
-            }
-            if (op_.getConstType() == ConstType.NULL_CST) {
-                continue;
-            }
-            if (o instanceof StaticAccessOperation) {
-                continue;
-            }
-            if (o instanceof ConstantOperation) {
-                continue;
-            }
-            if (o instanceof ArrayFieldOperation) {
-                continue;
-            }
-            if (o instanceof SettableAbstractFieldOperation) {
-                SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) o;
-                if (cst_.getFieldMetaInfo().isEnumField()) {
+        OperationNode last_ = opValue.last();
+        if (!(last_ instanceof DeclaringOperation)) {
+            if (last_ instanceof AffectationOperation) {
+                for (OperationNode o: opValue) {
+                    if (o == last_) {
+                        continue;
+                    }
+                    if (isCstOperation(o)) {
+                        continue;
+                    }
                     return false;
                 }
-                if (cst_.getFieldMetaInfo().isFinalField()) {
-                    continue;
-                }
+                return true;
             }
-            if (o instanceof NumericOperation) {
-                continue;
-            }
-            if (o instanceof DotOperation) {
-                continue;
-            }
-            if (o instanceof IdOperation) {
-                continue;
-            }
-            if (o instanceof PrimitiveBoolOperation) {
-                continue;
-            }
-            if (o instanceof AbstractUnaryOperation) {
-                if (!(o instanceof SemiAffectationOperation)) {
+            for (OperationNode o: opValue) {
+                if (isCstOperation(o)) {
                     continue;
                 }
                 return false;
             }
-            if (o instanceof TernaryOperation) {
-                continue;
-            }
-            if (o instanceof ChoiceFctOperation) {
-                continue;
-            }
-            if (o instanceof FctOperation) {
-                continue;
-            }
-            if (o instanceof ArrOperation) {
-                continue;
-            }
-            if (o instanceof AbstractInstancingOperation) {
+            return true;
+        }
+        MethodOperation m_ = (MethodOperation)last_;
+        int index_ = fieldName.indexOfObj(_name);
+        CustList<OperationNode> ch_ = m_.getChildrenNodes();
+        OperationNode lastOp_ = ch_.get(index_);
+        int from_;
+        int to_ = lastOp_.getOrder()-1;
+        if (index_ == 0) {
+            from_ = 0;
+        } else {
+            from_ = ch_.get(index_-1).getOrder() + 1;
+        }
+        for (OperationNode o: opValue.sub(from_, to_)) {
+            if (isCstOperation(o)) {
                 continue;
             }
             return false;
         }
         return true;
     }
-    public EqList<ClassField> getStaticConstantDependencies(Analyzable _an) {
+    private boolean isCstOperation(OperationNode _op) {
+        OperationsSequence op_ = _op.getOperations();
+        if (op_ == null) {
+            return true;
+        }
+        if (op_.getConstType() == ConstType.NUMBER) {
+            return true;
+        }
+        if (op_.getConstType() == ConstType.STRING) {
+            return true;
+        }
+        if (op_.getConstType() == ConstType.CHARACTER) {
+            return true;
+        }
+        if (op_.getConstType() == ConstType.TRUE_CST) {
+            return true;
+        }
+        if (op_.getConstType() == ConstType.FALSE_CST) {
+            return true;
+        }
+        if (op_.getConstType() == ConstType.NULL_CST) {
+            return true;
+        }
+        if (_op instanceof StaticAccessOperation) {
+            return true;
+        }
+        if (_op instanceof ConstantOperation) {
+            return true;
+        }
+        if (_op instanceof ArrayFieldOperation) {
+            return true;
+        }
+        if (_op instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) _op;
+            if (cst_.getFieldMetaInfo().isEnumField()) {
+                return false;
+            }
+            if (cst_.getFieldMetaInfo().isFinalField()) {
+                return true;
+            }
+        }
+        if (_op instanceof NumericOperation) {
+            return true;
+        }
+        if (_op instanceof DotOperation) {
+            return true;
+        }
+        if (_op instanceof IdOperation) {
+            return true;
+        }
+        if (_op instanceof PrimitiveBoolOperation) {
+            return true;
+        }
+        if (_op instanceof AbstractUnaryOperation) {
+            if (!(_op instanceof SemiAffectationOperation)) {
+                return true;
+            }
+            return false;
+        }
+        if (_op instanceof TernaryOperation) {
+            return true;
+        }
+        if (_op instanceof ChoiceFctOperation) {
+            return true;
+        }
+        if (_op instanceof FctOperation) {
+            return true;
+        }
+        if (_op instanceof ArrOperation) {
+            return true;
+        }
+        if (_op instanceof AbstractInstancingOperation) {
+            return true;
+        }
+        return false;
+    }
+    public EqList<ClassField> getStaticConstantDependencies(Analyzable _an, String _name) {
+        OperationNode last_ = opValue.last();
+        if (!(last_ instanceof DeclaringOperation)) {
+            EqList<ClassField> eq_ = new EqList<ClassField>();
+            for (OperationNode o: opValue.mid(1)) {
+                if (!(o instanceof SettableAbstractFieldOperation)) {
+                    continue;
+                }
+                SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) o;
+                ClassField key_ = cst_.getFieldId();
+                if (key_ == null) {
+                    continue;
+                }
+                if (!_an.getClasses().isCustomType(key_.getClassName())) {
+                    continue;
+                }
+                eq_.add(key_);
+            }
+            return eq_;
+        }
         EqList<ClassField> eq_ = new EqList<ClassField>();
-        for (OperationNode o: opValue) {
+        MethodOperation m_ = (MethodOperation)last_;
+        int index_ = fieldName.indexOfObj(_name);
+        CustList<OperationNode> ch_ = m_.getChildrenNodes();
+        int from_;
+        int to_ = ch_.get(index_).getOrder();
+        if (index_ == 0) {
+            from_ = 1;
+        } else {
+            from_ = ch_.get(index_-1).getOrder() + 2;
+        }
+        for (OperationNode o: opValue.sub(from_, to_)) {
             if (!(o instanceof SettableAbstractFieldOperation)) {
                 continue;
             }
@@ -410,27 +485,16 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         } else if (ip_ instanceof StaticInitPageEl && static_) {
             in_ = true;
         }
-        if (in_ && !value.trim().isEmpty()) {
+        if (in_) {
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
-            String name_ = getFieldName();
-            Struct struct_;
             ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont);
+            el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
             }
-            struct_ = arg_.getStruct();
             el_.setCurrentOper(null);
             ip_.clearCurrentEls();
-            RootBlock r_ = getRooted();
-            ClassField staticField_ = new ClassField(r_.getFullName(), name_);
-            if (static_) {
-                _cont.getClasses().initializeStaticField(staticField_, struct_);
-            } else {
-                Argument gl_ = ip_.getGlobalArgument();
-                ((FieldableStruct) gl_.getStruct()).setStruct(staticField_, struct_);
-            }
         }
         processBlock(_cont);
     }
@@ -444,10 +508,5 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     public ExpressionLanguage getEl(ContextEl _context, boolean _native,
             int _indexProcess) {
         return getValueEl();
-    }
-
-    @Override
-    public ClassField getId() {
-        return new ClassField(getRooted().getFullName(), getFieldName());
     }
 }

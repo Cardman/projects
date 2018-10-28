@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
+import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -233,6 +234,12 @@ public abstract class SettableAbstractFieldOperation extends
                 return;
             }
             SortedClassField found_ = _list.get(index_);
+            if (ElUtil.isDeclaringField(this, _conf)) {
+                Argument arg_ = Argument.createVoid();
+                arg_.setStruct(found_.getStruct());
+                setArguments(arg_);
+                return;
+            }
             if (found_.isOk()) {
                 Argument arg_ = Argument.createVoid();
                 arg_.setStruct(found_.getStruct());
@@ -419,7 +426,7 @@ public abstract class SettableAbstractFieldOperation extends
                 for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                     if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
                         FieldInfo meta_ = _conf.getFieldInfo(cl_);
-                        if (meta_.isFinalField()) {
+                        if (meta_.isFinalField() && !ElUtil.isDeclaringField(this, _conf)) {
                             //error if final field
                             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();

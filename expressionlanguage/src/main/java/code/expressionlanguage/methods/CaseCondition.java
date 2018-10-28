@@ -94,7 +94,11 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
             GeneType g_ = _cont.getClassBody(id_);
             if (g_ instanceof EnumBlock) {
                 for (GeneField f: ContextEl.getFieldBlocks(g_)) {
-                    if (!StringList.quickEq(f.getFieldName(), value.trim())) {
+                    if (!(f instanceof ElementBlock)) {
+                        continue;
+                    }
+                    ElementBlock e_ = (ElementBlock) f;
+                    if (!StringList.quickEq(e_.getUniqueFieldName(), value.trim())) {
                         continue;
                     }
                     _cont.setLookLocalClass(id_);
@@ -109,6 +113,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
                     op_.analyze(_cont);
                     _cont.setLookLocalClass(EMPTY_STRING);
                     op_.tryAnalyzeAssignmentAfter(_cont);
+                    op_.setOrder(0);
                     opValue = new CustList<OperationNode>();
                     opValue.add(op_);
                     return;

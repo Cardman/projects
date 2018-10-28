@@ -321,7 +321,7 @@ public class CustList<T> implements Listable<T> {
         int b_ = Math.max(_from,FIRST_INDEX);
         int e_ = Math.min(_to, size());
         CustList<T> l_ = new CustList<T>();
-        for (T e: list.subList(Math.max(b_,FIRST_INDEX), Math.min(e_, size()))) {
+        for (T e: list.subList(b_, e_)) {
             l_.add(e);
         }
         return l_;

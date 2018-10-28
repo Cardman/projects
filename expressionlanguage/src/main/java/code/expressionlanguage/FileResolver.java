@@ -1268,11 +1268,10 @@ public final class FileResolver {
                                 found_ = sub_.substring(deltaSec_);
                                 final_ = true;
                                 meth_ = false;
+                                typeOffset_ += deltaFinal_;
                             }
-                            typeOffset_ += deltaFinal_;
                             String declaringType_ = getDeclaringTypeBlock(found_,options_);
                             found_ = found_.substring(declaringType_.length());
-                            int trimmed_ = StringList.getFirstPrintableCharIndex(found_);
                             String realFound_ = found_;
                             found_ = found_.trim();
                             int lenAfterModifiers_ = found_.length();
@@ -1295,26 +1294,44 @@ public final class FileResolver {
                                 meth_ = false;
                             }
                             if (!meth_) {
-                                int fieldOffest_ = typeOffset_;
-                                fieldOffest_ += declaringType_.trim().length();
-                                fieldOffest_ += trimmed_;
-                                int sepOffest_ = found_.indexOf(PART_SEPARATOR);
-                                if (sepOffest_ >= 0) {
-                                    fieldName_ = found_.substring(0, sepOffest_);
-                                    expression_ = found_.substring(sepOffest_ + 1);
-                                    sepOffest_ += fieldOffest_;
-                                    sepOffest_++;
-                                } else {
-                                    fieldName_ = found_;
-                                    sepOffest_ = fieldOffest_;
+                                String afterType_ = realFound_;
+                                StringList fieldNames_ = new StringList();
+                                int j_ = 0;
+                                int lenAfterType_ = afterType_.length();
+                                while (j_ < lenAfterType_) {
+                                    String sub_ = afterType_.substring(j_);
+                                    int next_ = getIndex(sub_, ',');
+                                    String foundField_;
+                                    if (next_ >= 0) {
+                                        foundField_ = sub_.substring(0, next_).trim();
+                                    } else {
+                                        foundField_ = sub_.trim();
+                                    }
+                                    int k_ = 0;
+                                    int lenField_ = foundField_.length();
+                                    StringBuilder fieldNameBuild_ = new StringBuilder();
+                                    while (k_ < lenField_) {
+                                        char fieldChar_ = foundField_.charAt(k_);
+                                        if (!StringList.isDollarWordChar(fieldChar_)) {
+                                            break;
+                                        }
+                                        fieldNameBuild_.append(fieldChar_);
+                                        k_++;
+                                    }
+                                    fieldNames_.add(fieldNameBuild_.toString());
+                                    if (next_ < 0) {
+                                        break;
+                                    }
+                                    j_+=next_+1;
                                 }
+                                int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.trim().length() + typeOffset_;
                                 br_ = new FieldBlock(_context, index_, currentParent_,
                                         new OffsetAccessInfo(-1, AccessEnum.PUBLIC),
                                         new OffsetBooleanInfo(-1, true),
                                         new OffsetBooleanInfo(finalOff_, final_),
-                                        new OffsetStringInfo(fieldOffest_,fieldName_.trim()),
+                                        fieldNames_,
                                         new OffsetStringInfo(typeOffset_, declaringType_.trim()),
-                                        new OffsetStringInfo(sepOffest_, expression_),
+                                        new OffsetStringInfo(fieldNameOffest_, realFound_.trim()),
                                         new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                             } else {
                                 found_ = realFound_;
@@ -1446,9 +1463,14 @@ public final class FileResolver {
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_CASE)) {
                         String exp_ = trimmedInstruction_.substring((prefixKeyWord(KEY_WORD_CASE)).length());
                         int valueOffest_ = instructionLocation_ + prefixKeyWord(KEY_WORD_CASE).length();
-                        valueOffest_ += exp_.indexOf(BEGIN_CALLING) + 1;
-                        exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING)+1, exp_.lastIndexOf(END_CALLING));
-                        valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+                        int indexLeftPar_ = exp_.indexOf(BEGIN_CALLING);
+                        if (indexLeftPar_ > -1) {
+                            valueOffest_ += indexLeftPar_ + 1;
+                            exp_ = exp_.substring(indexLeftPar_+1, exp_.lastIndexOf(END_CALLING));
+                            valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+                        } else {
+                            valueOffest_ += StringList.getFirstPrintableCharIndex(exp_);
+                        }
                         br_ = new CaseCondition(_context, index_, currentParent_, new OffsetStringInfo(valueOffest_, exp_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                         currentParent_.appendChild(br_);
                     } else if (startsWithPrefixKeyWord(trimmedInstruction_,KEY_WORD_DEFAULT)) {
@@ -2118,42 +2140,6 @@ public final class FileResolver {
                                         int delta_ = StringList.getFirstPrintableCharIndex(sub_);
                                         infoModifiers_ = sub_.substring(delta_);
                                     }
-//                                    while (true) {
-//                                        String otherModifier_ = EMPTY_STRING;
-//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_NORMAL)) {
-//                                            otherModifier_ = prefixKeyWord(KEY_WORD_NORMAL);
-//                                            int lenLoc_ = otherModifier_.length();
-//                                            String sub_ = infoModifiers_.substring(lenLoc_);
-//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-//                                            infoModifiers_ = sub_.substring(delta_);
-//                                            continue;
-//                                        }
-//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_ABSTRACT)) {
-//                                            otherModifier_ = prefixKeyWord(KEY_WORD_ABSTRACT);
-//                                            int lenLoc_ = otherModifier_.length();
-//                                            String sub_ = infoModifiers_.substring(lenLoc_);
-//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-//                                            infoModifiers_ = sub_.substring(delta_);
-//                                            continue;
-//                                        }
-//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_STATIC)) {
-//                                            otherModifier_ = prefixKeyWord(KEY_WORD_STATIC);
-//                                            int lenLoc_ = otherModifier_.length();
-//                                            String sub_ = infoModifiers_.substring(lenLoc_);
-//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-//                                            infoModifiers_ = sub_.substring(delta_);
-//                                            continue;
-//                                        }
-//                                        if (startsWithPrefixKeyWord(infoModifiers_,KEY_WORD_FINAL)) {
-//                                            otherModifier_ = prefixKeyWord(KEY_WORD_FINAL);
-//                                            int lenLoc_ = otherModifier_.length();
-//                                            String sub_ = infoModifiers_.substring(lenLoc_);
-//                                            int delta_ = StringList.getFirstPrintableCharIndex(sub_);
-//                                            infoModifiers_ = sub_.substring(delta_);
-//                                            continue;
-//                                        }
-//                                        break;
-//                                    }
                                     String typeStr_ = getDeclaringTypeBlock(infoModifiers_,options_);
                                     infoModifiers_ = infoModifiers_.substring(typeStr_.length());
                                     int first_ = StringList.getFirstPrintableCharIndex(infoModifiers_);
@@ -2332,19 +2318,42 @@ public final class FileResolver {
                                     int typeOffest_ = i_ - found_.length() + delta_;
                                     String declaringType_ = getDeclaringTypeBlock(info_,options_);
                                     String afterType_ = info_.substring(declaringType_.length());
-                                    int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
-                                    String expression_ = EMPTY_STRING;
-                                    String fieldName_;
-                                    int sepOffest_ = afterType_.indexOf(PART_SEPARATOR);
-                                    if (sepOffest_ >= 0) {
-                                        fieldName_ = afterType_.substring(0, sepOffest_);
-                                        expression_ = afterType_.substring(sepOffest_ + 1);
-                                        sepOffest_ += fieldNameOffest_;
-                                    } else {
-                                        fieldName_ = afterType_;
-                                        sepOffest_ = fieldNameOffest_;
+                                    StringList fieldNames_ = new StringList();
+                                    int j_ = 0;
+                                    int lenAfterType_ = afterType_.length();
+                                    while (j_ < lenAfterType_) {
+                                        String sub_ = afterType_.substring(j_);
+                                        int next_ = getIndex(sub_, ',');
+                                        String foundField_;
+                                        if (next_ >= 0) {
+                                            foundField_ = sub_.substring(0, next_).trim();
+                                        } else {
+                                            foundField_ = sub_.trim();
+                                        }
+                                        int k_ = 0;
+                                        int lenField_ = foundField_.length();
+                                        StringBuilder fieldName_ = new StringBuilder();
+                                        while (k_ < lenField_) {
+                                            char fieldChar_ = foundField_.charAt(k_);
+                                            if (!StringList.isDollarWordChar(fieldChar_)) {
+                                                break;
+                                            }
+                                            fieldName_.append(fieldChar_);
+                                            k_++;
+                                        }
+                                        fieldNames_.add(fieldName_.toString());
+                                        if (next_ < 0) {
+                                            break;
+                                        }
+                                        j_+=next_+1;
                                     }
-                                    br_ = new FieldBlock(_context, index_, currentParent_, new OffsetAccessInfo(accessOffest_, accessFct_), new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_), new OffsetStringInfo(fieldNameOffest_,fieldName_.trim()), new OffsetStringInfo(typeOffest_,declaringType_.trim()), new OffsetStringInfo(sepOffest_, expression_), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                    int fieldNameOffest_ = StringList.getFirstPrintableCharIndex(afterType_) +declaringType_.length() + typeOffest_;
+                                    br_ = new FieldBlock(_context, index_, currentParent_,
+                                            new OffsetAccessInfo(accessOffest_, accessFct_),
+                                            new OffsetBooleanInfo(staticOffest_, static_), new OffsetBooleanInfo(finalOffest_, final_),
+                                            fieldNames_, new OffsetStringInfo(typeOffest_,declaringType_.trim()),
+                                            new OffsetStringInfo(fieldNameOffest_, afterType_.trim()),
+                                            new OffsetsBlock(instructionRealLocation_, instructionLocation_));
                                     br_.getAnnotations().addAllElts(annotations_);
                                     br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                                     currentParent_.appendChild(br_);

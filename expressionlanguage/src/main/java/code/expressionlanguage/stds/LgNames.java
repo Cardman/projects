@@ -2692,6 +2692,26 @@ public abstract class LgNames {
         }
         return s_;
     }
+    public static int toUnsignedInt(boolean[] _bits, int _max) {
+        int s_ = 0;
+        for (int i = 32 - _max+1; i < 32; i++) {
+            s_ *= 2;
+            if (_bits[i]) {
+                s_++;
+            }
+        }
+        return s_;
+    }
+    public static long toUnsignedLong(boolean[] _bits, int _max) {
+        int s_ = 0;
+        for (int i = 64 - _max +1; i < 64; i++) {
+            s_ *= 2;
+            if (_bits[i]) {
+                s_++;
+            }
+        }
+        return s_;
+    }
     public static long toLong(boolean[] _bits, long _max, boolean _strNeg) {
         long s_ = 0;
         for (int i = 1; i < 64; i++) {

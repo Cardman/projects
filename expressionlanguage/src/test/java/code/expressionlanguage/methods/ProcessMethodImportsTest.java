@@ -1160,6 +1160,11 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         xml_.append("  $return exmethtwo;;;:\n");
         xml_.append(" }\n");
         xml_.append("}\n");
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $return Ex.exmeth():\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1172,7 +1177,7 @@ public class ProcessMethodImportsTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = new Argument();
-        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        ret_ = calculateArgument("pkg.Apply", id_, args_, cont_);
         assertEq(10, (Number)ret_.getObject());
     }
 
