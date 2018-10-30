@@ -17,6 +17,8 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
+import code.expressionlanguage.opers.util.DoubleStruct;
+import code.expressionlanguage.opers.util.FloatStruct;
 import code.expressionlanguage.opers.util.IntStruct;
 import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
@@ -125,6 +127,9 @@ public abstract class NumericOperation extends MethodOperation {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
+        String intPrim_ = _an.getStandards().getAliasPrimInteger();
+        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
+        Argument a_ = new Argument();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_;
             if (o_ instanceof Number) {
@@ -139,6 +144,11 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ + right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+                a_.setStruct(new IntStruct(nb_.intValue()));
+            } else {
+                a_.setStruct(new LongStruct(nb_.longValue()));
+            }
         } else {
             double left_;
             if (o_ instanceof Number) {
@@ -153,9 +163,12 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ + right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+                a_.setStruct(new FloatStruct(nb_.floatValue()));
+            } else {
+                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
+            }
         }
-        Argument a_ = new Argument();
-        a_.setObject(nb_);
         return a_;
     }
 
@@ -165,6 +178,9 @@ public abstract class NumericOperation extends MethodOperation {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
+        String intPrim_ = _an.getStandards().getAliasPrimInteger();
+        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
+        Argument a_ = new Argument();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_;
             if (o_ instanceof Number) {
@@ -179,6 +195,11 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ - right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+                a_.setStruct(new IntStruct(nb_.intValue()));
+            } else {
+                a_.setStruct(new LongStruct(nb_.longValue()));
+            }
         } else {
             double left_;
             if (o_ instanceof Number) {
@@ -193,9 +214,12 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ - right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+                a_.setStruct(new FloatStruct(nb_.floatValue()));
+            } else {
+                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
+            }
         }
-        Argument a_ = new Argument();
-        a_.setObject(nb_);
         return a_;
     }
     static Argument calculateMult(Argument _a, Argument _b, Analyzable _an,ClassArgumentMatching _order) {
@@ -204,6 +228,9 @@ public abstract class NumericOperation extends MethodOperation {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
+        String intPrim_ = _an.getStandards().getAliasPrimInteger();
+        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
+        Argument a_ = new Argument();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_;
             if (o_ instanceof Number) {
@@ -218,6 +245,11 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ * right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+                a_.setStruct(new IntStruct(nb_.intValue()));
+            } else {
+                a_.setStruct(new LongStruct(nb_.longValue()));
+            }
         } else {
             double left_;
             if (o_ instanceof Number) {
@@ -232,9 +264,12 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ * right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+                a_.setStruct(new FloatStruct(nb_.floatValue()));
+            } else {
+                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
+            }
         }
-        Argument a_ = new Argument();
-        a_.setObject(nb_);
         return a_;
     }
     static Argument calculateDivEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
@@ -253,6 +288,9 @@ public abstract class NumericOperation extends MethodOperation {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
+        String intPrim_ = _an.getStandards().getAliasPrimInteger();
+        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
+        Argument a_ = new Argument();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_;
             if (o_ instanceof Number) {
@@ -267,9 +305,14 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             if (right_ == 0) {
-                return Argument.createVoid();
+                return a_;
             }
             nb_ = left_ / right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+                a_.setStruct(new IntStruct(nb_.intValue()));
+            } else {
+                a_.setStruct(new LongStruct(nb_.longValue()));
+            }
         } else {
             double left_;
             if (o_ instanceof Number) {
@@ -284,9 +327,12 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ / right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+                a_.setStruct(new FloatStruct(nb_.floatValue()));
+            } else {
+                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
+            }
         }
-        Argument a_ = new Argument();
-        a_.setObject(nb_);
         return a_;
     }
     static Argument calculateModEx(Argument _a, ExecutableCode _cont, Argument _b,ClassArgumentMatching _order) {
@@ -305,6 +351,9 @@ public abstract class NumericOperation extends MethodOperation {
         int order_ = PrimitiveTypeUtil.getOrderClass(_order, _an);
         Number nb_;
         String longPrim_ = _an.getStandards().getAliasPrimLong();
+        String intPrim_ = _an.getStandards().getAliasPrimInteger();
+        String floatPrim_ = _an.getStandards().getAliasPrimFloat();
+        Argument a_ = new Argument();
         if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _an)) {
             long left_;
             if (o_ instanceof Number) {
@@ -319,9 +368,14 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             if (right_ == 0) {
-                return Argument.createVoid();
+                return a_;
             }
             nb_ = left_ % right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(intPrim_, _an)) {
+                a_.setStruct(new IntStruct(nb_.intValue()));
+            } else {
+                a_.setStruct(new LongStruct(nb_.longValue()));
+            }
         } else {
             double left_;
             if (o_ instanceof Number) {
@@ -336,9 +390,12 @@ public abstract class NumericOperation extends MethodOperation {
                 right_ = ((Character)p_).charValue();
             }
             nb_ = left_ % right_;
+            if (order_ == PrimitiveTypeUtil.getOrderClass(floatPrim_, _an)) {
+                a_.setStruct(new FloatStruct(nb_.floatValue()));
+            } else {
+                a_.setStruct(new DoubleStruct(nb_.doubleValue()));
+            }
         }
-        Argument a_ = new Argument();
-        a_.setObject(nb_);
         return a_;
     }
 

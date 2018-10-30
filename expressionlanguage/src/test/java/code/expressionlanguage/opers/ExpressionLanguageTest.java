@@ -1220,6 +1220,76 @@ public class ExpressionLanguageTest {
         assertTrue(res_ instanceof Integer);
         assertEq(-1, (Number)res_);
     }
+    @Test
+    public void processEl352Test() {
+        Argument arg_ = directCalculate("0200_0000_0000i");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(Integer.MIN_VALUE, (Number)res_);
+    }
+    @Test
+    public void processEl353Test() {
+        Argument arg_ = directCalculate("0x1.0xd");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(1, (Number)res_);
+    }
+    @Test
+    public void processEl354Test() {
+        Argument arg_ = directCalculate("0x1.0p1d");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(2, (Number)res_);
+    }
+    @Test
+    public void processEl355Test() {
+        Argument arg_ = directCalculate("0x1p1d");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(2, (Number)res_);
+    }
+    @Test
+    public void processEl356Test() {
+        Argument arg_ = directCalculate("0x1.8");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(1.5d, (Number)res_);
+    }
+    @Test
+    public void processEl357Test() {
+        Argument arg_ = directCalculate("0x1.8xd");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Double);
+        assertEq(1.5d, (Number)res_);
+    }
+    @Test
+    public void processEl358Test() {
+        Argument arg_ = directCalculate("0377b");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Byte);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
+    public void processEl359Test() {
+        Argument arg_ = directCalculate("0200b");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Byte);
+        assertEq(Byte.MIN_VALUE, (Number)res_);
+    }
+    @Test
+    public void processEl360Test() {
+        Argument arg_ = directCalculate("0377777s");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Short);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
+    public void processEl361Test() {
+        Argument arg_ = directCalculate("0200000s");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Short);
+        assertEq(Short.MIN_VALUE, (Number)res_);
+    }
     private Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);

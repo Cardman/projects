@@ -253,24 +253,33 @@ public abstract class SettableAbstractFieldOperation extends
         if (isCalculated()) {
             return;
         }
-        if (fieldMetaInfo != null && fieldMetaInfo.isStaticField()) {
-            Classes cl_ = _conf.getClasses();
-            ClassField fieldId_ = fieldMetaInfo.getClassField();
-            if (!cl_.isCustomType(fieldId_.getClassName())) {
-                ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
-                if (res_.getResult() != null) {
-                    Argument arg_ = Argument.createVoid();
-                    arg_.setStruct(res_.getResult());
-                    setSimpleArgumentAna(arg_,_conf);
-                }
-                return;
-            }
-            Struct str_ = cl_.getStaticField(fieldId_);
-            if (str_ != null) {
+        if (fieldMetaInfo == null) {
+            return;
+        }
+        if (!fieldMetaInfo.isStaticField()) {
+            return;
+        }
+        Classes cl_ = _conf.getClasses();
+        ClassField fieldId_ = fieldMetaInfo.getClassField();
+        if (!cl_.isCustomType(fieldId_.getClassName())) {
+            ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
+            if (res_.getResult() != null) {
                 Argument arg_ = Argument.createVoid();
-                arg_.setStruct(str_);
+                arg_.setStruct(res_.getResult());
                 setSimpleArgumentAna(arg_,_conf);
             }
+            return;
+        }
+        if (_conf.isGearConst() && ElUtil.isDeclaringField(this, _conf) && fieldMetaInfo.isFinalField()) {
+            Argument arg_ = Argument.createVoid();
+            setArguments(arg_);
+            return;
+        }
+        Struct str_ = cl_.getStaticField(fieldId_);
+        if (str_ != null) {
+            Argument arg_ = Argument.createVoid();
+            arg_.setStruct(str_);
+            setSimpleArgumentAna(arg_,_conf);
         }
     }
     @Override

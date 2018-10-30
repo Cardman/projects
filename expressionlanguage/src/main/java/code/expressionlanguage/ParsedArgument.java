@@ -118,18 +118,76 @@ public final class ParsedArgument {
                 }
                 longValue_ = LgNames.toLong(bits_);
             } else {
+                if (suffix_ == 'C' || suffix_ == 'c') {
+                    if (nb_.length() > 6) {
+                        return out_;
+                    }
+                    if (nb_.length() == 6) {
+                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                            return out_;
+                        }
+                    }
+                    Long lg_ = LgNames.parseLong(nb_, 8);
+                    if (lg_ == null) {
+                        return out_;
+                    }
+                    out_.object = new CharStruct((char) lg_.longValue());
+                    return out_;
+                }
+                if (suffix_ == 'I' || suffix_ == 'i') {
+                    if (nb_.length() > 11) {
+                        return out_;
+                    }
+                    if (nb_.length() == 11) {
+                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                            return out_;
+                        }
+                    }
+                } else if (suffix_ == 'S' || suffix_ == 's') {
+                    if (nb_.length() > 6) {
+                        return out_;
+                    }
+                    if (nb_.length() == 6) {
+                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                            return out_;
+                        }
+                    }
+                } else {
+                    if (nb_.length() > 3) {
+                        return out_;
+                    }
+                    if (nb_.length() == 3) {
+                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                            return out_;
+                        }
+                    }
+                }
                 Long lg_ = LgNames.parseLong(nb_, 8);
                 if (lg_ == null) {
                     return out_;
                 }
                 long value_ = lg_;
-                if (value_ >= Integer.MAX_VALUE + 1l) {
-                    while (value_ > Integer.MAX_VALUE + 1l) {
-                        value_ -= Integer.MAX_VALUE;
-                        value_ --;
+                if (suffix_ == 'I' || suffix_ == 'i') {
+                    if (value_ >= Integer.MAX_VALUE + 1l) {
+                        while (value_ >= 0) {
+                            value_ -= Integer.MAX_VALUE;
+                            value_ --;
+                        }
                     }
-                    value_ -= Integer.MAX_VALUE;
-                    value_ --;
+                } else if (suffix_ == 'S' || suffix_ == 's') {
+                    if (value_ >= Short.MAX_VALUE + 1l) {
+                        while (value_ >= 0) {
+                            value_ -= Short.MAX_VALUE;
+                            value_ --;
+                        }
+                    }
+                } else {
+                    if (value_ >= Byte.MAX_VALUE + 1l) {
+                        while (value_ >= 0) {
+                            value_ -= Byte.MAX_VALUE;
+                            value_ --;
+                        }
+                    }
                 }
                 longValue_ = value_;
             }
@@ -187,7 +245,7 @@ public final class ParsedArgument {
         } else {
             out_.type = charType_;
         }
-        out_.object = new CharStruct(Character.valueOf((char) longValue_.longValue()));
+        out_.object = new CharStruct((char) longValue_.longValue());
         return out_;
     }
 

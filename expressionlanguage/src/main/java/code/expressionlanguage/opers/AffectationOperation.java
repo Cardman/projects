@@ -409,21 +409,15 @@ public final class AffectationOperation extends MethodOperation {
         if (id_ == null) {
             return;
         }
-        String name_ = id_.getFieldName();
         SortedClassField sort_ = _conf.getCurrentInitizedField();
-        if (!StringList.quickEq(name_, sort_.getClassField().getFieldName())) {
-            return;
-        }
-        if (value_ == null) {
-            sort_.setOk(false);
-            return;
-        }
-        ClassField key_ = sort_.getClassField();
-        FieldInfo fm_ = _conf.getFieldInfo(key_);
+        FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
         str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _conf);
-        sort_.setStruct(str_);
-        _conf.getClasses().initializeStaticField(key_, str_);
+        if (sort_ != null) {
+            sort_.setStruct(str_);
+        }
+        _conf.getClasses().initializeStaticField(id_, str_);
+        setArguments(value_);
     }
     @Override
     public void calculate(ExecutableCode _conf) {

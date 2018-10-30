@@ -479,9 +479,9 @@ public final class ElUtil {
         for (SortedClassField f: _list) {
             if (f.getClassField().eq(key_)) {
                 tryCalculate(_field, _context, 0, _list, f);
-                if (f.isOk()) {
-                    _context.getClasses().initializeStaticField(key_, f.getStruct());
-                }
+//                if (f.isOk()) {
+//                    _context.getClasses().initializeStaticField(key_, f.getStruct());
+//                }
                 break;
             }
         }
@@ -507,8 +507,9 @@ public final class ElUtil {
             MethodOperation m_ = (MethodOperation)root_;
             int index_ = _field.getFieldName().indexOfObj(fieldName_);
             CustList<OperationNode> ch_ = m_.getChildrenNodes();
+            OperationNode rootLoc_ = ch_.get(index_);
             int from_;
-            int to_ = ch_.get(index_).getOrder() + 1;
+            int to_ = rootLoc_.getOrder() + 1;
             if (index_ == 0) {
                 from_ = 0;
             } else {
@@ -518,6 +519,10 @@ public final class ElUtil {
                 if (!o.isCalculated()) {
                     o.tryCalculateNode(_context, _list, _current);
                 }
+            }
+            if (rootLoc_.getArgument() == null) {
+                _current.setOk(false);
+                pageEl_.setTranslatedOffset(0);
             }
         }
     }

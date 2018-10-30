@@ -582,6 +582,7 @@ public final class FileResolver {
             currentParent_.getAnnotations().addAllElts(annotationsTypes_);
             currentParent_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
             ((ResultOperatorCreation)out_).setType((OperatorBlock) currentParent_);
+            braces_.add(until_);
             nextIndex_ = incrementRowCol(until_, _file, tabWidth_, current_, enabledSpaces_);
         } else {
             out_ = new ResultTypeCreation();
@@ -805,6 +806,7 @@ public final class FileResolver {
         i_ = nextIndex_;
         boolean okType_ = false;
         char endLine_ = _context.getOptions().getEndLine();
+        char suffix_ = _context.getOptions().getSuffix();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (commentedSingleLine_) {
@@ -945,22 +947,17 @@ public final class FileResolver {
                 }
                 if (currentChar_ == BEGIN_BLOCK) {
                     String tr_ = instruction_.toString().trim();
-                    if (tr_.isEmpty()) {
+                    if (declType_) {
+                        endInstruction_ = true;
+                    } else if (tr_.isEmpty()) {
                         endInstruction_ = true;
                     } else if (!StringList.quickEq(tr_, prefixKeyWord(KEY_WORD_RETURN))) {
                         char lastChar_ = tr_.charAt(tr_.length() - 1);
-                        if (currentParent_ instanceof AnnotationBlock) {
-                            if (lastChar_ != END_CALLING) {
-                                endInstruction_ = true;
-                            } else {
-                                String trLeft_ = tr_.substring(0, tr_.length() - 1).trim();
-                                if (!trLeft_.endsWith(String.valueOf(BEGIN_CALLING))) {
+                        if (!(currentParent_ instanceof AnnotationBlock)) {
+                            if (lastChar_ != PART_SEPARATOR) {
+                                if (lastChar_ != END_ARRAY) {
                                     endInstruction_ = true;
                                 }
-                            }
-                        } else if (lastChar_ != PART_SEPARATOR) {
-                            if (lastChar_ != END_ARRAY) {
-                                endInstruction_ = true;
                             }
                         }
                     }
@@ -987,9 +984,15 @@ public final class FileResolver {
                 parentheses_.add(i_);
             }
             if (currentChar_ == END_CALLING) {
+                if (parentheses_.isEmpty()) {
+                    break;
+                }
                 parentheses_.removeLast();
             }
             if (currentChar_ == END_ARRAY) {
+                if (parentheses_.isEmpty()) {
+                    break;
+                }
                 parentheses_.removeLast();
             }
             if (currentChar_ == BEGIN_BLOCK) {
@@ -1001,8 +1004,14 @@ public final class FileResolver {
             }
             if (currentChar_ == END_BLOCK) {
                 if (endInstruction_) {
+                    if (braces_.isEmpty()) {
+                        break;
+                    }
                     braces_.removeLast();
                 } else {
+                    if (parentheses_.isEmpty()) {
+                        break;
+                    }
                     parentheses_.removeLast();
                 }
             }
@@ -1655,7 +1664,7 @@ public final class FileResolver {
                             indexClassName_ = exp_.substring(0, exp_.indexOf(END_ARRAY));
                             exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1);
                         }
-                        exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
+                        exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1, exp_.lastIndexOf(END_CALLING));
                         Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
                         StringList annotations_ = new StringList();
                         if (exp_.trim().charAt(0) == ANNOT) {
@@ -1691,7 +1700,7 @@ public final class FileResolver {
                             stepOff_++;
                         }
                         exp_ = exp_.substring(nextElt_ + 1);
-                        String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
+                        String step_ = exp_;
                         stepOff_ += StringList.getFirstPrintableCharIndex(step_);
                         label_ = label_.substring(lastPar_ + 1);
                         if (!label_.isEmpty()) {
@@ -1718,7 +1727,7 @@ public final class FileResolver {
                             indexClassName_ = exp_.substring(0, exp_.indexOf(END_ARRAY));
                             exp_ = exp_.substring(exp_.indexOf(END_ARRAY) + 1);
                         }
-                        exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1);
+                        exp_ = exp_.substring(exp_.indexOf(BEGIN_CALLING) + 1, exp_.lastIndexOf(END_CALLING));
                         boolean finalLocalVar_ = startsWithPrefixKeyWord(exp_.trim(), KEY_WORD_FINAL);
                         int finalOffset_ = typeOffset_;
                         int delta_ = 0;
@@ -1748,7 +1757,7 @@ public final class FileResolver {
                         exp_ = exp_.substring(declaringType_.length());
                         boolean ok_ = false;
                         if (options_.getSuffixVar() == VariableSuffix.NONE) {
-                            int nextElt_ = getIndex(exp_,FOR_BLOCKS);
+                            int nextElt_ = getIndex(exp_,suffix_);
                             if (nextElt_ > -1) {
                                 String init_ = exp_.substring(0, nextElt_);
                                 initOff_ += StringList.getFirstPrintableCharIndex(init_);
@@ -1757,7 +1766,6 @@ public final class FileResolver {
                                 varOffset_ += StringList.getFirstPrintableCharIndex(init_);
                                 int expOffset_ = varOffset_;
                                 expOffset_ += init_.length();
-                                exp_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
                                 expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                                 label_ = label_.substring(lastPar_ + 1);
                                 if (!label_.isEmpty()) {
@@ -1784,7 +1792,6 @@ public final class FileResolver {
                                 varOffset_ += StringList.getFirstPrintableCharIndex(init_);
                                 int expOffset_ = varOffset_;
                                 expOffset_ += init_.length();
-                                exp_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
                                 expOffset_ += StringList.getFirstPrintableCharIndex(exp_);
                                 label_ = label_.substring(lastPar_ + 1);
                                 if (!label_.isEmpty()) {
@@ -1802,7 +1809,7 @@ public final class FileResolver {
                                 int expOff_ = toOff_ + nextElt_;
                                 int stepOff_ = expOff_ + 1;
                                 exp_ = exp_.substring(nextElt_ + 1);
-                                String step_ = exp_.substring(0, exp_.lastIndexOf(END_CALLING));
+                                String step_ = exp_;
                                 stepOff_ += StringList.getFirstPrintableCharIndex(step_);
                                 label_ = label_.substring(lastPar_ + 1);
                                 if (!label_.isEmpty()) {

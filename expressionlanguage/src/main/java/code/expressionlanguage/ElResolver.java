@@ -153,7 +153,6 @@ public final class ElResolver {
         parsBrackets_ = new NatTreeMap<Integer,Character>();
 
         boolean constString_ = false;
-        boolean foundSemiColumn_ = false;
         boolean constChar_ = false;
         boolean escapedMeta_ = false;
         int unicode_ = 0;
@@ -1438,14 +1437,6 @@ public final class ElResolver {
                         return d_;
                     }
                 }
-                if (parsBrackets_.isEmpty()) {
-                    if (i_ + 1 >= len_) {
-                        if (!foundSemiColumn_) {
-                            d_.setBadOffset(i_);
-                            return d_;
-                        }
-                    }
-                }
             }
             if (curChar_ == ESCAPE_META_CHAR) {
                 if (_delimiters) {
@@ -1499,9 +1490,6 @@ public final class ElResolver {
                     return d_;
                 }
                 beginOrEnd_ = false;
-            }
-            if (curChar_ == suffix_ && parsBrackets_.isEmpty()) {
-                foundSemiColumn_ = true;
             }
             if (curChar_ == PAR_LEFT) {
                 int j_ = indexAfterPossibleCast(_conf, ctorCall_, _string, i_, len_, d_);
@@ -2440,6 +2428,11 @@ public final class ElResolver {
                 processExp(_opt, j_, len_, _string, output_);
                 return output_;
             }
+            if (base_ != 10) {
+                if (_string.charAt(j_) == 'x') {
+                    j_++;
+                }
+            }
             if (Character.isLetter(_string.charAt(j_)) && !isNbSuffix(_string.charAt(j_))) {
                 output_.setNextIndex(-j_);
                 return output_;
@@ -3192,20 +3185,20 @@ public final class ElResolver {
                     }
                 }
             }
-            if (prio_ > CMP_PRIO) {
-                int min_ = _d.getDelInstanceof().indexOfObj(i_+_offset);
-                if (min_ >= 0 && min_ % 2 == 0) {
-                    int next_ = _d.getDelInstanceof().get(min_+1) - _offset - 1;
-                    if (next_ == lastPrintChar_) {
-                        is_ = true;
-                        clearOperators_ = true;
-                        prio_ = CMP_PRIO;
-                        foundOperator_ = true;
-                        String op_ = _string.substring(i_, next_+1);
-                        builtOperator_.append(op_);
-                        increment_ = op_.length();
-                    }
+            int min_ = _d.getDelInstanceof().indexOfObj(i_+_offset);
+            if (min_ >= 0 && min_ % 2 == 0) {
+                int next_ = _d.getDelInstanceof().get(min_+1) - _offset;
+                is_ = true;
+                if (prio_ > CMP_PRIO) {
+                    clearOperators_ = true;
+                    prio_ = CMP_PRIO;
                 }
+                if (prio_ == CMP_PRIO) {
+                    foundOperator_ = true;
+                }
+                String op_ = _string.substring(i_, next_);
+                builtOperator_.append(op_);
+                increment_ = op_.length();
             }
             if ((curChar_ == LOWER_CHAR || curChar_ == GREATER_CHAR) && prioOpMult_ != SHIFT_PRIO) {
                 builtOperator_.append(curChar_);

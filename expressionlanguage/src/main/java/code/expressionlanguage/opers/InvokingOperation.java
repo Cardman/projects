@@ -853,7 +853,22 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     return a_;
                 }
                 String enumName_ = cl_.getName();
-                return getEnumValues(enumName_, _conf);
+                RootBlock r_ = classes_.getClassBody(enumName_);
+                StringList allElements_ = new StringList();
+                for (Block e: Classes.getDirectChildren(r_)) {
+                    if (e instanceof ElementBlock) {
+                        String type_ = ((ElementBlock)e).getImportedClassName();
+                        allElements_.add(type_);
+                    }
+                }
+                allElements_.removeDuplicates();
+                String className_;
+                if (allElements_.size() == 1) {
+                    className_ = allElements_.first();
+                } else {
+                    className_ = r_.getWildCardString();
+                }
+                return getEnumValues(className_, _conf);
             }
             if (StringList.quickEq(aliasForName_, _methodId.getName())) {
                 Argument clArg_ = _firstArgs.first();
@@ -1334,12 +1349,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             o_[i_] = o;
             i_++;
         }
-        String clArr_;
-        if (StringList.quickEq(id_, _class)) {
-            clArr_ = _class;
-        } else {
-            clArr_ = _conf.getStandards().getAliasEnum();
-        }
+        String clArr_ = _class;
         clArr_ = PrimitiveTypeUtil.getPrettyArrayType(clArr_);
         Argument argres_ = new Argument();
         argres_.setStruct(new ArrayStruct(o_,clArr_));

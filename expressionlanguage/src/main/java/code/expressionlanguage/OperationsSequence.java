@@ -150,6 +150,12 @@ public final class OperationsSequence {
             str_ = _string.substring(beginValuePart_, endValuePart_);
             str_ = transformToSpaces(str_, beginValuePart_, _esc);
             values.put((int)CustList.FIRST_INDEX, str_);
+            beginValuePart_ = endValuePart_ + operators.firstValue().length();
+            str_ = _string.substring(beginValuePart_);
+            if (!str_.trim().isEmpty()) {
+                str_ = transformToSpaces(str_, beginValuePart_, _esc);
+                values.put(beginValuePart_, str_);
+            }
             return;
         }
         if (priority != ElResolver.UNARY_PRIO && !(fctName.trim().isEmpty() && useFct)) {

@@ -802,12 +802,12 @@ public final class ForEachLoop extends BracedStack implements ForLoop {
         } else {
             element_ = LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf);
         }
-        if (PrimitiveTypeUtil.primitiveTypeNullObject(importedClassName, element_, _conf)) {
+        String className_ = _conf.getLastPage().formatVarType(importedClassName, _conf);
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(className_, element_, _conf)) {
             _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
             return;
         }
         if (!element_.isNull()) {
-            String className_ = _conf.getLastPage().formatVarType(importedClassName, _conf);
             String argCl_ = stds_.getStructClassName(element_, _conf);
             Mapping mapping_ = new Mapping();
             mapping_.setArg(argCl_);

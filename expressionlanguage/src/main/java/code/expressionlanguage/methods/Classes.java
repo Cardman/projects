@@ -187,14 +187,12 @@ public final class Classes {
                     addError(badCl_);
                     continue;
                 }
-                if (!p.startsWith(Templates.PREFIX_VAR_TYPE)) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullDef_);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
+                String name_;
+                if (p.startsWith(Templates.PREFIX_VAR_TYPE)) {
+                    name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
+                } else {
+                    name_ = p;
                 }
-                String name_ = p.substring(Templates.PREFIX_VAR_TYPE.length());
                 TypeVar type_ = new TypeVar();
                 int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
                 StringList parts_ = StringList.splitInTwo(name_, indexDef_);
