@@ -26,6 +26,7 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
@@ -60,12 +61,12 @@ public final class StandardInstancingOperation extends
         fieldName = _fieldName;
     }
 
-    public boolean initStaticClass() {
-        return isCallMethodCtor();
+    public boolean initStaticClass(Analyzable _an) {
+        return isCallMethodCtor(_an);
     }
 
     @Override
-    boolean isCallMethodCtor() {
+    boolean isCallMethodCtor(Analyzable _an) {
         return true;
     }
 
@@ -75,7 +76,9 @@ public final class StandardInstancingOperation extends
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         className = _conf.getStandards().getAliasObject();
-        String className_ = methodName.trim().substring(INSTANCE.length()+1);
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String newKeyWord_ = keyWords_.getKeyWordNew();
+        String className_ = methodName.trim().substring(newKeyWord_.length());
         className_ = className_.trim();
         String realClassName_ = className_;
         CustList<OperationNode> filter_ = new CustList<OperationNode>();

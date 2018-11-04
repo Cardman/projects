@@ -35,6 +35,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EqList;
@@ -89,7 +90,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         String fromType_ = ContextEl.removeDottedSpaces(args_.first());
         CustList<ClassArgumentMatching> methodTypes_ = new CustList<ClassArgumentMatching>();
-        if (StringList.quickEq(fromType_, prefixFunction("operator"))) {
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String operator_ = keyWords_.getKeyWordOperator();
+        String new_ = keyWords_.getKeyWordNew();
+        if (StringList.quickEq(fromType_, operator_)) {
             processOperator(_conf, stds_, args_, methodTypes_);
             return;
         }
@@ -98,7 +102,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             processField(_conf, stds_, m_, args_, len_, fromType_);
             return;
         }
-        if (StringList.quickEq(name_, prefixFunction(INSTANCE))) {
+        if (StringList.quickEq(name_, new_)) {
             processInstance(_conf, stds_, args_, len_, fromType_, methodTypes_);
             return;
         }
@@ -118,21 +122,27 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             boolean staticChoiceMethod_ = false;
             boolean accessFromSuper_ = false;
             boolean accessSuper_ = true;
-            if (i_ < len_ && StringList.quickEq(name_, prefixFunction(SUPER_ACCESS))) {
+            KeyWords keyWords_ = _conf.getKeyWords();
+            String keyWordSuper_ = keyWords_.getKeyWordSuper();
+            String keyWordThat_ = keyWords_.getKeyWordThat();
+            String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+            String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+            String keyWordId_ = keyWords_.getKeyWordId();
+            if (i_ < len_ && StringList.quickEq(name_, keyWordSuper_)) {
                 name_ = args_.get(i_).trim();
                 i_++;
                 staticChoiceMethod_ = true;
                 accessFromSuper_ = true;
-            } else if (i_ < len_ && StringList.quickEq(name_, prefixFunction(THAT))) {
+            } else if (i_ < len_ && StringList.quickEq(name_, keyWordThat_)) {
                 name_ = args_.get(i_).trim();
                 i_++;
                 staticChoiceMethod_ = true;
-            } else if (i_ < len_ && StringList.quickEq(name_, prefixFunction(CLASS_CHOICE))) {
+            } else if (i_ < len_ && StringList.quickEq(name_, keyWordClasschoice_)) {
                 name_ = args_.get(i_).trim();
                 i_++;
                 staticChoiceMethod_ = true;
                 accessSuper_ = false;
-            } else if (i_ < len_ && StringList.quickEq(name_, prefixFunction(SUPER_ACCESS_FCT))) {
+            } else if (i_ < len_ && StringList.quickEq(name_, keyWordSuperaccess_)) {
                 name_ = args_.get(i_).trim();
                 i_++;
                 staticChoiceMethod_ = true;
@@ -142,7 +152,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int vararg_ = -1;
             MethodId argsRes_;
             ClassMethodId feed_ = null;
-            if (i_ < len_ && StringList.quickEq(args_.get(i_).trim(), prefixFunction("id"))) {
+            if (i_ < len_ && StringList.quickEq(args_.get(i_).trim(), keyWordId_)) {
                 String cl_ = Templates.getIdFromAllTypes(type_);
                 argsRes_ = resolveArguments(i_+1, _conf, cl_, EMPTY_STRING, false, args_);
                 if (argsRes_ == null) {
@@ -259,7 +269,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int vararg_ = -1;
             MethodId argsRes_;
             ClassMethodId feed_ = null;
-            if (2 < len_ && StringList.quickEq(args_.get(2).trim(), prefixFunction("id"))) {
+            KeyWords keyWords_ = _conf.getKeyWords();
+            String keyWordId_ = keyWords_.getKeyWordId();
+            if (2 < len_ && StringList.quickEq(args_.get(2).trim(), keyWordId_)) {
                 String nameId_ = args_.get(3).trim();
                 String cl_ = _conf.resolveAccessibleIdType(nameId_);
                 if (cl_.isEmpty()) {
@@ -307,21 +319,27 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean staticChoiceMethod_ = false;
         boolean accessFromSuper_ = false;
         boolean accessSuper_ = true;
-        if (i_ < len_ && StringList.quickEq(name_, prefixFunction(SUPER_ACCESS))) {
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+        String keyWordId_ = keyWords_.getKeyWordId();
+        if (i_ < len_ && StringList.quickEq(name_, keyWordSuper_)) {
             name_ = args_.get(i_).trim();
             i_++;
             staticChoiceMethod_ = true;
             accessFromSuper_ = true;
-        } else if (i_ < len_ && StringList.quickEq(name_, prefixFunction(THAT))) {
+        } else if (i_ < len_ && StringList.quickEq(name_, keyWordThat_)) {
             name_ = args_.get(i_).trim();
             i_++;
             staticChoiceMethod_ = true;
-        } else if (i_ < len_ && StringList.quickEq(name_, prefixFunction(CLASS_CHOICE))) {
+        } else if (i_ < len_ && StringList.quickEq(name_, keyWordClasschoice_)) {
             name_ = args_.get(i_).trim();
             i_++;
             staticChoiceMethod_ = true;
             accessSuper_ = false;
-        } else if (i_ < len_ && StringList.quickEq(name_, prefixFunction(SUPER_ACCESS_FCT))) {
+        } else if (i_ < len_ && StringList.quickEq(name_, keyWordSuperaccess_)) {
             name_ = args_.get(i_).trim();
             i_++;
             staticChoiceMethod_ = true;
@@ -330,7 +348,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         MethodId argsRes_;
         ClassMethodId feed_ = null;
-        if (i_ < len_ && StringList.quickEq(args_.get(i_).trim(), prefixFunction("id"))) {
+        if (i_ < len_ && StringList.quickEq(args_.get(i_).trim(), keyWordId_)) {
             String type_ = _conf.resolveCorrectType(fromType_);
             String cl_ = Templates.getIdFromAllTypes(type_);
             if (cl_.isEmpty()) {
@@ -484,7 +502,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int vararg_ = -1;
         MethodId argsRes_;
         ConstructorId feed_ = null;
-        if (len_ > 2 &&StringList.quickEq(args_.get(2).trim(), prefixFunction("id"))) {
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordId_ = keyWords_.getKeyWordId();
+        if (len_ > 2 &&StringList.quickEq(args_.get(2).trim(), keyWordId_)) {
             String type_ = _conf.resolveCorrectType(fromType_, true);
             String cl_ = Templates.getIdFromAllTypes(type_);
             argsRes_ = resolveArguments(3, _conf, cl_, EMPTY_STRING, false, args_);
@@ -719,18 +739,23 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int i_ = 3;
             boolean accessFromSuper_ = false;
             boolean accessSuper_ = true;
-            if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(SUPER_ACCESS))) {
+            KeyWords keyWords_ = _conf.getKeyWords();
+            String keyWordSuper_ = keyWords_.getKeyWordSuper();
+            String keyWordThat_ = keyWords_.getKeyWordThat();
+            String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+            String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+            if (i_ < len_ && StringList.quickEq(fieldName_, keyWordSuper_)) {
                 fieldName_ = args_.get(i_).trim();
                 i_++;
                 accessFromSuper_ = true;
-            } else if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(THAT))) {
+            } else if (i_ < len_ && StringList.quickEq(fieldName_, keyWordThat_)) {
                 fieldName_ = args_.get(i_).trim();
                 i_++;
-            } else if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(CLASS_CHOICE))) {
+            } else if (i_ < len_ && StringList.quickEq(fieldName_, keyWordClasschoice_)) {
                 fieldName_ = args_.get(i_).trim();
                 i_++;
                 accessSuper_ = false;
-            } else if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(SUPER_ACCESS_FCT))) {
+            } else if (i_ < len_ && StringList.quickEq(fieldName_, keyWordSuperaccess_)) {
                 fieldName_ = args_.get(i_).trim();
                 i_++;
             }
@@ -850,18 +875,23 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int i_ = 3;
         boolean accessFromSuper_ = false;
         boolean accessSuper_ = true;
-        if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(SUPER_ACCESS))) {
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+        if (i_ < len_ && StringList.quickEq(fieldName_, keyWordSuper_)) {
             fieldName_ = args_.get(i_).trim();
             i_++;
             accessFromSuper_ = true;
-        } else if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(THAT))) {
+        } else if (i_ < len_ && StringList.quickEq(fieldName_, keyWordThat_)) {
             fieldName_ = args_.get(i_).trim();
             i_++;
-        } else if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(CLASS_CHOICE))) {
+        } else if (i_ < len_ && StringList.quickEq(fieldName_, keyWordClasschoice_)) {
             fieldName_ = args_.get(i_).trim();
             i_++;
             accessSuper_ = false;
-        } else if (i_ < len_ && StringList.quickEq(fieldName_, prefixFunction(SUPER_ACCESS_FCT))) {
+        } else if (i_ < len_ && StringList.quickEq(fieldName_, keyWordSuperaccess_)) {
             fieldName_ = args_.get(i_).trim();
             i_++;
         }

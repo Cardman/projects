@@ -36,6 +36,7 @@ public final class BitOrOperation extends NumericOperation {
             res_.setResult(out_);
             return res_;
         }
+        _cont.setOkNumOp(false);
         String exp_ = _cont.getStandards().getAliasNumber();
         UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
         un_.setRc(_cont.getCurrentLocation());

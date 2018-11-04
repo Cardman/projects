@@ -14,7 +14,7 @@ public final class EvolvedScore implements MidListable<EvolvedPart>, Displayable
 
     private static final String STRING = "";
 
-    private transient Score score;
+    private Score score;
 
     private EqList<EvolvedPart> parts = new EqList<EvolvedPart>();
 

@@ -147,7 +147,7 @@ public final class GameTarot {
     de -1 pour le preneur sert pour le tarot lorsque personne ne prend un
     contrat et chacun joue pour soi
     */
-    private transient byte taker = CustList.INDEX_NOT_FOUND_ELT;
+    private byte taker = CustList.INDEX_NOT_FOUND_ELT;
     /** Ce sont les poignees annoncees par le(s) joueur(s) */
     private CustList<EnumList<Handfuls>> declaresHandfuls = new CustList<EnumList<Handfuls>>();
     /** Ce sont les miseres annoncees par le(s) joueur(s) */
@@ -166,28 +166,28 @@ public final class GameTarot {
     /**
     Le contrat permet de dire quel va etre le deroulement de la partie
     */
-    private transient BidTarot bid = BidTarot.FOLD;
+    private BidTarot bid = BidTarot.FOLD;
     /** Ce sont les plis faits par les joueurs */
     /** PliTarot en cours d'etre joue */
     private TrickTarot progressingTrick = new TrickTarot(CustList.INDEX_NOT_FOUND_ELT, false);
 
     /** Ensemble des plis faits par les joueurs */
     private CustList<TrickTarot> tricks = new CustList<TrickTarot>();
-    private transient Numbers<Byte> calledPlayers = new Numbers<Byte>();
+    private Numbers<Byte> calledPlayers = new Numbers<Byte>();
     /**The called cards are the cards owned by the taker's probably parteners
     */
     private HandTarot calledCards = new HandTarot();
     /** Entameur du pli qui est en cours d'etre joue */
-    private transient byte starter;
+    private byte starter;
     /** Ensembe des contrats annonces */
     private EnumList<BidTarot> bids = new EnumList<BidTarot>();
     /** Ramasseur du pli qui vient d'etre joue */
-    private transient byte trickWinner;
+    private byte trickWinner;
     /**
     utilise pour dire si l'utilisateur a annonce un contrat ou non au
     chargement d'une partie
     */
-    private transient boolean simulationWithBids;
+    private boolean simulationWithBids;
     /**
     Scores cumules au cours des parties Chaque nombre (Short) represente un
     score pour le joueur
@@ -198,25 +198,25 @@ public final class GameTarot {
     private RulesTarot rules = new RulesTarot();
 
     private String error = "";
-    private transient byte lastHasBid = CustList.INDEX_NOT_FOUND_ELT;
+    private byte lastHasBid = CustList.INDEX_NOT_FOUND_ELT;
 
-    private transient BidTarot lastBid = BidTarot.FOLD;
+    private BidTarot lastBid = BidTarot.FOLD;
 
-    private transient HandTarot cardsToBeDiscarded = new HandTarot();
+    private HandTarot cardsToBeDiscarded = new HandTarot();
 
-    private transient StringBuilder discardError = new StringBuilder();
+    private StringBuilder discardError = new StringBuilder();
 
-    private transient HandTarot cardsToBePlayed = new HandTarot();
+    private HandTarot cardsToBePlayed = new HandTarot();
 
-    private transient String errorHandful = EMPTY;
+    private String errorHandful = EMPTY;
 
-    private transient String errorPlaying = EMPTY;
+    private String errorPlaying = EMPTY;
 
-    private transient CardTarot playedCard = CardTarot.WHITE;
+    private CardTarot playedCard = CardTarot.WHITE;
 
-    private transient StringBuilder reason = new StringBuilder();
+    private StringBuilder reason = new StringBuilder();
 
-    private final transient String file = Format.getClassProperties(GAME_TAROT);
+    private final String file = Format.getClassProperties(GAME_TAROT);
 
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GameTarot() {

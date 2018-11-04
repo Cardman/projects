@@ -3,7 +3,7 @@ import code.util.ints.Viewable;
 
 public final class ViewableList<T> extends CustList<T> implements Viewable {
 
-    private transient boolean modified;
+    private boolean modified;
 
 //    public boolean removeAll(List<T> _list) {
 //        setModified();

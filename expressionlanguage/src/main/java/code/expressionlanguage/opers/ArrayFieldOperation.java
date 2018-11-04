@@ -16,7 +16,6 @@ import code.util.EqList;
 import code.util.StringList;
 
 public final class ArrayFieldOperation extends AbstractFieldOperation {
-    private static final String LENGTH = "length";
 
     public ArrayFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -33,7 +32,8 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
         ClassArgumentMatching cl_ = getPreviousResultClass();
-        if (StringList.quickEq(str_, LENGTH)) {
+        String aliasLength_ = _conf.getStandards().getAliasLength();
+        if (StringList.quickEq(str_, aliasLength_)) {
             Argument arg_ = getPreviousArgument();
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();

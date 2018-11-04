@@ -202,7 +202,6 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         }
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
-        _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(defaultValue, _cont, Calculation.staticCalculation(true));
         if (opValue.isEmpty()) {
             return;
@@ -238,7 +237,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             ip_.setOffset(0);
             String name_ = getName();
             Struct struct_;
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             Argument arg_ = el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
@@ -255,7 +254,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return new ExpressionLanguage(opValue);
     }

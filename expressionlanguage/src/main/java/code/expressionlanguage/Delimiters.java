@@ -32,6 +32,7 @@ public final class Delimiters {
     private Numbers<Integer> delClass = new Numbers<Integer>();
     private Numbers<Integer> delSimpleAnnotations = new Numbers<Integer>();
     private Numbers<Integer> callings = new Numbers<Integer>();
+    private CustList<StringInfo> stringInfo = new CustList<StringInfo>();
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
     private Numbers<Integer> dimsAddonIndexes = new Numbers<Integer>();
@@ -229,6 +230,9 @@ public final class Delimiters {
 
     public CustList<NumberInfos> getNbInfos() {
         return nbInfos;
+    }
+    public CustList<StringInfo> getStringInfo() {
+        return stringInfo;
     }
     public CustList<VariableInfo> getVariables() {
         return variables;

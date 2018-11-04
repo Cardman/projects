@@ -1725,4 +1725,38 @@ public class StringListTest {
         assertEq(1, parts_.size());
         assertEq(";word_one;{;word_two;word_three;world", parts_.get(0));
     }
+    @Test
+    public void encode1Test() {
+        byte[] bs_ = StringList.encode("a");
+        assertEq(1, bs_.length);
+        assertEq(97,bs_[0]);
+    }
+    @Test
+    public void encode2Test() {
+        byte[] bs_ = StringList.encode("\u0090");
+        assertEq(2, bs_.length);
+        assertEq(-62,bs_[0]);
+        assertEq(-112,bs_[1]);
+    }
+    @Test
+    public void encode3Test() {
+        byte[] bs_ = StringList.encode("\u0b00");
+        assertEq(3, bs_.length);
+        assertEq(-32,bs_[0]);
+        assertEq(-84,bs_[1]);
+        assertEq(-128,bs_[2]);
+    }
+    @Test
+    public void encode4Test() {
+        byte[] bs_ = StringList.encode("\ub000");
+        assertEq(3, bs_.length);
+        assertEq(-21,bs_[0]);
+        assertEq(-128,bs_[1]);
+        assertEq(-128,bs_[2]);
+    }
+    @Test
+    public void encode5Test() {
+        byte[] bs_ = StringList.encode("");
+        assertEq(0, bs_.length);
+    }
 }

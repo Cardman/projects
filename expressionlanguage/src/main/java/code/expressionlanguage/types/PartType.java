@@ -2,9 +2,9 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.options.Options;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -35,7 +35,13 @@ abstract class PartType {
                 String type_ = _dels.getValue(_index);
                 if (_options.isVarTypeFirst()) {
                     type_ = ContextEl.removeDottedSpaces(type_);
-                    if (_an != null && _an.getAvailableVariables().containsStr(type_)) {
+                    boolean okVarType_ = false;
+                    if (_parent == null) {
+                        okVarType_ = true;
+                    } else if (_parent instanceof TemplatePartType && _parent.getFirstChild() != null) {
+                        okVarType_ = true;
+                    }
+                    if (_an != null && _an.getAvailableVariables().containsStr(type_) && okVarType_) {
                         return new VariablePartType(_parent, _index, _indexInType, type_);
                     }
                 }

@@ -965,7 +965,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
-            res_.setResult(new StdStruct(instance_.getGender(),PokemonStandards.TYPE_GENDER));
+            res_.setResult(StdStruct.newInstance(instance_.getGender(),PokemonStandards.TYPE_GENDER));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEVEL)) {
@@ -1106,7 +1106,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,GENDER)) {
-            res_.setResult(new StdStruct(instance_.getGender(),PokemonStandards.TYPE_GENDER));
+            res_.setResult(StdStruct.newInstance(instance_.getGender(),PokemonStandards.TYPE_GENDER));
             return res_;
         }
         if (StringList.quickEq(fieldName_,LEVEL)) {
@@ -1210,7 +1210,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getDiffWinningExpPtsFight(),PokemonStandards.TYPE_DIFFICULTY_WIN_POINTS_FIGHT));
+            res_.setResult(StdStruct.newInstance(instance_.getDiffWinningExpPtsFight(),PokemonStandards.TYPE_DIFFICULTY_WIN_POINTS_FIGHT));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
@@ -1274,7 +1274,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            res_.setResult(new StdStruct(instance_.getDamageRatePlayer(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
+            res_.setResult(StdStruct.newInstance(instance_.getDamageRatePlayer(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
@@ -1282,7 +1282,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            res_.setResult(new StdStruct(instance_.getDamageRateLawFoe(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
+            res_.setResult(StdStruct.newInstance(instance_.getDamageRateLawFoe(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {
@@ -1302,7 +1302,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ENVIRONMENT)) {
-            res_.setResult(new StdStruct(instance_.getEnvironment(),PokemonStandards.TYPE_ENVIRONMENT_TYPE));
+            res_.setResult(StdStruct.newInstance(instance_.getEnvironment(),PokemonStandards.TYPE_ENVIRONMENT_TYPE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,FOE_TEAM)) {
@@ -1314,7 +1314,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_FOE_ACTION)) {
-            res_.setResult(new StdStruct(instance_.getSelectedFoeAction(),AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD));
+            res_.setResult(StdStruct.newInstance(instance_.getSelectedFoeAction(),AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLY_TEAM)) {
@@ -1326,7 +1326,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ALLY_ACTION)) {
-            res_.setResult(new StdStruct(instance_.getSelectedAllyAction(),AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD));
+            res_.setResult(StdStruct.newInstance(instance_.getSelectedAllyAction(),AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PLACES)) {
@@ -1346,7 +1346,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,SELECTED_ACTION)) {
-            res_.setResult(new StdStruct(instance_.getSelectedAction(),AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD));
+            res_.setResult(StdStruct.newInstance(instance_.getSelectedAction(),AikiBeansFacadeSimulationEnumsStd.TYPE_TEAM_CRUD));
             return res_;
         }
         if (StringList.quickEq(fieldName_,AVAILABLE_EVOS)) {

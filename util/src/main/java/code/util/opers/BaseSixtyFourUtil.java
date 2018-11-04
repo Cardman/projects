@@ -206,14 +206,7 @@ public final class BaseSixtyFourUtil {
                 q_=0;
             }
         }
-
-        if(buflen_==o_) {
-            return out_;
-        }
-
-        byte[] nb_ = new byte[o_];
-        System.arraycopy(out_,0,nb_,0,o_);
-        return nb_;
+        return out_;
     }
     private static int guessLength(String _text) {
         int len_ = _text.length();

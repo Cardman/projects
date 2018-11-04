@@ -18,7 +18,7 @@ public final class IntStruct extends NumberStruct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasInteger();
+        return _context.getStandards().getAliasPrimInteger();
     }
 
     @Override

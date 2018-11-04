@@ -2,7 +2,6 @@ package code.expressionlanguage.common;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AloneBlock;
@@ -38,8 +37,6 @@ import code.util.StringMap;
 import code.util.comparators.ComparatorIndexes;
 
 public final class TypeUtil {
-
-    public static final String VAR_TYPE = "$var";
 
     private TypeUtil() {
     }
@@ -118,7 +115,7 @@ public final class TypeUtil {
                     if (rs_ == null) {
                         continue;
                     }
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(sub_, sup_, _context)) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, sub_, sup_, _context)) {
                         BadInheritedClass undef_;
                         undef_ = new BadInheritedClass();
                         undef_.setClassName(sub_);
@@ -407,10 +404,6 @@ public final class TypeUtil {
                     String retDerive_ = sub_.getImportedReturnType();
                     String formattedRetDer_ = Templates.quickFormat(subId_.getClassName(), retDerive_, _context);
                     String formattedRetBase_ = Templates.quickFormat(supId_.getClassName(), retBase_, _context);
-                    Mapping mapping_ = new Mapping();
-                    mapping_.getMapping().putAllMap(vars_);
-                    mapping_.setArg(formattedRetDer_);
-                    mapping_.setParam(formattedRetBase_);
                     if (sup_.isFinalMethod()) {
                         FinalMethod err_;
                         err_ = new FinalMethod();
@@ -448,7 +441,7 @@ public final class TypeUtil {
                             classesRef_.addError(err_);
                             continue;
                         }
-                    } else if (!Templates.isCorrect(mapping_, _context)) {
+                    } else if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(_type.getFullName());
@@ -659,7 +652,7 @@ public final class TypeUtil {
         String baseClassFound_ = _type.getFullName();
         for (GeneType c: _conf.getClassBodies()) {
             String name_ = c.getFullName();
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, name_, _conf)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, name_, _conf)) {
                 continue;
             }
             if (!c.mustImplement()) {
@@ -671,7 +664,7 @@ public final class TypeUtil {
             allBaseClasses_.addAllElts(subClassBlock_.getAllSuperClasses());
             boolean foundConcrete_ = false;
             for (String s: allBaseClasses_) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, s, _conf)) {
                     continue;
                 }
                 GeneClass r_ = (GeneClass) _conf.getClassBody(s);
@@ -736,7 +729,7 @@ public final class TypeUtil {
             EqList<ClassMethodId> finalMethods_ = new EqList<ClassMethodId>();
             EqList<ClassMethodId> methods_ = new EqList<ClassMethodId>();
             for (String s: subClassBlock_.getAllInterfaces()) {
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, s, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, s, _conf)) {
                     continue;
                 }
                 GeneType r_ = _conf.getClassBody(s);
@@ -760,7 +753,7 @@ public final class TypeUtil {
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
-                    if (!PrimitiveTypeUtil.canBeUseAsArgument(baseClassFound_, baseSuperType_, _conf)) {
+                    if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseClassFound_, baseSuperType_, _conf)) {
                         continue;
                     }
                     foundSuperClasses_.add(t);

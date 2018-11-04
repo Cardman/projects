@@ -107,43 +107,43 @@ public class ExpressionLanguageTest {
     public void processEl10Test() {
         Argument arg_ = directCalculate("40908c");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq((char)40908, ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq(40908, (Number)res_);
     }
     @Test
     public void processEl11Test() {
         Argument arg_ = directCalculate("'\\u9fcb'");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq((char)40907, ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq(40907, (Number)res_);
     }
     @Test
     public void processEl12Test() {
         Argument arg_ = directCalculate("'\\\\'");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('\\', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'\\', (Number)res_);
     }
     @Test
     public void processEl13Test() {
         Argument arg_ = directCalculate("'\\''");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('\'', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'\'', (Number)res_);
     }
     @Test
     public void processEl14Test() {
         Argument arg_ = directCalculate("'\"'");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('"', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'"', (Number)res_);
     }
     @Test
     public void processEl15Test() {
         Argument arg_ = directCalculate("'\\n'");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('\n', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'\n', (Number)res_);
     }
     @Test
     public void processEl16Test() {
@@ -171,14 +171,14 @@ public class ExpressionLanguageTest {
         Argument arg_ = directCalculate("'5' $instanceof java.lang.Number");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
-        assertEq(false, (Boolean)res_);
+        assertEq(true, (Boolean)res_);
     }
     @Test
     public void processEl20Test() {
         Argument arg_ = directCalculate("!('5' $instanceof java.lang.Number)");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
-        assertEq(true, (Boolean)res_);
+        assertEq(false, (Boolean)res_);
     }
     @Test
     public void processEl21Test() {
@@ -862,8 +862,8 @@ public class ExpressionLanguageTest {
     public void processEl175Test() {
         Argument arg_ = directCalculate("'\\u9FCB'");
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq((char)40907, ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq(40907, (Number)res_);
     }
     @Test
     public void processEl176Test() {
@@ -1290,6 +1290,34 @@ public class ExpressionLanguageTest {
         assertTrue(res_ instanceof Short);
         assertEq(Short.MIN_VALUE, (Number)res_);
     }
+    @Test
+    public void processEl362Test() {
+        Argument arg_ = directCalculate("$new java.lang.String(\"\u1000\".getBytes())");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("\u1000", (String)res_);
+    }
+    @Test
+    public void processEl363Test() {
+        Argument arg_ = directCalculate("$new java.lang.String(\"\u0800\".getBytes())");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("\u0800", (String)res_);
+    }
+    @Test
+    public void processEl364Test() {
+        Argument arg_ = directCalculate("$new java.lang.String(\"\u07FF\".getBytes())");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("\u07FF", (String)res_);
+    }
+    @Test
+    public void processEl365Test() {
+        Argument arg_ = directCalculate("$new java.lang.String(\"\u0050\".getBytes())");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("\u0050", (String)res_);
+    }
     private Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         addImportingPage(c_);
@@ -1313,8 +1341,6 @@ public class ExpressionLanguageTest {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         cont_.setAnalyzing(new AnalyzedPageEl());
-        cont_.setRootAffect(true);
-        cont_.setAnalyzingRoot(true);
         LocalVariable lv_ = new LocalVariable();
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
         lv_.setStruct(fresh_);
@@ -1340,8 +1366,6 @@ public class ExpressionLanguageTest {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         cont_.setAnalyzing(new AnalyzedPageEl());
-        cont_.setRootAffect(true);
-        cont_.setAnalyzingRoot(true);
         LoopVariable lv_ = new LoopVariable();
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
         lv_.setStruct(fresh_);
@@ -1368,8 +1392,6 @@ public class ExpressionLanguageTest {
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
         cont_.setAnalyzing(new AnalyzedPageEl());
-        cont_.setRootAffect(true);
-        cont_.setAnalyzingRoot(true);
         LocalVariable lv_ = new LocalVariable();
         Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
         lv_.setStruct(fresh_);
@@ -1618,11 +1640,10 @@ public class ExpressionLanguageTest {
         return str_.toString();
     }
     private Argument simpleCaculateEl(String _el, ContextEl _context) {
-        return caculateEl(_el, _context, true, true);
+        return caculateEl(_el, _context, true);
     }
-    private Argument caculateEl(String _el, ContextEl _context, boolean _static, boolean _rootAffect) {
+    private Argument caculateEl(String _el, ContextEl _context, boolean _static) {
         _context.setAnalyzing(new AnalyzedPageEl());
-        _context.setRootAffect(_rootAffect);
         if (!_context.isEmptyPages()) {
             _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
             _context.getAnalyzing().setLocalVars(_context.getLastPage().getLocalVars());
@@ -1633,13 +1654,11 @@ public class ExpressionLanguageTest {
             _context.getAnalyzing().setGlobalClass(_context.getGlobalClass());
             addImportingPage(_context);
         }
-        return caculateCustEl(_el, _context, _static, _rootAffect);
+        return caculateCustEl(_el, _context, _static);
     }
-    private Argument caculateCustEl(String _el, ContextEl _context, boolean _static, boolean _rootAffect) {
+    private Argument caculateCustEl(String _el, ContextEl _context, boolean _static) {
         Calculation calc_ = Calculation.staticCalculation(_static);
         CustList<OperationNode> ops_ = ElUtil.getAnalyzedOperations(_el, _context, calc_);
-        _context.setRootAffect(false);
-        _context.setAnalyzingRoot(false);
         _context.setAnalyzing(null);
         ExpressionLanguage el_ = new ExpressionLanguage(ops_);
         return el_.calculateMember(_context);
@@ -1664,6 +1683,8 @@ public class ExpressionLanguageTest {
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
@@ -1681,6 +1702,8 @@ public class ExpressionLanguageTest {
     }
     private ContextEl contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);

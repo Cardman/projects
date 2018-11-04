@@ -299,7 +299,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_EFFECT_PARTNER)) {
-            res_.setResult(new StdStruct(instance_.getEffectPartner(),PokemonStandards.TYPE_EFFECT_PARTNER_STATUS));
+            res_.setResult(StdStruct.newInstance(instance_.getEffectPartner(),PokemonStandards.TYPE_EFFECT_PARTNER_STATUS));
             return res_;
         }
         return res_;

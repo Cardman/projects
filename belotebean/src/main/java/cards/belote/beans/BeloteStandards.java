@@ -325,7 +325,7 @@ public final class BeloteStandards extends BeanLgNames {
                 return res_;
             }
             if (StringList.quickEq(fieldName_, SCORES)) {
-                res_.setResult(new StdStruct(instance_.getScores(), getCustList()));
+                res_.setResult(StdStruct.newListLong(instance_.getScores(), getCustList()));
                 return res_;
             }
         }

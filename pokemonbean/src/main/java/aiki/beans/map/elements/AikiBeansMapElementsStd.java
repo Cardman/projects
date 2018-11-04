@@ -186,7 +186,7 @@ public final class AikiBeansMapElementsStd {
         AreaBean instance_ = (AreaBean) _instance.getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,AREA)) {
-            res_.setResult(new StdStruct(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
+            res_.setResult(StdStruct.newInstance(instance_.getArea(),PokemonStandards.TYPE_AREA_APPARITION));
             return res_;
         }
         return res_;
@@ -196,7 +196,7 @@ public final class AikiBeansMapElementsStd {
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) _instance.getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringList.quickEq(fieldName_,POKEMON)) {
-            res_.setResult(new StdStruct(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
+            res_.setResult(StdStruct.newInstance(instance_.getPokemon(),PokemonStandards.TYPE_POKEMON));
             return res_;
         }
         return res_;

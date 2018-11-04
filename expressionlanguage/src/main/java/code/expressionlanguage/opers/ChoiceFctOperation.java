@@ -51,7 +51,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
     }
 
     @Override
-    boolean isCallMethodCtor() {
+    boolean isCallMethodCtor(Analyzable _an) {
         return true;
     }
 
@@ -225,10 +225,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             String argClassName_ = prev_.getObjectClassName(_conf.getContextEl());
             if (staticChoiceMethodTemplate) {
                 classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
-                Mapping map_ = new Mapping();
-                map_.setArg(argClassName_);
-                map_.setParam(classNameFound_);
-                if (!Templates.isCorrect(map_, _conf)) {
+                if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                     _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                     Argument a_ = new Argument();
@@ -241,7 +238,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
             } else {
                 classNameFound_ = Templates.getIdFromAllTypes(classNameFound_);
                 String baseArgClassName_ = Templates.getIdFromAllTypes(argClassName_);
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(classNameFound_, baseArgClassName_, _conf)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, baseArgClassName_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                     _conf.setException(new StdStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                     Argument a_ = new Argument();

@@ -117,7 +117,7 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return null;
     }

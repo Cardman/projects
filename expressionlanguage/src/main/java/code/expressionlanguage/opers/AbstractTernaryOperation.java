@@ -74,6 +74,9 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         } else {
             arg_ = arguments_.last();
         }
+        if (arg_ == null) {
+            return;
+        }
         setSimpleArgumentAna(arg_, _conf);
     }
     @Override

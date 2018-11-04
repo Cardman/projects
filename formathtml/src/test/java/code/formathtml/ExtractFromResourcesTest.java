@@ -108,6 +108,8 @@ public class ExtractFromResourcesTest {
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
+        context_.getOptions().setEndLineSemiColumn(false);
+        context_.getOptions().setSpecialEnumsMethods(false);
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         context_.initError();

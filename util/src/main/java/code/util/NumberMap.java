@@ -6,7 +6,7 @@ import code.util.ints.ListableEntries;
 public final class NumberMap<K extends Number, V> extends AbsMap<K, V> {
 
 //    //list cannot be null, even by reflection
-//    private final transient CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
+//    private final CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
 
     public NumberMap() {
     }

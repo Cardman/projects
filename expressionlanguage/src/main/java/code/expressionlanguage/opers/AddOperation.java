@@ -14,7 +14,6 @@ import code.util.StringList;
 public final class AddOperation extends NumericOperation {
 
     private boolean catString;
-    private boolean catChars;
 
     public AddOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -25,7 +24,7 @@ public final class AddOperation extends NumericOperation {
         byte b_ = 1;
         Argument a_ = new Argument();
         a_.setObject(b_);
-        return calculateSum(_arg, a_, false, false, _cont, _cl);
+        return calculateSum(_arg, a_, false, _cont, _cl);
     }
 
     static Argument removeOne(Argument _arg, ExecutableCode _cont, ClassArgumentMatching _cl) {
@@ -38,20 +37,20 @@ public final class AddOperation extends NumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            return calculateSum(_a, _b, catChars, catString, _cont, getResultClass());
+            return calculateSum(_a, _b, catString, _cont, getResultClass());
         }
         return calculateDiff(_a, _b, _cont, getResultClass());
     }
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b, Analyzable _cont) {
-        if (!catChars && !catString) {
+        if (!catString) {
             if (_a.isNull() || _b.isNull()) {
                 return Argument.createVoid();
             }
         }
         if (StringList.quickEq(_op.trim(), PLUS)) {
-            return calculateSum(_a, _b, catChars, catString, _cont, getResultClass());
+            return calculateSum(_a, _b, catString, _cont, getResultClass());
         }
         return calculateDiff(_a, _b, _cont, getResultClass());
     }
@@ -97,6 +96,7 @@ public final class AddOperation extends NumericOperation {
                 res_.setCatString(true);
                 return res_;
             }
+            _cont.setOkNumOp(false);
             String exp_ = _cont.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_cont.getCurrentLocation());
@@ -118,7 +118,6 @@ public final class AddOperation extends NumericOperation {
     @Override
     void setCatenize(ResultOperand _res) {
         catString = _res.isCatString();
-        catChars = _res.isCatChars();
     }
 
 }

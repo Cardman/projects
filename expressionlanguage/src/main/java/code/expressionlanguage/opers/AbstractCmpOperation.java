@@ -439,6 +439,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         LgNames stds_ = _conf.getStandards();
         if (chidren_.size() != 2) {
+            _conf.setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
@@ -472,6 +473,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             Argument arg_ = chidren_.first().getArgument();
             if (Argument.isNullValue(arg_)) {
+                _conf.setOkNumOp(false);
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
@@ -479,6 +481,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             }
             arg_ = chidren_.last().getArgument();
             if (Argument.isNullValue(arg_)) {
+                _conf.setOkNumOp(false);
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
                 static_.setRc(_conf.getCurrentLocation());
@@ -489,6 +492,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             return;
         }
         if (first_.matchClass(stringType_) || second_.matchClass(stringType_)) {
+            _conf.setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
@@ -509,6 +513,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
                 return;
             }
+            _conf.setOkNumOp(false);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
@@ -520,6 +525,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             setResultClass(new ClassArgumentMatching(res_));
             return;
         }
+        _conf.setOkNumOp(false);
         if (classSecond_.isPrimitive(_conf)) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
@@ -560,6 +566,9 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
 
     @Override
     public final void quickCalculate(Analyzable _conf) {
+        if (classMethodId != null || !_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         if (first_.isNull()) {

@@ -1,7 +1,6 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.methods.Block;
-import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -11,7 +10,6 @@ import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -91,27 +89,8 @@ public abstract class AbstractPageEl extends PageEl {
     public RowCol getTrace() {
         RowCol rc_ = new RowCol();
         if (currentBlock != null){
-            FileBlock f_ = currentBlock.getFile();
             int sum_ = globalOffset + offset + translatedOffset;
-            Numbers<Integer> lineReturn_ = f_.getLineReturns();
-            Numbers<Integer> leftSpaces_ = f_.getLeftSpaces();
-            int len_ = lineReturn_.size();
-            int i_ = 0;
-            while (i_ < len_) {
-                if (sum_ < lineReturn_.get(i_)) {
-                    int j_ = 0;
-                    if (i_ > 0) {
-                        j_ = sum_ - lineReturn_.get(i_ - 1);
-                        j_ += leftSpaces_.get(i_/2 - 1);
-                    } else {
-                        j_ = sum_;
-                    }
-                    rc_.setCol(j_);
-                    rc_.setRow(i_/2);
-                    break;
-                }
-                i_ += 2;
-            }
+            rc_ = currentBlock.getRowCol(sum_);
         }
         return rc_;
     }
@@ -158,12 +137,12 @@ public abstract class AbstractPageEl extends PageEl {
 
     public abstract boolean checkCondition(ContextEl _context);
 
-    public ExpressionLanguage getCurrentEl(ContextEl _context, Block _block, int _index, boolean _native, int _indexProcess) {
+    public ExpressionLanguage getCurrentEl(ContextEl _context, Block _block, int _index, int _indexProcess) {
         ExpressionLanguage el_;
         if (_index < currentEls.size()) {
             el_ = currentEls.get(_index);
         } else {
-            el_ = _block.getEl(_context, _native, _indexProcess);
+            el_ = _block.getEl(_context, _indexProcess);
             setCurrentBlock(_block);
             currentEls.add(el_);
         }

@@ -23,6 +23,9 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
 
     @Override
     public void tryCalculateNode(ContextEl _conf, EqList<SortedClassField> _list, SortedClassField _current) {
+        if (!_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> children_ = getChildrenNodes();
         Argument f_ = children_.first().getArgument();
         if (f_ == null) {
@@ -48,6 +51,9 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
     }
     @Override
     public void tryCalculateNode(Analyzable _conf) {
+        if (!_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> children_ = getChildrenNodes();
         Argument f_ = children_.first().getArgument();
         if (f_ == null) {
@@ -91,6 +97,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
                 un_.setExpectedResult(booleanType_);
                 un_.setOperands(cl_);
                 _conf.getClasses().addError(un_);
+                _conf.setOkNumOp(false);
             }
         }
         setResultClass(chidren_.last().getResultClass());
@@ -109,6 +116,9 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
+        if (!_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.last().getArgument();
         setSimpleArgumentAna(a_, _conf);

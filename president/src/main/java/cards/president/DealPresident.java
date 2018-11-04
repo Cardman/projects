@@ -22,7 +22,7 @@ public final class DealPresident implements Iterable<HandPresident> {
     /** nombre de parties jouees depuis le lancement */
     private long nbDeals;
     /** Pile de distribution pour initialiser la donne */
-    private transient HandPresident deck;
+    private HandPresident deck;
 
     public DealPresident(){}
     public DealPresident(long _nombreDeParties, HandPresident _ppile) {

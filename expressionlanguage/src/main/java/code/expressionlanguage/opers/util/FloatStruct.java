@@ -18,7 +18,7 @@ public final class FloatStruct extends NumberStruct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasFloat();
+        return _context.getStandards().getAliasPrimFloat();
     }
 
     @Override

@@ -51,7 +51,7 @@ public final class QualifiedThisOperation extends LeafOperation {
         }
         RootBlock r_ = (RootBlock) g_;
         for (RootBlock r: r_.getSelfAndParentTypes()) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(id_, r.getFullName(),_conf)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(false, id_, r.getFullName(),_conf)) {
                 className_ = Templates.getFullTypeByBases(r.getGenericString(), id_, _conf);
                 setResultClass(new ClassArgumentMatching(className_));
                 return;

@@ -375,7 +375,7 @@ public final class Fight {
     private NumberMap<Byte,Team> teams;
 
     /**variable sur un tour*/
-    private transient boolean fullHealing;
+    private boolean fullHealing;
 
     /***/
     private short nbFleeAttempt;
@@ -389,31 +389,31 @@ public final class Fight {
     /***/
     private String catchingBall;
 
-    private transient boolean error;
+    private boolean error;
 
     /***/
-    private transient ObjectMap<NbEffectFighterCoords,Boolean> successfulEffects = new ObjectMap<NbEffectFighterCoords,Boolean>();
+    private ObjectMap<NbEffectFighterCoords,Boolean> successfulEffects = new ObjectMap<NbEffectFighterCoords,Boolean>();
 
     /***/
-    private transient Comment comment = new Comment();
+    private Comment comment = new Comment();
 
     /***/
-    //private transient boolean entres = true;
+    //private boolean entres = true;
 
     /***/
-    private transient ObjectMap<TeamPosition,Rate> damageByCurrentUser = new ObjectMap<TeamPosition,Rate>();
+    private ObjectMap<TeamPosition,Rate> damageByCurrentUser = new ObjectMap<TeamPosition,Rate>();
 
     /***/
-    private transient NumberMap<Byte,Boolean> kos = new NumberMap<Byte,Boolean>();
+    private NumberMap<Byte,Boolean> kos = new NumberMap<Byte,Boolean>();
 
     /***/
-    private transient StringList sufferingTargetStatus = new StringList();
+    private StringList sufferingTargetStatus = new StringList();
 
     /***/
-    private transient boolean lettingUserAttackWithStatus = true;
+    private boolean lettingUserAttackWithStatus = true;
 
     /***/
-    private transient boolean endRound;
+    private boolean endRound;
 
     /***/
     private TeamPosition currentUser;
@@ -425,7 +425,7 @@ public final class Fight {
     private StringMap<Short> usedItemsWhileRound;
 
     /***/
-    private transient boolean simulation;
+    private boolean simulation;
 
     /**All keys are the player + ally fighters keys*/
     private NumberMap<Byte,Byte> firstPositPlayerFighters;
@@ -446,115 +446,115 @@ public final class Fight {
     private StringList caughtEvolutions;
 
     /***/
-    private transient boolean enabledMessages = true;
+    private boolean enabledMessages = true;
 
     /***/
-    private transient boolean acceptableChoices = true;
+    private boolean acceptableChoices = true;
 
     /***/
-    private transient IssueSimulation issue = IssueSimulation.NOTHING;
+    private IssueSimulation issue = IssueSimulation.NOTHING;
 
     /***/
-    private transient boolean invokedMove;
+    private boolean invokedMove;
 
     /***/
-    private transient boolean sending;
+    private boolean sending;
 
     /***/
-    private transient boolean keepStatus;
+    private boolean keepStatus;
 
     /***/
-    private transient boolean enabledHealingPartner;
+    private boolean enabledHealingPartner;
 
     /***/
-    private transient boolean changeThrower;
+    private boolean changeThrower;
 
     /***/
-    private transient boolean successfulInvokation;
+    private boolean successfulInvokation;
 
     /***/
-    private transient boolean successfulUse;
+    private boolean successfulUse;
 
     /***/
-    private transient boolean putKo;
+    private boolean putKo;
 
     /***/
-    private transient DamageMoveCountUser damage = new DamageMoveCountUser();
+    private DamageMoveCountUser damage = new DamageMoveCountUser();
 
     /***/
-    private transient Rate damageKo = Rate.zero();
+    private Rate damageKo = Rate.zero();
 
     /***/
-    private transient EqList<TeamPosition> orderedFighters = new EqList<TeamPosition>();
+    private EqList<TeamPosition> orderedFighters = new EqList<TeamPosition>();
 
     /***/
-    private transient EqList<TeamPosition> remainingFighters = new EqList<TeamPosition>();
+    private EqList<TeamPosition> remainingFighters = new EqList<TeamPosition>();
 
     /***/
-    private transient BooleanList chosablePlayerTargets = new BooleanList();
+    private BooleanList chosablePlayerTargets = new BooleanList();
 
     /***/
-    private transient BooleanList chosableFoeTargets = new BooleanList();
+    private BooleanList chosableFoeTargets = new BooleanList();
 
     /***/
-    private transient BooleanList backPartners = new BooleanList();
+    private BooleanList backPartners = new BooleanList();
 
     /***/
-    private transient byte chosenPlayerTarget = Fighter.BACK;
+    private byte chosenPlayerTarget = Fighter.BACK;
 
     /***/
-    private transient byte chosenFoeTarget = Fighter.BACK;
+    private byte chosenFoeTarget = Fighter.BACK;
 
     /***/
-    private transient byte chosenIndexFront = Fighter.BACK;
+    private byte chosenIndexFront = Fighter.BACK;
 
     /***/
-    private transient byte chosenIndexBack = Fighter.BACK;
+    private byte chosenIndexBack = Fighter.BACK;
 
     /***/
-    private transient EnumList<ActionType> possibleActionsCurFighter = new EnumList<ActionType>();
+    private EnumList<ActionType> possibleActionsCurFighter = new EnumList<ActionType>();
 
     /***/
-    private transient ActionType selectedActionCurFighter = ActionType.NOTHING;
+    private ActionType selectedActionCurFighter = ActionType.NOTHING;
 
     /***/
-    private transient NatTreeMap<String,ChosenMoveInfos> currentFighterMoves = new NatTreeMap<String,ChosenMoveInfos>();
+    private NatTreeMap<String,ChosenMoveInfos> currentFighterMoves = new NatTreeMap<String,ChosenMoveInfos>();
 
     /***/
-    private transient String chosenMoveFront = DataBase.EMPTY_STRING;
+    private String chosenMoveFront = DataBase.EMPTY_STRING;
 
     /***/
-    private transient String chosenHealingMove = DataBase.EMPTY_STRING;
+    private String chosenHealingMove = DataBase.EMPTY_STRING;
 
     /***/
-    private transient byte chosenSubstitute = Fighter.BACK;
+    private byte chosenSubstitute = Fighter.BACK;
 
     /***/
-    private transient byte chosenIndex = Fighter.BACK;
+    private byte chosenIndex = Fighter.BACK;
 
     /***/
-    private transient NatTreeMap<String,Boolean> moves = new NatTreeMap<String,Boolean>();
+    private NatTreeMap<String,Boolean> moves = new NatTreeMap<String,Boolean>();
 
     /***/
-    private transient TreeMap<String,Boolean> evolutions = new TreeMap<String,Boolean>(new NaturalComparator<String>());
+    private TreeMap<String,Boolean> evolutions = new TreeMap<String,Boolean>(new NaturalComparator<String>());
 
     /***/
-    private transient StringList abilities = new StringList();
+    private StringList abilities = new StringList();
 
     /***/
-    private transient String ability = DataBase.EMPTY_STRING;
+    private String ability = DataBase.EMPTY_STRING;
 
     /***/
-    private transient ActivityOfMove currentActivity;
+    private ActivityOfMove currentActivity;
 
     /***/
-    private transient boolean keepRound = true;
+    private boolean keepRound = true;
 
     /***/
-    private transient boolean endRoundFightKoPlayer = true;
+    private boolean endRoundFightKoPlayer = true;
 
     /***/
-    private transient CustList<AnimationInt> effects = new CustList<AnimationInt>();
+    private CustList<AnimationInt> effects = new CustList<AnimationInt>();
 
     public Fight() {
         damage.setDamage(Rate.zero());

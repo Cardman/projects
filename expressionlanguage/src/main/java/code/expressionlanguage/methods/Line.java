@@ -63,7 +63,6 @@ public final class Line extends Leaf implements StackableBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.setRootAffect(true);
         opExp = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(st_));
         if (_cont.isMerged()) {
             StringList vars_ = _cont.getVariablesNames();
@@ -135,7 +134,7 @@ public final class Line extends Leaf implements StackableBlock {
         
         ip_.setGlobalOffset(expressionOffset);
         ip_.setOffset(0);
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont ,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         el_.calculateMember(_cont);
         if (_cont.callsOrException()) {
             return;
@@ -167,7 +166,7 @@ public final class Line extends Leaf implements StackableBlock {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return getRightEl();
     }

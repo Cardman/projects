@@ -153,14 +153,11 @@ public final class CastOperation extends AbstractUnaryOperation {
             return arg_;
         }
         String argClassName_ = objArg_.getObjectClassName(_conf.getContextEl());
-        ClassArgumentMatching resCl_ = getResultClass();
         Argument arg_ = new Argument();
-        if (!PrimitiveTypeUtil.isPrimitive(className, _conf)) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(argClassName_);
-            String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);
-            mapping_.setParam(paramName_);
-            if (!Templates.isCorrect(mapping_, _conf)) {
+        String paramName_ = _conf.getOperationPageEl().formatVarType(className, _conf);
+        ClassArgumentMatching resCl_ = new ClassArgumentMatching(paramName_);
+        if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
+            if (!Templates.isCorrectExecute(argClassName_, paramName_ , _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                 _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
                 Argument a_ = new Argument();
@@ -168,7 +165,7 @@ public final class CastOperation extends AbstractUnaryOperation {
             }
             arg_.setStruct(objArg_.getStruct());
         } else {
-            if (PrimitiveTypeUtil.getOrderClass(className, _conf) > 0) {
+            if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
                     _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));

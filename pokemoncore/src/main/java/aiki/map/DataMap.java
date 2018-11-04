@@ -104,33 +104,33 @@ public final class DataMap {
 
     private boolean error;
 
-    private transient Tree tree = new Tree();
+    private Tree tree = new Tree();
 
-    private transient ObjectMap<Coords, Condition> accessibility = new ObjectMap<Coords, Condition>();
+    private ObjectMap<Coords, Condition> accessibility = new ObjectMap<Coords, Condition>();
 
-    private transient EqList<Coords> cities = new EqList<Coords>();
+    private EqList<Coords> cities = new EqList<Coords>();
 
-    private transient EqList<Coords> leagues = new EqList<Coords>();
+    private EqList<Coords> leagues = new EqList<Coords>();
 
-    private transient EqList<NbFightCoords> beatTrainer = new EqList<NbFightCoords>();
+    private EqList<NbFightCoords> beatTrainer = new EqList<NbFightCoords>();
 
-    private transient EqList<Coords> beatGymLeader = new EqList<Coords>();
+    private EqList<Coords> beatGymLeader = new EqList<Coords>();
 
-    private transient NumberMap<Short, EqList<Point>> beatGymTrainer = new NumberMap<Short, EqList<Point>>();
+    private NumberMap<Short, EqList<Point>> beatGymTrainer = new NumberMap<Short, EqList<Point>>();
 
-    private transient EqList<Coords> hostPokemons = new EqList<Coords>();
+    private EqList<Coords> hostPokemons = new EqList<Coords>();
 
-    private transient EqList<Coords> takenPokemon = new EqList<Coords>();
+    private EqList<Coords> takenPokemon = new EqList<Coords>();
 
-    private transient EqList<Coords> takenObjects = new EqList<Coords>();
+    private EqList<Coords> takenObjects = new EqList<Coords>();
 
-    private transient ObjectMap<PlaceLevel, Numbers<Integer>> wildPokemonBeforeFirstLeague = new ObjectMap<PlaceLevel, Numbers<Integer>>();
+    private ObjectMap<PlaceLevel, Numbers<Integer>> wildPokemonBeforeFirstLeague = new ObjectMap<PlaceLevel, Numbers<Integer>>();
 
-    private transient ObjectMap<ScreenCoords, Coords> tiles = new ObjectMap<ScreenCoords, Coords>();
+    private ObjectMap<ScreenCoords, Coords> tiles = new ObjectMap<ScreenCoords, Coords>();
 
-    private transient ObjectMap<ScreenCoords, int[][]> backgroundImages = new ObjectMap<ScreenCoords, int[][]>();
+    private ObjectMap<ScreenCoords, int[][]> backgroundImages = new ObjectMap<ScreenCoords, int[][]>();
 
-    private transient ObjectMap<ScreenCoords, CustList<int[][]>> foregroundImages = new ObjectMap<ScreenCoords, CustList<int[][]>>();
+    private ObjectMap<ScreenCoords, CustList<int[][]>> foregroundImages = new ObjectMap<ScreenCoords, CustList<int[][]>>();
 
     public void validate(DataBase _d) {
         if (screenWidth < 0 || screenHeight < 0) {

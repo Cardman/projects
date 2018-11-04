@@ -6,16 +6,45 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
+import code.util.ints.Displayable;
+import code.util.ints.SimpleEntries;
+import code.util.ints.SimpleIterable;
+import code.util.pagination.SelectedBoolean;
 
 public final class StdStruct implements Struct {
 
     private final Object instance;
 
     private final String className;
+    
+    private StdStruct(Object _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
+    
+    public StdStruct(SelectedBoolean _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
+    public StdStruct(StringList _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
 
-    public StdStruct(Object _instance, String _className) {
+    public StdStruct(Displayable _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
+
+    public StdStruct(SimpleIterable _instance, String _className) {
+        instance = _instance;
+        className = _className;
+    }
+
+    public StdStruct(SimpleEntries _instance, String _className) {
         instance = _instance;
         className = _className;
     }
@@ -27,6 +56,18 @@ public final class StdStruct implements Struct {
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
+    }
+    public static StdStruct newInstance(Object _instance, String _className) {
+        return new StdStruct(_instance, _className);
+    }
+    public static StdStruct newListLong(Numbers<Long> _instance, String _className) {
+        return new StdStruct((Object)_instance, _className);
+    }
+    public static StdStruct newListInt(Numbers<Integer> _instance, String _className) {
+        return new StdStruct((Object)_instance, _className);
+    }
+    public static StdStruct newListByte(Numbers<Byte> _instance, String _className) {
+        return new StdStruct((Object)_instance, _className);
     }
     public static Struct defaultClass(String _element, Analyzable _context) {
         if (PrimitiveTypeUtil.isPrimitive(_element, _context)) {
@@ -94,7 +135,7 @@ public final class StdStruct implements Struct {
             return new StringBuilderStruct((StringBuilder) _element);
         }
         LgNames lgNames_ = _context.getStandards();
-        return new StdStruct(_element, lgNames_.getStructClassName(_element, _context));
+        return StdStruct.newInstance(_element, lgNames_.getStructClassName(_element, _context));
     }
 
     public static Struct wrapStd(Object _element, ContextEl _context, String _alias) {
@@ -134,9 +175,9 @@ public final class StdStruct implements Struct {
         LgNames lgNames_ = _context.getStandards();
         String className_ = lgNames_.getStructClassName(_element, _context);
         if (StringList.quickEq(className_, lgNames_.getAliasObject())) {
-            return new StdStruct(_element, _alias);
+            return StdStruct.newInstance(_element, _alias);
         }
-        return new StdStruct(_element, className_);
+        return StdStruct.newInstance(_element, className_);
     }
     @Override
     public boolean isNull() {

@@ -1055,7 +1055,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_EFFECT_SENDING)) {
-            res_.setResult(new StdStruct(instance_.getEffectSending(),PokemonStandards.TYPE_EFFECT_WHILE_SENDING));
+            res_.setResult(StdStruct.newInstance(instance_.getEffectSending(),PokemonStandards.TYPE_EFFECT_WHILE_SENDING));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_BREAK_PROTECTION_MOVES)) {

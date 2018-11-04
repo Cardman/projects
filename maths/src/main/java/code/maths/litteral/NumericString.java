@@ -117,7 +117,7 @@ final class NumericString implements NumericableString<Rate>, Displayable {
 
     private static final int FALSE_CODE = 0;
 
-    private transient boolean checkSyntax;
+    private boolean checkSyntax;
 
     private int code = FALSE_CODE;
 

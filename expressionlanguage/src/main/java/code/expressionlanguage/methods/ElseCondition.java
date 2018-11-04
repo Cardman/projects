@@ -65,7 +65,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
             return true;
         }
         Condition cond_ = (Condition) prev_;
-        OperationNode op_ = cond_.getElCondition().getRoot();
+        OperationNode op_ = cond_.getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -148,7 +148,7 @@ public final class ElseCondition extends BracedStack implements BlockCondition, 
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return null;
     }

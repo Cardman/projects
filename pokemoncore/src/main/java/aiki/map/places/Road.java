@@ -31,7 +31,7 @@ public final class Road extends Campaign implements InitializedPlace {
 
     private ObjectMap<PlaceInterConnect, Coords> savedlinks;
 
-    private transient ObjectMap<PlaceInterConnect, Coords> linksWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
+    private ObjectMap<PlaceInterConnect, Coords> linksWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
 
     @Override
     public void addSavedLink(PlaceInterConnect _key, Coords _value) {

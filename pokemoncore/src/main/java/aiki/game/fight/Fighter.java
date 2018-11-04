@@ -156,7 +156,7 @@ public final class Fighter {
     private EnumMap<Statistic,Short> ev;
 
     /**Never mind*/
-    private transient EnumMap<Statistic,Short> iv = new EnumMap<Statistic,Short>();
+    private EnumMap<Statistic,Short> iv = new EnumMap<Statistic,Short>();
 
     /**Never mind*/
     private EnumMap<Statistic,Rate> statisBase;
@@ -167,7 +167,7 @@ public final class Fighter {
     /***/
     private Rate remainingHp;
 
-    private transient Rate varHp = Rate.zero();
+    private Rate varHp = Rate.zero();
 
     /**Never mind even if clone &gt; max hp*/
     private Rate clone;
@@ -292,7 +292,7 @@ public final class Fighter {
     private boolean changed;
 
     /***/
-    private transient StringMap<Boolean> enabledImmuAbilities;
+    private StringMap<Boolean> enabledImmuAbilities;
 
     /**Never mind*/
     private ObjectMap<MoveTeamPosition,StringList> privateMoves;
@@ -309,7 +309,7 @@ public final class Fighter {
     /***/
     private StringMap<MovesAbilities> movesAbilitiesEvos;
 
-    private transient Comment comment = new Comment();
+    private Comment comment = new Comment();
 
     public Fighter(){
     }

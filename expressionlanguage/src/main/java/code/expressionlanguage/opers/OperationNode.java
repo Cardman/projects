@@ -7,7 +7,6 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -18,6 +17,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
@@ -49,6 +49,7 @@ import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -63,12 +64,6 @@ public abstract class OperationNode {
     protected static final char ESCAPE_META_CHAR = '\\';
     protected static final char DELIMITER_CHAR = 39;
     protected static final char DELIMITER_STRING = 34;
-    protected static final char UNICODE = 'u';
-    protected static final char IND_FORM = 'f';
-    protected static final char IND_LINE = 'n';
-    protected static final char IND_LINE_FEED = 'r';
-    protected static final char IND_TAB = 't';
-    protected static final char IND_BOUND = 'b';
     protected static final char ARR_LEFT = '[';
     protected static final char ARR_RIGHT = ']';
     protected static final char PAR_LEFT = '(';
@@ -77,31 +72,14 @@ public abstract class OperationNode {
     protected static final char SEP_ARG = ',';
     protected static final char FIRST_VAR_ARG = '?';
     protected static final char DOT_VAR = '.';
-    protected static final char EXTERN_CLASS = FileResolver.SUPPLEMENT_CHAR;
-    protected static final char INTERN_CLASS = FileResolver.SUPPLEMENT_CHAR;
-    protected static final String SUPER_ACCESS = "super";
-    protected static final String CURRENT = "this";
-    protected static final String THAT = "that";
-    protected static final String INSTANCE = "new";
-    protected static final String INSTANCEOF = "instanceof";
-    protected static final String BOOLEAN = "bool";
-    protected static final String VALUES = "values";
-    protected static final String VALUE_OF = "valueOf";
-    protected static final String CAST = "class";
     protected static final char MIN_ENCODE_DIGIT = '0';
     protected static final char MAX_ENCODE_DIGIT = '9';
     protected static final char MIN_ENCODE_LOW_LETTER = 'a';
     protected static final char MAX_ENCODE_LOW_LETTER = 'f';
     protected static final char MIN_ENCODE_UPP_LETTER = 'A';
     protected static final char MAX_ENCODE_UPP_LETTER = 'F';
-    protected static final String VAR_ARG = "vararg";
-    protected static final String FIRST_OPT = "firstopt";
-
-    protected static final String CLASS_CHOICE = "classchoice";
-    protected static final String SUPER_ACCESS_FCT = "superaccess";
-    protected static final String THIS_ACCESS_FCT = "thisaccess";
-    protected static final String INTERFACES = "interfaces";
-    protected static final String INTERN_BEAN = "intern";
+    protected static final String VAR_ARG = "$vararg";
+    protected static final String FIRST_OPT = "$firstopt";
 
     protected static final String FCT = "(";
     protected static final char ARR_ANNOT = '{';
@@ -138,7 +116,7 @@ public abstract class OperationNode {
 
     protected static final String GREATER = ">";
 
-    protected static final String EQ = "=";
+    protected static final String AFF = "=";
 
     protected static final String DIFF = "!=";
 
@@ -209,18 +187,35 @@ public abstract class OperationNode {
 
     public static OperationNode createOperationNode(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op, Analyzable _an) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordBool_ = keyWords_.getKeyWordBool();
+        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
+        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordIntern_ = keyWords_.getKeyWordIntern();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+        String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
+        String keyWordValues_ = keyWords_.getKeyWordValues();
         if (!_op.getOperators().isEmpty()) {
             if (!_op.getValues().isEmpty()) {
                 String originalStr_ = _op.getFctName();
                 String str_ = originalStr_.trim();
-                if (StringList.quickEq(str_, prefixFunction(INTERN_BEAN))) {
+                if (StringList.quickEq(str_, keyWordIntern_)) {
                     //qualified this
                     return new QualifiedThisOperation(_index, _indexChild, _m, _op);
                 }
             }
         }
         ConstType ct_ = _op.getConstType();
-        if (_op.getConstType() == ConstType.ERROR) {
+        if (ct_ == ConstType.CHARACTER) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.STRING) {
+            return new ConstantOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getOperators().isEmpty()) {
@@ -253,12 +248,6 @@ public abstract class OperationNode {
             if (ct_ == ConstType.NUMBER) {
                 return new ConstantOperation(_index, _indexChild, _m, _op);
             }
-            if (ct_ == ConstType.CHARACTER) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
-            if (ct_ == ConstType.STRING) {
-                return new ConstantOperation(_index, _indexChild, _m, _op);
-            }
             if (ct_ == ConstType.THIS_KEYWORD) {
                 return new ThisOperation(_index, _indexChild, _m, _op);
             }
@@ -286,7 +275,7 @@ public abstract class OperationNode {
             if (_an.isEnabledInternVars()) {
                 return new InternVariableOperation(_index, _indexChild, _m, _op);
             }
-            if (_an.isInternGlobal() && StringList.quickEq(str_, prefixFunction(INTERN_BEAN))) {
+            if (_an.isInternGlobal() && StringList.quickEq(str_, keyWordIntern_)) {
                 return new InternGlobalOperation(_index, _indexChild, _m, _op);
             }
             if (ElUtil.isDeclaringLoopVariable(_m, _an)) {
@@ -369,31 +358,31 @@ public abstract class OperationNode {
             if (fctName_.isEmpty()) {
                 return new IdOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_, prefixFunction(VALUE_OF))) {
+            if (StringList.quickEq(fctName_, keyWordValueOf_)) {
                 return new EnumValueOfOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_, prefixFunction(VALUES))) {
+            if (StringList.quickEq(fctName_, keyWordValues_)) {
                 return new ValuesOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_, prefixFunction(BOOLEAN))) {
+            if (StringList.quickEq(fctName_, keyWordBool_)) {
                 return new TernaryOperation(_index, _indexChild, _m, _op);
             }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(CLASS_CHOICE))) {
+            if (ContextEl.startsWithKeyWord(fctName_, keyWordClasschoice_)) {
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
             }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(SUPER_ACCESS_FCT))) {
+            if (ContextEl.startsWithKeyWord(fctName_, keyWordSuperaccess_)) {
                 return new SuperFctOperation(_index, _indexChild, _m, _op);
             }
-            if (ElResolver.procWordFirstChar(fctName_, 0, prefixFunction(INTERFACES))) {
+            if (ContextEl.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
                 return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
             }
-            if (fctName_.startsWith(prefixFunction(FIRST_OPT))) {
+            if (ContextEl.startsWithKeyWord(fctName_, keyWordFirstopt_)) {
                 return new FirstOptOperation(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_,prefixFunction(CURRENT))) {
+            if (StringList.quickEq(fctName_,keyWordThis_)) {
                 return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
             }
-            if (StringList.quickEq(fctName_,prefixFunction(SUPER_ACCESS))) {
+            if (StringList.quickEq(fctName_,keyWordSuper_)) {
                 return new SuperInvokingConstructor(_index, _indexChild, _m, _op);
             }
             return new FctOperation(_index, _indexChild, _m, _op);
@@ -472,7 +461,7 @@ public abstract class OperationNode {
                 return new AssocationOperation(_index, _indexChild, _m, _op, value_);
             }
             String op_ = _op.getOperators().firstValue();
-            if (!StringList.quickEq(op_, EQ)) {
+            if (!StringList.quickEq(op_, AFF)) {
                 return new CompoundAffectationOperation(_index, _indexChild, _m, _op);
             }
             return new AffectationOperation(_index, _indexChild, _m, _op);
@@ -947,11 +936,9 @@ public abstract class OperationNode {
         idRet_.setRealClass(realClass_);
         idRet_.setId(new ClassMethodId(clCurName_, id_));
         idRet_.setVarArgToCall(_res.isVarArgToCall());
-        CustList<GeneMethod> methods_ = _conf.getMethodBodiesById(realClass_, realId_);
-        GeneMethod m_ = methods_.first();
         idRet_.setReturnType(_res.getReturnType());
-        idRet_.setStaticMethod(m_.isStaticMethod());
-        idRet_.setAbstractMethod(m_.isAbstractMethod());
+        idRet_.setStaticMethod(id_.isStaticMethod());
+        idRet_.setAbstractMethod(_res.isAbstractMethod());
         idRet_.setAncestor(_res.getAncestor());
         return idRet_;
     }
@@ -990,7 +977,7 @@ public abstract class OperationNode {
             }
             MethodInfo mloc_ = new MethodInfo();
             mloc_.setClassName(objType_);
-            mloc_.setStatic(false);
+            mloc_.setStatic(true);
             mloc_.setConstraints(realId_);
             mloc_.setParameters(p_);
             mloc_.setReturnType(ret_);
@@ -1072,6 +1059,7 @@ public abstract class OperationNode {
                     methods_.add(clId_, mloc_);
                 }
             }
+            methods_.putAllMap(getPredefineStaticEnumMethods(_conf, t, 0));
         }
         CustList<CustList<GeneType>> rootsAncs_ = new CustList<CustList<GeneType>>();
         StringMap<Integer> superTypesAnc_ = new StringMap<Integer>();
@@ -1108,24 +1096,26 @@ public abstract class OperationNode {
                     continue;
                 }
             }
-            GeneType root_ = _conf.getClassBody(t.getKey());
+            String cl_ = t.getKey();
+            GeneType root_ = _conf.getClassBody(cl_);
+            int anc_ = t.getValue();
             for (GeneMethod e: ContextEl.getMethodBlocks(root_)) {
                 if (!Classes.canAccess(glClass_, e, _conf)) {
                     continue;
                 }
-                String subType_ = superTypesBaseAnc_.getVal(t.getKey());
+                String subType_ = superTypesBaseAnc_.getVal(cl_);
                 if (!Classes.canAccess(subType_, e, _conf)) {
                     continue;
                 }
                 if (_accessFromSuper) {
                     StringList l_ = new StringList(superTypesBaseAnc_.values());
-                    if (l_.containsStr(t.getKey())) {
+                    if (l_.containsStr(cl_)) {
                         continue;
                     }
                 }
                 if (_superClass) {
                     StringList l_ = new StringList(superTypesBaseAnc_.values());
-                    if (!l_.containsStr(t.getKey())) {
+                    if (!l_.containsStr(cl_)) {
                         continue;
                     }
                 }
@@ -1143,16 +1133,17 @@ public abstract class OperationNode {
                         p_.add(new ClassMatching(c));
                     }
                     MethodInfo mloc_ = new MethodInfo();
-                    mloc_.setClassName(t.getKey());
+                    mloc_.setClassName(cl_);
                     mloc_.setStatic(true);
                     mloc_.setConstraints(realId_);
                     mloc_.setParameters(p_);
                     mloc_.setReturnType(returnType_);
-                    mloc_.setAncestor(t.getValue());
-                    ClassMethodId clId_ = new ClassMethodId(t.getKey(), id_);
+                    mloc_.setAncestor(anc_);
+                    ClassMethodId clId_ = new ClassMethodId(cl_, id_);
                     methods_.add(clId_, mloc_);
                 }
             }
+            methods_.putAllMap(getPredefineStaticEnumMethods(_conf, cl_, anc_));
         }
         if (!_staticContext){
             int indexType_ = 0;
@@ -1205,6 +1196,7 @@ public abstract class OperationNode {
                         MethodInfo mloc_ = new MethodInfo();
                         mloc_.setClassName(formattedClass_);
                         mloc_.setStatic(false);
+                        mloc_.setAbstractMethod(sup_.isAbstractMethod());
                         mloc_.setConstraints(realId_);
                         mloc_.setParameters(p_);
                         mloc_.setReturnType(ret_);
@@ -1268,6 +1260,7 @@ public abstract class OperationNode {
                             MethodInfo mloc_ = new MethodInfo();
                             mloc_.setClassName(formattedClass_);
                             mloc_.setStatic(false);
+                            mloc_.setAbstractMethod(sup_.isAbstractMethod());
                             mloc_.setConstraints(realId_);
                             mloc_.setParameters(p_);
                             mloc_.setReturnType(ret_);
@@ -1310,6 +1303,47 @@ public abstract class OperationNode {
                 methods_.add(m, mloc_);
             }
         }
+        return methods_;
+    }
+    private static ObjectNotNullMap<ClassMethodId, MethodInfo> getPredefineStaticEnumMethods(Analyzable _conf, String _className, int _ancestor) {
+        ObjectNotNullMap<ClassMethodId, MethodInfo> methods_;
+        methods_ = new ObjectNotNullMap<ClassMethodId, MethodInfo>();
+        String idClass_ = Templates.getIdFromAllTypes(_className);
+        RootBlock r_ = _conf.getClasses().getClassBody(idClass_);
+        if (!_conf.getOptions().isSpecialEnumsMethods() || !(r_ instanceof EnumBlock)) {
+            return methods_;
+        }
+        String wildCardForm_ = r_.getWildCardString();
+        String string_ = _conf.getStandards().getAliasString();
+        String returnType_ = wildCardForm_;
+        ParametersGroup p_ = new ParametersGroup();
+        String valueOf_ = _conf.getStandards().getAliasValueOf();
+        MethodId realId_ = new MethodId(true, valueOf_, new StringList(string_));
+        for (String c: realId_.getParametersTypes()) {
+            p_.add(new ClassMatching(c));
+        }
+        MethodInfo mloc_ = new MethodInfo();
+        mloc_.setClassName(idClass_);
+        mloc_.setStatic(true);
+        mloc_.setConstraints(realId_);
+        mloc_.setParameters(p_);
+        mloc_.setReturnType(returnType_);
+        mloc_.setAncestor(_ancestor);
+        ClassMethodId clId_ = new ClassMethodId(idClass_, realId_);
+        methods_.add(clId_, mloc_);
+        p_ = new ParametersGroup();
+        String values_ = _conf.getStandards().getAliasValues();
+        realId_ = new MethodId(true, values_, new StringList());
+        mloc_ = new MethodInfo();
+        mloc_.setClassName(idClass_);
+        mloc_.setStatic(true);
+        mloc_.setConstraints(realId_);
+        mloc_.setParameters(p_);
+        returnType_ = PrimitiveTypeUtil.getPrettyArrayType(returnType_);
+        mloc_.setReturnType(returnType_);
+        mloc_.setAncestor(_ancestor);
+        clId_ = new ClassMethodId(idClass_, realId_);
+        methods_.add(clId_, mloc_);
         return methods_;
     }
     private static ClassMethodIdResult getCustResult(Analyzable _conf, int _varargOnly,
@@ -1376,6 +1410,7 @@ public abstract class OperationNode {
         res_.setRealClass(baseClassName_);
         res_.setReturnType(info_.getReturnType());
         res_.setAncestor(info_.getAncestor());
+        res_.setAbstractMethod(info_.isAbstractMethod());
         return res_;
     }
 
@@ -1715,27 +1750,25 @@ public abstract class OperationNode {
         String baseTypeOne_ = Templates.getIdFromAllTypes(glClassOne_);
         String baseTypeTwo_ = Templates.getIdFromAllTypes(glClassTwo_);
         if (StringList.quickEq(_o2.getReturnType(), _o1.getReturnType())) {
-            if (!PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
+            if (!PrimitiveTypeUtil.canBeUseAsArgument(false, baseTypeTwo_, baseTypeOne_, context_)) {
                 return CustList.SWAP_SORT;
             }
             return CustList.NO_SWAP_SORT;
         }
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(map_);
-        mapping_.setArg(_o2.getReturnType());
-        mapping_.setParam(_o1.getReturnType());
-        if (Templates.isCorrect(mapping_, context_)) {
+        String p_ = _o1.getReturnType();
+        String a_ = _o2.getReturnType();
+        if (Templates.isReturnCorrect(p_, a_, map_, context_)) {
             return CustList.SWAP_SORT;
         }
-        mapping_.setArg(_o1.getReturnType());
-        mapping_.setParam(_o2.getReturnType());
-        if (Templates.isCorrect(mapping_, context_)) {
+        a_ = _o1.getReturnType();
+        p_ = _o2.getReturnType();
+        if (Templates.isReturnCorrect(p_, a_, map_, context_)) {
             return CustList.NO_SWAP_SORT;
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(baseTypeOne_, baseTypeTwo_, context_)) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(false, baseTypeOne_, baseTypeTwo_, context_)) {
             return CustList.SWAP_SORT;
         }
-        if (PrimitiveTypeUtil.canBeUseAsArgument(baseTypeTwo_, baseTypeOne_, context_)) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(false, baseTypeTwo_, baseTypeOne_, context_)) {
             return CustList.NO_SWAP_SORT;
         }
         //inherits types if static methods
@@ -1984,10 +2017,6 @@ public abstract class OperationNode {
             return (PossibleIntermediateDotted)child_;
         }
         return (PossibleIntermediateDotted)n_;
-    }
-
-    protected static String prefixFunction(String _fct) {
-        return StringList.concat(String.valueOf(EXTERN_CLASS), _fct);
     }
 
     public PossibleIntermediateDotted getSiblingSet() {

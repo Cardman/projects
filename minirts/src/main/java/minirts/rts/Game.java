@@ -19,7 +19,7 @@ public final class Game {
     private int xTopLeftScreen = 100;
     private int yTopLeftScreen = 100;
 
-    private transient boolean added;
+    private boolean added;
 
     public void loop(DataBase _data) {
         for (EntryCust<UnitMapKey,Soldier> u: soldiers.entryList()) {

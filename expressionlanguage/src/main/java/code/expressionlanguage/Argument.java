@@ -160,6 +160,12 @@ public final class Argument {
         return object.isNull();
     }
 
+    public Object getRealObject() {
+        if (object instanceof CharStruct) {
+            return ((CharStruct)object).getChar();
+        }
+        return object.getInstance();
+    }
     public Object getObject() {
         return object.getInstance();
     }

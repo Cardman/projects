@@ -6,13 +6,13 @@ import code.util.ints.GraphElement;
 public final class Graph<T extends GraphElement<T>> {
 
     private final CustList<ArrowedSegment<T>> segments = new CustList<ArrowedSegment<T>>();
-    private final transient EqList<T> elements = new EqList<T>();
+    private final EqList<T> elements = new EqList<T>();
 
-//    private transient final List<T> froms = new List<T>();
+//    private final List<T> froms = new List<T>();
 
-//    private transient final List<T> tos = new List<T>();
+//    private final List<T> tos = new List<T>();
 
-//    private transient final List<T> separations = new List<T>();
+//    private final List<T> separations = new List<T>();
 
     public CustList<ArrowedSegment<T>> getSegments() {
         return new CustList<ArrowedSegment<T>>(segments);

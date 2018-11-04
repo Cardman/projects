@@ -43,7 +43,7 @@ public abstract class NumericOperation extends MethodOperation {
         Argument o_;
         boolean convert_ = true;
         if (StringList.quickEq(_op, Block.PLUS_EQ)) {
-            o_ = NumericOperation.calculateSum(_left, _right, false, _catString, _conf, _arg);
+            o_ = NumericOperation.calculateSum(_left, _right, _catString, _conf, _arg);
             convert_ = !_catString;
         } else if (StringList.quickEq(_op, Block.MINUS_EQ)) {
             o_ = NumericOperation.calculateDiff(_left, _right, _conf, _arg);
@@ -105,19 +105,11 @@ public abstract class NumericOperation extends MethodOperation {
         return o_;
     }
 
-    static Argument calculateSum(Argument _a, Argument _b, boolean _catChars, boolean _catString, Analyzable _an,ClassArgumentMatching _order) {
+    static Argument calculateSum(Argument _a, Argument _b, boolean _catString, Analyzable _an,ClassArgumentMatching _order) {
         if (_catString) {
             StringBuilder str_ = new StringBuilder();
-            str_.append(_a.getObject());
-            str_.append(_b.getObject());
-            Argument a_ = new Argument();
-            a_.setObject(str_.toString());
-            return a_;
-        }
-        if (_catChars) {
-            StringBuilder str_ = new StringBuilder();
-            str_.append(_a.getObject());
-            str_.append(_b.getObject());
+            str_.append(_a.getRealObject());
+            str_.append(_b.getRealObject());
             Argument a_ = new Argument();
             a_.setObject(str_.toString());
             return a_;
@@ -708,6 +700,7 @@ public abstract class NumericOperation extends MethodOperation {
             un_.setExpectedResult(exp_);
             un_.setOperands(_a);
             _cont.getClasses().addError(un_);
+            _cont.setOkNumOp(false);
             ok_ = false;
         }
         int ob_ = PrimitiveTypeUtil.getOrderClass(_b, _cont);
@@ -718,6 +711,7 @@ public abstract class NumericOperation extends MethodOperation {
             un_.setExpectedResult(exp_);
             un_.setOperands(_b);
             _cont.getClasses().addError(un_);
+            _cont.setOkNumOp(false);
             ok_ = false;
         }
         if (!ok_) {
@@ -816,6 +810,9 @@ public abstract class NumericOperation extends MethodOperation {
     }
     @Override
     public void quickCalculate(Analyzable _conf) {
+        if (classMethodId != null || !_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument a_ = chidren_.first().getArgument();
         NatTreeMap<Integer, String> ops_ = getOperations().getOperators();

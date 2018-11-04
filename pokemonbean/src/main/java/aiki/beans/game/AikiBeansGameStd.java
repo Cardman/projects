@@ -251,7 +251,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(new StdStruct(instance_.getDiffWinningExpPtsFight(),PokemonStandards.TYPE_DIFFICULTY_WIN_POINTS_FIGHT));
+            res_.setResult(StdStruct.newInstance(instance_.getDiffWinningExpPtsFight(),PokemonStandards.TYPE_DIFFICULTY_WIN_POINTS_FIGHT));
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
@@ -315,7 +315,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            res_.setResult(new StdStruct(instance_.getDamageRatePlayer(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
+            res_.setResult(StdStruct.newInstance(instance_.getDamageRatePlayer(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
@@ -323,7 +323,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            res_.setResult(new StdStruct(instance_.getDamageRateLawFoe(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
+            res_.setResult(StdStruct.newInstance(instance_.getDamageRateLawFoe(),PokemonStandards.TYPE_DIFFICULTY_MODEL_LAW));
             return res_;
         }
         if (StringList.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {

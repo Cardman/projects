@@ -25,7 +25,7 @@ import code.util.ints.Equallable;
 @RwXml
 public final class HandBelote implements Iterable<CardBelote>, Equallable<HandBelote>, Displayable {
     private static final String SEPARATOR = " - ";
-    private transient Order order;
+    private Order order;
     private EnumList<CardBelote> cards=new EnumList<CardBelote>();
     public HandBelote() {
         order=Order.TRUMP;

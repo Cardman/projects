@@ -4,7 +4,6 @@ import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.SortedClassField;
@@ -14,7 +13,6 @@ import code.sml.RowCol;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -85,6 +83,7 @@ public final class AnalyzedPageEl {
     private boolean annotAnalysis;
     private String lookLocalClass = "";
     private SortedClassField currentInitizedField;
+    private boolean okNumOp;
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
     }
@@ -111,38 +110,8 @@ public final class AnalyzedPageEl {
     public RowCol getTrace() {
         RowCol rc_ = new RowCol();
         if (currentBlock != null){
-            FileBlock f_ = currentBlock.getFile();
             int sum_ = globalOffset + offset + translatedOffset;
-            Numbers<Integer> lineReturn_ = f_.getLineReturns();
-            Numbers<Integer> leftSpaces_ = f_.getLeftSpaces();
-            int len_ = lineReturn_.size();
-            int i_ = 0;
-            while (i_ < len_) {
-                if (sum_ < lineReturn_.get(i_)) {
-                    int j_ = 0;
-                    if (i_ > 0) {
-                        j_ = sum_ - lineReturn_.get(i_ - 1);
-                        j_ += leftSpaces_.get(i_/2 - 1);
-                    } else {
-                        j_ = sum_;
-                    }
-                    rc_.setCol(j_);
-                    rc_.setRow(i_/2);
-                    break;
-                }
-                i_ += 2;
-            }
-//            StringMap<RowCol> a_;
-//            a_ = currentBlock.getAttributes();
-//            StringMap<NatTreeMap<Integer,Integer>> e_;
-//            e_ = currentBlock.getEncoded();
-//            StringMap<Numbers<Integer>> o_;
-//            o_ = currentBlock.getOffsets();
-//            StringMap<Numbers<Integer>> t_;
-//            t_ = currentBlock.getTabs();
-//            RowCol endHeader_;
-//            endHeader_ = currentBlock.getEndHeader();
-//            rc_ = DocumentBuilder.getOffset(processingAttribute, a_, e_, offset, o_, t_, endHeader_, tabWidth);
+            rc_ = currentBlock.getRowCol(sum_);
         }
         return rc_;
     }
@@ -619,4 +588,13 @@ public final class AnalyzedPageEl {
     public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
         currentInitizedField = _currentInitizedField;
     }
+
+    public boolean isOkNumOp() {
+        return okNumOp;
+    }
+
+    public void setOkNumOp(boolean _okNumOp) {
+        okNumOp = _okNumOp;
+    }
+
 }

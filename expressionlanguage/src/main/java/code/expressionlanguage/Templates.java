@@ -9,6 +9,9 @@ import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
+import code.expressionlanguage.opers.util.NumberStruct;
+import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
@@ -37,7 +40,6 @@ public final class Templates {
     public static final String SUP_TYPE = "!";
     public static final char PREFIX_VAR_TYPE_CHAR = '#';
     public static final String INNER_TYPE = "..";
-    public static final String LANG = "$lang";
 
     public static final char LT = '<';
 
@@ -196,18 +198,6 @@ public final class Templates {
         String className_ = getIdFromAllTypes(_className);
         GeneType root_ = _context.getClassBody(className_);
         return TypeUtil.getAllGenericSuperTypes(root_, _context);
-    }
-    public static String getIterableFullTypeByStds(String _subType, ContextEl _context) {
-        String baseSubType_ = _subType;
-        LgNames lgNames_ = _context.getStandards();
-        StandardType std_ = lgNames_.getStandards().getVal(baseSubType_);
-        if (std_ == null) {
-            return null;
-        }
-        if (std_.getIterative().isEmpty()) {
-            return null;
-        }
-        return StringList.concat(lgNames_.getAliasIterable(),TEMPLATE_BEGIN,std_.getIterative(),TEMPLATE_END);
     }
     public static String getFullTypeByBases(String _subType, String _superType, Analyzable _context) {
         String baseSubType_ = getIdFromAllTypes(_subType);
@@ -815,11 +805,60 @@ public final class Templates {
         }
         return str_.toString();
     }
+    public static boolean checkObject(String _param, Argument _arg, ExecutableCode _context) {
+        return checkObject(_param, _arg, false, _context,false);
+    }
+    public static boolean checkElt(String _param, Argument _arg, boolean _convert,ExecutableCode _context) {
+        return checkObject(_param, _arg, _convert, _context,true);
+    }
+    public static boolean checkObject(String _param, Argument _arg, boolean _convert,ExecutableCode _context) {
+        return checkObject(_param, _arg, _convert, _context,false);
+    }
+    public static boolean checkObject(String _param, Argument _arg, boolean _convert,ExecutableCode _context, boolean _arr) {
+        Struct str_ = _arg.getStruct();
+        LgNames stds_ = _context.getStandards();
+        if (!str_.isNull() && !_convert) {
+            String className_ = str_.getClassName(_context);
+            String a_ = _context.getStandards().toWrapper(className_);
+            if (!Templates.isCorrectExecute(a_, _param, _context)) {
+                if (_arr) {
+                    String cast_ = stds_.getAliasStore();
+                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),cast_));
+                    return false;
+                }
+                String cast_ = stds_.getAliasCast();
+                _context.setException(new StdStruct(new CustomError(_context.joinPages()),cast_));
+                return false;
+            }
+        }
+        if (PrimitiveTypeUtil.primitiveTypeNullObject(_param, str_, _context)) {
+            String npe_ = stds_.getAliasNullPe();
+            _context.setException(new StdStruct(new CustomError(_context.joinPages()),npe_));
+            return false;
+        }
+        if (str_ instanceof NumberStruct) {
+            ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
+            _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, _context));
+        }
+        return true;
+    }
     public static boolean isGenericCorrect(Mapping _m, Analyzable _context) {
         if (_m.getArg().isVariable()) {
             return !PrimitiveTypeUtil.isPrimitive(_m.getParam(), _context);
         }
         return isCorrect(_m, _context);
+    }
+    public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping,Analyzable _context) {
+        if (PrimitiveTypeUtil.isPrimitive(_p, _context)) {
+            if (!PrimitiveTypeUtil.isPrimitive(_a, _context)) {
+                return false;
+            }
+        }
+        Mapping map_ = new Mapping();
+        map_.setArg(_a);
+        map_.setParam(_p);
+        map_.setMapping(_mapping);
+        return isCorrect(map_, _context);
     }
     public static boolean isCorrect(Mapping _m, Analyzable _context) {
         ClassArgumentMatching arg_ = _m.getArg();
@@ -839,12 +878,14 @@ public final class Templates {
                 match_.setParam(p);
                 matchs_.add(match_);
                 boolean okTree_ = true;
+                boolean noWrapper_ = false;
                 while (true) {
                     CustList<Matching> new_ = new CustList<Matching>();
                     for (Matching m: matchs_) {
                         String a_ = m.getArg();
                         String p_ = m.getParam();
-                        MappingPairs m_ = getSimpleMapping(a_,p_,generalMapping_, _context);
+                        MappingPairs m_ = getSimpleMapping(noWrapper_, a_,p_,generalMapping_, _context);
+                        noWrapper_ = true;
                         if (m_ == null) {
                             okTree_ = false;
                             break;
@@ -896,7 +937,66 @@ public final class Templates {
         }
         return true;
     }
-    private static MappingPairs getSimpleMapping(String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
+    public static boolean isCorrectExecute(String _a, String _p, Analyzable _context) {
+        CustList<Matching> matchs_ = new CustList<Matching>();
+        Matching match_ = new Matching();
+        match_.setArg(_a);
+        match_.setParam(_p);
+        matchs_.add(match_);
+        boolean noWrapper_ = false;
+        boolean okTree_ = true;
+        while (true) {
+            CustList<Matching> new_ = new CustList<Matching>();
+            for (Matching m: matchs_) {
+                String a_ = m.getArg();
+                String p_ = m.getParam();
+                MappingPairs m_ = getExecutingCorrect(noWrapper_,a_,p_, _context);
+                if (m_ == null) {
+                    okTree_ = false;
+                    break;
+                }
+                noWrapper_ = true;
+                boolean locOk_ = true;
+                for (Matching n: m_.getPairsArgParam()) {
+                    if (n.getMatchEq() == MatchingEnum.EQ) {
+                        if (!StringList.quickEq(n.getParam(), n.getArg())) {
+                            locOk_ = false;
+                            break;
+                        }
+                        continue;
+                    }
+                    if (StringList.quickEq(n.getParam(), n.getArg())) {
+                        continue;
+                    }
+                    Matching n_ = new Matching();
+                    if (n.getMatchEq() == MatchingEnum.SUB) {
+                        n_.setArg(n.getArg());
+                        n_.setParam(n.getParam());
+                    } else {
+                        n_.setArg(n.getParam());
+                        n_.setParam(n.getArg());
+                    }
+                    new_.add(n_);
+                }
+                if (!locOk_) {
+                    okTree_ = false;
+                    break;
+                }
+            }
+            if (new_.isEmpty()) {
+                break;
+            }
+            matchs_ = new_;
+            if (!okTree_) {
+                break;
+            }
+        }
+        if (!okTree_) {
+            return false;
+        }
+        return true;
+    }
+    private static MappingPairs getSimpleMapping(boolean _noWrapper, String _arg, String _param, StringMap<StringList> _inherit, Analyzable _context) {
         StringList typesArg_ = getAllTypes(_arg);
         StringList typesParam_ = getAllTypes(_param);
         String baseArg_ = typesArg_.first();
@@ -937,7 +1037,7 @@ public final class Templates {
             boolean inh_ = false;
             for (String a: bounds_) {
                 String base_ = getIdFromAllTypes(a);
-                if (PrimitiveTypeUtil.canBeUseAsArgument(baseParam_, base_, _context)) {
+                if (PrimitiveTypeUtil.canBeUseAsArgument(_noWrapper, baseParam_, base_, _context)) {
                     inh_ = true;
                     break;
                 }
@@ -965,116 +1065,10 @@ public final class Templates {
             if (typesArg_.size() != len_) {
                 return null;
             }
-            EqList<Matching> pairsArgParam_ = new EqList<Matching>();
             if (StringList.quickEq(baseArg_, fct_)) {
-                int argCall_ = len_ - 1;
-                for (int i = CustList.SECOND_INDEX; i < argCall_; i++) {
-                    String arg_ = typesArg_.get(i);
-                    String param_ = typesParam_.get(i);
-                    if (StringList.quickEq(arg_, SUB_TYPE)) {
-                        if (StringList.quickEq(param_, SUB_TYPE)) {
-                            continue;
-                        }
-                        return null;
-                    }
-                    if (StringList.quickEq(param_, SUB_TYPE)) {
-                        continue;
-                    }
-                    Matching match_ = new Matching();
-                    match_.setArg(arg_);
-                    match_.setParam(param_);
-                    match_.setMatchEq(MatchingEnum.SUP);
-                    pairsArgParam_.add(match_);
-                }
-                String a_ = typesArg_.last();
-                String p_ = typesParam_.last();
-                boolean add_ = true;
-                if (StringList.quickEq(a_, SUB_TYPE)) {
-                    if (!StringList.quickEq(p_, SUB_TYPE)) {
-                        return null;
-                    }
-                    add_ = false;
-                }
-                if (StringList.quickEq(p_, SUB_TYPE)) {
-                    add_ = false;
-                }
-                if (!StringList.quickEq(p_, obj_) && add_) {
-                    Matching match_ = new Matching();
-                    match_.setArg(a_);
-                    match_.setParam(p_);
-                    match_.setMatchEq(MatchingEnum.SUB);
-                    pairsArgParam_.add(match_);
-                }
-                MappingPairs m_ = new MappingPairs();
-                m_.setPairsArgParam(pairsArgParam_);
-                return m_;
+                return newMappingPairsFct(typesArg_, typesParam_, obj_);
             }
-            for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-                Matching match_ = new Matching();
-                String arg_ = typesArg_.get(i);
-                String param_ = typesParam_.get(i);
-                if (StringList.quickEq(arg_, SUB_TYPE)) {
-                    if (StringList.quickEq(param_, SUB_TYPE)) {
-                        continue;
-                    }
-                    return null;
-                }
-                if (StringList.quickEq(param_, SUB_TYPE)) {
-                    continue;
-                }
-                if (arg_.startsWith(SUP_TYPE)) {
-                    if (param_.startsWith(SUB_TYPE)) {
-                        return null;
-                    }
-                }
-                if (arg_.startsWith(SUB_TYPE)) {
-                    if (param_.startsWith(SUP_TYPE)) {
-                        return null;
-                    }
-                }
-                boolean eqParam_ = !param_.startsWith(SUP_TYPE) && !param_.startsWith(SUB_TYPE);
-                boolean eqArg_ = !arg_.startsWith(SUP_TYPE) && !arg_.startsWith(SUB_TYPE);
-                if (eqParam_) {
-                    if (arg_.startsWith(SUB_TYPE)) {
-                        return null;
-                    }
-                    if (arg_.startsWith(SUP_TYPE)) {
-                        return null;
-                    }
-                    match_.setArg(arg_);
-                    match_.setParam(param_);
-                    pairsArgParam_.add(match_);
-                    continue;
-                }
-                if (eqArg_) {
-                    if (param_.startsWith(SUP_TYPE)) {
-                        match_.setArg(arg_);
-                        match_.setParam(param_.substring(SUP_TYPE.length()));
-                        match_.setMatchEq(MatchingEnum.SUP);
-                        pairsArgParam_.add(match_);
-                        continue;
-                    }
-                    match_.setArg(arg_);
-                    match_.setParam(param_.substring(SUB_TYPE.length()));
-                    match_.setMatchEq(MatchingEnum.SUB);
-                    pairsArgParam_.add(match_);
-                    continue;
-                }
-                if (arg_.startsWith(SUP_TYPE)) {
-                    match_.setArg(arg_.substring(SUP_TYPE.length()));
-                    match_.setParam(param_.substring(SUP_TYPE.length()));
-                    match_.setMatchEq(MatchingEnum.SUP);
-                    pairsArgParam_.add(match_);
-                    continue;
-                }
-                match_.setArg(arg_.substring(SUB_TYPE.length()));
-                match_.setParam(param_.substring(SUB_TYPE.length()));
-                match_.setMatchEq(MatchingEnum.SUB);
-                pairsArgParam_.add(match_);
-            }
-            MappingPairs m_ = new MappingPairs();
-            m_.setPairsArgParam(pairsArgParam_);
-            return m_;
+            return newMappingPairs(_arg, typesParam_);
         }
         if (StringList.quickEq(baseArg_, fct_)) {
             return null;
@@ -1107,14 +1101,114 @@ public final class Templates {
         if (generic_ == null) {
             return null;
         }
-        int len_ = typesParam_.size();
-        StringList foundSuperClass_ = getAllTypes(generic_);
+        return newMappingPairs(generic_, typesParam_);
+    }
+    private static MappingPairs getExecutingCorrect(boolean _noWrapper, String _arg, String _param, Analyzable _context) {
+        StringList typesArg_ = getAllTypes(_arg);
+        StringList typesParam_ = getAllTypes(_param);
+        String baseArg_ = typesArg_.first();
+        String baseParam_ = typesParam_.first();
+        DimComp dArg_ = PrimitiveTypeUtil.getQuickComponentBaseType(_arg);
+        DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
+        String baseArrayArg_ = dArg_.getComponent();
+        if (typesParam_.size() == 1) {
+            String base_ = getIdFromAllTypes(baseArg_);
+            if (PrimitiveTypeUtil.canBeUseAsArgument(_noWrapper, baseParam_, base_, _context)) {
+                MappingPairs m_ = new MappingPairs();
+                return m_;
+            }
+            return null;
+        }
+        if (PrimitiveTypeUtil.isPrimitive(baseArrayArg_, _context)) {
+            return null;
+        }
+        DimComp dLoc_ = PrimitiveTypeUtil.getQuickComponentBaseType(baseArg_);
+        int dim_ = dLoc_.getDim();
+        if (dim_ != dParam_.getDim()) {
+            return null;
+        }
+        String fct_ = _context.getStandards().getAliasFct();
+        String obj_ = _context.getStandards().getAliasObject();
+        if (StringList.quickEq(baseArg_, baseParam_)) {
+            int len_ = typesParam_.size();
+            if (typesArg_.size() != len_) {
+                return null;
+            }
+            if (StringList.quickEq(baseArg_, fct_)) {
+                return newMappingPairsFct(typesArg_, typesParam_, obj_);
+            }
+            return newMappingPairs(_arg, typesParam_);
+        }
+        if (StringList.quickEq(baseArg_, fct_)) {
+            return null;
+        }
+        if (StringList.quickEq(baseParam_, fct_)) {
+            return null;
+        }
+        String generic_ = null;
+        String idArg_ = Templates.getIdFromAllTypes(baseArrayArg_);
+        String geneSubType_ = _context.getClassBody(idArg_).getGenericString();
+        StringList curClasses_ = new StringList(geneSubType_);
+        generic_ = requestGenericSuperType(baseArrayArg_, curClasses_, _param, _context);
+        if (generic_ == null) {
+            return null;
+        }
+        return newMappingPairs(generic_, typesParam_);
+    }
+    private static MappingPairs newMappingPairsFct(StringList _args, StringList _params, String _objectType) {
+        EqList<Matching> pairsArgParam_ = new EqList<Matching>();
+        int len_ = _params.size();
+        int argCall_ = len_ - 1;
+        for (int i = CustList.SECOND_INDEX; i < argCall_; i++) {
+            String arg_ = _args.get(i);
+            String param_ = _params.get(i);
+            if (StringList.quickEq(arg_, SUB_TYPE)) {
+                if (StringList.quickEq(param_, SUB_TYPE)) {
+                    continue;
+                }
+                return null;
+            }
+            if (StringList.quickEq(param_, SUB_TYPE)) {
+                continue;
+            }
+            Matching match_ = new Matching();
+            match_.setArg(arg_);
+            match_.setParam(param_);
+            match_.setMatchEq(MatchingEnum.SUP);
+            pairsArgParam_.add(match_);
+        }
+        String a_ = _args.last();
+        String p_ = _params.last();
+        boolean add_ = true;
+        if (StringList.quickEq(a_, SUB_TYPE)) {
+            if (!StringList.quickEq(p_, SUB_TYPE)) {
+                return null;
+            }
+            add_ = false;
+        }
+        if (StringList.quickEq(p_, SUB_TYPE)) {
+            add_ = false;
+        }
+        if (!StringList.quickEq(p_, _objectType) && add_) {
+            Matching match_ = new Matching();
+            match_.setArg(a_);
+            match_.setParam(p_);
+            match_.setMatchEq(MatchingEnum.SUB);
+            pairsArgParam_.add(match_);
+        }
+        MappingPairs m_ = new MappingPairs();
+        m_.setPairsArgParam(pairsArgParam_);
+        return m_;
+    }
+    private static MappingPairs newMappingPairs(String _generic, StringList _params) {
+        int len_ = _params.size();
+        StringList foundSuperClass_ = getAllTypes(_generic);
         EqList<Matching> pairsArgParam_ = new EqList<Matching>();
         len_ = foundSuperClass_.size();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
             Matching match_ = new Matching();
             String arg_ = foundSuperClass_.get(i);
-            String param_ = typesParam_.get(i);
+            String param_ = _params.get(i);
             if (StringList.quickEq(arg_, SUB_TYPE)) {
                 if (StringList.quickEq(param_, SUB_TYPE)) {
                     continue;

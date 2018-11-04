@@ -56,7 +56,6 @@ final class ExtractObject {
     private static final String ATTRIBUTE_QUOTED = "quoted";
     private static final String ATTRIBUTE_ESCAPED = "escaped";
     private static final char ESCAPED = '\\';
-    private static final char MATH_INTERPRET = '`';
     private static final String CALL_METHOD = "$";
     private static final String ATTRIBUTE_VALUE = "value";
     private static final String ATTRIBUTE_ESCAPED_EAMP = "escapedamp";
@@ -274,9 +273,15 @@ final class ExtractObject {
                     i_++;
                     continue;
                 }
-                if (curChar_ == MATH_INTERPRET) {
+                if (curChar_ == LEFT_EL) {
                     escaped_ = false;
-                    calculateVariables_.append(MATH_INTERPRET);
+                    calculateVariables_.append(LEFT_EL);
+                    i_++;
+                    continue;
+                }
+                if (curChar_ == RIGHT_EL) {
+                    escaped_ = false;
+                    calculateVariables_.append(RIGHT_EL);
                     i_++;
                     continue;
                 }
@@ -292,9 +297,9 @@ final class ExtractObject {
                 i_++;
                 continue;
             }
-            if (curChar_ == MATH_INTERPRET) {
+            if (curChar_ == LEFT_EL) {
                 _ip.setOffset(i_+1);
-                Argument arg_ = ElRenderUtil.processEl(numExpr_, _conf, i_+1, MATH_INTERPRET, MATH_INTERPRET);
+                Argument arg_ = ElRenderUtil.processEl(numExpr_, _conf, i_+1, LEFT_EL, RIGHT_EL);
                 if (!_conf.getClasses().getErrorsDet().isEmpty()) {
                     BadElRender badEl_ = new BadElRender();
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());

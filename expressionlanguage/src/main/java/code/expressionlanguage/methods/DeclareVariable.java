@@ -7,9 +7,9 @@ import code.expressionlanguage.OffsetBooleanInfo;
 import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.StringList;
 
@@ -61,8 +61,10 @@ public final class DeclareVariable extends Leaf implements InitVariable {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        if (StringList.quickEq(className.trim(), TypeUtil.VAR_TYPE)) {
-            importedClassName = TypeUtil.VAR_TYPE;
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (StringList.quickEq(className.trim(), keyWordVar_)) {
+            importedClassName = keyWordVar_;
         } else {
             importedClassName = _cont.resolveCorrectType(className);
         }
@@ -103,7 +105,7 @@ public final class DeclareVariable extends Leaf implements InitVariable {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return null;
     }

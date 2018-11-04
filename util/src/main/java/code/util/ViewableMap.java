@@ -3,7 +3,7 @@ import code.util.ints.Viewable;
 
 public abstract class ViewableMap<K, V> extends AbsMap<K, V> implements Viewable {
 
-    private transient boolean modified;
+    private boolean modified;
 
     @Override
     public void setModified() {

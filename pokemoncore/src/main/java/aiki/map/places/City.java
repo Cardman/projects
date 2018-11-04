@@ -37,7 +37,7 @@ public final class City extends Place implements InitializedPlace {
 
     private ObjectMap<PlaceInterConnect, Coords> savedlinks;
 
-    private transient ObjectMap<PlaceInterConnect, Coords> linksPointsWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
+    private ObjectMap<PlaceInterConnect, Coords> linksPointsWithCitiesAndOtherRoads = new ObjectMap<PlaceInterConnect, Coords>();
 
     private ObjectMap<Point, Link> linksWithCaves;
 

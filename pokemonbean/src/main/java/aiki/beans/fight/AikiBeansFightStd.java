@@ -866,7 +866,7 @@ public final class AikiBeansFightStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_MEMBERS)) {
-            res_.setResult(new StdStruct(instance_.getMembers(),std_.getCustList()));
+            res_.setResult(StdStruct.newListByte(instance_.getMembers(),std_.getCustList()));
             return res_;
         }
         if (StringList.quickEq(methodName_,CLICK_FIGHTER)) {

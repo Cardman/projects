@@ -42,11 +42,6 @@ public abstract class Block extends Blockable {
     public static final String INCR = "++";
     public static final String DECR = "--";
 
-    protected static final String VALUE_ABSTRACT = "abstract";
-    protected static final String VALUE_FINAL = "final";
-    protected static final String VALUE_STATIC = "static";
-    protected static final String VALUE_NORMAL = "normal";
-
     protected static final String VARARG = "...";
 
     protected static final String DOT = ".";
@@ -358,34 +353,15 @@ public abstract class Block extends Blockable {
         par_.removeLocalVars(ip_);
         ((StackableBlockGroup)par_).exitStack(_conf);
     }
-    public final ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
-        return getEl(_context, false, _indexProcess);
-    }
-    public abstract ExpressionLanguage getEl(ContextEl _context, boolean _native, int _indexProcess);
+
+    public abstract ExpressionLanguage getEl(ContextEl _context, int _indexProcess);
     public final RowCol getRowCol(int _offset, int _globalOffset) {
-        RowCol rc_ = new RowCol();
-        FileBlock f_ = getFile();
         int sum_ = _globalOffset + _offset;
-        Numbers<Integer> lineReturn_ = f_.getLineReturns();
-        Numbers<Integer> leftSpaces_ = f_.getLeftSpaces();
-        int len_ = lineReturn_.size();
-        int i_ = 0;
-        while (i_ < len_) {
-            if (sum_ < lineReturn_.get(i_)) {
-                int j_;
-                if (i_ > 0) {
-                    j_ = sum_ - lineReturn_.get(i_ - 1);
-                    j_ += leftSpaces_.get(i_ / 2 - 1);
-                } else {
-                    j_ = sum_;
-                }
-                rc_.setCol(j_);
-                rc_.setRow(i_/2);
-                break;
-            }
-            i_ += 2;
-        }
-        return rc_;
+        return getRowCol(sum_);
+    }
+    public final RowCol getRowCol(int _sum) {
+        FileBlock f_ = getFile();
+        return f_.getRowColFile(_sum);
     }
 
     @Override

@@ -61,6 +61,7 @@ public final class CustLgNames extends BeanLgNames {
     private String aliasGetInteger = "getInteger";
     @Override
     public void buildOther() {
+        buildBeans();
         StringMap<StandardField> fields_;
         StandardField field_;
         StringList params_;
@@ -428,7 +429,7 @@ public final class CustLgNames extends BeanLgNames {
             ArrayBis one_ = (ArrayBis) instance_;
             int[] bytes_ = one_.getArray();
             String ret_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
-            res_.setResult(new StdStruct(bytes_, ret_));
+            res_.setResult(StdStruct.newInstance(bytes_, ret_));
             return res_;
         }
         if (StringList.quickEq(_method.getClassName(), aliasArrayContainer)) {
@@ -436,13 +437,13 @@ public final class CustLgNames extends BeanLgNames {
                 ArrayContainer one_ = (ArrayContainer) instance_;
                 int[] bytes_ = one_.getArray();
                 String ret_ = PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger());
-                res_.setResult(new StdStruct(bytes_, ret_));
+                res_.setResult(StdStruct.newInstance(bytes_, ret_));
                 return res_;
             }
             ArrayContainer one_ = (ArrayContainer) instance_;
             ArrayBis[] bytes_ = one_.getCompo();
             String ret_ = PrimitiveTypeUtil.getPrettyArrayType(aliasArrayBis);
-            res_.setResult(new StdStruct(bytes_, ret_));
+            res_.setResult(StdStruct.newInstance(bytes_, ret_));
             return res_;
         }
         return super.getOtherResult(_cont, _instance, _method, _args);
@@ -452,11 +453,11 @@ public final class CustLgNames extends BeanLgNames {
             ConstructorId _method, Object... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(_method.getName(), aliasInts)) {
-            res_.setResult(new StdStruct(new Ints(), aliasInts));
+            res_.setResult(StdStruct.newInstance(new Ints(), aliasInts));
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasPickableList)) {
-            res_.setResult(new StdStruct(new PickableList(), aliasPickableList));
+            res_.setResult(StdStruct.newInstance(new PickableList(), aliasPickableList));
             return res_;
         }
         if (StringList.quickEq(_method.getName(), aliasStringList)) {
@@ -526,7 +527,7 @@ public final class CustLgNames extends BeanLgNames {
         if (StringList.quickEq(_classField.getClassName(), aliasArrayContainer)) {
             if (StringList.quickEq(fieldName_, "array")) {
                 ArrayContainer cpt_ = (ArrayContainer) _instance.getInstance();
-                res_.setResult(new StdStruct(cpt_.getArray(), PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger())));
+                res_.setResult(StdStruct.newInstance(cpt_.getArray(), PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger())));
                 return res_;
             }
         }
@@ -560,10 +561,10 @@ public final class CustLgNames extends BeanLgNames {
     @Override
     public Struct getOtherElement(Object _array, int _index) {
         if (_array instanceof ArrayBis[]) {
-            return new StdStruct(((ArrayBis[])_array)[_index], aliasArrayBis);
+            return StdStruct.newInstance(((ArrayBis[])_array)[_index], aliasArrayBis);
         }
         if (_array instanceof ArrayContainer[]) {
-            return new StdStruct(((ArrayContainer[])_array)[_index], aliasArrayContainer);
+            return StdStruct.newInstance(((ArrayContainer[])_array)[_index], aliasArrayContainer);
         }
         return super.getOtherElement(_array, _index);
     }

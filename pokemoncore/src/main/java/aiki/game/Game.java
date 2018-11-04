@@ -177,25 +177,25 @@ public final class Game {
 
     private int indexStep;
 
-    //private transient String comment;
+    //private String comment;
 
-    private transient Comment commentGame = new Comment();
+    private Comment commentGame = new Comment();
 
-    private transient boolean reinitInteraction;
+    private boolean reinitInteraction;
 
     private ObjectMap<Coords,Boolean> visitedPlaces;
 
-    private transient int nbSteps;
+    private int nbSteps;
 
-    private transient boolean placeChanged;
+    private boolean placeChanged;
 
-    private transient InterfaceType interfaceType;
+    private InterfaceType interfaceType;
 
-    private transient boolean showEndGame;
+    private boolean showEndGame;
 
-    private transient StringList partiallyAccessiblePlaces = new StringList();
+    private StringList partiallyAccessiblePlaces = new StringList();
 
-    private transient StringList fullAccessiblePlaces = new StringList();
+    private StringList fullAccessiblePlaces = new StringList();
 
     public Game(){
         difficulty = new Difficulty();

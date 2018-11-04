@@ -18,7 +18,7 @@ public final class LongStruct extends NumberStruct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasLong();
+        return _context.getStandards().getAliasPrimLong();
     }
 
     @Override

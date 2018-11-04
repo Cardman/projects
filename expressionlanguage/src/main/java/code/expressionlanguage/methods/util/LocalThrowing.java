@@ -2,7 +2,6 @@ package code.expressionlanguage.methods.util;
 
 import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AbstractCatchEval;
 import code.expressionlanguage.methods.Block;
@@ -62,12 +61,9 @@ public final class LocalThrowing implements CallingFinally {
                             n_ = n_.getNextSibling();
                             continue;
                         }
-                        Mapping mapping_ = new Mapping();
                         String excepClass_ = lgNames_.getStructClassName(custCause_, _conf);
-                        mapping_.setArg(excepClass_);
                         name_ = bkIp_.formatVarType(name_, _conf);
-                        mapping_.setParam(name_);
-                        if (Templates.isCorrect(mapping_, _conf)) {
+                        if (Templates.isCorrectExecute(excepClass_, name_ , _conf)) {
                             catchElt_ = ca_;
                             try_.setCurrentBlock(ca_);
                             break;

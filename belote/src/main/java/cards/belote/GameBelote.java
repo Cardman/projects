@@ -87,46 +87,46 @@ public final class GameBelote {
     /**Au debut on a besoin d'un variable preneur pour stocker le joueur ayant annonce temporairement le plus haut contrat
     De plus, le choix par defaut de -1 pour le preneur sert pour le tarot lorsque
     personne ne prend un contrat et chacun joue pour soi*/
-    private transient byte taker=CustList.INDEX_NOT_FOUND_ELT;
+    private byte taker=CustList.INDEX_NOT_FOUND_ELT;
     /** Ce sont les primes, miseres ou poignees annoncees par le(s) joueur(s)*/
     private EqList<DeclareHandBelote> declares=new EqList<DeclareHandBelote>();
     private EqList<HandBelote> declaresBeloteRebelote = new EqList<HandBelote>();
     private BooleanList wonLastTrick = new BooleanList();
     /**Le contrat permet de dire quel va etre le deroulement
     de la partie*/
-    private transient BidBeloteSuit bid=new BidBeloteSuit();
+    private BidBeloteSuit bid=new BidBeloteSuit();
     /**Ce sont les plis faits par les joueurs*/
     private CustList<TrickBelote> tricks = new CustList<TrickBelote>();
     /**Fin du premier tour d'enchere a la belote<br/>
     est vrai si et seulement si c'est la fin des encheres de premier tour*/
-    private transient boolean endBidsFirstRound;
+    private boolean endBidsFirstRound;
     /**PliBelote en cours d'etre joue*/
     private TrickBelote progressingTrick = new TrickBelote(CustList.INDEX_NOT_FOUND_ELT);
 
     /**Entameur du pli qui est en cours d'etre joue*/
-    private transient byte starter;
+    private byte starter;
     /**Ensembe des contrats annonces*/
     private EqList<BidBeloteSuit> bids=new EqList<BidBeloteSuit>();
     /**Ramasseur du pli qui vient d'etre joue*/
-    private transient byte trickWinner;
+    private byte trickWinner;
     /**Scores cumules au cours des parties
     Chaque nombre (Short) represente un score pour le joueur*/
     private Numbers<Short> scores=new Numbers<Short>();
-    private transient boolean simulationWithBids;
+    private boolean simulationWithBids;
     /**Nombre de fois qu'a ete joue la partie (partie fini)*/
     private long number;
     private RulesBelote rules=new RulesBelote();
-    private transient byte lastHasBid = CustList.INDEX_NOT_FOUND_ELT;
+    private byte lastHasBid = CustList.INDEX_NOT_FOUND_ELT;
 
-    private transient BidBeloteSuit lastBid=new BidBeloteSuit();
+    private BidBeloteSuit lastBid=new BidBeloteSuit();
 
-    private transient CardBelote playedCard = CardBelote.WHITE;
+    private CardBelote playedCard = CardBelote.WHITE;
 
-    private transient HandBelote cardsToBePlayed = new HandBelote();
+    private HandBelote cardsToBePlayed = new HandBelote();
 
-    private transient String gameError = EMPTY;
-    private transient StringBuilder reason = new StringBuilder();
-    private final transient String file = Format.getClassProperties(GAME_BELOTE);
+    private String gameError = EMPTY;
+    private StringBuilder reason = new StringBuilder();
+    private final String file = Format.getClassProperties(GAME_BELOTE);
     private String error = "";
     /**Constructeur permettant le chargement d'une partie de belote*/
     public GameBelote() {}

@@ -3,7 +3,7 @@ import code.util.ints.Viewable;
 
 public class ViewAdapter implements Viewable {
 
-    private transient boolean modified;
+    private boolean modified;
 
     @Override
     public final void setModified() {

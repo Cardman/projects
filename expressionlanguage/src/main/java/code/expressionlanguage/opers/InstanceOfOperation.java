@@ -4,13 +4,13 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -38,8 +38,9 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     public void analyzeUnary(Analyzable _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
-        String method_ = prefixFunction(INSTANCEOF);
-        String sub_ = className.substring(method_.length() + className.indexOf(method_));
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
+        String sub_ = className.substring(keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_));
         sub_ = _conf.resolveCorrectType(sub_, false);
         if (!sub_.contains(Templates.TEMPLATE_BEGIN)) {
             if (!sub_.startsWith(Templates.PREFIX_VAR_TYPE)) {
@@ -89,19 +90,16 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             return arg_;
         }
         String className_ = stds_.getStructClassName(objArg_.getStruct(), _conf.getContextEl());
+        PageEl page_ = _conf.getOperationPageEl();
+        String str_ = page_.formatVarType(className, _conf);
         if (!correctTemplate) {
             className_ = Templates.getIdFromAllTypes(className_);
-            boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(className, className_, _conf);
+            boolean res_ = PrimitiveTypeUtil.canBeUseAsArgument(false, str_, className_, _conf);
             Argument arg_ = new Argument();
             arg_.setObject(res_);
             return arg_;
         }
-        Mapping mapping_ = new Mapping();
-        mapping_.setArg(className_);
-        PageEl page_ = _conf.getOperationPageEl();
-        String str_ = page_.formatVarType(className, _conf);
-        mapping_.setParam(str_);
-        boolean res_ = Templates.isCorrect(mapping_, _conf);
+        boolean res_ = Templates.isCorrectExecute(className_, str_, _conf);
         Argument arg_ = new Argument();
         arg_.setObject(res_);
         return arg_;

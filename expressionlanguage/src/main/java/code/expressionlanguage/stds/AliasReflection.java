@@ -998,6 +998,27 @@ public class AliasReflection {
                             infosConst_.put(id_, met_);
                         }
                     }
+                    if (_cont.getOptions().isSpecialEnumsMethods() && clblock_ instanceof EnumBlock) {
+                        String valueOf_ = _cont.getStandards().getAliasValueOf();
+                        String values_ = _cont.getStandards().getAliasValues();
+                        String string_ = _cont.getStandards().getAliasString();
+                        MethodId id_ = new MethodId(true, valueOf_, new StringList(string_));
+                        String ret_ = clblock_.getWildCardString();
+                        String formatRet_;
+                        MethodId fid_;
+                        formatRet_ = ret_;
+                        fid_ = id_;
+                        String decl_ = clblock_.getFullName();
+                        MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+                        infos_.put(id_, met_);
+                        id_ = new MethodId(true, values_, new StringList());
+                        ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
+                        formatRet_ = ret_;
+                        fid_ = id_;
+                        met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+                        infos_.put(id_, met_);
+                        
+                    }
                     RootBlock par_ = clblock_.getParentType();
                     String format_;
                     if (par_ != null) {

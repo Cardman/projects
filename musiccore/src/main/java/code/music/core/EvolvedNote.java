@@ -19,7 +19,7 @@ public final class EvolvedNote implements Equallable<EvolvedNote>, Displayable {
     private static final String DIESE = "#";
     private static final int DELTA = 12;
     private static boolean _displayDoubleValue_;
-    private transient Note note;
+    private Note note;
     private Gamme value;
     private int level;
     private boolean diese;

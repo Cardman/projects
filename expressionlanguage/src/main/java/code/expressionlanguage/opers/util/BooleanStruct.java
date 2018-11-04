@@ -22,7 +22,7 @@ public final class BooleanStruct implements Struct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasBoolean();
+        return _context.getStandards().getAliasPrimBoolean();
     }
 
     @Override

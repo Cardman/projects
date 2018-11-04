@@ -111,7 +111,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if (canBeIncrementedCurGroup()) {
             return;
         }
-        OperationNode op_ = getElCondition().getRoot();
+        OperationNode op_ = getRoot();
         boolean abr_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -130,7 +130,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
     @Override
     public boolean accessibleCondition() {
-        OperationNode op_ = getElCondition().getRoot();
+        OperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -144,7 +144,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     }
     @Override
     public boolean accessibleForNext() {
-        OperationNode op_ = getElCondition().getRoot();
+        OperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

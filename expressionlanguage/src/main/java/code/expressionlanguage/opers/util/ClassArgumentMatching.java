@@ -128,7 +128,7 @@ public final class ClassArgumentMatching {
         LgNames lgNames_ = _context.getStandards();
         String aliasBoolean_ = lgNames_.getAliasBoolean();
         for (String b: className) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(aliasBoolean_, b, _context)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(false, aliasBoolean_, b, _context)) {
                 return true;
             }
         }

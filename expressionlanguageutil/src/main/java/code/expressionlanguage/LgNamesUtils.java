@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardClass;
@@ -59,14 +60,20 @@ public class LgNamesUtils extends LgNames implements LgAdv {
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
         String content_ = ResourceFiles.ressourceFichier("resources_lg/threads/runnable.txt");
+        KeyWords keyWords_ = _context.getKeyWords();
+        String public_ = keyWords_.getKeyWordPublic();
+        String interface_ = keyWords_.getKeyWordInterface();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        String endLine_ = String.valueOf(_context.getOptions().getEndLine());
         StringMap<String> map_;
         map_ = new StringMap<String>();
-        map_.put("{public}", "$public");
-        map_.put("{interface}", "$interface");
+        map_.put("{public}", public_);
+        map_.put("{interface}", interface_);
         map_.put("{Runnable}", aliasRunnable);
-        map_.put("{abstract}", "$abstract");
+        map_.put("{abstract}", abstract_);
         map_.put("{void}", getAliasVoid());
         map_.put("{run}", aliasRun);
+        map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
@@ -196,49 +203,49 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         String name_ = _method.getName();
         if (StringList.quickEq(name_,aliasThread)) {
             Thread thread_ = new Thread((Runnable)_args[0]);
-            StdStruct std_ = new StdStruct(thread_, aliasThread);
+            StdStruct std_ = StdStruct.newInstance(thread_, aliasThread);
             res_.setResult(std_);
             return res_;
         }
         if (StringList.quickEq(name_,aliasReentrantLock)) {
             ReentrantLock re_ = new ReentrantLock();
-            StdStruct std_ = new StdStruct(re_, aliasReentrantLock);
+            StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
             res_.setResult(std_);
             return res_;
         }
         if (StringList.quickEq(name_,aliasAtomicBoolean)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicBoolean at_ = new AtomicBoolean();
-                StdStruct std_ = new StdStruct(at_, aliasAtomicBoolean);
+                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicBoolean at_ = new AtomicBoolean((Boolean)_args[0].getInstance());
-            StdStruct std_ = new StdStruct(at_, aliasAtomicBoolean);
+            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicBoolean);
             res_.setResult(std_);
             return res_;
         }
         if (StringList.quickEq(name_,aliasAtomicInteger)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicInteger at_ = new AtomicInteger();
-                StdStruct std_ = new StdStruct(at_, aliasAtomicInteger);
+                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicInteger at_ = new AtomicInteger(((Number)_args[0].getInstance()).intValue());
-            StdStruct std_ = new StdStruct(at_, aliasAtomicInteger);
+            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicInteger);
             res_.setResult(std_);
             return res_;
         }
         if (StringList.quickEq(name_,aliasAtomicLong)) {
             if (_method.getParametersTypes().isEmpty()) {
                 AtomicLong at_ = new AtomicLong();
-                StdStruct std_ = new StdStruct(at_, aliasAtomicLong);
+                StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
                 res_.setResult(std_);
                 return res_;
             }
             AtomicLong at_ = new AtomicLong(((Number)_args[0].getInstance()).longValue());
-            StdStruct std_ = new StdStruct(at_, aliasAtomicLong);
+            StdStruct std_ = StdStruct.newInstance(at_, aliasAtomicLong);
             res_.setResult(std_);
             return res_;
         }

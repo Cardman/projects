@@ -34,7 +34,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
     }
 
     @Override
-    boolean isCallMethodCtor() {
+    boolean isCallMethodCtor(Analyzable _an) {
         return true;
     }
 

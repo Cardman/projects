@@ -61,6 +61,8 @@ import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -87,8 +89,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private static final String RETURN_LINE = "\n";
     private static final String EMPTY_TYPE = "";
     private static final int DEFAULT_TAB_WIDTH = 4;
-    private static final char KEY_WORD_PREFIX = FileResolver.SUPPLEMENT_CHAR;
-    private static final String KEY_WORD_STATIC = "static";
 
     private MathFactory mathFactory;
 
@@ -120,41 +120,43 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     private Struct parent;
 
-    private transient LgNames standards;
+    private LgNames standards;
 
-    private transient AnalyzedPageEl analyzing;
+    private AnalyzedPageEl analyzing;
 
-    private transient Classes classes;
+    private Classes classes;
 
-    private transient CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
+    private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
-    private transient String html;
+    private String html;
 
-    private transient ContextEl parentThread;
+    private ContextEl parentThread;
 
-    private transient CustList<ContextEl> children = new CustList<ContextEl>();
+    private CustList<ContextEl> children = new CustList<ContextEl>();
 
-    private transient String className = "";
-    private transient ObjectMap<ClassField, Struct> fields = new ObjectMap<ClassField, Struct>();
-    private transient Initializer init;
-    private transient String name;
-    private transient int ordinal;
+    private String className = "";
+    private ObjectMap<ClassField, Struct> fields = new ObjectMap<ClassField, Struct>();
+    private Initializer init;
+    private String name;
+    private int ordinal;
+    private KeyWords keyWords;
 
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
     }
 
     public ContextEl(int _stackOverFlow) {
-        this(_stackOverFlow, new DefaultLockingClass(),new DefaultInitializer(), new Options());
+        this(_stackOverFlow, new DefaultLockingClass(),new DefaultInitializer(), new Options(), new KeyWords());
     }
-    public ContextEl(DefaultLockingClass _lock,Initializer _init, Options _options) {
-        this(CustList.INDEX_NOT_FOUND_ELT, _lock,_init, _options);
+    public ContextEl(DefaultLockingClass _lock,Initializer _init, Options _options, KeyWords _keyWords) {
+        this(CustList.INDEX_NOT_FOUND_ELT, _lock,_init, _options,_keyWords);
     }
 
-    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Initializer _init, Options _options) {
+    public ContextEl(int _stackOverFlow, DefaultLockingClass _lock,Initializer _init, Options _options, KeyWords _keyWords) {
         options = _options;
         stackOverFlow = _stackOverFlow;
         init = _init;
+        keyWords = _keyWords;
         classes = new Classes();
         classes.setLocks(_lock);
     }
@@ -175,6 +177,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         fields = _fields;
         parent = _parent;
         init = _context.init;
+        keyWords = _context.keyWords;
         _context.children.add(this);
     }
     public ContextEl getParentThread() {
@@ -1034,26 +1037,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
 
     @Override
-    public boolean isRootAffect() {
-        return analyzing.isRootAffect();
-    }
-
-    @Override
-    public void setRootAffect(boolean _rootAffect) {
-        analyzing.setRootAffect(_rootAffect);
-    }
-
-    @Override
-    public boolean isAnalyzingRoot() {
-        return analyzing.isAnalyzingRoot();
-    }
-
-    @Override
-    public void setAnalyzingRoot(boolean _analyzingRoot) {
-        analyzing.setAnalyzingRoot(_analyzingRoot);
-    }
-
-    @Override
     public boolean isMerged() {
         return analyzing.isMerged();
     }
@@ -1764,9 +1747,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         String trQual_ = prefixedType_.trim();
         String typeFound_ = trQual_;
-        boolean stQualifier_ = startsWithPrefixKeyWord(trQual_, KEY_WORD_STATIC);
+        String keyWordStatic_ = keyWords.getKeyWordStatic();
+        boolean stQualifier_ = startsWithKeyWord(trQual_, keyWordStatic_);
         if (stQualifier_) {
-            typeFound_ = typeFound_.substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
         }
         StringList inners_ = Templates.getAllInnerTypes(typeFound_);
         String res_ = inners_.first();
@@ -1800,9 +1784,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         String trQual_ = prefixedType_.trim();
         String typeFound_ = trQual_;
-        boolean stQualifier_ = startsWithPrefixKeyWord(trQual_, KEY_WORD_STATIC);
+        String keyWordStatic_ = keyWords.getKeyWordStatic();
+        boolean stQualifier_ = startsWithKeyWord(trQual_, keyWordStatic_);
         if (stQualifier_) {
-            typeFound_ = typeFound_.substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
         }
         StringList inners_ = Templates.getAllInnerTypes(typeFound_);
         String res_ = inners_.first();
@@ -1933,12 +1918,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             imports_.add(_rooted.getImports());
             roots_.add(_rooted);
         }
+        String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList s: imports_) {
             for (String i: s) {
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+                if (startsWithKeyWord(i, keyWordStatic_)) {
                     continue;
                 }
                 String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
@@ -1961,7 +1947,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!i.contains(".")) {
                 continue;
             }
-            if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+            if (startsWithKeyWord(i, keyWordStatic_)) {
                 continue;
             }
             String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
@@ -1991,7 +1977,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+                if (startsWithKeyWord(i, keyWordStatic_)) {
                     continue;
                 }
                 String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
@@ -2014,7 +2000,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!i.contains(".")) {
                 continue;
             }
-            if (startsWithPrefixKeyWord(i, KEY_WORD_STATIC)) {
+            if (startsWithKeyWord(i, keyWordStatic_)) {
                 continue;
             }
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
@@ -2050,16 +2036,17 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         } else {
             imports_.add(type_.getImports());
         }
+        String keyWordStatic_ = keyWords.getKeyWordStatic();
         int import_ = 1;
         for (StringList t: imports_) {
             for (String i: t) {
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
-                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
                 if (!classes.isCustomType(typeLoc_)) {
                     if (!standards.getStandards().contains(typeLoc_)) {
@@ -2098,10 +2085,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!i.contains(".")) {
                 continue;
             }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                 continue;
             }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
             String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
             if (!classes.isCustomType(typeLoc_)) {
                 if (!standards.getStandards().contains(typeLoc_)) {
@@ -2141,10 +2128,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
-                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
                 String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
@@ -2184,10 +2171,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!i.contains(".")) {
                 continue;
             }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                 continue;
             }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
             String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
             if (!StringList.quickEq(end_, "*")) {
                 continue;
@@ -2242,15 +2229,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         } else {
             imports_.add(type_.getImports());
         }
+        String keyWordStatic_ = keyWords.getKeyWordStatic();
         for (StringList t: imports_) {
             for (String i: t) {
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
-                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
                 String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
                 if (!classes.isCustomType(typeLoc_)) {
                     if (!standards.getStandards().contains(typeLoc_)) {
@@ -2289,10 +2277,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!i.contains(".")) {
                 continue;
             }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                 continue;
             }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
             String typeLoc_ = removeDottedSpaces(st_.substring(0,st_.lastIndexOf(".")));
             if (!classes.isCustomType(typeLoc_)) {
                 if (!standards.getStandards().contains(typeLoc_)) {
@@ -2331,10 +2319,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 if (!i.contains(".")) {
                     continue;
                 }
-                if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+                if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                     continue;
                 }
-                String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+                String st_ = i.trim().substring(keyWordStatic_.length()).trim();
                 String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
                 if (!StringList.quickEq(end_, "*")) {
                     continue;
@@ -2374,10 +2362,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             if (!i.contains(".")) {
                 continue;
             }
-            if (!startsWithPrefixKeyWord(i.trim(), KEY_WORD_STATIC)) {
+            if (!startsWithKeyWord(i.trim(), keyWordStatic_)) {
                 continue;
             }
-            String st_ = i.trim().substring(prefixKeyWord(KEY_WORD_STATIC).length()).trim();
+            String st_ = i.trim().substring(keyWordStatic_.length()).trim();
             String end_ = removeDottedSpaces(st_.substring(st_.lastIndexOf(".")+1));
             if (!StringList.quickEq(end_, "*")) {
                 continue;
@@ -2501,21 +2489,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return null;
     }
-
-    public static boolean startsWithPrefixKeyWord(String _found, String _keyWord) {
-        String prefix_ = prefixKeyWord(_keyWord);
-        if (!_found.startsWith(prefix_)) {
+    public static boolean startsWithKeyWord(String _found, String _keyWord) {
+        if (!_found.startsWith(_keyWord)) {
             return false;
         }
-        String sub_ = _found.substring(prefix_.length());
+        String sub_ = _found.substring(_keyWord.length());
         if (sub_.isEmpty()) {
             return true;
         }
         char first_ = sub_.charAt(0);
         return !StringList.isDollarWordChar(first_);
-    }
-    public static String prefixKeyWord(String _keyWord) {
-        return StringList.concat(String.valueOf(KEY_WORD_PREFIX), _keyWord);
     }
 
     @Override
@@ -2646,4 +2629,23 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         analyzing.setCurrentInitizedField(_currentInitizedField);
     }
 
+    @Override
+    public boolean isOkNumOp() {
+        return analyzing.isOkNumOp();
+    }
+
+    @Override
+    public void setOkNumOp(boolean _okNumOp) {
+        analyzing.setOkNumOp(_okNumOp);;
+    }
+
+    @Override
+    public KeyWords getKeyWords() {
+        return keyWords;
+    }
+
+    @Override
+    public void setKeyWords(KeyWords _keyWords) {
+        keyWords = _keyWords;
+    }
 }

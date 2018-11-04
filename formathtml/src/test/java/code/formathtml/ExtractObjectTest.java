@@ -759,7 +759,6 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"`composite.integer`+1\" isbool=\"false\"/>{n;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -780,7 +779,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertEq(6L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "`composite.integer`+1")).getInstance());
+        assertEq(6L,((NumberStruct)ExtractObject.evaluateMathExpression(ip_, conf_, false, "{composite.integer}+1")).getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setDocument(doc_);
 //        conf_.setHtml(html_);
@@ -793,7 +792,6 @@ public class ExtractObjectTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-//        String html_ = "<html xmlns:c='javahtml'><body><c:while mathexpr=\"`composite.strings.isEmpty()`\">EMPTY</c:while></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -814,7 +812,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`").getInstance());
+        assertTrue(!(Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "{composite.strings.isEmpty()}").getInstance());
 //        Document doc_ = DocumentBuilder.parseSaxHtml(html_, false, true);
 //        conf_.setHtml(html_);
 //        conf_.setDocument(doc_);
@@ -846,7 +844,7 @@ public class ExtractObjectTest {
         addImportingPage(conf_, false);
         addBean(conf_, bean_);
         ImportingPage ip_ = conf_.getLastPage();
-        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "`composite.strings.isEmpty()`").getInstance());
+        assertTrue((Boolean)ExtractObject.evaluateMathExpression(ip_, conf_, true, "{composite.strings.isEmpty()}").getInstance());
     }
 
     @Test
@@ -1609,6 +1607,8 @@ public class ExtractObjectTest {
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
+        context_.getOptions().setEndLineSemiColumn(false);
+        context_.getOptions().setSpecialEnumsMethods(false);
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);

@@ -278,6 +278,7 @@ public final class PrimitiveTypeUtil {
         }
         Struct current_ = arg_.getStruct();
         String className_ = current_.getClassName(_an);
+        className_ = _an.getStandards().toWrapper(className_);
         String cl_ = Templates.getIdFromAllTypes(className_);
         while (!canBeUseAsArgument(id_, cl_, _an)) {
             Struct par_ = current_.getParent();
@@ -287,6 +288,7 @@ public final class PrimitiveTypeUtil {
             }
             current_ = par_;
             className_ = current_.getClassName(_an);
+            className_ = _an.getStandards().toWrapper(className_);
             cl_ = Templates.getIdFromAllTypes(className_);
         }
         return current_;
@@ -508,48 +510,6 @@ public final class PrimitiveTypeUtil {
         types_.removeDuplicates();
         return types_;
     }
-    public static String getSubslass(StringList _classNames, StringMap<StringList> _vars, Analyzable _classes) {
-        boolean hasPrim_ = false;
-        boolean hasObj_ = false;
-        LgNames stds_ = _classes.getStandards();
-        String voidType_ = stds_.getAliasVoid();
-        for (String i: _classNames) {
-            if (isPrimitive(i, _classes)) {
-                hasPrim_ = true;
-            } else {
-                hasObj_ = true;
-            }
-        }
-        if (hasPrim_ && hasObj_) {
-            return NO_SUB_CLASS;
-        }
-        Mapping mapping_ = new Mapping();
-        mapping_.getMapping().putAllMap(_vars);
-        for (String i: _classNames) {
-            boolean sub_ = true;
-            if (StringList.quickEq(i, voidType_)) {
-                for (String j: _classNames) {
-                    if (!StringList.quickEq(i, j)) {
-                        sub_ = false;
-                        break;
-                    }
-                }
-            } else {
-                mapping_.setParam(i);
-                for (String j: _classNames) {
-                    mapping_.setArg(j);
-                    if (!Templates.isCorrect(mapping_, _classes)) {
-                        sub_ = false;
-                        break;
-                    }
-                }
-            }
-            if (sub_) {
-                return i;
-            }
-        }
-        return NO_SUB_CLASS;
-    }
     public static String getPrettyArrayType(String _className, int _nb) {
         String cl_ = _className;
         for (int i = CustList.FIRST_INDEX; i < _nb; i++) {
@@ -667,7 +627,7 @@ public final class PrimitiveTypeUtil {
             return new ByteStruct(((Number)obj_).byteValue());
         }
         if (_match.matchClass(_stds.getAliasPrimChar()) || _match.matchClass(_stds.getAliasCharacter())) {
-            return new CharStruct(((Character)obj_).charValue());
+            return new CharStruct((char)((Number)obj_).intValue());
         }
         return _obj;
     }
@@ -718,11 +678,11 @@ public final class PrimitiveTypeUtil {
         return _obj;
     }
 
-    public static boolean canBeUseAsArgument(ClassArgumentMatching _param, ClassArgumentMatching _arg, Analyzable _context) {
+    public static boolean canBeUseAsArgument(boolean _noWrapper, ClassArgumentMatching _param, ClassArgumentMatching _arg, Analyzable _context) {
         for (String p: _param.getNames()) {
             boolean ok_ = false;
             for (String a: _arg.getNames()) {
-                if (canBeUseAsArgument(p,a,_context)) {
+                if (canBeUseAsArgument(_noWrapper, p,a,_context)) {
                     ok_ = true;
                     break;
                 }
@@ -733,7 +693,10 @@ public final class PrimitiveTypeUtil {
         }
         return true;
     }
-    public static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
+    static boolean canBeUseAsArgument(String _param, String _arg, Analyzable _context) {
+        return canBeUseAsArgument(false, _param, _arg, _context);
+    }
+    public static boolean canBeUseAsArgument(boolean _noWrapper,String _param, String _arg, Analyzable _context) {
         LgNames stds_ = _context.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasVoid())) {
             return false;
@@ -748,14 +711,13 @@ public final class PrimitiveTypeUtil {
         if (StringList.quickEq(_arg, stds_.getAliasVoid())) {
             return false;
         }
-        AssignableFrom a_ = isAssignableFromCust(_param, _arg, _context);
+        AssignableFrom a_ = isAssignableFromCust(_noWrapper, _param, _arg, _context);
         if (a_ == AssignableFrom.YES) {
             return true;
         }
         return false;
     }
-
-    static AssignableFrom isAssignableFromCust(String _param,String _arg, Analyzable _classes) {
+    static AssignableFrom isAssignableFromCust(boolean _exec, String _param,String _arg, Analyzable _classes) {
         Classes classes_ = _classes.getClasses();
         LgNames stds_ = _classes.getStandards();
         if (StringList.quickEq(_param, stds_.getAliasObject())) {
@@ -802,7 +764,7 @@ public final class PrimitiveTypeUtil {
         if (clParBl_ != null) {
             return AssignableFrom.NO;
         }
-        if (LgNames.canBeUseAsArgument(_param, _arg, _classes.getStandards())) {
+        if (LgNames.canBeUseAsArgument(_exec, _param, _arg, _classes)) {
             return AssignableFrom.YES;
         }
         return AssignableFrom.NO;

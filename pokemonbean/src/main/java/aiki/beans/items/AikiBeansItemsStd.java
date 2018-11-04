@@ -1312,7 +1312,7 @@ public final class AikiBeansItemsStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_EFFECT_SENDING)) {
-            res_.setResult(new StdStruct(instance_.getEffectSending(),PokemonStandards.TYPE_EFFECT_WHILE_SENDING));
+            res_.setResult(StdStruct.newInstance(instance_.getEffectSending(),PokemonStandards.TYPE_EFFECT_WHILE_SENDING));
             return res_;
         }
         if (StringList.quickEq(methodName_,GET_TR_MULT_STAT_RANK)) {

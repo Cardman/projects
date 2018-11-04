@@ -203,7 +203,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,COMBOS)) {
-            res_.setResult(new StdStruct(instance_.getCombos(),AikiBeansEffectsStd.TYPE_COMBO_DTO));
+            res_.setResult(StdStruct.newInstance(instance_.getCombos(),AikiBeansEffectsStd.TYPE_COMBO_DTO));
             return res_;
         }
         return res_;

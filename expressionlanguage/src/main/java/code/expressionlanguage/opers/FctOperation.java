@@ -27,6 +27,7 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
@@ -94,14 +95,18 @@ public final class FctOperation extends InvokingOperation {
         boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
         boolean accessFromSuper_ = false;
-        if (trimMeth_.startsWith(prefixFunction(StringList.concat(SUPER_ACCESS, String.valueOf(DOT_VAR))))) {
-            trimMeth_ = trimMeth_.substring(SUPER_ACCESS.length() + 2);
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
+        if (trimMeth_.startsWith(StringList.concat(keyWordSuper_, String.valueOf(DOT_VAR)))) {
+            trimMeth_ = trimMeth_.substring(keyWordSuper_.length() + 1);
             staticChoiceMethod_ = true;
             accessFromSuper_ = true;
-        } else if (trimMeth_.startsWith(prefixFunction(StringList.concat(THAT, String.valueOf(DOT_VAR))))) {
-            trimMeth_ = trimMeth_.substring(THAT.length() + 2);
+        } else if (trimMeth_.startsWith(StringList.concat(keyWordThat_, String.valueOf(DOT_VAR)))) {
+            trimMeth_ = trimMeth_.substring(keyWordThat_.length() + 1);
             staticChoiceMethod_ = true;
-        } else if (ElResolver.procWordFirstChar(trimMeth_, 0, prefixFunction(THIS_ACCESS_FCT))) {
+        } else if (ElResolver.procWordFirstChar(trimMeth_, 0, keyWordThisaccess_)) {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);
@@ -419,7 +424,7 @@ public final class FctOperation extends InvokingOperation {
     }
 
     @Override
-    boolean isCallMethodCtor() {
+    boolean isCallMethodCtor(Analyzable _an) {
         return true;
     }
 }

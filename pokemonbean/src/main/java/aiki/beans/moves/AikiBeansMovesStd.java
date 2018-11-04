@@ -509,7 +509,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,EFFECTS)) {
-            res_.setResult(new StdStruct(instance_.getEffects(),std_.getCustList()));
+            res_.setResult(StdStruct.newListInt(instance_.getEffects(),std_.getCustList()));
             return res_;
         }
         if (StringList.quickEq(fieldName_,SEC_EFFECT_IF_NO_DAMAGE)) {
@@ -580,7 +580,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE_LINE)) {
-            res_.setResult(new StdStruct(instance_.getMoveLine(),AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
+            res_.setResult(StdStruct.newInstance(instance_.getMoveLine(),AikiBeansFacadeDtoStd.TYPE_MOVE_LINE));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PRIORITY)) {

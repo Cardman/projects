@@ -29,7 +29,7 @@ public final class DealTarot implements Iterable<HandTarot> {
     /** nombre de parties jouees depuis le lancement */
     private long nbDeals;
     /** Pile de distribution pour initialiser la donne */
-    private transient HandTarot deck;
+    private HandTarot deck;
 
     public DealTarot(){}
     public DealTarot(long _nombreDeParties, HandTarot _ppile) {

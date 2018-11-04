@@ -16,7 +16,7 @@ public final class EvolvedPhrase implements MidListable<EvolvedNote>, Equallable
 
     private static final String SEP_ONE = ":";
 
-    private transient Phrase phrase;
+    private Phrase phrase;
 
     private EqList<EvolvedNote> notes = new EqList<EvolvedNote>();
 

@@ -96,7 +96,7 @@ public final class DefaultCondition extends SwitchPartBlock implements IncrNextG
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return null;
     }

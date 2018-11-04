@@ -146,7 +146,7 @@ final class HtmlRequest {
             String expressionLeft_ = StringList.concat(nameVar_, GET_LOC_VAR, _nodeContainer.getLastToken());
             String expressionRight_ = StringList.concat(nameValue_, GET_LOC_VAR);
             String full_ = StringList.concat(expressionLeft_,String.valueOf(EQUALS),expressionRight_);
-            ElRenderUtil.processEl(full_, 0, _conf, true);
+            ElRenderUtil.processEl(full_, 0, _conf);
             if (_conf.getContext().getException() != null) {
                 return;
             }

@@ -2444,7 +2444,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"numbers[{k;;}]sortedNumberKeys!key\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2478,7 +2478,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='$null'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='ls'><c:for var=\"w\" list=\"v;\"><span id=\"numbers[`k;;`]sortedNumberKeys!value.getReverse()[`w;;`]\"/></c:for></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"v\" expression='$null'/><c:for key=\"k\" value=\"v\" map=\"numbers\" varClassName='ls'><c:for var=\"w\" list=\"v;\"><span id=\"numbers[{k;;}]sortedNumberKeys!value.getReverse()[{w;;}]\"/></c:for></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -2513,7 +2513,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\"><span c:groupId=\"`k;;`\"/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\"><span c:groupId=\"{k;;}\"/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3033,7 +3033,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"`composite.integer`+1\" isbool=\"false\"/>{n;.}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"{composite.integer}+1\" isbool=\"false\"/>{n;.}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3065,7 +3065,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"`composite.integer`+1\" isbool=\"false\" className=\"java.lang.Long\"/>{getSpanClass(n;.)}</body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"n\" mathexpr=\"{composite.integer}+1\" isbool=\"false\" className=\"java.lang.Long\"/>{getSpanClass(n;.)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3096,7 +3096,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:while mathexpr=\"`composite.strings.isEmpty()`\">EMPTY</c:while></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:while mathexpr=\"{composite.strings.isEmpty()}\">EMPTY</c:while></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3128,7 +3128,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" mathexpr=\"0\"/><c:while mathexpr=\"`nb;.`!=10\">{nb;.}_<c:set var=\"nb\" mathexpr=\"`nb;.`+1\"/></c:while></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" mathexpr=\"0\"/><c:while mathexpr=\"{nb;.}!=10\">{nb;.}_<c:set var=\"nb\" mathexpr=\"{nb;.}+1\"/></c:while></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3160,7 +3160,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" mathexpr=\"0\"/><c:while mathexpr=\"`nb;.`!=2\"><c:set var=\"nbTwo\" mathexpr=\"3\"/>{nb;.}_<c:while mathexpr=\"`nbTwo;.`!=5\">{nbTwo;.},<c:set var=\"nbTwo\" mathexpr=\"`nbTwo;.`+1\"/></c:while><c:set var=\"nb\" mathexpr=\"`nb;.`+1\"/></c:while></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:set var=\"nb\" mathexpr=\"0\"/><c:while mathexpr=\"{nb;.}!=2\"><c:set var=\"nbTwo\" mathexpr=\"3\"/>{nb;.}_<c:while mathexpr=\"{nbTwo;.}!=5\">{nbTwo;.},<c:set var=\"nbTwo\" mathexpr=\"{nbTwo;.}+1\"/></c:while><c:set var=\"nb\" mathexpr=\"{nb;.}+1\"/></c:while></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3386,7 +3386,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"\\`numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"\\{numbers[{k;;}]sortedNumberKeys!key\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3411,9 +3411,42 @@ public class FormatHtmlTest {
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
 
 
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input type=\"text\" id=\"`numbers[0]sortedNumberKeys!key\"/><br/>THREE - <input type=\"text\" id=\"`numbers[1]sortedNumberKeys!key\"/><br/>TWO - <input type=\"text\" id=\"`numbers[2]sortedNumberKeys!key\"/><br/></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input type=\"text\" id=\"{numbers[0]sortedNumberKeys!key\"/><br/>THREE - <input type=\"text\" id=\"{numbers[1]sortedNumberKeys!key\"/><br/>TWO - <input type=\"text\" id=\"{numbers[2]sortedNumberKeys!key\"/><br/></body></html>", render_);
     }
+    @Test
+    public void processHtml1111Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
+        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"\\}numbers[{k;;}]sortedNumberKeys!key\"/><br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        bean_.getComposite().getStrings().add("FIRST");
+        bean_.getComposite().getStrings().add("SECOND");
+        bean_.getComposite().setInteger(5);
+        bean_.getTree().put("ONE", 1);
+        bean_.getTree().put("TWO", 2);
+        Configuration conf_ = newConfiguration();
+        conf_.setBeans(new StringMap<Bean>());
+        conf_.getBeans().put("bean_one", bean_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setTranslators(new StringMap<Translator>());
+        conf_.getTranslators().put("trans", new MyTranslator());
+        Document doc_ = DocumentBuilder.parseSax(html_);
+        conf_.setHtml(html_);
+        conf_.setDocument(doc_);
+        setup(conf_);
+        
+        String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
+
+
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>ONE - <input type=\"text\" id=\"}numbers[0]sortedNumberKeys!key\"/><br/>THREE - <input type=\"text\" id=\"}numbers[1]sortedNumberKeys!key\"/><br/>TWO - <input type=\"text\" id=\"}numbers[2]sortedNumberKeys!key\"/><br/></body></html>", render_);
+    }
     @Test
     public void processHtml112Test() {
         String locale_ = "en";
@@ -3421,7 +3454,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"\\\\numbers[`k;;`]sortedNumberKeys!key\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"\\\\numbers[{k;;}]sortedNumberKeys!key\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3456,7 +3489,7 @@ public class FormatHtmlTest {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
-        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for key=\"k\" value=\"v\" map=\"numbers\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3490,7 +3523,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3525,7 +3558,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3560,7 +3593,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"-1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"-1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3595,7 +3628,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"-2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" eq=\"true\" step=\"-2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3630,7 +3663,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3665,7 +3698,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3700,7 +3733,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"-1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"-1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3735,7 +3768,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"-2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" eq=\"true\" step=\"-2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3770,7 +3803,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3805,7 +3838,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3840,7 +3873,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"-1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"-1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3875,7 +3908,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"-2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"0\" to=\"2\" step=\"-2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3910,7 +3943,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3945,7 +3978,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -3980,7 +4013,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"-1\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"-1\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -4014,7 +4047,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"-2\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"-2\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -4083,7 +4116,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"0\">{k;} - <input type=\"text\" id=\"`k;;``k;;`\"/><br/></c:for></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:for var=\"k\" from=\"2\" to=\"0\" step=\"0\">{k;} - <input type=\"text\" id=\"{k;;}{k;;}\"/><br/></c:for></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -9015,7 +9048,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><c:set var='loc' expression='composite'/><c:if refeq='composite`=`loc;.'>EQ REF</c:if><c:else>DIFF EQ</c:else></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><c:set var='loc' expression='composite'/><c:if refeq='composite==loc;.'>EQ REF</c:if><c:else>DIFF EQ</c:else></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9048,7 +9081,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><c:set var='str' expression='1' isstringconst='true'/><c:set var='o1' expression='$new code.formathtml.classes.RateEq(str;.)' className='code.formathtml.classes.RateEq'/><c:set var='o2' expression='$new code.formathtml.classes.RateEq(o1;.)' className='code.formathtml.classes.RateEq'/><c:if refeq='o1;.`!=`o2;.'>DIFF REF</c:if><c:else>EQ REF</c:else><br/><c:if condition='!o1;.eq(o2;.)'>DIFF OBJ</c:if><c:else>EQ OBJ</c:else></body></html>";
+        String html_ = "<html c:bean=\"bean_seven\" xmlns:c='javahtml'><body><c:set var='str' expression='1' isstringconst='true'/><c:set var='o1' expression='$new code.formathtml.classes.RateEq(str;.)' className='code.formathtml.classes.RateEq'/><c:set var='o2' expression='$new code.formathtml.classes.RateEq(o1;.)' className='code.formathtml.classes.RateEq'/><c:if refeq='o1;.!=o2;.'>DIFF REF</c:if><c:else>EQ REF</c:else><br/><c:if condition='!o1;.eq(o2;.)'>DIFF OBJ</c:if><c:else>EQ OBJ</c:else></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -9628,6 +9661,8 @@ public class FormatHtmlTest {
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
+        context_.getOptions().setEndLineSemiColumn(false);
+        context_.getOptions().setSpecialEnumsMethods(false);
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);

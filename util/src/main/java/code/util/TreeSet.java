@@ -8,7 +8,7 @@ import code.util.ints.SortableSet;
 public final class TreeSet<E> extends AbEqList<E> implements SortableSet<E> {
 
     //list cannot be null, even by reflection
-//    private final transient CustList<E> list = new CustList<E>();
+//    private final CustList<E> list = new CustList<E>();
 
     @RwXml
     private final Comparing<E> comparator;

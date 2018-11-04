@@ -6,51 +6,21 @@ import code.util.StringMap;
 abstract class OperationNode {
 
     protected static final char ESCAPE_META_CHAR = '\\';
-    protected static final char DELIMITER_CHAR = 39;
     protected static final char DELIMITER_STRING_BEGIN = '{';
     protected static final char DELIMITER_STRING_SEP = ';';
     protected static final char DELIMITER_STRING_END = '}';
-    protected static final char UNICODE = 'u';
-    protected static final char IND_FORM = 'f';
-    protected static final char IND_LINE = 'n';
-    protected static final char IND_LINE_FEED = 'r';
-    protected static final char IND_TAB = 't';
-    protected static final char IND_BOUND = 'b';
     protected static final char ARR_LEFT = '[';
     protected static final char ARR_RIGHT = ']';
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
     protected static final String PAR_RIGHT_STR = ")";
     protected static final char SEP_ARG = ',';
-    protected static final char FIRST_VAR_ARG = '?';
-    protected static final char GET_VAR = ';';
-    protected static final char DOT_VAR = '.';
-    protected static final char EXTERN_CLASS = '^';
-    protected static final char INTERN_CLASS = '$';
-    protected static final String INSTANCE = "new";
-    protected static final String STATIC_ACCESS = "static";
-    protected static final String NULL_REF_STRING = "null";
     protected static final String TRUE_STRING = "V";
     protected static final String FALSE_STRING = "F";
-    protected static final String INSTANCEOF = "instanceof";
-    protected static final String CAST = "class";
-    protected static final char MIN_ENCODE_DIGIT = '0';
-    protected static final char MAX_ENCODE_DIGIT = '9';
-    protected static final char MIN_ENCODE_LOW_LETTER = 'a';
-    protected static final char MAX_ENCODE_LOW_LETTER = 'f';
-    protected static final char MIN_ENCODE_UPP_LETTER = 'A';
-    protected static final char MAX_ENCODE_UPP_LETTER = 'F';
-    protected static final String GET_INDEX = ";;";
-    protected static final String GET_LOC_VAR = ";.";
-    protected static final String GET_ATTRIBUTE = ";";
-    protected static final char MATH_INTERPRET = '`';
-    protected static final String GET_PARAM = ";.;";
 
     protected static final String FCT = "(";
 
     protected static final String ARR = "[";
-
-    protected static final String DOT = ".";
 
     protected static final String NEG_BOOL = "!";
 

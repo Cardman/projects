@@ -5,7 +5,7 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
@@ -15,6 +15,7 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
@@ -30,9 +31,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
     @Override
     public void analyze(Analyzable _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        String me_ = getMethodName();
-        int off_ = StringList.getFirstPrintableCharIndex(me_);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         setClassName(_conf.getStandards().getAliasObject());
 
         int nbParentsInfer_ = 0;
@@ -60,6 +59,12 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
                     type_ = ret_;
                 }
             }
+        } else if (m_ == null && cur_ instanceof AbstractForEachLoop) {
+            AbstractForEachLoop i_ = (AbstractForEachLoop) _conf.getCurrentBlock();
+            type_ = i_.getImportedClassName();
+            if (!type_.isEmpty()) {
+                type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
+            }
         } else if (m_ == null && cur_ instanceof InfoBlock) {
             InfoBlock i_ = (InfoBlock) _conf.getCurrentBlock();
             type_ = i_.getImportedClassName();
@@ -76,12 +81,14 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
                 }
             }
         }
-        if (type_.isEmpty() || StringList.quickEq(type_, TypeUtil.VAR_TYPE)) {
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (type_.isEmpty() || StringList.quickEq(type_, keyWordVar_)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
-            un_.setOperands(new StringList(me_));
+            un_.setOperands(new StringList(EMPTY_STRING));
             _conf.getClasses().addError(un_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
@@ -89,7 +96,29 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         }
         String n_ = type_;
         String cp_ = PrimitiveTypeUtil.getQuickComponentType(n_, nbParentsInfer_);
+        if (cp_ == null) {
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
+            un_.setOperands(new StringList(EMPTY_STRING));
+            _conf.getClasses().addError(un_);
+            LgNames stds_ = _conf.getStandards();
+            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
+            return;
+        }
         String classNameFinal_ = PrimitiveTypeUtil.getQuickComponentType(cp_);
+        if (classNameFinal_ == null) {
+            UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
+            un_.setRc(_conf.getCurrentLocation());
+            un_.setFileName(_conf.getCurrentFileName());
+            un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
+            un_.setOperands(new StringList(EMPTY_STRING));
+            _conf.getClasses().addError(un_);
+            LgNames stds_ = _conf.getStandards();
+            setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
+            return;
+        }
         setClassName(classNameFinal_);
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
@@ -102,7 +131,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         Mapping mapping_ = new Mapping();
         mapping_.setParam(classNameFinal_);
         for (OperationNode o: chidren_) {
-            setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+off_, _conf);
+            setRelativeOffsetPossibleAnalyzable(o.getIndexInEl(), _conf);
             ClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);

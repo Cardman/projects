@@ -4,8 +4,8 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -95,6 +95,8 @@ public final class ReadConfiguration {
         }
         if (!found_) {
             ContextEl context_ = new ContextEl();
+            context_.getOptions().setEndLineSemiColumn(false);
+            context_.getOptions().setSpecialEnumsMethods(false);
             context_.getOptions().setUpperLong(true);
             context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
             context_.setStandards(stds_);

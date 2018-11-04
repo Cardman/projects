@@ -50,6 +50,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         int order_ = PrimitiveTypeUtil.getIntOrderClass(clMatch_, _conf);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (order_ == 0) {
+            _conf.setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
@@ -95,6 +96,9 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
+        if (classMethodId != null || !_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument out_ = new Argument();

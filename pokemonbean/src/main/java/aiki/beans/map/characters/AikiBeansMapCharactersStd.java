@@ -258,7 +258,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,ALLY)) {
-            res_.setResult(new StdStruct(instance_.getAlly(),PokemonStandards.TYPE_ALLY));
+            res_.setResult(StdStruct.newInstance(instance_.getAlly(),PokemonStandards.TYPE_ALLY));
             return res_;
         }
         if (StringList.quickEq(fieldName_,PAGE_TEAM)) {
@@ -266,7 +266,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TRAINER)) {
-            res_.setResult(new StdStruct(instance_.getTrainer(),PokemonStandards.TYPE_TEMP_TRAINER));
+            res_.setResult(StdStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TEMP_TRAINER));
             return res_;
         }
         return res_;
@@ -288,7 +288,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringList.quickEq(fieldName_,TRAINER)) {
-            res_.setResult(new StdStruct(instance_.getTrainer(),PokemonStandards.TYPE_TRAINER));
+            res_.setResult(StdStruct.newInstance(instance_.getTrainer(),PokemonStandards.TYPE_TRAINER));
             return res_;
         }
         if (StringList.quickEq(fieldName_,MOVE)) {

@@ -47,7 +47,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
-        _cont.setRootAffect(false);
         opThrow = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
     }
 
@@ -65,7 +64,7 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
         AbstractPageEl ip_ = _cont.getLastPage();
         ip_.setOffset(0);
         ip_.setGlobalOffset(expressionOffset);
-        ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
+        ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         Argument arg_ = el_.calculateMember(_cont);
         if (_cont.callsOrException()) {
             return;
@@ -77,7 +76,7 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return getEl();
     }

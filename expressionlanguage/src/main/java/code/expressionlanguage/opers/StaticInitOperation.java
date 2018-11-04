@@ -14,6 +14,7 @@ import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.options.KeyWords;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -55,7 +56,9 @@ public final class StaticInitOperation extends LeafOperation {
     @Override
     public void analyze(Analyzable _conf) {
         InvokingOperation ins_ = (InvokingOperation) getParent();
-        String className_ = methodName.trim().substring(INSTANCE.length()+1);
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String newKeyWord_ = keyWords_.getKeyWordNew();
+        String className_ = methodName.trim().substring(newKeyWord_.length());
         if (ins_.isIntermediateDottedOperation() || className_.trim().startsWith("..")) {
             possibleInitClass = false;
             Argument a_ = new Argument();

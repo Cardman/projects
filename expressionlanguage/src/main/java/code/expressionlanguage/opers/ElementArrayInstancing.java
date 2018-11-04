@@ -9,6 +9,7 @@ import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
+import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -27,7 +28,9 @@ public final class ElementArrayInstancing extends AbstractArrayElementOperation 
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         setClassName(_conf.getStandards().getAliasObject());
-        String className_ = m_.trim().substring(INSTANCE.length()+1);
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String new_ = keyWords_.getKeyWordNew();
+        String className_ = m_.trim().substring(new_.length());
         className_ = className_.trim();
         className_ = _conf.resolveCorrectType(className_);
         if (!className_.startsWith(ARR)) {

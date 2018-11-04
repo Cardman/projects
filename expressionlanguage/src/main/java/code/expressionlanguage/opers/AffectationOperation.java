@@ -9,7 +9,6 @@ import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
@@ -26,6 +25,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -70,12 +70,14 @@ public final class AffectationOperation extends MethodOperation {
             return;
         }
         settable = elt_;
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
         if (settable instanceof VariableOperation) {
             VariableOperation v_ = (VariableOperation)elt_;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringVariable(v_, _conf) && _conf.getInfersLocalVars().containsStr(inf_)) {
                 String c_ = _conf.getCurrentVarSetting();
-                if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                if (StringList.quickEq(c_, keyWordVar_)) {
                     ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                     StringList names_ = clMatchRight_.getNames();
                     if (names_.size() == 1) {
@@ -97,7 +99,7 @@ public final class AffectationOperation extends MethodOperation {
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringLoopVariable(v_, _conf) && _conf.getInfersMutableLocalVars().containsStr(inf_)) {
                 String c_ = _conf.getCurrentVarSetting();
-                if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+                if (StringList.quickEq(c_, keyWordVar_)) {
                     ClassArgumentMatching clMatchRight_ = right_.getResultClass();
                     StringList names_ = clMatchRight_.getNames();
                     if (names_.size() == 1) {
@@ -219,9 +221,11 @@ public final class AffectationOperation extends MethodOperation {
     }
 
     static SettableElResult tryGetSettable(MethodOperation _operation) {
-        CustList<OperationNode> chidren_ = _operation.getChildrenNodes();
-        OperationNode root_ = chidren_.first();
+        OperationNode root_ = _operation.getFirstChild();
         SettableElResult elt_ = null;
+        while (root_ instanceof IdOperation) {
+            root_ = ((IdOperation)root_).getFirstChild();
+        }
         if (!(root_ instanceof DotOperation)) {
             if (root_ instanceof SettableElResult) {
                 elt_ = (SettableElResult) root_;

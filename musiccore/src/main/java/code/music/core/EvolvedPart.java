@@ -18,7 +18,7 @@ public final class EvolvedPart implements MidListable<EvolvedPhrase>, Equallable
 
     private static final String STRING = "";
 
-    private transient Part part;
+    private Part part;
 
     private EqList<EvolvedPhrase> phrases = new EqList<EvolvedPhrase>();
 

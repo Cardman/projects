@@ -18,7 +18,7 @@ public final class ByteStruct extends NumberStruct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasByte();
+        return _context.getStandards().getAliasPrimByte();
     }
 
     @Override

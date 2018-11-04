@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
@@ -35,7 +36,7 @@ public abstract class AbstractArrayInstancingOperation extends AbstractInstancin
     }
 
     @Override
-    final boolean isCallMethodCtor() {
+    final boolean isCallMethodCtor(Analyzable _an) {
         return false;
     }
 

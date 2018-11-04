@@ -4,17 +4,13 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadVariableName;
@@ -24,13 +20,13 @@ import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
@@ -98,6 +94,27 @@ public final class VariableOperation extends LeafOperation implements
                 b_.setVarName(str_);
                 _conf.getClasses().addError(b_);
             }
+            if (_conf.getKeyWords().isKeyWordNotVar(str_)) {
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                b_.setRc(page_.getTrace());
+                b_.setVarName(str_);
+                _conf.getClasses().addError(b_);
+            }
+            if (PrimitiveTypeUtil.isPrimitive(str_, _conf)) {
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                b_.setRc(page_.getTrace());
+                b_.setVarName(str_);
+                _conf.getClasses().addError(b_);
+            }
+            if (StringList.quickEq(str_, _conf.getStandards().getAliasVoid())) {
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
+                b_.setRc(page_.getTrace());
+                b_.setVarName(str_);
+                _conf.getClasses().addError(b_);
+            }
             Options opt_ = _conf.getOptions();
             if (opt_.getSuffixVar() == VariableSuffix.NONE) {
                 if (!str_.isEmpty() && Character.isDigit(str_.charAt(0))) {
@@ -147,11 +164,13 @@ public final class VariableOperation extends LeafOperation implements
                 }
             }
             String c_ = _conf.getCurrentVarSetting();
-            if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+            KeyWords keyWords_ = _conf.getKeyWords();
+            String keyWordVar_ = keyWords_.getKeyWordVar();
+            if (StringList.quickEq(c_, keyWordVar_)) {
                 _conf.putLocalVar(str_);
             }
             LocalVariable lv_ = new LocalVariable();
-            if (StringList.quickEq(c_, TypeUtil.VAR_TYPE)) {
+            if (StringList.quickEq(c_, keyWordVar_)) {
                 lv_.setClassName(_conf.getStandards().getAliasObject());
             } else {
                 lv_.setClassName(c_);
@@ -428,9 +447,6 @@ public final class VariableOperation extends LeafOperation implements
     }
     Argument getCommonSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
         PageEl ip_ = _conf.getOperationPageEl();
-        LgNames stds_ = _conf.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCast();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
@@ -440,22 +456,8 @@ public final class VariableOperation extends LeafOperation implements
         String formattedClassVar_ = locVar_.getClassName();
         formattedClassVar_ = _conf.getOperationPageEl().formatVarType(formattedClassVar_, _conf);
         left_.setStruct(locVar_.getStruct());
-        if (!_right.isNull() && !_convert) {
-            Mapping mapping_ = new Mapping();
-            String base_ = _right.getObjectClassName(_conf.getContextEl());
-            mapping_.setArg(base_);
-            mapping_.setParam(formattedClassVar_);
-            if (!Templates.isCorrect(mapping_, _conf)) {
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(base_,RETURN_LINE,formattedClassVar_,RETURN_LINE,_conf.joinPages())),cast_));
-                return Argument.createVoid();
-            }
-        }
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
-        if (_conf.getException() != null) {
-            return _right;
-        }
-        if (_right.getStruct() instanceof NumberStruct || _right.getStruct() instanceof CharStruct) {
-            _right.setStruct(PrimitiveTypeUtil.convertObject(cl_, _right.getStruct(), _conf));
+        if (!Templates.checkObject(formattedClassVar_, _right, _convert, _conf)) {
+            return Argument.createVoid();
         }
         locVar_.setStruct(_right.getStruct());
         return _right;
@@ -477,7 +479,7 @@ public final class VariableOperation extends LeafOperation implements
         if (_conf.getException() != null) {
             return res_;
         }
-        if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
+        if (res_.getStruct() instanceof NumberStruct) {
             res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         locVar_.setStruct(res_.getStruct());
@@ -500,7 +502,7 @@ public final class VariableOperation extends LeafOperation implements
         if (_conf.getException() != null) {
             return res_;
         }
-        if (res_.getStruct() instanceof NumberStruct || res_.getStruct() instanceof CharStruct) {
+        if (res_.getStruct() instanceof NumberStruct) {
             res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         locVar_.setStruct(res_.getStruct());

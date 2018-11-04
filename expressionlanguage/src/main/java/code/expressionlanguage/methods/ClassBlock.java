@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
@@ -123,10 +122,6 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                     String retDerive_ = mBase_.getImportedReturnType();
                     String formattedRetDer_ = Templates.quickFormat(c, retDerive_, _context);
                     String formattedRetBase_ = Templates.quickFormat(s, retBase_, _context);
-                    Mapping mapping_ = new Mapping();
-                    mapping_.getMapping().putAllMap(vars_);
-                    mapping_.setArg(formattedRetDer_);
-                    mapping_.setParam(formattedRetBase_);
                     if (StringList.quickEq(retBase_, void_)) {
                         if (!StringList.quickEq(retDerive_, void_)) {
                             BadReturnTypeInherit err_;
@@ -138,7 +133,7 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
                             err_.setParentClass(c);
                             classesRef_.addError(err_);
                         }
-                    } else if (!Templates.isCorrect(mapping_, _context)) {
+                    } else if (!Templates.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _context)) {
                         BadReturnTypeInherit err_;
                         err_ = new BadReturnTypeInherit();
                         err_.setFileName(getFullName());

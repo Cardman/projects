@@ -3499,6 +3499,8 @@ public class TemplatesTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
@@ -3513,6 +3515,8 @@ public class TemplatesTest {
     }
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();

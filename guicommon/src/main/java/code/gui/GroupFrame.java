@@ -72,7 +72,6 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
         if(FRAMES.isEmpty()) {
             Constants.exit();
         }
-//        System.gc();
     }
 
     public void nativeDispose() {
@@ -105,7 +104,6 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
         if(!FRAMES.first().opened) {
             Constants.exit();
         }
-//        System.gc();
     }
 
     @Override

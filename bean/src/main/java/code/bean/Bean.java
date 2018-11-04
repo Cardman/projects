@@ -3,15 +3,15 @@ import code.util.StringMapObject;
 
 public class Bean {
 
-    private transient Object dataBase;
+    private Object dataBase;
 
-    private transient StringMapObject forms;
+    private StringMapObject forms;
 
     private String scope;
 
     private String className;
 
-    private transient String language;
+    private String language;
 
     public void beforeDisplaying() {
     }

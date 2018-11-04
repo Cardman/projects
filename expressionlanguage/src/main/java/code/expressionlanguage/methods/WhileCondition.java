@@ -318,7 +318,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     }
     @Override
     public boolean accessibleCondition() {
-        OperationNode op_ = getElCondition().getRoot();
+        OperationNode op_ = getRoot();
         boolean accessible_ = false;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
@@ -333,7 +333,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         boolean abr_ = true;
-        OperationNode op_ = getElCondition().getRoot();
+        OperationNode op_ = getRoot();
         boolean proc_ = true;
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {

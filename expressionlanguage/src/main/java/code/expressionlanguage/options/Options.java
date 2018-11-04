@@ -1,4 +1,6 @@
-package code.expressionlanguage;
+package code.expressionlanguage.options;
+
+import code.expressionlanguage.VariableSuffix;
 
 public final class Options {
 
@@ -7,7 +9,8 @@ public final class Options {
     private VariableSuffix suffixVar = VariableSuffix.NONE;
     private boolean varTypeFirst = true;
     private boolean upperLong;
-    private boolean endLineSemiColumn;
+    private boolean endLineSemiColumn = true;
+    private boolean specialEnumsMethods = true;
 
     public char getEndLine() {
         if (endLineSemiColumn) {
@@ -67,6 +70,12 @@ public final class Options {
 
     public void setEndLineSemiColumn(boolean _endLineSemiColumn) {
         endLineSemiColumn = _endLineSemiColumn;
+    }
+    public boolean isSpecialEnumsMethods() {
+        return specialEnumsMethods;
+    }
+    public void setSpecialEnumsMethods(boolean _specialEnumsMethods) {
+        specialEnumsMethods = _specialEnumsMethods;
     }
 
 }

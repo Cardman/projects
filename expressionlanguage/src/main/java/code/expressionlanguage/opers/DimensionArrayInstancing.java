@@ -11,6 +11,7 @@ import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.Numbers;
@@ -35,7 +36,9 @@ public final class DimensionArrayInstancing extends
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         className = _conf.getStandards().getAliasObject();
-        String className_ = methodName.trim().substring(INSTANCE.length()+1);
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String new_ = keyWords_.getKeyWordNew();
+        String className_ = methodName.trim().substring(new_.length());
         className_ = className_.trim();
         className_ = _conf.resolveCorrectType(className_);
         if (chidren_.isEmpty()) {

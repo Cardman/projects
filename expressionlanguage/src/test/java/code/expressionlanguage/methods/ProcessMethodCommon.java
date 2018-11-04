@@ -19,9 +19,9 @@ public abstract class ProcessMethodCommon {
     protected static final String ARR_ARR_CUST = "[[pkg.ExThree";
     protected static final String NUMBERS = "code.expressionlanguage.classes.Ints";
     protected static final String CUST = NUMBERS;
-    protected static final String INTEGER = "java.lang.Integer";
+    protected static final String INTEGER = "$int";
     protected static final String STRING = "java.lang.String";
-    protected static final String BOOLEAN = "java.lang.Boolean";
+    protected static final String BOOLEAN = "$boolean";
 
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),_method.getParametersTypes());
@@ -84,7 +84,20 @@ public abstract class ProcessMethodCommon {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
+        ct_.getOptions().setEndLineSemiColumn(false);
+        ct_.getOptions().setSpecialEnumsMethods(false);
         ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        InitializationLgNames.initAdvStandards(ct_);
+        ct_.initError();
+        return ct_;
+    }
+    protected static ContextEl contextElDefault(int... _m) {
+        ContextEl ct_;
+        if (_m.length == 0) {
+            ct_ = new ContextEl();
+        } else {
+            ct_ = new ContextEl(_m[0]);
+        }
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
         return ct_;
@@ -96,6 +109,8 @@ public abstract class ProcessMethodCommon {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
+        ct_.getOptions().setEndLineSemiColumn(false);
+        ct_.getOptions().setSpecialEnumsMethods(false);
         ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
@@ -108,6 +123,8 @@ public abstract class ProcessMethodCommon {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
+        ct_.getOptions().setEndLineSemiColumn(false);
+        ct_.getOptions().setSpecialEnumsMethods(false);
         ct_.getOptions().setSuffixVar(_suf);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();
@@ -120,6 +137,8 @@ public abstract class ProcessMethodCommon {
         } else {
             ct_ = new ContextEl(_m[0]);
         }
+        ct_.getOptions().setEndLineSemiColumn(false);
+        ct_.getOptions().setSpecialEnumsMethods(false);
         ct_.getOptions().setSuffixVar(_suf);
         InitializationLgNames.initAdvStandards(ct_);
         ct_.initError();

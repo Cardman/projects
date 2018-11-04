@@ -18,6 +18,7 @@ import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -25,8 +26,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class ElementBlock extends Leaf implements InfoBlock{
-
-    private static final String NEW = "$new ";
 
     private final String fieldName;
 
@@ -43,6 +42,8 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     private int fieldNameOffest;
 
     private int valueOffest;
+
+    private int trOffset;
 
     public ElementBlock(ContextEl _importingPage, int _indexChild,
             BracedBlock _m, OffsetStringInfo _fieldName,
@@ -174,8 +175,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
         page_.setOffset(0);
-        String fullInstance_ = StringList.concat(NEW,importedClassName, PAR_LEFT, value, PAR_RIGHT);
-        page_.setTranslatedOffset(valueOffest - fieldNameOffest - 1 - NEW.length() - importedClassName.length());
+        KeyWords keyWords_ = _cont.getKeyWords();
+        String newKeyWord_ = keyWords_.getKeyWordNew();
+        String fullInstance_ = StringList.concat(newKeyWord_," ",importedClassName, PAR_LEFT, value, PAR_RIGHT);
+        trOffset = valueOffest - fieldNameOffest - 2 - newKeyWord_.length() - importedClassName.length();
+        page_.setTranslatedOffset(trOffset);
         int index_ = 0;
         Block n_ = getPreviousSibling();
         while (n_ != null) {
@@ -183,7 +187,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             n_ = n_.getPreviousSibling();
         }
         _cont.setCurrentChildTypeIndex(index_);
-        _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(fullInstance_, _cont, new Calculation(fieldName));
         page_.setTranslatedOffset(0);
     }
@@ -209,8 +212,8 @@ public final class ElementBlock extends Leaf implements InfoBlock{
             ip_.setGlobalOffset(fieldNameOffest);
             ip_.setOffset(0);
             Struct struct_;
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
-            Argument arg_ = el_.calculateMember(_cont, valueOffest - fieldNameOffest - 1 - NEW.length() - importedClassName.length());
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont, this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
+            Argument arg_ = el_.calculateMember(_cont, trOffset + 1);
             if (_cont.callsOrException()) {
                 return;
             }
@@ -230,7 +233,7 @@ public final class ElementBlock extends Leaf implements InfoBlock{
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return getValueEl();
     }

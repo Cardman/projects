@@ -155,7 +155,7 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return null;
     }

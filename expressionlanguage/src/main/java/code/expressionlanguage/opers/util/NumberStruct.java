@@ -30,11 +30,6 @@ public abstract class NumberStruct implements Struct {
     @Override
     public final boolean sameReference(Struct _other) {
         if (!(_other instanceof NumberStruct)) {
-            if (_other instanceof CharStruct) {
-                CharStruct other_ = (CharStruct) _other;
-                Number nb_ = getInstance();
-                return Numbers.eq(nb_, (long)other_.getInstance().charValue());
-            }
             return false;
         }
         NumberStruct other_ = (NumberStruct) _other;

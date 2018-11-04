@@ -28,7 +28,7 @@ public class CustList<T> implements Listable<T> {
 
     protected static final String EMPTY_STRING = "";
 
-    private final transient ArrayList<T> list;
+    private final ArrayList<T> list;
 
     public CustList() {
         list = new ArrayList<T>();

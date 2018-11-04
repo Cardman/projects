@@ -3,9 +3,7 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
@@ -20,14 +18,10 @@ import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadAccessConstructor;
 import code.expressionlanguage.methods.util.BadConstructorCall;
 import code.expressionlanguage.methods.util.UndefinedConstructorError;
-import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.opers.util.NumberStruct;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdMap;
@@ -62,7 +56,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
     }
 
     @Override
-    final boolean isCallMethodCtor() {
+    final boolean isCallMethodCtor(Analyzable _an) {
         return true;
     }
 
@@ -251,27 +245,12 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         }
     }
     protected final void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
         int i_ = CustList.FIRST_INDEX;
-        LgNames stds_ = _ex.getStandards();
-        String cast_;
-        cast_ = stds_.getAliasCast();
         for (Argument a: _args) {
             if (i_ < _params.size()) {
-                Struct str_ = a.getStruct();
-                if (!str_.isNull()) {
-                    Mapping mapping_ = new Mapping();
-                    mapping_.setArg(a.getObjectClassName(_ex.getContextEl()));
-                    mapping_.setParam(_params.get(i_));
-                    if (!Templates.isCorrect(mapping_, _ex)) {
-                        setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _ex);
-                        _ex.setException(new StdStruct(new CustomError(_ex.joinPages()),cast_));
-                        return;
-                    }
-                }
-                if (str_ instanceof NumberStruct || str_ instanceof CharStruct) {
-                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(_params.get(i_));
-                    a.setStruct(PrimitiveTypeUtil.convertObject(clArg_, str_, _ex));
+                String param_ = _params.get(i_);
+                if (!Templates.checkObject(param_, a, _ex)) {
+                    return;
                 }
             }
             i_++;

@@ -9,7 +9,7 @@ import code.util.ints.ListableEntries;
 public final class BooleanMap<V> extends AbsMap<Boolean,V> {
 
     //list cannot be null, even by reflection
-//    private final transient CustList<EntryCust<Boolean,V>> list = new CustList<EntryCust<Boolean,V>>();
+//    private final CustList<EntryCust<Boolean,V>> list = new CustList<EntryCust<Boolean,V>>();
 
     public BooleanMap() {
     }

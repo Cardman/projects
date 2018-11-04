@@ -36,7 +36,7 @@ public final class StreamImageFile {
                 ZipEntry ze_= new ZipEntry(n);
                 zos_.putNextEntry(ze_);
 
-                InputStream in_ = new ByteArrayInputStream(file_.getBytes());
+                InputStream in_ = new ByteArrayInputStream(StringList.encode(file_));
 
                 int len_;
                 while (true) {

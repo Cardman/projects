@@ -66,6 +66,108 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         super(_capacity);
     }
 
+    public static byte[] encode(String _input) {
+        Numbers<Byte> expBytes_ = new Numbers<Byte>();
+        for (char c: _input.toCharArray()) {
+            if (c < 128) {
+                expBytes_.add((byte)c);
+                continue;
+            }
+            if (c < 2048) {
+                byte f_ = (byte) (c/64+192);
+                expBytes_.add(f_);
+                byte s_ = (byte) (c%64+128);
+                expBytes_.add(s_);
+                continue;
+            }
+            if (c < 4096) {
+                byte f_ = -32;
+                expBytes_.add(f_);
+                byte s_ = (byte) (c/64+128);
+                expBytes_.add(s_);
+                byte t_ = (byte) (c%64+128);
+                expBytes_.add(t_);
+                continue;
+            }
+            byte f_ = (byte)(c/(64*64)+224);
+            expBytes_.add(f_);
+            byte s_ = (byte) ((c/64)%64+128);
+            expBytes_.add(s_);
+            byte t_ = (byte) (c%64+128);
+            expBytes_.add(t_);
+        }
+        int length_ = expBytes_.size();
+        byte[] bytes_ = new byte[length_];
+        for (int i = 0; i < length_; i++) {
+            byte b_ = expBytes_.get(i);
+            bytes_[i] = b_;
+        }
+        return bytes_;
+    }
+    public static String decode(byte[] _bytes) {
+        return decode(_bytes, 0, _bytes.length);
+    }
+    public static String decode(byte[] _bytes, int _from, int _length) {
+        int len_ = _from + _length;
+        int i_ = _from;
+        StringBuilder out_ = new StringBuilder();
+        while (i_ < len_) {
+            byte cur_ = _bytes[i_];
+            if (cur_ >= 0) {
+                out_.append((char)cur_);
+                i_++;
+                continue;
+            }
+            if (i_ + 1 >= len_) {
+                return null;
+            }
+            if (cur_ < -62) {
+                return null;
+            }
+            if (cur_ > -17) {
+                return null;
+            }
+            byte next_ = _bytes[i_ + 1];
+            if (next_ > -65) {
+                return null;
+            }
+            if (cur_ <= -33) {
+                short f_ = (short)(cur_ + 64);
+                short s_ = (short)(next_ + 128);
+                short t_ = (short) (64 * f_ + s_);
+                out_.append((char)t_);
+                i_++;
+                i_++;
+                continue;
+            }
+            if (i_ + 2 >= len_) {
+                return null;
+            }
+            byte afterNext_ = _bytes[i_ + 2];
+            if (afterNext_ > -65) {
+                return null;
+            }
+            if (cur_ == -32) {
+                short f_ = (short)(next_ + 128);
+                short s_ = (short)(afterNext_ + 128);
+                short t_ = (short) (64 * f_ + s_);
+                out_.append((char)t_);
+                i_++;
+                i_++;
+                i_++;
+                continue;
+            }
+            short f_ = (short)(cur_ + 32);
+            short s_ = (short)(next_ + 128);
+            short t_ = (short) (afterNext_ + 128);
+            short full_ = (short) (64 * 64 * f_ + 64 * s_ + t_);
+            out_.append((char)full_);
+            i_++;
+            i_++;
+            i_++;
+        }
+        return out_.toString();
+    }
     public static String toLowerCase(String _string) {
         int len_ = _string.length();
         StringBuilder str_ = new StringBuilder(len_);

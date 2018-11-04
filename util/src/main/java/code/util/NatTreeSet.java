@@ -12,7 +12,7 @@ import code.util.ints.SortableSet;
 public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements SortableSet<E> {
 
     //list cannot be null, even by reflection
-    private final transient SortableCustList<E> list;
+    private final SortableCustList<E> list;
 
     public NatTreeSet() {
         list = new SortableCustList<E>();

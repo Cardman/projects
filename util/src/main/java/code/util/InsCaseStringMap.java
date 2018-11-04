@@ -8,7 +8,7 @@ import code.util.ints.ListableEntries;
 public final class InsCaseStringMap<V> extends AbsMap<String,V> {
 
 //    //list cannot be null, even by reflection
-//    private final transient CustList<EntryCust<String,V>> list = new CustList<EntryCust<String,V>>();
+//    private final CustList<EntryCust<String,V>> list = new CustList<EntryCust<String,V>>();
 
     public InsCaseStringMap() {
     }

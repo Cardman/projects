@@ -8,13 +8,14 @@ import org.junit.Test;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.methods.RootBlock;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringMap;
 
 @SuppressWarnings("static-method")
-public class ElResolverTest {
+public class ElResolverTest extends ProcessMethodCommon{
 
     @Test
     public void getOperationsSequence1Test() {
@@ -283,7 +284,8 @@ public class ElResolverTest {
         assertEq(0, opers_.size());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("\"18\"", values_.getVal(0));
+        assertEq("18", values_.getVal(0));
+        assertSame(ConstType.STRING, seq_.getConstType());
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
 
@@ -1132,7 +1134,8 @@ public class ElResolverTest {
         assertEq(0, opers_.size());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("\"\\\"string\"", values_.getVal(0));
+        assertEq("\"string", values_.getVal(0));
+        assertSame(ConstType.STRING, seq_.getConstType());
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -1148,7 +1151,8 @@ public class ElResolverTest {
         assertEq(0, opers_.size());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("'\\''", values_.getVal(0));
+        assertSame(ConstType.CHARACTER, seq_.getConstType());
+        assertEq("'", values_.getVal(0));
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -1164,7 +1168,8 @@ public class ElResolverTest {
         assertEq(0, opers_.size());
         NatTreeMap<Integer,String> values_ = seq_.getValues();
         assertEq(1, values_.size());
-        assertEq("'\\\\'", values_.getVal(0));
+        assertSame(ConstType.CHARACTER, seq_.getConstType());
+        assertEq("\\", values_.getVal(0));
     
         assertEq(ElResolver.CONST_PRIO, seq_.getPriority());
     }
@@ -2883,9 +2888,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "v+=b";
-        conf_.setRootAffect(true);
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        conf_.setAnalyzingRoot(true);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -2902,9 +2905,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "v++";
-        conf_.setRootAffect(true);
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        conf_.setAnalyzingRoot(true);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -3844,9 +3845,7 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
         String el_ = "integer=1=0";
-        conf_.setRootAffect(true);
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
-        conf_.setAnalyzingRoot(true);
         OperationsSequence seq_ = ElResolver.getOperationsSequence(0, el_, conf_, d_);
         NatTreeMap<Integer,String> opers_ = seq_.getOperators();
         assertEq(1, opers_.size());
@@ -4095,7 +4094,6 @@ public class ElResolverTest {
         addImportingPage(conf_, false);
         addBeanClassName(conf_, "code.expressionlanguage.classes.BeanOne");
         String el_ = "1==0";
-        conf_.setRootAffect(true);
         Delimiters d_ = ElResolver.checkSyntax(el_, conf_, 0);
         assertEq(1, d_.getAllowedOperatorsIndexes().size());
         assertEq(1, d_.getAllowedOperatorsIndexes().first().intValue());
@@ -4117,8 +4115,8 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters2Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "`6*('\\u9fcb'+8)`";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '`', '`');
+        String el_ = "{6*('\\u9fcb'+8)}";
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first().intValue());
         assertEq(11, d_.getDelStringsChars().last().intValue());
@@ -4130,8 +4128,8 @@ public class ElResolverTest {
     public void checkSyntaxDelimiters3Test() {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
-        String el_ = "`6*('`'+8)`";
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '`', '`');
+        String el_ = "{6*('`'+8)}";
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
         assertEq(2, d_.getDelStringsChars().size());
         assertEq(4, d_.getDelStringsChars().first().intValue());
         assertEq(6, d_.getDelStringsChars().last().intValue());
@@ -4198,7 +4196,30 @@ public class ElResolverTest {
         String el_ = "{6*('\\u9fcb'+8)";
         assertEq(15, ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}').getBadOffset());
     }
-
+    @Test
+    public void checkSyntaxDelimiters8Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "{6*(`string`+8)}";
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(4, d_.getDelStringsChars().first().intValue());
+        assertEq(11, d_.getDelStringsChars().last().intValue());
+        assertEq(1, d_.getIndexBegin());
+        assertEq(14, d_.getIndexEnd());
+    }
+    @Test
+    public void checkSyntaxDelimiters9Test() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_, false);
+        String el_ = "{6*(`string``after`+8)}";
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(el_, conf_, 1, '{', '}');
+        assertEq(2, d_.getDelStringsChars().size());
+        assertEq(4, d_.getDelStringsChars().first().intValue());
+        assertEq(18, d_.getDelStringsChars().last().intValue());
+        assertEq(1, d_.getIndexBegin());
+        assertEq(21, d_.getIndexEnd());
+    }
     @Test
     public void checkSyntaxDelimiters2FailTest() {
         ContextEl conf_ = contextEl();
@@ -4276,7 +4297,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "6 1*(\"te\"+[8])";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4380,7 +4401,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "\"\\u9fc";
-        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4388,7 +4409,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "'\\u9fc";
-        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4508,7 +4529,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1 .0";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4516,7 +4537,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1. 0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4572,7 +4593,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0.2";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4580,7 +4601,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1  .0";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4588,7 +4609,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0e5df";
-        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4596,7 +4617,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0df";
-        assertEq(4, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4612,7 +4633,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.df";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4620,7 +4641,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.d.f";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4628,7 +4649,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1d.";
-        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4644,7 +4665,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0df";
-        assertEq(4, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4652,7 +4673,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0dgf";
-        assertEq(4, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4708,7 +4729,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = ".0e1ff";
-        assertEq(5, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(4, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4732,7 +4753,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "4.ff";
-        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4764,7 +4785,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0e4d.5";
-        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4772,7 +4793,7 @@ public class ElResolverTest {
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1. .0";
-        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4960,6 +4981,8 @@ public class ElResolverTest {
     }
     private ContextEl contextEl() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();
@@ -4967,6 +4990,8 @@ public class ElResolverTest {
     }
     private ContextEl contextEl(boolean _aff, boolean _catChar) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();

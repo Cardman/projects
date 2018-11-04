@@ -128,24 +128,24 @@ public final class Player {
     private int remainingRepelSteps;
 
     /***/
-    private transient Comment commentGame = new Comment();
+    private Comment commentGame = new Comment();
 
-    private transient String selectedObject = DataBase.EMPTY_STRING;
+    private String selectedObject = DataBase.EMPTY_STRING;
 
-    private transient String selectedMove = DataBase.EMPTY_STRING;
+    private String selectedMove = DataBase.EMPTY_STRING;
 
-    private transient StringMap<Short> chosenMoves = new StringMap<Short>();
+    private StringMap<Short> chosenMoves = new StringMap<Short>();
 
-    private transient StringMap<Boolean> selectedMoves = new StringMap<Boolean>();
+    private StringMap<Boolean> selectedMoves = new StringMap<Boolean>();
 
-    private transient short chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
+    private short chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
 
-    private transient String chosenAbilityForEvolution = DataBase.EMPTY_STRING;
+    private String chosenAbilityForEvolution = DataBase.EMPTY_STRING;
 
-    private transient Numbers<Byte> indexesOfPokemonTeam = new Numbers<Byte>();
+    private Numbers<Byte> indexesOfPokemonTeam = new Numbers<Byte>();
 
     //values are true <==> a move has to be forgotten
-    private transient NumberMap<Byte,Boolean> indexesOfPokemonTeamMoves = new NumberMap<Byte,Boolean>();
+    private NumberMap<Byte,Boolean> indexesOfPokemonTeamMoves = new NumberMap<Byte,Boolean>();
 
     public Player(){
     }

@@ -16,7 +16,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
 
     private final StringList superInterfaces;
 
-    protected StandardInterface(String _name,
+    public StandardInterface(String _name,
             ObjectMap<MethodId, StandardMethod> _methods,
             StringList _superInterfaces) {
         super(_name, new StringMap<StandardField>(), new CustList<StandardConstructor>(), _methods);

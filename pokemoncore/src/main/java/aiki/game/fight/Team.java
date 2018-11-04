@@ -82,7 +82,7 @@ public final class Team {
     private StringList successfulMovesRound;
 
     /***/
-    private transient Comment comment = new Comment();
+    private Comment comment = new Comment();
 
     public Team(){
 

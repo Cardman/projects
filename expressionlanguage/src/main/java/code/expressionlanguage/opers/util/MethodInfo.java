@@ -25,7 +25,7 @@ public final class MethodInfo implements Parametrable, Displayable {
     private int ancestor;
 
     private boolean varArgWrap;
-
+    private boolean abstractMethod;
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
@@ -129,4 +129,13 @@ public final class MethodInfo implements Parametrable, Displayable {
     public MethodId getFormatted() {
         return formatted;
     }
+
+    public boolean isAbstractMethod() {
+        return abstractMethod;
+    }
+
+    public void setAbstractMethod(boolean _abstractMethod) {
+        abstractMethod = _abstractMethod;
+    }
+
 }

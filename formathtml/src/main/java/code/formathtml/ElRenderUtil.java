@@ -17,7 +17,6 @@ public final class ElRenderUtil {
     public static Argument processEl(String _el, Configuration _conf, int _minIndex, char _begin, char _end) {
         ContextEl context_ = _conf.toContextEl();
         context_.setAnalyzing(new AnalyzedPageEl());
-        context_.setRootAffect(false);
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().setVars(_conf.getVars());
@@ -36,7 +35,6 @@ public final class ElRenderUtil {
         }
         String el_ = _el.substring(d_.getIndexBegin(), d_.getIndexEnd()+1);
         _conf.setNextIndex(d_.getIndexEnd()+2);
-        context_.setAnalyzingRoot(false);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_minIndex, el_, context_, d_);
         OperationNode op_ = OperationNode.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         if (opTwo_.isError()) {
@@ -69,17 +67,8 @@ public final class ElRenderUtil {
     }
 
     public static Argument processEl(String _el, int _index, Configuration _conf) {
-        return processEl(_el, _index, _conf, false);
-    }
-    public static Argument processEl(String _el, int _index, Configuration _conf, boolean _line) {
         ContextEl context_ = _conf.toContextEl();
         context_.setAnalyzing(new AnalyzedPageEl());
-        if (!_conf.isInternGlobal() && !_line) {
-            context_.setRootAffect(false);
-        } else {
-            context_.setRootAffect(true);
-            context_.setAnalyzingRoot(true);
-        }
         context_.getAnalyzing().setGlobalClass(_conf.getGlobalClass());
         context_.getAnalyzing().setLocalVars(_conf.getLocalVars());
         context_.getAnalyzing().setVars(_conf.getVars());
@@ -90,8 +79,6 @@ public final class ElRenderUtil {
         _conf.setStaticContext(static_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, _index);
         if (d_.getBadOffset() >= 0) {
-            context_.setRootAffect(false);
-            context_.setAnalyzingRoot(false);
             _conf.getLastPage().setOffset(d_.getBadOffset());
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
@@ -102,14 +89,9 @@ public final class ElRenderUtil {
             return Argument.createVoid();
         }
         String el_ = _el.substring(_index);
-        if (!_conf.isInternGlobal() && !_line) {
-            context_.setAnalyzingRoot(false);
-        }
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(_index, el_, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf);
         if (opTwo_.isError()) {
-            context_.setRootAffect(false);
-            context_.setAnalyzingRoot(false);
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
@@ -120,8 +102,6 @@ public final class ElRenderUtil {
         }
         CustList<OperationNode> all_ = ElUtil.getSortedDescNodes(op_, static_, _conf);
         if (!_conf.getClasses().isEmptyErrors()) {
-            context_.setRootAffect(false);
-            context_.setAnalyzingRoot(false);
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
@@ -130,8 +110,6 @@ public final class ElRenderUtil {
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
-        context_.setRootAffect(false);
-        context_.setAnalyzingRoot(false);
         context_.setAnalyzing(null);
         calculate(all_, _conf);
         Argument arg_  = op_.getArgument();

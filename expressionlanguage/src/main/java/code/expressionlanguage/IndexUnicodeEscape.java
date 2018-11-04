@@ -12,6 +12,8 @@ public class IndexUnicodeEscape {
 
     private boolean part;
 
+    private StringInfo stringInfo;
+
     public int getIndex() {
         return index;
     }
@@ -50,5 +52,11 @@ public class IndexUnicodeEscape {
 
     public void setPart(boolean _part) {
         part = _part;
+    }
+    public StringInfo getStringInfo() {
+        return stringInfo;
+    }
+    public void setStringInfo(StringInfo _stringInfo) {
+        stringInfo = _stringInfo;
     }
 }

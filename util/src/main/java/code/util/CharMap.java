@@ -8,7 +8,7 @@ import code.util.ints.ListableEntries;
 public final class CharMap<V> extends AbsMap<Character,V> {
 
     //list cannot be null, even by reflection
-//    private final transient CustList<EntryCust<Character,V>> list = new CustList<EntryCust<Character,V>>();
+//    private final CustList<EntryCust<Character,V>> list = new CustList<EntryCust<Character,V>>();
 
     public CharMap() {
     }

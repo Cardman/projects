@@ -65,6 +65,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (cl_ == null) {
+            _conf.setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
             un_.setRc(_conf.getCurrentLocation());
@@ -109,6 +110,9 @@ public final class UnaryOperation extends AbstractUnaryOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
+        if (classMethodId != null || !_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument out_ = new Argument();

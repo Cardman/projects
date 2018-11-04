@@ -8,7 +8,7 @@ import code.util.ints.ListableEntries;
 public final class IdMap<K,V> extends AbsMap<K,V> {
 
 //    //list cannot be null, even by reflection
-//    private final transient CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
+//    private final CustList<EntryCust<K,V>> list = new CustList<EntryCust<K,V>>();
 
     public IdMap() {
     }

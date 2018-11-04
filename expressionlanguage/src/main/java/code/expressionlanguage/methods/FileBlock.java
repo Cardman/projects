@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.sml.RowCol;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -10,6 +11,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     private Numbers<Integer> lineReturns = new Numbers<Integer>();
     private Numbers<Integer> leftSpaces = new Numbers<Integer>();
+    private Numbers<Integer> tabulations = new Numbers<Integer>();
 
     private StringList imports = new StringList();
 
@@ -19,11 +21,42 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     private boolean predefined;
 
-    public FileBlock(OffsetsBlock _offset, boolean _predefined) {
+    private int tabWidth;
+
+    public FileBlock(OffsetsBlock _offset, boolean _predefined, int _tabWidth) {
         super(null, 0, null, _offset);
         predefined = _predefined;
+        tabWidth = _tabWidth;
     }
-
+    public final RowCol getRowColFile(int _sum) {
+        RowCol rc_ = new RowCol();
+        int len_ = lineReturns.size();
+        int i_ = 0;
+        while (i_ < len_) {
+            if (_sum < lineReturns.get(i_)) {
+                int j_;
+                if (i_ > 0) {
+                    j_ = leftSpaces.get(i_ / 2 - 1);
+                    int begin_ = lineReturns.get(i_ - 1)+1;
+                    for (int j = begin_; j <= _sum; j++) {
+                        if (tabulations.containsObj(j)) {
+                            j_ += tabWidth;
+                            j_ -= j_ % tabWidth;
+                        } else {
+                            j_++;
+                        }
+                    }
+                } else {
+                    j_ = _sum;
+                }
+                rc_.setCol(j_);
+                rc_.setRow(i_/2);
+                break;
+            }
+            i_ += 2;
+        }
+        return rc_;
+    }
     public boolean isPredefined() {
         return predefined;
     }
@@ -32,6 +65,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         return leftSpaces;
     }
 
+    public Numbers<Integer> getTabulations() {
+        return tabulations;
+    }
     public Numbers<Integer> getLineReturns() {
         return lineReturns;
     }
@@ -70,7 +106,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return null;
     }

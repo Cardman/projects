@@ -9,11 +9,11 @@ import code.util.annot.RwXml;
 @RwXml
 public final class TrickPresident implements Iterable<HandPresident> {
     /**Entameur du pli*/
-    private transient byte starter;
+    private byte starter;
     /**cards est l'ensemble de cartes jouees pendant le pli a la belote ou au tarot*/
     private EqList<HandPresident> cards=new EqList<HandPresident>();
 
-    private transient Numbers<Byte> players = new Numbers<Byte>();
+    private Numbers<Byte> players = new Numbers<Byte>();
 
     public TrickPresident() {}
     TrickPresident(byte _pentameur) {

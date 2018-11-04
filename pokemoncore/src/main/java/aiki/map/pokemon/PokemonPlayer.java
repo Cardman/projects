@@ -78,7 +78,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     private StringList status;
 
     /***/
-    private transient EnumMap<Statistic,Short> iv;
+    private EnumMap<Statistic,Short> iv;
 
     /**nickname du pokemon par defaut le nom du pokemon*/
     private String nickname;
@@ -101,19 +101,19 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     /**Nombre de pas effectue en tete d'equipe.*/
     private short nbStepsTeamLead;
 
-    private transient Comment commentPk = new Comment();
+    private Comment commentPk = new Comment();
 
     /***/
-    private transient StringList newAbilitiesToBeChosen = new StringList();
+    private StringList newAbilitiesToBeChosen = new StringList();
 
     /***/
-    private transient StringMap<Boolean> movesToBeKeptEvo = new StringMap<Boolean>();
+    private StringMap<Boolean> movesToBeKeptEvo = new StringMap<Boolean>();
 
     /***/
-    private transient String possibleEvolution = DataBase.EMPTY_STRING;
+    private String possibleEvolution = DataBase.EMPTY_STRING;
 
     /***/
-    private transient boolean trading;
+    private boolean trading;
 
     public PokemonPlayer() {
         name = DataBase.EMPTY_STRING;

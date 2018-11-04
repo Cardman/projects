@@ -2,10 +2,10 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.UnknownClassName;
+import code.expressionlanguage.options.Options;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;

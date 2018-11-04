@@ -3,7 +3,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ConstType;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.ParsedArgument;
@@ -26,11 +25,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class ConstantOperation extends LeafOperation {
-    private static final String TAB = "\t";
-    private static final String BOUND = "\b";
-    private static final String LINE_FEED = "\r";
-    private static final String LINE_RETURN = "\n";
-    private static final String FORM = "\f";
 
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -79,144 +73,15 @@ public final class ConstantOperation extends LeafOperation {
             return;
         }
         if (op_.getConstType() == ConstType.STRING) {
-            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING));
-            StringBuilder strBuilder_ = new StringBuilder();
-            StringBuilder unicodeString_ = new StringBuilder();
-            int unicode_ = 0;
-            boolean escaped_ = false;
-            for (char c: str_.toCharArray()) {
-                if (escaped_) {
-                    if (unicode_ > 0) {
-                        unicodeString_.append(c);
-                        if (unicode_ < ElResolver.UNICODE_SIZE) {
-                            unicode_++;
-                        } else {
-                            unicode_ = 0;
-                            escaped_ = false;
-                            char i_ = LgNames.parseCharSixteen(unicodeString_.toString());
-                            strBuilder_.append(i_);
-                        }
-                        continue;
-                    }
-                    if (c == IND_BOUND) {
-                        strBuilder_.append(BOUND);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE) {
-                        strBuilder_.append(LINE_RETURN);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_FORM) {
-                        strBuilder_.append(FORM);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE_FEED) {
-                        strBuilder_.append(LINE_FEED);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_TAB) {
-                        strBuilder_.append(TAB);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == DELIMITER_STRING) {
-                        strBuilder_.append(DELIMITER_STRING);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == ESCAPE_META_CHAR) {
-                        strBuilder_.append(ESCAPE_META_CHAR);
-                        escaped_ = false;
-                        continue;
-                    }
-                    unicode_ = 1;
-                    unicodeString_ = new StringBuilder();
-                    continue;
-                }
-                if (c == ESCAPE_META_CHAR) {
-                    escaped_ = true;
-                    continue;
-                }
-                strBuilder_.append(c);
-            }
-            a_.setObject(strBuilder_.toString());
+            a_.setObject(originalStr_);
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(stringType_));
             return;
         }
         if (op_.getConstType() == ConstType.CHARACTER) {
             argClName_ = stds_.getAliasPrimChar();
-            str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_CHAR));
-            StringBuilder strBuilder_ = new StringBuilder();
-            StringBuilder unicodeString_ = new StringBuilder();
-            int unicode_ = 0;
-            boolean escaped_ = false;
-            for (char c: str_.toCharArray()) {
-                if (escaped_) {
-                    if (unicode_ > 0) {
-                        unicodeString_.append(c);
-                        if (unicode_ < ElResolver.UNICODE_SIZE) {
-                            unicode_++;
-                        } else {
-                            unicode_ = 0;
-                            escaped_ = false;
-                            char i_ = LgNames.parseCharSixteen(unicodeString_.toString());
-                            strBuilder_.append(i_);
-                        }
-                        continue;
-                    }
-                    if (c == IND_BOUND) {
-                        strBuilder_.append(BOUND);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE) {
-                        strBuilder_.append(LINE_RETURN);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_FORM) {
-                        strBuilder_.append(FORM);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_LINE_FEED) {
-                        strBuilder_.append(LINE_FEED);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == IND_TAB) {
-                        strBuilder_.append(TAB);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == DELIMITER_CHAR) {
-                        strBuilder_.append(DELIMITER_CHAR);
-                        escaped_ = false;
-                        continue;
-                    }
-                    if (c == ESCAPE_META_CHAR) {
-                        strBuilder_.append(ESCAPE_META_CHAR);
-                        escaped_ = false;
-                        continue;
-                    }
-                    unicode_ = 1;
-                    unicodeString_ = new StringBuilder();
-                    continue;
-                }
-                if (c == ESCAPE_META_CHAR) {
-                    escaped_ = true;
-                    continue;
-                }
-                strBuilder_.append(c);
-            }
-            String c_ = strBuilder_.toString();
-            if (!c_.isEmpty()) {
-                a_.setObject(c_.charAt(0));
+            if (!originalStr_.isEmpty()) {
+                a_.setObject(originalStr_.charAt(0));
             } else {
                 BadFormatNumber badFormat_ = new BadFormatNumber();
                 badFormat_.setNumber(str_);

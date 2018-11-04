@@ -3,13 +3,11 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BadElRender;
 import code.sml.Element;
 import code.sml.Node;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -23,18 +21,14 @@ final class ExtractCondition {
     private static final String TAG_ELSE_IF_DEF_RET_VAL = "elseifdefretval";
     private static final String EMPTY_STRING = "";
     private static final char COMMA_CHAR = ',';
-    private static final char NEG = '!';
     private static final String ATTRIBUTE_CONDITION = "condition";
     private static final String ATTRIBUTE_REF_EQ = "refeq";
-    private static final int NB_INTERPRET=2;
     private static final String DEFINED_ATTRIBUTE = "defined";
     private static final String UNDEFINED_ATTRIBUTE = "undefined";
 
     private static final String IS_NULL_ATTRIBUTE = "isnull";
     private static final String IS_NOT_NULL_ATTRIBUTE = "isnotnull";
     private static final String NUMBER_EXPRESSION = "mathexpr";
-    private static final char MATH_INTERPRET = '`';
-    private static final char EQUALS = '=';
     private ExtractCondition() {
     }
 
@@ -153,44 +147,11 @@ final class ExtractCondition {
             _ip.setProcessingAttribute(ATTRIBUTE_REF_EQ);
             _ip.setLookForAttrValue(true);
             _ip.setOffset(0);
-            if (StringList.indexesOfChar(refEq_, MATH_INTERPRET).size() != NB_INTERPRET) {
-                _conf.getContext().setException(NullStruct.NULL_VALUE);
-                return false;
-            }
-            StringList parts_ = StringList.splitChars(refEq_, MATH_INTERPRET);
-            String accessPartOne_ = parts_.first();
-            String accessOp_ = parts_.get(CustList.SECOND_INDEX);
-            String accessPartTwo_ = parts_.last();
-            String eq_ = String.valueOf(EQUALS);
-            String diff_ = StringList.concat(String.valueOf(NEG),eq_);
-            boolean eqCmp_;
-            if (StringList.quickEq(accessOp_, eq_)) {
-                eqCmp_ = true;
-            } else if (StringList.quickEq(accessOp_, diff_)) {
-                eqCmp_ = false;
-            } else {
-                _conf.getContext().setException(NullStruct.NULL_VALUE);
-                return false;
-            }
-            Object argOne_ = ElRenderUtil.processEl(accessPartOne_, 0, _conf).getObject();
+            Object argTwo_ = ElRenderUtil.processEl(refEq_, 0, _conf).getObject();
             if (_conf.getContext().getException() != null) {
                 return false;
             }
-            _ip.addToOffset(accessPartOne_.length()+1);
-            _ip.addToOffset(accessOp_.length());
-            Object argTwo_ = ElRenderUtil.processEl(accessPartTwo_, 0, _conf).getObject();
-            if (_conf.getContext().getException() != null) {
-                return false;
-            }
-            if (eqCmp_) {
-                if (argOne_ != argTwo_) {
-                    return_ = false;
-                }
-            } else {
-                if (argOne_ == argTwo_) {
-                    return_ = false;
-                }
-            }
+            return (Boolean) argTwo_;
         }
         if (return_ && !condition_.isEmpty()) {
             _ip.setProcessingAttribute(ATTRIBUTE_CONDITION);

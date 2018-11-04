@@ -18,7 +18,7 @@ public final class DoubleStruct extends NumberStruct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasDouble();
+        return _context.getStandards().getAliasPrimDouble();
     }
 
     @Override

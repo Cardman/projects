@@ -7,10 +7,10 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.options.Options;
 import code.sml.RowCol;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1438,6 +1438,8 @@ public final class PartTypeUtilTest {
     }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);
@@ -1451,6 +1453,8 @@ public final class PartTypeUtilTest {
     }
     private ContextEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_ = cont_.getClasses();
         InitializationLgNames.initAdvStandards(cont_);

@@ -12,6 +12,7 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.BadAccessClass;
 import code.expressionlanguage.methods.util.UnknownClassName;
+import code.expressionlanguage.options.KeyWords;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -177,7 +178,9 @@ final class NamePartType extends LeafPartType {
             return;
         }
         StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordLang_ = keyWords_.getKeyWordLang();
+        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
             if (parts_.size() > 1) {
                 String p_ = parts_.last().trim();
                 if (_an.getStandards().getStandards().contains(p_)) {
@@ -412,7 +415,9 @@ final class NamePartType extends LeafPartType {
             return;
         }
         StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordLang_ = keyWords_.getKeyWordLang();
+        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
             if (parts_.size() > 1) {
                 String p_ = parts_.last().trim();
                 if (_an.getStandards().getStandards().contains(p_)) {
@@ -575,7 +580,9 @@ final class NamePartType extends LeafPartType {
             return;
         }
         StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordLang_ = keyWords_.getKeyWordLang();
+        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
             if (parts_.size() > 1) {
                 String p_ = parts_.last().trim();
                 if (_an.getStandards().getStandards().contains(p_)) {
@@ -733,7 +740,9 @@ final class NamePartType extends LeafPartType {
             return;
         }
         StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordLang_ = keyWords_.getKeyWordLang();
+        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
             if (parts_.size() > 1) {
                 String p_ = parts_.last().trim();
                 if (_an.getStandards().getStandards().contains(p_)) {
@@ -826,7 +835,9 @@ final class NamePartType extends LeafPartType {
             return;
         }
         StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordLang_ = keyWords_.getKeyWordLang();
+        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
             if (parts_.size() > 1) {
                 String p_ = parts_.last().trim();
                 if (_an.getStandards().getStandards().contains(p_)) {
@@ -901,7 +912,9 @@ final class NamePartType extends LeafPartType {
             return;
         }
         StringList parts_ = StringList.splitStrings(type_, ".");
-        if (StringList.quickEq(parts_.first().trim(), Templates.LANG)) {
+        KeyWords keyWords_ = _an.getKeyWords();
+        String keyWordLang_ = keyWords_.getKeyWordLang();
+        if (StringList.quickEq(parts_.first().trim(), keyWordLang_)) {
             if (parts_.size() > 1) {
                 String p_ = parts_.last().trim();
                 if (_an.getStandards().getStandards().contains(p_)) {

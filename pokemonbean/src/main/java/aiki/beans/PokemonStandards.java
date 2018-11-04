@@ -2965,7 +2965,7 @@ public final class PokemonStandards extends BeanLgNames {
         if (instance_ == null) {
             res_.setError(getAliasError());
         } else {
-            res_.setResult(new StdStruct(instance_, _className));
+            res_.setResult(StdStruct.newInstance(instance_, _className));
         }
         return res_;
     }

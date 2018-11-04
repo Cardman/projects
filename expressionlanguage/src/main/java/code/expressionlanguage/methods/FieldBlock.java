@@ -33,12 +33,9 @@ import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.PrimitiveBoolOperation;
 import code.expressionlanguage.opers.SemiAffectationOperation;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.SettableElResult;
 import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.TernaryOperation;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.Assignment;
-import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.Struct;
@@ -47,7 +44,6 @@ import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class FieldBlock extends Leaf implements InfoBlock {
 
@@ -231,73 +227,13 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        _cont.setRootAffect(false);
         opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(staticField));
     }
 
     @Override
     public void setAssignmentAfter(Analyzable _an, AnalyzingEl _anEl) {
     }
-    public void setAssignmentAfter(Analyzable _an) {
-        AssignedVariablesBlock glAss_ = _an.getAssignedVariables();
-        AssignedVariables varsAss_ = glAss_.getFinalVariables().getVal(this);
-        StringMap<SimpleAssignment> as_ = varsAss_.getFieldsRoot();
-        OperationNode last_ = opValue.last();
-        if (last_ instanceof AffectationOperation) {
-            AffectationOperation aff_ = (AffectationOperation) last_;
-            SettableElResult el_ = aff_.getSettable();
-            if (!(el_ instanceof SettableAbstractFieldOperation)) {
-                return;
-            }
-            SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) el_;
-            ClassField id_ = field_.getFieldId();
-            if (id_ == null) {
-                return;
-            }
-            String fieldName_ = id_.getFieldName();
-            for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-                if (StringList.quickEq(e.getKey(), fieldName_)) {
-                    as_.put(fieldName_, Assignment.assignClassic(true, false));
-                } else {
-                    as_.put(e.getKey(),e.getValue().assignAfterClassic());
-                }
-            }
-            return;
-        }
-        if (last_ instanceof DeclaringOperation) {
-            CustList<OperationNode> ch_ = ((MethodOperation) last_).getChildrenNodes();
-            for (OperationNode o: ch_) {
-                if (!(o instanceof AffectationOperation)) {
-                    for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-                        as_.put(e.getKey(),e.getValue().assignAfterClassic());
-                    }
-                    continue;
-                }
-                AffectationOperation aff_ = (AffectationOperation) o;
-                SettableElResult el_ = aff_.getSettable();
-                if (!(el_ instanceof SettableAbstractFieldOperation)) {
-                    continue;
-                }
-                SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) el_;
-                ClassField id_ = field_.getFieldId();
-                if (id_ == null) {
-                    continue;
-                }
-                String fieldName_ = id_.getFieldName();
-                for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-                    if (StringList.quickEq(e.getKey(), fieldName_)) {
-                        as_.put(fieldName_, Assignment.assignClassic(true, false));
-                    } else {
-                        as_.put(e.getKey(),e.getValue().assignAfterClassic());
-                    }
-                }
-            }
-            return;
-        }
-        for (EntryCust<String, AssignmentBefore> e: varsAss_.getFieldsRootBefore().entryList()) {
-            as_.put(e.getKey(),e.getValue().assignAfterClassic());
-        }
-    }
+
     public boolean isSimpleStaticConstant(String _name) {
         if (!isStaticField()) {
             return false;
@@ -488,7 +424,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         if (in_) {
             ip_.setGlobalOffset(valueOffset);
             ip_.setOffset(0);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
@@ -505,7 +441,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return getValueEl();
     }

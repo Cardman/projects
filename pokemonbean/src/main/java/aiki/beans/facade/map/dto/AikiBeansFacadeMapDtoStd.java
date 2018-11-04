@@ -60,7 +60,7 @@ public final class AikiBeansFacadeMapDtoStd {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringList.quickEq(methodName_,GET_PLACE)) {
-            res_.setResult(new StdStruct(instance_.getPlace(),PokemonStandards.TYPE_PLACE));
+            res_.setResult(StdStruct.newInstance(instance_.getPlace(),PokemonStandards.TYPE_PLACE));
             return res_;
         }
         return res_;

@@ -17,6 +17,8 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -87,12 +89,10 @@ public interface Analyzable {
     boolean isInternGlobal();
 
     void setMerged(boolean _merged);
-    boolean isAnalyzingRoot();
-    boolean isRootAffect();
+
     boolean isFinalVariable();
     void setFinalVariable(boolean _finalVariable);
-    void setAnalyzingRoot(boolean _b);
-    void setRootAffect(boolean _b);
+
     Options getOptions();
     AssignedVariablesBlock getAssignedVariables();
     AnalyzedPageEl getAnalyzing();
@@ -135,4 +135,10 @@ public interface Analyzable {
     AnalyzingEl getAnalysisAss();
     boolean isAnnotAnalysis();
     void setAnnotAnalysis(boolean _ana);
+
+    boolean isOkNumOp();
+
+    void setOkNumOp(boolean _okNumOp);
+    KeyWords getKeyWords();
+    void setKeyWords(KeyWords _keyWords);
 }

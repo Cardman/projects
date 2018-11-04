@@ -5,14 +5,11 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.InvokingArgumentsPair;
 import code.expressionlanguage.methods.util.StandardArgumentsPair;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExpressionLanguage {
 
-    private final OperationNode root;
     private final CustList<OperationNode> operations;
     private final IdMap<OperationNode,ArgumentsPair> arguments;
     private OperationNode currentOper;
@@ -20,7 +17,6 @@ public final class ExpressionLanguage {
 
     public ExpressionLanguage(CustList<OperationNode> _operations) {
         operations = _operations;
-        root = operations.last();
         arguments = buildArguments();
     }
 
@@ -58,14 +54,6 @@ public final class ExpressionLanguage {
         return argument != null;
     }
 
-    public ClassArgumentMatching getClassArgumentMatching() {
-        return root.getResultClass();
-    }
-
-    public Struct getConstValue() {
-        return root.getArgument().getStruct();
-    }
-
     public void finish() {
         argument = arguments.lastValue().getArgument();
     }
@@ -82,10 +70,6 @@ public final class ExpressionLanguage {
     }
     public CustList<OperationNode> getOperations() {
         return operations;
-    }
-
-    public OperationNode getRoot() {
-        return root;
     }
 
     public OperationNode getCurrentOper() {

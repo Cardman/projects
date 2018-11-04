@@ -148,8 +148,8 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("40908c",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq((char)40908, ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq(40908,(Number)res_);
     }
 
     @Test
@@ -158,8 +158,8 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("'\\u9fcb'",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq((char)40907, ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq(40907, (Number)res_);
     }
 
     @Test
@@ -168,8 +168,8 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("'\\\\'",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('\\', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'\\', (Number)res_);
     }
 
     @Test
@@ -178,8 +178,8 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("'\\''",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('\'', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'\'', (Number)res_);
     }
 
     @Test
@@ -188,8 +188,8 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("'\"'",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('"', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'"', (Number)res_);
     }
 
     @Test
@@ -198,8 +198,8 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("'\\n'",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq('\n', ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq((int)'\n', (Number)res_);
     }
 
     @Test
@@ -255,7 +255,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("'5' $instanceof java.lang.Number",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
-        assertEq(false, (Boolean)res_);
+        assertEq(true, (Boolean)res_);
     }
 
     @Test
@@ -265,7 +265,7 @@ public final class ElRenderUtilTest {
         Argument arg_ = ElRenderUtil.processEl("!('5' $instanceof java.lang.Number)",0, context_);
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Boolean);
-        assertEq(true, (Boolean)res_);
+        assertEq(false, (Boolean)res_);
     }
 
 
@@ -2169,8 +2169,8 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         Argument arg_ = ElRenderUtil.processEl("'\\u9FCB'",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Character);
-        assertEq((char)40907, ((Character)res_).charValue());
+        assertTrue(res_ instanceof Integer);
+        assertEq(40907, (Number)res_);
     }
     @Test
     public void processEl176Test() {
@@ -2613,12 +2613,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.+=1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2644,12 +2642,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.&=$false";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2675,12 +2671,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.|=$true";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2706,12 +2700,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.&=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2738,12 +2730,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.|=1/0 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2770,12 +2760,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.&=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2802,12 +2790,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.|=1 > 0";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2834,12 +2820,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.==1i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2865,12 +2849,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2897,12 +2879,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "++v;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2931,12 +2911,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.[0i]++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2965,12 +2943,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "++v;.[0i]";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -2997,12 +2973,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.+=2i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3031,12 +3005,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.[0i]+=3i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3067,12 +3039,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.+++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3104,12 +3074,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.---v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3141,12 +3109,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.=++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3178,12 +3144,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.= ++v2;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3204,12 +3168,10 @@ public final class ElRenderUtilTest {
         addImportingPage(context_);
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
-        ctx_.setRootAffect(true);
         String elr_ = "+1b";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3323,12 +3285,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "++v;.";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3354,12 +3314,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3388,12 +3346,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.[0i]++";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -3422,12 +3378,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "++v;.[0i]";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -5274,10 +5228,10 @@ public final class ElRenderUtilTest {
     public void processEl277Test() {
         Configuration context_ = contextEl(true,false,false);
         addImportingPage(context_);
-        Argument arg_ = ElRenderUtil.processEl("$static($Class).getAllClasses().length",0, context_);
+        Argument arg_ = ElRenderUtil.processEl("$static($Class).getAllClasses().length > 50",0, context_);
         Object res_ = arg_.getObject();
-        assertTrue(res_ instanceof Integer);
-        assertEq(60, (Number)res_);
+        assertTrue(res_ instanceof Boolean);
+        assertTrue((Boolean)res_);
     }
     @Test
     public void processEl278Test() {
@@ -6515,12 +6469,10 @@ public final class ElRenderUtilTest {
         ContextEl ctx_ = context_.toContextEl();
         ctx_.setAnalyzing(new AnalyzedPageEl());
         ctx_.getAnalyzing().setLocalVars(localVars_);
-        ctx_.setRootAffect(true);
         String elr_ = "v;.=v2;.=4i";
         Delimiters d_ = ElResolver.checkSyntax(elr_, ctx_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_.substring(0);
-        ctx_.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
@@ -7000,7 +6952,7 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct[] c_ = new Struct[1];
-        c_[0] = new StdStruct(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
+        c_[0] = StdStruct.newInstance(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
         lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
@@ -7016,7 +6968,7 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct[] c_ = new Struct[1];
-        c_[0] = new StdStruct(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
+        c_[0] = StdStruct.newInstance(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
         lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
@@ -7032,7 +6984,7 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct[] c_ = new Struct[1];
-        c_[0] = new StdStruct(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
+        c_[0] = StdStruct.newInstance(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
         lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
@@ -7088,7 +7040,7 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_,"code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setStruct(StdStruct.newInstance(c_,"code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
@@ -7103,7 +7055,7 @@ public final class ElRenderUtilTest {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_,"code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setStruct(StdStruct.newInstance(c_,"code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         context_.getLastPage().setLocalVars(localVars_);
@@ -7394,7 +7346,7 @@ public final class ElRenderUtilTest {
         LocalVariable lv_ = new LocalVariable();
         ArrayContainer[] c_ = new ArrayContainer[1];
         c_[0] = new ArrayContainer();
-        lv_.setStruct(new StdStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
+        lv_.setStruct(StdStruct.newInstance(c_, "[code.expressionlanguage.classes.ArrayContainer"));
         lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
@@ -7586,6 +7538,8 @@ public final class ElRenderUtilTest {
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
@@ -7602,6 +7556,8 @@ public final class ElRenderUtilTest {
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
@@ -7623,6 +7579,8 @@ public final class ElRenderUtilTest {
     private Configuration contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
         Configuration conf_ = new Configuration();
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         Classes.validateAll(_files, cont_);

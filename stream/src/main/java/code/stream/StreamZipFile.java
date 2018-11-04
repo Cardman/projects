@@ -94,7 +94,7 @@ public final class StreamZipFile {
                     }
                     index_+=res_;
                 }
-                files_.put(fileName_, new String(bytes_, StandardCharsets.UTF_8.getName()));
+                files_.put(fileName_, StringList.decode(bytes_));
                 entry_=zip_.getNextEntry();
             }
             zip_.close();
@@ -345,7 +345,7 @@ public final class StreamZipFile {
                 String file_ = _files.getVal( n);
                 ZipEntry ze_ = new ZipEntry(n);
                 zos_.putNextEntry(ze_);
-                zos_.write(file_.getBytes());
+                zos_.write(StringList.encode(file_));
             }
             zos_.closeEntry();
             //remember close it

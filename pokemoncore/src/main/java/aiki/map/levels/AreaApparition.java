@@ -20,9 +20,9 @@ public final class AreaApparition {
 
     private EqList<WildPk> wildPokemonFishing;
 
-    private transient MonteCarloEq<WildPk> wildPokemonRand;
+    private MonteCarloEq<WildPk> wildPokemonRand;
 
-    private transient MonteCarloEq<WildPk> wildPokemonRandFishing;
+    private MonteCarloEq<WildPk> wildPokemonRandFishing;
 
     public void validate(DataBase _data) {
         if (avgNbSteps < ALWAYS_APPARITION) {

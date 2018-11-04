@@ -483,7 +483,7 @@ public class DataBase implements WithMathFactory {
 
     private boolean checkTranslation;
 
-    private transient EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
+    private EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
     private boolean error;
 
     @Override

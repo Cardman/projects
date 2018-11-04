@@ -114,7 +114,6 @@ public final class DefaultInitialization {
         _lgNames.setAliasIndexOf("indexOf");
         _lgNames.setAliasFormat("format");
         _lgNames.setAliasGetBytes("getBytes");
-        _lgNames.setAliasIntern("intern");
         _lgNames.setAliasIsEmpty("isEmpty");
         _lgNames.setAliasLastIndexOf("lastIndexOf");
         _lgNames.setAliasRegionMatches("regionMatches");
@@ -135,15 +134,12 @@ public final class DefaultInitialization {
         _lgNames.setAliasSetCharAt("setCharAt");
         _lgNames.setAliasSetLength("setLength");
         _lgNames.setAliasTrimToSize("trimToSize");
-        _lgNames.setAliasCountable("code.util.ints.Countable");
         _lgNames.setAliasGet("get");
         _lgNames.setAliasSize("size");
-//        _lgNames.setAliasSimpleIterator("simpleIterator");
         _lgNames.setAliasSimpleIterator("iterator");
-        _lgNames.setAliasSimpleIteratorType("code.util.SimpleItr");
-        _lgNames.setAliasSimpleIterableType("code.util.ints.SimpleIterable");
         _lgNames.setAliasErrorInitClass("$defErrorClass");
         _lgNames.setAliasClone("clone");
+        _lgNames.setAliasValues("values");
         _lgNames.setAliasInvokeTarget("$invokeTaget");
         _lgNames.setAliasClassNotFoundError("$classNotFound");
         _lgNames.setAliasGetVariableOwner("getVariableOwner");

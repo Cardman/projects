@@ -49,7 +49,7 @@ public final class SuperFctOperation extends InvokingOperation {
     }
 
     @Override
-    boolean isCallMethodCtor() {
+    boolean isCallMethodCtor(Analyzable _an) {
         return true;
     }
 

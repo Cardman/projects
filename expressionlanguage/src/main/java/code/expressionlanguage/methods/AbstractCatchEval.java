@@ -171,7 +171,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
     }
 
     @Override
-    public final ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public final ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         return null;
     }

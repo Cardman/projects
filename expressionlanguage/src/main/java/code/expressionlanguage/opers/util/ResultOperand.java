@@ -5,7 +5,6 @@ public final class ResultOperand {
     private ClassArgumentMatching result;
 
     private boolean catString;
-    private boolean catChars;
     public ClassArgumentMatching getResult() {
         return result;
     }
@@ -17,11 +16,5 @@ public final class ResultOperand {
     }
     public void setCatString(boolean _catString) {
         catString = _catString;
-    }
-    public boolean isCatChars() {
-        return catChars;
-    }
-    public void setCatChars(boolean _catChars) {
-        catChars = _catChars;
     }
 }

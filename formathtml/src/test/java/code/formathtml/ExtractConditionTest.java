@@ -229,7 +229,7 @@ public class ExtractConditionTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><c:if mathexpr=\"`composite.strings.isEmpty()`\">EMPTY</c:if><c:else>NOT EMPTY</c:else></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><c:if mathexpr=\"{composite.strings.isEmpty()}\">EMPTY</c:if><c:else>NOT EMPTY</c:else></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -530,6 +530,8 @@ public class ExtractConditionTest {
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
         ContextEl context_ = new ContextEl();
+        context_.getOptions().setEndLineSemiColumn(false);
+        context_.getOptions().setSpecialEnumsMethods(false);
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);

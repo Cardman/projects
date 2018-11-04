@@ -9,6 +9,7 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.methods.util.MissingReturnMethod;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.Numbers;
@@ -37,10 +38,15 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
         super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
-        staticMethod = StringList.quickEq(modifier_, VALUE_STATIC);
-        finalMethod = StringList.quickEq(modifier_, VALUE_FINAL);
-        abstractMethod = StringList.quickEq(modifier_, VALUE_ABSTRACT);
-        normalMethod = StringList.quickEq(modifier_, VALUE_NORMAL);
+        KeyWords keyWords_ = _importingPage.getKeyWords();
+        String keyWordStatic_ = keyWords_.getKeyWordStatic();
+        String keyWordFinal_ = keyWords_.getKeyWordFinal();
+        String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
+        String keyWordNormal_ = keyWords_.getKeyWordNormal();
+        staticMethod = StringList.quickEq(modifier_, keyWordStatic_);
+        finalMethod = StringList.quickEq(modifier_, keyWordFinal_);
+        abstractMethod = StringList.quickEq(modifier_, keyWordAbstract_);
+        normalMethod = StringList.quickEq(modifier_, keyWordNormal_);
         declaringType = getRooted().getFullName();
     }
 

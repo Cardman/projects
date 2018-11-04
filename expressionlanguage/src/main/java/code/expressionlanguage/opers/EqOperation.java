@@ -38,17 +38,13 @@ public final class EqOperation extends PrimitiveBoolOperation {
     @Override
     public void analyze(Analyzable _conf) {
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
+            _conf.setOkNumOp(false);
             UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(badEl_);
         }
-        String custOp_;
-        if (oper.trim().startsWith(NEG_BOOL)) {
-            custOp_ = oper.trim();
-        } else {
-            custOp_ = "==";
-        }
+        String custOp_ = oper.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode opOne_ = chidren_.first();
         OperationNode opTwo_ = chidren_.last();
@@ -116,6 +112,9 @@ public final class EqOperation extends PrimitiveBoolOperation {
 
     @Override
     public void quickCalculate(Analyzable _conf) {
+        if (classMethodId != null || !_conf.isOkNumOp()) {
+            return;
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument first_ = chidren_.first().getArgument();
         Argument second_ = chidren_.last().getArgument();

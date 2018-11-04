@@ -3411,6 +3411,84 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertEq(17, (Number)intern_.getInstance());
     }
     @Test
+    public void instanceArgument113Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first=5i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public pkg.Ex inst=Ex.valueOf(\"ONE\");\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq("pkg.Ex", field_.getClassName(cont_));
+        assertSame(cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE")), field_);
+    }
+    @Test
+    public void instanceArgument114Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {\n");
+        xml_.append(" ONE(4i),\n");
+        xml_.append(" TWO;\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public ($int i){\n");
+        xml_.append("  first=i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first=5i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $final $int doubleValue(){\n");
+        xml_.append("  $return first;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public $int inst=Ex.values().length;\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExCont", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.ExCont");
+        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.ExCont", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.ExCont", "inst"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(2, (Number)field_.getInstance());
+    }
+    @Test
     public void calculateArgument113Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

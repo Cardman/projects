@@ -42,7 +42,7 @@ public final class VarargOperation extends LeafOperation {
             return;
         }
         InvokingOperation parent_ = (InvokingOperation) m_;
-        if (!parent_.isCallMethodCtor()) {
+        if (!parent_.isCallMethodCtor(_conf)) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
             varg_.setRc(_conf.getCurrentLocation());

@@ -8,7 +8,7 @@ import code.util.ints.SimpleIterable;
 public abstract class AbsMap<K, V> implements ListableEntries<K, V> {
 
     //list cannot be null, even by reflection
-    private final transient CustList<EntryCust<K,V>> list;
+    private final CustList<EntryCust<K,V>> list;
 
     protected AbsMap() {
         list = new CustList<EntryCust<K,V>>();

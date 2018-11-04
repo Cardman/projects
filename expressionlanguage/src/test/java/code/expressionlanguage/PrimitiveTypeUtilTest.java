@@ -88,7 +88,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(context_.getStandards().getAliasNumber());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(context_.getStandards().getAliasPrimInteger());
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -158,7 +158,7 @@ public class PrimitiveTypeUtilTest {
         ContextEl context_ = simpleContextEl();
         String arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(context_.getStandards().getAliasNumber());
         String arrInt_ = PrimitiveTypeUtil.getPrettyArrayType(context_.getStandards().getAliasPrimChar());
-        assertTrue(!PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
+        assertTrue(PrimitiveTypeUtil.canBeUseAsArgument(arrObj_, arrInt_, context_));
     }
 
     @Test
@@ -930,6 +930,8 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray1Test() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(1);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -943,6 +945,8 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray2Test() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -958,6 +962,8 @@ public class PrimitiveTypeUtilTest {
     @Test
     public void newCustomArray3Test() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         InitializationLgNames.initAdvStandards(cont_);
         Numbers<Integer> dims_ = new Numbers<Integer>(2,3);
         Struct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
@@ -1055,8 +1061,9 @@ public class PrimitiveTypeUtilTest {
     public void getSuperTypesSet6Test() {
         ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("java.lang.Character"), new StringMap<StringList>(), c_);
-        assertEq(2, res_.size());
+        assertEq(3, res_.size());
         assertTrue(res_.containsStr("java.lang.Character"));
+        assertTrue(res_.containsStr("java.lang.Number"));
         assertTrue(res_.containsStr("java.lang.Object"));
     }
     @Test
@@ -1134,8 +1141,9 @@ public class PrimitiveTypeUtilTest {
     public void getSuperTypesSet12Test() {
         ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[java.lang.Character"), new StringMap<StringList>(), c_);
-        assertEq(3, res_.size());
+        assertEq(4, res_.size());
         assertTrue(res_.containsStr("[java.lang.Character"));
+        assertTrue(res_.containsStr("[java.lang.Number"));
         assertTrue(res_.containsStr("[java.lang.Object"));
         assertTrue(res_.containsStr("java.lang.Object"));
     }
@@ -1394,8 +1402,9 @@ public class PrimitiveTypeUtilTest {
     public void getSuperTypesSet28Test() {
         ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringList res_ = PrimitiveTypeUtil.getSuperTypesSet(new StringList("[[java.lang.Character"), new StringMap<StringList>(), c_);
-        assertEq(4, res_.size());
+        assertEq(5, res_.size());
         assertTrue(res_.containsStr("[[java.lang.Character"));
+        assertTrue(res_.containsStr("[[java.lang.Number"));
         assertTrue(res_.containsStr("[[java.lang.Object"));
         assertTrue(res_.containsStr("[java.lang.Object"));
         assertTrue(res_.containsStr("java.lang.Object"));
@@ -3510,6 +3519,8 @@ public class PrimitiveTypeUtilTest {
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         Classes classes_;
         classes_ = cont_.getClasses();
@@ -3525,6 +3536,8 @@ public class PrimitiveTypeUtilTest {
     }
     private ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
+        cont_.getOptions().setEndLineSemiColumn(false);
+        cont_.getOptions().setSpecialEnumsMethods(false);
         cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(cont_);
         cont_.initError();

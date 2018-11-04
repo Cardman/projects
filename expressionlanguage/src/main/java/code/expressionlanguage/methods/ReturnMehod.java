@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ForwardPageEl;
 import code.expressionlanguage.Mapping;
@@ -20,11 +19,7 @@ import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedVariables;
-import code.expressionlanguage.opers.util.CharStruct;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
@@ -101,7 +96,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             _cont.getClasses().addError(un_);
             return;
         }
-        _cont.setRootAffect(false);
         opRet = ElUtil.getAnalyzedOperations(expression, _cont, Calculation.staticCalculation(f_.isStaticContext()));
         if (opRet.isEmpty()) {
             return;
@@ -196,7 +190,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
         if (!isEmpty()) {
             ip_.setOffset(0);
             ip_.setGlobalOffset(expressionOffset);
-            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, false, CustList.FIRST_INDEX);
+            ExpressionLanguage el_ = ip_.getCurrentEl(_cont,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
             Argument arg_ = el_.calculateMember(_cont);
             if (_cont.callsOrException()) {
                 return;
@@ -216,21 +210,8 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
                 par_ = par_.getParent();
             }
             retType_ = _cont.getLastPage().formatVarType(retType_, _cont);
-            if (!arg_.isNull()) {
-                Mapping map_ = new Mapping();
-                String rightClass_ = arg_.getObjectClassName(_cont);
-                map_.setArg(rightClass_);
-                map_.setParam(retType_);
-                if (!Templates.isCorrect(map_, _cont)) {
-                    String cast_;
-                    cast_ = stds_.getAliasCast();
-                    _cont.setException(new StdStruct(new CustomError(StringList.concat(rightClass_,RETURN_LINE,retType_,RETURN_LINE,_cont.joinPages())),cast_));
-                    return;
-                }
-            }
-            if (arg_.getStruct() instanceof NumberStruct || arg_.getStruct() instanceof CharStruct) {
-                ClassArgumentMatching resCl_ = new ClassArgumentMatching(retType_);
-                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, arg_.getStruct(), _cont));
+            if (!Templates.checkObject(retType_, arg_, _cont)) {
+                return;
             }
             ((ForwardPageEl)_cont.getLastPage()).setReturnedArgument(arg_);
         } else {
@@ -255,7 +236,7 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
     }
 
     @Override
-    public ExpressionLanguage getEl(ContextEl _context, boolean _native,
+    public ExpressionLanguage getEl(ContextEl _context,
             int _indexProcess) {
         if (!isEmpty()) {
             return getElRet();

@@ -123,7 +123,7 @@ public final class ParsedArgument {
                         return out_;
                     }
                     if (nb_.length() == 6) {
-                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1') {
                             return out_;
                         }
                     }
@@ -131,6 +131,7 @@ public final class ParsedArgument {
                     if (lg_ == null) {
                         return out_;
                     }
+                    out_.type = charPrimType_;
                     out_.object = new CharStruct((char) lg_.longValue());
                     return out_;
                 }

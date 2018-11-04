@@ -8,7 +8,6 @@ import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.FileResolver;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Mapping;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
@@ -33,8 +32,6 @@ import code.expressionlanguage.methods.util.FoundWarningInterpret;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.methods.util.WarningList;
-import code.expressionlanguage.opers.Calculation;
-import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -46,12 +43,14 @@ import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -74,9 +73,7 @@ public final class Classes {
     public static final String EXT = "cdm";
     public static final String TEMP_PREFIX = "tmp";
     private static final char DOT = '.';
-    private static final String LOC_VAR = ".";
 
-    private static final String PARS = "()";
     private static final String EMPTY_STRING = "";
     private static final String VARARG = "...";
 
@@ -88,15 +85,9 @@ public final class Classes {
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
     private DefaultLockingClass locks;
-    private String iteratorVar;
-    private String hasNextVar;
-    private String nextVar;
     private String iteratorVarCust;
     private String hasNextVarCust;
     private String nextVarCust;
-    private CustList<OperationNode> expsIterator;
-    private CustList<OperationNode> expsHasNext;
-    private CustList<OperationNode> expsNext;
     private CustList<OperationNode> expsIteratorCust;
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
@@ -131,7 +122,7 @@ public final class Classes {
         packageName_ = _root.getPackageName();
         LgNames lgNames_ = _context.getStandards();
         if (!_predefined) {
-            if (packageName_.isEmpty()) {
+            if (packageName_.trim().isEmpty()) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(fullName_);
                 badCl_.setFileName(_root.getFile().getFileName());
@@ -140,7 +131,29 @@ public final class Classes {
             }
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
-                if (!StringList.isWord(e)) {
+                String tr_ = e.trim();
+                if (_context.getKeyWords().isKeyWord(tr_)) {
+                    BadClassName badCl_ = new BadClassName();
+                    badCl_.setClassName(fullName_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    addError(badCl_);
+                }
+                if (PrimitiveTypeUtil.isPrimitive(tr_, _context)) {
+                    BadClassName badCl_ = new BadClassName();
+                    badCl_.setClassName(fullName_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    addError(badCl_);
+                }
+                if (StringList.quickEq(tr_, _context.getStandards().getAliasVoid())) {
+                    BadClassName badCl_ = new BadClassName();
+                    badCl_.setClassName(fullName_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    addError(badCl_);
+                }
+                if (!StringList.isWord(tr_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullName_);
                     badCl_.setFileName(_root.getFile().getFileName());
@@ -149,7 +162,28 @@ public final class Classes {
                 }
             }
             String className_;
-            className_ = _root.getName();
+            className_ = _root.getName().trim();
+            if (_context.getKeyWords().isKeyWord(className_)) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                addError(badCl_);
+            }
+            if (StringList.quickEq(className_, _context.getStandards().getAliasVoid())) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                addError(badCl_);
+            }
+            if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                addError(badCl_);
+            }
             if (!StringList.isWord(className_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(fullName_);
@@ -196,28 +230,50 @@ public final class Classes {
                 TypeVar type_ = new TypeVar();
                 int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
                 StringList parts_ = StringList.splitInTwo(name_, indexDef_);
-                if (!StringList.isWord(parts_.first())) {
+                String id_ = parts_.first();
+                if (!StringList.isWord(id_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
                     badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
-                if (varTypes_.containsStr(parts_.first())) {
+                if (StringList.quickEq(id_, _context.getStandards().getAliasVoid())) {
+                    BadClassName badCl_ = new BadClassName();
+                    badCl_.setClassName(fullName_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    addError(badCl_);
+                }
+                if (PrimitiveTypeUtil.isPrimitive(id_, _context)) {
+                    BadClassName badCl_ = new BadClassName();
+                    badCl_.setClassName(fullName_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    addError(badCl_);
+                }
+                if (_context.getKeyWords().isKeyWord(id_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
                     badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
-                if (namesFromParent_.containsStr(parts_.first())) {
+                if (varTypes_.containsStr(id_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullDef_);
                     badCl_.setFileName(_root.getFile().getFileName());
                     badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
-                varTypes_.add(parts_.first());
+                if (namesFromParent_.containsStr(id_)) {
+                    BadClassName badCl_ = new BadClassName();
+                    badCl_.setClassName(fullDef_);
+                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                    addError(badCl_);
+                }
+                varTypes_.add(id_);
                 StringList constraints_ = new StringList();
                 if (indexDef_ != CustList.INDEX_NOT_FOUND_ELT) {
                     for (String b: StringList.splitChars(parts_.last().substring(1), Templates.SEP_BOUNDS)) {
@@ -227,7 +283,7 @@ public final class Classes {
                     constraints_.add(objectClassName_);
                 }
                 type_.setConstraints(constraints_);
-                type_.setName(parts_.first());
+                type_.setName(id_);
                 _root.getParamTypes().add(type_);
             }
         } else {
@@ -337,56 +393,7 @@ public final class Classes {
         for (RootBlock t: cl_.classesBodies.values()) {
             t.validateIds(_context);
         }
-        //local names
-        _context.getAnalyzing().setCurrentBlock(null);
-        _context.getAnalyzing().setEnabledInternVars(true);
-        String locName_ = _context.getNextTempVar();
-        String exp_;
-        LocalVariable locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasSimpleIterableType());
-        _context.getInternVars().put(locName_, locVar_);
-        cl_.iteratorVar = locName_;
-        String simpleIterator_ = stds_.getAliasSimpleIterator();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(simpleIterator_,PARS));
-        cl_.expsIterator = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
-        _context.getInternVars().put(locName_, locVar_);
-        cl_.hasNextVar = locName_;
-        String hasNext_ = stds_.getAliasHasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        cl_.expsHasNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(stds_.getAliasSimpleIteratorType());
-        _context.getInternVars().put(locName_, locVar_);
-        cl_.nextVar = locName_;
-        String next_ = stds_.getAliasNext();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        cl_.expsNext = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIterable(),"<?>"));
-        _context.getInternVars().put(locName_, locVar_);
-        cl_.iteratorVarCust = locName_;
-        String iterator_ = stds_.getAliasSimpleIterator();
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
-        cl_.expsIteratorCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
-        _context.getInternVars().put(locName_, locVar_);
-        cl_.hasNextVarCust = locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNext_,PARS));
-        cl_.expsHasNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
-        locName_ = _context.getNextTempVar();
-        locVar_ = new LocalVariable();
-        locVar_.setClassName(StringList.concat(stds_.getAliasIteratorType(),"<?>"));
-        _context.getInternVars().put(locName_, locVar_);
-        cl_.nextVarCust = locName_;
-        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
-        cl_.expsNextCust = ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true));
+        _context.getStandards().buildIterable(_context);
     }
     public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context) {
         _context.setAnalyzing(null);
@@ -1574,7 +1581,7 @@ public final class Classes {
             if (r_.getAccess() == AccessEnum.PROTECTED) {
                 boolean okRoot_ = false;
                 if (_protectedInc) {
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idRoot_, _context)) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, ownerName_, idRoot_, _context)) {
                         okRoot_ = true;
                     }
                 }
@@ -1583,7 +1590,7 @@ public final class Classes {
                 }
                 boolean okGl_ = false;
                 if (_protectedInc) {
-                    if (PrimitiveTypeUtil.canBeUseAsArgument(ownerName_, idGl_, _context)) {
+                    if (PrimitiveTypeUtil.canBeUseAsArgument(false, ownerName_, idGl_, _context)) {
                         okGl_ = true;
                     }
                 }
@@ -1634,7 +1641,7 @@ public final class Classes {
         GeneType root_ = _context.getClassBody(baseClass_);
         GeneType belong_ = _block.belong();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            if (PrimitiveTypeUtil.canBeUseAsArgument(belong_.getFullName(), baseClass_, _context)) {
+            if (PrimitiveTypeUtil.canBeUseAsArgument(false, belong_.getFullName(), baseClass_, _context)) {
                 return true;
             }
             if (StringList.quickEq(belong_.getPackageName(), root_.getPackageName())) {
@@ -1656,51 +1663,9 @@ public final class Classes {
         return false;
     }
 
-    public String getIteratorVar(boolean _native) {
-        if (_native) {
-            return iteratorVar;
-        }
-        return iteratorVarCust;
-    }
-
-    public String getHasNextVar(boolean _native) {
-        if (_native) {
-            return hasNextVar;
-        }
-        return hasNextVarCust;
-    }
-
-    public String getNextVar(boolean _native) {
-        if (_native) {
-            return nextVar;
-        }
-        return nextVarCust;
-    }
-
-    public ExpressionLanguage getEqIterator(boolean _native) {
-        if (_native) {
-            return new ExpressionLanguage(expsIterator);
-        }
-        return new ExpressionLanguage(expsIteratorCust);
-    }
-
-    public ExpressionLanguage getEqHasNext(boolean _native) {
-        if (_native) {
-            return new ExpressionLanguage(expsHasNext);
-        }
-        return new ExpressionLanguage(expsHasNextCust);
-    }
-
-    public ExpressionLanguage getEqNext(boolean _native) {
-        if (_native) {
-            return new ExpressionLanguage(expsNext);
-        }
-        return new ExpressionLanguage(expsNextCust);
-    }
-
     //validate el and its possible returned type
     public void validateEl(ContextEl _context) {
-        EqList<ClassField> cstFields_ = initStaticFields(_context);
+        initStaticFields(_context);
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         _context.setAnalyzing(page_);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
@@ -1718,9 +1683,7 @@ public final class Classes {
                 String clDecl_ = c.getKey();
                 for (String f: f_.getFieldName()) {
                     AssignmentBefore as_ = new AssignmentBefore();
-                    if (staticFields.getVal(clDecl_).getVal(f) != null) {
-                        as_.setAssignedBefore(true);
-                    } else {
+                    if (staticFields.getVal(clDecl_).getVal(f) == null) {
                         if (!c.getValue().isStaticType()) {
                             //ERROR
                             ClassField id_ = new ClassField(clDecl_, f);
@@ -1729,8 +1692,8 @@ public final class Classes {
                             un_.setRc(c.getValue().getRowCol(0,c.getValue().getOffset().getOffsetTrim()));
                             _context.getClasses().addError(un_);
                         }
-                        as_.setUnassignedBefore(true);
                     }
+                    as_.setUnassignedBefore(true);
                     ass_.put(f, as_);
                 }
             }
@@ -1745,23 +1708,6 @@ public final class Classes {
             StringMap<SimpleAssignment> assAfter_;
             assAfter_ = new StringMap<SimpleAssignment>();
             for (Block b: bl_) {
-                if (b instanceof FieldBlock) {
-                    FieldBlock f_ = (FieldBlock) b;
-                    boolean cst_ = false;
-                    for (String f: f_.getFieldName()) {
-                        if (cstFields_.containsObj(new ClassField(c.getKey(), f))) {
-                            cst_ = true;
-                            break;
-                        }
-                    }
-                    if (cst_) {
-                        page_.setCurrentBlock(b);
-                        f_.setAssignmentBefore(_context, null);
-                        f_.setAssignmentAfter(_context);
-                        assAfter_.putAllMap(asBlock_.getFinalVariables().getVal(f_).getFieldsRoot());
-                        continue;
-                    }
-                }
                 if (b instanceof InfoBlock) {
                     page_.setGlobalClass(c.getValue().getGenericString());
                     InfoBlock method_ = (InfoBlock) b;
@@ -2091,29 +2037,6 @@ public final class Classes {
         page_.getAssignedVariables().getFinalVariablesGlobal().initVars();
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
             CustList<Block> bl_ = getDirectChildren(c.getValue());
-            StringMap<AssignmentBefore> ass_;
-            ass_ = new StringMap<AssignmentBefore>();
-            for (Block b: bl_) {
-                if (!(b instanceof FieldBlock)) {
-                    continue;
-                }
-                FieldBlock f_ = (FieldBlock) b;
-                if (!f_.isStaticField()) {
-                    continue;
-                }
-                if (!f_.isFinalField()) {
-                    continue;
-                }
-                AssignmentBefore as_ = new AssignmentBefore();
-                as_.setUnassignedBefore(true);
-                for (String f: f_.getFieldName()) {
-                    ass_.put(f, as_);
-                }
-            }
-            AssignedVariablesBlock asBlock_ = page_.getAssignedVariables();
-            StringMap<AssignmentBefore> b_ = asBlock_.getFinalVariablesGlobal().getFieldsRootBefore();
-            b_.clear();
-            b_.putAllMap(ass_);
             for (Block b: bl_) {
                 if (!(b instanceof FieldBlock)) {
                     continue;
@@ -2127,9 +2050,7 @@ public final class Classes {
                 }
                 page_.setGlobalClass(c.getValue().getGenericString());
                 page_.setCurrentBlock(f_);
-                f_.setAssignmentBefore(_context, null);
                 f_.buildExpressionLanguage(_context);
-                f_.setAssignmentAfter(_context, null);
                 String cl_ = c.getKey();
                 for (String f: f_.getFieldName()) {
                     cstFields_.add(new ClassField(cl_, f));
@@ -2204,10 +2125,8 @@ public final class Classes {
                     continue;
                 }
                 FieldBlock f_ = (FieldBlock) b;
-                for (String f: f_.getFieldName()) {
-                    if (StringList.quickEq(f, fieldName_)) {
-                        ElUtil.tryCalculate(f_, f, _context, sort_);
-                    }
+                if (f_.getFieldName().containsStr(fieldName_)) {
+                    ElUtil.tryCalculate(f_, fieldName_, _context, sort_);
                 }
             }
         }
@@ -2534,6 +2453,26 @@ public final class Classes {
                     infosConst_.put(id_, met_);
                 }
             }
+            if (_context.getOptions().isSpecialEnumsMethods() && clblock_ instanceof EnumBlock) {
+                String valueOf_ = _context.getStandards().getAliasValueOf();
+                String values_ = _context.getStandards().getAliasValues();
+                String string_ = _context.getStandards().getAliasString();
+                MethodId id_ = new MethodId(true, valueOf_, new StringList(string_));
+                String ret_ = clblock_.getWildCardString();
+                String formatRet_;
+                MethodId fid_;
+                formatRet_ = ret_;
+                fid_ = id_;
+                String decl_ = clblock_.getFullName();
+                MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+                infos_.put(id_, met_);
+                id_ = new MethodId(true, values_, new StringList());
+                ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
+                formatRet_ = ret_;
+                fid_ = id_;
+                met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+                infos_.put(id_, met_);
+            }
             RootBlock par_ = clblock_.getParentType();
             String format_;
             if (par_ != null) {
@@ -2574,5 +2513,53 @@ public final class Classes {
     }
     public void setLocks(DefaultLockingClass _locks) {
         locks = _locks;
+    }
+
+    public String getIteratorVarCust() {
+        return iteratorVarCust;
+    }
+
+    public void setIteratorVarCust(String _iteratorVarCust) {
+        iteratorVarCust = _iteratorVarCust;
+    }
+
+    public String getHasNextVarCust() {
+        return hasNextVarCust;
+    }
+
+    public void setHasNextVarCust(String _hasNextVarCust) {
+        hasNextVarCust = _hasNextVarCust;
+    }
+
+    public String getNextVarCust() {
+        return nextVarCust;
+    }
+
+    public void setNextVarCust(String _nextVarCust) {
+        nextVarCust = _nextVarCust;
+    }
+
+    public CustList<OperationNode> getExpsIteratorCust() {
+        return expsIteratorCust;
+    }
+
+    public void setExpsIteratorCust(CustList<OperationNode> _expsIteratorCust) {
+        expsIteratorCust = _expsIteratorCust;
+    }
+
+    public CustList<OperationNode> getExpsHasNextCust() {
+        return expsHasNextCust;
+    }
+
+    public void setExpsHasNextCust(CustList<OperationNode> _expsHasNextCust) {
+        expsHasNextCust = _expsHasNextCust;
+    }
+
+    public CustList<OperationNode> getExpsNextCust() {
+        return expsNextCust;
+    }
+
+    public void setExpsNextCust(CustList<OperationNode> _expsNextCust) {
+        expsNextCust = _expsNextCust;
     }
 }

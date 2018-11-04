@@ -88,7 +88,7 @@
 				<c:message value="msg_simulation,ev"/>
 				<br/>
 				<c:for key="s" map="ev" value="e" varClassName="aiki.beans.facade.simulation.dto.EvLine">
-					{getTranslatedStatistic(s;;)}: <input c:validator="short_validator" c:varValue="e;ev" id="id`s;;`" name="e;ev" type="text"/><span c:for="id`s;;`" class="errormessage" c:valueMessage="msg_simulation,short_issue"> </span><br/>
+					{getTranslatedStatistic(s;;)}: <input c:validator="short_validator" c:varValue="e;ev" id="id{s;;}" name="e;ev" type="text"/><span c:for="id{s;;}" class="errormessage" c:valueMessage="msg_simulation,short_issue"> </span><br/>
 				</c:for>
 				<br/>
 				<input type="submit" value="OK"/>

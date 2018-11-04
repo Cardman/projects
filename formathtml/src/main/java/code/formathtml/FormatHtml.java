@@ -200,7 +200,8 @@ public final class FormatHtml {
     private static final String IS_BOOL_CONST_ATTRIBUTE = "isboolconst";
     private static final String EVALUATE_BOOLEAN = "isbool";
     private static final char ESCAPED = '\\';
-    private static final char MATH_INTERPRET = '`';
+    private static final char RIGHT_EL = '}';
+    private static final char LEFT_EL = '{';
     private static final String NUMBER_FORM = "n-f";
     private static final String NUMBER_ANCHOR = "n-a";
     private static final String NUMBER_INPUT = "n-i";
@@ -363,7 +364,7 @@ public final class FormatHtml {
                     _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return;
                 }
-                if (!PrimitiveTypeUtil.canBeUseAsArgument(res_, lgNames_.getStructClassName(bean_, context_), context_)) {
+                if (!PrimitiveTypeUtil.canBeUseAsArgument(false, res_, lgNames_.getStructClassName(bean_, context_), context_)) {
                     Mapping mapping_ = new Mapping();
                     mapping_.setArg(lgNames_.getStructClassName(bean_, context_));
                     mapping_.setParam(res_);
@@ -1685,7 +1686,7 @@ public final class FormatHtml {
             Element _set) {
         if (!_set.hasAttribute(ATTRIBUTE_VAR)) {
             String expression_ = _set.getAttribute(EXPRESSION_ATTRIBUTE);
-            ElRenderUtil.processEl(expression_, 0, _conf, true);
+            ElRenderUtil.processEl(expression_, 0, _conf);
             return;
         }
         String var_ = _set.getAttribute(ATTRIBUTE_VAR);
@@ -2096,7 +2097,7 @@ public final class FormatHtml {
         }
         String param_ = _className;
         String arg_ = lgNames_.getStructClassName(_object, _conf.toContextEl());
-        if (PrimitiveTypeUtil.canBeUseAsArgument(param_, arg_, _conf.toContextEl())) {
+        if (PrimitiveTypeUtil.canBeUseAsArgument(false, param_, arg_, _conf.toContextEl())) {
             LocalVariable loc_ = new LocalVariable();
             loc_.setClassName(_className);
             loc_.setStruct(_object);
@@ -3669,9 +3670,15 @@ public final class FormatHtml {
                     i_++;
                     continue;
                 }
-                if (curChar_ == MATH_INTERPRET) {
+                if (curChar_ == LEFT_EL) {
                     escaped_ = false;
-                    calculateVariables_.append(MATH_INTERPRET);
+                    calculateVariables_.append(LEFT_EL);
+                    i_++;
+                    continue;
+                }
+                if (curChar_ == RIGHT_EL) {
+                    escaped_ = false;
+                    calculateVariables_.append(RIGHT_EL);
                     i_++;
                     continue;
                 }
@@ -3687,9 +3694,9 @@ public final class FormatHtml {
                 i_++;
                 continue;
             }
-            if (curChar_ == MATH_INTERPRET) {
+            if (curChar_ == LEFT_EL) {
                 _ip.setOffset(i_+1);
-                Argument arg_ = ElRenderUtil.processEl(_pattern, _conf, i_+1, MATH_INTERPRET, MATH_INTERPRET);
+                Argument arg_ = ElRenderUtil.processEl(_pattern, _conf, i_+1, LEFT_EL, RIGHT_EL);
                 if (_conf.getContext().getException() != null) {
                     BadElRender badEl_ = new BadElRender();
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());

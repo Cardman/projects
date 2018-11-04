@@ -24,7 +24,7 @@ public final class DealBelote implements Iterable<HandBelote> {
     /**nombre de parties jouees depuis le lancement*/
     private long nbDeals;
     /**Pile de distribution pour initialiser la donne*/
-    private transient HandBelote deck;
+    private HandBelote deck;
 
     public DealBelote() {}
     public DealBelote(long _nombreDeParties,

@@ -7,7 +7,6 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.Options;
 import code.expressionlanguage.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
@@ -30,6 +29,8 @@ import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -97,25 +98,25 @@ public class Configuration implements ExecutableCode {
 
     private int nextIndex;
 
-    private transient boolean staticContext;
+    private boolean staticContext;
 
-    private final transient StringMap<Struct> builtBeans = new StringMap<Struct>();
-    private final transient StringMap<Struct> builtValidators = new StringMap<Struct>();
-    private final transient StringMap<Struct> builtTranslators = new StringMap<Struct>();
+    private final StringMap<Struct> builtBeans = new StringMap<Struct>();
+    private final StringMap<Struct> builtValidators = new StringMap<Struct>();
+    private final StringMap<Struct> builtTranslators = new StringMap<Struct>();
 
-    private transient HtmlPage htmlPage = new HtmlPage();
+    private HtmlPage htmlPage = new HtmlPage();
 
-    private transient Document document;
+    private Document document;
 
-    private final transient CustList<ImportingPage> importing = new CustList<ImportingPage>();
+    private final CustList<ImportingPage> importing = new CustList<ImportingPage>();
 
-    private transient String currentUrl;
+    private String currentUrl;
 
-    private transient String html;
+    private String html;
 
-    private transient String resourceUrl;
+    private String resourceUrl;
 
-    private transient AtomicBoolean interrupt = new AtomicBoolean();
+    private AtomicBoolean interrupt = new AtomicBoolean();
     @Override
     public boolean isMerged() {
         return context.isMerged();
@@ -130,12 +131,6 @@ public class Configuration implements ExecutableCode {
         htmlPage = new HtmlPage();
         document = null;
         currentUrl = firstUrl;
-        if (context == null) {
-            context = new ContextEl();
-            context.setStandards(standards);
-            context = toContextEl();
-            context.initError();
-        }
         if (prefix == null || prefix.isEmpty()) {
             prefix = EMPTY_STRING;
         } else {
@@ -290,7 +285,7 @@ public class Configuration implements ExecutableCode {
         }
         if (_dataBase != null) {
             String className_ = getDataBaseClassName();
-            ExtractObject.setDataBase(this, strBean_, new StdStruct(_dataBase, className_));
+            ExtractObject.setDataBase(this, strBean_, StdStruct.wrapStd(_dataBase, context, className_));
         } else {
             ExtractObject.setDataBase(this, strBean_, NullStruct.NULL_VALUE);
         }
@@ -752,26 +747,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public boolean isAnalyzingRoot() {
-        return context.isAnalyzingRoot();
-    }
-
-    @Override
-    public boolean isRootAffect() {
-        return context.isRootAffect();
-    }
-
-    @Override
-    public void setAnalyzingRoot(boolean _b) {
-        context.setAnalyzingRoot(_b);
-    }
-
-    @Override
-    public void setRootAffect(boolean _b) {
-        context.setRootAffect(_b);
-    }
-
-    @Override
     public Options getOptions() {
         return context.getOptions();
     }
@@ -1083,5 +1058,25 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setCurrentInitizedField(SortedClassField _currentInitizedField) {
         context.setCurrentInitizedField(_currentInitizedField);
+    }
+
+    @Override
+    public boolean isOkNumOp() {
+        return context.isOkNumOp();
+    }
+
+    @Override
+    public void setOkNumOp(boolean _okNumOp) {
+        context.setOkNumOp(_okNumOp);;
+    }
+
+    @Override
+    public KeyWords getKeyWords() {
+        return context.getKeyWords();
+    }
+
+    @Override
+    public void setKeyWords(KeyWords _keyWords) {
+        context.setKeyWords(_keyWords);
     }
 }

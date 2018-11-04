@@ -141,7 +141,7 @@ public final class PresidentStandards extends BeanLgNames {
         }
         if (_instance.getInstance() instanceof LineDeal) {
             if (StringList.quickEq(fieldName_, SCORES)) {
-                res_.setResult(new StdStruct(((LineDeal)_instance.getInstance()).getScores(), getCustList()));
+                res_.setResult(StdStruct.newListLong(((LineDeal)_instance.getInstance()).getScores(), getCustList()));
                 return res_;
             }
             if (StringList.quickEq(fieldName_, NUMBER)) {

@@ -18,7 +18,7 @@ public final class ShortStruct extends NumberStruct {
 
     @Override
     public String getClassName(ExecutableCode _context) {
-        return _context.getStandards().getAliasShort();
+        return _context.getStandards().getAliasPrimShort();
     }
 
     @Override

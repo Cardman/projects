@@ -76,49 +76,49 @@ public final class GamePresident {
     private NumberMap<Byte,HandPresident> switchedCards = new NumberMap<Byte,HandPresident>();
 
     private String error = "";
-    private transient boolean reversed;
+    private boolean reversed;
 
-    private transient BooleanList passOrFinish = new BooleanList();
+    private BooleanList passOrFinish = new BooleanList();
 
-    private transient HandPresident cardsToBePlayed = new HandPresident();
+    private HandPresident cardsToBePlayed = new HandPresident();
 
-    private transient byte nextPlayer = CustList.INDEX_NOT_FOUND_ELT;
+    private byte nextPlayer = CustList.INDEX_NOT_FOUND_ELT;
 
-    private transient NumberMap<Byte,Playing> lastStatus = new NumberMap<Byte,Playing>();
+    private NumberMap<Byte,Playing> lastStatus = new NumberMap<Byte,Playing>();
 
-    private transient StringBuilder errorPlaying = new StringBuilder();
+    private StringBuilder errorPlaying = new StringBuilder();
 
-    private transient HandPresident playedCards = new HandPresident();
+    private HandPresident playedCards = new HandPresident();
 
-    private transient String reason = EMPTY;
+    private String reason = EMPTY;
 
-    private final transient String file = Format.getClassProperties(GAME_PRESIDENT);
+    private final String file = Format.getClassProperties(GAME_PRESIDENT);
 
-    private transient CustList<CustList<EqList<HandPresident>>> userHands = new CustList<CustList<EqList<HandPresident>>>();
+    private CustList<CustList<EqList<HandPresident>>> userHands = new CustList<CustList<EqList<HandPresident>>>();
 
-    private transient CustList<EqList<HandPresident>> userHandsPerDeal = new CustList<EqList<HandPresident>>();
+    private CustList<EqList<HandPresident>> userHandsPerDeal = new CustList<EqList<HandPresident>>();
 
-    private transient EqList<HandPresident> currentUserHands = new EqList<HandPresident>();
+    private EqList<HandPresident> currentUserHands = new EqList<HandPresident>();
 
-    private transient CustList<CustList<TrickPresident>> dealTricks = new CustList<CustList<TrickPresident>>();
+    private CustList<CustList<TrickPresident>> dealTricks = new CustList<CustList<TrickPresident>>();
 
-    private transient EqList<Numbers<Byte>> ranksDeals = new EqList<Numbers<Byte>>();
+    private EqList<Numbers<Byte>> ranksDeals = new EqList<Numbers<Byte>>();
 
-    private transient NumberMap<Integer,NumberMap<Byte,Playing>> lastStatusTrick = new NumberMap<Integer,NumberMap<Byte,Playing>>();
+    private NumberMap<Integer,NumberMap<Byte,Playing>> lastStatusTrick = new NumberMap<Integer,NumberMap<Byte,Playing>>();
 
-    private transient CustList<NumberMap<Integer,NumberMap<Byte,Playing>>> lastStatusDeal = new CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>();
+    private CustList<NumberMap<Integer,NumberMap<Byte,Playing>>> lastStatusDeal = new CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>();
 
-    private transient CustList<CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>> lastStatusDeals = new CustList<CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>>();
+    private CustList<CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>> lastStatusDeals = new CustList<CustList<NumberMap<Integer,NumberMap<Byte,Playing>>>>();
 
-    private transient NumberMap<Integer,Byte> nextPlayerTrick = new NumberMap<Integer,Byte>();
+    private NumberMap<Integer,Byte> nextPlayerTrick = new NumberMap<Integer,Byte>();
 
-    private transient CustList<NumberMap<Integer,Byte>> nextPlayerDeal = new CustList<NumberMap<Integer,Byte>>();
+    private CustList<NumberMap<Integer,Byte>> nextPlayerDeal = new CustList<NumberMap<Integer,Byte>>();
 
-    private transient CustList<CustList<NumberMap<Integer,Byte>>> nextPlayerDeals = new CustList<CustList<NumberMap<Integer,Byte>>>();
+    private CustList<CustList<NumberMap<Integer,Byte>>> nextPlayerDeals = new CustList<CustList<NumberMap<Integer,Byte>>>();
 
-    private transient CustList<NumberMap<Byte,HandPresident>> switchedCardsDeals = new CustList<NumberMap<Byte,HandPresident>>();
+    private CustList<NumberMap<Byte,HandPresident>> switchedCardsDeals = new CustList<NumberMap<Byte,HandPresident>>();
 
-    private transient boolean simulated;
+    private boolean simulated;
 
     /** Constructeur permettant le chargement d'une partie de tarot */
     public GamePresident() {

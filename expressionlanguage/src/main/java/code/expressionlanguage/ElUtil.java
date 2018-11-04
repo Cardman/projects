@@ -81,7 +81,6 @@ public final class ElUtil {
             e_.setOrder(0);
             return new CustList<OperationNode>(e_);
         }
-        _conf.setAnalyzingRoot(true);
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
         OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
         if (opTwo_.isError()) {
@@ -92,7 +91,6 @@ public final class ElUtil {
             badEl_.setRc(_conf.getCurrentLocation());
             _conf.getClasses().addError(badEl_);
         }
-        _conf.setAnalyzingRoot(false);
         String fieldName_ = _calcul.getFieldName();
         _conf.setStaticContext(hiddenVarTypes_ || op_ instanceof AbstractInvokingConstructor);
         if (op_ instanceof StandardInstancingOperation) {
@@ -107,13 +105,13 @@ public final class ElUtil {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         _context.getTextualSortedOperations().clear();
         Block currentBlock_ = _context.getCurrentBlock();
-        if (currentBlock_ != null && !_context.isAnnotAnalysis()) {
+        if (currentBlock_ != null && !_context.isAnnotAnalysis() && !_context.isGearConst()) {
             currentBlock_.defaultAssignmentBefore(_context, _root);
         }
         OperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
-                if (currentBlock_ != null && !_context.isAnnotAnalysis()) {
+                if (currentBlock_ != null && !_context.isAnnotAnalysis() && !_context.isGearConst()) {
                     currentBlock_.defaultAssignmentAfter(_context, _root);
                 }
                 break;
@@ -132,17 +130,18 @@ public final class ElUtil {
         OperationNode next_ = createFirstChild(_current, _context, 0);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
-            if (!_context.isAnnotAnalysis()) {
+            if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
                 ((MethodOperation) _current).tryAnalyzeAssignmentBefore(_context, next_);
             }
             return next_;
         }
         OperationNode current_ = _current;
         while (true) {
+            _context.setOkNumOp(true);
             current_.setStaticBlock(_staticBlock);
             current_.analyze(_context);
             current_.tryCalculateNode(_context);
-            if (!_context.isAnnotAnalysis()) {
+            if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
                 current_.tryAnalyzeAssignmentAfter(_context);
             }
             current_.setOrder(_sortedNodes.size());
@@ -172,12 +171,13 @@ public final class ElUtil {
                     }
                 }
                 par_.appendChild(next_);
-                if (!_context.isAnnotAnalysis()) {
+                if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
                     par_.tryAnalyzeAssignmentBeforeNextSibling(_context, next_, current_);
                 }
                 return next_;
             }
             if (par_ == _root) {
+                _context.setOkNumOp(true);
                 par_.setStaticBlock(_staticBlock);
                 par_.analyze(_context);
                 ClassArgumentMatching cl_ = par_.getResultClass();
@@ -185,10 +185,10 @@ public final class ElUtil {
                     cl_.setUnwrapObject(cl_);
                 }
                 par_.tryCalculateNode(_context);
-                if (!_context.isAnnotAnalysis()) {
+                if (!_context.isAnnotAnalysis() && !_context.isGearConst()) {
                     par_.tryAnalyzeAssignmentAfter(_context);
                 }
-                current_.setOrder(_sortedNodes.size());
+                par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
                 return null;
             }
@@ -205,7 +205,7 @@ public final class ElUtil {
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
             if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
-                if (((StandardInstancingOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
+                if (((StandardInstancingOperation)_block).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
                     Delimiters d_ = block_.getOperations().getDelimiter();
                     OperationsSequence opSeq_ = new OperationsSequence();
                     opSeq_.setFctName(block_.getOperations().getFctName());
@@ -222,7 +222,7 @@ public final class ElUtil {
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
         if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
-            if (((StandardInstancingOperation)_block).initStaticClass() && _index == CustList.FIRST_INDEX) {
+            if (((StandardInstancingOperation)_block).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
                 opSeq_.setDelimiter(new Delimiters());
@@ -230,7 +230,6 @@ public final class ElUtil {
                 return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
             }
         }
-        _context.setAnalyzingRoot(block_ instanceof DeclaringOperation);
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context);
         if (r_.isError()) {
@@ -264,7 +263,6 @@ public final class ElUtil {
         int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
         d_.setChildOffest(curKey_);
         int offset_ = p_.getIndexInEl()+curKey_;
-        _context.setAnalyzingRoot(p_ instanceof DeclaringOperation);
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
         if (r_.isError()) {
@@ -284,13 +282,7 @@ public final class ElUtil {
         }
         return isDeclaringVariable(_var);
     }
-    public static boolean isDeclaringField(MethodOperation _par, Analyzable _an) {
-        Block bl_ = _an.getCurrentBlock();
-        if (!(bl_ instanceof FieldBlock)) {
-            return false;
-        }
-        return isDeclaringVariable(_par);
-    }
+
     public static boolean isDeclaringLoopVariable(MutableLoopVariableOperation _var, Analyzable _an) {
         Block bl_ = _an.getCurrentBlock();
         if (!_an.isMerged()) {
@@ -479,9 +471,6 @@ public final class ElUtil {
         for (SortedClassField f: _list) {
             if (f.getClassField().eq(key_)) {
                 tryCalculate(_field, _context, 0, _list, f);
-//                if (f.isOk()) {
-//                    _context.getClasses().initializeStaticField(key_, f.getStruct());
-//                }
                 break;
             }
         }
@@ -499,7 +488,7 @@ public final class ElUtil {
                     o.tryCalculateNode(_context, _list, _current);
                 }
             }
-            if (!(root_ instanceof AffectationOperation)) {
+            if (root_.getArgument() == null) {
                 _current.setOk(false);
                 pageEl_.setTranslatedOffset(0);
             }

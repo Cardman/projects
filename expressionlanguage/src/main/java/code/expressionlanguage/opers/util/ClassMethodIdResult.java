@@ -18,6 +18,7 @@ public class ClassMethodIdResult {
 
     private String returnType;
     private int ancestor;
+    private boolean abstractMethod;
     public ClassMethodId getId() {
         return id;
     }
@@ -88,6 +89,14 @@ public class ClassMethodIdResult {
 
     public void setAncestor(int _ancestor) {
         ancestor = _ancestor;
+    }
+
+    public boolean isAbstractMethod() {
+        return abstractMethod;
+    }
+
+    public void setAbstractMethod(boolean _abstractMethod) {
+        abstractMethod = _abstractMethod;
     }
 
 }
