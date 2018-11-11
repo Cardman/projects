@@ -55,6 +55,7 @@ import cards.network.threads.Net;
 import cards.president.DealPresident;
 import cards.president.GamePresident;
 import cards.president.HandPresident;
+import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import cards.president.TricksHandsPresident;
 import cards.president.beans.PresidentStandards;
@@ -73,7 +74,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
-import code.util.consts.Constants;
 
 public class ContainerMultiPresident extends ContainerPresident implements
         ContainerMulti {
@@ -111,6 +111,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void updateFirst(PlayersNamePresent _players) {
+        String lg_ = getOwner().getLanguageKey();
         getMultiStop().setEnabledMenu(true);
         getTricksHands().setEnabledMenu(true);
         getTeams().setEnabledMenu(true);
@@ -157,7 +158,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         try {
             //editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(Constants.getLanguage());
+            editor.setLanguage(lg_);
             editor.setDataBase(rulesPresidentMulti);
             editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
@@ -238,10 +239,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
+        String lg_ = getOwner().getLanguageKey();
         try {
             //editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(Constants.getLanguage());
+            editor.setLanguage(lg_);
             editor.setDataBase(rulesPresidentMulti);
             editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
@@ -270,7 +272,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         pack();
         Dealt dealt_ = new Dealt();
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(Constants.getLanguage());
+        String lg_ = getOwner().getLanguageKey();
+        dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
     }
 
@@ -322,10 +325,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
         updateCardsInPanelPresidentMulti(getPanelHand(), playerHandPresident, false);
         getNoPlay().setVisibleButton(true);
         pack();
+        String lg_ = getOwner().getLanguageKey();
         DiscardedCards dis_ = new DiscardedCards();
         dis_.setPlace(indexInGame);
         dis_.setDiscarded(getGivenCards());
-        dis_.setLocale(Constants.getLanguage());
+        dis_.setLocale(lg_);
         getOwner().sendObject(dis_);
     }
 
@@ -341,9 +345,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         updateCardsInPanelPresidentGiven();
         getNoPlay().setVisibleButton(true);
         pack();
+        String lg_ = getOwner().getLanguageKey();
         RefreshedHandPresident r_ = new RefreshedHandPresident();
         r_.setPlace(indexInGame);
-        r_.setLocale(Constants.getLanguage());
+        r_.setLocale(lg_);
         getOwner().sendObject(r_);
     }
 
@@ -370,37 +375,39 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     public void errorPlayingCard(ErrorPlayingPresident _readObject) {
+        String lg_ = getOwner().getLanguageKey();
         setCanPlay(true);
         if (_readObject.isPassIssue()) {
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
-            ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(getOwner(), _readObject.getReason(), title_, lg_, JOptionPane.ERROR_MESSAGE);
         } else {
-            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _readObject.getCard().display());
+            String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _readObject.getCard().toString(lg_));
             String finalMessage_ = StringList.concat(mes_,RETURN_LINE,_readObject.getReason());
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
-            ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void displayPlayedCard(PlayingCardPresident _card) {
+        String lg_ = getOwner().getLanguageKey();
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_card.getNextPlayer());
         NumberMap<Byte,Playing> status_ = new NumberMap<Byte,Playing>();
         for (byte p: _card.getStatus().getKeys()) {
             status_.put(relative(p), _card.getStatus().getVal(p));
         }
-        tapisPresident().setTalonPresident(_card.getPlayedHand());
+        tapisPresident().setTalonPresident(lg_,_card.getPlayedHand());
 //        tapisPresident().repaintValidate();
-        tapisPresident().setStatus(status_, relative_);
+        tapisPresident().setStatus(lg_,status_, relative_);
 //        tapisPresident().repaintValidate();
 
         String pseudo_ = getPseudoByPlace(_card.getPlace());
-        ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, _card.getPlayedHand().display(), RETURN_LINE));
+        ajouterTexteDansZone(StringList.concat(pseudo_, INTRODUCTION_PTS, _card.getPlayedHand().toString(lg_), RETURN_LINE));
         //PackingWindowAfter.pack(this, true);
         pack();
         DonePlaying dealt_ = new DonePlaying();
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(Constants.getLanguage());
+        dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
     }
 
@@ -409,9 +416,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         if (!isCanPlay()) {
             return;
         }
+        String lg_ = getOwner().getLanguageKey();
         setCanPlay(false);
         PlayingCardPresident pl_ = new PlayingCardPresident();
-        pl_.setLocale(Constants.getLanguage());
+        pl_.setLocale(lg_);
         pl_.setPlace(indexInGame);
         pl_.setPass(true);
         pl_.setPlayedCard(CardPresident.WHITE);
@@ -440,7 +448,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         ref_.setNextPlayer(_card.getNextPlayer());
         ref_.setPlace(indexInGame);
         ref_.setPlayedCard(CardPresident.WHITE);
-        ref_.setLocale(Constants.getLanguage());
+        String lg_ = getOwner().getLanguageKey();
+        ref_.setLocale(lg_);
         getOwner().sendObject(ref_);
 
     }
@@ -450,9 +459,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         tapisPresident().setTalonPresident();
 //        tapisPresident().repaintValidate();
         //pack();
+        String lg_ = getOwner().getLanguageKey();
         DonePause d_ = new DonePause();
         d_.setPlace(indexInGame);
-        d_.setLocale(Constants.getLanguage());
+        d_.setLocale(lg_);
         getOwner().sendObject(d_);
     }
 
@@ -463,7 +473,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         SelectTricksHands select_ = new SelectTricksHands();
         select_.setPlace(indexInGame);
-        select_.setLocale(Constants.getLanguage());
+        String lg_ = getOwner().getLanguageKey();
+        select_.setLocale(lg_);
         getOwner().sendObject(select_);
     }
 
@@ -478,10 +489,11 @@ public class ContainerMultiPresident extends ContainerPresident implements
             pseudos_.put(p, getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
+        MainWindow ow_ = getOwner();
         DialogTricksPresident.setDialogTricksPresident(
-                getMessages().getVal(MainWindow.HANDS_TRICKS_PRESIDENT), getOwner());
+                getMessages().getVal(MainWindow.HANDS_TRICKS_PRESIDENT), ow_);
         DialogTricksPresident.init(_tricks, (byte) nbChoosenPlayers, list_,
-                getDisplayingPresident());
+                getDisplayingPresident(),ow_);
     }
 
     @Override
@@ -499,6 +511,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),
                 SwingConstants.CENTER), BorderLayout.NORTH);
+        String lg_ = getOwner().getLanguageKey();
         CarpetPresident tapis_ = new CarpetPresident();
         NatTreeMap<Byte, String> pseudos_ = new NatTreeMap<Byte, String>();
         byte p_ = 0;
@@ -515,7 +528,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
             status_.put(relative(p), _status.getVal(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        tapis_.initTapisPresident(list_, status_, _nbMax);
+        tapis_.initTapisPresident(lg_,list_, status_, _nbMax);
         getTapis().setTapisPresident(tapis_);
         container_.add(tapis_, BorderLayout.CENTER);
         Panel panneau_ = new Panel();
@@ -595,7 +608,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
         int str_ = 0;
         int iter_ = CustList.FIRST_INDEX;
         byte index_ = CustList.SECOND_INDEX;
-        for (GraphicPresidentCard c: getGraphicCards(_hand)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
             int curStr_ = c.getCard().strength(_reversed);
             if (iter_ > CustList.FIRST_INDEX) {
                 if (curStr_ == str_) {
@@ -616,7 +630,8 @@ public class ContainerMultiPresident extends ContainerPresident implements
     private void updateCardsInPanelPresidentDiscard(Panel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
         byte index_ = CustList.FIRST_INDEX;
-        for (GraphicPresidentCard c: getGraphicCards(_hand)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand));
             _panel.add(c);
             index_ ++;
@@ -650,8 +665,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         return indexInGame;
     }
 
-    @Override
-    public void endGame(ResultsGame _res) {
+    public void endGame(ResultsPresident _res) {
         /*Descativer aide au jeu*/
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
@@ -663,6 +677,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         setThreadAnime(false);
 
         TabbedPane onglets_=new TabbedPane();
+        String lg_ = getOwner().getLanguageKey();
         ResultsGame res_ = _res;
         setScores(res_.getScores());
 
@@ -671,7 +686,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(Constants.getLanguage());
+            editor_.setLanguage(lg_);
             editor_.setDataBase(res_);
             editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
@@ -710,7 +725,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         //PackingWindowAfter.pack(this, true);
         Ok ok_ = new Ok();
         ok_.setPlace(indexInGame);
-        ok_.setLocale(Constants.getLanguage());
+        ok_.setLocale(lg_);
         getOwner().sendObject(ok_);
     }
 
@@ -770,9 +785,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     @Override
     public void changeRules() {
+        String lg_ = getOwner().getLanguageKey();
         DialogRulesPresident.initDialogRulesPresident(
-                GameEnum.PRESIDENT.display(), getOwner(), rulesPresidentMulti);
-        DialogRulesPresident.setPresidentDialog(false,nbChoosenPlayers);
+                GameEnum.PRESIDENT.toString(lg_), getOwner(), rulesPresidentMulti);
+        DialogRulesPresident.setPresidentDialog(false,nbChoosenPlayers, getOwner());
         RulesPresident rulesPresidentMulti_ = DialogRulesPresident.getRegles();
         if (!DialogRulesPresident.isValidated()) {
             return;

@@ -22,9 +22,9 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
     private String label;
     private int labelOffset;
 
-    public IfCondition(ContextEl _importingPage, int _indexChild,
+    public IfCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _condition, _offset);
+        super(_importingPage, _m, _condition, _offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }

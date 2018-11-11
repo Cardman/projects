@@ -3,9 +3,9 @@ import static cards.president.EquallablePresidentUtil.assertEq;
 
 import org.junit.Test;
 
+import cards.president.enumerations.CardPresident;
 import code.util.EqList;
 import code.util.Numbers;
-import cards.president.enumerations.CardPresident;
 
 @SuppressWarnings("static-method")
 public class TrickPresidentTest {

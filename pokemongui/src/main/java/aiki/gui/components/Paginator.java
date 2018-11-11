@@ -4,6 +4,7 @@ import javax.swing.JTextField;
 
 import aiki.Resources;
 import aiki.facade.FacadeGame;
+import aiki.gui.MainWindow;
 import aiki.gui.components.labels.Header;
 import aiki.gui.components.labels.SelectableLabel;
 import aiki.gui.components.listeners.BeginEvent;
@@ -23,7 +24,6 @@ import code.util.CustList;
 import code.util.EnumMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.pagination.SearchingMode;
 
 public abstract class Paginator extends Panel{
@@ -91,7 +91,10 @@ public abstract class Paginator extends Panel{
 
     private LabelButton end;
 
-    public Paginator(String _access) {
+    private MainWindow main;
+
+    public Paginator(MainWindow _window, String _access) {
+        main = _window;
         initMessages(_access);
         header = new Header();
         begin = new LabelButton(BEGIN);
@@ -108,10 +111,15 @@ public abstract class Paginator extends Panel{
         end.addMouseListener(new EndEvent(this));
     }
 
+    public MainWindow getMain() {
+        return main;
+    }
+
     protected void initMessages(String _access) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), ACCESS);
-        messages.putAllMap(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), _access));
-        StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), ACCESS_SEARCH);
+        String lg_ = main.getLanguageKey();
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS);
+        messages.putAllMap(ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, _access));
+        StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, ACCESS_SEARCH);
         messagesSearchMode.clear();
         for (String k: map_.getKeys()) {
             messagesSearchMode.put(SearchingMode.getSearchingModeByName(k), map_.getVal(k));

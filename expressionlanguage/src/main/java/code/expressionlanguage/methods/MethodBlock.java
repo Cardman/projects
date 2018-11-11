@@ -29,13 +29,13 @@ public final class MethodBlock extends NamedFunctionBlock implements GeneMethod 
     private final String declaringType;
 
     public MethodBlock(ContextEl _importingPage,
-            int _indexChild, BracedBlock _m,
+            BracedBlock _m,
             OffsetAccessInfo _access,
             OffsetStringInfo _retType, OffsetStringInfo _fctName,
             StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
             StringList _paramNames, Numbers<Integer> _paramNamesOffset,
             OffsetStringInfo _modifier, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
+        super(_importingPage, _m, _access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _importingPage.getKeyWords();

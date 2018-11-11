@@ -23,7 +23,7 @@
 <sm class="aiki.fight.moves.effects.EffectDamage" field="multDamageAgainst"/>
 <mcu class="aiki.fight.moves.effects.EffectDamage" field="chLaw"/>
 <mcu class="aiki.fight.moves.effects.EffectDamage" field="hitsLaw"/>
-<java.lang.String class="aiki.fight.moves.effects.EffectDamage" field="power" value="60*(inclusnum({VAR__CIBLE_OBJET},vide)+1)"/>
+<java.lang.String class="aiki.fight.moves.effects.EffectDamage" field="power" value="60*(inclusnum({VAR__CIBLE_OBJET},{})+1)"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="randMax" value="false"/>
 <java.lang.Boolean class="aiki.fight.moves.effects.EffectDamage" field="summingUserTeamOkFighter" value="false"/>
 <el class="aiki.fight.moves.effects.EffectDamage" field="ignVarStatTargetPos"/>

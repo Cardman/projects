@@ -21,9 +21,9 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
 
     private CustList<OperationNode> opThrow;
 
-    public Throwing(ContextEl _importingPage, int _indexChild,
+    public Throwing(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
     }

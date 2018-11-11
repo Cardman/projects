@@ -45,11 +45,11 @@ public final class ElementBlock extends Leaf implements InfoBlock{
 
     private int trOffset;
 
-    public ElementBlock(ContextEl _importingPage, int _indexChild,
+    public ElementBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _fieldName,
             OffsetStringInfo _type,
             OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         fieldNameOffest = _fieldName.getOffset();
         valueOffest = _value.getOffset();
         fieldName = _fieldName.getInfo();

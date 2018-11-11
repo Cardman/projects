@@ -27,9 +27,9 @@ public final class DeclareVariable extends Leaf implements InitVariable {
 
     private int finalVariableOffset;
 
-    public DeclareVariable(boolean _merged, ContextEl _importingPage, int _indexChild,
+    public DeclareVariable(boolean _merged, ContextEl _importingPage,
             BracedBlock _m, OffsetBooleanInfo _finalVar, OffsetStringInfo _className, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         finalVariable = _finalVar.isInfo();
         finalVariableOffset = _finalVar.getOffset();
         className = _className.getInfo();

@@ -41,7 +41,7 @@ public final class DialogGameProgess extends Dialog {
     private void init(MainWindow _window, String _title, FacadeGame _facade) {
         //super(_window, true);
         setDialogIcon(_window);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

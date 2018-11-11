@@ -5,7 +5,6 @@ import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.CalledCards;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
-import code.util.consts.Constants;
 
 public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
 
@@ -25,6 +24,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
     }
     @Override
     protected void verifierRegles(){
+        String lg_ = container.getOwner().getLanguageKey();
         if (container.isDiscardCall()) {
             if (container.getCardsInDog().total()!=container.getRepTarot().getNombreCartesChien()) {
                 return;
@@ -35,7 +35,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
             CalledCards calledCards_ = new CalledCards();
             calledCards_.setCalledCards(cartesAppel_);
             calledCards_.setDiscarding(true);
-            calledCards_.setLocale(Constants.getLanguage());
+            calledCards_.setLocale(lg_);
             container.getOwner().sendObject(calledCards_);
         }
         container.setCanCall(false);
@@ -43,7 +43,7 @@ public class ListenerCardTarotMultiBeforeDog extends AbstractListenerCardTarot {
         cartesAppel_.ajouter(getCarteVerif());
         CalledCards calledCards_ = new CalledCards();
         calledCards_.setCalledCards(cartesAppel_);
-        calledCards_.setLocale(Constants.getLanguage());
+        calledCards_.setLocale(lg_);
         container.getOwner().sendObject(calledCards_);
     }
 }

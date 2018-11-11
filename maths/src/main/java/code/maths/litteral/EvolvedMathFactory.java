@@ -5,7 +5,9 @@ import code.maths.Rate;
 import code.util.StringMap;
 import code.util.ints.AdvancedMathFactory;
 
-public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,EvolvedNumString,EvolvedBooleanString > {
+public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
+
+    private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
     @Override
     public Rate evaluateDirectlyRate(String _numExp) {
@@ -113,5 +115,8 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate,Evolve
             return _default;
         }
         return (Boolean)obj_;
+    }
+    public LgInt getMaxRandomNb() {
+        return maxRd;
     }
 }

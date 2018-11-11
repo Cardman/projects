@@ -1,9 +1,7 @@
 package cards.belote.enumerations;
 import code.format.Format;
-import code.util.consts.Constants;
-import code.util.ints.Displayable;
 
-public enum BonusBelote implements Displayable {
+public enum BonusBelote {
     LAST_TRICK(10);
     private final int points;
 
@@ -19,8 +17,4 @@ public enum BonusBelote implements Displayable {
         return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.BELOTE_BONUS,name());
     }
 
-    @Override
-    public String display() {
-        return toString(Constants.getLanguage());
-    }
 }

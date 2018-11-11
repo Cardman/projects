@@ -17,7 +17,6 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 public final class DialogHelpTarot extends Dialog {
 
@@ -37,7 +36,7 @@ public final class DialogHelpTarot extends Dialog {
         DIALOG.setTitle(_title);
     }
     /**Cartes possibles et certaines &#224 la belote et au tarot*/
-    public static void setDialogueTarot(EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,EnumMap<Suit,EqList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,StringList _pseudos) {
+    public static void setDialogueTarot(EnumMap<Suit,EqList<HandTarot>> _cartesPossibles,EnumMap<Suit,EqList<HandTarot>> _cartesCertaines,EnumMap<Suit,HandTarot> _repartitionJouees,StringList _pseudos, String _lg) {
         Panel container_=new Panel();
         container_.setLayout(new FlowLayout());
         Panel panneau2_=new Panel();
@@ -64,14 +63,14 @@ public final class DialogHelpTarot extends Dialog {
             for (Suit s: suits_) {
                 HandTarot h_ = tout_.couleur(s);
                 if(s != Suit.UNDEFINED) {
-                    zone_.append(StringList.concat(s.toString(Constants.getLanguage()),RETURN_LINE));
+                    zone_.append(StringList.concat(s.toString(_lg),RETURN_LINE));
                 }
                 for(CardTarot carte_:h_) {
                     zone_.append(TAB);
                     if(carte_ == CardTarot.EXCUSE) {
-                        zone_.append(StringList.concat(carte_.toString(Constants.getLanguage()),SPACE));
+                        zone_.append(StringList.concat(carte_.toString(_lg),SPACE));
                     } else {
-                        zone_.append(StringList.concat(carte_.getSymbol(Constants.getLanguage()),SPACE));
+                        zone_.append(StringList.concat(carte_.getSymbol(_lg),SPACE));
                     }
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);

@@ -11,7 +11,6 @@ import cards.tarot.GameTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.ConfirmDialog;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
 
@@ -40,15 +39,14 @@ public class ListenerCardTarotSingleDog extends AbstractListenerCardTarot {
     @Override
     protected void verifierRegles() {
         GameTarot partie_=container.partieTarot();
-
+        String lg_ = container.getOwner().getLanguageKey();
         if(partie_.getDistribution().main().contient(getCarteVerif())) {
-            if(partie_.autoriseEcartDe(getCarteVerif(), Constants.getLanguage())){
+            if(partie_.autoriseEcartDe(getCarteVerif(), lg_)){
                 container.ajouterUneCarteAuChien(getCarteVerif());
             }else{
-                String mesCard_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_DISCARD), getCarteVerif().display());
+                String mesCard_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_DISCARD), getCarteVerif().toString(lg_));
                 String mesReason_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.REASON), partie_.getErreurDEcart());
-                ConfirmDialog.showMessage(container.getOwner(), StringList.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_),container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-                //JOptionPane.showMessageDialog(container.getOwner(),mesCard_+ContainerTarot.RETURN_LINE_CHAR+mesReason_,container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(container.getOwner(), StringList.concat(mesCard_,ContainerGame.RETURN_LINE,mesReason_),container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
             }
         } else {
             container.retirerUneCarteDuChien(getCarteVerif());

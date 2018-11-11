@@ -9,9 +9,6 @@ public class StringComboBox extends TreeComboBox<Integer> {
     public StringComboBox() {
         super(new TreeMap<Integer,String>(new NaturalComparator<Integer>()));
     }
-//    public StringComboBox(String... _numerosPlis) {
-//        super(_numerosPlis);
-//    }
 
     @Override
     public void addItem(String _anObject) {

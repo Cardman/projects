@@ -1,6 +1,5 @@
 package aiki.game.fight;
 import aiki.DataBase;
-import aiki.Resources;
 import aiki.comments.Comment;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.Effect;
@@ -30,7 +29,6 @@ import aiki.game.fight.util.NbEffectFighterCoords;
 import aiki.map.levels.enums.EnvironmentType;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.util.ExtractFromFiles;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -45,7 +43,6 @@ import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.annot.RwXml;
 import code.util.comparators.NaturalComparator;
-import code.util.consts.Constants;
 import code.util.ints.Listable;
 
 @RwXml
@@ -55,6 +52,8 @@ public final class Fight {
 
     /***/
     public static final byte FOE = 1;
+
+    public static final String FIGHT = "aiki.game.fight.Fight";
 
     public static final String LANCEUR_PV_RESTANTS = "LANCEUR_PV_RESTANTS";
     public static final String CIBLE_PV_RESTANTS = "CIBLE_PV_RESTANTS";
@@ -344,11 +343,7 @@ public final class Fight {
     static final String CREATE_CLONE = "createClone";
     static final String HELP_ALLY = "helpAlly";
 
-    private static final String FIGHT = "aiki.game.fight.Fight";
-
     private static final String SEPARATOR_COMMENTS = ", ";
-
-    private static StringMap<String> _messages_ = new StringMap<String>();
 
     /***/
     private FightType fightType;
@@ -562,15 +557,6 @@ public final class Fight {
         damage.setDamageCount(Rate.zero());
     }
 
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), FIGHT);
-        Team.initMessages();
-    }
-
-    static StringMap<String> getMessages() {
-        return _messages_;
-    }
-
     public Fighter wildPokemon(){
         return getFoeTeam().getMembers().getVal((byte)0);
     }
@@ -602,16 +588,17 @@ public final class Fight {
         if (fighter_.isBelongingToPlayer()) {
             return name_;
         }
-        try {
-            if (Numbers.eq(_teamPosition.getTeam(), FOE)) {
-//                return MessageFormat.format(_messages_.getVal(FIGHTER_FOE), name_);
-                return StringList.simpleStringsFormat(_messages_.getVal(FIGHTER_FOE), name_);
-            }
-//            return MessageFormat.format(_messages_.getVal(FIGHTER_ALLY), name_);
-            return StringList.simpleStringsFormat(_messages_.getVal(FIGHTER_ALLY), name_);
-        } catch (RuntimeException _0) {
+        StringMap<String> messages_ = _import.getMessagesFight();
+        String value_;
+        if (Numbers.eq(_teamPosition.getTeam(), FOE)) {
+            value_ = messages_.getVal(FIGHTER_FOE);
+        } else {
+            value_ = messages_.getVal(FIGHTER_ALLY);
+        }
+        if (value_ == null) {
             return DataBase.EMPTY_STRING;
         }
+        return StringList.simpleStringsFormat(value_, name_);
     }
 
     public TeamPosition getFighterKey(TargetCoords _targetCoords) {
@@ -1316,32 +1303,35 @@ public final class Fight {
     }
 
     void addAnimationStatistic(Statistic _st, byte _variation, boolean _swap) {
-        try {
-            AnimationEffectStatistic anim_ = (AnimationEffectStatistic) getEffects().last();
-            InfosAnimationStatistic info_ = new InfosAnimationStatistic();
-            info_.setStatistic(_st);
-            info_.setVariation(_variation);
-            info_.setSwap(_swap);
-            anim_.getInfos().add(info_);
-        } catch (RuntimeException _0) {
+        CustList<AnimationInt> list_ = getEffects();
+        if (list_.isEmpty()) {
+            return;
         }
+        AnimationEffectStatistic anim_ = (AnimationEffectStatistic) list_.last();
+        InfosAnimationStatistic info_ = new InfosAnimationStatistic();
+        info_.setStatistic(_st);
+        info_.setVariation(_variation);
+        info_.setSwap(_swap);
+        anim_.getInfos().add(info_);
     }
 
     void setAnimationStatus(String _st) {
-        try {
-            AnimationEffectStatus anim_ = (AnimationEffectStatus) getEffects().last();
-            anim_.setStatus(_st);
-        } catch (RuntimeException _0) {
+        CustList<AnimationInt> list_ = getEffects();
+        if (list_.isEmpty()) {
+            return;
         }
+        AnimationEffectStatus anim_ = (AnimationEffectStatus) list_.last();
+        anim_.setStatus(_st);
     }
 
     void setAnimationDamage(Rate _damage, StringList _types) {
-        try {
-            AnimationEffectDamage anim_ = (AnimationEffectDamage) getEffects().last();
-            anim_.setDamage(_damage);
-            anim_.getTypes().addAllElts(_types);
-        } catch (RuntimeException _0) {
+        CustList<AnimationInt> list_ = getEffects();
+        if (list_.isEmpty()) {
+            return;
         }
+        AnimationEffectDamage anim_ = (AnimationEffectDamage)list_.last();
+        anim_.setDamage(_damage);
+        anim_.getTypes().addAllElts(_types);
     }
 
     void setAnimationKoFighterEffectDamage(TeamPosition _user, EffectDamageRate _effect) {
@@ -1382,24 +1372,17 @@ public final class Fight {
     }
 
     void setAnimationKoFighter(boolean _koUser, boolean _koTarget, Rate _damage) {
-        try {
-            AnimationEffectDamage animation_ = (AnimationEffectDamage) effects.last();
-            animation_.setKoToFighter(_koTarget);
-            animation_.setKoFromFighter(_koUser);
-            if (!_damage.isZero()) {
-                animation_.setDamage(_damage);
-            }
-        } catch (RuntimeException _0) {
+        CustList<AnimationInt> list_ = getEffects();
+        if (list_.isEmpty()) {
+            return;
+        }
+        AnimationEffectDamage animation_ = (AnimationEffectDamage) list_.last();
+        animation_.setKoToFighter(_koTarget);
+        animation_.setKoFromFighter(_koUser);
+        if (!_damage.isZero()) {
+            animation_.setDamage(_damage);
         }
     }
-
-//    public void addSwitchPlaces(String _name) {
-//        try {
-//            AnimationChangedPlace animation_ = (AnimationChangedPlace) effects.last();
-//            animation_.setSubstitute(_name);
-//        } catch (Exception e) {
-//        }
-//    }
 
     public boolean noComment() {
         return comment.getMessages().isEmpty();
@@ -1408,7 +1391,7 @@ public final class Fight {
     public void addHelpAllyMessage(TeamPosition _fighter, TeamPosition _other, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
-        addMessage(HELP_ALLY, name_, other_);
+        addMessage(_import, HELP_ALLY, name_, other_);
 
     }
 
@@ -1416,7 +1399,7 @@ public final class Fight {
         String name_ = getFighterName(_fighter, _import);
         Rate clone_ = getFighter(_fighter).getClone();
         if (!clone_.isZero()) {
-            addMessage(CREATE_CLONE, name_, clone_.toNumberString());
+            addMessage(_import, CREATE_CLONE, name_, clone_.toNumberString());
         }
 
     }
@@ -1425,7 +1408,7 @@ public final class Fight {
         String name_ = getFighterName(_fighter, _import);
         String status_ = _import.translateStatus(_status);
         String move_ = _import.translateMove(_move);
-        addMessage(IMMU_STAT_TEAM, name_, status_, move_);
+        addMessage(_import, IMMU_STAT_TEAM, name_, status_, move_);
     }
 
     public void addImmuStatGlobalMoveAbilityMessage(TeamPosition _fighter, String _status, String _ability, String _move, DataBase _import) {
@@ -1433,46 +1416,46 @@ public final class Fight {
         String status_ = _import.translateStatus(_status);
         String ability_ = _import.translateAbility(_ability);
         String move_ = _import.translateMove(_move);
-        addMessage(IMMU_STAT_GLOBAL_MOVE_ABILITY, name_, status_, ability_, move_);
+        addMessage(_import, IMMU_STAT_GLOBAL_MOVE_ABILITY, name_, status_, ability_, move_);
     }
 
     public void addImmuStatItemMessage(TeamPosition _fighter, String _status, String _ability, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String status_ = _import.translateStatus(_status);
         String ability_ = _import.translateItem(_ability);
-        addMessage(IMMU_STAT_ITEM, name_, status_, ability_);
+        addMessage(_import, IMMU_STAT_ITEM, name_, status_, ability_);
     }
 
     public void addImmuStatAbilityMessage(TeamPosition _fighter, String _status, String _ability, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String status_ = _import.translateStatus(_status);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(IMMU_STAT_ABILITY, name_, status_, ability_);
+        addMessage(_import, IMMU_STAT_ABILITY, name_, status_, ability_);
     }
 
     public void addImmuStatAbilityAllyMessage(TeamPosition _fighter, String _status, String _ability, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String status_ = _import.translateStatus(_status);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(IMMU_STAT_ABILITY_ALLY, name_, status_, ability_);
+        addMessage(_import, IMMU_STAT_ABILITY_ALLY, name_, status_, ability_);
     }
 
     public void addImmuStatGlobalMoveMessage(TeamPosition _fighter, String _status, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String status_ = _import.translateStatus(_status);
-        addMessage(IMMU_STAT_GLOBAL_MOVE, name_, status_);
+        addMessage(_import, IMMU_STAT_GLOBAL_MOVE, name_, status_);
     }
 
     public void addImmuChgtStatMaxMessage(TeamPosition _fighter, Statistic _statistic, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String statis_ = _import.translateStatistics(_statistic);
-        addMessage(IMMU_CHGT_STAT_MAX, name_, statis_);
+        addMessage(_import, IMMU_CHGT_STAT_MAX, name_, statis_);
     }
 
     public void addImmuChgtStatMinMessage(TeamPosition _fighter, Statistic _statistic, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String statis_ = _import.translateStatistics(_statistic);
-        addMessage(IMMU_CHGT_STAT_MIN, name_, statis_);
+        addMessage(_import, IMMU_CHGT_STAT_MIN, name_, statis_);
     }
 
     public void addImmuLowStatStAbilityMessage(TeamPosition _fighter, Statistic _statistic, String _ability, String _status, DataBase _import) {
@@ -1480,110 +1463,103 @@ public final class Fight {
         String ability_ = _import.translateAbility(_ability);
         String statis_ = _import.translateStatistics(_statistic);
         String status_ = _import.translateStatus(_status);
-        addMessage(IMMU_LOW_STAT_ST_ABILITY, name_, statis_, ability_, status_);
+        addMessage(_import, IMMU_LOW_STAT_ST_ABILITY, name_, statis_, ability_, status_);
     }
 
     public void addImmuLowStatItemMessage(TeamPosition _fighter, Statistic _statistic, String _item, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String item_ = _import.translateItem(_item);
         String statis_ = _import.translateStatistics(_statistic);
-        addMessage(IMMU_LOW_STAT_ITEM, name_, statis_, item_);
+        addMessage(_import, IMMU_LOW_STAT_ITEM, name_, statis_, item_);
     }
 
     public void addImmuLowStatTeamMessage(TeamPosition _fighter, Statistic _statistic, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String statis_ = _import.translateStatistics(_statistic);
-        addMessage(IMMU_LOW_STAT_TEAM, name_, statis_, move_);
+        addMessage(_import, IMMU_LOW_STAT_TEAM, name_, statis_, move_);
     }
 
     public void addImmuLowStatAbilityMessage(TeamPosition _fighter, Statistic _statistic, String _ability, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String ability_ = _import.translateAbility(_ability);
         String statis_ = _import.translateStatistics(_statistic);
-        addMessage(IMMU_LOW_STAT_ABILITY, name_, statis_, ability_);
+        addMessage(_import, IMMU_LOW_STAT_ABILITY, name_, statis_, ability_);
     }
 
     public void addImmuLowStatAbilityAllyMessage(TeamPosition _fighter, Statistic _statistic, String _ability, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String ability_ = _import.translateAbility(_ability);
         String statis_ = _import.translateStatistics(_statistic);
-        addMessage(IMMU_LOW_STAT_ABILITY_ALLY, name_, statis_, ability_);
+        addMessage(_import, IMMU_LOW_STAT_ABILITY_ALLY, name_, statis_, ability_);
     }
 
     public void addProtectedByDisappearingMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(PROTECTED_BY_DISAPPEARING, name_);
+        addMessage(_import, PROTECTED_BY_DISAPPEARING, name_);
     }
 
     public void addProtectedByTeamMoveMessage(TeamPosition _fighter, String _move, String _protMove, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String protMove_ = _import.translateMove(_protMove);
-        addMessage(PROTECTED_BY_TEAM_MOVE, name_, move_, protMove_);
+        addMessage(_import, PROTECTED_BY_TEAM_MOVE, name_, move_, protMove_);
     }
 
     public void addProtectedByIndividualMoveMessage(TeamPosition _fighter, String _move, String _protMove, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String protMove_ = _import.translateMove(_protMove);
-        addMessage(PROTECTED_BY_INDIVIDUAL_MOVE, name_, move_, protMove_);
+        addMessage(_import, PROTECTED_BY_INDIVIDUAL_MOVE, name_, move_, protMove_);
     }
 
     public void addProtectedAgainstSecEffMessage(TeamPosition _fighter, String _move, String _ability,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(PROTECTED_AGAINST_SEC_EFF, name_, move_, ability_);
+        addMessage(_import, PROTECTED_AGAINST_SEC_EFF, name_, move_, ability_);
     }
 
     public void addProtectByItemMessage(TeamPosition _fighter, String _move, String _item,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String item_ = _import.translateItem(_item);
-        addMessage(PROTECT_BY_ITEM, name_, move_, item_);
+        addMessage(_import, PROTECT_BY_ITEM, name_, move_, item_);
     }
-
-//    public void addProtectByAbilityDamageMessage(TeamPosition _fighter, String _move, String _ability,DataBase _import) {
-//        String name_ = getFighterName(_fighter, _import);
-//        String move_ = _import.translateMove(_move);
-//        String ability_ = _import.translateAbility(_ability);
-//        addMessage(PROTECT_BY_ABILITY_DAMAGE, name_, move_, ability_);
-//    }
 
     public void addProtectByAbilityMessage(TeamPosition _fighter, String _move, String _ability,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(PROTECT_BY_ABILITY, name_, move_, ability_);
+        addMessage(_import, PROTECT_BY_ABILITY, name_, move_, ability_);
     }
 
     public void addProtectByAbilityDamageAllyMessage(TeamPosition _fighter, String _move, String _ability,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(PROTECT_BY_ABILITY_DAMAGE_ALLY, name_, move_, ability_);
+        addMessage(_import, PROTECT_BY_ABILITY_DAMAGE_ALLY, name_, move_, ability_);
     }
 
     public void addProtectByAllyAbilityMessage(TeamPosition _fighter, String _move, String _ability,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(PROTECT_BY_ALLY_ABILITY, name_, move_, ability_);
+        addMessage(_import, PROTECT_BY_ALLY_ABILITY, name_, move_, ability_);
     }
 
     public void addProtectTypeByItemMessage(TeamPosition _fighter, String _type, String _item,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String type_ = _import.translateType(_type);
         String item_ = _import.translateItem(_item);
-        addMessage(PROTECT_TYPE_BY_ITEM, name_, type_, item_);
+        addMessage(_import, PROTECT_TYPE_BY_ITEM, name_, type_, item_);
     }
 
     public void addProtectTypeByAbilityMessage(TeamPosition _fighter, String _type, String _ability,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String type_ = _import.translateType(_type);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(PROTECT_TYPE_BY_ABILITY, name_, type_, ability_);
+        addMessage(_import, PROTECT_TYPE_BY_ABILITY, name_, type_, ability_);
     }
 
     public void addProtectTypeByAbilityWeatherMessage(TeamPosition _fighter, String _type, String _ability, String _move,DataBase _import) {
@@ -1591,170 +1567,170 @@ public final class Fight {
         String type_ = _import.translateType(_type);
         String ability_ = _import.translateAbility(_ability);
         String move_ = _import.translateMove(_move);
-        addMessage(PROTECT_TYPE_BY_ABILITY_WEATHER, name_, type_, ability_, move_);
+        addMessage(_import, PROTECT_TYPE_BY_ABILITY_WEATHER, name_, type_, ability_, move_);
     }
 
     public void addProtectTypeByIndividualMoveMessage(TeamPosition _fighter, String _type, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String type_ = _import.translateType(_type);
-        addMessage(PROTECT_TYPE_BY_INDIVIDUAL_MOVE, name_, type_);
+        addMessage(_import, PROTECT_TYPE_BY_INDIVIDUAL_MOVE, name_, type_);
     }
 
     public void addProtectTypeByGlobalMoveMessage(TeamPosition _fighter, String _type, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String type_ = _import.translateType(_type);
         String move_ = _import.translateMove(_move);
-        addMessage(PROTECT_TYPE_BY_GLOBAL_MOVE, name_, type_, move_);
+        addMessage(_import, PROTECT_TYPE_BY_GLOBAL_MOVE, name_, type_, move_);
     }
 
     public void addChangingWiewPointTargetMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(CHANGING_VIEW_POINT_TARGET, name_);
+        addMessage(_import, CHANGING_VIEW_POINT_TARGET, name_);
     }
 
     public void addChangingWiewPointUserMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(CHANGING_VIEW_POINT_USER, name_);
+        addMessage(_import, CHANGING_VIEW_POINT_USER, name_);
     }
 
     public void addStatusBeginRoundRelMessage(TeamPosition _fighter, String _status, TeamPosition _other, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String status_ = _import.translateStatus(_status);
         String other_ = getFighterName(_other, _import);
-        addMessage(CANNOT_USE_MOVE_STATUS_REL, name_, status_, other_);
+        addMessage(_import, CANNOT_USE_MOVE_STATUS_REL, name_, status_, other_);
     }
 
     public void addStatusBeginRoundMessage(TeamPosition _fighter, String _status, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String status_ = _import.translateStatus(_status);
-        addMessage(CANNOT_USE_MOVE_STATUS, name_, status_);
+        addMessage(_import, CANNOT_USE_MOVE_STATUS, name_, status_);
     }
 
     public void addFightEvolutionMessage(TeamPosition _fighter, String _evolution, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String evo_ = _import.translatePokemon(_evolution);
-        addMessage(FIGHT_EVOLUTION, name_, evo_);
+        addMessage(_import, FIGHT_EVOLUTION, name_, evo_);
     }
 
     public void addKeepMoveEvolutionMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(KEEP_MOVE_EVOLUTION, name_, move_);
+        addMessage(_import, KEEP_MOVE_EVOLUTION, name_, move_);
     }
 
     public void addForgetMoveEvolutionMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(FORGET_MOVE_EVOLUTION, name_, move_);
+        addMessage(_import, FORGET_MOVE_EVOLUTION, name_, move_);
     }
 
     public void addLearnMoveEvolutionMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(LEARN_MOVE_EVOLUTION, name_, move_);
+        addMessage(_import, LEARN_MOVE_EVOLUTION, name_, move_);
     }
 
     public void addSuccessfulMoveButNoDamageMessage(String _move, TeamPosition _fighter,DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(SUCCESSFUL_MOVE_BUT_NO_DAMAGE, move_, name_);
+        addMessage(_import, SUCCESSFUL_MOVE_BUT_NO_DAMAGE, move_, name_);
     }
 
     public void addSuccessfulMoveMessage(String _move, TeamPosition _fighter,DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(SUCCESSFUL_MOVE, move_, name_);
+        addMessage(_import, SUCCESSFUL_MOVE, move_, name_);
     }
 
     public void addFailMoveMessage(String _move, TeamPosition _fighter,DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(FAIL_MOVE, move_, name_);
+        addMessage(_import, FAIL_MOVE, move_, name_);
     }
 
     public void addNoAchieveTargetMessage(String _move, TeamPosition _fighter,DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(NO_ACHIEVE_TARGET, move_, name_);
+        addMessage(_import, NO_ACHIEVE_TARGET, move_, name_);
     }
 
     public void addNbHitsMessage(long _nbHits, TeamPosition _fighter,DataBase _import) {
         if (_nbHits > 1) {
             String name_ = getFighterName(_fighter, _import);
-            addMessage(NB_HITS, Long.toString(_nbHits), name_);
+            addMessage(_import, NB_HITS, Long.toString(_nbHits), name_);
         }
     }
 
-    public void addCriticalHitMessage() {
-        addMessage(CRITICAL_HIT);
+    public void addCriticalHitMessage(DataBase _import) {
+        addMessage(_import, CRITICAL_HIT);
     }
 
     public void addDisappearedMessage(TeamPosition _fighter,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(DISAPPEARED, name_);
+        addMessage(_import, DISAPPEARED, name_);
     }
 
     public void addRechargeRoundMessage(TeamPosition _fighter,DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(RECHARGE_ROUND, name_);
+        addMessage(_import, RECHARGE_ROUND, name_);
     }
 
     public void addPrepaRoundMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(PREPA_ROUND, name_, move_);
+        addMessage(_import, PREPA_ROUND, name_, move_);
     }
 
     public void addSendMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(SEND, name_);
+        addMessage(_import, SEND, name_);
     }
 
     public void addWithdrawMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(WITHDRAW, name_);
+        addMessage(_import, WITHDRAW, name_);
     }
 
     public void addInvokeMoveFailMessage(String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        addMessage(INVOKE_MOVE_FAIL, move_);
+        addMessage(_import, INVOKE_MOVE_FAIL, move_);
     }
 
     public void addInvokeMoveMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(INVOKE_MOVE, name_, move_);
+        addMessage(_import, INVOKE_MOVE, name_, move_);
     }
 
     public void addFirstMoveMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(FIRST_MOVE, name_, move_);
+        addMessage(_import, FIRST_MOVE, name_, move_);
     }
 
     public void addStatusRelEndRoundMessage(String _status, TeamPosition _fighter, TeamPosition _other, DataBase _import) {
         String status_ = _import.translateStatus(_status);
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
-        addMessage(STATUS_REL_END_ROUND, status_, name_, other_);
+        addMessage(_import, STATUS_REL_END_ROUND, status_, name_, other_);
     }
 
     public void addStatusEndRoundMessage(String _status, TeamPosition _fighter, DataBase _import) {
         String status_ = _import.translateStatus(_status);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(STATUS_END_ROUND, status_, name_);
+        addMessage(_import, STATUS_END_ROUND, status_, name_);
     }
 
     public void addItemEndRoundMessage(String _item, TeamPosition _fighter, DataBase _import) {
         String item_ = _import.translateAbility(_item);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(ITEM_END_ROUND, item_, name_);
+        addMessage(_import, ITEM_END_ROUND, item_, name_);
     }
 
     public void addAbilityEndRoundMessage(String _ability, TeamPosition _fighter, DataBase _import) {
         String ability_ = _import.translateAbility(_ability);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(ABILITY_END_ROUND, ability_, name_);
+        addMessage(_import, ABILITY_END_ROUND, ability_, name_);
     }
 
     public void addComboMoveEndRoundMessage(byte _team,StringList _moves, DataBase _import) {
@@ -1763,9 +1739,9 @@ public final class Fight {
             moves_.add(_import.translateMove(m));
         }
         if (Numbers.eq(_team, FOE)) {
-            addMessage(COMBO_MOVE_END_ROUND_FOE, moves_.join(SEPARATOR_COMMENTS));
+            addMessage(_import, COMBO_MOVE_END_ROUND_FOE, moves_.join(SEPARATOR_COMMENTS));
         } else {
-            addMessage(COMBO_MOVE_END_ROUND, moves_.join(SEPARATOR_COMMENTS));
+            addMessage(_import, COMBO_MOVE_END_ROUND, moves_.join(SEPARATOR_COMMENTS));
         }
     }
 
@@ -1773,18 +1749,18 @@ public final class Fight {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String other_ = getFighterName(_other, _import);
-        addMessage(MOVE_END_ROUND_REL, move_, name_, other_);
+        addMessage(_import, MOVE_END_ROUND_REL, move_, name_, other_);
     }
 
     public void addMoveEndRoundMessage(String _move, TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(MOVE_END_ROUND, move_, name_);
+        addMessage(_import, MOVE_END_ROUND, move_, name_);
     }
 
     public void addGlobalMoveEndRoundMessage(String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        addMessage(GLOBAL_MOVE_END_ROUND, move_);
+        addMessage(_import, GLOBAL_MOVE_END_ROUND, move_);
     }
 
     public void addWeatherEndRoundMessage(String _move, ActivityOfMove _activity, DataBase _import) {
@@ -1797,46 +1773,46 @@ public final class Fight {
 
     public void addWeatherIncrMessage(String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        addMessage(WEATHER_INCR, move_);
+        addMessage(_import, WEATHER_INCR, move_);
     }
 
     public void addDisabledWeatherMessage(String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        addMessage(DISABLED_WEATHER, move_);
+        addMessage(_import, DISABLED_WEATHER, move_);
     }
 
     public void addEnabledWeatherMessage(String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
-        addMessage(ENABLED_WEATHER, move_);
+        addMessage(_import, ENABLED_WEATHER, move_);
     }
 
     public void addVarPpEffectMessage(String _move, TeamPosition _fighter, long _varPp, DataBase _import) {
         String move_ = _import.translateMove(_move);
         String name_ = getFighterName(_fighter, _import);
-        addMessage(VAR_PP_EFFECT, move_, name_, Long.toString(_varPp));
+        addMessage(_import, VAR_PP_EFFECT, move_, name_, Long.toString(_varPp));
     }
 
     public void addBatonPassMessage(TeamPosition _fighter, TeamPosition _other, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
-        addMessage(BATON_PASS, name_, other_);
+        addMessage(_import, BATON_PASS, name_, other_);
     }
 
     public void addDisabledTeamUsesMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (Numbers.eq(_team, FOE)) {
-            addMessage(DISABLED_FOE_TEAM_USES_MOVE, move_);
+            addMessage(_import, DISABLED_FOE_TEAM_USES_MOVE, move_);
         } else {
-            addMessage(DISABLED_TEAM_USES_MOVE, move_);
+            addMessage(_import, DISABLED_TEAM_USES_MOVE, move_);
         }
     }
 
     public void addIncrTeamUsesMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (Numbers.eq(_team, FOE)) {
-            addMessage(INCR_FOE_TEAM_USES_MOVE, move_);
+            addMessage(_import, INCR_FOE_TEAM_USES_MOVE, move_);
         } else {
-            addMessage(INCR_TEAM_USES_MOVE, move_);
+            addMessage(_import, INCR_TEAM_USES_MOVE, move_);
         }
     }
 
@@ -1851,18 +1827,18 @@ public final class Fight {
     public void addDisabledTeamMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (Numbers.eq(_team, FOE)) {
-            addMessage(DISABLED_FOE_TEAM_MOVE, move_);
+            addMessage(_import, DISABLED_FOE_TEAM_MOVE, move_);
         } else {
-            addMessage(DISABLED_TEAM_MOVE, move_);
+            addMessage(_import, DISABLED_TEAM_MOVE, move_);
         }
     }
 
     public void addEnabledTeamMoveMessage(byte _team,String _move, DataBase _import) {
         String move_ = _import.translateMove(_move);
         if (Numbers.eq(_team, FOE)) {
-            addMessage(ENABLED_FOE_TEAM_MOVE, move_);
+            addMessage(_import, ENABLED_FOE_TEAM_MOVE, move_);
         } else {
-            addMessage(ENABLED_TEAM_MOVE, move_);
+            addMessage(_import, ENABLED_TEAM_MOVE, move_);
         }
     }
 
@@ -1870,44 +1846,44 @@ public final class Fight {
         _fighter.getTeam();
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
-        addMessage(SWITCH_PLACES, name_, other_);
+        addMessage(_import, SWITCH_PLACES, name_, other_);
     }
 
     public void addCopyFighterMessage(TeamPosition _fighter, TeamPosition _other, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
-        addMessage(COPY_FIGHTER, name_, other_);
+        addMessage(_import, COPY_FIGHTER, name_, other_);
     }
 
     public void addLearnMoveRoundDefMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(LEARN_MOVE_ROUND_DEF, name_, move_);
+        addMessage(_import, LEARN_MOVE_ROUND_DEF, name_, move_);
     }
 
     public void addLearnMoveRoundMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(LEARN_MOVE_ROUND, name_, move_);
+        addMessage(_import, LEARN_MOVE_ROUND, name_, move_);
     }
     public void addCommonStatisticMessage(Statistic _statistic, TeamPosition _fighter, TeamPosition _other, Rate _value, DataBase _import) {
         String stat_ = _import.translateStatistics(_statistic);
         String name_ = getFighterName(_fighter, _import);
         String other_ = getFighterName(_other, _import);
-        addMessage(COMMON_STATISTIC, stat_, name_, other_, _value.toNumberString());
+        addMessage(_import, COMMON_STATISTIC, stat_, name_, other_, _value.toNumberString());
     }
 
     public void addEnabledMoveRelMessage(TeamPosition _fighter, String _move, TeamPosition _other, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String other_ = getFighterName(_other, _import);
-        addMessage(ENABLED_MOVE_REL, name_, move_, other_);
+        addMessage(_import, ENABLED_MOVE_REL, name_, move_, other_);
     }
 
     public void addEnabledMoveMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(ENABLED_MOVE, name_, move_);
+        addMessage(_import, ENABLED_MOVE, name_, move_);
     }
 
     public void addDisabledMoveMessage(TeamPosition _fighter, String _move, boolean _relation, TeamPosition _other, DataBase _import) {
@@ -1921,7 +1897,7 @@ public final class Fight {
     public void addDisabledMoveMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(DISABLED_MOVE, name_, move_);
+        addMessage(_import, DISABLED_MOVE, name_, move_);
     }
 
     public void messageDisabling(ActivityOfMove _activity, TeamPosition _fighter, String _move, TeamPosition _other, boolean _wasEnabled, DataBase _import) {
@@ -1936,7 +1912,7 @@ public final class Fight {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
         String other_ = getFighterName(_other, _import);
-        addMessage(DISABLED_MOVE_REL, name_, move_, other_);
+        addMessage(_import, DISABLED_MOVE_REL, name_, move_, other_);
     }
 
     public void addDisabledMoveRelMessage(TeamPosition _fighter, String _move, TeamPosition _other, boolean _wasEnabled, DataBase _import) {
@@ -1944,20 +1920,20 @@ public final class Fight {
         String move_ = _import.translateMove(_move);
         String other_ = getFighterName(_other, _import);
         if (_wasEnabled) {
-            addMessage(DISABLED_MOVE_REL, name_, move_, other_);
+            addMessage(_import, DISABLED_MOVE_REL, name_, move_, other_);
         }
     }
 
     public void addNoPrivateMovesMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(NO_PRIVATE_MOVES, name_, move_);
+        addMessage(_import, NO_PRIVATE_MOVES, name_, move_);
     }
 
     public void addPrivateMovesMessage(TeamPosition _fighter, String _move, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String move_ = _import.translateMove(_move);
-        addMessage(PRIVATE_MOVES, name_, move_);
+        addMessage(_import, PRIVATE_MOVES, name_, move_);
     }
 
     public void addMoveTypesMessage(TeamPosition _fighter, StringList _types, String _move, DataBase _import) {
@@ -1967,7 +1943,7 @@ public final class Fight {
             types_.add(_import.translateType(t));
         }
         String move_ = _import.translateMove(_move);
-        addMessage(MOVE_TYPES, name_, types_.join(SEPARATOR_COMMENTS), move_);
+        addMessage(_import, MOVE_TYPES, name_, types_.join(SEPARATOR_COMMENTS), move_);
     }
     public void addChangedTypesMessage(TeamPosition _fighter, StringList _types, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
@@ -1975,17 +1951,17 @@ public final class Fight {
         for (String t: _types) {
             types_.add(_import.translateType(t));
         }
-        addMessage(CHANGED_TYPES, name_, types_.join(SEPARATOR_COMMENTS));
+        addMessage(_import, CHANGED_TYPES, name_, types_.join(SEPARATOR_COMMENTS));
     }
 
     public void addReEnableItemMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(RE_ENABLE_ITEM, name_);
+        addMessage(_import, RE_ENABLE_ITEM, name_);
     }
 
     public void addDisableItemMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(DISABLE_ITEM, name_);
+        addMessage(_import, DISABLE_ITEM, name_);
     }
 
     public void addSwitchItemsMessage(TeamPosition _fighter, String _oldItem, String _newItem, DataBase _import) {
@@ -2000,24 +1976,24 @@ public final class Fight {
         }
         String oldItem_ = _import.translateItem(_oldItem);
         String newItem_ = _import.translateItem(_newItem);
-        addMessage(SWITCH_ITEMS, name_, newItem_, oldItem_);
+        addMessage(_import, SWITCH_ITEMS, name_, newItem_, oldItem_);
     }
 
     private void addWinItemMessage(TeamPosition _fighter, String _newItem, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String newItem_ = _import.translateItem(_newItem);
-        addMessage(WIN_ITEM, name_, newItem_);
+        addMessage(_import, WIN_ITEM, name_, newItem_);
     }
 
     private void addLooseItemMessage(TeamPosition _fighter, String _oldItem, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
         String oldItem_ = _import.translateItem(_oldItem);
-        addMessage(LOOSE_ITEM, name_, oldItem_);
+        addMessage(_import, LOOSE_ITEM, name_, oldItem_);
     }
 
     public void addEnabledAbilityMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(ENABLED_ABILITY, name_);
+        addMessage(_import, ENABLED_ABILITY, name_);
     }
 
     public void addChangedAbilityMessage(TeamPosition _fighter, String _ability, DataBase _import) {
@@ -2027,58 +2003,58 @@ public final class Fight {
         }
         String name_ = getFighterName(_fighter, _import);
         String ability_ = _import.translateAbility(_ability);
-        addMessage(CHANGED_ABILITY, name_, ability_);
+        addMessage(_import, CHANGED_ABILITY, name_, ability_);
     }
 
     private void addChangedAbilityDisabledMessage(TeamPosition _fighter, DataBase _import) {
         String name_ = getFighterName(_fighter, _import);
-        addMessage(CHANGED_ABILITY_DISABLED, name_);
+        addMessage(_import, CHANGED_ABILITY_DISABLED, name_);
     }
 
     public void addKoFighterMessage(TeamPosition _fighter, DataBase _import) {
-        addMessage(KO_FIGHTER, getFighterName(_fighter, _import));
+        addMessage(_import, KO_FIGHTER, getFighterName(_fighter, _import));
     }
 
     public void addStatusMessage(TeamPosition _fighter, String _status, DataBase _import) {
         String stat_ = _import.translateStatus(_status);
-        addMessage(AFF_STATUS, getFighterName(_fighter, _import), stat_);
+        addMessage(_import, AFF_STATUS, getFighterName(_fighter, _import), stat_);
     }
 
     public void addStatusRelMessage(TeamPosition _fighter, String _status, TeamPosition _otherFighter, DataBase _import) {
         String stat_ = _import.translateStatus(_status);
-        addMessage(AFF_STATUS_REL, getFighterName(_fighter, _import), stat_, getFighterName(_otherFighter, _import));
+        addMessage(_import, AFF_STATUS_REL, getFighterName(_fighter, _import), stat_, getFighterName(_otherFighter, _import));
     }
 
     public void addStatisticMessage(TeamPosition _fighter, Statistic _st, long _var, DataBase _import) {
         String stat_ = _import.translateStatistics(_st);
-        addMessage(VAR_STATISTIC, stat_, getFighterName(_fighter, _import), Long.toString(_var));
+        addMessage(_import, VAR_STATISTIC, stat_, getFighterName(_fighter, _import), Long.toString(_var));
     }
 
     public void addDisabledStatusOtherRelMessage(String _status, TeamPosition _fighter, DataBase _import) {
         String status_ = _import.translateStatus(_status);
-        addMessage(DISABLED_STATUS_REL_OTHER, status_, getFighterName(_fighter, _import));
+        addMessage(_import, DISABLED_STATUS_REL_OTHER, status_, getFighterName(_fighter, _import));
     }
 
     public void addDisabledStatusRelMessage(String _status, TeamPosition _fighter, TeamPosition _other, short _nbRound,DataBase _import) {
         String status_ = _import.translateStatus(_status);
         if (_nbRound > 0) {
-            addMessage(DISABLED_STATUS_REL, status_, getFighterName(_fighter, _import), getFighterName(_other, _import));
+            addMessage(_import, DISABLED_STATUS_REL, status_, getFighterName(_fighter, _import), getFighterName(_other, _import));
         }
     }
 
     public void addDisabledStatusMessage(String _status, TeamPosition _fighter, DataBase _import) {
         String status_ = _import.translateStatus(_status);
-        addMessage(DISABLED_STATUS, status_, getFighterName(_fighter, _import));
+        addMessage(_import, DISABLED_STATUS, status_, getFighterName(_fighter, _import));
     }
 
     public void addIncrStatusRelMessage(String _status, TeamPosition _fighter, TeamPosition _other, DataBase _import) {
         String status_ = _import.translateStatus(_status);
-        addMessage(INCR_STATUS_REL, status_, getFighterName(_fighter, _import), getFighterName(_other, _import));
+        addMessage(_import, INCR_STATUS_REL, status_, getFighterName(_fighter, _import), getFighterName(_other, _import));
     }
 
     public void addIncrStatusMessage(String _status, TeamPosition _fighter, DataBase _import) {
         String status_ = _import.translateStatus(_status);
-        addMessage(INCR_STATUS, status_, getFighterName(_fighter, _import));
+        addMessage(_import, INCR_STATUS, status_, getFighterName(_fighter, _import));
     }
 
     public void addHpCloneMessage(TeamPosition _fighter, Rate _damage, DataBase _import) {
@@ -2087,28 +2063,29 @@ public final class Fight {
             addDeletedCloneMessage(_fighter, _import);
             return;
         }
-        addMessage(CLONE_DAMAGE, getFighterName(_fighter, _import), _damage.absNb().toNumberString());
+        addMessage(_import, CLONE_DAMAGE, getFighterName(_fighter, _import), _damage.absNb().toNumberString());
     }
 
     public void addDeletedCloneMessage(TeamPosition _fighter, DataBase _import) {
-        addMessage(CLONE_ZERO, getFighterName(_fighter, _import));
+        addMessage(_import, CLONE_ZERO, getFighterName(_fighter, _import));
     }
 
     public void addHpMessage(TeamPosition _fighter, DataBase _import) {
         Fighter fighter_ = getFighter(_fighter);
         Rate var_ = fighter_.getVarHp();
         if (var_.isZero()) {
-            addMessage(NO_VAR_HP, getFighterName(_fighter, _import));
+            addMessage(_import, NO_VAR_HP, getFighterName(_fighter, _import));
         } else if (var_.isZeroOrGt()) {
-            addMessage(WIN_HP, getFighterName(_fighter, _import), var_.toNumberString());
+            addMessage(_import, WIN_HP, getFighterName(_fighter, _import), var_.toNumberString());
         } else {
-            addMessage(LOOSE_HP, getFighterName(_fighter, _import), var_.absNb().toNumberString());
+            addMessage(_import, LOOSE_HP, getFighterName(_fighter, _import), var_.absNb().toNumberString());
         }
     }
 
-    public void addMessage(String _key, String... _args) {
+    public void addMessage(DataBase _db, String _key, String... _args) {
         if (enabledMessages) {
-            comment.addMessage(_messages_.getVal(_key), _args);
+            StringMap<String> messages_ = _db.getMessagesFight();
+            comment.addMessage(messages_.getVal(_key), _args);
         }
     }
 

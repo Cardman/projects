@@ -99,13 +99,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Fight fight_ = randomRate();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addEvent(new Rate("2"), LgInt.one());
-        assertEq(new Rate("2"),FightEffects.randomRate(fight_, law_, POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(new Rate("2"),FightEffects.randomRate(fight_, _data_,law_, POKEMON_FOE_FIGHTER_ZERO));
     }
 
     @Test
     public void randomRate2Test() {
         Fight fight_ = randomRate();
-        assertTrue(FightEffects.randomRate(fight_, new Rate("1"), POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(FightEffects.randomRate(fight_, _data_, new Rate("1"), POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addEvent(new Rate("1"), LgInt.one());
         law_.addEvent(new Rate("2"), LgInt.one());
-        assertEq(new Rate("1"),FightEffects.randomRate(fight_, law_, POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(new Rate("1"),FightEffects.randomRate(fight_, _data_,law_, POKEMON_FOE_FIGHTER_ZERO));
     }
 
     @Test
@@ -125,28 +125,28 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addEvent(new Rate("1"), LgInt.one());
         law_.addEvent(new Rate("2"), LgInt.one());
-        assertEq(new Rate("2"),FightEffects.randomRate(fight_, law_, POKEMON_PLAYER_FIGHTER_ZERO));
+        assertEq(new Rate("2"),FightEffects.randomRate(fight_, _data_,law_, POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
     public void randomRate3SimulationTest() {
         Fight fight_ = randomRate();
         fight_.setSimulation(true);
-        assertTrue(FightEffects.randomRate(fight_, new Rate("1"), POKEMON_FOE_FIGHTER_ZERO));
+        assertTrue(FightEffects.randomRate(fight_, _data_, new Rate("1"), POKEMON_FOE_FIGHTER_ZERO));
     }
 
     @Test
     public void randomRate4SimulationTest() {
         Fight fight_ = randomRate();
         fight_.setSimulation(true);
-        assertTrue(FightEffects.randomRate(fight_, new Rate("1"), POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(FightEffects.randomRate(fight_, _data_, new Rate("1"), POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     @Test
     public void randomRate5SimulationTest() {
         Fight fight_ = randomRate();
         fight_.setSimulation(true);
-        assertTrue(!FightEffects.randomRate(fight_, new Rate("1/2"), POKEMON_PLAYER_FIGHTER_ZERO));
+        assertTrue(!FightEffects.randomRate(fight_, _data_, new Rate("1/2"), POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
     private static Fight multBasePower() {
@@ -3653,7 +3653,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, _data_);
-        DamageMoveCountUser damage_ = FightEffects.damageByUserOfMove(fight_, thrower_, target_, laws_);
+        DamageMoveCountUser damage_ = FightEffects.damageByUserOfMove(fight_, _data_,thrower_, target_, laws_);
         //assertEq(new Rate("0"),damage_.getDamage());
         //assertEq(new Rate("0"),damage_.getDamageClone());
         assertEq(new Rate("40"),damage_.getDamageCount());
@@ -3679,7 +3679,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.affecterTypes(NORMAL);
         ThrowerDamageLaws laws_ = FightEffects.calculateLawsForDamageByTeam(fight_, thrower_, target_, move_, diff_, _data_);
-        DamageMoveCountUser damage_ = FightEffects.damageByUserOfMove(fight_, thrower_, target_, laws_);
+        DamageMoveCountUser damage_ = FightEffects.damageByUserOfMove(fight_, _data_,thrower_, target_, laws_);
         //assertEq(new Rate("0"),damage_.getDamage());
         //assertEq(new Rate("0"),damage_.getDamageClone());
         assertEq(new Rate("42864/2675"),damage_.getDamageCount());

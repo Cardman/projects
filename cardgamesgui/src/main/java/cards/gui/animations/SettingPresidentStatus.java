@@ -21,6 +21,7 @@ public final class SettingPresidentStatus extends Thread {
 
     @Override
     public void run() {
-        container.tapisPresident().setStatus(status, nextPlayer);
+        String lg_ = container.getOwner().getLanguageKey();
+        container.tapisPresident().setStatus(lg_,status, nextPlayer);
     }
 }

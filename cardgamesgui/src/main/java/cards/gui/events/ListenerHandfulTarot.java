@@ -32,9 +32,10 @@ public class ListenerHandfulTarot extends MouseAdapter {
         if (!radio.isEnabled()) {
             return;
         }
+        String lg_ = container.getOwner().getLanguageKey();
         String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
         int exces_ = container.getCurrentIncludedTrumps().total()-requiredTrumps;
-        container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), handful.display()));
+        container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), handful.toString(lg_)));
         container.setChoosenHandful(handful);
         radio.setSelected(true);
     }

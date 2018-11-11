@@ -1,5 +1,8 @@
 package aiki.facade;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import aiki.DataBase;
 import aiki.ExchangedData;
 import aiki.ImageHeroKey;
@@ -69,7 +72,6 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.consts.Constants;
 import code.util.ints.MathFactory;
 import code.util.ints.WithMathFactory;
 import code.util.opers.BaseSixtyFourUtil;
@@ -78,11 +80,13 @@ import code.util.pagination.SelectedBoolean;
 
 public class FacadeGame implements WithMathFactory {
 
-    // private static final StringList AVAILABLE_LANGUAGES;
+    private DataBase data = new DataBase();
 
-    private static boolean _playingGame_;
+    private AtomicBoolean loading = new AtomicBoolean();
 
-    private DataBase data;
+    private AtomicInteger perCentLoading = new AtomicInteger();
+
+    private boolean loadedData;
 
     private Game game;
 
@@ -172,9 +176,14 @@ public class FacadeGame implements WithMathFactory {
 
     public void loadResources() {
         DataBase data_ = new DataBase();
-        data_.loadResources();
+        setLoading(true);
+        data_.setLanguage(language);
+        data_.loadResources(perCentLoading, language);
+        if (data != null) {
+            data_.setMessages(data);
+        }
         data = data_;
-        setLanguage(Constants.getLanguage());
+        loadedData = true;
         zipName = DataBase.EMPTY_STRING;
     }
 
@@ -191,9 +200,11 @@ public class FacadeGame implements WithMathFactory {
     }
 
     // Load rom first
-    public static DataBase loadedRom(InsCaseStringMap<String> _files) {
+    public DataBase loadedRom(InsCaseStringMap<String> _files) {
         DataBase data_ = new DataBase();
-        data_.loadRom(_files);
+        setLoading(true);
+        data_.setLanguage(language);
+        data_.loadRom(_files,perCentLoading);
         if (!data_.getMap().validSavedLink()) {
             data_.setError(true);
             return null;
@@ -205,6 +216,7 @@ public class FacadeGame implements WithMathFactory {
 
     public void createDataBase(WildPk _firstPokemon) {
         DataBase data_ = new DataBase();
+        data_.setLanguage(language);
         DataMap map_ = data_.getMap();
         map_.setBegin(new Coords());
         map_.setAccessCondition(new ObjectMap<Coords, EqList<Coords>>());
@@ -212,45 +224,54 @@ public class FacadeGame implements WithMathFactory {
         map_.setFirstPokemon(_firstPokemon);
         map_.setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        if (data != null) {
+            data_.setMessages(data);
+        }
         data = data_;
+        loadedData = true;
     }
 
     // Load rom option
     public void loadRomAndCheck(String _fileName,
             InsCaseStringMap<String> _files) {
         DataBase data_ = loadedRom(_files);
-        if (!DataBase.isLoading()) {
+        if (!isLoading()) {
             return;
         }
-        data_.validate();
-        if (!DataBase.isLoading() || data_.isError()) {
+        data_.validate(perCentLoading, loading);
+        if (!isLoading() || data_.isError()) {
             if (data_.isError()) {
-                data = null;
+                loadedData = false;
             }
             return;
         }
         data_.initializeWildPokemon();
-        DataBase.setPerCentLoading(99);
-        if (!DataBase.isLoading()) {
+        setPerCentLoading(99);
+        if (!isLoading()) {
             return;
         }
         zipName = _fileName;
+        if (data != null) {
+            data_.setMessages(data);
+        }
         data = data_;
-        setLanguage(Constants.getLanguage());
+        loadedData = true;
     }
 
+    public boolean isLoadedData() {
+        return loadedData;
+    }
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage() {
-        language = Constants.getLanguage();
-    }
-
     // Language option
     public void setLanguage(String _language) {
-        language = _language;
+        setSimplyLanguage(_language);
         initializePaginatorTranslations();
+    }
+    public void setSimplyLanguage(String _language) {
+        language = _language;
     }
 
     void initializePaginatorTranslations() {
@@ -436,7 +457,7 @@ public class FacadeGame implements WithMathFactory {
             enabledMovingHero = false;
         } else if (game.getInterfaceType() == InterfaceType.GYM_LEADER) {
             comment.clearMessages();
-            game.addMessageGymLeader();
+            game.addMessageGymLeader(data);
         } else {
             comment.clearMessages();
             game.clearMessages();
@@ -1341,18 +1362,6 @@ public class FacadeGame implements WithMathFactory {
         selectedTeamPokemon = false;
         selectedBoxPokemon = false;
         selectedHostedPokemon = false;
-        // try {
-        // exchangeData.setPokemon(_pkPlayerOtherPlayer);
-        // exchangeData.check();
-        // _pkPlayerOtherPlayer.initilializeFromExchange(data);
-        // setSelectedOtherPokemon(true);
-        // selectedTeamPokemon = false;
-        // selectedBoxPokemon = false;
-        // selectedHostedPokemon = false;
-        // } catch (DataException _0) {
-        // exchangeData.setPokemon(null);
-        // throw _0;
-        // }
     }
 
     public void applyTrading() {
@@ -3120,15 +3129,15 @@ public class FacadeGame implements WithMathFactory {
     }
 
     public StringMap<String> getTranslatedAbilitiesCurLanguage() {
-        return data.getTranslatedAbilitiesCurLanguage();
+        return data.getTranslatedAbilitiesCurLanguage(language);
     }
 
     public EnumMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage() {
-        return data.getTranslatedBooleansCurLanguage();
+        return data.getTranslatedBooleansCurLanguage(language);
     }
 
     public EnumMap<Gender, String> getTranslatedGendersCurLanguage() {
-        return data.getTranslatedGendersCurLanguage();
+        return data.getTranslatedGendersCurLanguage(language);
     }
 
     public String translateGenders(Gender _gender) {
@@ -3209,11 +3218,24 @@ public class FacadeGame implements WithMathFactory {
         return zipName;
     }
 
-    public static boolean isPlayingGame() {
-        return _playingGame_;
+    public boolean isLoading() {
+        return loading.get();
     }
 
-    public static void setPlayingGame(boolean _playingGame) {
-        _playingGame_ = _playingGame;
+    public void setLoading(boolean _loading) {
+        loading.set(_loading);
+    }
+
+    public int getPerCentLoading() {
+        return perCentLoading.get();
+    }
+
+    public void setPerCentLoading(int _perCentLoading) {
+        perCentLoading.set(_perCentLoading);
+    }
+
+    public void initMessages() {
+        data.setLanguage(language);
+        data.initMessages(language);
     }
 }

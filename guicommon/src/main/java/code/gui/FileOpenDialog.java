@@ -17,7 +17,6 @@ import code.gui.events.SubmitMouseEvent;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class FileOpenDialog extends FileDialog implements SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.FileOpenDialog";
@@ -49,6 +48,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     private JLabel searchedFiles = new JLabel();
 
     private JLabel foundFiles = new JLabel();
+    private CommonFrame frame;
 
     private FileOpenDialog(){
         setAccessFile(DIALOG_ACCESS);
@@ -57,13 +57,14 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
     public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         DIALOG.setFileDialogByFrame(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
-        DIALOG.initFileOpenDialog();
+        DIALOG.initFileOpenDialog(_w);
     }
 
 //    private void initFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
 //    }
-    private void initFileOpenDialog() {
-        messages = getMessages(GuiConstants.FOLDER_MESSAGES_GUI);
+    private void initFileOpenDialog(CommonFrame _c) {
+        frame = _c;
+        messages = getMessages(_c,GuiConstants.FOLDER_MESSAGES_GUI);
         getFileName().addActionListener(new SubmitKeyEvent(this));
         LabelButton action_ = new LabelButton(messages.getVal(OPEN));
         action_.addMouseListener(new SubmitMouseEvent(this));
@@ -176,10 +177,11 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     public void submit() {
         String selectedPath_ = getSelectedAbsolutePath();
+        String lg_ = frame.getLanguageKey();
         if (selectedPath_ != null) {
             selectedPath_ = StringList.replaceBackSlash(selectedPath_);
             if (!new File(selectedPath_).exists()) {
-                ConfirmDialog.showMessage(this, StringList.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, StringList.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
                 selectedPath_ = null;
                 setSelectedPath(selectedPath_);
                 setSelectedAbsolutePath(selectedPath_);
@@ -192,7 +194,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         if (getFileTable().getSelectedRowCount() == 1) {
             selectedPath_ = getFileModel().getSelectedFilePath(getFileTable().getSelectedRow());
             if (!new File(selectedPath_).exists()) {
-                ConfirmDialog.showMessage(this, StringList.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, StringList.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
                 selectedPath_ = null;
                 setSelectedPath(selectedPath_);
                 setSelectedAbsolutePath(selectedPath_);
@@ -221,7 +223,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //        }
         String fileName_ = getFileName().getText();
         if (fileName_.isEmpty()) {
-            ConfirmDialog.showMessage(this, messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(ERROR_TYPING), messages.getVal(ERROR_TITLE),lg_, JOptionPane.ERROR_MESSAGE);
             return;
 //            if (getFileTable().getSelectedRowCount() != 1) {
 //                return;
@@ -245,7 +247,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             selectedPath_ = extFileName_;
         }
         if (!new File(selectedPath_).exists()) {
-            ConfirmDialog.showMessage(this, StringList.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, StringList.simpleStringsFormat(messages.getVal(ERROR_MESSAGE), selectedPath_), messages.getVal(ERROR_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
             selectedPath_ = null;
             setSelectedPath(selectedPath_);
             return;

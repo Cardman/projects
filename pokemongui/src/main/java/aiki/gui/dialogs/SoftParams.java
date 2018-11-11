@@ -60,7 +60,7 @@ public final class SoftParams extends Dialog {
 
     private void init(MainWindow _window, LoadingGame _loading) {
         setDialogIcon(_window);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
         ok = false;
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_window);

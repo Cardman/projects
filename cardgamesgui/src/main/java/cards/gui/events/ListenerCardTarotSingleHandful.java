@@ -12,7 +12,6 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.ConfirmDialog;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
 
@@ -33,6 +32,7 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
     }
     @Override
     public void verifierRegles() {
+        String lg_ = container.getOwner().getLanguageKey();
         if(StringList.quickEq(container.getRaisonCourante(),ContainerTarot.EMPTY)) {
             if (included) {
                 container.getCurrentIncludedTrumps().jouer(getCarteVerif());
@@ -47,14 +47,14 @@ public class ListenerCardTarotSingleHandful extends AbstractListenerCardTarot {
             if (container.getChoosenHandful() != Handfuls.NO) {
                 String mes_ = container.getMessages().getVal(MainWindow.REMOVE_TRUMPS_HANDFUL);
                 int exces_ = container.getCurrentIncludedTrumps().total()-regles_.getPoigneesAutorisees().getVal(container.getChoosenHandful());
-                container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), container.getChoosenHandful().display()));
+                container.getInfoCurrentHandful().setText(StringList.simpleStringsFormat(mes_, Long.toString(exces_), container.getChoosenHandful().toString(lg_)));
             }
 
         }else{
             //JOptionPane.showMessageDialog(container.getOwner(),container.getMessages().getVal(MainWindow.CANT_PLAY)+container.getRaisonCourante(),container.getMessages().getVal(MainWindow.TOO_GAME),JOptionPane.ERROR_MESSAGE);
             String finalMessage_ = StringList.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
-            ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(container.getOwner(),finalMessage_,title_,lg_,JOptionPane.ERROR_MESSAGE);
         }
     }
 }

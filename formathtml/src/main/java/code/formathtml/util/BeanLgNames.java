@@ -313,11 +313,11 @@ public abstract class BeanLgNames extends LgNames {
         return expsNext;
     }
     @Override
-    public AbstractForEachLoop newForeachLoop(ContextEl _importingPage, int _indexChild,
+    public AbstractForEachLoop newForeachLoop(ContextEl _importingPage,
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
             OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
-        return new NativeForEach(_importingPage, _indexChild, _m, _className, _variable, _expression, _classIndex, _label, _offset);
+        return new NativeForEach(_importingPage, _m, _className, _variable, _expression, _classIndex, _label, _offset);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,

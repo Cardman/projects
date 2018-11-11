@@ -4,7 +4,7 @@ import code.maths.Rate;
 import code.util.StringMap;
 import code.util.ints.AdvancedMathFactory;
 
-public final class StandardMathFactory implements AdvancedMathFactory<Rate,NumericString,BooleanString > {
+public final class StandardMathFactory implements AdvancedMathFactory<Rate> {
 
     @Override
     public Rate evaluateDirectlyRate(String _numExp) {

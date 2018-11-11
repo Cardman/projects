@@ -33,7 +33,6 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.NumberMap;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
@@ -44,16 +43,21 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
     /**This class thread is independant from EDT*/
     public SimulationGameBelote(ContainerSimuBelote _container) {
         container = _container;
-        GameBelote.setChargementSimulation(0);
         HandBelote pile_=HandBelote.pileBase();
         DealBelote donne_=new DealBelote(0l,pile_);
         RulesBelote regles_ = container.getWindow().getReglesBelote();
         donne_.setRandomDealer(regles_.getRepartition().getNombreJoueurs());
         regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_,container.getDisplayingBelote());
-        partieSimulee.jouerBelote(new GameBelote(GameType.EDIT,donne_,regles_));
+        GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
+        gb_.setChargementSimulation(0);
+        partieSimulee.jouerBelote(gb_);
         stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));
+    }
+    @Override
+    public Games getGames() {
+        return partieSimulee;
     }
     @Override
     public void stopSimulation() {
@@ -80,8 +84,9 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
     private void afficherMainUtilisateurSimuBelote(HandBelote _mainUtilisateur) {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
+        String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(_mainUtilisateur)) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,_mainUtilisateur)) {
             panneau1_.add(c);
         }
         panneau1_.repaint();
@@ -107,7 +112,8 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         container.getPause().setEnabledMenu(true);
         EqList<HandBelote> mainsUtilisateurs_=new EqList<HandBelote>();
         GameBelote partie_=partieBeloteSimulee();
-        partie_.simuler(Constants.getLanguage());
+        String lg_ = container.getOwner().getLanguageKey();
+        partie_.simuler(lg_);
         byte nombreJoueurs_=partie_.getNombreDeJoueurs();
         if(partie_.getSimulationAvecContrats()) {
             CustList<TrickBelote> plisFaits_=partie_.unionPlis();
@@ -139,7 +145,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetBelote tapis_=new CarpetBelote();
         StringList pseudos_ = pseudosSimuleeBelote();
-        tapis_.initTapisBelote(partie_.getNombreDeJoueurs(),container.getDisplayingBelote().getHoraire(),pseudos_,1);
+        tapis_.initTapisBelote(lg_,partie_.getNombreDeJoueurs(),container.getDisplayingBelote().getHoraire(),pseudos_,1);
         container.getTapis().setTapisBelote(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         Panel panneau_=new Panel();
@@ -177,7 +183,7 @@ public final class SimulationGameBelote extends Thread implements SimulationGame
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
         if (!partie_.getDistribution().derniereMain().estVide()) {
-            container.tapisBelote().setTalonBelote(partie_.getDistribution().derniereMain());
+            container.tapisBelote().setTalonBelote(lg_,partie_.getDistribution().derniereMain());
         }
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());

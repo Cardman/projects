@@ -32,6 +32,7 @@ import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -533,14 +534,15 @@ final class FightEndRound {
         MonteCarloNumber loi_=fAtt_.getRepeatRoundLaw();
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(activity_.getNbTurn()));
         boolean resterActif_=false;
+        LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber();
+                resterActif_=loiSachant_.editNumber(maxRd_);
             }else{
                 resterActif_=Numbers.eq(_fighter.getTeam(), Fight.FOE);
             }
         }else{
-            resterActif_=loiSachant_.editNumber();
+            resterActif_=loiSachant_.editNumber(maxRd_);
         }
         activity_.keepEnabled(resterActif_);
         if (!resterActif_) {
@@ -590,16 +592,17 @@ final class FightEndRound {
             _fight.addDisabledTeamMoveMessage(_team, _move, activity_, true, _import);
             return;
         }
+        LgInt maxRd_ = _import.getMaxRd();
         MonteCarloBoolean loiSachant_=law_.knowingGreater(new Rate(activity_.getNbTurn()));
         boolean resterActif_=false;
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber();
+                resterActif_=loiSachant_.editNumber(maxRd_);
             }else{
                 resterActif_=Numbers.eq(_team,Fight.FOE);
             }
         }else{
-            resterActif_=loiSachant_.editNumber();
+            resterActif_=loiSachant_.editNumber(maxRd_);
         }
         activity_.keepEnabled(resterActif_);
         _fight.addDisabledTeamMoveMessage(_team, _move, activity_, true, _import);
@@ -652,7 +655,7 @@ final class FightEndRound {
         if (FightSuccess.isBadSimulation(_fight, loiSachant_)) {
             return;
         }
-        boolean resterActif_ = FightSuccess.random(_fight, loiSachant_);
+        boolean resterActif_ = FightSuccess.random(_import, loiSachant_);
         activity_.keepEnabled(resterActif_);
         _fight.addWeatherEndRoundMessage(_move, activity_, _import);
     }
@@ -663,18 +666,19 @@ final class FightEndRound {
         if (!activity_.isEnabled()) {
             return;
         }
+        LgInt maxRd_ = _import.getMaxRd();
         EffectCombo effet_=_import.getCombos().getEffects().getVal(_key);
         MonteCarloNumber loi_ = effet_.getRepeatedRoundsLaw();
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(activity_.getNbTurn()));
         boolean resterActif_=false;
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber();
+                resterActif_=loiSachant_.editNumber(maxRd_);
             }else{
                 resterActif_=Numbers.eq(_team,Fight.FOE);
             }
         }else{
-            resterActif_=loiSachant_.editNumber();
+            resterActif_=loiSachant_.editNumber(maxRd_);
         }
         activity_.keepEnabled(resterActif_);
     }
@@ -688,7 +692,7 @@ final class FightEndRound {
             }
             testPositif_=true;
         }
-        if(testPositif_||FightSuccess.tirage(_effet.getDeleteAllStatusAlly())){
+        if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatusAlly())){
             for(byte c:equipe_.getMembers().getKeys()){
                 if(Numbers.eq(c,_combattant.getPosition())){
                     continue;
@@ -701,7 +705,7 @@ final class FightEndRound {
                 }
             }
         }
-        if(testPositif_||FightSuccess.tirage(_effet.getDeleteAllStatus())){
+        if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatus())){
             Fighter creature_=equipe_.refPartMembres(_combattant.getPosition());
             _fight.addAbilityEndRoundMessage(_ability, _combattant, _import);
             for(String c:creature_.getStatusSet()){
@@ -860,7 +864,7 @@ final class FightEndRound {
                     _fight.addDisabledStatusMessage(c, _combattant, _import);
                 }
             }
-        }else if(FightSuccess.tirage(_effet.getDeleteAllStatus())){
+        }else if(FightSuccess.tirage(_import, _effet.getDeleteAllStatus())){
             for(String c:creature_.getStatusSet()){
                 creature_.supprimerStatut(c);
                 _fight.addDisabledStatusMessage(c, _combattant, _import);
@@ -1018,6 +1022,7 @@ final class FightEndRound {
 
     static void effectEndRoundSingleRelation(Fight _fight,TeamPosition _combattant,EffectEndRoundSingleRelation _effet,String _attaque,Difficulty _diff,DataBase _import){
         Fighter creatureLanceur_=_fight.getFighter(_combattant);
+        LgInt maxRd_ = _import.getMaxRd();
         for(MoveTeamPosition c:creatureLanceur_.enabledRelationsTraps()){
             if(!StringList.quickEq(c.getMove(),_attaque)){
                 continue;
@@ -1060,12 +1065,12 @@ final class FightEndRound {
                 boolean resterActif_=false;
                 if(_fight.getSimulation()){
                     if(loiSachant_.events().size()==1){
-                        resterActif_=loiSachant_.editNumber();
+                        resterActif_=loiSachant_.editNumber(maxRd_);
                     }else{
                         resterActif_=Numbers.eq(_combattant.getTeam(),Fight.FOE);
                     }
                 }else{
-                    resterActif_=loiSachant_.editNumber();
+                    resterActif_=loiSachant_.editNumber(maxRd_);
                 }
                 actifNbTour_.keepEnabled(resterActif_);
                 _fight.messageDisabling(actifNbTour_, c.getTeamPosition(), _attaque, _combattant, wasEnabled_, _import);
@@ -1157,14 +1162,15 @@ final class FightEndRound {
         MonteCarloNumber loi_=((StatusBeginRound)_statut).getLawForUsingAMoveNbRound();
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(nbTour_));
         boolean resterActif_=false;
+        LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber();
+                resterActif_=loiSachant_.editNumber(maxRd_);
             }else{
                 resterActif_=Numbers.eq(_combattant.getTeam(),Fight.PLAYER);
             }
         }else{
-            resterActif_=loiSachant_.editNumber();
+            resterActif_=loiSachant_.editNumber(maxRd_);
         }
         if(!resterActif_){
             creature_.supprimerStatut(_nomStatut);
@@ -1241,14 +1247,15 @@ final class FightEndRound {
         }
         MonteCarloBoolean loiSachant_=loi_.knowingGreater(new Rate(nbTour_));
         boolean resterActif_=false;
+        LgInt maxRd_ = _import.getMaxRd();
         if(_fight.getSimulation()){
             if(loiSachant_.events().size()==1){
-                resterActif_=loiSachant_.editNumber();
+                resterActif_=loiSachant_.editNumber(maxRd_);
             }else{
                 resterActif_=Numbers.eq(_cible.getTeam(),Fight.PLAYER);
             }
         }else{
-            resterActif_=loiSachant_.editNumber();
+            resterActif_=loiSachant_.editNumber(maxRd_);
         }
         if(!resterActif_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);

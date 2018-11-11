@@ -8,9 +8,9 @@ import code.expressionlanguage.ReadWrite;
 
 public final class NullCatchEval extends AbstractCatchEval {
 
-    public NullCatchEval(ContextEl _importingPage, int _indexChild,
+    public NullCatchEval(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
     }
 
     @Override

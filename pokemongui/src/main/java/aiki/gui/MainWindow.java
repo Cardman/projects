@@ -24,11 +24,9 @@ import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.params.LoadingGame;
 import aiki.game.player.enums.Sex;
-import aiki.gui.components.fight.Battle;
 import aiki.gui.components.fight.FrontBattle;
 import aiki.gui.components.fight.FrontClickEvent;
 import aiki.gui.components.labels.HeroLabel;
-import aiki.gui.components.walk.Scene;
 import aiki.gui.components.walk.ScenePanel;
 import aiki.gui.dialogs.DialogDifficulty;
 import aiki.gui.dialogs.DialogGameProgess;
@@ -103,7 +101,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 public final class MainWindow extends NetGroupFrame {
     //implemented SettingInfosAfterCompiler
@@ -111,7 +108,6 @@ public final class MainWindow extends NetGroupFrame {
     public static final String OK = "ok";
     private static final String DIALOG_ACCESS = "aiki.gui.MainWindow";
 
-    private static final ProgressingDialogPokemon DIALOG = new ProgressingDialogPokemon();
     private static final String TITLE = "title";
 
     private static final String FILE = "file";
@@ -174,8 +170,9 @@ public final class MainWindow extends NetGroupFrame {
 
     //private static final boolean COMPILE = false;
 
-    private static StringMap<String> _messages_ = new StringMap<String>();
-
+    private StringMap<String> messages = new StringMap<String>();
+    private final ProgressingDialogPokemon DIALOG = new ProgressingDialogPokemon(this);
+    
 //    private Timer timer;
 
     private BasicClient threadEmission;
@@ -246,6 +243,7 @@ public final class MainWindow extends NetGroupFrame {
 
     private FightIntroThread fightIntroThread;
 
+    private VideoLoading videoLoading = new VideoLoading();
 //    private KeyPadListener keyPadListener;
 
 //    private ForwardingJavaCompiler compiling;
@@ -256,12 +254,13 @@ public final class MainWindow extends NetGroupFrame {
 
 //    private final boolean standalone;
 
-    public MainWindow() {
+    public MainWindow(String _lg) {
+        super(_lg);
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         setFocusableWindowState(true);
         facade = new FacadeGame();
-        facade.setLanguage();
+        facade.setSimplyLanguage(_lg);
         setImageIconFrame(LaunchingPokemon.getIcon());
         mainPanel = new Panel();
         mainPanel.setLayout(new BoxLayout(mainPanel.getComponent(), BoxLayout.PAGE_AXIS));
@@ -287,7 +286,7 @@ public final class MainWindow extends NetGroupFrame {
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         initMessages();
-        setTitle(_messages_.getVal(TITLE));
+        setTitle(messages.getVal(TITLE));
     }
 
     @Override
@@ -296,7 +295,7 @@ public final class MainWindow extends NetGroupFrame {
             Quit quit_ = new Quit();
             quit_.setClosing(true);
             quit_.setPlace(indexInGame);
-            quit_.setLocale(Constants.getLanguage());
+            quit_.setLocale(getLanguageKey());
             try {
                 sendObject(quit_);
             } catch (RuntimeException _0) {
@@ -424,43 +423,43 @@ public final class MainWindow extends NetGroupFrame {
         //facade = null;
     }
     public void initMessages() {
-        Game.initMessages();
-        _messages_ = getMessages(Resources.MESSAGES_FOLDER);
-        file.setText(_messages_.getVal(FILE));
-        zipLoad.setText(_messages_.getVal(ZIP_LOAD));
-        gameLoad.setText(_messages_.getVal(GAME_LOAD));
-        gameSave.setText(_messages_.getVal(GAME_SAVE));
-        language.setText(_messages_.getVal(LANGUAGE));
-        params.setText(_messages_.getVal(PARAMS));
-        dataGame.setText(_messages_.getVal(DATA_GAME));
-        quit.setText(_messages_.getVal(QUIT));
-        newGame.setText(_messages_.getVal(NEW_GAME));
-        //dataGame.setText(_messages_.getVal(NEW_GAME));
-        dataWeb.setText(_messages_.getVal(DATA_WEB));
-        dataBattle.setText(_messages_.getVal(TITLE_BATTLE));
-        difficulty.setText(_messages_.getVal(DIFFICULTY));
-//        lastSavedGameDate.setText(MessageFormat.format(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
-        lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+        facade.initMessages();
+        messages = getMessages(this,Resources.MESSAGES_FOLDER);
+        file.setText(messages.getVal(FILE));
+        zipLoad.setText(messages.getVal(ZIP_LOAD));
+        gameLoad.setText(messages.getVal(GAME_LOAD));
+        gameSave.setText(messages.getVal(GAME_SAVE));
+        language.setText(messages.getVal(LANGUAGE));
+        params.setText(messages.getVal(PARAMS));
+        dataGame.setText(messages.getVal(DATA_GAME));
+        quit.setText(messages.getVal(QUIT));
+        newGame.setText(messages.getVal(NEW_GAME));
+        //dataGame.setText(messages.getVal(NEW_GAME));
+        dataWeb.setText(messages.getVal(DATA_WEB));
+        dataBattle.setText(messages.getVal(TITLE_BATTLE));
+        difficulty.setText(messages.getVal(DIFFICULTY));
+//        lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
         if (!helpInfo.getText().isEmpty()) {
-            helpInfo.setText(_messages_.getVal(HELP_INFO));
+            helpInfo.setText(messages.getVal(HELP_INFO));
         }
         if (!availableHelps.getText().isEmpty()) {
-            availableHelps.setText(_messages_.getVal(AVAILAIBLE_HELPS));
+            availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
         }
-        ScenePanel.initMessages();
-        Battle.initMessages();
+        scenePanel.initMessages(getLanguageKey());
+        battle.getBattle().initMessages();
     }
 
-    public static String getTooManyString() {
-        return _messages_.getVal(TOO_MANY);
+    public String getTooManyString() {
+        return messages.getVal(TOO_MANY);
     }
 
-    public static String getNoTradeString() {
-        return _messages_.getVal(NO_TRADE);
+    public String getNoTradeString() {
+        return messages.getVal(NO_TRADE);
     }
 
-    public static String getOpenedHtmlString() {
-        return _messages_.getVal(OPEN_HTML);
+    public String getOpenedHtmlString() {
+        return messages.getVal(OPEN_HTML);
     }
 
     private void addBeginGame() {
@@ -482,7 +481,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         beginGame.add(heros_);
         Panel nickname_ = new Panel();
-        nickname_.add(new JLabel(_messages_.getVal(NICKNAME)));
+        nickname_.add(new JLabel(messages.getVal(NICKNAME)));
         if (nickname == null) {
             nickname = new JTextField(16);
         }
@@ -520,29 +519,28 @@ public final class MainWindow extends NetGroupFrame {
 
     /**thread safe method*/
     public void loadOnlyRom(String _file) {
-        DataBase.setLoading(true);
         if (!_file.isEmpty()) {
             //startThread = true;
             try {
                 InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_file);
                 facade.loadRomAndCheck(_file, files_);
-                if (facade.getData() == null) {
+                if (!facade.isLoadedData()) {
                     facade.loadResources();
                 }
-                if (!DataBase.isLoading()) {
+                if (!facade.isLoading()) {
                     return;
                 }
             } catch (RuntimeException _0) {
                 _0.printStackTrace();
                 //startThread = false;
                 facade.loadResources();
-                if (!DataBase.isLoading()) {
+                if (!facade.isLoading()) {
                     return;
                 }
             }
         } else {
             facade.loadResources();
-            if (!DataBase.isLoading()) {
+            if (!facade.isLoading()) {
                 return;
             }
         }
@@ -553,8 +551,7 @@ public final class MainWindow extends NetGroupFrame {
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
 //        compiling = new ForwardingJavaCompiler(this, facade.getData().getJavaBeans(), StreamZipFile.getFilesInJar().filter(ext_));
-        //helpInfo.setText(_messages_.getVal(HELP_INFO));
-        Scene.setDimensions(facade);
+        //helpInfo.setText(messages.getVal(HELP_INFO));
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
         //pack();
         //DataBase.setLoading(false);
@@ -562,7 +559,6 @@ public final class MainWindow extends NetGroupFrame {
 
     /**thread safe method*/
     public void loadRomGame(LoadingGame _configuration, String _path, StringMap<Object> _files, boolean _param) {
-        DataBase.setLoading(true);
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
             File file_ = new File(StringList.replaceBackSlash(_configuration.getLastRom()));
@@ -576,24 +572,24 @@ public final class MainWindow extends NetGroupFrame {
             try {
                 InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(path_);
                 facade.loadRomAndCheck(path_, files_);
-                if (facade.getData() == null) {
+                if (!facade.isLoadedData()) {
                     facade.loadResources();
                 }
-                if (!DataBase.isLoading()) {
+                if (!facade.isLoading()) {
                     return;
                 }
             } catch (RuntimeException _0) {
                 _0.printStackTrace();
                 //startThread = false;
                 facade.loadResources();
-                if (!DataBase.isLoading()) {
+                if (!facade.isLoading()) {
                     return;
                 }
             }
         } else {
             path_ = _configuration.getLastRom();
             facade.loadResources();
-            if (!DataBase.isLoading()) {
+            if (!facade.isLoading()) {
                 return;
             }
         }
@@ -604,12 +600,11 @@ public final class MainWindow extends NetGroupFrame {
 //        for (EntryCust<String, String> e: facade.getData().getJavaBeans().entryList()) {
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
-        //helpInfo.setText(_messages_.getVal(HELP_INFO));
-        Scene.setDimensions(facade);
+        //helpInfo.setText(messages.getVal(HELP_INFO));
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
         if (!_files.isEmpty() && _files.values().first() instanceof Game) {
             if (!facade.checkAndSetGame((Game) _files.values().first())) {
-                DataBase.setLoading(false);
+                facade.setLoading(false);
                 if (_param) {
                     setLoadingConf(_configuration, false);
                 }
@@ -623,9 +618,10 @@ public final class MainWindow extends NetGroupFrame {
                 path_ = file_.getAbsolutePath();
             }
             path_ = StringList.replaceBackSlash(path_);
-            Game game_ = load(path_, facade.getData());
+            DataBase db_ = facade.getData();
+            Game game_ = load(path_, db_);
             if (game_ == null) {
-                DataBase.setLoading(false);
+                facade.setLoading(false);
                 if (_param) {
                     setLoadingConf(_configuration, false);
                 }
@@ -807,7 +803,7 @@ public final class MainWindow extends NetGroupFrame {
                     loadingConf.setLastSavedGame(file_);
                     save(file_);
                     dateLastSaved = Clock.getDateTimeText();
-                    lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+                    lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
                 }
             }
@@ -818,7 +814,7 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         try {
-            DataBase.setLoading(true);
+            facade.setLoading(true);
             LoadingThread load_ = new LoadingThread(this, fileName_);
             LoadGame opening_ = new LoadGame(this);
             load_.start();
@@ -853,8 +849,8 @@ public final class MainWindow extends NetGroupFrame {
                     loadingConf.setLastSavedGame(file_);
                     save(file_);
                     dateLastSaved = Clock.getDateTimeText();
-//                    lastSavedGameDate.setText(MessageFormat.format(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
-                    lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+//                    lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+                    lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
                     savedGame = true;
                 }
             }
@@ -865,11 +861,10 @@ public final class MainWindow extends NetGroupFrame {
             return;
         }
         boolean error_ = false;
+        DataBase db_ = facade.getData();
         try {
-            DataBase.setLoading(true);
-//            LoadGame opening_ = new LoadGame(VideoLoading.getVideo(), this);
-//            opening_.start();
-            Game game_ = load(fileName_, facade.getData());
+            facade.setLoading(true);
+            Game game_ = load(fileName_, db_);
             if (game_ != null) {
                 facade.load(game_);
                 gameSave.setEnabledMenu(true);
@@ -889,7 +884,7 @@ public final class MainWindow extends NetGroupFrame {
             _0.printStackTrace();
             error_ = true;
         }
-        DataBase.setLoading(false);
+        facade.setLoading(false);
         if (error_) {
             showErrorMessageDialog(fileName_);
         }
@@ -917,7 +912,7 @@ public final class MainWindow extends NetGroupFrame {
         fileName_ = StringList.replaceBackSlash(fileName_);
         loadingConf.setLastSavedGame(fileName_);
         dateLastSaved = Clock.getDateTimeText();
-        lastSavedGameDate.setText(StringList.simpleStringsFormat(_messages_.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringList.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
         savedGame = true;
     }
 
@@ -936,7 +931,7 @@ public final class MainWindow extends NetGroupFrame {
             GroupFrame.showDialogError(this);
             return;
         }
-        LanguageDialog.setLanguageDialog(this, _messages_.getVal(LANGUAGE));
+        LanguageDialog.setLanguageDialog(this, messages.getVal(LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage();
         if(langue_ == null || langue_.isEmpty()) {
             return;
@@ -981,7 +976,7 @@ public final class MainWindow extends NetGroupFrame {
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogDifficulty.setDialogDifficulty(this, _messages_.getVal(TITLE_DIFFICULTY), facade);
+        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade);
     }
 
     @Override
@@ -1008,7 +1003,7 @@ public final class MainWindow extends NetGroupFrame {
 
     @Override
     public void changeLanguage(String _language) {
-        Constants.setSystemLanguage(_language);
+        setLanguageKey(_language);
         facade.setLanguage(_language);
         initMessages();
         if (inBattle) {
@@ -1018,11 +1013,11 @@ public final class MainWindow extends NetGroupFrame {
         }
         pack();
         for (FrameHtmlData f: htmlDialogs) {
-            f.setTitle(_messages_.getVal(TITLE_WEB));
+            f.setTitle(messages.getVal(TITLE_WEB));
             if (!f.isVisible()) {
                 continue;
             }
-            f.refresh();
+            f.refresh(this);
             f.pack();
         }
         if (battle != null) {
@@ -1051,7 +1046,7 @@ public final class MainWindow extends NetGroupFrame {
         session_ = new RenderedPage(new JScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade.getData());
-        session_.setProcess(VideoLoading.getVideo());
+        session_.setProcess(videoLoading.getVideo());
 //        try {
 //            session_.setFiles(facade.getData().getWebFiles());
 //            if (successfulCompile) {
@@ -1062,7 +1057,7 @@ public final class MainWindow extends NetGroupFrame {
 //        } catch (Exception e_) {
 //            e_.printStackTrace();
 //        }
-        FrameHtmlData dialog_ = new FrameHtmlData(this, _messages_.getVal(TITLE_WEB), session_);
+        FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
         dialog_.initSession(Resources.ACCESS_TO_DEFAULT_DATA);
         htmlDialogs.add(dialog_);
@@ -1072,11 +1067,11 @@ public final class MainWindow extends NetGroupFrame {
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogGameProgess.setGameProgress(this, _messages_.getVal(GAME_PROGRESS), facade);
+        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade);
     }
 
     private void reinitWebData() {
-        htmlDialogs.first().setTitle(_messages_.getVal(TITLE_WEB));
+        htmlDialogs.first().setTitle(messages.getVal(TITLE_WEB));
 //        htmlDialogs.first().getSession().setFiles(facade.getData().getWebFiles(), Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().setDataBase(facade.getData());
@@ -1116,16 +1111,16 @@ public final class MainWindow extends NetGroupFrame {
         try {
             InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_fileName);
             facade.loadRomAndCheck(_fileName, files_);
-            if (facade.getData() == null) {
+            if (!facade.isLoadedData()) {
                 facade.loadResources();
             }
-            if (!DataBase.isLoading()) {
+            if (!facade.isLoading()) {
                 return;
             }
         } catch (RuntimeException _0) {
             _0.printStackTrace();
             facade.loadResources();
-            if (!DataBase.isLoading()) {
+            if (!facade.isLoading()) {
                 return;
             }
         }
@@ -1142,7 +1137,6 @@ public final class MainWindow extends NetGroupFrame {
 //            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
 //        }
 //        ThreadInvoker.invokeNow(new AfterCompiling(this, false, false));
-        Scene.setDimensions(facade);
         ThreadInvoker.invokeNow(new AfterLoadZip(this));
         loadingConf.setLastRom(_fileName);
 //        pack();
@@ -1240,7 +1234,7 @@ public final class MainWindow extends NetGroupFrame {
                 p_.setAcceptable(false);
                 p_.setArriving(true);
                 p_.setIndex(indexInGame);
-                p_.setLanguage(Constants.getLanguage());
+                p_.setLanguage(getLanguageKey());
                 p_.setPseudo(facade.getGame().getPlayer().getNickname());
                 Net.sendObject(_socket,p_);
                 return;
@@ -1252,7 +1246,7 @@ public final class MainWindow extends NetGroupFrame {
             p_.setArriving(true);
             p_.setIndex(indexInGame);
             //p_.setPseudo(pseudo());
-            p_.setLanguage(Constants.getLanguage());
+            p_.setLanguage(getLanguageKey());
             p_.setPseudo(facade.getGame().getPlayer().getNickname());
             if (indexInGame == CustList.FIRST_INDEX) {
                 scenePanel.setNetworkPanel();
@@ -1325,10 +1319,10 @@ public final class MainWindow extends NetGroupFrame {
         pack();
         if (_exit.isForced() && !_exit.isBusy()) {
             if (_exit.isTooManyPlayers()) {
-                ConfirmDialog.showMessage(this, MainWindow.getTooManyString(), MainWindow.getTooManyString(), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getTooManyString(), MainWindow.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
             } else {
-                ConfirmDialog.showMessage(this, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, getNoTradeString(), getNoTradeString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(window, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -1336,12 +1330,12 @@ public final class MainWindow extends NetGroupFrame {
 
     private int saving() {
         //warning message
-        return confirm(_messages_.getVal(SAVING),_messages_.getVal(SAVING_TITLE));
+        return confirm(messages.getVal(SAVING),messages.getVal(SAVING_TITLE));
     }
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return ConfirmDialog.getAnswer(this,_message,_titre, Constants.getLanguage(),JOptionPane.YES_NO_CANCEL_OPTION);
+        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),JOptionPane.YES_NO_CANCEL_OPTION);
     }
 
     /**Sauvegarder une partie dans un fichier*/
@@ -1349,9 +1343,9 @@ public final class MainWindow extends NetGroupFrame {
         boolean saveConfig_ = false;
         if (loadingConf.isSaveHomeFolder()) {
             saveConfig_ = true;
-            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, Resources.GAME_EXT, ConstFiles.getHomePath());
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, ConstFiles.getHomePath());
         } else {
-            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, Resources.EXCLUDED);
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING, Resources.EXCLUDED);
         }
         String path_ = FileSaveDialog.getStaticSelectedPath();
         if (path_ == null) {
@@ -1371,16 +1365,16 @@ public final class MainWindow extends NetGroupFrame {
     private String fileDialogLoad(String _ext, boolean _zipFile) {
         if (_zipFile) {
             if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, ConstFiles.getHomePath());
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, ConstFiles.getHomePath());
             } else {
-                FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, ConstFiles.getInitFolder(), Resources.EXCLUDED);
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, ConstFiles.getInitFolder(), Resources.EXCLUDED);
             }
 //            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
         } else {
             if (loadingConf.isSaveHomeFolder()) {
-                FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, ConstFiles.getHomePath());
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, ConstFiles.getHomePath());
             } else {
-                FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, DataBase.EMPTY_STRING, Resources.EXCLUDED);
+                FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, _ext, DataBase.EMPTY_STRING, Resources.EXCLUDED);
             }
         }
         String path_=FileOpenDialog.getStaticSelectedPath();
@@ -1525,8 +1519,8 @@ public final class MainWindow extends NetGroupFrame {
 //    public void setSuccessfulCompile(boolean _successfulCompile, boolean _display) {
 //        if (_display) {
 //            successfulCompile = _successfulCompile;
-//            availableHelps.setText(_messages_.getVal(AVAILAIBLE_HELPS));
-//            helpInfo.setText(_messages_.getVal(HELP_INFO));
+//            availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
+//            helpInfo.setText(messages.getVal(HELP_INFO));
 //        } else {
 //            availableHelps.setText(DataBase.EMPTY_STRING);
 //            helpInfo.setText(DataBase.EMPTY_STRING);
@@ -1547,14 +1541,14 @@ public final class MainWindow extends NetGroupFrame {
         if (_fileName.isEmpty()) {
             return false;
         }
-        ConfirmDialog.showMessage(this, _fileName, _messages_.getVal(ERROR_LOADING), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
         return true;
     }
 
     public void showSuccessfulMessageDialogThenLoadHelp(String _fileName) {
-        ConfirmDialog.showMessage(this, _fileName, _messages_.getVal(SUCCESSFUL_LOADING), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
-        availableHelps.setText(_messages_.getVal(AVAILAIBLE_HELPS));
-        helpInfo.setText(_messages_.getVal(HELP_INFO));
+        ConfirmDialog.showMessage(this, _fileName, messages.getVal(SUCCESSFUL_LOADING), getLanguageKey(), JOptionPane.INFORMATION_MESSAGE);
+        availableHelps.setText(messages.getVal(AVAILAIBLE_HELPS));
+        helpInfo.setText(messages.getVal(HELP_INFO));
         pack();
 //        SecurityManagerUtil.setForbiddenCalls(DataBase.getBeansPackage());
 //        ForwardingJavaCompiler.startCompiling();
@@ -1599,7 +1593,7 @@ public final class MainWindow extends NetGroupFrame {
         scenePanel.setTextArea(_text, _messageType);
     }
 
-    public static ProgressingDialogPokemon getDialog() {
+    public ProgressingDialogPokemon getDialog() {
         return DIALOG;
     }
 
@@ -1617,6 +1611,9 @@ public final class MainWindow extends NetGroupFrame {
 
     public FacadeGame getFacade() {
         return facade;
+    }
+    public VideoLoading getVideoLoading() {
+        return videoLoading;
     }
 
     @Override

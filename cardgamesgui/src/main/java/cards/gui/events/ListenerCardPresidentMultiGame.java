@@ -7,7 +7,6 @@ import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.util.NumberMap;
-import code.util.consts.Constants;
 
 public class ListenerCardPresidentMultiGame extends
         AbstractListenerCardPresident {
@@ -39,7 +38,8 @@ public class ListenerCardPresidentMultiGame extends
         pl_.setPlayedHand(new HandPresident());
         pl_.setIndex(getIndexVerif());
         pl_.setPass(false);
-        pl_.setLocale(Constants.getLanguage());
+        String lg_ = container.getOwner().getLanguageKey();
+        pl_.setLocale(lg_);
         pl_.setStatus(new NumberMap<Byte, Playing>());
         container.getOwner().sendObject(pl_);
     }

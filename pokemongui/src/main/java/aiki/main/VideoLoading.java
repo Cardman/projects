@@ -18,17 +18,15 @@ import code.util.opers.BaseSixtyFourUtil;
 public final class VideoLoading {
 
     /**IMAGES does not contain any null BufferedImage*/
-    private static final CustList<CustList<BufferedImage>> IMAGES = new CustList<CustList<BufferedImage>>();
     private static final String VIDEO = "video";
     private static final String VIDEO_DEFAULT = "resources_pk/gui/video/";
     private static final String FILE = "link_";
-    private static boolean _initialized_;
+    private final CustList<CustList<BufferedImage>> images = new CustList<CustList<BufferedImage>>();
+    private boolean initialized;
+    private LgInt maxRd = LgInt.getMaxLongPlusOne();
 
-    private VideoLoading() {
-    }
-
-    public static CustList<BufferedImage> getVideo() {
-        if (!_initialized_) {
+    public CustList<BufferedImage> getVideo() {
+        if (!initialized) {
             String path_ = VIDEO;
             File file_ = new File(path_);
             if (file_.isDirectory()) {
@@ -47,7 +45,7 @@ public final class VideoLoading {
                             //e.printStackTrace();
                         }
                     }
-                    IMAGES.add(imgs_);
+                    images.add(imgs_);
                 }
             } else {
                 CustList<BufferedImage> imgs_ = new CustList<BufferedImage>();
@@ -64,11 +62,11 @@ public final class VideoLoading {
                     imgs_.add(image_);
                     i_++;
                 }
-                IMAGES.add(imgs_);
+                images.add(imgs_);
             }
-            _initialized_ = true;
+            initialized = true;
         }
-        int len_ = IMAGES.size();
+        int len_ = images.size();
         if (len_ == CustList.SIZE_EMPTY) {
             return new CustList<BufferedImage>();
         }
@@ -76,6 +74,9 @@ public final class VideoLoading {
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             law_.addEvent(new Rate(i), LgInt.one());
         }
-        return new CustList<BufferedImage>(IMAGES.get((int) law_.editNumber().ll()));
+        return new CustList<BufferedImage>(images.get((int) law_.editNumber(maxRd).ll()));
+    }
+    public CustList<CustList<BufferedImage>> getImages() {
+        return images;
     }
 }

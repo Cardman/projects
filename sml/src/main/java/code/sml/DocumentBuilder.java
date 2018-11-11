@@ -9,8 +9,6 @@ import code.util.StringMap;
 
 public final class DocumentBuilder {
 
-    private static boolean _indentXmlWhileWriting_;
-
     private static final char BEGIN_COMMENT = '!';
     private static final String END_COMMENT = "-->";
     private static final String NEXT_COMMENT = "--";
@@ -3837,14 +3835,6 @@ public final class DocumentBuilder {
             currentParent_ = currentParent_.getParentNode();
         }
         return indexes_;
-    }
-
-    public static boolean isIndentXmlWhileWriting() {
-        return _indentXmlWhileWriting_;
-    }
-
-    public static void setIndentXmlWhileWriting(boolean _indentXmlWhileWriting) {
-        _indentXmlWhileWriting_ = _indentXmlWhileWriting;
     }
 
     public boolean isIgnoreComments() {

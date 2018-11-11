@@ -39,12 +39,12 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
 
     private CustList<OperationNode> opValue;
 
-    public AnnotationMethodBlock(ContextEl _importingPage, int _indexChild,
+    public AnnotationMethodBlock(ContextEl _importingPage,
             BracedBlock _m,
             OffsetStringInfo _retType, OffsetStringInfo _fctName,
             OffsetStringInfo _defaultValue,
             OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
+        super(_importingPage, _m, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName,
                 new StringList(), new Numbers<Integer>(), new StringList(), new Numbers<Integer>(),
                 _offset);

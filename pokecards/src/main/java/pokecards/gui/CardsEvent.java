@@ -7,6 +7,10 @@ import cards.main.LaunchingCards;
 
 public class CardsEvent extends MouseAdapter {
 
+    private MainWindow window;
+    public CardsEvent(MainWindow _window) {
+        window = _window;
+    }
     @Override
     public final void mouseReleased(MouseEvent _e) {
         if (LaunchingCards.alreadyLaunched()) {
@@ -16,8 +20,9 @@ public class CardsEvent extends MouseAdapter {
             LaunchingCards.increment();
             return;
         }
+        String lg_ = window.getLanguageKey();
         LaunchingCards l_;
         l_ = new LaunchingCards();
-        l_.launch();
+        l_.launch(lg_);
     }
 }

@@ -21,10 +21,10 @@ public class SuitLabel extends PaintableLabel {
 
     private String text;
 
-    public void setSuit(BidBeloteSuit _bid) {
+    public void setSuit(BidBeloteSuit _bid, String _lg) {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
-            setText(bid.getEnchere().display());
+            setText(bid.getEnchere().toString(_lg));
             setBackground(Color.WHITE);
             setForeground(new Color(0, 0, 127));
             int h_ = getFontMetrics(getFont()).getHeight();

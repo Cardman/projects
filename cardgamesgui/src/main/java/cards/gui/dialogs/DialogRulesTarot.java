@@ -26,16 +26,16 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         DIALOG.getJt().removeAll();
     }
 
-    public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers) {
-        DIALOG.setDialogue(_enabledChangingNbPlayers, _nbPlayers);
+    public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
+        DIALOG.setDialogue(_enabledChangingNbPlayers, _nbPlayers, _window);
     }
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers) {
+    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
         validated = false;
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
-        initMessageName();
-        initJt(null,_enabledChangingNbPlayers,_nbPlayers);
+        initMessageName(_window);
+        initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         LabelButton bouton_=new LabelButton(getMessages().getVal(VALIDATE));
         bouton_.addMouseListener(new ValidateRulesEvent(this));

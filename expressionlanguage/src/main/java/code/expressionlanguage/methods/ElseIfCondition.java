@@ -19,9 +19,9 @@ import code.util.StringMap;
 
 public final class ElseIfCondition extends Condition implements BlockCondition, IncrCurrentGroup, IncrNextGroup {
 
-    public ElseIfCondition(ContextEl _importingPage, int _indexChild,
+    public ElseIfCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _condition, _offset);
+        super(_importingPage, _m, _condition, _offset);
     }
 
     @Override

@@ -22,9 +22,9 @@ public abstract class Condition extends BracedStack implements StackableBlockGro
 
     private CustList<OperationNode> opCondition;
 
-    public Condition(ContextEl _importingPage, int _indexChild,
+    public Condition(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _condition, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();
     }

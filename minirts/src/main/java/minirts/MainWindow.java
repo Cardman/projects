@@ -69,7 +69,8 @@ public final class MainWindow extends GroupFrame {
 
     private CustPoint last = new CustPoint();
 
-    public MainWindow() {
+    public MainWindow(String _lg) {
+        super(_lg);
         AnimationUnitSoldier.setWindow(this);
         Panel contentPane_ = new Panel();
         Panel scene_ = new Panel();

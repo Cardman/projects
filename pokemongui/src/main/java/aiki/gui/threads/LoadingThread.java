@@ -1,7 +1,7 @@
 package aiki.gui.threads;
 import javax.swing.SwingUtilities;
 
-import aiki.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 
 /**This class thread is independant from EDT,
@@ -39,10 +39,11 @@ public final class LoadingThread extends Thread {
             _0.printStackTrace();
         }
         //window.getDialog().dispose();
-        boolean wasLoading_ = DataBase.isLoading();
-        DataBase.setLoading(false);
+        FacadeGame fg_ = window.getFacade();
+        boolean wasLoading_ = fg_.isLoading();
+        fg_.setLoading(false);
         if (!wasLoading_) {
-            MainWindow.getDialog().setVisible(false);
+            window.getDialog().setVisible(false);
             return;
         }
         //window.getDialog().dispose();

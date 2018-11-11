@@ -16,12 +16,10 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.TreeMap;
 import code.util.annot.RwXml;
-import code.util.consts.Constants;
 
 @RwXml
 public final class GamePresident {
 
-    private static AtomicInteger _chargementSimulation_ = new AtomicInteger();
     private static final String GAME_PRESIDENT = "cards.president.GamePresident";
     private static final String FOLDER = "resources_cards/classes";
 
@@ -46,6 +44,8 @@ public final class GamePresident {
     private static final int PERCENT_MAX = 100;
 
     private static final int NB_SUITS = Suit.couleursOrdinaires().size();
+
+    private AtomicInteger chargementSimulation = new AtomicInteger();
 
     /**
     Le type d'une partie est aleatoire ou encore edite ou encore un
@@ -215,11 +215,11 @@ public final class GamePresident {
         }
     }
 
-    public void simulate(int _nbTimes) {
+    public void simulate(int _nbTimes, String _lg) {
 //        byte nombreJoueurs_ = getNombreDeJoueurs();
 //        byte donneur_ = getDistribution().getDonneur();
         simulated = true;
-        _chargementSimulation_.set(CustList.SIZE_EMPTY);
+        chargementSimulation.set(CustList.SIZE_EMPTY);
         userHands.clear();
         currentUserHands.clear();
         dealTricks.clear();
@@ -269,9 +269,9 @@ public final class GamePresident {
 //                } else {
 //                    player_ = (byte)((player_ + 1) % getNombreDeJoueurs());
 //                }
-                HandPresident h_ = playedCards();
+                HandPresident h_ = playedCards(_lg);
                 nbPlayedCards_ += h_.total();
-                _chargementSimulation_.set(PERCENT_MAX * nbPlayedCards_ / nbPlayedCardsCount_);
+                chargementSimulation.set(PERCENT_MAX * nbPlayedCards_ / nbPlayedCardsCount_);
 //                addCardsToCurrentTrick(player_, h_);
                 addCardsToCurrentTrickAndLoop(nextPlayer, h_);
 //                lastStatus_.add(new Map<>(lastStatus));
@@ -299,7 +299,7 @@ public final class GamePresident {
             noDeal_++;
         }
         ranksDeals.add(ranks);
-        _chargementSimulation_.set(PERCENT_MAX);
+        chargementSimulation.set(PERCENT_MAX);
     }
 
     void initializeFirstTrick() {
@@ -746,7 +746,7 @@ public final class GamePresident {
         return (byte)((_player + 1) % getNombreDeJoueurs());
     }
 
-    public boolean currentPlayerHasPlayed(byte _player) {
+    public boolean currentPlayerHasPlayed(byte _player, String _lg) {
         Numbers<Byte> players_ = progressingTrick.getPlayers();
         if (!players_.isEmpty()) {
             byte lastPlayer_ = players_.last();
@@ -755,12 +755,12 @@ public final class GamePresident {
                 return true;
             }
         }
-        addCardsToCurrentTrick(_player);
+        addCardsToCurrentTrick(_player, _lg);
         return false;
     }
 
-    public void addCardsToCurrentTrick(byte _player) {
-        HandPresident h_ = playedCards();
+    public void addCardsToCurrentTrick(byte _player, String _lg) {
+        HandPresident h_ = playedCards(_lg);
         playedCards = h_;
         addCardsToCurrentTrickAndLoop(_player, h_);
     }
@@ -1455,17 +1455,15 @@ public final class GamePresident {
         return l_;
     }
 
-    public HandPresident playedCards() {
+    public HandPresident playedCards(String _lg) {
         if (progressingTrick.estVide()) {
-//            return defaultBeginTrick();
-            return beginTrick();
+            return beginTrick(_lg);
         }
-//        return defaultProgressTrick();
-        return progressTrick();
+        return progressTrick(_lg);
     }
 
-    public HandPresident beginTrick() {
-        HandPresident playable_ = cartesJouables(progressingTrick.getEntameur(), Constants.getLanguage());
+    public HandPresident beginTrick(String _lg) {
+        HandPresident playable_ = cartesJouables(progressingTrick.getEntameur(), _lg);
         NatTreeMap<Byte,HandPresident> m_ = playable_.getCardsByStrength(reversed);
         EqList<HandPresident> notEmpty_ = new EqList<HandPresident>();
         for (byte b: m_.getKeys()) {
@@ -1578,8 +1576,8 @@ public final class GamePresident {
         return hands_;
     }
 
-    public HandPresident defaultBeginTrick() {
-        HandPresident playable_ = cartesJouables(progressingTrick.getEntameur(), Constants.getLanguage());
+    public HandPresident defaultBeginTrick(String _lg) {
+        HandPresident playable_ = cartesJouables(progressingTrick.getEntameur(), _lg);
         NatTreeMap<Byte,HandPresident> m_ = playable_.getCardsByStrength(reversed);
         for (byte b: m_.getKeys()) {
             HandPresident h_ = m_.getVal(b);
@@ -1592,11 +1590,11 @@ public final class GamePresident {
         return h_;
     }
 
-    public HandPresident progressTrick() {
+    public HandPresident progressTrick(String _lg) {
         int count_ = progressingTrick.total();
         int index_ = count_;
         byte player_ = progressingTrick.getPlayer(index_, getNombreDeJoueurs());
-        HandPresident playable_ = cartesJouables(player_, Constants.getLanguage());
+        HandPresident playable_ = cartesJouables(player_, _lg);
         if (playable_.estVide()) {
             return playable_;
         }
@@ -1724,7 +1722,7 @@ public final class GamePresident {
                 return new HandPresident();
             }
         }
-        if (canPass(player_, Constants.getLanguage())) {
+        if (canPass(player_, _lg)) {
             return new HandPresident();
         }
         for (byte b: m_.getKeys()) {
@@ -1796,11 +1794,11 @@ public final class GamePresident {
         return new HandPresident();
     }
 
-    public HandPresident defaultProgressTrick() {
+    public HandPresident defaultProgressTrick(String _lg) {
         int count_ = progressingTrick.total();
         int index_ = count_;
         byte player_ = progressingTrick.getPlayer(index_, getNombreDeJoueurs());
-        HandPresident playable_ = cartesJouables(player_, Constants.getLanguage());
+        HandPresident playable_ = cartesJouables(player_, _lg);
         if (playable_.estVide()) {
             return playable_;
         }
@@ -2649,12 +2647,12 @@ public final class GamePresident {
         return tricks;
     }
 
-    public static int getChargementSimulation() {
-        return _chargementSimulation_.get();
+    public int getChargementSimulation() {
+        return chargementSimulation.get();
     }
 
-    public static void setChargementSimulation(int _chargementSimulation) {
-        _chargementSimulation_.set(_chargementSimulation);
+    public void setChargementSimulation(int _chargementSimulation) {
+        chargementSimulation.set(_chargementSimulation);
     }
 
     void setNextPlayer(byte _i) {

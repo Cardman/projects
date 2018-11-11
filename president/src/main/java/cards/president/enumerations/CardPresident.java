@@ -1,13 +1,11 @@
 package cards.president.enumerations;
+import cards.consts.CardChar;
+import cards.consts.Suit;
 import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
-import code.util.consts.Constants;
-import code.util.ints.Displayable;
-import cards.consts.CardChar;
-import cards.consts.Suit;
 
-public enum CardPresident implements Displayable {
+public enum CardPresident {
     WHITE,
     HEART_2(2,Suit.HEART, 13),
     HEART_1(1,Suit.HEART, 12),
@@ -198,8 +196,4 @@ public enum CardPresident implements Displayable {
         return StringList.concat(StringList.toUpperCase(name()),_ext);
     }
 
-    @Override
-    public String display() {
-        return toString(Constants.getLanguage());
-    }
 }

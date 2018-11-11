@@ -4,13 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.consts.Constants;
 import cards.consts.GameType;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.Playing;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.consts.Constants;
 
 @SuppressWarnings("static-method")
 public class GamePresidentTest {
@@ -409,7 +409,7 @@ public class GamePresidentTest {
         GamePresident g_ = new GamePresident(GameType.EDIT, d_, r_, rk_);
         g_.initCartesEchanges();
         HandPresident hPl_ = g_.getDistribution().main((byte) 1);
-        HandPresident playable_ = g_.cartesJouables((byte) 1, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 1, hPl_, Constants.getDefaultLanguage());
         assertEq(13, playable_.total());
     }
 
@@ -427,7 +427,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         HandPresident hPl_ = g_.getDistribution().main((byte) 2);
-        HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(7, playable_.total());
         assertEq(CardPresident.HEART_9, playable_.carte(0));
@@ -453,7 +453,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         HandPresident hPl_ = g_.getDistribution().main((byte) 2);
-        HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(8, playable_.total());
         assertEq(CardPresident.HEART_7, playable_.carte(0));
@@ -480,7 +480,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         HandPresident hPl_ = g_.getDistribution().main((byte) 2);
-        HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 2, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(8, playable_.total());
         assertEq(CardPresident.HEART_7, playable_.carte(0));
@@ -510,7 +510,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.HEART_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         HandPresident hPl_ = g_.getDistribution().main((byte) 3);
-        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
     }
@@ -532,7 +532,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.HEART_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         HandPresident hPl_ = g_.getDistribution().main((byte) 3);
-        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(1, playable_.total());
         assertEq(CardPresident.DIAMOND_7, playable_.carte(0));
@@ -567,7 +567,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         HandPresident hPl_ = g_.getDistribution().main((byte) 3);
-        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
     }
@@ -601,7 +601,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         HandPresident hPl_ = g_.getDistribution().main((byte) 3);
-        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
     }
@@ -635,7 +635,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.HEART_KING);
         g_.getProgressingTrick().ajouter(played_, (byte) 2);
         HandPresident hPl_ = g_.getDistribution().main((byte) 3);
-        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getLanguage());
+        HandPresident playable_ = g_.cartesJouables((byte) 3, hPl_, Constants.getDefaultLanguage());
         playable_.sortCards(false, g_.isReversed());
         assertEq(0, playable_.total());
     }
@@ -654,7 +654,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         g_.getDistribution().main((byte) 1).supprimerCartes(played_);
-        assertTrue(g_.canPass((byte) 2, Constants.getLanguage()));
+        assertTrue(g_.canPass((byte) 2, Constants.getDefaultLanguage()));
     }
 
     @Test
@@ -671,7 +671,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.CLUB_7);
         g_.getProgressingTrick().ajouter(played_, (byte) 1);
         g_.getDistribution().main((byte) 1).supprimerCartes(played_);
-        assertTrue(!g_.canPass((byte) 2, Constants.getLanguage()));
+        assertTrue(!g_.canPass((byte) 2, Constants.getDefaultLanguage()));
     }
 
     @Test
@@ -689,7 +689,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.CLUB_1);
         g_.getProgressingTrick().ajouter(played_, (byte) 3);
         g_.getDistribution().main((byte) 3).supprimerCartes(played_);
-        assertTrue(g_.canPass((byte) 0, Constants.getLanguage()));
+        assertTrue(g_.canPass((byte) 0, Constants.getDefaultLanguage()));
     }
 
     @Test
@@ -863,7 +863,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.SPADE_JACK);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
         g_.getDistribution().main((byte) 0).supprimerCartes(played_);
-        assertTrue(g_.canPass((byte) 1, Constants.getLanguage()));
+        assertTrue(g_.canPass((byte) 1, Constants.getDefaultLanguage()));
     }
 
     @Test
@@ -1037,7 +1037,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.SPADE_JACK);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
         g_.getDistribution().main((byte) 0).supprimerCartes(played_);
-        assertTrue(!g_.canPass((byte) 1, Constants.getLanguage()));
+        assertTrue(!g_.canPass((byte) 1, Constants.getDefaultLanguage()));
     }
 
     @Test
@@ -1217,7 +1217,7 @@ public class GamePresidentTest {
         played_.ajouter(CardPresident.SPADE_JACK);
         g_.getProgressingTrick().ajouter(played_, (byte) 0);
         g_.getDistribution().main((byte) 0).supprimerCartes(played_);
-        assertTrue(!g_.canPass((byte) 1, Constants.getLanguage()));
+        assertTrue(!g_.canPass((byte) 1, Constants.getDefaultLanguage()));
     }
 
     @Test

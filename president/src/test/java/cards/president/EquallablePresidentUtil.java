@@ -1,9 +1,9 @@
 package cards.president;
 import org.junit.Assert;
 
-import code.util.StringList;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
+import code.util.StringList;
 
 public final class EquallablePresidentUtil {
 

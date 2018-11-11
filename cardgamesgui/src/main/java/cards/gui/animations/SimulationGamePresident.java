@@ -41,19 +41,23 @@ public final class SimulationGamePresident extends Thread implements SimulationG
     /**This class thread is independant from EDT*/
     public SimulationGamePresident(ContainerSimuPresident _container) {
         container = _container;
-        GamePresident.setChargementSimulation(0);
         RulesPresident regles_ = container.getWindow().getReglesPresident();
         HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
         DealPresident donne_=new DealPresident(0l,pile_);
         donne_.setRandomDealer(regles_);
         regles_.setMixedCards(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_);
-        partieSimulee.jouerPresident(new GamePresident(GameType.EDIT,donne_,regles_, new Numbers<Byte>()));
+        GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Numbers<Byte>());
+        partieSimulee.jouerPresident(gp_);
+        gp_.setChargementSimulation(0);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
         stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));
     }
-
+    @Override
+    public Games getGames() {
+        return partieSimulee;
+    }
     @Override
     public void stopSimulation() {
         container.setArretDemo(true);
@@ -91,8 +95,9 @@ public final class SimulationGamePresident extends Thread implements SimulationG
     private void afficherMainUtilisateurSimuPresident(HandPresident _mainUtilisateur) {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
+        String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(_mainUtilisateur)) {
+        for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(lg_,_mainUtilisateur)) {
             panneau1_.add(c);
         }
         panneau1_.repaint();
@@ -111,7 +116,8 @@ public final class SimulationGamePresident extends Thread implements SimulationG
         GamePresident partie_ = partiePresidentSimulee();
         RulesPresident rules_ = partie_.getRegles();
         int maxDeals_ = Math.min(FileConst.MAX_DEALS, container.getDisplayingPresident().getNbDeals());
-        partie_.simulate(maxDeals_);
+        String lg_ = container.getOwner().getLanguageKey();
+        partie_.simulate(maxDeals_,lg_);
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
         Panel container_=new Panel();
@@ -120,7 +126,7 @@ public final class SimulationGamePresident extends Thread implements SimulationG
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosSimuleePresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
-        tapis_.initTapisPresident(pseudos_,partie_.getLastStatusDeals().first().first().getVal(-1),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()));
+        tapis_.initTapisPresident(lg_,pseudos_,partie_.getLastStatusDeals().first().first().getVal(-1),Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()));
         container.getTapis().setTapisPresident(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         Panel panneau_=new Panel();

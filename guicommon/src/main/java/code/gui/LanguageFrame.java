@@ -28,6 +28,7 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage, Packab
 
     private JFrame frame = new JFrame();
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, Image _icon) {
+        super(Constants.getDefaultLanguage());
         dir = _dir;
         if (_icon != null) {
             setIconImage(_icon);
@@ -65,7 +66,6 @@ public class LanguageFrame extends CommonFrame implements SetterLanguage, Packab
         langue = _language;
         dispose();
         SoftApplicationCore.saveLanguage(dir, _language);
-        Constants.setSystemLanguage(_language);
         getPane().removeAll();
         StringMap<Object> file_ = soft.getFile(args);
         soft.launch(langue, file_);

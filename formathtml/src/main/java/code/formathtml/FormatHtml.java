@@ -248,7 +248,7 @@ public final class FormatHtml {
         return DocumentBuilder.toXmlDocument(doc_);
     }
 
-    static BeanElement tryToOpenDocument(Element _importElement,
+    static BeanElement tryToOpenDocument(String _lg, Element _importElement,
             ImportingPage _ip,
             Configuration _conf, StringMap<String> _files, String... _resourcesFolder) {
         String pageName_ = _importElement.getAttribute(PAGE_ATTRIBUTE);
@@ -259,7 +259,7 @@ public final class FormatHtml {
         if (_conf.getContext().getException() != null) {
             return null;
         }
-        String subHtml_ = ExtractFromResources.loadPage(_conf, _files, pageName_,_resourcesFolder);
+        String subHtml_ = ExtractFromResources.loadPage(_lg, _conf, _files, pageName_,_resourcesFolder);
         if (_conf.getContext().getException() != null) {
             return null;
         }
@@ -635,7 +635,7 @@ public final class FormatHtml {
                             _conf.clearPages();
                             break;
                         }
-                        ImportingPage ret_ = processProcessingTags(_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, mainBean_, _loc, _files, _resourcesFolder);
+                        ImportingPage ret_ = processProcessingTags(_loc,_conf, doc_, ip_, containersMap_, containers_, indexes_, currentForm_, mainBean_, _loc, _files, _resourcesFolder);
                         if (_conf.getContext().getException() != null) {
                             throwException(_conf);
                             if (_conf.getContext().getException() != null) {
@@ -835,7 +835,7 @@ public final class FormatHtml {
         }
     }
 
-    private static ImportingPage processProcessingTags(Configuration _conf, Document _doc,
+    private static ImportingPage processProcessingTags(String _lg, Configuration _conf, Document _doc,
             ImportingPage _ip,
             NumberMap<Long,NatTreeMap<Long,NodeContainer>> _containersMap,
             NatTreeMap<Long,NodeContainer> _containers,
@@ -1419,7 +1419,7 @@ public final class FormatHtml {
             return ip_;
         }
         if (StringList.quickEq(en_.getTagName(),StringList.concat(prefix_,IMPORT_BLOCK_TAG))) {
-            BeanElement newElt_ = tryToOpenDocument(en_, ip_, _conf, _files, _resourcesFolder);
+            BeanElement newElt_ = tryToOpenDocument(_lg,en_, ip_, _conf, _files, _resourcesFolder);
             if (_conf.getContext().getException() != null) {
                 return ip_;
             }

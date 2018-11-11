@@ -4,8 +4,8 @@ import code.expressionlanguage.OffsetsBlock;
 
 public final class StaticBlock extends InitBlock {
 
-    public StaticBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+    public StaticBlock(ContextEl _importingPage, BracedBlock _m, OffsetsBlock _offset) {
+        super(_importingPage, _m, _offset);
     }
 
     @Override

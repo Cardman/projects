@@ -1,5 +1,6 @@
 package cards.tarot;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import code.maths.LgInt;
 import code.maths.montecarlo.AbMonteCarlo;
@@ -115,7 +116,7 @@ public final class DealTarot implements Iterable<HandTarot> {
 
     /** Pour l&#39;entra&icirc;nement surtout au tarot */
     public void initDonne(ChoiceTarot _choix, byte _nombreCartes,
-            byte _nombreJoueurs, RulesTarot _regles) {
+            byte _nombreJoueurs, RulesTarot _regles, AtomicInteger _at) {
         /* Les deux_ nombres_ donnent_ le_ nombre_ d atouts_ avec_ Excuse */
         byte minAtout_ = 0;
         byte maxAtout_ = 0;
@@ -142,7 +143,7 @@ public final class DealTarot implements Iterable<HandTarot> {
             }
             //fonctionRepartition_ = new LgInt[maxAtout_ - minAtout_ + 1];
             fonctionRepartition_ = new EqList<LgInt>();
-            GameTarot.setChargementSimulation(GameTarot.getChargementSimulation()
+            _at.set(_at.get()
                     + 90 / (maxAtout_ - minAtout_ + 1));
             fonctionRepartition_.add(LgInt.multiply(
                     LgInt.among(new LgInt(minAtout_), new LgInt(21)),
@@ -152,8 +153,7 @@ public final class DealTarot implements Iterable<HandTarot> {
 //                    LgInt.among(new LgInt(_nombreCartes), new LgInt(56)));
             byte index_ = (byte) (minAtout_ + 1);
             for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-                GameTarot.setChargementSimulation(GameTarot
-                        .getChargementSimulation() + 90 / (maxAtout_ - minAtout_ + 1));
+                _at.set(_at.get() + 90 / (maxAtout_ - minAtout_ + 1));
                 fonctionRepartition_.add(LgInt.plus(
                         fonctionRepartition_.last(), LgInt
                         .multiply(LgInt.among(new LgInt(evenement_),
@@ -172,7 +172,7 @@ public final class DealTarot implements Iterable<HandTarot> {
 //            alea_ = fonctionRepartition_.last()
 //                    .multiply(MonteCarlo.randomDouble());
             alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last());
-            GameTarot.setChargementSimulation(95);
+            _at.set(95);
             for (byte evenement_ = minAtout_; evenement_ <= maxAtout_; evenement_++) {
 //                if (LgInt.lowerEq(alea_, fonctionRepartition_[evenement_
 //                        - minAtout_])) {
@@ -248,7 +248,7 @@ public final class DealTarot implements Iterable<HandTarot> {
             }
 //            fonctionRepartition_ = new LgInt[maxAtout_ - minAtout_ + 1];
             fonctionRepartition_ = new EqList<LgInt>();
-            GameTarot.setChargementSimulation(GameTarot.getChargementSimulation()
+            _at.set(_at.get()
                     + 90 / (maxAtout_ - minAtout_ + 1));
 //            fonctionRepartition_[0] = LgInt.multiply(LgInt.among(new LgInt(
 //                    minAtout_), new LgInt(21)), LgInt.among(new LgInt(
@@ -261,8 +261,7 @@ public final class DealTarot implements Iterable<HandTarot> {
                     _nombreCartes - minAtout_ - 1), new LgInt(56))));
             byte index_ = (byte) (minAtout_ + 1);
             for (byte evenement_ = index_; evenement_ <= maxAtout_; evenement_++) {
-                GameTarot.setChargementSimulation(GameTarot
-                        .getChargementSimulation() + 90 / (maxAtout_ - minAtout_ + 1));
+                _at.set(_at.get() + 90 / (maxAtout_ - minAtout_ + 1));
 //                fonctionRepartition_[evenement_ - minAtout_] = LgInt.plus(
 //                        fonctionRepartition_[evenement_ - minAtout_ - 1], LgInt
 //                        .multiply(LgInt.among(new LgInt(evenement_),
@@ -281,7 +280,7 @@ public final class DealTarot implements Iterable<HandTarot> {
 //            alea_ = fonctionRepartition_.last()
 //                    .multiply(MonteCarlo.randomDouble());
             alea_ = AbMonteCarlo.randomLgInt(fonctionRepartition_.last());
-            GameTarot.setChargementSimulation(95);
+            _at.set(95);
             for (byte evenement_ = minAtout_; evenement_ <= maxAtout_; evenement_++) {
 //                if (LgInt.lowerEq(alea_, fonctionRepartition_[evenement_
 //                        - minAtout_])) {

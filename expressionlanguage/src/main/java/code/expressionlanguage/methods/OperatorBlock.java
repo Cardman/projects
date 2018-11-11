@@ -22,12 +22,12 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
     private Numbers<Integer> importsOffset = new Numbers<Integer>();
 
     public OperatorBlock(ContextEl _importingPage,
-            int _indexChild, BracedBlock _m,
+            BracedBlock _m,
             OffsetStringInfo _retType, OffsetStringInfo _fctName,
             StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
             StringList _paramNames, Numbers<Integer> _paramNamesOffset,
             OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
+        super(_importingPage, _m, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
     }
 

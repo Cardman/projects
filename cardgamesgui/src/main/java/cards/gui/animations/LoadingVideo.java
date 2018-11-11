@@ -1,14 +1,13 @@
 package cards.gui.animations;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JProgressBar;
 
-import cards.belote.GameBelote;
+import cards.facade.Games;
 import cards.gui.MainWindow;
 import cards.gui.containers.ContainerGame;
-import cards.president.GamePresident;
-import cards.tarot.GameTarot;
 import code.gui.Panel;
 import code.gui.SplashWindow;
 import code.gui.TextLabel;
@@ -21,10 +20,13 @@ public final class LoadingVideo extends Thread {
     private ContainerGame container;
     private JProgressBar barreProgression;
     private TextLabel label;
+    private SimulationGame simu;
+    private AtomicInteger adv;
 
     /**This class thread is independant from EDT*/
-    public LoadingVideo(ContainerGame _container) {
+    public LoadingVideo(ContainerGame _container, SimulationGame _simu) {
         container = _container;
+        simu = _simu;
         barreProgression=new JProgressBar();
         barreProgression.setValue(0);
         barreProgression.setPreferredSize(new Dimension(200,50));
@@ -39,7 +41,24 @@ public final class LoadingVideo extends Thread {
         progressingWindow.setContentPane(container_);
         progressingWindow.pack();
         progressingWindow.setVisible(true);
-//        addPropertyChangeListener(new ProgressingPropertyEvent(this));
+    }
+    public LoadingVideo(ContainerGame _container, AtomicInteger _adv) {
+        container = _container;
+        adv = _adv;
+        barreProgression=new JProgressBar();
+        barreProgression.setValue(0);
+        barreProgression.setPreferredSize(new Dimension(200,50));
+        Panel container_=new Panel();
+        container_.setLayout(new GridLayout(0,1));
+        label=new TextLabel(StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.LOADING), barreProgression.getValue()));
+        container_.add(label);
+        container_.add(barreProgression);
+        progressingWindow = new SplashWindow(container.getOwner());
+        progressingWindow.setIconImage(container.getOwner().getImageIconFrame());
+        progressingWindow.setLocationRelativeTo(container.getOwner());
+        progressingWindow.setContentPane(container_);
+        progressingWindow.pack();
+        progressingWindow.setVisible(true);
     }
 
     public void setProgessingBar(int _value) {
@@ -49,30 +68,36 @@ public final class LoadingVideo extends Thread {
 
     @Override
     public void run() {
-//        JProgressBar barreProgression_=new JProgressBar();
-//        barreProgression_.setValue(0);
-//        barreProgression_.setPreferredSize(new Dimension(200,50));
-//        Container container_=new Container();
-//        container_.setLayout(new GridLayout(0,1));
-//        JLabel etiquette_=new JLabel(StringList.simpleFormat(container.getMessages().getVal(MainWindow.LOADING), barreProgression_.getValue()));
-//        container_.add(etiquette_);
-//        container_.add(barreProgression_);
-//        JWindow fenetre2=new JWindow(container.getOwner());
-//        fenetre2.setLocationRelativeTo(container.getOwner());
-//        fenetre2.setContentPane(container_);
-//        fenetre2.pack();
-//        fenetre2.setVisible(true);
         int max_=barreProgression.getMaximum();
-//        int max_= 100;
         int current_ = barreProgression.getValue();
-//        int current_ = 0;
+        if (simu == null) {
+            while(current_<max_) {
+                int maxAdv_ = adv.get();
+                setProgessingBar(maxAdv_);
+                current_ = maxAdv_;
+            }
+            progressingWindow.setVisible(false);
+            progressingWindow.getPane().removeAll();
+            progressingWindow.removeAll();
+            progressingWindow.dispose();
+            progressingWindow = null;
+            container = null;
+            return;
+        }
+        Games gs_ = simu.getGames();
         while(current_<max_) {
-            int maxAvancement_ = Math.max(GameBelote.getChargementSimulation(), GameTarot.getChargementSimulation());
-            maxAvancement_ = Math.max(maxAvancement_, GamePresident.getChargementSimulation());
-            setProgessingBar(maxAvancement_);
-//            barreProgression.setValue(maxAvancement_);
-            current_ = maxAvancement_;
-//            label.setText(StringList.simpleFormat(container.getMessages().getVal(MainWindow.LOADING), maxAvancement_));
+            int maxAdv_ = 0;
+            if (gs_.enCoursDePartieBelote()) {
+                maxAdv_ = gs_.partieBelote().getChargementSimulation();
+            }
+            if (gs_.enCoursDePartiePresident()) {
+                maxAdv_ = gs_.partiePresident().getChargementSimulation();
+            }
+            if (gs_.enCoursDePartieTarot()) {
+                maxAdv_ = gs_.partieTarot().getChargementSimulation();
+            }
+            setProgessingBar(maxAdv_);
+            current_ = maxAdv_;
         }
         progressingWindow.setVisible(false);
         progressingWindow.getPane().removeAll();
@@ -80,16 +105,6 @@ public final class LoadingVideo extends Thread {
         progressingWindow.dispose();
         progressingWindow = null;
         container = null;
-//        ThreadInvoker.invokeNow(new DoneThread(progressingWindow));
     }
 
-//    @Override
-//    protected void done() {
-//        progressingWindow.setVisible(false);
-//        progressingWindow.getContentPane().removeAll();
-//        progressingWindow.removeAll();
-//        progressingWindow.dispose();
-//        progressingWindow = null;
-//        container = null;
-//    }
 }

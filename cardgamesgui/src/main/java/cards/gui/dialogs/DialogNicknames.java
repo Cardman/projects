@@ -19,7 +19,6 @@ import code.gui.ScrollPane;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public final class DialogNicknames extends DialogCards {
 
@@ -34,7 +33,7 @@ public final class DialogNicknames extends DialogCards {
     private static final String FORBIDDEN_EMPTY = "forbiddenEmpty";
     private static final String FORBIDDEN_TAB = "forbiddenTab";
     private StringMap<String> messages;
-    private Nicknames pseudos=new Nicknames(Constants.getLanguage());
+    private Nicknames pseudos;
     private JTextField nickname;
     private CustList<JTextField> nicknamesBelote = new CustList<JTextField>();
     private CustList<JTextField> nicknamesTarot = new CustList<JTextField>();
@@ -47,10 +46,11 @@ public final class DialogNicknames extends DialogCards {
         DIALOG.setDialogIcon(_fenetre);
         DIALOG.setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        DIALOG.messages = DIALOG.getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        DIALOG.messages = DIALOG.getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
         DIALOG.pseudos = _fenetre.getPseudosJoueurs();
+        DIALOG.setMain(_fenetre);
         DIALOG.setLocationRelativeTo(_fenetre);
-        DIALOG.setDialogue();
+        DIALOG.setDialogue(_fenetre);
     }
 
     public static Nicknames getPseudos() {
@@ -59,7 +59,8 @@ public final class DialogNicknames extends DialogCards {
 
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
-    public void setDialogue() {
+    public void setDialogue(MainWindow _fenetre) {
+        String lg_ = _fenetre.getLanguageKey();
         getJt().removeAll();
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
@@ -75,7 +76,7 @@ public final class DialogNicknames extends DialogCards {
             nicknamesBelote.add(pseudo_);
             i_++;
         }
-        getJt().add(GameEnum.BELOTE.toString(Constants.getLanguage()),sousPanneau_);
+        getJt().add(GameEnum.BELOTE.toString(lg_),sousPanneau_);
         //Panneau pseudos des joueurs president
         sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
@@ -90,7 +91,7 @@ public final class DialogNicknames extends DialogCards {
         }
         ScrollPane scroll_ = new ScrollPane(sousPanneau_);
         scroll_.setPreferredSize(new Dimension(300, 400));
-        getJt().add(GameEnum.PRESIDENT.toString(Constants.getLanguage()), scroll_);
+        getJt().add(GameEnum.PRESIDENT.toString(lg_), scroll_);
         //Panneau pseudos des joueurs tarot
         sousPanneau_=new Panel();
         sousPanneau_.setLayout(new GridLayout(0,1));
@@ -103,7 +104,7 @@ public final class DialogNicknames extends DialogCards {
             nicknamesTarot.add(pseudo_);
             i_++;
         }
-        getJt().add(GameEnum.TAROT.toString(Constants.getLanguage()),sousPanneau_);
+        getJt().add(GameEnum.TAROT.toString(lg_),sousPanneau_);
         container_.add(getJt(),BorderLayout.CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=new Panel();
@@ -123,11 +124,12 @@ public final class DialogNicknames extends DialogCards {
 
     /**Enregistre les_ informations_ dans_ une_ variable_ et_ ferme_ la_ boite_ de_ dialogue_*/
     public void validateNicknames() {
+        String lg_ = getMain().getLanguageKey();
         if(unChampVidePresent()) {
-            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_EMPTY), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else if(tabulationPresente()) {
-            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE), lg_, JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(FORBIDDEN_TAB), messages.getVal(ERROR_SAVE),JOptionPane.ERROR_MESSAGE);
         } else {
             pseudos.setPseudo(nickname.getText());

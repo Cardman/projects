@@ -4,11 +4,11 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JOptionPane;
 
+import cards.gui.MainWindow;
 import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.dialogs.enums.SaveDealMode;
 import code.gui.ConfirmDialog;
 import code.gui.Dialog;
-import code.util.consts.Constants;
 
 public class SavingDealEvent extends MouseAdapter {
 
@@ -16,9 +16,11 @@ public class SavingDealEvent extends MouseAdapter {
 
     private SaveDealMode mode;
 
-    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode) {
+    private MainWindow window;
+    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode, MainWindow _window) {
         dialog = _dialog;
         mode = _mode;
+        window = _window;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class SavingDealEvent extends MouseAdapter {
                     dialog.cancelDeal();
                 }
             } else {
-                ConfirmDialog.showMessage((Dialog) dialog,dialog.getErrorSaveMessage(),dialog.getErrorSaveTitle(), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage((Dialog) dialog,dialog.getErrorSaveMessage(),dialog.getErrorSaveTitle(), window.getLanguageKey(), JOptionPane.ERROR_MESSAGE);
                 //JOptionPane.showMessageDialog(this,getMessages().getVal(ERROR_SAVE_FILE),getMessages().getVal(ERROR_SAVE_FILE_TITLE),JOptionPane.ERROR_MESSAGE);
             }
         } else if (mode == SaveDealMode.SAVE_THEN_PLAY) {

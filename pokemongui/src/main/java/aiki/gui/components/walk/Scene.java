@@ -17,43 +17,19 @@ import code.util.TreeMap;
 
 public class Scene extends PaintableLabel implements MouseListener {
 
-    private static int _sideLength_;
+    private int sideLength;
 
-    private static int _screenWidth_;
+    private int screenWidth;
 
-    private static int _screenHeight_;
+    private int screenHeight;
 
-    private static int _xHeros_;
+    private int xHeros;
 
-    private static int _yHeros_;
+    private int yHeros;
 
-//    private TreeMap<ScreenCoords,BufferedImage> buff = new TreeMap<new>(new Comparator<ScreenCoords>() {
-//        @Override
-//        public int compare(ScreenCoords _o1, ScreenCoords _o2) {
-//            int res_ = Integer.compare(_o1.getXcoords(), _o2.getXcoords());
-//            if (res_ != 0) {
-//                return res_;
-//            }
-//            return Integer.compare(_o1.getYcoords(), _o2.getYcoords());
-//        }
-//    });
     private TreeMap<ScreenCoords,BufferedImage> background = new TreeMap<ScreenCoords, BufferedImage>(new ComparatorScreenCoords());
 
-//    private TreeMap<ScreenCoords,CustList<BufferedImage>> fore = new TreeMap<new>(new Comparator<ScreenCoords>() {
-//        @Override
-//        public int compare(ScreenCoords _o1, ScreenCoords _o2) {
-//            int res_ = Integer.compare(_o1.getXcoords(), _o2.getXcoords());
-//            if (res_ != 0) {
-//                return res_;
-//            }
-//            return Integer.compare(_o1.getYcoords(), _o2.getYcoords());
-//        }
-//    });
     private TreeMap<ScreenCoords,CustList<BufferedImage>> foreground = new TreeMap<ScreenCoords,CustList<BufferedImage>>(new ComparatorScreenCoords());
-
-//    private BufferedImage hero;
-
-//    private boolean dirOnly;
 
     private Direction dir;
 
@@ -63,27 +39,21 @@ public class Scene extends PaintableLabel implements MouseListener {
 
     private boolean animated;
 
-//    private FacadeGame facade;
-
-//    private int nb;
-
-//    private boolean export;
-
     public Scene() {
         setFocusable(true);
         setBackground(Color.WHITE);
     }
 
-    public static void setDimensions(FacadeGame _facade) {
-        _sideLength_ = _facade.getMap().getSideLength();
-        _screenWidth_ = _facade.getMap().getScreenWidth();
-        _screenHeight_ = _facade.getMap().getScreenHeight();
-        _xHeros_ = _facade.getMap().getSpaceBetweenLeftAndHeros();
-        _yHeros_ = _facade.getMap().getSpaceBetweenTopAndHeros();
+    public void setDimensions(FacadeGame _facade) {
+        sideLength = _facade.getMap().getSideLength();
+        screenWidth = _facade.getMap().getScreenWidth();
+        screenHeight = _facade.getMap().getScreenHeight();
+        xHeros = _facade.getMap().getSpaceBetweenLeftAndHeros();
+        yHeros = _facade.getMap().getSpaceBetweenTopAndHeros();
     }
 
     public void setPreferredSize() {
-        setPreferredSize(new Dimension(_sideLength_*_screenWidth_, _sideLength_*_screenHeight_));
+        setPreferredSize(new Dimension(sideLength*screenWidth, sideLength*screenHeight));
     }
 
     public void setAnimated(boolean _animated) {
@@ -199,7 +169,7 @@ public class Scene extends PaintableLabel implements MouseListener {
             if (s.getXcoords() < 0 || s.getYcoords() < 0) {
                 background.removeKey(s);
                 _facade.getBackgroundImages().removeKey(s);
-            } else if (s.getXcoords() == _screenWidth_ || s.getYcoords() == _screenHeight_) {
+            } else if (s.getXcoords() == screenWidth || s.getYcoords() == screenHeight) {
                 background.removeKey(s);
                 _facade.getBackgroundImages().removeKey(s);
             }
@@ -209,7 +179,7 @@ public class Scene extends PaintableLabel implements MouseListener {
             if (s.getXcoords() < 0 || s.getYcoords() < 0) {
                 foreground.removeKey(s);
                 _facade.getForegroundImages().removeKey(s);
-            } else if (s.getXcoords() == _screenWidth_ || s.getYcoords() == _screenHeight_) {
+            } else if (s.getXcoords() == screenWidth || s.getYcoords() == screenHeight) {
                 foreground.removeKey(s);
                 _facade.getForegroundImages().removeKey(s);
             }
@@ -233,7 +203,7 @@ public class Scene extends PaintableLabel implements MouseListener {
     @Override
     public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
-        _g.fillRect(0, 0, _sideLength_*_screenWidth_ - 1, _sideLength_*_screenHeight_ - 1);
+        _g.fillRect(0, 0, sideLength*screenWidth - 1, sideLength*screenHeight - 1);
         int dx_ = 0;
         int dy_ = 0;
         if (animated) {
@@ -248,11 +218,11 @@ public class Scene extends PaintableLabel implements MouseListener {
         }
         for (ScreenCoords sc_: background.getKeys()) {
             BufferedImage buff_ = background.getVal(sc_);
-            _g.drawImage(buff_, _sideLength_* sc_.getXcoords() + xDelta_, _sideLength_ * sc_.getYcoords() + yDelta_, null);
+            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_, sideLength * sc_.getYcoords() + yDelta_, null);
         }
         for (ScreenCoords sc_: foreground.getKeys()) {
-            if (sc_.getXcoords() == _xHeros_ + dx_) {
-                if (sc_.getYcoords() == _yHeros_ + dy_) {
+            if (sc_.getXcoords() == xHeros + dx_) {
+                if (sc_.getYcoords() == yHeros + dy_) {
                     CustList<BufferedImage> imgs_ = foreground.getVal(sc_);
                     int size_ = imgs_.size();
                     for (int i = CustList.FIRST_INDEX; i < size_; i++) {
@@ -260,7 +230,7 @@ public class Scene extends PaintableLabel implements MouseListener {
                         if (i != size_ - 1) {
                             int wMin_ = buff_.getWidth();
                             int hMin_ = buff_.getHeight();
-                            _g.drawImage(buff_, _sideLength_* sc_.getXcoords() + xDelta_ + (_sideLength_ - wMin_) / 2, _sideLength_ * sc_.getYcoords() + yDelta_ + (_sideLength_ - hMin_) / 2, null);
+                            _g.drawImage(buff_, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2, null);
                         }
                     }
                     continue;
@@ -269,17 +239,17 @@ public class Scene extends PaintableLabel implements MouseListener {
             for (BufferedImage b:foreground.getVal(sc_)) {
                 int wMin_ = b.getWidth();
                 int hMin_ = b.getHeight();
-                _g.drawImage(b, _sideLength_* sc_.getXcoords() + xDelta_ + (_sideLength_ - wMin_) / 2, _sideLength_ * sc_.getYcoords() + yDelta_ + (_sideLength_ - hMin_) / 2, null);
+                _g.drawImage(b, sideLength* sc_.getXcoords() + xDelta_ + (sideLength - wMin_) / 2, sideLength * sc_.getYcoords() + yDelta_ + (sideLength - hMin_) / 2, null);
             }
         }
         if (!foreground.isEmpty()) {
-            ScreenCoords sc_ = new ScreenCoords(_xHeros_ + dx_, _yHeros_ + dy_);
+            ScreenCoords sc_ = new ScreenCoords(xHeros + dx_, yHeros + dy_);
             CustList<BufferedImage> imgs_ = foreground.getVal(sc_);
             if (!imgs_.isEmpty()) {
                 BufferedImage buff_ = imgs_.last();
                 int wMin_ = buff_.getWidth();
                 int hMin_ = buff_.getHeight();
-                _g.drawImage(buff_, _sideLength_* (sc_.getXcoords() - dx_) + (_sideLength_ - wMin_) / 2, _sideLength_ * (sc_.getYcoords() - dy_) + (_sideLength_ - hMin_) / 2, null);
+                _g.drawImage(buff_, sideLength* (sc_.getXcoords() - dx_) + (sideLength - wMin_) / 2, sideLength * (sc_.getYcoords() - dy_) + (sideLength - hMin_) / 2, null);
             }
         }
     }

@@ -40,6 +40,7 @@ import aiki.game.fight.util.NextUsers;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -671,6 +672,7 @@ final class FightRound {
         MonteCarloNumber lawNbRound_ = status_.getLawForUsingAMoveNbRound();
         MonteCarloBoolean lawUseMove_ = status_.getLawForUsingAMove();
         MonteCarloBoolean lawUseMoveIfFoe_ = status_.getLawForUsingAMoveIfFoe();
+        LgInt maxRd_ = _import.getMaxRd();
         boolean tirageGuerison_=false;
         if(!lawNbRound_.events().isEmpty()&&!status_.getIncrementingEndRound()){
             if (creature_.isSingleStatus(_nomStatut)) {
@@ -685,7 +687,7 @@ final class FightRound {
                     if(_fight.getSimulation()){
                         fini_=Numbers.eq(_combattant.getTeam(),Fight.FOE);
                     } else {
-                        fini_=!loiModif_.editNumber();
+                        fini_=!loiModif_.editNumber(maxRd_);
                     }
                 }
                 if(fini_){
@@ -713,7 +715,7 @@ final class FightRound {
                         if(_fight.getSimulation()){
                             fini_=Numbers.eq(_combattant.getTeam(),Fight.FOE);
                         } else {
-                            fini_=!loiModif_.editNumber();
+                            fini_=!loiModif_.editNumber(maxRd_);
                         }
                     }
                     if(fini_){
@@ -749,7 +751,7 @@ final class FightRound {
                 }else{
                     tirageGuerison_=true;
                 }
-            }else if(lawUseMove_.editNumber()){
+            }else if(lawUseMove_.editNumber(maxRd_)){
                 //attaquer_ == true
                 tirageGuerison_=true;
             }else{
@@ -766,7 +768,7 @@ final class FightRound {
                     attaquerAdv_=false;
                 }
             } else {
-                attaquerAdv_ = lawUseMoveIfFoe_.editNumber();
+                attaquerAdv_ = lawUseMoveIfFoe_.editNumber(maxRd_);
             }
         }
         MonteCarloBoolean lawFullHeal_ = status_.getLawForFullHealIfMove();
@@ -793,13 +795,14 @@ final class FightRound {
         if (_return) {
             return;
         }
+        LgInt maxRd_ = _import.getMaxRd();
         Fighter creature_=_fight.getFighter(_combattant);
         if(_fight.getSimulation()){
             if(Numbers.eq(_combattant.getTeam(),Fight.FOE)){
                 creature_.supprimerStatut(_nomStatut);
                 _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
             }
-        }else if(_lawFullHeal.editNumber()){
+        }else if(_lawFullHeal.editNumber(maxRd_)){
             creature_.supprimerStatut(_nomStatut);
             _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
         }
@@ -1068,7 +1071,7 @@ final class FightRound {
                 }
                 success_ = true;
             } else {
-                success_ = FightSuccess.random(_fight, law_);
+                success_ = FightSuccess.random(_import, law_);
             }
             if (!success_) {
                 _fight.setSuccessfulUse(false);

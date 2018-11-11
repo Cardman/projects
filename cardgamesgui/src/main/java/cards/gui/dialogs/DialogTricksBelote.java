@@ -28,16 +28,16 @@ public final class DialogTricksBelote extends DialogCards {
 
     public static void init(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote) {
-        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingBelote);
+            DisplayingBelote _displayingBelote, MainWindow _ow) {
+        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
     }
 
     private void setDialogue(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote) {
+            DisplayingBelote _displayingBelote, MainWindow _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsBelote(this,
-                _tricksHands, _numberPlayers, _pseudos, _displayingBelote));
+                _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow));
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);
         pack();

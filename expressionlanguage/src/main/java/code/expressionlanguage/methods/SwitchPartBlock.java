@@ -16,9 +16,9 @@ import code.util.StringMap;
 public abstract class SwitchPartBlock extends BracedStack implements
         StackableBlockGroup {
 
-    protected SwitchPartBlock(ContextEl _importingPage, int _indexChild,
+    protected SwitchPartBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
     }
 
     @Override

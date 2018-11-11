@@ -1,8 +1,7 @@
 package cards.belote.comparators;
-import code.util.ints.Comparing;
-
 import cards.belote.BidBeloteSuit;
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class BidBeloteSuitComparator implements Comparing<BidBeloteSuit> {
 

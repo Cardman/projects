@@ -25,15 +25,15 @@ public final class DialogTricksTarot extends DialogCards {
         DIALOG.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
     public static void init(TricksHandsTarot _tricksHands, byte _numberPlayers,
-            StringList _pseudos, DisplayingTarot _displayingTarot) {
-        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingTarot);
+            StringList _pseudos, DisplayingTarot _displayingTarot, MainWindow _window) {
+        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window);
     }
     private void setDialogue(TricksHandsTarot _tricksHands, byte _numberPlayers,
-            StringList _pseudos, DisplayingTarot _displayingTarot) {
+            StringList _pseudos, DisplayingTarot _displayingTarot, MainWindow _window) {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsTarot(this,
-                _tricksHands, _numberPlayers, _pseudos, _displayingTarot));
+                _tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window));
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);
         pack();

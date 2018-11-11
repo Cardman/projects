@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import aiki.facade.FacadeGame;
+import aiki.gui.MainWindow;
 import aiki.gui.components.labels.EggLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -59,8 +60,8 @@ public final class PaginatorEgg extends Paginator {
 
     private NumComboBox cmpStepsPrio = new NumComboBox();
 
-    public PaginatorEgg(ChangeableTitle _w, FacadeGame _d) {
-        super(ACCESS_EGG);
+    public PaginatorEgg(MainWindow _window, ChangeableTitle _w, FacadeGame _d) {
+        super(_window, ACCESS_EGG);
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);

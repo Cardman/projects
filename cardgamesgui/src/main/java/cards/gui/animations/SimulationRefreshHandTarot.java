@@ -23,8 +23,9 @@ public final class SimulationRefreshHandTarot extends Thread {
     public void run() {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
+        String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(hand)) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,hand)) {
             panneau1_.add(c);
         }
         panneau1_.repaint();

@@ -12,7 +12,6 @@ public final class SplashWindow implements Iconifiable {
 
     public SplashWindow() {
         window = new JWindow();
-        WindowUtils.addInArray(window);
     }
 
     public SplashWindow(Ownable _owner) {
@@ -26,9 +25,6 @@ public final class SplashWindow implements Iconifiable {
 
     public void setVisible(boolean _b) {
         window.setVisible(_b);
-        if (!_b) {
-            WindowUtils.removeWindow(window);
-        }
     }
     public void setContentPane(Panel _contentPane) {
         window.setContentPane(_contentPane.getComponent());

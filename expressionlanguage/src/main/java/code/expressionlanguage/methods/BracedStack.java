@@ -31,9 +31,9 @@ import code.util.StringMap;
 
 public abstract class BracedStack extends BracedBlock {
 
-    BracedStack(ContextEl _importingPage, int _indexChild,
+    BracedStack(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
     }
     
     protected void buildConditions(ContextEl _cont) {

@@ -12,6 +12,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
+import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
 import code.gui.Panel;
@@ -60,7 +61,7 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(JSpinner _nbGames) {
+    protected void initJt(JSpinner _nbGames, String _lg) {
         setNbGames(_nbGames);
         Panel dealing_=new Panel();
         dealing_.setLayout(new GridLayout(0,2));
@@ -72,7 +73,7 @@ public abstract class DialogBelote extends DialogCards {
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.display());
+            trMix_.put(choix_, choix_.toString(_lg));
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -99,7 +100,7 @@ public abstract class DialogBelote extends DialogCards {
         bidding=new Panel();
         bidding.setLayout(new GridLayout(1,0));
         for (BidBelote enchere_:BidBelote.values()) {
-            JCheckBox caseCroix_=new JCheckBox(enchere_.display());
+            JCheckBox caseCroix_=new JCheckBox(enchere_.toString(_lg));
             caseCroix_.setSelected(getReglesBelote().getEncheresAutorisees().getVal(enchere_));
             caseCroix_.setEnabled(!enchere_.getToujoursPossibleAnnoncer());
             bidding.add(caseCroix_);
@@ -116,7 +117,7 @@ public abstract class DialogBelote extends DialogCards {
         int indice_ = 0;
         for (DeclaresBelote enchere_:DeclaresBelote.annoncesValides()) {
             indicesAnnoncesValides.put(enchere_, indice_);
-            JCheckBox caseCroix_=new JCheckBox(enchere_.display());
+            JCheckBox caseCroix_=new JCheckBox(enchere_.toString(_lg));
             caseCroix_.setSelected(getReglesBelote().getAnnoncesAutorisees().getVal(enchere_));
             declaresFirstRound.add(caseCroix_);
             declares.add(caseCroix_);
@@ -140,7 +141,7 @@ public abstract class DialogBelote extends DialogCards {
             if (choix_ == curOne_) {
                 i_ = index_;
             }
-            listChoiceTwo.addItem(choix_);
+            listChoiceTwo.addItem(choix_, _lg);
             index_++;
         }
         if (i_ > -1) {
@@ -164,9 +165,9 @@ public abstract class DialogBelote extends DialogCards {
 
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
-    public abstract void setDialogue();
-    protected void initMessageName() {
-        setMessages(getMessages(FileConst.FOLDER_MESSAGES_GUI));
+    public abstract void setDialogue(MainWindow _parent);
+    protected void initMessageName(MainWindow _parent) {
+        setMessages(getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI));
     }
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/
     protected void validateRules() {

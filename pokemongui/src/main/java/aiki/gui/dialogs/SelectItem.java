@@ -9,7 +9,6 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.PaginatorItem;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
-import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -44,20 +43,20 @@ public final class SelectItem extends SelectDialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectItem(GroupFrame _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
+    public static void setSelectItem(MainWindow _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
         DIALOG.init(_parent, _facade, _buy, _sell);
     }
 
-    private void init(GroupFrame _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
+    private void init(MainWindow _parent, FacadeGame _facade, boolean _buy, boolean _sell) {
         setDialogIcon(_parent);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
         setTitle(messages.getVal(TITLE));
         facade = _facade;
         initOk();
 //        ok = false;
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new ScrollPane(new PaginatorItem(this, _facade, !_sell)), BorderLayout.CENTER);
+        contentPane_.add(new ScrollPane(new PaginatorItem(_parent, this, _facade, !_sell)), BorderLayout.CENTER);
         Panel buttons_ = new Panel();
         if (!_buy) {
             giveCheckBox = new JCheckBox(messages.getVal(GIVE));

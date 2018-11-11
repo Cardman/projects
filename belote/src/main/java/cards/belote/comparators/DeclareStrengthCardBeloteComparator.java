@@ -1,7 +1,6 @@
 package cards.belote.comparators;
-import code.util.ints.Comparing;
-
 import cards.belote.enumerations.CardBelote;
+import code.util.ints.Comparing;
 
 public final class DeclareStrengthCardBeloteComparator implements Comparing<CardBelote> {
 

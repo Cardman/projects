@@ -1,12 +1,12 @@
 package cards.president;
 import java.util.Iterator;
 
+import cards.consts.MixCardsChoice;
 import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
 import code.util.annot.RwXml;
-import cards.consts.MixCardsChoice;
 
 @RwXml
 public final class DealPresident implements Iterable<HandPresident> {

@@ -4,6 +4,7 @@ import java.io.File;
 import javax.swing.SwingUtilities;
 
 import aiki.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.game.params.LoadingGame;
 import aiki.gui.MainWindow;
 import code.util.StringList;
@@ -39,9 +40,8 @@ public final class CreateMainWindowParam extends Thread {
     public void run() {
         boolean error_ = false;
         String loadRom_ = DataBase.EMPTY_STRING;
-        //Timer t_ = null;
         boolean stoppedLoading_ = false;
-        //t_ = new Timer(0, OpeningGame.getTaskPaintingLabel());
+        FacadeGame fg_ = window.getFacade();
         try {
             String path_;
             if (!load.getLastRom().isEmpty()) {
@@ -57,45 +57,32 @@ public final class CreateMainWindowParam extends Thread {
             }
             loadRom_ = path_;
             OpeningGame opening_ = new OpeningGame(window);
-            DataBase.setLoading(true);
+            fg_.setLoading(true);
             opening_.start();
-//            CreateMainWindow.copyZipFileToFolder(path_, Constants.getTmpUserFolder());
             if (!load.getLastSavedGame().isEmpty()) {
                 window.loadRomGame(load, path, files, true);
             } else {
                 window.loadOnlyRom(path_);
             }
-            if (!DataBase.isLoading()) {
+            if (!fg_.isLoading()) {
                 stoppedLoading_ = true;
             }
-            DataBase.setLoading(false);
+            fg_.setLoading(false);
             window.setLoadingConf(load, false);
         } catch (RuntimeException _0) {
-            error_ = window.getFacade().getData() == null;
+            error_ = !fg_.isLoadedData();
             stoppedLoading_ = false;
-            //NumericString.setCheckSyntax(false);
-            DataBase.setLoading(false);
+            fg_.setLoading(false);
             _0.printStackTrace();
         } catch (VirtualMachineError _0) {
             error_ = true;
-            DataBase.setLoading(false);
-            //NumericString.setCheckSyntax(false);
+            fg_.setLoading(false);
             _0.printStackTrace();
         }
-        //SoftApplication.setLocation(window, topLeft);
         error = error_;
         stopLoad = stoppedLoading_;
         fileName = loadRom_;
         SwingUtilities.invokeLater(new AfterLoadingBegin(window, stopLoad, error, fileName));
-//        PackingWindowAfter.pack(window);
-//        if (stoppedLoading_) {
-//            return;
-//        }
-//        if (error_) {
-//            window.showErrorMessageDialog(loadRom_);
-//        } else {
-//            window.showSuccessfulMessageDialog(loadRom_);
-//        }
     }
 
     public MainWindow getWindow() {

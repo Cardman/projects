@@ -10,17 +10,17 @@ import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 public class GraphicKey extends PaintableLabel {
     private static final String GRAPHIC_KEY = "cards.gui.labels.GraphicKey";
     private static final String DEFAULT="Default";
     private static final String DELTA = "delta";
     private CustList<Color> couleurs;
     private StringList pseudos;
-    private StringMap<String> messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), GRAPHIC_KEY);
-    public GraphicKey(StringList _ppseudos,CustList<Color> _pcouleurs) {
+    private StringMap<String> messages;
+    public GraphicKey(StringList _ppseudos,CustList<Color> _pcouleurs, String _lg) {
         pseudos=_ppseudos;
         couleurs=_pcouleurs;
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _lg, GRAPHIC_KEY);
     }
     @Override
     public void paintComponent(Graphics _g) {

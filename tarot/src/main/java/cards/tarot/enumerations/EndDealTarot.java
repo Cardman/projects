@@ -1,16 +1,12 @@
 package cards.tarot.enumerations;
 import code.format.Format;
-import code.util.consts.Constants;
-import code.util.ints.Displayable;
+import code.format.Translatable;
 
-public enum EndDealTarot implements Displayable{
+public enum EndDealTarot implements Translatable {
     ATTACK_LOOSE, ATTACK_WIN, ZERO;
 
+    @Override
     public String toString(String _locale) {
         return Format.getConstanteLangue(ResoucesAccess.NOM_DOSSIER,ResoucesAccess.NOM_FICHIER, _locale, ResoucesAccess.TAROT_END,name());
-    }
-    @Override
-    public String display() {
-        return toString(Constants.getLanguage());
     }
 }

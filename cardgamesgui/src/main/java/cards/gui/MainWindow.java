@@ -16,6 +16,7 @@ import javax.swing.WindowConstants;
 import cards.belote.CheckerGameBeloteWithRules;
 import cards.belote.DisplayingBelote;
 import cards.belote.GameBelote;
+import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
@@ -26,7 +27,6 @@ import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentReaderCardsUnionUtil;
-import cards.gameresults.ResultsGame;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerMulti;
 import cards.gui.containers.ContainerMultiBelote;
@@ -124,6 +124,7 @@ import cards.network.threads.SendReceiveServer;
 import cards.president.CheckerGamePresidentWithRules;
 import cards.president.DisplayingPresident;
 import cards.president.GamePresident;
+import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import cards.president.TricksHandsPresident;
 import cards.president.sml.DocumentReaderPresidentUtil;
@@ -131,6 +132,7 @@ import cards.president.sml.DocumentWriterPresidentUtil;
 import cards.tarot.CheckerGameTarotWithRules;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.GameTarot;
+import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.enumerations.ChoiceTarot;
@@ -164,7 +166,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 /**
 
@@ -480,7 +481,7 @@ public final class MainWindow extends NetGroupFrame {
     private SoftParams parametres=new SoftParams();
     /**
     des pseudonymes*/
-    private Nicknames pseudosJoueurs=new Nicknames(Constants.getLanguage());
+    private Nicknames pseudosJoueurs;
     private RulesBelote reglesBelote=new RulesBelote();
     private DisplayingBelote displayingBelote = new DisplayingBelote();
     private RulesPresident reglesPresident=new RulesPresident();
@@ -543,7 +544,9 @@ public final class MainWindow extends NetGroupFrame {
 
     //private final boolean standalone;
 
-    public MainWindow() {
+    public MainWindow(String _lg) {
+        super(_lg);
+        pseudosJoueurs=new Nicknames(getLanguageKey());
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         requestFocus();
@@ -623,12 +626,12 @@ public final class MainWindow extends NetGroupFrame {
         try{
             pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(StreamTextFile.contentsOfFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS)));
             if (!pseudosJoueurs.isValidNicknames()) {
-                pseudosJoueurs = new Nicknames(Constants.getLanguage());
+                pseudosJoueurs = new Nicknames(getLanguageKey());
                 pseudosJoueurs.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
             }
         }catch(RuntimeException _0) {
             _0.printStackTrace();
-            pseudosJoueurs = new Nicknames(Constants.getLanguage());
+            pseudosJoueurs = new Nicknames(getLanguageKey());
             pseudosJoueurs.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PLAYERS));
         }
         /*Parametre de lancement*/
@@ -893,7 +896,7 @@ public final class MainWindow extends NetGroupFrame {
                 p_.setArriving(true);
                 p_.setIndex(((AttemptConnecting)_readObject).getIndex());
                 p_.setPseudo(pseudo());
-                p_.setLanguage(Constants.getLanguage());
+                p_.setLanguage(getLanguageKey());
                 Net.sendObject(_socket,p_);
                 return;
             }
@@ -906,7 +909,7 @@ public final class MainWindow extends NetGroupFrame {
             p_.setArriving(true);
             p_.setIndex(container_.getNoClient());
             p_.setPseudo(pseudo());
-            p_.setLanguage(Constants.getLanguage());
+            p_.setLanguage(getLanguageKey());
             Net.sendObject(_socket,p_);
             return;
         }
@@ -927,10 +930,6 @@ public final class MainWindow extends NetGroupFrame {
             }
             return;
         }
-        if (_readObject instanceof ResultsGame) {
-            container_.endGame((ResultsGame) _readObject);
-            return;
-        }
         if (_readObject instanceof Pause) {
             container_.pauseBetweenTrick();
             return;
@@ -938,6 +937,10 @@ public final class MainWindow extends NetGroupFrame {
 
         if (containerGame instanceof ContainerMultiTarot) {
             ContainerMultiTarot containerTarot_ = (ContainerMultiTarot) containerGame;
+            if (_readObject instanceof ResultsTarot) {
+                containerTarot_.endGame((ResultsTarot) _readObject);
+                return;
+            }
             if (_readObject instanceof RulesTarot) {
                 containerTarot_.updateRules((RulesTarot)_readObject);
                 return;
@@ -1024,6 +1027,10 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (containerGame instanceof ContainerMultiPresident) {
             ContainerMultiPresident containerPresident_ = (ContainerMultiPresident) container_;
+            if (_readObject instanceof ResultsPresident) {
+                containerPresident_.endGame((ResultsPresident) _readObject);
+                return;
+            }
             if (_readObject instanceof RulesPresident) {
                 containerPresident_.updateRules((RulesPresident)_readObject);
                 return;
@@ -1064,6 +1071,10 @@ public final class MainWindow extends NetGroupFrame {
         }
         if (containerGame instanceof ContainerMultiBelote) {
             ContainerMultiBelote containerBelote_ = (ContainerMultiBelote) container_;
+            if (_readObject instanceof ResultsBelote) {
+                containerBelote_.endGame((ResultsBelote) _readObject);
+                return;
+            }
             if (_readObject instanceof RulesBelote) {
                 containerBelote_.updateRules((RulesBelote)_readObject);
                 return;
@@ -1137,7 +1148,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         pack();
         if (_exit.isForced() && !_exit.isBusy()) {
-            ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, getTooManyString(), getTooManyString(), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -1162,14 +1173,15 @@ public final class MainWindow extends NetGroupFrame {
             m.setEnabledMenu(false);
         }
         containerGame.finirParties();
-        setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
+        setTitle(Launching.WELCOME.toString(getLanguageKey()));
         Panel container_=new Panel();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
+        String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
-            ajouterBoutonPrincipal(jeu2_.display(),jeu2_,container_);
+            ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
         LabelButton button_ = new LabelButton(getMessages().getVal(MAIN_MENU));
         button_.addMouseListener(new BackToMainMenuEvent(this));
@@ -1200,14 +1212,15 @@ public final class MainWindow extends NetGroupFrame {
         getPause().setEnabledMenu(false);
         containerGame.setChangerPileFin(false);
         containerGame.finirParties();
-        setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
+        setTitle(Launching.WELCOME.toString(getLanguageKey()));
         Panel container_=new Panel();
         container_.setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()),SwingConstants.CENTER));
         /*Cree les boutons de jeu*/
+        String lg_ = getLanguageKey();
         for (GameEnum jeu2_:GameEnum.values()) {
-            ajouterBoutonPrincipal(jeu2_.display(),jeu2_,container_);
+            ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
         }
         LabelButton button_ = new LabelButton(getMessages().getVal(MAIN_MENU));
         button_.addMouseListener(new BackToMainMenuEvent(this));
@@ -1247,7 +1260,7 @@ public final class MainWindow extends NetGroupFrame {
         }
         getPane().removeAll();
         containerGame.finirParties();
-        setTitle(Launching.WELCOME.toString(Constants.getLanguage()));
+        setTitle(Launching.WELCOME.toString(getLanguageKey()));
         getPane().setLayout(new GridLayout(0,1));
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         welcomeLabel = new JLabel(StringList.simpleStringsFormat(getMessages().getVal(WELCOME), pseudo()));
@@ -1271,7 +1284,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        messages = getMessages(this,FileConst.FOLDER_MESSAGES_GUI);
     }
     public void loadGameBegin(String _file, Object _deal) {
         containerGame = new ContainerGame(this);
@@ -1537,6 +1550,7 @@ public final class MainWindow extends NetGroupFrame {
     }
 
     private void initDealMenu() {
+        String lg_ = getLanguageKey();
         deal=new Menu(getMessages().getVal(DEAL));
         /* Partie/Conseil "accessible uniquement en cours de partie et
         dans les jeux non solitaires"*/
@@ -1564,32 +1578,32 @@ public final class MainWindow extends NetGroupFrame {
         deal.addMenuItem(teams);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         edit=new Menu(getMessages().getVal(EDIT));
-        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
+        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.BELOTE));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.display());
+        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.PRESIDENT));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.TAROT.display());
+        sousSousMenu_ = new MenuItem(GameEnum.TAROT.toString(lg_));
         sousSousMenu_.addActionListener(new EditEvent(this, GameEnum.TAROT));
         edit.addMenuItem(sousSousMenu_);
         editGames.put(GameEnum.TAROT, sousSousMenu_);
         deal.addMenuItem(edit);
         /* Partie/Demo "Permet de voir la demostration d une partie"*/
         demo=new Menu(getMessages().getVal(DEMO));
-        sousMenu_=new MenuItem(GameEnum.BELOTE.display());
+        sousMenu_=new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousMenu_=new MenuItem(GameEnum.PRESIDENT.display());
+        sousMenu_=new MenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
         demo.addMenuItem(sousMenu_);
         demoGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousMenu_=new MenuItem(GameEnum.TAROT.display());
+        sousMenu_=new MenuItem(GameEnum.TAROT.toString(lg_));
         sousMenu_.addActionListener(new SimulationEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK));
         demo.addMenuItem(sousMenu_);
@@ -1601,7 +1615,7 @@ public final class MainWindow extends NetGroupFrame {
         //Petitasauver,Petitachasser,Petitaemmeneraubout;
         for (ChoiceTarot ct_:ChoiceTarot.values()) {
 
-            sousMenu_=new MenuItem(ct_.display());
+            sousMenu_=new MenuItem(ct_.toString(lg_));
             sousMenu_.addActionListener(new ListenerTrainingTarot(this, ct_));
             training.addMenuItem(sousMenu_);
             trainingTarot.put(ct_, sousMenu_);
@@ -1830,18 +1844,19 @@ public final class MainWindow extends NetGroupFrame {
 
     private void initParametersMenu() {
         /* Parametres */
+        String lg_ = getLanguageKey();
         parameters=new Menu(getMessages().getVal(PARAMETERS));
-        MenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.display());
+        MenuItem sousMenu_=new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.BELOTE));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.SHIFT_DOWN_MASK));
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.BELOTE, sousMenu_);
-        sousMenu_=new MenuItem(GameEnum.PRESIDENT.display());
+        sousMenu_=new MenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.PRESIDENT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.SHIFT_DOWN_MASK));
         parameters.addMenuItem(sousMenu_);
         rulesGames.put(GameEnum.PRESIDENT, sousMenu_);
-        sousMenu_=new MenuItem(GameEnum.TAROT.display());
+        sousMenu_=new MenuItem(GameEnum.TAROT.toString(lg_));
         sousMenu_.addActionListener(new ManageRulesEvent(this, GameEnum.TAROT));
         sousMenu_.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.SHIFT_DOWN_MASK));
         parameters.addMenuItem(sousMenu_);
@@ -1872,15 +1887,15 @@ public final class MainWindow extends NetGroupFrame {
         parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         displaying=new Menu(getMessages().getVal(DISPLAYING));
-        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.display());
+        MenuItem sousSousMenu_ = new MenuItem(GameEnum.BELOTE.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.BELOTE));
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.display());
+        sousSousMenu_ = new MenuItem(GameEnum.PRESIDENT.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.PRESIDENT));
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = new MenuItem(GameEnum.TAROT.display());
+        sousSousMenu_ = new MenuItem(GameEnum.TAROT.toString(lg_));
         sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.TAROT));
         displaying.addMenuItem(sousSousMenu_);
         displayingGames.put(GameEnum.TAROT, sousSousMenu_);
@@ -1888,8 +1903,9 @@ public final class MainWindow extends NetGroupFrame {
         getJMenuBar().add(parameters.getMenu());
     }
     public void manageRules(GameEnum _game) {
+        String lg_ = getLanguageKey();
         if (_game == GameEnum.BELOTE) {
-            DialogRulesBelote.initDialogRulesBelote(_game.display(), this,reglesBelote);
+            DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this,reglesBelote);
             RulesBelote reglesBelote_=DialogRulesBelote.getRegles();
             if (!DialogRulesBelote.isValidated()) {
                 return;
@@ -1898,8 +1914,8 @@ public final class MainWindow extends NetGroupFrame {
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote));
             containerGame.setRulesBelote(reglesBelote);
         } else if (_game == GameEnum.PRESIDENT) {
-            DialogRulesPresident.initDialogRulesPresident(_game.display(), this, reglesPresident);
-            DialogRulesPresident.setPresidentDialog(true, 0);
+            DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, reglesPresident);
+            DialogRulesPresident.setPresidentDialog(true, 0,this);
             RulesPresident rules_ = DialogRulesPresident.getRegles();
             if (!DialogRulesPresident.isValidated()) {
                 return;
@@ -1908,8 +1924,8 @@ public final class MainWindow extends NetGroupFrame {
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident));
             containerGame.setRulesPresident(reglesPresident);
         } else if (_game == GameEnum.TAROT) {
-            DialogRulesTarot.initDialogRulesTarot(_game.display(), this, reglesTarot);
-            DialogRulesTarot.setTarotDialog(true,0);
+            DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, reglesTarot);
+            DialogRulesTarot.setTarotDialog(true,0,this);
             RulesTarot reglesTarot_=DialogRulesTarot.getRegles();
             if (!DialogRulesTarot.isValidated()) {
                 return;
@@ -1927,7 +1943,7 @@ public final class MainWindow extends NetGroupFrame {
     }
     public void manageSoft(String _key) {
         DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
-        DialogSoft.setDialogSoft(_key);
+        DialogSoft.setDialogSoft(_key, this);
         parametres=DialogSoft.getParametres();
         parametres.sauvegarder(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.PARAMS));
         containerGame.setSettings(parametres);
@@ -1946,18 +1962,19 @@ public final class MainWindow extends NetGroupFrame {
         SoftApplicationCore.saveLanguage(LaunchingCards.getTempFolder(), langue_);
     }
     public void displayingGame(GameEnum _game) {
+        String lg_ = getLanguageKey();
         if (_game == GameEnum.BELOTE) {
-            DialogDisplayingBelote.setDialogDisplayingBelote(_game.display(), this);
+            DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), this);
             displayingBelote=DialogDisplayingBelote.getDisplaying();
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(displayingBelote));
             containerGame.setDisplayingBelote(displayingBelote);
         } else if (_game == GameEnum.PRESIDENT) {
-            DialogDisplayingPresident.setDialogDisplayingPresident(_game.display(), this);
+            DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), this);
             displayingPresident=DialogDisplayingPresident.getDisplaying();
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(displayingPresident));
             containerGame.setDisplayingPresident(displayingPresident);
         } else if (_game == GameEnum.TAROT) {
-            DialogDisplayingTarot.setDialogDisplayingTarot(_game.display(), this);
+            DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), this);
             displayingTarot=DialogDisplayingTarot.getDisplaying();
             StreamTextFile.saveTextFile(StringList.concat(LaunchingCards.getTempFolderSl(),FileConst.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(displayingTarot));
             containerGame.setDisplayingTarot(displayingTarot);
@@ -1982,15 +1999,15 @@ public final class MainWindow extends NetGroupFrame {
             if (!helpFrames.isEmpty()) {
                 if (!helpFrames.first().isVisible()) {
                     helpFrames.first().setTitle(getMessages().getVal(GENERAL_HELP));
-                    helpFrames.first().voir();
+                    helpFrames.first().voir(this);
                 }
                 return;
             }
             FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(GENERAL_HELP),this);
-            aide_.voir();
+            aide_.voir(this);
             helpFrames.add(aide_);
         }catch(RuntimeException _0) {
-            ConfirmDialog.showMessage(this, getMessages().getVal(NOT_FOUND_FILE), getMessages().getVal(NOT_HELP), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, getMessages().getVal(NOT_FOUND_FILE), getMessages().getVal(NOT_HELP), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -2008,14 +2025,14 @@ public final class MainWindow extends NetGroupFrame {
 
     private int confirm(String _message,String _titre) {
         //warning message
-        return ConfirmDialog.getAnswer(this,_message,_titre, Constants.getLanguage(),JOptionPane.YES_NO_CANCEL_OPTION);
+        return ConfirmDialog.getAnswer(this,_message,_titre, getLanguageKey(),JOptionPane.YES_NO_CANCEL_OPTION);
     }
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierSauvegarde() {
         if (isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, FileConst.GAME_EXT, ConstFiles.getHomePath());
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, ConstFiles.getHomePath());
         } else {
-            FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialogByFrame(this, getLanguageKey(), true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath();
         if (fichier_ == null) {
@@ -2026,9 +2043,9 @@ public final class MainWindow extends NetGroupFrame {
     /**Sauvegarder une partie dans un fichier*/
     private String dialogueFichierChargement() {
         if (isSaveHomeFolder()) {
-            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, FileConst.GAME_EXT, ConstFiles.getHomePath());
+            FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, ConstFiles.getHomePath());
         } else {
-            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
+            FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }
         String fichier_=FileOpenDialog.getStaticSelectedPath();
         if (fichier_ == null) {
@@ -2050,8 +2067,9 @@ public final class MainWindow extends NetGroupFrame {
     }
     private void erreurDeChargement(String _fichier) {
         //The issue of quality of game are caught here
+        String lg_ = getLanguageKey();
         String mes_ = StringList.simpleStringsFormat(getMessages().getVal(FILE_NOT_LOADED), _fichier);
-        ConfirmDialog.showMessage(this,mes_, getMessages().getVal(FILE_NOT_LOADED_TILE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this,mes_, getMessages().getVal(FILE_NOT_LOADED_TILE),lg_, JOptionPane.ERROR_MESSAGE);
     }
 
     /**On ecoute les boutons du menu principal et des menus jeux*/
@@ -2102,10 +2120,10 @@ public final class MainWindow extends NetGroupFrame {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = getMessages().getVal(UNKNOWN_HOST);
                 formatted_ = StringList.simpleStringsFormat(formatted_, ip_);
-                ConfirmDialog.showMessage(this, getMessages().getVal(BUG), formatted_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(this, getMessages().getVal(BUG), formatted_, getLanguageKey(), JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            ConfirmDialog.showMessage(this, getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, getMessages().getVal(BUG), getMessages().getVal(NOT_CONNECTED), getLanguageKey(), JOptionPane.ERROR_MESSAGE);
             return;
         }
     }
@@ -2141,12 +2159,13 @@ public final class MainWindow extends NetGroupFrame {
 
     @Override
     public void changeLanguage(String _language) {
-        Constants.setSystemLanguage(_language);
+        setLanguageKey(_language);
         translate();
     }
 
     private void translate() {
         initMessageName();
+        String lg_ = getLanguageKey();
         file.setText(getMessages().getVal(FILE));
         load.setText(getMessages().getVal(LOAD));
         save.setText(getMessages().getVal(SAVE));
@@ -2160,20 +2179,20 @@ public final class MainWindow extends NetGroupFrame {
         teams.setText(getMessages().getVal(TEAMS));
         edit.setText(getMessages().getVal(EDIT));
         for (GameEnum g: GameEnum.values()) {
-            editGames.getVal(g).setText(g.display());
+            editGames.getVal(g).setText(g.toString(lg_));
         }
         demo.setText(getMessages().getVal(DEMO));
         for (GameEnum g: GameEnum.values()) {
-            demoGames.getVal(g).setText(g.display());
+            demoGames.getVal(g).setText(g.toString(lg_));
         }
         training.setText(getMessages().getVal(TRAINING));
         for (ChoiceTarot c: ChoiceTarot.values()) {
-            trainingTarot.getVal(c).setText(c.display());
+            trainingTarot.getVal(c).setText(c.toString(lg_));
         }
         multiStop.setText(getMessages().getVal(MULTI_STOP));
         parameters.setText(getMessages().getVal(PARAMETERS));
         for (GameEnum g: GameEnum.values()) {
-            rulesGames.getVal(g).setText(g.display());
+            rulesGames.getVal(g).setText(g.toString(lg_));
         }
         players.setText(getMessages().getVal(PLAYERS));
         launching.setText(getMessages().getVal(LAUNCHING));
@@ -2182,7 +2201,7 @@ public final class MainWindow extends NetGroupFrame {
         language.setText(getMessages().getVal(LANGUAGE));
         displaying.setText(getMessages().getVal(DISPLAYING));
         for (GameEnum g: GameEnum.values()) {
-            displayingGames.getVal(g).setText(g.display());
+            displayingGames.getVal(g).setText(g.toString(lg_));
         }
         help.setText(getMessages().getVal(HELP));
         generalHelp.setText(getMessages().getVal(GENERAL_HELP));

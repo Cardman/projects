@@ -54,8 +54,6 @@ public final class GameTarot {
 
     public static final int PTS_BASE = 25;
 
-    private static AtomicInteger _chargementSimulation_ = new AtomicInteger();
-
     private static final String GAME_TAROT = "cards.tarot.GameTarot";
 
     private static final String FOLDER = "resources_cards/classes";
@@ -92,47 +90,49 @@ public final class GameTarot {
 
     private static final String UNDERTRUMP = "undertrump";
 
-    private static final String HAND_VALUE_NO_SUIT = "handValueNoSuit";
-
-    private static final String OVERBID_DUE = "overbidDue";
-
-    private static final String MAYBE_GOOD_DOG = "maybeGoodDog";
-
-    private static final String FOE_WIN_TRICK = "foeWinTrick";
-
-    private static final String PARTNER_WIN_TRICK = "partnerWinTrick";
-
-    private static final String ONE_POSSIBILITY = "onePossibility";
-
-    private static final String ONLY_PLAYER = "onlyPlayer";
-
-    private static final String SINGLE_DISCARDED_CARDS = "singleDiscaredCards";
-
-    private static final String NO_SLAM = "noSlam";
-
-    private static final String SLAM = "slam";
-
-    private static final String WIN_ALL_TRICKS = "winAllTricks";
-
-    private static final String HIDE_WEAKEST_TRUMPS = "hideWeakestTrumps";
-
-    private static final String SINGLE_CARD= "singleCard";
-
-    private static final String NO_WIN_ALL_TRICK= "noWinAllTrick";
-
-    private static final String SMALL_BOUND = "smallBound";
-
-    private static final String SMALL_NOW = "smallNow";
-
-    private static final String SAVED_SMALL = "savedSmall";
-
-    private static final String CATCH_CHARS = "catchChars";
-
-    private static final String NO_CATCH = "noCatch";
+//    private static final String HAND_VALUE_NO_SUIT = "handValueNoSuit";
+//
+//    private static final String OVERBID_DUE = "overbidDue";
+//
+//    private static final String MAYBE_GOOD_DOG = "maybeGoodDog";
+//
+//    private static final String FOE_WIN_TRICK = "foeWinTrick";
+//
+//    private static final String PARTNER_WIN_TRICK = "partnerWinTrick";
+//
+//    private static final String ONE_POSSIBILITY = "onePossibility";
+//
+//    private static final String ONLY_PLAYER = "onlyPlayer";
+//
+//    private static final String SINGLE_DISCARDED_CARDS = "singleDiscaredCards";
+//
+//    private static final String NO_SLAM = "noSlam";
+//
+//    private static final String SLAM = "slam";
+//
+//    private static final String WIN_ALL_TRICKS = "winAllTricks";
+//
+//    private static final String HIDE_WEAKEST_TRUMPS = "hideWeakestTrumps";
+//
+//    private static final String SINGLE_CARD= "singleCard";
+//
+//    private static final String NO_WIN_ALL_TRICK= "noWinAllTrick";
+//
+//    private static final String SMALL_BOUND = "smallBound";
+//
+//    private static final String SMALL_NOW = "smallNow";
+//
+//    private static final String SAVED_SMALL = "savedSmall";
+//
+//    private static final String CATCH_CHARS = "catchChars";
+//
+//    private static final String NO_CATCH = "noCatch";
 
     private static final int PERCENT_MAX = 100;
 
     private static final int PERCENT_DELTA = 10;
+
+    private AtomicInteger chargementSimulation = new AtomicInteger();
 
     /**
     Le type d'une partie est aleatoire ou encore edite ou encore un
@@ -1191,15 +1191,15 @@ public final class GameTarot {
             if (c_.estDemandable(bid)) {
                 if (c_ == BidTarot.TAKE) {
                     if (bids.size() == nombreJoueurs_ - 1) {
-                        formatTake();
+//                        formatTake();
                         c_ = BidTarot.GUARD;
                     }
                 }
                 return c_;
             }
-            if (c_.isJouerDonne()) {
-                formatNoBid(c_);
-            }
+//            if (c_.isJouerDonne()) {
+//                formatNoBid(c_);
+//            }
             return BidTarot.FOLD;
         } catch (RuntimeException _0) {
             _0.printStackTrace();
@@ -1207,14 +1207,14 @@ public final class GameTarot {
         }
     }
 
-    private void formatNoBid(BidTarot _c) {
-        reason = new StringBuilder(format(HAND_VALUE_NO_SUIT, _c.display(), bid.display())).append(RETURN_LINE);
-        reason.append(format(OVERBID_DUE));
-    }
+//    private void formatNoBid(BidTarot _c) {
+//        reason = new StringBuilder(format(HAND_VALUE_NO_SUIT, _c.display(), bid.display())).append(RETURN_LINE);
+//        reason.append(format(OVERBID_DUE));
+//    }
 
-    private void formatTake() {
-        reason = new StringBuilder(format(MAYBE_GOOD_DOG));
-    }
+//    private void formatTake() {
+//        reason = new StringBuilder(format(MAYBE_GOOD_DOG));
+//    }
 
 
     /**
@@ -1844,12 +1844,12 @@ public final class GameTarot {
             HandTarot cartesAppelerChelem_ = new HandTarot();
             for(CardTarot c: callableCards()) {
                 if(figuresPreneur_.contient(c)) {
-                    formatCall();
+//                    formatCall();
                     cartesAppelerChelem_.ajouter(c);
                     return cartesAppelerChelem_;
                 }
             }
-            formatRandCall();
+//            formatRandCall();
             return callableCards();
         }
         HandTarot rois_ = _mainPreneur.figuresMain(CardChar.KING);
@@ -1935,13 +1935,13 @@ public final class GameTarot {
 
     }
 
-    private void formatRandCall() {
-        reason = new StringBuilder(format(ONE_POSSIBILITY));
-    }
+//    private void formatRandCall() {
+//        reason = new StringBuilder(format(ONE_POSSIBILITY));
+//    }
 
-    private void formatCall() {
-        reason = new StringBuilder(format(ONLY_PLAYER));
-    }
+//    private void formatCall() {
+//        reason = new StringBuilder(format(ONLY_PLAYER));
+//    }
 
 
     /**
@@ -2109,7 +2109,7 @@ public final class GameTarot {
         cardsToBeDiscarded.ajouter(_c);
         boolean allowed_ = getCartesEcartables(getDistribution()
                 .derniereMain().total() - (cardsToBeDiscarded.total() - 1),
-                m.couleurs()).contient(_c);
+                m.couleurs(),_loc).contient(_c);
         if (!allowed_) {
             cardsToBeDiscarded.jouer(_c);
         }
@@ -2117,7 +2117,7 @@ public final class GameTarot {
     }
     HandTarot getCartesEcartables(int _nombreCartesChien,
             EnumMap<Suit,HandTarot> _repartition) {
-        return getCartesEcartables(_nombreCartesChien,_repartition,Constants.getLanguage());
+        return getCartesEcartables(_nombreCartesChien, _repartition, Constants.getDefaultLanguage());
     }
     HandTarot getCartesEcartables(int _nombreCartesChien,
             EnumMap<Suit,HandTarot> _repartition, String _loc) {
@@ -2366,7 +2366,7 @@ public final class GameTarot {
             return ecart_;
         }
         if (ecartables_.total() == tailleChien_) {
-            formatDiscard();
+//            formatDiscard();
             return ecartables_;
         }
         if(nombreDeCoupesFranches(repartition_) == 0) {
@@ -2650,9 +2650,9 @@ public final class GameTarot {
         return ecart_;
     }
 
-    private void formatDiscard() {
-        reason = new StringBuilder(format(SINGLE_DISCARDED_CARDS));
-    }
+//    private void formatDiscard() {
+//        reason = new StringBuilder(format(SINGLE_DISCARDED_CARDS));
+//    }
 
     public void invaliderAjoutCarteAuChien(CardTarot _ct) {
         cardsToBeDiscarded.jouer(_ct);
@@ -2816,20 +2816,20 @@ public final class GameTarot {
         EnumMap<Suit,HandTarot> repartition_ = _mainJoueur.couleurs();
         byte nombreJoueurs_ = getNombreDeJoueurs();
         if (estUnJeuDeChelem(repartition_, new HandTarot().couleurs(), rules, calledCards, nombreJoueurs_)) {
-            formatSlam();
+//            formatSlam();
             return true;
         }
-        formatNoSlam();
+//        formatNoSlam();
         return false;
     }
 
-    private void formatNoSlam() {
-        reason = new StringBuilder(format(NO_SLAM));
-    }
+//    private void formatNoSlam() {
+//        reason = new StringBuilder(format(NO_SLAM));
+//    }
 
-    private void formatSlam() {
-        reason = new StringBuilder(format(SLAM));
-    }
+//    private void formatSlam() {
+//        reason = new StringBuilder(format(SLAM));
+//    }
 
     private static boolean maitreAtoutPourChelem(EnumMap<Suit,HandTarot> _couleurs,
             byte _joueurs) {
@@ -2913,7 +2913,7 @@ public final class GameTarot {
             EnumMap<Suit,HandTarot> _cartesJouees,
             RulesTarot _infos, HandTarot _cartesAppeler,byte _joueurs) {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
-            formatIsSlam();
+//            formatIsSlam();
             return true;
         }
         if (!maitreAtoutPourChelem(_couleurs,_joueurs)) {
@@ -2941,9 +2941,9 @@ public final class GameTarot {
         return nombreCouleursLargMait_ == couleursOrdinaires().size();
     }
 
-    private void formatIsSlam() {
-        reason = new StringBuilder(format(WIN_ALL_TRICKS));
-    }
+//    private void formatIsSlam() {
+//        reason = new StringBuilder(format(WIN_ALL_TRICKS));
+//    }
 
     public void slam() {
         ajouterChelem(getPreneur(),annoncerUnChelem(getPreneur()));
@@ -3089,14 +3089,14 @@ public final class GameTarot {
                 }
             }
 
-            formatHandful();
+//            formatHandful();
         }
         return poignee_;
     }
 
-    private void formatHandful() {
-        reason = new StringBuilder(format(HIDE_WEAKEST_TRUMPS));
-    }
+//    private void formatHandful() {
+//        reason = new StringBuilder(format(HIDE_WEAKEST_TRUMPS));
+//    }
 
     /** trie les atouts de la maniere suivante: (Excuse, 21, 20, ... 1) */
     public static HandTarot atoutsPoignee(EnumMap<Suit,HandTarot> _repartition) {
@@ -3343,7 +3343,7 @@ public final class GameTarot {
     }
 
     HandTarot playableCards(EnumMap<Suit,HandTarot> _repartitionMain) {
-        return cartesJouables(_repartitionMain, Constants.getLanguage());
+        return cartesJouables(_repartitionMain, Constants.getDefaultLanguage());
     }
     HandTarot cartesJouables(EnumMap<Suit,HandTarot> _repartitionMain, String _loc) {
         HandTarot atoutsJoues_ = progressingTrick.getCartes().couleurs().getVal(couleurAtout());
@@ -4158,7 +4158,7 @@ public final class GameTarot {
         cardsToBePlayed = new HandTarot();
         HandTarot cartesJouables_ = playableCards(repartition_);
         if (cartesJouables_.total() == 1) {
-            formatBeginTrick();
+//            formatBeginTrick();
             return cartesJouables_.premiereCarte();
         }
         if (existePreneur() || pasJeuMisere()) {
@@ -4168,9 +4168,9 @@ public final class GameTarot {
         return entameMiserePetite(numero_, mainJoueur_, cartesJouables_);
     }
 
-    private void formatBeginTrick() {
-        reason = new StringBuilder(format(SINGLE_CARD));
-    }
+//    private void formatBeginTrick() {
+//        reason = new StringBuilder(format(SINGLE_CARD));
+//    }
 
     private CardTarot entameClassique(byte _numero,
             HandTarot _mainJoueur,
@@ -5655,7 +5655,7 @@ public final class GameTarot {
         cardsToBePlayed = new HandTarot();
         HandTarot cartesJouables_ = playableCards(repartition_);
         if (cartesJouables_.total() == 1) {
-            formatBeginTrick();
+//            formatBeginTrick();
             return cartesJouables_.premiereCarte();
         }
         if (progressingTrick.couleurDemandee() == Suit.UNDEFINED) {
@@ -5741,18 +5741,18 @@ public final class GameTarot {
                 carteForte_);
         boolean maitreJeu_ = info_.isMaitreJeu();
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason.append(format(FOE_WIN_TRICK));
+//            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason.append(format(NO_WIN_ALL_TRICK));
+//                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return carteLaPlusPetite(suites_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason.append(format(PARTNER_WIN_TRICK));
+//            reason.append(format(PARTNER_WIN_TRICK));
             if (maitreJeu_) {
                 if (contientExcuse_) {
                     return CardTarot.excuse();
@@ -6494,12 +6494,12 @@ public final class GameTarot {
                 carteForte_);
         boolean maitreJeu_ = info_.isMaitreJeu();
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason.append(format(FOE_WIN_TRICK));
+//            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason.append(format(NO_WIN_ALL_TRICK));
+//                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             /* La couleur demandee est atout */
@@ -6508,7 +6508,7 @@ public final class GameTarot {
                             repartitionCartesJouees_, couleurDemandee_), contientExcuse_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason.append(format(PARTNER_WIN_TRICK));
+//            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -6534,10 +6534,10 @@ public final class GameTarot {
             }
             Numbers<Byte> joueursNonConfiance_ = joueursNonConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
             if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-                reason.append(format(SMALL_BOUND));
+//                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
-            reason.append(format(SMALL_NOW));
+//            reason.append(format(SMALL_NOW));
             return CardTarot.petit();
         }
         //incertitude du ramasseur a la couleur demandee (founiture obligatoire de la couleur demandee)
@@ -6675,12 +6675,12 @@ public final class GameTarot {
         boolean maitreJeu_ = info_.isMaitreJeu();
         //jouer un atout en coupe, surcoupe ou souscoupe
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason.append(format(FOE_WIN_TRICK));
+//            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason.append(format(NO_WIN_ALL_TRICK));
+//                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return atoutLePlusPetit(
@@ -6688,7 +6688,7 @@ public final class GameTarot {
                             repartitionCartesJouees_, couleurDemandee_), contientExcuse_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason.append(format(PARTNER_WIN_TRICK));
+//            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -6720,10 +6720,10 @@ public final class GameTarot {
                 }
             }
             if (carteMaitresse_) {
-                reason.append(format(SMALL_BOUND));
+//                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
-            reason.append(format(SMALL_NOW));
+//            reason.append(format(SMALL_NOW));
             return CardTarot.petit();
         }
         if (_mainJoueur.total() == 2 && contientExcuse_) {
@@ -6778,13 +6778,13 @@ public final class GameTarot {
                 return atoutLePlusPetit(suites_, contientExcuse_);
             }
             if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-                reason.append(format(SMALL_BOUND));
+//                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
             if (tours_.isEmpty()) {
                 /* Si c'est le premier tour */
                 if (joueursConfiance_.containsObj(ramasseurVirtuel_)) {
-                    reason.append(format(SAVED_SMALL));
+//                    reason.append(format(SAVED_SMALL));
                     return atoutsCoupe_.derniereCarte();
                 }
                 return atoutLePlusPetit(suites_, contientExcuse_);
@@ -6795,7 +6795,7 @@ public final class GameTarot {
                         .total() < 8
                         || progressingTrick.joueursCoupes(nombreJoueurs_)
                         .size() > 1) {
-                    reason.append(format(SAVED_SMALL));
+//                    reason.append(format(SAVED_SMALL));
                     return atoutsCoupe_.derniereCarte();
                 }
             }
@@ -6889,7 +6889,7 @@ public final class GameTarot {
                         .premiereCarte();
             }
             if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-                reason.append(format(SMALL_BOUND));
+//                reason.append(format(SMALL_BOUND));
                 return atoutLePlusPetit(suites_);
             }
             if (coupesFranches_.size() == 1) {
@@ -6905,7 +6905,7 @@ public final class GameTarot {
                         }
                     }
                     if (carteMaitresse_) {
-                        reason.append(format(SMALL_NOW));
+//                        reason.append(format(SMALL_NOW));
                         return CardTarot.petit();
                     }
                     return atoutLePlusPetit(suites_);
@@ -6924,7 +6924,7 @@ public final class GameTarot {
                     }
                 }
                 if (carteMaitresse_) {
-                    reason.append(format(SMALL_NOW));
+//                    reason.append(format(SMALL_NOW));
                     return CardTarot.petit();
                 }
                 if (atoutsCoupe_.total() > 1
@@ -7021,7 +7021,7 @@ public final class GameTarot {
                 }
                 if (nombrePoints_ > 7) {
                     if (!cartesRelMaitres_.isEmpty()) {
-                        reason.append(format(CATCH_CHARS));
+//                        reason.append(format(CATCH_CHARS));
                         return cartesRelMaitres_.last()
                                 .premiereCarte();
                     }
@@ -7031,7 +7031,7 @@ public final class GameTarot {
                             carteMaitresse_ = true;
                         }
                         if (carteMaitresse_) {
-                            reason.append(format(NO_CATCH));
+//                            reason.append(format(NO_CATCH));
                             return atoutLePlusPetit(suites_,
                                     contientExcuse_);
                         }
@@ -7120,7 +7120,7 @@ public final class GameTarot {
         cette couleur ou plus
         */
         if (pasAtout(joueursNonConfiance_, cartesPossibles_)) {
-            reason.append(format(SMALL_BOUND));
+//            reason.append(format(SMALL_BOUND));
             return atoutLePlusPetit(suites_);
         }
         if (maitreJeu_ && !cartesRelMaitres_.isEmpty()) {
@@ -7136,7 +7136,7 @@ public final class GameTarot {
             }
         }
         if (carteMaitresse_) {
-            reason.append(format(SMALL_NOW));
+//            reason.append(format(SMALL_NOW));
             return CardTarot.petit();
         }
         if (nombreJoueurs_ < 5) {
@@ -7148,7 +7148,7 @@ public final class GameTarot {
                 Numbers<Byte> joueursCoupePreTour_ = plisFaits_
                         .get(tours_.first()).joueursCoupes();
                 if (intersectionJoueurs(joueursNonConfiance_, autresJoueurs(joueursCoupePreTour_, nombreJoueurs_)).isEmpty()) {
-                    reason.append(format(SMALL_NOW));
+//                    reason.append(format(SMALL_NOW));
                     return CardTarot.petit();
                 }
             }
@@ -7198,12 +7198,12 @@ public final class GameTarot {
 
         //defausse sur une couleur ordinaire
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason.append(format(FOE_WIN_TRICK));
+//            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason.append(format(NO_WIN_ALL_TRICK));
+//                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return defausseCouleurDemandeeSurAdversaire(
@@ -7212,7 +7212,7 @@ public final class GameTarot {
                     couleursStrictesMaitresses_, couleurDemandee_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason.append(format(PARTNER_WIN_TRICK));
+//            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -7301,12 +7301,12 @@ public final class GameTarot {
         EnumList<Suit> couleursNonVides_ = couleursNonAtoutNonVides(_mainJoueur, couleursOrdinaires());
         //defausse sur l'atout
         if (ramasseurCertain_ == PossibleTrickWinner.FOE_TEAM) {
-            reason.append(format(FOE_WIN_TRICK));
+//            reason.append(format(FOE_WIN_TRICK));
             if (maitreJeu_ && contientExcuse_) {
                 return CardTarot.excuse();
             }
             if (_mainJoueur.total() == 2 && contientExcuse_) {
-                reason.append(format(NO_WIN_ALL_TRICK));
+//                reason.append(format(NO_WIN_ALL_TRICK));
                 return CardTarot.excuse();
             }
             return defausseAtoutSurAdversaire(suitesTouteCouleur_,
@@ -7314,7 +7314,7 @@ public final class GameTarot {
                     cartesMaitresses_, couleursStrictesMaitresses_);
         }
         if (ramasseurCertain_ == PossibleTrickWinner.TEAM) {
-            reason.append(format(PARTNER_WIN_TRICK));
+//            reason.append(format(PARTNER_WIN_TRICK));
             if (_mainJoueur.total() == 2 && contientExcuse_) {
                 Numbers<Byte> joueursConfiance_ = joueursConfiance(_numero,tousJoueurs(nombreDeJoueurs_));
                 Numbers<Byte> equipeNumero_ = new Numbers<Byte>();
@@ -14821,16 +14821,16 @@ public final class GameTarot {
         return Suit.couleursOrdinaires();
     }
 
-    private String format(String _key, String... _vars) {
-        return Format.formatter(FOLDER, file, Constants.getLanguage(), _key, _vars);
+//    private String format(String _key, String... _vars) {
+//        return Format.formatter(FOLDER, file, Constants.getLanguage(), _key, _vars);
+//    }
+
+    public int getChargementSimulation() {
+        return chargementSimulation.get();
     }
 
-    public static int getChargementSimulation() {
-        return _chargementSimulation_.get();
-    }
-
-    public static void setChargementSimulation(int _chargementSimulation) {
-        GameTarot._chargementSimulation_.set(_chargementSimulation);
+    public void setChargementSimulation(int _chargementSimulation) {
+        chargementSimulation.set(_chargementSimulation);
     }
 
     public DealTarot getDeal() {

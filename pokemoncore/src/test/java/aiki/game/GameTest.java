@@ -1586,7 +1586,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(2, 0, 2, 4));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(2, 0, 2, 3), game_.getPlayerCoords());
@@ -1599,7 +1599,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(4, 0, 2, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(2, 0, 2, 5), game_.getPlayerCoords());
@@ -1612,7 +1612,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(1, 0, 5, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(1, 0, 5, 1, 4, 8), game_.getPlayerCoords());
@@ -1625,7 +1625,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(1, 0, 5, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(1, 0, 5, 2), game_.getPlayerCoords());
@@ -1638,7 +1638,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(1, 0, 5, 1, 4, 7), game_.getPlayerCoords());
@@ -1651,7 +1651,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 7));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(1, 0, 5, 2), game_.getPlayerCoords());
@@ -1664,7 +1664,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 7, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(0, game_.getNbSteps());
         assertEq(newCoords(1, 0, 5, 1, 7, 8), game_.getPlayerCoords());
@@ -1677,7 +1677,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(1, 0, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(0, game_.getNbSteps());
         assertEq(newCoords(1, 0, 4, 2), game_.getPlayerCoords());
@@ -1690,7 +1690,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(4, 0, 0, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(5, 0, 7, 2), game_.getPlayerCoords());
@@ -1703,7 +1703,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(2, 0, 11, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(0, game_.getNbSteps());
         assertEq(newCoords(2, 0, 11, 3), game_.getPlayerCoords());
@@ -1716,7 +1716,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(5, 0, 7, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(4, 0, 0, 2), game_.getPlayerCoords());
@@ -1728,7 +1728,7 @@ public class GameTest extends InitializationDataBase {
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 7, 4));
         game_.setPlayerOrientation(Direction.DOWN);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(5, 1, 7, 5), game_.getPlayerCoords());
@@ -1740,7 +1740,7 @@ public class GameTest extends InitializationDataBase {
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 7, 3));
         game_.setPlayerOrientation(Direction.DOWN);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(5, 0, 7, 4), game_.getPlayerCoords());
@@ -1752,7 +1752,7 @@ public class GameTest extends InitializationDataBase {
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
         game_.setPlayerOrientation(Direction.DOWN);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(0, game_.getNbSteps());
         assertEq(newCoords(5, 0, 1, 4), game_.getPlayerCoords());
@@ -1764,7 +1764,7 @@ public class GameTest extends InitializationDataBase {
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(4, 0, 1, 3));
         game_.setPlayerOrientation(Direction.DOWN);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(0, game_.getNbSteps());
         assertEq(newCoords(4, 0, 1, 3), game_.getPlayerCoords());
@@ -1782,7 +1782,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(4, 0, 1, 4), game_.getPlayerCoords());
@@ -1801,7 +1801,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(6, 0, 4, 8), game_.getPlayerCoords());
@@ -1819,7 +1819,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(6, 0, 4, 7), game_.getPlayerCoords());
@@ -1837,7 +1837,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(6, 0, 4, 0), game_.getPlayerCoords());
@@ -1855,7 +1855,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(0, game_.getNbSteps());
         assertEq(newCoords(6, 0, 4, 5), game_.getPlayerCoords());
@@ -1874,7 +1874,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.setRankLeague((byte) 1);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(6, 1, 4, 8), game_.getPlayerCoords());
@@ -1893,7 +1893,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.setRankLeague((byte) 1);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(6, 1, 4, 0), game_.getPlayerCoords());
@@ -1912,7 +1912,7 @@ public class GameTest extends InitializationDataBase {
         game_.getBeatGymTrainer().getVal((short) 3).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));
         game_.setRankLeague((byte) 2);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(game_.isPlaceChanged());
         assertEq(1, game_.getNbSteps());
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
@@ -1924,7 +1924,7 @@ public class GameTest extends InitializationDataBase {
         game_.initUtilisateur(NICKNAME, null, new Difficulty(), _data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.LEFT);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         assertTrue(!game_.isPlaceChanged());
         assertEq(0, game_.getNbSteps());
         assertEq(newCoords(0, 0, 0, 0), game_.getPlayerCoords());
@@ -1937,7 +1937,7 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(game_.getFight().getFightType().isWild());
         assertEq(InterfaceType.COMBAT_PK_SAUV, game_.getInterfaceType());
@@ -1956,7 +1956,7 @@ public class GameTest extends InitializationDataBase {
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), _data_);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(InterfaceType.DON_OBJET, game_.getInterfaceType());
@@ -1975,7 +1975,7 @@ public class GameTest extends InitializationDataBase {
         pokemonDonne_.setAbility(STATIK);
         pokemonDonne_.setGender(Gender.NO_GENDER);
         game_.getPlayer().recevoirPokemon(pokemonDonne_, game_.getDifficulty(), _data_);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
@@ -1988,7 +1988,7 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 3, 0));
         game_.setPlayerOrientation(Direction.LEFT);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(game_.getFight().getFightType().isWild());
         assertEq(InterfaceType.COMBAT_PK_SAUV, game_.getInterfaceType());
@@ -2001,7 +2001,7 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.LEFT);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
@@ -2014,7 +2014,7 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(2, 0, 3, 2));
         game_.setPlayerOrientation(Direction.UP);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(InterfaceType.DRESSEUR, game_.getInterfaceType());
@@ -2027,7 +2027,7 @@ public class GameTest extends InitializationDataBase {
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(4, 0, 5, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
@@ -2043,7 +2043,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().getItem(REPOUSSE);
         game_.getPlayer().chooseObject(REPOUSSE);
         game_.getPlayer().useObject(_data_);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
@@ -2059,7 +2059,7 @@ public class GameTest extends InitializationDataBase {
         game_.getPlayer().getItem(REPOUSSE);
         game_.getPlayer().chooseObject(REPOUSSE);
         game_.getPlayer().useObject(_data_);
-        game_.movingHero(_data_.getMap());
+        game_.movingHero(_data_);
         game_.processWalkingAreaApparition(game_.closestTile(_data_.getMap()), _data_);
         assertTrue(!game_.getFight().getFightType().isExisting());
         assertEq(InterfaceType.RIEN, game_.getInterfaceType());
@@ -5604,7 +5604,7 @@ public class GameTest extends InitializationDataBase {
         game_.getItem(LAVA);
         game_.getDifficulty().setRandomWildFight(false);
         game_.getCommentGame().addMessage(NICKNAME);
-        game_.addMessageGymLeader();
+        game_.addMessageGymLeader(_data_);
         assertEq(1, game_.getCommentGame().getMessages().size());
     }
 

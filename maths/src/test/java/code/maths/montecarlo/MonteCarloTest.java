@@ -118,7 +118,7 @@ public class MonteCarloTest {
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
-        assertEq(LgInt.zero(), AbMonteCarlo.randomNumber(list_));
+        assertEq(LgInt.zero(), AbMonteCarlo.randomNumberSe(list_, new LgInt(8)));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class MonteCarloTest {
         list_.add(LgInt.zero());
         list_.add(LgInt.one());
         list_.add(LgInt.zero());
-        assertEq(AbMonteCarlo.getMaxRandom(), AbMonteCarlo.randomNumber(list_));
+        assertEq(new LgInt(1024), AbMonteCarlo.randomNumberSe(list_, new LgInt(1024)));
     }
 
     @Test
@@ -139,23 +139,23 @@ public class MonteCarloTest {
         list_.add(LgInt.zero());
         list_.add(LgInt.zero());
         list_.add(int_);
-        assertEq(int_, AbMonteCarlo.randomNumber(list_));
+        assertEq(int_, AbMonteCarlo.randomNumberSe(list_, new LgInt(8)));
     }
 
     @Test
     public void editNumber1Test() {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(2, new LgInt(1));
-        assertEq(2, law_.editNumber().intValue());
+        assertEq(2, law_.editNumber(new LgInt(8)).intValue());
     }
 
     @Test
     public void editNumber2Test() {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(2, new LgInt(1));
-        assertEq(2, law_.editNumber(LgInt.zero()).intValue());
-        assertEq(2, law_.editNumber(LgInt.one()).intValue());
-        assertEq(2, law_.editNumber(new LgInt(2)).intValue());
+        assertEq(2, law_.editNumberSeed(LgInt.zero()).intValue());
+        assertEq(2, law_.editNumberSeed(LgInt.one()).intValue());
+        assertEq(2, law_.editNumberSeed(new LgInt(2)).intValue());
     }
 
     @Test
@@ -163,10 +163,10 @@ public class MonteCarloTest {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(2, new LgInt(1));
         law_.addEvent(3, new LgInt(1));
-        assertEq(2, law_.editNumber(LgInt.zero()).intValue());
-        assertEq(3, law_.editNumber(LgInt.one()).intValue());
-        assertEq(2, law_.editNumber(new LgInt(2)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(3)).intValue());
+        assertEq(2, law_.editNumberSeed(LgInt.zero()).intValue());
+        assertEq(3, law_.editNumberSeed(LgInt.one()).intValue());
+        assertEq(2, law_.editNumberSeed(new LgInt(2)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(3)).intValue());
     }
 
     @Test
@@ -174,15 +174,15 @@ public class MonteCarloTest {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(2, new LgInt(3));
         law_.addEvent(3, new LgInt(5));
-        assertEq(2, law_.editNumber(LgInt.zero()).intValue());
-        assertEq(2, law_.editNumber(LgInt.one()).intValue());
-        assertEq(2, law_.editNumber(new LgInt(2)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(3)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(4)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(5)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(6)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(7)).intValue());
-        assertEq(2, law_.editNumber(new LgInt(8)).intValue());
+        assertEq(2, law_.editNumberSeed(LgInt.zero()).intValue());
+        assertEq(2, law_.editNumberSeed(LgInt.one()).intValue());
+        assertEq(2, law_.editNumberSeed(new LgInt(2)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(3)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(4)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(5)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(6)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(7)).intValue());
+        assertEq(2, law_.editNumberSeed(new LgInt(8)).intValue());
     }
 
     @Test
@@ -190,15 +190,15 @@ public class MonteCarloTest {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(2, new LgInt(0));
         law_.addEvent(3, new LgInt(5));
-        assertEq(3, law_.editNumber(LgInt.zero()).intValue());
-        assertEq(3, law_.editNumber(LgInt.one()).intValue());
-        assertEq(3, law_.editNumber(new LgInt(2)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(3)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(4)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(5)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(6)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(7)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(8)).intValue());
+        assertEq(3, law_.editNumberSeed(LgInt.zero()).intValue());
+        assertEq(3, law_.editNumberSeed(LgInt.one()).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(2)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(3)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(4)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(5)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(6)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(7)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(8)).intValue());
     }
 
     @Test
@@ -206,15 +206,15 @@ public class MonteCarloTest {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(3, new LgInt(5));
         law_.addEvent(2, new LgInt(0));
-        assertEq(3, law_.editNumber(LgInt.zero()).intValue());
-        assertEq(3, law_.editNumber(LgInt.one()).intValue());
-        assertEq(3, law_.editNumber(new LgInt(2)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(3)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(4)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(5)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(6)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(7)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(8)).intValue());
+        assertEq(3, law_.editNumberSeed(LgInt.zero()).intValue());
+        assertEq(3, law_.editNumberSeed(LgInt.one()).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(2)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(3)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(4)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(5)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(6)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(7)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(8)).intValue());
     }
 
     @Test
@@ -223,28 +223,28 @@ public class MonteCarloTest {
         law_.addEvent(3, new LgInt(5));
         law_.addEvent(2, new LgInt(0));
         law_.addEvent(4, new LgInt(3));
-        assertEq(3, law_.editNumber(LgInt.zero()).intValue());
-        assertEq(3, law_.editNumber(LgInt.one()).intValue());
-        assertEq(3, law_.editNumber(new LgInt(2)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(3)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(4)).intValue());
-        assertEq(4, law_.editNumber(new LgInt(5)).intValue());
-        assertEq(4, law_.editNumber(new LgInt(6)).intValue());
-        assertEq(4, law_.editNumber(new LgInt(7)).intValue());
-        assertEq(3, law_.editNumber(new LgInt(8)).intValue());
+        assertEq(3, law_.editNumberSeed(LgInt.zero()).intValue());
+        assertEq(3, law_.editNumberSeed(LgInt.one()).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(2)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(3)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(4)).intValue());
+        assertEq(4, law_.editNumberSeed(new LgInt(5)).intValue());
+        assertEq(4, law_.editNumberSeed(new LgInt(6)).intValue());
+        assertEq(4, law_.editNumberSeed(new LgInt(7)).intValue());
+        assertEq(3, law_.editNumberSeed(new LgInt(8)).intValue());
     }
 
     @Test
     public void editNumber9Test() {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
-        assertNull(law_.editNumber());
+        assertNull(law_.editNumber(new LgInt(8)));
     }
 
     @Test
     public void editNumber10Test() {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(3, new LgInt(5));
-        assertEq(3, law_.editNumber().intValue());
+        assertEq(3, law_.editNumber(new LgInt(8)).intValue());
     }
 
     @Test
@@ -252,6 +252,6 @@ public class MonteCarloTest {
         MonteCarloNb<Integer> law_ = new MonteCarloNb<Integer>();
         law_.addEvent(2, new LgInt(0));
         law_.addEvent(3, new LgInt(5));
-        assertEq(3, law_.editNumber().intValue());
+        assertEq(3, law_.editNumber(new LgInt(8)).intValue());
     }
 }

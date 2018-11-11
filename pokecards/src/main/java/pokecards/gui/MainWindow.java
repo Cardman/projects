@@ -34,26 +34,27 @@ public final class MainWindow extends GroupFrame {
 
     private CustList<JRadioButton> radios = new CustList<JRadioButton>();
 
-    public MainWindow() {
+    public MainWindow(String _lg) {
+        super(_lg);
         setFocusableWindowState(true);
         setTitle(POKE_CARDS);
         Panel panel_ = new Panel();
         panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
         Panel linePokemon_ = new Panel();
         buttonPokemon = new LabelButton(new ImageIcon(LaunchingPokemon.getIcon()));
-        buttonPokemon.addMouseListener(new PokemonEvent());
+        buttonPokemon.addMouseListener(new PokemonEvent(this));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
         Panel lineCards_ = new Panel();
         buttonCards = new LabelButton(new ImageIcon(LaunchingCards.getIcon()));
-        buttonCards.addMouseListener(new CardsEvent());
+        buttonCards.addMouseListener(new CardsEvent(this));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
         panel_.add(new Clock());
         for (String l: Constants.getAvailableLanguages()) {
             JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new SetLanguage(l));
-            radio_.setSelected(StringList.quickEq(l,Constants.getLanguage()));
+            radio_.setSelected(StringList.quickEq(l,_lg));
             group.add(radio_);
             panel_.add(radio_);
             radios.add(radio_);
@@ -88,7 +89,7 @@ public final class MainWindow extends GroupFrame {
     @Override
     public void changeLanguage(String _language) {
         if (GroupFrame.canChangeLanguageAll()) {
-            Constants.setSystemLanguage(_language);
+            setLanguageKey(_language);
             SoftApplicationCore.saveLanguage(LaunchingPokecards.getTempFolder(), _language);
             int i_ = CustList.SECOND_INDEX;
             try {
@@ -100,7 +101,7 @@ public final class MainWindow extends GroupFrame {
             }
             selectLangagueButton(_language);
         } else {
-            selectLangagueButton(Constants.getLanguage());
+            selectLangagueButton(getLanguageKey());
             GroupFrame.showDialogError(this);
         }
     }

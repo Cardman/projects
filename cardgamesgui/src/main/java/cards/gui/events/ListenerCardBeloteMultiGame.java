@@ -5,7 +5,6 @@ import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.PlayingCardBelote;
-import code.util.consts.Constants;
 
 public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
 
@@ -36,7 +35,8 @@ public class ListenerCardBeloteMultiGame extends AbstractListenerCardBelote {
         pl_.setDeclaringBeloteRebelote(container.isAnnonceBeloteRebelote());
         pl_.setPlayedCard(getCarteVerif());
         pl_.setDeclare(new DeclareHandBelote());
-        pl_.setLocale(Constants.getLanguage());
+        String lg_ = container.getOwner().getLanguageKey();
+        pl_.setLocale(lg_);
         container.getOwner().sendObject(pl_);
     }
 

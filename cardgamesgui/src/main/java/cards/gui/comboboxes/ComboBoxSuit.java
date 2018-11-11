@@ -4,8 +4,8 @@ import code.gui.ComboBox;
 
 public final class ComboBoxSuit extends ComboBox<Suit> {
 
-    public void addItem(Suit _item) {
-        getElements().put(_item, _item.display());
-        super.addItem(_item, _item.display());
+    public void addItemLgKey(Suit _item, String _lg) {
+        getElements().put(_item, _item.toString(_lg));
+        super.addItem(_item, _item.toString(_lg));
     }
 }

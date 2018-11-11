@@ -36,7 +36,7 @@ abstract class PartType {
                 if (_options.isVarTypeFirst()) {
                     type_ = ContextEl.removeDottedSpaces(type_);
                     boolean okVarType_ = false;
-                    if (_parent == null) {
+                    if (_parent == null || _parent instanceof ArraryPartType || _parent instanceof WildCardPartType) {
                         okVarType_ = true;
                     } else if (_parent instanceof TemplatePartType && _parent.getFirstChild() != null) {
                         okVarType_ = true;

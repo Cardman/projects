@@ -15,7 +15,6 @@ import cards.gui.labels.GraphicBeloteCard;
 import code.gui.ConfirmDialog;
 import code.gui.Panel;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
 
@@ -37,9 +36,10 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
     }
     @Override
     protected void verifierRegles(){
+        String lg_ = container.getOwner().getLanguageKey();
         if(StringList.quickEq(container.getRaisonCourante(),ContainerBelote.EMPTY)){
             GameBelote partie_=container.partieBelote();
-            boolean autorise_ = partie_.autorise(getCarteVerif(),Constants.getLanguage());
+            boolean autorise_ = partie_.autorise(getCarteVerif(),lg_);
             if(container.isAnnonceBeloteRebelote()) {
                 boolean annonceBeloteRebelote_ = partie_.cartesBeloteRebelote().contient(getCarteVerif());
                 if (!annonceBeloteRebelote_) {
@@ -52,19 +52,10 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                     HandBelote cartesBeloteRebelote_=partie_.cartesBeloteRebelote();
                     /*On ordonne la poignee d'atouts*/
                     Panel panneau_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-                    for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(cartesBeloteRebelote_)) {
+                    for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,cartesBeloteRebelote_)) {
                         panneau_.add(c);
                     }
-//                    boolean entered_ = false;
-//                    for(CardBelote c: cartesBeloteRebelote_)
-//                    {
-//                        GraphicBeloteCard carte_=new GraphicBeloteCard(c,SwingConstants.RIGHT,!entered_);
-//                        carte_.setPreferredSize(entered_);
-//                        panneau_.add(carte_);
-//                        entered_ = true;
-//                    }
-                    ConfirmDialog.showComponent(container.getOwner(), panneau_, container.getMessages().getVal(MainWindow.HAVE_TO_PLAY), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-                    //JOptionPane.showMessageDialog(container.getOwner(),panneau_,container.getMessages().getVal(MainWindow.HAVE_TO_PLAY),JOptionPane.INFORMATION_MESSAGE);
+                    ConfirmDialog.showComponent(container.getOwner(), panneau_, container.getMessages().getVal(MainWindow.HAVE_TO_PLAY), lg_, JOptionPane.ERROR_MESSAGE);
                     return;
                     //il ne faut pas afficher deux boites de dialgue
                 }
@@ -73,17 +64,15 @@ public class ListenerCardBeloteSingleGame extends AbstractListenerCardBelote {
                 container.setaJoueCarte(true);
                 container.finPliBelote(getCarteVerif());
             }else{
-                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().display());
+                String mes_ = StringList.simpleStringsFormat(container.getMessages().getVal(MainWindow.CANT_PLAY_CARD), getCarteVerif().toString(lg_));
                 String finalMessage_ = StringList.concat(mes_,ContainerGame.RETURN_LINE,partie_.getErreurDeJeu());
                 String title_ = container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
-                ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-                //JOptionPane.showMessageDialog(container.getOwner(),mes_+ContainerBelote.RETURN_LINE_CHAR+partie_.getErreurDeJeu(),container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
             }
         }else{
             String finalMessage_ = StringList.concat(container.getMessages().getVal(MainWindow.CANT_PLAY),container.getRaisonCourante());
             String title_ = container.getMessages().getVal(MainWindow.TOO_GAME);
-            ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-            //JOptionPane.showMessageDialog(container.getOwner(),container.getMessages().getVal(MainWindow.CANT_PLAY)+container.getRaisonCourante(),container.getMessages().getVal(MainWindow.TOO_GAME),JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(container.getOwner(), finalMessage_, title_, lg_, JOptionPane.ERROR_MESSAGE);
         }
     }
 }

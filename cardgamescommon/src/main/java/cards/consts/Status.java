@@ -1,16 +1,10 @@
 package cards.consts;
 import code.format.Format;
-import code.util.consts.Constants;
-import code.util.ints.Displayable;
 
 /**Statut du joueur*/
-public enum Status implements Displayable {
+public enum Status  {
 TAKER,CALLED_PLAYER,DEFENDER;
 
-    @Override
-    public String display() {
-        return toString(Constants.getLanguage());
-    }
     public String toString(String _locale) {
         String folderName_ = ResourcesAccess.NOM_DOSSIER;
         String fileName_ = ResourcesAccess.NOM_FICHIER;

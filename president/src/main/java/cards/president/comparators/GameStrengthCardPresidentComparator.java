@@ -1,8 +1,7 @@
 package cards.president.comparators;
-import code.util.ints.Comparing;
-
-import code.util.CustList;
 import cards.president.enumerations.CardPresident;
+import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class GameStrengthCardPresidentComparator implements Comparing<CardPresident> {
 

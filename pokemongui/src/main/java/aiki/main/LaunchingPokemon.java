@@ -126,7 +126,7 @@ public class LaunchingPokemon extends SoftApplicationCore {
 //        path_ = Constants.getInitFolder();
 //        CreateMainWindow create_ = new CreateMainWindow(param_, false, path_, topLeft_);
 //        create_.start();
-        ThreadInvoker.invokeNow(new CreateMainWindow(param_, _args, path_, topLeft_));
+        ThreadInvoker.invokeNow(new CreateMainWindow(param_, _args, path_, topLeft_, _language));
     }
 
     public static Image getIcon() {

@@ -39,6 +39,7 @@ public final class SelectPokemon extends SelectDialog {
 //    private boolean ok;
 
     private StringMap<String> messages;
+    private MainWindow window;
 
     private SelectPokemon() {
         setAccessFile(DIALOG_ACCESS);
@@ -51,7 +52,8 @@ public final class SelectPokemon extends SelectDialog {
     private void init(MainWindow _parent, FacadeGame _facade, boolean _storage) {
         //super(_parent, true);
         setDialogIcon(_parent);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        window = _parent;
+        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
 //        window = _parent;
         setTitle(messages.getVal(TITLE));
         facade = _facade;
@@ -60,7 +62,7 @@ public final class SelectPokemon extends SelectDialog {
 //        ok = false;
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new ScrollPane(new PaginatorPokemon(this, _facade)), BorderLayout.CENTER);
+        contentPane_.add(new ScrollPane(new PaginatorPokemon(_parent, this, _facade)), BorderLayout.CENTER);
         Panel buttons_ = new Panel();
         LabelButton detail_ = new LabelButton(messages.getVal(DETAIL));
         detail_.addMouseListener(new SeePkDetailEvent(this));
@@ -142,9 +144,9 @@ public final class SelectPokemon extends SelectDialog {
         return DIALOG.isOk();
     }
 
-    private static void showHtmlDialog(RenderedPage _session) {
+    private void showHtmlDialog(RenderedPage _session) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session);
+        DialogHtmlData.setDialogHtmlData(window, DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session);
     }
 
     public static void setVisible() {

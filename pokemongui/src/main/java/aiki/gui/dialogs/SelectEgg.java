@@ -8,7 +8,6 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.PaginatorEgg;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
-import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -35,20 +34,20 @@ public final class SelectEgg extends SelectDialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectEgg(GroupFrame _parent, FacadeGame _facade) {
+    public static void setSelectEgg(MainWindow _parent, FacadeGame _facade) {
         DIALOG.init(_parent, _facade);
     }
 
-    private void init(GroupFrame _parent, FacadeGame _facade) {
+    private void init(MainWindow _parent, FacadeGame _facade) {
         setDialogIcon(_parent);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
         setTitle(DIALOG.messages.getVal(TITLE));
         facade = _facade;
         initOk();
 //        ok = false;
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new ScrollPane(new PaginatorEgg(this, _facade)), BorderLayout.CENTER);
+        contentPane_.add(new ScrollPane(new PaginatorEgg(_parent, this, _facade)), BorderLayout.CENTER);
         Panel buttons_ = new Panel();
         LabelButton ok_ = new LabelButton(MainWindow.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));

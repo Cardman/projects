@@ -1,6 +1,5 @@
 package aiki.map.pokemon;
 import aiki.DataBase;
-import aiki.Resources;
 import aiki.comments.Comment;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -31,7 +30,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEnum;
 import code.maths.montecarlo.MonteCarloString;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -39,17 +37,15 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import code.util.consts.Constants;
 
 @RwXml
 public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     public static final String SEPARATOR = "/";
 
-    private static StringMap<String> _messages_ = new StringMap<String>();
+    public static final String POKEMON_PLAYER = "aiki.map.pokemon.PokemonPlayer";
 
 //    private static final String CENT = Byte.toString(Fighter.RATE_CENT);
-    private static final String POKEMON_PLAYER = "aiki.map.pokemon.PokemonPlayer";
 
     private static final String HAPPINESS = "happiness";
 
@@ -227,10 +223,6 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         obtention();
     }
 
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), POKEMON_PLAYER);
-    }
-
     void initAleaCapaciteGenre(DataBase _import){
         PokemonData fPk_=_import.getPokemon(getName());
         GenderRepartition repartitionGenre_=fPk_.getGenderRep();
@@ -238,12 +230,13 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         for(Gender g:repartitionGenre_.getPossibleGenders()){
             loiGenre_.addEvent(g,DataBase.defElementaryEvent());
         }
-        setGender(loiGenre_.editNumber());
+        LgInt maxRd_ = _import.getMaxRd();
+        setGender(loiGenre_.editNumber(maxRd_));
         MonteCarloString loiCapac_ = new MonteCarloString();
         for(String e:fPk_.getAbilities()){
             loiCapac_.addEvent(e,DataBase.defElementaryEvent());
         }
-        setAbility(loiCapac_.editNumber());
+        setAbility(loiCapac_.editNumber(maxRd_));
     }
 
     void initAttaques(DataBase _import, boolean _initEv){
@@ -362,9 +355,10 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
 
     public void initHp(DataBase _import) {
         commentPk.clearMessages();
+        StringMap<String> mess_ = _import.getMessagesPokemonPlayer();
         if (Rate.strGreater(remainingHp, pvMax(_import))) {
             String name_ = _import.translatePokemon(getName());
-            commentPk.addMessage(_messages_.getVal(DECREASING_HP), name_, pvMax(_import).toNumberString(), remainingHp.toNumberString());
+            commentPk.addMessage(mess_.getVal(DECREASING_HP), name_, pvMax(_import).toNumberString(), remainingHp.toNumberString());
             remainingHp = pvMax(_import);
         }
     }
@@ -592,7 +586,8 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
         clearComment();
         happiness+=_var;
         String name_ = _data.translatePokemon(getName());
-        commentPk.addMessage(_messages_.getVal(HAPPINESS), name_, Long.toString(_var));
+        StringMap<String> mess_ = _data.getMessagesPokemonPlayer();
+        commentPk.addMessage(mess_.getVal(HAPPINESS), name_, Long.toString(_var));
     }
 
     public void variationPvRestants(Rate _pv){

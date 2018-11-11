@@ -20,7 +20,6 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.consts.Constants;
 import code.util.opers.BaseSixtyFourUtil;
 
 public class GraphicPresidentCard extends PaintableLabel {
@@ -31,121 +30,48 @@ public class GraphicPresidentCard extends PaintableLabel {
     private boolean peinte;
     private boolean peindreCarte=true;
     private BufferedImage bufferedImage;
-    public GraphicPresidentCard(CardPresident _pc, boolean _fullCard) {
-        setHorizontalAlignment(SwingConstants.RIGHT);
-        setVerticalAlignment(SwingConstants.TOP);
+    private String lg;
+
+    public GraphicPresidentCard(String _lg, CardPresident _pc, int _i, boolean _fullCard) {
+        this(_lg, _i,_fullCard);
         peindreCarte=true;
-        fullCard=_fullCard;
         card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
         }
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), card.getImageFileName(FileConst.TXT_EXT));
-//            bufferedImage = ConverterBufferedImage.decodeToImage(file_);
-//            if (bufferedImage == null) {
-//                throw new BadImageCardException();
-//            }
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-////            try{
-////                bufferedImage = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.PNG_EXT));
-////                if (bufferedImage == null) {
-////                    throw new Exception();
-////                }
-////            }catch(Exception _e) {
-////                peinte=true;
-////            }
-//            peinte=true;
-//        }
     }
 
-    public GraphicPresidentCard(CardPresident _pc, int _i, boolean _fullCard) {
-        this(_i,_fullCard);
-        peindreCarte=true;
-        card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
-        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
-        if (bufferedImage == null) {
-            peinte=true;
-        }
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), card.getImageFileName(FileConst.TXT_EXT));
-//            bufferedImage = ConverterBufferedImage.decodeToImage(file_);
-//            if (bufferedImage == null) {
-//                throw new BadImageCardException();
-//            }
-//        } catch (Exception e_) {
-////            try{
-////                bufferedImage = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.PNG_EXT));
-////                if (bufferedImage == null) {
-////                    throw new Exception();
-////                }
-////            }catch(Exception _e) {
-////                peinte=true;
-////            }
-//            peinte=true;
-//        }
-    }
-
-    public GraphicPresidentCard(int _i, boolean _fullCard) {
+    public GraphicPresidentCard(String _lg, int _i, boolean _fullCard) {
+        lg = _lg;
         peindreCarte=false;
         setHorizontalAlignment(_i);
         setVerticalAlignment(SwingConstants.TOP);
         fullCard=_fullCard;
     }
 
-    public static String getTxtImage(CardPresident _card) {
-        return ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+    public static String getTxtImage(String _lg, CardPresident _card) {
+        return ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,_card.getImageFileName(FileConst.TXT_EXT)));
     }
 
-    public static BufferedImage getImage(CardPresident _card) {
+    public static BufferedImage getImage(String _lg, CardPresident _card) {
         BufferedImage img_;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(getTxtImage(_card));
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(getTxtImage(_lg,_card));
         img_ = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (img_ == null) {
-            return getDefaultImage(_card);
+            return getDefaultImage(_lg, _card);
         }
         Graphics2D g_ = img_.createGraphics();
         g_.setColor(Color.BLACK);
         g_.drawRect(0,0, 99, 149);
         g_.dispose();
         return img_;
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), _card.getImageFileName(FileConst.TXT_EXT));
-//            img_ = ConverterBufferedImage.decodeToImage(file_);
-//            if (img_ == null) {
-//                throw new BadImageCardException();
-//            }
-//            Graphics2D g_ = img_.createGraphics();
-//            g_.setColor(Color.BLACK);
-//            g_.drawRect(0,0, 100, 150);
-//            g_.dispose();
-//            return img_;
-//        } catch (Exception e_) {
-////            try{
-////                img_ = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+_card.getImageFileName(FileConst.PNG_EXT));
-////                if (img_ == null) {
-////                    throw new Exception();
-////                }
-////                Graphics2D g_ = img_.createGraphics();
-////                g_.setColor(Color.BLACK);
-////                g_.drawRect(0,0, 99, 149);
-////                g_.dispose();
-////                return img_;
-////            }catch(Exception _e) {
-////                return getDefaultImage(_card);
-////            }
-//            return getDefaultImage(_card);
-//        }
     }
 
-    public static BufferedImage getDefaultImage(CardPresident _card) {
+    public static BufferedImage getDefaultImage(String _lg, CardPresident _card) {
         BufferedImage img_ = new BufferedImage(100, 150, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g_ = img_.createGraphics();
         g_.setColor(Color.WHITE);
@@ -164,13 +90,13 @@ public class GraphicPresidentCard extends PaintableLabel {
                             g_.setColor(Color.BLACK);
                         }
                         g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),5,12);
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),83,12);
+                        g_.drawString(_card.getSymbol(_lg),5,12);
+                        g_.drawString(_card.getSymbol(_lg),83,12);
                     } else {
                         g_.setColor(Color.BLUE);
                         g_.setFont(new Font(DEFAULT,Font.BOLD,16));
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),5,18);
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),80,18);
+                        g_.drawString(_card.getSymbol(_lg),5,18);
+                        g_.drawString(_card.getSymbol(_lg),80,18);
                         g_.drawLine(45,10,55,10);
                         g_.drawLine(40,3,50,18);
                         g_.drawLine(50,18,60,3);
@@ -198,15 +124,15 @@ public class GraphicPresidentCard extends PaintableLabel {
                             g_.setColor(Color.BLACK);
                         }
                         g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),5,12);
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),83,12);
+                        g_.drawString(_card.getSymbol(_lg),5,12);
+                        g_.drawString(_card.getSymbol(_lg),83,12);
                         dessinerPetitSymbole(_card,g_,5,17);
                         dessinerPetitSymbole(_card,g_,85,17);
                     } else {
                         g_.setColor(Color.BLUE);
                         g_.setFont(new Font(DEFAULT,Font.BOLD,16));
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),7,18);
-                        g_.drawString(_card.getSymbol(Constants.getLanguage()),83,18);
+                        g_.drawString(_card.getSymbol(_lg),7,18);
+                        g_.drawString(_card.getSymbol(_lg),83,18);
                         g_.drawLine(45,10,55,10);
                         g_.drawLine(40,3,50,18);
                         g_.drawLine(50,18,60,3);
@@ -230,8 +156,8 @@ public class GraphicPresidentCard extends PaintableLabel {
                     g_.setColor(Color.BLACK);
                 }
                 g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                g_.drawString(_card.getSymbol(Constants.getLanguage()),5,12);
-                g_.drawString(_card.getSymbol(Constants.getLanguage()),83,12);
+                g_.drawString(_card.getSymbol(_lg),5,12);
+                g_.drawString(_card.getSymbol(_lg),83,12);
                 dessinerPetitSymbole(_card,g_,5,17);
                 dessinerPetitSymbole(_card,g_,85,17);
                 if(_card.getNomFigure() == CardChar.QUEEN) {
@@ -302,44 +228,30 @@ public class GraphicPresidentCard extends PaintableLabel {
     public static Dimension getDimensionForSeveralCards(int _number) {
         return new Dimension(100 + 25 * (_number - 1), 150);
     }
-    void setCarte(CardPresident _pc) {
+    void setCarte(String _lg, CardPresident _pc) {
         card=_pc;
+        lg=_lg;
         peinte=false;
         peindreCarte=true;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
         }
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), card.getImageFileName(FileConst.TXT_EXT));
-//            bufferedImage = ConverterBufferedImage.decodeToImage(file_);
-//            if (bufferedImage == null) {
-//                throw new BadImageCardException();
-//            }
-//        } catch (Exception e_) {
-////            try{
-////                bufferedImage = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.PNG_EXT));
-////                if (bufferedImage == null) {
-////                    throw new Exception();
-////                }
-////            }catch(Exception _e) {
-////                peinte=true;
-////            }
-//            peinte=true;
-//        }
     }
 
     public CardPresident getCard() {
         return card;
     }
 
-    public void setCarteEnJeu(CardPresident _carte) {
+    public void setCarteEnJeu(String _lg, CardPresident _carte) {
         peindreCarte=true;
-        setCarte(_carte);
+        lg = _lg;
+        setCarte(_lg, _carte);
     }
-    public void setJeu() {
+    public void setJeu(String _lg) {
+        lg = _lg;
         peindreCarte=false;
     }
 
@@ -358,7 +270,7 @@ public class GraphicPresidentCard extends PaintableLabel {
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
             _g2.setColor(Color.BLUE);
             _g2.setFont(new Font(DEFAULT,Font.BOLD,20));
-            _g2.drawString(GameEnum.PRESIDENT.display(),20,80);
+            _g2.drawString(GameEnum.PRESIDENT.toString(lg),20,80);
             return;
         }
         if(!peinte) {
@@ -378,9 +290,9 @@ public class GraphicPresidentCard extends PaintableLabel {
         }
         if(fullCard) {
             //whole card
-            g.drawImage(getDefaultImage(card), 0, 0, null);
+            g.drawImage(getDefaultImage(lg,card), 0, 0, null);
         } else {
-            g.drawImage(getDefaultImage(card), -75, 0, null);
+            g.drawImage(getDefaultImage(lg,card), -75, 0, null);
         }
     }
     private static int[][] coordonnees(CardPresident _card) {

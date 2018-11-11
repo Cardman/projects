@@ -73,9 +73,14 @@ import aiki.fight.util.StatisticCategory;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import aiki.fight.util.WeatherType;
+import aiki.game.Game;
 import aiki.game.fight.CheckNumericStringsFight;
+import aiki.game.fight.Fight;
+import aiki.game.fight.Fighter;
+import aiki.game.fight.Team;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
 import aiki.map.buildings.Building;
@@ -109,6 +114,7 @@ import aiki.map.places.InitializedPlace;
 import aiki.map.places.League;
 import aiki.map.places.Place;
 import aiki.map.pokemon.PkTrainer;
+import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.PokemonTeam;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
@@ -131,6 +137,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
 import code.resources.ResourceFiles;
 import code.sml.DocumentBuilder;
+import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
@@ -299,10 +306,6 @@ public class DataBase implements WithMathFactory {
     private static final String TYPE_FORMULA = "type";
 
     private static final char UNDERSCORE = '_';
-
-    private static AtomicBoolean _loading_ = new AtomicBoolean();
-
-    private static AtomicInteger _perCentLoading_ = new AtomicInteger();
 
     private StringMap<PokemonData> pokedex = new StringMap<PokemonData>();
 
@@ -485,12 +488,22 @@ public class DataBase implements WithMathFactory {
 
     private EvolvedMathFactory standardMathFactory = new EvolvedMathFactory();
     private boolean error;
+    private StringMap<String> messagesPokemonPlayer = new StringMap<String>();
+    private StringMap<String> messagesPlayer = new StringMap<String>();
+    private StringMap<String> messagesFighter = new StringMap<String>();
+    private StringMap<String> messagesTeam = new StringMap<String>();
+    private StringMap<String> messagesFight = new StringMap<String>();
+    private StringMap<String> messagesGame = new StringMap<String>();
+    private String language = "";
 
     @Override
     public MathFactory getMathFactory() {
         return standardMathFactory;
     }
 
+    public LgInt getMaxRd() {
+        return standardMathFactory.getMaxRandomNb();
+    }
     public Rate evaluateDirectlyRate(String _numExp) {
         return standardMathFactory.evaluateDirectlyRate(_numExp);
     }
@@ -630,7 +643,7 @@ public class DataBase implements WithMathFactory {
         miniItems.put(_fileName, _img);
     }
 
-    public void validate() {
+    public void validate(AtomicInteger _perCentLoading, AtomicBoolean _loading) {
         imagesDimensions.clear();
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
@@ -653,18 +666,18 @@ public class DataBase implements WithMathFactory {
             }
             pk_.getMoveTutors().removeDuplicates();
         }
-        validateCore();
-        if (!isLoading()) {
+        validateCore(_perCentLoading);
+        if (!_loading.get()) {
             return;
         }
-        _perCentLoading_.set(60);
+        _perCentLoading.set(60);
         validateConstants();
         setCheckTranslation(true);
         CheckNumericStringsFight.validateNumericBooleanStrings(this, false);
-        if (!isLoading()) {
+        if (!_loading.get()) {
             return;
         }
-        _perCentLoading_.set(70);
+        _perCentLoading.set(70);
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
             error = true;
@@ -680,7 +693,7 @@ public class DataBase implements WithMathFactory {
             return;
         }
 
-        if (!isLoading()) {
+        if (!_loading.get()) {
             return;
         }
         map.validate(this);
@@ -688,16 +701,16 @@ public class DataBase implements WithMathFactory {
             error = true;
             return;
         }
-        _perCentLoading_.set(85);
-        if (!isLoading()) {
+        _perCentLoading.set(85);
+        if (!_loading.get()) {
             return;
         }
         validateImages();
-        if (!isLoading()) {
+        if (!_loading.get()) {
             return;
         }
         validateTranslations();
-        _perCentLoading_.set(95);
+        _perCentLoading.set(95);
 
     }
 
@@ -893,9 +906,9 @@ public class DataBase implements WithMathFactory {
         return next_;
     }
 
-    public void validateCore() {
+    public void validateCore(AtomicInteger _perCentLoading) {
         initTypesByTable();
-        _perCentLoading_.set(55);
+        _perCentLoading.set(55);
         for (String t1_ : types) {
             for (String t2_ : types) {
                 if (!tableTypes.contains(new TypesDuo(t1_, t2_))) {
@@ -2123,9 +2136,9 @@ public class DataBase implements WithMathFactory {
         types = moveTypes_;
     }
 
-    public void loadRom(InsCaseStringMap<String> _files) {
+    public void loadRom(InsCaseStringMap<String> _files, AtomicInteger _perCentLoading) {
 
-        _perCentLoading_.set(0);
+        _perCentLoading.set(0);
         initializeMembers();
         InsCaseStringMap<String> files_;
         StringList listRelativePaths_;
@@ -2163,7 +2176,7 @@ public class DataBase implements WithMathFactory {
             error = true;
             return;
         }
-        _perCentLoading_.set(5);
+        _perCentLoading.set(5);
         StringList filesNames_;
         filesNames_ = new StringList();
 
@@ -2197,7 +2210,7 @@ public class DataBase implements WithMathFactory {
                     .getVal(StringList.concat(common_, f)));
             completeMembers(StringList.toUpperCase(n_), move_);
         }
-        _perCentLoading_.set(10);
+        _perCentLoading.set(10);
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
         StringList tmHm_ = StringList.splitChars(
                 files_.getVal(StringList.concat(common_, CT_CS_FILE)),
@@ -2270,7 +2283,7 @@ public class DataBase implements WithMathFactory {
             completeMembers(StringList.toUpperCase(n_), st_);
         }
         checkCaseOfFiles(STATUS_FOLDER, filesNames_);
-        _perCentLoading_.set(15);
+        _perCentLoading.set(15);
         completeVariables();
         filesNames_.clear();
         images = new StringMap<int[][]>();
@@ -2442,7 +2455,7 @@ public class DataBase implements WithMathFactory {
                             s))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
-        _perCentLoading_.set(25);
+        _perCentLoading.set(25);
         filesNames_.clear();
         miniItems = new StringMap<int[][]>();
 
@@ -2659,7 +2672,7 @@ public class DataBase implements WithMathFactory {
         translatedTargets = new StringMap<EnumMap<TargetChoice, String>>();
         translatedClassesDescriptions = new StringMap<StringMap<String>>();
         litterals = new StringMap<StringMap<String>>();
-        _perCentLoading_.set(30);
+        _perCentLoading.set(30);
         for (String l : Constants.getAvailableLanguages()) {
             String fileName_ = StringList.concat(TRANSLATION_FOLDER,
                     SEPARATOR_FILES);
@@ -2924,7 +2937,7 @@ public class DataBase implements WithMathFactory {
             }
             litterals.put(l, litteral_);
         }
-        _perCentLoading_.set(35);
+        _perCentLoading.set(35);
 
         for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
                 .concat(ANIM_STATIS, SEPARATOR_FILES))) {
@@ -2953,11 +2966,15 @@ public class DataBase implements WithMathFactory {
         }
         animAbsorb = BaseSixtyFourUtil.getImageByString(files_
                 .getVal(StringList.concat(common_, ANIM_ABSORB)));
-        _perCentLoading_.set(40);
+        _perCentLoading.set(40);
     }
 
-    public void loadResources() {
-        int delta_ = (100 - _perCentLoading_.get()) / 6;
+    public void setLanguage(String _language) {
+        language = _language;
+    }
+
+    public void loadResources(AtomicInteger _perCentLoading, String _lg) {
+        int delta_ = (100 - _perCentLoading.get()) / 6;
         imagesDimensions.clear();
 
         initializeMembers();
@@ -3046,7 +3063,7 @@ public class DataBase implements WithMathFactory {
         completeMembersCombos();
         map = DocumentReaderAikiCoreUtil.getDataMap(ResourceFiles
                 .ressourceFichier(StringList.concat(common_, MAP_FILE)));
-        _perCentLoading_.addAndGet(delta_);
+        _perCentLoading.addAndGet(delta_);
         constNum = new StringMap<Rate>();
         StringList lines_ = StringList.splitChars(ResourceFiles
                 .ressourceFichier(StringList.concat(common_, CONST_NUM)),
@@ -3480,8 +3497,8 @@ public class DataBase implements WithMathFactory {
             }
             litterals.put(l, litteral_);
         }
-        _perCentLoading_.addAndGet(delta_);
-        for (Statistic f : translatedStatistics.getVal(Constants.getLanguage())
+        _perCentLoading.addAndGet(delta_);
+        for (Statistic f : translatedStatistics.getVal(_lg)
                 .getKeys()) {
             if (!f.isBoost()) {
                 continue;
@@ -3492,7 +3509,7 @@ public class DataBase implements WithMathFactory {
                     .getImageByString(ResourceFiles.ressourceFichier(StringList
                             .concat(common_, f_))));
         }
-        for (String f : translatedStatus.getVal(Constants.getLanguage())
+        for (String f : translatedStatus.getVal(_lg)
                 .getKeys()) {
             String f_ = StringList.concat(ANIM_STATUS, SEPARATOR_FILES, f,
                     IMG_FILES_RES_EXT_TXT);
@@ -3503,7 +3520,7 @@ public class DataBase implements WithMathFactory {
                 .ressourceFichier(StringList.concat(common_, ANIM_ABSORB)));
         StringList filesNames_;
         filesNames_ = new StringList();
-        for (String f : translatedPokemon.getVal(Constants.getLanguage())
+        for (String f : translatedPokemon.getVal(_lg)
                 .getKeys()) {
             String n_ = StringList.concat(POKEDEX_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
@@ -3516,7 +3533,7 @@ public class DataBase implements WithMathFactory {
         checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
         calculateAvgPound();
         filesNames_.clear();
-        for (String f : translatedMoves.getVal(Constants.getLanguage())
+        for (String f : translatedMoves.getVal(_lg)
                 .getKeys()) {
             String n_ = StringList.concat(MOVES_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
@@ -3528,7 +3545,7 @@ public class DataBase implements WithMathFactory {
         }
         checkCaseOfFiles(MOVES_FOLDER, filesNames_);
         filesNames_.clear();
-        for (String f : translatedItems.getVal(Constants.getLanguage())
+        for (String f : translatedItems.getVal(_lg)
                 .getKeys()) {
             String n_ = StringList.concat(ITEMS_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
@@ -3539,7 +3556,7 @@ public class DataBase implements WithMathFactory {
         }
         checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
         filesNames_.clear();
-        for (String f : translatedAbilities.getVal(Constants.getLanguage())
+        for (String f : translatedAbilities.getVal(_lg)
                 .getKeys()) {
             String n_ = StringList.concat(ABILITIES_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
@@ -3551,7 +3568,7 @@ public class DataBase implements WithMathFactory {
         }
         checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
         filesNames_.clear();
-        for (String f : translatedStatus.getVal(Constants.getLanguage())
+        for (String f : translatedStatus.getVal(_lg)
                 .getKeys()) {
             String n_ = StringList.concat(STATUS_FOLDER, SEPARATOR_FILES, f,
                     FILES_RES_EXT);
@@ -3564,7 +3581,7 @@ public class DataBase implements WithMathFactory {
         completeVariables();
         filesNames_.clear();
         sortEndRound();
-        _perCentLoading_.addAndGet(delta_);
+        _perCentLoading.addAndGet(delta_);
         for (PokemonData pk_ : pokedex.values()) {
             for (short hm_ : pk_.getHiddenMoves()) {
                 String move_ = hm.getVal(hm_);
@@ -3628,7 +3645,7 @@ public class DataBase implements WithMathFactory {
                     .ressourceFichier(StringList.concat(common_, n_))));
         }
         checkCaseOfFiles(EMPTY_STRING, filesNames_);
-        _perCentLoading_.addAndGet(delta_);
+        _perCentLoading.addAndGet(delta_);
         filesNames_.clear();
         map.initializeLinks();
         map.initInteractiveElements();
@@ -3875,9 +3892,9 @@ public class DataBase implements WithMathFactory {
                 .getImageByString(ResourceFiles.ressourceFichier(StringList
                         .concat(common_, MINI_MAP_FOLDER, SEPARATOR_FILES,
                                 map.getUnlockedCity()))));
-        _perCentLoading_.addAndGet(delta_);
+        _perCentLoading.addAndGet(delta_);
         initializeWildPokemon();
-        _perCentLoading_.addAndGet(delta_);
+        _perCentLoading.addAndGet(delta_);
 
         validateEvolutions();
         for (int[][] i : maxiPkBack.values()) {
@@ -3924,9 +3941,43 @@ public class DataBase implements WithMathFactory {
             }
             imagesTiles.put(name_, tiles_);
         }
-        _perCentLoading_.set(100);
+        _perCentLoading.set(100);
     }
 
+    public void initMessages(String _lg) {
+        messagesPokemonPlayer = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER,_lg, PokemonPlayer.POKEMON_PLAYER);
+        messagesPlayer = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Player.PLAYER);
+        messagesFighter = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Fighter.FIGHTER);
+        messagesTeam = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Team.TEAM);
+        messagesFight = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Fight.FIGHT);
+        messagesGame = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Game.GAME);
+    }
+    public void setMessages(DataBase _other) {
+        messagesPokemonPlayer = _other.messagesPokemonPlayer;
+        messagesPlayer = _other.messagesPlayer;
+        messagesFighter = _other.messagesFighter;
+        messagesTeam = _other.messagesTeam;
+        messagesFight = _other.messagesFight;
+        messagesGame = _other.messagesGame;
+    }
+    public StringMap<String> getMessagesPokemonPlayer() {
+        return messagesPokemonPlayer;
+    }
+    public StringMap<String> getMessagesPlayer() {
+        return messagesPlayer;
+    }
+    public StringMap<String> getMessagesFighter() {
+        return messagesFighter;
+    }
+    public StringMap<String> getMessagesTeam() {
+        return messagesTeam;
+    }
+    public StringMap<String> getMessagesFight() {
+        return messagesFight;
+    }
+    public StringMap<String> getMessagesGame() {
+        return messagesGame;
+    }
     public void setupPseudoImages() {
         int side_ = map.getSideLength();
         for (EntryCust<String, int[][]> i : images.entryList()) {
@@ -8435,36 +8486,36 @@ public class DataBase implements WithMathFactory {
         return translatedCategories;
     }
 
-    public EnumMap<Gender, String> getTranslatedGendersCurLanguage() {
-        return translatedGenders.getVal(Constants.getLanguage());
+    public EnumMap<Gender, String> getTranslatedGendersCurLanguage(String _lg) {
+        return translatedGenders.getVal(_lg);
     }
 
     public StringMap<EnumMap<Gender, String>> getTranslatedGenders() {
         return translatedGenders;
     }
 
-    public StringMap<String> getTranslatedStatusCurLanguage() {
-        return translatedStatus.getVal(Constants.getLanguage());
+    public StringMap<String> getTranslatedStatusCurLanguage(String _lg) {
+        return translatedStatus.getVal(_lg);
     }
 
-    public StringMap<String> getTranslatedItemsCurLanguage() {
-        return translatedItems.getVal(Constants.getLanguage());
+    public StringMap<String> getTranslatedItemsCurLanguage(String _lg) {
+        return translatedItems.getVal(_lg);
     }
 
-    public StringMap<String> getTranslatedMovesCurLanguage() {
-        return translatedMoves.getVal(Constants.getLanguage());
+    public StringMap<String> getTranslatedMovesCurLanguage(String _lg) {
+        return translatedMoves.getVal(_lg);
     }
 
-    public StringMap<String> getTranslatedPokemonCurLanguage() {
-        return translatedPokemon.getVal(Constants.getLanguage());
+    public StringMap<String> getTranslatedPokemonCurLanguage(String _lg) {
+        return translatedPokemon.getVal(_lg);
     }
 
-    public StringMap<String> getTranslatedAbilitiesCurLanguage() {
-        return translatedAbilities.getVal(Constants.getLanguage());
+    public StringMap<String> getTranslatedAbilitiesCurLanguage(String _lg) {
+        return translatedAbilities.getVal(_lg);
     }
 
-    public EnumMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage() {
-        return translatedBooleans.getVal(Constants.getLanguage());
+    public EnumMap<SelectedBoolean, String> getTranslatedBooleansCurLanguage(String _lg) {
+        return translatedBooleans.getVal(_lg);
     }
 
     public StringMap<EnumMap<SelectedBoolean, String>> getTranslatedBooleans() {
@@ -8516,43 +8567,43 @@ public class DataBase implements WithMathFactory {
     }
 
     public String translatePokemon(String _pokemon) {
-        return translatedPokemon.getVal(Constants.getLanguage()).getVal(
+        return translatedPokemon.getVal(language).getVal(
                 _pokemon);
     }
 
     public String translateMove(String _move) {
-        return translatedMoves.getVal(Constants.getLanguage()).getVal(_move);
+        return translatedMoves.getVal(language).getVal(_move);
     }
 
     public String translateItem(String _item) {
-        return translatedItems.getVal(Constants.getLanguage()).getVal(_item);
+        return translatedItems.getVal(language).getVal(_item);
     }
 
     public String translateAbility(String _ability) {
-        return translatedAbilities.getVal(Constants.getLanguage()).getVal(
+        return translatedAbilities.getVal(language).getVal(
                 _ability);
     }
 
     public String translateStatus(String _status) {
-        return translatedStatus.getVal(Constants.getLanguage()).getVal(_status);
+        return translatedStatus.getVal(language).getVal(_status);
     }
 
     public String translateType(String _type) {
-        return translatedTypes.getVal(Constants.getLanguage()).getVal(_type);
+        return translatedTypes.getVal(language).getVal(_type);
     }
 
     public String translateStatistics(Statistic _statistic) {
-        return translatedStatistics.getVal(Constants.getLanguage()).getVal(
+        return translatedStatistics.getVal(language).getVal(
                 _statistic);
     }
 
     public String translatedTargets(TargetChoice _target) {
-        return translatedTargets.getVal(Constants.getLanguage())
+        return translatedTargets.getVal(language)
                 .getVal(_target);
     }
 
     public String translateGenders(Gender _gender) {
-        return translatedGenders.getVal(Constants.getLanguage())
+        return translatedGenders.getVal(language)
                 .getVal(_gender);
     }
 
@@ -8588,22 +8639,6 @@ public class DataBase implements WithMathFactory {
         return families;
     }
 
-    public static boolean isLoading() {
-        return _loading_.get();
-    }
-
-    public static void setLoading(boolean _loading) {
-        DataBase._loading_.set(_loading);
-    }
-
-    public static int getPerCentLoading() {
-        return _perCentLoading_.get();
-    }
-
-    public static void setPerCentLoading(int _perCentLoading) {
-        _perCentLoading_.set(_perCentLoading);
-    }
-
     public static Rate getDefaultPower() {
         return new Rate(DEFAULT_POWER_INT);
     }
@@ -8630,5 +8665,9 @@ public class DataBase implements WithMathFactory {
 
     public void setError(boolean _error) {
         error = _error;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 }

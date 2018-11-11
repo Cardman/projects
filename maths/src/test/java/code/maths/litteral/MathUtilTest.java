@@ -1186,12 +1186,12 @@ public class MathUtilTest {
     }
     @Test
     public void evaluateExp236Test(){
-        Argument a_ = MathUtil.processEl("inclusnum(vide,vide)", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("inclusnum({},{})", 0, false, new StringMap<String>());
         assertEq(new Rate("1"),(Rate)a_.getObject());
     }
     @Test
     public void evaluateExp237Test(){
-        Argument a_ = MathUtil.processEl("inclusnum(vide,{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("inclusnum({},{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
         assertEq(new Rate("1"),(Rate)a_.getObject());
     }
     @Test
@@ -1201,7 +1201,7 @@ public class MathUtilTest {
     }
     @Test
     public void evaluateExp239Test(){
-        Argument a_ = MathUtil.processEl("inclusnum({MY_STRING_ONE;MY_STRING_TWO},vide)", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("inclusnum({MY_STRING_ONE;MY_STRING_TWO},{})", 0, false, new StringMap<String>());
         assertEq(new Rate("0"),(Rate)a_.getObject());
     }
     @Test
@@ -1221,12 +1221,12 @@ public class MathUtilTest {
     }
     @Test
     public void evaluateExp243Test(){
-        Argument a_ = MathUtil.processEl("noninclusnum(vide,vide)", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("noninclusnum({},{})", 0, false, new StringMap<String>());
         assertEq(new Rate("0"),(Rate)a_.getObject());
     }
     @Test
     public void evaluateExp244Test(){
-        Argument a_ = MathUtil.processEl("noninclusnum(vide,{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("noninclusnum({},{MY_STRING_ONE;MY_STRING_TWO})", 0, false, new StringMap<String>());
         assertEq(new Rate("0"),(Rate)a_.getObject());
     }
     @Test
@@ -1236,7 +1236,7 @@ public class MathUtilTest {
     }
     @Test
     public void evaluateExp246Test(){
-        Argument a_ = MathUtil.processEl("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},vide)", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("noninclusnum({MY_STRING_ONE;MY_STRING_TWO},{})", 0, false, new StringMap<String>());
         assertEq(new Rate("1"),(Rate)a_.getObject());
     }
     @Test
@@ -1256,12 +1256,12 @@ public class MathUtilTest {
     }
     @Test
     public void evaluateExp250Test(){
-        Argument a_ = MathUtil.processEl("egalnum({MY_STRING_ONE},vide)", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("egalnum({MY_STRING_ONE},{})", 0, false, new StringMap<String>());
         assertEq(new Rate("0"),(Rate)a_.getObject());
     }
     @Test
     public void evaluateExp251Test(){
-        Argument a_ = MathUtil.processEl("egalnum(vide,{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("egalnum({},{MY_STRING_ONE})", 0, false, new StringMap<String>());
         assertEq(new Rate("0"),(Rate)a_.getObject());
     }
     @Test
@@ -1296,12 +1296,12 @@ public class MathUtilTest {
     }
     @Test
     public void evaluateExp258Test(){
-        Argument a_ = MathUtil.processEl("differentnum({MY_STRING_ONE},vide)", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("differentnum({MY_STRING_ONE},{})", 0, false, new StringMap<String>());
         assertEq(new Rate("1"),(Rate)a_.getObject());
     }
     @Test
     public void evaluateExp259Test(){
-        Argument a_ = MathUtil.processEl("differentnum(vide,{MY_STRING_ONE})", 0, false, new StringMap<String>());
+        Argument a_ = MathUtil.processEl("differentnum({},{MY_STRING_ONE})", 0, false, new StringMap<String>());
         assertEq(new Rate("1"),(Rate)a_.getObject());
     }
     @Test

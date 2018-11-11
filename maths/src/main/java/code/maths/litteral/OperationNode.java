@@ -9,8 +9,6 @@ abstract class OperationNode {
     protected static final char DELIMITER_STRING_BEGIN = '{';
     protected static final char DELIMITER_STRING_SEP = ';';
     protected static final char DELIMITER_STRING_END = '}';
-    protected static final char ARR_LEFT = '[';
-    protected static final char ARR_RIGHT = ']';
     protected static final char PAR_LEFT = '(';
     protected static final char PAR_RIGHT = ')';
     protected static final String PAR_RIGHT_STR = ")";
@@ -51,7 +49,6 @@ abstract class OperationNode {
     protected static final String AND = "&";
 
     protected static final String OR = "|";
-    protected static final String EMPTY_SET = "vide";
     protected static final String PUIS = "puis";
 
     protected static final String QUOT = "quot";

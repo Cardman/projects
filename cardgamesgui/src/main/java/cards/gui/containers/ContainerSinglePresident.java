@@ -65,7 +65,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.TreeMap;
-import code.util.consts.Constants;
 
 public class ContainerSinglePresident extends ContainerPresident implements
         ContainerSingle {
@@ -88,9 +87,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public void jouerPresident(byte _joueur,String _pseudo) {
         GamePresident partie_=partiePresident();
-        partie_.addCardsToCurrentTrick(_joueur);
+        String lg_ = getOwner().getLanguageKey();
+        partie_.addCardsToCurrentTrick(_joueur,lg_);
         HandPresident h_ = partie_.getPlayedCards();
-        ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,h_.display(),RETURN_LINE)));
+        ThreadInvoker.invokeNow(new AddTextEvents(this, StringList.concat(_pseudo,INTRODUCTION_PTS,h_.toString(lg_),RETURN_LINE)));
 //        ajouterTexteDansZone(_pseudo+INTRODUCTION_PTS+h_+RETURN_LINE_CHAR);
         ThreadInvoker.invokeNow(new SettingPresidentStatus(this, partie_.getLastStatus(), partie_.getNextPlayer()));
 //        tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
@@ -115,7 +115,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         setChangerPileFin(false);
         setaJoueCarte(false);
         GamePresident partie_=partiePresident();
-        getOwner().setTitle(GameEnum.PRESIDENT.display());
+        String lg_ = getOwner().getLanguageKey();
+        getOwner().setTitle(GameEnum.PRESIDENT.toString(lg_));
         placerPresident();
         getHelpGame().setEnabledMenu(false);
         if (partie_.availableSwitchingCards() && !partie_.readyToPlay()) {
@@ -161,10 +162,10 @@ public class ContainerSinglePresident extends ContainerPresident implements
         }
         getNoPlay().setVisibleButton(true);
         if (partie_.getNextPlayer() == DealPresident.NUMERO_UTILISATEUR) {
-            tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
+            tapisPresident().setStatus(lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //            tapisPresident().repaintValidate();
             if (!partie_.getProgressingTrick().estVide()) {
-                tapisPresident().setTalonPresident(partie_.getProgressingTrick().getBestCards());
+                tapisPresident().setTalonPresident(lg_,partie_.getProgressingTrick().getBestCards());
 //                tapisPresident().repaintValidate();
             }
             placerBoutonsAvantJeuUtilisateurPresident();
@@ -318,6 +319,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     private void placerIhmPresident() {
         Panel container_=new Panel();
+        String lg_ = getOwner().getLanguageKey();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         GamePresident partie_=partiePresident();
@@ -325,7 +327,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         CarpetPresident tapis_=new CarpetPresident();
         StringList pseudos_ = pseudosPresident();
         int nbMax_ = rules_.getNbStacks() * Suit.couleursOrdinaires().size();
-        tapis_.initTapisPresident(pseudos_, partie_.getLastStatus(), Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()));
+        tapis_.initTapisPresident(lg_,pseudos_, partie_.getLastStatus(), Math.min(nbMax_, rules_.getNbMaxCardsPerPlayer()));
         getTapis().setTapisPresident(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         Panel panneau_=new Panel();
@@ -507,10 +509,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         if (!isCanPlay()) {
             return;
         }
+        String lg_ = getOwner().getLanguageKey();
         GamePresident partie_=partiePresident();
-        if (!partie_.canPass(DealPresident.NUMERO_UTILISATEUR, Constants.getLanguage())) {
+        if (!partie_.canPass(DealPresident.NUMERO_UTILISATEUR, lg_)) {
             String title_ = getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE);
-            ConfirmDialog.showMessage(getOwner(), partie_.getErrorPlaying(), title_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(getOwner(), partie_.getErrorPlaying(), title_, lg_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         /*L'utilisateur joue sa carte*/
@@ -533,14 +536,15 @@ public class ContainerSinglePresident extends ContainerPresident implements
         getConsulting().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
-        ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,partie_.getPlayedCards().display(),RETURN_LINE));
+        String lg_ = getOwner().getLanguageKey();
+        ajouterTexteDansZone(StringList.concat(pseudo(),INTRODUCTION_PTS,partie_.getPlayedCards().toString(lg_),RETURN_LINE));
         //Pour ne pas a avoir a faire disparaitre un instant de temps la main de l'utilisateur
         //Il ne se rendra pas compte que la main est repeinte entierement
         setRaisonCourante(getMessages().getVal(MainWindow.END_TRICK));
         afficherMainUtilisateurPresident(false);
-        tapisPresident().setTalonPresident(partie_.getPlayedCards());
+        tapisPresident().setTalonPresident(lg_,partie_.getPlayedCards());
 //        tapisPresident().repaintValidate();
-        tapisPresident().setStatus(partie_.getLastStatus(), partie_.getNextPlayer());
+        tapisPresident().setStatus(lg_,partie_.getLastStatus(), partie_.getNextPlayer());
 //        tapisPresident().repaintValidate();
         pause();
         //Desactiver le menu Partie/Pause
@@ -559,6 +563,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     public void finPartiePresident() {
         /*Descativer aide au jeu*/
+        String lg_ = getOwner().getLanguageKey();
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
@@ -588,7 +593,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         res_.setGame(partie_);
         res_.initialize(new StringList(pseudos_), getScores());
         res_.setUser(DealPresident.NUMERO_UTILISATEUR);
-        res_.setMessages(Constants.getLanguage());
+        res_.setMessages(lg_);
         setScores(res_.getScores());
 
         JScrollPane scroll_=new JScrollPane();
@@ -596,7 +601,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         try {
 //            editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(Constants.getLanguage());
+            editor_.setLanguage(lg_);
             editor_.setDataBase(res_);
             editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {
@@ -652,7 +657,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             Panel panneau_=new Panel(new BorderLayout());
             panneau_.add(new JLabel(getMessages().getVal(MainWindow.SCORES_EVOLUTION_DETAIL),SwingConstants.CENTER),BorderLayout.NORTH);
             panneau_.add(ascenseur_,BorderLayout.CENTER);
-            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_);
+            GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_);
             legende_.setPreferredSize(new Dimension(300,15*(nombreJoueurs_+1)));
             ascenseur_=new ScrollPane(legende_);
             ascenseur_.setPreferredSize(new Dimension(300,100));
@@ -667,10 +672,11 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingPresident(), game_.getNombreDeJoueurs());
-        ScrollPane panelCards_ = new ScrollPane(new PanelTricksHandsPresident(getOwner(), tricksHands_,
+        MainWindow ow_ = getOwner();
+        ScrollPane panelCards_ = new ScrollPane(new PanelTricksHandsPresident(ow_, tricksHands_,
                 nombreJoueurs_,
                 pseudosPresident(),
-                getDisplayingPresident()));
+                getDisplayingPresident(),ow_));
         panelCards_.setPreferredSize(new Dimension(300,300));
         onglets_.add(getMessages().getVal(MainWindow.HANDS_TRICKS),panelCards_);
         container_.add(onglets_,BorderLayout.CENTER);
@@ -746,7 +752,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         int str_ = 0;
         int iter_ = CustList.FIRST_INDEX;
         byte index_ = CustList.SECOND_INDEX;
-        for (GraphicPresidentCard c: getGraphicCards(_hand)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
             int curStr_ = c.getCard().strength(partiePresident().isReversed());
             if (iter_ > CustList.FIRST_INDEX) {
                 if (curStr_ == str_) {
@@ -767,7 +774,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
     private void updateCardsInPanelPresidentDiscard(Panel _panel, HandPresident _hand, boolean _inHand) {
         _panel.removeAll();
         byte index_ = CustList.FIRST_INDEX;
-        for (GraphicPresidentCard c: getGraphicCards(_hand)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicPresidentCard c: getGraphicCards(lg_,_hand)) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand));
             _panel.add(c);
             index_ ++;
@@ -804,41 +812,44 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
-        DialogTricksPresident.setDialogTricksPresident(getMessages().getVal(MainWindow.HANDS_TRICKS_PRESIDENT), getWindow());
-        DialogTricksPresident.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosPresident(), getDisplayingPresident());
+        MainWindow ow_ = getOwner();
+        DialogTricksPresident.setDialogTricksPresident(getMessages().getVal(MainWindow.HANDS_TRICKS_PRESIDENT), ow_);
+        DialogTricksPresident.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosPresident(), getDisplayingPresident(),ow_);
 
     }
 
     @Override
     public void conseil() {
         GamePresident game_ = partiePresident();
+        String lg_ = getOwner().getLanguageKey();
         if (game_.availableSwitchingCards()) {
             HandPresident d_ = game_.strategieEchange(DealPresident.NUMERO_UTILISATEUR);
             String message_;
-            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_GIVE), d_.display());
+            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_GIVE), d_.toString(lg_));
             message_=StringList.concat(message_,game_.getReason());
-            ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
+            ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        HandPresident h_ = game_.playedCards();
+        HandPresident h_ = game_.playedCards(lg_);
         String message_;
         if (h_.estVide()) {
             message_ = getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PASS);
         } else {
-            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), game_.playedCards().display());
+            message_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CONSULT_PRESIDENT_PLAYER), game_.playedCards(lg_).toString(lg_));
         }
         message_=StringList.concat(message_,game_.getReason());
-        ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), Constants.getLanguage(), JOptionPane.INFORMATION_MESSAGE);
+        ConfirmDialog.showMessage(getOwner(),message_, getMessages().getVal(MainWindow.CONSULT_TITLE), lg_, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void aideAuJeu() {
+        String lg_ = getOwner().getLanguageKey();
         GamePresident g_ = partiePresident();
-        DialogHelpPresident.setTitleDialog(getOwner(), StringList.concat(getMessages().getVal(MainWindow.HELP_GAME),SPACE,GameEnum.PRESIDENT.display()));
+        DialogHelpPresident.setTitleDialog(getOwner(), StringList.concat(getMessages().getVal(MainWindow.HELP_GAME),SPACE,GameEnum.PRESIDENT.toString(lg_)));
         TreeMap<CardPresident, Byte> played_ = g_.getPlayedCardsByStrength();
         boolean reversed_ = g_.isReversed();
         int nbStacks_ = g_.getRegles().getNbStacks();
-        DialogHelpPresident.setDialoguePresident(played_, reversed_, nbStacks_);
+        DialogHelpPresident.setDialoguePresident(played_, reversed_, nbStacks_, lg_);
     }
 
     @Override

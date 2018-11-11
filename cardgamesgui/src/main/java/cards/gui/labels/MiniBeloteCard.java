@@ -9,15 +9,16 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import code.gui.PaintableLabel;
 import code.util.Numbers;
-import code.util.consts.Constants;
 
 public class MiniBeloteCard extends PaintableLabel {
 
     static final String DEFAULT="Default";
 
     private CardBelote card;
+    private String lg;
 
-    public MiniBeloteCard(CardBelote _card) {
+    public MiniBeloteCard(String _lg, CardBelote _card) {
+        lg = _lg;
         card = _card;
         setHorizontalAlignment(SwingConstants.RIGHT);
         setVerticalAlignment(SwingConstants.TOP);
@@ -30,7 +31,7 @@ public class MiniBeloteCard extends PaintableLabel {
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         _g.drawRect(0,0,getWidth()-1,getHeight()-1);
-        _g.drawString(card.getSymbol(Constants.getLanguage()),0,20);
+        _g.drawString(card.getSymbol(lg),0,20);
         dessinerGrandSymbole(_g, 0, 20);
     }
 

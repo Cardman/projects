@@ -104,8 +104,9 @@ public class MainWindow extends GroupFrame {
 
     private CustList<JRadioButton> radios = new CustList<JRadioButton>();
 
-    public MainWindow(String[] _args) {
-        initMessages();
+    public MainWindow(String _lg,String[] _args) {
+        super(_lg);
+        initMessages(_lg);
         setTitle(_messages_.getVal(TITLE_PLAYER));
         setIconImage(getImage());
         getPane().setLayout(new BoxLayout(getPane().getComponent(), BoxLayout.PAGE_AXIS));
@@ -153,7 +154,7 @@ public class MainWindow extends GroupFrame {
         for (String l: Constants.getAvailableLanguages()) {
             JRadioButton radio_ = new JRadioButton(Constants.getDisplayLanguage(l));
             radio_.addActionListener(new SetLanguage(l));
-            radio_.setSelected(StringList.quickEq(l,Constants.getLanguage()));
+            radio_.setSelected(StringList.quickEq(l,_lg));
             group.add(radio_);
             getPane().add(radio_);
             radios.add(radio_);
@@ -164,8 +165,8 @@ public class MainWindow extends GroupFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_FOLDER, Constants.getLanguage(), ACCESS);
+    public static void initMessages(String _lg) {
+        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_FOLDER,_lg, ACCESS);
     }
 
     private static BufferedImage getImage() {
@@ -476,8 +477,8 @@ public class MainWindow extends GroupFrame {
 
     @Override
     public void changeLanguage(String _language) {
-        Constants.setSystemLanguage(_language);
-        initMessages();
+        setLanguageKey(_language);
+        initMessages(_language);
         setTitle(_messages_.getVal(TITLE_PLAYER));
         random.setText(_messages_.getVal(RANDOM));
         songsLabel.setText(_messages_.getVal(SONGS));

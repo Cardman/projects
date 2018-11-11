@@ -56,7 +56,7 @@ public final class DialogSoft extends DialogCards {
         DIALOG.setDialogIcon(_fenetre);
         DIALOG.setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        DIALOG.messages = DIALOG.getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        DIALOG.messages = DIALOG.getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
         DIALOG.parametres = _fenetre.getParametresLogiciel();
         DIALOG.setLocationRelativeTo(_fenetre);
     }
@@ -65,11 +65,12 @@ public final class DialogSoft extends DialogCards {
         DIALOG.setVisible(true);
         return DIALOG.parametres;
     }
-    public static void setDialogSoft(String _menu) {
-        DIALOG.setDialogue(_menu);
+    public static void setDialogSoft(String _menu, MainWindow _fenetre) {
+        DIALOG.setDialogue(_menu, _fenetre);
     }
-    private void setDialogue(String _menu) {
+    private void setDialogue(String _menu, MainWindow _fenetre) {
         menu = _menu;
+        String lg_ = _fenetre.getLanguageKey();
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         if(StringList.quickEq(menu,MainWindow.LAUNCHING)) {
@@ -84,7 +85,7 @@ public final class DialogSoft extends DialogCards {
             mess_.put(null, messages.getVal(LAUNCHING));
             order_.add(null);
             for (GameEnum g: GameEnum.values()) {
-                mess_.put(g, g.display());
+                mess_.put(g, g.toString(lg_));
                 order_.add(g);
             }
             list.refresh(order_, mess_);

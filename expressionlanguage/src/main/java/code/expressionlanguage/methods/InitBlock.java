@@ -15,9 +15,9 @@ import code.util.StringMap;
 
 public abstract class InitBlock extends MemberCallingsBlock implements AloneBlock {
 
-    public InitBlock(ContextEl _importingPage, int _indexChild, BracedBlock _m,
+    public InitBlock(ContextEl _importingPage, BracedBlock _m,
             OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
     }
 
     @Override

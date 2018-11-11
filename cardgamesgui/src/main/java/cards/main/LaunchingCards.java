@@ -55,7 +55,7 @@ public class LaunchingCards extends SoftApplicationCore {
             _0.printStackTrace();
             coordonnees_ = new TopLeftFrame();
         }
-        window_ = new MainWindow();
+        window_ = new MainWindow(_language);
 
         SoftApplicationCore.setLocation(window_, coordonnees_);
         window_.pack();

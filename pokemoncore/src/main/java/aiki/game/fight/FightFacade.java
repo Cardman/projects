@@ -1417,7 +1417,7 @@ public final class FightFacade {
     public static void attemptCatching(Fight _fight,String _ball,boolean _dejaCapture,Difficulty _diff,Player _user,DataBase _import, boolean _enableAnimation){
         Rate proba_=FightRound.calculateCatchingRate(_fight,_ball,_dejaCapture,_diff,_import);
         _fight.setKeepRound(true);
-        if(FightSuccess.tirage(proba_)){
+        if(FightSuccess.tirage(_import, proba_)){
             _fight.setKeepRound(false);
             _fight.setCatchingBall(_ball);
             _fight.setState(FightState.SURNOM);
@@ -1438,7 +1438,7 @@ public final class FightFacade {
             _fight.setNbFleeAttempt((short) (_fight.getNbFleeAttempt()+1));
         }
         _fight.setKeepRound(true);
-        if(FightSuccess.tirage(proba_)){
+        if(FightSuccess.tirage(_import, proba_)){
             //la fuite est reussie ==> fin de combat
             _fight.setKeepRound(false);
             _fight.setState(FightState.REDESSIN_SCENE);
@@ -1786,7 +1786,8 @@ public final class FightFacade {
     static TreeMap<String,Boolean> getEvolutions(Fight _fight, byte _key, DataBase _d) {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         Fighter fighter_ = _fight.getUserTeam().getMembers().getVal(key_);
-        StringMap<String> m_ = _d.getTranslatedPokemonCurLanguage();
+        String lg_ = _d.getLanguage();
+        StringMap<String> m_ = _d.getTranslatedPokemonCurLanguage(lg_);
         TreeMap<String,Boolean> map_;
         map_ = new TreeMap<String, Boolean>(new ComparatorTrStrings(m_));
         map_.put(DataBase.EMPTY_STRING, true);
@@ -1903,7 +1904,7 @@ public final class FightFacade {
                 int nbChosen_ = choice_.getKeptMoves().size();
                 int max_ = _import.getNbMaxMoves();
                 int min_ = fighter_.nbMoves();
-                _fight.addMessage(Fight.ERR_EVOLVING, name_,Integer.toString(min_), Integer.toString(max_), Integer.toString(nbChosen_));
+                _fight.addMessage(_import,Fight.ERR_EVOLVING, name_,Integer.toString(min_), Integer.toString(max_), Integer.toString(nbChosen_));
             }
             if (choice_.getName().isEmpty()) {
                 continue;
@@ -1911,7 +1912,7 @@ public final class FightFacade {
             if (fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getAbilities().size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 if (choice_.getAbility().isEmpty()) {
                     valid_ = false;
-                    _fight.addMessage(Fight.ERR_EVOLVING_AB, name_);
+                    _fight.addMessage(_import,Fight.ERR_EVOLVING_AB, name_);
                 }
             }
         }
@@ -2234,7 +2235,7 @@ public final class FightFacade {
         Fighter fighter_ = team_.getMembers().getVal(substitute_);
         if (fighter_.estKo()) {
             String name_ = _data.translatePokemon(fighter_.getName());
-            _fight.addMessage(Fight.ERR_KO_SUBSTITUTE, name_);
+            _fight.addMessage(_data,Fight.ERR_KO_SUBSTITUTE, name_);
             _fight.setError(true);
             return;
         }
@@ -2258,7 +2259,7 @@ public final class FightFacade {
         Fighter fighter_ = team_.getMembers().getVal(substitute_);
         if (fighter_.estKo()) {
             String name_ = _data.translatePokemon(fighter_.getName());
-            _fight.addMessage(Fight.ERR_KO_SUBSTITUTE, name_);
+            _fight.addMessage(_data,Fight.ERR_KO_SUBSTITUTE, name_);
             _fight.setError(true);
             return;
         }

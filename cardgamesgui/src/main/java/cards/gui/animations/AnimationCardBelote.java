@@ -26,13 +26,14 @@ public final class AnimationCardBelote extends Thread {
         long delaiCarte_;
         delaiCarte_=container.getParametres().getDelaiAttenteCartes();
         GameBelote partie_=container.partieBelote();
+        String lg_ = container.getOwner().getLanguageKey();
         if(partie_.getPliEnCours().estVide()) {
             long delaiPli_;
             if(!container.getParametres().getAttentePlisClic()) {
                 delaiPli_=container.getParametres().getDelaiAttentePlis();
                 Constants.sleep(delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
-                container.tapisBelote().setCartesBeloteJeu(partie_.getNombreDeJoueurs());
+                container.tapisBelote().setCartesBeloteJeu(partie_.getNombreDeJoueurs(),lg_);
             }
         }
         //Activer le menu Partie/Pause
@@ -53,7 +54,7 @@ public final class AnimationCardBelote extends Thread {
                 if (!partie_.keepPlayingCurrentGame()) {
                     break;
                 }
-                container.tapisBelote().setCartesBeloteJeu(partie_.getNombreDeJoueurs());
+                container.tapisBelote().setCartesBeloteJeu(partie_.getNombreDeJoueurs(),lg_);
                 //validate container.pack();
                 partie_.setPliEnCours();
             }

@@ -5,8 +5,8 @@ public abstract class ChildFrame extends CommonFrame implements ChangeableTitle 
 
     private Image imageIconFrame;
 
-    protected ChildFrame() {
-        WindowUtils.addInArray(getFrame());
+    protected ChildFrame(String _lg) {
+        super(_lg);
     }
 
     protected void setDialogIcon(GroupFrame _group) {
@@ -15,14 +15,6 @@ public abstract class ChildFrame extends CommonFrame implements ChangeableTitle 
     }
 
     public abstract void closeWindow();
-
-    @Override
-    public void setVisible(boolean _b) {
-        super.setVisible(_b);
-        if (!_b) {
-            WindowUtils.removeWindow(getFrame());
-        }
-    }
 
     @Override
     public Image getImageIconFrame() {

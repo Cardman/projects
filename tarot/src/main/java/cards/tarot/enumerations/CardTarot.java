@@ -1,15 +1,14 @@
 package cards.tarot.enumerations;
+import cards.consts.CardChar;
+import cards.consts.Suit;
 import code.format.Format;
 import code.util.EnumList;
 import code.util.StringList;
 import code.util.consts.Constants;
-import code.util.ints.Displayable;
-import cards.consts.CardChar;
-import cards.consts.Suit;
 
 /**
     */
-public enum CardTarot implements Displayable {
+public enum CardTarot {
     WHITE,
     EXCUSE(CardChar.EXCUSE, 9),
     /**Oudler card*/
@@ -263,8 +262,7 @@ public enum CardTarot implements Displayable {
         }
         return false;
     }
-    @Override
     public String display() {
-        return toString(Constants.getLanguage());
+        return toString(Constants.getDefaultLanguage());
     }
 }

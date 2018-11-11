@@ -1,10 +1,9 @@
 package cards.belote.comparators;
-import code.util.ints.Comparing;
-
 import cards.belote.HandBelote;
 import cards.consts.Suit;
 import code.util.EnumMap;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class HandBeloteLongLengthComparator implements Comparing<Suit> {
 

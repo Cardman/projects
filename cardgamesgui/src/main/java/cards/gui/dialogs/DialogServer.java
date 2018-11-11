@@ -59,10 +59,10 @@ public final class DialogServer extends DialogCards implements AbstractDialogSer
         create = false;
         join = false;
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        messages = getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
         messagesIpEnum = new EnumMap<IpType,String>();
         for (IpType i: IpType.values()) {
-            messagesIpEnum.put(i, i.display());
+            messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));
         }
         setTitle(messages.getVal(TITLE));
         setLocationRelativeTo(_fenetre);

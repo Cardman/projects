@@ -135,7 +135,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                     }
                     boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
                     boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
-                    sm_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
+                    sm_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
                 }
                 variablesAfter_.add(sm_);
             }
@@ -175,7 +175,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
                     }
                     boolean ass_ = StringList.quickEq(str_, e.getKey()) || e.getValue().isAssignedAfter();
                     boolean unass_ = !StringList.quickEq(str_, e.getKey()) && e.getValue().isUnassignedAfter();
-                    sm_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
+                    sm_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
                 }
                 mutableAfter_.add(sm_);
             }
@@ -219,7 +219,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
             for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
                 boolean ass_ = StringList.quickEq(cl_.getFieldName(), e.getKey()) || e.getValue().isAssignedAfter();
                 boolean unass_ = !StringList.quickEq(cl_.getFieldName(), e.getKey()) && e.getValue().isUnassignedAfter();
-                fieldsAfter_.put(e.getKey(), e.getValue().assignChange(isBool_, ass_, unass_));
+                fieldsAfter_.put(e.getKey(), Assignment.assign(isBool_, ass_, unass_));
             }
         } else {
             if (settable == null) {

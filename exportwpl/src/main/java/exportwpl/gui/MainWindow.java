@@ -38,7 +38,8 @@ public class MainWindow extends GroupFrame {
     private JLabel fileLabel = new JLabel("file:");
     private JTextField file = new JTextField(40);
 
-    public MainWindow() {
+    public MainWindow(String _lg) {
+        super(_lg);
         getPane().setLayout(new BoxLayout(getPane().getComponent(), BoxLayout.PAGE_AXIS));
         getPane().add(folderLabel);
         getPane().add(folder);
@@ -62,7 +63,7 @@ public class MainWindow extends GroupFrame {
     }
 
     public void selectFolder() {
-        FolderOpenDialog.setFolderOpenDialog(this, Constants.getLanguage(), false);
+        FolderOpenDialog.setFolderOpenDialog(this, Constants.getDefaultLanguage(), false);
         String folderPathRead_ = FolderOpenDialog.getStaticSelectedPath();
         if (folderPathRead_.isEmpty()) {
             return;
@@ -71,7 +72,7 @@ public class MainWindow extends GroupFrame {
     }
 
     public void selectFile() {
-        FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getLanguage(), false, EMPTY_STRING, ConstFiles.getHomePath());
+        FileSaveDialog.setFileSaveDialogByFrame(this, Constants.getDefaultLanguage(), false, EMPTY_STRING, ConstFiles.getHomePath());
         String file_ = FileSaveDialog.getStaticSelectedPath().trim();
         if (file_.isEmpty()) {
             return;

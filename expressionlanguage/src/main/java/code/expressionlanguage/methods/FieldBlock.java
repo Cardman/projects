@@ -73,11 +73,11 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     private CustList<OperationNode> opValue;
 
-    public FieldBlock(ContextEl _importingPage, int _indexChild,
+    public FieldBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetAccessInfo _access,
             OffsetBooleanInfo _static, OffsetBooleanInfo _final,
             StringList _name, OffsetStringInfo _type, OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         staticField = _static.isInfo();

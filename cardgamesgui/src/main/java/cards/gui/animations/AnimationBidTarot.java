@@ -27,10 +27,11 @@ public final class AnimationBidTarot extends Thread {
         container.setThreadAnime(true);
         long delaiContrat_;
         GameTarot partie_=container.partieTarot();
+        String lg_ = container.getOwner().getLanguageKey();
         if (partie_.playerHavingToBid() == DealTarot.NUMERO_UTILISATEUR) {
             BidTarot contrat_=container.getContratUtilisateur();
             partie_.ajouterContrat(contrat_,DealTarot.NUMERO_UTILISATEUR);
-            String event_ = StringList.concat(pseudos_.get(DealTarot.NUMERO_UTILISATEUR),ContainerGame.INTRODUCTION_PTS,contrat_.display(),ContainerGame.RETURN_LINE);
+            String event_ = StringList.concat(pseudos_.get(DealTarot.NUMERO_UTILISATEUR),ContainerGame.INTRODUCTION_PTS,contrat_.toString(lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(DealTarot.NUMERO_UTILISATEUR)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
@@ -51,7 +52,7 @@ public final class AnimationBidTarot extends Thread {
             Constants.sleep(delaiContrat_);
             BidTarot contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_,player_);
-            String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,contrat_.display(),ContainerGame.RETURN_LINE);
+            String event_ = StringList.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,contrat_.toString(lg_),ContainerGame.RETURN_LINE);
             ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);

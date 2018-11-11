@@ -6,7 +6,6 @@ import cards.network.tarot.actions.PlayingCardTarot;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
-import code.util.consts.Constants;
 
 public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
     private ContainerMultiTarot container;
@@ -34,7 +33,8 @@ public class ListenerCardTarotMultiGame extends AbstractListenerCardTarot {
 //        pl_.setMiseres(selectedMiseres_.getKeys(true));
         pl_.setMiseres(container.getAllowedMiseres());
         pl_.setChoosenHandful(container.getChoosenHandful());
-        pl_.setLocale(Constants.getLanguage());
+        String lg_ = container.getOwner().getLanguageKey();
+        pl_.setLocale(lg_);
         if (container.getChoosenHandful() != Handfuls.NO) {
             pl_.setExcludedTrumps(container.getCurrentExcludedTrumps());
             pl_.setHandful(container.getCurrentIncludedTrumps());

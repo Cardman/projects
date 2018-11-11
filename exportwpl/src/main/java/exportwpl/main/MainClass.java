@@ -1,6 +1,7 @@
 package exportwpl.main;
 import javax.swing.SwingUtilities;
 
+import code.util.consts.Constants;
 import exportwpl.gui.MainWindow;
 
 public class MainClass implements Runnable {
@@ -11,6 +12,6 @@ public class MainClass implements Runnable {
 
     @Override
     public void run() {
-        new MainWindow();
+        new MainWindow(Constants.getDefaultLanguage());
     }
 }

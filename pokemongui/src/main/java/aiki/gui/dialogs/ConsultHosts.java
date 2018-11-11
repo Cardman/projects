@@ -42,7 +42,7 @@ public final class ConsultHosts extends Dialog {
     private StringMap<String> messages;
 
 //    private MainWindow window;
-
+    private MainWindow window;
     private ConsultHosts() {
         setAccessFile(DIALOG_ACCESS);
     }
@@ -53,7 +53,8 @@ public final class ConsultHosts extends Dialog {
 
     private void init(MainWindow _frame, FacadeGame _facade) {
         setDialogIcon(_frame);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        window = _frame;
+        messages = getMessages(_frame,Resources.MESSAGES_FOLDER);
         //super(_frame, true);
 //        window = _frame;
         setTitle(messages.getVal(TITLE));
@@ -148,6 +149,6 @@ public final class ConsultHosts extends Dialog {
 
     private void showHtmlDialog(RenderedPage _session) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session);
+        DialogHtmlData.setDialogHtmlData(window, this, messages.getVal(TITLE_DETAIL), _session);
     }
 }

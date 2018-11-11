@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -106,7 +105,7 @@ public final class FctOperation extends InvokingOperation {
         } else if (trimMeth_.startsWith(StringList.concat(keyWordThat_, String.valueOf(DOT_VAR)))) {
             trimMeth_ = trimMeth_.substring(keyWordThat_.length() + 1);
             staticChoiceMethod_ = true;
-        } else if (ElResolver.procWordFirstChar(trimMeth_, 0, keyWordThisaccess_)) {
+        } else if (ContextEl.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
             className_ = className_.substring(lenPref_);

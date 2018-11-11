@@ -24,7 +24,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private int tabWidth;
 
     public FileBlock(OffsetsBlock _offset, boolean _predefined, int _tabWidth) {
-        super(null, 0, null, _offset);
+        super(null, null, _offset);
         predefined = _predefined;
         tabWidth = _tabWidth;
     }

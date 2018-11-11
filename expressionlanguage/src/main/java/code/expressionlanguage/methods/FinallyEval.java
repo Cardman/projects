@@ -18,8 +18,8 @@ import code.util.StringMap;
 
 public final class FinallyEval extends BracedStack implements Eval, IncrNextGroup {
 
-    public FinallyEval(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+    public FinallyEval(ContextEl _importingPage, BracedBlock _m, OffsetsBlock _offset) {
+        super(_importingPage, _m, _offset);
     }
 
     @Override

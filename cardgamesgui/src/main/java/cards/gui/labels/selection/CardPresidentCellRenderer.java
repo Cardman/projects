@@ -6,16 +6,20 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 import cards.consts.Suit;
+import cards.gui.MainWindow;
 import cards.president.enumerations.CardPresident;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
 import code.util.Numbers;
-import code.util.consts.Constants;
 /**
  */
 public class CardPresidentCellRenderer extends CustCellRender {
     private CardPresident card;
     private boolean selectionne;
+    private MainWindow window;
+    public CardPresidentCellRenderer(MainWindow _window) {
+        window = _window;
+    }
     @Override
     public JLabel getListCellRendererComponent(GraphicListable _list, Object _value,
             int _index, boolean _isSelected, boolean _cellHasFocus) {
@@ -77,7 +81,8 @@ public class CardPresidentCellRenderer extends CustCellRender {
         } else {
             _g.setColor(Color.RED);
         }
-        _g.drawString(card.getSymbol(Constants.getLanguage()),10,10);
+        String lg_ = window.getLanguageKey();
+        _g.drawString(card.getSymbol(lg_),10,10);
     }
     @Override
     public int getHeight() {

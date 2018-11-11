@@ -69,12 +69,12 @@ public final class ForMutableIterativeLoop extends BracedStack implements
 
     private CustList<OperationNode> opStep;
 
-    public ForMutableIterativeLoop(ContextEl _importingPage, int _indexChild,
+    public ForMutableIterativeLoop(ContextEl _importingPage,
             BracedBlock _m, OffsetBooleanInfo _final,
             OffsetStringInfo _className,
             OffsetStringInfo _from,
             OffsetStringInfo _to, OffsetStringInfo _step, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         className = _className.getInfo();
         classNameOffset = _className.getOffset();
         init = _from.getInfo();

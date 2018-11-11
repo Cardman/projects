@@ -114,13 +114,6 @@ public final class ConstantOperation extends OperationNode {
             setNextSiblingsArg(a_);
             return;
         }
-        if (StringList.quickEq(str_, EMPTY_SET)) {
-            a_.setArgClass(MathType.SET);
-            a_.setObject(new MathList());
-            setArgument(a_);
-            setNextSiblingsArg(a_);
-            return;
-        }
         if (str_.startsWith(String.valueOf(DELIMITER_STRING_BEGIN))) {
             str_ = str_.substring(CustList.SECOND_INDEX, str_.lastIndexOf(DELIMITER_STRING_END));
             if (str_.isEmpty()) {

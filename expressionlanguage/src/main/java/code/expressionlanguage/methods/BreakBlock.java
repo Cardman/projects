@@ -22,9 +22,9 @@ public final class BreakBlock extends AbruptBlock implements CallingFinally {
     private String label;
     private int labelOffset;
 
-    public BreakBlock(ContextEl _importingPage, int _indexChild,
+    public BreakBlock(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }

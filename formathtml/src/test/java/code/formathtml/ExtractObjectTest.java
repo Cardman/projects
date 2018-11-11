@@ -4,7 +4,6 @@ import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import code.bean.Bean;
@@ -22,15 +21,9 @@ import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 @SuppressWarnings("static-method")
 public class ExtractObjectTest {
-
-    @BeforeClass
-    public static void initialize() {
-        Constants.setLanguage("en");
-    }
 
     @Test
     public void formatMessage1Test() {

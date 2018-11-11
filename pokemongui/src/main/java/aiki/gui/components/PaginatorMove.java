@@ -10,6 +10,7 @@ import aiki.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
+import aiki.gui.MainWindow;
 import aiki.gui.components.labels.TmLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -29,7 +30,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
 import code.util.StringList;
-import code.util.consts.Constants;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
@@ -111,8 +111,8 @@ public final class PaginatorMove extends Paginator {
 
     private boolean buy;
 
-    public PaginatorMove(ChangeableTitle _w, FacadeGame _d, boolean _buy) {
-        super(ACCESS_MOVE);
+    public PaginatorMove(MainWindow _window, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+        super(_window, ACCESS_MOVE);
         setWindow(_w);
         setFacade(_d);
         buy = _buy;
@@ -133,7 +133,8 @@ public final class PaginatorMove extends Paginator {
         damaging.refresh(getFacade().getTranslatedBooleansCurLanguage());
         targets = new ComboBoxTargetChoice();
         targets.setWithDefaultValue(true);
-        targets.refresh(getFacade().getData().getTranslatedTargets().getVal(Constants.getLanguage()));
+        String lg_ = getMain().getLanguageKey();
+        targets.refresh(getFacade().getData().getTranslatedTargets().getVal(lg_));
         cmpNameSorting = new ComboBoxSelectedBool();
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());

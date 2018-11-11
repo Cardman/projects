@@ -9,6 +9,7 @@ import javax.swing.SpinnerListModel;
 
 import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
+import cards.gui.MainWindow;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.comboboxes.ComboBoxMixCards;
 import cards.gui.dialogs.events.ListenerEqualityPlaying;
@@ -66,13 +67,14 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     protected DialogPresident() {
     }
 
-    public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers);
+    public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window);
 
-    protected void initMessageName() {
-        setMessages(getMessages(FileConst.FOLDER_MESSAGES_GUI));
+    protected void initMessageName(MainWindow _parent) {
+        setMessages(getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI));
     }
 
-    protected void initJt(JSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers) {
+    protected void initJt(JSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         Panel dealing_=new Panel();
         dealing_.setLayout(new GridLayout(0,2));
@@ -84,7 +86,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         EnumMap<MixCardsChoice, String> trMix_;
         trMix_ = new EnumMap<MixCardsChoice, String>();
         for (MixCardsChoice choix_: mix_) {
-            trMix_.put(choix_, choix_.display());
+            trMix_.put(choix_, choix_.toString(lg_));
         }
         listeChoix.refresh(mix_, trMix_);
 //        for (MixCardsChoice choix_:MixCardsChoice.values()) {
@@ -111,7 +113,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
             if (choix_ == curThree_) {
                 i_ = index_;
             }
-            equality.addItem(choix_);
+            equality.addItem(choix_, lg_);
             index_++;
         }
         if (i_ > -1) {
@@ -172,7 +174,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         }
         nbJoueurs=new JSpinner(spin_);
         if (_enabledChangingNbPlayers) {
-            nbJoueurs.addChangeListener(new ListenerPlayers(this));
+            nbJoueurs.addChangeListener(new ListenerPlayers(this, _window));
         } else {
             nbJoueurs.setEnabled(false);
         }
@@ -200,7 +202,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     }
 
     @Override
-    public void validateNbPlayers() {
+    public void validateNbPlayers(MainWindow _window) {
         Numbers<Integer> stacks_ = new Numbers<Integer>();
         int minStacks_ = RulesPresident.getNbMinStacks((Integer) nbJoueurs.getValue());
         int maxStacks_ = RulesPresident.getNbMaxStacks((Integer) nbJoueurs.getValue());

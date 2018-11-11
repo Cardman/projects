@@ -19,8 +19,8 @@ public final class TryEval extends BracedStack implements Eval, IncrCurrentGroup
     private String label;
     private int labelOffset;
 
-    public TryEval(ContextEl _importingPage, int _indexChild, BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+    public TryEval(ContextEl _importingPage, BracedBlock _m, OffsetStringInfo _label, OffsetsBlock _offset) {
+        super(_importingPage, _m, _offset);
         label = _label.getInfo();
         labelOffset = _label.getOffset();
     }

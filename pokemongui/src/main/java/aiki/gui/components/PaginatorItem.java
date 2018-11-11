@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import aiki.facade.FacadeGame;
+import aiki.gui.MainWindow;
 import aiki.gui.components.labels.ItemLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -81,8 +82,8 @@ public final class PaginatorItem extends Paginator {
 
     private boolean buy;
 
-    public PaginatorItem(ChangeableTitle _w, FacadeGame _d, boolean _buy) {
-        super(ACCESS_ITEM);
+    public PaginatorItem(MainWindow _window, ChangeableTitle _w, FacadeGame _d, boolean _buy) {
+        super(_window, ACCESS_ITEM);
         setWindow(_w);
         setFacade(_d);
         buy = _buy;

@@ -1,12 +1,11 @@
 package cards.belote.comparators;
-import code.util.ints.Comparing;
-
 import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import code.util.CustList;
 import code.util.EnumMap;
+import code.util.ints.Comparing;
 
 /**Only "no trump" suits can be sorted with this comparator*/
 public final class GameStrengthGreatHandBeloteComparator implements Comparing<Suit> {

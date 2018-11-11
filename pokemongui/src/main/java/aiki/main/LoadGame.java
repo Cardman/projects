@@ -1,5 +1,5 @@
 package aiki.main;
-import aiki.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import code.gui.ThreadInvoker;
 
@@ -7,40 +7,31 @@ import code.gui.ThreadInvoker;
 Thread safe class*/
 public final class LoadGame extends Thread {
 
-    //extends Thread
+    private MainWindow frame;
 
     /**This class thread is independant from EDT*/
     public LoadGame(MainWindow _frame) {
-        MainWindow.getDialog().init(_frame, VideoLoading.getVideo(), false);
-//        addPropertyChangeListener(new ProgressingPropertyEvent());
+        frame = _frame;
+        VideoLoading video_ = frame.getVideoLoading();
+        frame.getDialog().init(frame, video_.getVideo(), false);
     }
 
     @Override
     public void run() {
-//        MainWindow.getDialog().setVisible(true);
-        ThreadInvoker.invokeNow(new ShowLoadingDialog());
-        MainWindow.getDialog().startAnimation();
-        while (DataBase.isLoading()) {
-            setProgress(DataBase.getPerCentLoading());
-//            MainWindow.getDialog().setPerCent(String.valueOf(DataBase.getPerCentLoading()));
+        ThreadInvoker.invokeNow(new ShowLoadingDialog(frame));
+        frame.getDialog().startAnimation();
+        FacadeGame fg_ = frame.getFacade();
+        while (fg_.isLoading()) {
+            setProgress(fg_.getPerCentLoading());
         }
-        MainWindow.getDialog().stopAnimation();
-        MainWindow.getDialog().setVisible(false);
-        MainWindow.getDialog().getPane().removeAll();
-        MainWindow.getDialog().stopTimer();
-//        ThreadInvoker.invokeNow(new DoneLoadingThread());
+        frame.getDialog().stopAnimation();
+        frame.getDialog().setVisible(false);
+        frame.getDialog().getPane().removeAll();
+        frame.getDialog().stopTimer();
     }
 
-    private static void setProgress(int _perCentLoading) {
-        MainWindow.getDialog().setPerCent(_perCentLoading);
+    private void setProgress(int _perCentLoading) {
+        frame.getDialog().setPerCent(_perCentLoading);
     }
-
-//    @Override
-//    protected void done() {
-//        //Freeing resources
-//        MainWindow.getDialog().setVisible(false);
-//        MainWindow.getDialog().getContentPane().removeAll();
-//        MainWindow.getDialog().stopTimer();
-//    }
 }
 

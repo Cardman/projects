@@ -59,8 +59,9 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 
     @Override
     public void run() {
+        String lg_ = container.getOwner().getLanguageKey();
         GamePresident partie_=partiePresidentSimulee();
-        GamePresident.setChargementSimulation(100);
+        partie_.setChargementSimulation(100);
         Constants.sleep(500);
         String event_;
         event_ = StringList.concat(container.getMessages().getVal(MainWindow.BEGIN_DEMO),ContainerGame.RETURN_LINE);
@@ -93,7 +94,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 for (byte l: losers_) {
                     byte w_ = GamePresident.getMatchingWinner(winners_, losers_, l);
                     HandPresident h_ = switchedCards_.getVal(l);
-                    event_ = StringList.concat(nicknames_.get(l),ContainerGame.INTRODUCTION_PTS,h_.display(),ContainerGame.RETURN_LINE,nicknames_.get(w_),ContainerGame.RETURN_LINE);
+                    event_ = StringList.concat(nicknames_.get(l),ContainerGame.INTRODUCTION_PTS,h_.toString(lg_),ContainerGame.RETURN_LINE,nicknames_.get(w_),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(nicknames_.get(l)+ContainerGame.INTRODUCTION_PTS+h_+ContainerPresident.RETURN_LINE_CHAR);
@@ -111,7 +112,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
                 for (byte w: winners_) {
                     byte l_ = GamePresident.getMatchingLoser(losers_, winners_, w);
                     HandPresident h_ = switchedCards_.getVal(w);
-                    event_ = StringList.concat(nicknames_.get(w),ContainerGame.INTRODUCTION_PTS,h_.display(),ContainerGame.RETURN_LINE,nicknames_.get(l_),ContainerGame.RETURN_LINE);
+                    event_ = StringList.concat(nicknames_.get(w),ContainerGame.INTRODUCTION_PTS,h_.toString(lg_),ContainerGame.RETURN_LINE,nicknames_.get(l_),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(nicknames_.get(w)+ContainerGame.INTRODUCTION_PTS+h_+ContainerPresident.RETURN_LINE_CHAR);
@@ -187,7 +188,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 //                        container.tapisPresident().repaintValidate();
                     }
                     player_ = t_.getPlayer(noHand_, partie_.getNombreDeJoueurs());
-                    event_ = StringList.concat(nicknames_.get(player_),ContainerGame.INTRODUCTION_PTS,h.display(),ContainerGame.RETURN_LINE);
+                    event_ = StringList.concat(nicknames_.get(player_),ContainerGame.INTRODUCTION_PTS,h.toString(lg_),ContainerGame.RETURN_LINE);
                     ThreadInvoker.invokeNow(new AddTextEvents(container, event_));
 //                    container.ajouterTexteDansZone(event_);
 //                    container.ajouterTexteDansZone(nicknames_.get(player_)+ContainerGame.INTRODUCTION_PTS+h+ContainerPresident.RETURN_LINE_CHAR);
@@ -280,6 +281,7 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
 
     @Override
     public void endSimulation() {
+        String lg_ = container.getOwner().getLanguageKey();
         Panel panneau_=new Panel();
         panneau_.setLayout(new BoxLayout(panneau_.getComponent(), BoxLayout.PAGE_AXIS));
         ResultsPresident res_ = new ResultsPresident();
@@ -289,12 +291,12 @@ public final class GoSimulatePresident extends Thread implements GoSimulate {
         res_.initialize(new StringList(nicknames_), container.getScores(), currentGame_.getRanksDeals().get(noDeal));
 //        res_.initialize(new CustList<>(nicknames_), container.getScores(), currentGame_.getRanksDeals().get(noDeal + 1));
         res_.setUser(DealPresident.NUMERO_UTILISATEUR);
-        res_.setMessages(Constants.getLanguage());
+        res_.setMessages(lg_);
         JScrollPane scroll_=new JScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_);
         try {
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(Constants.getLanguage());
+            editor_.setLanguage(lg_);
             editor_.setDataBase(res_);
             editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT, new PresidentStandards());
         } catch (RuntimeException _0) {

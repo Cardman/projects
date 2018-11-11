@@ -34,7 +34,6 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorListSizeElement;
-import code.util.consts.Constants;
 
 public final class FrameGeneralHelp extends ChildFrame {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.FrameGeneralHelp";
@@ -78,6 +77,7 @@ public final class FrameGeneralHelp extends ChildFrame {
     private LabelButton search;
 
     public FrameGeneralHelp(String _titre, MainWindow _fenetre) {
+        super(_fenetre.getLanguageKey());
         setAccessFile(DIALOG_ACCESS);
         setDialogIcon(_fenetre);
         setTitle(_titre);
@@ -100,18 +100,19 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        window = null;
 //    }
 
-    public void voir() {
+    public void voir(MainWindow _w) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        messages = getMessages(_w,FileConst.FOLDER_MESSAGES_GUI);
+        String lg_ = _w.getLanguageKey();
         elementsBis.clear();
 //        try {
-        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+        Document doc_ = DocumentBuilder.parseSax(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,
                 StreamTextFile.SEPARATEUR,XML_FILE_PATHS)));
         Element element_ = doc_.getDocumentElement();
         CustList<Node> noeudsActuels_ = new CustList<Node>();
         noeudsActuels_.add(element_);
         StringList cheminsActuels_ = new StringList();
-        cheminsActuels_.add(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,Constants.getLanguage(),StreamTextFile.SEPARATEUR,element_.getTagName()));
+        cheminsActuels_.add(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_,StreamTextFile.SEPARATEUR,element_.getTagName()));
         Numbers<Integer> indices_ = new Numbers<Integer>();
         indices_.add(Integer.parseInt(element_.getAttribute(POSITION)));
 //            CustList<CustList<Integer>> cheminsNumeriques_ = new CustList<CustList<Integer>>();
@@ -122,7 +123,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                 .getAttribute(TEXTE));
 //            elementRacine_.ajouterInfo(StreamTextFile.ressourceFichier(
 //                    FileConst.RESOURCES_HELP+StreamTextFile.SEPARATEUR+Constants.getLanguage(), element_.getNodeName() + FileConst.TXT_EXT));
-        elementRacine_.ajouterInfo(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,Constants.getLanguage(), StreamTextFile.SEPARATEUR,
+        elementRacine_.ajouterInfo(StringList.concat(FileConst.RESOURCES_HELP,StreamTextFile.SEPARATEUR,lg_, StreamTextFile.SEPARATEUR,
                 element_.getTagName(), FileConst.XML_EXT));
         elementsBis.put(indices_, elementRacine_);
         while (true) {
@@ -240,7 +241,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        try {
 //            editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-        editor.setLanguage(Constants.getLanguage());
+        editor.setLanguage(lg_);
         BeanLgNames bean_ = new GeneralHelpLgNames();
         DefaultInitialization.basicStandards(bean_);
         editor.initialize(racineBis.getFile(), bean_);

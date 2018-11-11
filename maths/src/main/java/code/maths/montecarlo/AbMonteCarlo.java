@@ -11,8 +11,6 @@ import code.util.ints.Listable;
 
 public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
-    private static final LgInt MAX_RANDOM = LgInt.getMaxLongPlusOne();
-
     private static final int NB_RAND = 4;
 
     public static CustList<Object> suffledElts(Object... _list) {
@@ -78,15 +76,11 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
             return loi_;
         }
         NumDiffDenNum p_ = _rateEnabled.getNumDiffDenNum();
-//        LgInt num_=_rateEnabled.getNumerator();
-//        LgInt den_=_rateEnabled.getDenominator();
-//        loi_.addEvent(true,num_);
-//        loi_.addEvent(false,LgInt.minus(den_, num_));
         loi_.addEvent(true,p_.getNumerator());
         loi_.addEvent(false,p_.getDiffDenNumerator());
         return loi_;
     }
-    public E editNumber() {
+    public E editNumber(LgInt _lgInt) {
         Listable<E> cles_ = events();
         if(cles_.size() == CustList.SECOND_INDEX - CustList.FIRST_INDEX){
             return cles_.first();
@@ -94,23 +88,19 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         if (cles_.isEmpty()) {
             return null;
         }
-        return editNumber(randomNumber(randomNumbers()));
+        return editNumberSeed(randomNumberSe(randomNumbersSeed(_lgInt),_lgInt));
     }
-    private static EqList<LgInt> randomNumbers() {
+    private static EqList<LgInt> randomNumbersSeed(LgInt _lgInt) {
         EqList<LgInt> numbers_ = new EqList<LgInt>();
         for(int i = CustList.FIRST_INDEX; i < NB_RAND; i++){
 //          numbers_.add(MAX_RANDOM.multiply(randomDouble()));
-            numbers_.add(randomLgInt());
+            numbers_.add(randomLgIntSeed(_lgInt));
         }
         return numbers_;
     }
 
-    static LgInt getMaxRandom() {
-        return MAX_RANDOM;
-    }
-
-    public static LgInt randomLgInt() {
-        return randomLgInt(MAX_RANDOM);
+    public static LgInt randomLgIntSeed(LgInt _lgInt) {
+        return randomLgInt(_lgInt);
     }
 
     public static LgInt randomLgInt(LgInt _excludeMax) {
@@ -130,24 +120,24 @@ public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
         return (int) (value_ % _excludeMax);
     }
 
-    protected static LgInt maxNumber() {
+    protected static LgInt maxNumber(LgInt _max) {
         EqList<LgInt> numbers_ = new EqList<LgInt>();
         for(int i = CustList.FIRST_INDEX; i< NB_RAND; i++){
             numbers_.add(new LgInt(Long.MAX_VALUE));
         }
-        return randomNumber(numbers_);
+        return randomNumberSe(numbers_,_max);
     }
 
-    static LgInt randomNumber(EqList<LgInt> _numbers) {
+    static LgInt randomNumberSe(EqList<LgInt> _numbers,LgInt _max) {
         LgInt alea_=LgInt.zero();
         for(LgInt i: _numbers){
-            alea_.multiplyBy(MAX_RANDOM);
+            alea_.multiplyBy(_max);
             alea_.addNb(i);
         }
         return alea_;
     }
 
-    E editNumber(LgInt _randomNumber) {
+    E editNumberSeed(LgInt _randomNumber) {
         LgInt sum_ = sum();
         LgInt random_ = LgInt.remain(_randomNumber, sum_);
         sum_.affectZero();

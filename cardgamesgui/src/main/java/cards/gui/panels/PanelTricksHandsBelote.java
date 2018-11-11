@@ -13,6 +13,7 @@ import cards.belote.DisplayingBelote;
 import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.CardBelote;
+import cards.gui.MainWindow;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
@@ -25,7 +26,6 @@ import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricksHands {
 
@@ -44,15 +44,19 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
     private ChangeableTitle parent;
     private byte numberPlayers;
     private DisplayingBelote displayingBelote;
+    private MainWindow window;
 
     public PanelTricksHandsBelote(ChangeableTitle _parent,
             TricksHandsBelote _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingBelote _displayingBelote) {
+            DisplayingBelote _displayingBelote,
+            MainWindow _window) {
+        window= _window;
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(),ACCESS);
+        String lg_ = window.getLanguageKey();
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_,ACCESS);
         parent = _parent;
         tricksHands = _tricksHands;
         DealBelote dealt_ = tricksHands.getDistribution();
@@ -77,7 +81,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         //boolean entered_ = false;
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<_numberPlayers;joueur_++) {
             sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.main(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.main(joueur_))) {
                 sousPanneau3_.add(c);
             }
 //            entered_ = false;
@@ -96,7 +100,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         cards.add(hands);
         Panel sousPanneau2_=new Panel(new GridLayout(0,1));
         sousPanneau3_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.derniereMain())) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.derniereMain())) {
             sousPanneau3_.add(c);
         }
 //        entered_ = false;
@@ -149,9 +153,10 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         hands.setLayout(new GridLayout(0,1));
         DealBelote dealt_ = tricksHands.getDistribution();
         CustList<TrickBelote> tricks_ = tricksHands.getTricks();
+        String lg_ = window.getLanguageKey();
         for (byte joueur_ = CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.main(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,dealt_.main(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -184,7 +189,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
                 indice_++;
             }
             for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(carte_,SwingConstants.RIGHT,true);
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(lg_, carte_,SwingConstants.RIGHT,true);
                 carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
                 selectedTrick.add(carteGraphique2_);
                 indice_++;
@@ -216,7 +221,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
                 indice_++;
             }
             for(CardBelote carte_:tricks_.get(indicePli_ - 1)) {
-                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(carte_,SwingConstants.RIGHT,true);
+                GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(lg_, carte_,SwingConstants.RIGHT,true);
                 carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
                 tricks.add(carteGraphique2_,indicePli_*(indice_+1)-1);
                 indice_++;
@@ -248,9 +253,10 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
         tricksHands.restituerMains(displayingBelote, numberPlayers,numeroPli_,numeroCarte_);
         hands.removeAll();
         hands.setLayout(new GridLayout(0,1));
+        String lg_ = window.getLanguageKey();
         for(byte joueur_=CustList.FIRST_INDEX;joueur_<numberPlayers;joueur_++) {
             Panel sousPanneau4_=new Panel(new FlowLayout(FlowLayout.LEFT,0,0));
-            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(dealt_.main(joueur_))) {
+            for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_, dealt_.main(joueur_))) {
                 sousPanneau4_.add(c);
             }
 //            boolean entered_ = false;
@@ -284,7 +290,7 @@ public class PanelTricksHandsBelote extends Panel implements ViewablePanelTricks
             }
             for(CardBelote carte_:tricks_.get(numeroPli_-1)) {
                 if(indice2_<=numeroCarte_) {
-                    GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(carte_,SwingConstants.RIGHT,true);
+                    GraphicBeloteCard carteGraphique2_=new GraphicBeloteCard(lg_,carte_,SwingConstants.RIGHT,true);
                     carteGraphique2_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
                     selectedTrick.add(carteGraphique2_);
                     indice_++;

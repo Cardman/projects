@@ -18,21 +18,23 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initDialogRulesBelote(String _titre, MainWindow _fenetre, RulesBelote _rulesBelote) {
+        DIALOG.setMain(_fenetre);
         DIALOG.setDialogIcon(_fenetre);
         DIALOG.setTitle(_titre);
         DIALOG.setReglesBelote(_rulesBelote);
         DIALOG.setLocationRelativeTo(_fenetre);
         DIALOG.getJt().removeAll();
-        DIALOG.setDialogue();
+        DIALOG.setDialogue(_fenetre);
     }
 
     @Override
-    public void setDialogue() {
+    public void setDialogue(MainWindow _parent) {
         validated = false;
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
-        initMessageName();
-        initJt(null);
+        initMessageName(_parent);
+        String lg_ = _parent.getLanguageKey();
+        initJt(null,lg_);
 
         container_.add(getJt(),BorderLayout.CENTER);
         LabelButton bouton_=new LabelButton(getMessages().getVal(VALIDATE));

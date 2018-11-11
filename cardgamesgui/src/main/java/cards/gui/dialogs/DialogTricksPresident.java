@@ -28,16 +28,16 @@ public final class DialogTricksPresident extends DialogCards {
 
     public static void init(TricksHandsPresident _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingPresident _displayingPresident) {
-        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingPresident);
+            DisplayingPresident _displayingPresident, MainWindow _window) {
+        DIALOG.setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window);
     }
 
     private void setDialogue(TricksHandsPresident _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingPresident _displayingPresident) {
+            DisplayingPresident _displayingPresident, MainWindow _window) {
         _tricksHands.sortHands(_displayingPresident, _numberPlayers);
         ScrollPane scroll_ = new ScrollPane(new PanelTricksHandsPresident(this,
-                _tricksHands, _numberPlayers, _pseudos, _displayingPresident));
+                _tricksHands, _numberPlayers, _pseudos, _displayingPresident,_window));
         scroll_.setPreferredSize(new Dimension(600, 600));
         setContentPane(scroll_);
         pack();

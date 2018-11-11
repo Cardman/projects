@@ -18,15 +18,18 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
 
     private static final String MESSAGE = "message";
 
-    private static StringMap<String> _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, Constants.getLanguage(),ACCESS);
+    private StringMap<String> messages;
 
     private Image imageIconFrame;
 
     private boolean opened;
 
-    protected GroupFrame() {
+    protected GroupFrame(String _lg) {
+        super(_lg);
         FRAMES.add(this);
-        WindowUtils.addInArray(getFrame());
+        if (FRAMES.size() == 1) {
+            FRAMES.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+        }
     }
 
     public static boolean tryToReopen(String _applicationName) {
@@ -110,19 +113,17 @@ public abstract class GroupFrame extends CommonFrame implements ChangeableTitle 
     public void setVisible(boolean _b) {
         opened = _b;
         super.setVisible(_b);
-        if (!_b) {
-            WindowUtils.removeWindow(getFrame());
-        }
     }
 
     public abstract boolean canChangeLanguage();
 
     protected static void showDialogError(GroupFrame _group) {
-        ConfirmDialog.showMessage(_group, _messages_.getVal(MESSAGE), _messages_.getVal(TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+        StringMap<String> messages_ = FRAMES.first().messages;
+        ConfirmDialog.showMessage(_group, messages_.getVal(MESSAGE), messages_.getVal(TITLE), FRAMES.first().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
     }
 
     public static void changeStaticLanguage(String _language) {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language,ACCESS);
+        FRAMES.first().messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _language,ACCESS);
         FRAMES.first().changeLanguage(_language);
     }
 

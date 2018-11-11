@@ -13,7 +13,6 @@ import code.sml.util.ExtractFromFiles;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public class HealingItemLabel extends SelectableLabel {
 
@@ -47,7 +46,7 @@ public class HealingItemLabel extends SelectableLabel {
 
     //private static final int FOURTH_LINE = THIRD_LINE + Paginator.HEIGTH_CHARS;
 
-    private static StringMap<String> _messages_ = new StringMap<String>();
+    private StringMap<String> messages = new StringMap<String>();
 
     private int sideLength;
 
@@ -65,8 +64,8 @@ public class HealingItemLabel extends SelectableLabel {
         item = _item;
     }
 
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), HEALING_ITEM_LABEL);
+    public void initMessages(String _lg) {
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, HEALING_ITEM_LABEL);
     }
 
     public void setImagesResults(FacadeGame _facade, int _thirdColumn, int _fourthColumn, int _fifthColumn) {
@@ -95,10 +94,6 @@ public class HealingItemLabel extends SelectableLabel {
         return getFontMetrics(getFont()).stringWidth(StringList.concat(item.getNumber().toNumberString(),SPACES));
     }
 
-//    public int getFifthColumnWidth() {
-//        return getFontMetrics(getFont()).stringWidth(item.getNumber().toString());
-//    }
-
     @Override
     public void paintComponent(Graphics _g) {
         _g.setColor(Color.WHITE);
@@ -120,42 +115,27 @@ public class HealingItemLabel extends SelectableLabel {
     private String getThirdLineInfos() {
         StringList infos_ = new StringList();
         if (!item.getHp().isZero()) {
-            infos_.add(StringList.concat(_messages_.getVal(HP),item.getHp().toNumberString()));
+            infos_.add(StringList.concat(messages.getVal(HP),item.getHp().toNumberString()));
         }
         if (!item.getHpRate().isZero()) {
-            infos_.add(StringList.concat(_messages_.getVal(HP_RATE),item.getHpRate().toNumberString()));
+            infos_.add(StringList.concat(messages.getVal(HP_RATE),item.getHpRate().toNumberString()));
         }
-        /*if (item.getHp() != null) {
-            if (item.isRelativeRateHp()) {
-                infos_.add(_messages_.getVal(HP_RATE)+item.getHp());
-            } else {
-                infos_.add(_messages_.getVal(HP)+item.getHp());
-            }
-        }*/
         if (!item.getPp().isZero()) {
             if (item.isHealOneMove()) {
-                infos_.add(_messages_.getVal(HEAL_ONE_MOVE));
+                infos_.add(messages.getVal(HEAL_ONE_MOVE));
             } else {
-                infos_.add(_messages_.getVal(HEAL_MOVES));
+                infos_.add(messages.getVal(HEAL_MOVES));
             }
-            infos_.add(StringList.concat(_messages_.getVal(PP),item.getPp().toNumberString()));
+            infos_.add(StringList.concat(messages.getVal(PP),item.getPp().toNumberString()));
         }
-        /*if (item.getPp() != null) {
-            if (item.isHealOneMove()) {
-                infos_.add(_messages_.getVal(HEAL_ONE_MOVE));
-            } else {
-                infos_.add(_messages_.getVal(HEAL_MOVES));
-            }
-            infos_.add(_messages_.getVal(PP)+item.getPp());
-        }*/
         if (!item.getStatus().isEmpty()) {
-            infos_.add(StringList.concat(_messages_.getVal(STATUS),item.getStatus().join(SEPARATOR)));
+            infos_.add(StringList.concat(messages.getVal(STATUS),item.getStatus().join(SEPARATOR)));
         }
         if (!item.getStatistics().isEmpty()) {
-            infos_.add(StringList.concat(_messages_.getVal(STATISTICS),item.getStatistics().join(SEPARATOR)));
+            infos_.add(StringList.concat(messages.getVal(STATISTICS),item.getStatistics().join(SEPARATOR)));
         }
         if (item.isKo()) {
-            infos_.add(_messages_.getVal(KO));
+            infos_.add(messages.getVal(KO));
         }
         return infos_.join(SEPARATOR);
     }

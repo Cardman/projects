@@ -1,5 +1,4 @@
 package cards.gui.containers;
-import cards.gameresults.ResultsGame;
 import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
@@ -16,7 +15,6 @@ public interface ContainerMulti {
     int getNoClient();
     boolean hasCreatedServer();
     byte getIndexInGame();
-    void endGame(ResultsGame _res);
     void changeRules();
     void changePlace();
     void changeReady();

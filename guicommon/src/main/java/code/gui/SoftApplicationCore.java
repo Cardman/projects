@@ -36,37 +36,21 @@ public abstract class SoftApplicationCore {
     private static final String EMPTY_STRING = "";
 
     protected void loadLaungage(String _dir, String[] _args, Image _icon) {
-//        SerializeXmlObject.setReferences(false);
-//        SerializeXmlObject.setCheckReferences(false);
-////        SerializeXmlObject.setUpdateFinalFields(false);
-//        String language_;
-//        try {
-//            language_ = loadLanguage(_dir);
-//        }catch(LangueException _0) {
-//            _0.printStackTrace();
-//            proponeLanguage(_dir, _args, _icon);
-//            return;
-//        }
-//        Constants.setSystemLanguage(language_);
-        if (!prepareLanguage(_dir, _args, _icon)) {
+        String lg_ = prepareLanguage(_dir, _args, _icon);
+        if (lg_.isEmpty()) {
             return;
         }
         StringMap<Object> files_ = getFile(_args);
-//        launchWithoutLanguage(language_, files_);
-        launchWithoutLanguage(Constants.getLanguage(), files_);
+        launchWithoutLanguage(lg_, files_);
     }
 
-    protected boolean prepareLanguage(String _dir, String[] _args, Image _icon) {
-//        SerializeXmlObject.setReferences(false);
-//        SerializeXmlObject.setCheckReferences(false);
-//        SerializeXmlObject.setUpdateFinalFields(false);
+    protected final String prepareLanguage(String _dir, String[] _args, Image _icon) {
         String language_ = loadLanguage(_dir);
         if (language_.isEmpty()) {
             proponeLanguage(_dir, _args, _icon);
-            return false;
+            return language_;
         }
-        Constants.setSystemLanguage(language_);
-        return true;
+        return language_;
     }
 
     StringMap<Object> getFile(String[] _args) {
@@ -162,10 +146,7 @@ public abstract class SoftApplicationCore {
         infoPart_.setAttribute(LOCALE, _locale);
         info_.appendChild(infoPart_);
         document_.appendChild(info_);
-        boolean indent_ = DocumentBuilder.isIndentXmlWhileWriting();
-        DocumentBuilder.setIndentXmlWhileWriting(false);
         StreamTextFile.saveTextFile(StringList.concat(_folder,StreamTextFile.SEPARATEUR,LANGUAGE), DocumentBuilder.toXmlDocument(document_));
-        DocumentBuilder.setIndentXmlWhileWriting(indent_);
     }
 
     public static void setLocation(CommonFrame _frame, TopLeftFrame _topLeft) {
@@ -198,8 +179,8 @@ public abstract class SoftApplicationCore {
         return new PairNumber<Integer,Integer>(width_, height_);
     }
 
-    public void launch() {
-        launchWithoutLanguage(Constants.getLanguage(), new StringMap<Object>());
+    public void launch(String _lg) {
+        launchWithoutLanguage(_lg, new StringMap<Object>());
     }
 
     public abstract Object getObject(String _fileName);

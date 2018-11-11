@@ -2,10 +2,8 @@ package cards.belote.enumerations;
 import cards.consts.CardChar;
 import code.format.Format;
 import code.util.EnumList;
-import code.util.consts.Constants;
-import code.util.ints.Displayable;
 
-public enum DeclaresBelote  implements Displayable {
+public enum DeclaresBelote {
     UNDEFINED,
     FOUR_1(1,6,100,true),
     FOUR_KING(CardChar.KING,6,100),
@@ -120,10 +118,6 @@ public enum DeclaresBelote  implements Displayable {
             }
         }
         return nb_;
-    }
-    @Override
-    public String display() {
-        return toString(Constants.getLanguage());
     }
 
     public String toString(String _locale) {

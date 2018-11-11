@@ -27,7 +27,6 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 public abstract class FileDialog extends Dialog {
     private static final String DIALOG_ACCESS = "gui.FileDialog";
@@ -59,6 +58,7 @@ public abstract class FileDialog extends Dialog {
     private String folder = EMPTY_STRING;
     private StringList excludedFolders = new StringList();
 
+    private CommonFrame superFrame;
     private StringMap<String> messages;
 
     protected FileDialog(){
@@ -75,18 +75,20 @@ public abstract class FileDialog extends Dialog {
         extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
+        superFrame = _w;
         initDialog(_language, _currentFolderRoot, _excludedFolders);
     }
 
-    protected void setFileDialog(Dialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        initByDialog(_w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
+    protected void setFileDialog(CommonFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+        initByDialog(_c, _w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
     }
 
-    protected void initByDialog(Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
+    protected void initByDialog(CommonFrame _c,Dialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
         //super(_w,true);
         setDialogIcon(_w);
         setModal(true);
         setLocationRelativeTo(_w);
+        superFrame = _c;
         extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
@@ -94,7 +96,8 @@ public abstract class FileDialog extends Dialog {
     }
 
     private void initDialog(String _language, boolean _currentFolderRoot, String... _excludedFolders) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG_ACCESS);
+        String lg_ = superFrame.getLanguageKey();
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, lg_, DIALOG_ACCESS);
         lang = _language;
         currentFolderRoot = _currentFolderRoot;
         selectedPath = EMPTY_STRING;
@@ -109,7 +112,7 @@ public abstract class FileDialog extends Dialog {
                 }
             }
         }
-        fileModel = new FileTable();
+        fileModel = new FileTable(lg_);
         currentTitle = messages.getVal(FILES);
         if (currentFolderRoot) {
             currentTitle = StringList.concat(currentTitle, SPACE, currentFolder);
@@ -186,10 +189,10 @@ public abstract class FileDialog extends Dialog {
         if (index_ == CustList.INDEX_NOT_FOUND_ELT) {
             return;
         }
-        selectedPath = fileTable.getValueAt(index_, FileTable.PATH_INDEX).toString();
+        selectedPath = (String)fileTable.getValueAt(index_, FileTable.PATH_INDEX);
         selectedAbsolutePath = fileModel.getSelectedFilePath(index_);
         if (addTypingFileName) {
-            fileName.setText(fileTable.getValueAt(index_, FileTable.NAME_INDEX).toString());
+            fileName.setText((String)fileTable.getValueAt(index_, FileTable.NAME_INDEX));
         }
     }
 
@@ -243,12 +246,12 @@ public abstract class FileDialog extends Dialog {
 //        }
         StringList pathFull_ = new StringList();
         for (Object o: _treePath.getPath()) {
-            pathFull_.add(o.toString());
+            pathFull_.add((String)o);
         }
         pathFull_.removeObj(EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();
         for (Object o: pathFull_) {
-            str_.append(o.toString()).append(StreamTextFile.SEPARATEUR);
+            str_.append((String)o).append(StreamTextFile.SEPARATEUR);
         }
         currentFolder = str_.toString();
         currentTitle = StringList.simpleStringsFormat(messages.getVal(FILES_PARAM), currentFolder);

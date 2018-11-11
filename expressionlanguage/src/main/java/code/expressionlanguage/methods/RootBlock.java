@@ -88,11 +88,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     private Numbers<Integer> staticInitInterfacesOffset = new Numbers<Integer>();
     private Numbers<Integer> ancestorsIndexes = new Numbers<Integer>();
 
-    RootBlock(ContextEl _importingPage, int _indexChild,
+    RootBlock(ContextEl _importingPage,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name,
             String _packageName, OffsetAccessInfo _access, String _templateDef,
             NatTreeMap<Integer, String> _directSuperTypes, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         categoryOffset = _categoryOffset;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
         name = _name.trim();

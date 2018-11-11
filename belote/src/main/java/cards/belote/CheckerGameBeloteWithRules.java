@@ -30,6 +30,9 @@ public final class CheckerGameBeloteWithRules {
     }
 
     public static void check(GameBelote _loadedGame) {
+        check(_loadedGame, Constants.getDefaultLanguage());
+    }
+    public static void check(GameBelote _loadedGame, String _lg) {
         RulesBelote rules_ = _loadedGame.getRegles();
         if (rules_ == null) {
             _loadedGame.setError(NULL_RULE);
@@ -405,7 +408,7 @@ public final class CheckerGameBeloteWithRules {
                 }
                 CardBelote ct_ = trick_.carteDuJoueur(p,
                         _loadedGame.getNombreDeJoueurs());
-                if (!loadedGameCopy_.autorise(ct_, Constants.getLanguage())) {
+                if (!loadedGameCopy_.autorise(ct_, _lg)) {
                     _loadedGame.setError(BAD_PLAYING);
                     return;
                 }

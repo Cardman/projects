@@ -11,8 +11,8 @@ import code.expressionlanguage.stacks.SwitchBlockStack;
 public final class DefaultCondition extends SwitchPartBlock implements IncrNextGroup {
 
     public DefaultCondition(ContextEl _importingPage,
-            int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+            BracedBlock _m, OffsetsBlock _offset) {
+        super(_importingPage, _m, _offset);
     }
 
     @Override

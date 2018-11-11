@@ -16,7 +16,6 @@ import code.util.CharList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 public final class FileSaveDialog extends FileDialog implements SingleFileSelection {
     private static final String DIALOG_ACCESS = "gui.FileSaveDialog";
@@ -54,6 +53,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
     private Panel searchingPanel = new Panel();
 
     private StringMap<String> messages;
+    private CommonFrame frame;
 
     private FileSaveDialog() {
         setAccessFile(DIALOG_ACCESS);
@@ -61,16 +61,17 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     public static void setFileSaveDialogByFrame(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
         DIALOG.setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
-        DIALOG.initSaveDialog();
+        DIALOG.initSaveDialog(_w);
     }
 
-    public static void setFileSaveDialog(Dialog _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        DIALOG.setFileDialog(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
-        DIALOG.initSaveDialog();
+    public static void setFileSaveDialog(CommonFrame _c,Dialog _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+        DIALOG.setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
+        DIALOG.initSaveDialog(_c);
     }
 
-    private void initSaveDialog() {
-        messages = getMessages(GuiConstants.FOLDER_MESSAGES_GUI);
+    private void initSaveDialog(CommonFrame _c) {
+        frame =_c;
+        messages = getMessages(_c, GuiConstants.FOLDER_MESSAGES_GUI);
         getFileName().addActionListener(new SubmitKeyEvent(this));
         LabelButton action_ = new LabelButton(messages.getVal(SAVE));
         action_.addMouseListener(new SubmitMouseEvent(this));
@@ -103,12 +104,12 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         } else {
             StringList pathFull_ = new StringList();
             for (Object o: treePath_.getPath()) {
-                pathFull_.add(o.toString());
+                pathFull_.add((String)o);
             }
             pathFull_.removeObj(EMPTY_STRING);
             StringBuilder str_ = new StringBuilder();
             for (Object o: pathFull_) {
-                str_.append(o.toString()).append(StreamTextFile.SEPARATEUR);
+                str_.append((String)o).append(StreamTextFile.SEPARATEUR);
             }
             new File(StringList.concat(str_,typedString.getText())).mkdirs();
             applyTreeChange(treePath_);
@@ -125,9 +126,10 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 
     public void submit() {
         String errorTitle_ = messages.getVal(FORBIDDEN);
+        String lg_ = frame.getLanguageKey();
         if (getFileName().getText().trim().isEmpty()) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPACES);
-            ConfirmDialog.showMessage(this, errorContent_, errorTitle_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, errorContent_, errorTitle_,lg_, JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this, errorContent_, errorTitle_, JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -151,7 +153,7 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
 //        }
         if (hasForbbidenChars_) {
             String errorContent_ = messages.getVal(FORBIDDEN_SPECIAL_CHARS);
-            ConfirmDialog.showMessage(this, errorContent_, errorTitle_, Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, errorContent_, errorTitle_, lg_, JOptionPane.ERROR_MESSAGE);
             return;
         }
         //get selected row first table

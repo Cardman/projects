@@ -4,6 +4,7 @@ import java.io.File;
 import javax.swing.SwingUtilities;
 
 import aiki.DataBase;
+import aiki.facade.FacadeGame;
 import aiki.game.params.LoadingGame;
 import aiki.gui.MainWindow;
 import code.util.StringList;
@@ -34,6 +35,7 @@ public final class CreateMainWindowNoParam extends Thread {
 
     @Override
     public void run() {
+        FacadeGame fg_ = window.getFacade();
         //Timer t_ = null;
         boolean stoppedLoading_ = false;
         //t_ = new Timer(0, OpeningGame.getTaskPaintingLabel());
@@ -59,7 +61,7 @@ public final class CreateMainWindowNoParam extends Thread {
             }
             loadRom_ = path_;
             OpeningGame opening_ = new OpeningGame(window);
-            DataBase.setLoading(true);
+            fg_.setLoading(true);
             //ThreadInvoker.invokeNow(opening_);
             opening_.start();
 //            CreateMainWindow.copyZipFileToFolder(path_, Constants.getTmpUserFolder());
@@ -68,18 +70,18 @@ public final class CreateMainWindowNoParam extends Thread {
             } else {
                 window.loadOnlyRom(path_);
             }
-            if (!DataBase.isLoading()) {
+            if (!fg_.isLoading()) {
                 stoppedLoading_ = true;
             }
-            DataBase.setLoading(false);
+            fg_.setLoading(false);
         } catch (RuntimeException _0) {
-            error_ = window.getFacade().getData() == null;
-            DataBase.setLoading(false);
+            error_ = !fg_.isLoadedData();
+            fg_.setLoading(false);
             //NumericString.setCheckSyntax(false);
             _0.printStackTrace();
         } catch (VirtualMachineError _0) {
             error_ = true;
-            DataBase.setLoading(false);
+            fg_.setLoading(false);
             //NumericString.setCheckSyntax(false);
             _0.printStackTrace();
         }

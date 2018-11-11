@@ -1349,22 +1349,27 @@ final class FightSuccess {
         return coeff_;
     }
 
-    static boolean tirage(Rate _probaActif){
-        return AbMonteCarlo.booleanLaw(_probaActif).editNumber();
+    static boolean tirage(DataBase _db, Rate _probaActif){
+        LgInt maxRd_ = _db.getMaxRd();
+        return AbMonteCarlo.booleanLaw(_probaActif).editNumber(maxRd_);
     }
-    static Statistic random(Fight _fight, MonteCarloEnum<Statistic> _law) {
-        return _law.editNumber();
-    }
-
-    static boolean random(Fight _fight, MonteCarloBoolean _law) {
-        return _law.editNumber();
-    }
-    static String random(Fight _fight, MonteCarloString _law) {
-        return _law.editNumber();
+    static Statistic random(DataBase _db, MonteCarloEnum<Statistic> _law) {
+        LgInt maxRd_ = _db.getMaxRd();
+        return _law.editNumber(maxRd_);
     }
 
-    static Rate random(Fight _fight, MonteCarloNumber _law) {
-        return _law.editNumber();
+    static boolean random(DataBase _db, MonteCarloBoolean _law) {
+        LgInt maxRd_ = _db.getMaxRd();
+        return _law.editNumber(maxRd_);
+    }
+    static String random(DataBase _db, MonteCarloString _law) {
+        LgInt maxRd_ = _db.getMaxRd();
+        return _law.editNumber(maxRd_);
+    }
+
+    static Rate random(DataBase _db, MonteCarloNumber _law) {
+        LgInt maxRd_ = _db.getMaxRd();
+        return _law.editNumber(maxRd_);
     }
 
     static boolean isBadSimulation(Fight _fight,IntMonteCarlo _law) {

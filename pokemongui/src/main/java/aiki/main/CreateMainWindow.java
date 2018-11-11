@@ -20,17 +20,20 @@ public final class CreateMainWindow extends Thread {
 
     private TopLeftFrame topLeft;
 
+    private String lg;
+
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public CreateMainWindow(LoadingGame _load, StringMap<Object> _withParam, String _path, TopLeftFrame _topLeft) {
+    public CreateMainWindow(LoadingGame _load, StringMap<Object> _withParam, String _path, TopLeftFrame _topLeft, String _lg) {
         load = _load;
         withParam = _withParam;
         path = _path;
         topLeft = _topLeft;
+        lg = _lg;
     }
 
     @Override
     public void run() {
-        window = new MainWindow();
+        window = new MainWindow(lg);
         SoftApplicationCore.setLocation(window, topLeft);
         window.pack();
         SetStyle.setupStyle(window.getFrame());

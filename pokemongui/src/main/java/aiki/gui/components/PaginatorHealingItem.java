@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.gui.MainWindow;
 import aiki.gui.components.labels.HealingItemLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -28,7 +29,6 @@ import code.util.CustList;
 import code.util.EnumList;
 import code.util.EqList;
 import code.util.StringList;
-import code.util.consts.Constants;
 import code.util.pagination.SearchingMode;
 import code.util.pagination.SelectedBoolean;
 
@@ -151,8 +151,8 @@ public final class PaginatorHealingItem extends Paginator {
 
     private NumComboBox cmpNbStatusPrio = new NumComboBox();
 
-    public PaginatorHealingItem(ChangeableTitle _w, FacadeGame _d) {
-        super(ACCESS_HEALING_ITEM);
+    public PaginatorHealingItem(MainWindow _window, ChangeableTitle _w, FacadeGame _d) {
+        super(_window, ACCESS_HEALING_ITEM);
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);
@@ -186,7 +186,8 @@ public final class PaginatorHealingItem extends Paginator {
         healFromKo.refresh(getFacade().getTranslatedBooleansCurLanguage());
         statis = new ComboBoxStatistic();
         statis.setWithDefaultValue(true);
-        statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(Constants.getLanguage()));
+        String lg_ = getMain().getLanguageKey();
+        statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(lg_));
         cmpNameSorting = new ComboBoxSelectedBool();
         cmpNameSorting.setWithDefaultValue(false);
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
@@ -650,7 +651,8 @@ public final class PaginatorHealingItem extends Paginator {
         relativeHpCheck.setText(getMessages().getVal(RELATIVE_HP));
         //relativeHp.refresh(getFacade().getData().getTranslatedBooleans().getVal(Constants.getLanguage()));
         relativePp.refresh(getFacade().getTranslatedBooleansCurLanguage());
-        statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(Constants.getLanguage()));
+        String lg_ = getMain().getLanguageKey();
+        statis.refresh(getFacade().getData().getTranslatedStatistics().getVal(lg_));
         healMove.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpNameSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
         cmpDescriptionSorting.refresh(getFacade().getTranslatedBooleansCurLanguage());
@@ -789,8 +791,10 @@ public final class PaginatorHealingItem extends Paginator {
         //item.getItemClass()
         //item.getHp().toString()
         int nb_ = rendered_.size();
+        String lg_ = getMain().getLanguageKey();
         for (int i = CustList.FIRST_INDEX; i < nb_; i++) {
             HealingItemLabel l_ = new HealingItemLabel(rendered_.get(i));
+            l_.initMessages(lg_);
             l_.addMouseListener(new PaginatorEvent(this,i));
             int th_ = l_.getThirdColumnWidth();
             if (th_ > thirdColumn_) {

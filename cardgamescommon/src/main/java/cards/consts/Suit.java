@@ -1,11 +1,9 @@
 package cards.consts;
 import code.format.Format;
 import code.util.EnumList;
-import code.util.consts.Constants;
-import code.util.ints.Displayable;
 
 /**Couleurs existantes dans les jeux de cartes (Atout n'existe que pour le Tarot)*/
-public enum Suit implements Displayable {
+public enum Suit {
 UNDEFINED,TRUMP,HEART,SPADE,DIAMOND,CLUB;
     public static EnumList<Suit> couleursOrdinaires(){
         EnumList<Suit> couleurs_ = new EnumList<Suit>();
@@ -36,9 +34,5 @@ UNDEFINED,TRUMP,HEART,SPADE,DIAMOND,CLUB;
         String folderName_ = ResourcesAccess.NOM_DOSSIER;
         String fileName_ = ResourcesAccess.NOM_FICHIER;
         return Format.getConstanteLangue(folderName_,fileName_, _locale, ResourcesAccess.SUIT, name());
-    }
-    @Override
-    public String display() {
-        return toString(Constants.getLanguage());
     }
 }

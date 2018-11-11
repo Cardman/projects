@@ -81,7 +81,6 @@ import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
 import code.gui.ConfirmDialog;
-import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -100,7 +99,6 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 public class ScenePanel extends Panel {
 
@@ -250,7 +248,7 @@ public class ScenePanel extends Panel {
 
     private static final String CLICK_SCENE = "clickScene";
 
-    private static StringMap<String> _messages_ = new StringMap<String>();
+    private StringMap<String> messages = new StringMap<String>();
 
     private final MainWindow window;
 
@@ -291,6 +289,7 @@ public class ScenePanel extends Panel {
     private Panel panelOptions;
 
     private TeamPanel teamPan;
+    private StringMap<String> messagesTeamPanel = new StringMap<String>();
 
     private ItemsPanel itemsPan;
 
@@ -405,32 +404,32 @@ public class ScenePanel extends Panel {
         panelMenu.setVisible(false);
     }
 
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(),SCENE_PANEL);
-        TeamPanel.initMessages();
+    public void initMessages(String _lg) {
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg,SCENE_PANEL);
+        messagesTeamPanel = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, TeamPanel.TEAM_PANEL);
     }
 
     public void setMessages() {
-        endGame.setText(Game.getEndGameMessage());
-        useKeyPad.setText(_messages_.getVal(CLICK_SCENE));
-        team.setTextAndSize(_messages_.getVal(TEAM));
-        items.setTextAndSize(_messages_.getVal(ITEMS));
-        tm.setTextAndSize(_messages_.getVal(TM));
-//        difficulty.setText(_messages_.getVal(DIFFICULTY));
+        endGame.setText(Game.getEndGameMessage(facade.getData()));
+        useKeyPad.setText(messages.getVal(CLICK_SCENE));
+        team.setTextAndSize(messages.getVal(TEAM));
+        items.setTextAndSize(messages.getVal(ITEMS));
+        tm.setTextAndSize(messages.getVal(TM));
+//        difficulty.setText(messages.getVal(DIFFICULTY));
         if (fish != null) {
-            fish.setTextAndSize(_messages_.getVal(FISH));
+            fish.setTextAndSize(messages.getVal(FISH));
         }
-        seeBoxes.setTextAndSize(_messages_.getVal(SEE_POKEMON));
-        seeEggs.setTextAndSize(_messages_.getVal(SEE_EGG));
-        host.setTextAndSize(_messages_.getVal(SEE_HOSTED));
-        game.setTextAndSize(_messages_.getVal(SEE_GAME));
-        goBack.setTextAndSize(_messages_.getVal(GO_BACK_MENU));
-        server.setTextAndSize(_messages_.getVal(SERVER));
+        seeBoxes.setTextAndSize(messages.getVal(SEE_POKEMON));
+        seeEggs.setTextAndSize(messages.getVal(SEE_EGG));
+        host.setTextAndSize(messages.getVal(SEE_HOSTED));
+        game.setTextAndSize(messages.getVal(SEE_GAME));
+        goBack.setTextAndSize(messages.getVal(GO_BACK_MENU));
+        server.setTextAndSize(messages.getVal(SERVER));
         if (interaction != null) {
-            buttonInteract.setTextAndSize(_messages_.getVal(INTERACT));
+            buttonInteract.setTextAndSize(messages.getVal(INTERACT));
         }
         if (teamPan != null) {
-            teamPan.translate();
+            teamPan.translate(messagesTeamPanel);
         }
     }
 
@@ -441,7 +440,7 @@ public class ScenePanel extends Panel {
     }
 
     public void drawGameWalking(boolean _setPreferredSize) {
-        endGame.setText(Game.getEndGameMessage());
+        endGame.setText(Game.getEndGameMessage(facade.getData()));
         endGame.setVisible(facade.isShowEndGame());
         panelMenu.setVisible(true);
         if (beginGame != null) {
@@ -454,6 +453,7 @@ public class ScenePanel extends Panel {
         if (scene == null) {
             wasNull_ = true;
             scene = new Scene();
+            scene.setDimensions(facade);
             scene.addMouseListener(scene);
 
             keyPadListener = new KeyPadListener(window, facade);
@@ -547,45 +547,6 @@ public class ScenePanel extends Panel {
         menus_.add(tm);
         Separator sep_ = new Separator();
         menus_.add(sep_);
-//        difficulty = new LabelButton();
-//        difficulty.addMouseListener(new MouseAdapter() {
-//
-//            @Override
-//            public void mouseReleased(MouseEvent _e) {
-//                if (window.getCompiling().isAlive()) {
-//                    int adv_ = Constants.getPercentCompile();
-//                    String message_ = MainWindow.getCompilingString();
-//                    String formatted_ = StringList.simpleFormat(message_, adv_);
-//                    window.showErrorMessageDialog(formatted_);
-//                    return;
-//                }
-////                if (panelOptions.getComponentCount() > 0) {
-////                    return;
-////                }
-//                DialogDifficulty.setDialogDifficulty(window, _messages_.getVal(TITLE_DIFFICULTY), facade);
-//                //dial_.setVisible(true);
-//            }
-//        });
-//        menus_.add(difficulty);
-//        sep_ = new Separator();
-//        menus_.add(sep_);
-//        fish = new LabelButton();
-//        fish.addMouseListener(new MouseAdapter() {
-//
-//            @Override
-//            public void mouseReleased(MouseEvent _e) {
-//                if (facade.isFishArea()) {
-//                    facade.initFishing();
-//                    if (facade.isChangeToFightScene()) {
-//                        window.setSavedGame(false);
-//                        window.setFight(true, true, true);
-//                    }
-//                }
-//            }
-//        });
-//        menus_.add(fish);
-//        sep_ = new Separator();
-//        menus_.add(sep_);
         seeBoxes = new LabelButton();
         seeBoxes.addMouseListener(new ConsultPokemonEvent(window, facade));
         menus_.add(seeBoxes);
@@ -645,7 +606,7 @@ public class ScenePanel extends Panel {
                 //error if bad use of item
                 String it_ = facade.getPlayer().getSelectedObject();
                 it_ = facade.translateItem(it_);
-                String message_ = StringList.simpleStringsFormat(_messages_.getVal(ERROR_USING_ITEM), it_);
+                String message_ = StringList.simpleStringsFormat(messages.getVal(ERROR_USING_ITEM), it_);
                 setTextArea(message_, JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -671,7 +632,7 @@ public class ScenePanel extends Panel {
         }
 
         Panel set_ = new Panel();
-        teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, pks_, true);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
         teamPan.addListener(this);
         set_.add(teamPan);
         movesLearnt = new Panel();
@@ -705,7 +666,7 @@ public class ScenePanel extends Panel {
         if (facade.getPlayer().getSelectedMove().isEmpty()) {
             //no pokemon can learn
             move_ = facade.translateMove(move_);
-            String message_ = StringList.simpleStringsFormat(_messages_.getVal(NO_POSSIBLE_LEARN), move_);
+            String message_ = StringList.simpleStringsFormat(messages.getVal(NO_POSSIBLE_LEARN), move_);
             setTextArea(message_, JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -718,7 +679,7 @@ public class ScenePanel extends Panel {
         }
 
         Panel set_ = new Panel();
-        teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, pks_, true);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true, messagesTeamPanel);
         teamPan.addListenerTm(this);
         set_.add(teamPan);
         movesLearnt = new Panel();
@@ -735,6 +696,7 @@ public class ScenePanel extends Panel {
     }
 
     public void manageNetwork() {
+        String lg_ = window.getLanguageKey();
         DialogServer.setDialogServer(window);
         String ip_ = DialogServer.getIpOrHostName();
         if (ip_ == null || ip_.isEmpty()) {
@@ -756,12 +718,12 @@ public class ScenePanel extends Panel {
         SocketResults connected_ = window.createClient(ip_, DialogServer.getIpType(), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
-                String formatted_ = _messages_.getVal(UNKNOWN_HOST);
+                String formatted_ = messages.getVal(UNKNOWN_HOST);
                 formatted_ = StringList.simpleStringsFormat(formatted_, ip_);
-                ConfirmDialog.showMessage(window, _messages_.getVal(BUG), formatted_, Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);
+                ConfirmDialog.showMessage(window, messages.getVal(BUG), formatted_,lg_,JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            ConfirmDialog.showMessage(window, _messages_.getVal(BUG), _messages_.getVal(NOT_CONNECTED), Constants.getLanguage(),JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(window, messages.getVal(BUG), messages.getVal(NOT_CONNECTED), lg_,JOptionPane.ERROR_MESSAGE);
             return;
         }
         window.setIndexInGame(CustList.SECOND_INDEX);
@@ -772,7 +734,7 @@ public class ScenePanel extends Panel {
         panelMenu.setVisible(false);
 //        JPanel panelPlaces_ = new JPanel();
 //        panelPlaces_.setLayout(new GridLayout(0, 1));
-//        panelPlaces_.add(new JLabel(_messages_.getVal(GO_BACK)));
+//        panelPlaces_.add(new JLabel(messages.getVal(GO_BACK)));
 //        for (int i = CustList.FIRST_INDEX; i < facade.getPlaces().size(); i++) {
 //            LabelButton place_ = new LabelButton(facade.getPlaces().get(i));
 //            place_.setEnabled(facade.isEnablePlace(i));
@@ -783,7 +745,7 @@ public class ScenePanel extends Panel {
         mapPanel.init(facade, this);
         Panel box_ = new Panel();
         box_.setLayout(new BoxLayout(box_.getComponent(), BoxLayout.PAGE_AXIS));
-        box_.add(new JLabel(_messages_.getVal(GO_BACK)));
+        box_.add(new JLabel(messages.getVal(GO_BACK)));
         chosenCity = new LabelButton();
         chosenCity.setBackground(box_.getBackground());
         chosenCity.setForeground(box_.getForeground());
@@ -837,11 +799,11 @@ public class ScenePanel extends Panel {
         panelNetWork = new Panel();
         panelNetWork.setLayout(new BoxLayout(panelNetWork.getComponent(), BoxLayout.PAGE_AXIS));
         panelOptions.add(panelNetWork, BorderLayout.CENTER);
-        LabelButton exit_ = new LabelButton(_messages_.getVal(EXIT));
+        LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
         exit_.addMouseListener(new ExitTradeEvent(window));
         if (window.getIndexInGame() == CustList.FIRST_INDEX) {
             Panel panel_ = new Panel();
-            LabelButton trade_ = new LabelButton(_messages_.getVal(TRADE));
+            LabelButton trade_ = new LabelButton(messages.getVal(TRADE));
             trade_.addMouseListener(new ValidateTradingEvent(window));
             panel_.add(trade_);
             panel_.add(exit_);
@@ -856,12 +818,12 @@ public class ScenePanel extends Panel {
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
-        teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, teamPks_, true);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, teamPks_, true,messagesTeamPanel);
         teamPan.addListenerTrading(this);
         panelNetWork.add(teamPan);
         JPanel group_ = new JPanel();
         group_.setLayout(new BorderLayout());
-        group_.add(new JLabel(_messages_.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
+        group_.add(new JLabel(messages.getVal(RECEIVED_POKEMON)), BorderLayout.NORTH);
         JScrollPane scrollSession_ = new JScrollPane();
         receivedPk = new RenderedPage(scrollSession_);
         receivedPk.setLanguage(facade.getLanguage());
@@ -876,7 +838,7 @@ public class ScenePanel extends Panel {
         group_.add(scrollSession_, BorderLayout.CENTER);
         panelNetWork.add(group_);
         enabledReady = false;
-        readyCheck = new JCheckBox(_messages_.getVal(READY));
+        readyCheck = new JCheckBox(messages.getVal(READY));
         readyCheck.setEnabled(enabledReady);
         readyCheck.addActionListener(new ReadyEvent(window, readyCheck));
         panelNetWork.add(readyCheck);
@@ -888,7 +850,7 @@ public class ScenePanel extends Panel {
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
         }
-        teamPan.initFighters(teamPks_);
+        teamPan.initFighters(teamPks_,messagesTeamPanel);
         readyCheck.setEnabled(false);
         enabledReady = false;
         readyCheck.setSelected(false);
@@ -911,7 +873,7 @@ public class ScenePanel extends Panel {
     }
 
     public void interact() {
-        endGame.setText(Game.getEndGameMessage());
+        endGame.setText(Game.getEndGameMessage(facade.getData()));
         endGame.setVisible(facade.isShowEndGame());
         placeName.setText(facade.getCurrentPlace());
         initInteraction();
@@ -936,10 +898,10 @@ public class ScenePanel extends Panel {
             return;
         }
         interaction = new Panel();
-        buttonInteract = new LabelButton(_messages_.getVal(INTERACT));
+        buttonInteract = new LabelButton(messages.getVal(INTERACT));
         buttonInteract.addMouseListener(new InteractSceneEvent(this));
         interaction.add(buttonInteract);
-        fish = new LabelButton(_messages_.getVal(FISH));
+        fish = new LabelButton(messages.getVal(FISH));
         fish.addMouseListener(new FishingEvent(this));
         interaction.add(fish);
         commentsWalking = new WrappedTextArea(4, 32);
@@ -975,37 +937,37 @@ public class ScenePanel extends Panel {
             selectedForSwitch = new JLabel();
             Panel storage_ = new Panel();
             storage_.setLayout(new GridLayout(0, 1));
-            selectPkBox = new LabelButton(_messages_.getVal(SELECT_PK_BOX));
+            selectPkBox = new LabelButton(messages.getVal(SELECT_PK_BOX));
             selectPkBox.addMouseListener(new SelectPokemonBoxEvent(this));
             storage_.add(selectPkBox);
-            selectEggBox = new LabelButton(_messages_.getVal(SELECT_EGG_BOX));
+            selectEggBox = new LabelButton(messages.getVal(SELECT_EGG_BOX));
             selectEggBox.addMouseListener(new SelectEggBoxEvent(this));
             storage_.add(selectEggBox);
             Separator sep_ = new Separator();
             storage_.add(sep_);
-            takeItem = new LabelButton(_messages_.getVal(TAKE_ITEM));
+            takeItem = new LabelButton(messages.getVal(TAKE_ITEM));
             takeItem.setEnabledLabel(false);
             takeItem.addMouseListener(new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
             storage_.add(takeItem);
-            store = new LabelButton(_messages_.getVal(STORE));
+            store = new LabelButton(messages.getVal(STORE));
             store.setEnabledLabel(false);
             store.addMouseListener(new GearStorageEvent(this, StorageActions.STORE));
             storage_.add(store);
-            withdraw = new LabelButton(_messages_.getVal(WITHDRAW_PK));
+            withdraw = new LabelButton(messages.getVal(WITHDRAW_PK));
             withdraw.setEnabledLabel(false);
             withdraw.addMouseListener(new GearStorageEvent(this, StorageActions.WIDRAW_PK));
             storage_.add(withdraw);
-            withdrawEgg = new LabelButton(_messages_.getVal(WITHDRAW_EGG));
+            withdrawEgg = new LabelButton(messages.getVal(WITHDRAW_EGG));
             withdrawEgg.setEnabledLabel(false);
             withdrawEgg.addMouseListener(new GearStorageEvent(this, StorageActions.WIDRAW_EGG));
             storage_.add(withdrawEgg);
-            switchPk = new LabelButton(_messages_.getVal(SWITCH_PK_EGG));
+            switchPk = new LabelButton(messages.getVal(SWITCH_PK_EGG));
             switchPk.setEnabledLabel(false);
             switchPk.addMouseListener(new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
             storage_.add(switchPk);
             sep_ = new Separator();
             storage_.add(sep_);
-            release = new LabelButton(_messages_.getVal(RELEASE));
+            release = new LabelButton(messages.getVal(RELEASE));
             release.setEnabledLabel(false);
             release.addMouseListener(new GearStorageEvent(this, StorageActions.RELEASE));
             storage_.add(release);
@@ -1029,17 +991,17 @@ public class ScenePanel extends Panel {
             panelOptions.add(set_, BorderLayout.CENTER);
             panelMenu.setVisible(false);
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS_CT) {
-            tmPanel = new TmPanel(5, _messages_.getVal(TM_TITLE), facade);
+            tmPanel = new TmPanel(5, messages.getVal(TM_TITLE), facade);
             Panel set_ = new Panel();
             set_.setLayout(new BoxLayout(set_.getComponent(), BoxLayout.PAGE_AXIS));
-            LabelButton selectItem_ = new LabelButton(_messages_.getVal(TM_SELECT));
+            LabelButton selectItem_ = new LabelButton(messages.getVal(TM_SELECT));
             selectItem_.addMouseListener(new AddTmEvent(this));
             set_.add(selectItem_);
-            LabelButton removeItem_ = new LabelButton(_messages_.getVal(TM_REMOVE));
+            LabelButton removeItem_ = new LabelButton(messages.getVal(TM_REMOVE));
             removeItem_.addMouseListener(new RemoveTmEvent(this));
             set_.add(removeItem_);
             set_.add(tmPanel);
-            LabelButton changeInv_ = new LabelButton(_messages_.getVal(TM_BUY));
+            LabelButton changeInv_ = new LabelButton(messages.getVal(TM_BUY));
             changeInv_.addMouseListener(new BuyTmEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
@@ -1047,22 +1009,22 @@ public class ScenePanel extends Panel {
         } else if (facade.getInterfaceType() == InterfaceType.ACHATS) {
             Panel set_ = new Panel();
             set_.setLayout(new BoxLayout(set_.getComponent(), BoxLayout.PAGE_AXIS));
-            buy = new JCheckBox(_messages_.getVal(ITEM_BUY));
+            buy = new JCheckBox(messages.getVal(ITEM_BUY));
             buy.setSelected(true);
             buy.addActionListener(new BuyOrSellEvent(this));
             set_.add(buy);
-            itemsPan = new ItemsPanel(2, _messages_.getVal(ITEM_TITLE), facade);
-            LabelButton selectItem_ = new LabelButton(_messages_.getVal(ITEM_SELECT));
+            itemsPan = new ItemsPanel(2, messages.getVal(ITEM_TITLE), facade);
+            LabelButton selectItem_ = new LabelButton(messages.getVal(ITEM_SELECT));
             selectItem_.addMouseListener(new SelectItemForListEvent(this));
             set_.add(selectItem_);
-            LabelButton addItem_ = new LabelButton(_messages_.getVal(ITEM_ADD));
+            LabelButton addItem_ = new LabelButton(messages.getVal(ITEM_ADD));
             addItem_.addMouseListener(new ChangeItemListEvent(this, true));
             set_.add(addItem_);
-            LabelButton removeItem_ = new LabelButton(_messages_.getVal(ITEM_REMOVE));
+            LabelButton removeItem_ = new LabelButton(messages.getVal(ITEM_REMOVE));
             removeItem_.addMouseListener(new ChangeItemListEvent(this, false));
             set_.add(removeItem_);
             set_.add(itemsPan);
-            LabelButton changeInv_ = new LabelButton(_messages_.getVal(ITEM_BUY_SELL));
+            LabelButton changeInv_ = new LabelButton(messages.getVal(ITEM_BUY_SELL));
             changeInv_.addMouseListener(new BuyItemsEvent(this));
             set_.add(changeInv_);
             panelOptions.add(set_, BorderLayout.CENTER);
@@ -1074,21 +1036,21 @@ public class ScenePanel extends Panel {
             for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
                 teamPks_.put(e.getKey(), e.getValue());
             }
-            teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT_TWO), facade, teamPks_, false);
+            teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT_TWO), facade, teamPks_, false,messagesTeamPanel);
             teamPan.addListenerHost(this);
             set_.add(teamPan);
             Panel form_ = new Panel();
             form_.setLayout(new BoxLayout(form_.getComponent(), BoxLayout.PAGE_AXIS));
             int nbRemSteps_ = facade.getRemaingingSteps();
-            String buttonText_= StringList.simpleNumberFormat(_messages_.getVal(GET_EGG), nbRemSteps_);
+            String buttonText_= StringList.simpleNumberFormat(messages.getVal(GET_EGG), nbRemSteps_);
             LabelButton receiveEgg_ = new LabelButton(buttonText_);
             receiveEgg_.addMouseListener(new ReceiveFromHostEvent(this, true));
             form_.add(receiveEgg_);
-            buttonText_= StringList.simpleNumberFormat(_messages_.getVal(GET_EGG_PARENT), nbRemSteps_);
+            buttonText_= StringList.simpleNumberFormat(messages.getVal(GET_EGG_PARENT), nbRemSteps_);
             LabelButton receiveParents_ = new LabelButton(buttonText_);
             receiveParents_.addMouseListener(new ReceiveFromHostEvent(this, false));
             form_.add(receiveParents_);
-            LabelButton hostPk_ = new LabelButton(_messages_.getVal(HOST_PK));
+            LabelButton hostPk_ = new LabelButton(messages.getVal(HOST_PK));
             hostPk_.addMouseListener(new HostPokemonEvent(this));
             form_.add(hostPk_);
             set_.add(form_);
@@ -1108,14 +1070,14 @@ public class ScenePanel extends Panel {
 //        StringList messages_;
 //        messages_ = new StringList();
 //        if (facade.getSelectedPokemonFirstBox() != null) {
-//            messages_.add(_messages_.getVal(SELECTED_PK));
+//            messages_.add(messages.getVal(SELECTED_PK));
 //        } else {
-//            messages_.add(_messages_.getVal(NOT_SELECTED_PK));
+//            messages_.add(messages.getVal(NOT_SELECTED_PK));
 //        }
 //        if (facade.getSelectedEggBox() != null) {
-//            messages_.add(_messages_.getVal(SELECTED_EGG));
+//            messages_.add(messages.getVal(SELECTED_EGG));
 //        } else {
-//            messages_.add(_messages_.getVal(NOT_SELECTED_EGG));
+//            messages_.add(messages.getVal(NOT_SELECTED_EGG));
 //        }
 //        return messages_;
 //    }
@@ -1176,7 +1138,7 @@ public class ScenePanel extends Panel {
     public void buyTm() {
         facade.buyTm();
         if (!facade.canBeBoughtTm()) {
-            setTextArea(_messages_.getVal(NO_POSSIBLE_BUY), JOptionPane.ERROR_MESSAGE);
+            setTextArea(messages.getVal(NO_POSSIBLE_BUY), JOptionPane.ERROR_MESSAGE);
             return;
         }
         window.setSavedGame(false);
@@ -1217,7 +1179,7 @@ public class ScenePanel extends Panel {
     public void buyItems() {
         facade.buyOrSellItems(buy.isSelected());
         if (!facade.canBeBought()) {
-            setTextArea(_messages_.getVal(NO_POSSIBLE_BUY), JOptionPane.ERROR_MESSAGE);
+            setTextArea(messages.getVal(NO_POSSIBLE_BUY), JOptionPane.ERROR_MESSAGE);
             return;
         }
         window.setSavedGame(false);
@@ -1296,7 +1258,7 @@ public class ScenePanel extends Panel {
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
-        teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, pks_, true);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true,messagesTeamPanel);
         teamPan.addListenerMoveTutor(this);
     }
 
@@ -1307,7 +1269,7 @@ public class ScenePanel extends Panel {
         for (EntryCust<Byte, PokemonPlayer> e: team_.entryList()) {
             pks_.put(e.getKey(), e.getValue());
         }
-        teamPan.initFighters(pks_);
+        teamPan.initFighters(pks_,messagesTeamPanel);
         enabledClick = true;
     }
 
@@ -1318,7 +1280,7 @@ public class ScenePanel extends Panel {
             pks_.put(i_, p);
             i_ ++;
         }
-        teamPan = new TeamPanel(2, _messages_.getVal(POKEMON_SELECT), facade, pks_, true);
+        teamPan = new TeamPanel(2, messages.getVal(POKEMON_SELECT), facade, pks_, true,messagesTeamPanel);
     }
 
     private void refreshTeam() {
@@ -1329,7 +1291,7 @@ public class ScenePanel extends Panel {
             pks_.put(i_, p);
             i_ ++;
         }
-        teamPan.initFighters(pks_);
+        teamPan.initFighters(pks_,messagesTeamPanel);
         enabledClick = true;
     }
 
@@ -1337,7 +1299,7 @@ public class ScenePanel extends Panel {
         Panel set_ = new Panel();
         Panel teamMenu_ = new Panel();
         teamMenu_.setLayout(new BoxLayout(teamMenu_.getComponent(), BoxLayout.PAGE_AXIS));
-        switchUsable = new JCheckBox(_messages_.getVal(SWITCH_PK_TEAM));
+        switchUsable = new JCheckBox(messages.getVal(SWITCH_PK_TEAM));
 //        enabledSwitchTeam = false;
 //        switchUsable.addChangeListener(new ChangeListener() {
 //            @Override
@@ -1346,19 +1308,19 @@ public class ScenePanel extends Panel {
 //            }
 //        });
         teamMenu_.add(switchUsable);
-        takeItemTeam = new LabelButton(_messages_.getVal(TAKE_ITEM_TEAM));
+        takeItemTeam = new LabelButton(messages.getVal(TAKE_ITEM_TEAM));
         takeItemTeam.setEnabledLabel(false);
         takeItemTeam.addMouseListener(new TakeItemFromTeamEvent(this));
         teamMenu_.add(takeItemTeam);
-        detailPk = new LabelButton(_messages_.getVal(DETAIL_TEAM));
+        detailPk = new LabelButton(messages.getVal(DETAIL_TEAM));
         detailPk.setEnabledLabel(false);
         detailPk.addMouseListener(new SeePokemonDetailEvent(this));
         teamMenu_.add(detailPk);
-        healPk = new LabelButton(_messages_.getVal(HEAL_PK));
+        healPk = new LabelButton(messages.getVal(HEAL_PK));
         healPk.setEnabledLabel(false);
         healPk.addMouseListener(new HealPokemonEvent(this));
         teamMenu_.add(healPk);
-        nicknamePk = new LabelButton(_messages_.getVal(NICKNAME));
+        nicknamePk = new LabelButton(messages.getVal(NICKNAME));
         nicknamePk.setEnabledLabel(false);
         nicknamePk.addMouseListener(new ChangeNicknameEvent(this));
         teamMenu_.add(nicknamePk);
@@ -1448,8 +1410,8 @@ public class ScenePanel extends Panel {
     }
 
     public void changeNickname() {
-//        ConfirmDialog dial_ = new ConfirmDialog(window, DataBase.EMPTY_STRING, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
-        ConfirmDialog.showTextField(window, DataBase.EMPTY_STRING, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
+        String lg_ = window.getLanguageKey();
+        ConfirmDialog.showTextField(window, DataBase.EMPTY_STRING, messages.getVal(NICKNAME), messages.getVal(NICKNAME), lg_);
         if (ConfirmDialog.getStaticAnswer() != JOptionPane.YES_OPTION) {
             return;
         }
@@ -1462,7 +1424,7 @@ public class ScenePanel extends Panel {
         }
         facade.choosePokemonForMoveTutors((short) teamPan.getSelectedIndex());
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(_messages_.getVal(SELECT_MT)));
+        movesLearnt.add(new JLabel(messages.getVal(SELECT_MT)));
         StringList selectedMoves_ = facade.getSelectedMoves();
         for (String m: selectedMoves_) {
             String tr_ = facade.translateMove(m);
@@ -1480,10 +1442,10 @@ public class ScenePanel extends Panel {
             check_.setSelected(false);
             movesLearnt.add(check_);
         }
-        LabelButton cancel_ = new LabelButton(_messages_.getVal(CANCEL_MT));
+        LabelButton cancel_ = new LabelButton(messages.getVal(CANCEL_MT));
         cancel_.addMouseListener(new CancelMtEvent(this));
         movesLearnt.add(cancel_);
-        LabelButton ok_ = new LabelButton(_messages_.getVal(VALIDATE_MT));
+        LabelButton ok_ = new LabelButton(messages.getVal(VALIDATE_MT));
         ok_.addMouseListener(new ValidateMtEvent(this));
         movesLearnt.add(ok_);
         window.pack();
@@ -1512,7 +1474,7 @@ public class ScenePanel extends Panel {
 
     public void checkMoveTutor(String _key) {
         facade.addOrDeleteMove(_key);
-//        String text_ = StringList.simpleFormat(_messages_.getVal(SELECTED_MOVES), facade.getSelectedMoves().size());
+//        String text_ = StringList.simpleFormat(messages.getVal(SELECTED_MOVES), facade.getSelectedMoves().size());
 //        setTextArea(text_);
     }
 
@@ -1554,7 +1516,7 @@ public class ScenePanel extends Panel {
     }
 
     private void addExit() {
-        LabelButton exit_ = new LabelButton(_messages_.getVal(EXIT));
+        LabelButton exit_ = new LabelButton(messages.getVal(EXIT));
         exit_.addMouseListener(new ExitInteractionEvent(this));
         panelOptions.add(exit_, BorderLayout.SOUTH);
     }
@@ -1574,9 +1536,9 @@ public class ScenePanel extends Panel {
         facade.exitInteract();
     }
 
-    private static void showHtmlDialog(GroupFrame _parent, RenderedPage _session) {
-//        DialogHtmlData.setDialogHtmlData(_parent, _messages_.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(_parent, _messages_.getVal(TITLE_DETAIL), _session);
+    private void showHtmlDialog(MainWindow _parent, RenderedPage _session) {
+//        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
+        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session);
     }
 
     public void selectPokemon() {
@@ -1620,7 +1582,7 @@ public class ScenePanel extends Panel {
 
     private void setMovesAbilities() {
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(_messages_.getVal(SELECT_MT)));
+        movesLearnt.add(new JLabel(messages.getVal(SELECT_MT)));
 //        Map<String,Boolean> selected_ = facade.getPlayer().getMovesToBeKeptEvo();
 //        StringList kept_ = new StringList(selected_.getKeys(true));
         StringList kept_ = facade.getKeptMovesToEvo();
@@ -1660,7 +1622,7 @@ public class ScenePanel extends Panel {
         abilities.removeAll();
         abilityLabels.clear();
         if (!ab_.isEmpty()) {
-            abilities.add(new JLabel(_messages_.getVal(SELECT_ABILITY)));
+            abilities.add(new JLabel(messages.getVal(SELECT_ABILITY)));
             for (String a: ab_) {
                 AbilityLabel lab_ = new AbilityLabel(facade.translateAbility(a), a);
                 lab_.addMouseListener(new AbilityWalkEvent(this, a));
@@ -1669,7 +1631,7 @@ public class ScenePanel extends Panel {
             }
             abilities.add(new Separator());
         }
-        LabelButton ok_ = new LabelButton(_messages_.getVal(EVOLVE));
+        LabelButton ok_ = new LabelButton(messages.getVal(EVOLVE));
         ok_.addMouseListener(new EvolvePokemonEvent(this));
         abilities.add(ok_);
     }
@@ -1688,7 +1650,7 @@ public class ScenePanel extends Panel {
 
     private void setHealedMoves() {
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(_messages_.getVal(SELECT_HEAL_MOVE)));
+        movesLearnt.add(new JLabel(messages.getVal(SELECT_HEAL_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1711,7 +1673,7 @@ public class ScenePanel extends Panel {
 
     private void setBoostedMoves() {
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(_messages_.getVal(SELECT_BOOST_MOVE)));
+        movesLearnt.add(new JLabel(messages.getVal(SELECT_BOOST_MOVE)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1776,7 +1738,7 @@ public class ScenePanel extends Panel {
             return;
         }
         movesLearnt.removeAll();
-        movesLearnt.add(new JLabel(_messages_.getVal(SELECT_TM)));
+        movesLearnt.add(new JLabel(messages.getVal(SELECT_TM)));
         StringMap<Short> moves_ = facade.getPlayer().getChosenMoves();
         StringList keys_ = new StringList(moves_.getKeys());
 //        keys_.sort(new Comparator<String>() {
@@ -1842,7 +1804,8 @@ public class ScenePanel extends Panel {
             return;
         }
         commentsWalking.setText(_text);
-        ConfirmDialog.showComponent(window, new ScrollPane(commentsWalking), _messages_.getVal(TITLE_COMMENTS), Constants.getLanguage(), _messageType);
+        String lg_ = window.getLanguageKey();
+        ConfirmDialog.showComponent(window, new ScrollPane(commentsWalking), messages.getVal(TITLE_COMMENTS), lg_, _messageType);
     }
 
     public Scene getScene() {

@@ -13,8 +13,6 @@ public final class InputTypeCreation {
 
     private EnablingSpaces enabledSpaces;
 
-    private int indexChild;
-
     public FileBlock getFileBlock() {
         return fileBlock;
     }
@@ -45,13 +43,5 @@ public final class InputTypeCreation {
 
     public void setEnabledSpaces(EnablingSpaces _enabledSpaces) {
         enabledSpaces = _enabledSpaces;
-    }
-
-    public int getIndexChild() {
-        return indexChild;
-    }
-
-    public void setIndexChild(int _indexChild) {
-        indexChild = _indexChild;
     }
 }

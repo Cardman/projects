@@ -8,8 +8,6 @@ public final class Constants {
 
     public static final String EMPTY_STRING = "";
 
-    private static String _language_;
-
     private Constants() {
     }
 
@@ -33,21 +31,7 @@ public final class Constants {
         return Languages.getDisplayLanguages().getVal(_language);
     }
 
-    public static String getLanguage() {
-        if (_language_ == null) {
-            _language_ = Languages.getLanguages().first();
-        }
-        return _language_;
-    }
-
-    public static void setSystemLanguage(String _language) {
-        setLanguage(_language);
-    }
-
-    public static void setLanguage(String _language) {
-        if (_language == null) {
-            return;
-        }
-        _language_ = _language;
+    public static String getDefaultLanguage() {
+        return Languages.getLanguages().first();
     }
 }

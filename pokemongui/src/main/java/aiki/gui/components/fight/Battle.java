@@ -37,7 +37,6 @@ import aiki.gui.components.fight.events.SelectHealingItemEvent;
 import aiki.gui.components.fight.events.SendSubstitutesEvent;
 import aiki.gui.components.fight.events.ShowFightDataEvent;
 import aiki.gui.components.fight.events.ValidateCaughtPokemonNicknameEvent;
-import aiki.gui.components.labels.HealingItemLabel;
 import aiki.gui.dialogs.FrameHtmlData;
 import aiki.gui.dialogs.SelectHealingItem;
 import aiki.gui.listeners.AbilityFightEvent;
@@ -50,7 +49,6 @@ import aiki.gui.threads.RoundFailBallThread;
 import aiki.gui.threads.RoundFleeThread;
 import aiki.gui.threads.RoundKoUserThread;
 import aiki.gui.threads.RoundThread;
-import aiki.main.VideoLoading;
 import code.gui.ChildFrame;
 import code.gui.ConfirmDialog;
 import code.gui.LabelButton;
@@ -69,7 +67,6 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.consts.Constants;
 
 public class Battle extends ChildFrame {
 
@@ -138,7 +135,7 @@ public class Battle extends ChildFrame {
 
 //    private static final JPanel UPPER = new JPanel();
 
-    private static StringMap<String> _messages_ = new StringMap<String>();
+    private StringMap<String> messages = new StringMap<String>();
 
     private final MainWindow window;
 
@@ -239,6 +236,7 @@ public class Battle extends ChildFrame {
     private boolean enabledClicked;
 
     public Battle(MainWindow _window, FacadeGame _facade, FrontBattle _frontBattle) {
+        super(_window.getLanguageKey());
 //        super(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        splitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(UPPER), new JScrollPane(LOWER));
 //        setContentPane(splitter);
@@ -265,79 +263,79 @@ public class Battle extends ChildFrame {
         setVisible(false);
     }
 
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), BATTLE);
-        HealingItemLabel.initMessages();
+    public void initMessages() {
+        String lg_ = window.getLanguageKey();
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, lg_, BATTLE);
     }
 
     public void setMessages() {
-        setTitle(_messages_.getVal(ACTIONS));
+        setTitle(messages.getVal(ACTIONS));
         if (fighterFrontPanel !=null) {
-            fighterFrontPanel.setPanelTitle(_messages_.getVal(FRONT_TEAM));
+            fighterFrontPanel.setPanelTitle(messages.getVal(FRONT_TEAM));
         }
         if (fighterBackPanel !=null) {
-            fighterBackPanel.setPanelTitle(_messages_.getVal(BACK_TEAM));
+            fighterBackPanel.setPanelTitle(messages.getVal(BACK_TEAM));
         }
         if (fighterPanel !=null) {
-            fighterPanel.setPanelTitle(_messages_.getVal(TEAM));
+            fighterPanel.setPanelTitle(messages.getVal(TEAM));
         }
         if (pokemonPanel !=null) {
-            pokemonPanel.setPanelTitle(_messages_.getVal(EVOS));
-            pokemonPanel.setNoEvoMessage(_messages_.getVal(NO_EVO));
+            pokemonPanel.setPanelTitle(messages.getVal(EVOS));
+            pokemonPanel.setNoEvoMessage(messages.getVal(NO_EVO));
         }
         if (ballPanel !=null) {
-            ballPanel.setPanelTitle(_messages_.getVal(BALLS));
+            ballPanel.setPanelTitle(messages.getVal(BALLS));
         }
         if (webLabel != null) {
-            webLabel.setText(_messages_.getVal(FIGHT_DATA_MESSAGE));
+            webLabel.setText(messages.getVal(FIGHT_DATA_MESSAGE));
         }
         if (web != null) {
-            web.setTextAndSize(_messages_.getVal(DATA_FIGHT));
+            web.setTextAndSize(messages.getVal(DATA_FIGHT));
         }
         if (catchBall != null) {
-            catchBall.setTextAndSize(_messages_.getVal(CATCH_PK));
+            catchBall.setTextAndSize(messages.getVal(CATCH_PK));
         }
         if (flee != null) {
             if (facade.isWildFight()) {
                 Rate r_ = facade.calculateFleeingRate();
-                flee.setTextAndSize(StringList.simpleStringsFormat(_messages_.getVal(FLEE), r_.toNumberString(), r_.percent().toNumberString()));
+                flee.setTextAndSize(StringList.simpleStringsFormat(messages.getVal(FLEE), r_.toNumberString(), r_.percent().toNumberString()));
             }
         }
         if (validateActions != null && facade.isExistingFight()) {
             if (facade.getFight().getState() != FightState.SURNOM) {
                 if (facade.getFight().getState() != FightState.CAPTURE_KO) {
                     if (facade.getFight().getState() == FightState.ATTAQUES) {
-                        validateActions.setTextAndSize(_messages_.getVal(GO_TO_ROUND));
+                        validateActions.setTextAndSize(messages.getVal(GO_TO_ROUND));
                     } else if (facade.getFight().getState() == FightState.SWITCH_APRES_ATTAQUE) {
-                        validateActions.setTextAndSize(_messages_.getVal(GO_TO_ROUND));
+                        validateActions.setTextAndSize(messages.getVal(GO_TO_ROUND));
                     } else if (facade.getFight().getState() == FightState.APPRENDRE_EVOLUER) {
-                        validateActions.setTextAndSize(_messages_.getVal(VALIDATE_EVOS));
+                        validateActions.setTextAndSize(messages.getVal(VALIDATE_EVOS));
                     } else if (facade.getFight().getState() == FightState.SWITCH_PROPOSE) {
-                        validateActions.setTextAndSize(_messages_.getVal(VALIDATE_SWITCH));
+                        validateActions.setTextAndSize(messages.getVal(VALIDATE_SWITCH));
                     } else {
-                        validateActions.setTextAndSize(_messages_.getVal(GO_TO_ROUND));
+                        validateActions.setTextAndSize(messages.getVal(GO_TO_ROUND));
                     }
                 }
             }
         }
         if (nicknameLabel != null) {
-            nicknameLabel.setTextAndSize(_messages_.getVal(NICKNAME));
+            nicknameLabel.setTextAndSize(messages.getVal(NICKNAME));
         }
         if (cancelCatch != null) {
-            cancelCatch.setTextAndSize(_messages_.getVal(CANCEL_CATCH));
+            cancelCatch.setTextAndSize(messages.getVal(CANCEL_CATCH));
         }
         if (plLabelBack != null) {
-            plLabelBack.setText(_messages_.getVal(GO_BACK));
+            plLabelBack.setText(messages.getVal(GO_BACK));
             plLabelBack.repaint();
         }
         if (frontBattle != null) {
             frontBattle.translate();
         }
         if (errorLabel != null) {
-            errorLabel.setText(_messages_.getVal(ERRORS));
+            errorLabel.setText(messages.getVal(ERRORS));
         }
         if (roundLabel != null) {
-            roundLabel.setText(_messages_.getVal(ROUND));
+            roundLabel.setText(messages.getVal(ROUND));
         }
         window.pack();
     }
@@ -901,7 +899,7 @@ public class Battle extends ChildFrame {
             fighterPanel.addListener(this);
         }
         if (pokemonPanel == null) {
-            pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, _messages_.getVal(NO_EVO));
+            pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO));
             pokemonPanel.addListener(this);
         }
         if (movesLearnPanel == null) {
@@ -966,7 +964,7 @@ public class Battle extends ChildFrame {
             return;
         }
 //        ConfirmDialog dial_ = new ConfirmDialog(window, typedNickname, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
-        ConfirmDialog.showTextField(window, typedNickname, _messages_.getVal(NICKNAME), _messages_.getVal(NICKNAME), Constants.getLanguage());
+        ConfirmDialog.showTextField(window, typedNickname, messages.getVal(NICKNAME), messages.getVal(NICKNAME), window.getLanguageKey());
         if (ConfirmDialog.getStaticAnswer() != JOptionPane.YES_OPTION) {
             return;
         }
@@ -994,10 +992,6 @@ public class Battle extends ChildFrame {
                 roundThread = new RoundFailBallThread(facade, this, ball_.getName());
             } else {
                 roundThread = new RoundBallThread(facade, this, ball_.getName());
-//                facade.endRoundFightSuccessBall();
-//                //animate();
-//                afterRound(true);
-                //roundThread = new RoundBallThread(facade, this, ball_.getName());
             }
             roundThread.start();
         } else {
@@ -1009,19 +1003,11 @@ public class Battle extends ChildFrame {
                 } else {
                     commentsRound.setText(window.getComment());
                     refresh();
-//                    setVisible(true);
                     pack();
-//                    window.pack();
                 }
-//                closeWindows();
-//                window.drawGameWalking(false);
-//                window.pack();
-//                window.addToArea();
             } else {
                 refresh();
-//                setVisible(true);
                 pack();
-//                window.pack();
             }
         }
     }
@@ -1030,9 +1016,6 @@ public class Battle extends ChildFrame {
         if (!enabledClicked) {
             return;
         }
-//        if (window.showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
-//            return;
-//        }
         if (!htmlDialogs.isEmpty()) {
             if (!htmlDialogs.first().isVisible()) {
                 reinitWebFight();
@@ -1044,49 +1027,26 @@ public class Battle extends ChildFrame {
         session_ = new RenderedPage(new JScrollPane());
         session_.setLanguage(facade.getLanguage());
         session_.setDataBase(facade);
-        session_.setProcess(VideoLoading.getVideo());
-//        try {
-//            session_.setFiles(facade.getData().getWebFight());
-//            if (window.isSuccessfulCompile()) {
-//                session_.initialize(Resources.CONFIG_FIGHT);
-//            } else {
-//                session_.initialize(Resources.ACCESS_TO_DEFAULT_FIGHT);
-//            }
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-//        }
-        FrameHtmlData dialog_ = new FrameHtmlData(window, _messages_.getVal(TITLE), session_);
-//        dialog_.initSession(facade.getData().getWebFight(), window.isSuccessfulCompile(), Resources.CONFIG_FIGHT, Resources.ACCESS_TO_DEFAULT_FIGHT);
+        session_.setProcess(window.getVideoLoading().getVideo());
+        FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
         dialog_.initSession(Resources.ACCESS_TO_DEFAULT_FIGHT);
         htmlDialogs.add(dialog_);
     }
 
     private void reinitWebFight() {
-        htmlDialogs.first().setTitle(_messages_.getVal(TITLE));
-//        htmlDialogs.first().getSession().setFiles(facade.getData().getWebFight(), Resources.ACCESS_TO_DEFAULT_FILES);
+        htmlDialogs.first().setTitle(messages.getVal(TITLE));
         htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
         htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_FIGHT, new PokemonStandards());
         htmlDialogs.first().pack();
-//        try {
-////            if (window.isSuccessfulCompile()) {
-////                htmlDialogs.first().getSession().initialize(Resources.CONFIG_FIGHT);
-////            } else {
-////                htmlDialogs.first().getSession().initialize(Resources.ACCESS_TO_DEFAULT_FIGHT);
-////            }
-//            htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_FIGHT);
-//            htmlDialogs.first().revalidate();
-//        } catch (Throwable _0) {
-//            _0.printStackTrace();
-//        }
     }
 
     public void refreshSession() {
         for (FrameHtmlData f: htmlDialogs) {
-            f.setTitle(_messages_.getVal(TITLE));
+            f.setTitle(messages.getVal(TITLE));
             if (!f.isVisible()) {
                 continue;
             }
-            f.refresh();
+            f.refresh(window);
             f.pack();
         }
     }
@@ -1191,7 +1151,7 @@ public class Battle extends ChildFrame {
     private void initEvos() {
         enableClick = false;
 //        pokemonPanel.initEvos();
-        pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, _messages_.getVal(NO_EVO));
+        pokemonPanel = new PokemonPanel(2, DataBase.EMPTY_STRING, facade, messages.getVal(NO_EVO));
         pokemonPanel.addListener(this);
         enableClick = true;
     }
@@ -1199,11 +1159,11 @@ public class Battle extends ChildFrame {
     private void initLearntMovesAbilities() {
         StringMap<StringMap<String>> trMoves_;
         trMoves_ = facade.getData().getTranslatedMoves();
-        TreeMap<String,Boolean> moves_ = new TreeMap<String, Boolean>(new ComparatorTrStrings(trMoves_.getVal(Constants.getLanguage())));
+        TreeMap<String,Boolean> moves_ = new TreeMap<String, Boolean>(new ComparatorTrStrings(trMoves_.getVal(window.getLanguageKey())));
         NatTreeMap<String,Boolean> retMoves_ = facade.getMoves();
         moves_.putAllTreeMap(retMoves_);
         movesLearnPanel.removeAll();
-        movesLearnPanel.add(new JLabel(_messages_.getVal(SELECT_MT)));
+        movesLearnPanel.add(new JLabel(messages.getVal(SELECT_MT)));
         for (String m: moves_.getKeys()) {
             boolean learnt_ = moves_.getVal(m);
             if (!learnt_) {
@@ -1240,7 +1200,7 @@ public class Battle extends ChildFrame {
 //        }
         abilitiesLearnPanel.removeAll();
         abilityLabels.clear();
-        abilitiesLearnPanel.add(new JLabel(_messages_.getVal(SELECT_ABILITY)));
+        abilitiesLearnPanel.add(new JLabel(messages.getVal(SELECT_ABILITY)));
         StringList abilities_ = facade.getAbilities();
         StringList abilitiesCopy_ = new StringList(abilities_);
 //        abilitiesCopy_.sort(new Comparator<String>() {
@@ -1266,10 +1226,10 @@ public class Battle extends ChildFrame {
 
     private void displayActionsBeforeRound() {
         actionType.removeAll();
-        actionType.add(new JLabel(_messages_.getVal(SELECT_ACTION)));
+        actionType.add(new JLabel(messages.getVal(SELECT_ACTION)));
         actionsLabels.clear();
         EnumList<ActionType> actions_ = facade.getFight().getPossibleActionsCurFighter();
-        StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), ACTION_TYPE);
+        StringMap<String> map_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, window.getLanguageKey(), ACTION_TYPE);
         for (ActionType a: actions_) {
             ActionLabel action_ = new ActionLabel(map_.getVal(a.name()), a);
             action_.addMouseListener(new FighterAction(this, a));
@@ -1303,12 +1263,12 @@ public class Battle extends ChildFrame {
     private void displayMovesToBeHealed() {
         actions.removeAll();
         actions.add(actionType);
-        selectedItem = new JLabel(_messages_.getVal(NO_ITEM));
-        LabelButton button_ = new LabelButton(_messages_.getVal(SELECT_ITEM));
+        selectedItem = new JLabel(messages.getVal(NO_ITEM));
+        LabelButton button_ = new LabelButton(messages.getVal(SELECT_ITEM));
         button_.addMouseListener(new SelectHealingItemEvent(this));
         String str_ = facade.getFight().getChosenHealingMove();
         if (!str_.isEmpty()) {
-            String mess_ = StringList.simpleStringsFormat(_messages_.getVal(SELECTED_ITEM), str_);
+            String mess_ = StringList.simpleStringsFormat(messages.getVal(SELECTED_ITEM), str_);
             selectedItem.setText(mess_);
         }
         actions.add(button_);
@@ -1322,7 +1282,7 @@ public class Battle extends ChildFrame {
                 movesPanel.removeAll();
             }
             movesPanel.setLayout(new BoxLayout(movesPanel.getComponent(), BoxLayout.PAGE_AXIS));
-            movesPanel.add(new JLabel(_messages_.getVal(SELECT_MOVE_HEAL)));
+            movesPanel.add(new JLabel(messages.getVal(SELECT_MOVE_HEAL)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
@@ -1353,14 +1313,14 @@ public class Battle extends ChildFrame {
             facade.clearSortingHealingItem();
             window.setSavedGame(false);
             String item_ = facade.getFight().getChosenHealingMove();
-            String mess_ = StringList.simpleStringsFormat(_messages_.getVal(SELECTED_ITEM), item_);
+            String mess_ = StringList.simpleStringsFormat(messages.getVal(SELECTED_ITEM), item_);
             selectedItem.setText(mess_);
             displayMovesToBeHealed();
 //            window.pack();
             pack();
             //Label selected
         } else {
-            selectedItem.setText(_messages_.getVal(NO_ITEM));
+            selectedItem.setText(messages.getVal(NO_ITEM));
             movesLabels.clear();
             if (movesPanel != null) {
 //                actions.remove(movesPanel);
@@ -1378,7 +1338,7 @@ public class Battle extends ChildFrame {
         if (!moves_.isEmpty()) {
             Panel movesPanel_ = new Panel();
             movesPanel_.setLayout(new BoxLayout(movesPanel_.getComponent(), BoxLayout.PAGE_AXIS));
-            movesPanel_.add(new JLabel(_messages_.getVal(SELECT_MOVE_ROUND)));
+            movesPanel_.add(new JLabel(messages.getVal(SELECT_MOVE_ROUND)));
             movesLabels.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
@@ -1402,7 +1362,7 @@ public class Battle extends ChildFrame {
             BooleanList chosableFoe_ = facade.getFight().getChosableFoeTargets();
             if (chosablePlayer_.indexesOfObj(true).size() + chosableFoe_.indexesOfObj(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                JLabel header_ = new JLabel(_messages_.getVal(SELECT_TARGET));
+                JLabel header_ = new JLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
             } else {
                 targets.removeAll();
@@ -1433,7 +1393,7 @@ public class Battle extends ChildFrame {
             BooleanList plTargets_ = facade.getFight().getChosablePlayerTargets();
             if (foeTargets_.indexesOfObj(true).size() + plTargets_.indexesOfObj(true).size() > DataBase.ONE_POSSIBLE_CHOICE) {
                 targets.setTargets(facade, this);
-                JLabel header_ = new JLabel(_messages_.getVal(SELECT_TARGET));
+                JLabel header_ = new JLabel(messages.getVal(SELECT_TARGET));
                 targetsPanel.add(header_, BorderLayout.NORTH);
             } else {
                 window.setSavedGame(false);

@@ -2,28 +2,29 @@ package code.util.consts;
 import code.util.StringList;
 import code.util.StringMap;
 
-final class Languages {
+enum Languages {
+EN("en","English"),FR("fr","Fran\u00E7ais");
 
-    private static final Languages LANGUAGES = new Languages();
-
-    private static final String EN = "English";
-
-    private static final String FR = "Fran\u00E7ais";
-
-    private StringMap<String> displayLanguages = new StringMap<String>();
-
-    private StringList languages = new StringList("en","fr");
-
-    private Languages() {
-        displayLanguages.put(languages.first(), EN);
-        displayLanguages.put(languages.last(), FR);
+    private String key;
+    private String display;
+    private Languages(String _key, String _display) {
+        key = _key;
+        display = _display;
     }
 
     static StringList getLanguages() {
-        return LANGUAGES.languages;
+        StringList lgs_ = new StringList();
+        for (Languages l: values()) {
+            lgs_.add(l.key);
+        }
+        return lgs_;
     }
 
     static StringMap<String> getDisplayLanguages() {
-        return LANGUAGES.displayLanguages;
+        StringMap<String> m_ = new StringMap<String>();
+        for (Languages l: values()) {
+            m_.put(l.key, l.display);
+        }
+        return m_;
     }
 }

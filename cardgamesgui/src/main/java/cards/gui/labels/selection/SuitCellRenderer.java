@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 
 import cards.consts.Suit;
+import cards.gui.MainWindow;
 import code.gui.CustCellRender;
 import code.gui.GraphicListable;
 import code.util.Numbers;
@@ -15,6 +16,10 @@ import code.util.Numbers;
 public class SuitCellRenderer extends CustCellRender {
     private Suit couleur;
     private boolean selectionne;
+    private MainWindow window;
+    public SuitCellRenderer(MainWindow _window) {
+        window = _window;
+    }
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/
     @Override
     public JLabel getListCellRendererComponent(GraphicListable _list, Object _value,
@@ -81,7 +86,8 @@ public class SuitCellRenderer extends CustCellRender {
         } else {
             _g.setColor(Color.RED);
         }
-        _g.drawString(couleur.display(),10,10);
+        String lg_ = window.getLanguageKey();
+        _g.drawString(couleur.toString(lg_),10,10);
     }
     @Override
     public int getHeight() {

@@ -38,9 +38,9 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
 
     private CustList<OperationNode> opRet;
 
-    public ReturnMehod(ContextEl _importingPage, int _indexChild,
+    public ReturnMehod(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _expression, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
     }

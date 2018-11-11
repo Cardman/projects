@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
+import cards.gui.MainWindow;
 import cards.gui.labels.selection.CardTarotCellRenderer;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -35,8 +36,8 @@ public class TarotCardsScrollableList extends CardsScrollableList {
         add(remCards, BorderLayout.SOUTH);
         setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
-    public void initSelectionCarteTarot() {
-        liste.setRender(new CardTarotCellRenderer());
+    public void initSelectionCarteTarot(MainWindow _window) {
+        liste.setRender(new CardTarotCellRenderer(_window));
     }
     public void iniPileTarot(HandTarot _main) {
         ajouterCartesTarot(_main);

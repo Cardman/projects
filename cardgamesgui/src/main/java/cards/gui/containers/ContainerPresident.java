@@ -69,12 +69,12 @@ public class ContainerPresident extends ContainerGame {
         return false;
     }
 
-    public static CustList<GraphicPresidentCard> getGraphicCards(Iterable<CardPresident> _hand) {
+    public static CustList<GraphicPresidentCard> getGraphicCards(String _lg, Iterable<CardPresident> _hand) {
         CustList<GraphicPresidentCard> list_;
         list_ = new CustList<GraphicPresidentCard>();
         boolean entered_ = false;
         for(CardPresident c: _hand) {
-            GraphicPresidentCard carte_=new GraphicPresidentCard(c,SwingConstants.RIGHT,!entered_);
+            GraphicPresidentCard carte_=new GraphicPresidentCard(_lg, c,SwingConstants.RIGHT,!entered_);
             carte_.setPreferredSize(entered_);
             list_.add(carte_);
             entered_ = true;
@@ -117,7 +117,8 @@ public class ContainerPresident extends ContainerGame {
 
     public void updateCardsInPanelPresidentReceived() {
         getPanelReceivedCards().removeAll();
-        for (GraphicPresidentCard c: getGraphicCards(getReceivedCards())) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicPresidentCard c: getGraphicCards(lg_, getReceivedCards())) {
             getPanelReceivedCards().add(c);
         }
         getPanelReceivedCards().validate();
@@ -126,7 +127,8 @@ public class ContainerPresident extends ContainerGame {
 
     public void updateCardsInPanelPresidentGiven() {
         getPanelGivenCards().removeAll();
-        for (GraphicPresidentCard c: getGraphicCards(getGivenCards())) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicPresidentCard c: getGraphicCards(lg_,getGivenCards())) {
             getPanelGivenCards().add(c);
         }
         getPanelGivenCards().validate();

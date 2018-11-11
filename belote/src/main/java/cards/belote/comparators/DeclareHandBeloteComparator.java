@@ -1,11 +1,10 @@
 package cards.belote.comparators;
-import code.util.ints.Comparing;
-
 import cards.belote.DeclareHandBelote;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class DeclareHandBeloteComparator implements Comparing<DeclareHandBelote> {
 

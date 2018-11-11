@@ -35,7 +35,6 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 public final class EditorTarot extends DialogTarot implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.EditorTarot";
@@ -83,8 +82,10 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         setAccessFile(DIALOG_ACCESS);
     }
     public static void initEditorTarot(MainWindow _fenetre) {
+        String lg_ = _fenetre.getLanguageKey();
+        DIALOG.setMain(_fenetre);
         DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.TAROT.display());
+        DIALOG.setTitle(GameEnum.TAROT.toString(lg_));
         DIALOG.setReglesTarot(_fenetre.getReglesTarot());
         DIALOG.partie = null;
         DIALOG.setToNullGame = true;
@@ -95,7 +96,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         DIALOG.setLocationRelativeTo(_fenetre);
         DIALOG.nickNames = _fenetre.getPseudosJoueurs();
         DIALOG.displayingTarot = _fenetre.getDisplayingTarot();
-        DIALOG.setDialogue(true, 0);
+        DIALOG.setDialogue(true, 0, _fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 //        addWindowListener(new WindowAdapter() {
 //            @Override
@@ -127,33 +128,33 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         erreur(stack);
     }
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers) {
+    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, MainWindow _window) {
         getJt().removeAll();
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
-        initMessageName();
+        initMessageName(_window);
         Numbers<Integer> decks_ = new Numbers<Integer>();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);
         }
-        initJt(new JSpinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers);
+        initJt(new JSpinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
-        bouton_.addMouseListener(new ValidateRulesDealEvent(this));
+        bouton_.addMouseListener(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
         container_.add(panneau_,BorderLayout.SOUTH);
         setContentPane(container_);
         pack();
     }
     @Override
-    public void validateRulesDeal() {
+    public void validateRulesDeal(MainWindow _parent) {
         validateRules();
         getReglesTarot().setNombreParties((Integer)getNbGames().getValue());
-        distribuer();
+        distribuer(_parent);
     }
-    private void distribuer() {
+    private void distribuer(MainWindow _parent) {
 
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=new Panel();
@@ -182,13 +183,13 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         TarotCardsScrollableList plc_=new TarotCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
         plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
         plc_.iniPileTarot(pile_);
-        plc_.initSelectionCarteTarot();
+        plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=new Panel();
         stack = plc_;
         panelsCards.add(plc_);
         plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
-        plc_.initSelectionCarteTarot();
+        plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
         panelsCards.add(plc_);
@@ -205,7 +206,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringList.simpleStringsFormat(message_, n);
             plc_=new TarotCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
-            plc_.initSelectionCarteTarot();
+            plc_.initSelectionCarteTarot(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
             panelsCards.add(plc_);
@@ -213,7 +214,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 //            i_++;
         }
         plc_=new TarotCardsScrollableList(nbCartesC_,nbCartesC_,getMessages().getVal(REMAINING));
-        plc_.initSelectionCarteTarot();
+        plc_.initSelectionCarteTarot(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriTarot(displayingTarot.getCouleurs(), displayingTarot.getDecroissant());
         panelsCards.add(plc_);
@@ -245,19 +246,19 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
         panneau_=new Panel();
         bouton_=new LabelButton(getMessages().getVal(BACK));
-        bouton_.addMouseListener(new BackToRulesEvent(this));
+        bouton_.addMouseListener(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_WITHOUT_CLOSING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_PLAY));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(PLAY_WITHOUT_SAVING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_CLOSE));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,BorderLayout.SOUTH);
         setContentPane(c);
@@ -265,16 +266,17 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
 
     }
     @Override
-    public void backToRules() {
+    public void backToRules(MainWindow _parent) {
         nombreCartesSelectionneesPrecedent=0;
         nombreCartesSelectionnees = 0;
         partieSauvegardee=false;
-        setDialogue(true,0);
+        setDialogue(true,0, _parent);
     }
     private void erreur(TarotCardsScrollableList _plc) {
+        String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringList.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
@@ -315,10 +317,11 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         partie = new GameTarot(GameType.EDIT,donne_,getReglesTarot());
     }
     private String validerEgalite() {
+        String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, ConstFiles.getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, ConstFiles.getHomePath(), FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath();
         if (fichier_ == null) {
@@ -335,6 +338,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
     }
     @Override
     public void deplacerCartes() {
+        String lg_ = getMain().getLanguageKey();
 //        int nombreDeMains_=panelsCards.getComponentCount();
 
         HandTarot m=new HandTarot();
@@ -372,7 +376,7 @@ public final class EditorTarot extends DialogTarot implements SetterSelectedCard
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringList.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 

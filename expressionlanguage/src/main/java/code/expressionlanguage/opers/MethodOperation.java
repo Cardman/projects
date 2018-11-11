@@ -112,7 +112,7 @@ public abstract class MethodOperation extends OperationNode {
             StringMap<AssignmentBefore> sm_ = new StringMap<AssignmentBefore>();
             for (EntryCust<String, Assignment> e: s.entryList()) {
                 BooleanAssignment b_ = e.getValue().toBoolAssign();
-                AssignmentBefore a_ = b_.copyWhenFalse();
+                AssignmentBefore a_ = b_.copyWhenTrue();
                 sm_.put(e.getKey(), a_);
             }
             mutableBefore_.add(sm_);

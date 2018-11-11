@@ -31,8 +31,8 @@ public class LaunchingPokecards extends SoftApplicationCore {
         ThreadInvoker.invokeNow(new LoadLanguage(getTempFolder(), new LaunchingPokecards(), _args, null));
     }
 
-    private static MainWindow getWindow() {
-        return new MainWindow();
+    private static MainWindow getWindow(String _lg) {
+        return new MainWindow(_lg);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class LaunchingPokecards extends SoftApplicationCore {
         } catch (Throwable _0) {
             topLeft_ = new TopLeftFrame();
         }
-        MainWindow w_ = getWindow();
+        MainWindow w_ = getWindow(_language);
         setLocation(w_, topLeft_);
         if (!_args.isEmpty()) {
             try {

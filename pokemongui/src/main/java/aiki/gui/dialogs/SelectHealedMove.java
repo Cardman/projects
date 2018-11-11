@@ -7,9 +7,9 @@ import javax.swing.WindowConstants;
 import aiki.Resources;
 import aiki.comparators.TrMovesComparator;
 import aiki.facade.FacadeGame;
+import aiki.gui.MainWindow;
 import aiki.gui.components.walk.HealedMoveEvent;
 import code.gui.Dialog;
-import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
@@ -37,13 +37,13 @@ public final class SelectHealedMove extends Dialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectHealedMove(GroupFrame _parent, FacadeGame _facade) {
+    public static void setSelectHealedMove(MainWindow _parent, FacadeGame _facade) {
         DIALOG.init(_parent, _facade);
     }
 
-    private void init(GroupFrame _parent, FacadeGame _facade) {
+    private void init(MainWindow _parent, FacadeGame _facade) {
         setDialogIcon(_parent);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
         setTitle(messages.getVal(TITLE));
         facade = _facade;
         Panel contentPane_ = new Panel();

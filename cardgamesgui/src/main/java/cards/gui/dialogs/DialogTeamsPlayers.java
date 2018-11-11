@@ -25,7 +25,7 @@ public final class DialogTeamsPlayers extends DialogCards {
     public static void initDialogTeamsPlayers(MainWindow _fenetre) {
         DIALOG.setDialogIcon(_fenetre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
-        DIALOG.messages = DIALOG.getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        DIALOG.messages = DIALOG.getMessages(_fenetre,FileConst.FOLDER_MESSAGES_GUI);
         DIALOG.setTitle(DIALOG.messages.getVal(TITLE));
         DIALOG.setLocationRelativeTo(_fenetre);
     }

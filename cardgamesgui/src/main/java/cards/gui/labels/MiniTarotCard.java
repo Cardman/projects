@@ -9,16 +9,17 @@ import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.PaintableLabel;
 import code.util.Numbers;
-import code.util.consts.Constants;
 
 public class MiniTarotCard extends PaintableLabel {
 
     static final String DEFAULT="Default";
 
     private CardTarot card;
+    private String lg;
 
-    public MiniTarotCard(CardTarot _card) {
+    public MiniTarotCard(String _lg, CardTarot _card) {
         card = _card;
+        lg = _lg;
         setHorizontalAlignment(SwingConstants.RIGHT);
         setVerticalAlignment(SwingConstants.TOP);
         setPreferredSize(new Dimension(20, 40));
@@ -30,7 +31,7 @@ public class MiniTarotCard extends PaintableLabel {
         _g.fillRect(0,0,75+getWidth(),getHeight());
         _g.setColor(Color.BLACK);
         _g.drawRect(0,0,getWidth()-1,getHeight()-1);
-        _g.drawString(card.getSymbol(Constants.getLanguage()),0,20);
+        _g.drawString(card.getSymbol(lg),0,20);
         if(card != CardTarot.EXCUSE) {
             dessinerGrandSymbole(_g, 0, 20);
         }

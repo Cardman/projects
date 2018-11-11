@@ -27,9 +27,9 @@ public final class Line extends Leaf implements StackableBlock {
 
     private CustList<OperationNode> opExp;
 
-    public Line(ContextEl _importingPage, int _indexChild,
+    public Line(ContextEl _importingPage,
             BracedBlock _m, OffsetStringInfo _left, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         expression = _left.getInfo();
         expressionOffset = _left.getOffset();
     }

@@ -18,10 +18,10 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
     private StringList importedDirectSuperInterfaces = new StringList();
     private final boolean staticType;
 
-    public InterfaceBlock(ContextEl _importingPage, int _indexChild,
+    public InterfaceBlock(ContextEl _importingPage,
             BracedBlock _m, int _idRowCol, int _categoryOffset ,String _name, String _packageName, OffsetAccessInfo _access,
             String _templateDef, NatTreeMap<Integer, String> _directSuperTypes, boolean _staticType, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
+        super(_importingPage, _m, _idRowCol, _categoryOffset, _name, _packageName, _access, _templateDef, _directSuperTypes, _offset);
         staticType = _staticType;
     }
 

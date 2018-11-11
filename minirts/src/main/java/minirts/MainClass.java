@@ -2,6 +2,8 @@ package minirts;
 
 import javax.swing.SwingUtilities;
 
+import code.util.consts.Constants;
+
 public final class MainClass extends Thread {
 
     public static void main(String[] _args) {
@@ -10,6 +12,6 @@ public final class MainClass extends Thread {
 
     @Override
     public void run() {
-        new MainWindow();
+        new MainWindow(Constants.getDefaultLanguage());
     }
 }

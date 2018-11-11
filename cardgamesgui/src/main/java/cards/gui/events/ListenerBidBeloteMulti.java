@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import cards.belote.BidBeloteSuit;
 import cards.gui.containers.ContainerMultiBelote;
 import cards.network.belote.actions.BiddingBelote;
-import code.util.consts.Constants;
 
 public class ListenerBidBeloteMulti extends MouseAdapter {
 
@@ -28,7 +27,8 @@ public class ListenerBidBeloteMulti extends MouseAdapter {
         BiddingBelote bid_ = new BiddingBelote();
         bid_.setPlace(container.getIndexInGame());
         bid_.setBidBelote(texte);
-        bid_.setLocale(Constants.getLanguage());
+        String lg_ = container.getOwner().getLanguageKey();
+        bid_.setLocale(lg_);
         container.getOwner().sendObject(bid_);
     }
 }

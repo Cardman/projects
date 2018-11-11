@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
+import cards.gui.MainWindow;
 import cards.gui.labels.selection.CardPresidentCellRenderer;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
@@ -36,8 +37,8 @@ public class PresidentCardsScrollableList extends CardsScrollableList {
         setPreferredSize(new Dimension(100,10*(_nb+4)));
     }
 
-    public void initSelectionCartePresident() {
-        liste.setRender(new CardPresidentCellRenderer());
+    public void initSelectionCartePresident(MainWindow _window) {
+        liste.setRender(new CardPresidentCellRenderer(_window));
     }
 
     public void iniPilePresident(HandPresident _main) {

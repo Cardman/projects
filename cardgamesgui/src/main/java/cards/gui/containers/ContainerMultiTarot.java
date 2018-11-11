@@ -85,6 +85,7 @@ import cards.network.threads.Net;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.HandTarot;
+import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import cards.tarot.TricksHandsTarot;
 import cards.tarot.beans.TarotStandards;
@@ -107,7 +108,6 @@ import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.StringList;
 import code.util.comparators.ComparatorBoolean;
-import code.util.consts.Constants;
 
 public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti{
 
@@ -156,7 +156,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
     private void initBoutonJeuChelemTarotMulti() {
-        LabelButton bouton_=new LabelButton(BidTarot.SLAM.display());
+        String lg_ = getOwner().getLanguageKey();
+        LabelButton bouton_=new LabelButton(BidTarot.SLAM.toString(lg_));
 //        bouton_.addActionListener(new EcouteurBoutonJeuAnnonceChelemTarotMulti());
         bouton_.addMouseListener(new SlamEvent(this));
         setSlamButton(bouton_);
@@ -202,7 +203,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollCallableCards().setVisible(false);
         ValidateDog v_ = new ValidateDog();
         v_.setPlace(indexInGame);
-        v_.setLocale(Constants.getLanguage());
+        String lg_ = getOwner().getLanguageKey();
+        v_.setLocale(lg_);
         getOwner().sendObject(v_);
     }
 //    private void addButtonValidateDogTarotMulti(String _texte,boolean _apte) {
@@ -242,6 +244,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public void updateFirst(PlayersNamePresent _players) {
+        String lg_ = getOwner().getLanguageKey();
         getMultiStop().setEnabledMenu(true);
         getTricksHands().setEnabledMenu(true);
         getTeams().setEnabledMenu(true);
@@ -288,7 +291,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         try {
             //editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(Constants.getLanguage());
+            editor.setLanguage(lg_);
             editor.setDataBase(rulesTarotMulti);
             editor.initialize(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
@@ -352,10 +355,11 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void updateRules(RulesTarot _rules) {
         rulesTarotMulti = _rules;
+        String lg_ = getOwner().getLanguageKey();
         try {
             //editor.setMainClass(SoftApplication.getMainClass());
 //            editor.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor.setLanguage(Constants.getLanguage());
+            editor.setLanguage(lg_);
             editor.setDataBase(rulesTarotMulti);
             editor.initializeHtml(FileConst.RESOURCES_HTML_FILES_RULES_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
@@ -364,6 +368,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
         repTarot = _hand.getRep();
+        String lg_ = getOwner().getLanguageKey();
         placerIhmTarotMulti(_hand.getDog(), _hand.getDealer());
         setCarteEntree(false);
         setCarteSortie(false);
@@ -376,14 +381,14 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         /*On place les cartes de l'utilisateur*/
         updateCardsInPanelTarotJeuMulti(getPanelHand(), playerHand);
         for (BidTarot b: _hand.getAllowedBids()) {
-            ajouterBoutonContratTarotMulti(b.display(), b);
+            ajouterBoutonContratTarotMulti(b.toString(lg_), b);
         }
         //getPanneauBoutonsJeu().validate();
         pack();
         //PackingWindowAfter.pack(this, true);
         Dealt dealt_ = new Dealt();
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(Constants.getLanguage());
+        dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
     }
 
@@ -394,8 +399,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setCanBid(true);
         canPlayLabel.setText(getMessages().getVal(MainWindow.CAN_PLAY));
         getPanneauBoutonsJeu().removeAll();
+        String lg_ = getOwner().getLanguageKey();
         for (BidTarot b: _bids.getBids()) {
-            ajouterBoutonContratTarotMulti(b.toString(Constants.getLanguage()), b);
+            ajouterBoutonContratTarotMulti(b.toString(lg_), b);
         }
         //getPanneauBoutonsJeu().validate();
         pack();
@@ -405,25 +411,27 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setCanBid(false);
     }
     public void errorForBidding(ErrorBidding _error) {
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid().display());
+        String lg_ = getOwner().getLanguageKey();
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_BID), _error.getBid().toString(lg_));
 //        JOptionPane.showMessageDialog(getOwner(),mes_,
 //                getMessages().getVal(MainWindow.CANT_BID_TITLE), JOptionPane.INFORMATION_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),mes_,
                 getMessages().getVal(MainWindow.CANT_BID_TITLE),
-                Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                lg_, JOptionPane.ERROR_MESSAGE);
     }
     public void displayLastBid(BiddingTarot _bid) {
+        String lg_ = getOwner().getLanguageKey();
         canPlayLabel.setText(EMPTY_STRING);
         BiddingTarot bid_ = _bid;
 
-        getEvents().append(StringList.concat(getPseudoByPlace(_bid.getPlace()),INTRODUCTION_PTS,bid_.getBid().display(),RETURN_LINE));
+        getEvents().append(StringList.concat(getPseudoByPlace(_bid.getPlace()),INTRODUCTION_PTS,bid_.getBid().toString(lg_),RETURN_LINE));
 
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
         //pack();
         DoneBidding dealt_ = new DoneBidding();
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(Constants.getLanguage());
+        dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
     }
 
@@ -444,6 +452,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
 
     public void displayDogBeforeCall(Dog _dog) {
+        String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
         if (_dog.isTaker()) {
             //take the cards
@@ -461,12 +470,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!_dog.isHumanTaker()) {
             ShowDog show_ = new ShowDog();
             show_.setPlace(indexInGame);
-            show_.setLocale(Constants.getLanguage());
+            show_.setLocale(lg_);
             getOwner().sendObject(show_);
         }
     }
 
     public void displayDog(Dog _dog) {
+        String lg_ = getOwner().getLanguageKey();
         getPanneauBoutonsJeu().removeAll();
         if (_dog.isTaker()) {
             //take the cards
@@ -484,28 +494,30 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!_dog.isHumanTaker()) {
             ShowDog show_ = new ShowDog();
             show_.setPlace(indexInGame);
-            show_.setLocale(Constants.getLanguage());
+            show_.setLocale(lg_);
             getOwner().sendObject(show_);
         }
     }
     public void displayCalledCard(CalledCards _call) {
+        String lg_ = getOwner().getLanguageKey();
         canPlayLabel.setText(EMPTY_STRING);
         byte relative_ = relative(_call.getPlace());
         getMini().setStatus(Status.TAKER, relative_);
-        getEvents().append(StringList.concat(getPseudoByPlace(_call.getPlace()),INTRODUCTION_PTS,_call.getCalledCards().display(),RETURN_LINE));
+        getEvents().append(StringList.concat(getPseudoByPlace(_call.getPlace()),INTRODUCTION_PTS,_call.getCalledCards().toString(lg_),RETURN_LINE));
 
         CalledCardKnown dealt_ = new CalledCardKnown();
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(Constants.getLanguage());
+        dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
     }
     public void errorDiscardingCard(ErrorDiscarding _error) {
-        String mesCard_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DISCARD), _error.getCard().display());
+        String lg_ = getOwner().getLanguageKey();
+        String mesCard_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DISCARD), _error.getCard().toString(lg_));
         String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getErrorMessage());
 //        JOptionPane.showMessageDialog(getOwner(),mesCard_+RETURN_LINE_CHAR+mesReason_, getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),StringList.concat(mesCard_,RETURN_LINE,mesReason_),
                 getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),
-                Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                lg_, JOptionPane.ERROR_MESSAGE);
     }
     public void displaySlamButton() {
         getPanneauBoutonsJeu().removeAll();
@@ -523,7 +535,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     public void showDiscardedTrumps(DiscardedTrumps _discardedTrumps) {
         HandTarot atouts_ = _discardedTrumps.getTrumps();
         getPanelDiscardedTrumps().removeAll();
-        for (GraphicTarotCard c: getGraphicCards(atouts_)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicTarotCard c: getGraphicCards(lg_,atouts_)) {
             getPanelDiscardedTrumps().add(c);
         }
 //        boolean entered_ = false;
@@ -541,7 +554,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         SeenDiscardedTrumps dis_ = new SeenDiscardedTrumps();
         dis_.setDeclaringSlam(_discardedTrumps.isDeclaringSlam());
         dis_.setPlace(indexInGame);
-        dis_.setLocale(Constants.getLanguage());
+        dis_.setLocale(lg_);
         getOwner().sendObject(dis_);
     }
     public void displaySlam(BiddingSlamAfter _bidding) {
@@ -551,7 +564,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getEvents().append(StringList.concat(getPseudoByPlace(bid_.getPlace()),INTRODUCTION_PTS,MainWindow.SLAM,RETURN_LINE));
 
         DoneDisplaySlam dis_ = new DoneDisplaySlam();
-        dis_.setLocale(Constants.getLanguage());
+        String lg_ = getOwner().getLanguageKey();
+        dis_.setLocale(lg_);
         dis_.setPlace(indexInGame);
         getOwner().sendObject(dis_);
     }
@@ -565,6 +579,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     public void canPlayTarot(AllowPlayingTarot _declaration) {
         canPlayLabel.setText(getMessages().getVal(MainWindow.CAN_PLAY));
+        String lg_ = getOwner().getLanguageKey();
         setCanPlay(true);
         getOwner().getTricksHands().setEnabledMenu(true);
         getOwner().getTeams().setEnabledMenu(true);
@@ -591,13 +606,13 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setSelectedMiseres(new EnumMap<Miseres,Boolean>());
         setListHandfuls(new ButtonGroup());
         for (Handfuls h: Handfuls.getNonDeclarableHandFuls()) {
-            JRadioButton radio_ = new JRadioButton(h.display());
+            JRadioButton radio_ = new JRadioButton(h.toString(lg_));
             radio_.addMouseListener(new ListenerNoHandfulTarot(this, radio_, h));
             getListHandfuls().add(radio_);
             handFuls_.add(radio_);
         }
         for (Handfuls h: _declaration.getAllowedHandfuls()) {
-            JRadioButton radio_ = new JRadioButton(h.display());
+            JRadioButton radio_ = new JRadioButton(h.toString(lg_));
             int diff_ = getCurrentIncludedTrumps().total()-requiredTrumps.getVal(h);
             radio_.setEnabled(diff_ >= 0);
             radio_.addMouseListener(new ListenerHandfulTarot(requiredTrumps.getVal(h), radio_, this, h));
@@ -607,7 +622,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanneauBoutonsJeu().add(handFuls_);
         Panel miseres_ = new Panel(new GridLayout(0,1));
         for(Miseres po_:_declaration.getAllowedMiseres()) {
-            JCheckBox check_ = new JCheckBox(po_.display());
+            JCheckBox check_ = new JCheckBox(po_.toString(lg_));
             check_.addActionListener(new ListenerMiseresTarot(this,check_,po_));
             getSelectedMiseres().put(po_, false);
             miseres_.add(check_);
@@ -626,29 +641,30 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         canPlayLabel.setText(EMPTY_STRING);
         PlayingCardTarot card_ = _card;
         byte relative_ = relative(card_.getPlace());
-        tapisTarot().setCarteTarot(relative_, card_.getPlayedCard());
+        String lg_ = getOwner().getLanguageKey();
+        tapisTarot().setCarteTarot(lg_,relative_, card_.getPlayedCard());
         String pseudo_ = getPseudoByPlace(card_.getPlace());
         if (_card.isCalledCard()) {
             getMini().setStatus(Status.CALLED_PLAYER, relative_);
-            ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Status.CALLED_PLAYER.display()));
+            ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,Status.CALLED_PLAYER.toString(lg_)));
 
         }
         if (_card.getChoosenHandful() != Handfuls.NO) {
-            ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,_card.getChoosenHandful().display(),RETURN_LINE));
+            ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,_card.getChoosenHandful().toString(lg_),RETURN_LINE));
 
         }
         for(Miseres annonce_:_card.getMiseres()) {
-            ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,annonce_.display(),RETURN_LINE));
+            ajouterTexteDansZone(StringList.concat(pseudo_,INTRODUCTION_PTS,annonce_.toString(lg_),RETURN_LINE));
 
         }
         if(!_card.getHandful().estVide()) {
-            getHandfuls().getVal(relative_).setText(_card.getChoosenHandful().display());
+            getHandfuls().getVal(relative_).setText(_card.getChoosenHandful().toString(lg_));
         }
         Panel panelToSet_ = getDeclaredHandfuls().getVal(relative_);
         panelToSet_.removeAll();
         _card.getHandful().trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
         for(CardTarot c: _card.getHandful()) {
-            MiniTarotCard carte_=new MiniTarotCard(c);
+            MiniTarotCard carte_=new MiniTarotCard(lg_, c);
             panelToSet_.add(carte_);
         }
         panelToSet_.validate();
@@ -660,14 +676,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //pack();
         DonePlaying dealt_ = new DonePlaying();
         dealt_.setPlace(indexInGame);
-        dealt_.setLocale(Constants.getLanguage());
+        dealt_.setLocale(lg_);
         getOwner().sendObject(dealt_);
     }
 
     public void errorPlayingCard(ErrorHandful _error) {
         setCanExcludeTrumps(true);
         setCanPlay(true);
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), _error.getHandful().display());
+        String lg_ = getOwner().getLanguageKey();
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_DECLARE_DETAIL), _error.getHandful().toString(lg_));
 //        JOptionPane.showMessageDialog(
 //                getOwner(),
 //                mes_ + RETURN_LINE_CHAR + _error.getError(),
@@ -675,23 +692,21 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ConfirmDialog.showMessage(getOwner(),
                 StringList.concat(mes_, RETURN_LINE, _error.getError()),
                 getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),
-                Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                lg_, JOptionPane.ERROR_MESSAGE);
     }
 
     public void errorPlayingCard(ErrorPlaying _error) {
         setCanPlay(true);
-        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().display());
+        String lg_ = getOwner().getLanguageKey();
+        String mes_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.CANT_PLAY_CARD), _error.getCard().toString(lg_));
         String mesReason_ = StringList.simpleStringsFormat(getMessages().getVal(MainWindow.REASON), _error.getReason());
-//        JOptionPane.showMessageDialog(
-//                getOwner(),
-//                mes_ + RETURN_LINE_CHAR + mesReason_,
-//                getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), JOptionPane.ERROR_MESSAGE);
         ConfirmDialog.showMessage(getOwner(),
                 StringList.concat(mes_, RETURN_LINE, mesReason_),
                 getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),
-                Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+                lg_, JOptionPane.ERROR_MESSAGE);
     }
     public void refreshHand(RefreshHand _card) {
+        String lg_ = getOwner().getLanguageKey();
         playerHand.jouer(_card.getCard());
         playerHand.trier(getDisplayingTarot().getCouleurs(), getDisplayingTarot().getDecroissant());
         getPanneauBoutonsJeu().removeAll();
@@ -710,18 +725,19 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         ref_.setHandful(_card.getHandful());
         ref_.setMiseres(_card.getMiseres());
         ref_.setCalledCard(_card.isCalledCard());
-        ref_.setLocale(Constants.getLanguage());
+        ref_.setLocale(lg_);
         ref_.setPlace(indexInGame);
         getOwner().sendObject(ref_);
     }
     @Override
     public void pauseBetweenTrick() {
-        tapisTarot().setCartesTarotJeu((byte) nbChoosenPlayers);
+        String lg_ = getOwner().getLanguageKey();
+        tapisTarot().setCartesTarotJeu(lg_,(byte) nbChoosenPlayers);
         pack();
         //PackingWindowAfter.pack(this, true);
         DonePause d_ = new DonePause();
         d_.setPlace(indexInGame);
-        d_.setLocale(Constants.getLanguage());
+        d_.setLocale(lg_);
         getOwner().sendObject(d_);
     }
     @Override
@@ -729,9 +745,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!isCanPlay()) {
             return;
         }
+        String lg_ = getOwner().getLanguageKey();
         SelectTeams select_ = new SelectTeams();
         select_.setPlace(indexInGame);
-        select_.setLocale(Constants.getLanguage());
+        select_.setLocale(lg_);
         getOwner().sendObject(select_);
     }
     @Override
@@ -739,9 +756,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         if (!isCanPlay()) {
             return;
         }
+        String lg_ = getOwner().getLanguageKey();
         SelectTricksHands select_ = new SelectTricksHands();
         select_.setPlace(indexInGame);
-        select_.setLocale(Constants.getLanguage());
+        select_.setLocale(lg_);
         getOwner().sendObject(select_);
     }
     public void showTricksHands(TricksHandsTarot _tricks) {
@@ -755,8 +773,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             pseudos_.put(p, getPseudoByPlace(p));
         }
         StringList list_ = new StringList(pseudos_.values());
-        DialogTricksTarot.setDialogTricksTarot(getMessages().getVal(MainWindow.HANDS_TRICKS_TAROT), getOwner());
-        DialogTricksTarot.init(_tricks, (byte)nbChoosenPlayers, list_, getDisplayingTarot());
+        MainWindow ow_ = getOwner();
+        DialogTricksTarot.setDialogTricksTarot(getMessages().getVal(MainWindow.HANDS_TRICKS_TAROT), ow_);
+        DialogTricksTarot.init(_tricks, (byte)nbChoosenPlayers, list_, getDisplayingTarot(),ow_);
     }
     public void showTeams(TeamsPlayers _teams) {
         NatTreeMap<Byte,String> pseudos_ = new NatTreeMap<Byte,String>();
@@ -786,6 +805,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return hasCreatedServer;
     }
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
+        String lg_ = getOwner().getLanguageKey();
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         container_.add(new JLabel(getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
@@ -802,7 +822,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         StringList list_ = new StringList(pseudos_.values());
         setMini(new MiniCarpet(list_.size(), getDisplayingTarot().getHoraire(), list_));
-        tapis_.initTapisTarot(nbChoosenPlayers,getDisplayingTarot().getHoraire(),_dog.total());
+        tapis_.initTapisTarot(lg_,nbChoosenPlayers,getDisplayingTarot().getHoraire(),_dog.total());
         getTapis().setTapisTarot(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         setPanelHand(new Panel());
@@ -867,7 +887,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         panneau2_.add(sousPanneau_);
 
         container_.add(panneau2_,BorderLayout.EAST);
-        tapisTarot().setTalonTarot(_dog);
+        tapisTarot().setTalonTarot(lg_,_dog);
         Panel panel_ = new Panel();
         panel_.setLayout(new BoxLayout(panel_.getComponent(), BoxLayout.PAGE_AXIS));
         panel_.add(new ScrollPane(container_));
@@ -910,9 +930,10 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getScrollCallableCards().setVisible(false);
         pack();
         //PackingWindowAfter.pack(this, true);
+        String lg_ = getOwner().getLanguageKey();
         BiddingSlamAfter bid_ = new BiddingSlamAfter();
         bid_.setPlace(indexInGame);
-        bid_.setLocale(Constants.getLanguage());
+        bid_.setLocale(lg_);
         getOwner().sendObject(bid_);
     }
     public void displayTrumpsForHandfulMulti(HandTarot _trumps) {
@@ -1010,7 +1031,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void updateCardsInPanelTarotDogMulti(Panel _panel, HandTarot _hand, boolean _inHand) {
         _panel.removeAll();
-        for (GraphicTarotCard c: getGraphicCards(_hand)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand));
             _panel.add(c);
         }
@@ -1030,7 +1052,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
     private void updateCardsInPanelTarotCallBeforeDogMulti(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
-        for (GraphicTarotCard c: getGraphicCards(_hand)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiBeforeDog(this, c.getCard()));
             _panel.add(c);
         }
@@ -1048,8 +1071,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void updateCardsInPanelTarotHandfulMulti(Panel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
+        String lg_ = getOwner().getLanguageKey();
         for(CardTarot c: _hand) {
-            MiniTarotCard carte_=new MiniTarotCard(c);
+            MiniTarotCard carte_=new MiniTarotCard(lg_, c);
 //            carte_.addMouseListener(new EcouteurCarteTarotHandfulMulti(_hand.carte(indice_),_included));
             carte_.addMouseListener(new ListenerCardTarotMultiHandful(this, c,_included));
             _panel.add(carte_);
@@ -1059,7 +1083,8 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     private void updateCardsInPanelTarotJeuMulti(Panel _panel, HandTarot _hand) {
         _panel.removeAll();
-        for (GraphicTarotCard c: getGraphicCards(_hand)) {
+        String lg_ = getOwner().getLanguageKey();
+        for (GraphicTarotCard c: getGraphicCards(lg_,_hand)) {
             c.addMouseListener(new ListenerCardTarotMultiGame(this, c.getCard()));
             _panel.add(c);
         }
@@ -1102,8 +1127,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return requiredTrumps;
     }
 
-    @Override
-    public void endGame(ResultsGame _res) {
+    public void endGame(ResultsTarot _res) {
 
         /*Descativer aide au jeu*/
         getHelpGame().setEnabledMenu(false);
@@ -1115,6 +1139,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         TabbedPane onglets_=new TabbedPane();
+        String lg_ = getOwner().getLanguageKey();
         ResultsGame res_ = _res;
         setScores(res_.getScores());
         JScrollPane scroll_=new JScrollPane();
@@ -1122,7 +1147,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(Constants.getLanguage());
+            editor_.setLanguage(lg_);
             editor_.setDataBase(res_);
             editor_.initialize(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
@@ -1135,7 +1160,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         try {
             //editor_.setMainClass(SoftApplication.getMainClass());
 //            editor_.setTextFilesWithPrefix(FileConst.RESOURCES_HTML_FOLDER + StreamTextFile.SEPARATEUR);
-            editor_.setLanguage(Constants.getLanguage());
+            editor_.setLanguage(lg_);
             editor_.setDataBase(res_);
             editor_.initialize(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT, new TarotStandards());
         } catch (RuntimeException _0) {
@@ -1175,7 +1200,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         //PackingWindowAfter.pack(this, true);
         Ok ok_ = new Ok();
         ok_.setPlace(indexInGame);
-        ok_.setLocale(Constants.getLanguage());
+        ok_.setLocale(lg_);
         getOwner().sendObject(ok_);
     }
 
@@ -1233,8 +1258,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
     }
     @Override
     public void changeRules() {
-        DialogRulesTarot.initDialogRulesTarot(GameEnum.TAROT.display(), getOwner(), rulesTarotMulti);
-        DialogRulesTarot.setTarotDialog(false,nbChoosenPlayers);
+        String lg_ = getOwner().getLanguageKey();
+        DialogRulesTarot.initDialogRulesTarot(GameEnum.TAROT.toString(lg_), getOwner(), rulesTarotMulti);
+        DialogRulesTarot.setTarotDialog(false,nbChoosenPlayers, getOwner());
         RulesTarot rulesTarotMulti_ = DialogRulesTarot.getRegles();
         if (!DialogRulesTarot.isValidated()) {
             return;

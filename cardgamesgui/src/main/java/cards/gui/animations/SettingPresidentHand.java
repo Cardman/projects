@@ -16,6 +16,7 @@ public final class SettingPresidentHand extends Thread {
 
     @Override
     public void run() {
-        container.tapisPresident().setTalonPresident(hand);
+        String lg_ = container.getOwner().getLanguageKey();
+        container.tapisPresident().setTalonPresident(lg_,hand);
     }
 }

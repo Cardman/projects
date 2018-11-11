@@ -5,9 +5,9 @@ import code.expressionlanguage.OffsetsBlock;
 
 public abstract class Leaf extends Block implements WithEl {
 
-    Leaf(ContextEl _importingPage, int _indexChild,
+    Leaf(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
-        super(_indexChild, _m, _offset);
+        super(_m, _offset);
     }
 
     @Override

@@ -13,7 +13,6 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.PlayingDog;
 import code.gui.ConfirmDialog;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot {
 
@@ -32,6 +31,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
     }
     @Override
     protected void verifierRegles(){
+        String lg_ = container.getOwner().getLanguageKey();
         GameTarot partie_=container.partieTarot();
         if (!partie_.getRegles().getDiscardAfterCall()) {
             if (partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
@@ -39,8 +39,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                     int remove_ = partie_.getDistribution().derniereMain().total();
                     remove_ -= partie_.getPliEnCours().total();
                     String mesCard_ = StringList.simpleNumberFormat(container.getMessages().getVal(MainWindow.HAS_TO_DISCARD), remove_);
-                    ConfirmDialog.showMessage(container.getOwner(), mesCard_, container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
-                    //JOptionPane.showMessageDialog(container.getOwner(),mesCard_,container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE),JOptionPane.ERROR_MESSAGE);
+                    ConfirmDialog.showMessage(container.getOwner(), mesCard_, container.getMessages().getVal(MainWindow.CANT_PLAY_CARD_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             } else {
@@ -51,16 +50,14 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
             HandTarot cartesAppel_ = new HandTarot();
             cartesAppel_.ajouter(getCarteVerif());
             partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-            container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().display(),ContainerGame.RETURN_LINE));
+            container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().toString(lg_),ContainerGame.RETURN_LINE));
             container.getPanneauBoutonsJeu().removeAll();
             if(partie_.getContrat()!=BidTarot.SLAM) {
-//                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 container.getValidateDog().setEnabledLabel(true);
                 container.getPanneauBoutonsJeu().add(container.getValidateDog());
                 container.getSlamButton().setEnabledLabel(true);
                 container.getSlamButton().setVisibleButton(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
-//                container.addButtonValidateDogTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 container.pack();
             } else {
                 container.debutPliTarot(false);
@@ -71,7 +68,7 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
         HandTarot cartesAppel_ = new HandTarot();
         cartesAppel_.ajouter(getCarteVerif());
         partie_.initConfianceAppeleUtilisateur(cartesAppel_);
-        container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().display(),ContainerGame.RETURN_LINE));
+        container.ajouterTexteDansZone(StringList.concat(container.pseudo(),ContainerGame.INTRODUCTION_PTS,getCarteVerif().toString(lg_),ContainerGame.RETURN_LINE));
         if(partie_.getContrat().getJeuChien() == PlayingDog.WITH) {
             container.voirChien();
         } else {
@@ -81,7 +78,6 @@ public class ListenerCardTarotSingleBeforeDog extends AbstractListenerCardTarot 
                 container.getSlamButton().setEnabledLabel(true);
                 container.getSlamButton().setVisibleButton(true);
                 container.getPanneauBoutonsJeu().add(container.getSlamButton());
-//                container.ajouterBoutonJeuChelemTarot(BidTarot.SLAM.toString(),true);
                 container.addButtonNextTrickTarot(container.getMessages().getVal(MainWindow.GO_CARD_GAME), true);
                 container.pack();
             } else {

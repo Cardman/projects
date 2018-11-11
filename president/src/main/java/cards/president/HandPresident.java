@@ -11,11 +11,11 @@ import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.annot.RwXml;
-import code.util.ints.Displayable;
+import code.util.consts.Constants;
 import code.util.ints.Equallable;
 
 @RwXml
-public final class HandPresident implements Iterable<CardPresident>, Equallable<HandPresident>, Displayable {
+public final class HandPresident implements Iterable<CardPresident>, Equallable<HandPresident> {
 
     private static final String SEPARATOR = " - ";
     private EnumList<CardPresident> cards=new EnumList<CardPresident>();
@@ -238,20 +238,27 @@ public final class HandPresident implements Iterable<CardPresident>, Equallable<
         return cards.iterator();
     }
 
-    @Override
-    public String display() {
-        StringList retString_= new StringList();
-        for (CardPresident c: cards) {
-            retString_.add(c.display());
-        }
-        return retString_.join(SEPARATOR);
-    }
-
     public EnumList<CardPresident> getCards() {
         return cards;
     }
 
     public void setCards(EnumList<CardPresident> _cards) {
         cards = _cards;
+    }
+
+    public String toString(String _lg) {
+        StringList retString_= new StringList();
+        for (CardPresident c: cards) {
+            retString_.add(c.toString(_lg));
+        }
+        return retString_.join(SEPARATOR);
+    }
+
+    public CharSequence display() {
+        StringList retString_= new StringList();
+        for (CardPresident c: cards) {
+            retString_.add(c.toString(Constants.getDefaultLanguage()));
+        }
+        return retString_.join(SEPARATOR);
     }
 }

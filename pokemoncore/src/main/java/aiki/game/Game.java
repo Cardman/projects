@@ -1,7 +1,6 @@
 package aiki.game;
 import aiki.DataBase;
 import aiki.ImageHeroKey;
-import aiki.Resources;
 import aiki.comments.Comment;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
@@ -70,7 +69,6 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloEq;
 import code.maths.montecarlo.MonteCarloString;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -82,14 +80,13 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.annot.RwXml;
-import code.util.consts.Constants;
 
 @RwXml
 public final class Game {
 
-    private static final int NB_HOSTED_POKEMON = 2;
+    public static final String GAME = "aiki.game.Game";
 
-    private static final String GAME = "aiki.game.Game";
+    private static final int NB_HOSTED_POKEMON = 2;
 
     private static final String NO_BEATEN_TRAINER = "noBeatenTrainer";
 
@@ -132,8 +129,6 @@ public final class Game {
     private static final String LOST_MONEY = "lostMoney";
 
     private static final String SEPARATOR_TRAINERS = " ";
-
-    private static StringMap<String> _messages_ = new StringMap<String>();
 
     private String zippedRom;
 
@@ -259,12 +254,6 @@ public final class Game {
                 visitedPlaces.put(c, true);
             }
         }
-    }
-
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), GAME);
-        Fight.initMessages();
-        Player.initMessages();
     }
 
     public void initUserInteract(String _pseudo,Sex _sexeHeros,Difficulty _diff,DataBase _import){
@@ -712,73 +701,20 @@ public final class Game {
             int nbMin_ = NB_HOSTED_POKEMON;
             nbMin_++;
             nbMin_ -= nb_;
-            commentGame.addMessage(_messages_.getVal(MISSING_PK), Long.toString(nbMin_));
+            StringMap<String> mess_ = _d.getMessagesGame();
+            commentGame.addMessage(mess_.getVal(MISSING_PK), Long.toString(nbMin_));
             reinitInteraction = true;
         }
     }
 
     boolean canStorePokemonToHost(short _pos1,short _pos2,DataBase _d){
         if(_pos1==_pos2){
-            commentGame.addMessage(_messages_.getVal(SAME_PK));
+            StringMap<String> mess_ = _d.getMessagesGame();
+            commentGame.addMessage(mess_.getVal(SAME_PK));
             return false;
         }
         PokemonPlayer pkOne_=(PokemonPlayer) player.getTeam().get(_pos1);
         PokemonPlayer pkTwo_=(PokemonPlayer) player.getTeam().get(_pos2);
-//        PokemonData pkDataOne_=_d.getPokedex().getVal(pkOne_.getName());
-//        StringList groupsOne_= pkDataOne_.getEggGroups();
-//        PokemonData pkDataTwo_=_d.getPokedex().getVal(pkTwo_.getName());
-//        StringList groupsTwo_= pkDataTwo_.getEggGroups();
-//        String erreur_=DataBase.EMPTY_STRING;
-//        if(Gender.getGendersWithSex().containsObj(pkOne_.getGender())){
-//            if(Gender.getGendersWithSex().containsObj(pkTwo_.getGender())){
-//                boolean canStore_ = true;
-//                if (pkOne_.getGender() == pkTwo_.getGender()) {
-////                    erreur_ += _messages_.getVal(SAME_GENDER);
-//                    canStore_ = false;
-//                    commentGame.addMessage(_messages_.getVal(SAME_GENDER));
-//                }
-//                if (groupsOne_.containsObj(_d.constNotNum(DataBase.DEFAULT_EGG_GROUP))) {
-//                    return canStore_;
-//                }
-//                if (groupsTwo_.containsObj(_d.constNotNum(DataBase.DEFAULT_EGG_GROUP))) {
-//                    return canStore_;
-//                }
-//                if (StringList.eq(pkDataOne_.getBaseEvo(), pkDataTwo_.getBaseEvo())) {
-//                    return canStore_;
-//                }
-//                boolean vide_=true;
-//                for(String e:groupsOne_){
-//                    if(groupsTwo_.containsObj(e)){
-//                        vide_=false;
-//                        break;
-//                    }
-//                }
-//                if (vide_) {
-//                    commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
-//                    return false;
-//                }
-//                return canStore_;
-//            }
-//            if (groupsTwo_.containsObj(_d.constNotNum(DataBase.DEFAULT_EGG_GROUP))) {
-//                return true;
-//            }
-//            commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
-//            return false;
-//        }
-//        if(Gender.getGendersWithSex().containsObj(pkTwo_.getGender())){
-//            if (groupsOne_.containsObj(_d.constNotNum(DataBase.DEFAULT_EGG_GROUP))) {
-//                return true;
-//            }
-//            commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
-//            return false;
-//        }
-//        if (groupsOne_.containsObj(_d.constNotNum(DataBase.DEFAULT_EGG_GROUP))) {
-//            return true;
-//        }
-//        if (groupsTwo_.containsObj(_d.constNotNum(DataBase.DEFAULT_EGG_GROUP))) {
-//            return true;
-//        }
-//        commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
         return canStoreThesePokemonToHost(commentGame, pkOne_, pkTwo_, _d);
     }
 
@@ -787,14 +723,13 @@ public final class Game {
         StringList groupsOne_= pkDataOne_.getEggGroups();
         PokemonData pkDataTwo_=_d.getPokedex().getVal(_pkTwo.getName());
         StringList groupsTwo_= pkDataTwo_.getEggGroups();
-//        String erreur_=DataBase.EMPTY_STRING;
+        StringMap<String> mess_ = _d.getMessagesGame();
         if(Gender.getGendersWithSex().containsObj(_pkOne.getGender())){
             if(Gender.getGendersWithSex().containsObj(_pkTwo.getGender())){
                 boolean canStore_ = true;
                 if (_pkOne.getGender() == _pkTwo.getGender()) {
-//                    erreur_ += _messages_.getVal(SAME_GENDER);
                     canStore_ = false;
-                    _commentGame.addMessage(_messages_.getVal(SAME_GENDER));
+                    _commentGame.addMessage(mess_.getVal(SAME_GENDER));
                 }
                 if (groupsOne_.containsObj(_d.getDefaultEggGroup())) {
                     return canStore_;
@@ -813,7 +748,7 @@ public final class Game {
                     }
                 }
                 if (vide_) {
-                    _commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
+                    _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
                     return false;
                 }
                 return canStore_;
@@ -821,14 +756,14 @@ public final class Game {
             if (groupsTwo_.containsObj(_d.getDefaultEggGroup())) {
                 return true;
             }
-            _commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
+            _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
             return false;
         }
         if(Gender.getGendersWithSex().containsObj(_pkTwo.getGender())){
             if (groupsOne_.containsObj(_d.getDefaultEggGroup())) {
                 return true;
             }
-            _commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
+            _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
             return false;
         }
         if (groupsOne_.containsObj(_d.getDefaultEggGroup())) {
@@ -837,7 +772,7 @@ public final class Game {
         if (groupsTwo_.containsObj(_d.getDefaultEggGroup())) {
             return true;
         }
-        _commentGame.addMessage(_messages_.getVal(NO_COMMON_EGG));
+        _commentGame.addMessage(mess_.getVal(NO_COMMON_EGG));
         return false;
     }
 
@@ -897,7 +832,8 @@ public final class Game {
     }
 
     Egg productedEgg(Coords _coords,DataBase _d){
-        return new Egg(lawForProductedEgg(_coords, _d).editNumber());
+        LgInt maxRd_ = _d.getMaxRd();
+        return new Egg(lawForProductedEgg(_coords, _d).editNumber(maxRd_));
     }
 
     MonteCarloString lawForProductedEgg(Coords _coords,DataBase _d) {
@@ -947,16 +883,17 @@ public final class Game {
             reinitInteraction = total_ + NB_HOSTED_POKEMON > _d.getNbMaxTeam();
             return;
         }
+        StringMap<String> mess_ = _d.getMessagesGame();
         if(total_<_d.getNbMaxTeam()){
             Egg oeuf_=productedEgg(voisin_,_d);
             player.recupererOeufPensions(oeuf_);
             takeProductedEgg(voisin_);
             String name_ = _d.translatePokemon(oeuf_.getName());
-            commentGame.addMessage(_messages_.getVal(RECEIVED_EGG), name_);
+            commentGame.addMessage(mess_.getVal(RECEIVED_EGG), name_);
             reinitInteraction=false;
             //interactions->raz_interaction();
         }else{
-            commentGame.addMessage(_messages_.getVal(NOT_ENOUGH_PLACE));
+            commentGame.addMessage(mess_.getVal(NOT_ENOUGH_PLACE));
         }
     }
 
@@ -965,6 +902,7 @@ public final class Game {
         DataMap d_=_d.getMap();
         Coords voisin_= closestTile(d_);
         reinitInteraction=false;
+        StringMap<String> mess_ = _d.getMessagesGame();
         if(canGetEgg(voisin_,_d)){
             int total_=player.getTeam().size();
             if(total_ + NB_HOSTED_POKEMON < _d.getNbMaxTeam()){
@@ -973,26 +911,26 @@ public final class Game {
                 player.recupererOeufPensions(oeuf_);
                 takeProductedEgg(voisin_);
                 String name_ = _d.translatePokemon(oeuf_.getName());
-                commentGame.addMessage(_messages_.getVal(RECEIVED_EGG_PARENTS), name_);
+                commentGame.addMessage(mess_.getVal(RECEIVED_EGG_PARENTS), name_);
             }else if(total_<_d.getNbMaxTeam()){
                 Egg oeuf_=productedEgg(voisin_,_d);
                 player.recupererOeufPensions(oeuf_);
                 takeProductedEgg(voisin_);
                 String name_ = _d.translatePokemon(oeuf_.getName());
-                commentGame.addMessage(_messages_.getVal(RECEIVED_EGG_WITHOUT_PARENT), name_);
+                commentGame.addMessage(mess_.getVal(RECEIVED_EGG_WITHOUT_PARENT), name_);
                 reinitInteraction = true;
                 //interactions->raz_interaction();
             }else{
-                commentGame.addMessage(_messages_.getVal(NOT_ENOUGH_PLACE));
+                commentGame.addMessage(mess_.getVal(NOT_ENOUGH_PLACE));
                 reinitInteraction = true;
             }
         }else{
             if(takablePokemonFromHost(_d)){
                 takePokemonFromHost(voisin_);
-                commentGame.addMessage(_messages_.getVal(RECEIVED_PARENTS));
+                commentGame.addMessage(mess_.getVal(RECEIVED_PARENTS));
                 reinitInteraction = false;
             } else {
-                commentGame.addMessage(_messages_.getVal(NOT_ENOUGH_PLACE_PARENTS));
+                commentGame.addMessage(mess_.getVal(NOT_ENOUGH_PLACE_PARENTS));
                 reinitInteraction = true;
             }
         }
@@ -1367,11 +1305,12 @@ public final class Game {
             return;
         }
         //sortie de cette si pk sauvage
+        StringMap<String> mess_ = _import.getMessagesGame();
         if (fight.getFightType().isWild()) {
             if (FightFacade.loose(fight)) {
                 LgInt money_ = new LgInt(player.getMoney());
                 player.winMoneyFight(new LgInt(-2000));
-                commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 player.healTeamWithoutUsingObject(_import);
             } else if (FightFacade.win(fight)) {
                 player.affectEndFight(fight,difficulty,_import);
@@ -1408,7 +1347,7 @@ public final class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 int nbPlateaux_=((League)pl_).getRooms().size();
                 if(rankLeague==nbPlateaux_){
                     Coords coords_ = new Coords();
@@ -1436,7 +1375,7 @@ public final class Game {
                     gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
                     gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                     player.winMoneyFight(gainArgent_.intPart());
-                    commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                    commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                     beatGymTrainer.getVal(playerCoords.getNumberPlace()).add(coordsFoe_.getLevel().getPoint());
                     addPossibleBeatLeader(_import);
                     FightFacade.endFight(fight);
@@ -1449,7 +1388,7 @@ public final class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 beatGymLeader.put(coordsFoe_, true);
                 beatenImportantTrainer_ = coordsFoe_;
                 addBeatenTrainer(beatenImportantTrainer_, _import);
@@ -1471,7 +1410,7 @@ public final class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*dual_.getFoeTrainer().getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 player.healTeamWithoutUsingObject(_import);
                 Coords key_ = new Coords(playerCoords);
                 key_.getLevel().getPoint().affect(e.getKey());
@@ -1502,7 +1441,7 @@ public final class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*dr_.getTeamsRewards().get(nb_).getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart());
-                commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 beatTrainer.put(new NbFightCoords(coordsFoe_,nb_), true);
                 //player.obtentionCs(gymTr_.getCs());
                 FightFacade.endFight(fight);
@@ -1520,7 +1459,7 @@ public final class Game {
                     gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
                     gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                     player.winMoneyFight(gainArgent_.intPart());
-                    commentGame.addMessage(_messages_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                    commentGame.addMessage(mess_.getVal(WON_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                     Coords coords_ = new Coords();
                     coords_.setNumberPlace(playerCoords.getNumberPlace());
                     coords_.setLevel(new LevelPoint());
@@ -1542,7 +1481,7 @@ public final class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*tr_.getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of league => just before league
             playerCoords.affect(((League)pl_).getAccessCoords());
@@ -1561,7 +1500,7 @@ public final class Game {
                 gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
                 gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
                 player.winMoneyFight(gainArgent_.intPart().opposNb());
-                commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+                commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
                 FightFacade.endFight(fight);
                 //begin of the game
                 playerCoords.affect(d_.getBegin());
@@ -1575,7 +1514,7 @@ public final class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*gymTr_.getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of the game
             playerCoords.affect(d_.getBegin());
@@ -1595,7 +1534,7 @@ public final class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*dual_.getFoeTrainer().getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of the game
             playerCoords.affect(d_.getBegin());
@@ -1623,7 +1562,7 @@ public final class Game {
             gainArgent_.addNb(new Rate(sommeNiveau_*dr_.getTeamsRewards().get(nb_).getReward()*10));
             gainArgent_.multiplyBy(difficulty.getRateWinMoneyBase());
             player.winMoneyFight(gainArgent_.intPart().opposNb());
-            commentGame.addMessage(_messages_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
+            commentGame.addMessage(mess_.getVal(LOST_MONEY), LgInt.minus(money_, player.getMoney()).absNb().toNumberString());
             FightFacade.endFight(fight);
             //begin of the game
             playerCoords.affect(d_.getBegin());
@@ -1675,11 +1614,12 @@ public final class Game {
         partiallyAccessiblePlaces_.sort();
         fullAccessiblePlaces = fullAccessiblePlaces_;
         partiallyAccessiblePlaces = partiallyAccessiblePlaces_;
+        StringMap<String> mess_ = _import.getMessagesGame();
         if (!fullAccessiblePlaces_.isEmpty()) {
-            commentGame.addMessage(_messages_.getVal(BEATEN_TRAINER_FULL), fullAccessiblePlaces_.join(SEPARATOR_TRAINERS));
+            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER_FULL), fullAccessiblePlaces_.join(SEPARATOR_TRAINERS));
         }
         if (!partiallyAccessiblePlaces_.isEmpty()) {
-            commentGame.addMessage(_messages_.getVal(BEATEN_TRAINER), partiallyAccessiblePlaces_.join(SEPARATOR_TRAINERS));
+            commentGame.addMessage(mess_.getVal(BEATEN_TRAINER), partiallyAccessiblePlaces_.join(SEPARATOR_TRAINERS));
         }
     }
 
@@ -1690,7 +1630,8 @@ public final class Game {
         LevelIndoorGym lev_ = (LevelIndoorGym) city_.getLevelByCoords(next_);
         boolean canBeat_ = beatGymTrainer.getVal(next_.getNumberPlace()).containsAllObj(building_.getLevel().getGymTrainers().getKeys());
         if (canBeat_) {
-            commentGame.addMessage(_messages_.getVal(POSSIBLE_BEAT_LEADER), lev_.getGymLeader().getName());
+             StringMap<String> mess_ = _import.getMessagesGame();
+            commentGame.addMessage(mess_.getVal(POSSIBLE_BEAT_LEADER), lev_.getGymLeader().getName());
         }
     }
 
@@ -1897,13 +1838,14 @@ public final class Game {
         boolean present_=player.estAttrape(fight.wildPokemon().getName());
         FightFacade.attemptCatching(fight,_ball,present_,difficulty,player,_import, _enableAnimation);
         player.useInInventory(_ball);
+        StringMap<String> mess_ = _import.getMessagesGame();
         if (!_enableAnimation) {
             if (fight.getState() == FightState.SURNOM) {
-                commentGame.addMessage(_messages_.getVal(CAUGHT_PK));
+                commentGame.addMessage(mess_.getVal(CAUGHT_PK));
             } else if (FightFacade.koTeam(fight)) {
                 endFight(_import);
             } else {
-                commentGame.addMessage(_messages_.getVal(NOT_CAUGHT_PK));
+                commentGame.addMessage(mess_.getVal(NOT_CAUGHT_PK));
             }
         }
     }
@@ -1911,23 +1853,16 @@ public final class Game {
     public void endRoundFightBall(DataBase _import) {
         endRoundFightBasic(_import);
         endRoundFightSuccessBall(_import);
-//        player.useInInventory(_ball);
-//        if (fight.getState() == FightState.SURNOM) {
-//            commentGame.addMessage(_messages_.getVal(CAUGHT_PK));
-//        } else if (FightFacade.koTeam(fight)) {
-//            endFight(_import);
-//        } else {
-//            commentGame.addMessage(_messages_.getVal(NOT_CAUGHT_PK));
-//        }
     }
 
     public void endRoundFightSuccessBall(DataBase _import) {
+        StringMap<String> mess_ = _import.getMessagesGame();
         if (fight.getState() == FightState.SURNOM) {
-            commentGame.addMessage(_messages_.getVal(CAUGHT_PK));
+            commentGame.addMessage(mess_.getVal(CAUGHT_PK));
         } else if (FightFacade.koTeam(fight)) {
             endFight(_import);
         } else {
-            commentGame.addMessage(_messages_.getVal(NOT_CAUGHT_PK));
+            commentGame.addMessage(mess_.getVal(NOT_CAUGHT_PK));
         }
     }
 
@@ -2061,7 +1996,7 @@ public final class Game {
             directInteraction(d_);
             return;
         }
-        movingHero(d_);
+        movingHero(_d);
         if (visitedPlaces.contains(playerCoords)) {
             visitedPlaces.put(playerCoords, true);
         }
@@ -2129,14 +2064,15 @@ public final class Game {
         }
     }
 
-    void movingHero(DataMap _map) {
-        Coords voisin_= closestTile(_map);
+    void movingHero(DataBase _db) {
+        DataMap map_ = _db.getMap();
+        Coords voisin_= closestTile(map_);
         if(!voisin_.isValid()){
             return;
         }
-        Place nextPl_ = _map.getPlaces().getVal(voisin_.getNumberPlace());
+        Place nextPl_ = map_.getPlaces().getVal(voisin_.getNumberPlace());
         if (nextPl_ instanceof League) {
-            if (!isEmpty(_map, voisin_)) {
+            if (!isEmpty(map_, voisin_)) {
                 return;
             }
             LevelLeague nextLevel_ = ((League)nextPl_).getRooms().get(voisin_.getLevel().getLevelIndex());
@@ -2145,7 +2081,7 @@ public final class Game {
                     placeChanged = true;
                     nbSteps++;
                     if(rankLeague == ((League)nextPl_).getRooms().size()){
-                        playerCoords.affect(_map.getBegin());
+                        playerCoords.affect(map_.getBegin());
                         rankLeague = 0;
                         return;
                     }
@@ -2158,24 +2094,24 @@ public final class Game {
             playerCoords.affect(voisin_);
             return;
         }
-
-        if(_map.getAccessCondition().contains(voisin_)){
+        StringMap<String> mess_ = _db.getMessagesGame();
+        if(map_.getAccessCondition().contains(voisin_)){
 //            CustList<Coords> leaders_ = beatGymLeader.getKeys(true);
             EqList<Coords> leaders_ = getBeatenGymLeader();
-            if (!leaders_.containsAllObj(_map.getAccessCondition().getVal(voisin_))) {
-                EqList<Coords> noBeaten_ = new EqList<Coords>(_map.getAccessCondition().getVal(voisin_));
+            if (!leaders_.containsAllObj(map_.getAccessCondition().getVal(voisin_))) {
+                EqList<Coords> noBeaten_ = new EqList<Coords>(map_.getAccessCondition().getVal(voisin_));
                 noBeaten_.removeAllElements(leaders_);
                 for (Coords c: noBeaten_) {
-                    Place pl_ = _map.getPlaces().getVal(c.getNumberPlace());
-                    String name_ = _map.getTrainerName(c);
-                    commentGame.addMessage(_messages_.getVal(NO_BEATEN_TRAINER), name_, pl_.getName());
+                    Place pl_ = map_.getPlaces().getVal(c.getNumberPlace());
+                    String name_ = map_.getTrainerName(c);
+                    commentGame.addMessage(mess_.getVal(NO_BEATEN_TRAINER), name_, pl_.getName());
                 }
                 return;
             }
         }
-        int nbPlaces_ = _map.getPlaces().size();
+        int nbPlaces_ = map_.getPlaces().size();
         for (short p=CustList.FIRST_INDEX;p<nbPlaces_;p++) {
-            Place place_ = _map.getPlaces().getVal(p);
+            Place place_ = map_.getPlaces().getVal(p);
             if (!(place_ instanceof League)) {
                 continue;
             }
@@ -2240,7 +2176,7 @@ public final class Game {
                 placeChanged = true;
                 return;
             }
-            if (!isEmpty(_map, voisin_)) {
+            if (!isEmpty(map_, voisin_)) {
                 return;
             }
             nbSteps++;
@@ -2256,7 +2192,7 @@ public final class Game {
 //                placeChanged = true;
 //                return;
 //            }
-            if (!isEmpty(_map, voisin_)) {
+            if (!isEmpty(map_, voisin_)) {
                 return;
             }
             nbSteps++;
@@ -2280,7 +2216,7 @@ public final class Game {
             placeChanged = true;
             return;
         }
-        if (!isEmpty(_map, voisin_)) {
+        if (!isEmpty(map_, voisin_)) {
             return;
         }
         nbSteps++;
@@ -2446,9 +2382,10 @@ public final class Game {
         interfaceType=InterfaceType.RIEN;
     }
 
-    public void addMessageGymLeader() {
+    public void addMessageGymLeader(DataBase _import) {
         commentGame.clearMessages();
-        commentGame.addMessage(_messages_.getVal(REMAINING_TRAINERS_GYM));
+        StringMap<String> mess_ = _import.getMessagesGame();
+        commentGame.addMessage(mess_.getVal(REMAINING_TRAINERS_GYM));
     }
 
     public void clearMessages() {
@@ -2491,7 +2428,8 @@ public final class Game {
 
     void newRandomPokemon(MonteCarloEq<WildPk> _law, DataBase _d) {
         MonteCarloEq<WildPk> lawCopy_ = lawCopy(_law, _d);
-        WildPk pkAlea_=lawCopy_.editNumber();
+        LgInt maxRd_ = _d.getMaxRd();
+        WildPk pkAlea_=lawCopy_.editNumber(maxRd_);
         if(pkAlea_.hasJustBeenCreated()){
             return;
         }
@@ -2695,8 +2633,9 @@ public final class Game {
         visitedPlaces.set(_coords, true);
     }
 
-    public static String getEndGameMessage() {
-        return _messages_.getVal(END_GAME);
+    public static String getEndGameMessage(DataBase _db) {
+        StringMap<String> mess_ = _db.getMessagesGame();
+        return mess_.getVal(END_GAME);
     }
 
     public Player getPlayer() {

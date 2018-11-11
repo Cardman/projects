@@ -53,8 +53,6 @@ public abstract class Block extends Blockable {
 
     private BracedBlock parent;
 
-    private final int indexChild;
-
     private Block nextSibling;
 
     private Block previousSibling;
@@ -65,9 +63,8 @@ public abstract class Block extends Blockable {
     private CustList<CustList<OperationNode>> annotationsOps = new CustList<CustList<OperationNode>>();
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
 
-    Block(int _indexChild, BracedBlock _m, OffsetsBlock _offset) {
+    Block(BracedBlock _m, OffsetsBlock _offset) {
         parent = _m;
-        indexChild = _indexChild;
         offset = _offset;
     }
     public final OffsetsBlock getOffset() {
@@ -421,9 +418,6 @@ public abstract class Block extends Blockable {
 
     public final Block getNextSibling() {
         return nextSibling;
-    }
-    public final int getIndexChild() {
-        return indexChild;
     }
     final void setNextSibling(Block _nextSibling) {
         nextSibling = _nextSibling;

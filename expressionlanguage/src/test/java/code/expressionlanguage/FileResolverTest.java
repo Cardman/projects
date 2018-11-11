@@ -8916,6 +8916,39 @@ public final class FileResolverTest {
         assertEq(1, countFileTypes(context_));
     }
     @Test
+    public void parseFile124Test() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("pkg.Ex;\n");
+        file_.append("pkg.ExTwo;\n");
+        file_.append("/* multi line\n");
+        file_.append("comment*/\n");
+        file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
+        file_.append("\tONE\n");
+        file_.append("}\n");
+        ContextEl context_ = simpleContext();
+        FileResolver.parseFile("my_file",file_.toString(), false, context_);
+        assertEq(1, countCustomTypes(context_));
+        assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
+        RootBlock r_ = context_.getClasses().getClassBody("pkgtwo.Toto");
+        assertTrue(r_ instanceof EnumBlock);
+        EnumBlock cl_ = (EnumBlock) r_;
+        assertEq("",r_.getTemplateDef());
+        assertEq(3,r_.getDirectSuperTypes().size());
+        assertEq("hello.word<Ex>",r_.getDirectSuperTypes().first());
+        assertEq("every.body",r_.getDirectSuperTypes().get(1));
+        assertEq("$Enum<pkgtwo.Toto>",r_.getDirectSuperTypes().last());
+        Block child_ = cl_.getFirstChild();
+        assertTrue(child_ instanceof ElementBlock);
+        InfoBlock field_ = (InfoBlock) child_;
+        assertTrue(field_.isStaticField());
+        assertTrue(field_.isFinalField());
+        assertSame(AccessEnum.PUBLIC, field_.getAccess());
+        assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
+        assertEq("pkgtwo.Toto", field_.getClassName());
+        assertEq("", ((ElementBlock)field_).getValue());
+        assertNull(child_.getNextSibling());
+    }
+    @Test
     public void parseFile1FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer {\n");

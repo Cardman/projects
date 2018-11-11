@@ -44,7 +44,8 @@ public class MainWindow extends GroupFrame {
 
     private JTextField pathExport;
 
-    public MainWindow() {
+    public MainWindow(String _lg) {
+        super(_lg);
         setTitle(CONVERT_IMAGE);
         Panel content_ = new Panel();
         content_.setLayout(new BoxLayout(content_.getComponent(), BoxLayout.PAGE_AXIS));
@@ -71,7 +72,7 @@ public class MainWindow extends GroupFrame {
     }
 
     public void read() {
-        FolderOpenDialog.setFolderOpenDialog(this, Constants.getLanguage(), false);
+        FolderOpenDialog.setFolderOpenDialog(this, Constants.getDefaultLanguage(), false);
         String folderPathRead_ = FolderOpenDialog.getStaticSelectedPath();
         if (folderPathRead_.isEmpty()) {
             return;

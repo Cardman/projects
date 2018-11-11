@@ -11,7 +11,6 @@ import javax.swing.WindowConstants;
 import code.gui.events.CrossClosingDialogEvent;
 import code.sml.util.ExtractFromFiles;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public abstract class Dialog implements ChangeableTitle {
 
@@ -36,7 +35,6 @@ public abstract class Dialog implements ChangeableTitle {
         dialog.setModal(true);
         dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.addWindowListener(new CrossClosingDialogEvent(this));
-        WindowUtils.addInArray(dialog);
     }
 
     public void setResizable(boolean _resizable) {
@@ -65,8 +63,9 @@ public abstract class Dialog implements ChangeableTitle {
         }
     }
 
-    protected StringMap<String> getMessages(String _messageFolder) {
-        return ExtractFromFiles.getMessagesFromLocaleClass(_messageFolder, Constants.getLanguage(), accessFile);
+    protected StringMap<String> getMessages(CommonFrame _lg,String _messageFolder) {
+        String lg_ = _lg.getLanguageKey();
+        return ExtractFromFiles.getMessagesFromLocaleClass(_messageFolder, lg_, accessFile);
     }
 
     protected void setAccessFile(String _accessFile) {
@@ -131,9 +130,6 @@ public abstract class Dialog implements ChangeableTitle {
     }
     public void setVisible(boolean _b) {
         dialog.setVisible(_b);
-        if (!_b) {
-            WindowUtils.removeWindow(dialog);
-        }
     }
 
     @Override

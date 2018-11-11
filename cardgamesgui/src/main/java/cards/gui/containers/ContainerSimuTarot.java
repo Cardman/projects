@@ -8,8 +8,8 @@ public class ContainerSimuTarot extends ContainerTarot implements ContainerSimu 
     private SimulationGameTarot animationSimulation;
     public ContainerSimuTarot(MainWindow _window) {
         super(_window);
-        setAnimChargement(new LoadingVideo(this));
         animationSimulation=new SimulationGameTarot(this);
+        setAnimChargement(new LoadingVideo(this,animationSimulation));
         animationSimulation.start();
         getAnimChargement().start();
     }

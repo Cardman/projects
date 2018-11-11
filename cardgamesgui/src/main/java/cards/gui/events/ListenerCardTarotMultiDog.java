@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.DiscardedCard;
 import cards.tarot.enumerations.CardTarot;
-import code.util.consts.Constants;
 
 public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
 
@@ -38,7 +37,8 @@ public class ListenerCardTarotMultiDog extends AbstractListenerCardTarot {
         discard_.setCard(selected_);
         discard_.setPlace(container.getIndexInGame());
         discard_.setInHand(container.getTakerCardsDog().contient(getCarteVerif()));
-        discard_.setLocale(Constants.getLanguage());
+        String lg_ = container.getOwner().getLanguageKey();
+        discard_.setLocale(lg_);
         container.getOwner().sendObject(discard_);
 
     }

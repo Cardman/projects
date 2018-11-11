@@ -12,11 +12,11 @@ public class Comment {
     }
     
     public void addMessage(String _messageFormat, String... _args) {
-        try {
-            messages.add(StringList.simpleStringsFormat(_messageFormat, _args));
-        } catch (RuntimeException _0) {
+        if (_messageFormat == null) {
             messages.add(DataBase.EMPTY_STRING);
+            return;
         }
+        messages.add(StringList.simpleStringsFormat(_messageFormat, _args));
     }
 
     public void clearMessages() {

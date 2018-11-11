@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import aiki.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.gui.MainWindow;
 import aiki.gui.components.labels.PokemonLabel;
 import aiki.gui.components.listeners.ChangedDeltaPageEvent;
 import aiki.gui.components.listeners.ChangedModeEvent;
@@ -104,8 +105,8 @@ public final class PaginatorPokemon extends Paginator {
 
     private NumComboBox cmpPossEvosPrio = new NumComboBox();
 
-    public PaginatorPokemon(ChangeableTitle _w, FacadeGame _d) {
-        super(ACCESS_POKEMON);
+    public PaginatorPokemon(MainWindow _window, ChangeableTitle _w, FacadeGame _d) {
+        super(_window, ACCESS_POKEMON);
         setWindow(_w);
         setFacade(_d);
         order.add(SearchingMode.WHOLE_STRING);

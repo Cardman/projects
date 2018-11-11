@@ -4101,11 +4101,11 @@ public abstract class LgNames {
         out_.removeDuplicates();
         return new IterableAnalysisResult(out_);
     }
-    public AbstractForEachLoop newForeachLoop(ContextEl _importingPage, int _indexChild,
+    public AbstractForEachLoop newForeachLoop(ContextEl _importingPage,
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
             OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
-        return new ForEachLoop(_importingPage, _indexChild, _m, _className, _variable, _expression, _classIndex, _label, _offset);
+        return new ForEachLoop(_importingPage, _m, _className, _variable, _expression, _classIndex, _label, _offset);
     }
 
     public StringMap<String> buildFiles(ContextEl _context) {

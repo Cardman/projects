@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import cards.consts.Suit;
+import cards.gui.MainWindow;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.GraphicList;
@@ -12,7 +13,6 @@ import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 /**
  */
 public class SuitsScrollableList extends ScrollableList {
@@ -21,13 +21,14 @@ public class SuitsScrollableList extends ScrollableList {
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;
     private GraphicList<Suit> liste;
-    public SuitsScrollableList(EnumList<Suit> _couleurs,int _nb) {
-        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), ACCESS);
+    public SuitsScrollableList(EnumList<Suit> _couleurs,int _nb, MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);
         JLabel titrePanneau_ = new JLabel(messages.getVal(SUITS), SwingConstants.CENTER);
         add(titrePanneau_, BorderLayout.NORTH);
 //        suits = _couleurs;
         liste=new GraphicList<Suit>(false,false);
-        liste.setRender(new SuitCellRenderer());
+        liste.setRender(new SuitCellRenderer(_window));
         for (Suit couleur_ : _couleurs) {
             liste.add(couleur_);
         }

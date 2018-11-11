@@ -25,10 +25,6 @@ public final class Egg implements UsablePokemon, Displayable {
         if (StringList.isNumber(steps_)) {
             steps = Integer.parseInt(steps_);
         }
-//        try {
-//            steps = Integer.parseInt(list_.last());
-//        } catch (NumberFormatException e_) {
-//        }
     }
 
     @FromAndToString

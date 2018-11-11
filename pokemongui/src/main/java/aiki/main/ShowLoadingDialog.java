@@ -5,8 +5,14 @@ import aiki.gui.MainWindow;
 Thread safe class*/
 public final class ShowLoadingDialog extends Thread {
 
+    private MainWindow window;
+
+    public ShowLoadingDialog(MainWindow _window) {
+        window = _window;
+    }
+
     @Override
     public void run() {
-        MainWindow.getDialog().setVisible(true);
+        window.getDialog().setVisible(true);
     }
 }

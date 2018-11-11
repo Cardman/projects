@@ -23,8 +23,9 @@ public final class SimulationRefreshHandBelote extends Thread {
     public void run() {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
+        String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(hand)) {
+        for (GraphicBeloteCard c: ContainerBelote.getGraphicCards(lg_,hand)) {
             panneau1_.add(c);
         }
         panneau1_.repaint();

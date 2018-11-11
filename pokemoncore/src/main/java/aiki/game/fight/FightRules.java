@@ -193,7 +193,7 @@ final class FightRules {
             byte c_ = currentPos_;
             if(creature_.estKo()){
                 if(!Numbers.eq(c_,Fighter.BACK)){
-                    _fight.addMessage(Fight.ERR_SUBSTITUTE_KO_END_ROUND, name_);
+                    _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_KO_END_ROUND, name_);
                     error_ = true;
                 }
                 continue;
@@ -217,13 +217,13 @@ final class FightRules {
                 }
             }
             if (!belong_) {
-                _fight.addMessage(Fight.ERR_SUBSTITUTE_BELONG);
+                _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_BELONG);
                 error_ = true;
             }
             if (!autoriseEchangePositionFinTour_ && _fight.getFightType() != FightType.TMP_TRAINER) {
                 if (!Numbers.eq(c_,creature_.getGroundPlace())){
                     if (!creature_.estArriere()) {
-                        _fight.addMessage(Fight.ERR_SUBSTITUTE_NO_SWITCH_PLACE);
+                        _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_NO_SWITCH_PLACE);
                         error_ = true;
                     }
                 }
@@ -242,12 +242,12 @@ final class FightRules {
         int nbPl_ = places_.size();
         for(byte i=CustList.SECOND_INDEX;i<nbPl_;i++){
             if(Numbers.eq(places_.get(i - 1),places_.get(i))){
-                _fight.addMessage(Fight.ERR_SUBSTITUTE_PLACE, Long.toString(places_.get(i)));
+                _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_PLACE, Long.toString(places_.get(i)));
                 error_ = true;
             }
         }
         if(places_.isEmpty()){
-            _fight.addMessage(Fight.ERR_SUBSTITUTE_USED_PLACE);
+            _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_USED_PLACE);
             return false;
         }
         /*if(nbPkNonKo_>_fight.getPlayerMaxNumberFrontFighters()) {
@@ -263,15 +263,15 @@ final class FightRules {
 //            return false;
 //        }
         if(nbPkNonKo_>_fight.getPlayerMaxNumberFrontFighters()&&places_.size()!=_fight.getMult()){
-            _fight.addMessage(Fight.ERR_SUBSTITUTE_USED_PLACE);
+            _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_USED_PLACE);
             return false;
         }
         if(nbPkNonKo_<=_fight.getPlayerMaxNumberFrontFighters() && playerPlaces_.size()!=nbPkNonKo_){
-            _fight.addMessage(Fight.ERR_SUBSTITUTE_USED_PLACE);
+            _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_USED_PLACE);
             return false;
         }
         if (playerPlaces_.size() > _fight.getPlayerMaxNumberFrontFighters()) {
-            _fight.addMessage(Fight.ERR_SUBSTITUTE_USED_PLACE);
+            _fight.addMessage(_import,Fight.ERR_SUBSTITUTE_USED_PLACE);
             return false;
         }
         return !error_;
@@ -299,7 +299,7 @@ final class FightRules {
                     error_ = true;
                     Fighter fighter_ = equipeUt_.getMembers().getVal(creature_.getSubstistute());
                     String name_ = _import.translatePokemon(fighter_.getName());
-                    _fight.addMessage(Fight.ERR_SUBSTITUTE, name_);
+                    _fight.addMessage(_import,Fight.ERR_SUBSTITUTE, name_);
                 }
             }
         }
@@ -337,7 +337,7 @@ final class FightRules {
             if(creature_.getAction() instanceof ActionMove){
                 if(creature_.estArriere()){
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_BACK_MOVE, name_);
+                    _fight.addMessage(_import,Fight.ERR_BACK_MOVE, name_);
                     continue;
                 }
                 String attaque_=creature_.getFirstChosenMove();
@@ -347,22 +347,22 @@ final class FightRules {
                     if (_import.getMovesFullHeal().containsObj(attaque_) || _import.isBatonPassMove(attaque_)) {
                         if(Numbers.eq(creature_.getSubstistute(),Fighter.BACK)){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_SWITCH, name_);
+                            _fight.addMessage(_import,Fight.ERR_SWITCH, name_);
                             continue;
                         }
                         Fighter partenaire_=equipeUt_.getMembers().getVal(creature_.getSubstistute());
                         String namePart_ = _import.translatePokemon(partenaire_.getName());
                         if(partenaire_.estKo()){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_KO_SUBSTITUTE, namePart_);
+                            _fight.addMessage(_import,Fight.ERR_KO_SUBSTITUTE, namePart_);
                         }
                         if (!partenaire_.isBelongingToPlayer()) {
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_BELONG_SWITCH, namePart_);
+                            _fight.addMessage(_import,Fight.ERR_BELONG_SWITCH, namePart_);
                         }
                         if(!partenaire_.estArriere()){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_FRONT_SWITCH, namePart_);
+                            _fight.addMessage(_import,Fight.ERR_FRONT_SWITCH, namePart_);
                         }
                     }
                     EqList<TargetCoords> cibles_=creature_.getChosenTargets();
@@ -380,18 +380,18 @@ final class FightRules {
                             Numbers<Byte> cbts_=equipeCible_.fightersAtCurrentPlace(cibles_.first().getPosition());
                             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                                 error_ = true;
-                                _fight.addMessage(Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
+                                _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
                                 continue;
                             }
                             if(!FightOrder.closestFigthers(_fight,Fight.toUserFighter(c),_diff).containsObj(new TeamPosition(noTeam_,cbts_.first()))){
                                 error_ = true;
-                                _fight.addMessage(Fight.ERR_TOO_FAR_TARGET, moveName_, name_);
+                                _fight.addMessage(_import,Fight.ERR_TOO_FAR_TARGET, moveName_, name_);
                                 continue;
                             }
                         } else if (fAtt_.getTargetChoice() == TargetChoice.ALLIE) {
                             if (!Numbers.eq(cibles_.first().getTeam(), Fight.PLAYER)) {
                                 error_ = true;
-                                _fight.addMessage(Fight.ERR_BAD_CHOICE, moveName_, name_);
+                                _fight.addMessage(_import,Fight.ERR_BAD_CHOICE, moveName_, name_);
                             }
                         } else if (fAtt_.getTargetChoice() == TargetChoice.AUTRE_UNIQ) {
                             byte noTeam_ = (byte) cibles_.first().getTeam();
@@ -399,56 +399,56 @@ final class FightRules {
                             Numbers<Byte> cbts_=equipeCible_.fightersAtCurrentPlace(cibles_.first().getPosition());
                             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                                 error_ = true;
-                                _fight.addMessage(Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
+                                _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
                                 continue;
                             }
                             if (TeamPosition.eq(Fight.toUserFighter(c), new TeamPosition(noTeam_,cbts_.first()))) {
                                 error_ = true;
-                                _fight.addMessage(Fight.ERR_BAD_CHOICE, moveName_, name_);
+                                _fight.addMessage(_import,Fight.ERR_BAD_CHOICE, moveName_, name_);
                             }
                         } else if (fAtt_.getTargetChoice() == TargetChoice.ANY_FOE) {
                             if (Numbers.eq(cibles_.first().getTeam(), Fight.PLAYER)) {
                                 error_ = true;
-                                _fight.addMessage(Fight.ERR_BAD_CHOICE, moveName_, name_);
+                                _fight.addMessage(_import,Fight.ERR_BAD_CHOICE, moveName_, name_);
                             }
                         }
                     }
                 }else{
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_UNUSABLE_MOVE, moveName_);
+                    _fight.addMessage(_import,Fight.ERR_UNUSABLE_MOVE, moveName_);
                 }
                 continue;
             }
             if(creature_.getAction() instanceof ActionSwitch){
                 if(creature_.estArriere()){
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_BACK_SWITCH, name_);
+                    _fight.addMessage(_import,Fight.ERR_BACK_SWITCH, name_);
                 }
                 if(Numbers.eq(creature_.getSubstistute(),Fighter.BACK)){
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_SWITCH, name_);
+                    _fight.addMessage(_import,Fight.ERR_SWITCH, name_);
                     continue;
                 }
                 Fighter partenaire_=equipeUt_.getMembers().getVal(creature_.getSubstistute());
                 String namePart_ = _import.translatePokemon(partenaire_.getName());
                 if(partenaire_.estKo()){
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_KO_SUBSTITUTE, namePart_);
+                    _fight.addMessage(_import,Fight.ERR_KO_SUBSTITUTE, namePart_);
                 }
                 if (!partenaire_.isBelongingToPlayer()) {
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_BELONG_SWITCH, namePart_);
+                    _fight.addMessage(_import,Fight.ERR_BELONG_SWITCH, namePart_);
                 }
                 if(!partenaire_.estArriere()){
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_FRONT_SWITCH, namePart_);
+                    _fight.addMessage(_import,Fight.ERR_FRONT_SWITCH, namePart_);
                 }
                 continue;
             }
             if(creature_.getAction() instanceof ActionHeal){
                 if(creature_.getChosenHealingItem().isEmpty()){
                     error_ = true;
-                    _fight.addMessage(Fight.ERR_NO_ITEM, name_);
+                    _fight.addMessage(_import,Fight.ERR_NO_ITEM, name_);
                     continue;
                 }
                 if(!utilisationsObjets_.contains(creature_.getChosenHealingItem())){
@@ -463,7 +463,7 @@ final class FightRules {
             if (LgInt.strGreater(utilisationsObjets_.getVal(c), inv_.getNumber(c))) {
                 error_ = true;
                 String item_ = _import.translateItem(c);
-                _fight.addMessage(Fight.ERR_TOO_MANY_ITEMS, item_);
+                _fight.addMessage(_import,Fight.ERR_TOO_MANY_ITEMS, item_);
             }
         }
         for(byte c:equipeUt_.getMembers().getKeys()){
@@ -512,13 +512,13 @@ final class FightRules {
                         }
                         if(!agit_){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_NO_EFFECT, itemNameTr_, name_);
+                            _fight.addMessage(_import,Fight.ERR_NO_EFFECT, itemNameTr_, name_);
                         }
                     }else{
                         short var_=creature_.healedPpMove(attaque_,nomObjet_,_import);
                         if(var_==0){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_NO_EFFECT, itemNameTr_, name_);
+                            _fight.addMessage(_import,Fight.ERR_NO_EFFECT, itemNameTr_, name_);
                         }
                     }
                 }
@@ -533,14 +533,14 @@ final class FightRules {
                         }
                         if(!agit_){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_NO_EFFECT, itemNameTr_, name_);
+                            _fight.addMessage(_import,Fight.ERR_NO_EFFECT, itemNameTr_, name_);
                         }
                     }
                     if(soin_ instanceof HealingPp){
                         HealingPp soinpp_=(HealingPp)soin_;
                         if(creature_.getFirstChosenMove().isEmpty()&&(soinpp_.getHealedMovePp()>0||soinpp_.getHealingMoveFullpp())){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_NO_HEALED_MOVE, itemNameTr_, name_);
+                            _fight.addMessage(_import,Fight.ERR_NO_HEALED_MOVE, itemNameTr_, name_);
                         }
                         boolean agit_=false;
                         if(soinpp_.getHealedMovePp()>0||soinpp_.getHealingMoveFullpp()){
@@ -559,7 +559,7 @@ final class FightRules {
                         }
                         if(!agit_){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_NO_EFFECT, itemNameTr_, name_);
+                            _fight.addMessage(_import,Fight.ERR_NO_EFFECT, itemNameTr_, name_);
                         }
                     }
                     if(soin_ instanceof HealingStatus){
@@ -585,7 +585,7 @@ final class FightRules {
                         }
                         if(!agit_){
                             error_ = true;
-                            _fight.addMessage(Fight.ERR_NO_EFFECT, itemNameTr_, name_);
+                            _fight.addMessage(_import,Fight.ERR_NO_EFFECT, itemNameTr_, name_);
                         }
                     }
                 }
@@ -595,7 +595,7 @@ final class FightRules {
             if (existFrontWithoutAct_) {
                 error_ = true;
                 //All front pk must act, it is sufficient
-                _fight.addMessage(Fight.ERR_TOO_FEW_ACTIONS);
+                _fight.addMessage(_import,Fight.ERR_TOO_FEW_ACTIONS);
             }
 //            if (nbActions_ != nb_) {
 //                //All front pk must act, it is sufficient
@@ -605,7 +605,7 @@ final class FightRules {
         } else {
             if (nbActions_ != _fight.getPlayerMaxNumberFrontFighters()) {
                 error_ = true;
-                _fight.addMessage(Fight.ERR_TOO_MANY_ACTIONS, Long.toString(_fight.getPlayerMaxNumberFrontFighters()), Long.toString(nbActions_));
+                _fight.addMessage(_import,Fight.ERR_TOO_MANY_ACTIONS, Long.toString(_fight.getPlayerMaxNumberFrontFighters()), Long.toString(nbActions_));
             }
         }
 //        if (nbNonKo_ <= _fight.getPlayerMaxNumberFrontFighters()) {

@@ -228,7 +228,7 @@ public final class Navigation {
             }
         }
         String currentUrl_ = session.getFirstUrl();
-        String text_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
+        String text_ = ExtractFromResources.loadPage(language,session, files, currentUrl_, resourcesFolder);
         if (session.getContext().getException() != null) {
             return;
         }
@@ -260,7 +260,7 @@ public final class Navigation {
         if (session.getContext().getException() != null) {
             session.setCurrentUrl(currentUrl);
             String currentUrl_ = StringList.getFirstToken(currentUrl,REF_TAG);
-            String textToBeChanged_ = ExtractFromResources.loadPage(session, files, currentUrl_, resourcesFolder);
+            String textToBeChanged_ = ExtractFromResources.loadPage(language,session, files, currentUrl_, resourcesFolder);
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -410,7 +410,7 @@ public final class Navigation {
             String currentUrl_ = urlDest_;
             session.setCurrentUrl(currentUrl_);
             String dest_ = StringList.getFirstToken(urlDest_, REF_TAG);
-            textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
+            textToBeChanged_ = ExtractFromResources.loadPage(language,session, files, dest_, resourcesFolder);
             if (session.getContext().getException() != null) {
                 return;
             }
@@ -474,7 +474,7 @@ public final class Navigation {
         String currentUrl_ = _anchorRef;
         session.setCurrentUrl(currentUrl_);
         String dest_ = StringList.getFirstToken(_anchorRef, REF_TAG);
-        textToBeChanged_ = ExtractFromResources.loadPage(session, files, dest_, resourcesFolder);
+        textToBeChanged_ = ExtractFromResources.loadPage(language,session, files, dest_, resourcesFolder);
         if (session.getContext().getException() != null) {
             return;
         }

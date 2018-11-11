@@ -10,7 +10,6 @@ import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public class FileTable extends CustComponent {
 
@@ -47,7 +46,7 @@ public class FileTable extends CustComponent {
 
     private static final int NB_COLS = 4;
 
-    private StringMap<String> messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, Constants.getLanguage(),ACCESS);
+    private StringMap<String> messages;
 
     private CustList<File> files = new CustList<File>();
 
@@ -63,6 +62,9 @@ public class FileTable extends CustComponent {
 
     private JTable table = new JTable(model);
 
+    public FileTable(String _lg) {
+        messages = ExtractFromFiles.getMessagesFromLocaleClass(GuiConstants.FOLDER_MESSAGES_GUI, _lg,ACCESS);
+    }
     public int getRowCount() {
         return files.size();
     }
@@ -75,127 +77,6 @@ public class FileTable extends CustComponent {
         indexOfSorted = _col;
         increasing = !increasing;
         files.sortElts(new FileComparator(increasing, indexOfSorted, folder));
-        //        switch(indexOfSorted) {
-        //        case NAME_INDEX:
-        //            if (increasing) {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        return _o1.getName().compareTo(_o2.getName());
-        //                    }
-        //                });
-        //            } else {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        return _o2.getName().compareTo(_o1.getName());
-        //                    }
-        //                });
-        //            }
-        //            break;
-        //        case DATE_INDEX:
-        //            if (increasing) {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        long lg_ = _o1.lastModified() - _o2.lastModified();
-        //                        if (lg_ > 0) {
-        //                            return 1;
-        //                        }
-        //                        if (lg_ < 0) {
-        //                            return -1;
-        //                        }
-        //                        return 0;
-        //                    }
-        //                });
-        //            } else {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        long lg_ = _o2.lastModified() - _o1.lastModified();
-        //                        if (lg_ > 0) {
-        //                            return 1;
-        //                        }
-        //                        if (lg_ < 0) {
-        //                            return -1;
-        //                        }
-        //                        return 0;
-        //                    }
-        //                });
-        //            }
-        //            break;
-        //        case SIZE_INDEX:
-        //            if (increasing) {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        long lg_ = _o1.length() - _o2.length();
-        //                        if (lg_ > 0) {
-        //                            return 1;
-        //                        }
-        //                        if (lg_ < 0) {
-        //                            return -1;
-        //                        }
-        //                        return 0;
-        //                    }
-        //                });
-        //            } else {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        long lg_ = _o2.length() - _o1.length();
-        //                        if (lg_ > 0) {
-        //                            return 1;
-        //                        }
-        //                        if (lg_ < 0) {
-        //                            return -1;
-        //                        }
-        //                        return 0;
-        //                    }
-        //                });
-        //            }
-        //            break;
-        //        case PATH_INDEX:
-        //            if (increasing) {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        String returnOne_ = _o1.getAbsolutePath();
-        //                        returnOne_ = returnOne_.substring(folder.length());
-        //                        returnOne_ = returnOne_.replace(StringList.BACK_SLASH, StreamTextFile.SEPARATEUR);
-        //                        StringList pathOne_ = new StringList(returnOne_.split(StreamTextFile.SEPARATEUR));
-        //                        String returnTwo_ = _o2.getAbsolutePath();
-        //                        returnTwo_ = returnTwo_.substring(folder.length());
-        //                        returnTwo_ = returnTwo_.replace(StringList.BACK_SLASH, StreamTextFile.SEPARATEUR);
-        //                        StringList pathTwo_ = new StringList(returnTwo_.split(StreamTextFile.SEPARATEUR));
-        //                        int min_ = Math.min(pathOne_.size(), pathTwo_.size());
-        //                        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
-        //                            int res_ = pathOne_.get(i).compareTo(pathTwo_.get(i));
-        //                            if (res_ != 0) {
-        //                                return res_;
-        //                            }
-        //                        }
-        //                        return pathOne_.size() - pathTwo_.size();
-        //                    }
-        //                });
-        //            } else {
-        //                files.sort(new Comparator<File>(){
-        //                    public int compare(File _o1, File _o2) {
-        //                        String returnOne_ = _o1.getAbsolutePath();
-        //                        returnOne_ = returnOne_.substring(folder.length());
-        //                        returnOne_ = returnOne_.replace(StringList.BACK_SLASH, StreamTextFile.SEPARATEUR);
-        //                        StringList pathOne_ = new StringList(returnOne_.split(StreamTextFile.SEPARATEUR));
-        //                        String returnTwo_ = _o2.getAbsolutePath();
-        //                        returnTwo_ = returnTwo_.substring(folder.length());
-        //                        returnTwo_ = returnTwo_.replace(StringList.BACK_SLASH, StreamTextFile.SEPARATEUR);
-        //                        StringList pathTwo_ = new StringList(returnTwo_.split(StreamTextFile.SEPARATEUR));
-        //                        int min_ = Math.min(pathOne_.size(), pathTwo_.size());
-        //                        for (int i = CustList.FIRST_INDEX; i < min_; i++) {
-        //                            int res_ = pathTwo_.get(i).compareTo(pathOne_.get(i));
-        //                            if (res_ != 0) {
-        //                                return res_;
-        //                            }
-        //                        }
-        //                        return pathTwo_.size() - pathOne_.size();
-        //                    }
-        //                });
-        //            }
-        //            break;
-        //            default:
-        //        }
         model.fireTableStructureChanged();
         model.fireTableDataChanged();
     }
@@ -230,14 +111,12 @@ public class FileTable extends CustComponent {
         return StringList.concat(head_,end_);
     }
 
-    public Object getValueAt(int _rowIndex, int _columnIndex) {
+    public String getValueAt(int _rowIndex, int _columnIndex) {
         File currentFile_;
         currentFile_ = files.get(_rowIndex);
         if(_columnIndex == NAME_INDEX) {
             if (!extension.isEmpty()) {
-                //                return currentFile_.getName().replaceAll(StringList.quote(extension)+END_REG_EXP, EMPTY_STRING);
                 return StringList.replaceEnd(currentFile_.getName(), extension);
-                // currentFile_.getName().replaceAll(StringList.quote(extension)+END_REG_EXP, EMPTY_STRING);
             }
             return currentFile_.getName();
         } else if(_columnIndex == DATE_INDEX) {

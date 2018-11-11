@@ -51,7 +51,7 @@ public final class DialogDifficulty extends Dialog {
         facade = _facade;
         window = _window;
         //super(_window, true);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_window, Resources.MESSAGES_FOLDER);
         setModal(true);
         setTitle(_title);
         setLocationRelativeTo(_window);

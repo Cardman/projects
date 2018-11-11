@@ -98,20 +98,18 @@ public class FightSuccessTest extends InitializationDataBase {
 
     @Test
     public void random1Test() {
-        Fight fight_ = random();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addEvent(Rate.one(), LgInt.one());
-        Rate event_ = FightSuccess.random(fight_, law_);
+        Rate event_ = FightSuccess.random(_data_, law_);
         assertEq(Rate.one(), event_);
     }
 
     @Test
     public void random2Test() {
-        Fight fight_ = random();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addEvent(Rate.one(), LgInt.one());
         law_.addEvent(Rate.zero(), LgInt.zero());
-        Rate event_ = FightSuccess.random(fight_, law_);
+        Rate event_ = FightSuccess.random(_data_, law_);
         assertEq(Rate.one(), event_);
     }
 
@@ -216,9 +214,9 @@ public class FightSuccessTest extends InitializationDataBase {
 
     @Test
     public void tirage1Test() {
-        assertTrue(FightSuccess.tirage(Rate.one()));
-        assertTrue(!FightSuccess.tirage(Rate.zero()));
-        assertTrue(FightSuccess.tirage(new Rate("2")));
+        assertTrue(FightSuccess.tirage(_data_,Rate.one()));
+        assertTrue(!FightSuccess.tirage(_data_,Rate.zero()));
+        assertTrue(FightSuccess.tirage(_data_,new Rate("2")));
     }
 
     private static Fight isProtectedAgainstMoveType() {

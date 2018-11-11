@@ -22,13 +22,14 @@ public final class AfterAnimationBidBelote extends Thread {
         container.getPause().setEnabledMenu(false);
         GameBelote gameBelote_=container.partieBelote();
         container.getPanneauBoutonsJeu().removeAll();
+        String lg_ = container.getOwner().getLanguageKey();
         if(gameBelote_.keepBidding()) {
             //Activer les conseils
             container.getConsulting().setEnabledMenu(true);
             container.setCanBid(true);
             if (!gameBelote_.getRegles().dealAll()) {
                 for(BidBeloteSuit e:gameBelote_.allowedBids()){
-                    container.ajouterBoutonContratBelote(e.display(),e,e.estDemandable(gameBelote_.getContrat()));
+                    container.ajouterBoutonContratBelote(e.toString(lg_),e,e.estDemandable(gameBelote_.getContrat()));
                 }
             } else {
                 container.addButtonsForCoinche(gameBelote_);

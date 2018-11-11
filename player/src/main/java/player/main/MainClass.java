@@ -1,6 +1,7 @@
 package player.main;
 import javax.swing.SwingUtilities;
 
+import code.util.consts.Constants;
 import player.gui.MainWindow;
 
 public class MainClass implements Runnable {
@@ -17,7 +18,7 @@ public class MainClass implements Runnable {
 
     @Override
     public void run() {
-        new MainWindow(args);
+        new MainWindow(Constants.getDefaultLanguage(),args);
     }
 
 }

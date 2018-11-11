@@ -8,7 +8,6 @@ import aiki.facade.FacadeGame;
 import aiki.gui.MainWindow;
 import aiki.gui.components.PaginatorMove;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
-import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.ScrollPane;
@@ -35,20 +34,20 @@ public final class SelectTm extends SelectDialog {
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setSelectTm(GroupFrame _parent, FacadeGame _facade, boolean _buy) {
+    public static void setSelectTm(MainWindow _parent, FacadeGame _facade, boolean _buy) {
         DIALOG.init(_parent, _facade, _buy);
     }
 
-    private void init(GroupFrame _parent, FacadeGame _facade, boolean _buy) {
+    private void init(MainWindow _parent, FacadeGame _facade, boolean _buy) {
         setDialogIcon(_parent);
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_parent,Resources.MESSAGES_FOLDER);
         setTitle(messages.getVal(TITLE));
         facade = _facade;
 //        ok = false;
         initOk();
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BorderLayout());
-        contentPane_.add(new ScrollPane(new PaginatorMove(this, _facade, _buy)), BorderLayout.CENTER);
+        contentPane_.add(new ScrollPane(new PaginatorMove(_parent, this, _facade, _buy)), BorderLayout.CENTER);
         Panel buttons_ = new Panel();
         LabelButton ok_ = new LabelButton(MainWindow.OK);
         ok_.addMouseListener(new ValidateSelectionEvent(this));

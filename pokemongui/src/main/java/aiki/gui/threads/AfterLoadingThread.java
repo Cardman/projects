@@ -20,7 +20,7 @@ public final class AfterLoadingThread extends Thread {
 
     @Override
     public void run() {
-        MainWindow.getDialog().setVisible(false);
+        window.getDialog().setVisible(false);
         window.afterLoading();
         if (error) {
             window.showErrorMessageDialog(fileName);

@@ -14,6 +14,9 @@ public final class CheckerGamePresidentWithRules {
     }
 
     public static void check(GamePresident _loadedGame) {
+        check(_loadedGame, Constants.getDefaultLanguage());
+    }
+    public static void check(GamePresident _loadedGame, String _lg) {
         RulesPresident rules_ = _loadedGame.getRegles();
         if (rules_ == null) {
             _loadedGame.setError(MESSAGE_ERROR);
@@ -538,8 +541,7 @@ public final class CheckerGamePresidentWithRules {
                         }
                     }
                     if (curHand_.estVide()) {
-                        if (!loadedGameCopy_.canPass(player_,
-                                Constants.getLanguage())) {
+                        if (!loadedGameCopy_.canPass(player_,_lg)) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
                         }
@@ -551,8 +553,7 @@ public final class CheckerGamePresidentWithRules {
                         // player_);
                         loadedGameCopy_.addEmptyHandToCurrentTrick(player_);
                     } else {
-                        if (!loadedGameCopy_.allowPlaying(player_, curHand_,
-                                Constants.getLanguage())) {
+                        if (!loadedGameCopy_.allowPlaying(player_, curHand_, _lg)) {
                             _loadedGame.setError(MESSAGE_ERROR);
                             return;
                         }

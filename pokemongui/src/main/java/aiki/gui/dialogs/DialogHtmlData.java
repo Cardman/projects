@@ -9,9 +9,9 @@ import javax.swing.WindowConstants;
 
 import aiki.Resources;
 import aiki.beans.PokemonStandards;
+import aiki.gui.MainWindow;
 import code.gui.ChangeableTitle;
 import code.gui.Dialog;
-import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.document.RenderedPage;
@@ -53,11 +53,11 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(Dialog _parent, String _title, RenderedPage _session) {
+    public static void setDialogHtmlData(MainWindow _window,Dialog _parent, String _title, RenderedPage _session) {
         //super(_parent, true);
         DIALOG.setDialogIcon(_parent);
         DIALOG.setTitle(_title);
-        DIALOG.init(_parent, _session);
+        DIALOG.init(_window, _parent, _session);
         DIALOG.initSession();
     }
 
@@ -68,16 +68,16 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(GroupFrame _parent, String _title, RenderedPage _session) {
+    public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session) {
         //super(_parent, true);
         DIALOG.setDialogIcon(_parent);
         DIALOG.setTitle(_title);
-        DIALOG.init(_parent, _session);
+        DIALOG.init(_parent, _parent, _session);
         DIALOG.initSession();
     }
 
-    private void init(ChangeableTitle _parent, RenderedPage _session) {
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+    private void init(MainWindow _window,ChangeableTitle _parent, RenderedPage _session) {
+        messages = getMessages(_window,Resources.MESSAGES_FOLDER);
         setLocationRelativeTo(_parent);
         session = _session;
         _session.setFrame(this);

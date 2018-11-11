@@ -12,6 +12,7 @@ import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.fight.util.StatisticsDamageMove;
 import aiki.game.params.Difficulty;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
@@ -381,7 +382,8 @@ final class FightArtificialIntelligence {
             for(String e:attaquesUtilisables_){
                 loi_.addEvent(e,DataBase.defElementaryEvent());
             }
-            String attaqueUtilisee_=loi_.editNumber();
+            LgInt maxRd_ = _import.getMaxRd();
+            String attaqueUtilisee_=loi_.editNumber(maxRd_);
             setFirstChosenMove(_fight, Fight.toFoeFighter((byte) 0), attaqueUtilisee_, _diff, _import);
             return;
         }
@@ -684,7 +686,7 @@ final class FightArtificialIntelligence {
             }
             Fighter partner_ = foeTeam_.getMembers().getVal(b);
             String name_ = _import.translatePokemon(partner_.getName());
-            _fight.addMessage(Fight.SEND_SUBSTITUTE_FOE, name_);
+            _fight.addMessage(_import,Fight.SEND_SUBSTITUTE_FOE, name_);
         }
         if (_fight.getFightType() == FightType.TMP_TRAINER) {
             beforeSubstitute_ = new NumberMap<Byte,Byte>();
@@ -770,7 +772,7 @@ final class FightArtificialIntelligence {
                 }
                 Fighter partner_ = userTeam_.getMembers().getVal(b);
                 String name_ = _import.translatePokemon(partner_.getName());
-                _fight.addMessage(Fight.SEND_SUBSTITUTE, name_);
+                _fight.addMessage(_import,Fight.SEND_SUBSTITUTE, name_);
             }
         }
     }

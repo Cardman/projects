@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 
 import code.sml.util.ExtractFromFiles;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public abstract class CommonFrame implements ChangeableTitle {
 
@@ -19,6 +18,16 @@ public abstract class CommonFrame implements ChangeableTitle {
 
     private Ownable owner;
     private JFrame frame = new JFrame();
+    private String languageKey;
+    protected CommonFrame(String _languageKey) {
+        languageKey = _languageKey;
+    }
+    public String getLanguageKey() {
+        return languageKey;
+    }
+    public void setLanguageKey(String _language) {
+        languageKey = _language;
+    }
     public void dispose() {
         frame.dispose();
     }
@@ -105,8 +114,9 @@ public abstract class CommonFrame implements ChangeableTitle {
         frame.setIconImage(_image);
     }
 
-    protected StringMap<String> getMessages(String _messageFolder) {
-        return ExtractFromFiles.getMessagesFromLocaleClass(_messageFolder, Constants.getLanguage(), accessFile);
+    protected StringMap<String> getMessages(CommonFrame _c,String _messageFolder) {
+        String lg_ = _c.getLanguageKey();
+        return ExtractFromFiles.getMessagesFromLocaleClass(_messageFolder, lg_, accessFile);
     }
 
     protected void setAccessFile(String _accessFile) {

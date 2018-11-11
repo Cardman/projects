@@ -35,7 +35,6 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
 
@@ -84,8 +83,10 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
     }
     public static void initEditorBelote(MainWindow _fenetre) {
         //super(GameEnum.BELOTE.toString(),_fenetre,_fenetre.getReglesBelote());
+        String lg_ = _fenetre.getLanguageKey();
+        DIALOG.setMain(_fenetre);
         DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.BELOTE.display());
+        DIALOG.setTitle(GameEnum.BELOTE.toString(lg_));
         DIALOG.setReglesBelote(_fenetre.getReglesBelote());
         DIALOG.partie = null;
         DIALOG.setToNullGame = true;
@@ -96,7 +97,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         DIALOG.setLocationRelativeTo(_fenetre);
         DIALOG.nickNames = _fenetre.getPseudosJoueurs();
         DIALOG.displayingBelote = _fenetre.getDisplayingBelote();
-        DIALOG.setDialogue();
+        DIALOG.setDialogue(_fenetre);
 //        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 //        addWindowListener(new WindowAdapter() {
 //            @Override
@@ -126,37 +127,39 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         erreur(stack);
     }
     @Override
-    public void setDialogue() {
+    public void setDialogue(MainWindow _parent) {
         getJt().removeAll();
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
-        initMessageName();
+        initMessageName(_parent);
         Numbers<Integer> decks_ = new Numbers<Integer>();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);
         }
-        initJt(new JSpinner(new SpinnerListModel(decks_.toArray())));
+        String lg_ = _parent.getLanguageKey();
+        initJt(new JSpinner(new SpinnerListModel(decks_.toArray())),lg_);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
-        bouton_.addMouseListener(new ValidateRulesDealEvent(this));
+        bouton_.addMouseListener(new ValidateRulesDealEvent(this, _parent));
         panneau_.add(bouton_);
         container_.add(panneau_,BorderLayout.SOUTH);
         setContentPane(container_);
         pack();
     }
     @Override
-    public void validateRulesDeal() {
+    public void validateRulesDeal(MainWindow _parent) {
         validateRules();
         getReglesBelote().setNombreParties((Integer) getNbGames().getValue());
-        distribuer();
+        distribuer(_parent);
     }
     private String validerEgalite() {
+        String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, ConstFiles.getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, ConstFiles.getHomePath(), FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath();
         if (fichier_ == null) {
@@ -172,7 +175,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         return DIALOG.partie;
     }
 
-    private void distribuer() {
+    private void distribuer(MainWindow _parent) {
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=new Panel();
         c.setLayout(new BorderLayout());
@@ -196,7 +199,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         HandBelote pile_=HandBelote.pileBase();
         pile_.trier(displayingBelote.getCouleurs(), displayingBelote.getDecroissant(), displayingBelote.getOrdreAvantEncheres());
         BeloteCardsScrollableList plc_=new BeloteCardsScrollableList(12,pile_.total(),getMessages().getVal(DEALING_STACK));
-        plc_.initSelectionCarteBelote();
+        plc_.initSelectionCarteBelote(_parent);
         plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
         plc_.iniPileBelote(pile_);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
@@ -206,7 +209,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         int firstCards_ = getReglesBelote().getRepartition().getFirstCards();
         int lastCards_ = getReglesBelote().getRepartition().getRemainingCards();
         plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,getMessages().getVal(USER_HAND));
-        plc_.initSelectionCarteBelote();
+        plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
         panelsCards.add(plc_);
@@ -224,7 +227,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringList.simpleStringsFormat(message_, n);
             plc_=new BeloteCardsScrollableList(firstCards_,firstCards_,message_);
-            plc_.initSelectionCarteBelote();
+            plc_.initSelectionCarteBelote(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriBelote(displayingBelote.getCouleurs(), displayingBelote.getOrdreAvantEncheres(), displayingBelote.getDecroissant());
             panelsCards.add(plc_);
@@ -232,7 +235,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
 //            i_++;
         }
         plc_=new BeloteCardsScrollableList(lastCards_,lastCards_,getMessages().getVal(REMAINING));
-        plc_.initSelectionCarteBelote();
+        plc_.initSelectionCarteBelote(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards.add(plc_);
         remaining = plc_;
@@ -260,30 +263,30 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         c.add(panneau_,BorderLayout.CENTER);
         panneau_=new Panel();
         bouton_=new LabelButton(getMessages().getVal(BACK));
-        bouton_.addMouseListener(new BackToRulesEvent(this));
+        bouton_.addMouseListener(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_WITHOUT_CLOSING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_PLAY));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(PLAY_WITHOUT_SAVING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_CLOSE));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,BorderLayout.SOUTH);
         setContentPane(c);
         pack();
     }
     @Override
-    public void backToRules() {
+    public void backToRules(MainWindow _parent) {
         nombreCartesSelectionnees=0;
         nombreCartesSelectionneesPrecedent=0;
         partieSauvegardee=false;
-        setDialogue();
+        setDialogue(_parent);
     }
     @Override
     public void cancelDeal() {
@@ -333,13 +336,15 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         StreamTextFile.saveTextFile(_s, DocumentWriterBeloteUtil.setGameBelote(partie));
     }
     private void erreur(BeloteCardsScrollableList _plc) {
+        String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringList.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
     @Override
     public void deplacerCartes() {
+        String lg_ = getMain().getLanguageKey();
 //        int nombreDeMains_=panelsCards.getComponentCount();
 
         HandBelote m=new HandBelote(displayingBelote.getOrdreAvantEncheres());
@@ -378,7 +383,7 @@ public final class EditorBelote extends DialogBelote implements SetterSelectedCa
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringList.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,mes_, getMessages().getVal(ERROR_MOVE_TITLE), JOptionPane.ERROR_MESSAGE);
         }
 

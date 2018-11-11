@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 
 import aiki.gui.MainWindow;
 import aiki.network.stream.Quit;
-import code.util.consts.Constants;
 
 public class ExitTradeEvent extends MouseAdapter {
 
@@ -19,7 +18,7 @@ public class ExitTradeEvent extends MouseAdapter {
         Quit quit_ = new Quit();
         quit_.setClosing(false);
         quit_.setPlace(window.getIndexInGame());
-        quit_.setLocale(Constants.getLanguage());
+        quit_.setLocale(window.getLanguageKey());
         window.sendObject(quit_);
     }
 }

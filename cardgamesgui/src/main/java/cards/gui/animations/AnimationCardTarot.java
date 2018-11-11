@@ -25,6 +25,7 @@ public final class AnimationCardTarot extends Thread {
         long delaiCarte_;
         delaiCarte_=container.getParametres().getDelaiAttenteCartes();
         GameTarot partie_=container.partieTarot();
+        String lg_ = container.getOwner().getLanguageKey();
         if(partie_.getPliEnCours().estVide()) {
             long delaiPli_;
             if(!container.getParametres().getAttentePlisClic()) {
@@ -32,7 +33,7 @@ public final class AnimationCardTarot extends Thread {
                 Constants.sleep(delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
-                container.tapisTarot().setCartesTarotJeu(partie_.getNombreDeJoueurs());
+                container.tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
             }
         }
         //Activer le menu Partie/Pause
@@ -50,7 +51,7 @@ public final class AnimationCardTarot extends Thread {
                     break;
                 }
                 //container.tapisTarot().setEcart(partie_.getDistribution().derniereMain());
-                container.tapisTarot().setCartesTarotJeu(partie_.getNombreDeJoueurs());
+                container.tapisTarot().setCartesTarotJeu(lg_,partie_.getNombreDeJoueurs());
                 //validate container.pack();
                 partie_.setPliEnCours(true);
             }

@@ -1,10 +1,9 @@
 package cards.belote.comparators;
-import code.util.ints.Comparing;
-
 import cards.belote.BidBeloteSuit;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
+import code.util.ints.Comparing;
 
 public final class GameStrengthCardBeloteComparator implements Comparing<CardBelote> {
 

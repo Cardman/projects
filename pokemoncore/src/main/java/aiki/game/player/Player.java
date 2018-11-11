@@ -1,7 +1,6 @@
 package aiki.game.player;
 import aiki.DataBase;
 import aiki.ExchangedData;
-import aiki.Resources;
 import aiki.comments.Comment;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -37,7 +36,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
@@ -49,14 +47,11 @@ import code.util.TreeMap;
 import code.util.annot.RwXml;
 import code.util.comparators.ComparatorTreeMapValue;
 import code.util.comparators.NaturalComparator;
-import code.util.consts.Constants;
 
 @RwXml
 public final class Player {
 
-    private static StringMap<String> _messages_ = new StringMap<String>();
-
-    private static final String PLAYER = "aiki.game.player.Player";
+    public static final String PLAYER = "aiki.game.player.Player";
 
     private static final String DEFAULT_NICKNAME_PREFIX = "TRUMP_";
 
@@ -170,11 +165,6 @@ public final class Player {
         money=_import.getDefaultMoney().intPart();
         inventory=new Inventory(_import);
         remainingRepelSteps=0;
-    }
-
-    public static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), PLAYER);
-        PokemonPlayer.initMessages();
     }
 
     void initTeam(Sex _sexeHeros,Difficulty _diff, WildPk _firstPk,DataBase _import){
@@ -355,10 +345,11 @@ public final class Player {
             ((Egg) e).versEclosion((short) coeff_);
         }
         eclosionOeuf(_diff,_import);
+        StringMap<String> mess_ = _import.getMessagesPlayer();
         if(remainingRepelSteps>0){
             remainingRepelSteps--;
             if (remainingRepelSteps == 0) {
-                commentGame.addMessage(_messages_.getVal(REPEL_OFF));
+                commentGame.addMessage(mess_.getVal(REPEL_OFF));
             }
         }
     }
@@ -380,7 +371,8 @@ public final class Player {
             pk_.initPvRestants(_import);
 //            team.set(k, new PokemonPlayer(oeuf_,_import));
             team.set(k, pk_);
-            commentGame.addMessage(_messages_.getVal(HATCH), _import.translatePokemon(oeuf_.getName()));
+            StringMap<String> mess_ = _import.getMessagesPlayer();
+            commentGame.addMessage(mess_.getVal(HATCH), _import.translatePokemon(oeuf_.getName()));
             boolean alreadyCaught_ = estAttrape(oeuf_.getName());
             attrapePk(oeuf_.getName());
             addMessageNewPk(oeuf_.getName(), alreadyCaught_, _import);
@@ -412,14 +404,16 @@ public final class Player {
         boolean alreadyCaught_ = estAttrape(lasPk_.getName());
         attrapePk(lasPk_.getName());
         inventory.use(_nomFossile);
-        commentGame.addMessage(_messages_.getVal(NEW_PK_ADDED_BOX));
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(NEW_PK_ADDED_BOX));
         addMessageNewPk(lasPk_.getName(), alreadyCaught_, _import);
     }
 
     void addMessageNewPk(String _name, boolean _alreadyCaught,DataBase _import) {
         if (!_alreadyCaught) {
             String name_ = _import.translatePokemon(_name);
-            commentGame.addMessage(_messages_.getVal(NEW_PK), name_);
+            StringMap<String> mess_ = _import.getMessagesPlayer();
+            commentGame.addMessage(mess_.getVal(NEW_PK), name_);
         }
     }
 
@@ -631,6 +625,7 @@ public final class Player {
         if (!indexesOfPokemonTeam.contains(_chosenTeamPokemon)) {
             return;
         }
+        StringMap<String> mess_ = _import.getMessagesPlayer();
         boolean consommer_=false;
         PokemonPlayer pkSoigne_=(PokemonPlayer) team.get(_chosenTeamPokemon);
         Item objet_=_import.getItem(selectedObject);
@@ -642,7 +637,7 @@ public final class Player {
                 if(!pvRestaures_.isZero()){
                     consommer_=true;
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
+                    commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
                 }
             }
             StringList statuts_=new StringList(pkSoigne_.getStatus());
@@ -652,7 +647,7 @@ public final class Player {
                 for (String s: statuts_) {
                     String st_ = _import.translateStatus(s);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(HEAL_STATUS), st_, pk_);
+                    commentGame.addMessage(mess_.getVal(HEAL_STATUS), st_, pk_);
                 }
                 consommer_=true;
             }
@@ -669,7 +664,7 @@ public final class Player {
                 if (attaquesRestaures_.getVal(c) > 0) {
                     String move_ = _import.translateMove(c);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(attaquesRestaures_.getVal(c)));
+                    commentGame.addMessage(mess_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(attaquesRestaures_.getVal(c)));
                 }
             }
             for(String c:attaquesRestaures_.getKeys()){
@@ -689,7 +684,7 @@ public final class Player {
             if(!pvRestaures_.isZero()){
                 consommer_=true;
                 String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
+                commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
             }
         }
         if(objet_ instanceof HealingStatus){
@@ -700,7 +695,7 @@ public final class Player {
                 if(!pvRestaures_.isZero()){
                     consommer_=true;
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
+                    commentGame.addMessage(mess_.getVal(RESTORED_HP), pk_, pvRestaures_.toNumberString());
                 }
             }
             HealingStatus soin_=(HealingStatus)objet_;
@@ -711,7 +706,7 @@ public final class Player {
                 for (String s: statuts_) {
                     String st_ = _import.translateStatus(s);
                     String pk_ = _import.translatePokemon(pkSoigne_.getName());
-                    commentGame.addMessage(_messages_.getVal(HEAL_STATUS), st_, pk_);
+                    commentGame.addMessage(mess_.getVal(HEAL_STATUS), st_, pk_);
                 }
                 consommer_=true;
             }
@@ -762,7 +757,8 @@ public final class Player {
         short ppRest_ = chosenMoves.getVal(_move);
         String move_ = _import.translateMove(_move);
         String pk_ = _import.translatePokemon(pkSoigne_.getName());
-        commentGame.addMessage(_messages_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(ppRest_));
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(RESTORED_MOVE), move_, pk_, Long.toString(ppRest_));
         chosenMoves.clear();
         chosenMoves.put(_move, ppRest_);
         pkSoigne_.soinPpAttaques(chosenMoves);
@@ -807,12 +803,13 @@ public final class Player {
         if (happinessIncrease_ > 0) {
             commentGame.addComment(pk_.getCommentPk());
         }
+        StringMap<String> mess_ = _import.getMessagesPlayer();
         if (ppMax_ != pk_.getMoves().getVal(_move).getMax()) {
             String move_ = _import.translateMove(_move);
             String pkName_ = _import.translatePokemon(pk_.getName());
             int diff_ = pk_.getMoves().getVal(_move).getMax();
             diff_ -= ppMax_;
-            commentGame.addMessage(_messages_.getVal(BOOSTED_MOVE), move_, pkName_, Long.toString(diff_));
+            commentGame.addMessage(mess_.getVal(BOOSTED_MOVE), move_, pkName_, Long.toString(diff_));
         }
         if (ppMax_ != pk_.getMoves().getVal(_move).getMax() || happinessIncrease_ > 0) {
             inventory.use(selectedObject);
@@ -835,7 +832,8 @@ public final class Player {
                 increase_ = true;
                 String stat_ = _import.translateStatistics(s);
                 String pkName_ = _import.translatePokemon(pk_.getName());
-                commentGame.addMessage(_messages_.getVal(BOOSTED_STATISTIC), stat_, pkName_, Long.toString(var_));
+                StringMap<String> mess_ = _import.getMessagesPlayer();
+                commentGame.addMessage(mess_.getVal(BOOSTED_STATISTIC), stat_, pkName_, Long.toString(var_));
             }
         }
         short happinessIncrease_ = pk_.pointBonheurGagnes(_import.getItem(selectedObject), _import);
@@ -899,13 +897,13 @@ public final class Player {
 
     public void learnMovesByMoveTutor(DataBase _import) {
         commentGame.clearMessages();
+        StringMap<String> mess_ = _import.getMessagesPlayer();
         if (selectedMoves.size() >= _import.getNbMaxMoves()) {
 //            if (!Numbers.eq(selectedMoves.getKeys(true).size(), _import.getNbMaxMoves()))
             if (!Numbers.eq(getCheckedMoves().size(), _import.getNbMaxMoves())) {
                 String name_ = ((PokemonPlayer) team.get(chosenTeamPokemon)).getName();
                 name_ = _import.translatePokemon(name_);
-//                commentGame.addMessage(_messages_.getVal(BAD_NUMBER_MOVES), name_, selectedMoves.getKeys(true).size());
-                commentGame.addMessage(_messages_.getVal(BAD_NUMBER_MOVES), name_, Long.toString(getCheckedMoves().size()));
+                commentGame.addMessage(mess_.getVal(BAD_NUMBER_MOVES), name_, Long.toString(getCheckedMoves().size()));
                 return;
             }
         } else {
@@ -913,7 +911,7 @@ public final class Player {
             if (!getUnCheckedMoves().isEmpty()) {
                 String name_ = ((PokemonPlayer) team.get(chosenTeamPokemon)).getName();
                 name_ = _import.translatePokemon(name_);
-                commentGame.addMessage(_messages_.getVal(MISS_MOVES), name_);
+                commentGame.addMessage(mess_.getVal(MISS_MOVES), name_);
                 return;
             }
         }
@@ -934,15 +932,15 @@ public final class Player {
         learntMoves_.removeAllElements(oldMoves_);
         for (String m: forgottenMoves_) {
             String move_ = _import.translateMove(m);
-            commentGame.addMessage(_messages_.getVal(FORGET_MOVES), name_, move_);
+            commentGame.addMessage(mess_.getVal(FORGET_MOVES), name_, move_);
         }
         for (String m: keptMoves_) {
             String move_ = _import.translateMove(m);
-            commentGame.addMessage(_messages_.getVal(KEEP_MOVES), name_, move_);
+            commentGame.addMessage(mess_.getVal(KEEP_MOVES), name_, move_);
         }
         for (String m: learntMoves_) {
             String move_ = _import.translateMove(m);
-            commentGame.addMessage(_messages_.getVal(LEARN_MOVES), name_, move_);
+            commentGame.addMessage(mess_.getVal(LEARN_MOVES), name_, move_);
         }
         pk_.learnMovesAfterForgettingAll(moves_, _import);
         chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
@@ -1038,7 +1036,8 @@ public final class Player {
         indexesOfPokemonTeam.clear();
         indexesOfPokemonTeamMoves.clear();
         String name_ = _import.translatePokemon(((PokemonPlayer) team.get(chosenTeamPokemon)).getName());
-        commentGame.addMessage(_messages_.getVal(LEARN_MOVE), name_, _import.translateMove(selectedMove));
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(LEARN_MOVE), name_, _import.translateMove(selectedMove));
         ((PokemonPlayer) team.get(chosenTeamPokemon)).learnMove(selectedMove, _import);
         chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
         selectedMove = DataBase.EMPTY_STRING;
@@ -1049,7 +1048,8 @@ public final class Player {
         indexesOfPokemonTeam.clear();
         indexesOfPokemonTeamMoves.clear();
         String name_ = _import.translatePokemon(((PokemonPlayer) team.get(chosenTeamPokemon)).getName());
-        commentGame.addMessage(_messages_.getVal(LEARN_MOVE_FORGET), name_, _import.translateMove(selectedMove), _import.translateMove(_ancienneAttaque));
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(LEARN_MOVE_FORGET), name_, _import.translateMove(selectedMove), _import.translateMove(_ancienneAttaque));
         ((PokemonPlayer) team.get(chosenTeamPokemon)).learnMove(selectedMove,_ancienneAttaque,_import);
         chosenTeamPokemon = CustList.INDEX_NOT_FOUND_ELT;
         chosenMoves.clear();
@@ -1075,7 +1075,8 @@ public final class Player {
         attrapePk(lasPk_.getName());
         addMessageNewPk(lasPk_.getName(), alreadyCaught_, _import);
         box.add(lasPk_);
-        commentGame.addMessage(_messages_.getVal(NEW_PK_ADDED_BOX));
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(NEW_PK_ADDED_BOX));
     }
 
     public void takeObjectFromTeam(DataBase _data) {
@@ -1087,7 +1088,8 @@ public final class Player {
         getItem(obj_);
         ((Pokemon) team.get(chosenTeamPokemon)).setItem(DataBase.EMPTY_STRING);
         String item_ = _data.translateItem(obj_);
-        commentGame.addMessage(_messages_.getVal(TAKEN_ITEM), item_);
+        StringMap<String> mess_ = _data.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(TAKEN_ITEM), item_);
     }
 
     public void takeObjectFromBox(int _box, DataBase _data) {
@@ -1098,7 +1100,8 @@ public final class Player {
         getItem(obj_);
         ((Pokemon) box.get(_box)).setItem(DataBase.EMPTY_STRING);
         String item_ = _data.translateItem(obj_);
-        commentGame.addMessage(_messages_.getVal(TAKEN_ITEM), item_);
+        StringMap<String> mess_ = _data.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(TAKEN_ITEM), item_);
     }
 
     public boolean canBeBought(StringMap<LgInt> _objets,DataBase _import) {
@@ -1223,7 +1226,8 @@ public final class Player {
         Repel repouse_=(Repel)_import.getItem(selectedObject);
         remainingRepelSteps=(int) repouse_.getSteps();
         String it_ = _import.translateItem(selectedObject);
-        commentGame.addMessage(_messages_.getVal(ENABLE_REPEL), it_, Long.toString(remainingRepelSteps));
+        StringMap<String> mess_ = _import.getMessagesPlayer();
+        commentGame.addMessage(mess_.getVal(ENABLE_REPEL), it_, Long.toString(remainingRepelSteps));
         inventory.use(selectedObject);
         selectedObject = DataBase.EMPTY_STRING;
     }
@@ -1379,9 +1383,10 @@ public final class Player {
     }
 
     void choosePokemonForEvolution(short _chosenTeamPokemon,DataBase _data) {
+        StringMap<String> mess_ = _data.getMessagesPlayer();
         if (!indexesOfPokemonTeam.contains(_chosenTeamPokemon)) {
             PokemonPlayer pk_ = (PokemonPlayer) team.get(_chosenTeamPokemon);
-            commentGame.addMessage(_messages_.getVal(CANNOT_EVOLVE), _data.translatePokemon(pk_.getName()));
+            commentGame.addMessage(mess_.getVal(CANNOT_EVOLVE), _data.translatePokemon(pk_.getName()));
             return;
         }
         PokemonPlayer pk_ = (PokemonPlayer) team.get(_chosenTeamPokemon);
@@ -1392,7 +1397,7 @@ public final class Player {
             inventory.use(selectedObject);
             selectedObject = DataBase.EMPTY_STRING;
             String newName_ = _data.translatePokemon(pk_.getName());
-            commentGame.addMessage(_messages_.getVal(EVOLVE_INTO), oldName_, newName_);
+            commentGame.addMessage(mess_.getVal(EVOLVE_INTO), oldName_, newName_);
             boolean alreadyCaught_ = estAttrape(pk_.getName());
             attrapePk(pk_.getName());
             addMessageNewPk(pk_.getName(), alreadyCaught_, _data);
@@ -1426,14 +1431,15 @@ public final class Player {
         }
         String newKey_ = pk_.getName();
         String newName_ = _data.translatePokemon(newKey_);
+        StringMap<String> mess_ = _data.getMessagesPlayer();
         if (!StringList.quickEq(oldKey_, newKey_)) {
             //!StringList.eq(oldName_, newName_)
-            commentGame.addMessage(_messages_.getVal(EVOLVE_INTO), oldName_, newName_);
+            commentGame.addMessage(mess_.getVal(EVOLVE_INTO), oldName_, newName_);
             boolean alreadyCaught_ = estAttrape(pk_.getName());
             attrapePk(pk_.getName());
             addMessageNewPk(pk_.getName(), alreadyCaught_, _data);
         } else {
-            commentGame.addMessage(_messages_.getVal(BETWEEN_NUMBER_MOVES), oldName_, Long.toString(pk_.getMoves().size()), Long.toString(_data.getNbMaxMoves()));
+            commentGame.addMessage(mess_.getVal(BETWEEN_NUMBER_MOVES), oldName_, Long.toString(pk_.getMoves().size()), Long.toString(_data.getNbMaxMoves()));
         }
     }
 
@@ -1476,7 +1482,8 @@ public final class Player {
             boolean alreadyCaught_ = estAttrape(lastPk_.getName());
             attrapePk(lastPk_.getName());
             addMessageNewPk(lastPk_.getName(), alreadyCaught_, _import);
-            commentGame.addMessage(_messages_.getVal(NEW_PK_ADDED_BOX));
+            StringMap<String> mess_ = _import.getMessagesPlayer();
+            commentGame.addMessage(mess_.getVal(NEW_PK_ADDED_BOX));
             return;
         }
         PokemonPlayer lastPk_ = new PokemonPlayer(_pokemonSauvage,_pseudo,_ballCapture,_import);

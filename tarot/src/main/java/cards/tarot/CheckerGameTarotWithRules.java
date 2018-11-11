@@ -39,6 +39,9 @@ public final class CheckerGameTarotWithRules {
     }
 
     public static void check(GameTarot _loadedGame) {
+        check(_loadedGame, Constants.getDefaultLanguage());
+    }
+    public static void check(GameTarot _loadedGame, String _lg) {
         RulesTarot rules_ = _loadedGame.getRegles();
         if (rules_ == null) {
             _loadedGame.setError(NULL_RULE);
@@ -336,7 +339,7 @@ public final class CheckerGameTarotWithRules {
                     }
                     for (CardTarot c : discardedCards_) {
                         if (!loadedGameCopy_.autoriseEcartDe(c,
-                                Constants.getLanguage())) {
+                                _lg)) {
                             _loadedGame.setError(THIS_CARD_IS_NOT_DISCARDABLE);
                             return;
                         }
@@ -370,7 +373,7 @@ public final class CheckerGameTarotWithRules {
                             loadedGameCopy_.derniereMain());
                     for (CardTarot c : discardedCards_) {
                         if (!loadedGameCopy_.autoriseEcartDe(c,
-                                Constants.getLanguage())) {
+                                _lg)) {
                             _loadedGame.setError(THIS_CARD_IS_NOT_DISCARDABLE);
                             return;
                         }
@@ -474,7 +477,7 @@ public final class CheckerGameTarotWithRules {
                 }
                 CardTarot ct_ = trick_.carteDuJoueur(p,
                         loadedGameCopy_.getNombreDeJoueurs());
-                if (!loadedGameCopy_.autorise(ct_, Constants.getLanguage())) {
+                if (!loadedGameCopy_.autorise(ct_, _lg)) {
                     _loadedGame.setError(BAD_PLAYING);
                     return;
                 }
@@ -522,7 +525,7 @@ public final class CheckerGameTarotWithRules {
                             }
                             if (!loadedGameCopy_.isValidHandful(h_,
                                     _loadedGame.getPoignee(p), excludedTrumps_,
-                                    Constants.getLanguage())) {
+                                    _lg)) {
                                 _loadedGame.setError(BAD_DECLARING);
                                 return;
                             }

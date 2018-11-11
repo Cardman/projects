@@ -21,6 +21,9 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
     private int port;
 
+    protected NetGroupFrame(String _lg) {
+        super(_lg);
+    }
     /**
         Create a server then a client
         If is not possible to create a server, then no connection can be established

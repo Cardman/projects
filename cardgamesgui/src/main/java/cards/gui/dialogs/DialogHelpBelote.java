@@ -19,7 +19,6 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 public final class DialogHelpBelote extends Dialog {
 
@@ -48,7 +47,7 @@ public final class DialogHelpBelote extends Dialog {
             EnumMap<Suit,EqList<HandBelote>> _cartesCertaines,
             EnumMap<Suit,HandBelote> _repartitionJouees,
             Suit _couleurDemandee,BidBeloteSuit _bid,
-            StringList _pseudos) {
+            StringList _pseudos, String _lg) {
         Panel container_=new Panel();
         container_.setLayout(new FlowLayout());
         Panel panneau2_=new Panel();
@@ -88,10 +87,10 @@ public final class DialogHelpBelote extends Dialog {
             zone_.append(StringList.concat(_pseudos.get(indicePseudo_),RETURN_LINE));
             for (Suit s: suits_) {
                 HandBelote h_ = tout_.couleurs(_bid).getVal(s);
-                zone_.append(StringList.concat(s.toString(Constants.getLanguage()),RETURN_LINE));
+                zone_.append(StringList.concat(s.toString(_lg),RETURN_LINE));
                 for(CardBelote carte_:h_) {
                     zone_.append(TAB);
-                    zone_.append(StringList.concat(carte_.getSymbol(Constants.getLanguage()),SPACE));
+                    zone_.append(StringList.concat(carte_.getSymbol(_lg),SPACE));
                     if(_cartesPossibles.getVal(s).get(indicePseudo_).contient(carte_)) {
                         zone_.append(POSSIBLE);
                     }

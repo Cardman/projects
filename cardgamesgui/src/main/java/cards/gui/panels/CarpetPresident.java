@@ -14,7 +14,6 @@ import code.gui.Panel;
 import code.util.CustList;
 import code.util.NumberMap;
 import code.util.StringList;
-import code.util.consts.Constants;
 
 public class CarpetPresident extends Panel {
 
@@ -39,7 +38,7 @@ public class CarpetPresident extends Panel {
     private int number;
     public CarpetPresident() {}
 
-    public void initTapisPresident(StringList _pseudos, NumberMap<Byte,Playing> _status,int _nombre) {
+    public void initTapisPresident(String _lg, StringList _pseudos, NumberMap<Byte,Playing> _status,int _nombre) {
         setLayout(new BorderLayout());
         number = _nombre;
         pseudos = _pseudos;
@@ -50,7 +49,7 @@ public class CarpetPresident extends Panel {
         listCards.clear();
         boolean entered_ = false;
         for (int c = CustList.FIRST_INDEX; c < number; c++) {
-            GraphicPresidentCard cg_=new GraphicPresidentCard(SwingConstants.RIGHT,!entered_);
+            GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,SwingConstants.RIGHT,!entered_);
             cg_.setPreferredSize(GraphicPresidentCard.getDimension(entered_));
             cg_.setVisible(false);
             centerDeck.add(cg_);
@@ -96,7 +95,7 @@ public class CarpetPresident extends Panel {
         centerDeck.validate();
     }
 
-    public void setTalonPresident(HandPresident _m) {
+    public void setTalonPresident(String _lg, HandPresident _m) {
         if (_m.estVide()) {
             return;
         }
@@ -106,7 +105,7 @@ public class CarpetPresident extends Panel {
         }
         for (int i = CustList.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
-            listCards.get(i).setCarteEnJeu(_m.carte(i));
+            listCards.get(i).setCarteEnJeu(_lg,_m.carte(i));
 //            listCards.get(i).repaint();
         }
         for (int i = len_; i < number; i++) {
@@ -125,7 +124,7 @@ public class CarpetPresident extends Panel {
 //        centerDeck.validate();
     }
 
-    public void setStatus(NumberMap<Byte,Playing> _status, byte _nextPlayer) {
+    public void setStatus(String _lg, NumberMap<Byte,Playing> _status, byte _nextPlayer) {
         cards.putAllMap(_status);
         for (byte p: cards.getKeys()) {
             JLabel l_ = labels.get(p);
@@ -134,7 +133,7 @@ public class CarpetPresident extends Panel {
             } else {
                 l_.setBackground(Color.WHITE);
             }
-            l_.setText(StringList.concat(pseudos.get(p),SEPARATOR,cards.getVal(p).toString(Constants.getLanguage())));
+            l_.setText(StringList.concat(pseudos.get(p),SEPARATOR,cards.getVal(p).toString(_lg)));
         }
         repaintValidate();
     }

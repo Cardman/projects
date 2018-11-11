@@ -1,6 +1,5 @@
 package aiki.game.fight;
 import aiki.DataBase;
-import aiki.Resources;
 import aiki.comments.Comment;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSending;
@@ -51,7 +50,6 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
@@ -62,7 +60,6 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
-import code.util.consts.Constants;
 
 @RwXml
 public final class Fighter {
@@ -76,9 +73,7 @@ public final class Fighter {
 
     public static final byte BACK = -100;
 
-    private static StringMap<String> _messages_ = new StringMap<String>();
-
-    private static final String FIGHTER = "aiki.game.fight.Fighter";
+    public static final String FIGHTER = "aiki.game.fight.Fighter";
 
     private static final String WON_EV = "wonEv";
 
@@ -339,10 +334,6 @@ public final class Fighter {
         initCreatureGeneral(_import);
         groundPlace=_placeTerrain;
         groundPlaceSubst=_placeTerrain;
-    }
-
-    static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), FIGHTER);
     }
 
     void initCreatureUser(PokemonPlayer _pokemon,DataBase _import){
@@ -1723,7 +1714,8 @@ public final class Fighter {
             moves.getVal(c).fullHeal();
         }
         String name_ = _import.translatePokemon(name);
-        comment.addMessage(_messages_.getVal(FULL_HEAL), name_);
+        StringMap<String> mess_ = _import.getMessagesFighter();
+        comment.addMessage(mess_.getVal(FULL_HEAL), name_);
     }
 
     void activerAttaqueFinTourIndividuel(String _attaque){
@@ -1920,8 +1912,9 @@ public final class Fighter {
         learnMoves(attaquesApprendre_, _import);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(moves.getKeys());
+        StringMap<String> mess_ = _import.getMessagesFighter();
         if(monteNiveau_>0){
-            comment.addMessage(_messages_.getVal(GROW_LEVEL), name_, Long.toString(achievedLevel_));
+            comment.addMessage(mess_.getVal(GROW_LEVEL), name_, Long.toString(achievedLevel_));
             winHappinessByGrowingLevel(monteNiveau_,_import);
             formeNormale(_import);
             fullHeal(_import);
@@ -2033,9 +2026,10 @@ public final class Fighter {
         }
         //whatever currentMoves.size <= _import.getNbMaxMoves()
         String name_ = _import.translatePokemon(name);
+        StringMap<String> mess_ = _import.getMessagesFighter();
         for (String m: _attaquesApprendre) {
             String move_ = _import.translateMove(m);
-            comment.addMessage(_messages_.getVal(LEARN_MOVE), name_, move_);
+            comment.addMessage(mess_.getVal(LEARN_MOVE), name_, move_);
         }
     }
 
@@ -2071,7 +2065,8 @@ public final class Fighter {
         comment.clearMessages();
         wonExp.addNb(_variation);
         String name_ = _import.translatePokemon(name);
-        comment.addMessage(_messages_.getVal(WON_EXP), name_, _variation.toNumberString());
+        StringMap<String> mess_ = _import.getMessagesFighter();
+        comment.addMessage(mess_.getVal(WON_EXP), name_, _variation.toNumberString());
     }
 
     void wonEvStatistic(Statistic _statistique,short _varEv,short _maxEv, DataBase _import){
@@ -2079,12 +2074,13 @@ public final class Fighter {
         short ev_=ev.getVal(_statistique);
         String name_ = _import.translatePokemon(name);
         String stat_ = _import.translateStatistics(_statistique);
+        StringMap<String> mess_ = _import.getMessagesFighter();
         if(ev_+_varEv<_maxEv){
             ev_=(short) (ev_+_varEv);
-            comment.addMessage(_messages_.getVal(WON_EV), name_, Long.toString(_varEv), stat_);
+            comment.addMessage(mess_.getVal(WON_EV), name_, Long.toString(_varEv), stat_);
         }else{
             ev_=_maxEv;
-            comment.addMessage(_messages_.getVal(WON_EV_MAX), name_, stat_);
+            comment.addMessage(mess_.getVal(WON_EV_MAX), name_, stat_);
         }
         ev.put(_statistique, ev_);
     }
@@ -2101,12 +2097,13 @@ public final class Fighter {
         mult_.multiplyBy(new Rate(_diffNiv));
         short maxBonheur_=(short) _import.getHappinessMax();
         String name_ = _import.translatePokemon(name);
+        StringMap<String> mess_ = _import.getMessagesFighter();
         if(happiness+mult_.ll()<=maxBonheur_){
             happiness=(short) (happiness +mult_.ll());
-            comment.addMessage(_messages_.getVal(WON_HAPPINESS), name_, mult_.toNumberString());
+            comment.addMessage(mess_.getVal(WON_HAPPINESS), name_, mult_.toNumberString());
         }else{
             happiness=maxBonheur_;
-            comment.addMessage(_messages_.getVal(MAX_HAPPINESS), name_);
+            comment.addMessage(mess_.getVal(MAX_HAPPINESS), name_);
         }
     }
 

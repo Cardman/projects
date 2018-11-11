@@ -18,9 +18,9 @@ import code.util.StringMap;
 
 public final class ElseCondition extends BracedStack implements BlockCondition, IncrNextGroup {
 
-    public ElseCondition(ContextEl _importingPage, int _indexChild,
+    public ElseCondition(ContextEl _importingPage,
             BracedBlock _m, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
     }
 
     @Override

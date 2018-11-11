@@ -37,7 +37,6 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.consts.ConstFiles;
-import code.util.consts.Constants;
 
 public final class EditorPresident extends DialogPresident implements SetterSelectedCardList {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.EditorPresident";
@@ -85,8 +84,10 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     public static void initEditorPresident(MainWindow _fenetre) {
+        String lg_ = _fenetre.getLanguageKey();
+        DIALOG.setMain(_fenetre);
         DIALOG.setDialogIcon(_fenetre);
-        DIALOG.setTitle(GameEnum.PRESIDENT.display());
+        DIALOG.setTitle(GameEnum.PRESIDENT.toString(lg_));
         DIALOG.setReglesPresident(_fenetre.getReglesPresident());
         DIALOG.partie = null;
         DIALOG.setToNullGame = true;
@@ -97,7 +98,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         DIALOG.setLocationRelativeTo(_fenetre);
         DIALOG.nickNames = _fenetre.getPseudosJoueurs();
         DIALOG.displayingPresident = _fenetre.getDisplayingPresident();
-        DIALOG.setDialogue(true, 0);
+        DIALOG.setDialogue(true, 0, _fenetre);
     }
 
     @Override
@@ -122,21 +123,21 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers) {
+    public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, MainWindow _window) {
         getJt().removeAll();
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
-        initMessageName();
+        initMessageName(_window);
         Numbers<Integer> decks_ = new Numbers<Integer>();
         //Panneau Distribution
         for(int b=FileConst.MIN_DEALS;b<=FileConst.MAX_DEALS;b++) {
             decks_.add(b);
         }
-        initJt(new JSpinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers);
+        initJt(new JSpinner(new SpinnerListModel(decks_.toArray())),_enabledChangingNbPlayers,_nbPlayers, _window);
         container_.add(getJt(),BorderLayout.CENTER);
         Panel panneau_=new Panel();
         LabelButton bouton_=new LabelButton(getMessages().getVal(NEXT));
-        bouton_.addMouseListener(new ValidateRulesDealEvent(this));
+        bouton_.addMouseListener(new ValidateRulesDealEvent(this, window));
         panneau_.add(bouton_);
         container_.add(panneau_,BorderLayout.SOUTH);
         setContentPane(container_);
@@ -144,13 +145,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void validateRulesDeal() {
+    public void validateRulesDeal(MainWindow _parent) {
         validateRules();
         getReglesPresident().setNbDeals((Integer)getNbGames().getValue());
-        distribuer();
+        distribuer(_parent);
     }
 
-    private void distribuer() {
+    private void distribuer(MainWindow _parent) {
         setTitle(getMessages().getVal(DEALING_CARDS));
         Panel c=new Panel();
         c.setLayout(new BorderLayout());
@@ -189,13 +190,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         PresidentCardsScrollableList plc_=new PresidentCardsScrollableList(nbCartesPJ_,pile_.total(),getMessages().getVal(DEALING_STACK));
         plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
         plc_.iniPilePresident(pile_);
-        plc_.initSelectionCartePresident();
+        plc_.initSelectionCartePresident(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         panelsCards=new Panel();
         stack = plc_;
         panelsCards.add(plc_);
         plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,getMessages().getVal(USER_HAND));
-        plc_.initSelectionCartePresident();
+        plc_.initSelectionCartePresident(_parent);
         plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
         plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
         panelsCards.add(plc_);
@@ -213,7 +214,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
             String message_ = getMessages().getVal(PLAYER_HAND);
             message_ = StringList.simpleStringsFormat(message_, n);
             plc_=new PresidentCardsScrollableList(nbCartesPJ_,nbCartesPJ_,message_);
-            plc_.initSelectionCartePresident();
+            plc_.initSelectionCartePresident(_parent);
             plc_.getListe().setListener(new ListenerClickCardsList(getMessages().getVal(SELECTED_CARDS), this));
             plc_.setTriPresident(displayingPresident.getCouleurs(), displayingPresident.getDecroissant());
             panelsCards.add(plc_);
@@ -248,19 +249,19 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
         panneau_=new Panel();
         bouton_=new LabelButton(getMessages().getVal(BACK));
-        bouton_.addMouseListener(new BackToRulesEvent(this));
+        bouton_.addMouseListener(new BackToRulesEvent(this, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_WITHOUT_CLOSING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_WITHOUT_CLOSING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_PLAY));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_PLAY, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(PLAY_WITHOUT_SAVING));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.PLAY_WITHOUT_SAVING, _parent));
         panneau_.add(bouton_);
         bouton_=new LabelButton(getMessages().getVal(SAVE_THEN_CLOSE));
-        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE));
+        bouton_.addMouseListener(new SavingDealEvent(this, SaveDealMode.SAVE_THEN_CLOSE, _parent));
         panneau_.add(bouton_);
         c.add(panneau_,BorderLayout.SOUTH);
         setContentPane(c);
@@ -269,17 +270,18 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void backToRules() {
+    public void backToRules(MainWindow _parent) {
         nombreCartesSelectionneesPrecedent=0;
         nombreCartesSelectionnees = 0;
         partieSauvegardee=false;
-        setDialogue(true,0);
+        setDialogue(true,0, _parent);
     }
 
     private void erreur(PresidentCardsScrollableList _plc) {
+        String lg_ = getMain().getLanguageKey();
         String mes_ = getMessages().getVal(ERROR_REPARTITION);
         mes_ = StringList.simpleNumberFormat(mes_, _plc.taille());
-        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+        ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_REPARTITION_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
         //JOptionPane.showMessageDialog(this,mes_,getMessages().getVal(ERROR_REPARTITION_TITLE), JOptionPane.ERROR_MESSAGE);
     }
 
@@ -311,10 +313,11 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     private String validerEgalite() {
+        String lg_ = window.getLanguageKey();
         if (window.isSaveHomeFolder()) {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, ConstFiles.getHomePath(), FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, ConstFiles.getHomePath(), FileConst.EXCLUDED);
         } else {
-            FileSaveDialog.setFileSaveDialog(this, Constants.getLanguage(), true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
+            FileSaveDialog.setFileSaveDialog(window,this, lg_, true, FileConst.GAME_EXT, EMPTY_STRING, FileConst.EXCLUDED);
         }
         String fichier_=FileSaveDialog.getStaticSelectedPath();
         if (fichier_ == null) {
@@ -333,6 +336,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
 
     @Override
     public void deplacerCartes() {
+        String lg_ = getMain().getLanguageKey();
         HandPresident m=new HandPresident();
         for (CardsScrollableList l: getHands(true)) {
             PresidentCardsScrollableList c_ = (PresidentCardsScrollableList) l;
@@ -354,7 +358,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
         } else {
             String mes_ = getMessages().getVal(ERROR_MOVE);
             mes_ = StringList.simpleStringsFormat(mes_, Long.toString(m.total()), Long.toString(max_-taille_), listeTwo.getSelectedComboItem());
-            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, mes_, getMessages().getVal(ERROR_MOVE_TITLE), lg_, JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -9,8 +9,8 @@ public class ContainerSimuPresident extends ContainerPresident implements
     private SimulationGamePresident animationSimulation;
     public ContainerSimuPresident(MainWindow _window) {
         super(_window);
-        setAnimChargement(new LoadingVideo(this));
         animationSimulation=new SimulationGamePresident(this);
+        setAnimChargement(new LoadingVideo(this,animationSimulation));
         animationSimulation.start();
         getAnimChargement().start();
     }

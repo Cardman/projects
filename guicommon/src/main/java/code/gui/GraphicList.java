@@ -58,6 +58,9 @@ public class GraphicList<T> extends CustComponent implements GraphicListable {
         rebuild();
     }
 
+    public boolean isOwned() {
+        return owned;
+    }
     public void add(T _elt) {
         add(list.size(),_elt);
     }

@@ -21,7 +21,6 @@ import code.gui.Panel;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.ints.Listable;
 
 public final class DialogDisplayingTarot extends DialogCards implements DialogDisplaying {
@@ -52,25 +51,26 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     public static void setDialogDisplayingTarot(String _titre, MainWindow _fenetre) {
         //super(_titre, _fenetre, true);
         DIALOG.setDialogIcon(_fenetre);
+        DIALOG.setMain(_fenetre);
         DIALOG.getJt().removeAll();
         DIALOG.setTitle(_titre);
         DIALOG.displayingTarot = _fenetre.getDisplayingTarot();
         DIALOG.setLocationRelativeTo(_fenetre);
         DIALOG.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        DIALOG.setDialogue();
+        DIALOG.setDialogue(_fenetre);
     }
 
-    private void initMessageName() {
+    private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
     }
     public static DisplayingTarot getDisplaying() {
         DIALOG.setVisible(true);
         return DIALOG.displayingTarot;
     }
 
-    public void setDialogue() {
-        initMessageName();
+    public void setDialogue(MainWindow _window) {
+        initMessageName(_window);
         Panel container_=new Panel();
         container_.setLayout(new BorderLayout());
         Panel panneau_=new Panel();
@@ -90,11 +90,12 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         EnumMap<Suit,String> trSuit_;
         trSuit_ = new EnumMap<Suit,String>();
         Listable<Suit> ls_ = new EnumList<Suit>(Suit.values());
+        String lg_ = _window.getLanguageKey();
         for (Suit couleur_:ls_) {
             if (couleur_ == Suit.UNDEFINED) {
                 continue;
             }
-            trSuit_.add(couleur_, couleur_.display());
+            trSuit_.add(couleur_, couleur_.toString(lg_));
         }
         listeChoix.refresh(ls_, trSuit_);
 //        for(Suit couleur_:Suit.values()) {
@@ -110,7 +111,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         bouton_.addMouseListener(new AddSuitEvent(this));
         sousPanneauTwo_.add(bouton_);
         bouton_=new LabelButton(messages.getVal(REMOVE_SUIT));
-        bouton_.addMouseListener(new RemoveSuitEvent(this));
+        bouton_.addMouseListener(new RemoveSuitEvent(this, _window));
         sousPanneauTwo_.add(bouton_);
         sortByDecreasing=new JCheckBox(messages.getVal(SORT_DECREASING));
         sortByDecreasing.setSelected(displayingTarot.getDecroissant());
@@ -119,7 +120,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         for (Suit chaine_:displayingTarot.getCouleurs()) {
             liste_.add(chaine_);
         }
-        orderedSuits=new SuitsScrollableList(liste_,5);
+        orderedSuits=new SuitsScrollableList(liste_,5, _window);
         liste_.clear();
         sousPanneau_.add(orderedSuits);
         getJt().add(messages.getVal(SORTING),sousPanneau_);
@@ -140,13 +141,14 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
     @Override
-    public void removeSuit() {
+    public void removeSuit(MainWindow _window) {
+        String lg_ = _window.getLanguageKey();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<5||listeChoix.getItemCount()<5) {
             EnumList<Suit> couleurs_=orderedSuits.getCouleursSelectionnees();
             orderedSuits.supprimerCouleurs(couleurs_);
             for (Suit couleur_:couleurs_) {
-                listeChoix.addItem(couleur_);
+                listeChoix.addItemLgKey(couleur_, lg_);
             }
         } else {
             orderedSuits.toutSupprimer();
@@ -156,7 +158,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
     @Override
     public void validateDisplaying() {
         if(orderedSuits.nombreDeCouleurs()<5) {
-            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), Constants.getLanguage(), JOptionPane.ERROR_MESSAGE);
+            ConfirmDialog.showMessage(this, messages.getVal(ERROR_SUITS), messages.getVal(ERROR_SUITS_TITLE), getMain().getLanguageKey(), JOptionPane.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(this,messages.getVal(ERROR_SUITS),messages.getVal(ERROR_SUITS_TITLE),JOptionPane.ERROR_MESSAGE);
         } else {
             displayingTarot.setHoraire(checkClockwise.isSelected());

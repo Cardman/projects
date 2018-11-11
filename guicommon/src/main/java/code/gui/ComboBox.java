@@ -9,15 +9,10 @@ import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
 public abstract class ComboBox<T extends Enum<T>> extends GraphicCombo {
-//implements TranslatableComponent
 
     private static final String EMPTY_STRING = "";
 
-//    private FacadeGame facade;
-
     private EnumList<T> order = new EnumList<T>();
-
-//    private Class<T> enumClass;
 
     private TreeMap<T,String> elements;
 
@@ -32,28 +27,6 @@ public abstract class ComboBox<T extends Enum<T>> extends GraphicCombo {
     protected TreeMap<T, String> getElements() {
         return elements;
     }
-//    public ComboBox(Class<T> _class){
-//        enumClass = _class;
-//    }
-
-//    protected FacadeGame getFacade() {
-//        return facade;
-//    }
-//
-//    public void setFacade(FacadeGame _facade) {
-//        facade = _facade;
-//    }
-
-//    @Override
-//    public void translate() {
-//        List<T> elements_ = new List<T>();
-//        for (T t: enumClass.getEnumConstants()) {
-//            elements_.add(t);
-//        }
-//        refresh(elements_, Constants.getLanguage(), true);
-//    }
-
-//    public abstract void refresh(List<T> _order, String _language, boolean _sortStrings);
 
     public void refresh(Listable<T> _order,ListableEntries<T,String> _tr) {
         order.clear();

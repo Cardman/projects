@@ -5,12 +5,11 @@ import code.util.StringList;
 
 public final class ParsedAnnotations {
 
-    private static final char BEGIN_BLOCK = '{';
-    private static final char END_BLOCK = '}';
     private static final char BEGIN_CALLING = '(';
     private static final char END_CALLING = ')';
     private static final char DEL_CHAR = '\'';
     private static final char DEL_STRING = '"';
+    private static final char DEL_TEXT = '`';
     private static final char ESCAPE = '\\';
     private static final char ANNOT = '@';
     private Numbers<Integer> annotationsIndexes = new Numbers<Integer>();
@@ -31,6 +30,7 @@ public final class ParsedAnnotations {
         StringBuilder annotation_ = new StringBuilder();
         boolean quoted_ = false;
         boolean quotedChar_ = false;
+        boolean quotedText_ = false;
         while (j_ < lenInst_) {
             char cur_ = instruction.charAt(j_);
             if (quotedChar_) {
@@ -61,6 +61,18 @@ public final class ParsedAnnotations {
                 j_++;
                 continue;
             }
+            if (quotedText_) {
+                if (cur_ == DEL_TEXT) {
+                    if (j_ + 1 < lenInst_ || instruction.charAt(j_ + 1) != DEL_TEXT) {
+                        quotedText_ = false;
+                        j_++;
+                        continue;
+                    }
+                    j_++;
+                }
+                j_++;
+                continue;
+            }
             if (cur_ == DEL_CHAR) {
                 annotation_.append(cur_);
                 quotedChar_ = true;
@@ -73,16 +85,16 @@ public final class ParsedAnnotations {
                 j_++;
                 continue;
             }
+            if (cur_ == DEL_TEXT) {
+                annotation_.append(cur_);
+                quotedText_ = true;
+                j_++;
+                continue;
+            }
             if (cur_ == END_CALLING) {
                 nbPars_--;
             }
-            if (cur_ == END_BLOCK) {
-                nbPars_--;
-            }
             if (cur_ == BEGIN_CALLING) {
-                nbPars_++;
-            }
-            if (cur_ == BEGIN_BLOCK) {
                 nbPars_++;
             }
             if (StringList.isWordChar(cur_) && nbPars_ == 0) {

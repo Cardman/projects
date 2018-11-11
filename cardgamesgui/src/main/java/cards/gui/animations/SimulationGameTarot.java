@@ -48,16 +48,21 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
     /**This class thread is independant from EDT*/
     public SimulationGameTarot(ContainerSimuTarot _container) {
         container = _container;
-        GameTarot.setChargementSimulation(0);
         HandTarot pile_=HandTarot.pileBase();
         DealTarot donne_=new DealTarot(0l,pile_);
         RulesTarot regles_ = container.getWindow().getReglesTarot();
         donne_.setRandomDealer(regles_);
         regles_.setCartesBattues(MixCardsChoice.EACH_DEAL);
         donne_.initDonne(regles_);
-        partieSimulee.jouerTarot(new GameTarot(GameType.EDIT,donne_,regles_));
+        GameTarot gt_ = new GameTarot(GameType.EDIT,donne_,regles_);
+        partieSimulee.jouerTarot(gt_);
+        gt_.setChargementSimulation(0);
         stopButton=new LabelButton(container.getMessages().getVal(MainWindow.STOP_DEMO));
         stopButton.addMouseListener(new StopEvent(this));
+    }
+    @Override
+    public Games getGames() {
+        return partieSimulee;
     }
     @Override
     public void stopSimulation() {
@@ -97,8 +102,9 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
     private void afficherMainUtilisateurSimuTarot(HandTarot _mainUtilisateur) {
         Panel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
+        String lg_ = container.getOwner().getLanguageKey();
         /*On place les cartes de l'utilisateur*/
-        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_mainUtilisateur)) {
+        for (GraphicTarotCard c: ContainerTarot.getGraphicCards(lg_,_mainUtilisateur)) {
             panneau1_.add(c);
         }
         panneau1_.repaint();
@@ -121,7 +127,7 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         container.getDemo().setEnabledMenu(false);
         //Activer le menu Partie/Pause
         container.getPause().setEnabledMenu(true);
-
+        String lg_ = container.getOwner().getLanguageKey();
         EqList<HandTarot> mainsUtilisateurs_=new EqList<HandTarot>();
         GameTarot partie_=partieTarotSimulee();
         partie_.simuler();
@@ -160,7 +166,7 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         container_.add(new JLabel(container.getMessages().getVal(MainWindow.HELP_GO_MENU),SwingConstants.CENTER),BorderLayout.NORTH);
         CarpetTarot tapis_=new CarpetTarot();
         StringList pseudos_ = pseudosSimuleeTarot();
-        tapis_.initTapisTarot(partie_.getNombreDeJoueurs(),container.getDisplayingTarot().getHoraire(),partie_.getDistribution().derniereMain().total());
+        tapis_.initTapisTarot(lg_,partie_.getNombreDeJoueurs(),container.getDisplayingTarot().getHoraire(),partie_.getDistribution().derniereMain().total());
         container.getTapis().setTapisTarot(tapis_);
         container_.add(tapis_,BorderLayout.CENTER);
         container.setPanelHand(new Panel());
@@ -200,7 +206,7 @@ public final class SimulationGameTarot extends Thread implements SimulationGame 
         container.setPanneauBoutonsJeu(sousPanneau_);
         panneau2_.add(sousPanneau_);
         container_.add(panneau2_,BorderLayout.EAST);
-        container.tapisTarot().setTalonTarot(partie_.getDistribution().derniereMain());
+        container.tapisTarot().setTalonTarot(lg_,partie_.getDistribution().derniereMain());
         contentPane_.add(container_);
         contentPane_.add(container.getWindow().getClock());
         contentPane_.add(container.getWindow().getLastSavedGameDate());

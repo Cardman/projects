@@ -13,7 +13,6 @@ import code.gui.Panel;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.consts.Constants;
 
 public final class DialogHelpPresident extends Dialog {
     private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogHelpPresident";
@@ -39,10 +38,10 @@ public final class DialogHelpPresident extends Dialog {
         DIALOG.setDialogIcon(_fenetre);
         DIALOG.setLocationRelativeTo(_fenetre);
         DIALOG.setTitle(_title);
-        DIALOG.initMessageName();
+        DIALOG.initMessageName(_fenetre);
     }
 
-    public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks) {
+    public static void setDialoguePresident(TreeMap<CardPresident, Byte> _playedCards, boolean _reversed, int _nbStacks, String _lg) {
         int count_ = Suit.couleursOrdinaires().size() * _nbStacks;
         Panel contentPane_ = new Panel();
         contentPane_.setLayout(new BoxLayout(contentPane_.getComponent(), BoxLayout.PAGE_AXIS));
@@ -56,7 +55,7 @@ public final class DialogHelpPresident extends Dialog {
             if (char_ == CardChar.UNDEFINED) {
                 panelCards_.add(new JLabel(Byte.toString(c.valeur())));
             } else {
-                panelCards_.add(new JLabel(char_.toString(Constants.getLanguage())));
+                panelCards_.add(new JLabel(char_.toString(_lg)));
             }
             byte pl_ = _playedCards.getVal(c);
             panelCards_.add(new JLabel(Byte.toString(pl_)));
@@ -78,8 +77,8 @@ public final class DialogHelpPresident extends Dialog {
         DIALOG.voir();
     }
 
-    private void initMessageName() {
+    private void initMessageName(MainWindow _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
-        messages = getMessages(FileConst.FOLDER_MESSAGES_GUI);
+        messages = getMessages(_parent,FileConst.FOLDER_MESSAGES_GUI);
     }
 }

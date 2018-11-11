@@ -7,7 +7,6 @@ import cards.tarot.enumerations.Miseres;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.TreeMap;
-import code.util.consts.Constants;
 
 public final class RulesTarotBean extends TarotBean {
 
@@ -30,12 +29,12 @@ public final class RulesTarotBean extends TarotBean {
     @Override
     public void beforeDisplaying() {
         RulesTarot rules_ = (RulesTarot) getDataBase();
-        cartesBattues=rules_.getCartesBattues().toString(Constants.getLanguage());
+        cartesBattues=rules_.getCartesBattues().toString(getLanguage());
         miseres = rules_.getMiseres();
 //        Map<BidTarot, Boolean> allowedBids_ = new Map<>(rules_.getContrats());
         contrats = rules_.getContratsAutorises();
-        mode = rules_.getMode().toString(Constants.getLanguage());
-        repartition = rules_.getRepartition().toString(Constants.getLanguage());
+        mode = rules_.getMode().toString(getLanguage());
+        repartition = rules_.getRepartition().toString(getLanguage());
         int nbCardsPerPlayer_ = rules_.getRepartition().getNombreCartesParJoueur();
         TreeMap<Handfuls,Integer> tr_;
         tr_ = new TreeMap<Handfuls,Integer>(new AllowedHandfulDefaultComparator(nbCardsPerPlayer_));
@@ -43,7 +42,7 @@ public final class RulesTarotBean extends TarotBean {
             tr_.put(e.getKey(), e.getValue());
         }
         poigneesAutorisees = tr_;
-        finPartieTarot = rules_.getFinPartieTarot().toString(Constants.getLanguage());
+        finPartieTarot = rules_.getFinPartieTarot().toString(getLanguage());
         discardAfterCall = rules_.getDiscardAfterCall();
     }
 

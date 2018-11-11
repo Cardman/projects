@@ -1,12 +1,11 @@
 package cards.belote.comparators;
-import code.util.ints.Comparing;
-
 import cards.belote.BidBeloteSuit;
 import cards.belote.GameBelote;
 import cards.belote.HandBelote;
 import cards.consts.Suit;
 import code.util.EnumMap;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class HandBeloteGreatNbPtsCards implements Comparing<Suit> {
 

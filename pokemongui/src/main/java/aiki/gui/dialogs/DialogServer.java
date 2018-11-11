@@ -6,9 +6,9 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import aiki.Resources;
+import aiki.gui.MainWindow;
 import code.gui.AbstractDialogServer;
 import code.gui.Dialog;
-import code.gui.GroupFrame;
 import code.gui.LabelButton;
 import code.gui.Panel;
 import code.gui.events.ClosingDialogEvent;
@@ -45,21 +45,21 @@ public final class DialogServer extends Dialog implements AbstractDialogServer{
         setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setDialogServer(GroupFrame _fenetre) {
+    public static void setDialogServer(MainWindow _fenetre) {
         DIALOG.init(_fenetre);
     }
-    private void init(GroupFrame _fenetre) {
+    private void init(MainWindow _fenetre) {
         setDialogIcon(_fenetre);
         join = false;
         create = false;
-        messages = getMessages(Resources.MESSAGES_FOLDER);
+        messages = getMessages(_fenetre,Resources.MESSAGES_FOLDER);
 //        messagesIp = FormatHtml.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), IpType.class);
         messagesIpEnum = new EnumMap<IpType,String>();
 //        for (String i: messagesIp.getKeys()) {
 //            messagesIpEnum.put(IpType.valueOf(i), messagesIp.getVal(i));
 //        }
         for (IpType i: IpType.values()) {
-            messagesIpEnum.put(i, i.display());
+            messagesIpEnum.put(i, i.toString(_fenetre.getLanguageKey()));
         }
         setLocationRelativeTo(_fenetre);
         setResizable(false);

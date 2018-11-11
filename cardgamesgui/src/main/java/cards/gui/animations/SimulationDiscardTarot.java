@@ -18,6 +18,7 @@ public final class SimulationDiscardTarot extends Thread {
 
     @Override
     public void run() {
-        container.tapisTarot().setEcart(hand);
+        String lg_ = container.getOwner().getLanguageKey();
+        container.tapisTarot().setEcart(lg_,hand);
     }
 }

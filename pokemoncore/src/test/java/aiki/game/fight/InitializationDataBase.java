@@ -1,5 +1,8 @@
 package aiki.game.fight;
 import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
@@ -20,7 +23,6 @@ import code.util.EnumMap;
 import code.util.NumberMap;
 import code.util.ObjectMap;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public class InitializationDataBase {
 
@@ -875,7 +877,8 @@ public class InitializationDataBase {
         initTranslations(data_);
         data_.setEndGameImage(new int[0][0]);
         //OK data, no homonyms
-        data_.validateCore();
+        AtomicInteger ai_ = new AtomicInteger();
+        data_.validateCore(ai_);
         assertTrue(!data_.isError());
         data_.validateConstants();
         assertTrue(!data_.isError());
@@ -891,6 +894,7 @@ public class InitializationDataBase {
 
     protected static DataBase coreDataBase() {
         DataBase data_ = new DataBase();
+        data_.setLanguage(LANGUAGE);
         data_.initializeMembers();
         InitializationPokedex.initAllPokemon(data_);
         InitializationPokedex.initAllSecondPokemons(data_);
@@ -1362,7 +1366,6 @@ public class InitializationDataBase {
             words_.put(p, p);
         }
         _data.getTranslatedTypes().put(LANGUAGE, words_);
-        Constants.setLanguage(LANGUAGE);
     }
 
     protected static void initRandomLaws(DataBase _data) {

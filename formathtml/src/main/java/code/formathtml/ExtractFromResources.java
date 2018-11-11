@@ -20,14 +20,14 @@ public final class ExtractFromResources {
     private ExtractFromResources() {
     }
 
-    public static String loadPage(Configuration _conf, StringMap<String> _files, String _link, String... _resourcesFolder) {
-        String link_ = getRealFilePath(_link);
+    public static String loadPage(String _lg, Configuration _conf, StringMap<String> _files, String _link, String... _resourcesFolder) {
+        String link_ = getRealFilePath(_lg,_link);
         String contents_ = getContentFile(_conf, _files, link_, _resourcesFolder);
         return contents_;
     }
 
-    static String getRealFilePath(String _link) {
-        return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,Constants.getLanguage(),SEPARATOR_PATH));
+    static String getRealFilePath(String _lg, String _link) {
+        return StringList.replace(_link, IMPLICIT_LANGUAGE, StringList.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
 
     static String getFormat(StringMap<String> _messages, String _key, Configuration _conf, String _loc, String _fileName) {

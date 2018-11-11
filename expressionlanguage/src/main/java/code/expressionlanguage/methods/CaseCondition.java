@@ -37,8 +37,8 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
     private int valueOffset;
 
     public CaseCondition(ContextEl _importingPage,
-            int _indexChild, BracedBlock _m, OffsetStringInfo _value, OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+            BracedBlock _m, OffsetStringInfo _value, OffsetsBlock _offset) {
+        super(_importingPage, _m, _offset);
         value = _value.getInfo();
         valueOffset = _value.getOffset();
     }

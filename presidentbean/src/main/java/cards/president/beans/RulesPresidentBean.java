@@ -2,7 +2,6 @@ package cards.president.beans;
 import cards.president.HandPresident;
 import cards.president.RulesPresident;
 import code.bean.Bean;
-import code.util.consts.Constants;
 
 final class RulesPresidentBean extends Bean {
 
@@ -31,10 +30,10 @@ final class RulesPresidentBean extends Bean {
     @Override
     public void beforeDisplaying() {
         RulesPresident rules_ = (RulesPresident) getDataBase();
-        cartesBattues=rules_.getMixedCards().toString(Constants.getLanguage());
+        cartesBattues=rules_.getMixedCards().toString(getLanguage());
         nbPlayers = rules_.getNbPlayers();
         nbStacks = rules_.getNbStacks();
-        equalty = rules_.getEqualty().toString(Constants.getLanguage());
+        equalty = rules_.getEqualty().toString(getLanguage());
         possibleReversing = rules_.isPossibleReversing();
         hasToPlay = rules_.isHasToPlay();
         loosingIfFinishByBestCards = rules_.isLoosingIfFinishByBestCards();

@@ -20,7 +20,6 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.consts.Constants;
 import code.util.opers.BaseSixtyFourUtil;
 
 public class GraphicBeloteCard extends PaintableLabel {
@@ -31,118 +30,47 @@ public class GraphicBeloteCard extends PaintableLabel {
     private boolean peinte;
     private boolean peindreCarte=true;
     private BufferedImage bufferedImage;
-    public GraphicBeloteCard(CardBelote _pc, boolean _fullCard) {
-        setHorizontalAlignment(SwingConstants.RIGHT);
-        setVerticalAlignment(SwingConstants.TOP);
-        fullCard=_fullCard;
+    private String lg;
+
+    public GraphicBeloteCard(String _lg, CardBelote _pc, int _i, boolean _fullCard) {
+        this(_lg,_i,_fullCard);
         peindreCarte = true;
         card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
         }
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), card.getImageFileName(FileConst.TXT_EXT));
-//            bufferedImage = ConverterBufferedImage.decodeToImage(file_);
-//            if (bufferedImage == null) {
-//                throw new BadImageCardException();
-//            }
-//        } catch (Exception e_) {
-//            e_.printStackTrace();
-////            try{
-////                bufferedImage = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.PNG_EXT));
-////                if (bufferedImage == null) {
-////                    throw new Exception();
-////                }
-////            }catch(Exception _e) {
-////                peinte=true;
-////            }
-//            peinte=true;
-//        }
     }
 
-    public GraphicBeloteCard(CardBelote _pc, int _i, boolean _fullCard) {
-        this(_i,_fullCard);
-        peindreCarte = true;
-        card=_pc;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
-                StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
-        bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
-        if (bufferedImage == null) {
-            peinte=true;
-        }
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), card.getImageFileName(FileConst.TXT_EXT));
-//            bufferedImage = ConverterBufferedImage.decodeToImage(file_);
-//            if (bufferedImage == null) {
-//                throw new BadImageCardException();
-//            }
-//        } catch (Exception e_) {
-////            try{
-////                bufferedImage = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.PNG_EXT));
-////                if (bufferedImage == null) {
-////                    throw new Exception();
-////                }
-////            }catch(Exception _e) {
-////                peinte=true;
-////            }
-//            peinte=true;
-//        }
-    }
-
-    public GraphicBeloteCard(int _i, boolean _fullCard) {
+    public GraphicBeloteCard(String _lg, int _i, boolean _fullCard) {
+        lg = _lg;
         setHorizontalAlignment(_i);
         setVerticalAlignment(SwingConstants.TOP);
         fullCard=_fullCard;
         peindreCarte = false;
     }
 
-    public static BufferedImage getImage(CardBelote _card) {
+    public static BufferedImage getImage(String _lg, CardBelote _card) {
         BufferedImage img_;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(getTxtImage(_card));
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(getTxtImage(_lg,_card));
         img_ = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (img_ == null) {
-            return getDefaultImage(_card);
+            return getDefaultImage(_lg,_card);
         }
         Graphics2D g_ = img_.createGraphics();
         g_.setColor(Color.BLACK);
         g_.drawRect(0,0, 99, 149);
         return img_;
-//        try {
-//            String file_ = StreamTextFile.ressourceFichier(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage(), _card.getImageFileName(FileConst.TXT_EXT));
-//            img_ = ConverterBufferedImage.decodeToImage(file_);
-//            if (img_ == null) {
-//                throw new BadImageCardException();
-//            }
-//            Graphics2D g_ = img_.createGraphics();
-//            g_.setColor(Color.BLACK);
-//            g_.drawRect(0,0, 99, 149);
-//            return img_;
-//        } catch (Exception e_) {
-////            try{
-////                img_ = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+_card.getImageFileName(FileConst.PNG_EXT));
-////                if (img_ == null) {
-////                    throw new Exception();
-////                }
-////                Graphics2D g_ = img_.createGraphics();
-////                g_.setColor(Color.BLACK);
-////                g_.drawRect(0,0, 99, 149);
-////                return img_;
-////            }catch(Exception _e) {
-////                return getDefaultImage(_card);
-////            }
-//            return getDefaultImage(_card);
-//        }
     }
 
-    public static String getTxtImage(CardBelote _card) {
-        return ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+    public static String getTxtImage(String _lg,CardBelote _card) {
+        return ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,_card.getImageFileName(FileConst.TXT_EXT)));
     }
 
-    public static BufferedImage getDefaultImage(CardBelote _card) {
+    public static BufferedImage getDefaultImage(String _lg, CardBelote _card) {
         BufferedImage img_ = new BufferedImage(100, 150, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g_ = img_.createGraphics();
         g_.setColor(Color.WHITE);
@@ -161,8 +89,8 @@ public class GraphicBeloteCard extends PaintableLabel {
                         g_.setColor(Color.BLACK);
                     }
                     g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                    g_.drawString(_card.getSymbol(Constants.getLanguage()),5,12);
-                    g_.drawString(_card.getSymbol(Constants.getLanguage()),83,12);
+                    g_.drawString(_card.getSymbol(_lg),5,12);
+                    g_.drawString(_card.getSymbol(_lg),83,12);
                     int xTabLen_ = coordonnees_[0].length;
                     for(int i=CustList.FIRST_INDEX;i<xTabLen_;i++) {
                         dessinerGrandSymbole(_card,g_,coordonnees_[0][i],coordonnees_[1][i]);
@@ -179,8 +107,8 @@ public class GraphicBeloteCard extends PaintableLabel {
                         g_.setColor(Color.BLACK);
                     }
                     g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                    g_.drawString(_card.getSymbol(Constants.getLanguage()),5,12);
-                    g_.drawString(_card.getSymbol(Constants.getLanguage()),83,12);
+                    g_.drawString(_card.getSymbol(_lg),5,12);
+                    g_.drawString(_card.getSymbol(_lg),83,12);
                     dessinerPetitSymbole(_card,g_,5,17);
                     dessinerPetitSymbole(_card,g_,85,17);
                     g_.rotate(Math.PI,50,75);
@@ -198,8 +126,8 @@ public class GraphicBeloteCard extends PaintableLabel {
                     g_.setColor(Color.BLACK);
                 }
                 g_.setFont(new Font(DEFAULT,Font.BOLD,12));
-                g_.drawString(_card.getSymbol(Constants.getLanguage()),5,12);
-                g_.drawString(_card.getSymbol(Constants.getLanguage()),83,12);
+                g_.drawString(_card.getSymbol(_lg),5,12);
+                g_.drawString(_card.getSymbol(_lg),83,12);
                 dessinerPetitSymbole(_card,g_,5,17);
                 dessinerPetitSymbole(_card,g_,85,17);
                 if(_card.getNomFigure() == CardChar.QUEEN) {
@@ -265,40 +193,28 @@ public class GraphicBeloteCard extends PaintableLabel {
     public static Dimension getDimensionForSeveralCards(int _number) {
         return new Dimension(100 + 25 * (_number - 1), 150);
     }
-    void setCarte(CardBelote _pc) {
+    void setCarte(String _lg,CardBelote _pc) {
+        lg = _lg;
         card=_pc;
         peinte=false;
         peindreCarte=true;
-        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,Constants.getLanguage(),
+        int[][] file_ = BaseSixtyFourUtil.getImageByString(ResourceFiles.ressourceFichier(StringList.concat(FileConst.RESOURCES_IMAGES,StreamTextFile.SEPARATEUR,_lg,
                 StreamTextFile.SEPARATEUR,card.getImageFileName(FileConst.TXT_EXT))));
         bufferedImage = ConverterGraphicBufferedImage.decodeToImage(file_);
         if (bufferedImage == null) {
             peinte=true;
         }
-//        try {
-//            if (bufferedImage == null) {
-//                throw new BadImageCardException();
-//            }
-//        } catch (Exception e_) {
-////            try{
-////                bufferedImage = StreamImageFile.resourceBufferedImage(FileConst.RESOURCES_IMAGES+StreamTextFile.SEPARATEUR+Constants.getLanguage()+StreamTextFile.SEPARATEUR+card.getImageFileName(FileConst.PNG_EXT));
-////                if (bufferedImage == null) {
-////                    throw new Exception();
-////                }
-////            }catch(Exception _e) {
-////                peinte=true;
-////            }
-//            peinte=true;
-//        }
     }
     public CardBelote getCard() {
         return card;
     }
-    public void setCarteEnJeu(CardBelote _carte) {
+    public void setCarteEnJeu(String _lg, CardBelote _carte) {
         peindreCarte=true;
-        setCarte(_carte);
+        lg = _lg;
+        setCarte(_lg,  _carte);
     }
-    public void setJeu() {
+    public void setJeu(String _lg) {
+        lg = _lg;
         peindreCarte=false;
     }
     boolean coupeHorizontal() {
@@ -316,7 +232,7 @@ public class GraphicBeloteCard extends PaintableLabel {
             _g2.drawRect(0,0,getWidth()-1,getHeight()-1);
             _g2.setColor(Color.BLUE);
             _g2.setFont(new Font(DEFAULT,Font.BOLD,20));
-            _g2.drawString(GameEnum.BELOTE.display(),20,80);
+            _g2.drawString(GameEnum.BELOTE.toString(lg),20,80);
             return;
         }
         if(!peinte) {
@@ -336,9 +252,9 @@ public class GraphicBeloteCard extends PaintableLabel {
         }
         if(fullCard) {
             //whole card
-            g.drawImage(getDefaultImage(card), 0, 0, null);
+            g.drawImage(getDefaultImage(lg,card), 0, 0, null);
         } else {
-            g.drawImage(getDefaultImage(card), -75, 0, null);
+            g.drawImage(getDefaultImage(lg,card), -75, 0, null);
         }
     }
     private static int[][] coordonnees(CardBelote _card) {

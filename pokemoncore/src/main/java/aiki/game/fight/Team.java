@@ -1,6 +1,5 @@
 package aiki.game.fight;
 import aiki.DataBase;
-import aiki.Resources;
 import aiki.comments.Comment;
 import aiki.fight.abilities.AbilityData;
 import aiki.game.params.Difficulty;
@@ -9,7 +8,6 @@ import aiki.map.pokemon.PkTrainer;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import code.maths.LgInt;
-import code.sml.util.ExtractFromFiles;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -22,7 +20,6 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.annot.RwXml;
 import code.util.comparators.ComparatorPairNumber;
-import code.util.consts.Constants;
 import code.util.ints.Listable;
 
 @RwXml
@@ -32,13 +29,11 @@ public final class Team {
     public static final String EQUIPE_ADV_NB_UTILISATION = "EQUIPE_ADV_NB_UTILISATION";
     public static final String NB_UTILI_ATT_EQ_TOUR = "NB_UTILI_ATT_EQ_TOUR";
 
-    private static final String TEAM = "aiki.game.fight.Team";
+    public static final String TEAM = "aiki.game.fight.Team";
 
     private static final String CANCEL_USE_ITEM = "cancelUseItem";
 
     private static final String USE_ITEM = "useItem";
-
-    private static StringMap<String> _messages_ = new StringMap<String>();
 
     /***/
     private ObjectMap<StringList,ActivityOfMove> enabledMovesByGroup;
@@ -124,11 +119,6 @@ public final class Team {
         healAfter = new StringMap<NumberMap<Byte,StacksOfUses>>();
         movesAnticipation = new StringMap<NumberMap<Byte,Anticipation>>();
         successfulMovesRound = new StringList();
-    }
-
-    static void initMessages() {
-        _messages_ = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, Constants.getLanguage(), TEAM);
-        Fighter.initMessages();
     }
 
     void initEquipeUtilisateur(Player _utilisateur, Difficulty _diff,
@@ -693,6 +683,7 @@ public final class Team {
                 break;
             }
         }
+        StringMap<String> mess_ = _import.getMessagesTeam();
         for(byte c2_: getMembers().getKeys()){
             Fighter creature_= refPartMembres(c2_);
             creature_.setLastUsedMove();
@@ -700,11 +691,11 @@ public final class Team {
             String name_ = _import.translatePokemon(creature_.getName());
             if (!cancelUsingItems_) {
                 if (creature_.isUsingItem()) {
-                    comment.addMessage(_messages_.getVal(USE_ITEM), name_);
+                    comment.addMessage(mess_.getVal(USE_ITEM), name_);
                 }
                 creature_.tossLastUsedObject();
             } else {
-                comment.addMessage(_messages_.getVal(CANCEL_USE_ITEM), name_);
+                comment.addMessage(mess_.getVal(CANCEL_USE_ITEM), name_);
             }
             creature_.setUsingItem(false);
         }

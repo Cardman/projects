@@ -36,7 +36,6 @@ import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 
 public class ContainerGame implements Packable, Containable {
 
@@ -53,7 +52,7 @@ public class ContainerGame implements Packable, Containable {
     private MainWindow window;
     /**Parametres d'informations sur
     des pseudonymes*/
-    private Nicknames pseudosJoueurs=new Nicknames(Constants.getLanguage());
+    private Nicknames pseudosJoueurs;
     private RulesTarot reglesTarot=new RulesTarot();
     private RulesPresident reglesPresident=new RulesPresident();
     private RulesBelote reglesBelote=new RulesBelote();
@@ -80,6 +79,7 @@ public class ContainerGame implements Packable, Containable {
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
     public ContainerGame(MainWindow _window) {
+        pseudosJoueurs=new Nicknames(_window.getLanguageKey());
         setWindow(_window);
         setParametres(_window.getParametresLogiciel());
         setReglesTarot(_window.getReglesTarot());
@@ -162,7 +162,7 @@ public class ContainerGame implements Packable, Containable {
         getWindow().pack();
     }
     @Override
-    public MainWindow getOwner() {
+    public final MainWindow getOwner() {
         return getWindow();
     }
     protected Panel getPane() {

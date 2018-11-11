@@ -44,7 +44,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
     }
 
     /**Retourne l'esperance d'une loi de probabilite en tenant compte du biais du reste.*/
-    public Rate getRealAvg(){
+    public Rate getRealAvg(LgInt _max){
         Rate sommeNum_=Rate.zero();
         LgInt sommeDen_=LgInt.zero();
         ObjectMap<Rate,LgInt> law_=new ObjectMap<Rate,LgInt>();
@@ -56,7 +56,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         if (sommeDen_.isZero()) {
             return Rate.zero();
         }
-        LgInt plusGdNbAlea_=maxNumber();
+        LgInt plusGdNbAlea_=maxNumber(_max);
         plusGdNbAlea_.increment();
         LgInt quotient_ = LgInt.divide(plusGdNbAlea_, sommeDen_);
         LgInt remain_ = LgInt.remain(plusGdNbAlea_, sommeDen_);

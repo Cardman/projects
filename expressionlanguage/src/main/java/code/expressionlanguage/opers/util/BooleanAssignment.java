@@ -85,22 +85,6 @@ public class BooleanAssignment extends Assignment {
         }
         return r_;
     }
-    public BooleanAssignment ternary(BooleanAssignment _o) {
-        BooleanAssignment r_ = new BooleanAssignment();
-        if (isAssignedAfterWhenTrue() && _o.isAssignedAfterWhenTrue()) {
-            r_.setAssignedAfterWhenTrue(true);
-        }
-        if (isAssignedAfterWhenFalse() && _o.isAssignedAfterWhenFalse()) {
-            r_.setAssignedAfterWhenFalse(true);
-        }
-        if (isUnassignedAfterWhenTrue() && _o.isUnassignedAfterWhenTrue()) {
-            r_.setUnassignedAfterWhenTrue(true);
-        }
-        if (isUnassignedAfterWhenFalse() && _o.isUnassignedAfterWhenFalse()) {
-            r_.setUnassignedAfterWhenFalse(true);
-        }
-        return r_;
-    }
     public boolean isAssignedAfterWhenFalse() {
         return assignedAfterWhenFalse;
     }

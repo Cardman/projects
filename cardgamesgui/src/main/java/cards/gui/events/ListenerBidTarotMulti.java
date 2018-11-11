@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.BiddingTarot;
 import cards.tarot.enumerations.BidTarot;
-import code.util.consts.Constants;
 
 public class ListenerBidTarotMulti extends MouseAdapter {
 
@@ -26,7 +25,8 @@ public class ListenerBidTarotMulti extends MouseAdapter {
         BiddingTarot bid_ = new BiddingTarot();
         bid_.setBid(enchere);
         bid_.setPlace(container.getIndexInGame());
-        bid_.setLocale(Constants.getLanguage());
+        String lg_ = container.getOwner().getLanguageKey();
+        bid_.setLocale(lg_);
         container.getOwner().sendObject(bid_);
     }
 }

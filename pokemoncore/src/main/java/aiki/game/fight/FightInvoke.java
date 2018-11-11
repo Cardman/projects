@@ -67,7 +67,7 @@ final class FightInvoke {
         if (FightSuccess.isBadSimulation(_fight, loi_)) {
             return;
         }
-        String obj_ = FightSuccess.random(_fight, loi_);
+        String obj_ = FightSuccess.random(_import, loi_);
         creatureLanceur_.ajouterAttaquesDejaInvoqueesTour(obj_);
     }
 

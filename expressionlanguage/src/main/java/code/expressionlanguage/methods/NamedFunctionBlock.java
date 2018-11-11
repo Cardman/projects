@@ -46,13 +46,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private CustList<CustList<CustList<OperationNode>>> annotationsOpsParams = new CustList<CustList<CustList<OperationNode>>>();
 
     public NamedFunctionBlock(ContextEl _importingPage,
-            int _indexChild, BracedBlock _m,
+            BracedBlock _m,
             OffsetAccessInfo _access,
             OffsetStringInfo _retType, OffsetStringInfo _fctName,
             StringList _paramTypes, Numbers<Integer> _paramTypesOffset,
             StringList _paramNames, Numbers<Integer> _paramNamesOffset,
             OffsetsBlock _offset) {
-        super(_importingPage, _indexChild, _m, _offset);
+        super(_importingPage, _m, _offset);
         importedParametersTypes = new StringList();
         name = _fctName.getInfo();
         nameOffset = _fctName.getOffset();

@@ -8,8 +8,8 @@ public class ContainerSimuBelote extends ContainerBelote implements ContainerSim
     private SimulationGameBelote animationSimulation;
     public ContainerSimuBelote(MainWindow _window) {
         super(_window);
-        setAnimChargement(new LoadingVideo(this));
         animationSimulation=new SimulationGameBelote(this);
+        setAnimChargement(new LoadingVideo(this,animationSimulation));
         animationSimulation.start();
         getAnimChargement().start();
     }
