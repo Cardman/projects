@@ -187,6 +187,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         parent = _parent;
         init = _context.init;
         keyWords = _context.keyWords;
+        sensibleFields = _context.sensibleFields;
         _context.children.add(this);
     }
     public boolean isSensibleField(String _clName) {

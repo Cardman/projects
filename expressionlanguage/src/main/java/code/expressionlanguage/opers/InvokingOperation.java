@@ -1323,7 +1323,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             ElementBlock b_ = (ElementBlock)b;
             String fieldName_ = b_.getUniqueFieldName();
-            enums_.add(classes_.getStaticField(new ClassField(id_, fieldName_),c_));
+            Struct str_ = classes_.getStaticField(new ClassField(id_, fieldName_),c_);
+            _conf.getContextEl().addSensibleField(id_, str_);
+            enums_.add(str_);
         }
         Struct[] o_ = new Struct[enums_.size()];
         int i_ = CustList.FIRST_INDEX;
@@ -1355,7 +1357,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String fieldName_ = b_.getUniqueFieldName();
             if (StringList.quickEq(fieldName_, (String) _name.getObject())) {
                 Argument argres_ = new Argument();
-                argres_.setStruct(classes_.getStaticField(new ClassField(_class, fieldName_),c_));
+                Struct str_ = classes_.getStaticField(new ClassField(_class, fieldName_),c_);
+                _conf.getContextEl().addSensibleField(_class, str_);
+                argres_.setStruct(str_);
                 return argres_;
             }
         }
