@@ -92,7 +92,6 @@ public final class Classes {
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
     private CustList<OperatorBlock> operators;
-    private LgNames stds;
 
     public Classes(){
         classesBodies = new StringMap<RootBlock>();
@@ -101,9 +100,6 @@ public final class Classes {
         warningsDet = new WarningList();
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<OperatorBlock>();
-    }
-    public void setStds(LgNames _stds) {
-        stds = _stds;
     }
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);

@@ -987,7 +987,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     public void setStandards(LgNames _standards) {
         standards = _standards;
-        classes.setStds(_standards);
     }
 
     @Override
