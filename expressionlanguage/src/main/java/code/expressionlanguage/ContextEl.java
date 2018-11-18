@@ -1068,6 +1068,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (calls()) {
             return true;
         }
+        if (failInit) {
+            return true;
+        }
         return exception != null;
     }
 
