@@ -166,7 +166,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = InvokingOperation.getElement(array_, o_, _conf);
-            if (_conf.getException() != null) {
+            if (_conf.hasExceptionOrFailInit()) {
                 return a_;
             }
         }
@@ -199,8 +199,10 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             Object o_ = chidren_.get(i).getArgument().getObject();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
+            Struct cont_ = array_;
             array_ = InvokingOperation.getElement(array_, o_, _conf);
-            if (_conf.getException() != null) {
+            _conf.getContextEl().addSensibleField(cont_, array_);
+            if (_conf.getContextEl().hasException()) {
                 return a_;
             }
         }
@@ -278,7 +280,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         a_.setStruct(affectArray(array_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _right, _conf, _convert));
-        if (_conf.getException() != null) {
+        if (_conf.hasExceptionOrFailInit()) {
             return a_;
         }
         setSimpleArgument(a_, _conf, _nodes);
@@ -294,7 +296,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = getPreviousArgument().getStruct();
         a_.setStruct(affectArray(array_, last_, lastElement_.getIndexInEl(), _right, _conf, _convert));
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(a_, _conf);
@@ -313,7 +315,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         a_.setStruct(compoundAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op,_right, _conf));
-        if (_conf.getException() != null) {
+        if (_conf.hasExceptionOrFailInit()) {
             return a_;
         }
         setSimpleArgument(a_, _conf, _nodes);
@@ -332,7 +334,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = getPreviousArgument().getStruct();
         a_.setStruct(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(a_, _conf);
@@ -351,7 +353,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         a_.setStruct(semiAffectArray(array_, store_, _nodes.getVal(lastElement_).getArgument(), lastElement_.getIndexInEl(), _op, _post, _conf));
-        if (_conf.getException() != null) {
+        if (_conf.hasExceptionOrFailInit()) {
             return a_;
         }
         setSimpleArgument(a_, _conf, _nodes);
@@ -370,7 +372,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         Struct array_;
         array_ = getPreviousArgument().getStruct();
         a_.setStruct(semiAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(a_, _conf);
@@ -379,7 +381,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ExecutableCode _conf, boolean _convert) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Object o_ = _index.getObject();
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _right.getStruct();
         }
         InvokingOperation.setElement(_array, o_, _right.getStruct(), _conf, _convert);
@@ -389,7 +391,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Object o_ = _index.getObject();
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
         Argument left_ = new Argument();
@@ -406,7 +408,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
         InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf, false);
@@ -415,7 +417,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
     Struct semiAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, boolean _post, ExecutableCode _conf) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Object o_ = _index.getObject();
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
         Argument left_ = new Argument();
@@ -432,7 +434,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         Argument res_;
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return _stored;
         }
         InvokingOperation.setElement(_array, o_, res_.getStruct(), _conf, false);
@@ -440,5 +442,38 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             return left_.getStruct();
         }
         return res_.getStruct();
+    }
+
+    @Override
+    public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
+        Struct array_;
+        array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = _nodes.getVal(this).getArgument();
+        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        OperationNode lastElement_ = chidren_.last();
+        Argument index_ = _nodes.getVal(lastElement_).getArgument();
+        InvokingOperation.setElement(array_, index_.getObject(), _right.getStruct(), _conf, false);
+        if (_conf.hasExceptionOrFailInit()) {
+            return a_;
+        }
+        setSimpleArgument(_right, _conf, _nodes);
+        return _right;
+    }
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+        Struct array_;
+        array_ = getPreviousArgument().getStruct();
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        Argument a_ = getArgument();
+        setRelativeOffsetPossibleLastPage(chidren_.first().getIndexInEl(), _conf);
+        OperationNode lastElement_ = chidren_.last();
+        Argument index_ = lastElement_.getArgument();
+        InvokingOperation.setElement(array_, index_.getObject(), _right.getStruct(), _conf, false);
+        if (_conf.getContextEl().hasException()) {
+            return a_;
+        }
+        setSimpleArgument(_right, _conf);
+        return _right;
     }
 }

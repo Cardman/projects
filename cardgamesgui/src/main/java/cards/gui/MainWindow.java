@@ -813,23 +813,6 @@ public final class MainWindow extends NetGroupFrame {
                 vl_.add((long)0);
             }
         }
-//        File fichier_=new File(LaunchingCards.getTempFolderSl()+FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE);
-//        boolean lu_ = false;
-//        try {
-//            BufferedReader br_=new BufferedReader(new FileReader(fichier_));
-//            for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
-//                vl_.add(Long.parseLong(br_.readLine()));
-//            }
-//            lu_ = true;
-//            br_.close();
-//        } catch (Exception exc_) {
-//            if(!lu_) {
-//                vl_=new CustList<Long>();
-//                for (int indice_ = CustList.FIRST_INDEX; indice_ < total_; indice_++) {
-//                    vl_.add((long)0);
-//                }
-//            }
-//        }
         //Si l'action de battre les cartes est faite a chaque lancement
         //de logiciel alors le nombre de parties est remis a zero lors
         //d'une fermeture de logiciel
@@ -844,26 +827,10 @@ public final class MainWindow extends NetGroupFrame {
             vl_.set(GameEnum.TAROT.ordinal(), (long)0);
         }
         StreamTextFile.saveTextFile(fileName_, vl_.join(LINE_RETURN));
-//        try {
-//            BufferedWriter bw_=new BufferedWriter(new FileWriter(fichier_));
-//            for (int indice_ = CustList.FIRST_INDEX;indice_<total_;indice_++) {
-//                bw_.write(vl_.get(indice_).toString());
-//                bw_.newLine();
-//            }
-//            bw_.close();
-//        } catch (Exception exc_) {}
     }
     private void ecrireCoordonnees() {
         Point point_=getLocation();
         SoftApplicationCore.saveCoords(LaunchingCards.getTempFolder(), FileConst.COORDS, point_.x,point_.y);
-//        try {
-//            ObjectOutputStream oos_=new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(FileConst.COORDS))));
-//            oos_.writeObject(new int[]{point_.x,point_.y});
-//            oos_.close();
-//        } catch (Exception exc_)
-//        {
-//            exc_.printStackTrace();
-//        }
     }
     public int getNoClient() {
         return ((ContainerMulti)containerGame).getNoClient();

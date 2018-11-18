@@ -41,4 +41,5 @@ public interface GeneType extends AccessibleBlock {
     String getFullName();
     StringList getDirectGenericSuperTypesBuild(Analyzable _classes);
     StringList getDirectGenericSuperTypes(Analyzable _classes);
+    StringList getAllGenericSuperTypes(Analyzable _classes);
 }

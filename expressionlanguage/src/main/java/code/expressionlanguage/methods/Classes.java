@@ -80,7 +80,7 @@ public final class Classes {
     private final StringMap<RootBlock> classesBodies;
     private final StringMap<FileBlock> filesBodies;
 
-    private final StringMap<StringMap<Struct>> staticFields;
+    private StringMap<StringMap<Struct>> staticFields;
 
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
@@ -92,6 +92,7 @@ public final class Classes {
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
     private CustList<OperatorBlock> operators;
+    private LgNames stds;
 
     public Classes(){
         classesBodies = new StringMap<RootBlock>();
@@ -101,7 +102,9 @@ public final class Classes {
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<OperatorBlock>();
     }
-    
+    public void setStds(LgNames _stds) {
+        stds = _stds;
+    }
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
     }
@@ -354,27 +357,64 @@ public final class Classes {
         Classes classes_ = _context.getClasses();
         Classes.buildPredefinedBracesBodies(_context);
         Classes.tryBuildBracedClassesBodies(_files, _context);
-        if (!classes_.isEmptyErrors()) {
-            return;
-        }
         classes_.validateInheritingClasses(_context, false);
-        if (!classes_.isEmptyErrors()) {
-            return;
-        }
-        
         classes_.validateIds(_context);
         classes_.validateOverridingInherit(_context);
-        if (!classes_.isEmptyErrors()) {
-            return;
-        }
         classes_.validateEl(_context);
         TypeUtil.checkInterfaces(_context, classes_.classesBodies.getKeys());
         if (!classes_.isEmptyErrors()) {
+            //all errors are logged here
             return;
         }
         _context.setAnalyzing(null);
         Classes cl_ = _context.getClasses();
-        cl_.getLocks().init(_context);
+        StringList success_ = new StringList();
+        DefaultLockingClass dl_ = cl_.getLocks();
+        dl_.init(_context,success_);
+        StringList all_ = new StringList();
+        for (String s: classes_.classesBodies.getKeys()) {
+            if (classes_.isSuccessfulInitialized(s)) {
+                continue;
+            }
+            all_.add(s);
+        }
+        _context.setInitEnums(true);
+        while (true) {
+            StringList new_ = new StringList();
+            for (String c: all_) {
+                _context.resetInitEnums();
+                StringMap<StringMap<Struct>> bk_ = new StringMap<StringMap<Struct>>();
+                for (EntryCust<String, StringMap<Struct>> e: classes_.staticFields.entryList()) {
+                    StringMap<Struct> b_ = new StringMap<Struct>();
+                    for (EntryCust<String, Struct> f: e.getValue().entryList()) {
+                        b_.addEntry(f.getKey(), f.getValue());
+                    }
+                    bk_.addEntry(e.getKey(), b_);
+                }
+                ProcessMethod.initializeClassPre(c, _context);
+                if (_context.isFailInit()) {
+                    StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
+                    for (EntryCust<String, StringMap<Struct>> e: bk_.entryList()) {
+                        StringMap<Struct> b_ = new StringMap<Struct>();
+                        for (EntryCust<String, Struct> f: e.getValue().entryList()) {
+                            b_.addEntry(f.getKey(), f.getValue());
+                        }
+                        bkSt_.addEntry(e.getKey(), b_);
+                    }
+                    classes_.staticFields = bkSt_;
+                } else {
+                    success_.add(c);
+                    new_.add(c);
+                }
+            }
+            dl_.init(_context,success_);
+            all_.removeAllElements(new_);
+            if (new_.isEmpty()) {
+                break;
+            }
+        }
+        _context.resetInitEnums();
+        _context.setInitEnums(false);
     }
     
     public static void buildPredefinedBracesBodies(ContextEl _context) {
@@ -493,21 +533,33 @@ public final class Classes {
         validateInheritingClassesId(_context, _predefined);
         Classes classes_ = _context.getClasses();
         StringList sorted_ =  _context.getSortedTypes(_predefined);
-        if (sorted_ == null) {
-            return;
-        }
-        for (String s: sorted_) {
-            RootBlock c_ = getClassBody(s);
-            _context.getAnalyzing().setCurrentBlock(c_);
-            c_.buildDirectGenericSuperTypes(_context);
-        }
-        for (RootBlock c: classes_.getClassBodies()) {
-            if (c.getFile().isPredefined() != _predefined) {
-                continue;
+        if (sorted_ != null) {
+            for (String s: sorted_) {
+                RootBlock c_ = getClassBody(s);
+                _context.getAnalyzing().setCurrentBlock(c_);
+                c_.buildDirectGenericSuperTypes(_context);
             }
-            RootBlock bl_ = c;
-            _context.getAnalyzing().setCurrentBlock(bl_);
-            bl_.buildMapParamType(_context);
+            for (RootBlock c: classes_.getClassBodies()) {
+                if (c.getFile().isPredefined() != _predefined) {
+                    continue;
+                }
+                RootBlock bl_ = c;
+                _context.getAnalyzing().setCurrentBlock(bl_);
+                bl_.buildMapParamType(_context);
+            }
+        } else {
+            //Error but continue
+            for (RootBlock c: clBodies_) {
+                c.buildErrorDirectGenericSuperTypes(_context);
+            }
+            for (RootBlock c: classes_.getClassBodies()) {
+                if (c.getFile().isPredefined() != _predefined) {
+                    continue;
+                }
+                RootBlock bl_ = c;
+                _context.getAnalyzing().setCurrentBlock(bl_);
+                bl_.buildErrorMapParamType(_context);
+            }
         }
         for (RootBlock c: classes_.getClassBodies()) {
             if (c.getFile().isPredefined() != _predefined) {
@@ -568,9 +620,6 @@ public final class Classes {
                 }
             }
         }
-        if (!isEmptyErrors()) {
-            return;
-        }
         classes_.validateSingleParameterizedClasses(_context);
         checkTemplatesDef(_context, _predefined, objectClassName_);
     }
@@ -630,7 +679,7 @@ public final class Classes {
                     String s = e.getValue();
                     s = ContextEl.removeDottedSpaces(s);
                     String idSuper_ = Templates.getIdFromAllTypes(s);
-                    int offset_ = r_.getRowColDirectSuperTypes().getKey(index_);
+                    int offset_ = e.getKey();
                     RowCol rc_ = r_.getRowCol(0, offset_);
                     if (StringList.quickEq(idSuper_, objectClassName_)) {
                         UnknownClassName undef_;
@@ -898,9 +947,17 @@ public final class Classes {
                 r_.getAllSuperTypes().add(objectClassName_);
                 if (nbDirectSuperClass_ <= 1) {
                     String s_ = dirSuper_;
+                    StringList line_ = new StringList();
                     while (!StringList.quickEq(s_, objectClassName_)) {
+                        if (line_.containsStr(s_)) {
+                            break;
+                        }
+                        line_.add(s_);
                         r_.getAllSuperClasses().add(s_);
                         RootBlock sup_ = getClassBody(s_);
+                        if (sup_ == null) {
+                            break;
+                        }
                         String dirSup_ = objectClassName_;
                         for (String d: sup_.getImportedDirectBaseSuperTypes()) {
                             RootBlock sTwo_ = getClassBody(d);
@@ -939,9 +996,6 @@ public final class Classes {
                 break;
             }
             stClNames_.removeAllElements(next_);
-        }
-        if (!isEmptyErrors()) {
-            return;
         }
         if (instClBodies_.isEmpty()) {
             return;
@@ -1099,9 +1153,6 @@ public final class Classes {
                     addError(enum_);
                 }
             }
-            if (!isEmptyErrors()) {
-                return;
-            }
             EqList<ClassEdge> cycle_ = inherit_.elementsCycle();
             if (!cycle_.isEmpty()) {
                 for (ClassEdge c: cycle_) {
@@ -1114,7 +1165,6 @@ public final class Classes {
                     b_.setRc(type_.getRowCol(0, type_.getIdRowCol()));
                     addError(b_);
                 }
-                return;
             }
             for (EntryCust<String, StringList> e: dirSuperTypes_.entryList()) {
                 RootBlock r_ = _context.getClasses().getClassBody(e.getKey());
@@ -1144,7 +1194,12 @@ public final class Classes {
                 }
                 if (nbDirectSuperClass_ <= 1) {
                     String s_ = dirSuper_;
+                    StringList line_ = new StringList();
                     while (!StringList.quickEq(s_, objectClassName_)) {
+                        if (line_.containsStr(s_)) {
+                            break;
+                        }
+                        line_.add(s_);
                         r_.getAllSuperClasses().add(s_);
                         RootBlock sup_ = getClassBody(s_);
                         String dirSup_ = objectClassName_;
@@ -1495,6 +1550,36 @@ public final class Classes {
             return true;
         }
         if(StringList.quickEq(_op, "<")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "&")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "|")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "^")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "~")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "<<")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, ">>")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "<<<")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, ">>>")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "<<<<")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, ">>>>")) {
             return true;
         }
         return false;
@@ -2354,10 +2439,39 @@ public final class Classes {
         }
         return sum_;
     }
+    
+    public Struct getStaticField(ClassField _clField, ContextEl _context) {
+        Struct strInit_ = getStaticField(_clField);
+        if (strInit_ != null) {
+            return strInit_;
+        }
+        String stn_ = _clField.getClassName();
+        String sfn_ = _clField.getFieldName();
+        String base_ = Templates.getIdFromAllTypes(stn_);
+        for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
+            String k_ = c.getKey();
+            if (!StringList.quickEq(k_, base_)) {
+                continue;
+            }
+            CustList<Block> bl_ = getDirectChildren(c.getValue());
+            for (Block b: bl_) {
+                if (b instanceof FieldBlock) {
+                    FieldBlock method_ = (FieldBlock) b;
+                    if (!method_.isStaticField()) {
+                        continue;
+                    }
+                    String c_ = method_.getImportedClassName();
+                    if (method_.getFieldName().containsStr(sfn_)) {
+                        return StdStruct.defaultClass(c_, _context);
+                    }
+                }
+            }
+        }
+        return NullStruct.NULL_VALUE;
+    }
     public Struct getStaticField(ClassField _clField) {
         return staticFields.getVal(_clField.getClassName()).getVal(_clField.getFieldName());
     }
-
     public boolean isCustomType(String _name) {
         String base_ = Templates.getIdFromAllTypes(_name);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
@@ -2373,140 +2487,162 @@ public final class Classes {
     public ClassMetaInfo getClassMetaInfo(String _name, ContextEl _context) {
         String base_ = Templates.getIdFromAllTypes(_name);
         for (EntryCust<String, RootBlock> c: classesBodies.entryList()) {
-            ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-            infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-            StringMap<FieldMetaInfo> infosFields_;
-            infosFields_ = new StringMap<FieldMetaInfo>();
-            ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-            infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
             String k_ = c.getKey();
             if (!StringList.quickEq(k_, base_)) {
                 continue;
             }
             RootBlock clblock_ = c.getValue();
-            CustList<Block> bl_ = getDirectChildren(clblock_);
-            StringList inners_ = new StringList();
-            for (Block b: bl_) {
-                if (b instanceof RootBlock) {
-                    inners_.add(((RootBlock) b).getFullName());
-                }
-                if (b instanceof InfoBlock) {
-                    InfoBlock method_ = (InfoBlock) b;
-                    String ret_ = method_.getImportedClassName();
-                    boolean enumElement_ = b instanceof ElementBlock;
-                    boolean staticElement_ = method_.isStaticField();
-                    boolean finalElement_ = method_.isFinalField();
-                    AccessEnum acc_ = method_.getAccess();
-                    for (String f: method_.getFieldName()) {
-                        FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, enumElement_, acc_);
-                        infosFields_.put(f, met_);
-                    }
-                }
-                if (b instanceof MethodBlock) {
-                    MethodBlock method_ = (MethodBlock) b;
-                    MethodId id_ = method_.getId();
-                    String ret_ = method_.getImportedReturnType();
-                    AccessEnum acc_ = method_.getAccess();
-                    String formatRet_;
-                    MethodId fid_;
-                    String formCl_ = method_.getDeclaringType();
-                    boolean static_ = method_.isStaticMethod();
-                    if (Templates.correctNbParameters(_name, _context)) {
-                        formatRet_ = Templates.wildCardFormat(static_, _name, ret_, _context, true);
-                        fid_ = id_.reflectFormat(_name, _context);
-                    } else {
-                        formatRet_ = ret_;
-                        fid_ = id_;
-                    }
-                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
-                    infos_.put(id_, met_);
-                }
-                if (b instanceof AnnotationMethodBlock) {
-                    AnnotationMethodBlock method_ = (AnnotationMethodBlock) b;
-                    MethodId id_ = method_.getId();
-                    String ret_ = method_.getImportedReturnType();
-                    AccessEnum acc_ = method_.getAccess();
-                    String formatRet_;
-                    MethodId fid_;
-                    String formCl_ = method_.getDeclaringType();
-                    formatRet_ = ret_;
-                    fid_ = id_;
-                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
-                    infos_.put(id_, met_);
-                }
-                if (b instanceof ConstructorBlock) {
-                    ConstructorBlock method_ = (ConstructorBlock) b;
-                    ConstructorId id_ = method_.getGenericId();
-                    AccessEnum acc_ = method_.getAccess();
-                    String formatRet_;
-                    ConstructorId fid_;
-                    String ret_ = method_.getImportedReturnType();
-                    String formCl_ = method_.getDeclaringType();
-                    if (Templates.correctNbParameters(_name, _context)) {
-                        formatRet_ = Templates.wildCardFormat(false, _name, ret_, _context,true);
-                        fid_ = id_.reflectFormat(_name, _context);
-                    } else {
-                        formatRet_ = ret_;
-                        fid_ = id_;
-                    }
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
-                    infosConst_.put(id_, met_);
-                }
-            }
-            if (_context.getOptions().isSpecialEnumsMethods() && clblock_ instanceof EnumBlock) {
-                String valueOf_ = _context.getStandards().getAliasValueOf();
-                String values_ = _context.getStandards().getAliasValues();
-                String string_ = _context.getStandards().getAliasString();
-                MethodId id_ = new MethodId(true, valueOf_, new StringList(string_));
-                String ret_ = clblock_.getWildCardString();
-                String formatRet_;
-                MethodId fid_;
-                formatRet_ = ret_;
-                fid_ = id_;
-                String decl_ = clblock_.getFullName();
-                MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
-                infos_.put(id_, met_);
-                id_ = new MethodId(true, values_, new StringList());
-                ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
-                formatRet_ = ret_;
-                fid_ = id_;
-                met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
-                infos_.put(id_, met_);
-            }
-            RootBlock par_ = clblock_.getParentType();
-            String format_;
-            if (par_ != null) {
-                String gene_ = par_.getGenericString();
-                if (Templates.correctNbParameters(_name, _context)) {
-                    format_ = Templates.quickFormat(_name, gene_, _context);
-                } else {
-                    format_ = par_.getFullName();
-                }
-            } else {
-                format_ = "";
-            }
-            AccessEnum acc_ = clblock_.getAccess();
-            boolean st_ = clblock_.isStaticType();
-            if (clblock_ instanceof InterfaceBlock) {
-                return new ClassMetaInfo(_name, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), format_, inners_,
-                        infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
-            }
-            if (clblock_ instanceof AnnotationBlock) {
-                return new ClassMetaInfo(_name, new StringList(), format_, inners_,
-                        infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,st_,acc_);
-            }
-            ClassCategory cat_ = ClassCategory.CLASS;
-            if (clblock_ instanceof EnumBlock) {
-                cat_ = ClassCategory.ENUM;
-            }
-            boolean abs_ = clblock_.isAbstractType();
-            boolean final_ = clblock_.isFinalType();
-            String superClass_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass();
-            StringList superInterfaces_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperInterfaces();
-            return new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
-                    infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
+            return getClassMetaInfo(clblock_, _name, _context);
         }
         return null;
+    }
+    public ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
+        ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
+        infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+        StringMap<FieldMetaInfo> infosFields_;
+        infosFields_ = new StringMap<FieldMetaInfo>();
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
+        infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+        CustList<Block> bl_ = getDirectChildren(_type);
+        StringList inners_ = new StringList();
+        boolean existCtor_ = false;
+        for (Block b: bl_) {
+            if (b instanceof RootBlock) {
+                inners_.add(((RootBlock) b).getFullName());
+            }
+            if (b instanceof InfoBlock) {
+                InfoBlock method_ = (InfoBlock) b;
+                String ret_ = method_.getImportedClassName();
+                boolean enumElement_ = b instanceof ElementBlock;
+                boolean staticElement_ = method_.isStaticField();
+                boolean finalElement_ = method_.isFinalField();
+                AccessEnum acc_ = method_.getAccess();
+                for (String f: method_.getFieldName()) {
+                    FieldMetaInfo met_ = new FieldMetaInfo(_name, f, ret_, staticElement_, finalElement_, enumElement_, acc_);
+                    infosFields_.put(f, met_);
+                }
+            }
+            if (b instanceof MethodBlock) {
+                MethodBlock method_ = (MethodBlock) b;
+                MethodId id_ = method_.getId();
+                String ret_ = method_.getImportedReturnType();
+                AccessEnum acc_ = method_.getAccess();
+                String formatRet_;
+                MethodId fid_;
+                String formCl_ = method_.getDeclaringType();
+                boolean static_ = method_.isStaticMethod();
+                if (Templates.correctNbParameters(_name, _context)) {
+                    formatRet_ = Templates.wildCardFormat(static_, _name, ret_, _context, true);
+                    fid_ = id_.reflectFormat(_name, _context);
+                } else {
+                    formatRet_ = ret_;
+                    fid_ = id_;
+                }
+                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
+                infos_.put(id_, met_);
+            }
+            if (b instanceof AnnotationMethodBlock) {
+                AnnotationMethodBlock method_ = (AnnotationMethodBlock) b;
+                MethodId id_ = method_.getId();
+                String ret_ = method_.getImportedReturnType();
+                AccessEnum acc_ = method_.getAccess();
+                String formatRet_;
+                MethodId fid_;
+                String formCl_ = method_.getDeclaringType();
+                formatRet_ = ret_;
+                fid_ = id_;
+                MethodMetaInfo met_ = new MethodMetaInfo(acc_,method_.getDeclaringType(), id_, method_.getModifier(), ret_, fid_, formatRet_,formCl_);
+                infos_.put(id_, met_);
+            }
+            if (b instanceof ConstructorBlock) {
+                existCtor_ = true;
+                ConstructorBlock method_ = (ConstructorBlock) b;
+                ConstructorId id_ = method_.getGenericId();
+                AccessEnum acc_ = method_.getAccess();
+                String formatRet_;
+                ConstructorId fid_;
+                String ret_ = method_.getImportedReturnType();
+                String formCl_ = method_.getDeclaringType();
+                if (Templates.correctNbParameters(_name, _context)) {
+                    formatRet_ = Templates.wildCardFormat(false, _name, ret_, _context,true);
+                    fid_ = id_.reflectFormat(_name, _context);
+                } else {
+                    formatRet_ = ret_;
+                    fid_ = id_;
+                }
+                ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
+                infosConst_.put(id_, met_);
+            }
+        }
+        if (!existCtor_) {
+            ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
+            AccessEnum acc_ = _type.getAccess();
+            String formatRet_;
+            ConstructorId fid_;
+            String ret_ = _context.getStandards().getAliasVoid();
+            String formCl_ = _name;
+            if (Templates.correctNbParameters(_name, _context)) {
+                formatRet_ = Templates.wildCardFormat(false, _name, ret_, _context,true);
+                fid_ = id_.reflectFormat(_name, _context);
+            } else {
+                formatRet_ = ret_;
+                fid_ = id_;
+            }
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
+            infosConst_.put(id_, met_);
+        }
+        if (_context.getOptions().isSpecialEnumsMethods() && _type instanceof EnumBlock) {
+            String valueOf_ = _context.getStandards().getAliasValueOf();
+            String values_ = _context.getStandards().getAliasValues();
+            String string_ = _context.getStandards().getAliasString();
+            MethodId id_ = new MethodId(true, valueOf_, new StringList(string_));
+            String ret_ = _type.getWildCardString();
+            String formatRet_;
+            MethodId fid_;
+            formatRet_ = ret_;
+            fid_ = id_;
+            String decl_ = _type.getFullName();
+            MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+            infos_.put(id_, met_);
+            id_ = new MethodId(true, values_, new StringList());
+            ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
+            formatRet_ = ret_;
+            fid_ = id_;
+            met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
+            infos_.put(id_, met_);
+        }
+        RootBlock par_ = _type.getParentType();
+        String format_;
+        if (par_ != null) {
+            String gene_ = par_.getGenericString();
+            if (Templates.correctNbParameters(_name, _context)) {
+                format_ = Templates.quickFormat(_name, gene_, _context);
+            } else {
+                format_ = par_.getFullName();
+            }
+        } else {
+            format_ = "";
+        }
+        AccessEnum acc_ = _type.getAccess();
+        boolean st_ = _type.isStaticType();
+        if (_type instanceof InterfaceBlock) {
+            return new ClassMetaInfo(_name, ((InterfaceBlock)_type).getImportedDirectSuperInterfaces(), format_, inners_,
+                    infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
+        }
+        if (_type instanceof AnnotationBlock) {
+            return new ClassMetaInfo(_name, new StringList(), format_, inners_,
+                    infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,st_,acc_);
+        }
+        ClassCategory cat_ = ClassCategory.CLASS;
+        if (_type instanceof EnumBlock) {
+            cat_ = ClassCategory.ENUM;
+        }
+        boolean abs_ = _type.isAbstractType();
+        boolean final_ = _type.isFinalType();
+        String superClass_ = ((UniqueRootedBlock) _type).getImportedDirectGenericSuperClass();
+        StringList superInterfaces_ = ((UniqueRootedBlock) _type).getImportedDirectGenericSuperInterfaces();
+        return new ClassMetaInfo(_name, superClass_, superInterfaces_, format_, inners_,
+                infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
     }
     public DefaultLockingClass getLocks() {
         return locks;

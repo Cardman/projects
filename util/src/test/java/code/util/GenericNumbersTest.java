@@ -11,14 +11,14 @@ import org.junit.Test;
 public class GenericNumbersTest {
 
     @Test
-    public void sortGenericNumbers1Test() {
+    public void sort1Test() {
         GenericNumbers nbs_ = new GenericNumbers();
         nbs_.addBigIntCopy(new BigInteger("5"));
         nbs_.addBigIntCopy(new BigInteger("1"));
         nbs_.addBigIntCopy(new BigInteger("4"));
         nbs_.addBigIntCopy(new BigInteger("10"));
         nbs_.addBigIntCopy(new BigInteger("8"));
-        nbs_.sortGenericNumbers();
+        nbs_.sort();
         assertEq(5,nbs_.size());
         assertEq(new BigDecimal("1"),nbs_.first());
         assertEq(new BigDecimal("4"),nbs_.get(1));

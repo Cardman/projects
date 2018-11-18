@@ -183,7 +183,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
         } else {
             res_ = argres_;
         }
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(res_, _conf);

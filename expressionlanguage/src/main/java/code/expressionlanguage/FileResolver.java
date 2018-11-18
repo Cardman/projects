@@ -1034,7 +1034,13 @@ public final class FileResolver {
                         if (!(currentParent_ instanceof AnnotationBlock)) {
                             if (lastChar_ != PART_SEPARATOR) {
                                 if (lastChar_ != END_ARRAY) {
-                                    endInstruction_ = true;
+                                    if (options_.getSuffixVar() == VariableSuffix.NONE) {
+                                        if (lastChar_ != suffix_ && lastChar_ != '?') {
+                                            endInstruction_ = true;
+                                        }
+                                    } else {
+                                        endInstruction_ = true;
+                                    }
                                 }
                             }
                         }
@@ -1093,63 +1099,10 @@ public final class FileResolver {
                     parentheses_.removeLast();
                 }
             }
-            if (braces_.isEmpty() && currentChar_ == END_BLOCK) {
-                if (currentParent_ instanceof EnumBlock && enableByEndLine_) {
-                    String found_ = instruction_.toString();
-                    String trimmedInstruction_ = found_.trim();
-                    int instructionRealLocation_ = instructionLocation_;
-                    if (!trimmedInstruction_.isEmpty()) {
-                        String fieldName_;
-                        int fieldOffest_ = instructionLocation_;
-                        int expressionOffest_ = -1;
-                        String expression_ = EMPTY_STRING;
-                        int delta_ = 0;
-                        Numbers<Integer> annotationsIndexes_ = new Numbers<Integer>();
-                        StringList annotations_ = new StringList();
-                        if (trimmedInstruction_.charAt(0) == ANNOT) {
-                            ParsedAnnotations par_ = new ParsedAnnotations(found_, instructionRealLocation_);
-                            par_.parse();
-                            annotationsIndexes_ = par_.getAnnotationsIndexes();
-                            annotations_ = par_.getAnnotations();
-                            found_ = par_.getAfter();
-                            fieldOffest_ = par_.getIndex();
-                            delta_ = fieldOffest_ - instructionRealLocation_;
-                        }
-                        int indexBeginCalling_ = found_.indexOf(BEGIN_CALLING);
-                        if (indexBeginCalling_ >= 0) {
-                            fieldName_ = found_.substring(0, indexBeginCalling_);
-                            expression_ = found_.substring(indexBeginCalling_ + 1, found_.lastIndexOf(END_CALLING));
-                            expressionOffest_ = instructionRealLocation_ + indexBeginCalling_ + 1 + delta_;
-                            if (!expression_.isEmpty()) {
-                                expressionOffest_ += StringList.getFirstPrintableCharIndex(expression_);
-                            }
-                        } else {
-                            fieldName_ = found_;
-                            expressionOffest_ = fieldOffest_;
-                            expressionOffest_ += fieldName_.trim().length();
-                            expressionOffest_ += fieldName_.length() - StringList.getLastPrintableCharIndex(fieldName_) - 1;
-                        }
-                        int indexTmp_ = fieldName_.indexOf(Templates.TEMPLATE_BEGIN);
-                        String tmpPart_ = EMPTY_STRING;
-                        int templateOffset_ = 0;
-                        if (indexTmp_ > -1) {
-                            templateOffset_ = fieldOffest_;
-                            tmpPart_ = fieldName_.substring(indexTmp_);
-                            fieldName_ = fieldName_.substring(0, indexTmp_);
-                            templateOffset_ += fieldName_.trim().length();
-                            templateOffset_ += fieldName_.length() - StringList.getLastPrintableCharIndex(fieldName_) - 1;
-                        }
-                        ElementBlock br_ = new ElementBlock(_context, currentParent_, new OffsetStringInfo(fieldOffest_, fieldName_.trim()),
-                                new OffsetStringInfo(templateOffset_, tmpPart_.trim()),
-                                new OffsetStringInfo(expressionOffest_, expression_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                        br_.getAnnotations().addAllElts(annotations_);
-                        br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
-                        currentParent_.appendChild(br_);
-                    }
-                }
-                okType_ = true;
-                break;
-            }
+//            if (braces_.isEmpty() && currentChar_ == END_BLOCK) {
+//                okType_ = true;
+//                break;
+//            }
             if (endInstruction_) {
                 String found_ = instruction_.toString();
                 String trimmedInstruction_ = found_.trim();
@@ -1496,10 +1449,14 @@ public final class FileResolver {
                         }
                     } else {
                         //implicit static block
-                        br_ = new StaticBlock(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
-                        currentParent_.appendChild(br_);
+                        if (currentChar_ != END_BLOCK) {
+                            br_ = new StaticBlock(_context, currentParent_, new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                            currentParent_.appendChild(br_);
+                        }
                     }
-                    if (currentChar_ != endLine_ && br_ instanceof BracedBlock) {
+                    if (currentChar_ == END_BLOCK) {
+                        currentParent_ = currentParent_.getParent();
+                    } else if (currentChar_ != endLine_ && br_ instanceof BracedBlock) {
                         currentParent_ = (BracedBlock) br_;
                     }
                 } else if (currentParent_ instanceof EnumBlock && enableByEndLine_) {
@@ -1551,7 +1508,10 @@ public final class FileResolver {
                         br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                         currentParent_.appendChild(br_);
                     }
-                    if (currentChar_ == endLine_) {
+                    if (currentChar_ == END_BLOCK) {
+                        currentParent_ = currentParent_.getParent();
+                    }
+                    if (currentChar_ == endLine_ || currentChar_ == END_BLOCK) {
                         enableByEndLine_ = false;
                     }
                 } else if (currentChar_ != END_BLOCK) {
@@ -2626,6 +2586,10 @@ public final class FileResolver {
                     }
                 }
             }
+            if (braces_.isEmpty() && currentChar_ == END_BLOCK) {
+                okType_ = true;
+                break;
+            }
             i_ = incrementRowCol(i_, _file, tabWidth_, current_, enabledSpaces_);
         }
         if (okType_) {
@@ -2705,7 +2669,7 @@ public final class FileResolver {
                         indexInstr_++;
                         continue;
                     }
-                    if (nextPart_.startsWith(String.valueOf("["))) {
+                    if (nextPart_.startsWith("[")) {
                         indexInstr_++;
                         continue;
                     }
@@ -2864,6 +2828,18 @@ public final class FileResolver {
             return true;
         }
         if (_char == '>') {
+            return true;
+        }
+        if (_char == '&') {
+            return true;
+        }
+        if (_char == '|') {
+            return true;
+        }
+        if (_char == '^') {
+            return true;
+        }
+        if (_char == '~') {
             return true;
         }
         return false;

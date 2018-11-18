@@ -1742,7 +1742,7 @@ public final class FightFacade {
         byte key_ = _fight.getUserTeam().fighterAtIndex(_key);
         if (Numbers.eq(key_, Fighter.BACK)) {
             _fight.setMoves(new NatTreeMap<String,Boolean>());
-            _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator<String>()));
+            _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
             _fight.setChosenIndex(CustList.INDEX_NOT_FOUND_ELT);
@@ -1769,7 +1769,7 @@ public final class FightFacade {
         } else {
             _fight.setChosenIndex(CustList.INDEX_NOT_FOUND_ELT);
             _fight.setMoves(new NatTreeMap<String,Boolean>());
-            _fight.setEvolutions(new TreeMap<String, Boolean>(new NaturalComparator<String>()));
+            _fight.setEvolutions(new TreeMap<String, Boolean>(new NaturalComparator()));
             _fight.setAbilities(new StringList());
             _fight.setAbility(DataBase.EMPTY_STRING);
         }
@@ -2653,7 +2653,7 @@ public final class FightFacade {
         _fight.setChosenSubstitute(Fighter.BACK);
         _fight.setChosenIndex(Fighter.BACK);
         _fight.setMoves(new NatTreeMap<String,Boolean>());
-        _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator<String>()));
+        _fight.setEvolutions(new TreeMap<String,Boolean>(new NaturalComparator()));
         _fight.setAbilities(new StringList());
         _fight.setAbility(DataBase.EMPTY_STRING);
         _fight.setKeepRound(true);

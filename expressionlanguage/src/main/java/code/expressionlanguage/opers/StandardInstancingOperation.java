@@ -427,7 +427,7 @@ public final class StandardInstancingOperation extends
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
         if (statusInit_ != null) {
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getException() != null) {
+            if (_conf.getContextEl().hasException()) {
                 return;
             }
             argres_ = getArgument(previous_, arguments_, _conf);
@@ -439,7 +439,7 @@ public final class StandardInstancingOperation extends
         } else {
             res_ = argres_;
         }
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(res_, _conf);

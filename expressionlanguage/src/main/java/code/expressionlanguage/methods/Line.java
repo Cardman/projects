@@ -160,7 +160,6 @@ public final class Line extends Leaf implements StackableBlock {
                 return;
             }
         }
-        el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         processBlock(_cont);
     }

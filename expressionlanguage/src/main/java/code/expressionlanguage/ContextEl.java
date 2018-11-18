@@ -42,6 +42,9 @@ import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.OperationNode;
+import code.expressionlanguage.opers.util.AnnotationStruct;
+import code.expressionlanguage.opers.util.ArrayStruct;
+import code.expressionlanguage.opers.util.BooleanStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
@@ -58,8 +61,10 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodMetaInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.opers.util.StringStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -77,6 +82,7 @@ import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
+import code.util.IdList;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
@@ -140,6 +146,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     private String name;
     private int ordinal;
     private KeyWords keyWords;
+    private boolean initEnums;
+    private boolean failInit;
+    private IdList<Struct> sensibleFields = new IdList<Struct>();
 
     public ContextEl() {
         this(CustList.INDEX_NOT_FOUND_ELT);
@@ -179,6 +188,126 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         init = _context.init;
         keyWords = _context.keyWords;
         _context.children.add(this);
+    }
+    public boolean isSensibleField(String _clName) {
+        if (!initEnums) {
+            return false;
+        }
+        String curr_ = getCurInitType();
+        if (curr_.isEmpty()) {
+            return true;
+        }
+        if (!StringList.quickEq(curr_, _clName)) {
+            return true;
+        }
+        return false;
+    }
+    public boolean isContainedSensibleFields(Struct _array) {
+        if (!initEnums) {
+            return false;
+        }
+        return sensibleFields.containsObj(_array);
+    }
+    public IdList<Struct> getSensibleFields() {
+        return sensibleFields;
+    }
+    public void addSensibleField(String _fc, Struct _container) {
+        if (!initEnums) {
+            return;
+        }
+        if (_container.isNull()) {
+            return;
+        }
+        if (_container instanceof BooleanStruct) {
+            return;
+        }
+        if (_container instanceof NumberStruct) {
+            return;
+        }
+        if (_container instanceof StringStruct) {
+            return;
+        }
+        if (_container instanceof AnnotationStruct) {
+            return;
+        }
+        String curr_ = getCurInitType();
+        if (!StringList.quickEq(curr_, _fc)) {
+            sensibleFields.add(_container);
+        }
+    }
+    public void addSensibleField(Struct _container, Struct _owned) {
+        if (!initEnums) {
+            return;
+        }
+        if (_owned.isNull()) {
+            return;
+        }
+        if (_owned instanceof BooleanStruct) {
+            return;
+        }
+        if (_owned instanceof NumberStruct) {
+            return;
+        }
+        if (_owned instanceof StringStruct) {
+            return;
+        }
+        if (_owned instanceof AnnotationStruct) {
+            return;
+        }
+        if (sensibleFields.containsObj(_container)) {
+            sensibleFields.add(_owned);
+        }
+    }
+    public void addSensibleElementsFromClonedArray(Struct _array, ArrayStruct _cloned) {
+        if (!initEnums) {
+            return;
+        }
+        if (!sensibleFields.containsObj(_array)) {
+            return;
+        }
+        for (Struct s: _cloned.getInstance()) {
+            if (s.isNull()) {
+                continue;
+            }
+            if (s instanceof BooleanStruct) {
+                continue;
+            }
+            if (s instanceof NumberStruct) {
+                continue;
+            }
+            if (s instanceof StringStruct) {
+                continue;
+            }
+            if (s instanceof AnnotationStruct) {
+                continue;
+            }
+            sensibleFields.add(s);
+        }
+    }
+    public void failInitEnums() {
+        if (!initEnums) {
+            return;
+        }
+        failInit = true;
+    }
+    public boolean isInitEnums() {
+        return initEnums;
+    }
+    public void setInitEnums(boolean _initEnums) {
+        initEnums = _initEnums;
+    }
+    public void resetInitEnums() {
+        failInit = false;
+        exception = null;
+        clearPages();
+    }
+    private String getCurInitType() {
+        for (AbstractPageEl a: importing) {
+            if (a instanceof StaticInitPageEl) {
+                return a.getGlobalClass();
+            }
+        }
+        return "";
     }
     public ContextEl getParentThread() {
         return parentThread;
@@ -264,7 +393,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     public AbstractPageEl createInstancingClass(String _class) {
         setInitClass(null);
-        classes.preInitializeStaticFields(_class, this);
+//        classes.preInitializeStaticFields(_class, this);
         String baseClass_ = Templates.getIdFromAllTypes(_class);
         RootBlock class_ = classes.getClassBody(baseClass_);
         Block firstChild_ = class_.getFirstChild();
@@ -548,62 +677,85 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             String base_ = Templates.getIdFromAllTypes(_name);
             LgNames stds_ = getStandards();
             for (EntryCust<String, StandardType> c: stds_.getStandards().entryList()) {
-                ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-                infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-                StringMap<FieldMetaInfo> infosFields_;
-                infosFields_ = new StringMap<FieldMetaInfo>();
-                ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-                infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
                 String k_ = c.getKey();
                 if (!StringList.quickEq(k_, base_)) {
                     continue;
                 }
                 StandardType clblock_ = c.getValue();
-                StringList inners_ = new StringList();
-                for (StandardField f: clblock_.getFields().values()) {
-                    String ret_ = f.getClassName();
-                    boolean staticElement_ = f.isStaticField();
-                    boolean finalElement_ = f.isFinalField();
-                    AccessEnum acc_ = f.getAccess();
-                    for (String g: f.getFieldName()) {
-                        FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, false, acc_);
-                        infosFields_.put(g, met_);
-                    }
-                }
-                for (StandardMethod m: clblock_.getMethods().values()) {
-                    MethodId id_ = m.getId();
-                    String ret_ = m.getImportedReturnType();
-                    AccessEnum acc_ = m.getAccess();
-                    String decl_ = m.getDeclaringType();
-                    MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, m.getModifier(), ret_, id_, ret_, decl_);
-                    infos_.put(id_, met_);
-                }
-                for (StandardConstructor d: clblock_.getConstructors()) {
-                    ConstructorId id_ = d.getGenericId();
-                    AccessEnum acc_ = d.getAccess();
-                    String decl_ = d.getDeclaringType();
-                    String ret_ = d.getImportedReturnType();
-                    ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, ret_, decl_);
-                    infosConst_.put(id_, met_);
-                }
-                AccessEnum acc_ = clblock_.getAccess();
-                boolean st_ = clblock_.isStaticType();
-                if (clblock_ instanceof StandardInterface) {
-                    return new ClassMetaInfo(_name, ((StandardInterface)clblock_).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
-                }
-                ClassCategory cat_ = ClassCategory.CLASS;
-                if (clblock_ instanceof StandardInterface) {
-                    cat_ = ClassCategory.INTERFACE;
-                }
-                boolean abs_ = clblock_.isAbstractType();
-                boolean final_ = clblock_.isFinalType();
-                String superClass_ = ((StandardClass) clblock_).getSuperClass(this);
-                StringList superInterfaces_ = ((StandardClass) clblock_).getDirectInterfaces();
-                return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
+                return getClassMetaInfo(clblock_, _name);
             }
             return null;
         }
         return classes.getClassMetaInfo(_name, this);
+    }
+    public ClassMetaInfo getClassMetaInfo(StandardType _type,String _name) {
+        String k_ = _type.getFullName();
+        ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
+        infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
+        StringMap<FieldMetaInfo> infosFields_;
+        infosFields_ = new StringMap<FieldMetaInfo>();
+        ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
+        infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+        StringList inners_ = new StringList();
+        boolean existCtor_ = false;
+        for (StandardField f: _type.getFields().values()) {
+            String ret_ = f.getClassName();
+            boolean staticElement_ = f.isStaticField();
+            boolean finalElement_ = f.isFinalField();
+            AccessEnum acc_ = f.getAccess();
+            for (String g: f.getFieldName()) {
+                FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, false, acc_);
+                infosFields_.put(g, met_);
+            }
+        }
+        for (StandardMethod m: _type.getMethods().values()) {
+            MethodId id_ = m.getId();
+            String ret_ = m.getImportedReturnType();
+            AccessEnum acc_ = m.getAccess();
+            String decl_ = m.getDeclaringType();
+            MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, m.getModifier(), ret_, id_, ret_, decl_);
+            infos_.put(id_, met_);
+        }
+        for (StandardConstructor d: _type.getConstructors()) {
+            existCtor_ = true;
+            ConstructorId id_ = d.getGenericId();
+            AccessEnum acc_ = d.getAccess();
+            String decl_ = d.getDeclaringType();
+            String ret_ = d.getImportedReturnType();
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, id_, ret_, decl_);
+            infosConst_.put(id_, met_);
+        }
+        if (!existCtor_) {
+            ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
+            AccessEnum acc_ = _type.getAccess();
+            String formatRet_;
+            ConstructorId fid_;
+            String ret_ = getStandards().getAliasVoid();
+            String formCl_ = _name;
+            if (Templates.correctNbParameters(_name, this)) {
+                formatRet_ = Templates.wildCardFormat(false, _name, ret_, this,true);
+                fid_ = id_.reflectFormat(_name, this);
+            } else {
+                formatRet_ = ret_;
+                fid_ = id_;
+            }
+            ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, formatRet_,formCl_);
+            infosConst_.put(id_, met_);
+        }
+        AccessEnum acc_ = _type.getAccess();
+        boolean st_ = _type.isStaticType();
+        if (_type instanceof StandardInterface) {
+            return new ClassMetaInfo(_name, ((StandardInterface)_type).getDirectInterfaces(), "",inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_);
+        }
+        ClassCategory cat_ = ClassCategory.CLASS;
+        if (_type instanceof StandardInterface) {
+            cat_ = ClassCategory.INTERFACE;
+        }
+        boolean abs_ = _type.isAbstractType();
+        boolean final_ = _type.isFinalType();
+        String superClass_ = ((StandardClass) _type).getSuperClass(this);
+        StringList superInterfaces_ = ((StandardClass) _type).getDirectInterfaces();
+        return new ClassMetaInfo(_name, superClass_, superInterfaces_, "",inners_,infosFields_,infos_, infosConst_, cat_, abs_, st_, final_,acc_);
     }
     @Override
     public CustList<GeneType> getClassBodies() {
@@ -834,6 +986,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     public void setStandards(LgNames _standards) {
         standards = _standards;
+        classes.setStds(_standards);
     }
 
     @Override
@@ -938,6 +1091,18 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public Struct getException() {
         return exception;
+    }
+    public boolean hasExceptionOrFailInit() {
+        if (isFailInit()) {
+            return true;
+        }
+        return hasException();
+    }
+    public boolean hasException() {
+        return exception != null;
+    }
+    public boolean isFailInit() {
+        return failInit;
     }
 
     @Override
@@ -1902,7 +2067,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public String lookupImportType(String _type, AccessingImportingBlock _rooted) {
         String look_ = _type.trim();
-        StringList parts_ = StringList.splitStrings(look_, "..");
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
         CustList<AccessingImportingBlock> roots_ = new CustList<AccessingImportingBlock>();
@@ -1929,7 +2093,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 }
                 String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
                 String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-                if (!StringList.quickEq(end_, parts_.first())) {
+                if (!StringList.quickEq(end_, look_)) {
                     continue;
                 }
                 String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
@@ -1952,7 +2116,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
             String begin_ = removeDottedSpaces(i.substring(0, i.lastIndexOf(".")+1));
             String end_ = removeDottedSpaces(i.substring(i.lastIndexOf(".")+1));
-            if (!StringList.quickEq(end_, parts_.first())) {
+            if (!StringList.quickEq(end_, look_)) {
                 continue;
             }
             String typeLoc_ = removeDottedSpaces(StringList.concat(begin_, look_));
@@ -2402,6 +2566,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return methods_;
     }
 
+    public static boolean isDigit(char _char) {
+        return _char >= '0' && _char <= '9';
+    }
+
     public static String removeDottedSpaces(String _type) {
         StringBuilder b_ = new StringBuilder();
         for (String q: StringList.splitCharsSep(_type, Templates.SEP_CLASS_CHAR)) {
@@ -2636,7 +2804,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
 
     @Override
     public void setOkNumOp(boolean _okNumOp) {
-        analyzing.setOkNumOp(_okNumOp);;
+        analyzing.setOkNumOp(_okNumOp);
     }
 
     @Override

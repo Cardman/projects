@@ -211,47 +211,6 @@ public class IdMapTest {
         assertEq(3,map_.getVal("THREE").intValue());
     }
 
-//    @SuppressWarnings("static-method")
-//    @Test
-//    public void replace1Test() {
-//        IdMap<String,Integer> map_ = new IdMap<>();
-//        map_.put("ONE", 1);
-//        map_.put("TWO", 3);
-//        map_.replaceValue(3, 2);
-//        assertEq(2,map_.size());
-//        assertTrue(map_.contains("ONE"));
-//        assertTrue(map_.contains("TWO"));
-//        assertEq(1, map_.getVal("ONE").intValue());
-//        assertEq(2, map_.getVal("TWO").intValue());
-//    }
-
-//    @SuppressWarnings("static-method")
-//    @Test
-//    public void has1Test() {
-//        IdMap<String,Integer> map_ = new IdMap<>();
-//        map_.put("ONE", 1);
-//        map_.put("TWO", 2);
-//        assertTrue(map_.has(1));
-//        assertTrue(!map_.has(3));
-//    }
-
-//    @SuppressWarnings("static-method")
-//    @Test
-//    public void getKeys1Test() {
-//        IdMap<String,Integer> map_ = new IdMap<>();
-//        map_.put("ONE", 1);
-//        map_.put("TWO", 2);
-//        map_.put("THREE", null);
-//        List<String> keys_ = map_.getKeys(1);
-//        assertEq(1, keys_.size());
-//        assertTrue(keys_.containsObj("ONE"));
-//        keys_ = map_.getKeys(3);
-//        assertEq(0, keys_.size());
-//        keys_ = map_.getKeys(null);
-//        assertEq(1, keys_.size());
-//        assertTrue(keys_.containsObj("THREE"));
-//    }
-
     @Test
     public void putAllMap1Test() {
         IdMap<String,Number> map_ = new IdMap<String,Number>();

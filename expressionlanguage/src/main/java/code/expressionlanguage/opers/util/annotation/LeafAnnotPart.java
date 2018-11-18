@@ -36,13 +36,13 @@ final class LeafAnnotPart extends InfoAnnotPart {
             return ((ClassMetaInfo)part).getName();
         }
         Object instance_ = part.getInstance();
-        if (instance_ instanceof Number) {
-            return PrimitiveTypeUtil.toNumberString((Number) instance_);
-        }
         if (instance_ instanceof Character) {
             Character ch_ = (Character) instance_;
             int v_ = ch_.charValue();
             return Integer.toString(v_);
+        }
+        if (instance_ instanceof Number) {
+            return PrimitiveTypeUtil.toNumberString((Number) instance_);
         }
         if (instance_ instanceof Boolean) {
             if ((Boolean)instance_) {

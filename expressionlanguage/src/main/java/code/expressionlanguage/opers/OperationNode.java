@@ -12,6 +12,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
@@ -40,17 +41,18 @@ import code.expressionlanguage.opers.util.Fcts;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
 import code.expressionlanguage.opers.util.Identifiable;
+import code.expressionlanguage.opers.util.InvocationMethod;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodInfo;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.Parametrable;
-import code.expressionlanguage.opers.util.Parametrables;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -108,6 +110,9 @@ public abstract class OperationNode {
 
     protected static final String SHIFT_LEFT = "<<";
     protected static final String SHIFT_RIGHT = ">>";
+    protected static final String BIT_SHIFT_LEFT = "<<<";
+    protected static final String BIT_SHIFT_RIGHT = ">>>";
+    protected static final String ROTATE_LEFT = "<<<<";
     protected static final String LOWER_EQ = "<=";
 
     protected static final String LOWER = "<";
@@ -209,23 +214,17 @@ public abstract class OperationNode {
             }
         }
         ConstType ct_ = _op.getConstType();
-        if (ct_ == ConstType.CHARACTER) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
-        if (ct_ == ConstType.STRING) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
         if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getOperators().isEmpty()) {
-            if (_op.getValues().isEmpty()) {
-                return new ErrorPartOperation(_index, _indexChild, _m, _op);
-            }
             String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
             String str_ = originalStr_.trim();
-            if (str_.isEmpty()) {
-                return new ErrorPartOperation(_index, _indexChild, _m, _op);
+            if (ct_ == ConstType.CHARACTER) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
+            }
+            if (ct_ == ConstType.STRING) {
+                return new ConstantOperation(_index, _indexChild, _m, _op);
             }
             if (ct_ == ConstType.SIMPLE_ANNOTATION) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
@@ -423,7 +422,19 @@ public abstract class OperationNode {
             if (StringList.quickEq(value_, SHIFT_LEFT)) {
                 return new ShiftLeftOperation(_index, _indexChild, _m, _op);
             }
-            return new ShiftRightOperation(_index, _indexChild, _m, _op);
+            if (StringList.quickEq(value_, SHIFT_RIGHT)) {
+                return new ShiftRightOperation(_index, _indexChild, _m, _op);
+            }
+            if (StringList.quickEq(value_, BIT_SHIFT_LEFT)) {
+                return new BitShiftLeftOperation(_index, _indexChild, _m, _op);
+            }
+            if (StringList.quickEq(value_, BIT_SHIFT_RIGHT)) {
+                return new BitShiftRightOperation(_index, _indexChild, _m, _op);
+            }
+            if (StringList.quickEq(value_, ROTATE_LEFT)) {
+                return new RotateLeftOperation(_index, _indexChild, _m, _op);
+            }
+            return new RotateRightOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
             if (_op.isInstanceTest()) {
@@ -777,7 +788,7 @@ public abstract class OperationNode {
                 return out_;
             }
         }
-        Parametrables<ConstructorInfo> signatures_ = new Parametrables<ConstructorInfo>();
+        CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId();
             boolean varArg_ = ctor_.isVararg();
@@ -835,7 +846,7 @@ public abstract class OperationNode {
         }
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _args);
         gr_.setGlobalClass(glClass_);
-        sortCtors(signatures_, gr_);
+        ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
         if (gr_.isAmbigous()) {
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: _args) {
@@ -853,11 +864,10 @@ public abstract class OperationNode {
             out_.setConstId(undefined_.getId().quickFormat(clCurName_, _conf));
             return out_;
         }
-        ConstructorInfo cInfo_ = signatures_.first();
         ConstructorId ctor_ = cInfo_.getConstraints();
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
-        if (_varargOnly == -1 && signatures_.first().isVarArgWrap()) {
+        if (_varargOnly == -1 && cInfo_.isVarArgWrap()) {
             out_.setVarArgToCall(true);
         }
         out_.setRealId(ctor_);
@@ -1197,6 +1207,7 @@ public abstract class OperationNode {
                         mloc_.setClassName(formattedClass_);
                         mloc_.setStatic(false);
                         mloc_.setAbstractMethod(sup_.isAbstractMethod());
+                        mloc_.setFinalMethod(sup_.isFinalMethod());
                         mloc_.setConstraints(realId_);
                         mloc_.setParameters(p_);
                         mloc_.setReturnType(ret_);
@@ -1261,6 +1272,7 @@ public abstract class OperationNode {
                             mloc_.setClassName(formattedClass_);
                             mloc_.setStatic(false);
                             mloc_.setAbstractMethod(sup_.isAbstractMethod());
+                            mloc_.setFinalMethod(sup_.isFinalMethod());
                             mloc_.setConstraints(realId_);
                             mloc_.setParameters(p_);
                             mloc_.setReturnType(ret_);
@@ -1350,7 +1362,7 @@ public abstract class OperationNode {
             ObjectNotNullMap<ClassMethodId, MethodInfo> _methods,
             String _name, ClassArgumentMatching... _argsClass) {
         String glClass_ = _conf.getGlobalClass();
-        Parametrables<MethodInfo> signatures_ = new Parametrables<MethodInfo>();
+        CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
         for (EntryCust<ClassMethodId, MethodInfo> e: _methods.entryList()) {
             ClassMethodId key_ = e.getKey();
             MethodId id_ = key_.getConstraints();
@@ -1386,31 +1398,28 @@ public abstract class OperationNode {
         ArgumentsGroup gr_ = new ArgumentsGroup(_conf, map_, _argsClass);
         gr_.setGlobalClass(glClass_);
         _conf.setAmbigous(false);
-        sortFct(signatures_, gr_);
+        MethodInfo found_ = sortFct(signatures_, gr_);
         if (gr_.isAmbigous()) {
             _conf.setAmbigous(true);
             ClassMethodIdResult res_ = new ClassMethodIdResult();
             res_.setStatus(SearchingMemberStatus.ZERO);
             return res_;
         }
-        MethodId constraints_ = signatures_.first().getConstraints();
-        MethodId realId_ = constraints_;
-        String className_ = signatures_.first().getClassName();
-        MethodInfo info_ = _methods.getVal(new ClassMethodId(className_, realId_));
-        String baseClassName_ = info_.getClassName();
+        MethodId constraints_ = found_.getConstraints();
+        String baseClassName_ = found_.getClassName();
         ClassMethodIdResult res_ = new ClassMethodIdResult();
-        MethodId id_ = info_.getFormatted();
+        MethodId id_ = found_.getFormatted();
         String realClass_ = baseClassName_;
         res_.setId(new ClassMethodId(realClass_, id_));
         res_.setStatus(SearchingMemberStatus.UNIQ);
-        if (_varargOnly == -1 && info_.isVarArgWrap()) {
+        if (_varargOnly == -1 && found_.isVarArgWrap()) {
             res_.setVarArgToCall(true);
         }
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
-        res_.setReturnType(info_.getReturnType());
-        res_.setAncestor(info_.getAncestor());
-        res_.setAbstractMethod(info_.isAbstractMethod());
+        res_.setReturnType(found_.getReturnType());
+        res_.setAncestor(found_.getAncestor());
+        res_.setAbstractMethod(found_.isAbstractMethod());
         return res_;
     }
 
@@ -1449,6 +1458,7 @@ public abstract class OperationNode {
         }
         int len_ = nbDem_;
         StringList formatPar_ = new StringList();
+        boolean allNotBoxUnbox_ = true;
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String wc_ = Templates.wildCardFormat(static_, _class, _params[i].getClassName(), _context, false);
             formatPar_.add(wc_);
@@ -1459,7 +1469,8 @@ public abstract class OperationNode {
                 continue;
             }
             Mapping map_ = new Mapping();
-            map_.setArg(_argsClass[i]);
+            ClassArgumentMatching arg_ = _argsClass[i];
+            map_.setArg(arg_);
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
@@ -1470,10 +1481,27 @@ public abstract class OperationNode {
             if (!Templates.isCorrect(map_, _context)) {
                 return false;
             }
+            if (PrimitiveTypeUtil.isPrimitive(wc_, _context)) {
+                if (!arg_.isPrimitive(_context)) {
+                    allNotBoxUnbox_ = false;
+                }
+            } else {
+                if (arg_.isPrimitive(_context)) {
+                    allNotBoxUnbox_ = false;
+                }
+            }
         }
         if (checkOnlyDem_) {
             if (vararg_) {
+                allNotBoxUnbox_ = false;
                 formatPar_.setLast(PrimitiveTypeUtil.getQuickComponentType(formatPar_.last()));
+            }
+            if (allNotBoxUnbox_) {
+                _id.setInvocation(InvocationMethod.STRICT);
+            } else if (!vararg_) {
+                _id.setInvocation(InvocationMethod.BOX_UNBOX);
+            } else {
+                _id.setInvocation(InvocationMethod.ALL);
             }
             _id.format(formatPar_);
             return true;
@@ -1481,7 +1509,8 @@ public abstract class OperationNode {
         if (_params.length == _argsClass.length) {
             int last_ = _params.length - 1;
             Mapping map_ = new Mapping();
-            map_.setArg(_argsClass[last_]);
+            ClassArgumentMatching arg_ = _argsClass[last_];
+            map_.setArg(arg_);
             for (TypeVar t: vars_) {
                 map_.getMapping().put(t.getName(), t.getConstraints());
             }
@@ -1495,11 +1524,20 @@ public abstract class OperationNode {
             _id.format(formatPar_);
             map_.setParam(wc_);
             if (Templates.isGenericCorrect(map_, _context)) {
+                if (allNotBoxUnbox_) {
+                    _id.setInvocation(InvocationMethod.STRICT);
+                } else {
+                    _id.setInvocation(InvocationMethod.BOX_UNBOX);
+                }
                 return true;
             }
-            _id.setVarArgWrap(true);
             map_.setParam(compo_);
-            return Templates.isGenericCorrect(map_, _context);
+            if (Templates.isGenericCorrect(map_, _context)) {
+                _id.setInvocation(InvocationMethod.ALL);
+                _id.setVarArgWrap(true);
+                return true;
+            }
+            return false;
         }
         len_ = _argsClass.length;
         Mapping map_ = new Mapping();
@@ -1522,6 +1560,7 @@ public abstract class OperationNode {
                 return false;
             }
         }
+        _id.setInvocation(InvocationMethod.ALL);
         _id.setVarArgWrap(true);
         return true;
     }
@@ -1550,23 +1589,390 @@ public abstract class OperationNode {
         return p_;
     }
 
-    static void sortFct(Parametrables<MethodInfo> _fct, ArgumentsGroup _context) {
+    static MethodInfo sortFct(CustList<MethodInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();
+        CustList<Parametrable> fct_ = new CustList<Parametrable>(new CollCapacity(_fct.size()));
+        for (MethodInfo m: _fct) {
+            fct_.add(m);
+        }
+        if (_context.getContext().getOptions().isAllParametersSort()) {
+            CustList<Parametrable> pars_ = getFound(fct_, _context, true);
+            if (pars_.size() == 1) {
+                return (MethodInfo) pars_.first();
+            }
+        }
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            process(_fct, i, _context);
+            Parametrable pFirst_ = _fct.first();
+            Parametrable pCurrent_ = _fct.get(i);
+            int res_ = compare(_context, pFirst_, pCurrent_);
+            if (res_ == CustList.SWAP_SORT) {
+                _fct.swapIndexes(CustList.FIRST_INDEX, i);
+            }
         }
         if (_fct.first().getParameters().isError()) {
             _context.setAmbigous(true);
+            return null;
         }
+        return _fct.first();
     }
-    static void sortCtors(Parametrables<ConstructorInfo> _fct, ArgumentsGroup _context) {
+    static ConstructorInfo sortCtors(CustList<ConstructorInfo> _fct, ArgumentsGroup _context) {
         int len_ = _fct.size();
+        CustList<Parametrable> fct_ = new CustList<Parametrable>(new CollCapacity(_fct.size()));
+        for (ConstructorInfo m: _fct) {
+            fct_.add(m);
+        }
+        if (_context.getContext().getOptions().isAllParametersSort()) {
+            CustList<Parametrable> pars_ = getFound(fct_, _context, false);
+            if (pars_.size() == 1) {
+                return (ConstructorInfo) pars_.first();
+            }
+        }
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            process(_fct, i, _context);
+            Parametrable pFirst_ = _fct.first();
+            Parametrable pCurrent_ = _fct.get(i);
+            int res_ = compare(_context, pFirst_, pCurrent_);
+            if (res_ == CustList.SWAP_SORT) {
+                _fct.swapIndexes(CustList.FIRST_INDEX, i);
+            }
         }
         if (_fct.first().getParameters().isError()) {
             _context.setAmbigous(true);
+            return null;
         }
+        return _fct.first();
+    }
+
+    static CustList<Parametrable> getFound(CustList<Parametrable> _fct, ArgumentsGroup _context, boolean _method) {
+        CustList<Parametrable> fct_ = new CustList<Parametrable>();
+        for (Parametrable m: _fct) {
+            if (m.getInvocation() == InvocationMethod.STRICT) {
+                fct_.add(m);
+            }
+        }
+        if (fct_.isEmpty()) {
+            for (Parametrable m: _fct) {
+                if (m.getInvocation() == InvocationMethod.BOX_UNBOX) {
+                    fct_.add(m);
+                }
+            }
+        }
+        CustList<Parametrable> allMax_;
+        if (!fct_.isEmpty()) {
+            allMax_ = getAllMaximalSpecificFixArity(fct_, _context);
+        } else {
+            allMax_ = getAllMaximalSpecificVariableArity(_fct, _context);
+        }
+        if (allMax_.size() <= 1 || !_method) {
+            return allMax_;
+        }
+        Identifiable id_ = allMax_.first().getFormatted();
+        int lenMax_ = allMax_.size();
+        boolean allOvEq_ = true;
+        for (int i = 1; i < lenMax_; i++) {
+            if (!allMax_.get(i).same(id_)) {
+                allOvEq_ = false;
+                break;
+            }
+        }
+        CustList<Parametrable> nonAbs_ = new CustList<Parametrable>();
+        CustList<Parametrable> finals_ = new CustList<Parametrable>();
+        if (allOvEq_) {
+            for (Parametrable p: allMax_) {
+                MethodInfo m_ = (MethodInfo)p;
+                if (!m_.isFinalMethod()) {
+                    continue;
+                }
+                finals_.add(p);
+            }
+            if (finals_.size() == 1) {
+                return finals_;
+            }
+            Analyzable context_ = _context.getContext();
+            for (Parametrable p: allMax_) {
+                MethodInfo m_ = (MethodInfo)p;
+                if (m_.isAbstractMethod()) {
+                    continue;
+                }
+                String type_ = m_.getClassName();
+                type_ = Templates.getIdFromAllTypes(type_);
+                if (context_.getClassBody(type_) instanceof GeneInterface) {
+                    continue;
+                }
+                nonAbs_.add(p);
+            }
+            if (nonAbs_.size() == 1) {
+                return nonAbs_;
+            }
+            StringMap<StringList> map_;
+            map_ = _context.getMap();
+            int lenAllMax_ = allMax_.size();
+            for (int i = 0; i < lenAllMax_; i++) {
+                MethodInfo curMi_ = (MethodInfo) allMax_.get(i);
+                boolean spec_ = true;
+                String curRet_ = curMi_.getReturnType();
+                String cl_ = Templates.getIdFromAllTypes(curMi_.getClassName());
+                for (int j = 0; j < lenAllMax_; j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    String clOther_ = Templates.getIdFromAllTypes(curMi_.getClassName());
+                    MethodInfo otherMi_ = (MethodInfo) allMax_.get(j);
+                    String otherRet_ = otherMi_.getReturnType();
+                    if (StringList.quickEq(curRet_, otherRet_)) {
+                        if (StringList.quickEq(clOther_, cl_)) {
+                            spec_ = false;
+                            break;
+                        }
+                        continue;
+                    }
+                    if (!Templates.isReturnCorrect(otherRet_, curRet_, map_, context_)) {
+                        spec_ = false;
+                        break;
+                    }
+                    if (Templates.isReturnCorrect(curRet_, otherRet_, map_, context_)) {
+                        spec_ = false;
+                        break;
+                    }
+                }
+                if (spec_) {
+                    return new CustList<Parametrable>(curMi_);
+                }
+            }
+        }
+        return new CustList<Parametrable>();
+    }
+    static CustList<Parametrable> getAllMaximalSpecificFixArity(CustList<Parametrable> _all, ArgumentsGroup _context) {
+        CustList<Parametrable> list_ = new CustList<Parametrable>();
+        int len_ = _all.size();
+        for (int i = 0; i < len_; i++) {
+            Parametrable current_ = _all.get(i);
+            boolean max_ = true;
+            for (int j = 0; j < len_; j++) {
+                if (i == j) {
+                    continue;
+                }
+                Parametrable other_ = _all.get(j);
+                if (isStrictMoreSpecificThanFixArity(other_, current_, _context)) {
+                    max_ = false;
+                    break;
+                }
+            }
+            if (max_) {
+                list_.add(current_);
+            }
+        }
+        return list_;
+    }
+    static CustList<Parametrable> getAllMaximalSpecificVariableArity(CustList<Parametrable> _all, ArgumentsGroup _context) {
+        CustList<Parametrable> list_ = new CustList<Parametrable>();
+        int len_ = _all.size();
+        for (int i = 0; i < len_; i++) {
+            Parametrable current_ = _all.get(i);
+            boolean max_ = true;
+            for (int j = 0; j < len_; j++) {
+                if (i == j) {
+                    continue;
+                }
+                Parametrable other_ = _all.get(j);
+                if (isStrictMoreSpecificThanVariableArity(other_, current_, _context)) {
+                    max_ = false;
+                    break;
+                }
+            }
+            if (max_) {
+                list_.add(current_);
+            }
+        }
+        return list_;
+    }
+    static boolean isStrictMoreSpecificThanVariableArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+        if (!isMoreSpecificThanVariableArity(_one, _two, _context)) {
+            return false;
+        }
+        return !isMoreSpecificThanVariableArity(_two, _one, _context);
+    }
+    static boolean isStrictMoreSpecificThanFixArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+        if (!isMoreSpecificThanFixArity(_one, _two, _context)) {
+            return false;
+        }
+        return !isMoreSpecificThanFixArity(_two, _one, _context);
+    }
+    static boolean isMoreSpecificThanFixArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+        if (_one.getImported() > _two.getImported()) {
+            return false;
+        }
+        if (_two.getImported() > _one.getImported()) {
+            return true;
+        }
+        if (_one.getAncestor() > _two.getAncestor()) {
+            return false;
+        }
+        if (_two.getAncestor() > _one.getAncestor()) {
+            return true;
+        }
+        Analyzable context_ = _context.getContext();
+        StringMap<StringList> map_;
+        map_ = _context.getMap();
+        int len_ = _one.getParameters().size();
+        boolean all_ = true;
+        Identifiable idOne_ = _one.getFormatted();
+        Identifiable idTwo_ = _two.getFormatted();
+        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
+            ClassMatching one_;
+            ClassMatching two_;
+            String wcOne_ = idOne_.getParametersTypes().get(i);
+            String wcTwo_ = idTwo_.getParametersTypes().get(i);
+            if (idOne_.isVararg() && i + 1 == len_) {
+                wcOne_ = PrimitiveTypeUtil.getPrettyArrayType(wcOne_);
+            }
+            if (idTwo_.isVararg() && i + 1 == len_) {
+                wcTwo_ = PrimitiveTypeUtil.getPrettyArrayType(wcTwo_);
+            }
+            if (wcOne_ == null) {
+                if (wcTwo_ != null) {
+                    all_ = false;
+                    break;
+                }
+                continue;
+            }
+            if (wcTwo_ == null) {
+                continue;
+            }
+            one_ = new ClassMatching(wcOne_);
+            two_ = new ClassMatching(wcTwo_);
+            if (one_.matchClass(two_)) {
+                continue;
+            }
+            if (!two_.isAssignableFrom(one_, map_, context_)) {
+                all_ = false;
+                break;
+            }
+        }
+        return all_;
+    }
+    static boolean isMoreSpecificThanVariableArity(Parametrable _one,Parametrable _two, ArgumentsGroup _context) {
+        if (_one.getImported() > _two.getImported()) {
+            return false;
+        }
+        if (_two.getImported() > _one.getImported()) {
+            return true;
+        }
+        if (_one.getAncestor() > _two.getAncestor()) {
+            return false;
+        }
+        if (_two.getAncestor() > _one.getAncestor()) {
+            return true;
+        }
+        Analyzable context_ = _context.getContext();
+        StringMap<StringList> map_;
+        map_ = _context.getMap();
+        int lenOne_ = _one.getParameters().size();
+        int lenTwo_ = _two.getParameters().size();
+        boolean all_ = true;
+        if (lenOne_ >= lenTwo_) {
+            int pr_ = lenTwo_-1;
+            for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
+                ClassMatching one_;
+                ClassMatching two_;
+                String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
+                String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
+                if (wcOne_ == null) {
+                    if (wcTwo_ != null) {
+                        all_ = false;
+                        break;
+                    }
+                    continue;
+                }
+                if (wcTwo_ == null) {
+                    continue;
+                }
+                one_ = new ClassMatching(wcOne_);
+                two_ = new ClassMatching(wcTwo_);
+                if (one_.matchClass(two_)) {
+                    continue;
+                }
+                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                    all_ = false;
+                    break;
+                }
+            }
+            String wcTwo_ = _two.getFormatted().getParametersTypes().last();
+            for (int i = pr_; i < lenOne_; i++) {
+                ClassMatching one_;
+                String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
+                if (wcOne_ == null) {
+                    if (wcTwo_ != null) {
+                        all_ = false;
+                        break;
+                    }
+                    continue;
+                }
+                if (wcTwo_ == null) {
+                    continue;
+                }
+                one_ = new ClassMatching(wcOne_);
+                ClassMatching two_ = new ClassMatching(wcTwo_);
+                if (one_.matchClass(two_)) {
+                    continue;
+                }
+                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                    all_ = false;
+                    break;
+                }
+            }
+        } else {
+            int pr_ = lenOne_-1;
+            for (int i = CustList.FIRST_INDEX; i < pr_; i++) {
+                ClassMatching one_;
+                ClassMatching two_;
+                String wcOne_ = _one.getFormatted().getParametersTypes().get(i);
+                String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
+                if (wcOne_ == null) {
+                    if (wcTwo_ != null) {
+                        all_ = false;
+                        break;
+                    }
+                    continue;
+                }
+                if (wcTwo_ == null) {
+                    continue;
+                }
+                one_ = new ClassMatching(wcOne_);
+                two_ = new ClassMatching(wcTwo_);
+                if (one_.matchClass(two_)) {
+                    continue;
+                }
+                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                    all_ = false;
+                    break;
+                }
+            }
+            String wcOne_ = _one.getFormatted().getParametersTypes().last();
+            for (int i = pr_; i < lenTwo_; i++) {
+                ClassMatching two_;
+                String wcTwo_ = _two.getFormatted().getParametersTypes().get(i);
+                if (wcTwo_ == null) {
+                    if (wcOne_ != null) {
+                        all_ = false;
+                        break;
+                    }
+                    continue;
+                }
+                if (wcOne_ == null) {
+                    continue;
+                }
+                two_ = new ClassMatching(wcTwo_);
+                ClassMatching one_ = new ClassMatching(wcOne_);
+                if (two_.matchClass(one_)) {
+                    continue;
+                }
+                if (!two_.isAssignableFrom(one_, map_, context_)) {
+                    all_ = false;
+                    break;
+                }
+            }
+        }
+        return all_;
     }
     static void process(Fcts _list, int _i, ArgumentsGroup _context) {
         Parametrable pFirst_ = _list.first();
@@ -1778,7 +2184,7 @@ public abstract class OperationNode {
     }
 
     final void setNextSiblingsArg(Argument _arg, ExecutableCode _cont) {
-        if (_cont.getException() != null) {
+        if (_cont.getContextEl().hasException()) {
             return;
         }
         String un_ = resultClass.getUnwrapObject();
@@ -1822,7 +2228,7 @@ public abstract class OperationNode {
     }
 
     final void setNextSiblingsArg(Argument _arg, ContextEl _cont, IdMap<OperationNode, ArgumentsPair> _nodes) {
-        if (_cont.getException() != null) {
+        if (_cont.hasExceptionOrFailInit()) {
             return;
         }
         String un_ = resultClass.getUnwrapObject();
@@ -1999,24 +2405,6 @@ public abstract class OperationNode {
 
     public final void setStaticResultClass(ClassArgumentMatching _resultClass) {
         resultClass = _resultClass;
-    }
-
-    public PossibleIntermediateDotted getSiblingToSet() {
-        OperationNode n_ = getNextSibling();
-        if (n_ == null) {
-            return null;
-        }
-        if (!(getParent() instanceof DotOperation)) {
-            return null;
-        }
-        if (!(n_ instanceof PossibleIntermediateDotted)) {
-            OperationNode child_ = n_.getFirstChild();
-            while (!(child_ instanceof PossibleIntermediateDotted)) {
-                child_ = child_.getFirstChild();
-            }
-            return (PossibleIntermediateDotted)child_;
-        }
-        return (PossibleIntermediateDotted)n_;
     }
 
     public PossibleIntermediateDotted getSiblingSet() {

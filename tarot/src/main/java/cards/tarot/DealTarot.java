@@ -21,7 +21,7 @@ public final class DealTarot implements Iterable<HandTarot> {
 
     public static final byte NUMERO_UTILISATEUR = 0;
 
-    public static final int NB_CARDS = HandTarot.pileBase().total();
+    public static final int NB_CARDS = 78;
 
     /** Ensemble des mains des joueurs */
     private EqList<HandTarot> deal = new EqList<HandTarot>();

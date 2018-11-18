@@ -35,7 +35,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         super(_index, _indexChild, _m, _op);
     }
 
-    static Argument quickCalculateLower(Argument _a, boolean _strCmp, Argument _b) {
+    public static Argument quickCalculateLower(Argument _a, boolean _strCmp, Argument _b) {
         if (_strCmp) {
             Argument a_ = new Argument();
             String first_ = (String)_a.getObject();
@@ -43,26 +43,14 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             a_.setObject(first_.compareTo(second_) < EQ_CMP);
             return a_;
         }
-        Object nbOne_ = _a.getObject();
-        Number a_;
-        if (nbOne_ instanceof Number) {
-            a_ = (Number)nbOne_;
-        } else {
-            a_ = (long)((Character)nbOne_).charValue();
-        }
-        Object nbTwo_ = _b.getObject();
-        Number b_;
-        if (nbTwo_ instanceof Number) {
-            b_ = (Number)nbTwo_;
-        } else {
-            b_ = (long)((Character)nbTwo_).charValue();
-        }
+        Number a_ = _a.getNumber();
+        Number b_ = _b.getNumber();
         Argument arg_ = new Argument();
         arg_.setObject(Numbers.lt(a_, b_));
         return arg_;
     }
 
-    static Argument quickCalculateGreater(Argument _a, boolean _strCmp, Argument _b) {
+    public static Argument quickCalculateGreater(Argument _a, boolean _strCmp, Argument _b) {
         if (_strCmp) {
             Argument a_ = new Argument();
             String first_ = (String)_a.getObject();
@@ -70,20 +58,8 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             a_.setObject(first_.compareTo(second_) < EQ_CMP);
             return a_;
         }
-        Object nbOne_ = _a.getObject();
-        Number a_;
-        if (nbOne_ instanceof Number) {
-            a_ = (Number)nbOne_;
-        } else {
-            a_ = (long)((Character)nbOne_).charValue();
-        }
-        Object nbTwo_ = _b.getObject();
-        Number b_;
-        if (nbTwo_ instanceof Number) {
-            b_ = (Number)nbTwo_;
-        } else {
-            b_ = (long)((Character)nbTwo_).charValue();
-        }
+        Number a_ = _a.getNumber();
+        Number b_ = _b.getNumber();
         Argument arg_ = new Argument();
         arg_.setObject(Numbers.gt(a_, b_));
         return arg_;

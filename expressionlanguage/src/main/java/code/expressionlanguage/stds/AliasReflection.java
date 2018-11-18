@@ -1,30 +1,19 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.OperatorCmp;
 import code.expressionlanguage.ClassNameCmp;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Mapping;
+import code.expressionlanguage.OperatorCmp;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessEnum;
-import code.expressionlanguage.methods.AnnotationBlock;
-import code.expressionlanguage.methods.AnnotationMethodBlock;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.ElementBlock;
-import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.InfoBlock;
-import code.expressionlanguage.methods.InterfaceBlock;
-import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.BooleanStruct;
-import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -49,7 +38,7 @@ import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public class AliasReflection {
+public final class AliasReflection {
     private String aliasAnnotation;
     private String aliasAnnotated;
     private String aliasGetDefaultValue;
@@ -930,179 +919,17 @@ public class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetAllClasses)) {
                 CustList<ClassMetaInfo> classes_  = new CustList<ClassMetaInfo>();
-                for (EntryCust<String, RootBlock> c: _cont.getClasses().getClassesBodies().entryList()) {
-                    ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-                    infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-                    StringMap<FieldMetaInfo> infosFields_;
-                    infosFields_ = new StringMap<FieldMetaInfo>();
-                    ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-                    infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
+                Classes classesInfo_ = _cont.getClasses();
+                for (EntryCust<String, RootBlock> c: classesInfo_.getClassesBodies().entryList()) {
                     String k_ = c.getKey();
                     RootBlock clblock_ = c.getValue();
                     String forName_ = Templates.getGenericString(k_, _cont);
-                    CustList<Block> bl_ = Classes.getDirectChildren(clblock_);
-                    StringList inners_ = new StringList();
-                    for (Block b: bl_) {
-                        if (b instanceof RootBlock) {
-                            inners_.add(((RootBlock) b).getFullName());
-                        }
-                        if (b instanceof InfoBlock) {
-                            InfoBlock method_ = (InfoBlock) b;
-                            String ret_ = method_.getImportedClassName();
-                            boolean enumElement_ = b instanceof ElementBlock;
-                            boolean staticElement_ = method_.isStaticField();
-                            boolean finalElement_ = method_.isFinalField();
-                            AccessEnum acc_ = method_.getAccess();
-                            for (String f: method_.getFieldName()) {
-                                FieldMetaInfo met_ = new FieldMetaInfo(forName_, f, ret_, staticElement_, finalElement_, enumElement_, acc_);
-                                infosFields_.put(f, met_);
-                            }
-                        }
-                        if (b instanceof MethodBlock) {
-                            MethodBlock method_ = (MethodBlock) b;
-                            MethodId id_ = method_.getId();
-                            String ret_ = method_.getImportedReturnType();
-                            AccessEnum acc_ = method_.getAccess();
-                            String formatRet_;
-                            MethodId fid_;
-                            formatRet_ = ret_;
-                            fid_ = id_;
-                            String decl_ = method_.getDeclaringType();
-                            MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, method_.getModifier(), ret_, fid_, formatRet_,decl_);
-                            infos_.put(id_, met_);
-                        }
-                        if (b instanceof AnnotationMethodBlock) {
-                            AnnotationMethodBlock method_ = (AnnotationMethodBlock) b;
-                            MethodId id_ = method_.getId();
-                            String ret_ = method_.getImportedReturnType();
-                            AccessEnum acc_ = method_.getAccess();
-                            String formatRet_;
-                            MethodId fid_;
-                            formatRet_ = ret_;
-                            fid_ = id_;
-                            String decl_ = method_.getDeclaringType();
-                            MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, method_.getModifier(), ret_, fid_, formatRet_,decl_);
-                            infos_.put(id_, met_);
-                        }
-                        if (b instanceof ConstructorBlock) {
-                            ConstructorBlock method_ = (ConstructorBlock) b;
-                            ConstructorId id_ = method_.getGenericId();
-                            String ret_ = method_.getImportedReturnType();
-                            AccessEnum acc_ = method_.getAccess();
-                            String formatRet_;
-                            ConstructorId fid_;
-                            formatRet_ = ret_;
-                            fid_ = id_;
-                            String decl_ = method_.getDeclaringType();
-                            ConstructorMetaInfo met_ = new ConstructorMetaInfo(forName_, acc_, id_, ret_, fid_, formatRet_,decl_);
-                            infosConst_.put(id_, met_);
-                        }
-                    }
-                    if (_cont.getOptions().isSpecialEnumsMethods() && clblock_ instanceof EnumBlock) {
-                        String valueOf_ = _cont.getStandards().getAliasValueOf();
-                        String values_ = _cont.getStandards().getAliasValues();
-                        String string_ = _cont.getStandards().getAliasString();
-                        MethodId id_ = new MethodId(true, valueOf_, new StringList(string_));
-                        String ret_ = clblock_.getWildCardString();
-                        String formatRet_;
-                        MethodId fid_;
-                        formatRet_ = ret_;
-                        fid_ = id_;
-                        String decl_ = clblock_.getFullName();
-                        MethodMetaInfo met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
-                        infos_.put(id_, met_);
-                        id_ = new MethodId(true, values_, new StringList());
-                        ret_ = PrimitiveTypeUtil.getPrettyArrayType(ret_);
-                        formatRet_ = ret_;
-                        fid_ = id_;
-                        met_ = new MethodMetaInfo(AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, formatRet_,decl_);
-                        infos_.put(id_, met_);
-                        
-                    }
-                    RootBlock par_ = clblock_.getParentType();
-                    String format_;
-                    if (par_ != null) {
-                        format_ = par_.getFullName();
-                    } else {
-                        format_ = "";
-                    }
-                    AccessEnum acc_ = clblock_.getAccess();
-                    boolean st_ = clblock_.isFinalType();
-                    if (clblock_ instanceof InterfaceBlock) {
-                        classes_.add(new ClassMetaInfo(forName_, ((InterfaceBlock)clblock_).getImportedDirectSuperInterfaces(), format_, inners_,
-                                infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_));
-                        continue;
-                    }
-                    if (clblock_ instanceof AnnotationBlock) {
-                        classes_.add(new ClassMetaInfo(forName_, new StringList(), format_, inners_,
-                                infosFields_,infos_, infosConst_, ClassCategory.ANNOTATION,st_,acc_));
-                        continue;
-                    }
-                    ClassCategory cat_ = ClassCategory.CLASS;
-                    if (clblock_ instanceof EnumBlock) {
-                        cat_ = ClassCategory.ENUM;
-                    }
-                    boolean abs_ = clblock_.isAbstractType();
-                    boolean final_ = clblock_.isFinalType();
-                    String superClass_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperClass();
-                    StringList interfaces_ = ((UniqueRootedBlock) clblock_).getImportedDirectGenericSuperInterfaces();
-                    classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, format_, inners_,
-                            infosFields_,infos_, infosConst_, cat_, abs_, final_,st_,acc_));
+                    classes_.add(classesInfo_.getClassMetaInfo(clblock_, forName_, _cont));
                 }
                 for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
-                    ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
-                    infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
-                    StringMap<FieldMetaInfo> infosFields_;
-                    infosFields_ = new StringMap<FieldMetaInfo>();
-                    ObjectNotNullMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-                    infosConst_ = new ObjectNotNullMap<ConstructorId, ConstructorMetaInfo>();
                     String k_ = c.getKey();
-                    String forName_ = Templates.getGenericString(k_, _cont);
                     StandardType clblock_ = c.getValue();
-                    StringList inners_ = new StringList();
-                    for (StandardField f: clblock_.getFields().values()) {
-                        String ret_ = f.getClassName();
-                        boolean staticElement_ = f.isStaticField();
-                        boolean finalElement_ = f.isFinalField();
-                        AccessEnum acc_ = f.getAccess();
-                        for (String g: f.getFieldName()) {
-                            FieldMetaInfo met_ = new FieldMetaInfo(k_, g, ret_, staticElement_, finalElement_, false, acc_);
-                            infosFields_.put(g, met_);
-                        }
-                    }
-                    for (StandardMethod m: clblock_.getMethods().values()) {
-                        MethodId id_ = m.getId();
-                        String ret_ = m.getImportedReturnType();
-                        AccessEnum acc_ = m.getAccess();
-                        String decl_ = m.getDeclaringType();
-                        MethodMetaInfo met_ = new MethodMetaInfo(acc_,decl_, id_, m.getModifier(), ret_, id_, ret_,decl_);
-                        infos_.put(id_, met_);
-                    }
-                    for (StandardConstructor d: clblock_.getConstructors()) {
-                        ConstructorId id_ = d.getGenericId();
-                        String ret_ = d.getImportedReturnType();
-                        AccessEnum acc_ = d.getAccess();
-                        String decl_ = d.getDeclaringType();
-                        ConstructorMetaInfo met_ = new ConstructorMetaInfo(forName_, acc_, id_, ret_, id_, ret_,decl_);
-                        infosConst_.put(id_, met_);
-                    }
-                    AccessEnum acc_ = clblock_.getAccess();
-                    boolean st_ = clblock_.isFinalType();
-                    if (clblock_ instanceof StandardInterface) {
-                        classes_.add(new ClassMetaInfo(forName_, ((StandardInterface)clblock_).getDirectInterfaces(), "",
-                                inners_,infosFields_,infos_, infosConst_, ClassCategory.INTERFACE,st_,acc_));
-                        continue;
-                    }
-                    ClassCategory cat_ = ClassCategory.CLASS;
-                    if (clblock_ instanceof StandardInterface) {
-                        cat_ = ClassCategory.INTERFACE;
-                    }
-                    boolean abs_ = clblock_.isAbstractType();
-                    boolean final_ = clblock_.isFinalType();
-                    String superClass_ = ((StandardClass) clblock_).getSuperClass(_cont);
-                    StringList interfaces_ = ((StandardClass) clblock_).getDirectInterfaces();
-                    classes_.add(new ClassMetaInfo(forName_, superClass_, interfaces_, "",
-                            inners_,infosFields_,infos_, infosConst_, cat_, abs_, final_,st_,acc_));
+                    classes_.add(_cont.getClassMetaInfo(clblock_, k_));
                 }
                 classes_.sortElts(new ClassNameCmp());
                 Struct[] ctorsArr_ = new Struct[classes_.size()];
@@ -1542,7 +1369,8 @@ public class AliasReflection {
                 }
                 int index_ = (Integer)args_[1].getInstance();
                 Struct out_ = InvokingOperation.getElement(inst_, index_, _cont);
-                if (_cont.getException() != null) {
+                _cont.addSensibleField(inst_, out_);
+                if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }
                 result_.setResult(out_);
@@ -1557,7 +1385,7 @@ public class AliasReflection {
                 int index_ = (Integer)args_[1].getInstance();
                 Struct value_ = args_[2];
                 InvokingOperation.setElement(inst_, index_, value_, _cont, false);
-                if (_cont.getException() != null) {
+                if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }
                 result_.setResult(NullStruct.NULL_VALUE);

@@ -130,6 +130,10 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         }
     }
 
+    @Override
+    public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
+        importedDirectSuperInterfaces.clear();
+    }
     public StringList getImportedDirectSuperInterfaces() {
         return importedDirectSuperInterfaces;
     }

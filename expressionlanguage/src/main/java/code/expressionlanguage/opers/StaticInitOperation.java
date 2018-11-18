@@ -110,12 +110,12 @@ public final class StaticInitOperation extends LeafOperation {
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
         if (statusInit_ != null) {
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getException() != null) {
+            if (_conf.getContextEl().hasException()) {
                 return;
             }
             argres_ = getCommonArgument(current_, _conf);
         }
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         Argument arg_ = argres_;

@@ -2,6 +2,8 @@ package code.maths.litteral;
 import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
+import code.util.Numbers;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.AdvancedMathFactory;
 
@@ -9,6 +11,41 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
 
     private final LgInt maxRd = LgInt.getMaxLongPlusOne();
 
+    public static StringList getFunctions() {
+        StringList list_ = new StringList();
+        list_.add(OperationNode.PUIS);
+        list_.add(OperationNode.QUOT);
+        list_.add(OperationNode.MOD);
+        list_.add(OperationNode.MODTAUX);
+        list_.add(OperationNode.ABS);
+        list_.add(OperationNode.ENT);
+        list_.add(OperationNode.TRONC);
+        list_.add(OperationNode.NUM);
+        list_.add(OperationNode.DEN);
+        list_.add(OperationNode.MIN);
+        list_.add(OperationNode.MAX);
+        list_.add(OperationNode.MOY);
+        list_.add(OperationNode.VAR);
+        list_.add(OperationNode.CARAC_FERME);
+        list_.add(OperationNode.CARAC_OUVERT);
+        list_.add(OperationNode.CARAC_SEMI_OUVERT_G);
+        list_.add(OperationNode.CARAC_SEMI_OUVERT_D);
+        list_.add(OperationNode.CARAC_DROITE_OUVERT);
+        list_.add(OperationNode.CARAC_DROITE_FERME);
+        list_.add(OperationNode.CARAC_GAUCHE_OUVERT);
+        list_.add(OperationNode.CARAC_GAUCHE_FERME);
+        list_.add(OperationNode.SGN);
+        list_.add(OperationNode.CARD);
+        list_.add(OperationNode.INTER);
+        list_.add(OperationNode.UNION);
+        list_.add(OperationNode.COMPL);
+        list_.add(OperationNode.INCL);
+        list_.add(OperationNode.NON_INCL);
+        list_.add(OperationNode.EQ_NUM);
+        list_.add(OperationNode.NON_EQ_NUM);
+        list_.add(OperationNode.DIV_FCT);
+        return list_;
+    }
     @Override
     public Rate evaluateDirectlyRate(String _numExp) {
         return (Rate) MathUtil.processEl(_numExp, 0, false, new StringMap<String>()).getObject();
@@ -36,7 +73,10 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
         if (_gotArg instanceof Rate) {
             return ((Rate)_gotArg).toNumberString();
         }
-        return String.valueOf(_gotArg);
+        if (_gotArg instanceof Number) {
+            return Numbers.toString((Number) _gotArg);
+        }
+        return "";
     }
 
     @Override
@@ -63,7 +103,7 @@ public final class EvolvedMathFactory implements AdvancedMathFactory<Rate> {
 
     @Override
     public char getSepartorSetChar() {
-        return NumericString.SEPARATOR_SET_CHAR;
+        return OperationNode.DELIMITER_STRING_SEP;
     }
 
     @Override

@@ -4297,7 +4297,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "6 1*(\"te\"+[8])";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4529,7 +4529,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1 .0";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4537,7 +4537,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1. 0";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4593,7 +4593,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0.2";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4601,7 +4601,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1  .0";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4641,7 +4641,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.d.f";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(3, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4649,7 +4649,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1d.";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4785,7 +4785,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1.0e4d.5";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(6, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test
@@ -4793,7 +4793,7 @@ public class ElResolverTest extends ProcessMethodCommon{
         ContextEl conf_ = contextEl();
         addImportingPage(conf_, false);
         String el_ = "1. .0";
-        assertEq(-1, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
+        assertEq(2, ElResolver.checkSyntax(el_, conf_, 0).getBadOffset());
     }
 
     @Test

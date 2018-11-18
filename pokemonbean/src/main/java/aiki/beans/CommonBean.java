@@ -96,22 +96,15 @@ public class CommonBean extends Bean {
     protected static final String SEP_DASH = " - ";
     protected static final String CENT = "100";
     protected static final char UNDERSCORE = '_';
-    private static final String LEFT_BRACE = "{";
-    private static final String RIGHT_BRACE = "}";
-    private static final String QUOTED_LEFT_BRACE = "'{";
-    private static final String QUOTED_RIGHT_BRACE = "}'";
-//    protected static final String E_AMP = "&amp;";
-//    protected static final String E_GT = "&gt;";
-//    protected static final String E_LT = "&lt;";
-//    protected static final String EAMP = "&";
-//    protected static final String EGT = ">";
-//    protected static final String ELT = "<";
-    private static final String QUOTE = "'";
-    private static final String ESCAPED_QUOTE = "''";
-//    protected static final String TOKENS_VAR_CATCHING = "[A-Z][A-Z_]*";
-    private static final char LEFT_PAR = '(';
-    private static final char RIGHT_PAR = ')';
-    private static final char PIPE_CHAR = '|';
+    protected static final String LEFT_BRACE = "{";
+    protected static final String RIGHT_BRACE = "}";
+    protected static final String QUOTED_LEFT_BRACE = "'{";
+    protected static final String QUOTED_RIGHT_BRACE = "}'";
+    protected static final String QUOTE = "'";
+    protected static final String ESCAPED_QUOTE = "''";
+    protected static final char LEFT_PAR = '(';
+    protected static final char RIGHT_PAR = ')';
+    protected static final char PIPE_CHAR = '|';
 
     protected static String escapedStringQuote(String _string) {
         StringMap<String> map_ = new StringMap<String>();

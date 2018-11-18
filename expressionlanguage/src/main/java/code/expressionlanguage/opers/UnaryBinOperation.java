@@ -88,7 +88,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
         Argument a_ = getArgument(_conf, arg_);
-        if (_conf.getException() == null) {
+        if (!_conf.hasExceptionOrFailInit()) {
             setSimpleArgument(a_, _conf, _nodes);
         }
         return a_;
@@ -102,20 +102,14 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument out_ = new Argument();
-        Object o_ = arg_.getObject();
-        if (o_ == null) {
+        if (arg_.isNull()) {
             return;
         }
         LgNames stds_ = _conf.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         ClassArgumentMatching res_ = getResultClass();
         if (res_.matchClass(int_)) {
-            int left_;
-            if (o_ instanceof Number) {
-                left_ = ((Number)o_).intValue();
-            } else {
-                left_ = (Character)o_;
-            }
+            int left_ = arg_.getInt();
             boolean[] bits_ = LgNames.toBits(left_);
             int len_ = bits_.length;
             for (int i = 0; i<len_; i++) {
@@ -123,12 +117,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
             }
             out_.setObject(LgNames.toInt(bits_));
         } else {
-            long left_;
-            if (o_ instanceof Number) {
-                left_ = ((Number)o_).longValue();
-            } else {
-                left_ = (Character)o_;
-            }
+            long left_ = arg_.getLong();
             boolean[] bits_ = LgNames.toBits(left_);
             int len_ = bits_.length;
             for (int i = 0; i<len_; i++) {
@@ -157,7 +146,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         }
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = getArgument(_conf, arg_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(a_, _conf);
@@ -166,18 +155,12 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
     Argument getArgument(ExecutableCode _conf,
             Argument _in) {
         Argument out_ = new Argument();
-        Object o_ = _in.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         String int_ = stds_.getAliasPrimInteger();
         ClassArgumentMatching res_ = getResultClass();
         if (res_.matchClass(int_)) {
-            int left_;
-            if (o_ instanceof Number) {
-                left_ = ((Number)o_).intValue();
-            } else {
-                left_ = (Character)o_;
-            }
+            int left_ = _in.getInt();
             boolean[] bits_ = LgNames.toBits(left_);
             int len_ = bits_.length;
             for (int i = 0; i<len_; i++) {
@@ -185,12 +168,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
             }
             out_.setObject(LgNames.toInt(bits_));
         } else {
-            long left_;
-            if (o_ instanceof Number) {
-                left_ = ((Number)o_).longValue();
-            } else {
-                left_ = (Character)o_;
-            }
+            long left_ = _in.getLong();
             boolean[] bits_ = LgNames.toBits(left_);
             int len_ = bits_.length;
             for (int i = 0; i<len_; i++) {

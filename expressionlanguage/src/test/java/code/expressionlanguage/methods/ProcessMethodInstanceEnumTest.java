@@ -6,9 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.Struct;
 import code.util.StringMap;
 
@@ -24,7 +22,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
 
@@ -39,7 +37,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
     }
 
@@ -55,7 +53,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -80,7 +78,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -109,7 +107,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -143,7 +141,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -185,7 +183,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -226,15 +224,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        initializeClass("pkg.Ex", cont_);
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(!cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
-        Struct ex_ = cont_.getException();
-        assertEq("$defErrorClass", ex_.getClassName(cont_));
-        assertTrue(ex_ instanceof CausingErrorStruct);
-        CausingErrorStruct err_ = (CausingErrorStruct) ex_;
-        Struct cause_ = err_.getCause();
-        assertTrue(cause_ instanceof StdStruct);
-        assertEq("code.expressionlanguage.exceptions.DivideZeroException", cause_.getClassName(cont_));
     }
 }

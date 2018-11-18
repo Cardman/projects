@@ -8,6 +8,8 @@ public abstract class Item {
 
     private int price;
 
+    private String name;
+
     /**
      * DataBase _data the zipped data base
      * 
@@ -22,6 +24,14 @@ public abstract class Item {
     }
 
     public abstract String getItemType();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String _name) {
+        name = _name;
+    }
 
     public int getPrice() {
         return price;

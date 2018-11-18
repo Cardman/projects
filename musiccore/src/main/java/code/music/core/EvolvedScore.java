@@ -1,6 +1,5 @@
 package code.music.core;
 import java.util.Iterator;
-import java.util.ListIterator;
 
 import jm.music.data.Part;
 import jm.music.data.Score;
@@ -8,7 +7,6 @@ import jm.util.Play;
 import code.util.EqList;
 import code.util.ints.Displayable;
 import code.util.ints.Listable;
-import code.util.ints.MidListable;
 
 public final class EvolvedScore implements MidListable<EvolvedPart>, Displayable {
 
@@ -129,31 +127,6 @@ public final class EvolvedScore implements MidListable<EvolvedPart>, Displayable
         score.removePart(_index);
         parts.remove(_index);
     }
-
-//    @Override
-//    public int indexOf(Object _o) {
-//        return parts.indexOf(_o);
-//    }
-//
-//    @Override
-//    public int lastIndexOf(Object _o) {
-//        return parts.lastIndexOf(_o);
-//    }
-
-    @Override
-    public ListIterator<EvolvedPart> listIterator() {
-        return parts.listIterator();
-    }
-
-    @Override
-    public ListIterator<EvolvedPart> listIterator(int _index) {
-        return parts.listIterator(_index);
-    }
-
-//    @Override
-//    public List<EvolvedPart> subList(int _fromIndex, int _toIndex) {
-//        return parts.subList(_fromIndex, _toIndex);
-//    }
 
     @Override
     public Listable<EvolvedPart> sub(int _from, int _to) {

@@ -504,7 +504,7 @@ final class ExtractObject {
     }
     static String valueOf(Configuration _conf, Struct _obj) {
         if (_obj.isNull()) {
-            return String.valueOf(_obj.getInstance());
+            return _conf.getStandards().getNullString();
         }
         return toString(_conf, _obj);
     }

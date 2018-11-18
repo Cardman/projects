@@ -531,7 +531,7 @@ public final class Fight {
     private NatTreeMap<String,Boolean> moves = new NatTreeMap<String,Boolean>();
 
     /***/
-    private TreeMap<String,Boolean> evolutions = new TreeMap<String,Boolean>(new NaturalComparator<String>());
+    private TreeMap<String,Boolean> evolutions = new TreeMap<String,Boolean>(new NaturalComparator());
 
     /***/
     private StringList abilities = new StringList();

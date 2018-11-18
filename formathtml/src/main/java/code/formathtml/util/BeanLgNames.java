@@ -24,6 +24,7 @@ import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.ShortStruct;
 import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.opers.util.StringStruct;
@@ -654,16 +655,17 @@ public abstract class BeanLgNames extends LgNames {
     }
     public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
-        if (_instance.getInstance() instanceof SelectedBoolean) {
+        Object r_ = _instance.getInstance();
+        if (r_ instanceof SelectedBoolean) {
             res_.setResult(new StringStruct(((SelectedBoolean)_instance.getInstance()).name()));
             return res_;
         }
-        if (_instance.getInstance() instanceof String) {
-            res_.setResult(new StringStruct((String)_instance.getInstance()));
+        if (_instance instanceof StringStruct) {
+            res_.setResult(_instance);
             return res_;
         }
-        if (_instance.getInstance() instanceof Number) {
-            res_.setResult(new StringStruct(_instance.getInstance().toString()));
+        if (_instance instanceof NumberStruct) {
+            res_.setResult(new StringStruct(Numbers.toString(((NumberStruct)_instance).getInstance())));
             return res_;
         }
         return getOtherName(_cont, _instance);

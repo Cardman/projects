@@ -9,14 +9,14 @@ import org.junit.Test;
 public class BigIntegersTest {
 
     @Test
-    public void sortBigIntegers1Test() {
+    public void sort1Test() {
         BigIntegers nbs_ = new BigIntegers();
         nbs_.add(new BigInteger("5"));
         nbs_.add(new BigInteger("1"));
         nbs_.add(new BigInteger("4"));
         nbs_.add(new BigInteger("10"));
         nbs_.add(new BigInteger("8"));
-        nbs_.sortBigIntegers();
+        nbs_.sort();
         assertEq(5,nbs_.size());
         assertEq(new BigInteger("1"),nbs_.get(0));
         assertEq(new BigInteger("4"),nbs_.get(1));

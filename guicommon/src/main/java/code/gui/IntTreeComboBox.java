@@ -2,7 +2,7 @@ package code.gui;
 import code.util.NumberMap;
 import code.util.TreeMap;
 import code.util.comparators.ComparatorMapValue;
-import code.util.comparators.NaturalComparator;
+import code.util.comparators.ComparatorNatNumber;
 import code.util.ints.ListableEntries;
 
 public final class IntTreeComboBox extends GraphicCombo {
@@ -71,7 +71,7 @@ public final class IntTreeComboBox extends GraphicCombo {
     }
     private static TreeMap<Integer, String> getTree(Integer... _ints) {
         TreeMap<Integer, String> tr_;
-        tr_ = new TreeMap<Integer, String>(new NaturalComparator<Integer>());
+        tr_ = new TreeMap<Integer, String>(new ComparatorNatNumber<Integer>());
         for (Integer i: _ints) {
             tr_.put(i, i.toString());
         }

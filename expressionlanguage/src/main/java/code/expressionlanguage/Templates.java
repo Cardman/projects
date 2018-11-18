@@ -1005,8 +1005,8 @@ public final class Templates {
         DimComp dParam_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param);
         String baseArrayParam_ = dParam_.getComponent();
         String baseArrayArg_ = dArg_.getComponent();
-        Mapping _m = new Mapping();
-        _m.setMapping(_inherit);
+        Mapping map_ = new Mapping();
+        map_.setMapping(_inherit);
         if (baseArrayParam_.startsWith(PREFIX_VAR_TYPE)) {
             if (_arg.isEmpty()) {
                 MappingPairs m_ = new MappingPairs();
@@ -1018,7 +1018,7 @@ public final class Templates {
             if (dArg_.getDim() != dParam_.getDim()) {
                 return null;
             }
-            if (_m.inheritArgParam(baseArrayParam_.substring(1), baseArrayArg_.substring(1))) {
+            if (map_.inheritArgParam(baseArrayParam_.substring(1), baseArrayArg_.substring(1))) {
                 MappingPairs m_ = new MappingPairs();
                 return m_;
             }
@@ -1027,7 +1027,7 @@ public final class Templates {
         StringList bounds_ = new StringList();
         String objType_ = _context.getStandards().getAliasObject();
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
-            for (String a: _m.getAllUpperBounds(baseArrayArg_, objType_)) {
+            for (String a: map_.getAllUpperBounds(baseArrayArg_, objType_)) {
                 bounds_.add(PrimitiveTypeUtil.getPrettyArrayType(a, dArg_.getDim()));
             }
         } else {
@@ -1079,7 +1079,7 @@ public final class Templates {
         String generic_ = null;
         if (baseArrayArg_.startsWith(PREFIX_VAR_TYPE)) {
             String cmp_ = PrimitiveTypeUtil.getQuickComponentBaseType(_param).getComponent();
-            for (String c: _m.getAllUpperBounds(baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
+            for (String c: map_.getAllUpperBounds(baseArrayArg_.substring(PREFIX_VAR_TYPE.length()), objType_)) {
                 if (StringList.quickEq(c, cmp_)) {
                     generic_ = c;
                     break;

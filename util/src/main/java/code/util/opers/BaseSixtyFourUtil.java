@@ -97,17 +97,15 @@ public final class BaseSixtyFourUtil {
             char ch_ = _text.charAt(i);
             
             byte v_;
-            if (Character.isDigit(ch_)) {
+            if (ch_ >= FIRST_DIGIT && ch_ <= '9') {
                 int diff_ = ch_ - FIRST_DIGIT;
                 v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
-            } else if (Character.isLetter(ch_)) {
-                if (Character.isLowerCase(ch_)) {
-                    int diff_ = ch_ - FIRST_LOW_LETTER;
-                    v_ = (byte) (NB_LETTERS+diff_);
-                } else {
-                    int diff_ = ch_ - FIRST_UPP_LETTER;
-                    v_ = (byte) diff_;
-                }
+            } else if (ch_ >= FIRST_LOW_LETTER && ch_ <= 'z') {
+                int diff_ = ch_ - FIRST_LOW_LETTER;
+                v_ = (byte) (NB_LETTERS+diff_);
+            } else if (ch_ >= FIRST_UPP_LETTER && ch_ <= 'Z') {
+                int diff_ = ch_ - FIRST_UPP_LETTER;
+                v_ = (byte) diff_;
             } else if (ch_ == '+') {
                 v_ = NB_DIGITS_LETTERS;
             } else {
@@ -164,17 +162,15 @@ public final class BaseSixtyFourUtil {
             char ch_ = _text.charAt(i);
             
             byte v_;
-            if (Character.isDigit(ch_)) {
+            if (ch_ >= FIRST_DIGIT && ch_ <= '9') {
                 int diff_ = ch_ - FIRST_DIGIT;
                 v_ = (byte) (NB_LETTERS_UPP_LOW + diff_);
-            } else if (Character.isLetter(ch_)) {
-                if (Character.isLowerCase(ch_)) {
-                    int diff_ = ch_ - FIRST_LOW_LETTER;
-                    v_ = (byte) (NB_LETTERS+diff_);
-                } else {
-                    int diff_ = ch_ - FIRST_UPP_LETTER;
-                    v_ = (byte) diff_;
-                }
+            } else if (ch_ >= FIRST_LOW_LETTER && ch_ <= 'z') {
+                int diff_ = ch_ - FIRST_LOW_LETTER;
+                v_ = (byte) (NB_LETTERS+diff_);
+            } else if (ch_ >= FIRST_UPP_LETTER && ch_ <= 'Z') {
+                int diff_ = ch_ - FIRST_UPP_LETTER;
+                v_ = (byte) diff_;
             } else if (ch_ == '+') {
                 v_ = NB_DIGITS_LETTERS;
             } else if (ch_ == '/') {

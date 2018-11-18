@@ -98,10 +98,9 @@ public class RootBlockTest {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Classes classes_ = cont_.getClasses();
         StringList superTypes_ = classes_.getClassBody("pkg.ExFour").getAllGenericSuperTypes(cont_);
-        assertEq(4, superTypes_.size());
+        assertEq(3, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
         assertEq("pkg.ExThree<java.lang.String>", superTypes_.get(1));
-        assertEq("pkg.Ex<java.lang.String>", superTypes_.get(2));
         assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
     }
 

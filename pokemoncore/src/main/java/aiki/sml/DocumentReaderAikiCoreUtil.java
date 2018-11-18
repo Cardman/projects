@@ -926,6 +926,10 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getAbilityData(AbilityData _object, String _fieldName, Element _element) {
+        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+            _object.setName(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
         if (StringList.quickEq(_fieldName, FIELD_BREAK_FOE_IMMUNE)) {
             _object.setBreakFoeImmune(getListTypesDuo(_element));
             return;
@@ -1579,6 +1583,10 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getItem(Item _object, String _fieldName, Element _element) {
+        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+            _object.setName(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
         if (StringList.quickEq(_fieldName, FIELD_PRICE)) {
             _object.setPrice(DocumentReaderCoreUtil.getInteger(_element));
             return;
@@ -1816,6 +1824,10 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getMoveData(MoveData _object, String _fieldName, Element _element) {
+        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+            _object.setName(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
         if (StringList.quickEq(_fieldName, FIELD_NOT_TRANSLATED)) {
             _object.setNotTranslated(DocumentReaderCoreUtil.getBoolean(_element));
             return;
@@ -3260,6 +3272,10 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getPokemonData(PokemonData _object, String _fieldName, Element _element) {
+        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+            _object.setName(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
         if (StringList.quickEq(_fieldName, FIELD_NUMBER)) {
             _object.setNumber(DocumentReaderCoreUtil.getInteger(_element));
             return;
@@ -3525,6 +3541,10 @@ public final class DocumentReaderAikiCoreUtil {
     }
 
     private static void getStatus(Status _object, String _fieldName, Element _element) {
+        if (StringList.quickEq(_fieldName, FIELD_NAME)) {
+            _object.setName(DocumentReaderCoreUtil.getString(_element));
+            return;
+        }
         if (StringList.quickEq(_fieldName, FIELD_STATUS_TYPE)) {
             _object.setStatusType(getStatusType(_element));
             return;

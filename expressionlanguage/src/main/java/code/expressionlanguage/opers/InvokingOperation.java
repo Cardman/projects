@@ -177,7 +177,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 Argument chArg_ = optArgs_.get(i);
                 ArrOperation.setCheckedElement(str_, i, chArg_, _context);
-                if (_context.getException() != null) {
+                if (_context.getContextEl().hasExceptionOrFailInit()) {
                     return firstArgs_;
                 }
             }
@@ -209,7 +209,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             for (int i = CustList.FIRST_INDEX; i < len_; i++) {
                 Argument chArg_ = optArgs_.get(i);
                 ArrOperation.setCheckedElement(str_, i, chArg_, _context);
-                if (_context.getException() != null) {
+                if (_context.getContextEl().hasExceptionOrFailInit()) {
                     return firstArgs_;
                 }
             }
@@ -568,10 +568,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (classes_.isCustomType(_className)) {
             InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), _className);
             if (res_ == InitClassState.NOT_YET) {
+                _conf.getContextEl().failInitEnums();
                 _conf.getContextEl().setInitClass(new NotInitializedClass(_className));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
+                _conf.getContextEl().failInitEnums();
                 CausingErrorStruct causing_ = new CausingErrorStruct(_className);
                 _conf.setException(causing_);
                 return true;
@@ -583,7 +585,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return instancePrepare(_conf, _className, _constId, _previous, _arguments, "", -1, false);
     }
     public static Argument instancePrepare(ExecutableCode _conf, String _className, ConstructorId _constId, Argument _previous, CustList<Argument> _arguments, String _fieldName, int _blockIndex, boolean _format) {
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             Argument a_ = new Argument();
             return a_;
         }
@@ -617,12 +619,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         String base_ = Templates.getIdFromAllTypes(_className);
         if (!_conf.getClasses().isCustomType(base_)) {
             ResultErrorStd res_ = LgNames.newInstance(_conf.getContextEl(), _constId, Argument.toArgArray(_arguments));
-            if (_conf.getException() != null) {
-                Argument a_ = new Argument();
-                return a_;
-            }
-            if (res_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -661,7 +658,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return Argument.createVoid();
     }
     public static Argument instancePrepareAnnotation(ExecutableCode _conf, String _className, StringMap<String> _fieldNames,CustList<Argument> _arguments) {
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             Argument a_ = new Argument();
             return a_;
         }
@@ -746,7 +743,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             i_++;
         }
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return Argument.createVoid();
         }
         if (!StringList.isWord(_methodId.getName())) {
@@ -777,6 +774,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 for (int i = 0; i < len_; i++) {
                     copy_.getInstance()[i] = LgNames.getElement(arr_, i, _conf.getContextEl());
                 }
+                _conf.getContextEl().addSensibleElementsFromClonedArray(ret_, copy_);
                 a_.setStruct(copy_);
                 return a_;
             }
@@ -1016,8 +1014,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (!classes_.isCustomType(_classNameFound)) {
             ClassMethodId dyn_ = new ClassMethodId(_classNameFound, _methodId);
             ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContextEl(), dyn_, _previous.getStruct(), Argument.toArgArray(_firstArgs));
-            if (res_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -1178,7 +1175,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (!static_) {
                 Struct value_ = realInstance_.getStruct();
                 realInstance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, clName_, value_, _conf));
-                if (_conf.getException() != null) {
+                if (_conf.getContextEl().hasExceptionOrFailInit()) {
                     return new Argument();
                 }
             }
@@ -1221,7 +1218,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (!static_) {
                 Struct value_ = instance_.getStruct();
                 instance_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
-                if (_conf.getException() != null) {
+                if (_conf.getContextEl().hasExceptionOrFailInit()) {
                     return new Argument();
                 }
             }
@@ -1255,7 +1252,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         Argument firstValue_ = _values.first();
         Struct value_ = firstValue_.getStruct();
         firstValue_.setStruct(PrimitiveTypeUtil.getParent(nbAncestors_, id_, value_, _conf));
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return new Argument();
         }
         nList_.add(firstValue_);
@@ -1306,6 +1303,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (!Templates.checkElt(componentType_, arg_, _convert, _conf)) {
             return;
         }
+        if (_conf.getContextEl().isContainedSensibleFields(_struct)) {
+            _conf.getContextEl().failInitEnums();
+            return;
+        }
         LgNames.setElement(instance_, index_, _value, _conf.getContextEl());
     }
     public static Argument getEnumValues(String _class, ExecutableCode _conf) {
@@ -1314,6 +1315,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return Argument.createVoid();
         }
         Classes classes_ = _conf.getClasses();
+        ContextEl c_ = _conf.getContextEl();
         CustList<Struct> enums_ = new CustList<Struct>();
         for (Block b: Classes.getDirectChildren(classes_.getClassBody(id_))) {
             if (!(b instanceof ElementBlock)) {
@@ -1321,7 +1323,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             }
             ElementBlock b_ = (ElementBlock)b;
             String fieldName_ = b_.getUniqueFieldName();
-            enums_.add(classes_.getStaticField(new ClassField(id_, fieldName_)));
+            enums_.add(classes_.getStaticField(new ClassField(id_, fieldName_),c_));
         }
         Struct[] o_ = new Struct[enums_.size()];
         int i_ = CustList.FIRST_INDEX;
@@ -1343,6 +1345,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Argument argres_ = new Argument();
             return argres_;
         }
+        ContextEl c_ = _conf.getContextEl();
         Classes classes_ = _conf.getClasses();
         for (Block b: Classes.getDirectChildren(classes_.getClassBody(_class))) {
             if (!(b instanceof ElementBlock)) {
@@ -1352,7 +1355,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String fieldName_ = b_.getUniqueFieldName();
             if (StringList.quickEq(fieldName_, (String) _name.getObject())) {
                 Argument argres_ = new Argument();
-                argres_.setStruct(classes_.getStaticField(new ClassField(_class, fieldName_)));
+                argres_.setStruct(classes_.getStaticField(new ClassField(_class, fieldName_),c_));
                 return argres_;
             }
         }
@@ -1383,7 +1386,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return Argument.createVoid();
             }
             if (classes_.isCustomType(_className)) {
-                Struct struct_ = classes_.getStaticField(fieldId_);
+                ContextEl c_ = _conf.getContextEl();
+                Struct struct_ = classes_.getStaticField(fieldId_,c_);
+                _conf.getContextEl().addSensibleField(fieldId_.getClassName(), struct_);
                 a_ = new Argument();
                 a_.setStruct(struct_);
                 return a_;
@@ -1411,6 +1416,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         if (arg_.getStruct() instanceof FieldableStruct) {
             Struct struct_ = ((FieldableStruct) arg_.getStruct()).getStruct(fieldId_);
+            _conf.getContextEl().addSensibleField(arg_.getStruct(), struct_);
             a_ = new Argument();
             a_.setStruct(struct_);
             return a_;
@@ -1459,6 +1465,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return Argument.createVoid();
             }
             if (classes_.isCustomType(_className)) {
+                if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
+                    _conf.getContextEl().failInitEnums();
+                    return _right;
+                }
                 classes_.initializeStaticField(fieldId_, _right.getStruct());
                 return _right;
             }
@@ -1490,6 +1500,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return Argument.createVoid();
         }
         if (_previous.getStruct() instanceof FieldableStruct) {
+            if (_conf.getContextEl().isContainedSensibleFields(_previous.getStruct())) {
+                _conf.getContextEl().failInitEnums();
+                return _right;
+            }
             ((FieldableStruct) _previous.getStruct()).setStruct(fieldId_, _right.getStruct());
             return _right;
         }

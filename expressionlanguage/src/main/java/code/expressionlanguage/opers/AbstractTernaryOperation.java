@@ -8,7 +8,12 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ResultTernary;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.FunctionBlock;
+import code.expressionlanguage.methods.InfoBlock;
+import code.expressionlanguage.methods.NamedFunctionBlock;
+import code.expressionlanguage.methods.ReturnMehod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.methods.util.DeadCodeTernary;
@@ -19,6 +24,7 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -157,6 +163,72 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
             _conf.getClasses().addError(un_);
+        }
+        OperationNode current_ = this;
+        MethodOperation m_ = getParent();
+        while (m_ != null) {
+            if (!(m_ instanceof AbstractTernaryOperation)) {
+                if (m_ instanceof IdOperation) {
+                    current_ = current_.getParent();
+                    m_ = m_.getParent();
+                    continue;
+                }
+                break;
+            }
+            if (m_.getFirstChild() == current_) {
+                break;
+            }
+            current_ = current_.getParent();
+            m_ = m_.getParent();
+        }
+        String type_ = EMPTY_STRING;
+        Block cur_ = _conf.getCurrentBlock();
+        if (m_ == null && cur_ instanceof ReturnMehod) {
+            FunctionBlock f_ = cur_.getFunction();
+            if (f_ instanceof NamedFunctionBlock) {
+                NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
+                String ret_ = n_.getImportedReturnType();
+                if (!StringList.quickEq(ret_, void_)) {
+                    type_ = ret_;
+                }
+            }
+        } else if (m_ == null && cur_ instanceof AbstractForEachLoop) {
+            AbstractForEachLoop i_ = (AbstractForEachLoop) _conf.getCurrentBlock();
+            type_ = i_.getImportedClassName();
+            if (!type_.isEmpty()) {
+                type_ = PrimitiveTypeUtil.getPrettyArrayType(type_);
+            }
+        } else if (m_ == null && cur_ instanceof InfoBlock) {
+            InfoBlock i_ = (InfoBlock) _conf.getCurrentBlock();
+            type_ = i_.getImportedClassName();
+        } else if (!(m_ instanceof AffectationOperation)) {
+            //ERROR
+            type_ = EMPTY_STRING;
+        } else {
+            AffectationOperation a_ = (AffectationOperation) m_;
+            SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
+            if (s_ != null) {
+                ClassArgumentMatching c_ = s_.getResultClass();
+                if (c_.getNames().size() == 1) {
+                    type_ = c_.getName();
+                }
+            }
+        }
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (!type_.isEmpty() && !StringList.quickEq(type_, keyWordVar_)) {
+            if (PrimitiveTypeUtil.isPrimitive(type_, _conf)) {
+                opTwo_.getResultClass().setUnwrapObject(type_);
+                opThree_.getResultClass().setUnwrapObject(type_);
+            }
+            setResultClass(new ClassArgumentMatching(type_));
+            if (opOne_.getArgument() != null) {
+                DeadCodeTernary d_ = new DeadCodeTernary();
+                d_.setRc(_conf.getCurrentLocation());
+                d_.setFileName(_conf.getCurrentFileName());
+                _conf.getClasses().addWarning(d_);
+            }
+            return;
         }
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, firstArg_, two_, secondArg_, vars_, _conf);
         if (res_.isUnwrapFirst()) {

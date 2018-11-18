@@ -42,7 +42,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -80,7 +80,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -125,7 +125,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -171,7 +171,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -218,7 +218,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -264,7 +264,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -317,7 +317,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -369,7 +369,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -421,7 +421,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -473,7 +473,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -511,7 +511,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
-        ProcessMethod.initializeClass("pkgtwo.ExThree", cont_);
+        initializeClass("pkgtwo.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
@@ -549,7 +549,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -587,7 +587,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -625,7 +625,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        initializeClass("pkg.Ex", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -661,7 +661,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
-        ProcessMethod.initializeClass("pkgtwo.ExThree", cont_);
+        initializeClass("pkgtwo.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
@@ -714,7 +714,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -757,7 +757,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        ProcessMethod.initializeClass("pkg.ExThree", cont_);
+        initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -800,7 +800,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
-        ProcessMethod.initializeClass("pkg.ExThree", cont_);
+        initializeClass("pkg.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExThree", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -828,7 +828,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
-        ProcessMethod.initializeClass("pkg.ExTwo", cont_);
+        initializeClass("pkg.ExTwo", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -856,7 +856,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
-        ProcessMethod.initializeClass("pkg.ExTwo", cont_);
+        initializeClass("pkg.ExTwo", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExTwo", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -894,7 +894,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
-        ProcessMethod.initializeClass("pkgtwo.ExThree", cont_);
+        initializeClass("pkgtwo.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
@@ -933,7 +933,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
-        ProcessMethod.initializeClass("pkgtwo.ExThree", cont_);
+        initializeClass("pkgtwo.ExThree", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkgtwo.ExThree", null, id_, args_, cont_);
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExThree"));
@@ -980,7 +980,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();
@@ -1026,7 +1026,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         assertTrue(cont_.getClasses().isEmptyErrors());
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
-        ProcessMethod.initializeClass("pkg.ExCont", cont_);
+        initializeClass("pkg.ExCont", cont_);
         Argument ret_;
         ret_ = instanceArgument("pkg.ExCont", null, id_, args_, cont_);
         Struct str_ = ret_.getStruct();

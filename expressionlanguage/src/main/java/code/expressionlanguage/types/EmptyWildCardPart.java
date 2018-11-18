@@ -4,6 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -20,6 +21,11 @@ final class EmptyWildCardPart extends LeafPartType {
             int _index, CustList<NatTreeMap<Integer, String>> _dels, RootBlock _rooted,
             boolean _exact, RowCol _location) {
         if (!(getParent() instanceof TemplatePartType)) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName("");
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
             stopDepends();
             return;
         }

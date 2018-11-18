@@ -193,7 +193,7 @@ public enum CardPresident {
     }
 
     public String getImageFileName(String _ext) {
-        return StringList.concat(StringList.toUpperCase(name()),_ext);
+        return StringList.concat(name(),_ext);
     }
 
 }

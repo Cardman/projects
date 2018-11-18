@@ -2323,7 +2323,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append(" $int annotfield = 1i:\n");
         xml_.append(" {\n");
         xml_.append("  annotfield;;;+=2i:\n");
-        xml_.append(" }n");
+        xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" @MyAnnot\n");

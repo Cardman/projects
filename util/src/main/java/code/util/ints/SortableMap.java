@@ -2,7 +2,7 @@ package code.util.ints;
 import code.util.EntryCust;
 
 
-public interface SortableMap<K, V> extends ListableEntries<K, V>, HasComparator<K> {
+public interface SortableMap<K, V> extends ListableEntries<K, V> {
 
     K firstKey();
 

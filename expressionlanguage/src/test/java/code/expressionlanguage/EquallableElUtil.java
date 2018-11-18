@@ -3,6 +3,7 @@ package code.expressionlanguage;
 import org.junit.Assert;
 
 import code.expressionlanguage.opers.util.MethodId;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class EquallableElUtil {
@@ -39,7 +40,7 @@ public final class EquallableElUtil {
 
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
 
     private static boolean sameValue(Number _expected, Number _result) {

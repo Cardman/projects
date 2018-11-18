@@ -33,6 +33,8 @@ public final class PokemonData {
 
     private static final int BONUS_HP = 5;
 
+    private String name;
+
     /** DONE */
     private int number;
 
@@ -377,6 +379,14 @@ public final class PokemonData {
             evs_.put(s, statistics.getVal(s).getEv());
         }
         return evs_;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String _name) {
+        name = _name;
     }
 
     public int getNumber() {

@@ -1,8 +1,7 @@
 package code.util;
 import java.math.BigInteger;
 
-import code.util.annot.CapacityInit;
-import code.util.comparators.NaturalComparator;
+import code.util.comparators.BigIntegerComparator;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -19,7 +18,6 @@ public final class BigIntegers extends CustList<BigInteger> implements Equallabl
         super(_list);
     }
 
-    @CapacityInit
     public BigIntegers(CollCapacity _capacity) {
         super(_capacity);
     }
@@ -27,9 +25,8 @@ public final class BigIntegers extends CustList<BigInteger> implements Equallabl
     public static boolean eq(BigInteger _one, BigInteger _two) {
         return _one.equals(_two);
     }
-
-    public void sortBigIntegers() {
-        sortElts(new NaturalComparator<BigInteger>());
+    public void sort() {
+        sortElts(new BigIntegerComparator());
     }
 
     public BigInteger sumElts() {

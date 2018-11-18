@@ -13,7 +13,7 @@ public final class DealPresident implements Iterable<HandPresident> {
 
     public static final byte NUMERO_UTILISATEUR = 0;
 
-    public static final int NB_CARDS = HandPresident.pileBase().total();
+    public static final int NB_CARDS = 52;
 
     /** Ensemble des mains des joueurs */
     private EqList<HandPresident> deal = new EqList<HandPresident>();

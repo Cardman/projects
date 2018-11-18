@@ -62,7 +62,7 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
             previous_ = _conf.getOperationPageEl().getGlobalArgument();
         }
         Argument argres_ = getCommonArgument(previous_, _conf);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();

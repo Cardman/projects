@@ -202,7 +202,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             j_++;
         }
         processArgs(_conf, firstArgs_, params_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             Argument a_ = new Argument();
             return a_;
         }

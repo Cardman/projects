@@ -245,6 +245,11 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
     }
 
     @Override
+    public void buildErrorDirectGenericSuperTypes(ContextEl _classes) {
+        importedDirectSuperInterfaces.clear();
+        importedDirectSuperClass = _classes.getStandards().getAliasObject();
+    }
+    @Override
     public String getImportedDirectGenericSuperClass() {
         return importedDirectSuperClass;
     }

@@ -36,11 +36,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         comparator = _cmp;
     }
 
-    public TreeMap(SortableMap<K, V> _sorted) {
-        comparator = _sorted.comparator();
-        putAllMap(_sorted);
-    }
-
     @Override
     public boolean isCorrect() {
         return comparator != null && super.isCorrect();
@@ -147,7 +142,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         return s_;
     }
 
-    @Override
     public Comparing<K> comparator() {
         return comparator;
     }
@@ -258,7 +252,6 @@ public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, 
         return getList().last();
     }
 
-    @Override
     public void applyChanges() {
         for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
             for (int j = i + 1; j < getList().size(); j++) {

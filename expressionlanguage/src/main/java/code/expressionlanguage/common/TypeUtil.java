@@ -368,6 +368,7 @@ public final class TypeUtil {
                     pairs_.add(t);
                 }
             }
+            EqList<ClassMethodId> all_ = new EqList<ClassMethodId>();
             while (true) {
                 CustList<ClassMethodId> next_ = new CustList<ClassMethodId>();
                 for (ClassMethodId c: current_) {
@@ -378,6 +379,10 @@ public final class TypeUtil {
                             continue;
                         }
                         if (clSub_.eq(c)) {
+                            if (all_.containsObj(clSup_)) {
+                                continue;
+                            }
+                            all_.add(clSup_);
                             next_.add(clSup_);
                             pairs_.add(a);
                         }
@@ -627,25 +632,7 @@ public final class TypeUtil {
         return methods_;
     }
     public static StringList getAllGenericSuperTypes(GeneType _type,Analyzable _classes) {
-        StringList list_ = new StringList();
-        StringList current_ = new StringList(_type.getGenericString());
-        while (true) {
-            StringList next_ = new StringList();
-            for (String c: current_) {
-                String baseType_ = Templates.getIdFromAllTypes(c);
-                StringList superTypes_ = _classes.getClassBody(baseType_).getDirectGenericSuperTypes(_classes);
-                for (String t: superTypes_) {
-                    String format_ = Templates.quickFormat(c, t, _classes);
-                    list_.add(format_);
-                    next_.add(format_);
-                }
-            }
-            if (next_.isEmpty()) {
-                break;
-            }
-            current_ = next_;
-        }
-        return list_;
+        return _type.getAllGenericSuperTypes(_classes);
     }
     public static StringMap<ClassMethodId> getConcreteMethodsToCall(GeneType _type,MethodId _realId, ContextEl _conf) {
         StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
@@ -820,6 +807,7 @@ public final class TypeUtil {
     public static StringList getOwners(boolean _inherits,boolean _protectedInc,String _gl, String _root, String _innerName, boolean _staticOnly,Analyzable _an) {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
+        StringList visited_ = new StringList();
         while (true) {
             StringList new_ = new StringList();
             for (String s: ids_) {
@@ -845,6 +833,10 @@ public final class TypeUtil {
                     continue;
                 }
                 for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                    if (visited_.containsStr(t)) {
+                        continue;
+                    }
+                    visited_.add(t);
                     new_.add(t);
                 }
             }
@@ -861,6 +853,7 @@ public final class TypeUtil {
         StringList ids_ = new StringList(_root);
         StringList owners_ = new StringList();
         StringList depends_ = new StringList();
+        StringList visited_ = new StringList();
         while (true) {
             StringList new_ = new StringList();
             for (String s: ids_) {
@@ -884,6 +877,10 @@ public final class TypeUtil {
                     depends_.add(s);
                 }
                 for (String t: sub_.getImportedDirectBaseSuperTypes()) {
+                    if (visited_.containsStr(t)) {
+                        continue;
+                    }
+                    visited_.add(t);
                     new_.add(t);
                 }
             }

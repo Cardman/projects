@@ -45,7 +45,16 @@ public final class IdFctOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        MethodId argsRes_ = resolveArguments(1, _conf, cl_, EMPTY_STRING, false, args_);
+        String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
+        boolean static_ = false;
+        int i_ = 1;
+        if (args_.size() > 1) {
+            if (StringList.quickEq(args_.get(1).trim(), keyWordStatic_)) {
+                i_++;
+                static_ = true;
+            }
+        }
+        MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_);
         if (!(m_ instanceof InvokingOperation)) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());

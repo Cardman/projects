@@ -2,7 +2,6 @@
     */
 package code.util;
 import code.util.annot.CapacityInit;
-import code.util.comparators.NaturalComparator;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -35,32 +34,7 @@ public final class SortableList<T extends Comparable<T>> extends AbEqList<T> imp
     public SortableList(CollCapacity _capacity) {
         super(_capacity);
     }
-//    public void removeComparableDuplicates() {
-//        //setModified();
-//        int i_ = FIRST_INDEX;
-//        while (true) {
-//            if(i_ >= size()) {
-//                break;
-//            }
-//            int j_ = i_;
-//            j_++;
-//            while (true) {
-//                if (j_ >= size()) {
-//                    break;
-//                }
-//                if (get(i_).compareTo(get(j_)) == 0) {
-//                    removeAt(j_);
-//                } else {
-//                    j_++;
-//                }
-//            }
-//            i_++;
-//        }
-//    }
 
-    public void sort() {
-        sortElts(new NaturalComparator<T>());
-    }
 
     @Override
     public SortableList<T> subAbEq(int _from, int _to) {

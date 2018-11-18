@@ -1,7 +1,6 @@
 package code.formathtml.classes;
 
 import java.util.Iterator;
-import java.util.ListIterator;
 
 import code.util.CustList;
 import code.util.EqList;
@@ -150,22 +149,12 @@ public class Ints implements Listable<Integer>, Displayable {
         ints.remove(_index);
     }
 
-    @Override
-    public ListIterator<Integer> listIterator() {
-        return ints.listIterator();
-    }
-
     public void sort() {
         ints.sort();
     }
 
     public Integer getMinimum() {
         return ints.getMinimum();
-    }
-
-    @Override
-    public ListIterator<Integer> listIterator(int _index) {
-        return ints.listIterator(_index);
     }
 
     @Override
@@ -221,7 +210,7 @@ public class Ints implements Listable<Integer>, Displayable {
 
     @Override
     public String display() {
-        return ints.toString();
+        return ints.display();
     }
 
     public Numbers<Integer> subAbEq(int _from, int _to) {

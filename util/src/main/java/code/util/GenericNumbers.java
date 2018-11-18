@@ -3,8 +3,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
-import code.util.annot.CapacityInit;
-import code.util.comparators.NaturalComparator;
+import code.util.comparators.BigDecimalComparator;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -21,17 +20,16 @@ public final class GenericNumbers extends CustList<BigDecimal> implements Equall
         super(_element);
     }
 
-    @CapacityInit
     public GenericNumbers(CollCapacity _capacity) {
         super(_capacity);
     }
 
-    public static boolean eq(BigDecimal _one, BigDecimal _two) {
-        return _one.equals(_two);
+    public void sort() {
+        sortElts(new BigDecimalComparator());
     }
 
-    public void sortGenericNumbers() {
-        sortElts(new NaturalComparator<BigDecimal>());
+    public static boolean eq(BigDecimal _one, BigDecimal _two) {
+        return _one.equals(_two);
     }
 
     public void addBigIntCopy(BigInteger _bigInt) {

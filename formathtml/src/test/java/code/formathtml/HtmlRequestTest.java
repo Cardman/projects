@@ -12,6 +12,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.util.IntStruct;
+import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.StringStruct;
 import code.formathtml.classes.BeanFour;
 import code.formathtml.classes.BeanOne;
@@ -461,7 +462,8 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", Argument.numberToArgument("7L")).getInstance();
+        Argument arg_ = new Argument(new LongStruct(7));
+        String return_ = (String) HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", arg_).getInstance();
         assertEq("returned value",return_);
         assertEq(1, bean_.getComposite().getStrings().size());
         assertEq("7", bean_.getComposite().getStrings().first());
@@ -487,7 +489,8 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethods", Argument.numberToArgument("7L"));
+        Argument arg_ = new Argument(new LongStruct(7));
+        HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethods", arg_);
         assertNotNull(conf_.getContext().getException());
     }
 
@@ -500,7 +503,8 @@ public class HtmlRequestTest {
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         conf_.getLastPage().setGlobalArgumentObj(bean_);
-        HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", Argument.numberToArgument("7L"));
+        Argument arg_ = new Argument(new LongStruct(7));
+        HtmlRequest.invokeMethodWithNumbers(conf_, new BeanStruct(bean_), "invokeMethod", arg_);
         assertNotNull(conf_.getContext().getException());
     }
 //

@@ -79,7 +79,35 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         }
         return true;
     }
-
+    public boolean same(ConstructorId _obj) {
+        if (!StringList.quickEq(_obj.name, name)) {
+            return false;
+        }
+        if (classNames.size() != _obj.classNames.size()) {
+            return false;
+        }
+        if (vararg != _obj.vararg) {
+            return false;
+        }
+        int len_ = classNames.size();
+        for (int i = 0; i < len_; i++) {
+            String param_ = classNames.get(i);
+            String paramOther_ = _obj.classNames.get(i);
+            if (param_ == null) {
+                if (paramOther_ != null) {
+                    return false;
+                }
+                continue;
+            }
+            if (paramOther_ == null) {
+                return false;
+            }
+            if (!StringList.quickEq(param_,paramOther_)) {
+                return false;
+            }
+        }
+        return true;
+    }
     @Override
     public StringList getParametersTypes() {
         return new StringList(classNames);

@@ -1,8 +1,5 @@
 package code.util;
-import code.util.ints.Comparing;
-
 import code.util.annot.CapacityInit;
-import code.util.comparators.NaturalComparator;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SortableMap;
@@ -136,11 +133,6 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     }
 
     @Override
-    public Comparing<K> comparator() {
-        return new NaturalComparator<K>();
-    }
-
-    @Override
     public V firstValue() {
         return getList().first().getValue();
     }
@@ -245,31 +237,7 @@ public final class NatTreeMap<K extends Comparable<K>, V> extends AbsMap<K, V> i
     public EntryCust<K, V> lastEntry() {
         return getList().last();
     }
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#setModified()
-//
-//    @Override
-//    public void setModified() {
-//        modified = true;
-//    }
-//
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#setUnmodified()
-//
-//    @Override
-//    public void setUnmodified() {
-//        modified = false;
-//    }
-//
-//    (non-Javadoc)
-//        @see flux.utils.Viewable#isModified()
-//
-//    @Override
-//    public boolean isModified() {
-//        return modified;
-//    }
 
-    @Override
     public void applyChanges() {
         for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
             for (int j = i + 1; j < getList().size(); j++) {

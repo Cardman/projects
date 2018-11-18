@@ -3,14 +3,14 @@ import code.format.Translatable;
 import code.gui.TreeComboBox;
 import code.util.CustList;
 import code.util.TreeMap;
-import code.util.comparators.NaturalComparator;
+import code.util.comparators.ComparatorNatNumber;
 
 public final class ComboBoxEnumCards<E extends Translatable> extends TreeComboBox<Integer> {
 
     private CustList<E> real = new CustList<E>();
 
     public ComboBoxEnumCards() {
-        super(new TreeMap<Integer,String>(new NaturalComparator<Integer>()));
+        super(new TreeMap<Integer,String>(new ComparatorNatNumber<Integer>()));
     }
 
     public void addItem(E _item, String _lg) {

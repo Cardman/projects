@@ -23,9 +23,7 @@ public final class StreamTextFile {
 
     public static final String SEPARATEUR = "/";
     private static final String LINE_RETURN = "\n";
-    private static final String PROPERTIES_PATTERN = "{0}/{1}/{2}.properties";
     private static final String EMPTY_STRING = Constants.EMPTY_STRING;
-    private static final String DOT = ".";
     private static final char INVALID_CHARACTER = 65533;
 
     private StreamTextFile() {
@@ -180,10 +178,6 @@ public final class StreamTextFile {
 //        files_.replaceRegExpInStrings(BEGIN+folder_, EMPTY_STRING);
         files_.removePrefixInStrings(folder_);
         return files_;
-    }
-
-    public static String getPropertiesPath(String _folder, String _language, String _file) {
-        return StringList.simpleStringsFormat(PROPERTIES_PATTERN, _folder, _language, StringList.toLowerCase(StringList.replace(_file, DOT, SEPARATEUR)));
     }
 
     public static Element documentXmlInterne(String _dossier, String _fichier) {

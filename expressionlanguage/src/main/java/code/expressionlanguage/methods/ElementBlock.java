@@ -218,7 +218,6 @@ public final class ElementBlock extends Leaf implements InfoBlock{
                 return;
             }
             struct_ = arg_.getStruct();
-            el_.setCurrentOper(null);
             ip_.clearCurrentEls();
             RootBlock r_ = getRooted();
             ClassField staticField_ = new ClassField(r_.getFullName(), fieldName);

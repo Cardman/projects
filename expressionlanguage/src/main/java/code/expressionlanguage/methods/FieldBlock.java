@@ -429,7 +429,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (_cont.callsOrException()) {
                 return;
             }
-            el_.setCurrentOper(null);
             ip_.clearCurrentEls();
         }
         processBlock(_cont);

@@ -86,7 +86,7 @@ public final class QualifiedThisOperation extends LeafOperation {
     @Override
     public void calculate(ExecutableCode _conf) {
         Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(arg_, _conf);
@@ -96,7 +96,7 @@ public final class QualifiedThisOperation extends LeafOperation {
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getException() != null) {
+        if (_conf.hasExceptionOrFailInit()) {
             return arg_;
         }
         setSimpleArgument(arg_, _conf, _nodes);

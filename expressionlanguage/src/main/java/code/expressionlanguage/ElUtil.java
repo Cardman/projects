@@ -451,7 +451,7 @@ public final class ElUtil {
             if (!o.isCalculated(_nodes)) {
                 ArgumentsPair a_ = e.getValue();
                 Argument arg_ = o.calculate(_nodes, _context);
-                if (_context.getException() != null) {
+                if (_context.hasExceptionOrFailInit()) {
                     pageEl_.setTranslatedOffset(0);
                     pageEl_.clearCurrentEls();
                     return;

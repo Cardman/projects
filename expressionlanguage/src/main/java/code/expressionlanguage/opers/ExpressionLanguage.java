@@ -47,6 +47,10 @@ public final class ExpressionLanguage {
 
     public void setArgument(Argument _arg, ContextEl _cont) {
         arguments.getVal(currentOper).setArgument(_arg);
+        if (currentOper instanceof CompoundAffectationOperation) {
+            ((CompoundAffectationOperation)currentOper).endCalculate(_cont, arguments, _arg);
+            return;
+        }
         currentOper.setSimpleArgument(_arg, _cont, arguments);
     }
 

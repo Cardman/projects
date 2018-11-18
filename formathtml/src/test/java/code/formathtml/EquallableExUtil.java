@@ -4,6 +4,7 @@ import org.junit.Assert;
 
 import code.formathtml.classes.EnumNumber;
 import code.formathtml.classes.Rate;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class EquallableExUtil {
@@ -33,7 +34,7 @@ public final class EquallableExUtil {
 
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
 
     public static void assertEq(Character _expected, Character _result) {

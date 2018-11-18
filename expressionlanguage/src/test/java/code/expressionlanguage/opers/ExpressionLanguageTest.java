@@ -1005,7 +1005,7 @@ public class ExpressionLanguageTest {
     }
     @Test
     public void processEl321Test() {
-        Argument arg_ = directCalculate("0xffffffffffffffff");
+        Argument arg_ = directCalculate("0xffff_ffff");
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Integer);
         assertEq(-1, (Number)res_);
@@ -1317,6 +1317,45 @@ public class ExpressionLanguageTest {
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof String);
         assertEq("\u0050", (String)res_);
+    }
+
+    @Test
+    public void processEl366Test() {
+        Argument arg_ = directCalculate("0xafff_ffff<<<1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-536870914, (Number)res_);
+    }
+    @Test
+    public void processEl367Test() {
+        Argument arg_ = directCalculate("0xafff_ffff<<1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1610612734, (Number)res_);
+    }
+
+    @Test
+    public void processEl368Test() {
+        Argument arg_ = directCalculate("0xafff_ffff>>>1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1476395007, (Number)res_);
+    }
+
+    @Test
+    public void processEl369Test() {
+        Argument arg_ = directCalculate("0xafff_ffff<<<<1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(1610612735, (Number)res_);
+    }
+
+    @Test
+    public void processEl370Test() {
+        Argument arg_ = directCalculate("0xafff_ffff>>>>1");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Integer);
+        assertEq(-671088641, (Number)res_);
     }
     private Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);

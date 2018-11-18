@@ -2,10 +2,17 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.DefaultInitializer;
+import code.expressionlanguage.DefaultLockingClass;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.KeyWordsMap;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -23,6 +30,9 @@ public abstract class ProcessMethodCommon {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "$boolean";
 
+    protected static void initializeClass(String _class, ContextEl _cont) {
+//        ProcessMethod.initializeClass(_class, _cont);
+    }
     protected static Argument calculateArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.isStaticMethod(), _method.getName(),_method.getParametersTypes());
         MethodBlock method_ = Classes.getMethodBodiesById(_cont, _class, fct_).first();
@@ -88,6 +98,19 @@ public abstract class ProcessMethodCommon {
         ct_.getOptions().setSpecialEnumsMethods(false);
         ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
         InitializationLgNames.initAdvStandards(ct_);
+        ct_.initError();
+        return ct_;
+    }
+    protected static ContextEl contextEnElDefault() {
+        KeyWordsMap map_ = new KeyWordsMap();
+        KeyWords k_ = map_.getKeyWords("en");
+        LgNames lgNames_ = new CustLgNames();
+        ContextEl ct_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), new Options(), k_);
+        lgNames_.setContext(ct_);
+        map_.initEnStds(lgNames_);
+        lgNames_.build();
+        ct_.setStandards(lgNames_);
+        lgNames_.setupOverrides(ct_);
         ct_.initError();
         return ct_;
     }

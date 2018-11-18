@@ -227,7 +227,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         Options opt_ = _cont.getOptions();
         if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-            if (!variableName.isEmpty() && Character.isDigit(variableName.charAt(0))) {
+            if (!variableName.isEmpty() && ContextEl.isDigit(variableName.charAt(0))) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(getFile().getFileName());
                 b_.setRc(getRowCol(0, variableNameOffset));

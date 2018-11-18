@@ -6628,8 +6628,8 @@ public final class ElRenderUtilTest {
     public void processEl318Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append(" $public $static $int inst = exmeth($null):\n");
+        xml_.append(" $public $static $int exmeth(java.lang.Integer e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
         xml_.append("  $return 1i+$($int)t;.+e;.;:\n");
@@ -6657,8 +6657,8 @@ public final class ElRenderUtilTest {
     public void processEl319Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i):\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
+        xml_.append(" $public $static $int inst = exmeth($null):\n");
+        xml_.append(" $public $static $int exmeth(java.lang.Integer e){\n");
         xml_.append("  $long t:\n");
         xml_.append("  t;.=8:\n");
         xml_.append("  $return 1i+$($int)t;.+e;.;:\n");

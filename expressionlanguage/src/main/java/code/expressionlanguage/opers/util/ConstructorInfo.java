@@ -12,7 +12,7 @@ public final class ConstructorInfo implements Parametrable, Displayable {
     private ParametersGroup parameters;
 
     private boolean varArgWrap;
-
+    private InvocationMethod invocation;
     @Override
     public String display() {
         return constraints.getSignature();
@@ -92,4 +92,21 @@ public final class ConstructorInfo implements Parametrable, Displayable {
     public ConstructorId getFormatted() {
         return formatted;
     }
+
+    @Override
+    public InvocationMethod getInvocation() {
+        return invocation;
+    }
+
+    @Override
+    public void setInvocation(InvocationMethod _invocation) {
+        invocation = _invocation;
+    }
+
+    @Override
+    public boolean same(Identifiable _id) {
+        ConstructorId id_ = (ConstructorId) _id;
+        return formatted.same(id_);
+    }
+
 }

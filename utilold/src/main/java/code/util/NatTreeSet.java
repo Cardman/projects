@@ -1,11 +1,10 @@
 package code.util;
-import code.util.ints.Comparing;
 import java.util.Iterator;
-import java.util.ListIterator;
 
 import code.util.annot.CapacityInit;
 import code.util.comparators.NatComparator;
 import code.util.ints.Cmp;
+import code.util.ints.Comparing;
 import code.util.ints.Listable;
 import code.util.ints.SortableSet;
 
@@ -226,16 +225,6 @@ public final class NatTreeSet<E extends Cmp<E>> extends AbEqList<E> implements S
     @Override
     public void remove(int _index) {
         list.remove(_index);
-    }
-
-    @Override
-    public ListIterator<E> listIterator() {
-        return list.listIterator();
-    }
-
-    @Override
-    public ListIterator<E> listIterator(int _index) {
-        return list.listIterator(_index);
     }
 
     @Override

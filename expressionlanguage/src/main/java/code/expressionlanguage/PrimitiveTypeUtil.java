@@ -280,7 +280,13 @@ public final class PrimitiveTypeUtil {
         String className_ = current_.getClassName(_an);
         className_ = _an.getStandards().toWrapper(className_);
         String cl_ = Templates.getIdFromAllTypes(className_);
+        StringList list_ = new StringList();
         while (!canBeUseAsArgument(id_, cl_, _an)) {
+            if (list_.containsStr(cl_)) {
+                _an.setException(new StdStruct(new CustomError(_an.joinPages()),cast_));
+                break;
+            }
+            list_.add(cl_);
             Struct par_ = current_.getParent();
             if (par_.isNull()) {
                 _an.setException(new StdStruct(new CustomError(_an.joinPages()),cast_));

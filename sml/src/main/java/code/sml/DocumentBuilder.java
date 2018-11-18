@@ -1251,26 +1251,6 @@ public final class DocumentBuilder {
         return str_.toString();
     }
 
-    //    public static String encodeUrlString(String _urlString, boolean _encodeAccent) {
-    //        Map<String, String> replacedStrings_ = new Map<>();
-    //        replacedStrings_.put(ENCODE_SPACE, SPACE);
-    //        for (short c = ASCII_32; c < ASCII_37; c++) {
-    //            replacedStrings_.put(PER_CENT+Long.toHexString(c).toUpperCase(), Character.toString((char) c));
-    //        }
-    //        if (_encodeAccent) {
-    //            for (short c = ASCII_38; c < ASCII_256; c++) {
-    //                replacedStrings_.put(PER_CENT+Long.toHexString(c).toUpperCase(), Character.toString((char) c));
-    //            }
-    //            replacedStrings_.put(ENCODE_PER_CENT, PER_CENT);
-    //            return StringList.formatBasic(_urlString, replacedStrings_, false);
-    //        }
-    //        for (short c = ASCII_38; c < ASCII_128; c++) {
-    //            replacedStrings_.put(PER_CENT+Long.toHexString(c).toUpperCase(), Character.toString((char) c));
-    //        }
-    //        replacedStrings_.put(ENCODE_PER_CENT, PER_CENT);
-    //        return StringList.formatBasic(_urlString, replacedStrings_, true);
-    //    }
-
     public static String encodeToHtml(String _text) {
         StringBuilder escapedXml_ = new StringBuilder();
         for (char c: _text.toCharArray()) {

@@ -1,7 +1,4 @@
 package code.util;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 import org.junit.Assert;
 
 import code.util.classestest.KeyExample;
@@ -31,17 +28,7 @@ public final class EquallableExUtil {
 
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
-    }
-
-    public static void assertEq(BigInteger _expected, BigInteger _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), BigIntegers.eq(_expected, _result));
-    }
-
-    public static void assertEq(BigDecimal _expected, BigDecimal _result) {
-        Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), GenericNumbers.eq(_expected, _result));
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
 
     private static boolean sameValue(Number _expected, Number _result) {

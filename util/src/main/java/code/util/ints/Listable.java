@@ -1,9 +1,7 @@
 package code.util.ints;
-import java.util.ListIterator;
-
 import code.util.Numbers;
 
-public interface Listable<T> extends IterableList<T>, Countable, SimpleList {
+public interface Listable<T> extends Iterable<T>, SimpleIterable , Countable, SimpleList {
 
     Listable<T> getReverse();
 
@@ -25,10 +23,6 @@ public interface Listable<T> extends IterableList<T>, Countable, SimpleList {
     void removeAt(Number _index);
 
     void remove(int _index);
-
-    ListIterator<T> listIterator();
-
-    ListIterator<T> listIterator(int _index);
 
     T first();
 

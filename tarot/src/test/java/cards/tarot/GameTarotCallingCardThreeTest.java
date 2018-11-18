@@ -139,7 +139,7 @@ public class GameTarotCallingCardThreeTest extends CommonTarotGame {
         game.setCarteAppelee(cartesAppeler_);
         game.initConfianceAppele();
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)4));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)4));
         assertTrue(!game.confiance((byte)0,(byte)1));
         assertTrue(!game.confiance((byte)0,(byte)2));
         assertTrue(!game.confiance((byte)0,(byte)3));

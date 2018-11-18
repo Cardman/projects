@@ -8,7 +8,10 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
@@ -16,8 +19,11 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
@@ -32,6 +38,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     private SettableElResult settable;
     private String oper;
+    private ClassMethodId classMethodId;
 
     public CompoundAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -63,6 +70,37 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return;
         }
         settable = elt_;
+        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        ClassArgumentMatching c_ = chidren_.last().getResultClass();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+        String op_ = ops_.firstValue();
+        op_ = op_.substring(0, op_.length() - 1);
+        ClassMethodIdReturn cust_ = getOperator(_conf, op_, elt_.getResultClass(), c_);
+        if (cust_.isFoundMethod()) {
+            ClassArgumentMatching out_ = new ClassArgumentMatching(cust_.getReturnType());
+            setResultClass(out_);
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = cust_.getRealId();
+            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+            for (OperationNode o: chidren_) {
+                firstArgs_.add(o.getResultClass());
+            }
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            Mapping map_ = new Mapping();
+            map_.setArg(out_);
+            map_.setParam(elt_.getResultClass());
+            if (!Templates.isCorrect(map_, _conf)) {
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(map_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(cast_);
+            }
+            return;
+        }
         setResultClass(elt_.getResultClass());
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
@@ -270,6 +308,22 @@ public final class CompoundAffectationOperation extends MethodOperation {
     public void calculate(ExecutableCode _conf) {
         OperationNode right_ = getChildrenNodes().last();
         Argument rightArg_ = right_.getArgument();
+        if (classMethodId != null) {
+            CustList<OperationNode> chidren_ = new CustList<OperationNode>();
+            chidren_.add((OperationNode) settable);
+            chidren_.add(right_);
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            arguments_.add(((OperationNode) settable).getArgument());
+            arguments_.add(right_.getArgument());
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            Argument res_;
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
+            settable.endCalculate(_conf, res_);
+            setSimpleArgument(res_, _conf);
+            return;
+        }
         settable.calculateCompoundSetting(_conf, oper, rightArg_);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
@@ -278,13 +332,35 @@ public final class CompoundAffectationOperation extends MethodOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
-        OperationNode right_ = getChildrenNodes().last();
+        CustList<OperationNode> list_ = getChildrenNodes();
+        OperationNode right_ = list_.last();
         Argument rightArg_ = _nodes.getVal(right_).getArgument();
+        if (classMethodId != null) {
+            CustList<OperationNode> chidren_ = new CustList<OperationNode>();
+            chidren_.add((OperationNode) settable);
+            chidren_.add(right_);
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            arguments_.add(_nodes.getVal((OperationNode) settable).getArgument());
+            arguments_.add(_nodes.getVal(right_).getArgument());
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
+            return Argument.createVoid();
+        }
         Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
         setSimpleArgument(arg_, _conf, _nodes);
         return arg_;
     }
 
+    public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
+        Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
+        if (_conf.hasExceptionOrFailInit()) {
+            return arg_;
+        }
+        setSimpleArgument(arg_, _conf, _nodes);
+        return arg_;
+    }
     @Override
     public ConstructorId getConstId() {
         return null;

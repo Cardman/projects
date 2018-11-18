@@ -122,17 +122,6 @@ public class LaunchingCards extends SoftApplicationCore {
                 dealsNumbers_.add((int)CustList.SIZE_EMPTY);
             }
             StreamTextFile.saveTextFile(f.getAbsolutePath(), dealsNumbers_.join(LINE_RETURN));
-//            try {
-//                BufferedWriter bw_=new BufferedWriter(new FileWriter(f));
-//                int nbGames_ = GameEnum.values().length;
-//                for(int i=CustList.FIRST_INDEX;i<nbGames_;i++) {
-//                    bw_.write(new Integer(0).toString());
-//                    bw_.newLine();
-//                }
-//                bw_.close();
-//                //fichiersInstalles_.add(FileConst.DECK_FOLDER+StreamTextFile.SEPARATEUR+FileConst.DECK_FILE);
-//            }catch(IOException e) {
-//            }
         }
     }
 

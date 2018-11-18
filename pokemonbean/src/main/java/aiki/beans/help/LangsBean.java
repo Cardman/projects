@@ -12,8 +12,10 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
+import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.consts.Constants;
 import code.util.ints.Listable;
@@ -108,8 +110,9 @@ public class LangsBean extends CommonBean {
             for (String e: classesItems_) {
                 translatedClassesDescriptions.put(new LanguageElementStringKey(l,e), data_.getTranslatedClassesDescriptions().getVal(l).getVal(e));
             }
-            for (String e: data_.getFunctions()) {
-                translatedFctMath.put(new LanguageElementStringKey(l,e), data_.getTranslatedFctMath().getVal(l).getVal(e));
+            StringMap<String> fcts_ = data_.getTranslatedFctMath().getVal(l);
+            for (EntryCust<String, String> e: fcts_.entryList()) {
+                translatedFctMath.put(new LanguageElementStringKey(l,e.getKey()), e.getValue());
             }
         }
     }

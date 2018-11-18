@@ -840,7 +840,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));
@@ -878,7 +878,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));
@@ -916,7 +916,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));
@@ -954,7 +954,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));
@@ -992,7 +992,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));
@@ -1030,7 +1030,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));
@@ -1068,7 +1068,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));
@@ -1106,7 +1106,7 @@ public class GameTarotBidding extends CommonTarotGame {
         game.initEquipeDeterminee();
         assertEq(2,game.getPreneur());
         assertEq(1,game.getAppele().size());
-        assertTrue(game.getAppele().toString(),game.getAppele().containsObj((byte)5));
+        assertTrue(game.getAppele().display(),game.getAppele().containsObj((byte)5));
         assertEq(BidTarot.GUARD,game.getContrat());
         assertTrue(game.confiance((byte)2 ,(byte) 5));
         assertTrue(game.confiance((byte)5 ,(byte) 2));

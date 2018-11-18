@@ -11,6 +11,7 @@ public final class Options {
     private boolean upperLong;
     private boolean endLineSemiColumn = true;
     private boolean specialEnumsMethods = true;
+    private boolean allParametersSort = true;
 
     public char getEndLine() {
         if (endLineSemiColumn) {
@@ -76,6 +77,12 @@ public final class Options {
     }
     public void setSpecialEnumsMethods(boolean _specialEnumsMethods) {
         specialEnumsMethods = _specialEnumsMethods;
+    }
+    public boolean isAllParametersSort() {
+        return allParametersSort;
+    }
+    public void setAllParametersSort(boolean _allParametersSort) {
+        allParametersSort = _allParametersSort;
     }
 
 }

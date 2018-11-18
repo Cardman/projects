@@ -1,7 +1,7 @@
 package code.gui;
 import java.awt.Image;
 
-public abstract class ChildFrame extends CommonFrame implements ChangeableTitle {
+public abstract class ChildFrame extends CommonFrame {
 
     private Image imageIconFrame;
 

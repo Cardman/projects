@@ -389,6 +389,28 @@ public final class KeyWordsMap {
         _lgNames.setAliasArraySet("set");
         _lgNames.setAliasArrayGetLength("getLength");
         _lgNames.setAliasGetDeclaringClass("getDeclaringClass");
+        _lgNames.setAliasBinQuot("binQuot");
+        _lgNames.setAliasBinMod("binMod");
+        _lgNames.setAliasPlus("plus");
+        _lgNames.setAliasMinus("minus");
+        _lgNames.setAliasMult("mult");
+        _lgNames.setAliasAnd("and");
+        _lgNames.setAliasOr("or");
+        _lgNames.setAliasXor("xor");
+        _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasLt("lt");
+        _lgNames.setAliasGt("gt");
+        _lgNames.setAliasLe("le");
+        _lgNames.setAliasGe("ge");
+        _lgNames.setAliasShiftLeft("shiftLeft");
+        _lgNames.setAliasShiftRight("shiftRight");
+        _lgNames.setAliasBitShiftLeft("bitShiftLeft");
+        _lgNames.setAliasBitShiftRight("bitShiftRight");
+        _lgNames.setAliasRotateLeft("rotateLeft");
+        _lgNames.setAliasRotateRight("rotateRight");
+        _lgNames.setFalseString("false");
+        _lgNames.setTrueString("true");
+        _lgNames.setNullString("");
         stds.put("en", _lgNames);
     }
     public void initFrStds(LgNames _lgNames) {
@@ -607,6 +629,28 @@ public final class KeyWordsMap {
         _lgNames.setAliasArraySet("maj");
         _lgNames.setAliasArrayGetLength("valLongeur");
         _lgNames.setAliasGetDeclaringClass("valClasseDeclarante");
+        _lgNames.setAliasBinQuot("binQuot");
+        _lgNames.setAliasBinMod("binMod");
+        _lgNames.setAliasPlus("plus");
+        _lgNames.setAliasMinus("moins");
+        _lgNames.setAliasMult("mult");
+        _lgNames.setAliasAnd("et");
+        _lgNames.setAliasOr("ou");
+        _lgNames.setAliasXor("ouExc");
+        _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasLt("pq");
+        _lgNames.setAliasGt("gq");
+        _lgNames.setAliasLe("pqe");
+        _lgNames.setAliasGe("gqe");
+        _lgNames.setAliasShiftLeft("glisserGauche");
+        _lgNames.setAliasShiftRight("glisserDroite");
+        _lgNames.setAliasBitShiftLeft("binGlisserGauche");
+        _lgNames.setAliasBitShiftRight("binGlisserDroite");
+        _lgNames.setAliasRotateLeft("rotGauche");
+        _lgNames.setAliasRotateRight("rotDroite");
+        _lgNames.setFalseString("faux");
+        _lgNames.setTrueString("vrai");
+        _lgNames.setNullString("");
         stds.put("fr", _lgNames);
     }
     public KeyWords getKeyWords(String _lg) {

@@ -159,7 +159,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
         return s_;
     }
 
-    @Override
     public Comparing<K> comparator() {
         return new NatComparator<K>();
     }
@@ -294,7 +293,6 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
 //        return modified;
 //    }
 
-    @Override
     public void applyChanges() {
         for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
             for (int j = i + 1; j < getList().size(); j++) {

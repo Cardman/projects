@@ -1,22 +1,17 @@
 package code.gui;
 import code.util.Numbers;
 import code.util.TreeMap;
-import code.util.comparators.NaturalComparator;
+import code.util.comparators.ComparatorNatNumber;
 
 
 public class NumComboBox extends TreeComboBox<Integer> {
 
     public NumComboBox() {
-        super(new TreeMap<Integer, String>(new NaturalComparator<Integer>()));
+        super(new TreeMap<Integer, String>(new ComparatorNatNumber<Integer>()));
     }
     public NumComboBox(Integer... _numerosPlis) {
         super(getTree(_numerosPlis));
     }
-
-//    public void setModel(Integer... _numerosPlis) {
-//        super.setModel(new DefaultComboBoxModel(_numerosPlis));
-//        refresh(getTree(_numerosPlis));
-//    }
 
     public void addItem(Integer _item) {
         getElements().put(_item, _item.toString());
@@ -25,7 +20,7 @@ public class NumComboBox extends TreeComboBox<Integer> {
 
     private static TreeMap<Integer, String> getTree(Integer... _ints) {
         TreeMap<Integer, String> tr_;
-        tr_ = new TreeMap<Integer, String>(new NaturalComparator<Integer>());
+        tr_ = new TreeMap<Integer, String>(new ComparatorNatNumber<Integer>());
         for (Integer i: _ints) {
             tr_.put(i, i.toString());
         }

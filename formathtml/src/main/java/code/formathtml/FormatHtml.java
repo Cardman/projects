@@ -56,6 +56,7 @@ import code.util.EntryCust;
 import code.util.IdList;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -214,14 +215,6 @@ public final class FormatHtml {
     private static final char QUOT = 34;
     private static final char APOS = 39;
     private static final String END_COMMENT = "-->";
-
-    private static final StringList AVAILABLE_FORMATS = new StringList("png","jpg","bmp","gif","svg");
-
-    private static final String BASE64 = ";base64,";
-
-    private static final String DATA_IMAGE = "data:image/";
-
-    private static final String IMG_EXT = "png";
 
     private FormatHtml() {
     }
@@ -3246,20 +3239,13 @@ public final class FormatHtml {
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
-                String wrap_ = _tag.getAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
-                boolean keep_ = wrap_.isEmpty();
                 attributesNames_.removeAllString(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
                 attributesNames_.removeAllString(ATTRIBUTE_SRC);
                 String content_ = ExtractFromResources.getContentFile(_conf, _files,src_,_resourcesFolder);
                 if (_conf.getContext().getException() != null) {
                     return;
                 }
-                if (keep_ || _conf.isUncompressed()) {
-                    _tag.setAttribute(ATTRIBUTE_SRC, content_);
-                } else {
-                    content_ = surroundImage(content_, wrap_);
-                    _tag.setAttribute(ATTRIBUTE_SRC, content_);
-                }
+                _tag.setAttribute(ATTRIBUTE_SRC, content_);
                 _tag.removeAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_ENCODE_IMG));
             }
         }
@@ -3583,22 +3569,6 @@ public final class FormatHtml {
             }
         }
     }
-    private static String surroundImage(String _image, String _format) {
-        String contourChart_ = EMPTY_STRING;
-        StringBuilder sb_ = new StringBuilder();
-        if (AVAILABLE_FORMATS.containsStr(_format)) {
-            sb_.append(DATA_IMAGE);
-            sb_.append(_format);
-            sb_.append(BASE64);
-        } else {
-            sb_.append(DATA_IMAGE);
-            sb_.append(IMG_EXT);
-            sb_.append(BASE64);
-        }
-        sb_.append(_image);
-        contourChart_ = sb_.toString();
-        return contourChart_;
-    }
     private static String getCssHref(Element _link) {
         NamedNodeMap map_ = _link.getAttributes();
         if (!StringList.quickEq(_link.getAttribute(ATTRIBUTE_REL),STYLESHEET)) {
@@ -3633,7 +3603,7 @@ public final class FormatHtml {
         Long value_ = LgNames.parseLong(attribute_);
         if (value_ != null) {
             //TODO converter
-            _tag.setAttribute(ATTRIBUTE_VALUE, String.valueOf(value_));
+            _tag.setAttribute(ATTRIBUTE_VALUE, Numbers.toString(value_));
         } else {
             _conf.getLastPage().setProcessingAttribute(StringList.concat(_conf.getPrefix(),ATTRIBUTE_VAR_VALUE));
             _conf.getLastPage().setLookForAttrValue(true);

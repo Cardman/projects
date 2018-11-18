@@ -844,7 +844,6 @@ public final class ForMutableIterativeLoop extends BracedStack implements
         if (_context.callsOrException()) {
             return null;
         }
-        exp_.setCurrentOper(null);
         last_.clearCurrentEls();
         return (Boolean) arg_.getObject();
     }

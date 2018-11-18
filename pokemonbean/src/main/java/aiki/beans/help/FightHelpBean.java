@@ -1987,16 +1987,39 @@ public class FightHelpBean extends CommonBean {
     private void initFormulaElements() {
         DataBase data_ = (DataBase) getDataBase();
         String catchingFormulaCopy_ = data_.getCatchingFormula();
-//        StringList tokens_ = StringList.getTokensSeparators(catchingFormulaCopy_, TOKENS_VAR_CATCHING);
-        StringList tokens_ = getTokensTranslate(catchingFormulaCopy_);
-        int len_ = tokens_.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (i % 2 == 0) {
+        StringBuilder str_ = new StringBuilder();
+        int len_ = catchingFormulaCopy_.length();
+        int i_ = 0;
+        while (i_ < len_) {
+            char cur_ = catchingFormulaCopy_.charAt(i_);
+            if (StringList.isWordChar(cur_)) {
+                boolean dig_ = cur_ >= '0' && cur_ <= '9';
+                int j_ = i_;
+                while (StringList.isWordChar(cur_)) {
+                    j_++;
+                    cur_ = catchingFormulaCopy_.charAt(j_);
+                }
+                String word_ = catchingFormulaCopy_.substring(i_, j_);
+                if (dig_) {
+                    str_.append(word_);
+                    i_ = j_;
+                    continue;
+                }
+                String next_ = catchingFormulaCopy_.substring(j_).trim();
+                if (!next_.isEmpty() && next_.charAt(0) == LEFT_PAR) {
+                    str_.append(word_);
+                    i_ = j_;
+                    continue;
+                }
+                str_.append(DataBase.VAR_PREFIX);
+                str_.append(word_);
+                i_ = j_;
                 continue;
             }
-            tokens_.set(i, StringList.concat(DataBase.VAR_PREFIX,tokens_.get(i)));
+            str_.append(cur_);
+            i_++;
         }
-        catchingFormulaCopy_ = tokens_.join(DataBase.EMPTY_STRING);
+        catchingFormulaCopy_ = str_.toString();
         catchingFormula = data_.getFormula(catchingFormulaCopy_, getLanguage());
         varCatchingFormula = new NatTreeMap<String,String>();
         varCatchingFormula.putAllMap(data_.getDescriptions(catchingFormulaCopy_, getLanguage()));
@@ -2023,49 +2046,6 @@ public class FightHelpBean extends CommonBean {
         statisticAnim = Statistic.getStatisticsWithBoost();
     }
 
-    private static StringList getTokensTranslate(String _str) {
-        StringList list_ = StringList.getWordsSeparators(_str);
-        StringList newList_ = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        for (String t : list_) {
-            if (i_ % 2 == 0) {
-                if (newList_.isEmpty()) {
-                    newList_.add(t);
-                } else if (!isTokenTranslate(newList_.last())) {
-                    newList_.setLast(StringList.concat(newList_.last(),t));
-                } else {
-                    newList_.add(t);
-                }
-                i_++;
-                continue;
-            }
-            if (isTokenTranslate(t)) {
-                newList_.add(t);
-                i_++;
-                continue;
-            }
-            newList_.setLast(StringList.concat(newList_.last(),t));
-            i_++;
-        }
-        return newList_;
-    }
-
-    private static boolean isTokenTranslate(String _string) {
-        if (Character.isUpperCase(_string.charAt(CustList.FIRST_INDEX))) {
-            int len_ = _string.length();
-            for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-                if (!Character.isUpperCase(_string.charAt(i))) {
-                    if (!Character.isDigit(_string.charAt(i))) {
-                        if (_string.charAt(i) != UNDERSCORE) {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }
     public String getTrStatistic(Long _index) {
         Statistic d_ = statisticAnim.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();

@@ -16,20 +16,6 @@ public final class ParsedArgument {
 
     private static final String UNEXPECTED_TYPE = "";
 
-    private static final String DOUBLE_SUFFIX = "d";
-
-    private static final String FLOAT_SUFFIX = "f";
-
-    private static final String SHORT_SUFFIX = "s";
-
-    private static final String LONG_SUFFIX = "l";
-
-    private static final String BYTE_SUFFIX = "b";
-
-    private static final String INT_SUFFIX = "i";
-
-    private static final String CHAR_SUFFIX = "c";
-
     private Struct object = NullStruct.NULL_VALUE;
 
     private String type = UNEXPECTED_TYPE;
@@ -80,24 +66,140 @@ public final class ParsedArgument {
         nbFormatted_.append(_infosNb.getIntPart());
         String nb_ = StringList.removeChars(StringList.removeAllSpaces(nbFormatted_.toString()), '_');
         Long longValue_;
-        if (_infosNb.getBase() == 10) {
-            longValue_ = LgNames.parseLongTen(nb_);
-            if (longValue_ == null) {
-                return out_;
-            }
-        } else if (_infosNb.getBase() == 16) {
+        if (_infosNb.getBase() == 16) {
             if (nb_.length() > 16) {
                 return out_;
             }
             boolean[] bits_ = LgNames.parseLongSixteenToBits(nb_);
-            longValue_ = LgNames.toLong(bits_);
-        } else if (_infosNb.getBase() == 2) {
+            if (suffix_ == 'L' || suffix_ == 'l') {
+                longValue_ = LgNames.toLong(bits_);
+                if (suffix_ == 'l') {
+                    out_.type = longPrimType_;
+                } else {
+                    out_.type = longType_;
+                }
+                out_.object = new LongStruct(longValue_.longValue());
+                return out_;
+            }
+            if (suffix_ == 'I' || suffix_ == 'i') {
+                if (nb_.length() > 8) {
+                    return out_;
+                }
+                int int_ = LgNames.extractInt(bits_);
+                if (suffix_ == 'i') {
+                    out_.type = intPrimType_;
+                } else {
+                    out_.type = intType_;
+                }
+                out_.object = new IntStruct(int_);
+                return out_;
+            }
+            if (suffix_ == 'C' || suffix_ == 'c') {
+                if (nb_.length() > 4) {
+                    return out_;
+                }
+                char int_ = LgNames.parseCharSixteen(nb_);
+                if (suffix_ == 'c') {
+                    out_.type = charPrimType_;
+                } else {
+                    out_.type = charType_;
+                }
+                out_.object = new CharStruct(int_);
+                return out_;
+            }
+            if (suffix_ == 'S' || suffix_ == 's') {
+                if (nb_.length() > 4) {
+                    return out_;
+                }
+                short int_ = LgNames.extractShort(bits_);
+                if (suffix_ == 's') {
+                    out_.type = shortPrimType_;
+                } else {
+                    out_.type = shortType_;
+                }
+                out_.object = new ShortStruct(int_);
+                return out_;
+            }
+            if (nb_.length() > 2) {
+                return out_;
+            }
+            byte int_ = LgNames.extractByte(bits_);
+            if (suffix_ == 'b') {
+                out_.type = bytePrimType_;
+            } else {
+                out_.type = byteType_;
+            }
+            out_.object = new ByteStruct(int_);
+            return out_;
+        }
+        if (_infosNb.getBase() == 2) {
             if (nb_.length() > 64) {
                 return out_;
             }
             boolean[] bits_ = LgNames.parseLongBinaryToBits(nb_);
             longValue_ = LgNames.toLong(bits_);
-        } else {
+            if (suffix_ == 'L' || suffix_ == 'l') {
+                longValue_ = LgNames.toLong(bits_);
+                if (suffix_ == 'l') {
+                    out_.type = longPrimType_;
+                } else {
+                    out_.type = longType_;
+                }
+                out_.object = new LongStruct(longValue_.longValue());
+                return out_;
+            }
+            if (suffix_ == 'I' || suffix_ == 'i') {
+                if (nb_.length() > 32) {
+                    return out_;
+                }
+                int int_ = LgNames.extractInt(bits_);
+                if (suffix_ == 'i') {
+                    out_.type = intPrimType_;
+                } else {
+                    out_.type = intType_;
+                }
+                out_.object = new IntStruct(int_);
+                return out_;
+            }
+            if (suffix_ == 'C' || suffix_ == 'c') {
+                if (nb_.length() > 16) {
+                    return out_;
+                }
+                char int_ = (char) LgNames.extractShort(bits_);
+                if (suffix_ == 'c') {
+                    out_.type = charPrimType_;
+                } else {
+                    out_.type = charType_;
+                }
+                out_.object = new CharStruct(int_);
+                return out_;
+            }
+            if (suffix_ == 'S' || suffix_ == 's') {
+                if (nb_.length() > 16) {
+                    return out_;
+                }
+                short int_ = LgNames.extractShort(bits_);
+                if (suffix_ == 's') {
+                    out_.type = shortPrimType_;
+                } else {
+                    out_.type = shortType_;
+                }
+                out_.object = new ShortStruct(int_);
+                return out_;
+            }
+            if (nb_.length() > 8) {
+                return out_;
+            }
+            byte int_ = LgNames.extractByte(bits_);
+            if (suffix_ == 'b') {
+                out_.type = bytePrimType_;
+            } else {
+                out_.type = byteType_;
+            }
+            out_.object = new ByteStruct(int_);
+            return out_;
+        }
+        if (_infosNb.getBase() == 8) {
             if (suffix_ == 'L' || suffix_ == 'l') {
                 if (nb_.length() > 22) {
                     return out_;
@@ -117,81 +219,112 @@ public final class ParsedArgument {
                     bits_[i] = bitsOutTrunc_[i-1];
                 }
                 longValue_ = LgNames.toLong(bits_);
-            } else {
-                if (suffix_ == 'C' || suffix_ == 'c') {
-                    if (nb_.length() > 6) {
-                        return out_;
-                    }
-                    if (nb_.length() == 6) {
-                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1') {
-                            return out_;
-                        }
-                    }
-                    Long lg_ = LgNames.parseLong(nb_, 8);
-                    if (lg_ == null) {
-                        return out_;
-                    }
-                    out_.type = charPrimType_;
-                    out_.object = new CharStruct((char) lg_.longValue());
+                if (suffix_ == 'l') {
+                    out_.type = longPrimType_;
+                } else {
+                    out_.type = longType_;
+                }
+                out_.object = new LongStruct(longValue_.longValue());
+                return out_;
+            }
+            if (suffix_ == 'C' || suffix_ == 'c') {
+                if (nb_.length() > 6) {
                     return out_;
                 }
-                if (suffix_ == 'I' || suffix_ == 'i') {
-                    if (nb_.length() > 11) {
+                if (nb_.length() == 6) {
+                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1') {
                         return out_;
-                    }
-                    if (nb_.length() == 11) {
-                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
-                            return out_;
-                        }
-                    }
-                } else if (suffix_ == 'S' || suffix_ == 's') {
-                    if (nb_.length() > 6) {
-                        return out_;
-                    }
-                    if (nb_.length() == 6) {
-                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
-                            return out_;
-                        }
-                    }
-                } else {
-                    if (nb_.length() > 3) {
-                        return out_;
-                    }
-                    if (nb_.length() == 3) {
-                        if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
-                            return out_;
-                        }
                     }
                 }
                 Long lg_ = LgNames.parseLong(nb_, 8);
                 if (lg_ == null) {
                     return out_;
                 }
-                long value_ = lg_;
-                if (suffix_ == 'I' || suffix_ == 'i') {
-                    if (value_ >= Integer.MAX_VALUE + 1l) {
-                        while (value_ >= 0) {
-                            value_ -= Integer.MAX_VALUE;
-                            value_ --;
-                        }
-                    }
-                } else if (suffix_ == 'S' || suffix_ == 's') {
-                    if (value_ >= Short.MAX_VALUE + 1l) {
-                        while (value_ >= 0) {
-                            value_ -= Short.MAX_VALUE;
-                            value_ --;
-                        }
-                    }
-                } else {
-                    if (value_ >= Byte.MAX_VALUE + 1l) {
-                        while (value_ >= 0) {
-                            value_ -= Byte.MAX_VALUE;
-                            value_ --;
-                        }
+                out_.type = charPrimType_;
+                out_.object = new CharStruct((char) lg_.longValue());
+                return out_;
+            }
+            if (suffix_ == 'I' || suffix_ == 'i') {
+                if (nb_.length() > 11) {
+                    return out_;
+                }
+                if (nb_.length() == 11) {
+                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                        return out_;
                     }
                 }
-                longValue_ = value_;
+            } else if (suffix_ == 'S' || suffix_ == 's') {
+                if (nb_.length() > 6) {
+                    return out_;
+                }
+                if (nb_.length() == 6) {
+                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                        return out_;
+                    }
+                }
+            } else {
+                if (nb_.length() > 3) {
+                    return out_;
+                }
+                if (nb_.length() == 3) {
+                    if (nb_.charAt(0) != '0' && nb_.charAt(0) != '1' && nb_.charAt(0) != '2' && nb_.charAt(0) != '3') {
+                        return out_;
+                    }
+                }
             }
+            Long lg_ = LgNames.parseLong(nb_, 8);
+            if (lg_ == null) {
+                return out_;
+            }
+            long value_ = lg_;
+            if (suffix_ == 'I' || suffix_ == 'i') {
+                if (value_ >= Integer.MAX_VALUE + 1l) {
+                    while (value_ >= 0) {
+                        value_ -= Integer.MAX_VALUE;
+                        value_ --;
+                    }
+                }
+                if (suffix_ == 'i') {
+                    out_.type = intPrimType_;
+                } else {
+                    out_.type = intType_;
+                }
+                out_.object = new IntStruct((int) value_);
+                return out_;
+            }
+            if (suffix_ == 'S' || suffix_ == 's') {
+                if (value_ >= Short.MAX_VALUE + 1l) {
+                    while (value_ >= 0) {
+                        value_ -= Short.MAX_VALUE;
+                        value_ --;
+                    }
+                }
+                if (suffix_ == 's') {
+                    out_.type = shortPrimType_;
+                } else {
+                    out_.type = shortType_;
+                }
+                out_.object = new ShortStruct((short) value_);
+                return out_;
+            }
+            if (value_ >= Byte.MAX_VALUE + 1l) {
+                while (value_ >= 0) {
+                    value_ -= Byte.MAX_VALUE;
+                    value_ --;
+                }
+            }
+            longValue_ = value_;
+            if (suffix_ == 'b') {
+                out_.type = bytePrimType_;
+            } else {
+                out_.type = byteType_;
+            }
+            out_.object = new ByteStruct(longValue_.byteValue());
+            return out_;
+        }
+        longValue_ = LgNames.parseLongTen(nb_);
+        if (longValue_ == null) {
+            return out_;
         }
         if (suffix_ == 'L' || suffix_ == 'l') {
             if (suffix_ == 'l') {
@@ -270,42 +403,6 @@ public final class ParsedArgument {
             return false;
         }
         return true;
-    }
-
-    static String extractFromSuffix(String _nb) {
-        boolean sub_ = false;
-        if (StringList.toLowerCase(_nb).endsWith(INT_SUFFIX)) {
-            sub_ = true;
-        }
-        if (StringList.toLowerCase(_nb).endsWith(BYTE_SUFFIX)) {
-            sub_ = true;
-        }
-        if (StringList.toLowerCase(_nb).endsWith(LONG_SUFFIX)) {
-            sub_ = true;
-        }
-        if (StringList.toLowerCase(_nb).endsWith(SHORT_SUFFIX)) {
-            sub_ = true;
-        }
-        if (StringList.toLowerCase(_nb).endsWith(FLOAT_SUFFIX)) {
-            sub_ = true;
-        }
-        if (StringList.toLowerCase(_nb).endsWith(DOUBLE_SUFFIX)) {
-            sub_ = true;
-        }
-        if (StringList.toLowerCase(_nb).endsWith(CHAR_SUFFIX)) {
-            sub_ = true;
-        }
-        String nb_ = StringList.removeChars(_nb, '_');
-        if (sub_) {
-            return nb_.substring(0, nb_.length() - 1);
-        }
-        return nb_;
-    }
-    static String removeUnderscores(String _value) {
-        return StringList.removeChars(_value, '_');
-    }
-    static boolean or(boolean _one, boolean _two) {
-        return _one || _two;
     }
 
     public Struct getStruct() {

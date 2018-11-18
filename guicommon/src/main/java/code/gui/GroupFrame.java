@@ -9,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public abstract class GroupFrame extends CommonFrame implements ChangeableTitle {
+public abstract class GroupFrame extends CommonFrame {
     private static final String ACCESS = "gui.GroupFrame";
 
     private static final CustList<GroupFrame> FRAMES = new CustList<GroupFrame>();

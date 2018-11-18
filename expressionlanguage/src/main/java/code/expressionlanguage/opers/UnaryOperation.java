@@ -102,7 +102,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         OperationNode op_ = chidren_.first();
         Argument arg_ = _nodes.getVal(op_).getArgument();
         Argument a_ = getArgument(_conf, arg_);
-        if (_conf.getException() == null) {
+        if (!_conf.hasExceptionOrFailInit()) {
             setSimpleArgument(a_, _conf, _nodes);
         }
         return a_;
@@ -116,17 +116,14 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Argument out_ = new Argument();
-        Object o_ = arg_.getObject();
-        if (o_ == null) {
+        if (arg_.isNull()) {
             return;
         }
         String oper_ = getOperations().getOperators().firstValue();
         if (StringList.quickEq(oper_, PLUS)) {
             out_.setStruct(arg_.getStruct());
-        } else if (o_ instanceof Character) {
-            out_.setObject(-((Character)o_));
         } else {
-            Number b_ = (Number) o_;
+            Number b_ = arg_.getNumber();
             int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
             String longPrim_ = _conf.getStandards().getAliasPrimLong();
             if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {
@@ -157,7 +154,7 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         }
         Argument arg_ = chidren_.first().getArgument();
         Argument a_ = getArgument(_conf, arg_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(a_, _conf);
@@ -166,15 +163,12 @@ public final class UnaryOperation extends AbstractUnaryOperation {
     Argument getArgument(ExecutableCode _conf,
             Argument _in) {
         Argument out_ = new Argument();
-        Object o_ = _in.getObject();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String oper_ = getOperations().getOperators().firstValue();
         if (StringList.quickEq(oper_, PLUS)) {
             out_.setStruct(_in.getStruct());
-        } else if (o_ instanceof Character) {
-            out_.setObject(-((Character)o_));
         } else {
-            Number b_ = (Number) o_;
+            Number b_ = _in.getNumber();
             int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
             String longPrim_ = _conf.getStandards().getAliasPrimLong();
             if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {

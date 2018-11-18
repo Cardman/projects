@@ -430,8 +430,6 @@ public class DataBase implements WithMathFactory {
 
     private StringList variables;
 
-    private StringList functions;
-
     private StringList keys;
 
     private StringMap<StringList> varParamsMove;
@@ -1830,7 +1828,7 @@ public class DataBase implements WithMathFactory {
             return;
         }
         for (StringMap<String> v : translatedFctMath.values()) {
-            if (!v.containsAllAsKeys(functions)) {
+            if (!v.containsAllAsKeys(EvolvedMathFactory.getFunctions())) {
                 error = true;
                 return;
             }
@@ -2090,28 +2088,59 @@ public class DataBase implements WithMathFactory {
         return newList_;
     }
 
-    private static boolean isCorrectIdentifier(String _string) {
-        if (_string.isEmpty()) {
-            return false;
-        }
-        if (!Character.isUpperCase(_string.charAt(CustList.FIRST_INDEX))) {
+    private static boolean isCorrectBaseFileName(String _string) {
+        if (_string.trim().isEmpty()) {
             return false;
         }
         int len_ = _string.length();
         for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            if (!Character.isUpperCase(_string.charAt(i))) {
-                if (!Character.isDigit(_string.charAt(i))) {
-                    if (_string.charAt(i) == UNDERSCORE) {
-                        if (i + 1 == len_) {
-                            return false;
-                        }
-                        if (_string.charAt(i + 1) == UNDERSCORE) {
-                            return false;
-                        }
-                    } else {
-
+            char curr_ = _string.charAt(i);
+            boolean ok_ = false;
+            if (curr_ >= 'a' && curr_ <= 'z') {
+                ok_ = true;
+            }
+            if (curr_ >= 'A' && curr_ <= 'Z') {
+                ok_ = true;
+            }
+            if (curr_ >= '0' && curr_ <= '9') {
+                ok_ = true;
+            }
+            if (curr_ == '_') {
+                ok_ = true;
+            }
+            if (!ok_) {
+                return false;
+            }
+            if (curr_ != '_') {
+                if (i + 1 == len_) {
+                    return false;
+                }
+                if (_string.charAt(i + 1) == UNDERSCORE) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    private static boolean isCorrectIdentifier(String _string) {
+        if (_string.trim().isEmpty()) {
+            return false;
+        }
+        int len_ = _string.length();
+        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
+            if (!StringList.isWordChar(_string.charAt(i))) {
+                return false;
+            }
+            if (!Character.isLetterOrDigit(_string.charAt(i))) {
+                if (_string.charAt(i) == UNDERSCORE) {
+                    if (i + 1 == len_) {
                         return false;
                     }
+                    if (_string.charAt(i + 1) == UNDERSCORE) {
+                        return false;
+                    }
+                } else {
+                    return false;
                 }
             }
         }
@@ -2159,16 +2188,12 @@ public class DataBase implements WithMathFactory {
         }
         foldersBase_.removeDuplicates();
         if (foldersBase_.size() == 1) {
-            if (!StringList.isWord(foldersBase_.first())) {
-                error = true;
-                return;
-            }
             common_ = StringList.concat(foldersBase_.first(), SEPARATOR_FILES);
             listRelativePaths_.removePrefixInStrings(common_);
         }
         StringList listCopy_ = new StringList();
         for (String s : listRelativePaths_) {
-            listCopy_.add(StringList.toUpperCase(s));
+            listCopy_.add(toUpperCase(s));
         }
         int sizeListCopy_ = listCopy_.size();
         listCopy_.removeDuplicates();
@@ -2180,7 +2205,7 @@ public class DataBase implements WithMathFactory {
         StringList filesNames_;
         filesNames_ = new StringList();
 
-        for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(POKEDEX_FOLDER, SEPARATOR_FILES))) {
 
             String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -2188,16 +2213,19 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
             PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(files_
                     .getVal(StringList.concat(common_, f)));
-            completeMembers(StringList.toUpperCase(n_), f_);
+            completeMembers(toUpperCase(n_), f_);
         }
-        checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
         calculateAvgPound();
         filesNames_.clear();
 
-        for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(MOVES_FOLDER, SEPARATOR_FILES))) {
 
             String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -2205,13 +2233,16 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
             MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(files_
                     .getVal(StringList.concat(common_, f)));
-            completeMembers(StringList.toUpperCase(n_), move_);
+            completeMembers(toUpperCase(n_), move_);
         }
         _perCentLoading.set(10);
-        checkCaseOfFiles(MOVES_FOLDER, filesNames_);
         StringList tmHm_ = StringList.splitChars(
                 files_.getVal(StringList.concat(common_, CT_CS_FILE)),
                 RETURN_LINE_CHAR);
@@ -2219,7 +2250,7 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CT)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
                 short cle_ = Short.parseShort(infos_.first().substring(2));
-                tm.put(cle_, StringList.toUpperCase(infos_.get(1)));
+                tm.put(cle_, infos_.get(1));
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2))) {
                     price_ = new LgInt(infos_.get(2));
@@ -2232,12 +2263,12 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CS)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
                 short cle_ = Short.parseShort(infos_.first().substring(2));
-                hm.put(cle_, StringList.toUpperCase(infos_.get(1)));
+                hm.put(cle_, infos_.get(1));
             }
         }
         filesNames_.clear();
 
-        for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(ITEMS_FOLDER, SEPARATOR_FILES))) {
 
             String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -2245,15 +2276,18 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
             Item o_ = DocumentReaderAikiCoreUtil.getItem(files_
                     .getVal(StringList.concat(common_, f)));
-            completeMembers(StringList.toUpperCase(n_), o_);
+            completeMembers(toUpperCase(n_), o_);
         }
-        checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
         filesNames_.clear();
 
-        for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(ABILITIES_FOLDER, SEPARATOR_FILES))) {
 
             String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -2261,15 +2295,18 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
             AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(files_
                     .getVal(StringList.concat(common_, f)));
-            completeMembers(StringList.toUpperCase(n_), ab_);
+            completeMembers(toUpperCase(n_), ab_);
         }
-        checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
         filesNames_.clear();
 
-        for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(STATUS_FOLDER, SEPARATOR_FILES))) {
 
             String n_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -2277,12 +2314,15 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
             Status st_ = DocumentReaderAikiCoreUtil.getStatus(files_
                     .getVal(StringList.concat(common_, f)));
-            completeMembers(StringList.toUpperCase(n_), st_);
+            completeMembers(toUpperCase(n_), st_);
         }
-        checkCaseOfFiles(STATUS_FOLDER, filesNames_);
         _perCentLoading.set(15);
         completeVariables();
         filesNames_.clear();
@@ -2290,7 +2330,7 @@ public class DataBase implements WithMathFactory {
         imagesTiles = new StringMap<ObjectMap<ScreenCoords, int[][]>>();
         StringList images_;
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
@@ -2299,13 +2339,12 @@ public class DataBase implements WithMathFactory {
             images.put(key_, BaseSixtyFourUtil.getImageByString(files_
                     .getVal(StringList.concat(common_, s))));
         }
-        checkCaseOfFiles(IMAGES_FOLDER, filesNames_);
         filesNames_.clear();
 
         miniMap = new StringMap<int[][]>();
         StringList miniMap_;
 
-        miniMap_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        miniMap_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(MINI_MAP_FOLDER, SEPARATOR_FILES));
         for (String s : miniMap_) {
             filesNames_.add(s);
@@ -2314,12 +2353,11 @@ public class DataBase implements WithMathFactory {
             miniMap.put(key_, BaseSixtyFourUtil.getImageByString(files_
                     .getVal(StringList.concat(common_, s))));
         }
-        checkCaseOfFiles(MINI_MAP_FOLDER, filesNames_);
 
         filesNames_.clear();
         links = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(LINKS_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
@@ -2328,11 +2366,10 @@ public class DataBase implements WithMathFactory {
             links.put(key_, BaseSixtyFourUtil.getImageByString(files_
                     .getVal(StringList.concat(common_, s))));
         }
-        checkCaseOfFiles(LINKS_FOLDER, filesNames_);
         filesNames_.clear();
         people = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(PEOPLE_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
@@ -2341,7 +2378,6 @@ public class DataBase implements WithMathFactory {
             people.put(key_, BaseSixtyFourUtil.getImageByString(files_
                     .getVal(StringList.concat(common_, s))));
         }
-        checkCaseOfFiles(PEOPLE_FOLDER, filesNames_);
         filesNames_.clear();
         frontHeros = new ObjectMap<ImageHeroKey, int[][]>();
         for (String l : StringList.splitChars(files_.getVal(StringList.concat(
@@ -2394,13 +2430,12 @@ public class DataBase implements WithMathFactory {
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(HERO_FOLDER, SEPARATOR_FILES));
-        checkCaseOfFiles(HERO_FOLDER, filesNames_);
         filesNames_.clear();
         trainers = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(TRAINERS_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             filesNames_.add(s);
@@ -2409,57 +2444,65 @@ public class DataBase implements WithMathFactory {
             trainers.put(key_, BaseSixtyFourUtil.getImageByString(files_
                     .getVal(StringList.concat(common_, s))));
         }
-        checkCaseOfFiles(TRAINERS_FOLDER, filesNames_);
         filesNames_.clear();
         maxiPkBack = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(BACK_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
-            maxiPkBack.put(StringList.toUpperCase(n_), BaseSixtyFourUtil
+            maxiPkBack.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             s))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         maxiPkFront = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(FRONT_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
-            maxiPkFront.put(StringList.toUpperCase(n_), BaseSixtyFourUtil
+            maxiPkFront.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             s))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         miniPk = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(MINI_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
-            miniPk.put(StringList.toUpperCase(n_), BaseSixtyFourUtil
+            miniPk.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             s))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         _perCentLoading.set(25);
         filesNames_.clear();
         miniItems = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(OBJECTS_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
@@ -2468,17 +2511,20 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
-            miniItems.put(StringList.toUpperCase(n_), BaseSixtyFourUtil
+            miniItems.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             s))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
         filesNames_.clear();
         typesImages = new StringMap<int[][]>();
 
-        images_ = listRelativePaths_.filterStrictBeginIgnoreCase(StringList
+        images_ = filterStrictBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(TYPES_IMAGES_FOLDER, SEPARATOR_FILES));
         for (String s : images_) {
             if (!s.endsWith(IMG_FILES_RES_EXT_TXT)) {
@@ -2487,12 +2533,15 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
 
             n_ = removeExtension(n_);
+            if (!isCorrectBaseFileName(n_)) {
+                error = true;
+                return;
+            }
             filesNames_.add(n_);
-            typesImages.put(StringList.toUpperCase(n_), BaseSixtyFourUtil
+            typesImages.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             s))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
 
         imageTmHm = BaseSixtyFourUtil.getImageByString(files_.getVal(StringList
                 .concat(common_, IMAGE_TM_HM_FILES, IMG_FILES_RES_EXT_TXT)));
@@ -2939,7 +2988,7 @@ public class DataBase implements WithMathFactory {
         }
         _perCentLoading.set(35);
 
-        for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(ANIM_STATIS, SEPARATOR_FILES))) {
 
             String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -2947,12 +2996,16 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatis.put(StringList.toUpperCase(f_), BaseSixtyFourUtil
+            if (!isCorrectBaseFileName(f_)) {
+                error = true;
+                return;
+            }
+            animStatis.put(toUpperCase(f_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             f))));
         }
 
-        for (String f : listRelativePaths_.filterBeginIgnoreCase(StringList
+        for (String f : filterBeginIgnoreCase(listRelativePaths_,StringList
                 .concat(ANIM_STATUS, SEPARATOR_FILES))) {
 
             String f_ = StringList.skipStringUntil(f, SEPARATOR_FILES);
@@ -2960,7 +3013,11 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            animStatus.put(StringList.toUpperCase(f_), BaseSixtyFourUtil
+            if (!isCorrectBaseFileName(f_)) {
+                error = true;
+                return;
+            }
+            animStatus.put(toUpperCase(f_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             f))));
         }
@@ -2986,7 +3043,7 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CT)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
                 short cle_ = Short.parseShort(infos_.first().substring(2));
-                tm.put(cle_, StringList.toUpperCase(infos_.get(1)));
+                tm.put(cle_, infos_.get(1));
                 LgInt price_;
                 if (LgInt.isValid(infos_.get(2))) {
                     price_ = new LgInt(infos_.get(2));
@@ -2999,7 +3056,7 @@ public class DataBase implements WithMathFactory {
             if (l.startsWith(CS)) {
                 StringList infos_ = StringList.splitChars(l, TAB_CHAR);
                 short cle_ = Short.parseShort(infos_.first().substring(2));
-                hm.put(cle_, StringList.toUpperCase(infos_.get(1)));
+                hm.put(cle_, infos_.get(1));
             }
         }
         frontHeros = new ObjectMap<ImageHeroKey, int[][]>();
@@ -3513,7 +3570,7 @@ public class DataBase implements WithMathFactory {
                 .getKeys()) {
             String f_ = StringList.concat(ANIM_STATUS, SEPARATOR_FILES, f,
                     IMG_FILES_RES_EXT_TXT);
-            animStatus.put(f, BaseSixtyFourUtil.getImageByString(ResourceFiles
+            animStatus.put(toUpperCase(f), BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, f_))));
         }
         animAbsorb = BaseSixtyFourUtil.getImageByString(ResourceFiles
@@ -3528,9 +3585,8 @@ public class DataBase implements WithMathFactory {
             PokemonData f_ = DocumentReaderAikiCoreUtil
                     .getPokemonData(ResourceFiles.ressourceFichier(StringList
                             .concat(common_, n_)));
-            completeMembers(StringList.toUpperCase(f), f_);
+            completeMembers(toUpperCase(f), f_);
         }
-        checkCaseOfFiles(POKEDEX_FOLDER, filesNames_);
         calculateAvgPound();
         filesNames_.clear();
         for (String f : translatedMoves.getVal(_lg)
@@ -3541,9 +3597,8 @@ public class DataBase implements WithMathFactory {
             MoveData move_ = DocumentReaderAikiCoreUtil
                     .getMoveData(ResourceFiles.ressourceFichier(StringList
                             .concat(common_, n_)));
-            completeMembers(StringList.toUpperCase(f), move_);
+            completeMembers(toUpperCase(f), move_);
         }
-        checkCaseOfFiles(MOVES_FOLDER, filesNames_);
         filesNames_.clear();
         for (String f : translatedItems.getVal(_lg)
                 .getKeys()) {
@@ -3552,9 +3607,8 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(n_);
             Item o_ = DocumentReaderAikiCoreUtil.getItem(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_)));
-            completeMembers(StringList.toUpperCase(f), o_);
+            completeMembers(toUpperCase(f), o_);
         }
-        checkCaseOfFiles(ITEMS_FOLDER, filesNames_);
         filesNames_.clear();
         for (String f : translatedAbilities.getVal(_lg)
                 .getKeys()) {
@@ -3564,9 +3618,8 @@ public class DataBase implements WithMathFactory {
             AbilityData ab_ = DocumentReaderAikiCoreUtil
                     .getAbilityData(ResourceFiles.ressourceFichier(StringList
                             .concat(common_, n_)));
-            completeMembers(StringList.toUpperCase(f), ab_);
+            completeMembers(toUpperCase(f), ab_);
         }
-        checkCaseOfFiles(ABILITIES_FOLDER, filesNames_);
         filesNames_.clear();
         for (String f : translatedStatus.getVal(_lg)
                 .getKeys()) {
@@ -3575,9 +3628,8 @@ public class DataBase implements WithMathFactory {
             filesNames_.add(n_);
             Status st_ = DocumentReaderAikiCoreUtil.getStatus(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_)));
-            completeMembers(StringList.toUpperCase(f), st_);
+            completeMembers(toUpperCase(f), st_);
         }
-        checkCaseOfFiles(STATUS_FOLDER, filesNames_);
         completeVariables();
         filesNames_.clear();
         sortEndRound();
@@ -3604,7 +3656,6 @@ public class DataBase implements WithMathFactory {
             maxiPkBack.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         maxiPkFront = new StringMap<int[][]>();
         for (String s : pokedex.getKeys()) {
@@ -3614,7 +3665,6 @@ public class DataBase implements WithMathFactory {
             maxiPkFront.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         miniPk = new StringMap<int[][]>();
         for (String s : pokedex.getKeys()) {
@@ -3624,7 +3674,6 @@ public class DataBase implements WithMathFactory {
             miniPk.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         miniItems = new StringMap<int[][]>();
         for (String s : items.getKeys()) {
@@ -3634,7 +3683,6 @@ public class DataBase implements WithMathFactory {
             miniItems.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         filesNames_.clear();
         typesImages = new StringMap<int[][]>();
         for (String s : types) {
@@ -3644,7 +3692,6 @@ public class DataBase implements WithMathFactory {
             typesImages.put(s, BaseSixtyFourUtil.getImageByString(ResourceFiles
                     .ressourceFichier(StringList.concat(common_, n_))));
         }
-        checkCaseOfFiles(EMPTY_STRING, filesNames_);
         _perCentLoading.addAndGet(delta_);
         filesNames_.clear();
         map.initializeLinks();
@@ -3944,6 +3991,47 @@ public class DataBase implements WithMathFactory {
         _perCentLoading.set(100);
     }
 
+    public static StringList filterBeginIgnoreCase(StringList _instance,String _regExp) {
+        StringList list_ = new StringList();
+        String patt_ = toUpperCase(_regExp);
+        for (String s: _instance) {
+            if (!toUpperCase(s).startsWith(patt_)) {
+                continue;
+            }
+            list_.add(s);
+        }
+        return list_;
+    }
+
+    public static StringList filterStrictBeginIgnoreCase(StringList _instance,String _regExp) {
+        StringList list_ = new StringList();
+        String patt_ = toUpperCase(_regExp);
+        for (String s: _instance) {
+            if (!toUpperCase(s).startsWith(patt_)) {
+                continue;
+            }
+            if (StringList.quickEq(toUpperCase(s),patt_)) {
+                continue;
+            }
+            list_.add(s);
+        }
+        return list_;
+    }
+
+    public static String toUpperCase(String _string) {
+        int len_ = _string.length();
+        StringBuilder str_ = new StringBuilder(len_);
+        for (int i = 0; i < len_; i++) {
+            char curr_ = _string.charAt(i);
+            if (curr_ >= 'a' && curr_ <= 'z') {
+                int char_ = curr_ - 'a' + 'A';
+                str_.append((char)char_);
+                continue;
+            }
+            str_.append(curr_);
+        }
+        return str_.toString();
+    }
     public void initMessages(String _lg) {
         messagesPokemonPlayer = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER,_lg, PokemonPlayer.POKEMON_PLAYER);
         messagesPlayer = ExtractFromFiles.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _lg, Player.PLAYER);
@@ -4037,7 +4125,7 @@ public class DataBase implements WithMathFactory {
         StringList filesNamesWithSameCase_;
         filesNamesWithSameCase_ = new StringList();
         for (String s : _files) {
-            String upperCase_ = StringList.toUpperCase(s);
+            String upperCase_ = toUpperCase(s);
             if (filesNamesWithSameCase_.containsObj(upperCase_)) {
                 String name_ = StringList.concat(_folderName, SEPARATOR_FILES,
                         upperCase_);
@@ -4096,7 +4184,6 @@ public class DataBase implements WithMathFactory {
         categories = new StringList();
         evtEndRound = new CustList<EndRoundMainElements>();
         variables = new StringList();
-        functions = new StringList();
         keys = new StringList();
         filesWithSameNameDifferentCase = new StringList();
         animStatis = new StringMap<int[][]>();
@@ -4152,8 +4239,6 @@ public class DataBase implements WithMathFactory {
 
         variables.addAllElts(getVariableWords(_move.getAccuracy()));
 
-        functions.addAllElts(getFunctionWords(_move.getAccuracy()));
-
         keys.addAllElts(getIdentifiers(_move.getAccuracy()));
         EndRoundMainElements endTurn_;
         if (_move.getRankIncrementNbRound() > 0) {
@@ -4169,8 +4254,6 @@ public class DataBase implements WithMathFactory {
 
             variables.addAllElts(getVariableWords(e.getFail()));
 
-            functions.addAllElts(getFunctionWords(e.getFail()));
-
             keys.addAllElts(getIdentifiers(e.getFail()));
             if (e instanceof EffectCopyMove) {
                 if (((EffectCopyMove) e).getCopyingMoveForUser() > 0) {
@@ -4185,11 +4268,6 @@ public class DataBase implements WithMathFactory {
                 variables.addAllElts(getVariableWords(effectCounterAttack_
                         .getCounterFail()));
                 variables.addAllElts(getVariableWords(effectCounterAttack_
-                        .getProtectFail()));
-
-                functions.addAllElts(getFunctionWords(effectCounterAttack_
-                        .getCounterFail()));
-                functions.addAllElts(getFunctionWords(effectCounterAttack_
                         .getProtectFail()));
 
                 keys.addAllElts(getIdentifiers(effectCounterAttack_
@@ -4239,15 +4317,10 @@ public class DataBase implements WithMathFactory {
                 variables.addAllElts(getVariableWords(((EffectDamage) e)
                         .getPower()));
 
-                functions.addAllElts(getFunctionWords(((EffectDamage) e)
-                        .getPower()));
-
                 keys.addAllElts(getIdentifiers(((EffectDamage) e).getPower()));
                 for (String event_ : ((EffectDamage) e).getDamageLaw().events()) {
 
                     variables.addAllElts(getVariableWords(event_));
-
-                    functions.addAllElts(getFunctionWords(event_));
 
                     keys.addAllElts(getIdentifiers(event_));
                 }
@@ -4278,8 +4351,6 @@ public class DataBase implements WithMathFactory {
                 }
 
                 variables.addAllElts(getVariableWords(e_.getFailEndRound()));
-
-                functions.addAllElts(getFunctionWords(e_.getFailEndRound()));
 
                 keys.addAllElts(getIdentifiers(e_.getFailEndRound()));
             }
@@ -4329,16 +4400,12 @@ public class DataBase implements WithMathFactory {
 
                     variables.addAllElts(getVariableWords(r));
 
-                    functions.addAllElts(getFunctionWords(r));
-
                     keys.addAllElts(getIdentifiers(r));
                 }
                 for (String r : ((EffectStatistic) e)
                         .getLocalFailSwapBoostStatis().values()) {
 
                     variables.addAllElts(getVariableWords(r));
-
-                    functions.addAllElts(getFunctionWords(r));
 
                     keys.addAllElts(getIdentifiers(r));
                 }
@@ -4348,8 +4415,6 @@ public class DataBase implements WithMathFactory {
                         .values()) {
 
                     variables.addAllElts(getVariableWords(r));
-
-                    functions.addAllElts(getFunctionWords(r));
 
                     keys.addAllElts(getIdentifiers(r));
                 }
@@ -4363,17 +4428,12 @@ public class DataBase implements WithMathFactory {
 
                     variables.addAllElts(getVariableWords(r));
 
-                    functions.addAllElts(getFunctionWords(r));
-
                     keys.addAllElts(getIdentifiers(r));
                 }
             }
             if (e instanceof EffectFullHpRate) {
 
                 variables.addAllElts(getVariableWords(((EffectFullHpRate) e)
-                        .getRestoredHp()));
-
-                functions.addAllElts(getFunctionWords(((EffectFullHpRate) e)
                         .getRestoredHp()));
 
                 keys.addAllElts(getIdentifiers(((EffectFullHpRate) e)
@@ -4387,13 +4447,6 @@ public class DataBase implements WithMathFactory {
                                 .getDamageRateAgainstFoe()));
                 variables
                         .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) e)
-                                .getFailSending()));
-
-                functions
-                        .addAllElts(getFunctionWords(((EffectTeamWhileSendFoe) e)
-                                .getDamageRateAgainstFoe()));
-                functions
-                        .addAllElts(getFunctionWords(((EffectTeamWhileSendFoe) e)
                                 .getFailSending()));
 
                 keys.addAllElts(getIdentifiers(((EffectTeamWhileSendFoe) e)
@@ -4439,13 +4492,6 @@ public class DataBase implements WithMathFactory {
             variables.addAllElts(getVariableWords(new StringList(obj_
                     .getFailStatus().values()).join(EMPTY_STRING)));
 
-            functions.addAllElts(getFunctionWords(new StringList(obj_
-                    .getMultStat().values()).join(EMPTY_STRING)));
-            functions.addAllElts(getFunctionWords(obj_.getMultDamage()));
-            functions.addAllElts(getFunctionWords(obj_.getMultPower()));
-            functions.addAllElts(getFunctionWords(new StringList(obj_
-                    .getFailStatus().values()).join(EMPTY_STRING)));
-
             keys.addAllElts(getIdentifiers(new StringList(obj_.getMultStat()
                     .values()).join(EMPTY_STRING)));
             keys.addAllElts(getIdentifiers(obj_.getMultDamage()));
@@ -4474,13 +4520,6 @@ public class DataBase implements WithMathFactory {
         variables.addAllElts(getVariableWords(_ability.getMultDamage()));
         variables.addAllElts(getVariableWords(_ability.getMultPower()));
         variables.addAllElts(getVariableWords(new StringList(_ability
-                .getFailStatus().values()).join(EMPTY_STRING)));
-
-        functions.addAllElts(getFunctionWords(new StringList(_ability
-                .getMultStat().values()).join(EMPTY_STRING)));
-        functions.addAllElts(getFunctionWords(_ability.getMultDamage()));
-        functions.addAllElts(getFunctionWords(_ability.getMultPower()));
-        functions.addAllElts(getFunctionWords(new StringList(_ability
                 .getFailStatus().values()).join(EMPTY_STRING)));
 
         keys.addAllElts(getIdentifiers(new StringList(_ability.getMultStat()
@@ -4576,7 +4615,6 @@ public class DataBase implements WithMathFactory {
         for (StringList l : varParamsMove.values()) {
             l.removeDuplicates();
         }
-        functions.removeDuplicates();
         keys.removeDuplicates();
         keys.sort();
     }
@@ -7570,111 +7608,99 @@ public class DataBase implements WithMathFactory {
 
     public String getFormula(String _litt, String _language) {
         StringMap<String> litt_ = litterals.getVal(_language);
-
-        StringList tokens_ = getTokensTranslate(_litt);
-        int len_;
-        len_ = tokens_.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (i % 2 == 0) {
-                continue;
-            }
-            String fullToken_ = tokens_.get(i);
-
-            if (!getFunctionWords(fullToken_).isEmpty()) {
-
-                tokens_.set(i,
-                        translatedFctMath.getVal(_language).getVal(fullToken_));
-                continue;
-            }
-            if (!fullToken_.startsWith(VAR_PREFIX)) {
-                tokens_.set(i, translate(fullToken_, _language));
-                continue;
-            }
-            String tok_ = fullToken_.substring(VAR_PREFIX.length());
-            StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
-            String line_ = litt_.getVal(elts_.first());
-            StringList infos_ = StringList.splitStrings(line_, TAB);
-            StringList objDisplay_ = getVars(tokens_.get(i), _language);
-            String pattern_ = infos_.get(1);
-
-            String format_ = StringList.simpleStringsFormat(pattern_,
-                    objDisplay_.toArray());
-            tokens_.set(i, format_);
-        }
-        String formula_ = tokens_.join(EMPTY_STRING);
-
-        tokens_ = StringList.getTokensSets(formula_);
-        len_ = tokens_.size();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            if (i % 2 == 0) {
-                continue;
-            }
-            String fullToken_ = tokens_.get(i);
-            StringBuilder str_ = new StringBuilder(fullToken_);
-            str_.deleteCharAt(str_.length() - 1);
-            str_.deleteCharAt(CustList.FIRST_INDEX);
-
-            StringList words_;
-            words_ = StringList.splitChars(str_.toString(),
-                    getSepartorSetChar());
-            words_.sort();
-
-            tokens_.set(i, StringList.concat(
-                    String.valueOf(StringList.LEFT_BRACE),
-                    words_.join(getSepartorSetChar()),
-                    String.valueOf(StringList.RIGHT_BRACE)));
-        }
-        return tokens_.join(EMPTY_STRING);
-    }
-
-    private static StringList getTokensTranslate(String _str) {
-        StringList list_ = StringList.getWordsSeparators(_str);
-        StringList newList_ = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        for (String t : list_) {
-            if (i_ % 2 == 0) {
-                if (newList_.isEmpty()) {
-                    newList_.add(t);
-                } else if (!isTokenTranslate(newList_.last())) {
-                    newList_.setLast(StringList.concat(newList_.last(), t));
-                } else {
-                    newList_.add(t);
+        
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _litt.length();
+        int i_ = 0;
+        boolean br_ = false;
+        StringList list_ = new StringList();
+        while (i_ < len_) {
+            char cur_ = _litt.charAt(i_);
+            if (br_) {
+                boolean dig_ = cur_ >= '0' && cur_ <= '9';
+                int j_ = i_;
+                int delta_ = 0;
+                if (!StringList.isWordChar(cur_)) {
+                    j_++;
+                    cur_ = _litt.charAt(j_);
+                    delta_++;
                 }
-                i_++;
+                while (StringList.isWordChar(cur_)) {
+                    j_++;
+                    cur_ = _litt.charAt(j_);
+                }
+                String word_ = _litt.substring(i_+delta_, j_);
+                if (dig_) {
+                    list_.add(word_);
+                } else if (!word_.startsWith(VAR_PREFIX)) {
+                    list_.add(translate(word_, _language));
+                } else {
+                    String tok_ = word_.substring(VAR_PREFIX.length());
+                    StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
+                    String line_ = litt_.getVal(elts_.first());
+                    StringList infos_ = StringList.splitStrings(line_, TAB);
+                    StringList objDisplay_ = getVars(word_, _language);
+                    String pattern_ = infos_.get(1);
+
+                    String format_ = StringList.simpleStringsFormat(pattern_,
+                            objDisplay_.toArray());
+                    list_.add(format_);
+                }
+                if (cur_ == '}') {
+                    list_.sort();
+                    str_.append(list_.join(getSepartorSetChar()));
+                    list_.clear();
+                    br_ = false;
+                }
+                i_ = j_;
                 continue;
             }
-            if (isTokenTranslate(t)) {
-                newList_.add(t);
+            if (cur_ == '{') {
+                str_.append(cur_);
                 i_++;
+                br_ = true;
                 continue;
             }
-            newList_.setLast(StringList.concat(newList_.last(), t));
+            if (StringList.isWordChar(cur_)) {
+                boolean dig_ = cur_ >= '0' && cur_ <= '9';
+                int j_ = i_;
+                while (StringList.isWordChar(cur_)) {
+                    j_++;
+                    cur_ = _litt.charAt(j_);
+                }
+                String word_ = _litt.substring(i_, j_);
+                if (dig_) {
+                    str_.append(word_);
+                    i_ = j_;
+                    continue;
+                }
+                if (cur_ == '(' || StringList.quickEq(getTrueString(), word_)|| StringList.quickEq(getFalseString(), word_)) {
+                    str_.append(translatedFctMath.getVal(_language).getVal(word_));
+                    i_ = j_;
+                    continue;
+                }
+                if (!word_.startsWith(VAR_PREFIX)) {
+                    str_.append(translate(word_, _language));
+                    i_ = j_;
+                    continue;
+                }
+                String tok_ = word_.substring(VAR_PREFIX.length());
+                StringList elts_ = StringList.splitStrings(tok_, SEP_BETWEEN_KEYS);
+                String line_ = litt_.getVal(elts_.first());
+                StringList infos_ = StringList.splitStrings(line_, TAB);
+                StringList objDisplay_ = getVars(word_, _language);
+                String pattern_ = infos_.get(1);
+
+                String format_ = StringList.simpleStringsFormat(pattern_,
+                        objDisplay_.toArray());
+                str_.append(format_);
+                i_ = j_;
+                continue;
+            }
+            str_.append(cur_);
             i_++;
         }
-        return newList_;
-    }
-
-    private static boolean isTokenTranslate(String _string) {
-        if (_string.startsWith(VAR_PREFIX)) {
-            return true;
-        }
-        if (Character.isUpperCase(_string.charAt(CustList.FIRST_INDEX))) {
-            int len_ = _string.length();
-            for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-                if (!Character.isUpperCase(_string.charAt(i))) {
-                    if (!Character.isDigit(_string.charAt(i))) {
-                        if (_string.charAt(i) != UNDERSCORE) {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-        if (Character.isLowerCase(_string.charAt(CustList.FIRST_INDEX))) {
-            return true;
-        }
-        return false;
+        return str_.toString();
     }
 
     private static StringList getVariableWords(String _str) {
@@ -7701,32 +7727,6 @@ public class DataBase implements WithMathFactory {
             return false;
         }
         return _string.length() > VAR_PREFIX.length();
-    }
-
-    private static StringList getFunctionWords(String _str) {
-        StringList list_ = StringList.getWordsSeparators(_str);
-        StringList newList_ = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        for (String t : list_) {
-            if (i_ % 2 == 0) {
-                i_++;
-                continue;
-            }
-            if (isFunction(t)) {
-                newList_.add(t);
-                i_++;
-                continue;
-            }
-            i_++;
-        }
-        return newList_;
-    }
-
-    private static boolean isFunction(String _string) {
-        if (!Character.isLowerCase(_string.charAt(CustList.FIRST_INDEX))) {
-            return false;
-        }
-        return _string.length() > CustList.ONE_ELEMENT;
     }
 
     public NatTreeMap<String, String> getDescriptions(String _litt,
@@ -7945,10 +7945,6 @@ public class DataBase implements WithMathFactory {
 
     public StringList getVariables() {
         return variables;
-    }
-
-    public StringList getFunctions() {
-        return functions;
     }
 
     public StringMap<PokemonData> getPokedex() {

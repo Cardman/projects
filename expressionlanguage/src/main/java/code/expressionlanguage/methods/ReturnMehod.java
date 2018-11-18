@@ -195,7 +195,6 @@ public final class ReturnMehod extends AbruptBlock implements CallingFinally  {
             if (_cont.callsOrException()) {
                 return;
             }
-            el_.setCurrentOper(null);
             ip_.clearCurrentEls();
             LgNames stds_ = _cont.getStandards();
             String retType_ = stds_.getAliasVoid();

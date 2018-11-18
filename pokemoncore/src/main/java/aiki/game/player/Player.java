@@ -45,8 +45,8 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.annot.RwXml;
+import code.util.comparators.ComparatorNatNumber;
 import code.util.comparators.ComparatorTreeMapValue;
-import code.util.comparators.NaturalComparator;
 
 @RwXml
 public final class Player {
@@ -1566,7 +1566,7 @@ public final class Player {
 
     public void restore(Numbers<Byte> _indexes) {
         TreeMap<Byte, Byte> map_;
-        map_ = new TreeMap<Byte, Byte>(new NaturalComparator<Byte>());
+        map_ = new TreeMap<Byte, Byte>(new ComparatorNatNumber<Byte>());
         int nbIndexes_ = _indexes.size();
         for (byte i = CustList.FIRST_INDEX; i < nbIndexes_; i++) {
             map_.put(i, _indexes.get(i));

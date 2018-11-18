@@ -144,7 +144,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
         if (statusInit_ != null) {
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getException() != null) {
+            if (_conf.getContextEl().hasException()) {
                 return;
             }
             argres_ = prepareCallDyn(previous_, arguments_, _conf);
@@ -162,7 +162,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         } else {
             res_ = argres_;
         }
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(res_, _conf);

@@ -3,13 +3,12 @@ package code.formathtml.classes;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
-import code.util.ints.Comparing;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SimpleIterable;
 import code.util.ints.SortableMap;
 
-public final class NatTreeMapStringInteger implements SortableMap<String,Integer>, ListableEntries<String,Integer> {
+public final class NatTreeMapStringInteger implements SortableMap<String,Integer> {
 
     private final NatTreeMap<String,Integer> tree;
 
@@ -130,11 +129,6 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
     }
 
     @Override
-    public Comparing<String> comparator() {
-        return tree.comparator();
-    }
-
-    @Override
     public Integer firstValue() {
         return tree.firstValue();
     }
@@ -208,7 +202,6 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
         return tree.lastEntry();
     }
 
-    @Override
     public void applyChanges() {
         tree.applyChanges();
     }

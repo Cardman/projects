@@ -134,9 +134,10 @@ public final class FctOperation extends InvokingOperation {
         ClassMethodId feed_ = null;
         if (idMethod_ != null) {
             String idClass_ = idMethod_.getClassName();
-            boolean vararg_ = idMethod_.getConstraints().isVararg();
-            StringList params_ = idMethod_.getConstraints().getParametersTypes();
-            boolean static_ = isStaticAccess();
+            MethodId mid_ = idMethod_.getConstraints();
+            boolean vararg_ = mid_.isVararg();
+            StringList params_ = mid_.getParametersTypes();
+            boolean static_ = isStaticAccess() || mid_.isStaticMethod();
             feed_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
         }
         boolean cloneArray_ = false;
@@ -329,7 +330,7 @@ public final class FctOperation extends InvokingOperation {
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
         if (statusInit_ != null) {
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getException() != null) {
+            if (_conf.getContextEl().hasException()) {
                 return;
             }
             argres_ = getArgument(previous_, arguments_, _conf);
@@ -347,7 +348,7 @@ public final class FctOperation extends InvokingOperation {
         } else {
             res_ = argres_;
         }
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(res_, _conf);
@@ -366,7 +367,7 @@ public final class FctOperation extends InvokingOperation {
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             prev_.setStruct(PrimitiveTypeUtil.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
-            if (_conf.getException() != null) {
+            if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -410,6 +411,9 @@ public final class FctOperation extends InvokingOperation {
         return callPrepare(_conf, classNameFound_, methodId_, prev_, firstArgs_, offLoc_);
     }
 
+    public ClassMethodId getClassMethodId() {
+        return classMethodId;
+    }
     @Override
     public ConstructorId getConstId() {
         return null;

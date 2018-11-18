@@ -1067,7 +1067,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public void setOkNumOp(boolean _okNumOp) {
-        context.setOkNumOp(_okNumOp);;
+        context.setOkNumOp(_okNumOp);
     }
 
     @Override

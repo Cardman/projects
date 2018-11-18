@@ -1,4 +1,5 @@
 package code.formathtml.classes;
+import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.MathFactory;
 
@@ -43,6 +44,9 @@ public class SimpleMathFactory implements MathFactory {
 
     @Override
     public String toString(Object _gotArg) {
-        return String.valueOf(_gotArg);
+        if (_gotArg instanceof Boolean) {
+            return Boolean.toString((Boolean) _gotArg);
+        }
+        return Numbers.toString((Number) _gotArg);
     }
 }

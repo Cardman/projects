@@ -1,6 +1,5 @@
 package code.util;
 import static code.util.EquallableExUtil.assertEq;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -169,11 +168,9 @@ public class NatTreeMapTest {
         NatTreeMap<String,Number> mapToPut_ = new NatTreeMap<String,Number>();
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
-        assertNotNull(map_.comparator());
         assertEq(2, map_.size());
         assertEq("ONE", map_.getKey(0));
         assertEq("TWO", map_.getKey(1));
-        assertNotNull(mapToPut_.comparator());
         assertEq(2, mapToPut_.size());
         assertEq("THREE", mapToPut_.getKey(0));
         assertEq("TWO", mapToPut_.getKey(1));
@@ -187,11 +184,9 @@ public class NatTreeMapTest {
         NatTreeMap<String,Number> mapToPut_ = new NatTreeMap<String,Number>();
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
-        assertNotNull(map_.comparator());
         assertEq(2, map_.size());
         assertEq(1, map_.getValue(0));
         assertEq(2, map_.getValue(1));
-        assertNotNull(mapToPut_.comparator());
         assertEq(2, mapToPut_.size());
         assertEq(4, mapToPut_.getValue(0));
         assertEq(3, mapToPut_.getValue(1));

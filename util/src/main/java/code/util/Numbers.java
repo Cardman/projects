@@ -28,6 +28,22 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         super(_capacity);
     }
 
+    static String nullableToString(Number _nb) {
+        if (_nb == null) {
+            return EMPTY_STRING;
+        }
+        return toString(_nb);
+    }
+    public static String toString(Number _nb) {
+        if (_nb instanceof Double) {
+            return ((Double)_nb).toString();
+        }
+        if (_nb instanceof Float) {
+            return ((Float)_nb).toString();
+        }
+        return Long.toString(_nb.longValue());
+    }
+
     public static boolean equalsSetBytes(Listable<Byte> _list1,Listable<Byte> _list2) {
         for (Number c: _list2) {
             boolean contains_ = false;
@@ -387,11 +403,11 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         if (isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
+        StringBuilder return_ = new StringBuilder(nullableToString(get(FIRST_INDEX)));
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
-            return_.append(get(i));
+            return_.append(nullableToString(get(i)));
         }
         return return_.toString();
     }
@@ -400,11 +416,11 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         if (isEmpty()) {
             return EMPTY_STRING;
         }
-        StringBuilder return_ = new StringBuilder(String.valueOf(get(FIRST_INDEX)));
+        StringBuilder return_ = new StringBuilder(toString(get(FIRST_INDEX)));
         int size_ = size();
         for (int i=SECOND_INDEX;i<size_;i++) {
             return_.append(_join);
-            return_.append(get(i));
+            return_.append(toString(get(i)));
         }
         return return_.toString();
     }

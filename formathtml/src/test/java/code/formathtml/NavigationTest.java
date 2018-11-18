@@ -8744,6 +8744,7 @@ public class NavigationTest {
         context_.getOptions().setEndLineSemiColumn(false);
         context_.getOptions().setSpecialEnumsMethods(false);
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        context_.getOptions().setUpperLong(true);
         nav_.getSession().setStandards(InitializationLgNames.initStandards(context_));
         nav_.getSession().setContext(context_);
         context_.initError();
@@ -8756,6 +8757,7 @@ public class NavigationTest {
         context_.getOptions().setEndLineSemiColumn(false);
         context_.getOptions().setSpecialEnumsMethods(false);
         context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        context_.getOptions().setUpperLong(true);
         conf_.setStandards(InitializationLgNames.initStandards(context_));
         conf_.setContext(context_);
         context_.initError();

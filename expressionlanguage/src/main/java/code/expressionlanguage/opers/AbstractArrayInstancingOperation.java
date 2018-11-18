@@ -64,7 +64,7 @@ public abstract class AbstractArrayInstancingOperation extends AbstractInstancin
         Argument argres_ = getArgument(arguments_, _conf);
         Argument res_;
         res_ = argres_;
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(res_, _conf);

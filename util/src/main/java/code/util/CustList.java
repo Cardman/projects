@@ -1,10 +1,9 @@
 package code.util;
 import java.util.ArrayList;
-import code.util.ints.Comparing;
 import java.util.Iterator;
-import java.util.ListIterator;
 
 import code.util.annot.CapacityInit;
+import code.util.ints.Comparing;
 import code.util.ints.Equaller;
 import code.util.ints.Listable;
 
@@ -172,16 +171,6 @@ public class CustList<T> implements Listable<T> {
     @Override
     public void remove(int _index) {
         list.remove(_index);
-    }
-
-    @Override
-    public ListIterator<T> listIterator() {
-        return list.listIterator();
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int _index) {
-        return list.listIterator(_index);
     }
 
     @Override

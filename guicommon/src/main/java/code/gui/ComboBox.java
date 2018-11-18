@@ -103,15 +103,6 @@ public abstract class ComboBox<T extends Enum<T>> extends GraphicCombo {
         return elements.getKey(index_) == null;
     }
 
-//    public void setCurrent(T _current) {
-//        List<T> keys_ = new List<T>(elements.getKeys());
-//        int index_ = keys_.indexOfObj(_current);
-//        if (index_ < 0) {
-//            return;
-//        }
-//        setSelectedIndex(index_);
-//    }
-
     public void setWithDefaultValue(boolean _withDefaultValue) {
         withDefaultValue = _withDefaultValue;
     }

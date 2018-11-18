@@ -28,6 +28,8 @@ import code.util.annot.RwXml;
 @RwXml
 public final class AbilityData {
 
+    private String name;
+
     private EqList<TypesDuo> breakFoeImmune;
 
     private boolean forbidUseBerryAgainstFoes;
@@ -674,6 +676,14 @@ public final class AbilityData {
 
     public boolean enabledSending() {
         return !effectSending.isEmpty();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String _name) {
+        name = _name;
     }
 
     public EqList<TypesDuo> getBreakFoeImmune() {

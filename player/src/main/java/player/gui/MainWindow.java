@@ -333,8 +333,6 @@ public class MainWindow extends GroupFrame {
                 lastFrame = clipStream.getClip().getFramePosition();
                 pausing = true;
                 clipStream.getClip().stop();
-                System.gc();
-//                pausing = false;
             } else {
                 if (lastFrame < clipStream.getClip().getFrameLength()) {
                     clipStream.getClip().setFramePosition(lastFrame);
@@ -357,7 +355,6 @@ public class MainWindow extends GroupFrame {
             } catch (IOException _0) {
                 _0.printStackTrace();
             }
-            System.gc();
             clipStream = null;
         }
     }
@@ -373,7 +370,6 @@ public class MainWindow extends GroupFrame {
             } catch (IOException _0) {
                 _0.printStackTrace();
             }
-            System.gc();
             clipStream = null;
         }
     }
@@ -390,7 +386,6 @@ public class MainWindow extends GroupFrame {
             } catch (IOException _0) {
                 _0.printStackTrace();
             }
-            System.gc();
             clipStream = null;
         }
     }
@@ -402,8 +397,6 @@ public class MainWindow extends GroupFrame {
         } else if (_event.getType().toString().equalsIgnoreCase(STOP_EVT)) {
             //LineEvent.Type.STOP
             //The end of a song pass here
-//            System.out.println(lastFrame);
-//            System.out.println(clip.getLongFramePosition());
             play.setTextAndSize(PLAY);
             if (!pausing) {
                 next = true;
@@ -414,7 +407,6 @@ public class MainWindow extends GroupFrame {
                 } catch (IOException _0) {
                     _0.printStackTrace();
                 }
-                System.gc();
                 next = false;
             }
         } else if (_event.getType().toString().equalsIgnoreCase(CLOSE)) {

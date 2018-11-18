@@ -83,7 +83,7 @@ public abstract class AbstractArrayElementOperation extends
         for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
             Argument chArg_ = _arguments.get(i);
             ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
-            if (_conf.getException() != null) {
+            if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 return a_;
             }
         }

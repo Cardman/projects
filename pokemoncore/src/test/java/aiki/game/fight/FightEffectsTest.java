@@ -2720,7 +2720,7 @@ public class FightEffectsTest extends InitializationDataBase {
         fails_.put(SOMMEIL, SOMMEIL_FAILURE);
         MonteCarloString res_ = FightEffects.generatedStatusLaw(fight_, thrower_, target_, law_, fails_, _data_);
         assertEq(1, res_.events().size());
-        assertTrue(res_.events().toString(),res_.events().containsObj(NULL_REF));
+        assertTrue(res_.events().display(),res_.events().containsObj(NULL_REF));
         assertTrue(res_.isValid());
     }
 

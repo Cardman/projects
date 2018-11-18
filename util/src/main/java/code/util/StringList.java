@@ -484,12 +484,10 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public void sort() {
-        //setModified();
-        sortElts(new NaturalComparator<String>());
+        sortElts(new NaturalComparator());
     }
 
     public void replace(String _old, String _new) {
-        //setModified();
         if (_old == null) {
             int size_ = size();
             for (int i = FIRST_INDEX; i < size_; i++) {
@@ -622,7 +620,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
                 if (argNb_ >= 0 && argNb_ < argLength_) {
                     Number a_ = _args[argNb_];
                     if (a_ != null) {
-                        str_.append(a_.toString());
+                        str_.append(Numbers.toString(a_));
                     } else {
                         str_.append(LEFT_BRACE);
                         str_.append(arg_);
@@ -1010,64 +1008,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         }
         return list_;
     }
-
-    public StringList filterBeginIgnoreCase(String _regExp) {
-        StringList list_ = new StringList();
-        String patt_ = toUpperCase(_regExp);
-        for (String s: this) {
-            if (!toUpperCase(s).startsWith(patt_)) {
-                continue;
-            }
-            list_.add(s);
-        }
-        return list_;
-    }
-
-    public StringList filterStrictBeginIgnoreCase(String _regExp) {
-        StringList list_ = new StringList();
-        String patt_ = toUpperCase(_regExp);
-        for (String s: this) {
-            if (!toUpperCase(s).startsWith(patt_)) {
-                continue;
-            }
-            if (quickEq(toUpperCase(s),patt_)) {
-                continue;
-            }
-            list_.add(s);
-        }
-        return list_;
-    }
-
-//    @Override
-//    public void removeDuplicates() {
-//        //setModified();
-//        int i_ = FIRST_INDEX;
-//        while (true) {
-//            if(i_ >= size()) {
-//                break;
-//            }
-//            int j_ = i_ + 1;
-//            while (true) {
-//                if (j_ >= size()) {
-//                    break;
-//                }
-//                if (get(i_) == null) {
-//                    if (get(j_) == null) {
-//                        removeAt(j_);
-//                    } else {
-//                        j_++;
-//                    }
-//                    continue;
-//                }
-//                if (eq(get(i_),get(j_))) {
-//                    removeAt(j_);
-//                } else {
-//                    j_++;
-//                }
-//            }
-//            i_++;
-//        }
-//    }
 
     public StringList intersectStr(StringList _list) {
         StringList list_ = new StringList();
@@ -1592,15 +1532,13 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         return str_.toString();
     }
 
-    public static String concatNbs(CharSequence _string,Number... _nbs) {
+    public static String concatNbs(CharSequence _string,long _nbs) {
         StringBuilder str_ = new StringBuilder(_string);
-        for (Number s: _nbs) {
-            str_.append(s);
-        }
+        str_.append(_nbs);
         return str_.toString();
     }
 
-    public static String concatNb(Number _nb,CharSequence _string) {
+    public static String concatNb(long _nb,CharSequence _string) {
         StringBuilder str_ = new StringBuilder(_string);
         str_.append(_nb);
         str_.append(_string);

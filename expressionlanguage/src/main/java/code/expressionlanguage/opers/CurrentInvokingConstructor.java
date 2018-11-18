@@ -71,7 +71,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
             j_++;
         }
         processArgs(_conf, firstArgs_, params_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             Argument a_ = new Argument();
             return a_;
         }

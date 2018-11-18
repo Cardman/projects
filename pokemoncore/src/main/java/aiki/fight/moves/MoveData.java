@@ -17,6 +17,8 @@ import code.util.annot.RwXml;
 @RwXml
 public abstract class MoveData {
 
+    private String name;
+
     private boolean notTranslated;
 
     private short pp;
@@ -301,6 +303,14 @@ public abstract class MoveData {
     public abstract boolean canBoostAllies();
 
     public abstract String getCategory();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String _name) {
+        name = _name;
+    }
 
     public short getPp() {
         return pp;

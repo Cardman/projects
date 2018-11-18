@@ -2,7 +2,6 @@ package cards.president;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import cards.consts.GameType;
-import cards.consts.Suit;
 import cards.president.comparators.GameStrengthCardPresidentComparator;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.EqualtyPlaying;
@@ -43,7 +42,7 @@ public final class GamePresident {
 
     private static final int PERCENT_MAX = 100;
 
-    private static final int NB_SUITS = Suit.couleursOrdinaires().size();
+    private static final int NB_SUITS = 4;
 
     private AtomicInteger chargementSimulation = new AtomicInteger();
 

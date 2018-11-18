@@ -5,6 +5,7 @@ import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.Suit;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class EquallableBeloteUtil {
@@ -16,7 +17,7 @@ public final class EquallableBeloteUtil {
 
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
 
     private static boolean sameValue(Number _expected, Number _result) {

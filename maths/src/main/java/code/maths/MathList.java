@@ -42,38 +42,8 @@ public final class MathList extends AbEqList<String> implements Equallable<MathL
         }
     }
     public void sort() {
-        //setModified();
-        sortElts(new NaturalComparator<String>());
+        sortElts(new NaturalComparator());
     }
-//    public void removeDuplicates() {
-//        //setModified();
-//        int i_ = FIRST_INDEX;
-//        while (true) {
-//            if(i_ >= size()) {
-//                break;
-//            }
-//            int j_ = i_ + 1;
-//            while (true) {
-//                if (j_ >= size()) {
-//                    break;
-//                }
-//                if (get(i_) == null) {
-//                    if (get(j_) == null) {
-//                        removeAt(j_);
-//                    } else {
-//                        j_++;
-//                    }
-//                    continue;
-//                }
-//                if (StringList.eq(get(i_),get(j_))) {
-//                    removeAt(j_);
-//                } else {
-//                    j_++;
-//                }
-//            }
-//            i_++;
-//        }
-//    }
     public MathList intersectStr(MathList _list) {
         MathList list_ = new MathList();
         for (String s: _list) {

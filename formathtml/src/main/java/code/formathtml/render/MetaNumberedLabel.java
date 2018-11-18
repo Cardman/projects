@@ -1,7 +1,6 @@
 package code.formathtml.render;
 
 import code.util.Numbers;
-import code.util.StringList;
 
 public final class MetaNumberedLabel extends MetaLabel {
 
@@ -82,14 +81,27 @@ public final class MetaNumberedLabel extends MetaLabel {
             }
             str_.deleteCharAt(str_.length() - 1);
             if (_base == MetaNumberBase.LATIN_MAJ) {
-                number = StringList.toUpperCase(str_.toString());
+                number = toLatinUpperCase(str_.toString());
             } else {
                 number = str_.toString();
             }
         }
         base = _base;
     }
-
+    public static String toLatinUpperCase(String _string) {
+        int len_ = _string.length();
+        StringBuilder str_ = new StringBuilder(len_);
+        for (int i = 0; i < len_; i++) {
+            char curr_ = _string.charAt(i);
+            if (curr_ <= ' ') {
+                str_.append(" ");
+                continue;
+            }
+            int char_ = curr_ - 'a' + 'A';
+            str_.append((char)char_);
+        }
+        return str_.toString();
+    }
     private static StringBuilder getLatinString(int _digit, char _unit, char _demi, char _nextUnit) {
         StringBuilder str_ = new StringBuilder(4);
         if (_digit < 4) {

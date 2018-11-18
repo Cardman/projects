@@ -387,7 +387,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         NotInitializedClass statusInit_ = _conf.getContextEl().getInitClass();
         if (statusInit_ != null) {
             ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContextEl());
-            if (_conf.getException() != null) {
+            if (_conf.getContextEl().hasException()) {
                 return;
             }
             argres_ = getArgument(previous_, arguments_, _conf);
@@ -399,7 +399,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         } else {
             res_ = argres_;
         }
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(res_, _conf);
@@ -431,7 +431,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             for (int i = CustList.FIRST_INDEX; i < nbCh_; i++) {
                 Argument chArg_ = _arguments.get(i);
                 ArrOperation.setCheckedElement(str_, i, chArg_, _conf);
-                if (_conf.getException() != null) {
+                if (_conf.getContextEl().hasExceptionOrFailInit()) {
                     return a_;
                 }
             }

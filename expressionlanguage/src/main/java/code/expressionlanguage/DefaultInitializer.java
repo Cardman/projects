@@ -108,14 +108,14 @@ public class DefaultInitializer implements Initializer {
         if (abs_ != null) {
             addPage(_owner, abs_);
         }
-        if (_owner.getException() != null) {
+        if (_owner.hasExceptionOrFailInit()) {
             return false;
         }
         return true;
     }
     void addPage(ContextEl _conf, AbstractPageEl _page) {
         _conf.addPage(_page);
-        if (_conf.getException() != null) {
+        if (_conf.hasException()) {
             _conf.getThrowing().removeBlockFinally(_conf);
         }
     }

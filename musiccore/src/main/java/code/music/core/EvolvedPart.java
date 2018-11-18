@@ -1,6 +1,5 @@
 package code.music.core;
 import java.util.Iterator;
-import java.util.ListIterator;
 
 import jm.music.data.Part;
 import jm.music.data.Phrase;
@@ -8,7 +7,6 @@ import code.util.EqList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
-import code.util.ints.MidListable;
 
 public final class EvolvedPart implements MidListable<EvolvedPhrase>, Equallable<EvolvedPart>, Displayable {
 
@@ -170,31 +168,6 @@ public final class EvolvedPart implements MidListable<EvolvedPhrase>, Equallable
         part.removePhrase(_index);
         phrases.remove(_index);
     }
-
-//    @Override
-//    public int indexOf(Object _o) {
-//        return phrases.indexOf(_o);
-//    }
-//
-//    @Override
-//    public int lastIndexOf(Object _o) {
-//        return phrases.lastIndexOf(_o);
-//    }
-
-    @Override
-    public ListIterator<EvolvedPhrase> listIterator() {
-        return phrases.listIterator();
-    }
-
-    @Override
-    public ListIterator<EvolvedPhrase> listIterator(int _index) {
-        return phrases.listIterator(_index);
-    }
-
-//    @Override
-//    public EqList<EvolvedPhrase> subList(int _fromIndex, int _toIndex) {
-//        return phrases.subList(_fromIndex, _toIndex);
-//    }
 
     @Override
     public Listable<EvolvedPhrase> sub(int _from, int _to) {

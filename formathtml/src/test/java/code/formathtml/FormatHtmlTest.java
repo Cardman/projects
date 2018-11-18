@@ -3271,7 +3271,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>null</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body></body></html>", render_);
     }
 
     @Test
@@ -3303,7 +3303,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>null</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body></body></html>", render_);
     }
 
     @Test
@@ -6468,7 +6468,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><img src=\"my_image\" c:wrap=\"wrap\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><img src=\"my_image\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("my_image", "encoded_image");
@@ -6501,7 +6501,7 @@ public class FormatHtmlTest {
 
 
 
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"data:image/png;base64,encoded_image\"/></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"encoded_image\"/></body></html>", render_);
     }
 
     @Test
@@ -6510,7 +6510,7 @@ public class FormatHtmlTest {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html xmlns:c='javahtml'><body><img src=\"my_image\" c:wrap=\"jpg\"/></body></html>";
+        String html_ = "<html xmlns:c='javahtml'><body><img src=\"my_image\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("my_image", "encoded_image");
@@ -6542,7 +6542,7 @@ public class FormatHtmlTest {
 
 
 
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"data:image/jpg;base64,encoded_image\"/></body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body><img src=\"encoded_image\"/></body></html>", render_);
     }
 
     @Test
@@ -8865,7 +8865,7 @@ public class FormatHtmlTest {
         conf_.setDocument(doc_);
         setup(conf_);
         String render_ = FormatHtml.processHtml(doc_, "bean_one", conf_, locale_, files_);
-        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2_null</body></html>", render_);
+        assertXmlEqualRuntime("<html xmlns:c='javahtml'><body>2_</body></html>", render_);
     }
 
     @Test

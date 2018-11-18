@@ -202,12 +202,20 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
         if (StringList.quickEq(name_,aliasThread)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                return res_;
+            }
             Thread thread_ = new Thread((Runnable)_args[0]);
             StdStruct std_ = StdStruct.newInstance(thread_, aliasThread);
             res_.setResult(std_);
             return res_;
         }
         if (StringList.quickEq(name_,aliasReentrantLock)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                return res_;
+            }
             ReentrantLock re_ = new ReentrantLock();
             StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
             res_.setResult(std_);

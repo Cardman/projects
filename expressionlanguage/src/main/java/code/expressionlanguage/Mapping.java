@@ -35,6 +35,7 @@ public class Mapping {
 
     public static StringList getAllUpperBounds(StringMap<StringList> _mapping, String _className, String _objectClassName) {
         StringList visitedBounds_ = new StringList();
+        StringList visitedBoundsAll_ = new StringList();
         StringList currentBounds_ = new StringList(_className);
         while (true) {
             StringList nextBounds_ = new StringList();
@@ -48,6 +49,10 @@ public class Mapping {
                     continue;
                 }
                 for (String n: _mapping.getVal(var_)) {
+                    if (visitedBoundsAll_.containsStr(n)) {
+                        continue;
+                    }
+                    visitedBoundsAll_.add(n);
                     nextBounds_.add(n);
                 }
             }
@@ -63,6 +68,7 @@ public class Mapping {
     public static StringList getAllBounds(StringMap<StringList> _mapping, String _className, String _objectClassName) {
         StringList visitedBounds_ = new StringList();
         StringList varBounds_ = new StringList();
+        StringList visitedBoundsAll_ = new StringList();
         StringList currentBounds_ = new StringList(_className);
         while (true) {
             StringList nextBounds_ = new StringList();
@@ -80,6 +86,10 @@ public class Mapping {
                 str_.append(var_);
                 varBounds_.add(str_.toString());
                 for (String n: _mapping.getVal(var_)) {
+                    if (visitedBoundsAll_.containsStr(n)) {
+                        continue;
+                    }
+                    visitedBoundsAll_.add(n);
                     nextBounds_.add(n);
                 }
             }

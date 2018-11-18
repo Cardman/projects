@@ -21,11 +21,14 @@ public final class MethodInfo implements Parametrable, Displayable {
 
     private boolean staticMethod;
 
+    private boolean finalMethod;
+
     private int imported;
     private int ancestor;
 
     private boolean varArgWrap;
     private boolean abstractMethod;
+    private InvocationMethod invocation;
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();
@@ -130,6 +133,11 @@ public final class MethodInfo implements Parametrable, Displayable {
         return formatted;
     }
 
+    @Override
+    public boolean same(Identifiable _id) {
+        MethodId id_ = (MethodId) _id;
+        return formatted.same(id_);
+    }
     public boolean isAbstractMethod() {
         return abstractMethod;
     }
@@ -138,4 +146,21 @@ public final class MethodInfo implements Parametrable, Displayable {
         abstractMethod = _abstractMethod;
     }
 
+    public boolean isFinalMethod() {
+        return finalMethod;
+    }
+
+    public void setFinalMethod(boolean _finalMethod) {
+        finalMethod = _finalMethod;
+    }
+
+    @Override
+    public InvocationMethod getInvocation() {
+        return invocation;
+    }
+
+    @Override
+    public void setInvocation(InvocationMethod _invocation) {
+        invocation = _invocation;
+    }
 }

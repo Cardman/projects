@@ -52,6 +52,10 @@ public abstract class StandardType implements GeneType {
     public boolean isStaticType() {
         return true;
     }
+    @Override
+    public final  StringList getAllGenericSuperTypes(Analyzable _classes) {
+        return getAllSuperTypes(_classes.getStandards());
+    }
     public final StringList getAllSuperTypes(LgNames _classes) {
         StringList list_ = new StringList();
         StringList current_ = new StringList(getName());

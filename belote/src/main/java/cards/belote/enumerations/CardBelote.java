@@ -219,7 +219,7 @@ public enum CardBelote {
     }
 
     public String getImageFileName(String _ext) {
-        return StringList.concat(StringList.toUpperCase(name()),_ext);
+        return StringList.concat(name(),_ext);
     }
 
     public boolean vientAvant(CardBelote _c,boolean _decroissant,Order _ordre,EnumList<Suit> _couleurs) {

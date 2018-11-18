@@ -162,7 +162,7 @@ public final class KeyWords {
                     return;
                 }
             }
-            if (Character.isDigit(k.charAt(0))) {
+            if (ContextEl.isDigit(k.charAt(0))) {
                 return;
             }
         }
@@ -257,7 +257,7 @@ public final class KeyWords {
             if (!StringList.isDollarWordChar(c)) {
                 return;
             }
-            if (Character.isDigit(c)) {
+            if (ContextEl.isDigit(c)) {
                 return;
             }
         }
@@ -280,7 +280,7 @@ public final class KeyWords {
             if (c == '_') {
                 return;
             }
-            if (Character.isDigit(c)) {
+            if (ContextEl.isDigit(c)) {
                 return;
             }
         }
@@ -294,7 +294,7 @@ public final class KeyWords {
             if (!StringList.isDollarWordChar(c)) {
                 return;
             }
-            if (Character.isDigit(c)) {
+            if (ContextEl.isDigit(c)) {
                 return;
             }
         }

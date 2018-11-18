@@ -1,7 +1,6 @@
 package code.expressionlanguage.classes;
 
 import java.util.Iterator;
-import java.util.ListIterator;
 
 import code.util.CustList;
 import code.util.EqList;
@@ -149,22 +148,12 @@ public class Ints implements Listable<Integer> {
         ints.remove(_index);
     }
 
-    @Override
-    public ListIterator<Integer> listIterator() {
-        return ints.listIterator();
-    }
-
     public void sort() {
         ints.sort();
     }
 
     public Integer getMinimum() {
         return ints.getMinimum();
-    }
-
-    @Override
-    public ListIterator<Integer> listIterator(int _index) {
-        return ints.listIterator(_index);
     }
 
     @Override

@@ -12,7 +12,7 @@ import code.gui.events.SetterLanguage;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public class LanguageFrame extends CommonFrame implements SetterLanguage, Packable {
+public class LanguageFrame extends CommonFrame implements SetterLanguage {
 
     private static final String TITLE = " ";
 

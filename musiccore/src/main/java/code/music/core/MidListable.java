@@ -1,5 +1,7 @@
-package code.util.ints;
-import java.util.ListIterator;
+package code.music.core;
+
+import code.util.ints.Equallable;
+import code.util.ints.Listable;
 
 public interface MidListable<T extends Equallable<T>> extends Iterable<T> {
 
@@ -22,10 +24,6 @@ public interface MidListable<T extends Equallable<T>> extends Iterable<T> {
     void set(int _index, T _element);
 
     void remove(int _index);
-
-    ListIterator<T> listIterator();
-
-    ListIterator<T> listIterator(int _index);
 
     Listable<T> sub(int _from, int _to);
 }

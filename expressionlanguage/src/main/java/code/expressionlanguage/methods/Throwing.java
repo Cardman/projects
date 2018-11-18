@@ -69,7 +69,6 @@ public final class Throwing extends AbruptBlock implements StackableBlock {
         if (_cont.callsOrException()) {
             return;
         }
-        el_.setCurrentOper(null);
         ip_.clearCurrentEls();
         Struct o_ = arg_.getStruct();
         _cont.setException(o_);

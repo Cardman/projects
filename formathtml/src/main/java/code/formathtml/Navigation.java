@@ -338,8 +338,8 @@ public final class Navigation {
             if (getArg_) {
                 ip_.addToOffset(indexPoint_+1+action_.indexOf(BEGIN_ARGS));
                 for (String l: StringList.splitChars(strArgs_, SEP_ARGS)) {
-                    Argument a_ = Argument.numberToArgument(l);
-                    if (a_ == null) {
+                    Argument a_ = ElRenderUtil.processEl(l, 0, session);
+                    if (a_ == null || !session.getContext().getClasses().isEmptyErrors()) {
                         BadFormatNumber badFormat_ = new BadFormatNumber();
                         badFormat_.setNumber(l);
                         badFormat_.setFileName(session.getCurrentFileName());

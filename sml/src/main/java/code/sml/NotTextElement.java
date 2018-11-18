@@ -3,7 +3,7 @@ package code.sml;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class NotTextElement implements Node, Element {
+public final class NotTextElement implements Element {
 
     private static final String BEGIN_TAG = "<";
 

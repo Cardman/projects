@@ -3,6 +3,7 @@ package code.expressionlanguage.types;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
@@ -43,6 +44,11 @@ final class WildCardPartType extends ParentPartType {
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact, RowCol _location) {
         if (!(getParent() instanceof TemplatePartType)) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName("");
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
             stopDepends();
             return;
         }
@@ -50,6 +56,11 @@ final class WildCardPartType extends ParentPartType {
         if (prev_ instanceof NamePartType) {
             String base_ = ((NamePartType)prev_).getTypeName();
             if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct())) {
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName("");
+                un_.setFileName(_rooted.getFile().getFileName());
+                un_.setRc(_location);
+                _an.getClasses().addError(un_);
                 stopDepends();
                 return;
             }

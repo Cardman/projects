@@ -3,6 +3,7 @@ import org.junit.Assert;
 
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class EquallablePresidentUtil {
@@ -13,7 +14,7 @@ public final class EquallablePresidentUtil {
     }
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
     private static boolean sameValue(Number _expected, Number _result) {
         if (_expected instanceof Double || _expected instanceof Float) {

@@ -25,7 +25,7 @@ public class CustInitializer extends DefaultInitializer {
         } catch (OutOfMemoryError _0) {
             _owner.setException(_owner.getMemoryError());
             _owner.getThrowing().removeBlockFinally(_owner);
-            return _owner.getException() == null;
+            return !_owner.hasException();
         }
     }
     @Override

@@ -811,6 +811,10 @@ public final class CheckNumericStringsFight {
                                 .createNumericableString(_data.getRates()
                                         .getVal(d), vars_);
                         chNum_.evaluateExp(false);
+                        if (!chNum_.isValid()) {
+                            _data.setError(true);
+                            return;
+                        }
                         Rate rate_ = chNum_.getResult();
                         SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
                         rates_.add(rate_);
@@ -884,6 +888,10 @@ public final class CheckNumericStringsFight {
             NumericableString<Rate> chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
             chNum_.evaluateExp(false);
+            if (!chNum_.isValid()) {
+                _data.setError(true);
+                return;
+            }
             Rate res_ = chNum_.getResult();
             if (defBoost_ == b) {
                 if (!Rate.eq(res_, Rate.one())) {
@@ -926,6 +934,10 @@ public final class CheckNumericStringsFight {
             NumericableString<Rate> chNum_ = _data.createNumericableString(
                     rateBoost_, variables_);
             chNum_.evaluateExp(false);
+            if (!chNum_.isValid()) {
+                _data.setError(true);
+                return;
+            }
             Rate res_ = chNum_.getResult();
             SortableCustList<Rate> rates_ = new SortableCustList<Rate>();
             rates_.add(res_);
@@ -985,6 +997,10 @@ public final class CheckNumericStringsFight {
             NumericableString<Rate> chNum_ = _data.createNumericableString(
                     formula_, vars_);
             chNum_.evaluateExp(false);
+            if (!chNum_.isValid()) {
+                _data.setError(true);
+                return;
+            }
             Rate min_ = chNum_.getResult();
             if (min_.isZeroOrLt()) {
                 _data.setError(true);
@@ -995,6 +1011,10 @@ public final class CheckNumericStringsFight {
                 vars_.put(varName_, String.valueOf(l));
                 chNum_ = _data.createNumericableString(formula_, vars_);
                 chNum_.evaluateExp(false);
+                if (!chNum_.isValid()) {
+                    _data.setError(true);
+                    return;
+                }
                 Rate next_ = chNum_.getResult();
                 if (!Rate.strGreater(next_, min_)) {
                     _data.setError(true);

@@ -2,7 +2,6 @@ package code.maths.montecarlo;
 import static code.maths.EquallableMathUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -128,7 +127,6 @@ public class MonteCarloNumberTest {
         assertTrue(resLaw_.events().containsObj(true));
     }
 
-    @Ignore
     @Test
     public void realAvg1Test() {
         assertEq(Rate.zero(), new MonteCarloNumber().getRealAvg(new LgInt(8)));
@@ -140,21 +138,21 @@ public class MonteCarloNumberTest {
         law_ = new MonteCarloNumber();
         law_.addEvent(new Rate(2), new LgInt(3));
         law_.addEvent(new Rate(3), new LgInt(5));
-        assertEq(new Rate(21,8),law_.getRealAvg(new LgInt(8)));
+        assertEq(new Rate(21,8),law_.getRealAvg(max_));
         law_ = new MonteCarloNumber();
         law_.addEvent(new Rate(2), new LgInt(3));
         law_.addEvent(new Rate(3), new LgInt(3));
-        assertEq(new Rate("18092513943330655534932966407607485602073435104006338131165247501236426506239/7237005577332262213973186563042994240829374041602535252466099000494570602496"),law_.getRealAvg(new LgInt(8)));
+        assertEq(new Rate("18092513943330655534932966407607485602073435104006338131165247501236426506239/7237005577332262213973186563042994240829374041602535252466099000494570602496"),law_.getRealAvg(max_));
         law_ = new MonteCarloNumber();
         law_.addEvent(new Rate(3), new LgInt(5));
-        assertEq(new Rate(3),law_.getRealAvg(new LgInt(8)));
+        assertEq(new Rate(3),law_.getRealAvg(max_));
         law_ = new MonteCarloNumber();
         law_.addEvent(new Rate(2), new LgInt(5));
         law_.addEvent(new Rate(3), new LgInt(1));
-        assertEq(new Rate("7840089375443284065137618776629910427565155211736079856838273917202451486037/3618502788666131106986593281521497120414687020801267626233049500247285301248"),law_.getRealAvg(new LgInt(8)));
+        assertEq(new Rate("7840089375443284065137618776629910427565155211736079856838273917202451486037/3618502788666131106986593281521497120414687020801267626233049500247285301248"),law_.getRealAvg(max_));
         law_ = new MonteCarloNumber();
         law_.addEvent(new Rate(2), new LgInt(0));
-        assertEq(Rate.zero(), law_.getRealAvg(new LgInt(8)));
+        assertEq(Rate.zero(), law_.getRealAvg(max_));
     }
 
 }

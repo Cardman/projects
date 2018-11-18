@@ -117,7 +117,7 @@ public final class VariableOperation extends LeafOperation implements
             }
             Options opt_ = _conf.getOptions();
             if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-                if (!str_.isEmpty() && Character.isDigit(str_.charAt(0))) {
+                if (!str_.isEmpty() && ContextEl.isDigit(str_.charAt(0))) {
                     BadVariableName b_ = new BadVariableName();
                     b_.setFileName(page_.getCurrentBlock().getFile().getFileName());
                     b_.setRc(page_.getTrace());
@@ -303,7 +303,7 @@ public final class VariableOperation extends LeafOperation implements
     @Override
     public void calculate(ExecutableCode _conf) {
         Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         if (resultCanBeSet()) {
@@ -317,7 +317,7 @@ public final class VariableOperation extends LeafOperation implements
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
         Argument arg_ = getCommonArgument(_conf);
-        if (_conf.getException() != null) {
+        if (_conf.hasExceptionOrFailInit()) {
             return arg_;
         }
         if (resultCanBeSet()) {
@@ -377,7 +377,7 @@ public final class VariableOperation extends LeafOperation implements
             IdMap<OperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right, boolean _convert) {
         Argument arg_ = getCommonSetting(_conf, _right, _convert);
-        if (_conf.getException() == null) {
+        if (!_conf.hasExceptionOrFailInit()) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
         return arg_;
@@ -386,7 +386,7 @@ public final class VariableOperation extends LeafOperation implements
     @Override
     public void calculateSetting(ExecutableCode _conf, Argument _right, boolean _convert) {
         Argument arg_ = getCommonSetting(_conf, _right, _convert);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(arg_, _conf);
@@ -400,7 +400,7 @@ public final class VariableOperation extends LeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (_conf.getException() == null) {
+        if (!_conf.hasExceptionOrFailInit()) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
         return arg_;
@@ -413,7 +413,7 @@ public final class VariableOperation extends LeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonCompoundSetting(_conf, store_, _op, _right);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(arg_, _conf);
@@ -427,7 +427,7 @@ public final class VariableOperation extends LeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (_conf.getException() == null) {
+        if (!_conf.hasExceptionOrFailInit()) {
             setSimpleArgument(arg_, _conf, _nodes);
         }
         return arg_;
@@ -440,7 +440,7 @@ public final class VariableOperation extends LeafOperation implements
         Struct store_;
         store_ = a_.getStruct();
         Argument arg_ = getCommonSemiSetting(_conf, store_, _op, _post);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(arg_, _conf);
@@ -476,7 +476,7 @@ public final class VariableOperation extends LeafOperation implements
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
         }
         if (res_.getStruct() instanceof NumberStruct) {
@@ -499,7 +499,7 @@ public final class VariableOperation extends LeafOperation implements
         ClassArgumentMatching cl_ = new ClassArgumentMatching(formattedClassVar_);
         Argument res_;
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
         }
         if (res_.getStruct() instanceof NumberStruct) {
@@ -512,4 +512,29 @@ public final class VariableOperation extends LeafOperation implements
         return res_;
     }
 
+    @Override
+    public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
+        PageEl ip_ = _conf.getOperationPageEl();
+        int relativeOff_ = getOperations().getOffset();
+        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        LocalVariable locVar_ = ip_.getLocalVar(variableName);
+        locVar_.setStruct(_right.getStruct());
+        setSimpleArgument(_right, _conf, _nodes);
+        return _right;
+    }
+
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+        PageEl ip_ = _conf.getOperationPageEl();
+        int relativeOff_ = getOperations().getOffset();
+        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        LocalVariable locVar_ = ip_.getLocalVar(variableName);
+        locVar_.setStruct(_right.getStruct());
+        setSimpleArgument(_right, _conf);
+        return _right;
+    }
 }

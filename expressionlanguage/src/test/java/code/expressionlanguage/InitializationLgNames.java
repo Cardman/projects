@@ -239,5 +239,27 @@ public final class InitializationLgNames {
         _lgNames.setAliasArraySet("set");
         _lgNames.setAliasArrayGetLength("getLength");
         _lgNames.setAliasGetDeclaringClass("getDeclaringClass");
+        _lgNames.setAliasBinQuot("binQuot");
+        _lgNames.setAliasBinMod("binMod");
+        _lgNames.setAliasPlus("plus");
+        _lgNames.setAliasMinus("minus");
+        _lgNames.setAliasMult("mult");
+        _lgNames.setAliasAnd("and");
+        _lgNames.setAliasOr("or");
+        _lgNames.setAliasXor("xor");
+        _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasLt("lt");
+        _lgNames.setAliasGt("gt");
+        _lgNames.setAliasLe("le");
+        _lgNames.setAliasGe("ge");
+        _lgNames.setAliasShiftLeft("shiftLeft");
+        _lgNames.setAliasShiftRight("shiftRight");
+        _lgNames.setAliasBitShiftLeft("bitShiftLeft");
+        _lgNames.setAliasBitShiftRight("bitShiftRight");
+        _lgNames.setAliasRotateLeft("rotateLeft");
+        _lgNames.setAliasRotateRight("rotateRight");
+        _lgNames.setFalseString("false");
+        _lgNames.setTrueString("true");
+        _lgNames.setNullString("");
     }
 }

@@ -2,6 +2,7 @@ package code.sml;
 
 import org.junit.Assert;
 
+import code.util.Numbers;
 import code.util.StringList;
 
 public final class EquallableRowColUtil {
@@ -18,7 +19,7 @@ public final class EquallableRowColUtil {
 
     public static void assertEq(Number _expected, Number _result) {
         Assert.assertNotNull(_result);
-        Assert.assertTrue(StringList.concat(_expected.toString(),DIFF,_result.toString()), sameValue(_expected, _result));
+        Assert.assertTrue(StringList.concat(Numbers.toString(_expected),DIFF,Numbers.toString(_result)), sameValue(_expected, _result));
     }
     public static void assertEq(RowCol _expected, RowCol _result) {
         Assert.assertNotNull(_result);

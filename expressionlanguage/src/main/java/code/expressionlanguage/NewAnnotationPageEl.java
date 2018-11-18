@@ -7,7 +7,7 @@ import code.expressionlanguage.opers.util.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
-public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl implements ForwardPageEl {
+public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
 
     private StringMap<String> names;
     private CustList<Argument> args;

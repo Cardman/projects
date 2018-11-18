@@ -21,15 +21,25 @@ final class VariablePartType extends LeafPartType {
     public void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
             RootBlock _rooted, boolean _exact, RowCol _location) {
+        String type_ = getTypeName();
         if (getParent() instanceof InnerPartType) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(type_);
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
             stopDepends();
             return;
         }
         if (getParent() instanceof TemplatePartType && getIndex() == 0) {
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(type_);
+            un_.setFileName(_rooted.getFile().getFileName());
+            un_.setRc(_location);
+            _an.getClasses().addError(un_);
             stopDepends();
             return;
         }
-        String type_ = getTypeName();
         String t_ = StringList.removeAllSpaces(type_);
         String trim_ = type_.trim();
         if (trim_.startsWith(Templates.PREFIX_VAR_TYPE)) {

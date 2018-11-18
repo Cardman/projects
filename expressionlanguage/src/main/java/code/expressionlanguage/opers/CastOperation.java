@@ -122,7 +122,7 @@ public final class CastOperation extends AbstractUnaryOperation {
             arguments_.add(o.getArgument());
         }
         Argument argres_ = getArgument(arguments_, _conf);
-        if (_conf.getException() != null) {
+        if (_conf.getContextEl().hasException()) {
             return;
         }
         setSimpleArgument(argres_, _conf);

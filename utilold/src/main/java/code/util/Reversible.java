@@ -1,4 +1,4 @@
-package code.util.ints;
+package code.util;
 
 public interface Reversible {
 

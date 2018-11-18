@@ -33,4 +33,6 @@ public interface SettableElResult {
 
     void calculateSemiSetting(
             ExecutableCode _conf, String _op, boolean _post);
+    Argument endCalculate(ExecutableCode _conf, Argument _right);
+    Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right);
 }
