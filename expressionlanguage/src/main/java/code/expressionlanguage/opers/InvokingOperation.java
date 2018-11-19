@@ -1278,7 +1278,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             _conf.setException(new StdStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
             return NullStruct.NULL_VALUE;
         }
-        return LgNames.getElement(array_, index_, _conf.getContextEl());
+        Struct elt_ = LgNames.getElement(array_, index_, _conf.getContextEl());
+        _conf.getContextEl().addSensibleField(_struct, elt_);
+        return elt_;
     }
     public static void setElement(Struct _struct, Object _index, Struct _value, ExecutableCode _conf, boolean _convert) {
         LgNames stds_ = _conf.getStandards();
