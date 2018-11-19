@@ -300,6 +300,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public void resetInitEnums() {
         failInit = false;
         exception = null;
+        sensibleFields.clear();
         clearPages();
     }
     private String getCurInitType() {

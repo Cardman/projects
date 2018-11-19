@@ -1595,6 +1595,10 @@ public abstract class LgNames {
             } else if (StringList.quickEq(name_, lgNames_.getAliasGetOldString())) {
                 result_.setResult(new StringStruct(one_.getOldString()));
             } else {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 String two_ = (String) argsObj_[0];
                 if (StringList.quickEq(name_, lgNames_.getAliasSetNewString())) {
                     one_.setNewString(two_);
@@ -1607,6 +1611,10 @@ public abstract class LgNames {
         } else if (StringList.quickEq(type_, stringBuilderType_)) {
             StringBuilder one_ = (StringBuilder) instance_;
             if (StringList.quickEq(name_, lgNames_.getAliasAppend())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 if (list_.size() == 1 && StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                     char[] two_ = (char[]) argsObj_[0];
                     if (two_ == null) {
@@ -1670,9 +1678,17 @@ public abstract class LgNames {
                     result_.setResult(new CharStruct(one_.charAt(two_)));
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasClear())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 one_.delete(0, one_.length());
                 result_.setResult(new StringBuilderStruct(one_));
             } else if (StringList.quickEq(name_, lgNames_.getAliasDelete())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 Integer two_ = (Integer) argsObj_[0];
                 Integer three_ = (Integer) argsObj_[1];
                 if (two_ < 0 || two_ > three_ || two_ > one_.length()) {
@@ -1681,6 +1697,10 @@ public abstract class LgNames {
                     result_.setResult(new StringBuilderStruct(one_.delete(two_, three_)));
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasDeleteCharAt())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 Integer two_ = (Integer) argsObj_[0];
                 if (two_ < 0 || two_ >= one_.length()) {
                     result_.setError(lgNames_.getAliasBadIndex());
@@ -1688,6 +1708,10 @@ public abstract class LgNames {
                     result_.setResult(new StringBuilderStruct(one_.deleteCharAt(two_)));
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasEnsureCapacity())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 Integer two_ = (Integer) argsObj_[0];
                 one_.ensureCapacity(two_);
                 result_.setResult(NullStruct.NULL_VALUE);
@@ -1710,6 +1734,10 @@ public abstract class LgNames {
             } else if (StringList.quickEq(name_, lgNames_.getAliasLength())) {
                 result_.setResult(new IntStruct(one_.length()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasInsert())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 Integer two_ = (Integer) argsObj_[0];
                 if (list_.size() == 2 && StringList.quickEq(list_.get(1), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
                     char[] three_ = (char[]) argsObj_[1];
@@ -1759,6 +1787,10 @@ public abstract class LgNames {
             } else if (StringList.quickEq(name_, lgNames_.getAliasIsEmpty())) {
                 result_.setResult(new BooleanStruct(one_.length() == 0));
             } else if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 Integer two_ = (Integer) argsObj_[0];
                 Integer three_ = (Integer) argsObj_[1];
                 String four_ = (String) argsObj_[2];
@@ -1768,8 +1800,16 @@ public abstract class LgNames {
                     result_.setResult(new StringBuilderStruct(one_.replace(two_, three_, four_)));
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasReverse())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 result_.setResult(new StringBuilderStruct(one_.reverse()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasSetCharAt())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 Integer two_ = (Integer) argsObj_[0];
                 Character three_ = (Character) argsObj_[1];
                 if (two_ < 0 || two_ > one_.length()) {
@@ -1779,6 +1819,10 @@ public abstract class LgNames {
                     result_.setResult(NullStruct.NULL_VALUE);
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasSetLength())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 Integer two_ = (Integer) argsObj_[0];
                 if (two_ < 0) {
                     result_.setError(lgNames_.getAliasBadIndex());
@@ -1813,6 +1857,10 @@ public abstract class LgNames {
             } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
                 result_.setResult(new StringStruct(one_.toString()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasTrimToSize())) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 one_.trimToSize();
                 result_.setResult(NullStruct.NULL_VALUE);
             }

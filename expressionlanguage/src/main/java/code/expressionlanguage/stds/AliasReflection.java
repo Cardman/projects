@@ -1369,7 +1369,6 @@ public final class AliasReflection {
                 }
                 int index_ = (Integer)args_[1].getInstance();
                 Struct out_ = InvokingOperation.getElement(inst_, index_, _cont);
-                _cont.addSensibleField(inst_, out_);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
                 }

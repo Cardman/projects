@@ -848,7 +848,9 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             _conf.getLastPage().clearCurrentEls();
             element_ = arg_.getStruct();
         } else {
-            element_ = LgNames.getElement(lv_.getContainer().getInstance(), (int) _l.getIndex(), _conf);
+            Struct container_ = lv_.getContainer();
+            element_ = LgNames.getElement(container_.getInstance(), (int) _l.getIndex(), _conf);
+            _conf.addSensibleField(container_, element_);
         }
         String className_ = _conf.getLastPage().formatVarType(importedClassName, _conf);
         Argument arg_ = new Argument(element_);
