@@ -430,8 +430,6 @@ public class DataBase implements WithMathFactory {
 
     private StringList variables;
 
-    private StringList keys;
-
     private StringMap<StringList> varParamsMove;
 
     private CustList<EndRoundMainElements> evtEndRound;
@@ -931,19 +929,9 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (EntryCust<String, PokemonData> e : getPokedex().entryList()) {
-
-            if (!isCorrectIdentifier(e.getKey())) {
-                error = true;
-                return;
-            }
             e.getValue().validate(this);
         }
         for (EntryCust<String, MoveData> e : getMoves().entryList()) {
-
-            if (!isCorrectIdentifier(e.getKey())) {
-                error = true;
-                return;
-            }
             e.getValue().validate(this);
         }
         for (String m : movesFullHeal) {
@@ -970,27 +958,12 @@ public class DataBase implements WithMathFactory {
         }
         combos.validate(this);
         for (EntryCust<String, Item> e : getItems().entryList()) {
-
-            if (!isCorrectIdentifier(e.getKey())) {
-                error = true;
-                return;
-            }
             e.getValue().validate(this);
         }
         for (EntryCust<String, Status> e : getStatus().entryList()) {
-
-            if (!isCorrectIdentifier(e.getKey())) {
-                error = true;
-                return;
-            }
             e.getValue().validate(this);
         }
         for (EntryCust<String, AbilityData> e : getAbilities().entryList()) {
-
-            if (!isCorrectIdentifier(e.getKey())) {
-                error = true;
-                return;
-            }
             e.getValue().validate(this);
         }
         for (PokemonData d : getPokedex().values()) {
@@ -1985,17 +1958,9 @@ public class DataBase implements WithMathFactory {
             }
         }
         for (EntryCust<String, PokemonData> e : getPokedex().entryList()) {
-
-            if (!isCorrectIdentifier(e.getKey())) {
-                continue;
-            }
             e.getValue().validateForEditing();
         }
         for (EntryCust<String, Status> e : getStatus().entryList()) {
-
-            if (!isCorrectIdentifier(e.getKey())) {
-                continue;
-            }
             e.getValue().validateForEditing();
         }
         map.validateForEditing(this);
@@ -2069,26 +2034,7 @@ public class DataBase implements WithMathFactory {
         }
     }
 
-    private static StringList getIdentifiers(String _str) {
-        StringList list_ = StringList.getWordsSeparators(_str);
-        StringList newList_ = new StringList();
-        int i_ = CustList.FIRST_INDEX;
-        for (String t : list_) {
-            if (i_ % 2 == 0) {
-                i_++;
-                continue;
-            }
-            if (isCorrectIdentifier(t)) {
-                newList_.add(t);
-                i_++;
-                continue;
-            }
-            i_++;
-        }
-        return newList_;
-    }
-
-    private static boolean isCorrectBaseFileName(String _string) {
+    private static boolean isCorrectIdentifier(String _string) {
         if (_string.trim().isEmpty()) {
             return false;
         }
@@ -2105,41 +2051,17 @@ public class DataBase implements WithMathFactory {
             if (curr_ >= '0' && curr_ <= '9') {
                 ok_ = true;
             }
-            if (curr_ == '_') {
+            if (curr_ == UNDERSCORE) {
                 ok_ = true;
             }
             if (!ok_) {
                 return false;
             }
-            if (curr_ != '_') {
+            if (curr_ != UNDERSCORE) {
                 if (i + 1 == len_) {
                     return false;
                 }
                 if (_string.charAt(i + 1) == UNDERSCORE) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    private static boolean isCorrectIdentifier(String _string) {
-        if (_string.trim().isEmpty()) {
-            return false;
-        }
-        int len_ = _string.length();
-        for (int i = CustList.SECOND_INDEX; i < len_; i++) {
-            if (!StringList.isWordChar(_string.charAt(i))) {
-                return false;
-            }
-            if (!Character.isLetterOrDigit(_string.charAt(i))) {
-                if (_string.charAt(i) == UNDERSCORE) {
-                    if (i + 1 == len_) {
-                        return false;
-                    }
-                    if (_string.charAt(i + 1) == UNDERSCORE) {
-                        return false;
-                    }
-                } else {
                     return false;
                 }
             }
@@ -2213,7 +2135,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2233,7 +2155,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2276,7 +2198,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2295,7 +2217,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2314,7 +2236,7 @@ public class DataBase implements WithMathFactory {
                 continue;
             }
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2453,7 +2375,7 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2471,7 +2393,7 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2489,7 +2411,7 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2511,7 +2433,7 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2533,7 +2455,7 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
 
             n_ = removeExtension(n_);
-            if (!isCorrectBaseFileName(n_)) {
+            if (!isCorrectIdentifier(n_)) {
                 error = true;
                 return;
             }
@@ -2996,7 +2918,7 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            if (!isCorrectBaseFileName(f_)) {
+            if (!isCorrectIdentifier(f_)) {
                 error = true;
                 return;
             }
@@ -3013,7 +2935,7 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            if (!isCorrectBaseFileName(f_)) {
+            if (!isCorrectIdentifier(f_)) {
                 error = true;
                 return;
             }
@@ -4184,7 +4106,6 @@ public class DataBase implements WithMathFactory {
         categories = new StringList();
         evtEndRound = new CustList<EndRoundMainElements>();
         variables = new StringList();
-        keys = new StringList();
         filesWithSameNameDifferentCase = new StringList();
         animStatis = new StringMap<int[][]>();
         animStatus = new StringMap<int[][]>();
@@ -4239,7 +4160,6 @@ public class DataBase implements WithMathFactory {
 
         variables.addAllElts(getVariableWords(_move.getAccuracy()));
 
-        keys.addAllElts(getIdentifiers(_move.getAccuracy()));
         EndRoundMainElements endTurn_;
         if (_move.getRankIncrementNbRound() > 0) {
             endTurn_ = new EndRoundMainElements();
@@ -4254,7 +4174,6 @@ public class DataBase implements WithMathFactory {
 
             variables.addAllElts(getVariableWords(e.getFail()));
 
-            keys.addAllElts(getIdentifiers(e.getFail()));
             if (e instanceof EffectCopyMove) {
                 if (((EffectCopyMove) e).getCopyingMoveForUser() > 0) {
                     movesCopyingTemp.add(_moveName);
@@ -4269,11 +4188,6 @@ public class DataBase implements WithMathFactory {
                         .getCounterFail()));
                 variables.addAllElts(getVariableWords(effectCounterAttack_
                         .getProtectFail()));
-
-                keys.addAllElts(getIdentifiers(effectCounterAttack_
-                        .getCounterFail()));
-                keys.addAllElts(getIdentifiers(effectCounterAttack_
-                        .getCounterFail()));
                 movesCountering.add(_moveName);
                 movesCountering.removeDuplicates();
             }
@@ -4317,12 +4231,10 @@ public class DataBase implements WithMathFactory {
                 variables.addAllElts(getVariableWords(((EffectDamage) e)
                         .getPower()));
 
-                keys.addAllElts(getIdentifiers(((EffectDamage) e).getPower()));
                 for (String event_ : ((EffectDamage) e).getDamageLaw().events()) {
 
                     variables.addAllElts(getVariableWords(event_));
 
-                    keys.addAllElts(getIdentifiers(event_));
                 }
             }
             if (e instanceof EffectEndRound) {
@@ -4351,8 +4263,6 @@ public class DataBase implements WithMathFactory {
                 }
 
                 variables.addAllElts(getVariableWords(e_.getFailEndRound()));
-
-                keys.addAllElts(getIdentifiers(e_.getFailEndRound()));
             }
             if (e instanceof EffectUnprotectFromTypes
                     || e instanceof EffectProtectFromTypes) {
@@ -4399,15 +4309,11 @@ public class DataBase implements WithMathFactory {
                         .values()) {
 
                     variables.addAllElts(getVariableWords(r));
-
-                    keys.addAllElts(getIdentifiers(r));
                 }
                 for (String r : ((EffectStatistic) e)
                         .getLocalFailSwapBoostStatis().values()) {
 
                     variables.addAllElts(getVariableWords(r));
-
-                    keys.addAllElts(getIdentifiers(r));
                 }
             }
             if (e instanceof EffectStatus) {
@@ -4415,8 +4321,6 @@ public class DataBase implements WithMathFactory {
                         .values()) {
 
                     variables.addAllElts(getVariableWords(r));
-
-                    keys.addAllElts(getIdentifiers(r));
                 }
                 if (((EffectStatus) e).getKoUserHealSubst()) {
                     movesFullHeal.add(_moveName);
@@ -4427,16 +4331,11 @@ public class DataBase implements WithMathFactory {
                         .values()) {
 
                     variables.addAllElts(getVariableWords(r));
-
-                    keys.addAllElts(getIdentifiers(r));
                 }
             }
             if (e instanceof EffectFullHpRate) {
 
                 variables.addAllElts(getVariableWords(((EffectFullHpRate) e)
-                        .getRestoredHp()));
-
-                keys.addAllElts(getIdentifiers(((EffectFullHpRate) e)
                         .getRestoredHp()));
             }
             if (e instanceof EffectTeamWhileSendFoe) {
@@ -4448,11 +4347,6 @@ public class DataBase implements WithMathFactory {
                 variables
                         .addAllElts(getVariableWords(((EffectTeamWhileSendFoe) e)
                                 .getFailSending()));
-
-                keys.addAllElts(getIdentifiers(((EffectTeamWhileSendFoe) e)
-                        .getDamageRateAgainstFoe()));
-                keys.addAllElts(getIdentifiers(((EffectTeamWhileSendFoe) e)
-                        .getFailSending()));
             }
             if (e instanceof EffectInvoke) {
                 movesInvoking.add(_moveName);
@@ -4491,13 +4385,6 @@ public class DataBase implements WithMathFactory {
             variables.addAllElts(getVariableWords(obj_.getMultPower()));
             variables.addAllElts(getVariableWords(new StringList(obj_
                     .getFailStatus().values()).join(EMPTY_STRING)));
-
-            keys.addAllElts(getIdentifiers(new StringList(obj_.getMultStat()
-                    .values()).join(EMPTY_STRING)));
-            keys.addAllElts(getIdentifiers(obj_.getMultDamage()));
-            keys.addAllElts(getIdentifiers(obj_.getMultPower()));
-            keys.addAllElts(getIdentifiers(new StringList(obj_.getFailStatus()
-                    .values()).join(EMPTY_STRING)));
         }
         items.put(_objectName, _object);
     }
@@ -4521,13 +4408,6 @@ public class DataBase implements WithMathFactory {
         variables.addAllElts(getVariableWords(_ability.getMultPower()));
         variables.addAllElts(getVariableWords(new StringList(_ability
                 .getFailStatus().values()).join(EMPTY_STRING)));
-
-        keys.addAllElts(getIdentifiers(new StringList(_ability.getMultStat()
-                .values()).join(EMPTY_STRING)));
-        keys.addAllElts(getIdentifiers(_ability.getMultDamage()));
-        keys.addAllElts(getIdentifiers(_ability.getMultPower()));
-        keys.addAllElts(getIdentifiers(new StringList(_ability.getFailStatus()
-                .values()).join(EMPTY_STRING)));
         abilities.put(_abilityName, _ability);
     }
 
@@ -4615,8 +4495,6 @@ public class DataBase implements WithMathFactory {
         for (StringList l : varParamsMove.values()) {
             l.removeDuplicates();
         }
-        keys.removeDuplicates();
-        keys.sort();
     }
 
     void removeDuplicatesCategoriesMoves() {
@@ -8328,10 +8206,6 @@ public class DataBase implements WithMathFactory {
 
     public StringMap<StringList> getVarParamsMove() {
         return varParamsMove;
-    }
-
-    public StringList getKeys() {
-        return keys;
     }
 
     public ObjectMap<TypesDuo, Rate> getTableTypes() {
