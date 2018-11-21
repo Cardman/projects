@@ -199,9 +199,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             Object o_ = chidren_.get(i).getArgument().getObject();
             int indexEl_ = chidren_.get(i).getIndexInEl();
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
-            Struct cont_ = array_;
             array_ = InvokingOperation.getElement(array_, o_, _conf);
-            _conf.getContextEl().addSensibleField(cont_, array_);
             if (_conf.getContextEl().hasException()) {
                 return a_;
             }
