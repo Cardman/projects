@@ -1,7 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.opers.InvokingOperation;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
+import code.expressionlanguage.structs.FieldMetaInfo;
 
 public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
 

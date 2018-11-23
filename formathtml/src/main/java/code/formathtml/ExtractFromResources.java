@@ -1,5 +1,5 @@
 package code.formathtml;
-import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.resources.ResourceFiles;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;

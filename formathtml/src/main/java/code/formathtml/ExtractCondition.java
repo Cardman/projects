@@ -3,7 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BadElRender;
 import code.sml.Element;

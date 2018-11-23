@@ -10,10 +10,10 @@ import code.expressionlanguage.methods.CatchEval;
 import code.expressionlanguage.methods.FinallyEval;
 import code.expressionlanguage.methods.NullCatchEval;
 import code.expressionlanguage.methods.TryEval;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 
 public final class LocalThrowing implements CallingFinally {

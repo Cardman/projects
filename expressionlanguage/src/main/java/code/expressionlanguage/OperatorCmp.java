@@ -1,6 +1,6 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.opers.util.MethodMetaInfo;
+import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;

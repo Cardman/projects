@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.opers.util.DoubleStruct;
-import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;

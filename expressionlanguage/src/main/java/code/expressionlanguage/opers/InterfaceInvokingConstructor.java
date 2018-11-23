@@ -17,8 +17,8 @@ import code.expressionlanguage.methods.util.BadInheritedClass;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.StdStruct;
 import code.util.CustList;
 import code.util.StringList;
 

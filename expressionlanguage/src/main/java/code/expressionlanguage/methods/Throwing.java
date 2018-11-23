@@ -10,7 +10,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class Throwing extends AbruptBlock implements StackableBlock {

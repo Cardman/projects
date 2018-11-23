@@ -9,7 +9,7 @@ import org.junit.Test;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.StringMap;
 

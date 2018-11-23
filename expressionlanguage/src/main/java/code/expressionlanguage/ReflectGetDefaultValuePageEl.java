@@ -7,8 +7,8 @@ import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 

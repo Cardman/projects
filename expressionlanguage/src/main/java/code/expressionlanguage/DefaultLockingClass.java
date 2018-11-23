@@ -5,10 +5,10 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.InvokeTargetErrorStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.CausingErrorStruct;
+import code.expressionlanguage.structs.InvokeTargetErrorStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 import code.util.StringMap;
 

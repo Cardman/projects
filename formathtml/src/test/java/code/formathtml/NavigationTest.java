@@ -14,7 +14,7 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.BeanEight;
 import code.formathtml.classes.BeanFive;
 import code.formathtml.classes.BeanOne;

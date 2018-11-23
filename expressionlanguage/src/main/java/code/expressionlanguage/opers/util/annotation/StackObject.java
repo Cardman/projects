@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util.annotation;
 
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 
 abstract class StackObject {
 

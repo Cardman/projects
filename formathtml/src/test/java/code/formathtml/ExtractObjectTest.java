@@ -10,7 +10,7 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.opers.util.NumberStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.MyStrangeTranslator;
 import code.formathtml.classes.MyTranslator;

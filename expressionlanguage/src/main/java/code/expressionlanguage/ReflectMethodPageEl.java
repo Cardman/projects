@@ -3,10 +3,10 @@ package code.expressionlanguage;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.StdStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReflectMethodPageEl extends AbstractReflectPageEl {

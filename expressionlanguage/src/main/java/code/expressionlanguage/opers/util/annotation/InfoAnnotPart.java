@@ -1,9 +1,9 @@
 package code.expressionlanguage.opers.util.annotation;
 
-import code.expressionlanguage.opers.util.AnnotationStruct;
-import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.AnnotationStruct;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
 import code.util.NatTreeMap;
 

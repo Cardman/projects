@@ -1,6 +1,6 @@
 package code.formathtml.util;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class VariableInformation {
 

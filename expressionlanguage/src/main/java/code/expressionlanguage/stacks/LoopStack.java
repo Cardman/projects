@@ -1,5 +1,5 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public abstract class LoopStack implements BreakableStack {

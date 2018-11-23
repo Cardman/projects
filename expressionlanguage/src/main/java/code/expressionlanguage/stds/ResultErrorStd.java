@@ -1,6 +1,6 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 
 public final class ResultErrorStd {
 

@@ -3,10 +3,10 @@ package code.expressionlanguage;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ConstructorMetaInfo;
+import code.expressionlanguage.structs.StdStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReflectConstructorPageEl extends AbstractReflectPageEl {

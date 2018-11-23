@@ -9,15 +9,15 @@ import code.expressionlanguage.methods.NamedFunctionBlock;
 import code.expressionlanguage.methods.OperatorBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.ConstructorMetaInfo;
-import code.expressionlanguage.opers.util.FieldMetaInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.MethodMetaInfo;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.ConstructorMetaInfo;
+import code.expressionlanguage.structs.FieldMetaInfo;
+import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {

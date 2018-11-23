@@ -6,29 +6,12 @@ import code.bean.validator.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
-import code.expressionlanguage.OffsetStringInfo;
-import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.AbstractForEachLoop;
-import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.BooleanStruct;
-import code.expressionlanguage.opers.util.ByteStruct;
-import code.expressionlanguage.opers.util.CharStruct;
 import code.expressionlanguage.opers.util.ClassMethodId;
-import code.expressionlanguage.opers.util.DoubleStruct;
-import code.expressionlanguage.opers.util.FloatStruct;
-import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.LongStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.NumberStruct;
-import code.expressionlanguage.opers.util.ShortStruct;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.StringStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.IterableAnalysisResult;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.NativeIterableAnalysisResult;
@@ -39,8 +22,20 @@ import code.expressionlanguage.stds.StandardField;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharStruct;
+import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.FloatStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.ShortStruct;
+import code.expressionlanguage.structs.StdStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
-import code.formathtml.classes.NativeForEach;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.Numbers;
@@ -312,13 +307,6 @@ public abstract class BeanLgNames extends LgNames {
     }
     public CustList<OperationNode> getExpsNext() {
         return expsNext;
-    }
-    @Override
-    public AbstractForEachLoop newForeachLoop(ContextEl _importingPage,
-            BracedBlock _m,
-            OffsetStringInfo _className, OffsetStringInfo _variable,
-            OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
-        return new NativeForEach(_importingPage, _m, _className, _variable, _expression, _classIndex, _label, _offset);
     }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,

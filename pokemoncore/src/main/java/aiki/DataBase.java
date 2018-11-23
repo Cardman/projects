@@ -2057,7 +2057,7 @@ public class DataBase implements WithMathFactory {
             if (!ok_) {
                 return false;
             }
-            if (curr_ != UNDERSCORE) {
+            if (curr_ == UNDERSCORE) {
                 if (i + 1 == len_) {
                     return false;
                 }
@@ -7536,7 +7536,9 @@ public class DataBase implements WithMathFactory {
             if (cur_ == '{') {
                 str_.append(cur_);
                 i_++;
-                br_ = true;
+                if (_litt.charAt(i_) != '}') {
+                	br_ = true;
+                }
                 continue;
             }
             if (StringList.isWordChar(cur_)) {

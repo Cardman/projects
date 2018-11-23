@@ -1,8 +1,8 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.Struct;
 import code.util.ObjectMap;
 
 public class CustInitializer extends DefaultInitializer {

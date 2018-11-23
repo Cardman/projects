@@ -9,7 +9,7 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.structs.StdStruct;
 import code.formathtml.util.BadElRender;
 import code.util.CustList;
 

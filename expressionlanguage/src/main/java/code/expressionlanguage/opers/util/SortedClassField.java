@@ -1,5 +1,6 @@
 package code.expressionlanguage.opers.util;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.ints.SortedEdge;
 
 public class SortedClassField implements SortedEdge<SortedClassField> {

@@ -1,9 +1,9 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.opers.util.ArrayStruct;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.FieldableStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
