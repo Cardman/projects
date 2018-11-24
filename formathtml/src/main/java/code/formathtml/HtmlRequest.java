@@ -5,12 +5,13 @@ import code.expressionlanguage.CustomError;
 import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.NodeContainer;
+import code.formathtml.util.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.sml.DocumentBuilder;
 import code.util.Numbers;
@@ -78,7 +79,7 @@ final class HtmlRequest {
         if (obj_.isNull()) {
             String err_ = _conf.getStandards().getAliasNullPe();
             ContextEl context_ = _conf.getContext();
-            context_.setException(new StdStruct(new CustomError(_conf.joinPages()),err_));
+            context_.setException(new ErrorStruct(new CustomError(_conf.joinPages()),err_));
             return;
         }
         long index_ = _nodeContainer.getIndex();
@@ -89,7 +90,7 @@ final class HtmlRequest {
             ResultErrorStd res_ = _conf.getStandards().setElementAtIndex(obj_, (int) index_, key_, _attribute, context_);
             if (res_.getError() != null) {
                 String err_ = res_.getError();
-                context_.setException(new StdStruct(new CustomError(_conf.joinPages()),err_));
+                context_.setException(new ErrorStruct(new CustomError(_conf.joinPages()),err_));
                 return;
             }
         } else {
@@ -112,7 +113,7 @@ final class HtmlRequest {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setRc(_conf.getCurrentLocation());
-                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return;
                 }
                 className_ = res_;
@@ -162,7 +163,7 @@ final class HtmlRequest {
             String tmp_ = ip_.getNextTempVar();
             LocalVariable locVar_ = new LocalVariable();
             locVar_.setClassName(_conf.getStandards().getValueChangedEvent());
-            locVar_.setElement(chg_, _conf.toContextEl());
+            locVar_.setStruct(StdStruct.wrapStd(chg_, _conf.toContextEl()));
             ip_.putLocalVar(tmp_, locVar_);
             StringBuilder str_ = new StringBuilder(method_);
             str_.append(LEFT_PAR);

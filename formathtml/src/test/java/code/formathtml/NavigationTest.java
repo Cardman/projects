@@ -7499,6 +7499,7 @@ public class NavigationTest {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
+        Configuration conf_ = newConfiguration();
         BeanSeven bean_ = new BeanSeven();
         bean_.setScope("session");
         bean_.getComposite().getStrings().add("FIRST");
@@ -7506,7 +7507,6 @@ public class NavigationTest {
         bean_.getComposite().setInteger(5);
         bean_.getComposites().get(0).setStrings(new StringList("F"));
         bean_.getComposites().get(1).setStrings(new StringList("S"));
-        Configuration conf_ = newConfiguration();
         conf_.setSepPrefix("c");
         conf_.setBeans(new StringMap<Bean>());
         conf_.getBeans().put("bean_seven", bean_);

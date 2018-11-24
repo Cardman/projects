@@ -38,7 +38,7 @@ public class BeanSeven extends Bean {
 
     private StringList strings = new StringList();
 
-    private int[] arrayInt = new int[2];
+    private Ints arrayInt;
 
     public BeanSeven() {
         composite.setStrings(new StringList());
@@ -57,8 +57,9 @@ public class BeanSeven extends Bean {
         strings.add("SECOND");
         tree.put("keyone", 1);
         tree.put("keytwo", 2);
-        arrayInt[0]=1;
-        arrayInt[1]=3;
+        arrayInt = new Ints();
+        arrayInt.add(1);
+        arrayInt.add(3);
         setClassName("code.formathtml.classes.BeanSeven");
     }
 
@@ -92,7 +93,7 @@ public class BeanSeven extends Bean {
     public StringList getStrings() {
         return strings;
     }
-    public int[] getArrayInt() {
+    public Ints getArrayInt() {
         return arrayInt;
     }
 
@@ -280,9 +281,5 @@ public class BeanSeven extends Bean {
 
     public void setStrings(StringList _strings) {
         strings = _strings;
-    }
-
-    public void setArrayInt(int[] _arrayInt) {
-        arrayInt = _arrayInt;
     }
 }

@@ -47,7 +47,6 @@ import code.expressionlanguage.opers.util.ClassCategory;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.DimComp;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
@@ -67,12 +66,12 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.EnumerableStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldMetaInfo;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
@@ -671,7 +670,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return this == _other;
     }
     public void initError() {
-        memoryError = new StdStruct(new CustomError(), standards.getAliasError());
+        memoryError = new ErrorStruct(new CustomError(), standards.getAliasError());
     }
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
@@ -912,7 +911,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         LgNames stds_ = getStandards();
         String sof_ = stds_.getAliasSof();
         if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
-            exception = new StdStruct(new CustomError(joinPages()),sof_);
+            exception = new ErrorStruct(new CustomError(joinPages()),sof_);
         } else {
             importing.add(_page);
         }
@@ -2608,9 +2607,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             StringList lowerBounds_ = new StringList();
             return new ClassMetaInfo(_name, this, ClassCategory.VARIABLE,upperBounds_, lowerBounds_, _variableOwner, AccessEnum.PUBLIC);
         }
-        DimComp dc_ = PrimitiveTypeUtil.getQuickComponentBaseType(_name);
-        String compo_ = dc_.getComponent();
-        if (new ClassArgumentMatching(compo_).isArray()) {
+        if (_name.startsWith(Templates.ARR_BEG_STRING)) {
             return new ClassMetaInfo(_name, this, ClassCategory.ARRAY, _variableOwner);
         }
         return getExtendedClassMetaInfo(_name);

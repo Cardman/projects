@@ -7537,7 +7537,7 @@ public class DataBase implements WithMathFactory {
                 str_.append(cur_);
                 i_++;
                 if (_litt.charAt(i_) != '}') {
-                	br_ = true;
+                    br_ = true;
                 }
                 continue;
             }

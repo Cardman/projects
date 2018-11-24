@@ -21,10 +21,10 @@ import code.expressionlanguage.opers.util.ResultOperand;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -212,7 +212,7 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         Argument res_ = calculateDiv(_a, _b, _cont, _order);
         if (res_.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),div_));
         }
         return res_;
     }
@@ -253,7 +253,7 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         Argument res_ = calculateMod(_a, _b, _cont, _order);
         if (res_.isNull()) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),div_));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),div_));
         }
         return res_;
     }

@@ -28,7 +28,7 @@ import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.StdStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -724,7 +724,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argFrom_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),null_));
             return;
         }
         ip_.setGlobalOffset(expressionOffset);
@@ -735,7 +735,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argTo_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
             return;
         }
         ip_.setGlobalOffset(stepOffset);
@@ -746,7 +746,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argStep_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
             return;
         }
         realFromValue_ = argFrom_.getObject();

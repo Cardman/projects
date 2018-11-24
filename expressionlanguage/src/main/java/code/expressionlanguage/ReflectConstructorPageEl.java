@@ -5,7 +5,7 @@ import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
-import code.expressionlanguage.structs.StdStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
@@ -21,21 +21,21 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
             return false;
         }
         if (className_.startsWith(Templates.SUP_TYPE)) {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
             return false;
         }
         if (className_.startsWith(Templates.PREFIX_VAR_TYPE)) {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
             return false;
         }
         String id_ = Templates.getIdFromAllTypes(className_);
@@ -45,7 +45,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
             return false;
         }
         String res_ = Templates.correctClassPartsDynamic(className_, _context, true, true);
@@ -53,7 +53,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
             LgNames stds_ = _context.getStandards();
             String null_;
             null_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
             return false;
         }
         if (!initClass) {
@@ -73,7 +73,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
                 return false;
             }
             for (Struct a: ((Struct[])struct_.getInstance())) {
@@ -87,7 +87,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                     LgNames stds_ = _context.getStandards();
                     String null_;
                     null_ = stds_.getAliasNullPe();
-                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                    _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
                     return false;
                 }
                 previous_ = Argument.createVoid();
@@ -96,7 +96,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                     LgNames stds_ = _context.getStandards();
                     String null_;
                     null_ = stds_.getAliasNullPe();
-                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                    _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
                     return false;
                 }
                 previous_ = args_.first();

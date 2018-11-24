@@ -4,8 +4,8 @@ import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
@@ -34,14 +34,14 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 if (instance_.isNull()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
-                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                    _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
                     return false;
                 }
             }
             if (!method_.isPolymorph() && method_.isAbstract()) {
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
                 return false;
             }
             if (method_.isPolymorph() && !method_.isStatic() && !method_.getClassName().startsWith("[")) {
@@ -67,7 +67,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
                 return false;
             }
             for (Struct a: ((Struct[])struct_.getInstance())) {
@@ -79,7 +79,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                _context.setException(new StdStruct(new CustomError(_context.joinPages()),null_));
+                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
                 return false;
             }
             setWrapException(false);

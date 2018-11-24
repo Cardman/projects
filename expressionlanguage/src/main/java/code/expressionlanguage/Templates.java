@@ -13,8 +13,8 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
@@ -818,22 +818,21 @@ public final class Templates {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
         if (!str_.isNull() && !_convert) {
-            String className_ = str_.getClassName(_context);
-            String a_ = _context.getStandards().toWrapper(className_);
+            String a_ = stds_.getStructClassName(str_, _context.getContextEl());
             if (!Templates.isCorrectExecute(a_, _param, _context)) {
                 if (_arr) {
                     String cast_ = stds_.getAliasStore();
-                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),cast_));
+                    _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),cast_));
                     return false;
                 }
                 String cast_ = stds_.getAliasCast();
-                _context.setException(new StdStruct(new CustomError(_context.joinPages()),cast_));
+                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),cast_));
                 return false;
             }
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(_param, str_, _context)) {
             String npe_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(_context.joinPages()),npe_));
+            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),npe_));
             return false;
         }
         if (str_ instanceof NumberStruct) {

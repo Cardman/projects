@@ -18,8 +18,6 @@ public final class InitializationLgNames {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
-        _lgNames.setAliasDisplayable("code.util.ints.Displayable");
-        _lgNames.setAliasDisplay("display");
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");

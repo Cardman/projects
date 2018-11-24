@@ -18,12 +18,12 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -273,28 +273,26 @@ public final class PrimitiveTypeUtil {
         String npe_ = lgNames_.getAliasNullPe();
         String cast_ = lgNames_.getAliasCast();
         if (arg_.isNull()) {
-            _an.setException(new StdStruct(new CustomError(_an.joinPages()),npe_));
+            _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),npe_));
             return arg_.getStruct();
         }
         Struct current_ = arg_.getStruct();
-        String className_ = current_.getClassName(_an);
-        className_ = _an.getStandards().toWrapper(className_);
+        String className_ = lgNames_.getStructClassName(current_, _an.getContextEl());
         String cl_ = Templates.getIdFromAllTypes(className_);
         StringList list_ = new StringList();
         while (!canBeUseAsArgument(id_, cl_, _an)) {
             if (list_.containsStr(cl_)) {
-                _an.setException(new StdStruct(new CustomError(_an.joinPages()),cast_));
+                _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
                 break;
             }
             list_.add(cl_);
             Struct par_ = current_.getParent();
             if (par_.isNull()) {
-                _an.setException(new StdStruct(new CustomError(_an.joinPages()),cast_));
+                _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
                 break;
             }
             current_ = par_;
-            className_ = current_.getClassName(_an);
-            className_ = _an.getStandards().toWrapper(className_);
+            className_ = lgNames_.getStructClassName(current_, _an.getContextEl());
             cl_ = Templates.getIdFromAllTypes(className_);
         }
         return current_;
@@ -405,7 +403,7 @@ public final class PrimitiveTypeUtil {
         indexesArray_.put(new Numbers<Integer>(), output_);
         int glDim_ = _dims.size();
         int i_ = CustList.FIRST_INDEX;
-        Struct defClass_ = StdStruct.defaultClass(_className, _cont);
+        Struct defClass_ = defaultClass(_className, _cont);
         for (int i : _dims) {
             dims_.add(i);
             glDim_--;
@@ -1040,11 +1038,17 @@ public final class PrimitiveTypeUtil {
         }
         return null;
     }
+    public static Struct defaultClass(String _element, Analyzable _context) {
+        if (isPrimitive(_element, _context)) {
+            return defaultValue(_element, _context);
+        }
+        return NullStruct.NULL_VALUE;
+    }
     public static Argument defaultValue(Block _block, Argument _global, ContextEl _context) {
         if (_block instanceof MethodBlock) {
             MethodBlock m_ = (MethodBlock) _block;
             Argument a_ = new Argument();
-            a_.setStruct(StdStruct.defaultClass(m_.getImportedReturnType(), _context));
+            a_.setStruct(defaultClass(m_.getImportedReturnType(), _context));
             return a_;
         }
         if (_block instanceof ConstructorBlock) {

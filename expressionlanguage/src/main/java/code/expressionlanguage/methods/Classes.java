@@ -54,7 +54,6 @@ import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.FieldMetaInfo;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.ParserType;
 import code.expressionlanguage.variables.LocalVariable;
@@ -2393,7 +2392,7 @@ public final class Classes {
                                 continue;
                             }
                             if (StringList.quickEq(e.getKey(), f)) {
-                                e.setValue(StdStruct.defaultClass(c_, _context));
+                                e.setValue(PrimitiveTypeUtil.defaultClass(c_, _context));
                                 break;
                             }
                         }
@@ -2458,7 +2457,7 @@ public final class Classes {
                     }
                     String c_ = method_.getImportedClassName();
                     if (method_.getFieldName().containsStr(sfn_)) {
-                        return StdStruct.defaultClass(c_, _context);
+                        return PrimitiveTypeUtil.defaultClass(c_, _context);
                     }
                 }
             }

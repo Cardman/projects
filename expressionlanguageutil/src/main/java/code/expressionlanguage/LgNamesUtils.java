@@ -21,7 +21,6 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.resources.ResourceFiles;
 import code.util.CustList;
@@ -212,10 +211,6 @@ public class LgNamesUtils extends LgNames implements LgAdv {
             return res_;
         }
         if (StringList.quickEq(name_,aliasReentrantLock)) {
-            if (_cont.isInitEnums()) {
-                _cont.failInitEnums();
-                return res_;
-            }
             ReentrantLock re_ = new ReentrantLock();
             StdStruct std_ = StdStruct.newInstance(re_, aliasReentrantLock);
             res_.setResult(std_);
@@ -260,25 +255,6 @@ public class LgNamesUtils extends LgNames implements LgAdv {
         return res_;
     }
 
-    @Override
-    public String getOtherStructClassName(Object _struct, ContextEl _context) {
-        if (_struct instanceof Thread) {
-            return aliasThread;
-        }
-        if (_struct instanceof ReentrantLock) {
-            return aliasReentrantLock;
-        }
-        if (_struct instanceof AtomicBoolean) {
-            return aliasAtomicBoolean;
-        }
-        if (_struct instanceof AtomicInteger) {
-            return aliasAtomicInteger;
-        }
-        if (_struct instanceof AtomicLong) {
-            return aliasAtomicLong;
-        }
-        return getAliasObject();
-    }
     @Override
     public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
             ClassMethodId _method, Struct... _args) {
@@ -364,6 +340,10 @@ public class LgNamesUtils extends LgNames implements LgAdv {
             }
         }
         if (StringList.quickEq(className_,aliasReentrantLock)) {
+            if (_cont.isInitEnums()) {
+                _cont.failInitEnums();
+                return res_;
+            }
             String name_ = _method.getConstraints().getName();
             if (StringList.quickEq(name_,aliasLock)) {
                 ReentrantLock re_ = (ReentrantLock) _instance.getInstance();
@@ -393,6 +373,10 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    return res_;
+                }
                 AtomicBoolean re_ = (AtomicBoolean) _instance.getInstance();
                 re_.set((Boolean)_args[0].getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -408,6 +392,10 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    return res_;
+                }
                 AtomicInteger re_ = (AtomicInteger) _instance.getInstance();
                 re_.set(((Number)_args[0].getInstance()).intValue());
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -423,6 +411,10 @@ public class LgNamesUtils extends LgNames implements LgAdv {
                 return res_;
             }
             if (StringList.quickEq(name_,aliasSetAtomic)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_instance)) {
+                    _cont.failInitEnums();
+                    return res_;
+                }
                 AtomicLong re_ = (AtomicLong) _instance.getInstance();
                 re_.set(((Number)_args[0].getInstance()).longValue());
                 res_.setResult(NullStruct.NULL_VALUE);

@@ -708,6 +708,10 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasSetPolymorph)) {
+                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
+                    _cont.failInitEnums();
+                    return result_;
+                }
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
                 Boolean poly_ = (Boolean) args_[0].getInstance();
                 method_.setPolymorph(poly_);
@@ -1294,7 +1298,7 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasGetComponentType)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
                 String owner_ = cl_.getVariableOwner();
-                if (!cl_.isArray()) {
+                if (!cl_.isTypeArray()) {
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
                 }
@@ -1353,20 +1357,17 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGetLength)) {
                 Struct inst_ = args_[0];
-                if (!inst_.isArray()) {
+                if (!(inst_ instanceof ArrayStruct)) {
                     result_.setError(lgNames_.getAliasNullPe());
                     return result_;
                 }
-                int len_ = LgNames.getLength(inst_.getInstance());
+                ArrayStruct arr_ = (ArrayStruct) inst_;
+                int len_ = arr_.getInstance().length;
                 result_.setResult(new IntStruct(len_));
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
                 Struct inst_ = args_[0];
-                if (!inst_.isArray()) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                    return result_;
-                }
                 int index_ = (Integer)args_[1].getInstance();
                 Struct out_ = InvokingOperation.getElement(inst_, index_, _cont);
                 if (_cont.hasExceptionOrFailInit()) {
@@ -1377,10 +1378,6 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArraySet)) {
                 Struct inst_ = args_[0];
-                if (!inst_.isArray()) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                    return result_;
-                }
                 int index_ = (Integer)args_[1].getInstance();
                 Struct value_ = args_[2];
                 InvokingOperation.setElement(inst_, index_, value_, _cont, false);

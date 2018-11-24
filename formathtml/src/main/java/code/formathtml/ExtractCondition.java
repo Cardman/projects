@@ -3,7 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.structs.StdStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BadElRender;
 import code.sml.Element;
@@ -49,7 +49,7 @@ final class ExtractCondition {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return false;
         }
         if (StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_IF_DEF_PARAM)) || StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_ELSE_IF_DEF_PARAM))) {
@@ -175,7 +175,7 @@ final class ExtractCondition {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setRc(_conf.getCurrentLocation());
-                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                 return false;
             }
             Boolean b_ = (Boolean) o_;

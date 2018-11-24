@@ -18,12 +18,12 @@ import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefaultInitialization;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanStruct;
+import code.formathtml.util.StdStruct;
 import code.formathtml.util.ValueChangeEvent;
 import code.util.CustList;
 import code.util.ObjectMap;
@@ -163,6 +163,18 @@ public final class CustBeanLgNames extends BeanLgNames {
         setSelectedBoolean(ALIAS_SB);
         setCustList(ALIAS_LS);
         setCustMap(ALIAS_LSE);
+        StringMap<StandardField> fields_;
+        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardConstructor> constructors_;
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new StringMap<StandardField>();
+        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        StandardClass cl_;
+        cl_ = new StandardClass(TYPE_INTS, fields_, constructors_, methods_, getCustList(), MethodModifier.FINAL);
+        cl_.getDirectInterfaces().add(getAliasCountable());
+        cl_.getDirectInterfaces().add(getAliasSimpleIterableType());
+        cl_.setIterative(getAliasInteger());
+        getStandards().put(TYPE_INTS, cl_);
         DefaultInitialization.basicStandards(this);
     }
     @Override
@@ -430,7 +442,7 @@ public final class CustBeanLgNames extends BeanLgNames {
         StringList params_;
         StandardClass cl_;
         cl_ = new StandardClass(TYPE_BEAN_SEVEN, fields_, constructors_, methods_, getBean(), MethodModifier.FINAL);
-        fields_.put(ARRAY_INT,new StandardField(ARRAY_INT,PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger()),false,false,cl_));
+        fields_.put(ARRAY_INT,new StandardField(ARRAY_INT,TYPE_INTS,false,true,cl_));
         fields_.put(COMPOSITE,new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false,cl_));
         params_ = new StringList();
         method_ = new StandardMethod(GET_TREE,params_,TYPE_NAT_TREE_MAP_STRING_INTEGER, false, MethodModifier.NORMAL,cl_);
@@ -1046,7 +1058,8 @@ public final class CustBeanLgNames extends BeanLgNames {
         if (StringList.quickEq(className_,TYPE_BEAN_SEVEN)) {
             BeanSeven i_ = (BeanSeven)instance_;
             if (StringList.quickEq(fieldName_,ARRAY_INT)) {
-                res_.setResult(StdStruct.newInstance(i_.getArrayInt(),PrimitiveTypeUtil.getPrettyArrayType(getAliasPrimInteger())));
+                Ints in_ = i_.getArrayInt();
+                res_.setResult(StdStruct.newInstance(in_,TYPE_INTS));
                 return res_;
             }
             if (StringList.quickEq(fieldName_,COMPOSITE)) {
@@ -1243,11 +1256,6 @@ public final class CustBeanLgNames extends BeanLgNames {
         }
         if (StringList.quickEq(className_,TYPE_BEAN_SEVEN)) {
             BeanSeven i_ = (BeanSeven)instance_;
-            if (StringList.quickEq(fieldName_,ARRAY_INT)) {
-                i_.setArrayInt((int[])value_);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
             if (StringList.quickEq(fieldName_,COMPOSITE)) {
                 i_.setComposite((Composite)value_);
                 res_.setResult(NullStruct.NULL_VALUE);
@@ -1869,10 +1877,6 @@ public final class CustBeanLgNames extends BeanLgNames {
         return new StringList();
     }
     @Override
-    public void setOtherElement(Object _array, int _index, Struct _element) {
-        ((Object[])_array)[_index] = _element.getInstance();
-    }
-    @Override
     public Object getOtherArguments(Struct[] _str, String _base) {
         if (StringList.quickEq(_base, getAliasObject())) {
             Object[] adapt_ = new Object[_str.length];
@@ -2017,6 +2021,10 @@ public final class CustBeanLgNames extends BeanLgNames {
                 return res_;
             }
             ((NatTreeMapStringInteger)_struct.getInstance()).setValue(_index, (Integer) _element.getInstance());
+            return res_;
+        }
+        if (_struct.getInstance() instanceof Ints) {
+            ((Ints)_struct.getInstance()).set(_index, (Integer) _element.getInstance());
             return res_;
         }
         return res_;

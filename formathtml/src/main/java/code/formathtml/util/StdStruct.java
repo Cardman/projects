@@ -1,12 +1,23 @@
-package code.expressionlanguage.structs;
+package code.formathtml.util;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharStruct;
+import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.FloatStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.ShortStruct;
+import code.expressionlanguage.structs.StringBuilderStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -50,10 +61,6 @@ public final class StdStruct implements Struct {
         className = _className;
     }
 
-    public StdStruct(CustomError _instance, String _className) {
-        instance = _instance;
-        className = _className;
-    }
     @Override
     public Struct getParent() {
         return NullStruct.NULL_VALUE;
@@ -72,31 +79,7 @@ public final class StdStruct implements Struct {
     }
     public static Struct defaultClass(String _element, Analyzable _context) {
         if (PrimitiveTypeUtil.isPrimitive(_element, _context)) {
-            Object def_ = PrimitiveTypeUtil.defaultValue(_element, _context).getInstance();
-            if (def_ instanceof Double) {
-                return new DoubleStruct((Double) def_);
-            }
-            if (def_ instanceof Float) {
-                return new FloatStruct((Float) def_);
-            }
-            if (def_ instanceof Long) {
-                return new LongStruct((Long) def_);
-            }
-            if (def_ instanceof Integer) {
-                return new IntStruct((Integer) def_);
-            }
-            if (def_ instanceof Character) {
-                return new CharStruct((Character) def_);
-            }
-            if (def_ instanceof Short) {
-                return new ShortStruct((Short) def_);
-            }
-            if (def_ instanceof Byte) {
-                return new ByteStruct((Byte) def_);
-            }
-            if (def_ instanceof Boolean) {
-                return new BooleanStruct((Boolean) def_);
-            }
+            return PrimitiveTypeUtil.defaultValue(_element, _context);
         }
         return NullStruct.NULL_VALUE;
     }

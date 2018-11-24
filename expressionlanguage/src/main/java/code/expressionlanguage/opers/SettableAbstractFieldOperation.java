@@ -29,10 +29,10 @@ import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -638,7 +638,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -647,8 +647,7 @@ public abstract class SettableAbstractFieldOperation extends
         Argument previous_ = new Argument();
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         left_.setStruct(_store);
-        fieldType_ = _store.getClassName(_conf);
-        fieldType_ = _conf.getStandards().toWrapper(fieldType_);
+        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
         res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -669,7 +668,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -713,7 +712,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -725,8 +724,7 @@ public abstract class SettableAbstractFieldOperation extends
         Argument previous_ = new Argument();
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         left_.setStruct(_store);
-        fieldType_ = _store.getClassName(_conf);
-        fieldType_ = _conf.getStandards().toWrapper(fieldType_);
+        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -750,7 +748,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -783,7 +781,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return _right;
             }
             setSimpleArgument(_right, _conf, _nodes);
@@ -811,7 +809,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return _right;
         }
         Argument a_ = _right;
@@ -837,7 +835,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return _right;
             }
             Argument a_ = _right;
@@ -861,7 +859,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return _right;
         }
         Argument a_ = _right;

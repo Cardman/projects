@@ -176,8 +176,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasObject("Object");
         _lgNames.setAliasVoid("void");
         _lgNames.setAliasCharSequence("CharSequence");
-        _lgNames.setAliasDisplayable("Displayable");
-        _lgNames.setAliasDisplay("display");
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");
@@ -417,8 +415,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasObject("Objet");
         _lgNames.setAliasVoid("vide");
         _lgNames.setAliasCharSequence("SequenceCaractere");
-        _lgNames.setAliasDisplayable("Affichable");
-        _lgNames.setAliasDisplay("afficher");
         _lgNames.setAliasCompareTo("comparer");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("egal");

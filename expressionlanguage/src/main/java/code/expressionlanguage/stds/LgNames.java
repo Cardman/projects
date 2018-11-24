@@ -33,6 +33,7 @@ import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
@@ -41,7 +42,6 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.ReplacementStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.SimpleObjectStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -55,7 +55,6 @@ import code.util.Replacement;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
-import code.util.ints.Displayable;
 
 public abstract class LgNames {
     protected static final int DEFAULT_RADIX = 10;
@@ -87,7 +86,6 @@ public abstract class LgNames {
     private String aliasObject;
     private String aliasVoid;
     private String aliasCharSequence;
-    private String aliasDisplayable;
     private String aliasCompareTo;
     private String aliasCompare;
     private String aliasEquals;
@@ -166,7 +164,6 @@ public abstract class LgNames {
 
     private String aliasString;
     private String aliasLength;
-    private String aliasDisplay;
     private String aliasCharAt;
     private String aliasToCharArray;
     private String aliasSplit;
@@ -330,12 +327,6 @@ public abstract class LgNames {
         method_ = new StandardMethod(aliasSubSequence, params_, aliasCharSequence, false, MethodModifier.ABSTRACT,std_);
         methods_.put(method_.getId(), method_);
         standards.put(aliasCharSequence, std_);
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
-        std_ = new StandardInterface(aliasDisplayable, methods_, noTypes_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasDisplay, params_, aliasString, false, MethodModifier.ABSTRACT,std_);
-        methods_.put(method_.getId(), method_);
-        standards.put(aliasDisplayable, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         fields_ = new StringMap<StandardField>();
         constructors_ = new CustList<StandardConstructor>();
@@ -976,7 +967,6 @@ public abstract class LgNames {
         list_.add(aliasSof);
         list_.add(aliasReplacement);
         list_.add(aliasNullPe);
-        list_.add(aliasDisplayable);
         list_.add(aliasBoolean);
         list_.add(aliasByte);
         list_.add(aliasCharSequence);
@@ -1143,8 +1133,6 @@ public abstract class LgNames {
                 aliasGetOldString,
                 aliasSetNewString,
                 aliasSetOldString));
-        map_.put(aliasDisplayable, new StringList(
-                aliasDisplay));
         map_.put(aliasBoolean, new StringList(
                 aliasBooleanValue,
                 aliasCompare,
@@ -1585,7 +1573,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
             return result_;
         }
         if (StringList.quickEq(type_, replType_)) {
@@ -1915,7 +1903,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
             return result_;
         }
         result_ = AliasReflection.invokeMethod(_cont, _method, _struct, _args);
@@ -1923,7 +1911,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
             return result_;
         }
         if(lgNames_ instanceof LgAdv) {
@@ -1932,7 +1920,7 @@ public abstract class LgNames {
             result_ = lgNames_.getOtherResult(_cont, _struct, _method, argsObj_);
         }
         if (result_.getError() != null) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
             return result_;
         }
         return result_;
@@ -1953,12 +1941,6 @@ public abstract class LgNames {
         String nbType_ = lgNames_.getAliasNumber();
         String stringType_ = lgNames_.getAliasString();
         String booleanPrimType_ = lgNames_.getAliasPrimBoolean();
-        if (instance_ instanceof Displayable) {
-            if (StringList.quickEq(name_, lgNames_.getAliasDisplay()) || StringList.quickEq(name_, lgNames_.getAliasToString())) {
-                result_.setResult(new StringStruct(((Displayable)instance_).display()));
-                return result_;
-            }
-        }
         if (StringList.quickEq(type_, lgNames_.getAliasObjectsUtil())) {
             if (StringList.quickEq(name_, lgNames_.getAliasSameRef())) {
                 result_.setResult(new BooleanStruct(args_[0].sameReference(args_[1])));
@@ -3657,7 +3639,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
             return result_;
         }
         if (StringList.quickEq(type_, replType_)) {
@@ -3695,7 +3677,7 @@ public abstract class LgNames {
             result_ = lgNames_.getOtherResult(_cont, _method, argsObj_);
         }
         if (result_.getError() != null) {
-            _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
         }
         return result_;
     }
@@ -4222,114 +4204,10 @@ public abstract class LgNames {
     public Object getOtherArguments(Struct[] _str, String _base) {
         return null;
     }
-    public static Struct getElement(Object _array, int _index, ContextEl _context) {
-        if (_array instanceof Struct[]) {
-            return ((Struct[])_array)[_index];
-        }
-        if (_array instanceof double[]) {
-            return new DoubleStruct(((double[])_array)[_index]);
-        }
-        if (_array instanceof float[]) {
-            return new FloatStruct(((float[])_array)[_index]);
-        }
-        if (_array instanceof long[]) {
-            return new LongStruct(((long[])_array)[_index]);
-        }
-        if (_array instanceof int[]) {
-            return new IntStruct(((int[])_array)[_index]);
-        }
-        if (_array instanceof char[]) {
-            return new CharStruct(((char[])_array)[_index]);
-        }
-        if (_array instanceof short[]) {
-            return new ShortStruct(((short[])_array)[_index]);
-        }
-        if (_array instanceof byte[]) {
-            return new ByteStruct(((byte[])_array)[_index]);
-        }
-        if (_array instanceof boolean[]) {
-            return new BooleanStruct(((boolean[])_array)[_index]);
-        }
-        return _context.getStandards().getOtherElement(_array, _index);
-    }
-    public Struct getOtherElement(Object _array, int _index) {
-        return NullStruct.NULL_VALUE;
-    }
-    public static int getLength(Object _array) {
-        if (_array instanceof double[]) {
-            return ((double[])_array).length;
-        }
-        if (_array instanceof float[]) {
-            return ((float[])_array).length;
-        }
-        if (_array instanceof long[]) {
-            return ((long[])_array).length;
-        }
-        if (_array instanceof int[]) {
-            return ((int[])_array).length;
-        }
-        if (_array instanceof char[]) {
-            return ((char[])_array).length;
-        }
-        if (_array instanceof short[]) {
-            return ((short[])_array).length;
-        }
-        if (_array instanceof byte[]) {
-            return ((byte[])_array).length;
-        }
-        if (_array instanceof boolean[]) {
-            return ((boolean[])_array).length;
-        }
-        return ((Object[])_array).length;
-    }
-    public static void setElement(Object _array, int _index, Struct _element, ContextEl _context) {
-        if (_array instanceof Struct[]) {
-            ((Struct[])_array)[_index] = _element;
-            return;
-        }
-        if (_array instanceof double[]) {
-            ((double[])_array)[_index] = (Double) _element.getInstance();
-            return;
-        }
-        if (_array instanceof float[]) {
-            ((float[])_array)[_index] = (Float) _element.getInstance();
-            return;
-        }
-        if (_array instanceof long[]) {
-            ((long[])_array)[_index] = (Long) _element.getInstance();
-            return;
-        }
-        if (_array instanceof int[]) {
-            ((int[])_array)[_index] = (Integer) _element.getInstance();
-            return;
-        }
-        if (_array instanceof char[]) {
-            ((char[])_array)[_index] = (Character) _element.getInstance();
-            return;
-        }
-        if (_array instanceof short[]) {
-            ((short[])_array)[_index] = (Short) _element.getInstance();
-            return;
-        }
-        if (_array instanceof byte[]) {
-            ((byte[])_array)[_index] = (Byte) _element.getInstance();
-            return;
-        }
-        if (_array instanceof boolean[]) {
-            ((boolean[])_array)[_index] = (Boolean) _element.getInstance();
-            return;
-        }
-        _context.getStandards().setOtherElement(_array, _index, _element);
-    }
-    public void setOtherElement(Object _array, int _index, Struct _element) {
-    }
     public String getStructClassName(Struct _struct, ContextEl _context) {
-        if (!(_struct instanceof StdStruct) || _struct.getInstance() instanceof CustomError) {
-            String w_ = _struct.getClassName(_context);
-            w_ = _context.getStandards().toWrapper(w_);
-            return w_;
-        }
-        return getStructClassName(_struct.getInstance(), _context);
+        String w_ = _struct.getClassName(_context);
+        w_ = _context.getStandards().toWrapper(w_);
+        return w_;
     }
     public String getStructClassName(Object _struct, ContextEl _context) {
         String cl_ = getSimpleStructClassName(_struct);
@@ -4401,18 +4279,7 @@ public abstract class LgNames {
     public void setAliasCharSequence(String _aliasCharSequence) {
         aliasCharSequence = _aliasCharSequence;
     }
-    public String getAliasDisplayable() {
-        return aliasDisplayable;
-    }
-    public void setAliasDisplayable(String _aliasDisplayable) {
-        aliasDisplayable = _aliasDisplayable;
-    }
-    public String getAliasDisplay() {
-        return aliasDisplay;
-    }
-    public void setAliasDisplay(String _aliasDisplay) {
-        aliasDisplay = _aliasDisplay;
-    }
+    
     public String getAliasCompareTo() {
         return aliasCompareTo;
     }

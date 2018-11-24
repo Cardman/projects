@@ -1,12 +1,12 @@
 package code.formathtml;
 
-import code.expressionlanguage.stds.LgNames;
+import code.formathtml.util.BeanLgNames;
 
 public final class DefaultInitialization {
 
     private DefaultInitialization() {
     }
-    public static void basicStandards(LgNames _lgNames) {
+    public static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");

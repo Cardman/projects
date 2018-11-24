@@ -12,17 +12,18 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.EnumerableStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.BadElRender;
+import code.formathtml.util.StdStruct;
 import code.formathtml.util.TranslatorStruct;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -135,7 +136,7 @@ final class ExtractObject {
                         badEl_.setErrors(_conf.getClasses().getErrorsDet());
                         badEl_.setFileName(_conf.getCurrentFileName());
                         badEl_.setRc(_conf.getCurrentLocation());
-                        _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                        _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                         return EMPTY_STRING;
                     }
                     processTr_ = allWord_;
@@ -161,7 +162,7 @@ final class ExtractObject {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setRc(_conf.getCurrentLocation());
-                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return EMPTY_STRING;
                 }
                 Struct trloc_ = null;
@@ -169,7 +170,7 @@ final class ExtractObject {
                     trloc_ = _conf.getBuiltTranslators().getVal(tr_.toString());
                     if (trloc_ == null) {
                         _conf.getLastPage().setOffset(i_);
-                        _conf.getContext().setException(new StdStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
+                        _conf.getContext().setException(new ErrorStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
                         return EMPTY_STRING;
                     }
                 }
@@ -183,7 +184,7 @@ final class ExtractObject {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setRc(_conf.getCurrentLocation());
-                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return EMPTY_STRING;
                 }
                 Struct s_ = argloc_.getStruct();
@@ -208,7 +209,7 @@ final class ExtractObject {
                         _ip.putLocalVar(patName_, lv_);
                         String navName_ = _ip.getNextTempVar();
                         lv_ = new LocalVariable();
-                        lv_.setElement(_conf, _conf.toContextEl());
+                        lv_.setStruct(StdStruct.wrapStd(_conf, _conf.toContextEl()));
                         lv_.setClassName(_conf.getStandards().getAliasObject());
                         _ip.putLocalVar(navName_, lv_);
                         String beanName_ = _ip.getNextTempVar();
@@ -247,7 +248,7 @@ final class ExtractObject {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setRc(_conf.getCurrentLocation());
-                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                 return EMPTY_STRING;
             }
             str_.append(cur_);
@@ -289,7 +290,7 @@ final class ExtractObject {
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
                 badEl_.setRc(_conf.getCurrentLocation());
-                _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                 return NullStruct.NULL_VALUE;
             }
             if (curChar_ == ESCAPED) {
@@ -305,7 +306,7 @@ final class ExtractObject {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setRc(_conf.getCurrentLocation());
-                    _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
                     return NullStruct.NULL_VALUE;
                 }
                 calculateVariables_.append(mathFact_.toString(arg_.getObject()));
@@ -341,42 +342,42 @@ final class ExtractObject {
         if (StringList.quickEq(name_, int_) || StringList.quickEq(name_, intPrim_)) {
             Integer val_ = LgNames.parseInt(_arg);
             if (val_ == null) {
-                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(_arg),null_));
                 return NullStruct.NULL_VALUE;
             }
             return new IntStruct(val_);
         } else if (StringList.quickEq(name_, long_) || StringList.quickEq(name_, longPrim_)) {
             Long val_ = LgNames.parseLong(_arg);
             if (val_ == null) {
-                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(_arg),null_));
                 return NullStruct.NULL_VALUE;
             }
             return new LongStruct(val_);
         } else if (StringList.quickEq(name_, short_) || StringList.quickEq(name_, shortPrim_)) {
             Short val_ = LgNames.parseShort(_arg);
             if (val_ == null) {
-                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(_arg),null_));
                 return NullStruct.NULL_VALUE;
             }
             return new ShortStruct(val_);
         } else if (StringList.quickEq(name_, byte_) || StringList.quickEq(name_, bytePrim_)) {
             Byte val_ = LgNames.parseByte(_arg);
             if (val_ == null) {
-                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(_arg),null_));
                 return NullStruct.NULL_VALUE;
             }
             return new ByteStruct(val_);
         } else if (StringList.quickEq(name_, double_) || StringList.quickEq(name_, doublePrim_)) {
             Double val_ = LgNames.parseDouble(_arg);
             if (val_ == null) {
-                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(_arg),null_));
                 return NullStruct.NULL_VALUE;
             }
             return new DoubleStruct(val_);
         } else if (StringList.quickEq(name_, float_) || StringList.quickEq(name_, floatPrim_)) {
             Float val_ = LgNames.parseFloat(_arg);
             if (val_ == null) {
-                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(_arg),null_));
                 return NullStruct.NULL_VALUE;
             }
             return new FloatStruct(val_);
@@ -388,7 +389,7 @@ final class ExtractObject {
                 return NullStruct.NULL_VALUE;
             }
             if (obj_.isNull()) {
-                _conf.getContext().setException(new StdStruct(new CustomError(_arg),null_));
+                _conf.getContext().setException(new ErrorStruct(new CustomError(_arg),null_));
                 return NullStruct.NULL_VALUE;
             }
             return obj_.getStruct();
@@ -499,7 +500,7 @@ final class ExtractObject {
     }
     static void checkNullPointer(Configuration _conf, Object _obj) {
         if (_obj == null) {
-            _conf.getContext().setException(new StdStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
+            _conf.getContext().setException(new ErrorStruct(new CustomError(_conf.joinPages()), _conf.getStandards().getAliasNullPe()));
         }
     }
     static String valueOf(Configuration _conf, Struct _obj) {
@@ -514,7 +515,7 @@ final class ExtractObject {
         }
         ContextEl context_ = _conf.toContextEl();
         String method_;
-        String param_ = context_.getStandards().getAliasDisplayable();
+        String param_ = _conf.getStandards().getAliasDisplayable();
         String arg_ = _conf.getStandards().getStructClassName(_obj, context_);
         Mapping map_ = new Mapping();
         map_.setArg(arg_);
@@ -562,7 +563,7 @@ final class ExtractObject {
         }
         ResultErrorStd res_ = _conf.getStandards().getName(cont_, _instance);
         if (res_.getError() != null) {
-            cont_.setException(new StdStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            cont_.setException(new ErrorStruct(new CustomError(_conf.joinPages()),res_.getError()));
             return EMPTY_STRING;
         }
         return toString(_conf, res_.getResult());
@@ -613,7 +614,7 @@ final class ExtractObject {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return new LoopVariable();
         }
         return _vars.getVal(_candidate);
@@ -631,7 +632,7 @@ final class ExtractObject {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getContext().setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             return new LocalVariable();
         }
         return _vars.getVal(_candidate);

@@ -11,7 +11,6 @@ import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.CustStruct;
 import code.expressionlanguage.structs.EnumStruct;
 import code.expressionlanguage.structs.InnerCustStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -48,7 +47,7 @@ public class DefaultInitializer implements Initializer {
                     if (str_ != null) {
                         fields_.put(key_, str_);
                     } else {
-                        fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                        fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
                     }
                 }
             }
@@ -83,7 +82,7 @@ public class DefaultInitializer implements Initializer {
                 if (str_ != null) {
                     fields_.put(key_, str_);
                 } else {
-                    fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                    fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
                 }
             }
         }

@@ -6,14 +6,15 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.methods.util.BadFormatNumber;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StdStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BadElRender;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
+import code.formathtml.util.StdStruct;
 import code.resources.ResourceFiles;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -349,7 +350,7 @@ public final class Navigation {
                         badEl_.setErrors(session.getClasses().getErrorsDet());
                         badEl_.setFileName(session.getCurrentFileName());
                         badEl_.setRc(session.getCurrentLocation());
-                        session.getContext().setException(new StdStruct(new CustomError(badEl_.display()), session.getStandards().getErrorEl()));
+                        session.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), session.getStandards().getErrorEl()));
                         return;
                     }
                     args_.add(a_);
@@ -566,7 +567,7 @@ public final class Navigation {
             ip_.setOffset(0);
             Struct validator_ = session.getBuiltValidators().getVal(valId_);
             if (validator_ == null) {
-                session.getContext().setException(new StdStruct(new CustomError(session.joinPages()),session.getStandards().getAliasNullPe()));
+                session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),session.getStandards().getAliasNullPe()));
                 return;
             }
             StringList v_ = nInfos_.getValue();
@@ -574,7 +575,7 @@ public final class Navigation {
             ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
             if (resError_.getError() != null) {
                 String err_ = resError_.getError();
-                session.getContext().setException(new StdStruct(new CustomError(session.joinPages()),err_));
+                session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),err_));
                 return;
             }
             ContextEl context_ = session.toContextEl();
@@ -587,12 +588,12 @@ public final class Navigation {
             ip_.putLocalVar(valName_, lv_);
             String navName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(this, context_);
+            lv_.setStruct(StdStruct.wrapStd(this, context_));
             lv_.setClassName(objClass_);
             ip_.putLocalVar(navName_, lv_);
             String nodName_ = ip_.getNextTempVar();
             lv_ = new LocalVariable();
-            lv_.setElement(node_, context_);
+            lv_.setStruct(StdStruct.wrapStd(node_, context_));
             lv_.setClassName(objClass_);
             ip_.putLocalVar(nodName_, lv_);
             String objName_ = ip_.getNextTempVar();
@@ -676,7 +677,7 @@ public final class Navigation {
             ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
             if (res_.getError() != null) {
                 String err_ = res_.getError();
-                session.getContext().setException(new StdStruct(new CustomError(session.joinPages()),err_));
+                session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),err_));
                 return;
             }
             newObj_ = res_.getResult();
@@ -897,7 +898,7 @@ public final class Navigation {
         Struct b_ = getBean(_beanName);
         if (b_ == null) {
             String null_ = session.getStandards().getAliasNullPe();
-            session.getContext().setException(new StdStruct(new CustomError(session.joinPages()),null_));
+            session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),null_));
         }
         return b_;
     }

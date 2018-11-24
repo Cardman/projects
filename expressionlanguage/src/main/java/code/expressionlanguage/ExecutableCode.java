@@ -8,5 +8,4 @@ public interface ExecutableCode extends Analyzable {
     void setException(Struct _struct);
     String joinPages();
     Struct getException();
-    ContextEl getContextEl();
 }

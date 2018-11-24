@@ -30,6 +30,7 @@ import code.util.StringMap;
 
 public interface Analyzable {
 
+    ContextEl getContextEl();
     LgNames getStandards();
     String getGlobalClass();
     String getLookLocalClass();
