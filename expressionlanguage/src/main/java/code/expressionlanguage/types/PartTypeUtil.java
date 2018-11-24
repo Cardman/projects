@@ -14,17 +14,18 @@ import code.util.StringList;
 
 public final class PartTypeUtil {
 
-    public static StringList getAllTypes(String _input, Options _options) {
+    public static StringList getAllTypes(String _input, Analyzable _an) {
         StringList list_ = new StringList();
         StringBuilder out_ = new StringBuilder();
         StringBuilder id_ = new StringBuilder();
         int count_ = 0;
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _options);
-        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, _options);
+        Options options_ = _an.getOptions();
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
+        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input, indexes_, options_);
         CustList<NatTreeMap<Integer, String>> dels_;
         dels_ = new CustList<NatTreeMap<Integer, String>>();
         boolean rem_ = loc_.isRemovedEmptyFirstChild();
-        PartType root_ = PartType.createPartType(null,null, 0, 0, loc_, loc_.getValues(), rem_, _options);
+        PartType root_ = PartType.createPartType(null,null, 0, 0, loc_, loc_.getValues(), rem_, options_);
         addValues(root_, dels_, loc_);
         PartType current_ = root_;
         while (true) {
@@ -38,7 +39,7 @@ public final class PartTypeUtil {
                     out_.append(((LeafPartType)current_).getTypeName());
                 }
             }
-            PartType child_ = createFirstChild(null,current_, loc_, dels_, _options);
+            PartType child_ = createFirstChild(null,current_, loc_, dels_, options_);
             if (child_ != null) {
                 if (count_ == 0) {
                     id_.append(((ParentPartType)current_).getBegin());
@@ -51,7 +52,7 @@ public final class PartTypeUtil {
             }
             boolean stop_ = false;
             while (true) {
-                PartType next_ = createNextSibling(null,current_, loc_, dels_, _options);
+                PartType next_ = createNextSibling(null,current_, loc_, dels_, options_);
                 ParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     if (par_ instanceof TemplatePartType) {
@@ -108,7 +109,7 @@ public final class PartTypeUtil {
     }
     public static StringList processAnalyzeDepends(String _input, int _index, Analyzable _an, RootBlock _rooted, boolean _exact, RowCol _location) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName("");
@@ -176,7 +177,7 @@ public final class PartTypeUtil {
     }
     public static String processAnalyzeInherits(String _input, int _index, String _globalType, Analyzable _an, RootBlock _rooted, boolean _exact, boolean _protectedInc, RowCol _location) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
         }
@@ -234,7 +235,7 @@ public final class PartTypeUtil {
 
     public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact, boolean _protectedInc, RowCol _location) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
         }
@@ -292,7 +293,7 @@ public final class PartTypeUtil {
 
     public static String processAnalyze(String _input, String _globalType, Analyzable _an, AccessingImportingBlock _rooted, boolean _exact) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
         }
@@ -349,7 +350,7 @@ public final class PartTypeUtil {
     }
     public static String processAnalyzeAccessibleId(String _input, Analyzable _an, AccessingImportingBlock _rooted) {
         Options options_ = _an.getOptions();
-        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, options_);
+        Numbers<Integer> indexes_ = ParserType.getIndexes(_input, _an);
         if (indexes_ == null) {
             return "";
         }

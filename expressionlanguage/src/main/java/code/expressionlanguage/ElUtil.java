@@ -204,8 +204,8 @@ public final class ElUtil {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
-            if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
-                if (((StandardInstancingOperation)_block).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
+            if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
+                if (((StandardInstancingOperation)block_).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
                     Delimiters d_ = block_.getOperations().getDelimiter();
                     OperationsSequence opSeq_ = new OperationsSequence();
                     opSeq_.setFctName(block_.getOperations().getFctName());
@@ -221,8 +221,8 @@ public final class ElUtil {
         int curKey_ = block_.getChildren().getKey(0);
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
-            if (((StandardInstancingOperation)_block).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
+        if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
+            if (((StandardInstancingOperation)block_).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
                 opSeq_.setDelimiter(new Delimiters());

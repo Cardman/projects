@@ -6,7 +6,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.KeyWordsMap;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -104,6 +109,303 @@ public class TemplatesTest {
     @Test
     public void getAllTypes18Test(){
         assertEq(new StringList("Map..Inner","[String..Character","Rate","Boolean","Number"), Templates.getAllTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>"));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted1Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("int"),Templates.getAllInnerTypesSingleDotted("int", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("int[]"),Templates.getAllInnerTypesSingleDotted("int[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted3Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("int[][]"),Templates.getAllInnerTypesSingleDotted("int[][]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted4Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("String"),Templates.getAllInnerTypesSingleDotted("String", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted5Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex"),Templates.getAllInnerTypesSingleDotted("pkg.Ex", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted6Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("String[]"),Templates.getAllInnerTypesSingleDotted("String[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted7Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex[]"),Templates.getAllInnerTypesSingleDotted("pkg.Ex[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("String[][]"),Templates.getAllInnerTypesSingleDotted("String[][]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex[][]"),Templates.getAllInnerTypesSingleDotted("pkg.Ex[][]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<String>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<String>", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<pkg.ExTwo>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo>", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<String[]>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<String[]>", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted13Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<pkg.ExTwo[]>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo[]>", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted14Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<String>[]"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<String>[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<pkg.ExTwo>[]"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo>[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex","Inner"),Templates.getAllInnerTypesSingleDotted("pkg.Ex.Inner", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted17Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("Ex"),Templates.getAllInnerTypesSingleDotted("Ex", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted18Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("Ex<pkg.ExTwo>"),Templates.getAllInnerTypesSingleDotted("Ex<pkg.ExTwo>", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted19Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("Ex<pkg.ExTwo>[]"),Templates.getAllInnerTypesSingleDotted("Ex<pkg.ExTwo>[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted20Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex","Inner"),Templates.getAllInnerTypesSingleDotted("pkg.Ex.Inner", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted21Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("Ex","Inner"),Templates.getAllInnerTypesSingleDotted("Ex.Inner", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted22Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("Ex<ExTwo>","Inner"),Templates.getAllInnerTypesSingleDotted("Ex<ExTwo>.Inner", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted23Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<#U> {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<pkg.ExTwo<pkg.ExThree>>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo<pkg.ExThree>>", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted24Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo<#U> {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExThree {}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex<pkg.ExTwo<pkg.ExThree>.Inner>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo<pkg.ExThree>.Inner>", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted25Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("pkg.Ex","Inner[]"),Templates.getAllInnerTypesSingleDotted("pkg.Ex.Inner[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted26Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("Ex","Inner[]"),Templates.getAllInnerTypesSingleDotted("Ex.Inner[]", context_));
+    }
+    @Test
+    public void getAllInnerTypesSingleDotted27Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex<#T> {\n");
+        xml_.append(" public class Inner {}\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
+        assertEq(new StringList("Ex<ExTwo>","Inner[]"),Templates.getAllInnerTypesSingleDotted("Ex<ExTwo>.Inner[]", context_));
     }
     @Test
     public void getAllInnerTypes1Test(){
@@ -3497,7 +3799,31 @@ public class TemplatesTest {
         assertEq(1, superTypes_.size());
         assertEq("pkg.ExTwo<#E>", superTypes_.get(0));
     }
-    private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
+    private static ContextEl unfullValidateOverridingMethodsStd(StringMap<String> _files) {
+        ContextEl cont_ = contextEnElDefault();
+        Classes classes_ = cont_.getClasses();
+        Classes.buildPredefinedBracesBodies(cont_);
+        Classes.tryBuildBracedClassesBodies(_files, cont_);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        classes_.validateInheritingClasses(cont_, false);
+        assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
+        return cont_;
+    }
+    private static ContextEl contextEnElDefault() {
+        KeyWordsMap map_ = new KeyWordsMap();
+        KeyWords k_ = map_.getKeyWords("en");
+        LgNames lgNames_ = new CustLgNames();
+        ContextEl ct_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), new Options(), k_);
+        lgNames_.setContext(ct_);
+        map_.initEnStds(lgNames_);
+        lgNames_.build();
+        ct_.setStandards(lgNames_);
+        lgNames_.setupOverrides(ct_);
+        ct_.initError();
+        return ct_;
+    }
+    private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setEndLineSemiColumn(false);
         cont_.getOptions().setSpecialEnumsMethods(false);
@@ -3513,7 +3839,8 @@ public class TemplatesTest {
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
         return cont_;
     }
-    private ContextEl simpleContextEl() {
+    
+    private static ContextEl simpleContextEl() {
         ContextEl cont_ = new ContextEl();
         cont_.getOptions().setEndLineSemiColumn(false);
         cont_.getOptions().setSpecialEnumsMethods(false);

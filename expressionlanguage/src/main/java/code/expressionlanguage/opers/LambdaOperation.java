@@ -592,6 +592,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ConstructorId fid_ = ctorRes_.getConstId();
             StringList parts_ = new StringList();
             if (!g_.isStaticType()) {
+                //From analyze
                 StringList innerParts_ = Templates.getAllInnerTypes(cl_);
                 parts_.add(innerParts_.mid(0, innerParts_.size() - 1).join(".."));
             }

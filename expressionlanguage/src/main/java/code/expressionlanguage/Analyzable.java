@@ -115,6 +115,7 @@ public interface Analyzable {
     String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits);
     TypeOwnersDepends lookupImportMemberTypeDeps(String _type, AccessingImportingBlock _rooted);
     String lookupImportType(String _type, AccessingImportingBlock _rooted);
+    String lookupSingleImportType(String _type, AccessingImportingBlock _rooted);
 
     boolean isDirectImport();
 

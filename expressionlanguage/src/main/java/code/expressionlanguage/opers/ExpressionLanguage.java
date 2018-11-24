@@ -46,11 +46,11 @@ public final class ExpressionLanguage {
     }
 
     public void setArgument(Argument _arg, ContextEl _cont) {
-        arguments.getVal(currentOper).setArgument(_arg);
-        if (currentOper instanceof CompoundAffectationOperation) {
-            ((CompoundAffectationOperation)currentOper).endCalculate(_cont, arguments, _arg);
+        if (currentOper instanceof CallSimpleOperation) {
+            ((CallSimpleOperation)currentOper).endCalculate(_cont, arguments, _arg);
             return;
         }
+        arguments.getVal(currentOper).setArgument(_arg);
         currentOper.setSimpleArgument(_arg, _cont, arguments);
     }
 

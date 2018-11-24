@@ -514,19 +514,17 @@ public final class VariableOperation extends LeafOperation implements
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        locVar_.setStruct(_right.getStruct());
-        setSimpleArgument(_right, _conf, _nodes);
-        return _right;
+        return endCalculate(_conf, _nodes, false, null, _right);
     }
 
     @Override
     public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+        return endCalculate(_conf, false, null, _right);
+    }
+    @Override
+    public Argument endCalculate(ContextEl _conf,
+            IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
+            Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -534,7 +532,28 @@ public final class VariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         locVar_.setStruct(_right.getStruct());
-        setSimpleArgument(_right, _conf);
-        return _right;
+        Argument out_ = _right;
+        if (_post) {
+            out_ = _stored;
+        }
+        setSimpleArgument(out_, _conf, _nodes);
+        return out_;
+    }
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, boolean _post,
+            Argument _stored, Argument _right) {
+        PageEl ip_ = _conf.getOperationPageEl();
+        int relativeOff_ = getOperations().getOffset();
+        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        LocalVariable locVar_ = ip_.getLocalVar(variableName);
+        locVar_.setStruct(_right.getStruct());
+        Argument out_ = _right;
+        if (_post) {
+            out_ = _stored;
+        }
+        setSimpleArgument(out_, _conf);
+        return out_;
     }
 }

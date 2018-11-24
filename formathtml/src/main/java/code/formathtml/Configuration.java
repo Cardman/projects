@@ -934,6 +934,11 @@ public class Configuration implements ExecutableCode {
     public String lookupImportType(String _type, AccessingImportingBlock _rooted) {
         return ContextEl.removeDottedSpaces(_type);
     }
+    @Override
+    public String lookupSingleImportType(String _type,
+            AccessingImportingBlock _rooted) {
+        return ContextEl.removeDottedSpaces(_type);
+    }
 
     @Override
     public TypeOwnersDepends lookupImportMemberTypeDeps(String _type,

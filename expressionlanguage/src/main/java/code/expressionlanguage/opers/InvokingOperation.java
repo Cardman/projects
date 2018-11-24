@@ -586,6 +586,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (g_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) g_;
             if (!r_.isStaticType()) {
+                //From analyze
                 StringList parts_ = Templates.getAllInnerTypes(_className);
                 String param_ = parts_.sub(0, parts_.size()-1).join("..");
                 if (_previous.isNull()) {
@@ -912,6 +913,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                             return Argument.createVoid();
                         }
                         String argCl_ = par_.getClassName(cont_);
+                        //From analyze
                         StringList inners_ = Templates.getAllInnerTypes(className_);
                         String param_ = inners_.mid(0, inners_.size() - 1).join("..");
                         if (!Templates.isCorrectExecute(argCl_, param_, cont_)) {

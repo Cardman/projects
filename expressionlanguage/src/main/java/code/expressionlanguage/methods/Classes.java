@@ -43,7 +43,6 @@ import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.opers.util.UnassignedFinalField;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -91,6 +90,7 @@ public final class Classes {
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
     private CustList<OperatorBlock> operators;
+    private StringList packagesFound = new StringList();
 
     public Classes(){
         classesBodies = new StringMap<RootBlock>();
@@ -102,6 +102,9 @@ public final class Classes {
     }
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
+    }
+    public StringList getPackagesFound() {
+        return packagesFound;
     }
     public StringMap<FileBlock> getFilesBodies() {
         return filesBodies;
@@ -193,8 +196,7 @@ public final class Classes {
         String fullDef_ = _root.getFullDefinition();
         StringList varTypes_ = new StringList();
         String objectClassName_ = _context.getStandards().getAliasObject();
-        Options options_ = _context.getOptions();
-        if (ParserType.getIndexes(fullDef_, options_) != null) {
+        if (ParserType.isCorrectIndexes(fullDef_, _context)) {
             StringList params_ = Templates.getAllTypes(fullDef_);
             StringList namesFromParent_ = new StringList();
             RootBlock r_ = _root;
@@ -421,6 +423,7 @@ public final class Classes {
             FileResolver.parseFile(name_, content_, true, _context);
         }
         Classes cl_ = _context.getClasses();
+        cl_.getPackagesFound().addAllElts(cl_.getPackages());
         cl_.validateInheritingClasses(_context, true);
         for (RootBlock t: cl_.classesBodies.values()) {
             TypeUtil.buildOverrides(t, _context);
@@ -436,6 +439,45 @@ public final class Classes {
             String file_ = f.getKey();
             String content_ = f.getValue();
             FileResolver.parseFile(file_, content_, false, _context);
+        }
+        Classes cl_ = _context.getClasses();
+        StringList pkgFound_ = cl_.getPackagesFound();
+        pkgFound_.addAllElts(cl_.getPackages());
+        if (_context.getOptions().isSingleInnerParts()) {
+            for (RootBlock r: _context.getClasses().getClassBodies()) {
+                if (r.getFile().isPredefined()) {
+                    continue;
+                }
+                String fullName_ = r.getFullName();
+                String pkg_ = r.getPackageName();
+                StringList allPkgParts_ = StringList.splitStrings(pkg_, ".");
+                for (String p: pkgFound_) {
+                    if (StringList.quickEq(p, pkg_)) {
+                        continue;
+                    }
+                    if (!p.startsWith(pkg_)) {
+                        continue;
+                    }
+                    StringList allFoundPkgParts_ = StringList.splitStrings(p, ".");
+                    int len_ = allPkgParts_.size();
+                    boolean diff_ = false;
+                    for (int i = 0; i < len_; i++) {
+                        if (!StringList.quickEq(allFoundPkgParts_.get(i), allPkgParts_.get(i))) {
+                            diff_ = true;
+                            break;
+                        }
+                    }
+                    if (diff_) {
+                        continue;
+                    }
+                    //ERROR
+                    DuplicateType d_ = new DuplicateType();
+                    d_.setId(fullName_);
+                    d_.setFileName(r.getFile().getFileName());
+                    d_.setRc(r.getRowCol(0, r.getIdRowCol()));
+                    cl_.addError(d_);
+                }
+            }
         }
     }
     
@@ -686,153 +728,28 @@ public final class Classes {
                         index_++;
                         continue;
                     }
-                    StringList inners_ = Templates.getAllInnerTypes(idSuper_);
-                    String base_ = inners_.first().trim();
-                    if (base_.isEmpty()) {
-                        if (inners_.size() == 1) {
-                            //ERROR
-                            UnknownClassName undef_;
-                            undef_ = new UnknownClassName();
-                            undef_.setClassName(base_);
-                            undef_.setFileName(r_.getFile().getFileName());
-                            undef_.setRc(rc_);
-                            addError(undef_);
-                            index_++;
-                            continue;
+                    StringList readyTypes_ = new StringList();
+                    for (EntryCust<String, Boolean> f: builtTypes_.entryList()) {
+                        if (f.getValue()) {
+                            readyTypes_.add(f.getKey());
                         }
-                        String baseInn_ = inners_.get(1).trim();
-                        CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
-                        RootBlock p_ = r_.getParentType();
-                        while (p_ != null) {
-                            allAncestors_.add(p_);
-                            p_ = p_.getParentType();
-                        }
-                        String name_ = EMPTY_STRING;
-                        boolean realdAncestors_ = true;
-                        for (RootBlock a: allAncestors_) {
-                            String id_ = a.getFullName();
-                            if (!builtTypes_.contains(id_)) {
-                                continue;
-                            }
-                            if (!builtTypes_.getVal(id_)) {
-                                realdAncestors_ = false;
-                                break;
-                            }
-                        }
-                        if (!realdAncestors_) {
-                            ready_ = false;
-                            break;
-                        }
-                        int ancestorIndex_ = 0;
-                        for (RootBlock a: allAncestors_) {
-                            String id_ = a.getFullName();
-                            if (!builtTypes_.contains(id_)) {
-                                ancestorIndex_++;
-                                continue;
-                            }
-                            StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == 2,c,id_, baseInn_,true, _context);
-                            if (builtInners_.size() == 1) {
-                                r_.getAncestorsIndexes().set(index_, ancestorIndex_);
-                                name_ = builtInners_.first();
-                                break;
-                            }
-                            ancestorIndex_++;
-                        }
-                        if (name_.isEmpty()) {
-                            String resImport_ = _context.lookupImportMemberType(baseInn_, r_, true);
-                            if (resImport_.isEmpty()) {
-                                UnknownClassName undef_;
-                                undef_ = new UnknownClassName();
-                                undef_.setClassName(base_);
-                                undef_.setFileName(r_.getFile().getFileName());
-                                undef_.setRc(rc_);
-                                addError(undef_);
-                                index_++;
-                                continue;
-                            }
-                            name_ = resImport_;
-                            if (!builtTypes_.getVal(name_)) {
-                                ready_ = false;
-                                break;
-                            }
-                        }
-                        boolean err_ = false;
-                        int i_ = 2;
-                        for (String i: inners_.mid(2)) {
-                            if (!builtTypes_.getVal(name_)) {
-                                ready_ = false;
-                                break;
-                            }
-                            StringList builtInners_ = TypeUtil.getBuiltInners(i_ + 1 == inners_.size(), c,name_, i.trim(), true, _context);
-                            if (builtInners_.size() != 1) {
-                                err_ = true;
-                                //ERROR
-                                UnknownClassName undef_;
-                                undef_ = new UnknownClassName();
-                                undef_.setClassName(base_);
-                                undef_.setFileName(r_.getFile().getFileName());
-                                undef_.setRc(rc_);
-                                addError(undef_);
-                                break;
-                            }
-                            i_++;
-                            name_ = builtInners_.first();
-                        }
-                        if (err_) {
-                            index_++;
-                            continue;
-                        }
-                        if (!builtTypes_.getVal(name_)) {
-                            ready_ = false;
-                            break;
-                        }
-                        foundNames_.add(name_);
-                        index_++;
-                        continue;
                     }
-                    String res_ = _context.resolveBaseType(base_, r_, rc_, inners_.size() == 1);
-                    if (res_.isEmpty()) {
-                        //ERROR
+                    String foundType_ = _context.resolveBaseType(idSuper_, c, r_, index_, rc_, readyTypes_);
+                    if (foundType_ == null) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
-                        undef_.setClassName(base_);
+                        undef_.setClassName(idSuper_);
                         undef_.setFileName(r_.getFile().getFileName());
                         undef_.setRc(rc_);
                         addError(undef_);
                         index_++;
                         continue;
                     }
-                    boolean err_ = false;
-                    int i_ = 1;
-                    for (String i: inners_.mid(1)) {
-                        if (!builtTypes_.getVal(res_)) {
-                            ready_ = false;
-                            break;
-                        }
-                        StringList builtInners_ = TypeUtil.getBuiltInners(i_ + 1 == inners_.size(),c,res_, i.trim(), true, _context);
-                        if (builtInners_.size() != 1) {
-                            err_ = true;
-                            //ERROR
-                            UnknownClassName undef_;
-                            undef_ = new UnknownClassName();
-                            undef_.setClassName(base_);
-                            undef_.setFileName(r_.getFile().getFileName());
-                            undef_.setRc(rc_);
-                            addError(undef_);
-                            break;
-                        }
-                        i_++;
-                        res_ = builtInners_.first();
-                    }
-                    if (err_) {
-                        index_++;
-                        continue;
-                    }
-                    if (!builtTypes_.getVal(res_)) {
+                    if (foundType_.isEmpty()) {
                         ready_ = false;
                         break;
                     }
-                    foundNames_.add(res_);
+                    foundNames_.add(foundType_);
                     index_++;
                 }
                 if (!ready_) {
@@ -1577,6 +1494,12 @@ public final class Classes {
         if(StringList.quickEq(_op, ">>>>")) {
             return true;
         }
+        if(StringList.quickEq(_op, "++")) {
+            return true;
+        }
+        if(StringList.quickEq(_op, "--")) {
+            return true;
+        }
         return false;
     }
     public void validateOverridingInherit(ContextEl _context) {
@@ -2213,7 +2136,14 @@ public final class Classes {
         _context.setAnalyzing(null);
         return success_;
     }
-    
+    public StringList getPackages() {
+        StringList pkgs_ = new StringList();
+        for (RootBlock r: classesBodies.values()) {
+            pkgs_.add(r.getPackageName());
+        }
+        pkgs_.removeDuplicates();
+        return pkgs_;
+    }
 
     public CustList<RootBlock> getClassBodies() {
         return classesBodies.values();

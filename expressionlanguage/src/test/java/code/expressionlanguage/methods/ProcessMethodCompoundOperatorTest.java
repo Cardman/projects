@@ -115,4 +115,322 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
         assertEq(0, (Number)ret_.getObject());
     }
+
+    @Test
+    public void calculateArgument4Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex one = new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex bk = one ++;\n");
+        xml_.append("  if (bk.a != 5i){\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (one.a != 6i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument5Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex[] one = {new Ex()};\n");
+        xml_.append("  one[0].a=5i;\n");
+        xml_.append("  Ex bk = one[0] ++;\n");
+        xml_.append("  if (bk.a != 5i){\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (one[0].a != 6i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument6Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCont {\n");
+        xml_.append(" public Ex field = new Ex();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  ExCont one = new ExCont();\n");
+        xml_.append("  one.field.a=5i;\n");
+        xml_.append("  Ex bk = one.field ++;\n");
+        xml_.append("  if (bk.a != 5i){\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (one.field.a != 6i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument7Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex one = new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex bk = ++ one;\n");
+        xml_.append("  if (bk.a != 6i){\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (one.a != 6i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument8Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex[] one = {new Ex()};\n");
+        xml_.append("  one[0].a=5i;\n");
+        xml_.append("  Ex bk = ++ one[0];\n");
+        xml_.append("  if (bk.a != 6i){\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (one[0].a != 6i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument9Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCont {\n");
+        xml_.append(" public Ex field = new Ex();\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  ExCont one = new ExCont();\n");
+        xml_.append("  one.field.a=5i;\n");
+        xml_.append("  Ex bk = ++ one.field;\n");
+        xml_.append("  if (bk.a != 6i){\n");
+        xml_.append("   return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (one.field.a != 6i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument10Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator+ pkg.Ex (pkg.Ex a, pkg.Ex b){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+b.a;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  Ex two = new Ex();\n");
+        xml_.append("  two.a = 2;\n");
+        xml_.append("  for (Ex i = new Ex(); i.a < 10; i += two){\n");
+        xml_.append("   sum += i.a;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (sum != 20i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument11Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  for (Ex i = new Ex(); i.a < 4; ){\n");
+        xml_.append("   Ex bk = i++;\n");
+        xml_.append("   if (bk.a + 1 != i.a){\n");
+        xml_.append("    return 2;\n");
+        xml_.append("   }\n");
+        xml_.append("   sum += bk.a;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (sum != 6){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
+    @Test
+    public void calculateArgument12Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator++ pkg.Ex (pkg.Ex a){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+1;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  for (Ex i = new Ex(); i.a < 4; ){\n");
+        xml_.append("   Ex bk = ++i;\n");
+        xml_.append("   if (bk.a != i.a){\n");
+        xml_.append("    return 2;\n");
+        xml_.append("   }\n");
+        xml_.append("   sum += bk.a;\n");
+        xml_.append("  }\n");
+        xml_.append("  if (sum != 10){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(0, (Number)ret_.getObject());
+    }
 }

@@ -10,7 +10,6 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.options.Options;
 import code.sml.RowCol;
 import code.util.StringList;
 import code.util.StringMap;
@@ -20,93 +19,93 @@ public final class PartTypeUtilTest {
 
     @Test
     public void getAllTypes1Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("String"), PartTypeUtil.getAllTypes("String",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("String"), PartTypeUtil.getAllTypes("String",cont_));
     }
     @Test
     public void getAllTypes2Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>",cont_));
     }
     @Test
     public void getAllTypes3Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map","String","Map<String,Rate>"), PartTypeUtil.getAllTypes("Map<String,Map<String,Rate>>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map","String","Map<String,Rate>"), PartTypeUtil.getAllTypes("Map<String,Map<String,Rate>>",cont_));
     }
     @Test
     public void getAllTypes4Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("List","Boolean"), PartTypeUtil.getAllTypes("List<Boolean>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("List","Boolean"), PartTypeUtil.getAllTypes("List<Boolean>",cont_));
     }
     @Test
     public void getAllTypes5Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("CustList","BooleanList"), PartTypeUtil.getAllTypes("CustList<BooleanList>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("CustList","BooleanList"), PartTypeUtil.getAllTypes("CustList<BooleanList>",cont_));
     }
     @Test
     public void getAllTypes6Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Outer..Map"), PartTypeUtil.getAllTypes("Outer..Map",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Outer..Map"), PartTypeUtil.getAllTypes("Outer..Map",cont_));
     }
     @Test
     public void getAllTypes7Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map"), PartTypeUtil.getAllTypes("..Map",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map"), PartTypeUtil.getAllTypes("..Map",cont_));
     }
     @Test
     public void getAllTypes8Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map..Inner","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map..Inner","String","Rate"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner",cont_));
     }
     @Test
     public void getAllTypes9Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map..Inner","String","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner<Boolean,Number>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map..Inner","String","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate>..Inner<Boolean,Number>",cont_));
     }
     @Test
     public void getAllTypes10Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map..Inner","String","Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate..Denominator>..Inner<Boolean,Number>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map..Inner","String","Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,Rate..Denominator>..Inner<Boolean,Number>",cont_));
     }
     @Test
     public void getAllTypes11Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map..Inner","String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String..Character,Rate>..Inner<Boolean,Number>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map..Inner","String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String..Character,Rate>..Inner<Boolean,Number>",cont_));
     }
     @Test
     public void getAllTypes12Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map..Inner","String"), PartTypeUtil.getAllTypes("Map<String>..Inner",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map..Inner","String"), PartTypeUtil.getAllTypes("Map<String>..Inner",cont_));
     }
     @Test
     public void getAllTypes13Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("[String"), PartTypeUtil.getAllTypes("[String",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("[String"), PartTypeUtil.getAllTypes("[String",cont_));
     }
     @Test
     public void getAllTypes14Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map","[String","Rate"), PartTypeUtil.getAllTypes("Map<[String,Rate>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map","[String","Rate"), PartTypeUtil.getAllTypes("Map<[String,Rate>",cont_));
     }
     @Test
     public void getAllTypes15Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("[Map","String","Rate"), PartTypeUtil.getAllTypes("[Map<String,Rate>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("[Map","String","Rate"), PartTypeUtil.getAllTypes("[Map<String,Rate>",cont_));
     }
     @Test
     public void getAllTypes16Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("[Map..Inner","String"), PartTypeUtil.getAllTypes("[Map<String>..Inner",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("[Map..Inner","String"), PartTypeUtil.getAllTypes("[Map<String>..Inner",cont_));
     }
     @Test
     public void getAllTypes17Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map..Inner","String","[Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,[Rate..Denominator>..Inner<Boolean,Number>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map..Inner","String","[Rate..Denominator","Boolean","Number"), PartTypeUtil.getAllTypes("Map<String,[Rate..Denominator>..Inner<Boolean,Number>",cont_));
     }
     @Test
     public void getAllTypes18Test(){
-        Options opt_ = new Options();
-        assertEq(new StringList("Map..Inner","[String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>",opt_));
+        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        assertEq(new StringList("Map..Inner","[String..Character","Rate","Boolean","Number"), PartTypeUtil.getAllTypes("Map<[String..Character,Rate>..Inner<Boolean,Number>",cont_));
     }
     @Test
     public void process1Test() {

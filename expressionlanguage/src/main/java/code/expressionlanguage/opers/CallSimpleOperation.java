@@ -7,5 +7,5 @@ import code.util.IdMap;
 
 public interface CallSimpleOperation {
 
-    void endCalulate(IdMap<OperationNode,ArgumentsPair> _id, Argument _arg, ContextEl _cont);
+    Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right);
 }

@@ -89,6 +89,87 @@ public final class Templates {
         types_.add(out_.toString());
         return types_;
     }
+    public static StringList getAllInnerTypesSingleDotted(String _type, Analyzable _an) {
+        StringList types_ = new StringList();
+        StringBuilder baseCmp_ = new StringBuilder(_type);
+        while (baseCmp_.lastIndexOf("[]") == baseCmp_.length() - "[]".length()) {
+            if (baseCmp_.lastIndexOf("[]") == -1) {
+                break;
+            }
+            baseCmp_.deleteCharAt(baseCmp_.length() - 1);
+            baseCmp_.deleteCharAt(baseCmp_.length() - 1);
+        }
+        String idBaseCmp_ = baseCmp_.toString();
+        if (_an.getStandards().getPrimitiveTypes().contains(idBaseCmp_)) {
+            types_.add(_type);
+            return types_;
+        }
+        if (_an.getStandards().getStandards().contains(idBaseCmp_)) {
+            types_.add(_type);
+            return types_;
+        }
+        for (RootBlock e: _an.getClasses().getClassBodies()) {
+            if (StringList.quickEq(e.getFullName(), idBaseCmp_)) {
+                types_.add(_type);
+                return types_;
+            }
+        }
+        int len_ = _type.length();
+        boolean inner_ = false;
+        StringBuilder builtId_ = new StringBuilder();
+        int i_ = 0;
+        int count_ = 0;
+        while (i_ < len_) {
+            char cur_ = _type.charAt(i_);
+            if (count_ > 0) {
+                builtId_.append(cur_);
+                if (cur_ == LT) {
+                    count_++;
+                }
+                if (cur_ == GT) {
+                    count_--;
+                    if (count_ == 0) {
+                        inner_ = true;
+                    }
+                }
+                i_++;
+                continue;
+            }
+            if (cur_ == LT) {
+                builtId_.append(cur_);
+                count_++;
+                i_++;
+                continue;
+            }
+            if (cur_ == '.') {
+                //if builtId_.toString() is a type => inner_ is true
+                String foundId_ = builtId_.toString();
+                if (!inner_) {
+                    boolean foundPkg_ = false;
+                    for (String p: _an.getClasses().getPackagesFound()) {
+                        if (StringList.quickEq(p, ContextEl.removeDottedSpaces(foundId_))) {
+                            foundPkg_ = true;
+                            break;
+                        }
+                    }
+                    if (!foundPkg_) {
+                        inner_ = true;
+                    }
+                }
+                if (!inner_) {
+                    builtId_.append(cur_);
+                } else {
+                    types_.add(builtId_.toString());
+                    builtId_.delete(0, builtId_.length());
+                }
+            } else {
+                builtId_.append(cur_);
+            }
+            i_++;
+        }
+        types_.add(builtId_.toString());
+        return types_;
+    }
     public static StringList getAllInnerTypes(String _type) {
         StringList types_ = new StringList();
         StringBuilder out_ = new StringBuilder();
@@ -1406,6 +1487,7 @@ public final class Templates {
 
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
         StringBuilder id_ = new StringBuilder();
+        //From analyze
         StringList inners_ = getAllInnerTypes(_genericClass);
         String fct_ = _context.getStandards().getAliasFct();
         int len_ = inners_.size();

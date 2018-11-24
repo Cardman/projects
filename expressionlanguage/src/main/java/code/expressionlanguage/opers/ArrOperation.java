@@ -444,6 +444,16 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
+        return endCalculate(_conf, _nodes, false, null, _right);
+    }
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+        return endCalculate(_conf, false, null, _right);
+    }
+    @Override
+    public Argument endCalculate(ContextEl _conf,
+            IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
+            Argument _stored, Argument _right) {
         Struct array_;
         array_ = _nodes.getVal(this).getPreviousArgument().getStruct();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -455,11 +465,16 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_conf.hasExceptionOrFailInit()) {
             return a_;
         }
-        setSimpleArgument(_right, _conf, _nodes);
-        return _right;
+        Argument out_ = _right;
+        if (_post) {
+            out_ = _stored;
+        }
+        setSimpleArgument(out_, _conf, _nodes);
+        return out_;
     }
     @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+    public Argument endCalculate(ExecutableCode _conf, boolean _post,
+            Argument _stored, Argument _right) {
         Struct array_;
         array_ = getPreviousArgument().getStruct();
         CustList<OperationNode> chidren_ = getChildrenNodes();
@@ -471,7 +486,11 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         if (_conf.getContextEl().hasException()) {
             return a_;
         }
-        setSimpleArgument(_right, _conf);
-        return _right;
+        Argument out_ = _right;
+        if (_post) {
+            out_ = _stored;
+        }
+        setSimpleArgument(out_, _conf);
+        return out_;
     }
 }

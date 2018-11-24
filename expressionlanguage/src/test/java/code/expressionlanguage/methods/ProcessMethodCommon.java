@@ -114,6 +114,21 @@ public abstract class ProcessMethodCommon {
         ct_.initError();
         return ct_;
     }
+    protected static ContextEl contextEnElDefaultInternType() {
+        KeyWordsMap map_ = new KeyWordsMap();
+        KeyWords k_ = map_.getKeyWords("en");
+        LgNames lgNames_ = new CustLgNames();
+        Options opt_ = new Options();
+        opt_.setSingleInnerParts(true);
+        ContextEl ct_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), opt_, k_);
+        lgNames_.setContext(ct_);
+        map_.initEnStds(lgNames_);
+        lgNames_.build();
+        ct_.setStandards(lgNames_);
+        lgNames_.setupOverrides(ct_);
+        ct_.initError();
+        return ct_;
+    }
     protected static ContextEl contextElDefault(int... _m) {
         ContextEl ct_;
         if (_m.length == 0) {

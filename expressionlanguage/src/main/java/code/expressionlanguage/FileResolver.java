@@ -2665,7 +2665,7 @@ public final class FileResolver {
                 if (nbOpenedTmp_ == 0) {
                     declTypeName_.append(currentCharFound_);
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith("..") && !nextPart_.startsWith(VARARG)) {
+                    if (nextPart_.startsWith(".") && !nextPart_.startsWith(VARARG)) {
                         indexInstr_++;
                         continue;
                     }
@@ -2724,7 +2724,7 @@ public final class FileResolver {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith("..")) {
+                    if (nextPart_.startsWith(".")) {
                         declTypeName_.append(currentCharFound_);
                         indexInstr_++;
                         continue;
@@ -2879,7 +2879,7 @@ public final class FileResolver {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith("..")) {
+                    if (nextPart_.startsWith(".")) {
                         declTypeName_.append(currentCharFound_);
                         indexInstr_++;
                         continue;
@@ -3007,7 +3007,7 @@ public final class FileResolver {
                 nbOpenedTmp_--;
                 if (nbOpenedTmp_ == 0) {
                     String nextPart_ = _found.substring(indexInstr_+1).trim();
-                    if (nextPart_.startsWith("..")) {
+                    if (nextPart_.startsWith(".")) {
                         declTypeName_.append(currentCharFound_);
                         indexInstr_++;
                         continue;

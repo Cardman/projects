@@ -543,6 +543,9 @@ public abstract class OperationNode {
             StringList classeNamesLoc_ = new StringList();
             String base_ = Templates.getIdFromAllTypes(c);
             GeneType root_ = _cont.getClassBody(base_);
+            if (root_ == null) {
+                continue;
+            }
             if (_baseClass) {
                 classeNamesLoc_.add(root_.getFullName());
             }

@@ -1,5 +1,7 @@
 package code.expressionlanguage.types;
 
+import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.options.Options;
 import code.util.CustList;
@@ -13,11 +15,76 @@ public final class ParserType {
     static final int ARR_PRIO = 2;
     static final int INT_PRIO = 3;
     static final int TMP_PRIO = 4;
-    public static Numbers<Integer> getIndexes(String _input, Options _options) {
+    public static Numbers<Integer> getIndexes(String _input, Analyzable _an) {
         int count_ = 0;
         int len_ = _input.length();
         int i_ = 0;
+        Options opt_ = _an.getOptions();
         Numbers<Integer> indexes_ = new Numbers<Integer>();
+        if (opt_.isSingleInnerParts()) {
+            boolean addDot_ = false;
+            StringBuilder id_ = new StringBuilder();
+            while (i_ < len_) {
+                char curChar_ = _input.charAt(i_);
+                if (curChar_ == Templates.LT) {
+                    addDot_ = false;
+                    id_.delete(0, id_.length());
+                    indexes_.add(i_);
+                    count_++;
+                    i_++;
+                    continue;
+                }
+                if (curChar_ == Templates.GT) {
+                    if (count_ == 0) {
+                        return null;
+                    }
+                    addDot_ = true;
+                    id_.delete(0, id_.length());
+                    indexes_.add(i_);
+                    count_--;
+                    i_++;
+                    continue;
+                }
+                if (curChar_ == Templates.COMMA) {
+                    if (count_ == 0) {
+                        return null;
+                    }
+                    addDot_ = false;
+                    id_.delete(0, id_.length());
+                    indexes_.add(i_);
+                    i_++;
+                    continue;
+                }
+                if (curChar_ == Templates.SEP_CLASS_CHAR) {
+                    boolean existPkg_ = false;
+                    for (String p: _an.getClasses().getPackagesFound()) {
+                        if (StringList.quickEq(p, ContextEl.removeDottedSpaces(id_.toString()))) {
+                            existPkg_ = true;
+                            break;
+                        }
+                    }
+                    if (!existPkg_) {
+                        addDot_ = true;
+                    }
+                    if (addDot_) {
+                        indexes_.add(i_);
+                    } else {
+                        id_.append(curChar_);
+                    }
+//                    if (i_ + 1 < len_ && _input.charAt(i_ + 1) == Templates.SEP_CLASS_CHAR) {
+//                        indexes_.add(i_);
+//                        i_++;
+//                    }
+                } else {
+                    id_.append(curChar_);
+                }
+                i_++;
+            }
+            if (count_ > 0) {
+                return null;
+            }
+            return indexes_;
+        }
         while (i_ < len_) {
             char curChar_ = _input.charAt(i_);
             if (curChar_ == Templates.LT) {
@@ -49,6 +116,33 @@ public final class ParserType {
             return null;
         }
         return indexes_;
+    }
+    public static boolean isCorrectIndexes(String _input, Analyzable _an) {
+        int count_ = 0;
+        int len_ = _input.length();
+        int i_ = 0;
+        while (i_ < len_) {
+            char curChar_ = _input.charAt(i_);
+            if (curChar_ == Templates.LT) {
+                count_++;
+            }
+            if (curChar_ == Templates.GT) {
+                if (count_ == 0) {
+                    return false;
+                }
+                count_--;
+            }
+            if (curChar_ == Templates.COMMA) {
+                if (count_ == 0) {
+                    return false;
+                }
+            }
+            i_++;
+        }
+        if (count_ > 0) {
+            return false;
+        }
+        return true;
     }
     public static Numbers<Integer> getIndexesExec(String _input) {
         int count_ = 0;
@@ -100,10 +194,18 @@ public final class ParserType {
             a_.setupValue(_string, _offset, _options);
             return a_;
         }
-        if (isTypeLeaf(_string)) {
-            a_.setKind(KindPartType.TYPE_NAME);
-            a_.setupValue(_string, _offset, _options);
-            return a_;
+        if (_options.isSingleInnerParts()) {
+            if (isTypeLeafPart(_string.trim())) {
+                a_.setKind(KindPartType.TYPE_NAME);
+                a_.setupValue(_string, _offset, _options);
+                return a_;
+            }
+        } else {
+            if (isTypeLeaf(_string)) {
+                a_.setKind(KindPartType.TYPE_NAME);
+                a_.setupValue(_string, _offset, _options);
+                return a_;
+            }
         }
         if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
             a_.setKind(KindPartType.EMPTY_WILD_CARD);
@@ -201,9 +303,20 @@ public final class ParserType {
                     operators_.clear();
                     prio_ = INT_PRIO;
                 }
-                operators_.put(i_,Templates.INNER_TYPE);
+                if (_options.isSingleInnerParts()) {
+                    operators_.put(i_,".");
+                } else {
+                    operators_.put(i_,Templates.INNER_TYPE);
+                }
             }
             i_++;
+        }
+        if (_options.isSingleInnerParts() && operators_.isEmpty()) {
+            if (isTypeLeaf(_string)) {
+                a_.setKind(KindPartType.TYPE_NAME);
+                a_.setupValue(_string, _offset, _options);
+                return a_;
+            }
         }
         a_.getOperators().putAllMap(operators_);
         a_.setPrio(prio_);
