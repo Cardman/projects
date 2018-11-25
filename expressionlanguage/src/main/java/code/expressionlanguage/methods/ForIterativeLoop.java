@@ -270,7 +270,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getAnalyzing().containsCatchVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -278,7 +277,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -286,7 +284,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
         }
         page_.setGlobalOffset(initOffset);
@@ -847,7 +844,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         l_.setFinished(true);
     }
 
-    @Override
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);

@@ -217,6 +217,14 @@ public abstract class AbstractPageEl extends PageEl {
         currentEls.clear();
     }
 
+    public int sizeEl(){
+        return currentEls.size();
+    }
+
+    public Argument getValue(int _index){
+        return currentEls.get(_index).getArgument();
+    }
+
     public boolean isEmptyEl() {
         return currentEls.isEmpty();
     }

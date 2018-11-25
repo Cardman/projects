@@ -22,6 +22,7 @@ import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.FinallyEval;
+import code.expressionlanguage.methods.ForEachTable;
 import code.expressionlanguage.methods.ForIterativeLoop;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.IfCondition;
@@ -1735,10 +1736,24 @@ public final class FileResolver {
                         if (!label_.isEmpty()) {
                             labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                         }
+                        String variableName_ = variable_.trim();
                         LgNames stds_ = _context.getStandards();
-                        br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variable_.trim()),
-                                new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        if (StringList.isDollarWord(variableName_)) {
+                            br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
+                                    new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        } else {
+                            int nextIndexVar_ = getIndex(variableName_, ',');
+                            String firstVar_ = variableName_.substring(0, nextIndexVar_);
+                            String afterFirst_ = variableName_.substring(nextIndexVar_+1);
+                            String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
+                            String secVar_ = afterFirst_.substring(declaringTypeSec_.length());
+                            br_ = new ForEachTable(_context, currentParent_,
+                                    new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
+                                    new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
+                                    new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                    new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                        }
                         br_.getAnnotations().addAllElts(annotations_);
                         br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                         currentParent_.appendChild(br_);
@@ -1865,9 +1880,23 @@ public final class FileResolver {
                                     labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                                 }
                                 LgNames stds_ = _context.getStandards();
-                                br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, init_.trim()),
-                                        new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                String variableName_ = init_.trim();
+                                if (StringList.isDollarWord(variableName_)) {
+                                    br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
+                                            new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                            new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                } else {
+                                    int nextIndexVar_ = getIndex(variableName_, ',');
+                                    String firstVar_ = variableName_.substring(0, nextIndexVar_);
+                                    String afterFirst_ = variableName_.substring(nextIndexVar_+1);
+                                    String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
+                                    String secVar_ = afterFirst_.substring(declaringTypeSec_.length());
+                                    br_ = new ForEachTable(_context, currentParent_,
+                                            new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
+                                            new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
+                                            new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                            new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                }
                                 br_.getAnnotations().addAllElts(annotations_);
                                 br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                                 currentParent_.appendChild(br_);
@@ -1892,9 +1921,23 @@ public final class FileResolver {
                                     labelOff_ += StringList.getFirstPrintableCharIndex(label_);
                                 }
                                 LgNames stds_ = _context.getStandards();
-                                br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, init_.trim()),
-                                        new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
-                                        new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                String variableName_ = init_.trim();
+                                if (StringList.isDollarWord(variableName_)) {
+                                    br_ = stds_.newForeachLoop(_context, currentParent_, new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, variableName_),
+                                            new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                            new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                } else {
+                                    int nextIndexVar_ = getIndex(variableName_, ',');
+                                    String firstVar_ = variableName_.substring(0, nextIndexVar_);
+                                    String afterFirst_ = variableName_.substring(nextIndexVar_+1);
+                                    String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
+                                    String secVar_ = afterFirst_.substring(declaringTypeSec_.length());
+                                    br_ = new ForEachTable(_context, currentParent_,
+                                            new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
+                                            new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
+                                            new OffsetStringInfo(expOffset_, exp_.trim()), new OffsetStringInfo(indexClassOffest_, indexClassName_.trim()),
+                                            new OffsetStringInfo(labelOff_, label_.trim()), new OffsetsBlock(instructionRealLocation_, instructionLocation_));
+                                }
                                 br_.getAnnotations().addAllElts(annotations_);
                                 br_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
                                 currentParent_.appendChild(br_);

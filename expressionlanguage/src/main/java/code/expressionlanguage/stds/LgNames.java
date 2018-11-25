@@ -4125,14 +4125,15 @@ public abstract class LgNames {
         Classes cl_ = _context.getClasses();
         String next_ = getAliasNext();
         String hasNext_ = getAliasHasNext();
+        String nextPair_ = getAliasNextPair();
+        String hasNextPair_ = getAliasHasNextPair();
         String locName_ = _context.getNextTempVar();
         String exp_;
         LocalVariable locVar_ = new LocalVariable();
-        locVar_ = new LocalVariable();
         locVar_.setClassName(StringList.concat(getAliasIterable(),"<?>"));
         _context.getInternVars().put(locName_, locVar_);
         cl_.setIteratorVarCust(locName_);
-        String iterator_ = getAliasSimpleIterator();
+        String iterator_ = getAliasIterator();
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iterator_,PARS));
         cl_.setExpsIteratorCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
         locName_ = _context.getNextTempVar();
@@ -4149,6 +4150,44 @@ public abstract class LgNames {
         cl_.setNextVarCust(locName_);
         exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(next_,PARS));
         cl_.setExpsNextCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasIterableTable(),"<?,?>"));
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.setIteratorTableVarCust(locName_);
+        String iteratorTable_ = getAliasIteratorTable();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(iteratorTable_,PARS));
+        cl_.setExpsIteratorTableCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.setHasNextPairVarCust(locName_);
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(hasNextPair_,PARS));
+        cl_.setExpsHasNextPairCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasIteratorTableType(),"<?,?>"));
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.setNextPairVarCust(locName_);
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(nextPair_,PARS));
+        cl_.setExpsNextPairCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.setFirstVarCust(locName_);
+        String first_ = getAliasGetFirst();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(first_,PARS));
+        cl_.setExpsFirstCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
+        locName_ = _context.getNextTempVar();
+        locVar_ = new LocalVariable();
+        locVar_.setClassName(StringList.concat(getAliasPairType(),"<?,?>"));
+        _context.getInternVars().put(locName_, locVar_);
+        cl_.setSecondVarCust(locName_);
+        String second_ = getAliasGetSecond();
+        exp_ = StringList.concat(locName_, LOC_VAR, StringList.concat(second_,PARS));
+        cl_.setExpsSecondCust(ElUtil.getAnalyzedOperations(exp_, _context, Calculation.staticCalculation(true)));
     }
     public IterableAnalysisResult getCustomType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
@@ -4181,6 +4220,18 @@ public abstract class LgNames {
         name_ = stds_.getAliasIteratorType();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedIterableTableType(_context);
+        name_ = stds_.getAliasIterableTable();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedIteratorTableType(_context);
+        name_ = stds_.getAliasIteratorTableType();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
+        content_ = PredefinedClasses.getBracedPairType(_context);
+        name_ = stds_.getAliasPairType();
+        predefinedClasses.add(name_);
+        files_.put(name_, content_);
         content_ = PredefinedClasses.getBracedEnumType(_context);
         name_ = stds_.getAliasEnum();
         predefinedClasses.add(name_);
@@ -4191,6 +4242,9 @@ public abstract class LgNames {
         files_.put(name_, content_);
         predefinedInterfacesInitOrder.add(stds_.getAliasIterable());
         predefinedInterfacesInitOrder.add(stds_.getAliasIteratorType());
+        predefinedInterfacesInitOrder.add(stds_.getAliasIterableTable());
+        predefinedInterfacesInitOrder.add(stds_.getAliasIteratorTableType());
+        predefinedInterfacesInitOrder.add(stds_.getAliasPairType());
         predefinedInterfacesInitOrder.add(stds_.getAliasEnumParam());
         predefinedInterfacesInitOrder.add(stds_.getAliasEnum());
         return files_;
@@ -4952,6 +5006,55 @@ public abstract class LgNames {
     }
     public void setAliasHasNext(String _aliasHasNext) {
         predefTypes.setAliasHasNext(_aliasHasNext);
+    }
+    
+    public String getAliasIterableTable() {
+        return predefTypes.getAliasIterableTable();
+    }
+    public void setAliasIterableTable(String _aliasIterableTable) {
+        predefTypes.setAliasIterableTable(_aliasIterableTable);
+    }
+    public String getAliasIteratorTable() {
+        return predefTypes.getAliasIteratorTable();
+    }
+    public void setAliasIteratorTable(String _aliasIteratorTable) {
+        predefTypes.setAliasIteratorTable(_aliasIteratorTable);
+    }
+    public String getAliasIteratorTableType() {
+        return predefTypes.getAliasIteratorTableType();
+    }
+    public void setAliasIteratorTableType(String _aliasIteratorTableType) {
+        predefTypes.setAliasIteratorTableType(_aliasIteratorTableType);
+    }
+    public String getAliasHasNextPair() {
+        return predefTypes.getAliasHasNextPair();
+    }
+    public void setAliasHasNextPair(String _aliasHasNextPair) {
+        predefTypes.setAliasHasNextPair(_aliasHasNextPair);
+    }
+    public String getAliasNextPair() {
+        return predefTypes.getAliasNextPair();
+    }
+    public void setAliasNextPair(String _aliasHasNextPair) {
+        predefTypes.setAliasNextPair(_aliasHasNextPair);
+    }
+    public String getAliasPairType() {
+        return predefTypes.getAliasPairType();
+    }
+    public void setAliasPairType(String _aliasPairType) {
+        predefTypes.setAliasPairType(_aliasPairType);
+    }
+    public String getAliasGetFirst() {
+        return predefTypes.getAliasGetFirst();
+    }
+    public void setAliasGetFirst(String _aliasGetFirst) {
+        predefTypes.setAliasGetFirst(_aliasGetFirst);
+    }
+    public String getAliasGetSecond() {
+        return predefTypes.getAliasGetSecond();
+    }
+    public void setAliasGetSecond(String _aliasGetSecond) {
+        predefTypes.setAliasGetSecond(_aliasGetSecond);
     }
     public String getAliasName() {
         return aliasName;

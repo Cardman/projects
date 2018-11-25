@@ -180,6 +180,14 @@ public final class DefaultInitialization {
         _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
+        _lgNames.setAliasIterableTable("$iterableTable");
+        _lgNames.setAliasIteratorTable("iteratorTable");
+        _lgNames.setAliasIteratorTableType("$iteratorTable");
+        _lgNames.setAliasHasNextPair("hasNextPair");
+        _lgNames.setAliasNextPair("nextPair");
+        _lgNames.setAliasPairType("$pair");
+        _lgNames.setAliasGetFirst("getFirst");
+        _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
         _lgNames.setAliasGetOldString("getOldString");

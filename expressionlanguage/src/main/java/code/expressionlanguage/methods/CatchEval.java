@@ -115,7 +115,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -123,7 +122,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getAnalyzing().containsVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -131,7 +129,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -139,7 +136,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
         }
         if (getFirstChild() == null) {

@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
@@ -22,19 +21,15 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
-import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
@@ -45,24 +40,34 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class AbstractForEachLoop extends BracedStack implements ForLoop {
+public class ForEachTable extends BracedStack implements Loop {
 
     private String label;
     private int labelOffset;
 
-    private final String className;
+    private final String classNameFirst;
 
-    private String importedClassName;
+    private String importedClassNameFirst;
 
-    private int classNameOffset;
+    private int classNameOffsetFirst;
+
+    private final String classNameSecond;
+
+    private String importedClassNameSecond;
+
+    private int classNameOffsetSecond;
 
     private final String classIndexName;
 
     private int classIndexNameOffset;
 
-    private final String variableName;
+    private final String variableNameFirst;
 
-    private int variableNameOffset;
+    private int variableNameOffsetFirst;
+
+    private final String variableNameSecond;
+
+    private int variableNameOffsetSecond;
 
     private final String expression;
 
@@ -70,15 +75,20 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
 
     private CustList<OperationNode> opList;
 
-    protected AbstractForEachLoop(ContextEl _importingPage,
+    public ForEachTable(ContextEl _importingPage,
             BracedBlock _m,
             OffsetStringInfo _className, OffsetStringInfo _variable,
+            OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
             OffsetStringInfo _expression, OffsetStringInfo _classIndex, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_importingPage, _m, _offset);
-        className = _className.getInfo();
-        classNameOffset = _className.getOffset();
-        variableName = _variable.getInfo();
-        variableNameOffset = _variable.getOffset();
+        classNameFirst = _className.getInfo();
+        classNameOffsetFirst = _className.getOffset();
+        variableNameFirst = _variable.getInfo();
+        variableNameOffsetFirst = _variable.getOffset();
+        classNameSecond = _classNameSec.getInfo();
+        classNameOffsetSecond = _classNameSec.getOffset();
+        variableNameSecond = _variableSec.getInfo();
+        variableNameOffsetSecond = _variableSec.getOffset();
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
@@ -104,34 +114,31 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         return labelOffset;
     }
 
-    public int getClassNameOffset() {
-        return classNameOffset;
-    }
-
     public int getClassIndexNameOffset() {
         return classIndexNameOffset;
     }
 
-    public int getVariableNameOffset() {
-        return variableNameOffset;
+    public int getClassNameOffsetFirst() {
+        return classNameOffsetFirst;
     }
 
+    public int getVariableNameOffsetFirst() {
+        return variableNameOffsetFirst;
+    }
+
+    public int getClassNameOffsetSecond() {
+        return classNameOffsetSecond;
+    }
+
+    public int getVariableNameOffsetSecond() {
+        return variableNameOffsetSecond;
+    }
     public int getExpressionOffset() {
         return expressionOffset;
     }
 
-    @Override
     public String getClassIndexName() {
         return classIndexName;
-    }
-
-    @Override
-    public String getClassName() {
-        return className;
-    }
-
-    public String getVariableName() {
-        return variableName;
     }
 
     public String getExpression() {
@@ -172,8 +179,41 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
         id_.put(firstChild_, assBl_);
     }
-    public String getImportedClassName() {
-        return importedClassName;
+    public String getImportedClassNameFirst() {
+        return importedClassNameFirst;
+    }
+    public String getImportedClassNameSecond() {
+        return importedClassNameSecond;
+    }
+    @Override
+    public void buildExpressionLanguage(ContextEl _cont) {
+        buildEl(_cont);
+        OperationNode el_ = opList.last();
+        Argument arg_ = el_.getArgument();
+        if (Argument.isNullValue(arg_)) {
+            StaticAccessError static_ = new StaticAccessError();
+            static_.setFileName(_cont.getCurrentFileName());
+            static_.setRc(_cont.getCurrentLocation());
+            _cont.getClasses().addError(static_);
+        } else {
+            StringList names_ = el_.getResultClass().getNames();
+            StringList out_ = getCustomType(names_, _cont);
+            checkIterableCandidates(out_, _cont);
+        }
+        putVariable(_cont);
+    }
+    private StringList getCustomType(StringList _names, ContextEl _context) {
+        StringList out_ = new StringList();
+        LgNames stds_ = _context.getStandards();
+        for (String f: _names) {
+            String iterable_ = stds_.getAliasIterableTable();
+            String type_ = Templates.getFullTypeByBases(f, iterable_, _context);
+            if (type_ != null) {
+                out_.add(type_);
+            }
+        }
+        out_.removeDuplicates();
+        return out_;
     }
     public void buildEl(ContextEl _cont) {
         FunctionBlock f_ = getFunction();
@@ -187,90 +227,171 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             cast_.setRc(getRowCol(0, classIndexNameOffset));
             _cont.getClasses().addError(cast_);
         }
-        if (_cont.getAnalyzing().containsVar(variableName)) {
+        if (_cont.getAnalyzing().containsVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            d_.setId(variableNameFirst);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setRc(getRowCol(0, variableNameOffsetFirst));
             _cont.getClasses().addError(d_);
         }
-        if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
+        if (_cont.getAnalyzing().containsMutableLoopVar(variableNameFirst)) {
             DuplicateVariable d_ = new DuplicateVariable();
-            d_.setId(variableName);
+            d_.setId(variableNameFirst);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setRc(getRowCol(0, variableNameOffsetFirst));
             _cont.getClasses().addError(d_);
         }
-        if (!StringList.isWord(variableName)) {
+        if (!StringList.isWord(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
-            b_.setVarName(variableName);
+            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
-        if (_cont.getKeyWords().isKeyWordNotVar(variableName)) {
+        if (_cont.getKeyWords().isKeyWordNotVar(variableNameFirst)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
-            b_.setVarName(variableName);
+            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
-        if (PrimitiveTypeUtil.isPrimitive(variableName, _cont)) {
+        if (PrimitiveTypeUtil.isPrimitive(variableNameFirst, _cont)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
-            b_.setVarName(variableName);
+            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
-        if (StringList.quickEq(variableName, _cont.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(variableNameFirst, _cont.getStandards().getAliasVoid())) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
-            b_.setVarName(variableName);
+            b_.setRc(getRowCol(0, variableNameOffsetFirst));
+            b_.setVarName(variableNameFirst);
             _cont.getClasses().addError(b_);
         }
         Options opt_ = _cont.getOptions();
         if (opt_.getSuffixVar() == VariableSuffix.NONE) {
-            if (!variableName.isEmpty() && ContextEl.isDigit(variableName.charAt(0))) {
+            if (!variableNameFirst.isEmpty() && ContextEl.isDigit(variableNameFirst.charAt(0))) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(getFile().getFileName());
-                b_.setRc(getRowCol(0, variableNameOffset));
-                b_.setVarName(variableName);
+                b_.setRc(getRowCol(0, variableNameOffsetFirst));
+                b_.setVarName(variableNameFirst);
                 _cont.getClasses().addError(b_);
             }
         }
         if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
-            if (_cont.getAnalyzing().containsCatchVar(variableName)) {
+            if (_cont.getAnalyzing().containsCatchVar(variableNameFirst)) {
                 DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
+                d_.setId(variableNameFirst);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setRc(getRowCol(0, variableNameOffsetFirst));
                 _cont.getClasses().addError(d_);
             }
-            if (_cont.getAnalyzing().containsLocalVar(variableName)) {
+            if (_cont.getAnalyzing().containsLocalVar(variableNameFirst)) {
                 DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
+                d_.setId(variableNameFirst);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setRc(getRowCol(0, variableNameOffsetFirst));
                 _cont.getClasses().addError(d_);
             }
-            if (_cont.getParameters().contains(variableName)) {
+            if (_cont.getParameters().contains(variableNameFirst)) {
                 DuplicateVariable d_ = new DuplicateVariable();
-                d_.setId(variableName);
+                d_.setId(variableNameFirst);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setRc(getRowCol(0, variableNameOffsetFirst));
                 _cont.getClasses().addError(d_);
             }
         }
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.setGlobalOffset(classNameOffset);
-        page_.setOffset(0);
+        if (_cont.getAnalyzing().containsVar(variableNameSecond)) {
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableNameSecond);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffsetSecond));
+            _cont.getClasses().addError(d_);
+        }
+        if (_cont.getAnalyzing().containsMutableLoopVar(variableNameSecond)) {
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableNameSecond);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffsetSecond));
+            _cont.getClasses().addError(d_);
+        }
+        if (!StringList.isWord(variableNameSecond)) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setVarName(variableNameSecond);
+            _cont.getClasses().addError(b_);
+        }
+        if (_cont.getKeyWords().isKeyWordNotVar(variableNameSecond)) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setVarName(variableNameSecond);
+            _cont.getClasses().addError(b_);
+        }
+        if (PrimitiveTypeUtil.isPrimitive(variableNameSecond, _cont)) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setVarName(variableNameSecond);
+            _cont.getClasses().addError(b_);
+        }
+        if (StringList.quickEq(variableNameSecond, _cont.getStandards().getAliasVoid())) {
+            BadVariableName b_ = new BadVariableName();
+            b_.setFileName(getFile().getFileName());
+            b_.setRc(getRowCol(0, variableNameOffsetSecond));
+            b_.setVarName(variableNameSecond);
+            _cont.getClasses().addError(b_);
+        }
+        if (opt_.getSuffixVar() == VariableSuffix.NONE) {
+            if (!variableNameSecond.isEmpty() && ContextEl.isDigit(variableNameSecond.charAt(0))) {
+                BadVariableName b_ = new BadVariableName();
+                b_.setFileName(getFile().getFileName());
+                b_.setRc(getRowCol(0, variableNameOffsetSecond));
+                b_.setVarName(variableNameSecond);
+                _cont.getClasses().addError(b_);
+            }
+        }
+        if (opt_.getSuffixVar() != VariableSuffix.DISTINCT) {
+            if (_cont.getAnalyzing().containsCatchVar(variableNameSecond)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableNameSecond);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffsetSecond));
+                _cont.getClasses().addError(d_);
+            }
+            if (_cont.getAnalyzing().containsLocalVar(variableNameSecond)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableNameSecond);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffsetSecond));
+                _cont.getClasses().addError(d_);
+            }
+            if (_cont.getParameters().contains(variableNameSecond)) {
+                DuplicateVariable d_ = new DuplicateVariable();
+                d_.setId(variableNameSecond);
+                d_.setFileName(getFile().getFileName());
+                d_.setRc(getRowCol(0, variableNameOffsetSecond));
+                _cont.getClasses().addError(d_);
+            }
+        }
         KeyWords keyWords_ = _cont.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (!StringList.quickEq(className.trim(), keyWordVar_)) {
-            importedClassName = _cont.resolveCorrectType(className);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.setGlobalOffset(classNameOffsetFirst);
+        page_.setOffset(0);
+        if (!StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
+            importedClassNameFirst = _cont.resolveCorrectType(classNameFirst);
         } else {
-            importedClassName = "";
+            importedClassNameFirst = "";
+        }
+        page_.setGlobalOffset(classNameOffsetSecond);
+        page_.setOffset(0);
+        if (!StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
+            importedClassNameSecond = _cont.resolveCorrectType(classNameSecond);
+        } else {
+            importedClassNameSecond = "";
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
@@ -281,29 +402,30 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         OperationNode el_ = opList.last();
         el_.getResultClass().setCheckOnlyNullPe(true);
     }
-    public void inferArrayClass(ContextEl _cont) {
+    public void checkIterableCandidates(StringList _types,ContextEl _cont) {
         if (opList.isEmpty()) {
             return;
         }
         FunctionBlock f_ = getFunction();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        OperationNode el_ = opList.last();
-        ClassArgumentMatching compo_ = PrimitiveTypeUtil.getQuickComponentType(el_.getResultClass());
-        KeyWords keyWords_ = _cont.getKeyWords();
-        String keyWordVar_ = keyWords_.getKeyWordVar();
-        if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().size() == 1) {
-            importedClassName = compo_.getName();
-        } else {
+        if (_types.size() == 1) {
+            KeyWords keyWords_ = _cont.getKeyWords();
+            String keyWordVar_ = keyWords_.getKeyWordVar();
+            String type_ = _types.first();
             Mapping mapping_ = new Mapping();
-            if (importedClassName.isEmpty()) {
-                BadImplicitCast cast_ = new BadImplicitCast();
-                cast_.setMapping(mapping_);
-                cast_.setFileName(getFile().getFileName());
-                cast_.setRc(getRowCol(0, expressionOffset));
-                _cont.getClasses().addError(cast_);
+            String paramArg_ = Templates.getAllTypes(type_).get(1);
+            if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
+                paramArg_ = _cont.getStandards().getAliasObject();
+            } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
+                paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
+            } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
+                paramArg_ = _cont.getStandards().getAliasObject();
+            }
+            if (StringList.quickEq(classNameFirst.trim(), keyWordVar_)) {
+                importedClassNameFirst = paramArg_;
             } else {
-                mapping_.setArg(compo_);
-                mapping_.setParam(importedClassName);
+                mapping_.setArg(paramArg_);
+                mapping_.setParam(importedClassNameFirst);
                 StringMap<StringList> vars_ = new StringMap<StringList>();
                 if (!f_.isStaticContext()) {
                     String globalClass_ = page_.getGlobalClass();
@@ -321,38 +443,8 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                     _cont.getClasses().addError(cast_);
                 }
             }
-        }
-    }
-    @Override
-    public void buildExpressionLanguage(ContextEl _cont) {
-        buildEl(_cont);
-        OperationNode el_ = opList.last();
-        Argument arg_ = el_.getArgument();
-        if (Argument.isNullValue(arg_)) {
-            StaticAccessError static_ = new StaticAccessError();
-            static_.setFileName(_cont.getCurrentFileName());
-            static_.setRc(_cont.getCurrentLocation());
-            _cont.getClasses().addError(static_);
-        } else if (el_.getResultClass().isArray()) {
-            inferArrayClass(_cont);
-        } else {
-            StringList names_ = el_.getResultClass().getNames();
-            StringList out_ = getInferredIterable(names_, _cont);
-            checkIterableCandidates(out_, _cont);
-        }
-        putVariable(_cont);
-    }
-    public abstract StringList getInferredIterable(StringList _types,ContextEl _cont);
-    public void checkIterableCandidates(StringList _types,ContextEl _cont) {
-        if (opList.isEmpty()) {
-            return;
-        }
-        FunctionBlock f_ = getFunction();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (_types.size() == 1) {
-            String type_ = _types.first();
-            Mapping mapping_ = new Mapping();
-            String paramArg_ = Templates.getAllTypes(type_).last();
+            mapping_ = new Mapping();
+            paramArg_ = Templates.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
                 paramArg_ = _cont.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
@@ -360,13 +452,11 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
                 paramArg_ = _cont.getStandards().getAliasObject();
             }
-            KeyWords keyWords_ = _cont.getKeyWords();
-            String keyWordVar_ = keyWords_.getKeyWordVar();
-            if (StringList.quickEq(className.trim(), keyWordVar_)) {
-                importedClassName = paramArg_;
+            if (StringList.quickEq(classNameSecond.trim(), keyWordVar_)) {
+                importedClassNameSecond = paramArg_;
             } else {
                 mapping_.setArg(paramArg_);
-                mapping_.setParam(importedClassName);
+                mapping_.setParam(importedClassNameSecond);
                 StringMap<StringList> vars_ = new StringMap<StringList>();
                 if (!f_.isStaticContext()) {
                     String globalClass_ = page_.getGlobalClass();
@@ -388,14 +478,14 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             if (_types.isEmpty()) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(_cont.getStandards().getAliasObject());
-                mapping_.setParam(_cont.getStandards().getAliasIterable());
+                mapping_.setParam(_cont.getStandards().getAliasIterableTable());
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
                 cast_.setRc(getRowCol(0, expressionOffset));
                 _cont.getClasses().addError(cast_);
             }
-            String iterable_ = _cont.getStandards().getAliasIterable();
+            String iterable_ = _cont.getStandards().getAliasIterableTable();
             for (String e: _types) {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(e);
@@ -409,14 +499,29 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
     }
     public void putVariable(ContextEl _cont) {
+        if (StringList.quickEq(variableNameFirst, variableNameSecond)) {
+            DuplicateVariable d_ = new DuplicateVariable();
+            d_.setId(variableNameSecond);
+            d_.setFileName(getFile().getFileName());
+            d_.setRc(getRowCol(0, variableNameOffsetSecond));
+            _cont.getClasses().addError(d_);
+        }
         LoopVariable lv_ = new LoopVariable();
-        if (!importedClassName.isEmpty()) {
-            lv_.setClassName(importedClassName);
+        if (!importedClassNameFirst.isEmpty()) {
+            lv_.setClassName(importedClassNameFirst);
         } else {
             lv_.setClassName(_cont.getStandards().getAliasObject());
         }
         lv_.setIndexClassName(classIndexName);
-        _cont.getAnalyzing().putVar(variableName, lv_);
+        _cont.getAnalyzing().putVar(variableNameFirst, lv_);
+        lv_ = new LoopVariable();
+        if (!importedClassNameSecond.isEmpty()) {
+            lv_.setClassName(importedClassNameSecond);
+        } else {
+            lv_.setClassName(_cont.getStandards().getAliasObject());
+        }
+        lv_.setIndexClassName(classIndexName);
+        _cont.getAnalyzing().putVar(variableNameSecond, lv_);
         buildConditions(_cont);
     }
     public CustList<OperationNode> getOpList() {
@@ -621,20 +726,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     protected AssignedBooleanVariables buildNewAssignedVariable() {
         return new AssignedBooleanVariables();
     }
-    @Override
-    boolean canBeIncrementedNextGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeIncrementedCurGroup() {
-        return false;
-    }
-
-    @Override
-    boolean canBeLastOfBlockGroup() {
-        return false;
-    }
 
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
@@ -643,15 +734,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             _anEl.completeAbruptGroup(this);
         }
     }
-
-    public abstract String getIteratorVar(Analyzable _an);
-
-    public abstract String getHasNextVar(Analyzable _an);
-
-    public abstract String getNextVar(Analyzable _an);
-    public abstract ExpressionLanguage getEqIterator(Analyzable _an);
-    public abstract ExpressionLanguage getEqHasNext(Analyzable _an);
-    public abstract ExpressionLanguage getEqNext(Analyzable _an);
 
     @Override
     public void processEl(ContextEl _cont) {
@@ -678,27 +760,19 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         Struct iterStr_ = null;
         long length_ = CustList.INDEX_NOT_FOUND_ELT;
         boolean finished_ = false;
-        OperationNode el_ = opList.last();
-        if (el_.getResultClass().isArray()) {
-            ArrayStruct arr_ = (ArrayStruct)its_;
-            length_ = arr_.getInstance().length;
-            if (length_ == CustList.SIZE_EMPTY) {
-                finished_ = true;
-            }
-        } else {
-            String locName_ = getIteratorVar(_cont);
-            LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(stds_.getStructClassName(its_, _cont));
-            locVar_.setStruct(its_);
-            _cont.getLastPage().getInternVars().put(locName_, locVar_);
-            ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
-            Argument arg_ = dyn_.calculateMember(_cont);
-            if (_cont.callsOrException()) {
-                return;
-            }
-            _cont.getLastPage().clearCurrentEls();
-            iterStr_ = arg_.getStruct();
+        Classes cls_ = _cont.getClasses();
+        String locName_ = cls_.getIteratorTableVarCust();
+        LocalVariable locVar_ = new LocalVariable();
+        locVar_.setClassName(stds_.getStructClassName(its_, _cont));
+        locVar_.setStruct(its_);
+        _cont.getLastPage().getInternVars().put(locName_, locVar_);
+        ExpressionLanguage dyn_ = _cont.getLastPage().getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
+        Argument arg_ = dyn_.calculateMember(_cont);
+        if (_cont.callsOrException()) {
+            return;
         }
+        _cont.getLastPage().clearCurrentEls();
+        iterStr_ = arg_.getStruct();
         LoopBlockStack l_ = new LoopBlockStack();
         l_.setIndex(-1);
         l_.setFinished(finished_);
@@ -708,13 +782,19 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         ip_.addBlock(l_);
         ip_.clearCurrentEls();
         l_.setEvaluatingKeepLoop(true);
+        StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        lv_.setClassName(importedClassName);
+        lv_.setClassName(importedClassNameFirst);
         lv_.setIndexClassName(classIndexName);
         lv_.setContainer(its_);
-        StringMap<LoopVariable> varsLoop_ = ip_.getVars();
-        varsLoop_.put(variableName, lv_);
+        varsLoop_.put(variableNameFirst, lv_);
+        lv_ = new LoopVariable();
+        lv_.setIndex(-1);
+        lv_.setClassName(importedClassNameSecond);
+        lv_.setIndexClassName(classIndexName);
+        lv_.setContainer(its_);
+        varsLoop_.put(variableNameSecond, lv_);
         if (iterStr_ != null) {
             Boolean has_ = iteratorHasNext(_cont);
             if (has_ == null) {
@@ -739,9 +819,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         l_.setEvaluatingKeepLoop(false);
         ip_.getReadWrite().setBlock(getFirstChild());
-        return;
     }
-
     Struct processLoop(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         ip_.setGlobalOffset(expressionOffset);
@@ -752,21 +830,9 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
-        OperationNode op_ = opList.last();
-        if (op_.getResultClass().isArray()) {
-            if (!(ito_ instanceof ArrayStruct)) {
-                String cast_;
-                cast_ = _conf.getStandards().getAliasCast();
-                String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
-                String arrObj_ = _conf.getStandards().getAliasObject();
-                arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
-                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE,_conf.joinPages())),cast_));
-            }
-        }
         return ito_;
         
     }
-
     @Override
     public void exitStack(ContextEl _context) {
         processLastElementLoop(_context);
@@ -776,9 +842,9 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     public void removeVarAndLoop(AbstractPageEl _ip) {
         super.removeVarAndLoop(_ip);
         StringMap<LoopVariable> v_ = _ip.getVars();
-        v_.removeKey(variableName);
+        v_.removeKey(variableNameFirst);
+        v_.removeKey(variableNameSecond);
     }
-
 
     @Override
     public void processLastElementLoop(ContextEl _conf) {
@@ -815,13 +881,68 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         }
         l_.setEvaluatingKeepLoop(false);
     }
-
+    public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
+            StringMap<LoopVariable> _vars) {
+        _l.setIndex(_l.getIndex() + 1);
+        Classes cls_ = _conf.getClasses();
+        LgNames stds_ = _conf.getStandards();
+        Struct iterator_ = _l.getStructIterator();
+        AbstractPageEl call_ = _conf.getLastPage();
+        if (call_.sizeEl() < 2) {
+            String locName_ = cls_.getNextPairVarCust();
+            LocalVariable locVar_ = new LocalVariable();
+            locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
+            locVar_.setStruct(iterator_);
+            _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        }
+        ExpressionLanguage nextEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
+        nextEl_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
+        String classNameFirst_ = _conf.getLastPage().formatVarType(importedClassNameFirst, _conf);
+        if (call_.sizeEl() < 3) {
+            String locName_ = cls_.getFirstVarCust();
+            LocalVariable locVar_ = new LocalVariable();
+            Struct value_ = call_.getValue(1).getStruct();
+            locVar_.setClassName(stds_.getStructClassName(value_, _conf));
+            locVar_.setStruct(value_);
+            _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        }
+        ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 4);
+        Argument arg_ = firstEl_.calculateMember(_conf);
+        if (!Templates.checkObject(classNameFirst_, arg_, _conf)) {
+            return;
+        }
+        LoopVariable lv_ = _vars.getVal(variableNameFirst);
+        lv_.setStruct(arg_.getStruct());
+        lv_.setIndex(lv_.getIndex() + 1);
+        String classNameSecond_ = _conf.getLastPage().formatVarType(importedClassNameSecond, _conf);
+        if (call_.sizeEl() < 4) {
+            String locName_ = cls_.getSecondVarCust();
+            LocalVariable locVar_ = new LocalVariable();
+            Struct value_ = call_.getValue(1).getStruct();
+            locVar_.setClassName(stds_.getStructClassName(value_, _conf));
+            locVar_.setStruct(value_);
+            _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        }
+        ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 5);
+        arg_ = secondEl_.calculateMember(_conf);
+        if (!Templates.checkObject(classNameSecond_, arg_, _conf)) {
+            return;
+        }
+        lv_ = _vars.getVal(variableNameSecond);
+        lv_.setStruct(arg_.getStruct());
+        lv_.setIndex(lv_.getIndex() + 1);
+        call_.clearCurrentEls();
+    }
     private Boolean iteratorHasNext(ContextEl _conf) {
         AbstractPageEl ip_ = _conf.getLastPage();
         LgNames stds_ = _conf.getStandards();
         LoopBlockStack l_ = (LoopBlockStack) ip_.getLastStack();
         Struct strIter_ = l_.getStructIterator();
-        String locName_ = getHasNextVar(_conf);
+        Classes cls_ = _conf.getClasses();
+        String locName_ = cls_.getHasNextPairVarCust();
         LocalVariable locVar_ = new LocalVariable();
         locVar_.setClassName(stds_.getStructClassName(strIter_, _conf));
         locVar_.setStruct(strIter_);
@@ -834,60 +955,40 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         boolean hasNext_ = (Boolean) arg_.getObject();
         return hasNext_;
     }
-
-    public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
-            StringMap<LoopVariable> _vars) {
-        _l.setIndex(_l.getIndex() + 1);
-
-        _conf.getLastPage().setGlobalOffset(variableNameOffset);
-        _conf.getLastPage().setOffset(0);
-        LgNames stds_ = _conf.getStandards();
-        LoopVariable lv_ = _vars.getVal(variableName);
-        Struct iterator_ = _l.getStructIterator();
-        Struct element_;
-        OperationNode el_ = opList.last();
-        if (!el_.getResultClass().isArray()) {
-            String locName_ = getNextVar(_conf);
-            LocalVariable locVar_ = new LocalVariable();
-            locVar_.setClassName(stds_.getStructClassName(iterator_, _conf));
-            locVar_.setStruct(iterator_);
-            _conf.getLastPage().getInternVars().put(locName_, locVar_);
-            ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
-            Argument arg_ = dyn_.calculateMember(_conf);
-            if (_conf.callsOrException()) {
-                return;
-            }
-            _conf.getLastPage().clearCurrentEls();
-            element_ = arg_.getStruct();
-        } else {
-            Struct container_ = lv_.getContainer();
-            element_ = InvokingOperation.getElement(container_, _l.getIndex(), _conf);
-            if (_conf.hasExceptionOrFailInit()) {
-                return;
-            }
-            _conf.addSensibleField(container_, element_);
-        }
-        String className_ = _conf.getLastPage().formatVarType(importedClassName, _conf);
-        Argument arg_ = new Argument(element_);
-        if (!Templates.checkObject(className_, arg_, _conf)) {
-            return;
-        }
-        lv_.setStruct(element_);
-        lv_.setIndex(lv_.getIndex() + 1);
-    }
-
     @Override
-    public ExpressionLanguage getEl(ContextEl _context,
-            int _indexProcess) {
+    public ExpressionLanguage getEl(ContextEl _context, int _indexProcess) {
         if (_indexProcess == 0) {
             return getEl();
         }
+        Classes cls_ = _context.getClasses();
         if (_indexProcess == 1) {
-            return getEqIterator(_context);
+            return new ExpressionLanguage(cls_.getExpsIteratorTableCust());
         }
         if (_indexProcess == 2) {
-            return getEqHasNext(_context);
+            return new ExpressionLanguage(cls_.getExpsHasNextPairCust());
         }
-        return getEqNext(_context);
+        if (_indexProcess == 3) {
+            return new ExpressionLanguage(cls_.getExpsNextPairCust());
+        }
+        if (_indexProcess == 4) {
+            return new ExpressionLanguage(cls_.getExpsFirstCust());
+        }
+        return new ExpressionLanguage(cls_.getExpsSecondCust());
     }
+
+    @Override
+    boolean canBeIncrementedNextGroup() {
+        return false;
+    }
+
+    @Override
+    boolean canBeIncrementedCurGroup() {
+        return false;
+    }
+
+    @Override
+    boolean canBeLastOfBlockGroup() {
+        return false;
+    }
+
 }

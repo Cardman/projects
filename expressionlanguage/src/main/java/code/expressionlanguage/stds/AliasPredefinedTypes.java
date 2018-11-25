@@ -6,6 +6,14 @@ public final class AliasPredefinedTypes {
     private String aliasIteratorType;
     private String aliasNext;
     private String aliasHasNext;
+    private String aliasIterableTable;
+    private String aliasIteratorTable;
+    private String aliasIteratorTableType;
+    private String aliasHasNextPair;
+    private String aliasNextPair;
+    private String aliasPairType;
+    private String aliasGetFirst;
+    private String aliasGetSecond;
     public String getAliasIterable() {
         return aliasIterable;
     }
@@ -35,6 +43,54 @@ public final class AliasPredefinedTypes {
     }
     public void setAliasHasNext(String _aliasHasNext) {
         aliasHasNext = _aliasHasNext;
+    }
+    public String getAliasIterableTable() {
+        return aliasIterableTable;
+    }
+    public void setAliasIterableTable(String _aliasIterableTable) {
+        aliasIterableTable = _aliasIterableTable;
+    }
+    public String getAliasIteratorTable() {
+        return aliasIteratorTable;
+    }
+    public void setAliasIteratorTable(String _aliasIteratorTable) {
+        aliasIteratorTable = _aliasIteratorTable;
+    }
+    public String getAliasIteratorTableType() {
+        return aliasIteratorTableType;
+    }
+    public void setAliasIteratorTableType(String _aliasIteratorTableType) {
+        aliasIteratorTableType = _aliasIteratorTableType;
+    }
+    public String getAliasHasNextPair() {
+        return aliasHasNextPair;
+    }
+    public void setAliasHasNextPair(String _aliasHasNextPair) {
+        aliasHasNextPair = _aliasHasNextPair;
+    }
+    public String getAliasNextPair() {
+        return aliasNextPair;
+    }
+    public void setAliasNextPair(String _aliasNextPair) {
+        aliasNextPair = _aliasNextPair;
+    }
+    public String getAliasPairType() {
+        return aliasPairType;
+    }
+    public void setAliasPairType(String _aliasPairType) {
+        aliasPairType = _aliasPairType;
+    }
+    public String getAliasGetFirst() {
+        return aliasGetFirst;
+    }
+    public void setAliasGetFirst(String _aliasGetFirst) {
+        aliasGetFirst = _aliasGetFirst;
+    }
+    public String getAliasGetSecond() {
+        return aliasGetSecond;
+    }
+    public void setAliasGetSecond(String _aliasGetSecond) {
+        aliasGetSecond = _aliasGetSecond;
     }
 
 }

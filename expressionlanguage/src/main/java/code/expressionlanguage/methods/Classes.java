@@ -86,9 +86,19 @@ public final class Classes {
     private String iteratorVarCust;
     private String hasNextVarCust;
     private String nextVarCust;
+    private String iteratorTableVarCust;
+    private String hasNextPairVarCust;
+    private String nextPairVarCust;
+    private String firstVarCust;
+    private String secondVarCust;
     private CustList<OperationNode> expsIteratorCust;
     private CustList<OperationNode> expsHasNextCust;
     private CustList<OperationNode> expsNextCust;
+    private CustList<OperationNode> expsIteratorTableCust;
+    private CustList<OperationNode> expsHasNextPairCust;
+    private CustList<OperationNode> expsNextPairCust;
+    private CustList<OperationNode> expsFirstCust;
+    private CustList<OperationNode> expsSecondCust;
     private CustList<OperatorBlock> operators;
     private StringList packagesFound = new StringList();
 
@@ -448,26 +458,12 @@ public final class Classes {
                 if (r.getFile().isPredefined()) {
                     continue;
                 }
+                if (r.getParent() != null) {
+                    continue;
+                }
                 String fullName_ = r.getFullName();
-                String pkg_ = r.getPackageName();
-                StringList allPkgParts_ = StringList.splitStrings(pkg_, ".");
                 for (String p: pkgFound_) {
-                    if (StringList.quickEq(p, pkg_)) {
-                        continue;
-                    }
-                    if (!p.startsWith(pkg_)) {
-                        continue;
-                    }
-                    StringList allFoundPkgParts_ = StringList.splitStrings(p, ".");
-                    int len_ = allPkgParts_.size();
-                    boolean diff_ = false;
-                    for (int i = 0; i < len_; i++) {
-                        if (!StringList.quickEq(allFoundPkgParts_.get(i), allPkgParts_.get(i))) {
-                            diff_ = true;
-                            break;
-                        }
-                    }
-                    if (diff_) {
+                    if (!p.startsWith(fullName_) || StringList.isDollarWordChar(p.charAt(fullName_.length()))) {
                         continue;
                     }
                     //ERROR
@@ -2600,6 +2596,36 @@ public final class Classes {
         nextVarCust = _nextVarCust;
     }
 
+    public String getIteratorTableVarCust() {
+        return iteratorTableVarCust;
+    }
+    public void setIteratorTableVarCust(String _iteratorTableVarCust) {
+        iteratorTableVarCust = _iteratorTableVarCust;
+    }
+    public String getHasNextPairVarCust() {
+        return hasNextPairVarCust;
+    }
+    public void setHasNextPairVarCust(String _hasNextPairVarCust) {
+        hasNextPairVarCust = _hasNextPairVarCust;
+    }
+    public String getNextPairVarCust() {
+        return nextPairVarCust;
+    }
+    public void setNextPairVarCust(String _nextPairVarCust) {
+        nextPairVarCust = _nextPairVarCust;
+    }
+    public String getFirstVarCust() {
+        return firstVarCust;
+    }
+    public void setFirstVarCust(String _firstVarCust) {
+        firstVarCust = _firstVarCust;
+    }
+    public String getSecondVarCust() {
+        return secondVarCust;
+    }
+    public void setSecondVarCust(String _secondVarCust) {
+        secondVarCust = _secondVarCust;
+    }
     public CustList<OperationNode> getExpsIteratorCust() {
         return expsIteratorCust;
     }
@@ -2623,4 +2649,36 @@ public final class Classes {
     public void setExpsNextCust(CustList<OperationNode> _expsNextCust) {
         expsNextCust = _expsNextCust;
     }
+    public CustList<OperationNode> getExpsIteratorTableCust() {
+        return expsIteratorTableCust;
+    }
+    public void setExpsIteratorTableCust(
+            CustList<OperationNode> _expsIteratorTableCust) {
+        expsIteratorTableCust = _expsIteratorTableCust;
+    }
+    public CustList<OperationNode> getExpsHasNextPairCust() {
+        return expsHasNextPairCust;
+    }
+    public void setExpsHasNextPairCust(CustList<OperationNode> _expsHasNextPairCust) {
+        expsHasNextPairCust = _expsHasNextPairCust;
+    }
+    public CustList<OperationNode> getExpsNextPairCust() {
+        return expsNextPairCust;
+    }
+    public void setExpsNextPairCust(CustList<OperationNode> _expsNextPairCust) {
+        expsNextPairCust = _expsNextPairCust;
+    }
+    public CustList<OperationNode> getExpsFirstCust() {
+        return expsFirstCust;
+    }
+    public void setExpsFirstCust(CustList<OperationNode> _expsFirstCust) {
+        expsFirstCust = _expsFirstCust;
+    }
+    public CustList<OperationNode> getExpsSecondCust() {
+        return expsSecondCust;
+    }
+    public void setExpsSecondCust(CustList<OperationNode> _expsSecondCust) {
+        expsSecondCust = _expsSecondCust;
+    }
+
 }
