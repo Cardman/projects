@@ -35,16 +35,27 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         setClassName(_conf.getStandards().getAliasObject());
 
         int nbParentsInfer_ = 0;
+        OperationNode current_ = this;
         MethodOperation m_ = getParent();
         while (m_ != null) {
             if (!(m_ instanceof AbstractArrayElementOperation)) {
                 if (m_ instanceof IdOperation) {
+                    current_ = current_.getParent();
+                    m_ = m_.getParent();
+                    continue;
+                }
+                if (m_ instanceof AbstractTernaryOperation) {
+                    if (m_.getFirstChild() == current_) {
+                        break;
+                    }
+                    current_ = current_.getParent();
                     m_ = m_.getParent();
                     continue;
                 }
                 break;
             }
             nbParentsInfer_++;
+            current_ = current_.getParent();
             m_ = m_.getParent();
         }
         String type_ = EMPTY_STRING;

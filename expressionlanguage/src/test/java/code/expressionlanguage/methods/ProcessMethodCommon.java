@@ -101,6 +101,16 @@ public abstract class ProcessMethodCommon {
         ct_.initError();
         return ct_;
     }
+    protected static ContextEl contextElIntern() {
+        ContextEl ct_ = new ContextEl();
+        ct_.getOptions().setSingleInnerParts(true);
+        ct_.getOptions().setEndLineSemiColumn(false);
+        ct_.getOptions().setSpecialEnumsMethods(false);
+        ct_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        InitializationLgNames.initAdvStandards(ct_);
+        ct_.initError();
+        return ct_;
+    }
     protected static ContextEl contextEnElDefault() {
         KeyWordsMap map_ = new KeyWordsMap();
         KeyWords k_ = map_.getKeyWords("en");

@@ -1,4 +1,5 @@
 package code.expressionlanguage;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
@@ -73,7 +74,7 @@ public final class ElUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
             Block currentBlock_ = _conf.getCurrentBlock();
-            if (currentBlock_ != null) {
+            if (currentBlock_ != null && !_conf.isAnnotAnalysis() && !_conf.isGearConst()) {
                 currentBlock_.defaultAssignmentBefore(_conf, e_);
                 e_.tryAnalyzeAssignmentAfter(_conf);
                 currentBlock_.defaultAssignmentAfter(_conf, e_);

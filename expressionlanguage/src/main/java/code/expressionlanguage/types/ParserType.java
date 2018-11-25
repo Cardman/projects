@@ -71,10 +71,6 @@ public final class ParserType {
                     } else {
                         id_.append(curChar_);
                     }
-//                    if (i_ + 1 < len_ && _input.charAt(i_ + 1) == Templates.SEP_CLASS_CHAR) {
-//                        indexes_.add(i_);
-//                        i_++;
-//                    }
                 } else {
                     id_.append(curChar_);
                 }

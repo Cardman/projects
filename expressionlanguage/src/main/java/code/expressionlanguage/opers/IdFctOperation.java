@@ -89,7 +89,7 @@ public final class IdFctOperation extends LeafOperation {
         if (argsRes_ == null) {
             return;
         }
-        method = new ClassMethodId(fromType_, argsRes_);
+        method = new ClassMethodId(cl_, argsRes_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
     private MethodId resolveArguments(int _from,Analyzable _conf, String _fromType, String _name,boolean _static, StringList _params){

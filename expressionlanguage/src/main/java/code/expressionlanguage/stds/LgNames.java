@@ -94,9 +94,6 @@ public abstract class LgNames {
     private String aliasMaxValueField;
     private String aliasMinValueField;
 
-    private String aliasIteratorType;
-    private String aliasIterator;
-    private String aliasIterable;
     private String aliasEnumParam;
     private String aliasEnum;
     private String aliasEnums;
@@ -202,8 +199,6 @@ public abstract class LgNames {
     private String aliasGet;
     private String aliasSize;
     private String aliasSimpleIterator;
-    private String aliasNext;
-    private String aliasHasNext;
     private String aliasName;
     private String aliasOrdinal;
     private String aliasGetOldString;
@@ -224,6 +219,7 @@ public abstract class LgNames {
     private String aliasGetParent;
     private AliasReflection reflect = new AliasReflection();
     private AliasMath mathRef = new AliasMath();
+    private AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
     private StringMap<PrimitiveType> primitiveTypes = new StringMap<PrimitiveType>();
     private String trueString;
     private String falseString;
@@ -955,8 +951,8 @@ public abstract class LgNames {
         list_.add(aliasEnum);
         list_.add(aliasEnums);
         list_.add(reflect.getAliasInvokeTarget());
-        list_.add(aliasIterable);
-        list_.add(aliasIterator);
+        list_.add(predefTypes.getAliasIterable());
+        list_.add(predefTypes.getAliasIteratorType());
         list_.add(aliasMath);
         list_.add(aliasBadEncode);
         list_.add(aliasBadIndex);
@@ -1100,11 +1096,11 @@ public abstract class LgNames {
         map_.put(aliasEnums, new StringList(
                 aliasName,
                 aliasOrdinal));
-        map_.put(aliasIterable, new StringList(
-                aliasIterator));
-        map_.put(aliasIterator, new StringList(
-                aliasHasNext,
-                aliasNext));
+        map_.put(predefTypes.getAliasIterable(), new StringList(
+                predefTypes.getAliasIterator()));
+        map_.put(predefTypes.getAliasIteratorType(), new StringList(
+                predefTypes.getAliasHasNext(),
+                predefTypes.getAliasNext()));
         map_.put(mathRef.getAliasMath(), new StringList(
                 mathRef.getAliasAbs(),
                 mathRef.getAliasMod(),
@@ -4100,17 +4096,16 @@ public abstract class LgNames {
                 continue;
             }
             String p_ = _params.get(i);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(p_);
-            cl_ = PrimitiveTypeUtil.toPrimitive(cl_, true, _stds);
+            String pType_ = PrimitiveTypeUtil.toPrimitive(p_, true, _stds);
             if (argStruct_ instanceof NumberStruct) {
                 if (argStruct_ instanceof CharStruct) {
-                    if (cl_.matchClass(_stds.getAliasPrimChar())) {
+                    if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
                         args_[i] = ((CharStruct) argStruct_).getChar();
                     } else {
                         args_[i] = ((NumberStruct) argStruct_).getInstance();
                     }
                 } else {
-                    if (cl_.matchClass(_stds.getAliasPrimChar())) {
+                    if (StringList.quickEq(pType_, _stds.getAliasPrimChar())) {
                         args_[i] = (char)((NumberStruct) argStruct_).getInstance().intValue();
                     } else {
                         args_[i] = ((NumberStruct) argStruct_).getInstance();
@@ -4323,22 +4318,22 @@ public abstract class LgNames {
         aliasMinValueField = _aliasMinValueField;
     }
     public String getAliasIterator() {
-        return aliasIterator;
+        return predefTypes.getAliasIterator();
     }
     public void setAliasIterator(String _aliasIterator) {
-        aliasIterator = _aliasIterator;
+        predefTypes.setAliasIterator(_aliasIterator);
     }
     public String getAliasIteratorType() {
-        return aliasIteratorType;
+        return predefTypes.getAliasIteratorType();
     }
     public void setAliasIteratorType(String _aliasIteratorType) {
-        aliasIteratorType = _aliasIteratorType;
+        predefTypes.setAliasIteratorType(_aliasIteratorType);
     }
     public String getAliasIterable() {
-        return aliasIterable;
+        return predefTypes.getAliasIterable();
     }
     public void setAliasIterable(String _aliasIterable) {
-        aliasIterable = _aliasIterable;
+        predefTypes.setAliasIterable(_aliasIterable);
     }
     public String getAliasEnumParam() {
         return aliasEnumParam;
@@ -4947,16 +4942,16 @@ public abstract class LgNames {
         aliasSimpleIterator = _aliasSimpleIterator;
     }
     public String getAliasNext() {
-        return aliasNext;
+        return predefTypes.getAliasNext();
     }
     public void setAliasNext(String _aliasNext) {
-        aliasNext = _aliasNext;
+        predefTypes.setAliasNext(_aliasNext);
     }
     public String getAliasHasNext() {
-        return aliasHasNext;
+        return predefTypes.getAliasHasNext();
     }
     public void setAliasHasNext(String _aliasHasNext) {
-        aliasHasNext = _aliasHasNext;
+        predefTypes.setAliasHasNext(_aliasHasNext);
     }
     public String getAliasName() {
         return aliasName;

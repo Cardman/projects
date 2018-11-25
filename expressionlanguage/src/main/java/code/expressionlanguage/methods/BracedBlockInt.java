@@ -1,6 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.AbstractPageEl;
+import code.expressionlanguage.calls.AbstractPageEl;
 
 public interface BracedBlockInt {
 

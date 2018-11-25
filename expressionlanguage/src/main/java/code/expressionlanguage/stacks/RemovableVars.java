@@ -1,5 +1,5 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.AbstractPageEl;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.BracedBlock;
 
 public interface RemovableVars {

@@ -1,9 +1,9 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.AbstractCallingInstancingPageEl;
-import code.expressionlanguage.AbstractReflectPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.MethodPageEl;
+import code.expressionlanguage.calls.AbstractCallingInstancingPageEl;
+import code.expressionlanguage.calls.AbstractReflectPageEl;
+import code.expressionlanguage.calls.MethodPageEl;
 import code.expressionlanguage.methods.util.CallConstructor;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;

@@ -91,29 +91,6 @@ public final class Templates {
     }
     public static StringList getAllInnerTypesSingleDotted(String _type, Analyzable _an) {
         StringList types_ = new StringList();
-        StringBuilder baseCmp_ = new StringBuilder(_type);
-        while (baseCmp_.lastIndexOf("[]") == baseCmp_.length() - "[]".length()) {
-            if (baseCmp_.lastIndexOf("[]") == -1) {
-                break;
-            }
-            baseCmp_.deleteCharAt(baseCmp_.length() - 1);
-            baseCmp_.deleteCharAt(baseCmp_.length() - 1);
-        }
-        String idBaseCmp_ = baseCmp_.toString();
-        if (_an.getStandards().getPrimitiveTypes().contains(idBaseCmp_)) {
-            types_.add(_type);
-            return types_;
-        }
-        if (_an.getStandards().getStandards().contains(idBaseCmp_)) {
-            types_.add(_type);
-            return types_;
-        }
-        for (RootBlock e: _an.getClasses().getClassBodies()) {
-            if (StringList.quickEq(e.getFullName(), idBaseCmp_)) {
-                types_.add(_type);
-                return types_;
-            }
-        }
         int len_ = _type.length();
         boolean inner_ = false;
         StringBuilder builtId_ = new StringBuilder();
@@ -141,7 +118,7 @@ public final class Templates {
                 i_++;
                 continue;
             }
-            if (cur_ == '.') {
+            if (cur_ == SEP_CLASS_CHAR) {
                 //if builtId_.toString() is a type => inner_ is true
                 String foundId_ = builtId_.toString();
                 if (!inner_) {

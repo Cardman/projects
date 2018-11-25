@@ -1,9 +1,11 @@
-package code.expressionlanguage;
+package code.expressionlanguage.calls;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
-public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
+public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
 
     private boolean calledMethod;
 
@@ -12,8 +14,9 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
         FieldMetaInfo method_ = (FieldMetaInfo) getGlobalArgument().getStruct();
         if (!calledMethod) {
             Argument instance_ = getArguments().first();
+            Argument right_ = getArguments().last();
             setWrapException(false);
-            Argument arg_ = InvokingOperation.getField(method_, instance_, _context);
+            Argument arg_ = InvokingOperation.setField(method_, instance_, right_, _context, false);
             if (_context.getInitClass() != null) {
                 setWrapException(true);
                 return false;
