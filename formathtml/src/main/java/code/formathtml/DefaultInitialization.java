@@ -1,12 +1,12 @@
 package code.formathtml;
 
-import code.expressionlanguage.stds.LgNames;
+import code.formathtml.util.BeanLgNames;
 
 public final class DefaultInitialization {
 
     private DefaultInitialization() {
     }
-    public static void basicStandards(LgNames _lgNames) {
+    public static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
@@ -180,6 +180,14 @@ public final class DefaultInitialization {
         _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
+        _lgNames.setAliasIterableTable("$iterableTable");
+        _lgNames.setAliasIteratorTable("iteratorTable");
+        _lgNames.setAliasIteratorTableType("$iteratorTable");
+        _lgNames.setAliasHasNextPair("hasNextPair");
+        _lgNames.setAliasNextPair("nextPair");
+        _lgNames.setAliasPairType("$pair");
+        _lgNames.setAliasGetFirst("getFirst");
+        _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
         _lgNames.setAliasGetOldString("getOldString");

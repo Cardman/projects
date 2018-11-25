@@ -6,9 +6,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
@@ -91,7 +91,7 @@ public final class StandardInstancingOperation extends
         CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_, _conf);
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_conf.isStaticContext());
-            analyzeCtor(_conf, realClassName_, firstArgs_);
+            analyzeCtor(_conf, realClassName_, true, firstArgs_);
             return;
         }
         if (realClassName_.startsWith("..")) {
@@ -158,9 +158,9 @@ public final class StandardInstancingOperation extends
         String sup_ = ownersMap_.values().first();
         String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
         realClassName_ = StringList.concat(new_,"..",realClassName_);
-        analyzeCtor(_conf, realClassName_, firstArgs_);
+        analyzeCtor(_conf, realClassName_, false, firstArgs_);
     }
-    void analyzeCtor(Analyzable _conf, String _realClassName, CustList<ClassArgumentMatching> _firstArgs) {
+    void analyzeCtor(Analyzable _conf, String _realClassName, boolean _resolve,CustList<ClassArgumentMatching> _firstArgs) {
         String realClassName_ = _realClassName;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         CustList<OperationNode> filter_ = new CustList<OperationNode>();
@@ -187,7 +187,9 @@ public final class StandardInstancingOperation extends
         ClassMethodId idMethod_ = lookOnlyForId();
         ConstrustorIdVarArg ctorRes_ = null;
 
-        realClassName_ = _conf.resolveCorrectType(realClassName_);
+        if (_resolve) {
+            realClassName_ = _conf.resolveCorrectType(realClassName_);
+        }
         if (PrimitiveTypeUtil.isPrimitive(realClassName_, _conf)) {
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
@@ -207,6 +209,14 @@ public final class StandardInstancingOperation extends
             _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
+        }
+        OperationNode possibleInit_ = getFirstChild();
+        if (possibleInit_ instanceof StaticInitOperation) {
+            StaticInitOperation st_ = (StaticInitOperation) possibleInit_;
+            if (isIntermediateDottedOperation()) {
+                boolean staticType_ = g_.isStaticType();
+                st_.setInit(_conf,base_,staticType_);
+            }
         }
         for (String p:Templates.getAllTypes(realClassName_).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {

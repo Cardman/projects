@@ -10,10 +10,13 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.VariableSuffix;
-import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.LongStruct;
-import code.expressionlanguage.opers.util.StringStruct;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.BeanFour;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanSeven;
@@ -244,21 +247,27 @@ public class HtmlRequestTest {
 
     @Test
     public void setObject11Test() {
-        BeanSeven bean_ = new BeanSeven();
         Configuration conf_ = newConfiguration();
+        ArrayStruct arr_;
+        String int_ = conf_.getStandards().getAliasPrimInteger();
+        int_ = PrimitiveTypeUtil.getPrettyArrayType(int_);
+        Struct[] inst_ = new Struct[2];
+        inst_[0]=new IntStruct(1);
+        inst_[1]=new IntStruct(3);
+        arr_ = new ArrayStruct(inst_, int_);
         setup(conf_);
         conf_.addPage(new ImportingPage(true));
         NodeContainer nc_ = new NodeContainer("");
         nc_.setIndex(0);
-        nc_.setTypedField(bean_.getArrayInt()[0]);
-        nc_.setObject(bean_.getArrayInt(), conf_.toContextEl());
+        nc_.setTypedField(1);
+        nc_.setStruct(arr_);
         nc_.getNodeInformation().setVarMethod("");
         nc_.getNodeInformation().setChanging("");
         nc_.getNodeInformation().setInputClass(conf_.getStandards().getAliasPrimInteger());
         HtmlRequest.setObject(conf_, nc_, new IntStruct(5),new Numbers<Long>());
-        assertEq(2, bean_.getArrayInt().length);
-        assertEq(5, bean_.getArrayInt()[0]);
-        assertEq(3, bean_.getArrayInt()[1]);
+        assertEq(2, inst_.length);
+        assertEq(5, (Number)inst_[0].getInstance());
+        assertEq(3, (Number)inst_[1].getInstance());
     }
 
     @Ignore

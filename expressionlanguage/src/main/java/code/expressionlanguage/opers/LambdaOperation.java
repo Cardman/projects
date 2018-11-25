@@ -28,15 +28,15 @@ import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.opers.util.FieldResult;
-import code.expressionlanguage.opers.util.LambdaConstructorStruct;
-import code.expressionlanguage.opers.util.LambdaFieldStruct;
-import code.expressionlanguage.opers.util.LambdaMethodStruct;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.LambdaConstructorStruct;
+import code.expressionlanguage.structs.LambdaFieldStruct;
+import code.expressionlanguage.structs.LambdaMethodStruct;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.IdMap;
@@ -592,6 +592,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ConstructorId fid_ = ctorRes_.getConstId();
             StringList parts_ = new StringList();
             if (!g_.isStaticType()) {
+                //From analyze
                 StringList innerParts_ = Templates.getAllInnerTypes(cl_);
                 parts_.add(innerParts_.mid(0, innerParts_.size() - 1).join(".."));
             }

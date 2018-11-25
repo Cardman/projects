@@ -1,9 +1,9 @@
 package code.expressionlanguage.opers.util.annotation;
 
 import code.expressionlanguage.PrimitiveTypeUtil;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
-import code.expressionlanguage.opers.util.EnumStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.EnumStruct;
+import code.expressionlanguage.structs.Struct;
 
 final class LeafAnnotPart extends InfoAnnotPart {
 

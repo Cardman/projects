@@ -49,9 +49,9 @@ import code.expressionlanguage.opers.util.ParametersGroup;
 import code.expressionlanguage.opers.util.Parametrable;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -543,6 +543,9 @@ public abstract class OperationNode {
             StringList classeNamesLoc_ = new StringList();
             String base_ = Templates.getIdFromAllTypes(c);
             GeneType root_ = _cont.getClassBody(base_);
+            if (root_ == null) {
+                continue;
+            }
             if (_baseClass) {
                 classeNamesLoc_.add(root_.getFullName());
             }
@@ -2194,7 +2197,7 @@ public abstract class OperationNode {
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),null_));
                 return;
             }
         }
@@ -2238,7 +2241,7 @@ public abstract class OperationNode {
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 setRelativeOffsetPossibleLastPage(getIndexInEl(), _cont);
-                _cont.setException(new StdStruct(new CustomError(_cont.joinPages()),null_));
+                _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),null_));
                 return;
             }
         }

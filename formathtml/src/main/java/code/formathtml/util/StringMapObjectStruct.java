@@ -2,8 +2,8 @@ package code.formathtml.util;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.ObjectMap;
 import code.util.StringMapObject;
 

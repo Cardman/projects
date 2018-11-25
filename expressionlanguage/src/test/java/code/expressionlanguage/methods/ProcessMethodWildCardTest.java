@@ -9,7 +9,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 

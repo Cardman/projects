@@ -11,15 +11,15 @@ import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.sml.RowCol;
@@ -30,6 +30,7 @@ import code.util.StringMap;
 
 public interface Analyzable {
 
+    ContextEl getContextEl();
     LgNames getStandards();
     String getGlobalClass();
     String getLookLocalClass();
@@ -114,6 +115,7 @@ public interface Analyzable {
     String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits);
     TypeOwnersDepends lookupImportMemberTypeDeps(String _type, AccessingImportingBlock _rooted);
     String lookupImportType(String _type, AccessingImportingBlock _rooted);
+    String lookupSingleImportType(String _type, AccessingImportingBlock _rooted);
 
     boolean isDirectImport();
 

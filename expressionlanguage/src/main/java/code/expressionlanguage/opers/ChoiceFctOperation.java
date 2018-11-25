@@ -22,8 +22,8 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -228,7 +228,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
                 if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -241,7 +241,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 String baseArgClassName_ = Templates.getIdFromAllTypes(argClassName_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, baseArgClassName_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new StdStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }

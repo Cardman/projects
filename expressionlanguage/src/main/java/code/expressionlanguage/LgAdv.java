@@ -2,8 +2,8 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.Struct;
 
 public interface LgAdv {
 

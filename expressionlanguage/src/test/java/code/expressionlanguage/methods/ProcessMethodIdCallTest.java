@@ -9,7 +9,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -352,6 +352,40 @@ public final class ProcessMethodIdCallTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<java.lang.Number,java.lang.Number>", field_.getClassName(cont_));
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(1, (Number)field_.getInstance());
+    }
+    @Test
+    public void calculate9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public pkg.ExTwo.Inner inst=new pkg.ExTwo().new Inner();\n");
+        xml_.append(" public int ance=inst.get($id(pkg.ExTwo.Inner,int),8I);\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.ExTwo {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append("  public normal int get(int i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "inst"));
+        assertEq("pkg.ExTwo..Inner", field_.getClassName(cont_));
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
+        assertEq("int", field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
     }
 }

@@ -1,4 +1,5 @@
 package code.expressionlanguage;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
@@ -73,7 +74,7 @@ public final class ElUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));    
             Block currentBlock_ = _conf.getCurrentBlock();
-            if (currentBlock_ != null) {
+            if (currentBlock_ != null && !_conf.isAnnotAnalysis() && !_conf.isGearConst()) {
                 currentBlock_.defaultAssignmentBefore(_conf, e_);
                 e_.tryAnalyzeAssignmentAfter(_conf);
                 currentBlock_.defaultAssignmentAfter(_conf, e_);
@@ -204,8 +205,8 @@ public final class ElUtil {
         }
         MethodOperation block_ = (MethodOperation) _block;
         if (block_.getChildren() == null || block_.getChildren().isEmpty()) {
-            if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
-                if (((StandardInstancingOperation)_block).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
+            if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
+                if (((StandardInstancingOperation)block_).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
                     Delimiters d_ = block_.getOperations().getDelimiter();
                     OperationsSequence opSeq_ = new OperationsSequence();
                     opSeq_.setFctName(block_.getOperations().getFctName());
@@ -221,8 +222,8 @@ public final class ElUtil {
         int curKey_ = block_.getChildren().getKey(0);
         d_.setChildOffest(curKey_);
         int offset_ = block_.getIndexInEl()+curKey_;
-        if (_context.getOptions().isInitializeStaticClassFirst() && _block instanceof StandardInstancingOperation) {
-            if (((StandardInstancingOperation)_block).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
+        if (_context.getOptions().isInitializeStaticClassFirst() && block_ instanceof StandardInstancingOperation) {
+            if (((StandardInstancingOperation)block_).initStaticClass(_context) && _index == CustList.FIRST_INDEX) {
                 OperationsSequence opSeq_ = new OperationsSequence();
                 opSeq_.setFctName(block_.getOperations().getFctName());
                 opSeq_.setDelimiter(new Delimiters());

@@ -1,4 +1,7 @@
 package code.expressionlanguage;
+import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
@@ -377,7 +380,7 @@ public final class ElResolver {
                                 if (curLoc_ == GREATER_CHAR) {
                                     nbOpened_--;
                                     next_++;
-                                    if (nbOpened_ == 0 && !_string.substring(next_).trim().startsWith("..")) {
+                                    if (nbOpened_ == 0 && !_string.substring(next_).trim().startsWith(".")) {
                                         exitWhenNoSpace_ = true;
                                     }
                                     continue;
@@ -1988,7 +1991,8 @@ public final class ElResolver {
         String id_ = allparts_.toString();
         String dot_ = String.valueOf(DOT_VAR);
         StringList candidates_ = new StringList();
-        if (id_.indexOf(StringList.concat(dot_,dot_)) == -1) {
+        Options opt_ = _conf.getOptions();
+        if (!opt_.isSingleInnerParts() && id_.indexOf(StringList.concat(dot_,dot_)) == -1) {
             int idLen_ = id_.length();
             for (int i = 0; i < idLen_; i++) {
                 char sep_ = id_.charAt(i);
@@ -2014,6 +2018,40 @@ public final class ElResolver {
             if (found_) {
                 return i_;
             }
+        }
+        if (opt_.isSingleInnerParts() && !foundThis_) {
+            StringList inners_ = Templates.getAllInnerTypesSingleDotted(id_, _conf);
+            String start_ = inners_.first();
+            int nb_=0;
+            for (char c: start_.toCharArray()) {
+                if (c == '.') {
+                    nb_++;
+                }
+            }
+            Block bl_ = _conf.getCurrentBlock();
+            AccessingImportingBlock r_ = bl_.getImporting();
+            String imp_ = _conf.lookupSingleImportType(start_, r_);
+            if (!imp_.isEmpty()) {
+                start_ = imp_;
+            }
+            for (String i: inners_.mid(1)) {
+                String innerName_ = i.trim();
+                StringList res_ = TypeUtil.getInners(true, glClass_, start_, innerName_, false, _conf);
+                if (res_.size() == 1) {
+                    start_ = res_.first();
+                    nb_++;
+                    continue;
+                }
+                int n_ = indexes_.get(nb_);
+                d_.getDelKeyWordStatic().add(i_);
+                d_.getDelKeyWordStatic().add(n_);
+                d_.getDelKeyWordStaticExtract().add(start_);
+                return n_;
+            }
+            d_.getDelKeyWordStatic().add(i_);
+            d_.getDelKeyWordStatic().add(k_);
+            d_.getDelKeyWordStaticExtract().add(start_);
+            return k_;
         }
         String tr_ = ContextEl.removeDottedSpaces(id_);
         if (_conf.getClassBody(tr_) != null) {

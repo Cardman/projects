@@ -35,6 +35,10 @@ public final class AnalyzingType {
         String str_;
         str_ = _string.substring(beginValuePart_, endValuePart_);
         values.put(beginValuePart_, str_);
+        if (_options.isSingleInnerParts() && isRemovedEmptyFirstChild()) {
+            error = true;
+            return;
+        }
         int i_ = CustList.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
@@ -103,6 +107,10 @@ public final class AnalyzingType {
         String str_;
         str_ = _string.substring(beginValuePart_, endValuePart_);
         values.put(beginValuePart_, str_);
+        if (isRemovedEmptyFirstChild()) {
+            error = true;
+            return;
+        }
         int i_ = CustList.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {

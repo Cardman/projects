@@ -24,11 +24,12 @@ import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -371,7 +372,7 @@ public final class FctOperation extends InvokingOperation {
                 Argument a_ = new Argument();
                 return a_;
             }
-            if (prev_.getStruct().isArray()) {
+            if (prev_.getStruct() instanceof ArrayStruct) {
                 int offLoc_ = -1;
                 if (!chidren_.isEmpty()) {
                     offLoc_ = chidren_.last().getIndexInEl() + getOperations().getDelimiter().getIndexBegin();

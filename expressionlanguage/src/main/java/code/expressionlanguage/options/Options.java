@@ -12,6 +12,7 @@ public final class Options {
     private boolean endLineSemiColumn = true;
     private boolean specialEnumsMethods = true;
     private boolean allParametersSort = true;
+    private boolean singleInnerParts;
 
     public char getEndLine() {
         if (endLineSemiColumn) {
@@ -83,6 +84,12 @@ public final class Options {
     }
     public void setAllParametersSort(boolean _allParametersSort) {
         allParametersSort = _allParametersSort;
+    }
+    public boolean isSingleInnerParts() {
+        return singleInnerParts;
+    }
+    public void setSingleInnerParts(boolean _singleInnerParts) {
+        singleInnerParts = _singleInnerParts;
     }
 
 }

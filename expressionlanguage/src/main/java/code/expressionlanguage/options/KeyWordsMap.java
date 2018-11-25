@@ -176,8 +176,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasObject("Object");
         _lgNames.setAliasVoid("void");
         _lgNames.setAliasCharSequence("CharSequence");
-        _lgNames.setAliasDisplayable("Displayable");
-        _lgNames.setAliasDisplay("display");
         _lgNames.setAliasCompareTo("compareTo");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("equals");
@@ -337,6 +335,14 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
+        _lgNames.setAliasIterableTable("IterableTable");
+        _lgNames.setAliasIteratorTable("iteratorTable");
+        _lgNames.setAliasIteratorTableType("IteratorTable");
+        _lgNames.setAliasHasNextPair("hasNextPair");
+        _lgNames.setAliasNextPair("nextPair");
+        _lgNames.setAliasPairType("Pair");
+        _lgNames.setAliasGetFirst("getFirst");
+        _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
         _lgNames.setAliasGetOldString("getOldString");
@@ -417,8 +423,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasObject("Objet");
         _lgNames.setAliasVoid("vide");
         _lgNames.setAliasCharSequence("SequenceCaractere");
-        _lgNames.setAliasDisplayable("Affichable");
-        _lgNames.setAliasDisplay("afficher");
         _lgNames.setAliasCompareTo("comparer");
         _lgNames.setAliasCompare("compare");
         _lgNames.setAliasEquals("egal");
@@ -577,6 +581,14 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetParent("valParent");
         _lgNames.setAliasNext("suivant");
         _lgNames.setAliasHasNext("aSuivant");
+        _lgNames.setAliasIterableTable("IterableTable");
+        _lgNames.setAliasIteratorTable("iterateurTable");
+        _lgNames.setAliasIteratorTableType("IterateurTable");
+        _lgNames.setAliasHasNextPair("aSuivantPair");
+        _lgNames.setAliasNextPair("suivantPair");
+        _lgNames.setAliasPairType("Pair");
+        _lgNames.setAliasGetFirst("valPremier");
+        _lgNames.setAliasGetSecond("valDeuxieme");
         _lgNames.setAliasName("nom");
         _lgNames.setAliasOrdinal("ordinal");
         _lgNames.setAliasGetOldString("valChaineAvant");

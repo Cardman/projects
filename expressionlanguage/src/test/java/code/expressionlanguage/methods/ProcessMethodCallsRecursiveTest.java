@@ -11,7 +11,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.classes.Ints;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.classes.StdStruct;
 import code.util.CustList;
 import code.util.StringMap;
 

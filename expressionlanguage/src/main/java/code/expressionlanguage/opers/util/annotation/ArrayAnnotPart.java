@@ -1,7 +1,7 @@
 package code.expressionlanguage.opers.util.annotation;
 
-import code.expressionlanguage.opers.util.ArrayStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 

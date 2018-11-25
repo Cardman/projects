@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.stds.LgNames;
 import code.formathtml.classes.CustBeanLgNames;
 import code.formathtml.classes.CustLgNames;
 import code.formathtml.util.BeanLgNames;
@@ -22,7 +21,7 @@ public final class InitializationLgNames {
         lgNames_.setupOverrides(_cont);
         return lgNames_;
     }
-    private static void basicStandards(LgNames _lgNames) {
+    private static void basicStandards(BeanLgNames _lgNames) {
         _lgNames.setAliasObject("java.lang.Object");
         _lgNames.setAliasVoid("$void");
         _lgNames.setAliasCharSequence("java.lang.CharSequence");
@@ -195,6 +194,14 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetParent("getParent");
         _lgNames.setAliasNext("next");
         _lgNames.setAliasHasNext("hasNext");
+        _lgNames.setAliasIterableTable("$iterableTable");
+        _lgNames.setAliasIteratorTable("iteratorTable");
+        _lgNames.setAliasIteratorTableType("$iteratorTable");
+        _lgNames.setAliasHasNextPair("hasNextPair");
+        _lgNames.setAliasNextPair("nextPair");
+        _lgNames.setAliasPairType("$pair");
+        _lgNames.setAliasGetFirst("getFirst");
+        _lgNames.setAliasGetSecond("getSecond");
         _lgNames.setAliasName("name");
         _lgNames.setAliasOrdinal("ordinal");
         _lgNames.setAliasGetOldString("getOldString");
@@ -271,7 +278,7 @@ public final class InitializationLgNames {
         _lgNames.setNullString("");
     }
     public static void initAdvStandards(ContextEl _cont) {
-        LgNames lgNames_ = new CustLgNames();
+        CustLgNames lgNames_ = new CustLgNames();
         lgNames_.setContext(_cont);
         basicStandards(lgNames_);
         lgNames_.setAliasMath("$math");

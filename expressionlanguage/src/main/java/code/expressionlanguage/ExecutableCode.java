@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.structs.Struct;
 
 public interface ExecutableCode extends Analyzable {
 
@@ -8,5 +9,4 @@ public interface ExecutableCode extends Analyzable {
     void setException(Struct _struct);
     String joinPages();
     Struct getException();
-    ContextEl getContextEl();
 }

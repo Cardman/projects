@@ -7,10 +7,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.PageEl;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadVariableName;
@@ -22,12 +22,12 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -514,19 +514,17 @@ public final class VariableOperation extends LeafOperation implements
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
-        PageEl ip_ = _conf.getOperationPageEl();
-        int relativeOff_ = getOperations().getOffset();
-        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
-        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
-        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LocalVariable locVar_ = ip_.getLocalVar(variableName);
-        locVar_.setStruct(_right.getStruct());
-        setSimpleArgument(_right, _conf, _nodes);
-        return _right;
+        return endCalculate(_conf, _nodes, false, null, _right);
     }
 
     @Override
     public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+        return endCalculate(_conf, false, null, _right);
+    }
+    @Override
+    public Argument endCalculate(ContextEl _conf,
+            IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
+            Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getOperationPageEl();
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
@@ -534,7 +532,28 @@ public final class VariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LocalVariable locVar_ = ip_.getLocalVar(variableName);
         locVar_.setStruct(_right.getStruct());
-        setSimpleArgument(_right, _conf);
-        return _right;
+        Argument out_ = _right;
+        if (_post) {
+            out_ = _stored;
+        }
+        setSimpleArgument(out_, _conf, _nodes);
+        return out_;
+    }
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, boolean _post,
+            Argument _stored, Argument _right) {
+        PageEl ip_ = _conf.getOperationPageEl();
+        int relativeOff_ = getOperations().getOffset();
+        String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
+        int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        LocalVariable locVar_ = ip_.getLocalVar(variableName);
+        locVar_.setStruct(_right.getStruct());
+        Argument out_ = _right;
+        if (_post) {
+            out_ = _stored;
+        }
+        setSimpleArgument(out_, _conf);
+        return out_;
     }
 }

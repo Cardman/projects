@@ -1,7 +1,7 @@
 package code.formathtml.classes;
 import code.bean.Bean;
 import code.bean.translator.Translator;
-import code.expressionlanguage.opers.util.NullStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 
 public class MyStrangeTranslator extends Translator {

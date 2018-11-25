@@ -7,7 +7,7 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
-import code.expressionlanguage.PageEl;
+import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeOwnersDepends;
@@ -21,21 +21,21 @@ import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.ClassMetaInfo;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.BeanStruct;
+import code.formathtml.util.StdStruct;
 import code.formathtml.util.StringMapObjectStruct;
 import code.formathtml.util.TranslatorStruct;
 import code.formathtml.util.ValidatorStruct;
@@ -932,6 +932,11 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String lookupImportType(String _type, AccessingImportingBlock _rooted) {
+        return ContextEl.removeDottedSpaces(_type);
+    }
+    @Override
+    public String lookupSingleImportType(String _type,
+            AccessingImportingBlock _rooted) {
         return ContextEl.removeDottedSpaces(_type);
     }
 

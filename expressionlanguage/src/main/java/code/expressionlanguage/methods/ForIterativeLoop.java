@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
@@ -13,6 +12,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
@@ -25,10 +25,10 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -270,7 +270,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getAnalyzing().containsCatchVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -278,7 +277,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -286,7 +284,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
         }
         page_.setGlobalOffset(initOffset);
@@ -724,7 +721,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argFrom_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),null_));
             return;
         }
         ip_.setGlobalOffset(expressionOffset);
@@ -735,7 +732,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argTo_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
             return;
         }
         ip_.setGlobalOffset(stepOffset);
@@ -746,7 +743,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argStep_.isNull()) {
-            _conf.setException(new StdStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
             return;
         }
         realFromValue_ = argFrom_.getObject();
@@ -847,7 +844,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
         l_.setFinished(true);
     }
 
-    @Override
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);

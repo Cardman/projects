@@ -2615,6 +2615,125 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         assertEq(26, (Number)ret_.getObject());
     }
     @Test
+    public void calculateArgument76Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append("  public int field;\n");
+        xml_.append("  public normal int get(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Fct<Ex,Ex.Inner> c = $lambda(Ex.Inner,new);\n");
+        xml_.append("  Ex.Inner instance = c.call(new Ex());\n");
+        xml_.append("  instance.field=14i;\n");
+        xml_.append("  return instance.get();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefaultInternType();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument77Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append("  public int field;\n");
+        xml_.append("  public normal int get(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Fct<Ex.Inner> c = new Ex().$lambda(Inner,new);\n");
+        xml_.append("  Ex.Inner instance = c.call();\n");
+        xml_.append("  instance.field=14i;\n");
+        xml_.append("  return instance.get();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefaultInternType();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument78Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append("  public int field;\n");
+        xml_.append("  public(int p){\n");
+        xml_.append("   field=p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public normal int get(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Fct<int,Ex.Inner> c = new Ex().$lambda(Inner,new,int);\n");
+        xml_.append("  Ex.Inner instance = c.call(14i);\n");
+        xml_.append("  return instance.get();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefaultInternType();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+
+    @Test
+    public void calculateArgument79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner<#T> {\n");
+        xml_.append("  public int field;\n");
+        xml_.append("  public(int p){\n");
+        xml_.append("   field=p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public normal int get(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Fct<int,Ex.Inner<String>> c = new Ex().$lambda(Inner<String>,new,int);\n");
+        xml_.append("  Ex.Inner<String> instance = c.call(14i);\n");
+        xml_.append("  return instance.get();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextEnElDefaultInternType();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateArgument("pkg.Ex", id_, args_, cont_);
+        assertEq(14, (Number)ret_.getObject());
+    }
+    @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $abstract $class pkg.ExTwo {\n");

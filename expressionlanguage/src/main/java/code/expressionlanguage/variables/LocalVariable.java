@@ -1,11 +1,9 @@
 package code.expressionlanguage.variables;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.LongStruct;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.StringStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class LocalVariable {
 
@@ -34,10 +32,6 @@ public final class LocalVariable {
 
     public void setElement(Long _element) {
         element = new LongStruct(_element);
-    }
-
-    public void setElement(Object _element, ContextEl _context) {
-        element = StdStruct.wrapStd(_element, _context);
     }
 
     public void setElement(String _element) {

@@ -34,7 +34,7 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class CompoundAffectationOperation extends MethodOperation {
+public final class CompoundAffectationOperation extends MethodOperation implements CallSimpleOperation {
 
     private SettableElResult settable;
     private String oper;
@@ -88,7 +88,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             for (OperationNode o: chidren_) {
                 firstArgs_.add(o.getResultClass());
             }
-            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            CustList<OperationNode> chUnwrap_ = new CustList<OperationNode>();
+            InvokingOperation.unwrapArgsFct(chUnwrap_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
             Mapping map_ = new Mapping();
             map_.setArg(out_);
             map_.setParam(elt_.getResultClass());
@@ -353,12 +354,14 @@ public final class CompoundAffectationOperation extends MethodOperation {
         return arg_;
     }
 
+    @Override
     public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
         Argument arg_ = settable.endCalculate(_conf, _nodes, _right);
         if (_conf.hasExceptionOrFailInit()) {
             return arg_;
         }
         setSimpleArgument(arg_, _conf, _nodes);
+        _nodes.getVal(this).setArgument(arg_);
         return arg_;
     }
     @Override

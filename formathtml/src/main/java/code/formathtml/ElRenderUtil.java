@@ -9,7 +9,7 @@ import code.expressionlanguage.ElResolver;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.StdStruct;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.formathtml.util.BadElRender;
 import code.util.CustList;
 
@@ -29,7 +29,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -43,7 +43,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -56,7 +56,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -84,7 +84,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -96,7 +96,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }
@@ -106,7 +106,7 @@ public final class ElRenderUtil {
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
             badEl_.setRc(_conf.getCurrentLocation());
-            context_.setException(new StdStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            context_.setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
             context_.setAnalyzing(null);
             return Argument.createVoid();
         }

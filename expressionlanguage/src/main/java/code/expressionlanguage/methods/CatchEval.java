@@ -1,5 +1,4 @@
 package code.expressionlanguage.methods;
-import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
@@ -8,6 +7,7 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
 import code.expressionlanguage.options.Options;
@@ -115,7 +115,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -123,7 +122,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getAnalyzing().containsVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -131,7 +129,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -139,7 +136,6 @@ public final class CatchEval extends AbstractCatchEval {
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
         }
         if (getFirstChild() == null) {

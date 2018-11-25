@@ -1,18 +1,18 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.opers.util.AnnotationStruct;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.CustStruct;
-import code.expressionlanguage.opers.util.EnumStruct;
-import code.expressionlanguage.opers.util.InnerCustStruct;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.AnnotationStruct;
+import code.expressionlanguage.structs.CustStruct;
+import code.expressionlanguage.structs.EnumStruct;
+import code.expressionlanguage.structs.InnerCustStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.ObjectMap;
 import code.util.StringList;
 
@@ -48,7 +48,7 @@ public class DefaultInitializer implements Initializer {
                     if (str_ != null) {
                         fields_.put(key_, str_);
                     } else {
-                        fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                        fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
                     }
                 }
             }
@@ -83,7 +83,7 @@ public class DefaultInitializer implements Initializer {
                 if (str_ != null) {
                     fields_.put(key_, str_);
                 } else {
-                    fields_.put(key_, StdStruct.defaultClass(fieldDeclClass_, _context));
+                    fields_.put(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context));
                 }
             }
         }

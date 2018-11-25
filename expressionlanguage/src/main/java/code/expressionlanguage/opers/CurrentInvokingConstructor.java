@@ -11,8 +11,8 @@ import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -56,7 +56,7 @@ public final class CurrentInvokingConstructor extends AbstractInvokingConstructo
         String classFormat_ = calledCtor_;
         classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
         if (classFormat_ == null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),cast_));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),cast_));
             Argument a_ = new Argument();
             return a_;
         }

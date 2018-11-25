@@ -1,7 +1,7 @@
 package code.formathtml.util;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stacks.SwitchStack;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.sml.Element;
 import code.util.CustList;
 

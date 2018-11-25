@@ -1,5 +1,5 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public abstract class LoopStack implements BreakableStack {
@@ -18,15 +18,13 @@ public abstract class LoopStack implements BreakableStack {
     
     private Struct structIterator;
 
-    private Object iterator;
-
     private long index;
 
     private long maxIteration;
 
     public String getInfos() {
         String iteration_;
-        if (iterator != null || index != -1) {
+        if (index != -1) {
             iteration_ = HAS_NEXT;
         } else {
             iteration_ = WHILE_LOOP;
@@ -39,11 +37,6 @@ public abstract class LoopStack implements BreakableStack {
     }
 
     public void setMaxIteration(long _maxIteration) {
-        maxIteration = _maxIteration;
-    }
-
-    public void setIterator(Object _iterator, long _maxIteration) {
-        iterator = _iterator;
         maxIteration = _maxIteration;
     }
 

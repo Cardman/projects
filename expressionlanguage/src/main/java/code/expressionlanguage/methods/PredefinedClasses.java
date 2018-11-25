@@ -56,6 +56,68 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
+    public static String getBracedIterableTableType(ContextEl _context) {
+        char endLine_ = _context.getOptions().getEndLine();
+        KeyWords keyWords_ = _context.getKeyWords();
+        String public_ = keyWords_.getKeyWordPublic();
+        String interface_ = keyWords_.getKeyWordInterface();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        LgNames stds_ = _context.getStandards();
+        StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
+        iterable_.append(interface_).append(SPACE);
+        iterable_.append(stds_.getAliasIterableTable()).append("<#T,#U>{\n");
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append(stds_.getAliasIteratorTableType()).append("<#T,#U>").append(SPACE);
+        iterable_.append(stds_.getAliasIteratorTable()).append("()").append(endLine_).append("\n");
+        iterable_.append("}\n");
+        return iterable_.toString();
+    }
+
+    public static String getBracedIteratorTableType(ContextEl _context) {
+        char endLine_ = _context.getOptions().getEndLine();
+        KeyWords keyWords_ = _context.getKeyWords();
+        String public_ = keyWords_.getKeyWordPublic();
+        String interface_ = keyWords_.getKeyWordInterface();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        LgNames stds_ = _context.getStandards();
+        StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
+        iterable_.append(interface_).append(SPACE);
+        iterable_.append(stds_.getAliasIteratorTableType()).append("<#T,#U>{\n");
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append(stds_.getAliasPairType());
+        iterable_.append("<#T,#U>").append(SPACE);
+        iterable_.append(stds_.getAliasNextPair()).append("()").append(endLine_).append("\n");
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append(stds_.getAliasPrimBoolean()).append(SPACE);
+        iterable_.append(stds_.getAliasHasNextPair()).append("()").append(endLine_).append("\n");
+        iterable_.append("}\n");
+        return iterable_.toString();
+    }
+
+    public static String getBracedPairType(ContextEl _context) {
+        char endLine_ = _context.getOptions().getEndLine();
+        KeyWords keyWords_ = _context.getKeyWords();
+        String public_ = keyWords_.getKeyWordPublic();
+        String interface_ = keyWords_.getKeyWordInterface();
+        String abstract_ = keyWords_.getKeyWordAbstract();
+        LgNames stds_ = _context.getStandards();
+        StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
+        iterable_.append(interface_).append(SPACE);
+        iterable_.append(stds_.getAliasPairType()).append("<#T,#U>{\n");
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append("#T").append(SPACE);
+        iterable_.append(stds_.getAliasGetFirst()).append("()").append(endLine_).append("\n");
+        iterable_.append(public_).append(SPACE);
+        iterable_.append(abstract_).append(SPACE);
+        iterable_.append("#U").append(SPACE);
+        iterable_.append(stds_.getAliasGetSecond()).append("()").append(endLine_).append("\n");
+        iterable_.append("}\n");
+        return iterable_.toString();
+    }
     public static String getBracedEnumType(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
         KeyWords keyWords_ = _context.getKeyWords();

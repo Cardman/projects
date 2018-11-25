@@ -19,23 +19,22 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.util.ArrayStruct;
-import code.expressionlanguage.opers.util.BooleanStruct;
-import code.expressionlanguage.opers.util.CausingErrorStruct;
 import code.expressionlanguage.opers.util.ClassField;
-import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.InvokeTargetErrorStruct;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.StringStruct;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.CausingErrorStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.InvokeTargetErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.formathtml.classes.ArrayContainer;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.StdStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -6908,161 +6907,6 @@ public final class ElRenderUtilTest {
         assertTrue(res_.getObject() instanceof Integer);
         assertEq(-1, (Number)res_.getObject());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @Test
-    public void processAffect14Test() {
-        Configuration context_ = contextEl(true,false);
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct[] c_ = new Struct[1];
-        c_[0] = StdStruct.newInstance(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
-        lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
-        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
-        localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("v;.[0i].array[0i]=1i", 0, context_);
-        assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
-    }
-
-    @Test
-    public void processAffect15Test() {
-        Configuration context_ = contextEl(true,false);
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct[] c_ = new Struct[1];
-        c_[0] = StdStruct.newInstance(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
-        lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
-        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
-        localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("v;.[0i].getArray()[0i]=1i", 0, context_);
-        assertEq(1,((ArrayContainer)c_[0].getInstance()).getArray()[0]);
-    }
-
-    @Test
-    public void processAffect16Test() {
-        Configuration context_ = contextEl(true,false);
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct[] c_ = new Struct[1];
-        c_[0] = StdStruct.newInstance(new ArrayContainer(),"code.expressionlanguage.classes.ArrayContainer");
-        lv_.setStruct(new ArrayStruct(c_, "[code.expressionlanguage.classes.ArrayContainer"));
-        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
-        localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("v;.[0i].getCompo()[0i].getArray()[0i]=1i", 0, context_);
-        assertEq(1, ((ArrayContainer)c_[0].getInstance()).getCompo()[0].getArray()[0]);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @Test
-    public void processAffect19Test() {
-        Configuration context_ = contextEl(true,false);
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(StdStruct.newInstance(c_,"code.expressionlanguage.classes.ArrayContainer"));
-        lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
-        localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("v;.getArray()[0i]=1i", 0, context_);
-        assertEq(1, c_.getArray()[0]);
-    }
-
-    @Test
-    public void processAffect20Test() {
-        Configuration context_ = contextEl(true,false);
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayContainer c_ = new ArrayContainer();
-        lv_.setStruct(StdStruct.newInstance(c_,"code.expressionlanguage.classes.ArrayContainer"));
-        lv_.setClassName("code.expressionlanguage.classes.ArrayContainer");
-        localVars_.put("v", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("v;.getCompo()[0i].getArray()[0i]=1i", 0, context_);
-        assertEq(1, c_.getCompo()[0].getArray()[0]);
-    }
-
     @Test
     public void processAffect21Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -7339,26 +7183,6 @@ public final class ElRenderUtilTest {
     }
 
     @Test
-    public void processAffect7FailTest() {
-        Configuration context_ = contextEl(true,false);
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayContainer[] c_ = new ArrayContainer[1];
-        c_[0] = new ArrayContainer();
-        lv_.setStruct(StdStruct.newInstance(c_, "[code.expressionlanguage.classes.ArrayContainer"));
-        lv_.setClassName("[code.expressionlanguage.classes.ArrayContainer");
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasInteger());
-        localVars_.put("v2", lv_);
-        context_.getLastPage().setLocalVars(localVars_);
-        ElRenderUtil.processEl("v;.[0i].getCompo()[0i].getArray()[0i]=v2;.", 0, context_);
-        assertTrue(context_.getClasses().isEmptyErrors());
-        assertNotNull(context_.getContext().getException());
-    }
-
-    @Test
     public void processAffect8FailTest() {
         Configuration context_ = contextEl(true,false);
         addImportingPage(context_);
@@ -7515,7 +7339,7 @@ public final class ElRenderUtilTest {
         _conf.getContext().setAnalyzing(new AnalyzedPageEl());
     }
     private static void addBean(Configuration _conf, Object _bean, String _beanClass) {
-        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.wrapStd(_bean, _conf.toContextEl()),_conf);
+        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass),_conf);
         _conf.setGlobalClass(_beanClass);
         _conf.toContextEl().setGlobalClass(_beanClass);
     }

@@ -1,10 +1,10 @@
 package code.expressionlanguage.variables;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.opers.util.LongStruct;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.NumberStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class LoopVariable {
 

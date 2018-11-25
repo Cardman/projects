@@ -13,19 +13,20 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.MethodPageEl;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.calls.MethodPageEl;
 import code.expressionlanguage.classes.Composite;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.classes.CustLgNames;
-import code.expressionlanguage.opers.util.ArrayStruct;
-import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.classes.StdStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -919,8 +920,8 @@ public class ExpressionLanguageTest {
     @Test
     public void processEl202Test() {
         Struct exc_ = directCalculateExc("$(java.lang.Byte)\"not cast\"");
-        assertTrue(exc_ instanceof StdStruct);
-        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",((StdStruct)exc_).getClassName());
+        assertTrue(exc_ instanceof ErrorStruct);
+        assertEq("code.expressionlanguage.exceptions.DynamicCastClassException",((ErrorStruct)exc_).getClassName());
     }
 
     @Test
@@ -1706,7 +1707,7 @@ public class ExpressionLanguageTest {
         _conf.addPage(new MethodPageEl());
     }
     private static void addBean(ContextEl _conf, Object _bean, String _beanClass) {
-        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.wrapStd(_bean, _conf));
+        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, _beanClass));
         _conf.setGlobalClass(_beanClass);
     }
 

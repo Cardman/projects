@@ -10,7 +10,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ConstructorId;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -1395,6 +1395,43 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "ance"));
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(1, (Number)field_.getInstance());
+    }
+    @Test
+    public void instanceArgument151Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public pkg.CustList<java.lang.Number> inst=$new pkg.CustList<java.lang.Number>():\n");
+        xml_.append(" $public $int res:\n");
+        xml_.append(" {\n");
+        xml_.append("  inst;;;add(3i):\n");
+        xml_.append("  inst;;;add(1i):\n");
+        xml_.append("  inst;;;add(2i):\n");
+        xml_.append("  $iterator<java.lang.Number> it = inst;;;iterator():\n");
+        xml_.append("  $while(it;.hasNext()){\n");
+        xml_.append("   java.lang.Number value = it;.next():\n");
+        xml_.append("   res;;;+=value;.intValue():\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        files_.put(CUST_ITER_PATH, getCustomIterator());
+        files_.put(CUST_LIST_PATH, getCustomList());
+        ContextEl cont_ = contextEl();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.getClasses().isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        ConstructorId id_ = getConstructorId("pkg.Ex");
+        initializeClass("pkg.Ex", cont_);
+        Argument ret_;
+        ret_ = instanceArgument("pkg.Ex", null, id_, args_, cont_);
+        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        Struct str_ = ret_.getStruct();
+        assertEq("pkg.Ex", str_.getClassName(cont_));
+        Struct field_;
+        field_ = str_.getFields().getVal(new ClassField("pkg.Ex", "res"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, (Number)field_.getInstance());
     }
     @Test
     public void instanceArgument1FailTest() {

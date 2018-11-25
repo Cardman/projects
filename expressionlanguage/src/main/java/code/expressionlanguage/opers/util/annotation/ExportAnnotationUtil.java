@@ -1,6 +1,6 @@
 package code.expressionlanguage.opers.util.annotation;
 
-import code.expressionlanguage.opers.util.FieldableStruct;
+import code.expressionlanguage.structs.FieldableStruct;
 import code.util.CustList;
 
 public final class ExportAnnotationUtil {

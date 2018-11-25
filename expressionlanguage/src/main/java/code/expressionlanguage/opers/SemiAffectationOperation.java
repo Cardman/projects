@@ -8,7 +8,10 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
+import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.CustomFoundMethod;
+import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
@@ -17,7 +20,10 @@ import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.opers.util.ClassMethodId;
+import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.FieldInfo;
+import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.variables.LocalVariable;
@@ -29,10 +35,11 @@ import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class SemiAffectationOperation extends AbstractUnaryOperation {
+public final class SemiAffectationOperation extends AbstractUnaryOperation implements CallSimpleOperation {
     private SettableElResult settable;
     private boolean post;
     private String oper;
+    private ClassMethodId classMethodId;
 
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
@@ -63,6 +70,33 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
         }
         setResultClass(settable.getResultClass());
         settable.setVariable(false);
+        NatTreeMap<Integer, String> ops_ = getOperations().getOperators();
+        String op_ = ops_.firstValue();
+        ClassMethodIdReturn cust_ = getOperator(_conf, op_, settable.getResultClass());
+        if (cust_.isFoundMethod()) {
+            ClassArgumentMatching out_ = new ClassArgumentMatching(cust_.getReturnType());
+            setResultClass(out_);
+            String foundClass_ = cust_.getRealClass();
+            foundClass_ = Templates.getIdFromAllTypes(foundClass_);
+            MethodId id_ = cust_.getRealId();
+            classMethodId = new ClassMethodId(foundClass_, id_);
+            MethodId realId_ = cust_.getRealId();
+            CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+            firstArgs_.add(settable.getResultClass());
+            CustList<OperationNode> chidren_ = new CustList<OperationNode>();
+            InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _conf);
+            Mapping map_ = new Mapping();
+            map_.setArg(out_);
+            map_.setParam(settable.getResultClass());
+            if (!Templates.isCorrect(map_, _conf)) {
+                BadImplicitCast cast_ = new BadImplicitCast();
+                cast_.setMapping(map_);
+                cast_.setFileName(_conf.getCurrentFileName());
+                cast_.setRc(_conf.getCurrentLocation());
+                _conf.getClasses().addError(cast_);
+            }
+            return;
+        }
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
@@ -234,6 +268,21 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     }
     @Override
     public void calculate(ExecutableCode _conf) {
+        if (classMethodId != null) {
+            CustList<OperationNode> chidren_ = new CustList<OperationNode>();
+            chidren_.add((OperationNode) settable);
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            Argument stored_ = ((OperationNode) settable).getArgument();
+            arguments_.add(stored_);
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            Argument res_;
+            res_ = ProcessMethod.calculateArgument(Argument.createVoid(), classNameFound_, id_, firstArgs_, _conf.getContextEl());
+            settable.endCalculate(_conf, post, stored_, res_);
+            setSimpleArgument(res_, _conf);
+            return;
+        }
         settable.calculateSemiSetting(_conf, oper, post);
         OperationNode op_ = (OperationNode)settable;
         setSimpleArgument(op_.getArgument(), _conf);
@@ -242,8 +291,32 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation {
     @Override
     public Argument calculate(IdMap<OperationNode, ArgumentsPair> _nodes,
             ContextEl _conf) {
+        if (classMethodId != null) {
+            CustList<OperationNode> chidren_ = new CustList<OperationNode>();
+            chidren_.add((OperationNode) settable);
+            CustList<Argument> arguments_ = new CustList<Argument>();
+            arguments_.add(_nodes.getVal((OperationNode) settable).getArgument());
+            CustList<Argument> firstArgs_ = InvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_, _conf);
+            String classNameFound_ = classMethodId.getClassName();
+            MethodId id_ = classMethodId.getConstraints();
+            _conf.getContextEl().setCallMethod(new CustomFoundMethod(Argument.createVoid(), classNameFound_, id_, firstArgs_));
+            return Argument.createVoid();
+        }
         Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
         setSimpleArgument(arg_, _conf, _nodes);
+        return arg_;
+    }
+
+    @Override
+    public Argument endCalculate(ContextEl _conf,
+            IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
+        Argument stored_ = _nodes.getVal((OperationNode) settable).getArgument();
+        Argument arg_ = settable.endCalculate(_conf, _nodes, post, stored_, _right);
+        if (_conf.hasExceptionOrFailInit()) {
+            return arg_;
+        }
+        setSimpleArgument(arg_, _conf, _nodes);
+        _nodes.getVal(this).setArgument(arg_);
         return arg_;
     }
 

@@ -1,5 +1,5 @@
 package code.expressionlanguage.stacks;
-import code.expressionlanguage.opers.util.Struct;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class TryStack {
 

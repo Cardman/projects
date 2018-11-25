@@ -12,8 +12,9 @@ import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.util.ArgumentsPair;
 import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.StdStruct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -87,8 +88,8 @@ public final class CastOperation extends AbstractUnaryOperation {
                 return;
             }
         }
-        Object o_ = objArg_.getObject();
-        String argClassName_ = _conf.getStandards().getSimpleStructClassName(o_);
+        Struct s_ = objArg_.getStruct();
+        String argClassName_ = s_.getClassName(_conf.getContextEl());
         ClassArgumentMatching resCl_ = getResultClass();
         Argument arg_ = new Argument();
         if (!PrimitiveTypeUtil.isPrimitive(className, _conf)) {
@@ -159,7 +160,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
             if (!Templates.isCorrectExecute(argClassName_, paramName_ , _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -168,7 +169,7 @@ public final class CastOperation extends AbstractUnaryOperation {
             if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -176,7 +177,7 @@ public final class CastOperation extends AbstractUnaryOperation {
             } else {
                 if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new StdStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }

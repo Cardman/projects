@@ -1,10 +1,10 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.AbstractPageEl;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
@@ -13,6 +13,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.util.BadImplicitCast;
 import code.expressionlanguage.methods.util.BadVariableName;
 import code.expressionlanguage.methods.util.DuplicateVariable;
@@ -21,18 +22,21 @@ import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
+import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignedBooleanVariables;
 import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
-import code.expressionlanguage.opers.util.NullStruct;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -242,7 +246,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getAnalyzing().containsLocalVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -250,7 +253,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
@@ -258,7 +260,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 d_.setFileName(getFile().getFileName());
                 d_.setRc(getRowCol(0, variableNameOffset));
                 _cont.getClasses().addError(d_);
-                return;
             }
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -679,7 +680,8 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         boolean finished_ = false;
         OperationNode el_ = opList.last();
         if (el_.getResultClass().isArray()) {
-            length_ = LgNames.getLength(its_.getInstance());
+            ArrayStruct arr_ = (ArrayStruct)its_;
+            length_ = arr_.getInstance().length;
             if (length_ == CustList.SIZE_EMPTY) {
                 finished_ = true;
             }
@@ -750,6 +752,17 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             return NullStruct.NULL_VALUE;
         }
         Struct ito_ = arg_.getStruct();
+        OperationNode op_ = opList.last();
+        if (op_.getResultClass().isArray()) {
+            if (!(ito_ instanceof ArrayStruct)) {
+                String cast_;
+                cast_ = _conf.getStandards().getAliasCast();
+                String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
+                String arrObj_ = _conf.getStandards().getAliasObject();
+                arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
+                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE,_conf.joinPages())),cast_));
+            }
+        }
         return ito_;
         
     }
@@ -822,7 +835,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         return hasNext_;
     }
 
-    @Override
     public void incrementLoop(ContextEl _conf, LoopBlockStack _l,
             StringMap<LoopVariable> _vars) {
         _l.setIndex(_l.getIndex() + 1);
@@ -849,7 +861,10 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             element_ = arg_.getStruct();
         } else {
             Struct container_ = lv_.getContainer();
-            element_ = LgNames.getElement(container_.getInstance(), (int) _l.getIndex(), _conf);
+            element_ = InvokingOperation.getElement(container_, _l.getIndex(), _conf);
+            if (_conf.hasExceptionOrFailInit()) {
+                return;
+            }
             _conf.addSensibleField(container_, element_);
         }
         String className_ = _conf.getLastPage().formatVarType(importedClassName, _conf);

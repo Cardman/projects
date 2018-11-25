@@ -35,4 +35,6 @@ public interface SettableElResult {
             ExecutableCode _conf, String _op, boolean _post);
     Argument endCalculate(ExecutableCode _conf, Argument _right);
     Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right);
+    Argument endCalculate(ExecutableCode _conf, boolean _post, Argument _stored, Argument _right);
+    Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right);
 }

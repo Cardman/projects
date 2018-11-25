@@ -1,15 +1,15 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.opers.util.ByteStruct;
-import code.expressionlanguage.opers.util.CharStruct;
-import code.expressionlanguage.opers.util.DoubleStruct;
-import code.expressionlanguage.opers.util.FloatStruct;
-import code.expressionlanguage.opers.util.IntStruct;
-import code.expressionlanguage.opers.util.LongStruct;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.ShortStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.CharStruct;
+import code.expressionlanguage.structs.DoubleStruct;
+import code.expressionlanguage.structs.FloatStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.ShortStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public final class ParsedArgument {

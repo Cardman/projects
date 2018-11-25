@@ -25,15 +25,15 @@ import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.FieldInfo;
 import code.expressionlanguage.opers.util.FieldResult;
-import code.expressionlanguage.opers.util.FieldableStruct;
-import code.expressionlanguage.opers.util.NullStruct;
-import code.expressionlanguage.opers.util.NumberStruct;
 import code.expressionlanguage.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.FieldableStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -638,7 +638,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -647,8 +647,7 @@ public abstract class SettableAbstractFieldOperation extends
         Argument previous_ = new Argument();
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         left_.setStruct(_store);
-        fieldType_ = _store.getClassName(_conf);
-        fieldType_ = _conf.getStandards().toWrapper(fieldType_);
+        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
         res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -669,7 +668,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -713,7 +712,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -725,8 +724,7 @@ public abstract class SettableAbstractFieldOperation extends
         Argument previous_ = new Argument();
         previous_.setStruct(PrimitiveTypeUtil.getParent(anc, className_, _previous.getStruct(), _conf));
         left_.setStruct(_store);
-        fieldType_ = _store.getClassName(_conf);
-        fieldType_ = _conf.getStandards().toWrapper(fieldType_);
+        fieldType_ = _conf.getStandards().getStructClassName(_store, _conf.getContextEl());
         ClassArgumentMatching cl_ = new ClassArgumentMatching(fieldType_);
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -750,7 +748,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -762,6 +760,16 @@ public abstract class SettableAbstractFieldOperation extends
 
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<OperationNode, ArgumentsPair> _nodes, Argument _right) {
+        return endCalculate(_conf, _nodes, false, null, _right);
+    }
+    @Override
+    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+        return endCalculate(_conf, false, null, _right);
+    }
+    @Override
+    public Argument endCalculate(ContextEl _conf,
+            IdMap<OperationNode, ArgumentsPair> _nodes, boolean _post,
+            Argument _stored, Argument _right) {
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
@@ -777,17 +785,23 @@ public abstract class SettableAbstractFieldOperation extends
                 }
                 classes_.initializeStaticField(fieldId_, _right.getStruct());
                 Argument a_ = _right;
-                setSimpleArgument(_right, _conf, _nodes);
+                if (_post) {
+                    a_ = _stored;
+                }
+                setSimpleArgument(a_, _conf, _nodes);
                 return a_;
             }
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return _right;
             }
-            setSimpleArgument(_right, _conf, _nodes);
             Argument a_ = _right;
+            if (_post) {
+                a_ = _stored;
+            }
+            setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
         Argument previousNode_;
@@ -805,21 +819,28 @@ public abstract class SettableAbstractFieldOperation extends
             }
             ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
             Argument a_ = _right;
-            setSimpleArgument(_right, _conf, _nodes);
+            if (_post) {
+                a_ = _stored;
+            }
+            setSimpleArgument(a_, _conf, _nodes);
             return a_;
         }
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return _right;
         }
         Argument a_ = _right;
-        setSimpleArgument(_right, _conf, _nodes);
+        if (_post) {
+            a_ = _stored;
+        }
+        setSimpleArgument(a_, _conf, _nodes);
         return a_;
     }
     @Override
-    public Argument endCalculate(ExecutableCode _conf, Argument _right) {
+    public Argument endCalculate(ExecutableCode _conf, boolean _post,
+            Argument _stored, Argument _right) {
         int relativeOff_ = getOperations().getOffset();
         String originalStr_ = getOperations().getValues().getValue(CustList.FIRST_INDEX);
         int off_ = StringList.getFirstPrintableCharIndex(originalStr_)+relativeOff_;
@@ -831,17 +852,23 @@ public abstract class SettableAbstractFieldOperation extends
             if (classes_.isCustomType(className_)) {
                 classes_.initializeStaticField(fieldId_, _right.getStruct());
                 Argument a_ = _right;
-                setSimpleArgument(_right, _conf);
+                if (_post) {
+                    a_ = _stored;
+                }
+                setSimpleArgument(a_, _conf);
                 return a_;
             }
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
                 return _right;
             }
             Argument a_ = _right;
-            setSimpleArgument(_right, _conf);
+            if (_post) {
+                a_ = _stored;
+            }
+            setSimpleArgument(a_, _conf);
             return a_;
         }
         Argument previousNode_;
@@ -855,17 +882,23 @@ public abstract class SettableAbstractFieldOperation extends
         if (previous_.getStruct() instanceof FieldableStruct) {
             ((FieldableStruct) previous_.getStruct()).setStruct(fieldId_, _right.getStruct());
             Argument a_ = _right;
-            setSimpleArgument(_right, _conf);
+            if (_post) {
+                a_ = _stored;
+            }
+            setSimpleArgument(a_, _conf);
             return a_;
         }
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new StdStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
             return _right;
         }
         Argument a_ = _right;
-        setSimpleArgument(_right, _conf);
+        if (_post) {
+            a_ = _stored;
+        }
+        setSimpleArgument(a_, _conf);
         return a_;
     }
 }

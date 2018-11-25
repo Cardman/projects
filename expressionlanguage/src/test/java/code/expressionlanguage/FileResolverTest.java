@@ -8945,6 +8945,7 @@ public final class FileResolverTest {
         assertSame(AccessEnum.PUBLIC, field_.getAccess());
         assertEq("ONE", ((ElementBlock)field_).getUniqueFieldName());
         assertEq("pkgtwo.Toto", field_.getClassName());
+        assertEq(102, field_.getFieldNameOffset());
         assertEq("", ((ElementBlock)field_).getValue());
         assertNull(child_.getNextSibling());
     }

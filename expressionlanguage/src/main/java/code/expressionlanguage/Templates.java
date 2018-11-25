@@ -9,13 +9,13 @@ import code.expressionlanguage.methods.UniqueRootedBlock;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.DimComp;
-import code.expressionlanguage.opers.util.NumberStruct;
-import code.expressionlanguage.opers.util.StdStruct;
-import code.expressionlanguage.opers.util.Struct;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.util.CustList;
 import code.util.EqList;
@@ -87,6 +87,64 @@ public final class Templates {
             i_++;
         }
         types_.add(out_.toString());
+        return types_;
+    }
+    public static StringList getAllInnerTypesSingleDotted(String _type, Analyzable _an) {
+        StringList types_ = new StringList();
+        int len_ = _type.length();
+        boolean inner_ = false;
+        StringBuilder builtId_ = new StringBuilder();
+        int i_ = 0;
+        int count_ = 0;
+        while (i_ < len_) {
+            char cur_ = _type.charAt(i_);
+            if (count_ > 0) {
+                builtId_.append(cur_);
+                if (cur_ == LT) {
+                    count_++;
+                }
+                if (cur_ == GT) {
+                    count_--;
+                    if (count_ == 0) {
+                        inner_ = true;
+                    }
+                }
+                i_++;
+                continue;
+            }
+            if (cur_ == LT) {
+                builtId_.append(cur_);
+                count_++;
+                i_++;
+                continue;
+            }
+            if (cur_ == SEP_CLASS_CHAR) {
+                //if builtId_.toString() is a type => inner_ is true
+                String foundId_ = builtId_.toString();
+                if (!inner_) {
+                    boolean foundPkg_ = false;
+                    for (String p: _an.getClasses().getPackagesFound()) {
+                        if (StringList.quickEq(p, ContextEl.removeDottedSpaces(foundId_))) {
+                            foundPkg_ = true;
+                            break;
+                        }
+                    }
+                    if (!foundPkg_) {
+                        inner_ = true;
+                    }
+                }
+                if (!inner_) {
+                    builtId_.append(cur_);
+                } else {
+                    types_.add(builtId_.toString());
+                    builtId_.delete(0, builtId_.length());
+                }
+            } else {
+                builtId_.append(cur_);
+            }
+            i_++;
+        }
+        types_.add(builtId_.toString());
         return types_;
     }
     public static StringList getAllInnerTypes(String _type) {
@@ -818,22 +876,21 @@ public final class Templates {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
         if (!str_.isNull() && !_convert) {
-            String className_ = str_.getClassName(_context);
-            String a_ = _context.getStandards().toWrapper(className_);
+            String a_ = stds_.getStructClassName(str_, _context.getContextEl());
             if (!Templates.isCorrectExecute(a_, _param, _context)) {
                 if (_arr) {
                     String cast_ = stds_.getAliasStore();
-                    _context.setException(new StdStruct(new CustomError(_context.joinPages()),cast_));
+                    _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),cast_));
                     return false;
                 }
                 String cast_ = stds_.getAliasCast();
-                _context.setException(new StdStruct(new CustomError(_context.joinPages()),cast_));
+                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),cast_));
                 return false;
             }
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(_param, str_, _context)) {
             String npe_ = stds_.getAliasNullPe();
-            _context.setException(new StdStruct(new CustomError(_context.joinPages()),npe_));
+            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),npe_));
             return false;
         }
         if (str_ instanceof NumberStruct) {
@@ -1407,6 +1464,7 @@ public final class Templates {
 
     public static boolean correctNbParameters(String _genericClass, Analyzable _context) {
         StringBuilder id_ = new StringBuilder();
+        //From analyze
         StringList inners_ = getAllInnerTypes(_genericClass);
         String fct_ = _context.getStandards().getAliasFct();
         int len_ = inners_.size();
