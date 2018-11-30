@@ -1,12 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloBoolean;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.Numbers;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
@@ -20,6 +12,14 @@ import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.Numbers;
+import code.util.StringMap;
 
 final class InitializationStatus {
 

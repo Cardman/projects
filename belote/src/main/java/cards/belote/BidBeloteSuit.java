@@ -3,11 +3,10 @@ import cards.belote.enumerations.BidBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.EqList;
-import code.util.annot.RwXml;
 import code.util.consts.Constants;
 import code.util.ints.Equallable;
 
-@RwXml
+
 public final class BidBeloteSuit implements Equallable<BidBeloteSuit> {
 
     private static final String SPACE = " ";

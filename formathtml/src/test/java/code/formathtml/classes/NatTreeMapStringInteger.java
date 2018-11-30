@@ -2,7 +2,7 @@ package code.formathtml.classes;
 
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SimpleIterable;
@@ -10,10 +10,10 @@ import code.util.ints.SortableMap;
 
 public final class NatTreeMapStringInteger implements SortableMap<String,Integer> {
 
-    private final NatTreeMap<String,Integer> tree;
+    private final NatStringTreeMap<Integer> tree;
 
     public NatTreeMapStringInteger() {
-        tree = new NatTreeMap<String,Integer>();
+        tree = new NatStringTreeMap<Integer>();
     }
 
     @Override
@@ -36,7 +36,7 @@ public final class NatTreeMapStringInteger implements SortableMap<String,Integer
         return tree.entryList();
     }
 
-    public void putAllTreeMap(NatTreeMap<String, Integer> _m) {
+    public void putAllTreeMap(NatStringTreeMap< Integer> _m) {
         tree.putAllTreeMap(_m);
     }
 

@@ -1,8 +1,7 @@
 package cards.network.common.before;
 import code.util.NatTreeMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ChoosenPlace extends PlayerActionBeforeGame {
 
     private int place;

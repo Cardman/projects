@@ -7,10 +7,8 @@ import code.util.CustList;
 import code.util.EqList;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
-import code.util.annot.CapacityInit;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
 
     private ObjectNotNullMap<Rate,LgInt> law;
@@ -30,7 +28,7 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         }
     }
 
-    @CapacityInit
+    
     public MonteCarloNumber(CollCapacity _capacity) {
         law = new ObjectNotNullMap<Rate,LgInt>(_capacity);
     }

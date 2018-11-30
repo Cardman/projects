@@ -5,9 +5,8 @@ import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.util.EnumList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class RefreshHand extends PlayerActionGame {
 
     private CardTarot card;

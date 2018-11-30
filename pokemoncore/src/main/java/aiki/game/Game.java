@@ -72,6 +72,7 @@ import code.maths.montecarlo.MonteCarloString;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
@@ -79,9 +80,8 @@ import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Game {
 
     public static final String GAME = "aiki.game.Game";
@@ -1257,7 +1257,7 @@ public final class Game {
         FightFacade.setChosenHealingItem(fight,_objet,_import);
     }
 
-    public NatTreeMap<String,BallNumberRate> calculateCatchingRates(DataBase _import) {
+    public NatStringTreeMap<BallNumberRate> calculateCatchingRates(DataBase _import) {
         return FightFacade.calculateCatchingRates(fight, difficulty, player, _import);
     }
 
@@ -1268,7 +1268,7 @@ public final class Game {
     }
 
     //in a bean
-    public NatTreeMap<String,EqList<TeamPosition>>
+    public NatStringTreeMap<EqList<TeamPosition>>
         sortedFightersBeginRoundWildFight(
             DataBase _data) {
         return FightFacade.sortedFightersBeginRoundWildFight(fight, _data);
@@ -1765,7 +1765,7 @@ public final class Game {
         return fight.getChosenIndex();
     }
 
-    public NatTreeMap<String,Boolean> getMoves() {
+    public NatStringTreeMap<Boolean> getMoves() {
         return fight.getMoves();
     }
 

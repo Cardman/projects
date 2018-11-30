@@ -1,7 +1,6 @@
 package aiki.map.util;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TileMiniMap {
 
     private String file;

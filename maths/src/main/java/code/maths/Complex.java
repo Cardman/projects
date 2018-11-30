@@ -1,5 +1,4 @@
 package code.maths;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -28,7 +27,7 @@ public final class Complex implements Equallable<Complex>, Displayable {
         imag = new Rate(_c.imag);
     }
 
-    @FromAndToString
+    
     public static Complex newFract(String _arg) {
         StringList args_ = StringList.splitStrings(_arg, SEPARATOR);
         return new Complex(new Rate(args_.first()), new Rate(args_.last()));
@@ -92,7 +91,7 @@ public final class Complex implements Equallable<Complex>, Displayable {
         }
         return true;
     }
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(real.toNumberString());

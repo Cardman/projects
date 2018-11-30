@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.ListableEntries;
 
@@ -12,7 +11,7 @@ public final class ObjectNotNullMap<K extends Equallable<K>, V>  extends AbObjec
         putAllMap(_arg0);
     }
 
-    @CapacityInit
+    
     public ObjectNotNullMap(CollCapacity _capacity) {
         super(_capacity);
     }

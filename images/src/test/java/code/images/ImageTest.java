@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.images.Image;
 import code.util.PairNumber;
 import code.util.StringList;
 

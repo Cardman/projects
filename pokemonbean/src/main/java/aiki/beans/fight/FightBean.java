@@ -5,13 +5,13 @@ import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringMap;
 
 public class FightBean extends CommonFightBean {
     private byte mult;
-    private NatTreeMap<String,ActivityOfMove> enabledMoves;
-    private NatTreeMap<String,Boolean> stillEnabledMoves;
+    private NatStringTreeMap<ActivityOfMove> enabledMoves;
+    private NatStringTreeMap<Boolean> stillEnabledMoves;
     private short nbFleeAttempt;
     private LgInt nbRounds;
     private Rate winningMoney;
@@ -27,14 +27,14 @@ public class FightBean extends CommonFightBean {
         nbRounds = fight_.getNbRounds();
         nbFleeAttempt = fight_.getNbFleeAttempt();
         winningMoney = fight_.getWinningMoney();
-        NatTreeMap<String,ActivityOfMove> enabledMoves_;
-        enabledMoves_ = new NatTreeMap<String,ActivityOfMove>();
+        NatStringTreeMap<ActivityOfMove> enabledMoves_;
+        enabledMoves_ = new NatStringTreeMap<ActivityOfMove>();
         for (String m: fight_.getEnabledMoves().getKeys()) {
             enabledMoves_.put(translationsMoves_.getVal(m), fight_.getEnabledMoves().getVal(m));
         }
         enabledMoves = enabledMoves_;
-        NatTreeMap<String,Boolean> stillEnabledMoves_;
-        stillEnabledMoves_ = new NatTreeMap<String,Boolean>();
+        NatStringTreeMap<Boolean> stillEnabledMoves_;
+        stillEnabledMoves_ = new NatStringTreeMap<Boolean>();
         for (String m: fight_.getStillEnabledMoves().getKeys()) {
             stillEnabledMoves_.put(translationsMoves_.getVal(m), fight_.getStillEnabledMoves().getVal(m));
         }
@@ -69,7 +69,7 @@ public class FightBean extends CommonFightBean {
         return winningMoney;
     }
 
-    public NatTreeMap<String,ActivityOfMove> getEnabledMoves() {
+    public NatStringTreeMap<ActivityOfMove> getEnabledMoves() {
         return enabledMoves;
     }
 }

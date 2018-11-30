@@ -1,9 +1,8 @@
 package cards.tarot.comparators;
-import code.util.ints.Comparing;
-
+import cards.tarot.enumerations.Handfuls;
 import code.util.NumberMap;
 import code.util.Numbers;
-import cards.tarot.enumerations.Handfuls;
+import code.util.ints.Comparing;
 
 public final class AllowedHandfulDefaultComparator implements Comparing<Handfuls> {
 

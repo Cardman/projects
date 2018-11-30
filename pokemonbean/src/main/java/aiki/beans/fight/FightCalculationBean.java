@@ -10,6 +10,7 @@ import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.MoveTarget;
 import code.maths.Rate;
 import code.util.EqList;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.SortableCustList;
@@ -23,7 +24,7 @@ public class FightCalculationBean extends CommonFightBean {
     private NatTreeMap<Byte,Boolean> foeChoicesTargets;
     private SortableCustList<KeyHypothesis> damage;
     private EqList<TeamPosition> sortedFighters;
-    private NatTreeMap<String,EqList<TeamPosition>> sortedFightersWildFight;
+    private NatStringTreeMap<EqList<TeamPosition>> sortedFightersWildFight;
 
     @Override
     public void beforeDisplaying() {
@@ -50,7 +51,7 @@ public class FightCalculationBean extends CommonFightBean {
         if (dataBaseFight_.getGame().getFight().getFightType().isWild()) {
             sortedFightersWildFight = dataBaseFight_.sortedFightersBeginRoundWildFight();
         } else {
-            sortedFightersWildFight = new NatTreeMap<String,EqList<TeamPosition>>();
+            sortedFightersWildFight = new NatStringTreeMap<EqList<TeamPosition>>();
         }
         DataBase data_ = dataBaseFight_.getData();
         StringMap<String> translationsMoves_;
@@ -165,7 +166,7 @@ public class FightCalculationBean extends CommonFightBean {
         return sortedFighters;
     }
 
-    public NatTreeMap<String,EqList<TeamPosition>> getSortedFightersWildFight() {
+    public NatStringTreeMap<EqList<TeamPosition>> getSortedFightersWildFight() {
         return sortedFightersWildFight;
     }
 

@@ -13,7 +13,7 @@ import aiki.fight.util.StatisticPokemon;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -62,9 +62,9 @@ public class ItemForBattleBean extends ItemBean {
     private boolean endRound;
     private int endRoundRank;
     private StringList reasonsEndRound;
-    private NatTreeMap<String,String> mapVarsFailEndRound;
+    private NatStringTreeMap<String> mapVarsFailEndRound;
     private boolean sending;
-    private NatTreeMap<String,String> mapVars;
+    private NatStringTreeMap<String> mapVars;
 
     @Override
     public void beforeDisplaying() {
@@ -81,7 +81,7 @@ public class ItemForBattleBean extends ItemBean {
             endRound = false;
             endRoundRank = 0;
             reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatTreeMap<String,String>();
+            mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
         if (!item_.getEffectSending().isEmpty()) {
             sending = true;
@@ -175,8 +175,8 @@ public class ItemForBattleBean extends ItemBean {
             multStatPokemonRank_.put(s, item_.getMultStatPokemonRank().getVal(s));
         }
         multStatPokemonRank = multStatPokemonRank_;
-        NatTreeMap<String,String> mapVars_;
-        mapVars_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_;
+        mapVars_ = new NatStringTreeMap<String>();
         TreeMap<Statistic,String> multStat_;
         multStat_ = new TreeMap<Statistic, String>(new ComparatorTrStringStatistic(translatedStatistics_));
         for (Statistic s: item_.getMultStat().getKeys()) {
@@ -494,7 +494,7 @@ public class ItemForBattleBean extends ItemBean {
         return reasonsEndRound;
     }
 
-    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+    public NatStringTreeMap<String> getMapVarsFailEndRound() {
         return mapVarsFailEndRound;
     }
 
@@ -606,7 +606,7 @@ public class ItemForBattleBean extends ItemBean {
         return failStatus;
     }
 
-    public NatTreeMap<String,String> getMapVars() {
+    public NatStringTreeMap<String> getMapVars() {
         return mapVars;
     }
 

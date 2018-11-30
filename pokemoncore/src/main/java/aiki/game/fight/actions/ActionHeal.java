@@ -1,7 +1,6 @@
 package aiki.game.fight.actions;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class ActionHeal extends AbstractAction implements ChosenHealing {
 
     /***/

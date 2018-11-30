@@ -5,9 +5,8 @@ import aiki.map.tree.util.Dims;
 import aiki.util.Point;
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Block {
 
     private short width;

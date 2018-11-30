@@ -1,5 +1,4 @@
 package aiki.game.fight;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -38,7 +37,7 @@ public final class ActivityOfMove implements Displayable {
         incrementCount = StringList.quickEq(elts_.last(), TRUE);
     }
 
-    @FromAndToString
+    
     public static ActivityOfMove newActivityOfMove(String _string) {
         return new ActivityOfMove(_string);
     }
@@ -95,7 +94,7 @@ public final class ActivityOfMove implements Displayable {
         return incrementCount;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

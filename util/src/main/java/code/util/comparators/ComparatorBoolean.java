@@ -1,7 +1,6 @@
 package code.util.comparators;
-import code.util.ints.Comparing;
-
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class ComparatorBoolean implements Comparing<Boolean> {
 

@@ -1,18 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloEnum;
-import code.maths.montecarlo.MonteCarloNumber;
-import code.maths.montecarlo.MonteCarloString;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.Numbers;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -70,6 +56,20 @@ import aiki.fight.util.CategoryMult;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import aiki.map.levels.enums.EnvironmentType;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloEnum;
+import code.maths.montecarlo.MonteCarloNumber;
+import code.maths.montecarlo.MonteCarloString;
+import code.util.CustList;
+import code.util.EnumList;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.Numbers;
+import code.util.ObjectMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class InitializationMoves {
 

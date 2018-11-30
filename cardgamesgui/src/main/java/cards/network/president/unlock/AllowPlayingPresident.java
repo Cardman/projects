@@ -1,8 +1,7 @@
 package cards.network.president.unlock;
 import cards.president.enumerations.Playing;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class AllowPlayingPresident {
 
     private boolean enabledPass;

@@ -1,5 +1,4 @@
 package code.maths.geo;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -17,7 +16,7 @@ public final class CustPoint implements Equallable<CustPoint>, Displayable {
         yCoords = _y;
     }
 
-    @FromAndToString
+    
     public static CustPoint newCustPoint(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
         int x_ = Integer.parseInt(elts_.first());
@@ -49,7 +48,7 @@ public final class CustPoint implements Equallable<CustPoint>, Displayable {
         return true;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

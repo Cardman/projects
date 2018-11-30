@@ -10,9 +10,8 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectDamage extends Effect {
 
     private byte chRate;

@@ -1,5 +1,4 @@
 package code.formathtml.classes;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -119,7 +118,7 @@ public final class Rate implements Displayable {
     }
 
     @Override
-    @FromAndToString
+    
     public String display() {
         return string;
     }

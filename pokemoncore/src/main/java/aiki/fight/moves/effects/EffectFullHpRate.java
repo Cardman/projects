@@ -2,9 +2,8 @@ package aiki.fight.moves.effects;
 
 import aiki.DataBase;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectFullHpRate extends Effect {
 
     private Rate leftUserHp;

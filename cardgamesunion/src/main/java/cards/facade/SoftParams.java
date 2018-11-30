@@ -1,11 +1,10 @@
 package cards.facade;
-import code.stream.StreamTextFile;
-import code.util.EnumList;
-import code.util.annot.RwXml;
 import cards.facade.enumerations.GameEnum;
 import cards.facade.sml.DocumentWriterCardsUnionUtil;
+import code.stream.StreamTextFile;
+import code.util.EnumList;
 
-@RwXml
+
 public final class SoftParams {
 
     private static final int DELTA = 500;

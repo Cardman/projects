@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.comparators.NaturalComparator;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -61,7 +60,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         super(_strings);
     }
 
-    @CapacityInit
+    
     public StringList(CollCapacity _capacity) {
         super(_capacity);
     }

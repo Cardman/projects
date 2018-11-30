@@ -1,8 +1,7 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.fight.util.CategoryMult;
 import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class ComparatorCategoryMult implements Comparing<CategoryMult> {
 

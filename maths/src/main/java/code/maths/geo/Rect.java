@@ -1,12 +1,10 @@
 package code.maths.geo;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.annot.RwXml;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
 
-@RwXml
+
 public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
 
     public static final int NB_POINTS = 4;
@@ -26,7 +24,7 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
         height = _height;
     }
 
-    @FromAndToString
+    
     public static Rect newRect(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
         int left_ = Integer.parseInt(elts_.first());
@@ -180,7 +178,7 @@ public final class Rect implements HasEdges, Equallable<Rect>, Displayable {
         return true;
     }
     @Override
-    @FromAndToString
+    
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(left);

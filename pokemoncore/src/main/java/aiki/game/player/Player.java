@@ -44,11 +44,10 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.annot.RwXml;
 import code.util.comparators.ComparatorNatNumber;
 import code.util.comparators.ComparatorTreeMapValue;
 
-@RwXml
+
 public final class Player {
 
     public static final String PLAYER = "aiki.game.player.Player";

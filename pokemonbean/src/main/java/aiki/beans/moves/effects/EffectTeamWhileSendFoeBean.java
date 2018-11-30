@@ -7,6 +7,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
 import code.util.EnumList;
 import code.util.EnumMap;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -19,8 +20,8 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
     private String damageRateAgainstFoe;
     private TreeMap<Statistic,Byte> statistics;
     private StringList reasonsSending;
-    private NatTreeMap<String,String> mapVarsFailSending;
-    private NatTreeMap<String,String> mapVarsDamageSentFoe;
+    private NatStringTreeMap<String> mapVarsFailSending;
+    private NatStringTreeMap<String> mapVarsDamageSentFoe;
 
     @Override
     public void beforeDisplaying() {
@@ -67,8 +68,8 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
 //            reasonsSending_.add(formula_);
 //        }
         reasonsSending = reasonsSending_;
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(effect_.getFailSending(),getLanguage());
-        NatTreeMap<String,String> mapVarsFailSending_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailSending(),getLanguage());
+        NatStringTreeMap<String> mapVarsFailSending_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -83,7 +84,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
 //        damageRateAgainstFoe = damageRateAgainstFoe.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        damageRateAgainstFoe = damageRateAgainstFoe.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
         mapVars_ = data_.getDescriptions(effect_.getDamageRateAgainstFoe(),getLanguage());
-        NatTreeMap<String,String> mapVarsDamageSentFoe_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVarsDamageSentFoe_ = new NatStringTreeMap<String>();
         desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -138,7 +139,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return damageRateAgainstFoe;
     }
 
-    public NatTreeMap<String,String> getMapVarsDamageSentFoe() {
+    public NatStringTreeMap<String> getMapVarsDamageSentFoe() {
         return mapVarsDamageSentFoe;
     }
 
@@ -154,7 +155,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
         return reasonsSending;
     }
 
-    public NatTreeMap<String,String> getMapVarsFailSending() {
+    public NatStringTreeMap<String> getMapVarsFailSending() {
         return mapVarsFailSending;
     }
 

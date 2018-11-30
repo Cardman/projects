@@ -4,12 +4,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import aiki.map.pokemon.WildPk;
+import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.montecarlo.MonteCarloEq;
 import code.util.EqList;
-import aiki.map.levels.AreaApparition;
-import aiki.map.pokemon.WildPk;
-import aiki.map.pokemon.enums.Gender;
 
 @SuppressWarnings("static-method")
 public class AreaApparitionTest {

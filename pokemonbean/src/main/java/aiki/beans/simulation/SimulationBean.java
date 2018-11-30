@@ -50,6 +50,7 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.PairNumber;
 import code.util.StringList;
@@ -1560,16 +1561,16 @@ public class SimulationBean extends CommonBean {
         }
         return tree_;
     }
-    public NatTreeMap<Byte, NatTreeMap<String, StringList>> getAllAbilitiesAfterFight() {
+    public NatTreeMap<Byte, NatStringTreeMap< StringList>> getAllAbilitiesAfterFight() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> ab_ = data_.getTranslatedAbilities().getVal(getLanguage());
         StringMap<String> pk_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        NatTreeMap<Byte, NatTreeMap<String, StringList>> tree_;
-        tree_ = new NatTreeMap<Byte, NatTreeMap<String, StringList>>();
+        NatTreeMap<Byte, NatStringTreeMap< StringList>> tree_;
+        tree_ = new NatTreeMap<Byte, NatStringTreeMap< StringList>>();
         NatTreeMap<Byte,StringMap<StringList>> recTree_;
         recTree_ = simulation.getAbilitiesAfterFight();
         for (byte b: recTree_.getKeys()) {
-            NatTreeMap<String, StringList> tr_ = new NatTreeMap<String, StringList>();
+            NatStringTreeMap< StringList> tr_ = new NatStringTreeMap< StringList>();
             for (String e: recTree_.getVal(b).getKeys()) {
                 StringList abilities_ = new StringList();
                 for (String m: recTree_.getVal(b).getVal(e)) {
@@ -1582,16 +1583,16 @@ public class SimulationBean extends CommonBean {
         }
         return tree_;
     }
-    public NatTreeMap<Byte, NatTreeMap<String, StringList>> getAllMovesAfterFight() {
+    public NatTreeMap<Byte, NatStringTreeMap< StringList>> getAllMovesAfterFight() {
         DataBase data_ = (DataBase) getDataBase();
         StringMap<String> mv_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> pk_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        NatTreeMap<Byte, NatTreeMap<String, StringList>> tree_;
-        tree_ = new NatTreeMap<Byte, NatTreeMap<String, StringList>>();
+        NatTreeMap<Byte, NatStringTreeMap< StringList>> tree_;
+        tree_ = new NatTreeMap<Byte, NatStringTreeMap< StringList>>();
         NatTreeMap<Byte,StringMap<StringList>> recTree_;
         recTree_ = simulation.getMovesAfterFight();
         for (byte b: recTree_.getKeys()) {
-            NatTreeMap<String, StringList> tr_ = new NatTreeMap<String, StringList>();
+            NatStringTreeMap< StringList> tr_ = new NatStringTreeMap< StringList>();
             for (String e: recTree_.getVal(b).getKeys()) {
                 StringList moves_ = new StringList();
                 for (String m: recTree_.getVal(b).getVal(e)) {

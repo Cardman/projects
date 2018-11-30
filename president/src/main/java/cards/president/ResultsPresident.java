@@ -8,9 +8,8 @@ import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ResultsPresident extends ResultsGame {
 
     private GamePresident game;

@@ -1,5 +1,4 @@
 package aiki.util;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -74,7 +73,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
         }
         return true;
     }
-    @FromAndToString
+    
     public static Coords newCoords(String _string) {
         return new Coords(_string);
     }
@@ -179,7 +178,7 @@ public final class Coords implements Equallable<Coords>, Displayable {
     }
 
     @Override
-    @FromAndToString
+    
     public String display() {
         if (!isValid()) {
             return INVALID;

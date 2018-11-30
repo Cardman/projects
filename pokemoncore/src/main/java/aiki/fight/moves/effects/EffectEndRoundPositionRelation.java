@@ -4,9 +4,8 @@ import aiki.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectEndRoundPositionRelation extends EffectEndRound {
 
     private Rate healHp;

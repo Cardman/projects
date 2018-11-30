@@ -1,5 +1,4 @@
 package code.maths.geo;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -19,7 +18,7 @@ public final class CustPointThreeDims implements Equallable<CustPointThreeDims>,
         zCoords = _z;
     }
 
-    @FromAndToString
+    
     public static CustPointThreeDims newCustPointThreeDims(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
         int x_ = Integer.parseInt(elts_.first());
@@ -63,7 +62,7 @@ public final class CustPointThreeDims implements Equallable<CustPointThreeDims>,
         return true;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

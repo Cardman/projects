@@ -1,5 +1,4 @@
 package aiki.game.fight.util;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -25,7 +24,7 @@ public final class CopiedMove implements Displayable {
         pp = _pp;
     }
 
-    @FromAndToString
+    
     public static CopiedMove newCopiedMove(String _string) {
         return new CopiedMove(_string);
     }
@@ -46,7 +45,7 @@ public final class CopiedMove implements Displayable {
         pp = _pp;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(move);

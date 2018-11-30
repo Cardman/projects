@@ -1,9 +1,8 @@
 package aiki.map.characters;
 
 import aiki.DataBase;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class Trainer extends Person {
 
     private byte multiplicityFight = 1;

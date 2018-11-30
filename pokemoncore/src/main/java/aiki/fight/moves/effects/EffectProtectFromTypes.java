@@ -2,9 +2,8 @@ package aiki.fight.moves.effects;
 
 import aiki.DataBase;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectProtectFromTypes extends Effect {
 
     private StringList immuAgainstTypes;

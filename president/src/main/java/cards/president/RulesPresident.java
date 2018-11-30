@@ -3,9 +3,8 @@ import cards.consts.MixCardsChoice;
 import cards.president.enumerations.EqualtyPlaying;
 import code.util.CustList;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class RulesPresident {
 
     private static final int NB_MIN_CARDS = 4;

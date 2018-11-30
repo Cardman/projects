@@ -1,10 +1,9 @@
 package aiki.game.fight.comparators;
-import code.util.ints.Comparing;
-
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 import code.util.EqList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class SortedFighterActsComparator implements Comparing<TeamPosition> {
 

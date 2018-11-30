@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
@@ -16,7 +15,7 @@ public final class InsCaseStringMap<V> extends AbsMap<String,V> {
     public InsCaseStringMap(ListableEntries<String, V> _arg0) {
         putAllMap(_arg0);
     }
-    @CapacityInit
+    
     public InsCaseStringMap(CollCapacity _capacity) {
         super(_capacity);
     }

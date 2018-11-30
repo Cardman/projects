@@ -13,9 +13,8 @@ import aiki.fight.moves.effects.EffectProtection;
 import aiki.fight.moves.effects.EffectSwitchPointView;
 import aiki.fight.moves.effects.EffectSwitchPosition;
 import code.util.CustList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DamagingMoveData extends MoveData {
     public static final String MOVE = "aiki.fight.moves.DamagingMoveData";
 

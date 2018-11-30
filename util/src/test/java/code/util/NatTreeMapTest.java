@@ -12,7 +12,7 @@ public class NatTreeMapTest {
 
     @Test
     public void put1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         Listable<EntryCust<String,Number>> l_ = map_.getList();
         assertEq(0, l_.size());
         map_.put("ONE", 1);
@@ -43,7 +43,7 @@ public class NatTreeMapTest {
 
     @Test
     public void size1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertEq(1,map_.size());
@@ -55,7 +55,7 @@ public class NatTreeMapTest {
 
     @Test
     public void contains1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         assertEq(0, map_.size());
         map_.put("ONE", 1);
         assertTrue(map_.contains("ONE"));
@@ -69,7 +69,7 @@ public class NatTreeMapTest {
 
     @Test
     public void getVal1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         map_.put("ONE", 1);
         assertEq(1,map_.getVal("ONE").intValue());
         map_.put("TWO", 2);
@@ -82,7 +82,7 @@ public class NatTreeMapTest {
 
     @Test
     public void removeKey1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
         map_.removeKey("ZERO");
@@ -98,7 +98,7 @@ public class NatTreeMapTest {
 //    @SuppressWarnings("static-method")
 //    @Test
 //    public void has1Test() {
-//        NatTreeMap<String,Integer> map_ = new NatTreeMap<>();
+//        NatStringTreeMap<Integer> map_ = new NatTreeMap<>();
 //        map_.put("ONE", 1);
 //        map_.put("TWO", 2);
 //        assertTrue(map_.has(1));
@@ -108,7 +108,7 @@ public class NatTreeMapTest {
 //    @SuppressWarnings("static-method")
 //    @Test
 //    public void getKeys1Test() {
-//        NatTreeMap<String,Integer> map_ = new NatTreeMap<>();
+//        NatStringTreeMap<Integer> map_ = new NatTreeMap<>();
 //        map_.put("ONE", 1);
 //        map_.put("TWO", 2);
 //        map_.put("THREE", null);
@@ -124,10 +124,10 @@ public class NatTreeMapTest {
 
     @Test
     public void putAllMap1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        NatTreeMap<String,Number> mapToPut_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> mapToPut_ = new NatStringTreeMap<Number>();
         mapToPut_.put("THREE", 3);
         mapToPut_.put("FOUR", 4);
         map_.putAllMap(mapToPut_);
@@ -144,10 +144,10 @@ public class NatTreeMapTest {
 
     @Test
     public void putAllMap2Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        NatTreeMap<String,Number> mapToPut_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> mapToPut_ = new NatStringTreeMap<Number>();
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         map_.putAllMap(mapToPut_);
@@ -162,10 +162,10 @@ public class NatTreeMapTest {
 
     @Test
     public void getKey1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        NatTreeMap<String,Number> mapToPut_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> mapToPut_ = new NatStringTreeMap<Number>();
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertEq(2, map_.size());
@@ -178,10 +178,10 @@ public class NatTreeMapTest {
 
     @Test
     public void getValue1Test() {
-        NatTreeMap<String,Number> map_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> map_ = new NatStringTreeMap<Number>();
         map_.put("ONE", 1);
         map_.put("TWO", 2);
-        NatTreeMap<String,Number> mapToPut_ = new NatTreeMap<String,Number>();
+        NatStringTreeMap<Number> mapToPut_ = new NatStringTreeMap<Number>();
         mapToPut_.put("TWO", 3);
         mapToPut_.put("THREE", 4);
         assertEq(2, map_.size());

@@ -5,9 +5,8 @@ import aiki.fight.enums.Statistic;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectCounterAttack extends Effect {
 
     private StringMap<Rate> sufferingDamageTypes;

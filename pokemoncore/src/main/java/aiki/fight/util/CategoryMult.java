@@ -1,5 +1,4 @@
 package aiki.fight.util;
-import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -27,7 +26,7 @@ public final class CategoryMult implements Equallable<CategoryMult>, Displayable
         mult = Short.parseShort(elements_.last());
     }
 
-    @FromAndToString
+    
     public static CategoryMult newCategoryMult(String _string) {
         return new CategoryMult(_string);
     }
@@ -58,7 +57,7 @@ public final class CategoryMult implements Equallable<CategoryMult>, Displayable
         mult = _mult;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

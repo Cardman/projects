@@ -5,9 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import code.util.NumberMap;
-import code.util.ObjectMap;
-import aiki.map.DataMap;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.enums.Direction;
@@ -23,6 +20,8 @@ import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.util.NumberMap;
+import code.util.ObjectMap;
 
 public class DataMapClosestTileTest {
 

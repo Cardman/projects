@@ -1,8 +1,7 @@
 package cards.network.belote.unlock;
 import cards.belote.DeclareHandBelote;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class AllowPlayingBelote {
 
     private boolean firstRoundPlaying;

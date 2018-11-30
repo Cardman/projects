@@ -1,10 +1,9 @@
 package code.util;
-import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 
 
 /** Not compared in tests, not use in res html, not instrospected*/
-@RwXml
+
 public final class PairEq<T extends Equallable<T>,S extends Equallable<S>> implements Equallable<PairEq<T,S>> {
 
     private T first;

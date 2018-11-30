@@ -16,9 +16,8 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class PokemonData {
 
     private static final int RATE_BASE = 8;

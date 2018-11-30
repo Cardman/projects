@@ -4,9 +4,8 @@ import aiki.DataBase;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.tree.LevelArea;
 import aiki.util.Point;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class LevelLeague extends Level {
 
     private Point trainerCoords;

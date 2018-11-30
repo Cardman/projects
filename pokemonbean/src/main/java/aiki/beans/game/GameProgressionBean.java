@@ -9,7 +9,7 @@ import aiki.map.DataMap;
 import code.bean.Bean;
 import code.maths.LgInt;
 import code.util.EqList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -21,10 +21,10 @@ public class GameProgressionBean extends Bean {
     private String nickname;
     private boolean finishedGame;
     private String endGameImage;
-    private NatTreeMap<String,EqList<StringList>> notAtAllFamiliesBase;
-    private NatTreeMap<String,EqList<StringList>> partialFamiliesBaseNotCaught;
-    private NatTreeMap<String,EqList<StringList>> partialFamiliesBaseCaught;
-    private NatTreeMap<String,EqList<StringList>> fullFamiliesBase;
+    private NatStringTreeMap<EqList<StringList>> notAtAllFamiliesBase;
+    private NatStringTreeMap<EqList<StringList>> partialFamiliesBaseNotCaught;
+    private NatStringTreeMap<EqList<StringList>> partialFamiliesBaseCaught;
+    private NatStringTreeMap<EqList<StringList>> fullFamiliesBase;
     private EqList<TrainerPlaceNames> beatenImportantTrainers;
     private EqList<TrainerPlaceNames> unBeatenImportantTrainers;
     private TreeMap<Short,Integer> remainingOtherTrainerPlaces;
@@ -46,7 +46,7 @@ public class GameProgressionBean extends Bean {
         finishedGame = progression_.isFinishedGame();
         endGameImage = BaseSixtyFourUtil.getStringByImage(facade_.getData().getEndGameImage());
         nickname = progression_.getNickname();
-        notAtAllFamiliesBase = new NatTreeMap<String,EqList<StringList>>();
+        notAtAllFamiliesBase = new NatStringTreeMap<EqList<StringList>>();
         for (String b: progression_.getNotAtAllFamiliesBase().getKeys()) {
             EqList<StringList> lists_ = new EqList<StringList>();
             for (StringList l: progression_.getNotAtAllFamiliesBase().getVal(b)) {
@@ -59,7 +59,7 @@ public class GameProgressionBean extends Bean {
             }
             notAtAllFamiliesBase.put(facade_.translatePokemon(b), lists_);
         }
-        partialFamiliesBaseCaught = new NatTreeMap<String,EqList<StringList>>();
+        partialFamiliesBaseCaught = new NatStringTreeMap<EqList<StringList>>();
         for (String b: progression_.getPartialFamiliesBaseCaught().getKeys()) {
             EqList<StringList> lists_ = new EqList<StringList>();
             for (StringList l: progression_.getPartialFamiliesBaseCaught().getVal(b)) {
@@ -72,7 +72,7 @@ public class GameProgressionBean extends Bean {
             }
             partialFamiliesBaseCaught.put(facade_.translatePokemon(b), lists_);
         }
-        partialFamiliesBaseNotCaught = new NatTreeMap<String,EqList<StringList>>();
+        partialFamiliesBaseNotCaught = new NatStringTreeMap<EqList<StringList>>();
         for (String b: progression_.getPartialFamiliesBaseNotCaught().getKeys()) {
             EqList<StringList> lists_ = new EqList<StringList>();
             for (StringList l: progression_.getPartialFamiliesBaseNotCaught().getVal(b)) {
@@ -85,7 +85,7 @@ public class GameProgressionBean extends Bean {
             }
             partialFamiliesBaseNotCaught.put(facade_.translatePokemon(b), lists_);
         }
-        fullFamiliesBase = new NatTreeMap<String,EqList<StringList>>();
+        fullFamiliesBase = new NatStringTreeMap<EqList<StringList>>();
         for (String b: progression_.getFullFamiliesBase().getKeys()) {
             EqList<StringList> lists_ = new EqList<StringList>();
             for (StringList l: progression_.getFullFamiliesBase().getVal(b)) {
@@ -158,14 +158,14 @@ public class GameProgressionBean extends Bean {
         return value_;
     }
 
-    private static String getTrPokemon(FacadeGame _facade,NatTreeMap<String,EqList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
+    private static String getTrPokemon(FacadeGame _facade,NatStringTreeMap<EqList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
         EqList<StringList> values_ = _treeMap.getValue(_key.intValue());
         StringList value_ = values_.get(_indexList.intValue());
         String pkName_ = value_.get(_indexElt.intValue());
         return _facade.translatePokemon(pkName_);
     }
 
-    private static String getImagePokemon(FacadeGame _facade,NatTreeMap<String,EqList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
+    private static String getImagePokemon(FacadeGame _facade,NatStringTreeMap<EqList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
         EqList<StringList> values_ = _treeMap.getValue(_key.intValue());
         StringList value_ = values_.get(_indexList.intValue());
         String pkName_ = value_.get(_indexElt.intValue());
@@ -233,15 +233,15 @@ public class GameProgressionBean extends Bean {
         return money;
     }
 
-    public NatTreeMap<String,EqList<StringList>> getFullFamiliesBase() {
+    public NatStringTreeMap<EqList<StringList>> getFullFamiliesBase() {
         return fullFamiliesBase;
     }
 
-    public NatTreeMap<String,EqList<StringList>> getNotAtAllFamiliesBase() {
+    public NatStringTreeMap<EqList<StringList>> getNotAtAllFamiliesBase() {
         return notAtAllFamiliesBase;
     }
 
-    public NatTreeMap<String,EqList<StringList>> getPartialFamiliesBaseNotCaught() {
+    public NatStringTreeMap<EqList<StringList>> getPartialFamiliesBaseNotCaught() {
         return partialFamiliesBaseNotCaught;
     }
 }

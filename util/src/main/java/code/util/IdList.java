@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
@@ -16,7 +15,7 @@ public final class IdList<T> extends AbEqList<T> implements Equallable<IdList<T>
         super(_c);
     }
 
-    @CapacityInit
+    
     public IdList(CollCapacity _capacity) {
         super(_capacity);
     }

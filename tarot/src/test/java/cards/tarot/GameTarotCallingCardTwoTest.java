@@ -4,13 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.EnumMap;
-import code.util.EqList;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
 import cards.tarot.enumerations.DealingTarot;
+import code.util.EnumMap;
+import code.util.EqList;
 
 public class GameTarotCallingCardTwoTest extends CommonTarotGame {
 

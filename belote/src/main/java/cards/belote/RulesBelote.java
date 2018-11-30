@@ -8,9 +8,8 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class RulesBelote {
 
     public static final int DIVISIONS = 10;

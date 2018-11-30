@@ -34,11 +34,10 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 import code.util.consts.Constants;
 /**
  */
-@RwXml
+
 public final class GameBelote {
     private static final String GAME_BELOTE = "cards.belote.GameBelote";
     private static final String FOLDER = "resources_cards/classes";

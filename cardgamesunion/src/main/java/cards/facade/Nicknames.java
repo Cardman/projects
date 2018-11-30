@@ -8,9 +8,8 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Nicknames {
 
     private static final String NICKNAMES = "cards.facade.Nicknames";

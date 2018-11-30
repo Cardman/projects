@@ -8,7 +8,7 @@ import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectEndRound;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -26,7 +26,7 @@ public class EffectEndRoundBean extends CommonBean {
     private StringList moves;
     private int endRoundRank;
     private StringList reasonsEndRound;
-    private NatTreeMap<String,String> mapVarsFailEndRound;
+    private NatStringTreeMap<String> mapVarsFailEndRound;
 
     @Override
     public void beforeDisplaying() {
@@ -71,14 +71,14 @@ public class EffectEndRoundBean extends CommonBean {
         if (element.isIncrementNumberOfRounds()) {
             endRoundRank = element.getNumberIncrement();
             reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatTreeMap<String,String>();
+            mapVarsFailEndRound = new NatStringTreeMap<String>();
             return;
         }
         EffectEndRound effect_ = getEffect(index);
         if (effect_ == null) {
             endRoundRank = element.getNumberIncrement();
             reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatTreeMap<String,String>();
+            mapVarsFailEndRound = new NatStringTreeMap<String>();
             return;
         }
         effect = effect_;
@@ -102,8 +102,8 @@ public class EffectEndRoundBean extends CommonBean {
 //            reasons_.add(formula_);
 //        }
         reasonsEndRound = reasons_;
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
-        NatTreeMap<String,String> mapVarsFail_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
+        NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -240,7 +240,7 @@ public class EffectEndRoundBean extends CommonBean {
         return reasonsEndRound;
     }
 
-    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+    public NatStringTreeMap<String> getMapVarsFailEndRound() {
         return mapVarsFailEndRound;
     }
 

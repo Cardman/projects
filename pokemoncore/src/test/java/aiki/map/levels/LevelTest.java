@@ -5,9 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.ObjectMap;
-import aiki.map.levels.Level;
 import aiki.util.Point;
+import code.util.ObjectMap;
 
 @SuppressWarnings("static-method")
 public class LevelTest {

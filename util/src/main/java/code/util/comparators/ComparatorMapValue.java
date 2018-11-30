@@ -1,6 +1,5 @@
 package code.util.comparators;
 import code.util.ints.Comparing;
-
 import code.util.ints.ListableEntries;
 
 public final class ComparatorMapValue<T> implements Comparing<T> {

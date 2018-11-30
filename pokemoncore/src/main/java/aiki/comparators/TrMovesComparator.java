@@ -1,7 +1,6 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
+import code.util.ints.Comparing;
 
 public final class TrMovesComparator implements Comparing<String> {
 

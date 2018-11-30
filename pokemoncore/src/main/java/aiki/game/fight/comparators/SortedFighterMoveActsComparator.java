@@ -1,6 +1,4 @@
 package aiki.game.fight.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
@@ -14,6 +12,7 @@ import code.maths.Rate;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.comparators.ComparatorBoolean;
+import code.util.ints.Comparing;
 
 public final class SortedFighterMoveActsComparator implements
         Comparing<TeamPosition> {

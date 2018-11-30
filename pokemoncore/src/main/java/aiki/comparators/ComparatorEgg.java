@@ -1,9 +1,8 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.util.SortingEgg;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;
 

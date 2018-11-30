@@ -1,7 +1,6 @@
 package code.util.comparators;
-import code.util.ints.Comparing;
-
 import code.util.ints.Cmp;
+import code.util.ints.Comparing;
 
 public final class NatComparator<T extends Cmp<T>> implements Comparing<T> {
 

@@ -1,6 +1,5 @@
 package aiki.game.fight.util;
 import aiki.game.fight.ActivityOfMove;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -23,7 +22,7 @@ public final class AffectedMove implements Displayable {
         activity = _activity;
     }
 
-    @FromAndToString
+    
     public static AffectedMove newAffectedMove(String _string) {
         return new AffectedMove(_string);
     }
@@ -40,7 +39,7 @@ public final class AffectedMove implements Displayable {
         return activity;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

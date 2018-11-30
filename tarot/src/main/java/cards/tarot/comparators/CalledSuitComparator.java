@@ -1,11 +1,10 @@
 package cards.tarot.comparators;
-import code.util.ints.Comparing;
-
-import code.util.CustList;
-import code.util.EnumMap;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.util.CustList;
+import code.util.EnumMap;
+import code.util.ints.Comparing;
 
 public final class CalledSuitComparator implements Comparing<Suit> {
 

@@ -1,6 +1,5 @@
 package aiki.fight.util;
 import aiki.fight.enums.Statistic;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -24,7 +23,7 @@ public final class StatisticPokemon implements Equallable<StatisticPokemon>, Dis
         pokemon = _pokemon;
     }
 
-    @FromAndToString
+    
     public static StatisticPokemon newStatisticPokemon(String _string) {
         return new StatisticPokemon(_string);
     }
@@ -48,7 +47,7 @@ public final class StatisticPokemon implements Equallable<StatisticPokemon>, Dis
         return pokemon;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

@@ -1,5 +1,4 @@
 package aiki.util;
-import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -27,7 +26,7 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
         point = new Point(elements_.last());
     }
 
-    @FromAndToString
+    
     public static LevelPoint newLevelPoint(String _string) {
         return new LevelPoint(_string);
     }
@@ -82,7 +81,7 @@ public final class LevelPoint implements Equallable<LevelPoint>, Displayable {
         point = _point;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

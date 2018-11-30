@@ -4,10 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.EqList;
-import code.util.NumberMap;
-import code.util.ObjectMap;
 import aiki.fight.pokemon.GenderName;
 import aiki.map.DataMap;
 import aiki.map.buildings.Building;
@@ -27,11 +23,14 @@ import aiki.map.places.Place;
 import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.map.tree.LevelArea;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.Point;
+import code.util.CustList;
+import code.util.EqList;
+import code.util.NumberMap;
+import code.util.ObjectMap;
 
 @SuppressWarnings("static-method")
 public class LevelAreaTest {

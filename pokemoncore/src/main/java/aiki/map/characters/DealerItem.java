@@ -3,9 +3,8 @@ package aiki.map.characters;
 import aiki.DataBase;
 import code.util.Numbers;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DealerItem extends Person implements CharacterInRoadCave {
 
     private StringList items;

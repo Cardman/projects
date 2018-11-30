@@ -3,9 +3,8 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.fight.moves.effects.enums.RelationType;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectEndRoundStatusRelation extends EffectEndRoundStatus {
 
     private Rate thievedHpRateTargetToUser;

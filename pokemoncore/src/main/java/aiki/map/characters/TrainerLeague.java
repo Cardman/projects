@@ -1,9 +1,8 @@
 package aiki.map.characters;
 
 import aiki.DataBase;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TrainerLeague extends TrainerOneFight implements Fightable {
 
     private String name;

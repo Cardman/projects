@@ -1,7 +1,6 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.util.Point;
+import code.util.ints.Comparing;
 
 public final class ComparatorPoint implements Comparing<Point> {
 

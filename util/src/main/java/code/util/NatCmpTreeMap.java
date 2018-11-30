@@ -1,9 +1,7 @@
 package code.util;
-import code.util.ints.Comparing;
-
-import code.util.annot.CapacityInit;
 import code.util.comparators.NatComparator;
 import code.util.ints.Cmp;
+import code.util.ints.Comparing;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SortableMap;
@@ -19,7 +17,7 @@ public final class NatCmpTreeMap<K extends Cmp<K>, V> extends AbsMap<K, V> imple
     public NatCmpTreeMap(ListableEntries<K,V> _map) {
         putAllMap(_map);
     }
-    @CapacityInit
+    
     public NatCmpTreeMap(CollCapacity _capacity) {
         super(_capacity);
     }

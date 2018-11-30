@@ -9,7 +9,7 @@ import aiki.game.UsesOfMove;
 import aiki.game.fight.ChosenMoveInfos;
 import code.gui.PaintableLabel;
 import code.images.ConverterBufferedImage;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class MoveLabel extends PaintableLabel {
@@ -24,12 +24,12 @@ public class MoveLabel extends PaintableLabel {
 
     private boolean selected;
 
-    private NatTreeMap<String,Color> colorsTypes;
+    private NatStringTreeMap<Color> colorsTypes;
 
     private String text;
 
     public MoveLabel(ChosenMoveInfos _infos, String _move, FacadeGame _facade) {
-        colorsTypes = new NatTreeMap<String,Color>();
+        colorsTypes = new NatStringTreeMap<Color>();
         move = _move;
         infos = _infos;
         UsesOfMove uses_ = infos.getUses();

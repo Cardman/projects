@@ -1,9 +1,8 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.map.levels.enums.EnvironmentType;
 import code.util.EnumMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorTrStringEnv implements Comparing<EnvironmentType> {
 

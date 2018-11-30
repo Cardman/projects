@@ -7,9 +7,8 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EntryCust;
 import code.util.NumberMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectEndRoundSingleRelation extends EffectEndRound {
 
     private NumberMap<Long, Rate> rateDamageFunctionOfNbRounds;

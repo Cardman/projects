@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
@@ -29,7 +30,6 @@ import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.FieldBlock;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.FinallyEval;
-import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.ForIterativeLoop;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.IfCondition;

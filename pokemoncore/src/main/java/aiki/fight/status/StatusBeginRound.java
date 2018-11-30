@@ -4,9 +4,8 @@ import aiki.DataBase;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class StatusBeginRound extends Status {
 
     private MonteCarloBoolean lawForUsingAMove;

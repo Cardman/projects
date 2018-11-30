@@ -2,15 +2,16 @@ package code.formathtml.classes;
 
 import code.bean.Bean;
 import code.util.CustList;
-import code.util.NatTreeMap;
 import code.util.StringList;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
 
 @SuppressWarnings("static-method")
 public class BeanEight extends Bean {
 
     private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());
 
-    private NatTreeMap<EnumNumber, String> comboboxMap = new NatTreeMap<EnumNumber, String>();
+    private TreeMap<EnumNumber, String> comboboxMap = new TreeMap<EnumNumber, String>(new ComparatorEnum<EnumNumber>());
     
     private EnumNumber comboNumber = EnumNumber.ONE;
 
@@ -69,11 +70,11 @@ public class BeanEight extends Bean {
         combobox = _combobox;
     }
 
-    public NatTreeMap<EnumNumber, String> getComboboxMap() {
+    public TreeMap<EnumNumber, String> getComboboxMap() {
         return comboboxMap;
     }
 
-    public void setComboboxMap(NatTreeMap<EnumNumber, String> _comboboxMap) {
+    public void setComboboxMap(TreeMap<EnumNumber, String> _comboboxMap) {
         comboboxMap = _comboboxMap;
     }
 

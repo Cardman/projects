@@ -1,7 +1,6 @@
 package code.util.classestest;
-import code.util.ints.Comparing;
-
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public class ComparatorPersonIndex implements Comparing<SortingPerson> {
 

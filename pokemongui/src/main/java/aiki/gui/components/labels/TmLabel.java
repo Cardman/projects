@@ -9,7 +9,7 @@ import aiki.fight.moves.MoveData;
 import aiki.util.SortingMove;
 import code.images.ConverterBufferedImage;
 import code.util.CustList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class TmLabel extends SelectableLabel {
@@ -50,10 +50,10 @@ public class TmLabel extends SelectableLabel {
 
 //    private int xPrice;
 
-    private NatTreeMap<String,Color> colorsTypes;
+    private NatStringTreeMap<Color> colorsTypes;
 
     public TmLabel(SortingMove _move, FacadeGame _facade) {
-        colorsTypes = new NatTreeMap<String,Color>();
+        colorsTypes = new NatStringTreeMap<Color>();
         move = _move;
         moveName = _move.getName();
         MoveData move_ = _facade.getData().getMove(move.getKeyName());

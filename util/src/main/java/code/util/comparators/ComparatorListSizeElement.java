@@ -1,8 +1,7 @@
 package code.util.comparators;
-import code.util.ints.Comparing;
-
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorListSizeElement implements Comparing<Numbers<Integer>> {
 

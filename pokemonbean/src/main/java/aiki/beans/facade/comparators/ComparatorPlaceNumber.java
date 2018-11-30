@@ -1,10 +1,9 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.map.DataMap;
 import aiki.map.places.Place;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorPlaceNumber implements Comparing<Short> {
 

@@ -2,9 +2,8 @@ package aiki.game;
 import aiki.DataBase;
 import aiki.comments.Comment;
 import aiki.map.pokemon.PokemonPlayer;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class HostPokemonDuo {
 
     private PokemonPlayer firstPokemon;

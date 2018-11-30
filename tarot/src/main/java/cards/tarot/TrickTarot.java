@@ -1,13 +1,12 @@
 package cards.tarot;
 import java.util.Iterator;
 
-import code.util.CustList;
-import code.util.Numbers;
-import code.util.annot.RwXml;
 import cards.consts.Suit;
 import cards.tarot.enumerations.CardTarot;
+import code.util.CustList;
+import code.util.Numbers;
 
-@RwXml
+
 public final class TrickTarot implements Iterable<CardTarot> {
     /**Entameur du pli*/
     private byte starter;

@@ -1,8 +1,7 @@
 package aiki.fight.items;
-import code.util.annot.RwXml;
 
 
-@RwXml
+
 public final class Ball extends Item {
 
     public static final String ITEM = "aiki.fight.items.Ball";

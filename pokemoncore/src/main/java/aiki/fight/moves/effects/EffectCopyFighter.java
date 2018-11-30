@@ -2,9 +2,8 @@ package aiki.fight.moves.effects;
 
 import aiki.DataBase;
 import aiki.fight.moves.enums.TargetChoice;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectCopyFighter extends Effect {
 
     private short ppForMoves;

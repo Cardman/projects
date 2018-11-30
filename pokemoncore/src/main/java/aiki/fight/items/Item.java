@@ -1,9 +1,8 @@
 package aiki.fight.items;
 
 import aiki.DataBase;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class Item {
 
     private int price;

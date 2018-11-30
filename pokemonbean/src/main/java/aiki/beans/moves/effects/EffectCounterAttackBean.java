@@ -7,7 +7,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCounterAttack;
 import code.maths.Rate;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -19,7 +19,7 @@ public class EffectCounterAttackBean extends EffectBean {
     private StringList reasonsProtect;
     private StringList reasonsCounter;
 
-    private NatTreeMap<String,String> mapVarsFailCounter;
+    private NatStringTreeMap<String> mapVarsFailCounter;
 
     @Override
     public void beforeDisplaying() {
@@ -60,8 +60,8 @@ public class EffectCounterAttackBean extends EffectBean {
 //            reasonsProtect_.add(formula_);
 //        }
         reasonsProtect = reasonsProtect_;
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(effect_.getProtectFail(),getLanguage());
-        NatTreeMap<String,String> mapVarsFail_ = new NatTreeMap<String, String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getProtectFail(),getLanguage());
+        NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap< String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -89,7 +89,7 @@ public class EffectCounterAttackBean extends EffectBean {
         mapVarsFailCounter = mapVarsFail_;
     }
 
-    public NatTreeMap<String, String> getMapVarsFailCounter() {
+    public NatStringTreeMap< String> getMapVarsFailCounter() {
         return mapVarsFailCounter;
     }
     public String getTrSufferingDamageTypes(Long _index) {

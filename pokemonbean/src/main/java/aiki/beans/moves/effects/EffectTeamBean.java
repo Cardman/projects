@@ -7,7 +7,7 @@ import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.util.CategoryMult;
 import code.maths.Rate;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -20,8 +20,8 @@ public class EffectTeamBean extends EffectBean {
     private StringList cancelChgtStatFoeTeam;
     private StringList cancelChgtStatTeam;
     private TreeMap<CategoryMult, Rate> multDamage;
-    private NatTreeMap<String, Rate> multStatistic;
-    private NatTreeMap<String, Rate> multStatisticFoe;
+    private NatStringTreeMap< Rate> multStatistic;
+    private NatStringTreeMap< Rate> multStatisticFoe;
     private StringList protectAgainstLowStat;
     private boolean protectAgainstCh;
     private StringList protectAgainstStatus;
@@ -65,14 +65,14 @@ public class EffectTeamBean extends EffectBean {
             protectAgainstLowStat_.add(translatedStatistics_.getVal(s));
         }
         protectAgainstLowStat = protectAgainstLowStat_;
-        NatTreeMap<String, Rate> multStatistic_;
-        multStatistic_ = new NatTreeMap<String, Rate>();
+        NatStringTreeMap< Rate> multStatistic_;
+        multStatistic_ = new NatStringTreeMap< Rate>();
         for (Statistic s: effect_.getMultStatistic().getKeys()) {
             multStatistic_.put(translatedStatistics_.getVal(s), effect_.getMultStatistic().getVal(s));
         }
         multStatistic = multStatistic_;
-        NatTreeMap<String, Rate> multStatisticFoe_;
-        multStatisticFoe_ = new NatTreeMap<String, Rate>();
+        NatStringTreeMap< Rate> multStatisticFoe_;
+        multStatisticFoe_ = new NatStringTreeMap< Rate>();
         for (Statistic s: effect_.getMultStatisticFoe().getKeys()) {
             multStatisticFoe_.put(translatedStatistics_.getVal(s), effect_.getMultStatisticFoe().getVal(s));
         }
@@ -230,11 +230,11 @@ public class EffectTeamBean extends EffectBean {
         return protectAgainstStatus;
     }
 
-    public NatTreeMap<String,Rate> getMultStatistic() {
+    public NatStringTreeMap<Rate> getMultStatistic() {
         return multStatistic;
     }
 
-    public NatTreeMap<String,Rate> getMultStatisticFoe() {
+    public NatStringTreeMap<Rate> getMultStatisticFoe() {
         return multStatisticFoe;
     }
 

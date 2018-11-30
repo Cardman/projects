@@ -3,9 +3,8 @@ import aiki.DataBase;
 import aiki.map.levels.LevelIndoorGym;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Gym extends Building {
 
     private LevelIndoorGym level;

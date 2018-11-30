@@ -4,9 +4,8 @@ import cards.president.RulesPresident;
 import cards.tarot.RulesTarot;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class PlayersNamePresent {
 
     private NumberMap<Integer,String> pseudos;

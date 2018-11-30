@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.comparators.ComparatorNatNumber;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -23,7 +22,7 @@ public final class Numbers<T extends Number> extends AbEqList<T> implements Equa
         super(_array);
     }
 
-    @CapacityInit
+    
     public Numbers(CollCapacity _capacity) {
         super(_capacity);
     }

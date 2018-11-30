@@ -1,11 +1,10 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStrings;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorStringList implements Comparing<StringList> {
 

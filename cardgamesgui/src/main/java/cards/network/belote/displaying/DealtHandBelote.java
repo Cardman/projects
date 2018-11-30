@@ -3,9 +3,8 @@ import cards.belote.BidBeloteSuit;
 import cards.belote.HandBelote;
 import cards.belote.enumerations.DealingBelote;
 import code.util.EqList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DealtHandBelote {
 
     private HandBelote cards;

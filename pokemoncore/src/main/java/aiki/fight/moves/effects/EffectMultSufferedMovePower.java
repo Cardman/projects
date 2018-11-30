@@ -3,9 +3,8 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import code.maths.Rate;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectMultSufferedMovePower extends Effect {
 
     private StringMap<Rate> multMovePowerFctType;

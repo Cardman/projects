@@ -2,14 +2,14 @@ package aiki.beans.moves.effects;
 import aiki.DataBase;
 import aiki.fight.moves.effects.EffectFullHpRate;
 import code.maths.Rate;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class EffectFullHpRateBean extends EffectBean {
     private Rate leftUserHp;
     private String restoredHp;
     private Rate closestFoeDamageRateHp;
-    private NatTreeMap<String,String> mapVarsRestored;
+    private NatStringTreeMap<String> mapVarsRestored;
 
     @Override
     public void beforeDisplaying() {
@@ -24,8 +24,8 @@ public class EffectFullHpRateBean extends EffectBean {
 //        restoredHp = StringList.replace(restoredHp, loc_);
 //        restoredHp = restoredHp.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        restoredHp = restoredHp.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(effect_.getRestoredHp(),getLanguage());
-        NatTreeMap<String,String> mapVarsAccuracy_ = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getRestoredHp(),getLanguage());
+        NatStringTreeMap<String> mapVarsAccuracy_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -43,7 +43,7 @@ public class EffectFullHpRateBean extends EffectBean {
         return restoredHp;
     }
 
-    public NatTreeMap<String,String> getMapVarsRestored() {
+    public NatStringTreeMap<String> getMapVarsRestored() {
         return mapVarsRestored;
     }
 

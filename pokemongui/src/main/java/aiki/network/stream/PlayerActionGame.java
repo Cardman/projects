@@ -1,7 +1,6 @@
 package aiki.network.stream;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class PlayerActionGame {
 
     private byte place;

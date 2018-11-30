@@ -3,11 +3,11 @@ import static cards.tarot.EquallableTarotUtil.assertEq;
 
 import org.junit.Test;
 
-import code.util.EnumList;
-import code.util.EqList;
 import cards.consts.Suit;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.util.EnumList;
+import code.util.EqList;
 
 @SuppressWarnings("static-method")
 public class ComparatorTarotTest {

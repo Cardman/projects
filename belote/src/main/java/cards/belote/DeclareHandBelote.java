@@ -1,9 +1,8 @@
 package cards.belote;
 import cards.belote.enumerations.DeclaresBelote;
-import code.util.annot.RwXml;
 import code.util.ints.Equallable;
 
-@RwXml
+
 public final class DeclareHandBelote implements Equallable<DeclareHandBelote> {
 
     private DeclaresBelote declare = DeclaresBelote.UNDEFINED;

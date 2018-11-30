@@ -1,5 +1,4 @@
 package code.util;
-import code.util.annot.CapacityInit;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
@@ -17,7 +16,7 @@ public final class EnumMap<K extends Enum<K>, V> extends AbsMap<K,V> {
     public EnumMap(ListableEntries<K, V> _arg0) {
         putAllMap(_arg0);
     }
-    @CapacityInit
+    
     public EnumMap(CollCapacity _capacity) {
         super(_capacity);
     }

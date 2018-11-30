@@ -2,9 +2,8 @@ package cards.belote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import code.util.EnumList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DisplayingBelote {
 
     private boolean clockwise;

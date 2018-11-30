@@ -14,7 +14,7 @@ import code.bean.Bean;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
@@ -33,7 +33,7 @@ public class PokemonPlayerBean extends Bean {
     private StringList types;
     private StringList status;
     private String nickname;
-    private NatTreeMap<String,UsesOfMove> moves;
+    private NatStringTreeMap<UsesOfMove> moves;
     private CustList<StatisticInfoPkPlayer> statistics;
     private Rate wonExpSinceLastLevel;
     private Rate necessaryPointsNextLevel;
@@ -112,8 +112,8 @@ public class PokemonPlayerBean extends Bean {
         }
         statistics_.sortElts(new ComparatorStatisticInfoPkPlayer());
         statistics = statistics_;
-        NatTreeMap<String,UsesOfMove> moves_;
-        moves_ = new NatTreeMap<String,UsesOfMove>();
+        NatStringTreeMap<UsesOfMove> moves_;
+        moves_ = new NatStringTreeMap<UsesOfMove>();
         for (String m: pkPlayer_.getMoves().getKeys()) {
             UsesOfMove uses_ = pkPlayer_.getMoves().getVal(m);
             moves_.put(translatedMoves_.getVal(m), uses_);
@@ -226,7 +226,7 @@ public class PokemonPlayerBean extends Bean {
         return status;
     }
 
-    public NatTreeMap<String,UsesOfMove> getMoves() {
+    public NatStringTreeMap<UsesOfMove> getMoves() {
         return moves;
     }
 

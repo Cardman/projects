@@ -1,8 +1,7 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.fight.EndRoundMainElements;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 
 public final class ComparatorEndRoundMainElements implements
         Comparing<EndRoundMainElements> {

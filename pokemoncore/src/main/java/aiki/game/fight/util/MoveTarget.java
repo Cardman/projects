@@ -1,6 +1,5 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TargetCoords;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -27,7 +26,7 @@ public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
         target = _target;
     }
 
-    @FromAndToString
+    
     public static MoveTarget newMoveTarget(String _string) {
         return new MoveTarget(_string);
     }
@@ -60,7 +59,7 @@ public final class MoveTarget implements Equallable<MoveTarget>, Displayable {
     }
 
     @Override
-    @FromAndToString
+    
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(move);

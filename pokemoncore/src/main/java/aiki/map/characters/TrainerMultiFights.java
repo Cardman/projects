@@ -3,9 +3,8 @@ package aiki.map.characters;
 import aiki.DataBase;
 import aiki.map.pokemon.PokemonTeam;
 import code.util.CustList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TrainerMultiFights extends Trainer implements
         CharacterInRoadCave, Fightable {
 

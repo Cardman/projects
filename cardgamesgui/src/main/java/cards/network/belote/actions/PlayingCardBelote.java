@@ -2,9 +2,8 @@ package cards.network.belote.actions;
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.network.common.PlayerActionGame;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class PlayingCardBelote extends PlayerActionGame {
 
     private CardBelote playedCard;

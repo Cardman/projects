@@ -6,9 +6,8 @@ import code.maths.montecarlo.AbMonteCarlo;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class DealPresident implements Iterable<HandPresident> {
 
     public static final byte NUMERO_UTILISATEUR = 0;

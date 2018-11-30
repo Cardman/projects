@@ -144,7 +144,7 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
 import code.util.InsCaseStringMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
@@ -7573,13 +7573,13 @@ public class DataBase implements WithMathFactory {
         return _string.length() > VAR_PREFIX.length();
     }
 
-    public NatTreeMap<String, String> getDescriptions(String _litt,
+    public NatStringTreeMap< String> getDescriptions(String _litt,
             String _language) {
         StringMap<String> litt_ = litterals.getVal(_language);
 
         StringList tokens_ = StringList.getWordsSeparatorsPrefix(_litt,
                 VAR_PREFIX);
-        NatTreeMap<String, String> desc_ = new NatTreeMap<String, String>();
+        NatStringTreeMap< String> desc_ = new NatStringTreeMap< String>();
         int len_ = tokens_.size();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             if (i % 2 == 0) {

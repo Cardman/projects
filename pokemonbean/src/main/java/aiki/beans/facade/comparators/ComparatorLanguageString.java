@@ -1,6 +1,4 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.beans.help.LanguageElementStringKey;
 import code.util.CustList;
@@ -8,6 +6,7 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.ints.Comparing;
 
 public final class ComparatorLanguageString implements Comparing<LanguageElementStringKey> {
 

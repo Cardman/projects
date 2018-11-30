@@ -1,5 +1,4 @@
 package code.images;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -25,12 +24,12 @@ public final class ImageDelay implements Displayable {
         delay = Long.parseLong(infos_.last());
     }
 
-    @FromAndToString
+    
     public static ImageDelay newImageDelay(String _string) {
         return new ImageDelay(_string);
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(image.display());

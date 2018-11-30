@@ -13,7 +13,7 @@ import code.gui.CustCellRender;
 import code.gui.GraphicListable;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.maths.Rate;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 
 public class BallRenderer extends CustCellRender {
@@ -38,7 +38,7 @@ public class BallRenderer extends CustCellRender {
         facade = _facade;
     }
 
-    public void setMaxWidth(FontMetrics _fm,NatTreeMap<String,BallNumberRate> _balls) {
+    public void setMaxWidth(FontMetrics _fm,NatStringTreeMap<BallNumberRate> _balls) {
         maxWidthImage = 0;
         maxWidthRate = 0;
         maxWidthNumber = 0;

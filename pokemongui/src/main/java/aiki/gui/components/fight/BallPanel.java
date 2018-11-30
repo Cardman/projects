@@ -11,7 +11,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
 import code.gui.GraphicList;
 import code.gui.Panel;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 
 public class BallPanel extends Panel {
 
@@ -46,7 +46,7 @@ public class BallPanel extends Panel {
 
     public void initBalls() {
         liste.clear();
-        NatTreeMap<String,BallNumberRate> map_ = facade.calculateCatchingRates();
+        NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRates();
         renderer.setMaxWidth(title.getFontMetrics(title.getFont()),map_);
         for (BallNumberRate b: map_.values()) {
             liste.add(b);

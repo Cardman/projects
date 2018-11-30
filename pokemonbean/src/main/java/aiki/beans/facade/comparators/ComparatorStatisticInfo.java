@@ -1,7 +1,6 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.beans.facade.fight.StatisticInfo;
+import code.util.ints.Comparing;
 
 public final class ComparatorStatisticInfo implements Comparing<StatisticInfo> {
 

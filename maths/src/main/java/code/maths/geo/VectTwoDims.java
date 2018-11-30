@@ -1,5 +1,4 @@
 package code.maths.geo;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -22,7 +21,7 @@ public final class VectTwoDims implements Equallable<VectTwoDims>, Displayable {
         deltay = _two.getYcoords() - _one.getYcoords();
     }
 
-    @FromAndToString
+    
     public static VectTwoDims newCustPoint(String _input) {
         StringList elts_ = StringList.splitStrings(_input, SEPARATOR);
         int x_ = Integer.parseInt(elts_.first());
@@ -69,7 +68,7 @@ public final class VectTwoDims implements Equallable<VectTwoDims>, Displayable {
         return true;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

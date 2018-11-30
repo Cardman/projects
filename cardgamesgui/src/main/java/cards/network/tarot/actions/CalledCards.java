@@ -1,9 +1,8 @@
 package cards.network.tarot.actions;
 import cards.network.common.PlayerActionGame;
 import cards.tarot.HandTarot;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class CalledCards extends PlayerActionGame {
 
     private HandTarot calledCards;

@@ -35,6 +35,7 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -75,7 +76,7 @@ public class PokemonBean extends CommonBean {
     private StringList moveTutors;
     private LgInt hatchingSteps;
     private StringList eggGroupsPk;
-    private NatTreeMap<String,String> mapVars;
+    private NatStringTreeMap<String> mapVars;
     private CustList<PlaceIndex> places;
     private TreeMap<MiniMapCoords, int[][]> images;
 
@@ -145,8 +146,8 @@ public class PokemonBean extends CommonBean {
         evolutions.sortElts(new ComparatorTrStrings(translationsPokemon_));
         evoBase = translationsPokemon_.getVal(pk_.getBaseEvo());
         expEvo = data_.getFormula(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
-        NatTreeMap<String,String> mapVars_ = data_.getDescriptions(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
-        mapVars = new NatTreeMap<String,String>();
+        NatStringTreeMap<String> mapVars_ = data_.getDescriptions(data_.getExpGrowth(pk_.getExpEvo()),getLanguage());
+        mapVars = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
         desc_.sort();
         for (String k: desc_) {
@@ -478,7 +479,7 @@ public class PokemonBean extends CommonBean {
         return expEvo;
     }
 
-    public NatTreeMap<String,String> getMapVars() {
+    public NatStringTreeMap<String> getMapVars() {
         return mapVars;
     }
 

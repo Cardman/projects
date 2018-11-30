@@ -1,6 +1,4 @@
 package aiki.beans.facade.comparators;
-import code.util.ints.Comparing;
-
 import aiki.DataBase;
 import aiki.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
@@ -8,6 +6,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticCategory;
 import code.util.EnumMap;
 import code.util.StringMap;
+import code.util.ints.Comparing;
 
 public final class ComparatorStatisticCategory implements Comparing<StatisticCategory> {
 

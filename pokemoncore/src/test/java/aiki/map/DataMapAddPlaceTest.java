@@ -3,11 +3,10 @@ import static aiki.EquallablePkUtil.assertEq;
 
 import org.junit.Test;
 
-import code.util.CustList;
-import code.util.NumberMap;
-import aiki.map.DataMap;
 import aiki.map.places.City;
 import aiki.map.places.Place;
+import code.util.CustList;
+import code.util.NumberMap;
 
 @SuppressWarnings("static-method")
 public class DataMapAddPlaceTest {

@@ -1,11 +1,11 @@
 package cards.tarot;
 import org.junit.Assert;
 
-import code.util.Numbers;
-import code.util.StringList;
 import cards.consts.Suit;
 import cards.tarot.enumerations.BidTarot;
 import cards.tarot.enumerations.CardTarot;
+import code.util.Numbers;
+import code.util.StringList;
 
 public final class EquallableTarotUtil {
 

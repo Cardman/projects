@@ -1,7 +1,6 @@
 package code.gui;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TopLeftFrame {
 
     private int width;

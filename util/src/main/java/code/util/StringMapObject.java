@@ -1,6 +1,5 @@
 package code.util;
 
-import code.util.annot.CapacityInit;
 import code.util.ints.ListableEntries;
 
 public final class StringMapObject extends AbsMap<String,Object> {
@@ -13,7 +12,7 @@ public final class StringMapObject extends AbsMap<String,Object> {
         putAllMap(_arg0);
     }
 
-    @CapacityInit
+    
     public StringMapObject(CollCapacity _capacity) {
         super(_capacity);
     }

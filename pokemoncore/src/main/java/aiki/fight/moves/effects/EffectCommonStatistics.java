@@ -5,9 +5,8 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectCommonStatistics extends Effect {
 
     private EnumMap<Statistic, String> commonValue;

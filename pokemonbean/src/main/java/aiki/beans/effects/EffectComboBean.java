@@ -9,7 +9,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.TreeMap;
 
@@ -25,7 +25,7 @@ public class EffectComboBean extends CommonBean {
     private boolean endRound;
     private int endRoundRank;
     private StringList reasonsEndRound;
-    private NatTreeMap<String,String> mapVarsFailEndRound;
+    private NatStringTreeMap<String> mapVarsFailEndRound;
     private TreeMap<Statistic, Rate> multStatisticFoe;
 
     @Override
@@ -46,7 +46,7 @@ public class EffectComboBean extends CommonBean {
             endRound = false;
             endRoundRank = 0;
             reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatTreeMap<String,String>();
+            mapVarsFailEndRound = new NatStringTreeMap<String>();
         }
         EnumMap<Statistic,String> translatedStatistics_;
         translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
@@ -104,7 +104,7 @@ public class EffectComboBean extends CommonBean {
         return reasonsEndRound;
     }
 
-    public NatTreeMap<String,String> getMapVarsFailEndRound() {
+    public NatStringTreeMap<String> getMapVarsFailEndRound() {
         return mapVarsFailEndRound;
     }
 

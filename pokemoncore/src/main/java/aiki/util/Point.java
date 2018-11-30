@@ -1,6 +1,5 @@
 package aiki.util;
 import aiki.map.enums.Direction;
-import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -33,7 +32,7 @@ public final class Point implements Equallable<Point>, Displayable {
         sety(Short.parseShort(elements_.last()));
     }
 
-    @FromAndToString
+    
     public static Point newPoint(String _string) {
         return new Point(_string);
     }
@@ -82,7 +81,7 @@ public final class Point implements Equallable<Point>, Displayable {
         yCoord = _y;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

@@ -6,47 +6,39 @@ import code.util.ints.SortableMap;
 /**
     @author Cardman
 */
-public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implements SortableMap<K, V> {
+public final class NatStringTreeMap<V> extends AbsMap<String, V> implements SortableMap<String, V> {
 
-    public NatTreeMap() {
+    public NatStringTreeMap() {
     }
-    public NatTreeMap(ListableEntries<K,V> _map) {
+    public NatStringTreeMap(ListableEntries<String,V> _map) {
         putAllMap(_map);
     }
 
-    public NatTreeMap(NatTreeMap<K,V> _map) {
+    public NatStringTreeMap(NatStringTreeMap<V> _map) {
         putAllTreeMap(_map);
     }
     
-    public NatTreeMap(CollCapacity _capacity) {
+    public NatStringTreeMap(CollCapacity _capacity) {
         super(_capacity);
     }
 
     @Override
-    public void putAllMap(ListableEntries<K, V> _m) {
-        for (EntryCust<K,V> e: _m.entryList()) {
+    public void putAllMap(ListableEntries<String, V> _m) {
+        for (EntryCust<String,V> e: _m.entryList()) {
             put(e.getKey(), e.getValue());
         }
     }
 
-    public void putAllTreeMap(NatTreeMap<K, V> _m) {
-        for (EntryCust<K,V> e: _m.getList()) {
+    public void putAllTreeMap(NatStringTreeMap<V> _m) {
+        for (EntryCust<String,V> e: _m.getList()) {
             put(e.getKey(), e.getValue());
         }
     }
 
-//    @Override
-//    public boolean contains(K _key) {
-//        return getEntryByKey(_key) != null;
-//    }
-
-//    public boolean has(V _value) {
-//        return containsValue(_value);
-//    }
     @Override
-    public Listable<K> getKeysNullValue() {
-        Listable<K> list_ = new CustList<K>();
-        for (EntryCust<K, V> e: getList()) {
+    public StringList getKeysNullValue() {
+        StringList list_ = new StringList();
+        for (EntryCust<String, V> e: getList()) {
             if (e.getValue() != null) {
                 continue;
             }
@@ -55,11 +47,11 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
         return list_;
     }
     @Override
-    public CustList<V> getValues(K _key) {
+    public CustList<V> getValues(String _key) {
         CustList<V> c_;
         c_ = new CustList<V>();
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = Numbers.compare(_key,e.getKey());
+        for (EntryCust<String, V> e: getList()) {
+            int res_ = _key.compareTo(e.getKey());
             if (res_ == CustList.EQ_CMP) {
                 c_.add(e.getValue());
             }
@@ -73,31 +65,31 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public K getKey(int _index) {
+    public String getKey(int _index) {
         return getList().get(_index).getKey();
     }
 
     @Override
-    public Listable<K> getKeys() {
-        Listable<K> s_ = new CustList<K>();
-        for (EntryCust<K, V> e: getList()) {
+    public StringList getKeys() {
+        StringList s_ = new StringList();
+        for (EntryCust<String, V> e: getList()) {
             s_.add(e.getKey());
         }
         return s_;
     }
 
     @Override
-    public void put(K _key, V _value) {
+    public void put(String _key, V _value) {
         int index_ = 0;
         while (true) {
             if (index_ >= getList().size()) {
-                getList().add(new EntryCust<K, V>(_key, _value));
+                getList().add(new EntryCust<String, V>(_key, _value));
                 return;
             }
-            EntryCust<K, V> c_ = getList().get(index_);
-            int res_ = Numbers.compare(_key,c_.getKey());
+            EntryCust<String, V> c_ = getList().get(index_);
+            int res_ = _key.compareTo(c_.getKey());
             if (res_ < 0) {
-                getList().add(index_, new EntryCust<K, V>(_key, _value));
+                getList().add(index_, new EntryCust<String, V>(_key, _value));
                 return;
             }
             if (res_ == 0) {
@@ -109,11 +101,11 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    int indexOfEntry(K _key) {
+    int indexOfEntry(String _key) {
         int index_ = CustList.FIRST_INDEX;
-        for (EntryCust<K, V> e:getList()) {
-            Number c_ = _key;
-            int res_ = Numbers.compare(c_,e.getKey());
+        for (EntryCust<String, V> e:getList()) {
+            Comparable<String> c_ = _key;
+            int res_ = c_.compareTo(e.getKey());
             if (res_ == CustList.EQ_CMP) {
                 return index_;
             }
@@ -125,7 +117,7 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     @Override
     public Listable<V> values() {
         Listable<V> s_ = new CustList<V>();
-        for (EntryCust<K, V> e: getList()) {
+        for (EntryCust<String, V> e: getList()) {
             s_.add(e.getValue());
         }
         return s_;
@@ -142,21 +134,21 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public K firstKey() {
+    public String firstKey() {
         return getList().first().getKey();
     }
 
     @Override
-    public K lastKey() {
+    public String lastKey() {
         return getList().last().getKey();
     }
 
     @Override
-    public EntryCust<K, V> lowerEntry(K _key) {
-        CustList<EntryCust<K,V>> l_;
-        l_ = new CustList<EntryCust<K,V>>();
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = Numbers.compare(e.getKey(),_key);
+    public EntryCust<String, V> lowerEntry(String _key) {
+        CustList<EntryCust<String,V>> l_;
+        l_ = new CustList<EntryCust<String,V>>();
+        for (EntryCust<String, V> e: getList()) {
+            int res_ = e.getKey().compareTo(_key);
             if (res_ >= 0) {
                 continue;
             }
@@ -169,16 +161,16 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public K lowerKey(K _key) {
+    public String lowerKey(String _key) {
         return getKeyOrNull(lowerEntry(_key));
     }
 
     @Override
-    public EntryCust<K, V> floorEntry(K _key) {
-        CustList<EntryCust<K,V>> l_;
-        l_ = new CustList<EntryCust<K,V>>();
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = Numbers.compare(e.getKey(),_key);
+    public EntryCust<String, V> floorEntry(String _key) {
+        CustList<EntryCust<String,V>> l_;
+        l_ = new CustList<EntryCust<String,V>>();
+        for (EntryCust<String, V> e: getList()) {
+            int res_ = e.getKey().compareTo(_key);
             if (res_ > 0) {
                 continue;
             }
@@ -191,14 +183,14 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public K floorKey(K _key) {
+    public String floorKey(String _key) {
         return getKeyOrNull(floorEntry(_key));
     }
 
     @Override
-    public EntryCust<K, V> ceilingEntry(K _key) {
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = Numbers.compare(e.getKey(),_key);
+    public EntryCust<String, V> ceilingEntry(String _key) {
+        for (EntryCust<String, V> e: getList()) {
+            int res_ = e.getKey().compareTo(_key);
             if (res_ >= 0) {
                 return e;
             }
@@ -207,14 +199,14 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public K ceilingKey(K _key) {
+    public String ceilingKey(String _key) {
         return getKeyOrNull(ceilingEntry(_key));
     }
 
     @Override
-    public EntryCust<K, V> higherEntry(K _key) {
-        for (EntryCust<K, V> e: getList()) {
-            int res_ = Numbers.compare(e.getKey(),_key);
+    public EntryCust<String, V> higherEntry(String _key) {
+        for (EntryCust<String, V> e: getList()) {
+            int res_ = e.getKey().compareTo(_key);
             if (res_ > 0) {
                 return e;
             }
@@ -223,25 +215,25 @@ public final class NatTreeMap<K extends Number, V> extends AbsMap<K, V> implemen
     }
 
     @Override
-    public K higherKey(K _key) {
+    public String higherKey(String _key) {
         return getKeyOrNull(higherEntry(_key));
     }
 
     @Override
-    public EntryCust<K, V> firstEntry() {
+    public EntryCust<String, V> firstEntry() {
         return getList().first();
     }
 
     @Override
-    public EntryCust<K, V> lastEntry() {
+    public EntryCust<String, V> lastEntry() {
         return getList().last();
     }
 
     public void applyChanges() {
         for (int i = CustList.FIRST_INDEX; i < getList().size(); i++) {
             for (int j = i + 1; j < getList().size(); j++) {
-                Number c_ = getList().get(i).getKey();
-                int res_ = Numbers.compare(c_,getList().get(j).getKey());
+                Comparable<String> c_ = getList().get(i).getKey();
+                int res_ = c_.compareTo(getList().get(j).getKey());
                 if (res_ > CustList.EQ_CMP) {
                     getList().swapIndexes(i, j);
                 }

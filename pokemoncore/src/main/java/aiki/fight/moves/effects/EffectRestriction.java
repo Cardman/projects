@@ -3,9 +3,8 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.fight.moves.enums.TargetChoice;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectRestriction extends Effect {
 
     private boolean forbidTargetUsingItem;

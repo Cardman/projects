@@ -1,5 +1,4 @@
 package aiki.game.fight;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -29,7 +28,7 @@ public final class StacksOfUses implements Displayable {
         lastStacked = StringList.quickEq(elts_.last(), TRUE);
     }
 
-    @FromAndToString
+    
     public static StacksOfUses newStacksOfUses(String _string) {
         return new StacksOfUses(_string);
     }
@@ -65,7 +64,7 @@ public final class StacksOfUses implements Displayable {
         lastStacked = _lastStacked;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

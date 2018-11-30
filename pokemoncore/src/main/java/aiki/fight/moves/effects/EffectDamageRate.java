@@ -3,9 +3,8 @@ package aiki.fight.moves.effects;
 import aiki.DataBase;
 import aiki.fight.moves.enums.TargetChoice;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectDamageRate extends Effect {
 
     private Rate rateDamage;

@@ -1,5 +1,4 @@
 package aiki.fight.util;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 import code.util.ints.Equallable;
@@ -26,7 +25,7 @@ public final class WeatherType implements Equallable<WeatherType>, Displayable {
         type = _type;
     }
 
-    @FromAndToString
+    
     public static WeatherType newWeatherType(String _string) {
         return new WeatherType(_string);
     }
@@ -58,7 +57,7 @@ public final class WeatherType implements Equallable<WeatherType>, Displayable {
         type = _type;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder(weather);

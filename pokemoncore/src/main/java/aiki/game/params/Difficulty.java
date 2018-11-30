@@ -5,9 +5,8 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.Numbers;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Difficulty {
 
     /***/

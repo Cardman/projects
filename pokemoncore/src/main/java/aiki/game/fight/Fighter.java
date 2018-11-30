@@ -54,14 +54,13 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Fighter {
 
     public static final String CIBLE_NB_UTILISATION = "CIBLE_NB_UTILISATION";
@@ -2437,8 +2436,8 @@ public final class Fighter {
         return trackingMoves.getVal(_c);
     }
 
-    NatTreeMap<String,Boolean> getMoves(String _evo) {
-        NatTreeMap<String,Boolean> map_ = new NatTreeMap<String,Boolean>();
+    NatStringTreeMap<Boolean> getMoves(String _evo) {
+        NatStringTreeMap<Boolean> map_ = new NatStringTreeMap<Boolean>();
         for (String m: moves.getKeys()) {
             map_.put(m, true);
         }

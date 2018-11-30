@@ -40,12 +40,11 @@ import code.util.EqList;
 import code.util.NumberMap;
 import code.util.Numbers;
 import code.util.TreeMap;
-import code.util.annot.RwXml;
 import code.util.comparators.ComparatorEnum;
 import code.util.consts.Constants;
 
 /** */
-@RwXml
+
 public final class GameTarot {
 
     public static final int NO_OUDLER_PTS = 56;

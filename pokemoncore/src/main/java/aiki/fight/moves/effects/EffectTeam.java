@@ -9,9 +9,8 @@ import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectTeam extends Effect {
 
     private boolean forbiddingHealing;

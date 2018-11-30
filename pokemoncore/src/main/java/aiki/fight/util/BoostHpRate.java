@@ -1,6 +1,5 @@
 package aiki.fight.util;
 import code.maths.Rate;
-import code.sml.FromAndToString;
 import code.util.StringList;
 import code.util.ints.Displayable;
 
@@ -23,7 +22,7 @@ public final class BoostHpRate implements Displayable {
         hpRate = _hpRate;
     }
 
-    @FromAndToString
+    
     public static BoostHpRate newBoostHpRate(String _string) {
         return new BoostHpRate(_string);
     }
@@ -36,7 +35,7 @@ public final class BoostHpRate implements Displayable {
         return hpRate;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

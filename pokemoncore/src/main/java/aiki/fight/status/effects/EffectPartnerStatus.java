@@ -2,9 +2,8 @@ package aiki.fight.status.effects;
 
 import aiki.DataBase;
 import code.maths.Rate;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectPartnerStatus {
 
     private Rate multDamageAgainstFoe;

@@ -4,9 +4,8 @@ import aiki.DataBase;
 import aiki.fight.moves.effects.EffectCombo;
 import code.util.ObjectMap;
 import code.util.StringList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class Combos {
 
     private ObjectMap<StringList, EffectCombo> effects;

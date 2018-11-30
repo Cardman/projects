@@ -5,7 +5,7 @@ import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.EntryCust;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 
 abstract class InfoAnnotPart {
 
@@ -27,7 +27,7 @@ abstract class InfoAnnotPart {
             c_.setClassName(a_.getClassName());
             c_.setAnnotation(a_);
             c_.setParent(_parent);
-            NatTreeMap<String,Struct> fields_ = new NatTreeMap<String,Struct>();
+            NatStringTreeMap<Struct> fields_ = new NatStringTreeMap<Struct>();
             for (EntryCust<ClassField, Struct> e: a_.getFields().entryList()) {
                 fields_.put(e.getKey().getFieldName(), e.getValue());
             }

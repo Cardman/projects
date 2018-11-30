@@ -1,9 +1,7 @@
 package code.util.classestest;
 import code.util.ints.Comparing;
 
-import code.util.annot.RwXml;
 
-@RwXml
 public final class MyStringComparator implements Comparing<String> {
 
     private int mult = 1;

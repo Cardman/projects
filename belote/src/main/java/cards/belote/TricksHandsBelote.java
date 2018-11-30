@@ -3,9 +3,8 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import code.util.CustList;
 import code.util.EqList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class TricksHandsBelote {
 
     private RulesBelote rules;

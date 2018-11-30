@@ -5,9 +5,8 @@ import aiki.map.tree.LevelArea;
 import aiki.util.Point;
 import code.util.EntryCust;
 import code.util.ObjectMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class LevelCave extends LevelWithWildPokemon {
 
     private ObjectMap<Point, Link> linksOtherLevels;

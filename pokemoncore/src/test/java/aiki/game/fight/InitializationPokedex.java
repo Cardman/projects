@@ -1,11 +1,4 @@
 package aiki.game.fight;
-import code.maths.LgInt;
-import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.EqList;
-import code.util.Numbers;
-import code.util.StringList;
-import code.util.StringMap;
 import aiki.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
@@ -26,6 +19,13 @@ import aiki.fight.pokemon.evolution.EvolutionTeam;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.EnumMap;
+import code.util.EqList;
+import code.util.Numbers;
+import code.util.StringList;
+import code.util.StringMap;
 
 final class InitializationPokedex {
 

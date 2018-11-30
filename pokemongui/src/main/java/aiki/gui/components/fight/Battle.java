@@ -62,7 +62,7 @@ import code.sml.util.ExtractFromFiles;
 import code.util.BooleanList;
 import code.util.CustList;
 import code.util.EnumList;
-import code.util.NatTreeMap;
+import code.util.NatStringTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1160,7 +1160,7 @@ public class Battle extends ChildFrame {
         StringMap<StringMap<String>> trMoves_;
         trMoves_ = facade.getData().getTranslatedMoves();
         TreeMap<String,Boolean> moves_ = new TreeMap<String, Boolean>(new ComparatorTrStrings(trMoves_.getVal(window.getLanguageKey())));
-        NatTreeMap<String,Boolean> retMoves_ = facade.getMoves();
+        NatStringTreeMap<Boolean> retMoves_ = facade.getMoves();
         moves_.putAllTreeMap(retMoves_);
         movesLearnPanel.removeAll();
         movesLearnPanel.add(new JLabel(messages.getVal(SELECT_MT)));
@@ -1273,7 +1273,7 @@ public class Battle extends ChildFrame {
         }
         actions.add(button_);
         actions.add(selectedItem);
-        NatTreeMap<String,ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
+        NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
         if (!moves_.isEmpty()) {
             boolean wasNull_ = movesPanel == null;
             if (wasNull_) {
@@ -1334,7 +1334,7 @@ public class Battle extends ChildFrame {
     }
 
     private void displayMoves() {
-        NatTreeMap<String,ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
+        NatStringTreeMap<ChosenMoveInfos> moves_ = facade.getFight().getCurrentFighterMoves();
         if (!moves_.isEmpty()) {
             Panel movesPanel_ = new Panel();
             movesPanel_.setLayout(new BoxLayout(movesPanel_.getComponent(), BoxLayout.PAGE_AXIS));

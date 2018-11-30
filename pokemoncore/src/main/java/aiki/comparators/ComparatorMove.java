@@ -1,10 +1,9 @@
 package aiki.comparators;
-import code.util.ints.Comparing;
-
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.util.SortingMove;
 import code.util.CustList;
 import code.util.Numbers;
+import code.util.ints.Comparing;
 import code.util.pagination.EnumFieldComparator;
 import code.util.pagination.FieldComparator;
 import code.util.pagination.Pagination;

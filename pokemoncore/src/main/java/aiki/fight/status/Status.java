@@ -7,9 +7,8 @@ import aiki.fight.status.effects.EffectPartnerStatus;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class Status {
 
     private String name;

@@ -14,9 +14,8 @@ import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ResultsTarot extends ResultsGame {
 
     private static final int FACTOR = 3;

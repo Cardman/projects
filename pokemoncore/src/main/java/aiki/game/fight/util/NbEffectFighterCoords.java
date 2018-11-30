@@ -1,6 +1,5 @@
 package aiki.game.fight.util;
 import aiki.game.fight.TeamPosition;
-import code.sml.FromAndToString;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.ints.Displayable;
@@ -25,7 +24,7 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
         position = _position;
     }
 
-    @FromAndToString
+    
     public static NbEffectFighterCoords newNbEffectFighterCoords(String _string) {
         return new NbEffectFighterCoords(_string);
     }
@@ -50,7 +49,7 @@ public final class NbEffectFighterCoords implements Equallable<NbEffectFighterCo
     }
 
     @Override
-    @FromAndToString
+    
     public String display() {
         StringBuilder str_ = new StringBuilder();
         str_.append(number);

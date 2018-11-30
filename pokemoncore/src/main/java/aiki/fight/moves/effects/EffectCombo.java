@@ -4,9 +4,8 @@ import aiki.DataBase;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.CustList;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class EffectCombo {
 
     private Rate multEvtRateSecEff;

@@ -3,9 +3,8 @@ import aiki.DataBase;
 import aiki.map.levels.LevelIndoorPokemonCenter;
 import aiki.map.tree.BuildingArea;
 import aiki.util.Point;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class PokemonCenter extends Building {
 
     private LevelIndoorPokemonCenter level;

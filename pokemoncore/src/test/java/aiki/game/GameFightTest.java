@@ -40,6 +40,7 @@ import aiki.util.Point;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EqList;
+import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -529,7 +530,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, _data_);
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
-        NatTreeMap<String,BallNumberRate> balls_ = game_.calculateCatchingRates(_data_);
+        NatStringTreeMap<BallNumberRate> balls_ = game_.calculateCatchingRates(_data_);
         assertEq(1, balls_.size());
         BallNumberRate ball_ = balls_.getVal(MASTER_BALL);
         assertEq(MASTER_BALL, ball_.getName());
@@ -634,7 +635,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.moving(Direction.DOWN, _data_);
         game_.moving(Direction.RIGHT, _data_);
         game_.moving(Direction.RIGHT, _data_);
-        NatTreeMap<String,EqList<TeamPosition>> map_;
+        NatStringTreeMap<EqList<TeamPosition>> map_;
         map_ = game_.sortedFightersBeginRoundWildFight(_data_);
         assertEq(1, map_.size());
         assertEq(1, map_.getVal(JACKPOT).size());
@@ -655,7 +656,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.moving(Direction.RIGHT, _data_);
         game_.chooseFrontFighter((byte) 0, _data_);
         game_.chooseMove(JACKPOT, _data_);
-        NatTreeMap<String,EqList<TeamPosition>> map_;
+        NatStringTreeMap<EqList<TeamPosition>> map_;
         map_ = game_.sortedFightersBeginRoundWildFight(_data_);
         assertEq(1, map_.size());
         assertEq(2, map_.getVal(JACKPOT).size());
@@ -894,7 +895,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.deselect();
         game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
         assertEq(0, game_.getChosenIndex());
-        NatTreeMap<String,Boolean> moves_ = game_.getMoves();
+        NatStringTreeMap<Boolean> moves_ = game_.getMoves();
         assertEq(4, moves_.size());
         assertTrue(moves_.getVal(COUD_BOUE));
         assertTrue(moves_.getVal(GRIFFE_ACIER));
@@ -937,7 +938,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.choosePokemonForLearningAndEvolving((byte) 0, _data_);
         game_.setEvolution(NINJASK);
         assertEq(0, game_.getChosenIndex());
-        NatTreeMap<String,Boolean> moves_ = game_.getMoves();
+        NatStringTreeMap<Boolean> moves_ = game_.getMoves();
         assertEq(20, moves_.size());
         assertTrue(!moves_.getVal(ARMURE));
         assertTrue(!moves_.getVal(COMBO_GRIFFE));
@@ -999,7 +1000,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setEvolution(TARINORME);
         game_.setAbility(MAGNEPIEGE);
         assertEq(0, game_.getChosenIndex());
-        NatTreeMap<String,Boolean> moves_ = game_.getMoves();
+        NatStringTreeMap<Boolean> moves_ = game_.getMoves();
         assertEq(17, moves_.size());
         assertTrue(!moves_.getVal(BOMBAIMANT));
         assertTrue(!moves_.getVal(CAGE_ECLAIR));
@@ -1057,7 +1058,7 @@ public class GameFightTest extends InitializationDataBase {
         game_.setEvolution(NINJASK);
         game_.addOrForgetMove(PLAIE_CROIX);
         assertEq(0, game_.getChosenIndex());
-        NatTreeMap<String,Boolean> moves_ = game_.getMoves();
+        NatStringTreeMap<Boolean> moves_ = game_.getMoves();
         assertEq(20, moves_.size());
         assertTrue(!moves_.getVal(ARMURE));
         assertTrue(!moves_.getVal(COMBO_GRIFFE));

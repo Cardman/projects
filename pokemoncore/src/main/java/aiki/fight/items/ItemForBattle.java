@@ -15,9 +15,8 @@ import code.util.EnumMap;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public final class ItemForBattle extends Item {
 
     public static final String ITEM = "aiki.fight.items.ItemForBattle";

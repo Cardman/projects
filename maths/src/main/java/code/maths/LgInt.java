@@ -1,5 +1,4 @@
 package code.maths;
-import code.sml.FromAndToString;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -160,7 +159,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         }
         return grDigits_;
     }
-    @FromAndToString
+    
     public static LgInt newLgInt(String _string) {
         return new LgInt(_string);
     }
@@ -1754,7 +1753,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 
     @return la chaine de caracteres represantant l'entier comme ecrit de maniere naturelle.
     */
-    @FromAndToString
+    
     public String toNumberString() {
         StringBuilder chaine_ = new StringBuilder();
         int indice_ = CustList.FIRST_INDEX;

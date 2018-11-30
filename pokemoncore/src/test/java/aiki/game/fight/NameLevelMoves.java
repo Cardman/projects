@@ -1,6 +1,6 @@
 package aiki.game.fight;
-import code.util.StringList;
 import aiki.fight.pokemon.NameLevel;
+import code.util.StringList;
 
 public final class NameLevelMoves {
 

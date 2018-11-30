@@ -18,11 +18,10 @@ import code.util.ObjectMap;
 import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 import code.util.comparators.ComparatorPairNumber;
 import code.util.ints.Listable;
 
-@RwXml
+
 public final class Team {
 
     public static final String EQUIPE_NB_UTILISATION = "EQUIPE_NB_UTILISATION";

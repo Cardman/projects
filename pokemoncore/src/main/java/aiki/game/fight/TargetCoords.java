@@ -1,5 +1,4 @@
 package aiki.game.fight;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.Numbers;
 import code.util.StringList;
@@ -30,7 +29,7 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
         position = Short.parseShort(elts_.last());
     }
 
-    @FromAndToString
+    
     public static TargetCoords newTargetCoords(String _string) {
         return new TargetCoords(_string);
     }
@@ -69,7 +68,7 @@ public final class TargetCoords implements Equallable<TargetCoords>, Displayable
         return position;
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         StringBuilder str_ = new StringBuilder();

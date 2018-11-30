@@ -1,8 +1,7 @@
 package cards.tarot.comparators;
-import code.util.ints.Comparing;
-
-import code.util.CustList;
 import cards.tarot.enumerations.BidTarot;
+import code.util.CustList;
+import code.util.ints.Comparing;
 
 public final class BidTarotComparator implements Comparing<BidTarot> {
 

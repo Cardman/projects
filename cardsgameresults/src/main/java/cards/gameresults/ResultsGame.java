@@ -5,9 +5,8 @@ import code.util.EqList;
 import code.util.Numbers;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.annot.RwXml;
 
-@RwXml
+
 public abstract class ResultsGame {
 
     protected static final String RESULTS_BELOTE = "cards.belote.ResultsBelote";

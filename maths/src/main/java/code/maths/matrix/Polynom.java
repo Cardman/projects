@@ -1,7 +1,6 @@
 package code.maths.matrix;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.sml.FromAndToString;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.PairEq;
@@ -39,7 +38,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         }
     }
 
-    @FromAndToString
+    
     public static Polynom newPolynom(String _arg) {
         Polynom v_ = new Polynom();
         for (String s: StringList.splitStrings(_arg, SEPARATOR)) {
@@ -721,7 +720,7 @@ public final class Polynom implements Equallable<Polynom>, Displayable {
         return numbers.first().isZero();
     }
 
-    @FromAndToString
+    
     @Override
     public String display() {
         if (numbers.isEmpty()) {
