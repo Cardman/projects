@@ -20,7 +20,7 @@ import code.gui.document.RenderedPage;
 import code.util.StringMap;
 
 public final class DialogDifficulty extends Dialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.DialogDifficulty";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.dialogdifficulty";
 
     private static final String TEXT = "0";
 

@@ -29,7 +29,7 @@ import code.util.StringMap;
 
 public class PanelTricksHandsTarot extends Panel implements ViewablePanelTricksHands {
 
-    private static final String ACCESS = "cards.gui.panels.PanelTricksHandsTarot";
+    private static final String ACCESS = "cards.gui.panels.paneltrickshandstarot";
     private static final String DEFAULT ="Default";
     private static final String TRICK ="trick";
     private static final String CARD ="card";

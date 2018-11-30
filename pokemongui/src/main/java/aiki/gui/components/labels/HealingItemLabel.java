@@ -16,7 +16,7 @@ import code.util.StringMap;
 
 public class HealingItemLabel extends SelectableLabel {
 
-    private static final String HEALING_ITEM_LABEL = "aiki.gui.components.labels.HealingItemLabel";
+    private static final String HEALING_ITEM_LABEL = "aiki.gui.components.labels.healingitemlabel";
 
     private static final String SEPARATOR = Paginator.SPACE;
 

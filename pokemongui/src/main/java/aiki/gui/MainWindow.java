@@ -95,7 +95,6 @@ import code.stream.StreamTextFile;
 import code.stream.StreamZipFile;
 import code.util.CustList;
 import code.util.EnumMap;
-import code.util.InsCaseStringMap;
 import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
@@ -106,7 +105,7 @@ public final class MainWindow extends NetGroupFrame {
     //implemented SettingInfosAfterCompiler
 
     public static final String OK = "ok";
-    private static final String DIALOG_ACCESS = "aiki.gui.MainWindow";
+    private static final String DIALOG_ACCESS = "aiki.gui.mainwindow";
 
     private static final String TITLE = "title";
 
@@ -522,7 +521,7 @@ public final class MainWindow extends NetGroupFrame {
         if (!_file.isEmpty()) {
             //startThread = true;
             try {
-                InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_file);
+            	StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
                 facade.loadRomAndCheck(_file, files_);
                 if (!facade.isLoadedData()) {
                     facade.loadResources();
@@ -570,7 +569,7 @@ public final class MainWindow extends NetGroupFrame {
             path_ = StringList.replaceBackSlash(path_);
             //startThread = true;
             try {
-                InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(path_);
+            	StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
                 facade.loadRomAndCheck(path_, files_);
                 if (!facade.isLoadedData()) {
                     facade.loadResources();
@@ -1109,7 +1108,7 @@ public final class MainWindow extends NetGroupFrame {
 
     public void processLoad(String _fileName) {
         try {
-            InsCaseStringMap<String> files_ = StreamZipFile.zippedTextFilesIns(_fileName);
+            StringMap<String> files_ = StreamZipFile.zippedTextFiles(_fileName);
             facade.loadRomAndCheck(_fileName, files_);
             if (!facade.isLoadedData()) {
                 facade.loadResources();

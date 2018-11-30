@@ -156,7 +156,7 @@ public final class Navigation {
         boolean found_ = false;
         String fileName_ = EMPTY_STRING;
         for (EntryCust<String, String> e: files.entryList()) {
-            if (e.getKey().equalsIgnoreCase(_conf)) {
+            if (StringList.quickEq(e.getKey(),_conf)) {
                 fileName_ = e.getKey();
                 found_ = true;
                 break;

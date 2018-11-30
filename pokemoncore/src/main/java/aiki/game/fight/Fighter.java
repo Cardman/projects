@@ -72,7 +72,7 @@ public final class Fighter {
 
     public static final byte BACK = -100;
 
-    public static final String FIGHTER = "aiki.game.fight.Fighter";
+    public static final String FIGHTER = "aiki.game.fight.fighter";
 
     private static final String WON_EV = "wonEv";
 

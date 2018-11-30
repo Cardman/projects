@@ -102,7 +102,7 @@ import code.util.consts.ConstFiles;
 
 public class ScenePanel extends Panel {
 
-    private static final String SCENE_PANEL = "aiki.gui.components.walk.ScenePanel";
+    private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
 
     private static final String LOCALHOST_OLD_IP = "127.0.0.1";
 

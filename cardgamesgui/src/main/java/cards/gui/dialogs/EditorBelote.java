@@ -38,7 +38,7 @@ import code.util.consts.ConstFiles;
 
 public final class EditorBelote extends DialogBelote implements SetterSelectedCardList{
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.EditorBelote";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.editorbelote";
     private static final EditorBelote DIALOG = new EditorBelote();
     private static final String BACK = "back";
     private static final String DEALER = "dealer";

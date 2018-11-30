@@ -14,7 +14,6 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.InsCaseStringMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -42,17 +41,6 @@ public final class StreamTextFile {
 
     public static StringMap<String> getTextFiles(String _folder) {
         StringMap<String> map_ = new StringMap<String>();
-        for (String f: files(_folder)) {
-            if (new File(StringList.concat(_folder,f)).isDirectory()) {
-                continue;
-            }
-            map_.put(f, contentsOfFile(StringList.concat(_folder,f)));
-        }
-        return map_;
-    }
-
-    public static InsCaseStringMap<String> getTextFilesIns(String _folder) {
-        InsCaseStringMap<String> map_ = new InsCaseStringMap<String>();
         for (String f: files(_folder)) {
             if (new File(StringList.concat(_folder,f)).isDirectory()) {
                 continue;
@@ -155,7 +143,6 @@ public final class StreamTextFile {
             folder_ = folder_.substring(CustList.FIRST_INDEX, folder_.length() - suffix_.length());
             folder_ = StringList.concat(folder_,SEPARATEUR);
         }
-//        folder_ = folder_.replaceAll(SEPARATEUR+_folder+END, SEPARATEUR);
         StringList new_ = new StringList();
         while (true) {
             new_ = new StringList();
@@ -175,7 +162,6 @@ public final class StreamTextFile {
             current_ = new StringList(new_);
         }
         files_.replaceBackSlashesInStrings();
-//        files_.replaceRegExpInStrings(BEGIN+folder_, EMPTY_STRING);
         files_.removePrefixInStrings(folder_);
         return files_;
     }

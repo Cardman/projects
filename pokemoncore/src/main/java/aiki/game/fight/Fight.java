@@ -52,7 +52,7 @@ public final class Fight {
     /***/
     public static final byte FOE = 1;
 
-    public static final String FIGHT = "aiki.game.fight.Fight";
+    public static final String FIGHT = "aiki.game.fight.fight";
 
     public static final String LANCEUR_PV_RESTANTS = "LANCEUR_PV_RESTANTS";
     public static final String CIBLE_PV_RESTANTS = "CIBLE_PV_RESTANTS";

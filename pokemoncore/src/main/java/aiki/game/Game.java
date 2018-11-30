@@ -84,7 +84,7 @@ import code.util.TreeMap;
 
 public final class Game {
 
-    public static final String GAME = "aiki.game.Game";
+    public static final String GAME = "aiki.game.game";
 
     private static final int NB_HOSTED_POKEMON = 2;
 

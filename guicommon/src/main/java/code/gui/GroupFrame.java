@@ -10,7 +10,7 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 
 public abstract class GroupFrame extends CommonFrame {
-    private static final String ACCESS = "gui.GroupFrame";
+    private static final String ACCESS = "gui.groupframe";
 
     private static final CustList<GroupFrame> FRAMES = new CustList<GroupFrame>();
 

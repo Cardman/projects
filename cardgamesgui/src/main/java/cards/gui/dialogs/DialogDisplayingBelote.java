@@ -26,7 +26,7 @@ import code.util.ints.Listable;
 
 public final class DialogDisplayingBelote extends DialogCards implements DialogDisplaying {
 
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogDisplayingBelote";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogdisplayingbelote";
     private static final DialogDisplayingBelote DIALOG = new DialogDisplayingBelote();
     private static final String ADD_SUIT = "addSuit";
     private static final String CLOCK_WISE = "clockWise";

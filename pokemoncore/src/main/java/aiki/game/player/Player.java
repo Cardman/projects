@@ -50,7 +50,7 @@ import code.util.comparators.ComparatorTreeMapValue;
 
 public final class Player {
 
-    public static final String PLAYER = "aiki.game.player.Player";
+    public static final String PLAYER = "aiki.game.player.player";
 
     private static final String DEFAULT_NICKNAME_PREFIX = "TRUMP_";
 

@@ -50,7 +50,7 @@ public final class Format {
     }
 
     public static String getClassProperties(String _class) {
-        return StringList.concat(StringList.toLowerCase(StringList.replace(_class, DOT, ResourceFiles.SEPARATEUR)),DOT,PROPERTIES);
+        return StringList.concat(StringList.replace(_class, DOT, ResourceFiles.SEPARATEUR),DOT,PROPERTIES);
     }
 
     public static String keepOnlyWordCharsDot(String _string) {

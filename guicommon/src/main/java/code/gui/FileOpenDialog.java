@@ -19,7 +19,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class FileOpenDialog extends FileDialog implements SingleFileSelection {
-    private static final String DIALOG_ACCESS = "gui.FileOpenDialog";
+    private static final String DIALOG_ACCESS = "gui.fileopendialog";
 
     private static final FileOpenDialog DIALOG = new FileOpenDialog();
     private static final String SEARCH = "search";

@@ -18,7 +18,7 @@ import code.util.TreeMap;
 
 public final class GamePresident {
 
-    private static final String GAME_PRESIDENT = "cards.president.GamePresident";
+    private static final String GAME_PRESIDENT = "cards.president.gamepresident";
     private static final String FOLDER = "resources_cards/classes";
 
     private static final String EMPTY = "";

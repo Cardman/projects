@@ -1446,18 +1446,6 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         }
         return list_;
     }
-    public StringList stringsEqualsIgnoreCase(String _string) {
-        StringList list_ = new StringList();
-        for (String s: this) {
-            if (s == null) {
-                continue;
-            }
-            if (s.equalsIgnoreCase(_string)) {
-                list_.add(s);
-            }
-        }
-        return list_;
-    }
 
     @Override
     public String[] toArray() {

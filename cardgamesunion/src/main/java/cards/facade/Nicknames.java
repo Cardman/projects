@@ -12,7 +12,7 @@ import code.util.StringMap;
 
 public final class Nicknames {
 
-    private static final String NICKNAMES = "cards.facade.Nicknames";
+    private static final String NICKNAMES = "cards.facade.nicknames";
     private static final String RESSOURCES_CLASSES = "resources_cards/classes";
     private static final String NICKNAME = "nickname";
     private static final String USER = "user";

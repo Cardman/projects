@@ -45,13 +45,13 @@ public abstract class Paginator extends Panel{
     protected static final String POKEMON = "Pokemon";
 
     protected static final String SPACES = StringList.concat(SPACE,SPACE);
-    protected static final String ACCESS_EGG = "aiki.gui.components.PaginatorEgg";
-    protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.PaginatorHealingItem";
-    protected static final String ACCESS_ITEM = "aiki.gui.components.PaginatorItem";
-    protected static final String ACCESS_MOVE = "aiki.gui.components.PaginatorMove";
-    protected static final String ACCESS_POKEMON = "aiki.gui.components.PaginatorPokemon";
-    private static final String ACCESS = "aiki.gui.components.Paginator";
-    private static final String ACCESS_SEARCH = "util.pagination.SearchingMode";
+    protected static final String ACCESS_EGG = "aiki.gui.components.paginatoregg";
+    protected static final String ACCESS_HEALING_ITEM = "aiki.gui.components.paginatorhealingitem";
+    protected static final String ACCESS_ITEM = "aiki.gui.components.paginatoritem";
+    protected static final String ACCESS_MOVE = "aiki.gui.components.paginatormove";
+    protected static final String ACCESS_POKEMON = "aiki.gui.components.paginatorpokemon";
+    private static final String ACCESS = "aiki.gui.components.paginator";
+    private static final String ACCESS_SEARCH = "util.pagination.searchingmode";
 
     private static final String BEGIN = "0";
     private static final String PREVIOUS_DELTA = "<<";

@@ -39,7 +39,7 @@ import code.util.consts.Constants;
  */
 
 public final class GameBelote {
-    private static final String GAME_BELOTE = "cards.belote.GameBelote";
+    private static final String GAME_BELOTE = "cards.belote.gamebelote";
     private static final String FOLDER = "resources_cards/classes";
 
     private static final String OVER_TRUMP_FOE = "overTrumpFoe";

@@ -16,7 +16,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class SelectEgg extends SelectDialog {
-    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.SelectEgg";
+    private static final String DIALOG_ACCESS = "aiki.gui.dialogs.selectegg";
 
     private static final SelectEgg DIALOG = new SelectEgg();
 

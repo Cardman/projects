@@ -159,7 +159,7 @@ public class Configuration implements ExecutableCode {
         }
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
-            if (e.getKey().equalsIgnoreCase(conf_)) {
+            if (StringList.quickEq(e.getKey(),conf_)) {
                 content_ = StringList.splitStrings(e.getValue(), RETURN_LINE);
                 break;
             }

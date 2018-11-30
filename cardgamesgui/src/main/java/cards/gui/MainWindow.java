@@ -442,7 +442,7 @@ public final class MainWindow extends NetGroupFrame {
     static final String NOT_FOUND_FILE = "notFoundFile";
 
     static final String NOT_HELP = "notHelp";
-    private static final String DIALOG_ACCESS = "cards.gui.MainWindow";
+    private static final String DIALOG_ACCESS = "cards.gui.mainwindow";
 
     private static final String TOO_MANY = "tooMany";
 

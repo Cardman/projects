@@ -8,7 +8,7 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 
 public final class DialogRulesPresident extends DialogPresident implements DialogRules {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogRulesPresident";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulespresident";
 
     private static final DialogRulesPresident DIALOG = new DialogRulesPresident();
     private static final String VALIDATE = "validate";

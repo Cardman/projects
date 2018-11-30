@@ -10,7 +10,6 @@ import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import code.util.InsCaseStringMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -48,34 +47,12 @@ public final class StreamZipFile {
             }
         }
     }
-    public static InsCaseStringMap<String> zippedTextFilesIns(String _zipFileName) {
+    public static StringMap<String> zippedTextFilesFromBytes(String _zipFileName) {
         ZipFile zipFile_ = null;
         try {
             zipFile_ = new ZipFile(_zipFileName);
 
-            InsCaseStringMap<String> files_ = new InsCaseStringMap<String>();
-            for (ZipEntry entry_ :Collections.list(zipFile_.entries())) {
-                String str_ = getContentOfZippedFile(zipFile_, entry_);
-                files_.put(entry_.getName(), str_);
-            }
-            return files_;
-        } catch (Throwable _0) {
-            return null;
-        } finally {
-            if (zipFile_ != null) {
-                try {
-                    zipFile_.close();
-                } catch (Throwable _0) {
-                }
-            }
-        }
-    }
-    public static InsCaseStringMap<String> zippedTextFilesInsFromBytes(String _zipFileName) {
-        ZipFile zipFile_ = null;
-        try {
-            zipFile_ = new ZipFile(_zipFileName);
-
-            InsCaseStringMap<String> files_ = new InsCaseStringMap<String>();
+            StringMap<String> files_ = new StringMap<String>();
             FileInputStream fis_ = new FileInputStream(_zipFileName);
             ZipInputStream zip_ = new ZipInputStream(fis_);
             ZipEntry entry_ = zip_.getNextEntry();

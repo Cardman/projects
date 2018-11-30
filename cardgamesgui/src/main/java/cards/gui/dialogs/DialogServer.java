@@ -26,7 +26,7 @@ import code.util.Numbers;
 import code.util.StringMap;
 
 public final class DialogServer extends DialogCards implements AbstractDialogServer{
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogServer";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogserver";
 
     private static final DialogServer DIALOG = new DialogServer();
     private static final String CANCEL = "cancel";

@@ -148,7 +148,7 @@ public final class ResultsTarot extends ResultsGame {
     public void setMessages(String _loc) {
         loc = _loc;
         StringMap<String> messages_ = new StringMap<String>();
-        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_PRESIDENT);
+        messages_ = ExtractFromFiles.getMessagesFromLocaleClass(RESOURCES_CLASS_PATH, _loc, RESULTS_TAROT);
         setGlobalResultsPageTitle(messages_.getVal(RESULTS_PAGE));
         setDetailResultsTitle(messages_.getVal(DETAIL_RESULTS_PAGE));
     }

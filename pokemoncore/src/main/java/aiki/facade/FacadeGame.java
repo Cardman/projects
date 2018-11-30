@@ -64,7 +64,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.InsCaseStringMap;
 import code.util.NatStringTreeMap;
 import code.util.NatTreeMap;
 import code.util.NumberMap;
@@ -201,7 +200,7 @@ public class FacadeGame implements WithMathFactory {
     }
 
     // Load rom first
-    public DataBase loadedRom(InsCaseStringMap<String> _files) {
+    public DataBase loadedRom(StringMap<String> _files) {
         DataBase data_ = new DataBase();
         setLoading(true);
         data_.setLanguage(language);
@@ -234,7 +233,7 @@ public class FacadeGame implements WithMathFactory {
 
     // Load rom option
     public void loadRomAndCheck(String _fileName,
-            InsCaseStringMap<String> _files) {
+    		StringMap<String> _files) {
         DataBase data_ = loadedRom(_files);
         if (!isLoading()) {
             return;

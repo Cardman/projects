@@ -143,7 +143,6 @@ import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
 import code.util.EqList;
-import code.util.InsCaseStringMap;
 import code.util.NatStringTreeMap;
 import code.util.NumberMap;
 import code.util.Numbers;
@@ -2084,11 +2083,11 @@ public class DataBase implements WithMathFactory {
         types = moveTypes_;
     }
 
-    public void loadRom(InsCaseStringMap<String> _files, AtomicInteger _perCentLoading) {
+    public void loadRom(StringMap<String> _files, AtomicInteger _perCentLoading) {
 
         _perCentLoading.set(0);
         initializeMembers();
-        InsCaseStringMap<String> files_;
+        StringMap<String> files_;
         StringList listRelativePaths_;
         String common_ = EMPTY_STRING;
         files_ = _files;
@@ -7930,7 +7929,7 @@ public class DataBase implements WithMathFactory {
     public int[][] getImageTile(String _name, ScreenCoords _coords) {
         for (EntryCust<String, ObjectMap<ScreenCoords, int[][]>> e : imagesTiles
                 .entryList()) {
-            if (!e.getKey().equalsIgnoreCase(_name)) {
+            if (!StringList.quickEq(e.getKey(),_name)) {
                 continue;
             }
             return e.getValue().getVal(_coords);
@@ -7946,7 +7945,7 @@ public class DataBase implements WithMathFactory {
     public static int[][] getValueCaseInsensitive(StringMap<int[][]> _map,
             String _name) {
         for (EntryCust<String, int[][]> e : _map.entryList()) {
-            if (e.getKey().equalsIgnoreCase(_name)) {
+            if (StringList.quickEq(e.getKey(),_name)) {
                 return e.getValue();
             }
         }

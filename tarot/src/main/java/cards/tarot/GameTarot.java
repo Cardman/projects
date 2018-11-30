@@ -54,7 +54,7 @@ public final class GameTarot {
 
     public static final int PTS_BASE = 25;
 
-    private static final String GAME_TAROT = "cards.tarot.GameTarot";
+    private static final String GAME_TAROT = "cards.tarot.gametarot";
 
     private static final String FOLDER = "resources_cards/classes";
 

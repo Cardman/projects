@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 public class GraphicKey extends PaintableLabel {
-    private static final String GRAPHIC_KEY = "cards.gui.labels.GraphicKey";
+    private static final String GRAPHIC_KEY = "cards.gui.labels.graphickey";
     private static final String DEFAULT="Default";
     private static final String DELTA = "delta";
     private CustList<Color> couleurs;

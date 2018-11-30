@@ -8,7 +8,7 @@ import code.gui.LabelButton;
 import code.gui.Panel;
 
 public final class DialogRulesTarot extends DialogTarot implements DialogRules {
-    private static final String DIALOG_ACCESS = "cards.gui.dialogs.DialogRulesTarot";
+    private static final String DIALOG_ACCESS = "cards.gui.dialogs.dialogrulestarot";
 
     private static final DialogRulesTarot DIALOG = new DialogRulesTarot();
     private static final String VALIDATE = "validate";

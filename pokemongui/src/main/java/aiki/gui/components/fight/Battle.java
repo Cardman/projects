@@ -70,8 +70,8 @@ import code.util.TreeMap;
 
 public class Battle extends ChildFrame {
 
-    private static final String BATTLE = "aiki.gui.components.fight.Battle";
-    private static final String ACTION_TYPE = "aiki.game.fight.enums.ActionType";
+    private static final String BATTLE = "aiki.gui.components.fight.battle";
+    private static final String ACTION_TYPE = "aiki.game.fight.enums.actiontype";
 
     private static final String RETURN_LINE = "\n";
 
