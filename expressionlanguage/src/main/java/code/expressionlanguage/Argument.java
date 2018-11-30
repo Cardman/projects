@@ -77,7 +77,10 @@ public final class Argument {
         if (object instanceof NumberStruct) {
             return Numbers.toString(((NumberStruct)object).getInstance());
         }
-        return ((CharSequenceStruct)object).getInstance();
+        if (object instanceof CharSequenceStruct) {
+        	return ((CharSequenceStruct)object).getInstance();
+        }
+        return _cont.getStandards().getNullString();
     }
     public Number getNumber() {
         return ((NumberStruct)object).getInstance();

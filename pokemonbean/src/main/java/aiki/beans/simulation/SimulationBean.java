@@ -55,16 +55,17 @@ import code.util.PairNumber;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
 import code.util.opers.BaseSixtyFourUtil;
 
 public class SimulationBean extends CommonBean {
     private boolean allowCatchingKo;
     private boolean allowedSwitchPlacesEndRound;
     private DifficultyWinPointsFight diffWinningExpPtsFight;
-    private NatTreeMap<DifficultyWinPointsFight, String> winPointsFight;
+    private TreeMap<DifficultyWinPointsFight, String> winPointsFight;
     private Rate rateWinningExpPtsFight;
     private Rate winTrainerExp;
-    private NatTreeMap<DifficultyModelLaw, String> damageRates;
+    private TreeMap<DifficultyModelLaw, String> damageRates;
     private DifficultyModelLaw damageRatePlayer;
     private NatCmpTreeMap<Rate,Rate> damageRatePlayerTable;
     private DifficultyModelLaw damageRateLawFoe;
@@ -142,8 +143,8 @@ public class SimulationBean extends CommonBean {
         SimulationSteps simu_ = (SimulationSteps) getForms().getVal(SIMULATION_STATE);
         DataBase data_ = (DataBase) getDataBase();
         if (simu_ == SimulationSteps.DIFF) {
-            damageRates = new NatTreeMap<DifficultyModelLaw, String>();
-            winPointsFight = new NatTreeMap<DifficultyWinPointsFight, String>();
+            damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorEnum<DifficultyModelLaw>());
+            winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorEnum<DifficultyWinPointsFight>());
             EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
             for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //                winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
@@ -1644,7 +1645,7 @@ public class SimulationBean extends CommonBean {
         return LEVEL;
     }
 
-    public NatTreeMap<DifficultyWinPointsFight,String> getWinPointsFight() {
+    public TreeMap<DifficultyWinPointsFight,String> getWinPointsFight() {
         return winPointsFight;
     }
 
@@ -1768,7 +1769,7 @@ public class SimulationBean extends CommonBean {
         return skipLearningMovesWhileNotGrowingLevel;
     }
 
-    public NatTreeMap<DifficultyModelLaw,String> getDamageRates() {
+    public TreeMap<DifficultyModelLaw,String> getDamageRates() {
         return damageRates;
     }
 

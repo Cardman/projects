@@ -49,6 +49,10 @@ public abstract class StandardType implements GeneType {
 
     public abstract StringList getDirectInterfaces();
     @Override
+    public boolean withoutInstance() {
+    	return isStaticType();
+    }
+    @Override
     public boolean isStaticType() {
         return true;
     }

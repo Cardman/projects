@@ -113,6 +113,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
                     op_.setOrder(0);
                     opValue = new CustList<OperationNode>();
                     opValue.add(op_);
+                    defaultAssignmentAfter(_cont, op_);
                     return;
                 }
                 opValue = ElUtil.getAnalyzedOperations(value, _cont, Calculation.staticCalculation(f_.isStaticContext()));

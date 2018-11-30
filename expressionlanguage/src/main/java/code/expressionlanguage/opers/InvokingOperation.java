@@ -585,7 +585,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         Argument needed_ = new Argument();
         if (g_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) g_;
-            if (!r_.isStaticType()) {
+            if (!r_.withoutInstance()) {
                 //From analyze
                 StringList parts_ = Templates.getAllInnerTypes(_className);
                 String param_ = parts_.sub(0, parts_.size()-1).join("..");
@@ -895,7 +895,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     for (RootBlock r: needRoot_) {
                         need_.add(r);
                     }
-                    if (type_.isStaticType() && hasToExit(_conf, first_)) {
+                    if (type_.withoutInstance() && hasToExit(_conf, first_)) {
                         return Argument.createVoid();
                     }
                 } else {
@@ -903,7 +903,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 if (!_firstArgs.isEmpty()) {
                     Struct par_ = _firstArgs.first().getStruct();
-                    if (type_.isStaticType()) {
+                    if (type_.withoutInstance()) {
                         par_ = NullStruct.NULL_VALUE;
                     } else {
                         if (par_.isNull()) {

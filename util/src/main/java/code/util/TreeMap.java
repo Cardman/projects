@@ -1,8 +1,5 @@
 package code.util;
 import code.util.ints.Comparing;
-
-import code.util.annot.CapacityInit;
-import code.util.annot.RwXml;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 import code.util.ints.SortableMap;
@@ -13,19 +10,7 @@ import code.util.ints.SortableMap;
 
 public final class TreeMap<K, V> extends AbsMap<K, V> implements SortableMap<K, V> {
 
-    @RwXml
     private final Comparing<K> comparator;
-
-    @RwXml
-    TreeMap() {
-        comparator = null;
-    }
-
-    @CapacityInit
-    TreeMap(CollCapacity _capacity) {
-        super(_capacity);
-        comparator = null;
-    }
 
     public TreeMap(CollCapacity _capacity, Comparing<K> _cmp) {
         super(_capacity);

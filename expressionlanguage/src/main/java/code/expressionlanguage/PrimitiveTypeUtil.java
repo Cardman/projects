@@ -266,13 +266,30 @@ public final class PrimitiveTypeUtil {
     }
     public static Struct getParent(int _nbAncestors,String _required, Struct _current, ExecutableCode _an) {
         String id_ = Templates.getIdFromAllTypes(_required);
-        Argument arg_ = new Argument(_current);
-        for (int i = 0; i < _nbAncestors; i++) {
-            arg_.setStruct(arg_.getStruct().getParent());
-        }
         LgNames lgNames_ = _an.getStandards();
-        String npe_ = lgNames_.getAliasNullPe();
+        Argument arg_ = new Argument();
         String cast_ = lgNames_.getAliasCast();
+        if (!_current.isNull()) {
+            String className_ = lgNames_.getStructClassName(_current, _an.getContextEl());
+            String cl_ = Templates.getIdFromAllTypes(className_);
+            String cls_ = cl_;
+            cl_ = getQuickComponentBaseType(cl_).getComponent();
+            if (_an.getClassBody(cl_).withoutInstance()) {
+            	if (!canBeUseAsArgument(id_, cls_, _an)) {
+            		_an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
+            		return NullStruct.NULL_VALUE;
+            	}
+            	return _current;
+            }
+            arg_.setStruct(_current);
+            for (int i = 0; i < _nbAncestors; i++) {
+            	Struct enc_ = arg_.getStruct();
+            	Struct par_ = enc_.getParent();
+            	_an.getContextEl().addSensibleField(enc_, par_);
+                arg_.setStruct(par_);
+            }
+        }
+        String npe_ = lgNames_.getAliasNullPe();
         if (arg_.isNull()) {
             _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),npe_));
             return arg_.getStruct();
@@ -292,6 +309,7 @@ public final class PrimitiveTypeUtil {
                 _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
                 break;
             }
+            _an.getContextEl().addSensibleField(current_, par_);
             current_ = par_;
             className_ = lgNames_.getStructClassName(current_, _an.getContextEl());
             cl_ = Templates.getIdFromAllTypes(className_);

@@ -2,7 +2,7 @@ package cards.belote.beans;
 import cards.belote.RulesBelote;
 import cards.belote.enumerations.BidBelote;
 import cards.belote.enumerations.DeclaresBelote;
-import code.util.EnumList;
+import code.util.StringList;
 
 final class RulesBeloteBean extends BeloteBean {
 
@@ -10,13 +10,13 @@ final class RulesBeloteBean extends BeloteBean {
 
     private boolean dealAll;
 
-    private EnumList<DeclaresBelote> annoncesAutorisees = new EnumList<DeclaresBelote>();
+    private StringList annoncesAutorisees;
 
     private boolean sousCoupeAdv;
 
     private String gestionCoupePartenaire;
 
-    private EnumList<BidBelote> encheresAutorisees = new EnumList<BidBelote>();
+    private StringList encheresAutorisees;
 
     private String repartition;
 
@@ -26,16 +26,19 @@ final class RulesBeloteBean extends BeloteBean {
     public void beforeDisplaying() {
         RulesBelote rules_ = (RulesBelote) getDataBase();
         dealAll = rules_.dealAll();
-        cartesBattues=rules_.getCartesBattues().toString(getLanguage());
-//        Map<DeclaresBelote, Boolean> allowedAnnouncing_ = new Map<>(rules_.getAnnoncesAutorisees());
-//        annoncesAutorisees = allowedAnnouncing_.getKeys(true);
-        annoncesAutorisees = rules_.getListeAnnoncesAutorisees();
+        String lg_ = getLanguage();
+        cartesBattues=rules_.getCartesBattues().toString(lg_);
+        annoncesAutorisees=new StringList();
+        for (DeclaresBelote m: rules_.getListeAnnoncesAutorisees()) {
+        	annoncesAutorisees.add(m.toString(lg_));
+        }
         sousCoupeAdv = rules_.getSousCoupeAdv();
-        gestionCoupePartenaire=rules_.getGestionCoupePartenaire().toString(getLanguage());
-//        Map<BidBelote, Boolean> allowedBids_ = new Map<>(rules_.getEncheresAutorisees());
-//        encheresAutorisees = allowedBids_.getKeys(true);
-        encheresAutorisees = rules_.getListeEncheresAutorisees();
-        repartition = rules_.getRepartition().toString(getLanguage());
+        gestionCoupePartenaire=rules_.getGestionCoupePartenaire().toString(lg_);
+        encheresAutorisees=new StringList();
+        for (BidBelote m: rules_.getListeEncheresAutorisees()) {
+        	encheresAutorisees.add(m.toString(lg_));
+        }
+        repartition = rules_.getRepartition().toString(lg_);
         comptePointsClassique = rules_.getComptePointsClassique();
     }
 
@@ -47,7 +50,7 @@ final class RulesBeloteBean extends BeloteBean {
         return dealAll;
     }
 
-    EnumList<DeclaresBelote> getAnnoncesAutorisees() {
+    StringList getAnnoncesAutorisees() {
         return annoncesAutorisees;
     }
 
@@ -59,7 +62,7 @@ final class RulesBeloteBean extends BeloteBean {
         return gestionCoupePartenaire;
     }
 
-    EnumList<BidBelote> getEncheresAutorisees() {
+    StringList getEncheresAutorisees() {
         return encheresAutorisees;
     }
 

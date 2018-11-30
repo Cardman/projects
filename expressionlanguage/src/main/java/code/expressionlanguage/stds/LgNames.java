@@ -1309,6 +1309,18 @@ public abstract class LgNames {
     }
 
     public void setupOverrides(ContextEl _cont) {
+    	StringList pkgs_ = new StringList();
+        for (StandardType r: standards.values()) {
+        	String pkg_ = r.getPackageName();
+        	StringBuilder id_ = new StringBuilder();
+        	for (String p: StringList.splitChars(pkg_, '.')) {
+        		id_.append(p);
+        		pkgs_.add(id_.toString());
+        		id_.append('.');
+        	}
+        }
+        pkgs_.removeDuplicates();
+        _cont.getClasses().getPackagesFound().addAllElts(pkgs_);
         _cont.setAnalyzing(new AnalyzedPageEl());
         TypeUtil.buildInherits(_cont);
         for (StandardType t: standards.values()) {
@@ -1943,7 +1955,10 @@ public abstract class LgNames {
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
-                result_.setResult(args_[0].getParent());
+            	Struct arg_ = args_[0];
+            	Struct par_ = arg_.getParent();
+            	_cont.getContextEl().addSensibleField(arg_, par_);
+                result_.setResult(par_);
                 return result_;
             }
         }

@@ -20,9 +20,9 @@
 		non
 	</c:if>
 	<br/>
-	<h1>Ench&egrave; au d&eacute;but de la partie</h1>
+	<h1>Ench&egrave;res au d&eacute;but de la partie</h1>
 	<ul>
-		<c:for var="d" list="contrats" className='$BidTarot'>
+		<c:for var="d" list="contrats" className='java.lang.String'>
 			<li>{d;}</li>
 		</c:for>
 	</ul>
@@ -37,7 +37,7 @@
 		</thead>
 
 		<tbody>
-			<c:for key="h" value="n" map="poigneesAutorisees" keyClassName='$Handfuls' varClassName='java.lang.Integer'>
+			<c:for key="h" value="n" map="poigneesAutorisees" keyClassName='java.lang.String' varClassName='java.lang.Integer'>
 				<tr>
 					<td>{h;}</td>
 					<td>{n;}</td>
@@ -50,7 +50,7 @@
 	Mis&egrave;res autoris&eacute;es:<br/>
 	<c:if condition="!miseres.isEmpty()">
 		<ul>
-			<c:for var="m" list="miseres" className='$Miseres'>
+			<c:for var="m" list="miseres" className='java.lang.String'>
 				<li>{m;}</li>
 			</c:for>
 		</ul>

@@ -1747,7 +1747,7 @@ public final class FileResolver {
                             String firstVar_ = variableName_.substring(0, nextIndexVar_);
                             String afterFirst_ = variableName_.substring(nextIndexVar_+1);
                             String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
-                            String secVar_ = afterFirst_.substring(declaringTypeSec_.length());
+                            String secVar_ = afterFirst_.substring(declaringTypeSec_.length()).trim();
                             br_ = new ForEachTable(_context, currentParent_,
                                     new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                                     new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
@@ -1890,7 +1890,7 @@ public final class FileResolver {
                                     String firstVar_ = variableName_.substring(0, nextIndexVar_);
                                     String afterFirst_ = variableName_.substring(nextIndexVar_+1);
                                     String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
-                                    String secVar_ = afterFirst_.substring(declaringTypeSec_.length());
+                                    String secVar_ = afterFirst_.substring(declaringTypeSec_.length()).trim();
                                     br_ = new ForEachTable(_context, currentParent_,
                                             new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                                             new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),
@@ -1931,7 +1931,7 @@ public final class FileResolver {
                                     String firstVar_ = variableName_.substring(0, nextIndexVar_);
                                     String afterFirst_ = variableName_.substring(nextIndexVar_+1);
                                     String declaringTypeSec_ = getDeclaringTypeBlock(afterFirst_,options_);
-                                    String secVar_ = afterFirst_.substring(declaringTypeSec_.length());
+                                    String secVar_ = afterFirst_.substring(declaringTypeSec_.length()).trim();
                                     br_ = new ForEachTable(_context, currentParent_,
                                             new OffsetStringInfo(typeOffset_, declaringType_.trim()), new OffsetStringInfo(varOffset_, firstVar_),
                                             new OffsetStringInfo(typeOffset_, declaringTypeSec_.trim()), new OffsetStringInfo(varOffset_, secVar_),

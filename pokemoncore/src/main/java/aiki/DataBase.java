@@ -643,7 +643,7 @@ public class DataBase implements WithMathFactory {
         imagesDimensions.clear();
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -676,7 +676,7 @@ public class DataBase implements WithMathFactory {
         _perCentLoading.set(70);
         Rate power_ = getStrongMovePower();
         if (Rate.strLower(power_, new Rate(90))) {
-            error = true;
+            setError(true);
             return;
         }
         ObjectNotNullMap<TypeStatistic, Boolean> strongMovesTypeStat_ = strongMoves(power_);
@@ -685,7 +685,7 @@ public class DataBase implements WithMathFactory {
             if (e.getValue()) {
                 continue;
             }
-            error = true;
+            setError(true);
             return;
         }
 
@@ -694,7 +694,7 @@ public class DataBase implements WithMathFactory {
         }
         map.validate(this);
         if (map.isError()) {
-            error = true;
+            setError(true);
             return;
         }
         _perCentLoading.set(85);
@@ -908,23 +908,23 @@ public class DataBase implements WithMathFactory {
         for (String t1_ : types) {
             for (String t2_ : types) {
                 if (!tableTypes.contains(new TypesDuo(t1_, t2_))) {
-                    error = true;
+                    setError(true);
                     return;
                 }
                 if (!tableTypes.getVal(new TypesDuo(t1_, t2_)).isZeroOrGt()) {
-                    error = true;
+                    setError(true);
                     return;
                 }
             }
         }
         if (getCategories().containsObj(AUTRE)) {
-            error = true;
+            setError(true);
             return;
         }
         for (String s : getCategories()) {
 
             if (!isCorrectIdentifier(s)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -939,7 +939,7 @@ public class DataBase implements WithMathFactory {
             boolean foundAfter_ = false;
             for (Effect e : move_.getEffects()) {
                 if (foundAfter_) {
-                    error = true;
+                    setError(true);
                     return;
                 }
                 if (!(e instanceof EffectStatus)) {
@@ -950,7 +950,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 if (e.getTargetChoice() != TargetChoice.LANCEUR) {
-                    error = true;
+                    setError(true);
                     return;
                 }
                 foundAfter_ = true;
@@ -976,7 +976,7 @@ public class DataBase implements WithMathFactory {
                     continue;
                 }
                 if (!moves_.containsObj(((EvolutionMove) e).getMove())) {
-                    error = true;
+                    setError(true);
                     return;
                 }
             }
@@ -984,37 +984,37 @@ public class DataBase implements WithMathFactory {
         validateEvolutions();
 
         if (hasDuplicates(tm.values())) {
-            error = true;
+            setError(true);
             return;
         }
         if (hasDuplicates(hm.values())) {
-            error = true;
+            setError(true);
             return;
         }
 
         for (String m : hm.values()) {
             if (!getMoves().contains(m)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (EntryCust<Short, LgInt> tmPrice_ : tmPrice.entryList()) {
             if (!tm.contains(tmPrice_.getKey())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (!tmPrice_.getValue().isZeroOrGt()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (String m : tm.values()) {
             if (StringList.quickEq(m, getDefaultMove())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (!getMoves().contains(m)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1030,12 +1030,12 @@ public class DataBase implements WithMathFactory {
         int nb_ = nonIncrementNbRound_.size();
         nonIncrementNbRound_.removeDuplicates();
         if (nb_ != nonIncrementNbRound_.size()) {
-            error = true;
+            setError(true);
             return;
         }
         for (short e : incrementNbRound_) {
             if (nonIncrementNbRound_.contains(e)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1056,7 +1056,7 @@ public class DataBase implements WithMathFactory {
             lists_.add(f.getAllPokemon());
         }
         if (!StringList.disjoints(lists_)) {
-            error = true;
+            setError(true);
             return;
         }
         StringList allPokemon_ = new StringList();
@@ -1064,141 +1064,141 @@ public class DataBase implements WithMathFactory {
             allPokemon_.addAllElts(l);
         }
         if (!StringList.equalsSet(allPokemon_, pokedex.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
     }
 
     public void validateConstants() {
         if (getDefaultMoney().isZero()) {
-            error = true;
+            setError(true);
             return;
         }
         if (!getDefaultMoney().isZeroOrGt()) {
-            error = true;
+            setError(true);
             return;
         }
         if (!getMinHp().isZeroOrGt()) {
-            error = true;
+            setError(true);
             return;
         }
         if (!getStab().greaterThanOne()) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbMaxTeam() < 2) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbMaxTeam() > 8) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxPp() <= 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxPp() > 255) {
-            error = true;
+            setError(true);
             return;
         }
         if (getWonHappinessByGrowLevel().isZeroOrLt()) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxLevel() < 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMinLevel() < 1) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxLevel() > 1023) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMinLevel() > getMaxLevel()) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbMaxSteps() > 2048) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbMaxSteps() <= 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbMaxStepsSameEvoBase() >= getNbMaxSteps()) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbMaxStepsSameEvoBase() <= 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxEv() < 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxIv() < 31) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbNecStepsIncrHappiness() <= 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxEv() > 255) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxIv() > 255) {
-            error = true;
+            setError(true);
             return;
         }
         if (getNbNecStepsIncrHappiness() > 255) {
-            error = true;
+            setError(true);
             return;
         }
         if (getHappinessMax() < 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (getHappinessMax() > 255) {
-            error = true;
+            setError(true);
             return;
         }
         if (getHappinessMax() < getHappinessEvo()) {
-            error = true;
+            setError(true);
             return;
         }
         if (getMaxBoost() < getDefaultBoost()) {
-            error = true;
+            setError(true);
             return;
         }
         if (getDefaultBoost() < getMinBoost()) {
-            error = true;
+            setError(true);
             return;
         }
         if (getDefaultEggGroup().isEmpty()) {
-            error = true;
+            setError(true);
             return;
         }
         if (!(items.getVal(getDefaultBall()) instanceof Ball)) {
-            error = true;
+            setError(true);
             return;
         }
         if (!moves.contains(getDefaultMove())) {
-            error = true;
+            setError(true);
             return;
         }
     }
 
     public void validateImages() {
         if (!animStatus.containsAllAsKeys(status.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         StringList statisNames_ = new StringList();
@@ -1206,60 +1206,60 @@ public class DataBase implements WithMathFactory {
             statisNames_.add(s.name());
         }
         if (!animStatis.containsAllAsKeys(statisNames_)) {
-            error = true;
+            setError(true);
             return;
         }
         if (!StringList.equalsSet(types, typesColors.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         if (!StringList.equalsSet(types, typesImages.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         for (String v : typesColors.values()) {
             if (ConverterBufferedImage.getIntColor(v, SEPARATOR_RGB) == -1) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (Place p : map.getPlaces().values()) {
             if (!p.hasValidImage(this)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : links.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i.length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : people.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i.length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : trainers.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
 
@@ -1269,22 +1269,22 @@ public class DataBase implements WithMathFactory {
                 ImageHeroKey key_;
                 key_ = new ImageHeroKey(EnvironmentType.ROAD, d, s);
                 if (!overWorldHeros.contains(key_)) {
-                    error = true;
+                    setError(true);
                     return;
                 }
             }
         }
         for (int[][] i : overWorldHeros.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i.length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1292,7 +1292,7 @@ public class DataBase implements WithMathFactory {
             ImageHeroKey key_;
             key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             if (!frontHeros.contains(key_)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1300,27 +1300,27 @@ public class DataBase implements WithMathFactory {
             ImageHeroKey key_;
             key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             if (!backHeros.contains(key_)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : frontHeros.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
 
         }
         for (int[][] i : backHeros.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
 
         }
         for (int[][] i : maxiPkBack.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > maxWidthPk) {
@@ -1333,7 +1333,7 @@ public class DataBase implements WithMathFactory {
         }
         for (int[][] i : maxiPkFront.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > maxWidthPk) {
@@ -1346,124 +1346,124 @@ public class DataBase implements WithMathFactory {
         }
         for (int[][] i : typesImages.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
 
         }
         for (int[][] i : miniItems.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i.length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : miniMap.values()) {
             if (i.length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : animStatis.values()) {
             if (i.length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : animStatus.values()) {
             if (i.length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         if (animAbsorb.length != map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         if (animAbsorb[0].length != map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         for (int[][] i : miniPk.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i.length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         if (imageTmHm.length == 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (imageTmHm.length > map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         if (imageTmHm[0].length > map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         if (storage.length == 0) {
-            error = true;
+            setError(true);
             return;
         }
         if (storage.length > map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         if (storage[0].length > map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         if (!miniPk.containsAllAsKeys(pokedex.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         if (!miniItems.containsAllAsKeys(items.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         if (!maxiPkBack.containsAllAsKeys(pokedex.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         if (!maxiPkFront.containsAllAsKeys(pokedex.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         if (endGameImage.length == 0) {
-            error = true;
+            setError(true);
             return;
         }
         for (TileMiniMap t : map.getMiniMap().values()) {
             if (!miniMap.contains(t.getFile())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1492,7 +1492,7 @@ public class DataBase implements WithMathFactory {
         StringList allStandardKeys_ = new StringList();
         if (!StringList.equalsSet(translatedGenders.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         StringList homonyms_ = new StringList();
@@ -1503,11 +1503,11 @@ public class DataBase implements WithMathFactory {
             }
             if (!Gender.equalsSet(v.getKeys(),
                     new EnumList<Gender>(Gender.values()))) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1520,7 +1520,7 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedBooleans.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         for (EnumMap<SelectedBoolean, String> v : translatedBooleans.values()) {
@@ -1529,17 +1529,17 @@ public class DataBase implements WithMathFactory {
             }
             if (!SelectedBoolean.equalsSet(v.getKeys(),
                     new EnumList<SelectedBoolean>(SelectedBoolean.values()))) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         if (!StringList.equalsSet(translatedDiffWinPts.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         for (EnumMap<DifficultyWinPointsFight, String> v : translatedDiffWinPts
@@ -1550,17 +1550,17 @@ public class DataBase implements WithMathFactory {
             if (!DifficultyWinPointsFight.equalsSet(v.getKeys(),
                     new EnumList<DifficultyWinPointsFight>(
                             DifficultyWinPointsFight.values()))) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         if (!StringList.equalsSet(translatedDiffModelLaw.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         for (EnumMap<DifficultyModelLaw, String> v : translatedDiffModelLaw
@@ -1572,17 +1572,17 @@ public class DataBase implements WithMathFactory {
                     v.getKeys(),
                     new EnumList<DifficultyModelLaw>(DifficultyModelLaw
                             .values()))) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         if (!StringList.equalsSet(translatedEnvironment.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         for (EnumMap<EnvironmentType, String> v : translatedEnvironment
@@ -1592,11 +1592,11 @@ public class DataBase implements WithMathFactory {
             }
             if (!EnvironmentType.equalsSet(v.getKeys(),
                     new EnumList<EnvironmentType>(EnvironmentType.values()))) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1609,7 +1609,7 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedStatistics.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         for (EnumMap<Statistic, String> v : translatedStatistics.values()) {
@@ -1618,11 +1618,11 @@ public class DataBase implements WithMathFactory {
             }
             if (!Statistic.equalsSet(v.getKeys(), new EnumList<Statistic>(
                     Statistic.values()))) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1635,17 +1635,17 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedTypes.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         allCustKeys_.addAllElts(types);
         for (StringMap<String> v : translatedTypes.values()) {
             if (!StringList.equalsSet(v.getKeys(), types)) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1658,17 +1658,17 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedCategories.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         allCustKeys_.addAllElts(allCategories);
         for (StringMap<String> v : translatedCategories.values()) {
             if (!StringList.equalsSet(v.getKeys(), allCategories)) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1681,17 +1681,17 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedPokemon.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         allCustKeys_.addAllElts(pokedex.getKeys());
         for (StringMap<String> v : translatedPokemon.values()) {
             if (!StringList.equalsSet(v.getKeys(), pokedex.getKeys())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1704,17 +1704,17 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedItems.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         allCustKeys_.addAllElts(items.getKeys());
         for (StringMap<String> v : translatedItems.values()) {
             if (!StringList.equalsSet(v.getKeys(), items.getKeys())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1727,17 +1727,17 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedAbilities.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         allCustKeys_.addAllElts(abilities.getKeys());
         for (StringMap<String> v : translatedAbilities.values()) {
             if (!StringList.equalsSet(v.getKeys(), abilities.getKeys())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1750,17 +1750,17 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedMoves.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         allCustKeys_.addAllElts(moves.getKeys());
         for (StringMap<String> v : translatedMoves.values()) {
             if (!StringList.equalsSet(v.getKeys(), moves.getKeys())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1773,17 +1773,17 @@ public class DataBase implements WithMathFactory {
         }
         if (!StringList.equalsSet(translatedStatus.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         allCustKeys_.addAllElts(status.getKeys());
         for (StringMap<String> v : translatedStatus.values()) {
             if (!StringList.equalsSet(v.getKeys(), status.getKeys())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1797,16 +1797,16 @@ public class DataBase implements WithMathFactory {
         homonyms_.removeDuplicates();
         if (!StringList.equalsSet(translatedFctMath.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         for (StringMap<String> v : translatedFctMath.values()) {
             if (!v.containsAllAsKeys(EvolvedMathFactory.getFunctions())) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1852,7 +1852,7 @@ public class DataBase implements WithMathFactory {
                 }
                 tr_.removeDuplicates();
                 if (tr_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
-                    error = true;
+                    setError(true);
                     return;
                 }
             }
@@ -1860,7 +1860,7 @@ public class DataBase implements WithMathFactory {
 
         if (!StringList.equalsSet(translatedClassesDescriptions.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         StringList classesItems_;
@@ -1871,17 +1871,17 @@ public class DataBase implements WithMathFactory {
         classesItems_.removeDuplicates();
         for (StringMap<String> v : translatedClassesDescriptions.values()) {
             if (!v.containsAllAsKeys(classesItems_)) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         if (!StringList.equalsSet(translatedTargets.getKeys(),
                 Constants.getAvailableLanguages())) {
-            error = true;
+            setError(true);
             return;
         }
         for (EnumMap<TargetChoice, String> v : translatedTargets.values()) {
@@ -1890,23 +1890,23 @@ public class DataBase implements WithMathFactory {
             }
             if (!TargetChoice.equalsSet(v.getKeys(),
                     new EnumList<TargetChoice>(TargetChoice.values()))) {
-                error = true;
+                setError(true);
                 return;
             }
             if (hasDuplicates(v.values())) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         int nbCustKeys_ = allCustKeys_.size();
         allCustKeys_.removeDuplicates();
         if (nbCustKeys_ != allCustKeys_.size()) {
-            error = true;
+            setError(true);
             return;
         }
         for (String n : allStandardKeys_) {
             if (allCustKeys_.containsObj(n)) {
-                error = true;
+                setError(true);
                 return;
             }
         }
@@ -1924,8 +1924,7 @@ public class DataBase implements WithMathFactory {
         for (TypesDuo t : tableTypes.getKeys()) {
 
             if (!isCorrectIdentifier(t.getDamageType())) {
-                error = true;
-                return;
+                setError(true);
             }
             moveTypes_.add(t.getDamageType());
         }
@@ -1934,15 +1933,13 @@ public class DataBase implements WithMathFactory {
         for (TypesDuo t : tableTypes.getKeys()) {
 
             if (!isCorrectIdentifier(t.getPokemonType())) {
-                error = true;
-                return;
+                setError(true);
             }
             pkTypes_.add(t.getPokemonType());
         }
         pkTypes_.removeDuplicates();
         if (!StringList.equalsSet(moveTypes_, pkTypes_)) {
-            error = true;
-            return;
+            setError(true);
         }
         types = moveTypes_;
     }
@@ -1967,69 +1964,69 @@ public class DataBase implements WithMathFactory {
         for (int[][] i : links.values()) {
             if (i.length != map.getSideLength()
                     || i[0].length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : people.values()) {
             if (i.length != map.getSideLength()
                     || i[0].length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : trainers.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : maxiPkBack.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : maxiPkFront.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : miniItems.values()) {
             if (i.length != map.getSideLength()
                     || i[0].length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         for (int[][] i : miniPk.values()) {
             if (i.length != map.getSideLength()
                     || i[0].length != map.getSideLength()) {
-                error = true;
+                setError(true);
                 return;
             }
         }
         if (imageTmHm.length != map.getSideLength()
                 || imageTmHm[0].length != map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         if (storage.length != map.getSideLength()
                 || storage[0].length != map.getSideLength()) {
-            error = true;
+            setError(true);
             return;
         }
         if (!StringList.equalsSet(miniPk.getKeys(), pokedex.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         if (!StringList.equalsSet(miniItems.getKeys(), items.getKeys())) {
-            error = true;
+            setError(true);
             return;
         }
         if (endGameImage.length == 0) {
-            error = true;
+            setError(true);
             return;
         }
     }
@@ -2059,7 +2056,7 @@ public class DataBase implements WithMathFactory {
             }
             if (curr_ == UNDERSCORE) {
                 if (i + 1 == len_) {
-                    return false;
+                    continue;
                 }
                 if (_string.charAt(i + 1) == UNDERSCORE) {
                     return false;
@@ -2081,7 +2078,7 @@ public class DataBase implements WithMathFactory {
         }
         pkTypes_.removeDuplicates();
         if (!StringList.equalsSet(moveTypes_, pkTypes_)) {
-            error = true;
+            setError(true);
             return;
         }
         types = moveTypes_;
@@ -2120,7 +2117,7 @@ public class DataBase implements WithMathFactory {
         int sizeListCopy_ = listCopy_.size();
         listCopy_.removeDuplicates();
         if (!Numbers.eq(listCopy_.size(), sizeListCopy_)) {
-            error = true;
+            setError(true);
             return;
         }
         _perCentLoading.set(5);
@@ -2136,8 +2133,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
+                setError(true);
             }
             filesNames_.add(n_);
             PokemonData f_ = DocumentReaderAikiCoreUtil.getPokemonData(files_
@@ -2156,8 +2152,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
+                setError(true);
             }
             filesNames_.add(n_);
             MoveData move_ = DocumentReaderAikiCoreUtil.getMoveData(files_
@@ -2199,8 +2194,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
+                setError(true);
             }
             filesNames_.add(n_);
             Item o_ = DocumentReaderAikiCoreUtil.getItem(files_
@@ -2218,8 +2212,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
+                setError(true);
             }
             filesNames_.add(n_);
             AbilityData ab_ = DocumentReaderAikiCoreUtil.getAbilityData(files_
@@ -2237,8 +2230,7 @@ public class DataBase implements WithMathFactory {
             }
             n_ = removeExtension(n_);
             if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
+                setError(true);
             }
             filesNames_.add(n_);
             Status st_ = DocumentReaderAikiCoreUtil.getStatus(files_
@@ -2375,10 +2367,6 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
-            }
             filesNames_.add(n_);
             maxiPkBack.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
@@ -2393,10 +2381,6 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
-            }
             filesNames_.add(n_);
             maxiPkFront.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
@@ -2411,10 +2395,6 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
-            }
             filesNames_.add(n_);
             miniPk.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
@@ -2433,10 +2413,6 @@ public class DataBase implements WithMathFactory {
 
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
             n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
-            }
             filesNames_.add(n_);
             miniItems.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
@@ -2455,10 +2431,6 @@ public class DataBase implements WithMathFactory {
             String n_ = StringList.skipStringUntil(s, SEPARATOR_FILES);
 
             n_ = removeExtension(n_);
-            if (!isCorrectIdentifier(n_)) {
-                error = true;
-                return;
-            }
             filesNames_.add(n_);
             typesImages.put(toUpperCase(n_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
@@ -2580,7 +2552,7 @@ public class DataBase implements WithMathFactory {
             }
 
             if (!law_.checkEvents()) {
-                error = true;
+                setError(true);
                 return;
             }
             lawsDamageRate.put(
@@ -2918,10 +2890,6 @@ public class DataBase implements WithMathFactory {
             if (f_.isEmpty()) {
                 continue;
             }
-            if (!isCorrectIdentifier(f_)) {
-                error = true;
-                return;
-            }
             animStatis.put(toUpperCase(f_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
                             f))));
@@ -2934,10 +2902,6 @@ public class DataBase implements WithMathFactory {
             f_ = removeExtension(f_);
             if (f_.isEmpty()) {
                 continue;
-            }
-            if (!isCorrectIdentifier(f_)) {
-                error = true;
-                return;
             }
             animStatus.put(toUpperCase(f_), BaseSixtyFourUtil
                     .getImageByString(files_.getVal(StringList.concat(common_,
@@ -3149,7 +3113,7 @@ public class DataBase implements WithMathFactory {
             }
 
             if (!law_.checkEvents()) {
-                error = true;
+                setError(true);
                 return;
             }
             lawsDamageRate.put(
@@ -3868,7 +3832,7 @@ public class DataBase implements WithMathFactory {
         validateEvolutions();
         for (int[][] i : maxiPkBack.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > maxWidthPk) {
@@ -3881,7 +3845,7 @@ public class DataBase implements WithMathFactory {
         }
         for (int[][] i : maxiPkFront.values()) {
             if (i.length == 0) {
-                error = true;
+                setError(true);
                 return;
             }
             if (i[0].length > maxWidthPk) {

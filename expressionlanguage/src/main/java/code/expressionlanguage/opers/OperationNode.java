@@ -203,16 +203,6 @@ public abstract class OperationNode {
         String keyWordThis_ = keyWords_.getKeyWordThis();
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         String keyWordValues_ = keyWords_.getKeyWordValues();
-        if (!_op.getOperators().isEmpty()) {
-            if (!_op.getValues().isEmpty()) {
-                String originalStr_ = _op.getFctName();
-                String str_ = originalStr_.trim();
-                if (StringList.quickEq(str_, keyWordIntern_)) {
-                    //qualified this
-                    return new QualifiedThisOperation(_index, _indexChild, _m, _op);
-                }
-            }
-        }
         ConstType ct_ = _op.getConstType();
         if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);

@@ -2135,7 +2135,13 @@ public final class Classes {
     public StringList getPackages() {
         StringList pkgs_ = new StringList();
         for (RootBlock r: classesBodies.values()) {
-            pkgs_.add(r.getPackageName());
+        	String pkg_ = r.getPackageName();
+        	StringBuilder id_ = new StringBuilder();
+        	for (String p: StringList.splitChars(pkg_, '.')) {
+        		id_.append(p);
+        		pkgs_.add(id_.toString());
+        		id_.append('.');
+        	}
         }
         pkgs_.removeDuplicates();
         return pkgs_;

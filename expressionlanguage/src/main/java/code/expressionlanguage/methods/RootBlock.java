@@ -123,6 +123,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return o;
     }
     @Override
+	public boolean withoutInstance() {
+    	return isStaticType();
+    }
+    @Override
     public abstract boolean isStaticType();
     public abstract StringList getImportedDirectSuperTypes();
     public final StringList getDepends(Analyzable _an) {

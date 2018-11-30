@@ -909,16 +909,19 @@ public class ForEachTable extends BracedStack implements Loop {
             locVar_.setStruct(value_);
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
-        ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 4);
+        ExpressionLanguage firstEl_ = call_.getCurrentEl(_conf,this, 2, 4);
         Argument arg_ = firstEl_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
         if (!Templates.checkObject(classNameFirst_, arg_, _conf)) {
             return;
         }
-        LoopVariable lv_ = _vars.getVal(variableNameFirst);
-        lv_.setStruct(arg_.getStruct());
-        lv_.setIndex(lv_.getIndex() + 1);
         String classNameSecond_ = _conf.getLastPage().formatVarType(importedClassNameSecond, _conf);
         if (call_.sizeEl() < 4) {
+        	LoopVariable lv_ = _vars.getVal(variableNameFirst);
+            lv_.setStruct(arg_.getStruct());
+            lv_.setIndex(lv_.getIndex() + 1);
             String locName_ = cls_.getSecondVarCust();
             LocalVariable locVar_ = new LocalVariable();
             Struct value_ = call_.getValue(1).getStruct();
@@ -926,12 +929,15 @@ public class ForEachTable extends BracedStack implements Loop {
             locVar_.setStruct(value_);
             _conf.getLastPage().getInternVars().put(locName_, locVar_);
         }
-        ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 5);
+        ExpressionLanguage secondEl_ = call_.getCurrentEl(_conf,this, 3, 5);
         arg_ = secondEl_.calculateMember(_conf);
+        if (_conf.callsOrException()) {
+            return;
+        }
         if (!Templates.checkObject(classNameSecond_, arg_, _conf)) {
             return;
         }
-        lv_ = _vars.getVal(variableNameSecond);
+        LoopVariable lv_ = _vars.getVal(variableNameSecond);
         lv_.setStruct(arg_.getStruct());
         lv_.setIndex(lv_.getIndex() + 1);
         call_.clearCurrentEls();

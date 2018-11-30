@@ -9,16 +9,17 @@ import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EnumMap;
 import code.util.NatCmpTreeMap;
-import code.util.NatTreeMap;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
 
 public class DifficultyBean extends Bean {
     private boolean allowCatchingKo;
     private boolean allowedSwitchPlacesEndRound;
     private DifficultyWinPointsFight diffWinningExpPtsFight;
-    private NatTreeMap<DifficultyWinPointsFight, String> winPointsFight;
+    private TreeMap<DifficultyWinPointsFight, String> winPointsFight;
     private Rate rateWinningExpPtsFight;
     private Rate winTrainerExp;
-    private NatTreeMap<DifficultyModelLaw, String> damageRates;
+    private TreeMap<DifficultyModelLaw, String> damageRates;
     private DifficultyModelLaw damageRatePlayer;
     private NatCmpTreeMap<Rate,Rate> damageRatePlayerTable;
     private DifficultyModelLaw damageRateLawFoe;
@@ -39,8 +40,8 @@ public class DifficultyBean extends Bean {
         FacadeGame facadeGame_ = (FacadeGame) getDataBase();
         DataBase data_ = facadeGame_.getData();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
-        damageRates = new NatTreeMap<DifficultyModelLaw, String>();
-        winPointsFight = new NatTreeMap<DifficultyWinPointsFight, String>();
+        damageRates = new TreeMap<DifficultyModelLaw, String>(new ComparatorEnum<DifficultyModelLaw>());
+        winPointsFight = new TreeMap<DifficultyWinPointsFight, String>(new ComparatorEnum<DifficultyWinPointsFight>());
         EnumMap<DifficultyWinPointsFight, String> trWinPts_ = data_.getTranslatedDiffWinPts().getVal(getLanguage());
         for (DifficultyWinPointsFight k: trWinPts_.getKeys()) {
 //            winPointsFight.put(k, XmlParser.transformSpecialChars(trWinPts_.getVal(k)));
@@ -109,7 +110,7 @@ public class DifficultyBean extends Bean {
         diff_.validate(facadeGame_.getData());
     }
 
-    public NatTreeMap<DifficultyWinPointsFight,String> getWinPointsFight() {
+    public TreeMap<DifficultyWinPointsFight,String> getWinPointsFight() {
         return winPointsFight;
     }
 
@@ -233,7 +234,7 @@ public class DifficultyBean extends Bean {
         return skipLearningMovesWhileNotGrowingLevel;
     }
 
-    public NatTreeMap<DifficultyModelLaw,String> getDamageRates() {
+    public TreeMap<DifficultyModelLaw,String> getDamageRates() {
         return damageRates;
     }
 

@@ -962,12 +962,6 @@ public final class ElResolver {
                 continue;
             }
             if (ContextEl.startsWithKeyWord(sub_, keyWordIntern_)) {
-                int index_ = processPredefinedMethod(_string, i_, keyWordIntern_, len_);
-                if (index_ >= 0) {
-                    d_.getCallings().add(index_);
-                    i_ = index_;
-                    continue;
-                }
                 if (_conf.isInternGlobal()) {
                     int afterSuper_ = i_ + keyWordIntern_.length();
                     String trim_ = _string.substring(afterSuper_).trim();

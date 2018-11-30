@@ -1,7 +1,7 @@
 package cards.tarot.beans;
-import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
-import code.util.NatTreeMap;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 final class SumDeclaringPlayer {
 
@@ -9,9 +9,9 @@ final class SumDeclaringPlayer {
 
     private String status;
 
-    private NatTreeMap<Handfuls,Short> handfuls;
+    private StringMap<Short> handfuls;
 
-    private NatTreeMap<Miseres,Short> miseres;
+    private TreeMap<Miseres,Short> miseres;
 
     private int sum;
 
@@ -31,19 +31,19 @@ final class SumDeclaringPlayer {
         status = _statut;
     }
 
-    NatTreeMap<Handfuls,Short> getHandfuls() {
+    StringMap<Short> getHandfuls() {
         return handfuls;
     }
 
-    void setHandfuls(NatTreeMap<Handfuls,Short> _handfuls) {
+    void setHandfuls(StringMap<Short> _handfuls) {
         handfuls = _handfuls;
     }
 
-    NatTreeMap<Miseres,Short> getMiseres() {
+    TreeMap<Miseres,Short> getMiseres() {
         return miseres;
     }
 
-    void setMiseres(NatTreeMap<Miseres,Short> _miseres) {
+    void setMiseres(TreeMap<Miseres,Short> _miseres) {
         miseres = _miseres;
     }
 

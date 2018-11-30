@@ -7,10 +7,13 @@ import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.maths.Rate;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.EnumMap;
-import code.util.NatTreeMap;
 import code.util.Numbers;
 import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
+import code.util.comparators.ComparatorEnum;
 
 
 final class DetailsResultsTarotBean extends TarotBean {
@@ -62,7 +65,8 @@ final class DetailsResultsTarotBean extends TarotBean {
         setNicknames(res_.getNicknames());
         setScores(res_.getScores());
         setUser(res_.getUser());
-        setLoc(res_.getLoc());
+        String loc_ = res_.getLoc();
+        setLoc(loc_);
         byte nombreJoueurs_ = getGame().getNombreDeJoueurs();
         setBid(getGame().getContrat());
         linesDeclaring = new CustList<SumDeclaringPlayer>();
@@ -102,20 +106,25 @@ final class DetailsResultsTarotBean extends TarotBean {
             }
             if(existeAnnonce_) {
                 int sumPlayers_ = 0;
-                CustList<NatTreeMap<Handfuls,Short>> handfulsTaker_ = getGame().getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
-                CustList<NatTreeMap<Miseres,Short>> miseresTaker_ = getGame().getMiseresPointsForTaker();
+                CustList<TreeMap<Handfuls,Short>> handfulsTaker_ = getGame().getHandfulsPointsForTaker(scoreTakerWithoutDeclaring_);
+                CustList<TreeMap<Miseres,Short>> miseresTaker_ = getGame().getMiseresPointsForTaker();
                 for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
                     SumDeclaringPlayer line_ = new SumDeclaringPlayer();
-                    NatTreeMap<Handfuls,Short> handfulsTakerLoc_ = handfulsTaker_.get(p);
+                    TreeMap<Handfuls,Short> handfulsTakerLoc_ = handfulsTaker_.get(p);
                     line_.setNickname(getNicknames().get(p));
-                    line_.setStatus(getGame().statutDe(p).toString(getLoc()));
-                    line_.setHandfuls(handfulsTakerLoc_);
+                    line_.setStatus(getGame().statutDe(p).toString(loc_));
+                    StringMap<Short> str_ = new StringMap<Short>();
+                    for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
+                    	Handfuls h_ = e.getKey();
+                    	str_.addEntry(h_.toString(loc_), e.getValue());
+                    }
+                    line_.setHandfuls(str_);
                     int sum_ = 0;
                     for (Handfuls h: getGame().getAnnoncesPoignees(p)) {
                         sumPlayers_ += handfulsTakerLoc_.getVal(h);
                         sum_ += handfulsTakerLoc_.getVal(h);
                     }
-                    NatTreeMap<Miseres,Short> miseresTakerLoc_ = miseresTaker_.get(p);
+                    TreeMap<Miseres,Short> miseresTakerLoc_ = miseresTaker_.get(p);
                     line_.setMiseres(miseresTakerLoc_);
                     for (Miseres m: getGame().getAnnoncesMiseres(p)) {
                         sumPlayers_ += miseresTakerLoc_.getVal(m);
@@ -198,13 +207,18 @@ final class DetailsResultsTarotBean extends TarotBean {
             if (getGame().pasJeuMisere()) {
                 for (byte p = CustList.FIRST_INDEX;p<nombreJoueurs_;p++){
                     SumDeclaringPlayer line_ = new SumDeclaringPlayer();
-                    NatTreeMap<Handfuls,Short> handfulsTakerLoc_ = new NatTreeMap<Handfuls,Short>();
+                    TreeMap<Handfuls,Short> handfulsTakerLoc_ = new TreeMap<Handfuls,Short>(new ComparatorEnum<Handfuls>());
                     for (Handfuls h: getGame().calculHandfulsScorePlayer(p).get(p).getKeys()) {
                         handfulsTakerLoc_.put(h, (short)0);
                     }
                     line_.setNickname(getNicknames().get(p));
-                    line_.setHandfuls(handfulsTakerLoc_);
-                    NatTreeMap<Miseres,Short> miseres_ = new NatTreeMap<Miseres,Short>();
+                    StringMap<Short> str_ = new StringMap<Short>();
+                    for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
+                    	Handfuls h_ = e.getKey();
+                    	str_.addEntry(h_.toString(loc_), e.getValue());
+                    }
+                    line_.setHandfuls(str_);
+                    TreeMap<Miseres,Short> miseres_ = new TreeMap<Miseres,Short>(new ComparatorEnum<Miseres>());
                     for (Miseres m: getGame().calculMiseresScorePlayer(p).get(p).getKeys()) {
                         miseres_.put(m, (short)0);
                     }
