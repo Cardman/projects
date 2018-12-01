@@ -4,7 +4,7 @@ import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
-import code.expressionlanguage.methods.util.BadFormatNumber;
+import code.expressionlanguage.errors.custom.BadFormatNumber;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;

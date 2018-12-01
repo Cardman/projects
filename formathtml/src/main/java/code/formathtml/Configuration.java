@@ -11,6 +11,7 @@ import code.expressionlanguage.calls.PageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeOwnersDepends;
+import code.expressionlanguage.errors.custom.UnexpectedTypeError;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
 import code.expressionlanguage.methods.AssignedVariablesBlock;
@@ -18,7 +19,6 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -872,7 +872,7 @@ public class Configuration implements ExecutableCode {
 
     @Override
     public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
-        return PartTypeUtil.processExec(_in, context);
+        return resolveDynamicType(_in, null);
     }
 
     @Override
@@ -892,6 +892,13 @@ public class Configuration implements ExecutableCode {
 
     public String resolveDynamicType(String _in, RootBlock _file) {
         String res_ = PartTypeUtil.processExec(_in, context);
+        if (res_.isEmpty()) {
+            String defPkg_ = standards.getDefaultPkg();
+            String type_ = ContextEl.removeDottedSpaces(StringList.concat(defPkg_,".",_in));
+            if (standards.getStandards().contains(type_)) {
+                return type_;
+            }
+        }
         if (res_.isEmpty()) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName("");
@@ -1083,5 +1090,10 @@ public class Configuration implements ExecutableCode {
     @Override
     public void setKeyWords(KeyWords _keyWords) {
         context.setKeyWords(_keyWords);
+    }
+
+    @Override
+    public StringMap<StringList> getCurrentConstraints() {
+        return context.getCurrentConstraints();
     }
 }

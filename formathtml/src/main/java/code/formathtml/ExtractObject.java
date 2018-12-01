@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.UndefinedVariableError;
+import code.expressionlanguage.errors.custom.UndefinedVariableError;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.BooleanStruct;

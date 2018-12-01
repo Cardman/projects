@@ -7,9 +7,11 @@ import code.bean.Bean;
 import code.bean.translator.Translator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.options.Options;
 import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.MyTranslator;
+import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
@@ -993,13 +995,13 @@ public class FormatHtmlTryCatchTest {
 
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
-        ContextEl context_ = new ContextEl();
-        context_.getOptions().setEndLineSemiColumn(false);
-        context_.getOptions().setSpecialEnumsMethods(false);
-        context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        conf_.setStandards(InitializationLgNames.initStandards(context_));
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);
-        context_.initError();
+        conf_.setStandards((BeanLgNames) context_.getStandards());
         return conf_;
     }
 }

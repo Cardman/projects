@@ -1,6 +1,8 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.errors.stds.ErrorCat;
+import code.expressionlanguage.errors.stds.StdWordError;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -92,7 +94,271 @@ public final class KeyWords {
     private String keyWordNull = "$null";
     private String keyWordTrue = "$true";
     private String keyWordFalse = "$false";
-    public void validate(ContextEl _cont) {
+    public void validateKeyWordContents(ContextEl _cont, StringList _list) {
+        for (String k: _list) {
+            if (k.isEmpty()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage("empty word");
+                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
+                _cont.getClasses().addStdError(err_);
+                continue;
+            }
+            for (char c: k.toCharArray()) {
+                if (!StringList.isDollarWordChar(c)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                    err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
+                    _cont.getClasses().addStdError(err_);
+                    break;
+                }
+            }
+            if (ContextEl.isDigit(k.charAt(0))) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+    public void validateKeyWordDuplicates(ContextEl _cont, StringList _list) {
+        StringList keyWords_ = new StringList(_list);
+        int size_ = keyWords_.size();
+        keyWords_.removeDuplicates();
+        if (size_ != keyWords_.size()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("duplicate key words ",_list.display()));
+            err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    public void validateEscapingsContents(ContextEl _cont, StringList _list) {
+        for (String k: _list) {
+            if (k.isEmpty()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage("empty word");
+                err_.setErrCat(ErrorCat.WRITE_STRING_WORD);
+                _cont.getClasses().addStdError(err_);
+                continue;
+            }
+            for (char c: k.toCharArray()) {
+                if (!StringList.isDollarWordChar(c)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                    err_.setErrCat(ErrorCat.WRITE_STRING_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+            }
+        }
+    }
+    public void validateEscapingsDuplicates(ContextEl _cont, StringList _list) {
+        StringList keyWords_ = new StringList(_list);
+        int size_ = keyWords_.size();
+        keyWords_.removeDuplicates();
+        if (size_ != keyWords_.size()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("duplicate key words ",_list.display()));
+            err_.setErrCat(ErrorCat.DUPLICATE_STRING_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+        for (String k: _list) {
+            if (StringList.quickEq(k, keyWordEscUnicode)) {
+                continue;
+            }
+            if (k.startsWith(keyWordEscUnicode)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("starting key word ",k," with "+keyWordEscUnicode));
+                err_.setErrCat(ErrorCat.DUPLICATE_STRING_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+    public void validateNbWordContents(ContextEl _cont, StringList _list) {
+        for (String k: _list) {
+            if (k.isEmpty()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage("empty word");
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+                continue;
+            }
+            for (char c: k.toCharArray()) {
+                if (c == '_') {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("undescore ", k));
+                    err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                if (!StringList.isDollarWordChar(c)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                    err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+            }
+            if (!Character.isLetter(k.charAt(0))) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+    public void validateNbWordDuplicates(ContextEl _cont, StringList _list) {
+        StringList keyWords_ = new StringList(_list);
+        int size_ = keyWords_.size();
+        keyWords_.removeDuplicates();
+        if (size_ != keyWords_.size()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("duplicate key words ",_list.display()));
+            err_.setErrCat(ErrorCat.DUPLICATE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    public void validateBinarySeparators(ContextEl _cont) {
+        validateExpBin(_cont);
+        validatePreBin(_cont);
+        validatePreHex(_cont);
+    }
+    public void validateStartsPrefixesDuplicates(ContextEl _cont) {
+        if (keyWordNbBin.startsWith(keyWordNbHex)) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat(keyWordNbBin," starts with ",keyWordNbHex));
+            err_.setErrCat(ErrorCat.DUPLICATE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+        if (keyWordNbHex.startsWith(keyWordNbBin)) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat(keyWordNbHex," starts with ",keyWordNbBin));
+            err_.setErrCat(ErrorCat.DUPLICATE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    private void validatePreHex(ContextEl _cont) {
+        if (keyWordNbHex.isEmpty()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("empty hexadecimal prefix"));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+            return;
+        }
+        for (char c: keyWordNbHex.toCharArray()) {
+            if (!StringList.isDollarWordChar(c)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbHex));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+            if (ContextEl.isDigit(c)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbHex));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+        char firstChar_ = keyWordNbHex.charAt(0);
+        if (!Character.isLetter(firstChar_)) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("illegal character ",Character.toString(firstChar_)," ",keyWordNbHex));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+        if (firstChar_ >= 'A' && firstChar_ <= 'F') {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("illegal character ",Character.toString(firstChar_)," ",keyWordNbHex));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+        if (firstChar_ >= 'a' && firstChar_ <= 'f') {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("illegal character ",Character.toString(firstChar_)," ",keyWordNbHex));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    private void validatePreBin(ContextEl _cont) {
+        if (keyWordNbBin.isEmpty()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("empty binary prefix"));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+            return;
+        }
+        for (char c: keyWordNbBin.toCharArray()) {
+            if (!StringList.isDollarWordChar(c)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbBin));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+            if (c == '_') {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbBin));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+            if (ContextEl.isDigit(c)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbBin));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+        if (!Character.isLetter(keyWordNbBin.charAt(0))) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("illegal character ",Character.toString(keyWordNbBin.charAt(0))," ",keyWordNbBin));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    private void validateExpBin(ContextEl _cont) {
+        if (keyWordNbExpBin.isEmpty()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("empty binary exp"));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+            return;
+        }
+        for (char c: keyWordNbExpBin.toCharArray()) {
+            if (c == '_') {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbExpBin));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+            if (!StringList.isDollarWordChar(c)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbExpBin));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+            if (ContextEl.isDigit(c)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("illegal character ",Character.toString(c)," ",keyWordNbExpBin));
+                err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+        char firstExpBin_ = keyWordNbExpBin.charAt(0);
+        if (!Character.isLetter(firstExpBin_)) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("illegal first character ",Character.toString(firstExpBin_)," ",keyWordNbExpBin));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+        if (firstExpBin_ >= 'A' && firstExpBin_ <= 'F') {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("illegal first character ",Character.toString(firstExpBin_)," ",keyWordNbExpBin));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+        if (firstExpBin_ >= 'a' && firstExpBin_ <= 'f') {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("illegal first character ",Character.toString(firstExpBin_)," ",keyWordNbExpBin));
+            err_.setErrCat(ErrorCat.WRITE_NB_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    public StringList allKeyWords() {
         StringList keyWords_ = new StringList();
         keyWords_.add(keyWordVar);
         keyWords_.add(keyWordLang);
@@ -148,48 +414,23 @@ public final class KeyWords {
         keyWords_.add(keyWordNull);
         keyWords_.add(keyWordTrue);
         keyWords_.add(keyWordFalse);
-        int size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
-            return;
-        }
-        for (String k: keyWords_) {
-            if (k.isEmpty()) {
-                return;
-            }
-            for (char c: k.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
-                    return;
-                }
-            }
-            if (ContextEl.isDigit(k.charAt(0))) {
-                return;
-            }
-        }
-        keyWords_ = new StringList();
+        return keyWords_;
+    }
+    public StringList allEscapings() {
+        StringList keyWords_ = new StringList();
         keyWords_.add(keyWordEscUnicode);
         keyWords_.add(keyWordEscForm);
         keyWords_.add(keyWordEscLine);
         keyWords_.add(keyWordEscFeed);
         keyWords_.add(keyWordEscTab);
         keyWords_.add(keyWordEscBound);
-        size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
-            return;
+        return keyWords_;
+    }
+    public StringList allNbWords(String... _othersWords) {
+        StringList keyWords_ = new StringList();
+        for (String o: _othersWords) {
+            keyWords_.add(o);
         }
-        for (String k: keyWords_) {
-            if (k.isEmpty()) {
-                return;
-            }
-            for (char c: k.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
-                    return;
-                }
-            }
-        }
-        keyWords_ = new StringList();
-        keyWords_.add(keyWordNbExpDec);
         keyWords_.add(keyWordNbSufDoublePrim);
         keyWords_.add(keyWordNbSufDouble);
         keyWords_.add(keyWordNbSufFloatPrim);
@@ -204,134 +445,7 @@ public final class KeyWords {
         keyWords_.add(keyWordNbSufShort);
         keyWords_.add(keyWordNbSufBytePrim);
         keyWords_.add(keyWordNbSufByte);
-        size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
-            return;
-        }
-        for (String k: keyWords_) {
-            if (k.isEmpty()) {
-                return;
-            }
-            for (char c: k.toCharArray()) {
-                if (c == '_') {
-                    return;
-                }
-                if (!StringList.isDollarWordChar(c)) {
-                    return;
-                }
-            }
-            if (!Character.isLetter(k.charAt(0))) {
-                return;
-            }
-        }
-        keyWords_ = new StringList();
-        keyWords_.add(keyWordNbExpBin);
-        keyWords_.add(keyWordNbSufDoublePrim);
-        keyWords_.add(keyWordNbSufDouble);
-        keyWords_.add(keyWordNbSufFloatPrim);
-        keyWords_.add(keyWordNbSufFloat);
-        keyWords_.add(keyWordNbSufLongPrim);
-        keyWords_.add(keyWordNbSufLong);
-        keyWords_.add(keyWordNbSufIntegerPrim);
-        keyWords_.add(keyWordNbSufInteger);
-        keyWords_.add(keyWordNbSufCharacterPrim);
-        keyWords_.add(keyWordNbSufCharacter);
-        keyWords_.add(keyWordNbSufShortPrim);
-        keyWords_.add(keyWordNbSufShort);
-        keyWords_.add(keyWordNbSufBytePrim);
-        keyWords_.add(keyWordNbSufByte);
-        keyWords_.add(keyWordNbHex);
-        size_ = keyWords_.size();
-        keyWords_.removeDuplicates();
-        if (size_ != keyWords_.size()) {
-            return;
-        }
-        if (keyWordNbExpBin.isEmpty()) {
-            return;
-        }
-        for (char c: keyWordNbExpBin.toCharArray()) {
-            if (c == '_') {
-                return;
-            }
-            if (!StringList.isDollarWordChar(c)) {
-                return;
-            }
-            if (ContextEl.isDigit(c)) {
-                return;
-            }
-        }
-        if (!Character.isLetter(keyWordNbExpBin.charAt(0))) {
-            return;
-        }
-        if (keyWordNbExpBin.charAt(0) >= 'A' && keyWordNbExpBin.charAt(0) <= 'F') {
-            return;
-        }
-        if (keyWordNbExpBin.charAt(0) >= 'a' && keyWordNbExpBin.charAt(0) <= 'f') {
-            return;
-        }
-        if (keyWordNbBin.isEmpty()) {
-            return;
-        }
-        for (char c: keyWordNbBin.toCharArray()) {
-            if (!StringList.isDollarWordChar(c)) {
-                return;
-            }
-            if (c == '_') {
-                return;
-            }
-            if (ContextEl.isDigit(c)) {
-                return;
-            }
-        }
-        if (keyWordNbHex.isEmpty()) {
-            return;
-        }
-        if (!Character.isLetter(keyWordNbBin.charAt(0))) {
-            return;
-        }
-        for (char c: keyWordNbHex.toCharArray()) {
-            if (!StringList.isDollarWordChar(c)) {
-                return;
-            }
-            if (ContextEl.isDigit(c)) {
-                return;
-            }
-        }
-        if (!Character.isLetter(keyWordNbHex.charAt(0))) {
-            return;
-        }
-        if (keyWordNbHex.charAt(0) >= 'A' && keyWordNbHex.charAt(0) <= 'F') {
-            return;
-        }
-        if (keyWordNbHex.charAt(0) >= 'a' && keyWordNbHex.charAt(0) <= 'f') {
-            return;
-        }
-        if (keyWordNbBin.startsWith(keyWordNbHex)) {
-            return;
-        }
-        if (keyWordNbHex.startsWith(keyWordNbBin)) {
-            return;
-        }
-        keyWords_ = new StringList();
-        keyWords_.add(keyWordEscBound);
-        keyWords_.add(keyWordEscFeed);
-        keyWords_.add(keyWordEscForm);
-        keyWords_.add(keyWordEscLine);
-        keyWords_.add(keyWordEscTab);
-        for (String k: keyWords_) {
-            if (k.startsWith(keyWordEscUnicode)) {
-                return;
-            }
-        }
-        for (String t: _cont.getStandards().getPrimitiveTypes().getKeys()) {
-            if (isKeyWord(t)) {
-                return;
-            }
-        }
-        if (isKeyWord(_cont.getStandards().getAliasVoid())) {
-            return;
-        }
+        return keyWords_;
     }
     public boolean isKeyWordNotVar(String _word) {
         if (StringList.quickEq(_word, keyWordVar)) {
@@ -340,61 +454,7 @@ public final class KeyWords {
         return isKeyWord(_word);
     }
     public boolean isKeyWord(String _word) {
-        StringList keyWords_ = new StringList();
-        keyWords_.add(keyWordVar);
-        keyWords_.add(keyWordLang);
-        keyWords_.add(keyWordInterfaces);
-        keyWords_.add(keyWordPublic);
-        keyWords_.add(keyWordPackage);
-        keyWords_.add(keyWordProtected);
-        keyWords_.add(keyWordPrivate);
-        keyWords_.add(keyWordInterface);
-        keyWords_.add(keyWordAnnotation);
-        keyWords_.add(keyWordClass);
-        keyWords_.add(keyWordEnum);
-        keyWords_.add(keyWordStatic);
-        keyWords_.add(keyWordAbstract);
-        keyWords_.add(keyWordFinal);
-        keyWords_.add(keyWordNormal);
-        keyWords_.add(keyWordIter);
-        keyWords_.add(keyWordFor);
-        keyWords_.add(keyWordForeach);
-        keyWords_.add(keyWordWhile);
-        keyWords_.add(keyWordDo);
-        keyWords_.add(keyWordIf);
-        keyWords_.add(keyWordElse);
-        keyWords_.add(keyWordElseif);
-        keyWords_.add(keyWordTry);
-        keyWords_.add(keyWordFinally);
-        keyWords_.add(keyWordCatch);
-        keyWords_.add(keyWordSwitch);
-        keyWords_.add(keyWordCase);
-        keyWords_.add(keyWordDefault);
-        keyWords_.add(keyWordReturn);
-        keyWords_.add(keyWordThrow);
-        keyWords_.add(keyWordBreak);
-        keyWords_.add(keyWordContinue);
-        keyWords_.add(keyWordOperator);
-        keyWords_.add(keyWordCast);
-        keyWords_.add(keyWordClasschoice);
-        keyWords_.add(keyWordIntern);
-        keyWords_.add(keyWordNew);
-        keyWords_.add(keyWordSuper);
-        keyWords_.add(keyWordSuperaccess);
-        keyWords_.add(keyWordThisaccess);
-        keyWords_.add(keyWordVararg);
-        keyWords_.add(keyWordFirstopt);
-        keyWords_.add(keyWordBool);
-        keyWords_.add(keyWordInstanceof);
-        keyWords_.add(keyWordValueOf);
-        keyWords_.add(keyWordValues);
-        keyWords_.add(keyWordThis);
-        keyWords_.add(keyWordThat);
-        keyWords_.add(keyWordLambda);
-        keyWords_.add(keyWordId);
-        keyWords_.add(keyWordNull);
-        keyWords_.add(keyWordTrue);
-        keyWords_.add(keyWordFalse);
+        StringList keyWords_ = allKeyWords();
         return keyWords_.containsStr(_word);
     }
     public StringMap<Character> getSuffixes() {

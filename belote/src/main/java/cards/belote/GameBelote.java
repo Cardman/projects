@@ -1399,7 +1399,7 @@ public final class GameBelote {
         }
         return faireCouperAdv(couleursNonVides_,repartition_,repartitionCartesJouees_);
     }
-    private CardBelote jeuMainMaitresseCouleurDominante(
+    private static CardBelote jeuMainMaitresseCouleurDominante(
             EnumMap<Suit,EqList<HandBelote>> _suites,
             EnumMap<Suit,HandBelote> _repartition,
             EnumList<Suit> _couleursMaitres,
@@ -1412,7 +1412,7 @@ public final class GameBelote {
 //        reason.append(format(GET_CARDS_BY_SUIT_CARDS));
         return main(_repartition,couleurs_.first()).premiereCarte();
     }
-    private CardBelote jeuMainMaitresseCouleursEgales(
+    private static CardBelote jeuMainMaitresseCouleursEgales(
             EnumMap<Suit,HandBelote> _repartition,
             EnumList<Suit> _couleursMaitres) {
         EnumList<Suit> couleurs_ = couleursNonAtoutNonVides(_repartition, _couleursMaitres);

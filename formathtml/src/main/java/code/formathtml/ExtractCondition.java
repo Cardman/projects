@@ -2,7 +2,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.CustomError;
 import code.expressionlanguage.Mapping;
-import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.formathtml.util.BadElRender;

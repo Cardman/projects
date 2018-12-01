@@ -4,6 +4,7 @@ import code.util.CustList;
 
 abstract class ParentAnnotPart extends InfoAnnotPart {
 
+    static final String PART_SEP = ",";
     private InfoAnnotPart first;
 
     @Override
@@ -42,8 +43,5 @@ abstract class ParentAnnotPart extends InfoAnnotPart {
     abstract CustList<StackObject> getStack();
 
     abstract String getBegin();
-    String getMiddle() {
-        return ",";
-    }
     abstract String getEnd();
 }

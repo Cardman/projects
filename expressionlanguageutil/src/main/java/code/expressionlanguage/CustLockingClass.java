@@ -2,8 +2,7 @@ package code.expressionlanguage;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-import code.expressionlanguage.methods.RootBlock;
-import code.util.StringList;
+import code.util.EntryCust;
 import code.util.StringMap;
 
 public class CustLockingClass extends DefaultLockingClass {
@@ -12,13 +11,13 @@ public class CustLockingClass extends DefaultLockingClass {
     private StringMap<ContextEl> types = new StringMap<ContextEl>();
 
     @Override
-    public void init(ContextEl _context, StringList _success) {
-        super.init(_context, _success);
-        for (RootBlock r: _context.getClasses().getClassBodies()) {
-            String name_ = r.getFullName();
-            if (getAlwayasInit().containsStr(name_)) {
+    public void initAlwaysSuccess() {
+        super.initAlwaysSuccess();
+        for (EntryCust<String, InitClassState> e: getClasses().entryList()) {
+            if (e.getValue() == InitClassState.SUCCESS) {
                 continue;
             }
+            String name_ = e.getKey();
             locks.put(name_, new ReentrantLock());
             types.put(name_, null);
         }

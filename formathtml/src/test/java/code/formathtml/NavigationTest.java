@@ -14,6 +14,7 @@ import code.bean.translator.Translator;
 import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.classes.BeanEight;
 import code.formathtml.classes.BeanFive;
@@ -33,6 +34,7 @@ import code.formathtml.classes.Rate;
 import code.formathtml.classes.SimpleDataBase;
 import code.formathtml.classes.SimpleMathFactory;
 import code.formathtml.classes.UnselectedRadio;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.sml.DocumentBuilder;
@@ -8740,27 +8742,27 @@ public class NavigationTest {
 
     private static Navigation newNavigation() {
         Navigation nav_ = new Navigation();
-        ContextEl context_ = new ContextEl();
-        context_.getOptions().setEndLineSemiColumn(false);
-        context_.getOptions().setSpecialEnumsMethods(false);
-        context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        context_.getOptions().setUpperLong(true);
-        nav_.getSession().setStandards(InitializationLgNames.initStandards(context_));
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setUpperLong(true);
+        ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         nav_.getSession().setContext(context_);
-        context_.initError();
+        nav_.getSession().setStandards((BeanLgNames) context_.getStandards());
         return nav_;
     }
 
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
-        ContextEl context_ = new ContextEl();
-        context_.getOptions().setEndLineSemiColumn(false);
-        context_.getOptions().setSpecialEnumsMethods(false);
-        context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        context_.getOptions().setUpperLong(true);
-        conf_.setStandards(InitializationLgNames.initStandards(context_));
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        opt_.setUpperLong(true);
+        ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);
-        context_.initError();
+        conf_.setStandards((BeanLgNames) context_.getStandards());
         return conf_;
     }
 }

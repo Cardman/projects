@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.VariableSuffix;
+import code.expressionlanguage.options.Options;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
@@ -101,12 +102,11 @@ public class ExtractFromResourcesTest {
 
     private static Configuration newConfiguration() {
         Configuration conf_ = new Configuration();
-        ContextEl context_ = new ContextEl();
-        context_.getOptions().setEndLineSemiColumn(false);
-        context_.getOptions().setSpecialEnumsMethods(false);
-        context_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        conf_.setStandards(InitializationLgNames.initStandards(context_));
-        context_.initError();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl context_ = InitializationLgNames.buildStdOne(opt_);
         conf_.setContext(context_);
         return conf_;
     }

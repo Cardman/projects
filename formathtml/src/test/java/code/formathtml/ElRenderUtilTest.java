@@ -20,6 +20,7 @@ import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
@@ -2212,7 +2213,7 @@ public final class ElRenderUtilTest {
     public void processEl2FailTest() {
         Configuration context_ = contextEl();
         addImportingPage(context_);
-        ElRenderUtil.processEl("$(Object)$null",0, context_);
+        ElRenderUtil.processEl("$(Inexistant)$null",0, context_);
         assertTrue(!context_.getClasses().isEmptyErrors());
     }
 
@@ -7361,17 +7362,16 @@ public final class ElRenderUtilTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
-        cont_.initError();
         return conf_;
     }
     private Configuration contextEl(boolean _multiple, boolean _eqPlus, boolean _catChars) {
@@ -7379,17 +7379,16 @@ public final class ElRenderUtilTest {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
         files_.put("pkg/Ex", xml_.toString());
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
-        cont_.initError();
         return conf_;
     }
 
@@ -7402,16 +7401,15 @@ public final class ElRenderUtilTest {
     }
     private Configuration contextEl(StringMap<String> _files, boolean _multiple, boolean _eqPlus) {
         Configuration conf_ = new Configuration();
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdTwo(opt_);
         Classes.validateAll(_files, cont_);
         assertTrue(cont_.getClasses().isEmptyErrors());
         conf_.setContext(cont_);
         conf_.setStandards((BeanLgNames) cont_.getStandards());
-        cont_.initError();
         return conf_;
     }
 }

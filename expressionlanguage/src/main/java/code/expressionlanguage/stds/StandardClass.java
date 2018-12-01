@@ -49,7 +49,7 @@ public final class StandardClass extends StandardType implements GeneClass {
         return abstractType;
     }
     public StringList getAllSuperClasses(LgNames _context) {
-        String current_ = getName();
+        String current_ = getFullName();
         String objectAlias_ = _context.getAliasObject();
         StringList superClasses_ = new StringList();
         while (!StringList.quickEq(current_, objectAlias_)) {

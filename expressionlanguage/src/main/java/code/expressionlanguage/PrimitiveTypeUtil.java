@@ -275,17 +275,17 @@ public final class PrimitiveTypeUtil {
             String cls_ = cl_;
             cl_ = getQuickComponentBaseType(cl_).getComponent();
             if (_an.getClassBody(cl_).withoutInstance()) {
-            	if (!canBeUseAsArgument(id_, cls_, _an)) {
-            		_an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
-            		return NullStruct.NULL_VALUE;
-            	}
-            	return _current;
+                if (!canBeUseAsArgument(id_, cls_, _an)) {
+                    _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
+                    return NullStruct.NULL_VALUE;
+                }
+                return _current;
             }
             arg_.setStruct(_current);
             for (int i = 0; i < _nbAncestors; i++) {
-            	Struct enc_ = arg_.getStruct();
-            	Struct par_ = enc_.getParent();
-            	_an.getContextEl().addSensibleField(enc_, par_);
+                Struct enc_ = arg_.getStruct();
+                Struct par_ = enc_.getParent();
+                _an.getContextEl().addSensibleField(enc_, par_);
                 arg_.setStruct(par_);
             }
         }

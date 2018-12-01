@@ -74,7 +74,9 @@ public final class Templates {
             }
             if (curChar_ == Templates.LT) {
                 out_.append(curChar_);
-                count_++;
+                if (out_.toString().trim().charAt(0) != Templates.LT) {
+                    count_++;
+                }
                 i_++;
                 continue;
             }

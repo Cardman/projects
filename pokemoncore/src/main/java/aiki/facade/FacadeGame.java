@@ -233,7 +233,7 @@ public class FacadeGame implements WithMathFactory {
 
     // Load rom option
     public void loadRomAndCheck(String _fileName,
-    		StringMap<String> _files) {
+            StringMap<String> _files) {
         DataBase data_ = loadedRom(_files);
         if (!isLoading()) {
             return;

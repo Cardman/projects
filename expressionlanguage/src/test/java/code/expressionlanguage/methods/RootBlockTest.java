@@ -11,6 +11,7 @@ import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
+import code.expressionlanguage.options.Options;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.ObjectMap;
@@ -1142,13 +1143,12 @@ public class RootBlockTest {
         assertEq(resId_, res_.getConstraints());
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1157,13 +1157,12 @@ public class RootBlockTest {
         return cont_;
     }
     private static ContextEl failValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());

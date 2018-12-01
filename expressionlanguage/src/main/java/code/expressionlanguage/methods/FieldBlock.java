@@ -13,7 +13,7 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.opers.AbstractInstancingOperation;
 import code.expressionlanguage.opers.AbstractUnaryOperation;
 import code.expressionlanguage.opers.AffectationOperation;
@@ -282,7 +282,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         }
         return true;
     }
-    private boolean isCstOperation(OperationNode _op) {
+    private static boolean isCstOperation(OperationNode _op) {
         OperationsSequence op_ = _op.getOperations();
         if (op_ == null) {
             return true;

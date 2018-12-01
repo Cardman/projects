@@ -30,13 +30,13 @@ final class RulesBeloteBean extends BeloteBean {
         cartesBattues=rules_.getCartesBattues().toString(lg_);
         annoncesAutorisees=new StringList();
         for (DeclaresBelote m: rules_.getListeAnnoncesAutorisees()) {
-        	annoncesAutorisees.add(m.toString(lg_));
+            annoncesAutorisees.add(m.toString(lg_));
         }
         sousCoupeAdv = rules_.getSousCoupeAdv();
         gestionCoupePartenaire=rules_.getGestionCoupePartenaire().toString(lg_);
         encheresAutorisees=new StringList();
         for (BidBelote m: rules_.getListeEncheresAutorisees()) {
-        	encheresAutorisees.add(m.toString(lg_));
+            encheresAutorisees.add(m.toString(lg_));
         }
         repartition = rules_.getRepartition().toString(lg_);
         comptePointsClassique = rules_.getComptePointsClassique();

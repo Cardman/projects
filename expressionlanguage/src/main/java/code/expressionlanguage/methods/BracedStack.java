@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.UnexpectedOperationAffect;
+import code.expressionlanguage.errors.custom.UnexpectedOperationAffect;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.opers.OperationNode;
@@ -232,7 +232,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         
     }
-    protected void processFinalVars(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+    protected static void processFinalVars(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getVariablesBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
@@ -259,7 +259,7 @@ public abstract class BracedStack extends BracedBlock {
             _an.getClasses().addError(un_);
         }
     }
-    protected void processFinalMutableLoop(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+    protected static void processFinalMutableLoop(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode,CustList<StringMap<AssignmentBefore>>> f: _vars.getMutableLoopBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
@@ -283,7 +283,7 @@ public abstract class BracedStack extends BracedBlock {
             _an.getClasses().addError(un_);
         }
     }
-    protected void processFinalFields(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
+    protected static void processFinalFields(Block _curBlock, boolean _all, Analyzable _an,AssignedVariables _vars, String _field) {
         for (EntryCust<OperationNode, StringMap<AssignmentBefore>> f: _vars.getFieldsBefore(_curBlock,_all).entryList()) {
             if (!(f.getKey() instanceof AffectationOperation)) {
                 continue;
@@ -1293,7 +1293,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         return out_;
     }
-    protected StringMap<AssignmentBefore> buildAssFieldsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
+    protected static StringMap<AssignmentBefore> buildAssFieldsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
@@ -1343,7 +1343,7 @@ public abstract class BracedStack extends BracedBlock {
         StringMap<AssignmentBefore> tryBefore_ = id_.getVal(_try).getFieldsRootBefore();
         return buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_, catchs_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
+    protected static CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
@@ -1427,7 +1427,7 @@ public abstract class BracedStack extends BracedBlock {
         }
         return out_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssMutableLoopBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
+    protected static CustList<StringMap<AssignmentBefore>> buildAssMutableLoopBefNextCatchFinally(TryEval _try, Analyzable _an, AnalyzingEl _anEl,
             CustList<AbstractCatchEval> _catchs) {
         CustList<AbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();

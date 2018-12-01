@@ -2,9 +2,9 @@ package code.expressionlanguage.types;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.UnknownClassName;
 import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;

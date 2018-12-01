@@ -30,7 +30,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasStore("code.expressionlanguage.exceptions.DynamicArrayStoreException");
 //        _lgNames.setAliasNullPe("$npe");
         _lgNames.setAliasNullPe("code.util.exceptions.NullObjectException");
-        _lgNames.setAliasBadEncode("$enc");
+        _lgNames.setAliasBadEncode("java.lang.$enc");
 //        _lgNames.setAliasBadIndex("$badIndex");
         _lgNames.setAliasBadIndex("code.expressionlanguage.exceptions.BadIndexException");
 //        _lgNames.setAliasBadSize("$badSize");
@@ -50,7 +50,6 @@ public final class DefaultInitialization {
         _lgNames.setAliasQuot("quot");
         _lgNames.setAliasSof("code.expressionlanguage.exceptions.StackOverFlow");
         _lgNames.setAliasNbFormat("badFormat");
-        _lgNames.setAliasBadEncode("badEncode");
         _lgNames.setAliasPrimBoolean("$boolean");
         _lgNames.setAliasPrimByte("$byte");
         _lgNames.setAliasPrimShort("$short");

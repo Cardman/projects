@@ -1,7 +1,7 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.methods.util.ErrorList;
-import code.expressionlanguage.methods.util.FoundErrorInterpret;
+import code.expressionlanguage.errors.custom.ErrorList;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.util.StringList;
 
 public final class BadElRender extends FoundErrorInterpret {

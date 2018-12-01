@@ -3,15 +3,12 @@ package code.expressionlanguage;
 import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.AbstractReflectPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
-import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.InfoBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.StaticBlock;
-import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.structs.CausingErrorStruct;
 import code.expressionlanguage.structs.InvokeTargetErrorStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -20,33 +17,24 @@ public class DefaultLockingClass {
     private StringMap<InitClassState> classes = new StringMap<InitClassState>();
     private StringList alwayasInit = new StringList();
 
-    public void init(ContextEl _context, StringList _success) {
+    public void init(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         for (RootBlock r: cl_.getClassBodies()) {
             String name_ = r.getFullName();
-            boolean succ_ = true;
-            for (Block b: Classes.getDirectChildren(r)) {
-                if (b instanceof InfoBlock) {
-                    InfoBlock f_ = (InfoBlock) b;
-                    if (!f_.isStaticField()) {
-                        continue;
-                    }
-                    for (String n: f_.getFieldName()) {
-                        Struct feed_ = cl_.getStaticField(new ClassField(name_, n));
-                        if (feed_ == null) {
-                            succ_ = false;
-                        }
-                    }
-                }
-                if (b instanceof StaticBlock && !_success.containsStr(name_)) {
-                    succ_ = false;
-                }
-            }
-            if (succ_) {
-                alwayasInit.add(name_);
-                classes.put(name_, InitClassState.SUCCESS);
+            classes.addEntry(name_, InitClassState.NOT_YET);
+        }
+    }
+    public void appendSuccess(StringList _success) {
+        for (String c: _success) {
+            classes.set(c, InitClassState.SUCCESS);
+        }
+    }
+    public void initAlwaysSuccess() {
+        for (EntryCust<String, InitClassState> e: classes.entryList()) {
+            if (e.getValue() == InitClassState.SUCCESS) {
+                alwayasInit.add(e.getKey());
             } else {
-                classes.put(name_, InitClassState.NOT_YET);
+                e.setValue(InitClassState.NOT_YET);
             }
         }
     }
@@ -62,9 +50,6 @@ public class DefaultLockingClass {
         return classes.getVal(base_);
     }
     public InitClassState getState(ContextEl _context, String _className) {
-        if (_context.getClasses().getLocks().getAlwayasInit().containsStr(_className)) {
-            return InitClassState.SUCCESS;
-        }
         String base_ = Templates.getIdFromAllTypes(_className);
         InitClassState old_ = classes.getVal(base_);
         if (old_ == InitClassState.NOT_YET) {

@@ -17,6 +17,7 @@ public abstract class StandardType implements GeneType {
     private static final String PACKAGE_NAME = "";
 
     private final String name;
+    private final String packageName;
 
     private final CustList<StandardConstructor> constructors;
     private final StringMap<StandardField> fields;
@@ -30,11 +31,26 @@ public abstract class StandardType implements GeneType {
             StringMap<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
             ObjectMap<MethodId, StandardMethod> _methods) {
-        name = _name;
+        name = getNamePart(_name);
+        packageName = getPackagePart(_name);
         fields = _fields;
         constructors = _constructors;
         methods = _methods;
         allOverridingMethods = new ObjectMap<MethodId, EqList<ClassMethodId>>();
+    }
+    public static String getNamePart(String _fullName) {
+        int indexDot_ = _fullName.lastIndexOf('.');
+        if (indexDot_ < 0) {
+            return _fullName;
+        }
+        return _fullName.substring(indexDot_+1);
+    }
+    public static String getPackagePart(String _fullName) {
+        int indexDot_ = _fullName.lastIndexOf('.');
+        if (indexDot_ < 0) {
+            return PACKAGE_NAME;
+        }
+        return _fullName.substring(0, indexDot_);
     }
     /** Copy the list*/
     public abstract StringList getDirectSuperClasses(Analyzable _classes);
@@ -50,7 +66,7 @@ public abstract class StandardType implements GeneType {
     public abstract StringList getDirectInterfaces();
     @Override
     public boolean withoutInstance() {
-    	return isStaticType();
+        return isStaticType();
     }
     @Override
     public boolean isStaticType() {
@@ -62,7 +78,7 @@ public abstract class StandardType implements GeneType {
     }
     public final StringList getAllSuperTypes(LgNames _classes) {
         StringList list_ = new StringList();
-        StringList current_ = new StringList(getName());
+        StringList current_ = new StringList(getFullName());
         while (true) {
             StringList next_ = new StringList();
             for (String c: current_) {
@@ -97,15 +113,15 @@ public abstract class StandardType implements GeneType {
     }
     public String getPrettyString() {
         StringBuilder str_ = new StringBuilder();
-        str_.append(getName());
+        str_.append(getFullName());
         str_.append("\n");
         for (StandardField f: fields.values()) {
-            str_.append(f.getPrettyString(getName()));
+            str_.append(f.getPrettyString(getFullName()));
             str_.append("\n");
         }
         str_.append("\n");
         for (StandardConstructor c: constructors) {
-            str_.append(c.getPrettyString(getName()));
+            str_.append(c.getPrettyString(getFullName()));
             str_.append("\n");
         }
         for (StandardMethod m: methods.values()) {
@@ -129,7 +145,7 @@ public abstract class StandardType implements GeneType {
 
     @Override
     public final String getPackageName() {
-        return PACKAGE_NAME;
+        return packageName;
     }
 
     @Override
@@ -144,7 +160,12 @@ public abstract class StandardType implements GeneType {
 
     @Override
     public final String getFullName() {
-        return getName();
+        String pkg_ = getPackageName();
+        String name_ = getName();
+        if (pkg_.isEmpty()) {
+            return name_;
+        }
+        return StringList.concat(pkg_,".",name_);
     }
 
     @Override

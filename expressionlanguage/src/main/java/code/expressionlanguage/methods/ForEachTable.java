@@ -13,11 +13,11 @@ import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.calls.AbstractPageEl;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.BadVariableName;
-import code.expressionlanguage.methods.util.DuplicateVariable;
-import code.expressionlanguage.methods.util.EmptyTagName;
-import code.expressionlanguage.methods.util.StaticAccessError;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadVariableName;
+import code.expressionlanguage.errors.custom.DuplicateVariable;
+import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.errors.custom.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
@@ -919,7 +919,7 @@ public class ForEachTable extends BracedStack implements Loop {
         }
         String classNameSecond_ = _conf.getLastPage().formatVarType(importedClassNameSecond, _conf);
         if (call_.sizeEl() < 4) {
-        	LoopVariable lv_ = _vars.getVal(variableNameFirst);
+            LoopVariable lv_ = _vars.getVal(variableNameFirst);
             lv_.setStruct(arg_.getStruct());
             lv_.setIndex(lv_.getIndex() + 1);
             String locName_ = cls_.getSecondVarCust();

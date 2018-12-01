@@ -7,17 +7,17 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.common.GeneConstructor;
+import code.expressionlanguage.errors.custom.BadAccessConstructor;
+import code.expressionlanguage.errors.custom.BadConstructorCall;
+import code.expressionlanguage.errors.custom.UndefinedConstructorError;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.Line;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadAccessConstructor;
-import code.expressionlanguage.methods.util.BadConstructorCall;
-import code.expressionlanguage.methods.util.UndefinedConstructorError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -244,7 +244,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation {
             _conf.getClasses().addError(call_);
         }
     }
-    protected final void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
+    protected static void processArgs(ExecutableCode _ex, CustList<Argument> _args, StringList _params) {
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _args) {
             if (i_ < _params.size()) {

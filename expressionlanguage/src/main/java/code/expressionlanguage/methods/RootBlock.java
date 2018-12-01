@@ -11,20 +11,20 @@ import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.util.AbstractMethod;
-import code.expressionlanguage.methods.util.BadFieldName;
-import code.expressionlanguage.methods.util.BadMethodName;
-import code.expressionlanguage.methods.util.BadParamName;
+import code.expressionlanguage.errors.custom.AbstractMethod;
+import code.expressionlanguage.errors.custom.BadFieldName;
+import code.expressionlanguage.errors.custom.BadMethodName;
+import code.expressionlanguage.errors.custom.BadParamName;
+import code.expressionlanguage.errors.custom.CyclicInheritingGraph;
+import code.expressionlanguage.errors.custom.DuplicateConstructor;
+import code.expressionlanguage.errors.custom.DuplicateField;
+import code.expressionlanguage.errors.custom.DuplicateMethod;
+import code.expressionlanguage.errors.custom.DuplicateParamName;
+import code.expressionlanguage.errors.custom.IncompatibilityReturnType;
+import code.expressionlanguage.errors.custom.UndefinedSuperConstructor;
+import code.expressionlanguage.errors.custom.UnexpectedTagName;
 import code.expressionlanguage.methods.util.ConstructorEdge;
-import code.expressionlanguage.methods.util.CyclicInheritingGraph;
-import code.expressionlanguage.methods.util.DuplicateConstructor;
-import code.expressionlanguage.methods.util.DuplicateField;
-import code.expressionlanguage.methods.util.DuplicateMethod;
-import code.expressionlanguage.methods.util.DuplicateParamName;
-import code.expressionlanguage.methods.util.IncompatibilityReturnType;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UndefinedSuperConstructor;
-import code.expressionlanguage.methods.util.UnexpectedTagName;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.util.ClassFormattedMethodId;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -123,8 +123,8 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         return o;
     }
     @Override
-	public boolean withoutInstance() {
-    	return isStaticType();
+    public boolean withoutInstance() {
+        return isStaticType();
     }
     @Override
     public abstract boolean isStaticType();

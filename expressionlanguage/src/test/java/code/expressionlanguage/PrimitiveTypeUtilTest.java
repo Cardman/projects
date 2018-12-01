@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -930,10 +931,7 @@ public class PrimitiveTypeUtilTest {
 
     @Test
     public void newCustomArray1Test() {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        InitializationLgNames.initAdvStandards(cont_);
+        ContextEl cont_ = simpleContextEl();
         Numbers<Integer> dims_ = new Numbers<Integer>(1);
         ArrayStruct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
@@ -945,10 +943,7 @@ public class PrimitiveTypeUtilTest {
 
     @Test
     public void newCustomArray2Test() {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        InitializationLgNames.initAdvStandards(cont_);
+        ContextEl cont_ = simpleContextEl();
         Numbers<Integer> dims_ = new Numbers<Integer>(2);
         ArrayStruct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
@@ -962,10 +957,7 @@ public class PrimitiveTypeUtilTest {
 
     @Test
     public void newCustomArray3Test() {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        InitializationLgNames.initAdvStandards(cont_);
+        ContextEl cont_ = simpleContextEl();
         Numbers<Integer> dims_ = new Numbers<Integer>(2,3);
         ArrayStruct customArray_ = PrimitiveTypeUtil.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_ARR_CUST_CLASS, customArray_.getClassName());
@@ -3424,8 +3416,8 @@ public class PrimitiveTypeUtilTest {
     }
     @Test
     public void getResultTernary93Test() {
-        StringList one_ = new StringList("$Fct<java.lang.Number>");
-        StringList two_ = new StringList("$Fct<java.lang.Integer>");
+        StringList one_ = new StringList("java.lang.$Fct<java.lang.Number>");
+        StringList two_ = new StringList("java.lang.$Fct<java.lang.Integer>");
         Argument argOne_ = null;
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
@@ -3433,14 +3425,14 @@ public class PrimitiveTypeUtilTest {
         ContextEl c_ = unfullValidateOverridingMethods(files_);
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertEq("$Fct<java.lang.Number>", res_.getTypes().first());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary94Test() {
-        StringList one_ = new StringList("$Fct<java.lang.Integer>");
-        StringList two_ = new StringList("$Fct<java.lang.Number>");
+        StringList one_ = new StringList("java.lang.$Fct<java.lang.Integer>");
+        StringList two_ = new StringList("java.lang.$Fct<java.lang.Number>");
         Argument argOne_ = null;
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
@@ -3448,14 +3440,14 @@ public class PrimitiveTypeUtilTest {
         ContextEl c_ = unfullValidateOverridingMethods(files_);
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertEq("$Fct<java.lang.Number>", res_.getTypes().first());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary95Test() {
-        StringList one_ = new StringList("$Fct<#T>");
-        StringList two_ = new StringList("$Fct<#U>");
+        StringList one_ = new StringList("java.lang.$Fct<#T>");
+        StringList two_ = new StringList("java.lang.$Fct<#U>");
         Argument argOne_ = null;
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
@@ -3465,14 +3457,14 @@ public class PrimitiveTypeUtilTest {
         ContextEl c_ = unfullValidateOverridingMethods(files_);
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertEq("$Fct<#T>", res_.getTypes().first());
+        assertEq("java.lang.$Fct<#T>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary96Test() {
-        StringList one_ = new StringList("$Fct<#U>");
-        StringList two_ = new StringList("$Fct<#T>");
+        StringList one_ = new StringList("java.lang.$Fct<#U>");
+        StringList two_ = new StringList("java.lang.$Fct<#T>");
         Argument argOne_ = null;
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
@@ -3482,14 +3474,14 @@ public class PrimitiveTypeUtilTest {
         ContextEl c_ = unfullValidateOverridingMethods(files_);
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertEq("$Fct<#T>", res_.getTypes().first());
+        assertEq("java.lang.$Fct<#T>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary97Test() {
-        StringList one_ = new StringList("$Fct<#T>");
-        StringList two_ = new StringList("$Fct<java.lang.Number>");
+        StringList one_ = new StringList("java.lang.$Fct<#T>");
+        StringList two_ = new StringList("java.lang.$Fct<java.lang.Number>");
         Argument argOne_ = null;
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
@@ -3498,14 +3490,14 @@ public class PrimitiveTypeUtilTest {
         ContextEl c_ = unfullValidateOverridingMethods(files_);
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertEq("$Fct<java.lang.Number>", res_.getTypes().first());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary98Test() {
-        StringList one_ = new StringList("$Fct<java.lang.Number>");
-        StringList two_ = new StringList("$Fct<#T>");
+        StringList one_ = new StringList("java.lang.$Fct<java.lang.Number>");
+        StringList two_ = new StringList("java.lang.$Fct<#T>");
         Argument argOne_ = null;
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
@@ -3514,19 +3506,17 @@ public class PrimitiveTypeUtilTest {
         ContextEl c_ = unfullValidateOverridingMethods(files_);
         ResultTernary res_ = PrimitiveTypeUtil.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
-        assertEq("$Fct<java.lang.Number>", res_.getTypes().first());
+        assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
         assertTrue(!res_.isUnwrapSecond());
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        Classes classes_;
-        classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes classes_ = cont_.getClasses();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -3536,12 +3526,11 @@ public class PrimitiveTypeUtilTest {
         return cont_;
     }
     private ContextEl simpleContextEl() {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         return cont_;
     }
 }

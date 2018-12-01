@@ -6,7 +6,7 @@ import code.expressionlanguage.OffsetStringInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.methods.util.MissingReturnMethod;
+import code.expressionlanguage.errors.custom.MissingReturnMethod;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;

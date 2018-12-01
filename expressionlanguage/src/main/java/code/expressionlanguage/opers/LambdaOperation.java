@@ -10,17 +10,20 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.util.AbstractMethod;
+import code.expressionlanguage.errors.custom.AbstractMethod;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadOperandsNumber;
+import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
+import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.UndefinedFieldError;
+import code.expressionlanguage.errors.custom.UndefinedMethodError;
+import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
+import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.errors.custom.VarargError;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
-import code.expressionlanguage.methods.util.IllegalCallCtorByType;
-import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UndefinedFieldError;
-import code.expressionlanguage.methods.util.UndefinedMethodError;
-import code.expressionlanguage.methods.util.UnexpectedTypeOperationError;
-import code.expressionlanguage.methods.util.VarargError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.ClassMethodId;
@@ -37,6 +40,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.LambdaConstructorStruct;
 import code.expressionlanguage.structs.LambdaFieldStruct;
 import code.expressionlanguage.structs.LambdaMethodStruct;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EqList;
 import code.util.IdMap;
@@ -684,7 +688,40 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String sub_ = ownersMap_.getKeys().first();
         String sup_ = ownersMap_.values().first();
         String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
-        cl_ = StringList.concat(new_,"..",cl_);
+        if (new_ == null) {
+            Block bl_ = _conf.getCurrentBlock();
+            RowCol rc_ = _conf.getCurrentLocation();
+            AccessingImportingBlock r_ = bl_.getImporting();
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(cl_);
+            un_.setFileName(r_.getFile().getFileName());
+            un_.setRc(rc_);
+            _conf.getClasses().addError(un_);
+            cl_ = _conf.getStandards().getAliasObject();
+        } else {
+            StringList partsArgs_ = new StringList();
+            for (String a: Templates.getAllTypes(cl_).mid(1)) {
+                String res_ = _conf.resolveCorrectType(a);
+                partsArgs_.add(res_);
+            }
+            if (partsArgs_.isEmpty()) {
+                cl_ = StringList.concat(new_,"..",idClass_);
+            } else {
+                cl_ = StringList.concat(new_,"..",idClass_,"<",partsArgs_.join(","),">");
+            }
+            StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+            if (!Templates.isCorrectTemplateAll(cl_, vars_, _conf, true)) {
+                Block bl_ = _conf.getCurrentBlock();
+                RowCol rc_ = _conf.getCurrentLocation();
+                AccessingImportingBlock r_ = bl_.getImporting();
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(cl_);
+                un_.setFileName(r_.getFile().getFileName());
+                un_.setRc(rc_);
+                _conf.getClasses().addError(un_);
+                cl_ = _conf.getStandards().getAliasObject();
+            }
+        }
         foundClass = cl_;
         shiftArgument = true;
         String id_ = Templates.getIdFromAllTypes(cl_);
@@ -1153,7 +1190,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         return new MethodId(_static, _name, out_, vararg_ != -1);
     }
-    private StringList resolveCorrectTypes(Analyzable _an, boolean _exact, String _type) {
+    private static StringList resolveCorrectTypes(Analyzable _an, boolean _exact, String _type) {
         String type_ = _an.resolveCorrectType(_type, _exact);
         return InvokingOperation.getBounds(type_, _an);
     }

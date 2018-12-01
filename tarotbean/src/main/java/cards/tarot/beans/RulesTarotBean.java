@@ -34,11 +34,11 @@ public final class RulesTarotBean extends TarotBean {
         cartesBattues=rules_.getCartesBattues().toString(lg_);
         miseres=new StringList();
         for (Miseres m: rules_.getMiseres()) {
-        	miseres.add(m.toString(lg_));
+            miseres.add(m.toString(lg_));
         }
         contrats=new StringList();
         for (BidTarot m: rules_.getContratsAutorises()) {
-        	contrats.add(m.toString(lg_));
+            contrats.add(m.toString(lg_));
         }
         mode = rules_.getMode().toString(lg_);
         repartition = rules_.getRepartition().toString(lg_);
@@ -50,8 +50,8 @@ public final class RulesTarotBean extends TarotBean {
         }
         StringMap<Integer> str_ = new StringMap<Integer>();
         for (EntryCust<Handfuls,Integer> e: tr_.entryList()) {
-        	Handfuls h_ = e.getKey();
-        	str_.addEntry(h_.toString(lg_), e.getValue());
+            Handfuls h_ = e.getKey();
+            str_.addEntry(h_.toString(lg_), e.getValue());
         }
         poigneesAutorisees = str_;
         finPartieTarot = rules_.getFinPartieTarot().toString(lg_);

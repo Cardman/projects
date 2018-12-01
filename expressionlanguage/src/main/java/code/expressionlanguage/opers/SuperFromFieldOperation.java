@@ -4,7 +4,7 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.Templates;
-import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;

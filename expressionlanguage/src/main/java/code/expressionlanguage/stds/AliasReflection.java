@@ -928,7 +928,7 @@ public final class AliasReflection {
                     String k_ = c.getKey();
                     RootBlock clblock_ = c.getValue();
                     String forName_ = Templates.getGenericString(k_, _cont);
-                    classes_.add(classesInfo_.getClassMetaInfo(clblock_, forName_, _cont));
+                    classes_.add(Classes.getClassMetaInfo(clblock_, forName_, _cont));
                 }
                 for (EntryCust<String, StandardType> c: _cont.getStandards().getStandards().entryList()) {
                     String k_ = c.getKey();

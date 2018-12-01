@@ -15,7 +15,7 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.calls.FieldInitPageEl;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.methods.util.BadImplicitCast;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.opers.Calculation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;

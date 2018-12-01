@@ -2,7 +2,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.CustomError;
-import code.expressionlanguage.methods.util.UnknownClassName;
+import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;

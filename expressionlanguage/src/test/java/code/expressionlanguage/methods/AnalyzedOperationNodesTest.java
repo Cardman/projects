@@ -11,10 +11,9 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.opers.FctOperation;
 import code.expressionlanguage.opers.OperationNode;
-import code.expressionlanguage.opers.classes.CustLgNames;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.options.Options;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -922,7 +921,7 @@ public class AnalyzedOperationNodesTest {
         }
         return null;
     }
-    private CustList<OperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, boolean _mustFail) {
+    private static CustList<OperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, boolean _mustFail) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", file());
@@ -933,7 +932,7 @@ public class AnalyzedOperationNodesTest {
         CustList<OperationNode> list_ = f_.getOpValue();
         return list_;
     }
-    private CustList<OperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, boolean _mustFail) {
+    private static CustList<OperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, boolean _mustFail) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className, _param,_var));
         files_.put("pkg/Ex", file());
@@ -944,7 +943,7 @@ public class AnalyzedOperationNodesTest {
         CustList<OperationNode> list_ = f_.getOpValue();
         return list_;
     }
-    private String addonFileStaticResult(String _el, String _type, String _param, String _var) {
+    private static String addonFileStaticResult(String _el, String _type, String _param, String _var) {
         StringBuilder str_ = new StringBuilder();
         if (_param.isEmpty()) {
             str_.append("$public $class code.formathtml.classes.Apply {\n");
@@ -966,7 +965,7 @@ public class AnalyzedOperationNodesTest {
         str_.append("}");
         return str_.toString();
     }
-    private String file() {
+    private static String file() {
         StringBuilder str_ = new StringBuilder();
         str_.append("$public $class code.formathtml.classes.InheritedComposite : Composite {\n");
         str_.append("\n");
@@ -1288,28 +1287,18 @@ public class AnalyzedOperationNodesTest {
         str_.append("}\n");
         return str_.toString();
     }
-    private ContextEl contextEl(StringMap<String> _files, boolean _mustFail) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        initAdvStandards(cont_);
+    private static ContextEl contextEl(StringMap<String> _files, boolean _mustFail) {
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(_files, cont_);
         if (_mustFail) {
             assertTrue(!cont_.getClasses().isEmptyErrors());
         } else {
             assertTrue(cont_.getClasses().isEmptyErrors());
         }
-        cont_.initError();
         return cont_;
-    }
-    public static LgNames initAdvStandards(ContextEl _context) {
-        LgNames lgNames_ = new CustLgNames();
-        lgNames_.setContext(_context);
-        InitializationLgNames.basicStandards(lgNames_);
-        lgNames_.build();
-        _context.setStandards(lgNames_);
-        lgNames_.setupOverrides(_context);
-        return lgNames_;
     }
 }

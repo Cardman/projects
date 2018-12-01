@@ -521,7 +521,7 @@ public final class MainWindow extends NetGroupFrame {
         if (!_file.isEmpty()) {
             //startThread = true;
             try {
-            	StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
+                StringMap<String> files_ = StreamZipFile.zippedTextFiles(_file);
                 facade.loadRomAndCheck(_file, files_);
                 if (!facade.isLoadedData()) {
                     facade.loadResources();
@@ -569,7 +569,7 @@ public final class MainWindow extends NetGroupFrame {
             path_ = StringList.replaceBackSlash(path_);
             //startThread = true;
             try {
-            	StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
+                StringMap<String> files_ = StreamZipFile.zippedTextFiles(path_);
                 facade.loadRomAndCheck(path_, files_);
                 if (!facade.isLoadedData()) {
                     facade.loadResources();

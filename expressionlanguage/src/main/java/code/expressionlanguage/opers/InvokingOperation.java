@@ -11,23 +11,23 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.calls.util.CustomFoundAnnotation;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomReflectMethod;
+import code.expressionlanguage.calls.util.InstancingStep;
+import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.CustomFoundAnnotation;
-import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.CustomFoundMethod;
-import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.EnumBlock;
 import code.expressionlanguage.methods.MethodBlock;
-import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.TypeVar;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
@@ -559,11 +559,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             InitClassState res_ = classes_.getLocks().getState(_conf.getContextEl(), _className);
             if (res_ == InitClassState.NOT_YET) {
                 _conf.getContextEl().failInitEnums();
+                if (_conf.getContextEl().isFailInit()) {
+                    return true;
+                }
                 _conf.getContextEl().setInitClass(new NotInitializedClass(_className));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {
                 _conf.getContextEl().failInitEnums();
+                if (_conf.getContextEl().isFailInit()) {
+                    return true;
+                }
                 CausingErrorStruct causing_ = new CausingErrorStruct(_className);
                 _conf.setException(causing_);
                 return true;

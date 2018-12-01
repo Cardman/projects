@@ -5,7 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
-import code.expressionlanguage.methods.util.EmptyPartError;
+import code.expressionlanguage.errors.custom.EmptyPartError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.util.EqList;

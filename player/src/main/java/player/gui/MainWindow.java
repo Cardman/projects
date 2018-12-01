@@ -391,7 +391,7 @@ public class MainWindow extends GroupFrame {
     }
 
     public void updateClip(LineEvent _event) {
-    	String ev_ = toLowerCase(_event.getType().toString());
+        String ev_ = toLowerCase(_event.getType().toString());
         if (StringList.quickEq(ev_, START)) {
             //LineEvent.Type.START
             play.setTextAndSize(PAUSE);

@@ -6,12 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.KeyWordsMap;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -1612,8 +1608,8 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<pkg.Ex<java.lang.Number>>");
-        m_.setParam("$Fct<pkg.ExTwo<java.lang.Number>>");
+        m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>>");
+        m_.setParam("java.lang.$Fct<pkg.ExTwo<java.lang.Number>>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,context_));
@@ -1631,8 +1627,8 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<pkg.ExTwo<java.lang.Number>,$int>");
-        m_.setParam("$Fct<pkg.Ex<java.lang.Number>,$int>");
+        m_.setArg("java.lang.$Fct<pkg.ExTwo<java.lang.Number>,$int>");
+        m_.setParam("java.lang.$Fct<pkg.Ex<java.lang.Number>,$int>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,context_));
@@ -1643,8 +1639,8 @@ public class TemplatesTest {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<$void>");
-        m_.setParam("$Fct<java.lang.Object>");
+        m_.setArg("java.lang.$Fct<$void>");
+        m_.setParam("java.lang.$Fct<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
         assertTrue(Templates.isCorrect(m_,context_));
@@ -1716,7 +1712,7 @@ public class TemplatesTest {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
-        m_.setArg("$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
+        m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         m_.setParam("pkg.ExTwo<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
@@ -3125,7 +3121,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("$Fct", t_,cont_));
+        assertTrue(Templates.isCorrectTemplate("java.lang.$Fct", t_,cont_));
     }
     @Test
     public void isCorrectTemplate49Test() {
@@ -3136,7 +3132,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("$Fct<?>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplate("java.lang.$Fct<?>", t_,cont_));
     }
     @Test
     public void isCorrectTemplate50Test() {
@@ -3147,7 +3143,7 @@ public class TemplatesTest {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(Templates.isCorrectTemplate("$Fct<?,?>", t_,cont_));
+        assertTrue(Templates.isCorrectTemplate("java.lang.$Fct<?,?>", t_,cont_));
     }
     @Test
     public void isCorrectTemplate51Test() {
@@ -3811,26 +3807,17 @@ public class TemplatesTest {
         return cont_;
     }
     private static ContextEl contextEnElDefault() {
-        KeyWordsMap map_ = new KeyWordsMap();
-        KeyWords k_ = map_.getKeyWords("en");
-        LgNames lgNames_ = new CustLgNames();
-        ContextEl ct_ = new ContextEl(new DefaultLockingClass(),new DefaultInitializer(), new Options(), k_);
-        lgNames_.setContext(ct_);
-        map_.initEnStds(lgNames_);
-        lgNames_.build();
-        ct_.setStandards(lgNames_);
-        lgNames_.setupOverrides(ct_);
-        ct_.initError();
+        Options opt_ = new Options();
+        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
         return ct_;
     }
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -3841,12 +3828,11 @@ public class TemplatesTest {
     }
     
     private static ContextEl simpleContextEl() {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         return cont_;
     }
 }

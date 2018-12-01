@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.errors.custom.DuplicateType;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AnnotationBlock;
 import code.expressionlanguage.methods.AnnotationMethodBlock;
@@ -41,7 +42,6 @@ import code.expressionlanguage.methods.SwitchPartBlock;
 import code.expressionlanguage.methods.Throwing;
 import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.methods.WhileCondition;
-import code.expressionlanguage.methods.util.DuplicateType;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;

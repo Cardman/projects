@@ -115,8 +115,8 @@ final class DetailsResultsTarotBean extends TarotBean {
                     line_.setStatus(getGame().statutDe(p).toString(loc_));
                     StringMap<Short> str_ = new StringMap<Short>();
                     for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
-                    	Handfuls h_ = e.getKey();
-                    	str_.addEntry(h_.toString(loc_), e.getValue());
+                        Handfuls h_ = e.getKey();
+                        str_.addEntry(h_.toString(loc_), e.getValue());
                     }
                     line_.setHandfuls(str_);
                     int sum_ = 0;
@@ -214,8 +214,8 @@ final class DetailsResultsTarotBean extends TarotBean {
                     line_.setNickname(getNicknames().get(p));
                     StringMap<Short> str_ = new StringMap<Short>();
                     for (EntryCust<Handfuls,Short> e: handfulsTakerLoc_.entryList()) {
-                    	Handfuls h_ = e.getKey();
-                    	str_.addEntry(h_.toString(loc_), e.getValue());
+                        Handfuls h_ = e.getKey();
+                        str_.addEntry(h_.toString(loc_), e.getValue());
                     }
                     line_.setHandfuls(str_);
                     TreeMap<Miseres,Short> miseres_ = new TreeMap<Miseres,Short>(new ComparatorEnum<Miseres>());

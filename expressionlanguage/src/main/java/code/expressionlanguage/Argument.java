@@ -78,7 +78,7 @@ public final class Argument {
             return Numbers.toString(((NumberStruct)object).getInstance());
         }
         if (object instanceof CharSequenceStruct) {
-        	return ((CharSequenceStruct)object).getInstance();
+            return ((CharSequenceStruct)object).getInstance();
         }
         return _cont.getStandards().getNullString();
     }

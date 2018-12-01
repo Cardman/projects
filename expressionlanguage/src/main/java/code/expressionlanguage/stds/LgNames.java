@@ -13,6 +13,8 @@ import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.errors.stds.ErrorCat;
+import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.methods.AbstractForEachLoop;
 import code.expressionlanguage.methods.BracedBlock;
 import code.expressionlanguage.methods.Classes;
@@ -119,7 +121,6 @@ public abstract class LgNames {
     private String aliasPrimLong;
     private String aliasPrimFloat;
     private String aliasPrimDouble;
-    private String aliasMath;
     private String aliasBoolean;
     private String aliasByte;
     private String aliasShort;
@@ -224,6 +225,7 @@ public abstract class LgNames {
     private String trueString;
     private String falseString;
     private String nullString;
+    private String defaultPkg = "";
     /**Called after setters*/
     public void build() {
         StringMap<StandardField> fields_;
@@ -925,7 +927,18 @@ public abstract class LgNames {
         }
         return _type;
     }
-    public void validateStandards() {
+    public void validateStandards(ContextEl _context) {
+        if (defaultPkg.isEmpty()) {
+            return;
+        }
+        for (char c: defaultPkg.toCharArray()) {
+            if (!StringList.isDollarWordChar(c)) {
+                return;
+            }
+        }
+        if (ContextEl.isDigit(defaultPkg.charAt(0))) {
+            return;
+        }
         StringList list_ = new StringList();
         list_.add(aliasPrimBoolean);
         list_.add(aliasPrimByte);
@@ -953,7 +966,7 @@ public abstract class LgNames {
         list_.add(reflect.getAliasInvokeTarget());
         list_.add(predefTypes.getAliasIterable());
         list_.add(predefTypes.getAliasIteratorType());
-        list_.add(aliasMath);
+        list_.add(mathRef.getAliasMath());
         list_.add(aliasBadEncode);
         list_.add(aliasBadIndex);
         list_.add(aliasDivisionZero);
@@ -980,6 +993,37 @@ public abstract class LgNames {
         int size_ = list_.size();
         list_.removeDuplicates();
         if (size_ != list_.size()) {
+            return;
+        }
+        for (String k: list_) {
+            if (k.isEmpty()) {
+                return;
+            }
+            for (char c: k.toCharArray()) {
+                if (!StringList.isDollarWordChar(c)) {
+                    return;
+                }
+            }
+            if (ContextEl.isDigit(k.charAt(0))) {
+                return;
+            }
+        }
+        for (String k: list_) {
+            if (defaultPkg.contains(k)) {
+                return;
+            }
+        }
+        boolean ok_ = false;
+        for (String t: list_) {
+            String pkg_ = StandardType.getPackagePart(t);
+            if (pkg_.isEmpty()) {
+                continue;
+            }
+            if (StringList.quickEq(pkg_, defaultPkg)) {
+                ok_ = true;
+            }
+        }
+        if (!ok_) {
             return;
         }
         StringMap<StringList> map_ = new StringMap<StringList>();
@@ -1308,16 +1352,649 @@ public abstract class LgNames {
         }
     }
 
+    public StringList allPrimitives() {
+        StringList list_ = new StringList();
+        list_.add(aliasPrimBoolean);
+        list_.add(aliasPrimByte);
+        list_.add(aliasPrimShort);
+        list_.add(aliasPrimChar);
+        list_.add(aliasPrimInteger);
+        list_.add(aliasPrimLong);
+        list_.add(aliasPrimFloat);
+        list_.add(aliasPrimDouble);
+        list_.add(aliasVoid);
+        return list_;
+    }
+    public void validatePrimitiveContents(ContextEl _cont, StringList _list) {
+        for (String k: _list) {
+            if (k.isEmpty()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage("empty word");
+                err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
+                _cont.getClasses().addStdError(err_);
+                continue;
+            }
+            if (_cont.getKeyWords().isKeyWord(k)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("key word ", k));
+                err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+            for (char c: k.toCharArray()) {
+                if (!StringList.isDollarWordChar(c)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                    err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                    break;
+                }
+            }
+            if (ContextEl.isDigit(k.charAt(0))) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                err_.setErrCat(ErrorCat.WRITE_PRIMITIVE_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+    public void validatePrimitiveDuplicates(ContextEl _cont, StringList _list) {
+        StringList keyWords_ = new StringList(_list);
+        int size_ = keyWords_.size();
+        keyWords_.removeDuplicates();
+        if (size_ != keyWords_.size()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("duplicate key words ",_list.display()));
+            err_.setErrCat(ErrorCat.DUPLICATE_PRIMITIVE_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    public StringList allRefTypes() {
+        StringList list_ = new StringList();
+        list_.add(reflect.getAliasAnnotated());
+        list_.add(reflect.getAliasAnnotation());
+        list_.add(reflect.getAliasClass());
+        list_.add(reflect.getAliasConstructor());
+        list_.add(reflect.getAliasFct());
+        list_.add(reflect.getAliasField());
+        list_.add(reflect.getAliasMethod());
+        list_.add(aliasObjectsUtil);
+        list_.add(reflect.getAliasClassNotFoundError());
+        list_.add(aliasCustomError);
+        list_.add(aliasErrorInitClass);
+        list_.add(reflect.getAliasInvokeTarget());
+        list_.add(mathRef.getAliasMath());
+        list_.add(aliasBadEncode);
+        list_.add(aliasBadIndex);
+        list_.add(aliasDivisionZero);
+        list_.add(aliasStore);
+        list_.add(aliasCast);
+        list_.add(aliasBadSize);
+        list_.add(aliasSof);
+        list_.add(aliasReplacement);
+        list_.add(aliasNullPe);
+        list_.add(aliasBoolean);
+        list_.add(aliasByte);
+        list_.add(aliasCharSequence);
+        list_.add(aliasCharacter);
+        list_.add(aliasDouble);
+        list_.add(aliasError);
+        list_.add(aliasFloat);
+        list_.add(aliasInteger);
+        list_.add(aliasLong);
+        list_.add(aliasNumber);
+        list_.add(aliasObject);
+        list_.add(aliasShort);
+        list_.add(aliasString);
+        list_.add(aliasStringBuilder);
+        return list_;
+    }
+    public void validateRefTypeContents(ContextEl _cont, StringList _list, StringList _prims) {
+        StringList allPkgs_ = new StringList();
+        for (String k: _list) {
+            if (k.isEmpty()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage("empty word");
+                err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                _cont.getClasses().addStdError(err_);
+                continue;
+            }
+            for (String p : StringList.splitChars(k, '.')) {
+                if (p.isEmpty()) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage("empty word");
+                    err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                    continue;
+                }
+                if (_prims.containsStr(p)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("primitive ", p));
+                    err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                if (_cont.getKeyWords().isKeyWord(p)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("key word ", p));
+                    err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                for (char c: p.toCharArray()) {
+                    if (!StringList.isDollarWordChar(c) && c != '.') {
+                        StdWordError err_ = new StdWordError();
+                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                        _cont.getClasses().addStdError(err_);
+                        break;
+                    }
+                }
+                if (ContextEl.isDigit(p.charAt(0))) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+            }
+            String pkg_ = StandardType.getPackagePart(k);
+            if (pkg_.isEmpty()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage("empty package");
+                err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+            allPkgs_.add(pkg_);
+        }
+        boolean exNonEmpty_ = false;
+        for (String p: allPkgs_) {
+            if (StringList.quickEq(defaultPkg, p)) {
+                exNonEmpty_ = true;
+            }
+        }
+        if (!exNonEmpty_) {
+            //ERROR
+            StdWordError err_ = new StdWordError();
+            err_.setMessage("empty word");
+            err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+        for (String k: _list) {
+            if (defaultPkg.contains(k)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage("containing package");
+                err_.setErrCat(ErrorCat.WRITE_TYPE_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+    public void validateRefTypeDuplicates(ContextEl _cont, StringList _list) {
+        StringList keyWords_ = new StringList(_list);
+        int size_ = keyWords_.size();
+        keyWords_.removeDuplicates();
+        if (size_ != keyWords_.size()) {
+            StdWordError err_ = new StdWordError();
+            err_.setMessage(StringList.concat("duplicate key words ",_list.display()));
+            err_.setErrCat(ErrorCat.DUPLICATE_TYPE_WORD);
+            _cont.getClasses().addStdError(err_);
+        }
+    }
+    public StringMap<StringList> allTableTypeMethodNames() {
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put(reflect.getAliasAnnotated(), new StringList(
+                reflect.getAliasGetAnnotations(),
+                reflect.getAliasGetAnnotationsParameters()));
+        map_.put(reflect.getAliasAnnotation(), new StringList(reflect.getAliasGetString()));
+        map_.put(reflect.getAliasClass(), new StringList(
+                reflect.getAliasDefaultInstance(),
+                reflect.getAliasEnumValueOf(),
+                reflect.getAliasForName(),
+                reflect.getAliasArrayGet(),
+                reflect.getAliasGetActualTypeArguments(),
+                reflect.getAliasGetAllClasses(),
+                reflect.getAliasGetBounds(),
+                reflect.getAliasGetClass(),
+                reflect.getAliasGetComponentType(),
+                reflect.getAliasGetDeclaredClasses(),
+                reflect.getAliasGetDeclaredConstructors(),
+                reflect.getAliasGetDeclaredFields(),
+                reflect.getAliasGetDeclaredMethods(),
+                reflect.getAliasGetEnclosingType(),
+                reflect.getAliasGetEnumConstants(),
+                reflect.getAliasGetGenericBounds(),
+                reflect.getAliasGetGenericInterfaces(),
+                reflect.getAliasGetGenericSuperClass(),
+                reflect.getAliasGetGenericTypeArguments(),
+                reflect.getAliasGetGenericVariableOwner(),
+                reflect.getAliasGetInterfaces(),
+                reflect.getAliasArrayGetLength(),
+                reflect.getAliasGetLowerBounds(),
+                reflect.getAliasGetName(),
+                reflect.getAliasGetOperators(),
+                reflect.getAliasGetPrettyName(),
+                reflect.getAliasGetSuperClass(),
+                reflect.getAliasGetTypeParameters(),
+                reflect.getAliasGetUpperBounds(),
+                reflect.getAliasGetVariableOwner(),
+                reflect.getAliasInit(),
+                reflect.getAliasIsAbstract(),
+                reflect.getAliasIsAnnotation(),
+                reflect.getAliasIsArray(),
+                reflect.getAliasIsAssignableFrom(),
+                reflect.getAliasIsClass(),
+                reflect.getAliasIsEnum(),
+                reflect.getAliasIsFinal(),
+                reflect.getAliasIsInstance(),
+                reflect.getAliasIsInterface(),
+                reflect.getAliasIsPackage(),
+                reflect.getAliasIsPrimitive(),
+                reflect.getAliasIsPrivate(),
+                reflect.getAliasIsProtected(),
+                reflect.getAliasIsPublic(),
+                reflect.getAliasIsStatic(),
+                reflect.getAliasIsWildCard(),
+                reflect.getAliasMakeArray(),
+                reflect.getAliasMakeGeneric(),
+                reflect.getAliasMakeWildCard(),
+                reflect.getAliasArrayNewInstance(),
+                reflect.getAliasArraySet()));
+        map_.put(reflect.getAliasConstructor(), new StringList(
+                reflect.getAliasGetDeclaringClass(),
+                reflect.getAliasGetGenericReturnType(),
+                reflect.getAliasGetName(),
+                reflect.getAliasGetParameterNames(),
+                reflect.getAliasGetParameterTypes(),
+                reflect.getAliasGetReturnType(),
+                reflect.getAliasIsPackage(),
+                reflect.getAliasIsPrivate(),
+                reflect.getAliasIsProtected(),
+                reflect.getAliasIsPublic(),
+                reflect.getAliasIsVarargs(),
+                reflect.getAliasNewInstance()));
+        map_.put(reflect.getAliasFct(), new StringList(reflect.getAliasCall()));
+        map_.put(reflect.getAliasField(), new StringList(
+                reflect.getAliasArrayGet(),
+                reflect.getAliasGetDeclaringClass(),
+                reflect.getAliasGetGenericType(),
+                reflect.getAliasGetName(),
+                reflect.getAliasGetType(),
+                reflect.getAliasIsFinal(),
+                reflect.getAliasIsPackage(),
+                reflect.getAliasIsPrivate(),
+                reflect.getAliasIsProtected(),
+                reflect.getAliasIsPublic(),
+                reflect.getAliasIsStatic(),
+                reflect.getAliasSetField()));
+        map_.put(reflect.getAliasMethod(), new StringList(
+                reflect.getAliasGetDeclaringClass(),
+                reflect.getAliasGetDefaultValue(),
+                reflect.getAliasGetGenericReturnType(),
+                reflect.getAliasGetName(),
+                reflect.getAliasGetParameterNames(),
+                reflect.getAliasGetParameterTypes(),
+                reflect.getAliasGetReturnType(),
+                reflect.getAliasInvoke(),
+                reflect.getAliasIsAbstract(),
+                reflect.getAliasIsFinal(),
+                reflect.getAliasIsNormal(),
+                reflect.getAliasIsPackage(),
+                reflect.getAliasIsPolymorph(),
+                reflect.getAliasIsPrivate(),
+                reflect.getAliasIsProtected(),
+                reflect.getAliasIsPublic(),
+                reflect.getAliasIsStatic(),
+                reflect.getAliasIsVarargs(),
+                reflect.getAliasSetPolymorph()));
+        map_.put(aliasObjectsUtil, new StringList(
+                aliasSameRef,
+                aliasGetParent));
+        map_.put(aliasEnum, new StringList(
+                aliasName,
+                aliasOrdinal));
+        map_.put(aliasEnums, new StringList(
+                aliasName,
+                aliasOrdinal));
+        map_.put(predefTypes.getAliasIterable(), new StringList(
+                predefTypes.getAliasIterator()));
+        map_.put(predefTypes.getAliasIteratorType(), new StringList(
+                predefTypes.getAliasHasNext(),
+                predefTypes.getAliasNext()));
+        map_.put(mathRef.getAliasMath(), new StringList(
+                mathRef.getAliasAbs(),
+                mathRef.getAliasMod(),
+                mathRef.getAliasQuot(),
+                mathRef.getAliasBinMod(),
+                mathRef.getAliasBinQuot(),
+                mathRef.getAliasPlus(),
+                mathRef.getAliasMinus(),
+                mathRef.getAliasMult(),
+                mathRef.getAliasNegBin(),
+                mathRef.getAliasAnd(),
+                mathRef.getAliasOr(),
+                mathRef.getAliasXor(),
+                mathRef.getAliasLe(),
+                mathRef.getAliasGe(),
+                mathRef.getAliasLt(),
+                mathRef.getAliasGt(),
+                mathRef.getAliasShiftLeft(),
+                mathRef.getAliasShiftRight(),
+                mathRef.getAliasBitShiftLeft(),
+                mathRef.getAliasBitShiftRight(),
+                mathRef.getAliasRotateLeft(),
+                mathRef.getAliasRotateRight()));
+        map_.put(aliasReplacement, new StringList(
+                aliasGetNewString,
+                aliasGetOldString,
+                aliasSetNewString,
+                aliasSetOldString));
+        map_.put(aliasBoolean, new StringList(
+                aliasBooleanValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasEquals,
+                aliasParseBoolean,
+                aliasToString,
+                aliasValueOf));
+        map_.put(aliasByte, new StringList(
+                aliasByteValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDoubleValue,
+                aliasEquals,
+                aliasFloatValue,
+                aliasIntValue,
+                aliasLongValue,
+                aliasParseByte,
+                aliasShortValue,
+                aliasToString));
+        map_.put(aliasCharSequence, new StringList(
+                aliasCharAt,
+                aliasLength,
+                aliasSubSequence));
+        map_.put(aliasCharacter, new StringList(
+                aliasCharAt,
+                aliasCharValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDigit,
+                aliasForDigit,
+                aliasGetType,
+                aliasIsDigit,
+                aliasGetDirectionality,
+                aliasIsLetter,
+                aliasIsLetterOrDigit,
+                aliasIsLowerCase,
+                aliasIsSpace,
+                aliasIsUpperCase,
+                aliasIsWhitespace,
+                aliasIsWordChar,
+                aliasLength,
+                aliasSubSequence,
+                aliasToLowerCase,
+                aliasToString,
+                aliasToUpperCase));
+        map_.put(aliasDouble, new StringList(
+                aliasByteValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDoubleValue,
+                aliasEquals,
+                aliasFloatValue,
+                aliasIntValue,
+                aliasIsInfinite,
+                aliasIsNan,
+                aliasLongValue,
+                aliasParseDouble,
+                aliasShortValue,
+                aliasToString));
+        map_.put(aliasFloat, new StringList(
+                aliasByteValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDoubleValue,
+                aliasEquals,
+                aliasFloatValue,
+                aliasIntValue,
+                aliasIsInfinite,
+                aliasIsNan,
+                aliasLongValue,
+                aliasParseFloat,
+                aliasShortValue,
+                aliasToString));
+        map_.put(aliasInteger, new StringList(
+                aliasByteValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDoubleValue,
+                aliasEquals,
+                aliasFloatValue,
+                aliasIntValue,
+                aliasLongValue,
+                aliasParseInt,
+                aliasShortValue,
+                aliasToString));
+        map_.put(aliasLong, new StringList(
+                aliasByteValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDoubleValue,
+                aliasEquals,
+                aliasFloatValue,
+                aliasIntValue,
+                aliasLongValue,
+                aliasParseLong,
+                aliasShortValue,
+                aliasToString));
+        map_.put(aliasNumber, new StringList(
+                aliasByteValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDoubleValue,
+                aliasEquals,
+                aliasFloatValue,
+                aliasIntValue,
+                aliasLongValue,
+                aliasShortValue,
+                aliasToString));
+        map_.put(aliasShort, new StringList(
+                aliasByteValue,
+                aliasCompare,
+                aliasCompareTo,
+                aliasDoubleValue,
+                aliasEquals,
+                aliasFloatValue,
+                aliasIntValue,
+                aliasLongValue,
+                aliasParseShort,
+                aliasShortValue,
+                aliasToString));
+        map_.put(aliasString, new StringList(
+                aliasCharAt,
+                aliasCompareTo,
+                aliasCompareToIgnoreCase,
+                aliasContains,
+                aliasEndsWith,
+                aliasEqualsIgnoreCase,
+                aliasFormat,
+                aliasGetBytes,
+                aliasIndexOf,
+                aliasIsEmpty,
+                aliasLastIndexOf,
+                aliasLength,
+                aliasRegionMatches,
+                aliasReplace,
+                aliasReplaceMultiple,
+                aliasSplit,
+                aliasSplitChars,
+                aliasSplitStrings,
+                aliasStartsWith,
+                aliasSubSequence,
+                aliasSubstring,
+                aliasToCharArray,
+                aliasToLowerCase,
+                aliasToUpperCase,
+                aliasTrim,
+                aliasValueOf));
+        map_.put(aliasStringBuilder, new StringList(
+                aliasAppend,
+                aliasCapacity,
+                aliasCharAt,
+                aliasClear,
+                aliasDelete,
+                aliasDeleteCharAt,
+                aliasEnsureCapacity,
+                aliasIndexOf,
+                aliasInsert,
+                aliasIsEmpty,
+                aliasLastIndexOf,
+                aliasLength,
+                aliasReplace,
+                aliasReverse,
+                aliasSetCharAt,
+                aliasSetLength,
+                aliasSubSequence,
+                aliasToString,
+                aliasTrimToSize));
+        return map_;
+    }
+    public void validateMethodsContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
+        for (EntryCust<String, StringList> e: _methods.entryList()) {
+            for (String k: e.getValue()) {
+                if (k.isEmpty()) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage("empty word");
+                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                    continue;
+                }
+                if (_cont.getKeyWords().isKeyWord(k)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("key word ", k));
+                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                if (_prims.containsStr(k)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("primitive ", k));
+                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                for (char c: k.toCharArray()) {
+                    if (!StringList.isDollarWordChar(c)) {
+                        StdWordError err_ = new StdWordError();
+                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                        _cont.getClasses().addStdError(err_);
+                        break;
+                    }
+                }
+                if (ContextEl.isDigit(k.charAt(0))) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+            }
+        }
+    }
+    public void validateMethodsDuplicates(ContextEl _cont, StringMap<StringList> _methods){
+        for (EntryCust<String, StringList> e: _methods.entryList()) {
+            StringList keyWords_ = new StringList(e.getValue());
+            int size_ = keyWords_.size();
+            keyWords_.removeDuplicates();
+            if (size_ != keyWords_.size()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("duplicate methods ",e.getValue().display()));
+                err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
+    public StringMap<StringList> allTableTypeFieldNames() {
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put(aliasDouble, new StringList(
+                aliasMinValueField,
+                aliasMaxValueField));
+        map_.put(aliasFloat, new StringList(
+                aliasMinValueField,
+                aliasMaxValueField));
+        map_.put(aliasLong, new StringList(
+                aliasMinValueField,
+                aliasMaxValueField));
+        map_.put(aliasInteger, new StringList(
+                aliasMinValueField,
+                aliasMaxValueField));
+        map_.put(aliasCharacter, new StringList(
+                aliasMinValueField,
+                aliasMaxValueField));
+        map_.put(aliasShort, new StringList(
+                aliasMinValueField,
+                aliasMaxValueField));
+        map_.put(aliasByte, new StringList(
+                aliasMinValueField,
+                aliasMaxValueField));
+        return map_;
+    }
+    public void validateFieldsContents(ContextEl _cont, StringMap<StringList> _methods, StringList _prims){
+        for (EntryCust<String, StringList> e: _methods.entryList()) {
+            for (String k: e.getValue()) {
+                if (k.isEmpty()) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage("empty word");
+                    err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                    continue;
+                }
+                if (_cont.getKeyWords().isKeyWord(k)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("key word ", k));
+                    err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                if (_prims.containsStr(k)) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("primitive ", k));
+                    err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+                for (char c: k.toCharArray()) {
+                    if (!StringList.isDollarWordChar(c)) {
+                        StdWordError err_ = new StdWordError();
+                        err_.setMessage(StringList.concat("not word char ", Character.toString(c)));
+                        err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
+                        _cont.getClasses().addStdError(err_);
+                        break;
+                    }
+                }
+                if (ContextEl.isDigit(k.charAt(0))) {
+                    StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat("digit ", Character.toString(k.charAt(0))));
+                    err_.setErrCat(ErrorCat.WRITE_FIELD_WORD);
+                    _cont.getClasses().addStdError(err_);
+                }
+            }
+        }
+    }
+    public void validateFieldsDuplicates(ContextEl _cont, StringMap<StringList> _methods){
+        for (EntryCust<String, StringList> e: _methods.entryList()) {
+            StringList keyWords_ = new StringList(e.getValue());
+            int size_ = keyWords_.size();
+            keyWords_.removeDuplicates();
+            if (size_ != keyWords_.size()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.concat("duplicate methods ",e.getValue().display()));
+                err_.setErrCat(ErrorCat.DUPLICATE_FIELD_WORD);
+                _cont.getClasses().addStdError(err_);
+            }
+        }
+    }
     public void setupOverrides(ContextEl _cont) {
-    	StringList pkgs_ = new StringList();
+        StringList pkgs_ = new StringList();
         for (StandardType r: standards.values()) {
-        	String pkg_ = r.getPackageName();
-        	StringBuilder id_ = new StringBuilder();
-        	for (String p: StringList.splitChars(pkg_, '.')) {
-        		id_.append(p);
-        		pkgs_.add(id_.toString());
-        		id_.append('.');
-        	}
+            String pkg_ = r.getPackageName();
+            StringBuilder id_ = new StringBuilder();
+            for (String p: StringList.splitChars(pkg_, '.')) {
+                id_.append(p);
+                pkgs_.add(id_.toString());
+                id_.append('.');
+            }
         }
         pkgs_.removeDuplicates();
         _cont.getClasses().getPackagesFound().addAllElts(pkgs_);
@@ -1955,9 +2632,9 @@ public abstract class LgNames {
                 return result_;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasGetParent())) {
-            	Struct arg_ = args_[0];
-            	Struct par_ = arg_.getParent();
-            	_cont.getContextEl().addSensibleField(arg_, par_);
+                Struct arg_ = args_[0];
+                Struct par_ = arg_.getParent();
+                _cont.getContextEl().addSensibleField(arg_, par_);
                 result_.setResult(par_);
                 return result_;
             }
@@ -5835,7 +6512,7 @@ public abstract class LgNames {
     public String getOvPrettyString() {
         StringBuilder str_ = new StringBuilder();
         for (StandardType s: standards.values()) {
-            str_.append(s.getName());
+            str_.append(s.getFullName());
             str_.append("\n");
             for (EntryCust<MethodId, EqList<ClassMethodId>> e:s.getAllOverridingMethods().entryList()){
                 str_.append(e.getKey().getSignature());
@@ -5851,6 +6528,12 @@ public abstract class LgNames {
             str_.append("\n");
         }
         return str_.toString();
+    }
+    public String getDefaultPkg() {
+        return defaultPkg;
+    }
+    public void setDefaultPkg(String _defaultPkg) {
+        defaultPkg = _defaultPkg;
     }
 
 }

@@ -9,19 +9,22 @@ import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.calls.PageEl;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.errors.custom.BadAccessConstructor;
+import code.expressionlanguage.errors.custom.BadImplicitCast;
+import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
+import code.expressionlanguage.errors.custom.StaticAccessError;
+import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.methods.AccessingImportingBlock;
+import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
-import code.expressionlanguage.methods.CustomFoundConstructor;
 import code.expressionlanguage.methods.EnumBlock;
-import code.expressionlanguage.methods.NotInitializedClass;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadAccessConstructor;
-import code.expressionlanguage.methods.util.BadImplicitCast;
-import code.expressionlanguage.methods.util.IllegalCallCtorByType;
-import code.expressionlanguage.methods.util.StaticAccessError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
@@ -29,6 +32,7 @@ import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
+import code.sml.RowCol;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -157,7 +161,39 @@ public final class StandardInstancingOperation extends
         String sub_ = ownersMap_.getKeys().first();
         String sup_ = ownersMap_.values().first();
         String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
-        realClassName_ = StringList.concat(new_,"..",realClassName_);
+        if (new_ == null) {
+            Block bl_ = _conf.getCurrentBlock();
+            RowCol rc_ = _conf.getCurrentLocation();
+            AccessingImportingBlock r_ = bl_.getImporting();
+            UnknownClassName un_ = new UnknownClassName();
+            un_.setClassName(realClassName_);
+            un_.setFileName(r_.getFile().getFileName());
+            un_.setRc(rc_);
+            _conf.getClasses().addError(un_);
+            realClassName_ = _conf.getStandards().getAliasObject();
+        } else {
+            StringList partsArgs_ = new StringList();
+            for (String a: Templates.getAllTypes(realClassName_).mid(1)) {
+                partsArgs_.add(_conf.resolveCorrectType(a));
+            }
+            if (partsArgs_.isEmpty()) {
+                realClassName_ = StringList.concat(new_,"..",idClass_);
+            } else {
+                realClassName_ = StringList.concat(new_,"..",idClass_,"<",partsArgs_.join(","),">");
+            }
+            StringMap<StringList> vars_ = _conf.getCurrentConstraints();
+            if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {
+                Block bl_ = _conf.getCurrentBlock();
+                RowCol rc_ = _conf.getCurrentLocation();
+                AccessingImportingBlock r_ = bl_.getImporting();
+                UnknownClassName un_ = new UnknownClassName();
+                un_.setClassName(realClassName_);
+                un_.setFileName(r_.getFile().getFileName());
+                un_.setRc(rc_);
+                _conf.getClasses().addError(un_);
+                realClassName_ = _conf.getStandards().getAliasObject();
+            }
+        }
         analyzeCtor(_conf, realClassName_, false, firstArgs_);
     }
     void analyzeCtor(Analyzable _conf, String _realClassName, boolean _resolve,CustList<ClassArgumentMatching> _firstArgs) {

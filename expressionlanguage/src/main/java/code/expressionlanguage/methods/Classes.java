@@ -16,22 +16,25 @@ import code.expressionlanguage.common.GeneInterface;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.methods.util.BadClassName;
-import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.BadMethodName;
-import code.expressionlanguage.methods.util.BadParamName;
+import code.expressionlanguage.errors.custom.BadClassName;
+import code.expressionlanguage.errors.custom.BadInheritedClass;
+import code.expressionlanguage.errors.custom.BadMethodName;
+import code.expressionlanguage.errors.custom.BadParamName;
+import code.expressionlanguage.errors.custom.DuplicateGenericSuperTypes;
+import code.expressionlanguage.errors.custom.DuplicateMethod;
+import code.expressionlanguage.errors.custom.DuplicateParamName;
+import code.expressionlanguage.errors.custom.DuplicateType;
+import code.expressionlanguage.errors.custom.EmptyTagName;
+import code.expressionlanguage.errors.custom.ErrorList;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.errors.custom.UnassignedFinalField;
+import code.expressionlanguage.errors.custom.UnknownClassName;
+import code.expressionlanguage.errors.custom.WarningList;
+import code.expressionlanguage.errors.stds.StdErrorList;
+import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.methods.util.ClassEdge;
-import code.expressionlanguage.methods.util.DuplicateGenericSuperTypes;
-import code.expressionlanguage.methods.util.DuplicateMethod;
-import code.expressionlanguage.methods.util.DuplicateParamName;
-import code.expressionlanguage.methods.util.DuplicateType;
-import code.expressionlanguage.methods.util.EmptyTagName;
-import code.expressionlanguage.methods.util.ErrorList;
-import code.expressionlanguage.methods.util.FoundErrorInterpret;
-import code.expressionlanguage.methods.util.FoundWarningInterpret;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnknownClassName;
-import code.expressionlanguage.methods.util.WarningList;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -42,7 +45,6 @@ import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.opers.util.MethodModifier;
 import code.expressionlanguage.opers.util.SimpleAssignment;
 import code.expressionlanguage.opers.util.SortedClassField;
-import code.expressionlanguage.opers.util.UnassignedFinalField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -82,6 +84,7 @@ public final class Classes {
 
     private final ErrorList errorsDet;
     private final WarningList warningsDet;
+    private final StdErrorList stdErrorDet;
     private DefaultLockingClass locks;
     private String iteratorVarCust;
     private String hasNextVarCust;
@@ -109,6 +112,7 @@ public final class Classes {
         warningsDet = new WarningList();
         staticFields = new StringMap<StringMap<Struct>>();
         operators = new CustList<OperatorBlock>();
+        stdErrorDet = new StdErrorList();
     }
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
@@ -132,38 +136,78 @@ public final class Classes {
         String packageName_;
         packageName_ = _root.getPackageName();
         LgNames lgNames_ = _context.getStandards();
-        if (!_predefined) {
-            if (packageName_.trim().isEmpty()) {
+        if (packageName_.trim().isEmpty()) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            addError(badCl_);
+        }
+        StringList elements_ = StringList.splitChars(packageName_, DOT);
+        for (String e: elements_) {
+            String tr_ = e.trim();
+            if (_context.getKeyWords().isKeyWord(tr_)) {
                 BadClassName badCl_ = new BadClassName();
                 badCl_.setClassName(fullName_);
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                 addError(badCl_);
             }
-            StringList elements_ = StringList.splitChars(packageName_, DOT);
+            if (PrimitiveTypeUtil.isPrimitive(tr_, _context)) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                addError(badCl_);
+            }
+            if (StringList.quickEq(tr_, _context.getStandards().getAliasVoid())) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                addError(badCl_);
+            }
+            if (!StringList.isDollarWord(tr_)) {
+                BadClassName badCl_ = new BadClassName();
+                badCl_.setClassName(fullName_);
+                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+                addError(badCl_);
+            }
+        }
+        String className_;
+        className_ = _root.getName().trim();
+        if (_context.getKeyWords().isKeyWord(className_)) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            addError(badCl_);
+        }
+        if (StringList.quickEq(className_, _context.getStandards().getAliasVoid())) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            addError(badCl_);
+        }
+        if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            addError(badCl_);
+        }
+        if (!StringList.isDollarWord(className_)) {
+            BadClassName badCl_ = new BadClassName();
+            badCl_.setClassName(fullName_);
+            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
+            addError(badCl_);
+        }
+        if (!_predefined) {
             for (String e: elements_) {
                 String tr_ = e.trim();
-                if (_context.getKeyWords().isKeyWord(tr_)) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullName_);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
-                }
-                if (PrimitiveTypeUtil.isPrimitive(tr_, _context)) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullName_);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
-                }
-                if (StringList.quickEq(tr_, _context.getStandards().getAliasVoid())) {
-                    BadClassName badCl_ = new BadClassName();
-                    badCl_.setClassName(fullName_);
-                    badCl_.setFileName(_root.getFile().getFileName());
-                    badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                    addError(badCl_);
-                }
                 if (!StringList.isWord(tr_)) {
                     BadClassName badCl_ = new BadClassName();
                     badCl_.setClassName(fullName_);
@@ -171,29 +215,6 @@ public final class Classes {
                     badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
                     addError(badCl_);
                 }
-            }
-            String className_;
-            className_ = _root.getName().trim();
-            if (_context.getKeyWords().isKeyWord(className_)) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(fullName_);
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                addError(badCl_);
-            }
-            if (StringList.quickEq(className_, _context.getStandards().getAliasVoid())) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(fullName_);
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                addError(badCl_);
-            }
-            if (PrimitiveTypeUtil.isPrimitive(className_, _context)) {
-                BadClassName badCl_ = new BadClassName();
-                badCl_.setClassName(fullName_);
-                badCl_.setFileName(_root.getFile().getFileName());
-                badCl_.setRc(_root.getRowCol(0, _root.getIdRowCol()));
-                addError(badCl_);
             }
             if (!StringList.isWord(className_)) {
                 BadClassName badCl_ = new BadClassName();
@@ -348,6 +369,15 @@ public final class Classes {
     public ErrorList getErrorsDet() {
         return errorsDet;
     }
+    public boolean isEmptyStdError() {
+        return stdErrorDet.isEmpty();
+    }
+    public void addStdError(StdWordError _std) {
+        stdErrorDet.add(_std);
+    }
+    public StdErrorList getStdErrorDet() {
+        return stdErrorDet;
+    }
     public boolean isEmptyWarnings() {
         return warningsDet.isEmpty();
     }
@@ -362,59 +392,49 @@ public final class Classes {
     }
     public static void validateAll(StringMap<String> _files, ContextEl _context) {
         Classes classes_ = _context.getClasses();
+        if (!classes_.isEmptyStdError()) {
+            //all standards errors are logged here
+            return;
+        }
         Classes.buildPredefinedBracesBodies(_context);
+        tryValidateCustom(_files, _context);
+        if (!classes_.isEmptyErrors()) {
+            //all errors are logged here
+            return;
+        }
+        _context.setAnalyzing(null);
+        tryInitStaticlyTypes(_context);
+    }
+    private static void tryValidateCustom(StringMap<String> _files, ContextEl _context) {
+        Classes classes_ = _context.getClasses();
         Classes.tryBuildBracedClassesBodies(_files, _context);
         classes_.validateInheritingClasses(_context, false);
         classes_.validateIds(_context);
         classes_.validateOverridingInherit(_context);
         classes_.validateEl(_context);
         TypeUtil.checkInterfaces(_context, classes_.classesBodies.getKeys());
-        if (!classes_.isEmptyErrors()) {
-            //all errors are logged here
-            return;
-        }
-        _context.setAnalyzing(null);
+    }
+    private static void tryInitStaticlyTypes(ContextEl _context) {
         Classes cl_ = _context.getClasses();
         StringList success_ = new StringList();
         DefaultLockingClass dl_ = cl_.getLocks();
-        dl_.init(_context,success_);
-        StringList all_ = new StringList();
-        for (String s: classes_.classesBodies.getKeys()) {
-            if (classes_.isSuccessfulInitialized(s)) {
-                continue;
-            }
-            all_.add(s);
-        }
+        dl_.init(_context);
+        StringList all_ = cl_.classesBodies.getKeys();
         _context.setInitEnums(true);
         while (true) {
             StringList new_ = new StringList();
             for (String c: all_) {
                 _context.resetInitEnums();
-                StringMap<StringMap<Struct>> bk_ = new StringMap<StringMap<Struct>>();
-                for (EntryCust<String, StringMap<Struct>> e: classes_.staticFields.entryList()) {
-                    StringMap<Struct> b_ = new StringMap<Struct>();
-                    for (EntryCust<String, Struct> f: e.getValue().entryList()) {
-                        b_.addEntry(f.getKey(), f.getValue());
-                    }
-                    bk_.addEntry(e.getKey(), b_);
-                }
+                StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.staticFields);
                 ProcessMethod.initializeClassPre(c, _context);
                 if (_context.isFailInit()) {
-                    StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
-                    for (EntryCust<String, StringMap<Struct>> e: bk_.entryList()) {
-                        StringMap<Struct> b_ = new StringMap<Struct>();
-                        for (EntryCust<String, Struct> f: e.getValue().entryList()) {
-                            b_.addEntry(f.getKey(), f.getValue());
-                        }
-                        bkSt_.addEntry(e.getKey(), b_);
-                    }
-                    classes_.staticFields = bkSt_;
+                    cl_.staticFields = buildFieldValues(bk_);
                 } else {
                     success_.add(c);
                     new_.add(c);
                 }
             }
-            dl_.init(_context,success_);
+            dl_.appendSuccess(new_);
             all_.removeAllElements(new_);
             if (new_.isEmpty()) {
                 break;
@@ -422,6 +442,18 @@ public final class Classes {
         }
         _context.resetInitEnums();
         _context.setInitEnums(false);
+        dl_.initAlwaysSuccess();
+    }
+    private static StringMap<StringMap<Struct>> buildFieldValues(StringMap<StringMap<Struct>> _infos) {
+        StringMap<StringMap<Struct>> bkSt_ = new StringMap<StringMap<Struct>>();
+        for (EntryCust<String, StringMap<Struct>> e: _infos.entryList()) {
+            StringMap<Struct> b_ = new StringMap<Struct>();
+            for (EntryCust<String, Struct> f: e.getValue().entryList()) {
+                b_.addEntry(f.getKey(), f.getValue());
+            }
+            bkSt_.addEntry(e.getKey(), b_);
+        }
+        return bkSt_;
     }
     
     public static void buildPredefinedBracesBodies(ContextEl _context) {
@@ -436,10 +468,10 @@ public final class Classes {
         cl_.getPackagesFound().addAllElts(cl_.getPackages());
         cl_.validateInheritingClasses(_context, true);
         for (RootBlock t: cl_.classesBodies.values()) {
-            TypeUtil.buildOverrides(t, _context);
+            t.validateIds(_context);
         }
         for (RootBlock t: cl_.classesBodies.values()) {
-            t.validateIds(_context);
+            TypeUtil.buildOverrides(t, _context);
         }
         _context.getStandards().buildIterable(_context);
     }
@@ -730,7 +762,7 @@ public final class Classes {
                             readyTypes_.add(f.getKey());
                         }
                     }
-                    String foundType_ = _context.resolveBaseType(idSuper_, c, r_, index_, rc_, readyTypes_);
+                    String foundType_ = _context.resolveBaseInherits(idSuper_, r_, index_, readyTypes_, true);
                     if (foundType_ == null) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
@@ -991,8 +1023,8 @@ public final class Classes {
                         continue;
                     }
                     String type_ = base_;
-                    base_ = _context.resolveBaseTypeInherits(base_, index_, bl_, rc_, possibleQualifiers_);
-                    if (base_.isEmpty()) {
+                    base_ = _context.resolveBaseInherits(base_, bl_, index_, possibleQualifiers_, false);
+                    if (base_ == null || base_.isEmpty()) {
                         UnknownClassName undef_;
                         undef_ = new UnknownClassName();
                         undef_.setClassName(type_);
@@ -2135,13 +2167,13 @@ public final class Classes {
     public StringList getPackages() {
         StringList pkgs_ = new StringList();
         for (RootBlock r: classesBodies.values()) {
-        	String pkg_ = r.getPackageName();
-        	StringBuilder id_ = new StringBuilder();
-        	for (String p: StringList.splitChars(pkg_, '.')) {
-        		id_.append(p);
-        		pkgs_.add(id_.toString());
-        		id_.append('.');
-        	}
+            String pkg_ = r.getPackageName();
+            StringBuilder id_ = new StringBuilder();
+            for (String p: StringList.splitChars(pkg_, '.')) {
+                id_.append(p);
+                pkgs_.add(id_.toString());
+                id_.append('.');
+            }
         }
         pkgs_.removeDuplicates();
         return pkgs_;
@@ -2423,7 +2455,7 @@ public final class Classes {
         }
         return null;
     }
-    public ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
+    public static ClassMetaInfo getClassMetaInfo(RootBlock _type,String _name, ContextEl _context) {
         ObjectNotNullMap<MethodId, MethodMetaInfo> infos_;
         infos_ = new ObjectNotNullMap<MethodId, MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;

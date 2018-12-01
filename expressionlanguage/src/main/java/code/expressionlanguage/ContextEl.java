@@ -18,12 +18,26 @@ import code.expressionlanguage.calls.ReflectSetFieldPageEl;
 import code.expressionlanguage.calls.StaticInitPageEl;
 import code.expressionlanguage.calls.SuperInstancingImplicitPageEl;
 import code.expressionlanguage.calls.SuperInstancingPageEl;
+import code.expressionlanguage.calls.util.CallConstructor;
+import code.expressionlanguage.calls.util.CustomFoundAnnotation;
+import code.expressionlanguage.calls.util.CustomFoundBlock;
+import code.expressionlanguage.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.calls.util.CustomFoundMethod;
+import code.expressionlanguage.calls.util.CustomReflectMethod;
+import code.expressionlanguage.calls.util.InstancingStep;
+import code.expressionlanguage.calls.util.NotInitializedClass;
+import code.expressionlanguage.calls.util.NotInitializedFields;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.GeneField;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeOwnersDepends;
 import code.expressionlanguage.common.TypeUtil;
+import code.expressionlanguage.errors.custom.BadAccessClass;
+import code.expressionlanguage.errors.custom.BadInheritedClass;
+import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
+import code.expressionlanguage.errors.custom.UnexpectedTypeError;
+import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.methods.AccessEnum;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.AnalyzingEl;
@@ -32,11 +46,6 @@ import code.expressionlanguage.methods.AssignedVariablesBlock;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
-import code.expressionlanguage.methods.CustomFoundAnnotation;
-import code.expressionlanguage.methods.CustomFoundBlock;
-import code.expressionlanguage.methods.CustomFoundConstructor;
-import code.expressionlanguage.methods.CustomFoundMethod;
-import code.expressionlanguage.methods.CustomReflectMethod;
 import code.expressionlanguage.methods.ElementBlock;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.FunctionBlock;
@@ -45,21 +54,12 @@ import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.InstanceBlock;
 import code.expressionlanguage.methods.MethodBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.NotInitializedClass;
-import code.expressionlanguage.methods.NotInitializedFields;
 import code.expressionlanguage.methods.ProcessMethod;
 import code.expressionlanguage.methods.ReflectingType;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.StaticBlock;
-import code.expressionlanguage.methods.util.BadAccessClass;
-import code.expressionlanguage.methods.util.BadInheritedClass;
-import code.expressionlanguage.methods.util.CallConstructor;
-import code.expressionlanguage.methods.util.IllegalCallCtorByType;
-import code.expressionlanguage.methods.util.InstancingStep;
 import code.expressionlanguage.methods.util.LocalThrowing;
 import code.expressionlanguage.methods.util.TypeVar;
-import code.expressionlanguage.methods.util.UnexpectedTypeError;
-import code.expressionlanguage.methods.util.UnknownClassName;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassCategory;
@@ -374,19 +374,29 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     public AbstractPageEl processAfterOperation() {
         if (callCtor != null) {
             return createInstancing(callCtor);
-        } else if (callAnnot != null) {
+        }
+        if (callAnnot != null) {
             return createAnnotation(callAnnot.getClassName(), callAnnot.getId(), callAnnot.getArguments());
-        } else if (callMethod != null) {
+        }
+        if (callMethod != null) {
             return createCallingMethod(callMethod);
-        } else if (reflectMethod != null) {
+        }
+        if (reflectMethod != null) {
             return createReflectMethod(reflectMethod);
-        } else if (initClass != null) {
+        }
+        if (initClass != null) {
             return createInstancingClass(initClass);
-        } else if (initFields != null) {
+        }
+        if (initFields != null) {
             return createInitFields(initFields.getClassName(), initFields.getCurrentObject());
-        } else if (foundBlock != null) {
+        }
+        if (foundBlock != null) {
             return createBlockPageEl(foundBlock.getClassName(), foundBlock.getCurrentObject(), foundBlock.getBlock());
-        } else if (exception != null) {
+        }
+        if (failInit) {
+            return null;
+        }
+        if (exception != null) {
             throwing.removeBlockFinally(this);
         }
         return null;
@@ -1619,6 +1629,30 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         return resType_;
     }
+    @Override
+    public StringMap<StringList> getCurrentConstraints() {
+        Block bl_ = getCurrentBlock();
+        AccessingImportingBlock r_ = bl_.getImporting();
+        StringMap<StringList> vars_ = new StringMap<StringList>();
+        
+        boolean static_;
+        if (bl_ instanceof InfoBlock) {
+            static_ = ((InfoBlock)bl_).isStaticField();
+        } else {
+            FunctionBlock fct_ = bl_.getFunction();
+            if (fct_ == null) {
+                static_ = true;
+            } else {
+                static_ = fct_.isStaticContext();
+            }
+        }
+        if (!static_) {
+            for (TypeVar t: r_.getParamTypesMapValues()) {
+                vars_.put(t.getName(), t.getConstraints());
+            }
+        }
+        return vars_;
+    }
     /**Used at analyzing instructions*/
     @Override
     public String resolveCorrectTypeWithoutErrors(String _in, boolean _exact) {
@@ -1804,391 +1838,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return resType_;
     }
 
-    public String resolveBaseType(String _in, String _id, RootBlock _currentBlock,int _index, RowCol _location, StringList _readyTypes) {
-        String idSuper_ = Templates.getIdFromAllTypes(_in);
-        int delta_ = 1;
-        StringList inners_;
-        RootBlock r_ = _currentBlock.getRooted();
-        if (options.isSingleInnerParts()) {
-            delta_ = 0;
-            inners_ = Templates.getAllInnerTypesSingleDotted(idSuper_, this);
-        } else {
-            inners_ = Templates.getAllInnerTypes(idSuper_);
-        }
-        String base_ = inners_.first().trim();
-        if (base_.isEmpty()) {
-            if (inners_.size() == 1) {
-                //ERROR
-                return null;
-            }
-            String baseInn_ = inners_.get(1).trim();
-            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
-            RootBlock p_ = r_.getParentType();
-            while (p_ != null) {
-                allAncestors_.add(p_);
-                p_ = p_.getParentType();
-            }
-            String name_ = EMPTY_TYPE;
-            boolean realdAncestors_ = true;
-            for (RootBlock a: allAncestors_) {
-                String id_ = a.getFullName();
-                if (!_readyTypes.containsStr(id_)) {
-                    realdAncestors_ = false;
-                    break;
-                }
-            }
-            if (!realdAncestors_) {
-                return EMPTY_TYPE;
-            }
-            int ancestorIndex_ = 0;
-            for (RootBlock a: allAncestors_) {
-                String id_ = a.getFullName();
-                if (!_readyTypes.containsStr(id_)) {
-                    ancestorIndex_++;
-                    continue;
-                }
-                StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == delta_ + 1,_id,id_, baseInn_,true, this);
-                if (builtInners_.size() == 1) {
-                    r_.getAncestorsIndexes().set(_index, ancestorIndex_);
-                    name_ = builtInners_.first();
-                    break;
-                }
-                ancestorIndex_++;
-            }
-            if (name_.isEmpty()) {
-                String resImport_ = lookupImportMemberType(baseInn_, r_, true);
-                if (resImport_.isEmpty()) {
-                    return null;
-                }
-                name_ = resImport_;
-                if (!_readyTypes.containsStr(name_)) {
-                    return EMPTY_TYPE;
-                }
-            }
-            boolean err_ = false;
-            int i_ = delta_ + 1;
-            for (String i: inners_.mid(delta_ + 1)) {
-                if (!_readyTypes.containsStr(name_)) {
-                    return EMPTY_TYPE;
-                }
-                StringList builtInners_ = TypeUtil.getBuiltInners(i_ + delta_ == inners_.size(), _id,name_, i.trim(), true, this);
-                if (builtInners_.size() != 1) {
-                    err_ = true;
-                    break;
-                }
-                i_++;
-                name_ = builtInners_.first();
-            }
-            if (err_) {
-                return null;
-            }
-            if (!_readyTypes.containsStr(name_)) {
-                return EMPTY_TYPE;
-            }
-            return name_;
-        }
-        String resTwo_ = removeDottedSpaces(base_);
-        RootBlock b_ = classes.getClassBody(resTwo_);
-        if (b_ != null) {
-            if (!access(r_, b_, inners_.size() == 1)) {
-                BadAccessClass err_ = new BadAccessClass();
-                err_.setFileName(r_.getFile().getFileName());
-                err_.setRc(_location);
-                err_.setId(base_);
-                classes.addError(err_);
-            }
-            if (!_readyTypes.containsStr(resTwo_)) {
-                return EMPTY_TYPE;
-            }
-            return resTwo_;
-        }
-        String id_;
-        if (options.isSingleInnerParts()) {
-            String baseInn_ = inners_.get(delta_).trim();
-            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
-            RootBlock p_ = r_.getParentType();
-            while (p_ != null) {
-                allAncestors_.add(p_);
-                p_ = p_.getParentType();
-            }
-            String name_ = EMPTY_TYPE;
-            boolean realdAncestors_ = true;
-            for (RootBlock a: allAncestors_) {
-                String idAnc_ = a.getFullName();
-                if (!_readyTypes.containsStr(idAnc_)) {
-                    realdAncestors_ = false;
-                    break;
-                }
-            }
-            if (!realdAncestors_) {
-                return EMPTY_TYPE;
-            }
-            int ancestorIndex_ = 0;
-            for (RootBlock a: allAncestors_) {
-                String idAnc_ = a.getFullName();
-                if (!_readyTypes.containsStr(idAnc_)) {
-                    ancestorIndex_++;
-                    continue;
-                }
-                StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == delta_ + 1,_id,idAnc_, baseInn_,true, this);
-                if (builtInners_.size() == 1) {
-                    r_.getAncestorsIndexes().set(_index, ancestorIndex_);
-                    name_ = builtInners_.first();
-                    break;
-                }
-                ancestorIndex_++;
-            }
-            if (name_.isEmpty()) {
-                String resImport_ = lookupImportMemberType(baseInn_, r_, true);
-                if (resImport_.isEmpty()) {
-                    return null;
-                }
-                name_ = resImport_;
-                if (!_readyTypes.containsStr(name_)) {
-                    return EMPTY_TYPE;
-                }
-            }
-            boolean err_ = false;
-            int i_ = delta_ + 1;
-            for (String i: inners_.mid(delta_ + 1)) {
-                if (!_readyTypes.containsStr(name_)) {
-                    return EMPTY_TYPE;
-                }
-                StringList builtInners_ = TypeUtil.getBuiltInners(i_ + delta_ == inners_.size(), _id,name_, i.trim(), true, this);
-                if (builtInners_.size() != 1) {
-                    err_ = true;
-                    break;
-                }
-                i_++;
-                name_ = builtInners_.first();
-            }
-            if (err_) {
-                return null;
-            }
-            if (!_readyTypes.containsStr(name_)) {
-                return EMPTY_TYPE;
-            }
-            return name_;
-        }
-        id_ = lookupImportType(base_, r_);
-        if (id_.isEmpty()) {
-            return null;
-        }
-        b_ = classes.getClassBody(id_);
-        if (!access(r_, b_, inners_.size() == 1)) {
-            BadAccessClass err_ = new BadAccessClass();
-            err_.setFileName(r_.getFile().getFileName());
-            err_.setRc(_location);
-            err_.setId(base_);
-            classes.addError(err_);
-        }
-//        String res_ = resolveBaseType(base_, r_, _location, inners_.size() == 1);
-//        String res_ = resolveBaseType(base_, r_, _location, inners_.size() == 1);
-        String res_ = id_;
-        if (res_.isEmpty()) {
-            //ERROR
-            return null;
-        }
-        boolean err_ = false;
-        int i_ = 1;
-        for (String i: inners_.mid(1)) {
-            if (!_readyTypes.containsStr(res_)) {
-                return EMPTY_TYPE;
-            }
-            StringList builtInners_ = TypeUtil.getBuiltInners(i_ + 1 == inners_.size(),_id,res_, i.trim(), true, this);
-            if (builtInners_.size() != 1) {
-                err_ = true;
-                break;
-            }
-            i_++;
-            res_ = builtInners_.first();
-        }
-        if (err_) {
-            return null;
-        }
-        if (!_readyTypes.containsStr(res_)) {
-            return EMPTY_TYPE;
-        }
-        return res_;
-    }
-    public String resolveBaseType(String _in, RootBlock _currentBlock,RowCol _location, boolean _outer) {
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in, void_)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
-            un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setRc(_location);
-            un_.setType(_in);
-            classes.addError(un_);
-            return standards.getAliasObject();
-        }
-        RootBlock r_ = _currentBlock.getRooted();
-        String resTwo_ = removeDottedSpaces(_in);
-        RootBlock b_ = classes.getClassBody(resTwo_);
-        if (b_ != null) {
-            if (!access(r_, b_, _outer)) {
-                BadAccessClass err_ = new BadAccessClass();
-                err_.setFileName(r_.getFile().getFileName());
-                err_.setRc(_location);
-                err_.setId(_in);
-                classes.addError(err_);
-            }
-            return resTwo_;
-        }
-        String id_;
-        if (options.isSingleInnerParts()) {
-            id_ = lookupSingleImportType(_in, r_);
-        } else {
-            id_ = lookupImportType(_in, r_);
-        }
-        if (id_.isEmpty()) {
-            return id_;
-        }
-        b_ = classes.getClassBody(id_);
-        if (!access(r_, b_, _outer)) {
-            BadAccessClass err_ = new BadAccessClass();
-            err_.setFileName(r_.getFile().getFileName());
-            err_.setRc(_location);
-            err_.setId(_in);
-            classes.addError(err_);
-        }
-        return id_;
-    }
-    private static boolean access(RootBlock _from, RootBlock _found, boolean _outer) {
-        if (_found.getAccess().ordinal() > AccessEnum.PROTECTED.ordinal()) {
-            if (_found.getAccess() == AccessEnum.PACKAGE) {
-                if (!StringList.quickEq(_found.getPackageName(), _from.getPackageName())) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else if (_found.getAccess() == AccessEnum.PROTECTED){
-            if (!_outer) {
-                if (!StringList.quickEq(_found.getPackageName(), _from.getPackageName())) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public String resolveBaseTypeInherits(String _in, int _indexType,RootBlock _currentBlock,RowCol _location, StringList _builtTypes) {
-        String type_ = _in;
-        RootBlock r_ = _currentBlock;
-        String fullName_ = r_.getFullName();
-        String idSup_ = Templates.getIdFromAllTypes(type_);
-        int delta_ = 1;
-        StringList inners_;
-        if (options.isSingleInnerParts()) {
-            delta_ = 0;
-            inners_ = Templates.getAllInnerTypesSingleDotted(idSup_, this);
-        } else {
-            inners_ = Templates.getAllInnerTypes(idSup_);
-        }
-        String base_ = inners_.first();
-        if (base_.isEmpty()) {
-            if (inners_.size() == delta_) {
-                return EMPTY_TYPE;
-            }
-            String baseInn_ = inners_.get(delta_).trim();
-            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
-            RootBlock p_ = r_.getParentType();
-            while (p_ != null) {
-                allAncestors_.add(p_);
-                p_ = p_.getParentType();
-            }
-            String name_ = EMPTY_TYPE;
-            int indexAncestor_ = 0;
-            for (RootBlock a: allAncestors_) {
-                String id_ = a.getFullName();
-                StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == delta_ + 1,fullName_, id_, baseInn_, false, this);
-                if (builtInners_.size() == 1) {
-                    r_.getAncestorsIndexes().set(_indexType, indexAncestor_);
-                    name_ = builtInners_.first();
-                    break;
-                }
-                indexAncestor_++;
-            }
-            if (name_.isEmpty()) {
-                String member_ = lookupImportMemberType(baseInn_, r_, true);
-                if (!member_.isEmpty()) {
-                    return member_;
-                }
-                if (options.isSingleInnerParts()) {
-                    member_ = lookupImportType(baseInn_, r_);
-                }
-                return member_;
-            }
-            return name_;
-        }
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in, void_)) {
-            return EMPTY_TYPE;
-        }
-        String resDir_ = removeDottedSpaces(_in);
-        RootBlock b_ = classes.getClassBody(resDir_);
-        if (b_ != null) {
-            if (!access(r_, b_, inners_.size() == 1)) {
-                return EMPTY_TYPE;
-            }
-            return resDir_;
-        }
-        String res_;
-        if (options.isSingleInnerParts()) {
-            String baseInn_ = inners_.get(delta_).trim();
-            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
-            RootBlock p_ = r_.getParentType();
-            while (p_ != null) {
-                allAncestors_.add(p_);
-                p_ = p_.getParentType();
-            }
-            String name_ = EMPTY_TYPE;
-            int indexAncestor_ = 0;
-            for (RootBlock a: allAncestors_) {
-                String id_ = a.getFullName();
-                StringList builtInners_ = TypeUtil.getBuiltInners(inners_.size() == delta_ + 1,fullName_, id_, baseInn_, false, this);
-                if (builtInners_.size() == 1) {
-                    r_.getAncestorsIndexes().set(_indexType, indexAncestor_);
-                    name_ = builtInners_.first();
-                    break;
-                }
-                indexAncestor_++;
-            }
-            if (!name_.isEmpty()) {
-                res_= name_;
-            } else {
-                res_ = lookupSingleImportType(base_, r_);
-            }
-        } else {
-            res_ = lookupImportType(base_, r_);
-        }
-        if (res_.isEmpty()) {
-            return EMPTY_TYPE;
-        }
-        b_ = classes.getClassBody(res_);
-        if (!access(r_, b_, inners_.size() == 1)) {
-            return EMPTY_TYPE;
-        }
-        boolean err_ = false;
-        int i_ = 1;
-        for (String i: inners_.mid(1)) {
-            if (!_builtTypes.containsStr(res_)) {
-                return EMPTY_TYPE;
-            }
-            StringList builtInners_ = TypeUtil.getBuiltInners(i_ + 1 == inners_.size(),fullName_, res_, i.trim(), false, this);
-            if (builtInners_.size() != 1) {
-                err_ = true;
-                break;
-            }
-            res_ = builtInners_.first();
-            i_++;
-        }
-        if (err_) {
-            return EMPTY_TYPE;
-        }
-        return res_;
-    }
-
     @Override
     public String lookupImportMemberType(String _type, AccessingImportingBlock _rooted, boolean _inherits) {
         String prefixedType_;
@@ -2220,9 +1869,10 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         int max_ = inners_.size() - 1;
         boolean incProt_ = !_inherits;
         for (String i: inners_.mid(1)) {
-            StringList builtInners_ = TypeUtil.getOwners(_inherits, incProt_ || index_ == inners_.size() - 1, fullName_,res_, i.trim(), stQualifier_ || index_ < max_, this);
+            String i_ = i.trim();
+            StringList builtInners_ = TypeUtil.getOwners(_inherits, incProt_ || index_ == inners_.size() - 1, fullName_,res_, i_, stQualifier_ || index_ < max_, this);
             if (builtInners_.size() == 1) {
-                res_ = StringList.concat(builtInners_.first(),"..",i.trim());
+                res_ = StringList.concat(builtInners_.first(),"..",i_);
                 index_++;
                 continue;
             }
@@ -2261,11 +1911,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         int index_ = 1;
         int max_ = inners_.size() - 1;
         for (String i: inners_.mid(1)) {
-            TypeOwnersDepends ownersDeps_ = TypeUtil.getOwnersDepends(index_ == max_, fullName_, res_, i.trim(), this);
+            String i_ = i.trim();
+            TypeOwnersDepends ownersDeps_ = TypeUtil.getOwnersDepends(index_ == max_, fullName_, res_, i_, this);
             out_.getDepends().addAllElts(ownersDeps_.getDepends());
             StringList owners_ = ownersDeps_.getTypeOwners();
             if (owners_.size() == 1) {
-                res_ = StringList.concat(owners_.first(),"..",i.trim());
+                res_ = StringList.concat(owners_.first(),"..",i_);
                 index_++;
                 continue;
             }
@@ -2274,7 +1925,176 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         out_.getTypeOwners().add(res_);
         return out_;
     }
-    public String getPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
+    public String resolveBaseInherits(String _idSup, RootBlock _root, int _index, StringList _readyTypes, boolean _static) {
+        String id_ = Templates.getIdFromAllTypes(_idSup);
+        boolean single_ = options.isSingleInnerParts();
+        StringList inners_;
+        if (single_) {
+            inners_ = Templates.getAllInnerTypesSingleDotted(id_, this);
+        } else {
+            inners_ = Templates.getAllInnerTypes(id_);
+        }
+        String base_ = inners_.first().trim();
+        if (base_.isEmpty()) {
+            if (inners_.size() == 1) {
+                return null;
+            }
+            return localSolve(inners_, 1, _root, _index, _readyTypes, _static);
+        }
+        String joined_ = removeDottedSpaces(inners_.join(".."));
+        boolean outer_ = inners_.size() == 1;
+        RootBlock b_ = classes.getClassBody(joined_);
+        if (b_ != null) {
+            if (!access(_root, b_, outer_)) {
+                return null;
+            }
+            if (!_readyTypes.containsStr(joined_) && _static) {
+                return EMPTY_TYPE;
+            }
+            return joined_;
+        }
+        if (single_) {
+            return localSolve(inners_, 0, _root, _index, _readyTypes, _static);
+        }
+        String res_ = removeDottedSpaces(lookupImportType(base_, _root));
+        if (res_.isEmpty()) {
+            return null;
+        }
+        b_ = classes.getClassBody(res_);
+        if (!access(_root, b_, outer_)) {
+            return null;
+        }
+        return getOtherParts(inners_,res_,0,_root, _readyTypes, _static, false);
+    }
+
+    private static boolean access(RootBlock _from, RootBlock _found, boolean _outer) {
+        if (_found.getAccess().ordinal() > AccessEnum.PROTECTED.ordinal()) {
+            if (_found.getAccess() == AccessEnum.PACKAGE) {
+                if (!StringList.quickEq(_found.getPackageName(), _from.getPackageName())) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (_found.getAccess() == AccessEnum.PROTECTED){
+            if (!_outer) {
+                if (!StringList.quickEq(_found.getPackageName(), _from.getPackageName())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private String localSolve(StringList _inners, int _first, RootBlock _root,
+            int _index, StringList _readyTypes, boolean _static) {
+        String fullName_ = _root.getFullName();
+        String baseInn_ = _inners.get(_first).trim();
+        RootBlock gType_ = classes.getClassBody(baseInn_);
+        String res_;
+        if (gType_ == null) {
+            String name_ = EMPTY_TYPE;
+            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
+            RootBlock p_ = _root.getParentType();
+            while (p_ != null) {
+                allAncestors_.add(p_);
+                p_ = p_.getParentType();
+            }
+            for (RootBlock a: allAncestors_) {
+                String id_ = a.getFullName();
+                if (!_readyTypes.containsStr(id_) && _static) {
+                    return EMPTY_TYPE;
+                }
+            }
+            int indexAncestor_ = 0;
+            for (RootBlock a: allAncestors_) {
+                String id_ = a.getFullName();
+                StringList builtInners_ = TypeUtil.getBuiltInners(_inners.size() == _first + 1,fullName_, id_, baseInn_, _static, this);
+                if (builtInners_.size() == 1) {
+                    _root.getAncestorsIndexes().set(_index, indexAncestor_);
+                    name_ = builtInners_.first();
+                    break;
+                }
+                indexAncestor_++;
+            }
+            if (name_.isEmpty()) {
+                String member_ = lookupImportMemberTypes(baseInn_, _root, _readyTypes);
+                if (member_ == null) {
+                    return null;
+                }
+                res_ = member_;
+            } else {
+                res_ = name_;
+            }
+        } else {
+            res_ = gType_.getFullName();
+        }
+        return getOtherParts(_inners,res_,_first,_root, _readyTypes, _static, false);
+    }
+
+    private String lookupImportMemberTypes(String _type, RootBlock _root,
+            StringList _readyTypes) {
+        boolean single_ = options.isSingleInnerParts();
+        String prefix_;
+        if (single_) {
+            prefix_ = getSinglePrefixedMemberType(_type, _root);
+        } else {
+            prefix_ = getPrefixedMemberType(_type, _root);
+        }
+        String trQual_ = removeDottedSpaces(prefix_);
+        if (trQual_.isEmpty()) {
+            return null;
+        }
+        String typeFound_ = trQual_;
+        String keyWordStatic_ = keyWords.getKeyWordStatic();
+        boolean stQual_ = startsWithKeyWord(trQual_, keyWordStatic_);
+        if (stQual_) {
+            typeFound_ = typeFound_.substring(keyWordStatic_.length()).trim();
+        }
+        StringList inners_ = Templates.getAllInnerTypes(typeFound_);
+        String res_ = inners_.first().trim();
+        if (classes.getClassBody(res_) == null) {
+            return null;
+        }
+        return getOtherParts(inners_,res_,0,_root, _readyTypes, null, false);
+    }
+
+    private String getOtherParts(StringList _inners, String _res, int _first,
+            RootBlock _root, StringList _readyTypes, Boolean _static, boolean _qualifier) {
+        String out_ = _res;
+        String fullName_ = _root.getFullName();
+        int index_ = _first + 1;
+        int max_ = _inners.size() - 1;
+        for (String i : _inners.mid(1 + _first)) {
+            boolean staticLoc_ = _qualifier || index_ < max_;
+            String name_ = i.trim();
+            if (_static != null) {
+                staticLoc_ = _static;
+            }
+            if (!_readyTypes.containsStr(out_) && staticLoc_) {
+                return EMPTY_TYPE;
+            }
+            StringList built_ = TypeUtil.getBuiltInners(index_ + 1 == _inners.size(), fullName_, out_, name_, staticLoc_, this);
+            if (built_.size() == 1) {
+                out_ = built_.first();
+                index_++;
+                continue;
+            }
+            return null;
+        }
+        if (!_readyTypes.containsStr(out_)) {
+            if (_static != null) {
+                if (_static) {
+                    return EMPTY_TYPE;
+                }
+            } else if (_qualifier){
+                return EMPTY_TYPE;
+            }
+        }
+        return out_;
+    }
+
+    public static String getPrefixedMemberType(String _type, AccessingImportingBlock _rooted) {
         String look_ = _type.trim();
         StringList types_ = new StringList();
         CustList<StringList> imports_ = new CustList<StringList>();
@@ -2484,6 +2304,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (types_.size() == 1) {
             return types_.first();
         }
+        String defPkg_ = standards.getDefaultPkg();
+        String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
+        if (standards.getStandards().contains(type_) || classes.isCustomType(type_)) {
+            return type_;
+        }
         return EMPTY_TYPE;
     }
     @Override
@@ -2602,6 +2427,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         if (types_.size() == 1) {
             return types_.first();
+        }
+        String defPkg_ = standards.getDefaultPkg();
+        String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
+        if (standards.getStandards().contains(type_) || classes.isCustomType(type_)) {
+            return type_;
         }
         return EMPTY_TYPE;
     }
@@ -2726,6 +2556,11 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         if (types_.size() == 1) {
             return types_.first();
+        }
+        String defPkg_ = standards.getDefaultPkg();
+        String type_ = removeDottedSpaces(StringList.concat(defPkg_,".",_type));
+        if (standards.getStandards().contains(type_) || classes.isCustomType(type_)) {
+            return type_;
         }
         return EMPTY_TYPE;
     }

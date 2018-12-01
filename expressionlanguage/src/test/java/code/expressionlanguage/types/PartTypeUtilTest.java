@@ -10,6 +10,7 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.VariableSuffix;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.RootBlock;
+import code.expressionlanguage.options.Options;
 import code.sml.RowCol;
 import code.util.StringList;
 import code.util.StringMap;
@@ -562,9 +563,9 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        String solved_ = PartTypeUtil.processAnalyze("$Fct<$void>", "", context_, root_, rc_);
+        String solved_ = PartTypeUtil.processAnalyze("java.lang.$Fct<$void>", "", context_, root_, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
-        assertEq("$Fct<$void>", solved_);
+        assertEq("java.lang.$Fct<$void>", solved_);
     }
     @Test
     public void process17Test() {
@@ -745,9 +746,9 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        String solved_ = PartTypeUtil.processAnalyze("$Fct<?>", "", context_, root_, rc_);
+        String solved_ = PartTypeUtil.processAnalyze("java.lang.$Fct<?>", "", context_, root_, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
-        assertEq("$Fct<?>", solved_);
+        assertEq("java.lang.$Fct<?>", solved_);
     }
     @Test
     public void process1FailTest() {
@@ -794,7 +795,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        String solved_ = PartTypeUtil.processAnalyze("$Fct<!java.lang.Number,?java.lang.Number>", "", context_, root_, rc_);
+        String solved_ = PartTypeUtil.processAnalyze("java.lang.$Fct<!java.lang.Number,?java.lang.Number>", "", context_, root_, rc_);
         assertEq("", solved_);
     }
     @Test
@@ -810,7 +811,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        String solved_ = PartTypeUtil.processAnalyze("$Fct<java.lang.Number,?java.lang.Number>", "", context_, root_, rc_);
+        String solved_ = PartTypeUtil.processAnalyze("java.lang.$Fct<java.lang.Number,?java.lang.Number>", "", context_, root_, rc_);
         assertEq("", solved_);
     }
     @Test
@@ -1283,7 +1284,7 @@ public final class PartTypeUtilTest {
         Classes cl_ = context_.getClasses();
         RootBlock root_ = cl_.getClassBody("pkg.Outer");
         RowCol rc_ = new RowCol();
-        StringList solved_ = PartTypeUtil.processAnalyzeDepends("$Fct<$void>", 0,context_, root_, true, rc_);
+        StringList solved_ = PartTypeUtil.processAnalyzeDepends("java.lang.$Fct<$void>", 0,context_, root_, true, rc_);
         assertTrue(cl_.displayErrors(), cl_.isEmptyErrors());
         assertEq(0, solved_.size());
     }
@@ -1436,13 +1437,12 @@ public final class PartTypeUtilTest {
         assertTrue(solved_.containsStr("pkgtwo.OuterTwo..InnerThree"));
     }
     private ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());
@@ -1451,13 +1451,12 @@ public final class PartTypeUtilTest {
         return cont_;
     }
     private ContextEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
-        ContextEl cont_ = new ContextEl();
-        cont_.getOptions().setEndLineSemiColumn(false);
-        cont_.getOptions().setSpecialEnumsMethods(false);
-        cont_.getOptions().setSuffixVar(VariableSuffix.DISTINCT);
+        Options opt_ = new Options();
+        opt_.setEndLineSemiColumn(false);
+        opt_.setSpecialEnumsMethods(false);
+        opt_.setSuffixVar(VariableSuffix.DISTINCT);
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes classes_ = cont_.getClasses();
-        InitializationLgNames.initAdvStandards(cont_);
-        cont_.initError();
         Classes.buildPredefinedBracesBodies(cont_);
         Classes.tryBuildBracedClassesBodies(_files, cont_);
         assertTrue(classes_.displayErrors(), classes_.isEmptyErrors());

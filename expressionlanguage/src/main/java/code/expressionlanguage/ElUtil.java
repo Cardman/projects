@@ -1,5 +1,7 @@
 package code.expressionlanguage;
 import code.expressionlanguage.calls.AbstractPageEl;
+import code.expressionlanguage.errors.custom.BadElError;
+import code.expressionlanguage.errors.custom.BadOperandsNumber;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.DeclareVariable;
 import code.expressionlanguage.methods.FieldBlock;
@@ -7,8 +9,6 @@ import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.ForMutableIterativeLoop;
 import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.methods.util.ArgumentsPair;
-import code.expressionlanguage.methods.util.BadElError;
-import code.expressionlanguage.methods.util.BadOperandsNumber;
 import code.expressionlanguage.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.opers.AffectationOperation;
 import code.expressionlanguage.opers.Calculation;

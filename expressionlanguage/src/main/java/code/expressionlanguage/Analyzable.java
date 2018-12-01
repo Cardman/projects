@@ -107,6 +107,7 @@ public interface Analyzable {
     String resolveAccessibleIdType(String _in);
     String resolveCorrectAccessibleType(String _in, String _fromType);
     String resolveCorrectType(String _in, boolean _exact);
+    StringMap<StringList> getCurrentConstraints();
     String resolveCorrectTypeWithoutErrors(String _in, boolean _exact);
 
     ObjectMap<ClassMethodId,Integer> lookupImportStaticMethods(String _glClass,String _method, Block _rooted);

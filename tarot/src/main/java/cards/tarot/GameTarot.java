@@ -2909,7 +2909,7 @@ public final class GameTarot {
         }
         return false;
     }
-    private boolean estUnJeuDeChelem(EnumMap<Suit,HandTarot> _couleurs,
+    private static boolean estUnJeuDeChelem(EnumMap<Suit,HandTarot> _couleurs,
             EnumMap<Suit,HandTarot> _cartesJouees,
             RulesTarot _infos, HandTarot _cartesAppeler,byte _joueurs) {
         if (estUnJeuDeChelemSur(_couleurs,_cartesJouees)) {
