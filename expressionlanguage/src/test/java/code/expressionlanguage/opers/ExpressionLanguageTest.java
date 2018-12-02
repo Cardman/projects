@@ -239,6 +239,13 @@ public class ExpressionLanguageTest {
     }
 
     @Test
+    public void processEl30Test() {
+        Argument arg_ = directCalculate("(($long)-1i)");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Long);
+        assertEq(-1, (Number)res_);
+    }
+    @Test
     public void processEl31Test() {
         Argument arg_ = directCalculate("$static($math).abs(-8i)");
         Object res_ = arg_.getObject();
@@ -279,6 +286,13 @@ public class ExpressionLanguageTest {
         Object res_ = arg_.getObject();
         assertTrue(res_ instanceof Long);
         assertEq(8L, (Number)res_);
+    }
+    @Test
+    public void processEl37Test() {
+        Argument arg_ = directCalculate("\"\\nnew line\"");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("\nnew line", (String)res_);
     }
     @Test
     public void processEl39Test() {

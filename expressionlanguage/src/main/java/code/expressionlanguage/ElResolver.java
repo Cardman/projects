@@ -2216,46 +2216,6 @@ public final class ElResolver {
             infos_.setIndex(i_);
             return infos_;
         }
-//        if (curChar_ == IND_LINE) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_FORM) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_BOUND) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_LINE_FEED) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
-//        if (curChar_ == IND_TAB) {
-//            nbChars_++;
-//            infos_.setNbChars(nbChars_);
-//            infos_.setEscape(false);
-//            i_++;
-//            infos_.setIndex(i_);
-//            return infos_;
-//        }
         if (curChar_ == ESCAPE_META_CHAR) {
             infos_.getStringInfo().getChars().add(ESCAPE_META_CHAR);
             nbChars_++;
@@ -3593,7 +3553,12 @@ public final class ElResolver {
                 }
                 if (locCar_ == DOT_VAR) {
                     indexes_.add(j_);
-                    partsFields_.add(part_.toString());
+                    String strPart_ = part_.toString();
+                    if (isFieldOrVariable(_conf, _ctor, partsFields_, strPart_)) {
+                       cast_ = false;
+                        break;
+                    }
+                    partsFields_.add(strPart_);
                     begins_.add(fChar_);
                     ends_.add(lChar_);
                     part_.delete(0, part_.length());
@@ -3634,28 +3599,12 @@ public final class ElResolver {
             }
         }
         if (cast_) {
-            partsFields_.add(part_.toString());
-            begins_.add(fChar_);
-            ends_.add(lChar_);
-            String word_ = partsFields_.first();
-            String gl_ = _conf.getGlobalClass();
-            boolean field_ = isField(_conf, gl_, _ctor, word_);
-            if (field_) {
-                ConstType w_ = ConstType.WORD;
-                int lenFields_ = partsFields_.size();
-                for (int i = 0; i < lenFields_; i++) {
-                    VariableInfo infoLoc_ = new VariableInfo();
-                    infoLoc_.setKind(w_);
-                    infoLoc_.setFirstChar(begins_.get(i));
-                    infoLoc_.setLastChar(ends_.get(i)+1);
-                    infoLoc_.setName(partsFields_.get(i).trim());
-                    d_.getVariables().add(infoLoc_);
-                }
-                d_.getAllowedOperatorsIndexes().add(i_);
-                d_.getAllowedOperatorsIndexes().addAllElts(indexes_);
-                d_.getAllowedOperatorsIndexes().add(indexParRight_);
-                return indexParRight_+1;
+           String strPart_ = part_.toString();
+           if (isFieldOrVariable(_conf, _ctor, partsFields_, strPart_)) {
+               cast_ = false;
             }
+        }
+        if (cast_) {
             String typeRes_ = _conf.resolveCorrectTypeWithoutErrors(sub_, true);
             if (!typeRes_.isEmpty()) {
                 d_.getDelCast().add(i_);
@@ -3665,6 +3614,33 @@ public final class ElResolver {
             }
         }
         return i_;
+    }
+    static boolean isFieldOrVariable(Analyzable _conf, boolean _ctor, StringList _parts, String _partToAdd) {
+       if (!_parts.isEmpty()) {
+          return false;
+       }
+       String word_ = _partToAdd.trim();
+       if (_conf.getOptions().getSuffixVar() != VariableSuffix.NONE) {
+          String gl_ = _conf.getGlobalClass();
+          return isField(_conf, gl_, _ctor, word_);
+       }
+       if (_conf.getParameters().contains(word_)) {
+          return true;
+       }
+       if (_conf.getAnalyzing().containsCatchVar(word_)) {
+          return true;
+       }
+       if (_conf.containsMutableLoopVar(word_)) {
+          return true;
+       }
+       if (_conf.getAnalyzing().containsVar(word_)) {
+          return true;
+       }
+       if (_conf.getAnalyzing().containsLocalVar(word_)) {
+          return true;
+       }
+       String gl_ = _conf.getGlobalClass();
+      return isField(_conf, gl_, _ctor, word_);
     }
     static boolean isField(Analyzable _conf, String _fromClass, boolean _ctor, String _word) {
         boolean field_ = false;

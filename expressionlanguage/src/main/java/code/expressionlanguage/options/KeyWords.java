@@ -160,11 +160,42 @@ public final class KeyWords {
             err_.setErrCat(ErrorCat.DUPLICATE_STRING_WORD);
             _cont.getClasses().addStdError(err_);
         }
+        size_ = keyWords_.size();
+        for (int i = 0; i < size_; i++) {
+           String first_ = keyWords_.get(i);
+           for (int j = 0; j < size_; j++) {
+               if (i == j) {
+                  continue;
+               }
+               String second_ = keyWords_.get(j);
+               if (first_.startsWith(second_)) {
+                  StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat(first_," starts with ",second_));
+                    err_.setErrCat(ErrorCat.DUPLICATE_STRING_WORD);
+                    _cont.getClasses().addStdError(err_);
+               }
+               if (second_.startsWith(first_)) {
+                  StdWordError err_ = new StdWordError();
+                    err_.setMessage(StringList.concat(second_," starts with ",first_));
+                    err_.setErrCat(ErrorCat.DUPLICATE_STRING_WORD);
+                    _cont.getClasses().addStdError(err_);
+               }
+            }
+        }
+        if (keyWordEscUnicode.isEmpty()) {
+           //already error
+           return;
+        }
+        char firstUnicode_ = keyWordEscUnicode.charAt(0);
         for (String k: _list) {
             if (StringList.quickEq(k, keyWordEscUnicode)) {
                 continue;
             }
-            if (k.startsWith(keyWordEscUnicode)) {
+            if (k.isEmpty()) {
+               //already error
+               continue;
+            }
+            if (firstUnicode_ == k.charAt(0)) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.concat("starting key word ",k," with "+keyWordEscUnicode));
                 err_.setErrCat(ErrorCat.DUPLICATE_STRING_WORD);
@@ -476,22 +507,19 @@ public final class KeyWords {
         return keyWords_;
     }
     public String getNbKeyWord(String _string, int _from) {
-        StringList keyWords_ = new StringList();
-        keyWords_.add(keyWordNbSufDoublePrim);
-        keyWords_.add(keyWordNbSufDouble);
-        keyWords_.add(keyWordNbSufFloatPrim);
-        keyWords_.add(keyWordNbSufFloat);
-        keyWords_.add(keyWordNbSufLongPrim);
-        keyWords_.add(keyWordNbSufLong);
-        keyWords_.add(keyWordNbSufIntegerPrim);
-        keyWords_.add(keyWordNbSufInteger);
-        keyWords_.add(keyWordNbSufCharacterPrim);
-        keyWords_.add(keyWordNbSufCharacter);
-        keyWords_.add(keyWordNbSufShortPrim);
-        keyWords_.add(keyWordNbSufShort);
-        keyWords_.add(keyWordNbSufBytePrim);
-        keyWords_.add(keyWordNbSufByte);
-        return getKeyWord(keyWords_, _string, _from);
+        StringList keyWords_ = allNbWords();
+        String sub_ = _string.substring(_from);
+        StringList list_ = new StringList();
+        for (String k: keyWords_) {
+            if (ContextEl.startsWithKeyWord(sub_, k)) {
+                list_.add(k);
+            }
+        }
+        if (list_.isEmpty()) {
+            return null;
+        }
+        list_.sortElts(new StartsWithComparing());
+        return list_.first();
     }
     public String getEscKeyWord(String _string, int _from) {
         StringList keyWords_ = new StringList();
@@ -500,13 +528,24 @@ public final class KeyWords {
         keyWords_.add(keyWordEscForm);
         keyWords_.add(keyWordEscLine);
         keyWords_.add(keyWordEscTab);
-        return getKeyWord(keyWords_, _string, _from);
+        String sub_ = _string.substring(_from);
+        StringList list_ = new StringList();
+        for (String k: keyWords_) {
+            if (sub_.startsWith(k)) {
+                list_.add(k);
+            }
+        }
+        if (list_.isEmpty()) {
+            return null;
+        }
+        list_.sortElts(new StartsWithComparing());
+        return list_.first();
     }
     public static String getKeyWord(StringList _list, String _string, int _from) {
         String sub_ = _string.substring(_from);
         StringList list_ = new StringList();
         for (String k: _list) {
-            if (ContextEl.startsWithKeyWord(sub_, k)) {
+            if (sub_.startsWith(k)) {
                 list_.add(k);
             }
         }
