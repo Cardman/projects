@@ -2,6 +2,8 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.ObjectMap;
 
 
@@ -39,6 +41,11 @@ public final class CustCharSequenceStruct extends CharSequenceStruct {
     @Override
     public CharSequence getInstance() {
         return sequence;
+    }
+
+    @Override
+    public void toStringStruct(LgNames _stds, ResultErrorStd _res) {
+        _res.setResult(new StringStruct(sequence.toString()));
     }
 
 }

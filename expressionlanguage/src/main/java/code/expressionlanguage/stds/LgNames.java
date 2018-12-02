@@ -562,10 +562,10 @@ public abstract class LgNames {
         params_ = new StringList(aliasString, aliasPrimInteger);
         method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar);
+        params_ = new StringList(aliasPrimInteger);
         method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
+        params_ = new StringList(aliasPrimInteger, aliasPrimInteger);
         method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString);
@@ -574,10 +574,10 @@ public abstract class LgNames {
         params_ = new StringList(aliasString, aliasPrimInteger);
         method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar);
+        params_ = new StringList(aliasPrimInteger);
         method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
-        params_ = new StringList(aliasPrimChar, aliasPrimInteger);
+        params_ = new StringList(aliasPrimInteger, aliasPrimInteger);
         method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger, false, MethodModifier.NORMAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -2639,6 +2639,16 @@ public abstract class LgNames {
                 return result_;
             }
         }
+        if (StringList.quickEq(type_, stringType_)) {
+            //calculate
+            StringStruct.calculate(_cont, result_, _method, _struct, args_);
+            if (result_.getError() != null) {
+                return result_;
+            }
+            if (result_.getResult() != null) {
+                return result_;
+            }
+        }
         if (StringList.quickEq(type_, mathType_)) {
             return AliasMath.invokeStdMethod(_cont, _method, _struct, _args);
         } else if (StringList.quickEq(type_, booleanType_)) {
@@ -3010,64 +3020,14 @@ public abstract class LgNames {
                 }
             }
         } else if (StringList.quickEq(type_, stringType_)) {
-            if (StringList.quickEq(name_, lgNames_.getAliasCharAt())) {
-                String one_ = (String) instance_;
-                Integer two_ = (Integer) argsObj_[0];
-                if (two_ < 0 || two_ >= one_.length()) {
-                    result_.setError(lgNames_.getAliasBadIndex());
-                } else {
-                    result_.setResult(new CharStruct(one_.charAt(two_)));
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
-                String one_ = (String) instance_;
-                String two_ = (String) argsObj_[0];
-                if (two_ == null) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    result_.setResult(new IntStruct(one_.compareTo(two_)));
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-                String one_ = (String) argsObj_[0];
-                String two_ = (String) argsObj_[1];
-                if (one_ == null || two_ == null) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    result_.setResult(new IntStruct(one_.compareTo(two_)));
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasCompareToIgnoreCase())) {
+            //calculate
+            if (StringList.quickEq(name_, lgNames_.getAliasCompareToIgnoreCase())) {
                 String one_ = (String) instance_;
                 String two_ = (String) argsObj_[0];
                 if (two_ == null) {
                     result_.setError(lgNames_.getAliasNullPe());
                 } else {
                     result_.setResult(new IntStruct(one_.compareToIgnoreCase(two_)));
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasContains())) {
-                String one_ = (String) instance_;
-                CharSequence two_ = (CharSequence) argsObj_[0];
-                if (two_ == null) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    result_.setResult(new BooleanStruct(one_.contains(two_)));
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasStartsWith())) {
-                String one_ = (String) instance_;
-                String two_ = (String) argsObj_[0];
-                if (two_ == null) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else if (list_.size() == 1) {
-                    result_.setResult(new BooleanStruct(one_.startsWith(two_)));
-                } else {
-                    Integer three_ = (Integer) argsObj_[1];
-                    result_.setResult(new BooleanStruct(one_.startsWith(two_, three_)));
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasEndsWith())) {
-                String one_ = (String) instance_;
-                String two_ = (String) argsObj_[0];
-                if (two_ == null) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else if (list_.size() == 1) {
-                    result_.setResult(new BooleanStruct(one_.endsWith(two_)));
                 }
             } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
                 String one_ = (String) instance_;
@@ -3085,63 +3045,8 @@ public abstract class LgNames {
                 String one_ = (String) instance_;
                 String[] two_ = (String[]) argsObj_[0];
                 result_.setResult(new StringStruct(StringList.simpleStringsFormat(one_, two_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasGetBytes())) {
-                String one_ = (String) instance_;
-                byte[] bytes_ = StringList.encode(one_);
-                Struct[] wrap_ = new Struct[bytes_.length];
-                int i_ = CustList.FIRST_INDEX;
-                for (byte b: bytes_) {
-                    wrap_[i_] = new ByteStruct(b);
-                    i_++;
-                }
-                String ret_ = PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimByte());
-                result_.setResult(new ArrayStruct(wrap_, ret_));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasIndexOf())) {
-                String one_ = (String) instance_;
-                if (StringList.quickEq(list_.first(), stringType_) && argsObj_[0] == null) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    if (list_.size() == 1 && StringList.quickEq(list_.first(), stringType_)) {
-                        String two_ = (String) argsObj_[0];
-                        result_.setResult(new IntStruct(one_.indexOf(two_)));
-                    } else if (StringList.quickEq(list_.first(), stringType_)) {
-                        String two_ = (String) argsObj_[0];
-                        Integer three_ = (Integer) argsObj_[1];
-                        result_.setResult(new IntStruct(one_.indexOf(two_, three_)));
-                    } else if (list_.size() == 1) {
-                        Character two_ = (Character) argsObj_[0];
-                        result_.setResult(new IntStruct(one_.indexOf(two_)));
-                    } else {
-                        Character two_ = (Character) argsObj_[0];
-                        Integer three_ = (Integer) argsObj_[1];
-                        result_.setResult(new IntStruct(one_.indexOf(two_, three_)));
-                    }
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasLastIndexOf())) {
-                String one_ = (String) instance_;
-                if (StringList.quickEq(list_.first(), stringType_) && argsObj_[0] == null) {
-                    result_.setError(lgNames_.getAliasNullPe());
-                } else {
-                    if (list_.size() == 1 && StringList.quickEq(list_.first(), stringType_)) {
-                        String two_ = (String) argsObj_[0];
-                        result_.setResult(new IntStruct(one_.lastIndexOf(two_)));
-                    } else if (StringList.quickEq(list_.first(), stringType_)) {
-                        String two_ = (String) argsObj_[0];
-                        Integer three_ = (Integer) argsObj_[1];
-                        result_.setResult(new IntStruct(one_.lastIndexOf(two_, three_)));
-                    } else if (list_.size() == 1) {
-                        Character two_ = (Character) argsObj_[0];
-                        result_.setResult(new IntStruct(one_.lastIndexOf(two_)));
-                    } else {
-                        Character two_ = (Character) argsObj_[0];
-                        Integer three_ = (Integer) argsObj_[1];
-                        result_.setResult(new IntStruct(one_.lastIndexOf(two_, three_)));
-                    }
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasLength())) {
-                String one_ = (String) instance_;
-                result_.setResult(new IntStruct(one_.length()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
+                //TO refactor
                 String one_ = (String) instance_;
                 if (list_.size() == FOUR_ARGS) {
                     Integer two_ = (Integer) argsObj_[0];
@@ -3165,154 +3070,16 @@ public abstract class LgNames {
                         result_.setResult(new BooleanStruct(one_.regionMatches(two_, three_, four_, five_, six_)));
                     }
                 }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
-                String one_ = (String) instance_;
-                if (StringList.quickEq(list_.first(), stringType_)){
-                    String two_ = (String) argsObj_[0];
-                    String three_ = (String) argsObj_[1];
-                    result_.setResult(new StringStruct(StringList.replace(one_, two_, three_)));
-                } else {
-                    Character two_ = (Character) argsObj_[0];
-                    Character three_ = (Character) argsObj_[1];
-                    result_.setResult(new StringStruct(one_.replace(two_, three_)));
-                }
             } else if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
                 String one_ = (String) instance_;
                 Replacement[] two_ = (Replacement[]) argsObj_[0];
                 result_.setResult(new StringStruct(StringList.replaceMult(one_, two_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasSplit())) {
-                String one_ = (String) instance_;
-                StringList res_;
-                if (StringList.quickEq(list_.first(), stringType_)){
-                    String two_ = (String) argsObj_[0];
-                    res_ = StringList.splitStrings(one_, two_);
-                } else {
-                    Character two_ = (Character) argsObj_[0];
-                    res_ = StringList.splitChars(one_, two_);
-                }
-                Integer lim_ = -1;
-                if (list_.size() == 2) {
-                    lim_ = (Integer) argsObj_[1];
-                    if (lim_ < -1) {
-                        lim_ = -1;
-                    }
-                }
-                Struct[] array_;
-                if (lim_ == -1) {
-                    array_ = new Struct[res_.size()];
-                    int i_ = CustList.FIRST_INDEX;
-                    for (String v: res_) {
-                        array_[i_] = new StringStruct(v);
-                        i_++;
-                    }
-                } else {
-                    array_ = new Struct[lim_];
-                    int i_ = CustList.FIRST_INDEX;
-                    for (String v: res_) {
-                        if (i_ == lim_) {
-                            break;
-                        }
-                        array_[i_] = new StringStruct(v);
-                        i_++;
-                    }
-                }
-                result_.setResult(new ArrayStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(stringType_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasSplitStrings())) {
-                String one_ = (String) instance_;
-                Integer lim_ = -1;
-                StringList res_;
-                String[] two_;
-                if (StringList.quickEq(list_.first(), stringType_)){
-                    two_ = (String[]) argsObj_[0];
-                } else {
-                    lim_ = (Integer) argsObj_[0];
-                    if (lim_ < -1) {
-                        lim_ = -1;
-                    }
-                    two_ = (String[]) argsObj_[1];
-                }
-                res_ = StringList.splitStrings(one_, two_);
-                Struct[] array_;
-                int i_ = CustList.FIRST_INDEX;
-                if (lim_ == -1) {
-                    array_ = new Struct[res_.size()];
-                    for (String v: res_) {
-                        array_[i_] = new StringStruct(v);
-                        i_++;
-                    }
-                } else {
-                    array_ = new Struct[lim_];
-                    for (String v: res_) {
-                        if (i_ == lim_) {
-                            break;
-                        }
-                        array_[i_] = new StringStruct(v);
-                        i_++;
-                    }
-                }
-                result_.setResult(new ArrayStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(stringType_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasSplitChars())) {
-                String one_ = (String) instance_;
-                StringList res_;
-                char[] two_ = (char[]) argsObj_[0];
-                res_ = StringList.splitCharsArr(one_, two_);
-                Struct[] array_;
-                int i_ = CustList.FIRST_INDEX;
-                array_ = new Struct[res_.size()];
-                for (String v: res_) {
-                    array_[i_] = new StringStruct(v);
-                    i_++;
-                }
-                result_.setResult(new ArrayStruct(array_, PrimitiveTypeUtil.getPrettyArrayType(stringType_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasSubSequence())) {
-                String one_ = (String) instance_;
-                Integer two_ = (Integer) argsObj_[0];
-                Integer three_ = (Integer) argsObj_[1];
-                if (two_ < 0 || three_ < 0 || three_ > one_.length() || two_ > three_) {
-                    result_.setError(lgNames_.getAliasBadIndex());
-                } else {
-                    result_.setResult(new StringStruct(one_.substring(two_, three_)));
-                }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasSubstring())) {
-                String one_ = (String) instance_;
-                Integer two_ = (Integer) argsObj_[0];
-                if (list_.size() == 2) {
-                    Integer three_ = (Integer) argsObj_[1];
-                    if (two_ < 0 || three_ < 0 || three_ > one_.length() || two_ > three_) {
-                        result_.setError(lgNames_.getAliasBadIndex());
-                    } else {
-                        result_.setResult(new StringStruct(one_.substring(two_, three_)));
-                    }
-                } else {
-                    if (two_ < 0 || two_ > one_.length()) {
-                        result_.setError(lgNames_.getAliasBadIndex());
-                    } else {
-                        result_.setResult(new StringStruct(one_.substring(two_)));
-                    }
-                }
             } else if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
                 String one_ = (String) instance_;
                 result_.setResult(new StringStruct(StringList.toLowerCase(one_)));
             } else if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
                 String one_ = (String) instance_;
                 result_.setResult(new StringStruct(StringList.toUpperCase(one_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasToCharArray())) {
-                String one_ = (String) instance_;
-                char[] bytes_ = one_.toCharArray();
-                Struct[] wrap_ = new Struct[bytes_.length];
-                int i_ = CustList.FIRST_INDEX;
-                for (char b: bytes_) {
-                    wrap_[i_] = new CharStruct(b);
-                    i_++;
-                }
-                String ret_ = PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar());
-                result_.setResult(new ArrayStruct(wrap_, ret_));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasToString())) {
-                String one_ = (String) instance_;
-                result_.setResult(new StringStruct(one_));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasTrim())) {
-                String one_ = (String) instance_;
-                result_.setResult(new StringStruct(one_.trim()));
             } else if (StringList.quickEq(name_, lgNames_.getAliasValueOf())) {
                 if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar())) && list_.size() == 1) {
                     char[] chars_ = (char[]) argsObj_[0];
@@ -3346,9 +3113,6 @@ public abstract class LgNames {
                         result_.setResult(new StringStruct(Numbers.toString((Number) obj_)));
                     }
                 }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasIsEmpty())) {
-                String one_ = (String) instance_;
-                result_.setResult(new BooleanStruct(one_.length() == 0));
             }
         }
         return result_;
@@ -4388,6 +4152,15 @@ public abstract class LgNames {
         String longType_ = lgNames_.getAliasLong();
         String floatType_ = lgNames_.getAliasFloat();
         String doubleType_ = lgNames_.getAliasDouble();
+        if (StringList.quickEq(type_, stringType_)) {
+            StringStruct.instantiate(_cont, result_, _method, args_);
+            if (result_.getError() != null) {
+                return result_;
+            }
+            if (result_.getResult() != null) {
+                return result_;
+            }
+        }
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 String one_ = (String)argsObj_[0];

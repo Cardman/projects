@@ -1,5 +1,7 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.util.CustList;
 
 public abstract class CharSequenceStruct implements Struct {
@@ -38,4 +40,5 @@ public abstract class CharSequenceStruct implements Struct {
 
     @Override
     public abstract CharSequence getInstance();
+    protected abstract void toStringStruct(LgNames _stds, ResultErrorStd _res);
 }

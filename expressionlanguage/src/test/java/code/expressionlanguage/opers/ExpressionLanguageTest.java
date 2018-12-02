@@ -294,6 +294,15 @@ public class ExpressionLanguageTest {
         assertTrue(res_ instanceof String);
         assertEq("\nnew line", (String)res_);
     }
+
+    @Test
+    public void processEl38Test() {
+        Argument arg_ = directCalculate("\"\".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("", (String)res_);
+    }
+
     @Test
     public void processEl39Test() {
         Argument arg_ = directCalculate("$null $instanceof java.lang.Object");
@@ -302,6 +311,56 @@ public class ExpressionLanguageTest {
         assertEq(false, (Boolean)res_);
     }
 
+    @Test
+    public void processEl40Test() {
+        Argument arg_ = directCalculate("\"abc\".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl41Test() {
+        Argument arg_ = directCalculate("\" abc\".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl42Test() {
+        Argument arg_ = directCalculate("\"abc \".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl43Test() {
+        Argument arg_ = directCalculate("\" abc \".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("abc", (String)res_);
+    }
+
+    @Test
+    public void processEl44Test() {
+        Argument arg_ = directCalculate("\" \".trim()");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof String);
+        assertEq("", (String)res_);
+    }
+    @Test
+    public void processEl45Test() {
+        Argument arg_ = directCalculate("\"hello word\".splitStrings(\"e\",\"o\")");
+        Object res_ = arg_.getObject();
+        assertTrue(res_ instanceof Struct[]);
+        assertEq(4, ((Struct[])res_).length);
+        assertEq("h", (String)((Struct[])res_)[0].getInstance());
+        assertEq("ll", (String)((Struct[])res_)[1].getInstance());
+        assertEq(" w", (String)((Struct[])res_)[2].getInstance());
+        assertEq("rd", (String)((Struct[])res_)[3].getInstance());
+    }
     public void processEl62Test() {
         ContextEl context_ = contextEl();
         Composite compos_ = new Composite();

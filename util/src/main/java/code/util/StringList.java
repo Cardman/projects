@@ -66,8 +66,21 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
     }
 
     public static byte[] encode(String _input) {
+        return encode(_input.toCharArray());
+    }
+    public static byte[] encode(char[] _input) {
+        Numbers<Byte> expBytes_ = encodeList(_input);
+        int length_ = expBytes_.size();
+        byte[] bytes_ = new byte[length_];
+        for (int i = 0; i < length_; i++) {
+            byte b_ = expBytes_.get(i);
+            bytes_[i] = b_;
+        }
+        return bytes_;
+    }
+    public static Numbers<Byte> encodeList(char[] _input) {
         Numbers<Byte> expBytes_ = new Numbers<Byte>();
-        for (char c: _input.toCharArray()) {
+        for (char c: _input) {
             if (c < 128) {
                 expBytes_.add((byte)c);
                 continue;
@@ -95,13 +108,7 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
             byte t_ = (byte) (c%64+128);
             expBytes_.add(t_);
         }
-        int length_ = expBytes_.size();
-        byte[] bytes_ = new byte[length_];
-        for (int i = 0; i < length_; i++) {
-            byte b_ = expBytes_.get(i);
-            bytes_[i] = b_;
-        }
-        return bytes_;
+        return expBytes_;
     }
     public static String decode(byte[] _bytes) {
         return decode(_bytes, 0, _bytes.length);
