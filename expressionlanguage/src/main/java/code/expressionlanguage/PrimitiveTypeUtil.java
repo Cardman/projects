@@ -276,7 +276,7 @@ public final class PrimitiveTypeUtil {
             cl_ = getQuickComponentBaseType(cl_).getComponent();
             if (_an.getClassBody(cl_).withoutInstance()) {
                 if (!canBeUseAsArgument(id_, cls_, _an)) {
-                    _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
+                    _an.setException(new ErrorStruct(_an,cast_));
                     return NullStruct.NULL_VALUE;
                 }
                 return _current;
@@ -291,7 +291,7 @@ public final class PrimitiveTypeUtil {
         }
         String npe_ = lgNames_.getAliasNullPe();
         if (arg_.isNull()) {
-            _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),npe_));
+            _an.setException(new ErrorStruct(_an,npe_));
             return arg_.getStruct();
         }
         Struct current_ = arg_.getStruct();
@@ -300,13 +300,13 @@ public final class PrimitiveTypeUtil {
         StringList list_ = new StringList();
         while (!canBeUseAsArgument(id_, cl_, _an)) {
             if (list_.containsStr(cl_)) {
-                _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
+                _an.setException(new ErrorStruct(_an,cast_));
                 break;
             }
             list_.add(cl_);
             Struct par_ = current_.getParent();
             if (par_.isNull()) {
-                _an.setException(new ErrorStruct(new CustomError(_an.joinPages()),cast_));
+                _an.setException(new ErrorStruct(_an,cast_));
                 break;
             }
             _an.getContextEl().addSensibleField(current_, par_);

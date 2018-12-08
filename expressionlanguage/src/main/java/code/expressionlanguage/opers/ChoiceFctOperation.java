@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -228,7 +227,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 classNameFound_ = Templates.quickFormat(argClassName_, classNameFound_, _conf);
                 if (!Templates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -241,7 +240,7 @@ public final class ChoiceFctOperation extends InvokingOperation {
                 String baseArgClassName_ = Templates.getIdFromAllTypes(argClassName_);
                 if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, baseArgClassName_, _conf)) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf, StringList.concat(baseArgClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }

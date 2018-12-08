@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
@@ -638,7 +637,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -668,7 +667,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -712,7 +711,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, res_.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return res_;
             }
             Argument a_ = res_;
@@ -748,7 +747,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), res_.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return res_;
         }
         Argument a_ = res_;
@@ -794,7 +793,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
             }
             Argument a_ = _right;
@@ -828,7 +827,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;
         }
         Argument a_ = _right;
@@ -861,7 +860,7 @@ public abstract class SettableAbstractFieldOperation extends
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
             }
             Argument a_ = _right;
@@ -891,7 +890,7 @@ public abstract class SettableAbstractFieldOperation extends
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, previous_.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;
         }
         Argument a_ = _right;

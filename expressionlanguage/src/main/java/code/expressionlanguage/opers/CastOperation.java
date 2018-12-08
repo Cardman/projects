@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OperationsSequence;
@@ -160,7 +159,7 @@ public final class CastOperation extends AbstractUnaryOperation {
         if (!PrimitiveTypeUtil.isPrimitive(paramName_, _conf)) {
             if (!Templates.isCorrectExecute(argClassName_, paramName_ , _conf)) {
                 setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE,_conf.joinPages())),cast_));
+                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,paramName_,RETURN_LINE),cast_));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -169,7 +168,7 @@ public final class CastOperation extends AbstractUnaryOperation {
             if (PrimitiveTypeUtil.getOrderClass(paramName_, _conf) > 0) {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf,StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -177,7 +176,7 @@ public final class CastOperation extends AbstractUnaryOperation {
             } else {
                 if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                    _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE,_conf.joinPages())),cast_));
+                    _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,className,RETURN_LINE),cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }

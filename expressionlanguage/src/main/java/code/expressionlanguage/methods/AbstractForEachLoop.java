@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetStringInfo;
@@ -759,7 +758,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
                 String arrObj_ = _conf.getStandards().getAliasObject();
                 arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
-                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE,_conf.joinPages())),cast_));
+                _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),cast_));
             }
         }
         return ito_;

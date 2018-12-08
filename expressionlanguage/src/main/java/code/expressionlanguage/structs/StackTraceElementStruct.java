@@ -25,22 +25,30 @@ public class StackTraceElementStruct implements DisplayableStruct {
     private int indexFileType;
     private String currentClassName;
     private String signature;
-    private boolean staticCall;
 
     private StackTraceElementStruct(AbstractPageEl _page) {
         Block bl_ = _page.getCurrentBlock();
+        if (bl_ == null) {
+            fileName = "";
+            currentClassName = "";
+            signature = "";
+            return;
+        }
         FileBlock f_ = bl_.getFile();
         fileName = f_.getFileName();
         indexFileType = _page.getTraceIndex();
         row = f_.getRowFile(indexFileType);
         col = f_.getColFile(indexFileType);
-        FunctionBlock fct_ = bl_.getFunction();
-        staticCall = fct_.isStaticContext();
         RootBlock r_ = bl_.getRooted();
         if (r_ != null) {
             currentClassName = r_.getFullName();
         } else {
             currentClassName = "";
+        }
+        FunctionBlock fct_ = bl_.getFunction();
+        if (fct_ == null) {
+            signature = "";
+            return;
         }
         if (fct_ instanceof NamedFunctionBlock) {
             Identifiable id_ = ((NamedFunctionBlock)fct_).getId();
@@ -105,6 +113,10 @@ public class StackTraceElementStruct implements DisplayableStruct {
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(getStringRep());
+    }
+
+    String getStringRep() {
         StringBuilder str_ = new StringBuilder();
         str_.append(fileName);
         str_.append(":");
@@ -117,7 +129,6 @@ public class StackTraceElementStruct implements DisplayableStruct {
         str_.append(currentClassName);
         str_.append(".");
         str_.append(signature);
-        return new StringStruct(str_.toString());
+        return str_.toString();
     }
-
 }

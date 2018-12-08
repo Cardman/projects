@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -212,7 +211,7 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         Argument res_ = calculateDiv(_a, _b, _cont, _order);
         if (res_.isNull()) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),div_));
+            _cont.setException(new ErrorStruct(_cont,div_));
         }
         return res_;
     }
@@ -253,7 +252,7 @@ public abstract class NumericOperation extends MethodOperation {
         div_ = stds_.getAliasDivisionZero();
         Argument res_ = calculateMod(_a, _b, _cont, _order);
         if (res_.isNull()) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),div_));
+            _cont.setException(new ErrorStruct(_cont,div_));
         }
         return res_;
     }

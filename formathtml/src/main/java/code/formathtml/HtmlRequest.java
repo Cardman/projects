@@ -1,7 +1,6 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.errors.custom.UnknownClassName;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -79,7 +78,7 @@ final class HtmlRequest {
         if (obj_.isNull()) {
             String err_ = _conf.getStandards().getAliasNullPe();
             ContextEl context_ = _conf.getContext();
-            context_.setException(new ErrorStruct(new CustomError(_conf.joinPages()),err_));
+            context_.setException(new ErrorStruct(_conf,err_));
             return;
         }
         long index_ = _nodeContainer.getIndex();
@@ -90,7 +89,7 @@ final class HtmlRequest {
             ResultErrorStd res_ = _conf.getStandards().setElementAtIndex(obj_, (int) index_, key_, _attribute, context_);
             if (res_.getError() != null) {
                 String err_ = res_.getError();
-                context_.setException(new ErrorStruct(new CustomError(_conf.joinPages()),err_));
+                context_.setException(new ErrorStruct(_conf,err_));
                 return;
             }
         } else {
@@ -113,7 +112,7 @@ final class HtmlRequest {
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
                     badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-                    _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display(_conf.getClasses())), _conf.getStandards().getErrorEl()));
+                    _conf.getContext().setException(new ErrorStruct(_conf, badEl_.display(_conf.getClasses()), _conf.getStandards().getErrorEl()));
                     return;
                 }
                 className_ = res_;

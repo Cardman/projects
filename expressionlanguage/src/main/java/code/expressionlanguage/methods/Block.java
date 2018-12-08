@@ -18,7 +18,6 @@ import code.expressionlanguage.opers.util.AssignedVariables;
 import code.expressionlanguage.opers.util.Assignment;
 import code.expressionlanguage.opers.util.AssignmentBefore;
 import code.expressionlanguage.opers.util.SimpleAssignment;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -356,11 +355,6 @@ public abstract class Block extends Blockable {
     }
 
     public abstract ExpressionLanguage getEl(ContextEl _context, int _indexProcess);
-
-    public final RowCol getRowCol(int _sum) {
-        FileBlock f_ = getFile();
-        return f_.getRowColFile(_sum);
-    }
 
     @Override
     boolean canCallSuperThis() {

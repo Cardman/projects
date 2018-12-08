@@ -9,30 +9,12 @@ import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.variables.LocalVariable;
-import code.expressionlanguage.variables.LoopVariable;
-import code.sml.RowCol;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class AbstractPageEl extends PageEl {
 
     protected static final String EMPTY_STRING = "";
-
-    private static final String READ_URL = "readUrl";
-
-    private static final String LINE_COL = "line col";
-
-    private static final String BEAN_CLASS = "bean class";
-
-    private static final String PARAMATERS = "parameters";
-    private static final String CATCH_VARIABLES = "catch variables";
-    private static final String LOCAL_VARIABLES = "local variables";
-
-    private static final String SEP_INFO = "\n";
-
-    private static final String SEP_KEY_VAL = ":";
 
     private ReadWrite readWrite;
     private Block blockRoot;
@@ -82,66 +64,9 @@ public abstract class AbstractPageEl extends PageEl {
     public void setOffset(int _offset) {
         offset = _offset;
     }
-    public String getInfos(ContextEl _context) {
-        return getCommonInfosAndRc(getTrace(), _context);
-    }
 
-    private String getCommonInfosAndRc(RowCol _rc,ContextEl _context) {
-        StringBuilder str_ = new StringBuilder(getCommonInfos(_context));
-        str_.append(_rc.display());
-        return str_.toString();
-    }
-
-    private RowCol getTrace() {
-        RowCol rc_ = new RowCol();
-        if (currentBlock != null){
-            int sum_ = globalOffset + offset + translatedOffset;
-            rc_ = currentBlock.getRowCol(sum_);
-        }
-        return rc_;
-    }
     public int getTraceIndex() {
         return globalOffset + offset + translatedOffset;
-    }
-
-    private String getCommonInfos(ContextEl _context) {
-        StringList list_ = new StringList();
-        if (currentBlock != null) {
-            list_.add(READ_URL);
-            list_.add(currentBlock.getFile().getFileName());
-        }
-        Argument globalArgument_ = getGlobalArgument();
-        if (globalArgument_ != null) {
-            Object glel_ = globalArgument_.getObject();
-            if (glel_ != null) {
-                list_.add(StringList.concat(BEAN_CLASS,SEP_KEY_VAL,globalArgument_.getObjectClassName(_context)));
-            } else {
-                list_.add(StringList.concat(BEAN_CLASS,SEP_KEY_VAL,null));
-            }
-        } else {
-            list_.add(StringList.concat(BEAN_CLASS,SEP_KEY_VAL,null));
-        }
-        for (EntryCust<String,LoopVariable> e: getVars().entryList()) {
-            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos(_context)));
-        }
-        list_.add(LOCAL_VARIABLES);
-        for (EntryCust<String,LocalVariable> f: getLocalVars().entryList()) {
-            list_.add(StringList.concat(f.getKey(),SEP_KEY_VAL,SEP_INFO,f.getValue().getInfos()));
-        }
-        list_.add(CATCH_VARIABLES);
-        for (EntryCust<String,LocalVariable> e: getCatchVars().entryList()) {
-            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
-        }
-        list_.add(PARAMATERS);
-        for (EntryCust<String,LocalVariable> e: getParameters().entryList()) {
-            list_.add(StringList.concat(e.getKey(),SEP_KEY_VAL,SEP_INFO,e.getValue().getInfos()));
-        }
-        list_.add(SEP_INFO);
-        for (RemovableVars b: blockStacks) {
-            list_.add(b.getInfos());
-        }
-        StringBuilder keyMessage_ = new StringBuilder(SEP_INFO);
-        return keyMessage_.append(list_.join(SEP_INFO)).append(SEP_INFO).append(LINE_COL).append(SEP_KEY_VAL).toString();
     }
 
     public abstract boolean checkCondition(ContextEl _context);

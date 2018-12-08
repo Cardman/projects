@@ -882,17 +882,17 @@ public final class Templates {
             if (!Templates.isCorrectExecute(a_, _param, _context)) {
                 if (_arr) {
                     String cast_ = stds_.getAliasStore();
-                    _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),cast_));
+                    _context.setException(new ErrorStruct(_context,cast_));
                     return false;
                 }
                 String cast_ = stds_.getAliasCast();
-                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),cast_));
+                _context.setException(new ErrorStruct(_context,cast_));
                 return false;
             }
         }
         if (PrimitiveTypeUtil.primitiveTypeNullObject(_param, str_, _context)) {
             String npe_ = stds_.getAliasNullPe();
-            _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),npe_));
+            _context.setException(new ErrorStruct(_context,npe_));
             return false;
         }
         if (str_ instanceof NumberStruct) {

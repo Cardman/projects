@@ -109,7 +109,6 @@ import code.util.ints.MathFactory;
 
 public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnable,ExecutableCode {
 
-    private static final String RETURN_LINE = "\n";
     private static final String EMPTY_TYPE = "";
     private static final String EMPTY_PREFIX = "";
     private static final int DEFAULT_TAB_WIDTH = 4;
@@ -699,7 +698,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return this == _other;
     }
     public void initError() {
-        memoryError = new ErrorStruct(new CustomError(), standards.getAliasError());
+        memoryError = new ErrorStruct(this, standards.getAliasError());
     }
     @Override
     public ClassMetaInfo getClassMetaInfo(String _name) {
@@ -943,7 +942,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         LgNames stds_ = getStandards();
         String sof_ = stds_.getAliasSof();
         if (stackOverFlow >= CustList.FIRST_INDEX && stackOverFlow <= importing.size()) {
-            exception = new ErrorStruct(new CustomError(joinPages()),sof_);
+            exception = new ErrorStruct(this,sof_);
         } else {
             importing.add(_page);
         }
@@ -959,15 +958,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public Block getCurrentBlock() {
         return analyzing.getCurrentBlock();
-    }
-
-    @Override
-    public String joinPages() {
-        StringList l_ = new StringList();
-        for (AbstractPageEl p: importing) {
-            l_.add(p.getInfos(this));
-        }
-        return l_.join(RETURN_LINE);
     }
 
     @Override

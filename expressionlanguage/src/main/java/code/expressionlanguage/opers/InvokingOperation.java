@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.InitClassState;
 import code.expressionlanguage.Initializer;
@@ -598,7 +597,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (_previous.isNull()) {
                     String npe_;
                     npe_ = stds_.getAliasNullPe();
-                    _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),npe_));
+                    _conf.setException(new ErrorStruct(_conf,npe_));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -606,7 +605,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (!Templates.isCorrectExecute(arg_, param_, _conf)) {
                     String cast_;
                     cast_ = stds_.getAliasCast();
-                    _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),cast_));
+                    _conf.setException(new ErrorStruct(_conf,cast_));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -697,7 +696,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String className_ = stds_.getStructClassName(_previous.getStruct(), _conf.getContextEl());
             String classFormat_ = _classNameFound;
             if (!Templates.isCorrectExecute(className_, _classNameFound, _conf)) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),cast_));
+                _conf.setException(new ErrorStruct(_conf,cast_));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -845,7 +844,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (StringList.quickEq(aliasForName_, _methodId.getName())) {
                 Argument clArg_ = _firstArgs.first();
                 if (clArg_.isNull()) {
-                    _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                    _conf.setException(new ErrorStruct(_conf,stds_.getAliasNullPe()));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -859,7 +858,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 boolean gene_ = clDyn_.contains(Templates.TEMPLATE_BEGIN);
                 String res_ = Templates.correctClassPartsDynamic(clDyn_, _conf, gene_, false);
                 if (res_.isEmpty()) {
-                    _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),stds_.getAliasClassNotFoundError()));
+                    _conf.setException(new ErrorStruct(_conf,stds_.getAliasClassNotFoundError()));
                     Argument a_ = new Argument();
                     return a_;
                 }
@@ -881,14 +880,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (type_.isAbstractType()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
-                    cont_.setException(new ErrorStruct(new CustomError(cont_.joinPages()),null_));
+                    cont_.setException(new ErrorStruct(_conf,null_));
                     return Argument.createVoid();
                 }
                 String res_ = Templates.correctClassPartsDynamic(className_, _conf, true, true);
                 if (res_.isEmpty()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
-                    cont_.setException(new ErrorStruct(new CustomError(cont_.joinPages()),null_));
+                    cont_.setException(new ErrorStruct(_conf,null_));
                     return Argument.createVoid();
                 }
                 className_ = res_;
@@ -915,7 +914,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                         if (par_.isNull()) {
                             String null_;
                             null_ = stds_.getAliasNullPe();
-                            cont_.setException(new ErrorStruct(new CustomError(cont_.joinPages()),null_));
+                            cont_.setException(new ErrorStruct(_conf,null_));
                             return Argument.createVoid();
                         }
                         String argCl_ = par_.getClassName(cont_);
@@ -923,7 +922,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                         StringList inners_ = Templates.getAllInnerTypes(className_);
                         String param_ = inners_.mid(0, inners_.size() - 1).join("..");
                         if (!Templates.isCorrectExecute(argCl_, param_, cont_)) {
-                            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),cast_));
+                            _conf.setException(new ErrorStruct(_conf,cast_));
                             return Argument.createVoid();
                         }
                     }
@@ -978,7 +977,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             Argument instance_ = _firstArgs.first();
             Struct inst_ = instance_.getStruct();
             if (!(inst_ instanceof ArrayStruct)) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),stds_.getAliasNullPe()));
+                _conf.setException(new ErrorStruct(_conf,stds_.getAliasNullPe()));
                 Argument a_ = new Argument();
                 return a_;
             }
@@ -1071,7 +1070,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (valuesSize_ != paramsFct_.size()) {
             String null_;
             null_ = lgNames_.getAliasNullPe();
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             Argument a_ = new Argument();
             return a_;
         }
@@ -1094,14 +1093,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 for (Argument a: _values) {
                     int dim_ = ((NumberStruct)a.getStruct()).getInstance().intValue();
                     if (dim_ < 0) {
-                        _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),size_));
+                        _conf.setException(new ErrorStruct(_conf,size_));
                         return result_;
                     }
                     dims_.add(dim_);
                 }
                 String c_ = forId_.substring(ARR.length());
                 if (StringList.quickEq(c_, _conf.getStandards().getAliasVoid())) {
-                    _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),lgNames_.getAliasClassNotFoundError()));
+                    _conf.setException(new ErrorStruct(_conf,lgNames_.getAliasClassNotFoundError()));
                     return result_;
                 }
                 result_.setStruct(PrimitiveTypeUtil.newCustomArray(c_, dims_, _conf));
@@ -1268,7 +1267,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         null_ = stds_.getAliasNullPe();
         badIndex_ = stds_.getAliasBadIndex();
         if (!(_struct instanceof ArrayStruct)) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return NullStruct.NULL_VALUE;
         }
         ArrayStruct a_ = (ArrayStruct) _struct;
@@ -1276,7 +1275,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         int len_ = array_.length;
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(index_),RETURN_LINE),badIndex_));
             return NullStruct.NULL_VALUE;
         }
         Struct elt_ = array_[index_];
@@ -1290,7 +1289,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         null_ = stds_.getAliasNullPe();
         badIndex_ = stds_.getAliasBadIndex();
         if (!(_struct instanceof ArrayStruct)) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
         String strClass_ = stds_.getStructClassName(_struct, _conf.getContextEl());
@@ -1299,7 +1298,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         int len_ = arr_.length;
         int index_ = ((Number)_index).intValue();
         if (index_ < 0 || index_ >= len_) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(String.valueOf(index_),RETURN_LINE,_conf.joinPages())),badIndex_));
+            _conf.setException(new ErrorStruct(_conf, StringList.concat(String.valueOf(index_),RETURN_LINE),badIndex_));
             return;
         }
         String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
@@ -1404,7 +1403,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             ResultErrorStd res_ = LgNames.getField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE);
             a_ = new Argument();
             if (res_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),res_.getError()));
+                _conf.setException(new ErrorStruct(_conf,res_.getError()));
             } else {
                 a_.setStruct(res_.getResult());
             }
@@ -1413,13 +1412,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (arg_.isNull()) {
             String npe_;
             npe_ = stds_.getAliasNullPe();
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),npe_));
+            _conf.setException(new ErrorStruct(_conf,npe_));
             return Argument.createVoid();
         }
         String argClassName_ = arg_.getObjectClassName(_conf.getContextEl());
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, _className, base_, _conf)) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE,_conf.joinPages())),cast_));
+            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,_className,RETURN_LINE),cast_));
             return arg_;
         }
         if (arg_.getStruct() instanceof FieldableStruct) {
@@ -1433,7 +1432,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         ResultErrorStd res_ = LgNames.getField(_conf.getContextEl(), fieldId_, default_);
         a_ = new Argument();
         if (res_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),res_.getError()));
+            _conf.setException(new ErrorStruct(_conf,res_.getError()));
         } else {
             a_.setStruct(res_.getResult());
         }
@@ -1462,7 +1461,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (_finalField && _failIfFinal) {
                 String npe_;
                 npe_ = stds_.getAliasNullPe();
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),npe_));
+                _conf.setException(new ErrorStruct(_conf,npe_));
                 return Argument.createVoid();
             }
             if (InvokingOperation.hasToExit(_conf, _className)) {
@@ -1483,7 +1482,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             ResultErrorStd result_;
             result_ = LgNames.setField(_conf.getContextEl(), fieldId_, NullStruct.NULL_VALUE, _right.getStruct());
             if (result_.getError() != null) {
-                _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+                _conf.setException(new ErrorStruct(_conf,result_.getError()));
                 return _right;
             }
             return _right;
@@ -1491,14 +1490,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (_previous.isNull()) {
             String npe_;
             npe_ = stds_.getAliasNullPe();
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),npe_));
+            _conf.setException(new ErrorStruct(_conf,npe_));
             return Argument.createVoid();
         }
         String argClassName_ = _previous.getObjectClassName(_conf.getContextEl());
         String base_ = Templates.getIdFromAllTypes(argClassName_);
         String classNameFound_ = _className;
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, classNameFound_, base_, _conf)) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE,_conf.joinPages())),cast_));
+            _conf.setException(new ErrorStruct(_conf, StringList.concat(base_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
             return Argument.createVoid();
         }
         classNameFound_ = Templates.getFullTypeByBases(argClassName_, classNameFound_, _conf);
@@ -1518,7 +1517,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         ResultErrorStd result_;
         result_ = LgNames.setField(_conf.getContextEl(), fieldId_, _previous.getStruct(), _right.getStruct());
         if (result_.getError() != null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),result_.getError()));
+            _conf.setException(new ErrorStruct(_conf,result_.getError()));
             return _right;
         }
         return _right;

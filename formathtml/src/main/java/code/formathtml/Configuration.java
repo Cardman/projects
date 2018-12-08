@@ -462,7 +462,7 @@ public class Configuration implements ExecutableCode {
         document = _document;
     }
 
-    @Override
+
     public final String joinPages() {
         StringList l_ = new StringList();
         for (ImportingPage p: importing) {

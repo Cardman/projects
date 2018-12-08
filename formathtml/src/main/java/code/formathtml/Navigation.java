@@ -3,7 +3,6 @@ import code.bean.Bean;
 import code.bean.validator.Message;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.errors.custom.BadFormatNumber;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -350,7 +349,7 @@ public final class Navigation {
                         badEl_.setErrors(session.getClasses().getErrorsDet());
                         badEl_.setFileName(session.getCurrentFileName());
                         badEl_.setIndexFile(session.getCurrentLocationIndex());
-                        session.getContext().setException(new ErrorStruct(new CustomError(badEl_.display(session.getClasses())), session.getStandards().getErrorEl()));
+                        session.getContext().setException(new ErrorStruct(session, badEl_.display(session.getClasses()), session.getStandards().getErrorEl()));
                         return;
                     }
                     args_.add(a_);
@@ -567,7 +566,7 @@ public final class Navigation {
             ip_.setOffset(0);
             Struct validator_ = session.getBuiltValidators().getVal(valId_);
             if (validator_ == null) {
-                session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),session.getStandards().getAliasNullPe()));
+                session.getContext().setException(new ErrorStruct(session,session.getStandards().getAliasNullPe()));
                 return;
             }
             StringList v_ = nInfos_.getValue();
@@ -575,7 +574,7 @@ public final class Navigation {
             ResultErrorStd resError_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
             if (resError_.getError() != null) {
                 String err_ = resError_.getError();
-                session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),err_));
+                session.getContext().setException(new ErrorStruct(session,err_));
                 return;
             }
             ContextEl context_ = session.toContextEl();
@@ -677,7 +676,7 @@ public final class Navigation {
             ResultErrorStd res_ = session.getStandards().getStructToBeValidated(v_, className_, session.toContextEl());
             if (res_.getError() != null) {
                 String err_ = res_.getError();
-                session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),err_));
+                session.getContext().setException(new ErrorStruct(session,err_));
                 return;
             }
             newObj_ = res_.getResult();
@@ -898,7 +897,7 @@ public final class Navigation {
         Struct b_ = getBean(_beanName);
         if (b_ == null) {
             String null_ = session.getStandards().getAliasNullPe();
-            session.getContext().setException(new ErrorStruct(new CustomError(session.joinPages()),null_));
+            session.getContext().setException(new ErrorStruct(session,null_));
         }
         return b_;
     }

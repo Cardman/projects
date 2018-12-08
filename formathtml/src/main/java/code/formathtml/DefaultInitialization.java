@@ -37,6 +37,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasBadSize("code.expressionlanguage.exceptions.NegativeSizeException");
 //        _lgNames.setAliasError("$error");
         _lgNames.setAliasError("java.lang.Exception");
+        _lgNames.setAliasGetMessage("getMessage");
         _lgNames.setAliasCustomError("$customError");
 //        _lgNames.setAliasCast("$badCast");
         _lgNames.setAliasCast("code.expressionlanguage.exceptions.DynamicCastClassException");

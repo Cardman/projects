@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.LgAdv;
 import code.expressionlanguage.NumberInfos;
@@ -102,6 +101,7 @@ public abstract class LgNames {
     private String aliasReplacement;
 
     private String aliasError;
+    private String aliasGetMessage;
     private String aliasCustomError;
     private String aliasBadSize;
     private String aliasDivisionZero;
@@ -247,6 +247,17 @@ public abstract class LgNames {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new StringMap<StandardField>();
         stdcl_ = new StandardClass(aliasError, fields_, constructors_, methods_, aliasObject, MethodModifier.NORMAL);
+        String stackElt_ = stackElt.getAliasStackTraceElement();
+        stackElt_ = PrimitiveTypeUtil.getPrettyArrayType(stackElt_);
+        params_ = new StringList();
+        method_ = new StandardMethod(stackElt.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasToString, params_, aliasString, false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetMessage, params_, aliasString, false, MethodModifier.NORMAL,std_);
+        methods_.put(method_.getId(), method_);
         std_ = stdcl_;
         standards.put(aliasError, std_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -1117,6 +1128,10 @@ public abstract class LgNames {
     }
     public StringMap<StringList> allTableTypeMethodNames() {
         StringMap<StringList> map_ = new StringMap<StringList>();
+        map_.put(aliasError, new StringList(
+                stackElt.getAliasCurrentStack(),
+                aliasToString,
+                aliasGetMessage));
         map_.put(reflect.getAliasAnnotated(), new StringList(
                 reflect.getAliasGetAnnotations(),
                 reflect.getAliasGetAnnotationsParameters()));
@@ -1840,7 +1855,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(_cont,result_.getError()));
             return result_;
         }
         if (StringList.quickEq(type_, replType_)) {
@@ -2154,7 +2169,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(_cont,result_.getError()));
             return result_;
         }
         result_ = AliasReflection.invokeMethod(_cont, _method, _struct, _args);
@@ -2162,7 +2177,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(_cont,result_.getError()));
             return result_;
         }
         if(lgNames_ instanceof LgAdv) {
@@ -2171,7 +2186,7 @@ public abstract class LgNames {
             result_ = lgNames_.getOtherResult(_cont, _struct, _method, argsObj_);
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(_cont,result_.getError()));
             return result_;
         }
         return result_;
@@ -2218,6 +2233,19 @@ public abstract class LgNames {
         if (StringList.quickEq(type_, lgNames_.getAliasStackTraceElement())) {
             ContextEl c_ = _cont.getContextEl();
             return AliasStackTraceElement.invokeMethod(c_, _method, _struct, _args);
+        }
+        if (StringList.quickEq(type_, lgNames_.getAliasError())) {
+            ErrorStruct err_ = (ErrorStruct) _struct;
+            if (StringList.quickEq(name_, lgNames_.getAliasCurrentStack())) {
+                result_.setResult(err_.getStack());
+                return result_;
+            }
+            if (StringList.quickEq(name_, lgNames_.getAliasGetMessage())) {
+                result_.setResult(err_.getMessage());
+                return result_;
+            }
+            result_.setResult(err_.getDisplayedString(_cont));
+            return result_;
         }
         if (StringList.quickEq(type_, mathType_)) {
             return AliasMath.invokeStdMethod(_cont, _method, _struct, _args);
@@ -3598,7 +3626,7 @@ public abstract class LgNames {
             return result_;
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(_cont,result_.getError()));
             return result_;
         }
         if (StringList.quickEq(type_, replType_)) {
@@ -3638,7 +3666,7 @@ public abstract class LgNames {
             result_ = lgNames_.getOtherResult(_cont, _method, argsObj_);
         }
         if (result_.getError() != null) {
-            _cont.setException(new ErrorStruct(new CustomError(_cont.joinPages()),result_.getError()));
+            _cont.setException(new ErrorStruct(_cont,result_.getError()));
         }
         return result_;
     }
@@ -4313,6 +4341,12 @@ public abstract class LgNames {
     }
     public void setAliasError(String _aliasError) {
         aliasError = _aliasError;
+    }
+    public String getAliasGetMessage() {
+        return aliasGetMessage;
+    }
+    public void setAliasGetMessage(String _aliasGetMessage) {
+        aliasGetMessage = _aliasGetMessage;
     }
     public String getAliasCustomError() {
         return aliasCustomError;

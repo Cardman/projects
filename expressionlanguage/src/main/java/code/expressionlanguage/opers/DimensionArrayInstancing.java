@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -134,7 +133,7 @@ public final class DimensionArrayInstancing extends
             setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
             int dim_ = n_.intValue();
             if (dim_ < 0) {
-                _conf.setException(new ErrorStruct(new CustomError(StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE,_conf.joinPages())),size_));
+                _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
                 Argument a_ = new Argument();
                 return a_;
             }

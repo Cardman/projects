@@ -3,7 +3,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ElUtil;
 import code.expressionlanguage.Mapping;
 import code.expressionlanguage.OffsetBooleanInfo;
@@ -721,7 +720,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argFrom_.isNull()) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
         ip_.setGlobalOffset(expressionOffset);
@@ -732,7 +731,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argTo_.isNull()) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
         ip_.setGlobalOffset(stepOffset);
@@ -743,7 +742,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             return;
         }
         if (argStep_.isNull()) {
-            _conf.setException(new ErrorStruct(new CustomError(StringList.concat(RETURN_LINE,_conf.joinPages())),null_));
+            _conf.setException(new ErrorStruct(_conf,null_));
             return;
         }
         realFromValue_ = argFrom_.getObject();

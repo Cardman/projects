@@ -2,7 +2,6 @@ package code.expressionlanguage.opers;
 
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -187,7 +186,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         String classFormat_ = calledCtor_;
         classFormat_ = Templates.getFullTypeByBases(clCurName_, classFormat_, _conf);
         if (classFormat_ == null) {
-            _conf.setException(new ErrorStruct(new CustomError(_conf.joinPages()),cast_));
+            _conf.setException(new ErrorStruct(_conf,cast_));
             Argument a_ = new Argument();
             return a_;
         }

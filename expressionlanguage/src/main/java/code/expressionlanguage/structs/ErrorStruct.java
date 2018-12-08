@@ -1,25 +1,38 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.CustomError;
+import code.expressionlanguage.Analyzable;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.util.ObjectMap;
+import code.util.StringList;
 
-public class ErrorStruct implements Struct {
+public class ErrorStruct implements DisplayableStruct {
 
-    private final CustomError instance;
+    private final ArrayStruct instance;
 
     private final String className;
 
-    public ErrorStruct(CustomError _instance, String _className) {
-        instance = _instance;
+    private final String message;
+
+    public ErrorStruct(ExecutableCode _context, String _className) {
+        this(_context, "", _className);
+    }
+
+    public ErrorStruct(ExecutableCode _context, String _message, String _className) {
+        ContextEl cont_ = _context.getContextEl();
+        instance = StackTraceElementStruct.newStackTraceElementArray(cont_);
         className = _className;
+        message = _message;
     }
     @Override
     public boolean isNull() {
         return false;
     }
 
+    public ArrayStruct getStack() {
+        return instance;
+    }
     @Override
     public boolean isArray() {
         return false;
@@ -41,8 +54,8 @@ public class ErrorStruct implements Struct {
     }
 
     @Override
-    public CustomError getInstance() {
-        return instance;
+    public Object getInstance() {
+        return this;
     }
 
     @Override
@@ -51,5 +64,18 @@ public class ErrorStruct implements Struct {
     }
     public String getClassName() {
         return className;
+    }
+
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        StringList str_ = new StringList();
+        for (Struct s: instance.getInstance()) {
+            str_.add(((StackTraceElementStruct)s).getStringRep());
+        }
+        return new StringStruct(str_.join("\n"));
+    }
+
+    public Struct getMessage() {
+        return new StringStruct(message);
     }
 }

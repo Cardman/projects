@@ -3,7 +3,6 @@ package code.expressionlanguage.opers;
 import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.PrimitiveTypeUtil;
@@ -83,7 +82,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         String argCl_ = arg_.getObjectClassName(_conf.getContextEl());
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = PrimitiveTypeUtil.getPrettyArrayType(arrObj_);
-        _conf.setException(new ErrorStruct(new CustomError(StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE,_conf.joinPages())),cast_));
+        _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),cast_));
         a_ = new Argument();
         return a_;
     }

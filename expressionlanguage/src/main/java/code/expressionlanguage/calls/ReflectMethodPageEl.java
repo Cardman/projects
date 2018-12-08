@@ -2,7 +2,6 @@ package code.expressionlanguage.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.CustomError;
 import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
@@ -37,14 +36,14 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 if (instance_.isNull()) {
                     String null_;
                     null_ = stds_.getAliasNullPe();
-                    _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
+                    _context.setException(new ErrorStruct(_context,null_));
                     return false;
                 }
             }
             if (!method_.isPolymorph() && method_.isAbstract()) {
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
+                _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
             if (method_.isPolymorph() && !method_.isStatic() && !method_.getClassName().startsWith("[")) {
@@ -70,7 +69,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
+                _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
             for (Struct a: ((Struct[])struct_.getInstance())) {
@@ -82,7 +81,7 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
                 LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
-                _context.setException(new ErrorStruct(new CustomError(_context.joinPages()),null_));
+                _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
             setWrapException(false);

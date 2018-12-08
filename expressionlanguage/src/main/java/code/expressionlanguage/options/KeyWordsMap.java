@@ -196,6 +196,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasBadIndex("$core.BadIndexException");
         _lgNames.setAliasBadSize("$core.NegativeSize");
         _lgNames.setAliasError("$core.Error");
+        _lgNames.setAliasGetMessage("getMessage");
         _lgNames.setAliasCustomError("$core.CustomError");
         _lgNames.setAliasCast("$core.BadCast");
         _lgNames.setAliasDivisionZero("$core.DivideZero");
@@ -446,6 +447,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasBadIndex("$coeur.MauvaisIndice");
         _lgNames.setAliasBadSize("$coeur.TailleNegative");
         _lgNames.setAliasError("$coeur.Erreur");
+        _lgNames.setAliasGetMessage("valMessage");
         _lgNames.setAliasCustomError("$coeur.ErreurPerso");
         _lgNames.setAliasCast("$coeur.MauvaisTranstype");
         _lgNames.setAliasDivisionZero("$coeur.DivisionZero");

@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
-import code.sml.RowCol;
 import code.util.Numbers;
 import code.util.StringList;
 
@@ -64,35 +63,6 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             i_ += 2;
         }
         return j_;
-    }
-    public final RowCol getRowColFile(int _sum) {
-        RowCol rc_ = new RowCol();
-        int len_ = lineReturns.size();
-        int i_ = 0;
-        while (i_ < len_) {
-            if (_sum < lineReturns.get(i_)) {
-                int j_;
-                if (i_ > 0) {
-                    j_ = leftSpaces.get(i_ / 2 - 1);
-                    int begin_ = lineReturns.get(i_ - 1)+1;
-                    for (int j = begin_; j <= _sum; j++) {
-                        if (tabulations.containsObj(j)) {
-                            j_ += tabWidth;
-                            j_ -= j_ % tabWidth;
-                        } else {
-                            j_++;
-                        }
-                    }
-                } else {
-                    j_ = _sum;
-                }
-                rc_.setCol(j_);
-                rc_.setRow(i_/2);
-                break;
-            }
-            i_ += 2;
-        }
-        return rc_;
     }
     public boolean isPredefined() {
         return predefined;
