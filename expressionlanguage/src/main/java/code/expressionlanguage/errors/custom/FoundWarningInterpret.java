@@ -1,8 +1,8 @@
 package code.expressionlanguage.errors.custom;
-import code.sml.RowCol;
-import code.util.ints.Displayable;
+import code.expressionlanguage.methods.Classes;
+import code.expressionlanguage.methods.FileBlock;
 
-public abstract class FoundWarningInterpret implements Displayable {
+public abstract class FoundWarningInterpret {
 
     protected static final String SEP_INFO = "\n";
 
@@ -12,24 +12,21 @@ public abstract class FoundWarningInterpret implements Displayable {
 
     private static final String LINE_COL = "line col";
 
-    private RowCol rc;
-
     private String fileName;
 
-    @Override
-    public String display() {
+    private int indexFile;
+
+    public String display(Classes _classes) {
         StringBuilder str_ = new StringBuilder(SEP_INFO);
         str_.append(FILE).append(SEP_KEY_VAL).append(fileName).append(SEP_INFO);
-        str_.append(LINE_COL).append(SEP_KEY_VAL).append(rc.display()).append(SEP_INFO);
+        FileBlock f_ = _classes.getFileBody(fileName);
+        if (f_ == null) {
+            str_.append(LINE_COL).append(SEP_KEY_VAL).append(SEP_INFO);
+        } else {
+            str_.append(LINE_COL).append(SEP_KEY_VAL).append(f_.getRowColFile(indexFile).display()).append(SEP_INFO);
+        }
+        str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(indexFile)).append(SEP_INFO);
         return str_.toString();
-    }
-
-    public RowCol getRc() {
-        return rc;
-    }
-
-    public void setRc(RowCol _rc) {
-        rc = _rc;
     }
 
     public String getFileName() {
@@ -40,4 +37,11 @@ public abstract class FoundWarningInterpret implements Displayable {
         fileName = _fileName;
     }
 
+    public int getIndexFile() {
+        return indexFile;
+    }
+
+    public void setIndexFile(int _indexFile) {
+        indexFile = _indexFile;
+    }
 }

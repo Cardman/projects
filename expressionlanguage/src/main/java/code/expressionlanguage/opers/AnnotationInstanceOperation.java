@@ -91,7 +91,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             } else if (mOp_ instanceof AnnotationInstanceOperation) {
                 if (((AnnotationInstanceOperation)mOp_).isArray()) {
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
                     un_.setFileName(_conf.getCurrentFileName());
                     _conf.getClasses().addError(un_);
                     className = _conf.getStandards().getAliasObject();
@@ -111,7 +111,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     }
                     if (blsAnn_.size() != 1) {
                         UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
-                        un_.setRc(_conf.getCurrentLocation());
+                        un_.setIndexFile(_conf.getCurrentLocationIndex());
                         un_.setFileName(_conf.getCurrentFileName());
                         _conf.getClasses().addError(un_);
                         className = _conf.getStandards().getAliasObject();
@@ -131,7 +131,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
-                call_.setRc(_conf.getCurrentLocation());
+                call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(className));
@@ -141,7 +141,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
-                call_.setRc(_conf.getCurrentLocation());
+                call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
                 className = _conf.getStandards().getAliasObject();
                 setResultClass(new ClassArgumentMatching(realClassName_));
@@ -177,7 +177,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {
@@ -259,7 +259,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
                 fieldNames.put(fieldsTypes_.getKey(0),EMPTY_STRING);
@@ -272,9 +272,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (nb_ != suppliedFields_.size()) {
             //ERROR
             BadConstructorCall cast_ = new BadConstructorCall();
-            cast_.setLocalOffset(_conf.getCurrentLocation());
+            cast_.setLocalOffset(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
         }
         for (String f: suppliedFields_) {
@@ -284,7 +284,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 cast_.setId(f);
                 cast_.setClassName(className);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
             fieldNames.put(f,EMPTY_STRING);
@@ -296,9 +296,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             if (!suppliedFields_.containsStr(e.getKey())) {
                 //ERROR
                 BadConstructorCall cast_ = new BadConstructorCall();
-                cast_.setLocalOffset(_conf.getCurrentLocation());
+                cast_.setLocalOffset(_conf.getCurrentLocationIndex());
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
         }
@@ -327,7 +327,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
             }

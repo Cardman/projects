@@ -86,19 +86,22 @@ public abstract class AbstractPageEl extends PageEl {
         return getCommonInfosAndRc(getTrace(), _context);
     }
 
-    public String getCommonInfosAndRc(RowCol _rc,ContextEl _context) {
+    private String getCommonInfosAndRc(RowCol _rc,ContextEl _context) {
         StringBuilder str_ = new StringBuilder(getCommonInfos(_context));
         str_.append(_rc.display());
         return str_.toString();
     }
 
-    public RowCol getTrace() {
+    private RowCol getTrace() {
         RowCol rc_ = new RowCol();
         if (currentBlock != null){
             int sum_ = globalOffset + offset + translatedOffset;
             rc_ = currentBlock.getRowCol(sum_);
         }
         return rc_;
+    }
+    public int getTraceIndex() {
+        return globalOffset + offset + translatedOffset;
     }
 
     private String getCommonInfos(ContextEl _context) {

@@ -7,7 +7,7 @@ import code.util.ObjectMap;
 
 public class ErrorStruct implements Struct {
 
-    private final Object instance;
+    private final CustomError instance;
 
     private final String className;
 
@@ -41,7 +41,7 @@ public class ErrorStruct implements Struct {
     }
 
     @Override
-    public Object getInstance() {
+    public CustomError getInstance() {
         return instance;
     }
 

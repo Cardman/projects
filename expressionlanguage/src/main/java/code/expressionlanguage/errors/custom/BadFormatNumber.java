@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public class BadFormatNumber extends FoundErrorInterpret {
@@ -9,8 +10,8 @@ public class BadFormatNumber extends FoundErrorInterpret {
     private String number;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),SEP_INFO,BAD_FORMAT_NUMBER,SEP_KEY_VAL,number);
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),SEP_INFO,BAD_FORMAT_NUMBER,SEP_KEY_VAL,number);
     }
 
     public String getNumber() {

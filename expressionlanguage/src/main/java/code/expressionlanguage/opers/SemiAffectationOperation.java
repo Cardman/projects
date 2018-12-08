@@ -63,7 +63,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
             leftEl_.setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -92,7 +92,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(map_);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
             return;
@@ -106,7 +106,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
             return;
         }
@@ -162,7 +162,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                                 un_.setFileName(_conf.getCurrentFileName());
-                                un_.setRc(_conf.getCurrentLocation());
+                                un_.setIndexFile(_conf.getCurrentLocationIndex());
                                 _conf.getClasses().addError(un_);
                             }
                         }
@@ -202,7 +202,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                                 UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                                 un_.setFileName(_conf.getCurrentFileName());
-                                un_.setRc(_conf.getCurrentLocation());
+                                un_.setIndexFile(_conf.getCurrentLocationIndex());
                                 _conf.getClasses().addError(un_);
                             }
                         }
@@ -241,7 +241,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation imple
                     cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                     un_.setFileName(_conf.getCurrentFileName());
-                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(un_);
                 }
             }

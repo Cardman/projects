@@ -1,4 +1,5 @@
 package code.expressionlanguage.errors.custom;
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public final class MissingReturnMethod extends FoundErrorInterpret {
@@ -10,9 +11,9 @@ public final class MissingReturnMethod extends FoundErrorInterpret {
     private String returning;
 
     @Override
-    public String display() {
+    public String display(Classes _classes) {
         String message_ = StringList.simpleStringsFormat(CLASS_NAME, returning);
-        return StringList.concat(super.display(),message_,SEP_KEY_VAL,id,SEP_INFO);
+        return StringList.concat(super.display(_classes),message_,SEP_KEY_VAL,id,SEP_INFO);
     }
 
     public String getId() {

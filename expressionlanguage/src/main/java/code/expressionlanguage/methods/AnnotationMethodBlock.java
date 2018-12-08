@@ -126,7 +126,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         BadImplicitCast cast_ = new BadImplicitCast();
         cast_.setMapping(mapping_);
         cast_.setFileName(_stds.getCurrentFileName());
-        cast_.setRc(_stds.getCurrentLocation());
+        cast_.setIndexFile(_stds.getCurrentLocationIndex());
         _stds.getClasses().addError(cast_);
     }
 
@@ -217,7 +217,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, defaultValueOffset));
+            cast_.setIndexFile(defaultValueOffset);
             _cont.getClasses().addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(import_, _cont)) {

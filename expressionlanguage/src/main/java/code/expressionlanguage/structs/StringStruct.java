@@ -8,20 +8,15 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.util.CustList;
-import code.util.Numbers;
 import code.util.ObjectMap;
+import code.util.Replacement;
 import code.util.StringList;
 
 public final class StringStruct extends CharSequenceStruct {
 
-    private final char[] instance;
+    private final String instance;
 
     public StringStruct(String _instance) {
-        this(_instance.toCharArray());
-    }
-
-    public StringStruct(char[] _instance) {
         instance = _instance;
     }
 
@@ -30,8 +25,10 @@ public final class StringStruct extends CharSequenceStruct {
         LgNames lgNames_ = _cont.getStandards();
         String bytePrimType_ = lgNames_.getAliasPrimByte();
         String charPrimType_ = lgNames_.getAliasPrimChar();
-        String nbType_ = lgNames_.getAliasNumber();
-        String stringType_ = lgNames_.getAliasString();
+        if (list_.size() == 0) {
+            newStringStruct(_res);
+            return;
+        }
         if (list_.size() == 1) {
             String arrBytes_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_);
             if (StringList.quickEq(list_.first(), arrBytes_)) {
@@ -43,11 +40,22 @@ public final class StringStruct extends CharSequenceStruct {
                 newStringStructByCharArray(_args[0], lgNames_, _res);
                 return;
             }
+            newStringBuilderStruct(_args[0], lgNames_, _res);
+            return;
         }
+        String arrBytes_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_);
+        if (StringList.quickEq(list_.first(), arrBytes_)) {
+            newStringStructByByteArray(_args[0], _args[1], _args[2], lgNames_, _res);
+            return;
+        }
+        newStringStructByCharArray(_args[0], _args[1], _args[2], lgNames_, _res);
+    }
+    private static void newStringStruct(ResultErrorStd _res) {
+        _res.setResult(new StringStruct(""));
     }
     private static void newStringStructByCharArray(Struct _arg, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_arg.isNull()) {
+        if (!(_arg instanceof ArrayStruct)) {
             _res.setError(nullPe_);
             return;
         }
@@ -58,12 +66,32 @@ public final class StringStruct extends CharSequenceStruct {
         for (int i = 0; i < len_; i++) {
             arr_[i] = ((CharStruct)argArr_[i]).getChar();
         }
-        _res.setResult(new StringStruct(arr_));
+        _res.setResult(new StringStruct(new String(arr_)));
     }
-
+    private static void newStringStructByCharArray(Struct _arg, Struct _one, Struct _two,LgNames _stds, ResultErrorStd _res) {
+        String nullPe_ = _stds.getAliasNullPe();
+        if (!(_arg instanceof ArrayStruct)) {
+            _res.setError(nullPe_);
+            return;
+        }
+        ArrayStruct chArr_ = (ArrayStruct) _arg;
+        Struct[] argArr_ = chArr_.getInstance();
+        int len_ = argArr_.length;
+        char[] arr_ = new char[len_];
+        for (int i = 0; i < len_; i++) {
+            arr_[i] = ((CharStruct)argArr_[i]).getChar();
+        }
+        int one_ = ((NumberStruct) _one).getInstance().intValue();
+        int two_ = ((NumberStruct) _two).getInstance().intValue();
+        if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
+            _res.setError(_stds.getAliasBadIndex());
+            return;
+        }
+        _res.setResult(new StringStruct(new String(arr_, one_, two_)));
+    }
     private static void newStringStructByByteArray(Struct _arg, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_arg.isNull()) {
+        if (!(_arg instanceof ArrayStruct)) {
             _res.setError(nullPe_);
             return;
         }
@@ -81,6 +109,87 @@ public final class StringStruct extends CharSequenceStruct {
         }
         _res.setResult(new StringStruct(chars_));
     }
+    private static void newStringStructByByteArray(Struct _arg, Struct _one, Struct _two,LgNames _stds, ResultErrorStd _res) {
+        String nullPe_ = _stds.getAliasNullPe();
+        if (!(_arg instanceof ArrayStruct)) {
+            _res.setError(nullPe_);
+            return;
+        }
+        ArrayStruct chArr_ = (ArrayStruct) _arg;
+        Struct[] argArr_ = chArr_.getInstance();
+        int len_ = argArr_.length;
+        byte[] arr_ = new byte[len_];
+        for (int i = 0; i < len_; i++) {
+            arr_[i] = ((NumberStruct)argArr_[i]).getInstance().byteValue();
+        }
+        int one_ = ((NumberStruct) _one).getInstance().intValue();
+        int two_ = ((NumberStruct) _two).getInstance().intValue();
+        if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
+            _res.setError(_stds.getAliasBadIndex());
+            return;
+        }
+        String chars_ = StringList.decode(arr_, one_, two_);
+        if (chars_ == null) {
+            _res.setError(_stds.getAliasBadIndex());
+            return;
+        }
+        _res.setResult(new StringStruct(chars_));
+    }
+    private static void newStringBuilderStruct(Struct _arg, LgNames _stds, ResultErrorStd _res) {
+        String nullPe_ = _stds.getAliasNullPe();
+        if (!(_arg instanceof StringBuilderStruct)) {
+            _res.setError(nullPe_);
+            return;
+        }
+        StringBuilderStruct arg_ = (StringBuilderStruct) _arg;
+        _res.setResult(new StringStruct(arg_.getInstance().toString()));
+    }
+    /*
+    
+            if (list_.size() == 1) {
+                if (StringList.quickEq(list_.first(), stringBuilderType_)) {
+                    StringBuilder one_ = (StringBuilder) argsObj_[0];
+                    if (one_ == null) {
+                        result_.setError(lgNames_.getAliasNullPe());
+                    } else {
+                        result_.setResult(new StringStruct(new String(one_)));
+                    }
+                }
+            } else {
+                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_))) {
+                    byte[] two_ = (byte[]) argsObj_[0];
+                    if (two_ == null) {
+                        result_.setError(lgNames_.getAliasNullPe());
+                    } else {
+                        Integer three_ = (Integer) argsObj_[1];
+                        Integer four_ = (Integer) argsObj_[2];
+                        if (three_ < 0 || four_ < 0 || three_ > two_.length - four_) {
+                            result_.setError(lgNames_.getAliasBadIndex());
+                        } else {
+                            String dec_ = StringList.decode(two_, three_, four_);
+                            if (dec_ != null) {
+                                result_.setResult(new StringStruct(dec_));
+                            } else {
+                                result_.setError(lgNames_.getAliasBadIndex());
+                            }
+                        }
+                    }
+                } else {
+                    char[] two_ = (char[]) argsObj_[0];
+                    if (two_ == null) {
+                        result_.setError(lgNames_.getAliasNullPe());
+                    } else {
+                        Integer three_ = (Integer) argsObj_[1];
+                        Integer four_ = (Integer) argsObj_[2];
+                        if (three_ < 0 || four_ < 0 || three_ > two_.length - four_) {
+                            result_.setError(lgNames_.getAliasBadIndex());
+                        } else {
+                            result_.setResult(new StringStruct(new String(two_, three_, four_)));
+                        }
+                    }
+                }
+            }
+        */
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             ((StringStruct)_struct).calculate(_cont, _res, _method, _args);
@@ -89,26 +198,58 @@ public final class StringStruct extends CharSequenceStruct {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
-        String booleanType_ = lgNames_.getAliasBoolean();
-        String charType_ = lgNames_.getAliasCharacter();
-        String nbType_ = lgNames_.getAliasNumber();
-        String stringType_ = lgNames_.getAliasString();
-        String booleanPrimType_ = lgNames_.getAliasPrimBoolean();
         if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-            StringStruct first_ = (StringStruct) _args[0];
+            Struct arg_ = _args[0];
+            if (!(arg_ instanceof StringStruct)) {
+                String nullPe_ = lgNames_.getAliasNullPe();
+                _res.setError(nullPe_);
+                return;
+            }
+            StringStruct first_ = (StringStruct) arg_;
             first_.compareTo(_args[1], lgNames_, _res);
             return;
         }
+        Struct arg_ = _args[0];
+        if (list_.size() == 1) {
+            if (arg_ instanceof DisplayableStruct) {
+                _res.setResult(((DisplayableStruct)arg_).getDisplayedString(_cont));
+                return;
+            }
+            if (!(arg_ instanceof ArrayStruct)) {
+                String nullPe_ = lgNames_.getAliasNullPe();
+                _res.setError(nullPe_);
+                return;
+            }
+            ArrayStruct chArr_ = (ArrayStruct) arg_;
+            Struct[] argArr_ = chArr_.getInstance();
+            int len_ = argArr_.length;
+            char[] arr_ = new char[len_];
+            for (int i = 0; i < len_; i++) {
+                arr_[i] = ((CharStruct)argArr_[i]).getChar();
+            }
+            _res.setResult(new StringStruct(String.valueOf(arr_)));
+            return;
+        }
+        ArrayStruct chArr_ = (ArrayStruct) arg_;
+        Struct[] argArr_ = chArr_.getInstance();
+        int len_ = argArr_.length;
+        char[] arr_ = new char[len_];
+        for (int i = 0; i < len_; i++) {
+            arr_[i] = ((CharStruct)argArr_[i]).getChar();
+        }
+        int one_ = ((NumberStruct)_args[0]).getInstance().intValue();
+        int two_ = ((NumberStruct)_args[1]).getInstance().intValue();
+        if (one_ < 0 || two_ < 0 || one_ + two_ > arr_.length) {
+            _res.setError(lgNames_.getAliasBadIndex());
+            return;
+        }
+        _res.setResult(new StringStruct(String.valueOf(arr_,one_,two_)));
     }
     private void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
         LgNames lgNames_ = _cont.getStandards();
-        String booleanType_ = lgNames_.getAliasBoolean();
-        String charType_ = lgNames_.getAliasCharacter();
-        String nbType_ = lgNames_.getAliasNumber();
         String stringType_ = lgNames_.getAliasString();
-        String booleanPrimType_ = lgNames_.getAliasPrimBoolean();
         if (StringList.quickEq(name_, lgNames_.getAliasLength())) {
             length(_res);
             return;
@@ -233,63 +374,64 @@ public final class StringStruct extends CharSequenceStruct {
             splitChars(_args[0], lgNames_, _res);
             return;
         }
+        if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
+            eq(_args[0], lgNames_, _res);
+            return;
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasFormat())) {
+            format(_args[0], lgNames_, _res);
+            return;
+        }
+        if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
+            replaceMultiple(_args[0], lgNames_, _res);
+            return;
+        }
     }
     private void length(ResultErrorStd _res) {
-        _res.setResult(new IntStruct(instance.length));
+        _res.setResult(new IntStruct(instance.length()));
     }
 
     private void isEmpty(ResultErrorStd _res) {
-        _res.setResult(new BooleanStruct(instance.length == 0));
+        _res.setResult(new BooleanStruct(instance.isEmpty()));
     }
 
     private void charAt(Struct _index, LgNames _stds, ResultErrorStd _res) {
         NumberStruct nb_ = (NumberStruct)_index;
         int ind_ = nb_.getInstance().intValue();
         String badIndex_ = _stds.getAliasBadIndex();
-        if (ind_ < 0 || ind_ >= instance.length) {
+        if (ind_ < 0 || ind_ >= instance.length()) {
             _res.setError(badIndex_);
             return;
         }
-        _res.setResult(new CharStruct(instance[ind_]));
+        _res.setResult(new CharStruct(instance.charAt(ind_)));
     }
 
     private void getBytes(LgNames _stds, ResultErrorStd _res) {
         String bytePrim_ = _stds.getAliasPrimByte();
-        Numbers<Byte> list_ = StringList.encodeList(instance);
+        byte[] list_ = StringList.encode(instance);
         bytePrim_ = PrimitiveTypeUtil.getPrettyArrayType(bytePrim_);
-        int len_ = list_.size();
+        int len_ = list_.length;
         Struct[] strArr_ = new Struct[len_];
         for (int i = 0; i < len_; i++) {
-            strArr_[i] = new ByteStruct(list_.get(i));
+            strArr_[i] = new ByteStruct(list_[i]);
         }
         _res.setResult(new ArrayStruct(strArr_, bytePrim_));
     }
 
     private void compareTo(Struct _anotherString, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_anotherString.isNull()) {
+        if (!(_anotherString instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
         StringStruct st_ = (StringStruct)_anotherString;
-        int lenOne_ = instance.length;
-        int lenTwo_ = st_.instance.length;
-        int lim_ = Math.min(lenOne_, lenTwo_);
-        for (int i = 0; i < lim_; i++) {
-            char cOne_ = instance[i];
-            char cTwo_ = st_.instance[i];
-            if (cOne_ != cTwo_) {
-                _res.setResult(new IntStruct(cOne_ - cTwo_));
-                return;
-            }
-        }
-        _res.setResult(new IntStruct(lenOne_ - lenTwo_));
+        _res.setResult(new IntStruct(instance.compareTo(st_.instance)));
     }
 
     private void regionMatches(NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
             NumberStruct _len, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_other.isNull()) {
+        if (!(_other instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
@@ -297,21 +439,7 @@ public final class StringStruct extends CharSequenceStruct {
         int comLen_ = _len.getInstance().intValue();
         int to_ = _toffset.getInstance().intValue();
         int po_ = _ooffset.getInstance().intValue();
-        if (po_ < 0 || to_ < 0 || to_ > instance.length - comLen_
-                || po_ > other_.instance.length - comLen_) {
-            _res.setResult(new BooleanStruct(false));
-            return;
-        }
-        while (comLen_ > 0) {
-            comLen_--;
-            if (instance[to_] != other_.instance[po_]) {
-                _res.setResult(new BooleanStruct(false));
-                return;
-            }
-            to_++;
-            po_++;
-        }
-        _res.setResult(new BooleanStruct(true));
+        _res.setResult(new BooleanStruct(instance.regionMatches(to_, other_.instance, po_, comLen_)));
     }
 
     private void startsWith(Struct _prefix, LgNames _stds, ResultErrorStd _res) {
@@ -320,40 +448,22 @@ public final class StringStruct extends CharSequenceStruct {
 
     private void endsWith(Struct _suffix, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_suffix.isNull()) {
+        if (!(_suffix instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
         StringStruct suffix_ = (StringStruct) _suffix;
-        startsWith(_suffix,new IntStruct(instance.length - suffix_.instance.length), _stds, _res);
+        _res.setResult(new BooleanStruct(instance.endsWith(suffix_.instance)));
     }
     private void startsWith(Struct _prefix, NumberStruct _toffset, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_prefix.isNull()) {
+        if (!(_prefix instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
         StringStruct pref_ = (StringStruct) _prefix;
         int to_ = _toffset.getInstance().intValue();
-        int po_ = 0;
-        int pLen_ = pref_.instance.length;
-        if (to_ < 0 || to_ > instance.length - pLen_) {
-            _res.setResult(new BooleanStruct(false));
-            return;
-        }
-        pLen_--;
-        while (pLen_ >= 0) {
-            int ind_ = to_;
-            int prefInd_ = po_;
-            if (instance[ind_] != pref_.instance[prefInd_]) {
-                _res.setResult(new BooleanStruct(false));
-                return;
-            }
-            to_++;
-            po_++;
-            pLen_--;
-        }
-        _res.setResult(new BooleanStruct(true));
+        _res.setResult(new BooleanStruct(instance.startsWith(pref_.instance, to_)));
     }
 
     private void indexOf(Struct _ch, ResultErrorStd _res) {
@@ -365,108 +475,43 @@ public final class StringStruct extends CharSequenceStruct {
         int int_ = ch_.getInstance().intValue();
         NumberStruct index_ = (NumberStruct) _fromIndex;
         int from_ = index_.getInstance().intValue();
-        if (from_ < 0) {
-            from_ = 0;
-        }
-        int len_ = instance.length;
-        for (int i = from_; i < len_; i++) {
-            if (instance[i] == int_) {
-                _res.setResult(new IntStruct(i));
-                return;
-            }
-        }
-        _res.setResult(new IntStruct(-1));
+        _res.setResult(new IntStruct(instance.indexOf(int_, from_)));
     }
     //getAliasFormat,replaceMult,getAliasSplit chars
 
     private void contains(Struct _str, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_str.isNull()) {
+        if (!(_str instanceof CharSequenceStruct)) {
             _res.setError(nullPe_);
             return;
         }
         CharSequenceStruct arg_ = (CharSequenceStruct) _str;
-        arg_.toStringStruct(_stds, _res);
-        StringStruct strRep_ = (StringStruct) _res.getResult();
-        indexOfString(strRep_, _stds, _res);
-        Struct resLoc_ = _res.getResult();
-        if (resLoc_ instanceof NumberStruct) {
-            int index_ = ((NumberStruct)resLoc_).getInstance().intValue();
-            _res.setResult(new BooleanStruct(index_ > -1));
-        }
+        _res.setResult(new BooleanStruct(instance.contains(arg_.getInstance())));
     }
 
     private void indexOfString(Struct _str, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_str.isNull()) {
+        if (!(_str instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
-        indexOfString(_str,new IntStruct(0), _stds, _res);
+        StringStruct str_ = (StringStruct) _str;
+        _res.setResult(new IntStruct(instance.indexOf(str_.instance)));
     }
 
     private void indexOfString(Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res) {
         int from_ = _fromIndex.getInstance().intValue();
         String nullPe_ = _stds.getAliasNullPe();
-        if (_str.isNull()) {
+        if (!(_str instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
         StringStruct str_ = (StringStruct) _str;
-        _res.setResult(new IntStruct(indexOf(instance, 0, instance.length,
-                str_.instance, 0, str_.instance.length, from_)));
-    }
-    static int indexOf(char[] _source, int _sourceOffset, int _sourceCount,
-            char[] _target, int _targetOffset, int _targetCount,
-            int _fromIndex) {
-        int fromIndex_ = _fromIndex;
-        if (fromIndex_ >= _sourceCount) {
-            if (_targetCount == 0) {
-                return _sourceCount;
-            }
-            return -1;
-        }
-        if (fromIndex_ < 0) {
-            fromIndex_ = 0;
-        }
-        if (_targetCount == 0) {
-            return fromIndex_;
-        }
-
-        char first_  = _target[_targetOffset];
-        int max_ = _sourceOffset + _sourceCount - _targetCount;
-
-        int i_ = _sourceOffset + fromIndex_;
-        while (i_ <= max_) {
-            if (_source[i_] != first_) {
-                i_++;
-                while (i_ <= max_) {
-                    if (_source[i_] == first_) {
-                        break;
-                    }
-                    i_++;
-                    continue;
-                }
-            }
-            if (i_ <= max_) {
-                int j_ = i_ + 1;
-                int end_ = j_ + _targetCount - 1;
-                int k_ = _targetOffset + 1;
-                while (j_ < end_ && _source[j_] == _target[k_]) {
-                    j_++;
-                    k_++;
-                }
-                if (j_ == end_) {
-                    return i_ - _sourceOffset;
-                }
-            }
-            i_++;
-        }
-        return -1;
+        _res.setResult(new IntStruct(instance.indexOf(str_.instance, from_)));
     }
 
     private void lastIndexOf(Struct _ch, ResultErrorStd _res) {
-        lastIndexOf(_ch, new IntStruct(instance.length),_res);
+        lastIndexOf(_ch, new IntStruct(instance.length()),_res);
     }
 
     private void lastIndexOf(Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
@@ -474,221 +519,58 @@ public final class StringStruct extends CharSequenceStruct {
         int int_ = ch_.getInstance().intValue();
         NumberStruct index_ = (NumberStruct) _fromIndex;
         int from_ = index_.getInstance().intValue();
-        int len_ = instance.length;
-        if (from_ >= len_) {
-            from_ = len_ - 1;
-        }
-        for (int i = from_; i >= 0; i--) {
-            if (instance[i] == int_) {
-                _res.setResult(new IntStruct(i));
-                return;
-            }
-        }
-        _res.setResult(new IntStruct(-1));
+        _res.setResult(new IntStruct(instance.lastIndexOf(int_, from_)));
     }
 
     private void lastIndexOfString(Struct _str, LgNames _stds, ResultErrorStd _res) {
-        lastIndexOfString(_str,new IntStruct(instance.length), _stds, _res);
+        lastIndexOfString(_str,new IntStruct(instance.length()), _stds, _res);
     }
 
     private void lastIndexOfString(Struct _str, NumberStruct _fromIndex, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_str.isNull()) {
+        if (!(_str instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
         StringStruct str_ = (StringStruct)_str;
         int from_ = _fromIndex.getInstance().intValue();
-        _res.setResult(new IntStruct(lastIndexOf(instance, 0, instance.length,
-                str_.instance, 0, str_.instance.length, from_)));
-    }
-    static int lastIndexOf(char[] _source, int _sourceOffset, int _sourceCount,
-            char[] _target, int _targetOffset, int _targetCount,
-            int _fromIndex) {
-        int fromIndex_ = _fromIndex;
-        int rightIndex = _sourceCount - _targetCount;
-        if (fromIndex_ < 0) {
-            return -1;
-        }
-        if (fromIndex_ > rightIndex) {
-            fromIndex_ = rightIndex;
-        }
-        if (_targetCount == 0) {
-            return fromIndex_;
-        }
-
-        int strLastIndex_ = _targetOffset + _targetCount - 1;
-        char strLastChar_ = _target[strLastIndex_];
-        int min_ = _sourceOffset + _targetCount - 1;
-        int i_ = min_ + fromIndex_;
-        while (true) {
-            while (i_ >= min_ && _source[i_] != strLastChar_) {
-                i_--;
-            }
-            if (i_ < min_) {
-                return -1;
-            }
-            int j_ = i_ - 1;
-            int start_ = j_ - (_targetCount - 1);
-            int k_ = strLastIndex_ - 1;
-
-            boolean goToBegin_ = false;
-            while (j_ > start_) {
-                int srcInd_ = j_;
-                int targetInd_ = k_;
-                if (_source[srcInd_] != _target[targetInd_]) {
-                    i_--;
-                    goToBegin_ = true;
-                    break;
-                }
-                j_--;
-                k_--;
-            }
-            if (goToBegin_) {
-                continue;
-            }
-            return start_ - _sourceOffset + 1;
-        }
+        _res.setResult(new IntStruct(instance.lastIndexOf(str_.instance, from_)));
     }
     private void substring(NumberStruct _beginIndex, LgNames _stds, ResultErrorStd _res) {
-        substring(_beginIndex, new IntStruct(instance.length), _stds, _res);
+        substring(_beginIndex, new IntStruct(instance.length()), _stds, _res);
     }
 
     private void substring(NumberStruct _beginIndex, NumberStruct _endIndex, LgNames _stds, ResultErrorStd _res) {
         int begin_ = _beginIndex.getInstance().intValue();
         int end_ = _endIndex.getInstance().intValue();
-        if (begin_ < 0 || end_ < 0 || end_ > instance.length || begin_ > end_) {
+        if (begin_ < 0 || end_ < 0 || end_ > instance.length() || begin_ > end_) {
             _res.setError(_stds.getAliasBadIndex());
             return;
         }
-        if (begin_ == 0 && instance.length == end_) {
-            _res.setResult(this);
-            return;
-        }
-        int count_ = end_ - begin_;
-        char[] res_ = new char[count_];
-        for (int i = 0; i < count_; i++) {
-            res_[i] = instance[i + begin_];
-        }
-        _res.setResult(new StringStruct(res_));
+        _res.setResult(new StringStruct(instance.substring(begin_, end_)));
     }
 
     private void replace(CharStruct _oldChar, CharStruct _newChar, ResultErrorStd _res) {
         char oldChar_ = _oldChar.getChar();
         char newChar_ = _newChar.getChar();
-        if (oldChar_ == newChar_) {
-            _res.setResult(this);
-            return;
-        }
-        int len_ = instance.length;
-        char[] arr_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            char cur_ = instance[i];
-            if (cur_ == oldChar_) {
-                arr_[i] = newChar_;
-            } else {
-                arr_[i] = cur_;
-            }
-        }
-        _res.setResult(new StringStruct(arr_));
+        _res.setResult(new StringStruct(instance.replace(oldChar_, newChar_)));
     }
 
     private void replaceString(Struct _oldChar, Struct _newChar, ResultErrorStd _res) {
-        char[] old_;
+        String old_;
         if (_oldChar instanceof StringStruct) {
             old_ = ((StringStruct)_oldChar).instance;
         } else {
             old_ = null;
         }
-        char[] new_;
+        String new_;
         if (_newChar instanceof StringStruct) {
             new_ = ((StringStruct)_newChar).instance;
         } else {
             new_ = null;
         }
-        char[] out_ = replace(instance, old_, new_);
+        String out_ = StringList.replace(instance, old_, new_);
         _res.setResult(new StringStruct(out_));
-    }
-    private static char[] replace(char[] _string, char[] _old, char[] _new) {
-        if (_old == null) {
-            return _string;
-        }
-        if (_new == null) {
-            if (_old.length == 0) {
-                StringBuilder list_ = new StringBuilder();
-                list_.append(_new);
-                for (char c: _string) {
-                    list_.append(c);
-                }
-                return list_.toString().toCharArray();
-            }
-            StringBuilder list_ = new StringBuilder();
-            int i_ = 0;
-            int len_ = _string.length;
-            int index_ = -1;
-            while (i_ < len_) {
-                index_ = indexOf(_string, 0, _string.length,
-                        _old, 0, _old.length, i_);
-                if (index_ < 0) {
-                    break;
-                }
-                int lenChars_ = index_ - i_;
-                char[] toAppend_ = new char[lenChars_];
-                for (int i = i_; i < index_; i++) {
-                    toAppend_[i - i_] = _string[i];
-                }
-                list_.append(toAppend_);
-                i_ = index_ + _old.length;
-            }
-            if (i_ <= len_) {
-                int lenStr_ = _string.length;
-                int lenChars_ = lenStr_ - i_;
-                char[] toAppend_ = new char[lenChars_];
-                for (int i = i_; i < lenStr_; i++) {
-                    toAppend_[i - i_] = _string[i];
-                }
-                list_.append(toAppend_);
-            }
-            return list_.toString().toCharArray();
-        }
-        if (_old.length == 0) {
-            StringBuilder list_ = new StringBuilder();
-            list_.append(_new);
-            for (char c: _string) {
-                list_.append(c);
-                list_.append(_new);
-            }
-            return list_.toString().toCharArray();
-        }
-        StringBuilder list_ = new StringBuilder();
-        int i_ = 0;
-        int len_ = _string.length;
-        int index_ = -1;
-        while (i_ < len_) {
-            index_ = indexOf(_string, 0, _string.length,
-                    _old, 0, _old.length, i_);
-            if (index_ < 0) {
-                break;
-            }
-            int lenChars_ = index_ - i_;
-            char[] toAppend_ = new char[lenChars_];
-            for (int i = i_; i < index_; i++) {
-                toAppend_[i - i_] = _string[i];
-            }
-            list_.append(toAppend_);
-            list_.append(_new);
-            i_ = index_ + _old.length;
-        }
-        if (i_ <= len_) {
-            int lenStr_ = _string.length;
-            int lenChars_ = lenStr_ - i_;
-            char[] toAppend_ = new char[lenChars_];
-            for (int i = i_; i < lenStr_; i++) {
-                toAppend_[i - i_] = _string[i];
-            }
-            list_.append(toAppend_);
-        }
-        return list_.toString().toCharArray();
     }
     private void splitSingleChar(CharStruct _sep, LgNames _stds, ResultErrorStd _res) {
         splitSingleChar(_sep, new IntStruct(-1), _stds, _res);
@@ -699,14 +581,14 @@ public final class StringStruct extends CharSequenceStruct {
             lim_ = -1;
         }
         char ch_ = _sep.getChar();
-        char[][] parts_ = splitChars(instance, ch_);
-        int lenArr_ = parts_.length;
+        StringList parts_ = StringList.splitChars(instance, ch_);
+        int lenArr_ = parts_.size();
         if (lim_ >= 0) {
             lenArr_ = lim_;
         }
         Struct[] arr_ = new Struct[lenArr_];
         for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_[i]);
+            arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
         aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
@@ -714,65 +596,31 @@ public final class StringStruct extends CharSequenceStruct {
     }
     private void splitChars(Struct _seps, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_seps.isNull()) {
+        if (!(_seps instanceof ArrayStruct)) {
             _res.setError(nullPe_);
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
         Struct[] arrStructSep_ = arrSep_.getInstance();
         int lenSeps_ = arrStructSep_.length;
-        char[] seps_ = new char[lenSeps_];
+        Character[] seps_ = new Character[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrStructSep_[i];
-            if (curSep_.isNull()) {
+            if (!(curSep_ instanceof CharStruct)) {
                 _res.setError(nullPe_);
                 return;
             }
             seps_[i] = ((CharStruct)curSep_).getChar();
         }
-        for (Struct s: arrStructSep_) {
-            if (s.isNull()) {
-                _res.setError(nullPe_);
-                return;
-            }
-        }
-        char[][] parts_ = splitChars(instance, seps_);
-        int lenArr_ = parts_.length;
+        StringList parts_ = StringList.splitChars(instance, seps_);
+        int lenArr_ = parts_.size();
         Struct[] arr_ = new Struct[lenArr_];
         for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_[i]);
+            arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
         aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
         _res.setResult(new ArrayStruct(arr_, aliasString_));
-    }
-    private static char[][] splitChars(char[] _string, char... _separators) {
-        CustList<char[]> l_ = new CustList<char[]>();
-        int len_ = _string.length;
-        StringBuilder str_ = new StringBuilder();
-        for (int i = 0; i < len_; i++) {
-            boolean isSep_ = false;
-            char cur_ = _string[i];
-            for (char s: _separators) {
-                if (s == cur_) {
-                    isSep_ = true;
-                    break;
-                }
-            }
-            if (isSep_) {
-                l_.add(str_.toString().toCharArray());
-                str_ = new StringBuilder();
-            } else {
-                str_.append(cur_);
-            }
-        }
-        l_.add(str_.toString().toCharArray());
-        int lenList_ = l_.size();
-        char[][] res_ = new char[lenList_][];
-        for (int i = 0; i <lenList_; i++) {
-            res_[i] = l_.get(i);
-        }
-        return res_;
     }
     private void splitSingleString(Struct _sep, LgNames _stds, ResultErrorStd _res) {
         splitSingleString(_sep, new IntStruct(-1), _stds, _res);
@@ -782,40 +630,34 @@ public final class StringStruct extends CharSequenceStruct {
     }
     private void splitStrings(NumberStruct _lim, Struct _seps, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_seps.isNull()) {
+        if (!(_seps instanceof ArrayStruct)) {
             _res.setError(nullPe_);
             return;
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
         Struct[] arrStructSep_ = arrSep_.getInstance();
         int lenSeps_ = arrStructSep_.length;
-        char[][] seps_ = new char[lenSeps_][];
+        String[] seps_ = new String[lenSeps_];
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrStructSep_[i];
-            if (curSep_.isNull()) {
+            if (!(curSep_ instanceof StringStruct)) {
                 _res.setError(nullPe_);
                 return;
             }
             seps_[i] = ((StringStruct)curSep_).instance;
         }
-        for (Struct s: arrStructSep_) {
-            if (s.isNull()) {
-                _res.setError(nullPe_);
-                return;
-            }
-        }
         int lim_ = _lim.getInstance().intValue();
         if (lim_ < -1) {
             lim_ = -1;
         }
-        char[][] parts_ = splitStrings(instance, seps_);
-        int lenArr_ = parts_.length;
+        StringList parts_ = StringList.splitStrings(instance, seps_);
+        int lenArr_ = parts_.size();
         if (lim_ >= 0) {
             lenArr_ = lim_;
         }
         Struct[] arr_ = new Struct[lenArr_];
         for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_[i]);
+            arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
         aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
@@ -823,7 +665,7 @@ public final class StringStruct extends CharSequenceStruct {
     }
     private void splitSingleString(Struct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res) {
         String nullPe_ = _stds.getAliasNullPe();
-        if (_sep.isNull()) {
+        if (!(_sep instanceof StringStruct)) {
             _res.setError(nullPe_);
             return;
         }
@@ -832,175 +674,77 @@ public final class StringStruct extends CharSequenceStruct {
             lim_ = -1;
         }
         StringStruct str_ = (StringStruct)_sep;
-        char[][] parts_ = splitStrings(instance, str_.instance);
-        int lenArr_ = parts_.length;
+        StringList parts_ = StringList.splitStrings(instance, str_.instance);
+        int lenArr_ = parts_.size();
         if (lim_ >= 0) {
             lenArr_ = lim_;
         }
         Struct[] arr_ = new Struct[lenArr_];
         for (int i = 0; i < lenArr_; i++) {
-            arr_[i] = new StringStruct(parts_[i]);
+            arr_[i] = new StringStruct(parts_.get(i));
         }
         String aliasString_ = _stds.getAliasString();
         aliasString_ = PrimitiveTypeUtil.getPrettyArrayType(aliasString_);
         _res.setResult(new ArrayStruct(arr_, aliasString_));
     }
     
-    private static char[][] splitStringsSep(char[] _string, char[]... _separators) {
-        CustList<char[]> l_ = new CustList<char[]>();
-        int len_ = _string.length;
-        char[] sub_ = _string;
-        int subLen_ = sub_.length;
-        while (true) {
-            char[] candidate_ = null;
-            int minIndex_ = len_;
-            int maxLength_ = 0;
-            for (char[] s: _separators) {
-                int sepLen_ = s.length;
-                int locIndex_ = indexOf(sub_, 0, subLen_, s, 0, sepLen_, 0);
-                if (locIndex_ < 0) {
-                    continue;
-                }
-                if (locIndex_ > minIndex_) {
-                    continue;
-                }
-                int locLength_ = s.length;
-                if (locIndex_ < minIndex_) {
-                    minIndex_ = locIndex_;
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                    continue;
-                }
-                if (locLength_ > maxLength_) {
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                }
-            }
-            if (candidate_ == null) {
-                l_.add(sub_);
-                break;
-            }
-            char[] part_ = new char[minIndex_];
-            for (int i = 0; i < minIndex_; i++) {
-                part_[i] = sub_[i];
-            }
-            l_.add(part_);
-            l_.add(candidate_);
-            int nextOffset_ = minIndex_ + maxLength_;
-            int nextLength_ = subLen_ - nextOffset_;
-            char[] next_ = new char[nextLength_];
-            for (int i = nextOffset_; i < subLen_; i++) {
-                next_[i-nextOffset_] = sub_[i];
-            }
-            sub_ = next_;
-            subLen_ = sub_.length;
-        }
-        int lenList_ = l_.size();
-        char[][] res_ = new char[lenList_][];
-        for (int i = 0; i <lenList_; i++) {
-            res_[i] = l_.get(i);
-        }
-        return res_;
-    }
-    private static char[][] splitStrings(char[] _string, char[]... _separators) {
-        CustList<char[]> l_ = new CustList<char[]>();
-        int len_ = _string.length;
-        char[] sub_ = _string;
-        int subLen_ = sub_.length;
-        while (true) {
-            char[] candidate_ = null;
-            int minIndex_ = len_;
-            int maxLength_ = 0;
-            for (char[] s: _separators) {
-                int sepLen_ = s.length;
-                int locIndex_ = indexOf(sub_, 0, subLen_, s, 0, sepLen_, 0);
-                if (locIndex_ < 0) {
-                    continue;
-                }
-                if (locIndex_ > minIndex_) {
-                    continue;
-                }
-                int locLength_ = s.length;
-                if (locIndex_ < minIndex_) {
-                    minIndex_ = locIndex_;
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                    continue;
-                }
-                if (locLength_ > maxLength_) {
-                    maxLength_ = locLength_;
-                    candidate_ = s;
-                }
-            }
-            if (candidate_ == null) {
-                l_.add(sub_);
-                break;
-            }
-            char[] part_ = new char[minIndex_];
-            for (int i = 0; i < minIndex_; i++) {
-                part_[i] = sub_[i];
-            }
-            l_.add(part_);
-            int nextOffset_ = minIndex_ + maxLength_;
-            int nextLength_ = subLen_ - nextOffset_;
-            char[] next_ = new char[nextLength_];
-            for (int i = nextOffset_; i < subLen_; i++) {
-                next_[i-nextOffset_] = sub_[i];
-            }
-            sub_ = next_;
-            subLen_ = sub_.length;
-        }
-        int lenList_ = l_.size();
-        char[][] res_ = new char[lenList_][];
-        for (int i = 0; i <lenList_; i++) {
-            res_[i] = l_.get(i);
-        }
-        return res_;
-    }
     private void trim(ResultErrorStd _res) {
-        int len_ = instance.length;
-        if (len_ == 0) {
-            _res.setResult(new StringStruct(new char[0]));
-            return;
-        }
-        int firstInclude_ = 0;
-        int last_ = len_ - 1;
-        while (firstInclude_ <= last_) {
-            char cur_ = instance[firstInclude_];
-            if (cur_ > ' ') {
-                break;
-            }
-            firstInclude_++;
-        }
-        if (firstInclude_ > last_) {
-            _res.setResult(new StringStruct(new char[0]));
-            return;
-        }
-        while (true) {
-            char cur_ = instance[last_];
-            if (cur_ > ' ') {
-                break;
-            }
-            last_--;
-        }
-        int lenTrim_ = last_ + 1 - firstInclude_;
-        char[] tr_ = new char[lenTrim_];
-        for (int i = firstInclude_; i <= last_; i++) {
-            tr_[i - firstInclude_] = instance[i];
-        }
-        _res.setResult(new StringStruct(tr_));
+        _res.setResult(new StringStruct(instance.trim()));
     }
 
     private void toCharArray(LgNames _stds,ResultErrorStd _res) {
         String aliasChar_ = _stds.getAliasPrimChar();
         aliasChar_ = PrimitiveTypeUtil.getPrettyArrayType(aliasChar_);
-        int len_ = instance.length;
+        int len_ = instance.length();
         Struct[] arrOut_ = new Struct[len_];
         for (int i = 0; i <= len_; i++) {
-            arrOut_[i] = new CharStruct(instance[i]);
+            arrOut_[i] = new CharStruct(instance.charAt(i));
         }
         ArrayStruct arr_ = new ArrayStruct(arrOut_,aliasChar_);
         _res.setResult(arr_);
+    }
+    private void eq(Struct _sep, LgNames _stds,ResultErrorStd _res) {
+        _res.setResult(new BooleanStruct(sameReference(_sep)));
+    }
+    private void format(Struct _seps, LgNames _stds,ResultErrorStd _res) {
+        String nullPe_ = _stds.getAliasNullPe();
+        if (!(_seps instanceof ArrayStruct)) {
+            _res.setError(nullPe_);
+            return;
+        }
+        ArrayStruct arrSep_ = (ArrayStruct) _seps;
+        Struct[] arrStructSep_ = arrSep_.getInstance();
+        int lenSeps_ = arrStructSep_.length;
+        String[] seps_ = new String[lenSeps_];
+        for (int i = 0; i < lenSeps_; i++) {
+            Struct curSep_ = arrStructSep_[i];
+            if (!(curSep_ instanceof StringStruct)) {
+                _res.setError(nullPe_);
+                return;
+            }
+            seps_[i] = ((StringStruct)curSep_).instance;
+        }
+        _res.setResult(new StringStruct(StringList.simpleStringsFormat(instance, seps_)));
+    }
+    private void replaceMultiple(Struct _seps, LgNames _stds,ResultErrorStd _res) {
+        String nullPe_ = _stds.getAliasNullPe();
+        if (!(_seps instanceof ArrayStruct)) {
+            _res.setError(nullPe_);
+            return;
+        }
+        ArrayStruct arrSep_ = (ArrayStruct) _seps;
+        Struct[] arrStructSep_ = arrSep_.getInstance();
+        int lenSeps_ = arrStructSep_.length;
+        Replacement[] seps_ = new Replacement[lenSeps_];
+        for (int i = 0; i < lenSeps_; i++) {
+            Struct curSep_ = arrStructSep_[i];
+            if (!(curSep_ instanceof ReplacementStruct)) {
+                _res.setError(nullPe_);
+                return;
+            }
+            seps_[i] = ((ReplacementStruct)curSep_).getInstance();
+        }
+        _res.setResult(new StringStruct(StringList.replaceMult(instance, seps_)));
     }
     @Override
     public boolean isNull() {
@@ -1014,13 +758,9 @@ public final class StringStruct extends CharSequenceStruct {
 
     @Override
     public String getInstance() {
-        return new String(instance);
+        return instance;
     }
 
-    @Override
-    protected void toStringStruct(LgNames _stds, ResultErrorStd _res) {
-        _res.setResult(this);
-    }
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
         return null;

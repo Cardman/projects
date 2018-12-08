@@ -128,14 +128,14 @@ public final class ElementBlock extends Leaf implements InfoBlock{
         if (prev_ != null && !(prev_ instanceof ElementBlock)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(prev_.getFile().getFileName());
-            un_.setRc(prev_.getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(prev_.getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }
         if (!(getParent() instanceof EnumBlock)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }

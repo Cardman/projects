@@ -45,7 +45,7 @@ public final class DimensionArrayInstancing extends
             BadOperandsNumber badCall_ = new BadOperandsNumber();
             badCall_.setOperandsNumber(0);
             badCall_.setFileName(_conf.getCurrentFileName());
-            badCall_.setRc(_conf.getCurrentLocation());
+            badCall_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badCall_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(PrimitiveTypeUtil.getPrettyArrayType(stds_.getAliasObject())));
@@ -56,7 +56,7 @@ public final class DimensionArrayInstancing extends
             if (!o.getResultClass().isNumericInt(_conf)) {
                 ClassArgumentMatching cl_ = o.getResultClass();
                 UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setRc(_conf.getCurrentLocation());
+                un_.setIndexFile(_conf.getCurrentLocationIndex());
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
                 un_.setOperands(cl_);

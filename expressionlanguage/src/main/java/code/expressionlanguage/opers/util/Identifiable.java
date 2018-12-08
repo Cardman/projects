@@ -8,4 +8,5 @@ public interface Identifiable {
     boolean isStaticMethod();
     String getName();
     StringList getParametersTypes();
+    String getSignature();
 }

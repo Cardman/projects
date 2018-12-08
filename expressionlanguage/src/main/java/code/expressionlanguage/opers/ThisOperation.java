@@ -50,7 +50,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                 StaticAccessThisError static_ = new StaticAccessThisError();
                 static_.setClassName(arg_);
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
                 setResultClass(new ClassArgumentMatching(arg_));
                 return;
@@ -76,13 +76,13 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                             StaticAccessThisError static_ = new StaticAccessThisError();
                             static_.setClassName(access_);
                             static_.setFileName(_conf.getCurrentFileName());
-                            static_.setRc(_conf.getCurrentLocation());
+                            static_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(static_);
                         } else if (nbAncestors == 0){
                             StaticAccessThisError static_ = new StaticAccessThisError();
                             static_.setClassName(access_);
                             static_.setFileName(_conf.getCurrentFileName());
-                            static_.setRc(_conf.getCurrentLocation());
+                            static_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(static_);
                         }
                     }
@@ -96,7 +96,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             StaticAccessThisError static_ = new StaticAccessThisError();
             static_.setClassName(access_);
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
             int off_ = StringList.getFirstPrintableCharIndex(access_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -116,7 +116,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             StaticAccessThisError static_ = new StaticAccessThisError();
             static_.setClassName(arg_);
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
         }
         setResultClass(new ClassArgumentMatching(arg_));

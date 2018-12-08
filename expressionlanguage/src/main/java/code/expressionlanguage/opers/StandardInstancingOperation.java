@@ -32,7 +32,6 @@ import code.expressionlanguage.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -101,7 +100,7 @@ public final class StandardInstancingOperation extends
         if (realClassName_.startsWith("..")) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -112,7 +111,7 @@ public final class StandardInstancingOperation extends
         if (arg_ == null || arg_.isUndefined() || arg_.isArray()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -134,7 +133,7 @@ public final class StandardInstancingOperation extends
             if (!ok_) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
                 LgNames stds_ = _conf.getStandards();
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -152,7 +151,7 @@ public final class StandardInstancingOperation extends
         if (ownersMap_.size() != 1) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
             LgNames stds_ = _conf.getStandards();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -163,12 +162,12 @@ public final class StandardInstancingOperation extends
         String new_ = Templates.getFullTypeByBases(sub_, sup_, _conf);
         if (new_ == null) {
             Block bl_ = _conf.getCurrentBlock();
-            RowCol rc_ = _conf.getCurrentLocation();
+            int rc_ = _conf.getCurrentLocationIndex();
             AccessingImportingBlock r_ = bl_.getImporting();
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(realClassName_);
             un_.setFileName(r_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             _conf.getClasses().addError(un_);
             realClassName_ = _conf.getStandards().getAliasObject();
         } else {
@@ -184,12 +183,12 @@ public final class StandardInstancingOperation extends
             StringMap<StringList> vars_ = _conf.getCurrentConstraints();
             if (!Templates.isCorrectTemplateAll(realClassName_, vars_, _conf, true)) {
                 Block bl_ = _conf.getCurrentBlock();
-                RowCol rc_ = _conf.getCurrentLocation();
+                int rc_ = _conf.getCurrentLocationIndex();
                 AccessingImportingBlock r_ = bl_.getImporting();
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(realClassName_);
                 un_.setFileName(r_.getFile().getFileName());
-                un_.setRc(rc_);
+                un_.setIndexFile(rc_);
                 _conf.getClasses().addError(un_);
                 realClassName_ = _conf.getStandards().getAliasObject();
             }
@@ -214,7 +213,7 @@ public final class StandardInstancingOperation extends
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -230,7 +229,7 @@ public final class StandardInstancingOperation extends
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
-            call_.setRc(_conf.getCurrentLocation());
+            call_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
@@ -241,7 +240,7 @@ public final class StandardInstancingOperation extends
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
-            call_.setRc(_conf.getCurrentLocation());
+            call_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -259,21 +258,21 @@ public final class StandardInstancingOperation extends
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
-                call_.setRc(_conf.getCurrentLocation());
+                call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
-                call_.setRc(_conf.getCurrentLocation());
+                call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
             }
         }
         if (!g_.isStaticType() && !isIntermediateDottedOperation() && isStaticAccess()) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
@@ -282,7 +281,7 @@ public final class StandardInstancingOperation extends
             IllegalCallCtorByType call_ = new IllegalCallCtorByType();
             call_.setType(realClassName_);
             call_.setFileName(_conf.getCurrentFileName());
-            call_.setRc(_conf.getCurrentLocation());
+            call_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(call_);
             setResultClass(new ClassArgumentMatching(realClassName_));
             return;
@@ -292,7 +291,7 @@ public final class StandardInstancingOperation extends
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(realClassName_);
                 call_.setFileName(_conf.getCurrentFileName());
-                call_.setRc(_conf.getCurrentLocation());
+                call_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(call_);
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
@@ -368,7 +367,7 @@ public final class StandardInstancingOperation extends
             BadAccessConstructor access_ = new BadAccessConstructor();
             access_.setId(ctr_.getId());
             access_.setFileName(_conf.getCurrentFileName());
-            access_.setRc(_conf.getCurrentLocation());
+            access_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(access_);
         }
         possibleInitClass = !_conf.getOptions().isInitializeStaticClassFirst() && g_.isStaticType();

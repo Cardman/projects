@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public final class VarargError extends FoundErrorInterpret {
@@ -9,8 +10,8 @@ public final class VarargError extends FoundErrorInterpret {
     private String methodName;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),SEP_INFO,BAD_VAR_ARG_SYNTAX,methodName);
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),SEP_INFO,BAD_VAR_ARG_SYNTAX,methodName);
     }
 
     public String getMethodName() {

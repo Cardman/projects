@@ -219,6 +219,7 @@ public abstract class LgNames {
     private String aliasSameRef;
     private String aliasGetParent;
     private AliasReflection reflect = new AliasReflection();
+    private AliasStackTraceElement stackElt = new AliasStackTraceElement();
     private AliasMath mathRef = new AliasMath();
     private AliasPredefinedTypes predefTypes = new AliasPredefinedTypes();
     private StringMap<PrimitiveType> primitiveTypes = new StringMap<PrimitiveType>();
@@ -900,6 +901,7 @@ public abstract class LgNames {
         getStandards().put(aliasObjectsUtil, stdcl_);
         reflect.build(this);
         mathRef.build(this);
+        stackElt.build(this);
         buildOther();
         buildPrimitiveTypes();
     }
@@ -926,430 +928,6 @@ public abstract class LgNames {
             }
         }
         return _type;
-    }
-    public void validateStandards(ContextEl _context) {
-        if (defaultPkg.isEmpty()) {
-            return;
-        }
-        for (char c: defaultPkg.toCharArray()) {
-            if (!StringList.isDollarWordChar(c)) {
-                return;
-            }
-        }
-        if (ContextEl.isDigit(defaultPkg.charAt(0))) {
-            return;
-        }
-        StringList list_ = new StringList();
-        list_.add(aliasPrimBoolean);
-        list_.add(aliasPrimByte);
-        list_.add(aliasPrimShort);
-        list_.add(aliasPrimChar);
-        list_.add(aliasPrimInteger);
-        list_.add(aliasPrimLong);
-        list_.add(aliasPrimFloat);
-        list_.add(aliasPrimDouble);
-        list_.add(aliasVoid);
-        list_.add(reflect.getAliasAnnotated());
-        list_.add(reflect.getAliasAnnotation());
-        list_.add(reflect.getAliasClass());
-        list_.add(reflect.getAliasConstructor());
-        list_.add(aliasEnumParam);
-        list_.add(reflect.getAliasFct());
-        list_.add(reflect.getAliasField());
-        list_.add(reflect.getAliasMethod());
-        list_.add(aliasObjectsUtil);
-        list_.add(reflect.getAliasClassNotFoundError());
-        list_.add(aliasCustomError);
-        list_.add(aliasErrorInitClass);
-        list_.add(aliasEnum);
-        list_.add(aliasEnums);
-        list_.add(reflect.getAliasInvokeTarget());
-        list_.add(predefTypes.getAliasIterable());
-        list_.add(predefTypes.getAliasIteratorType());
-        list_.add(mathRef.getAliasMath());
-        list_.add(aliasBadEncode);
-        list_.add(aliasBadIndex);
-        list_.add(aliasDivisionZero);
-        list_.add(aliasStore);
-        list_.add(aliasCast);
-        list_.add(aliasBadSize);
-        list_.add(aliasSof);
-        list_.add(aliasReplacement);
-        list_.add(aliasNullPe);
-        list_.add(aliasBoolean);
-        list_.add(aliasByte);
-        list_.add(aliasCharSequence);
-        list_.add(aliasCharacter);
-        list_.add(aliasDouble);
-        list_.add(aliasError);
-        list_.add(aliasFloat);
-        list_.add(aliasInteger);
-        list_.add(aliasLong);
-        list_.add(aliasNumber);
-        list_.add(aliasObject);
-        list_.add(aliasShort);
-        list_.add(aliasString);
-        list_.add(aliasStringBuilder);
-        int size_ = list_.size();
-        list_.removeDuplicates();
-        if (size_ != list_.size()) {
-            return;
-        }
-        for (String k: list_) {
-            if (k.isEmpty()) {
-                return;
-            }
-            for (char c: k.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
-                    return;
-                }
-            }
-            if (ContextEl.isDigit(k.charAt(0))) {
-                return;
-            }
-        }
-        for (String k: list_) {
-            if (defaultPkg.contains(k)) {
-                return;
-            }
-        }
-        boolean ok_ = false;
-        for (String t: list_) {
-            String pkg_ = StandardType.getPackagePart(t);
-            if (pkg_.isEmpty()) {
-                continue;
-            }
-            if (StringList.quickEq(pkg_, defaultPkg)) {
-                ok_ = true;
-            }
-        }
-        if (!ok_) {
-            return;
-        }
-        StringMap<StringList> map_ = new StringMap<StringList>();
-        map_.put(reflect.getAliasAnnotated(), new StringList(
-                reflect.getAliasGetAnnotations(),
-                reflect.getAliasGetAnnotationsParameters()));
-        map_.put(reflect.getAliasAnnotation(), new StringList(reflect.getAliasGetString()));
-        map_.put(reflect.getAliasClass(), new StringList(
-                reflect.getAliasDefaultInstance(),
-                reflect.getAliasEnumValueOf(),
-                reflect.getAliasForName(),
-                reflect.getAliasArrayGet(),
-                reflect.getAliasGetActualTypeArguments(),
-                reflect.getAliasGetAllClasses(),
-                reflect.getAliasGetBounds(),
-                reflect.getAliasGetClass(),
-                reflect.getAliasGetComponentType(),
-                reflect.getAliasGetDeclaredClasses(),
-                reflect.getAliasGetDeclaredConstructors(),
-                reflect.getAliasGetDeclaredFields(),
-                reflect.getAliasGetDeclaredMethods(),
-                reflect.getAliasGetEnclosingType(),
-                reflect.getAliasGetEnumConstants(),
-                reflect.getAliasGetGenericBounds(),
-                reflect.getAliasGetGenericInterfaces(),
-                reflect.getAliasGetGenericSuperClass(),
-                reflect.getAliasGetGenericTypeArguments(),
-                reflect.getAliasGetGenericVariableOwner(),
-                reflect.getAliasGetInterfaces(),
-                reflect.getAliasArrayGetLength(),
-                reflect.getAliasGetLowerBounds(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetOperators(),
-                reflect.getAliasGetPrettyName(),
-                reflect.getAliasGetSuperClass(),
-                reflect.getAliasGetTypeParameters(),
-                reflect.getAliasGetUpperBounds(),
-                reflect.getAliasGetVariableOwner(),
-                reflect.getAliasInit(),
-                reflect.getAliasIsAbstract(),
-                reflect.getAliasIsAnnotation(),
-                reflect.getAliasIsArray(),
-                reflect.getAliasIsAssignableFrom(),
-                reflect.getAliasIsClass(),
-                reflect.getAliasIsEnum(),
-                reflect.getAliasIsFinal(),
-                reflect.getAliasIsInstance(),
-                reflect.getAliasIsInterface(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPrimitive(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsStatic(),
-                reflect.getAliasIsWildCard(),
-                reflect.getAliasMakeArray(),
-                reflect.getAliasMakeGeneric(),
-                reflect.getAliasMakeWildCard(),
-                reflect.getAliasArrayNewInstance(),
-                reflect.getAliasArraySet()));
-        map_.put(reflect.getAliasConstructor(), new StringList(
-                reflect.getAliasGetDeclaringClass(),
-                reflect.getAliasGetGenericReturnType(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetParameterNames(),
-                reflect.getAliasGetParameterTypes(),
-                reflect.getAliasGetReturnType(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsVarargs(),
-                reflect.getAliasNewInstance()));
-        map_.put(reflect.getAliasFct(), new StringList(reflect.getAliasCall()));
-        map_.put(reflect.getAliasField(), new StringList(
-                reflect.getAliasArrayGet(),
-                reflect.getAliasGetDeclaringClass(),
-                reflect.getAliasGetGenericType(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetType(),
-                reflect.getAliasIsFinal(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsStatic(),
-                reflect.getAliasSetField()));
-        map_.put(reflect.getAliasMethod(), new StringList(
-                reflect.getAliasGetDeclaringClass(),
-                reflect.getAliasGetDefaultValue(),
-                reflect.getAliasGetGenericReturnType(),
-                reflect.getAliasGetName(),
-                reflect.getAliasGetParameterNames(),
-                reflect.getAliasGetParameterTypes(),
-                reflect.getAliasGetReturnType(),
-                reflect.getAliasInvoke(),
-                reflect.getAliasIsAbstract(),
-                reflect.getAliasIsFinal(),
-                reflect.getAliasIsNormal(),
-                reflect.getAliasIsPackage(),
-                reflect.getAliasIsPolymorph(),
-                reflect.getAliasIsPrivate(),
-                reflect.getAliasIsProtected(),
-                reflect.getAliasIsPublic(),
-                reflect.getAliasIsStatic(),
-                reflect.getAliasIsVarargs(),
-                reflect.getAliasSetPolymorph()));
-        map_.put(aliasObjectsUtil, new StringList(
-                aliasSameRef,
-                aliasGetParent));
-        map_.put(aliasEnum, new StringList(
-                aliasName,
-                aliasOrdinal));
-        map_.put(aliasEnums, new StringList(
-                aliasName,
-                aliasOrdinal));
-        map_.put(predefTypes.getAliasIterable(), new StringList(
-                predefTypes.getAliasIterator()));
-        map_.put(predefTypes.getAliasIteratorType(), new StringList(
-                predefTypes.getAliasHasNext(),
-                predefTypes.getAliasNext()));
-        map_.put(mathRef.getAliasMath(), new StringList(
-                mathRef.getAliasAbs(),
-                mathRef.getAliasMod(),
-                mathRef.getAliasQuot(),
-                mathRef.getAliasBinMod(),
-                mathRef.getAliasBinQuot(),
-                mathRef.getAliasPlus(),
-                mathRef.getAliasMinus(),
-                mathRef.getAliasMult(),
-                mathRef.getAliasNegBin(),
-                mathRef.getAliasAnd(),
-                mathRef.getAliasOr(),
-                mathRef.getAliasXor(),
-                mathRef.getAliasLe(),
-                mathRef.getAliasGe(),
-                mathRef.getAliasLt(),
-                mathRef.getAliasGt(),
-                mathRef.getAliasShiftLeft(),
-                mathRef.getAliasShiftRight(),
-                mathRef.getAliasBitShiftLeft(),
-                mathRef.getAliasBitShiftRight(),
-                mathRef.getAliasRotateLeft(),
-                mathRef.getAliasRotateRight()));
-        map_.put(aliasReplacement, new StringList(
-                aliasGetNewString,
-                aliasGetOldString,
-                aliasSetNewString,
-                aliasSetOldString));
-        map_.put(aliasBoolean, new StringList(
-                aliasBooleanValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasEquals,
-                aliasParseBoolean,
-                aliasToString,
-                aliasValueOf));
-        map_.put(aliasByte, new StringList(
-                aliasByteValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDoubleValue,
-                aliasEquals,
-                aliasFloatValue,
-                aliasIntValue,
-                aliasLongValue,
-                aliasParseByte,
-                aliasShortValue,
-                aliasToString));
-        map_.put(aliasCharSequence, new StringList(
-                aliasCharAt,
-                aliasLength,
-                aliasSubSequence));
-        map_.put(aliasCharacter, new StringList(
-                aliasCharAt,
-                aliasCharValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDigit,
-                aliasForDigit,
-                aliasGetType,
-                aliasIsDigit,
-                aliasGetDirectionality,
-                aliasIsLetter,
-                aliasIsLetterOrDigit,
-                aliasIsLowerCase,
-                aliasIsSpace,
-                aliasIsUpperCase,
-                aliasIsWhitespace,
-                aliasIsWordChar,
-                aliasLength,
-                aliasSubSequence,
-                aliasToLowerCase,
-                aliasToString,
-                aliasToUpperCase));
-        map_.put(aliasDouble, new StringList(
-                aliasByteValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDoubleValue,
-                aliasEquals,
-                aliasFloatValue,
-                aliasIntValue,
-                aliasIsInfinite,
-                aliasIsNan,
-                aliasIsNan,
-                aliasLongValue,
-                aliasParseDouble,
-                aliasShortValue,
-                aliasToString));
-        map_.put(aliasFloat, new StringList(
-                aliasByteValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDoubleValue,
-                aliasEquals,
-                aliasFloatValue,
-                aliasIntValue,
-                aliasIsInfinite,
-                aliasIsNan,
-                aliasIsNan,
-                aliasLongValue,
-                aliasParseFloat,
-                aliasShortValue,
-                aliasToString));
-        map_.put(aliasInteger, new StringList(
-                aliasByteValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDoubleValue,
-                aliasEquals,
-                aliasFloatValue,
-                aliasIntValue,
-                aliasLongValue,
-                aliasParseInt,
-                aliasShortValue,
-                aliasToString));
-        map_.put(aliasLong, new StringList(
-                aliasByteValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDoubleValue,
-                aliasEquals,
-                aliasFloatValue,
-                aliasIntValue,
-                aliasLongValue,
-                aliasParseLong,
-                aliasShortValue,
-                aliasToString));
-        map_.put(aliasNumber, new StringList(
-                aliasByteValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDoubleValue,
-                aliasEquals,
-                aliasFloatValue,
-                aliasIntValue,
-                aliasLongValue,
-                aliasShortValue,
-                aliasToString));
-        map_.put(aliasShort, new StringList(
-                aliasByteValue,
-                aliasCompare,
-                aliasCompareTo,
-                aliasDoubleValue,
-                aliasEquals,
-                aliasFloatValue,
-                aliasIntValue,
-                aliasLongValue,
-                aliasParseShort,
-                aliasShortValue,
-                aliasToString));
-        map_.put(aliasString, new StringList(
-                aliasCharAt,
-                aliasCompareTo,
-                aliasCompareToIgnoreCase,
-                aliasContains,
-                aliasEndsWith,
-                aliasEqualsIgnoreCase,
-                aliasFormat,
-                aliasGetBytes,
-                aliasIndexOf,
-                aliasIsEmpty,
-                aliasLastIndexOf,
-                aliasLength,
-                aliasRegionMatches,
-                aliasReplace,
-                aliasReplaceMultiple,
-                aliasSplit,
-                aliasSplitChars,
-                aliasSplitStrings,
-                aliasStartsWith,
-                aliasSubSequence,
-                aliasSubstring,
-                aliasToCharArray,
-                aliasToLowerCase,
-                aliasToUpperCase,
-                aliasTrim,
-                aliasValueOf));
-        map_.put(aliasStringBuilder, new StringList(
-                aliasAppend,
-                aliasCapacity,
-                aliasCharAt,
-                aliasClear,
-                aliasDelete,
-                aliasDeleteCharAt,
-                aliasEnsureCapacity,
-                aliasIndexOf,
-                aliasInsert,
-                aliasIsEmpty,
-                aliasLastIndexOf,
-                aliasLength,
-                aliasReplace,
-                aliasReverse,
-                aliasSetCharAt,
-                aliasSetLength,
-                aliasSubSequence,
-                aliasToString,
-                aliasTrimToSize));
-        for (StringList v: map_.values()) {
-            int s_ = v.size();
-            v.removeDuplicates();
-            if (s_ != v.size()) {
-                return;
-            }
-        }
     }
 
     public StringList allPrimitives() {
@@ -1423,6 +1001,7 @@ public abstract class LgNames {
         list_.add(aliasErrorInitClass);
         list_.add(reflect.getAliasInvokeTarget());
         list_.add(mathRef.getAliasMath());
+        list_.add(stackElt.getAliasStackTraceElement());
         list_.add(aliasBadEncode);
         list_.add(aliasBadIndex);
         list_.add(aliasDivisionZero);
@@ -1656,6 +1235,9 @@ public abstract class LgNames {
         map_.put(predefTypes.getAliasIteratorType(), new StringList(
                 predefTypes.getAliasHasNext(),
                 predefTypes.getAliasNext()));
+        map_.put(stackElt.getAliasStackTraceElement(), new StringList(
+                stackElt.getAliasCurrentStack(),
+                aliasToString));
         map_.put(mathRef.getAliasMath(), new StringList(
                 mathRef.getAliasAbs(),
                 mathRef.getAliasMod(),
@@ -2262,26 +1844,10 @@ public abstract class LgNames {
             return result_;
         }
         if (StringList.quickEq(type_, replType_)) {
-            Replacement one_ = (Replacement) instance_;
-            if (StringList.quickEq(name_, lgNames_.getAliasGetNewString())) {
-                result_.setResult(new StringStruct(one_.getNewString()));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasGetOldString())) {
-                result_.setResult(new StringStruct(one_.getOldString()));
-            } else {
-                if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
-                    _cont.failInitEnums();
-                    return result_;
-                }
-                String two_ = (String) argsObj_[0];
-                if (StringList.quickEq(name_, lgNames_.getAliasSetNewString())) {
-                    one_.setNewString(two_);
-                    result_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    one_.setOldString(two_);
-                    result_.setResult(NullStruct.NULL_VALUE);
-                }
-            }
-        } else if (StringList.quickEq(type_, stringBuilderType_)) {
+            ReplacementStruct.calculate(_cont, result_, _method, _struct, args_);
+            return result_;
+        }
+        if (StringList.quickEq(type_, stringBuilderType_)) {
             StringBuilder one_ = (StringBuilder) instance_;
             if (StringList.quickEq(name_, lgNames_.getAliasAppend())) {
                 if (_cont.isInitEnums() && _cont.isContainedSensibleFields(_struct)) {
@@ -2648,6 +2214,10 @@ public abstract class LgNames {
             if (result_.getResult() != null) {
                 return result_;
             }
+        }
+        if (StringList.quickEq(type_, lgNames_.getAliasStackTraceElement())) {
+            ContextEl c_ = _cont.getContextEl();
+            return AliasStackTraceElement.invokeMethod(c_, _method, _struct, _args);
         }
         if (StringList.quickEq(type_, mathType_)) {
             return AliasMath.invokeStdMethod(_cont, _method, _struct, _args);
@@ -3020,7 +2590,6 @@ public abstract class LgNames {
                 }
             }
         } else if (StringList.quickEq(type_, stringType_)) {
-            //calculate
             if (StringList.quickEq(name_, lgNames_.getAliasCompareToIgnoreCase())) {
                 String one_ = (String) instance_;
                 String two_ = (String) argsObj_[0];
@@ -3029,90 +2598,28 @@ public abstract class LgNames {
                 } else {
                     result_.setResult(new IntStruct(one_.compareToIgnoreCase(two_)));
                 }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                String one_ = (String) instance_;
-                String two_ = (String) argsObj_[0];
-                if (two_ == null) {
-                    result_.setResult(new BooleanStruct(false));
-                } else {
-                    result_.setResult(new BooleanStruct(StringList.quickEq(one_, two_)));
-                }
             } else if (StringList.quickEq(name_, lgNames_.getAliasEqualsIgnoreCase())) {
                 String one_ = (String) instance_;
                 String two_ = (String) argsObj_[0];
                 result_.setResult(new BooleanStruct(one_.equalsIgnoreCase(two_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasFormat())) {
-                String one_ = (String) instance_;
-                String[] two_ = (String[]) argsObj_[0];
-                result_.setResult(new StringStruct(StringList.simpleStringsFormat(one_, two_)));
             } else if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
-                //TO refactor
                 String one_ = (String) instance_;
-                if (list_.size() == FOUR_ARGS) {
-                    Integer two_ = (Integer) argsObj_[0];
-                    String three_ = (String) argsObj_[1];
-                    Integer four_ = (Integer) argsObj_[2];
-                    Integer five_ = (Integer) argsObj_[THREE_ARGS];
-                    if (three_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        result_.setResult(new BooleanStruct(one_.regionMatches(two_, three_, four_, five_)));
-                    }
+                Boolean two_ = (Boolean) argsObj_[0];
+                Integer three_ = (Integer) argsObj_[1];
+                String four_ = (String) argsObj_[2];
+                Integer five_ = (Integer) argsObj_[THREE_ARGS];
+                Integer six_ = (Integer) argsObj_[FOUR_ARGS];
+                if (four_ == null) {
+                    result_.setError(lgNames_.getAliasNullPe());
                 } else {
-                    Boolean two_ = (Boolean) argsObj_[0];
-                    Integer three_ = (Integer) argsObj_[1];
-                    String four_ = (String) argsObj_[2];
-                    Integer five_ = (Integer) argsObj_[THREE_ARGS];
-                    Integer six_ = (Integer) argsObj_[FOUR_ARGS];
-                    if (four_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        result_.setResult(new BooleanStruct(one_.regionMatches(two_, three_, four_, five_, six_)));
-                    }
+                    result_.setResult(new BooleanStruct(one_.regionMatches(two_, three_, four_, five_, six_)));
                 }
-            } else if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
-                String one_ = (String) instance_;
-                Replacement[] two_ = (Replacement[]) argsObj_[0];
-                result_.setResult(new StringStruct(StringList.replaceMult(one_, two_)));
             } else if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
                 String one_ = (String) instance_;
                 result_.setResult(new StringStruct(StringList.toLowerCase(one_)));
             } else if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
                 String one_ = (String) instance_;
                 result_.setResult(new StringStruct(StringList.toUpperCase(one_)));
-            } else if (StringList.quickEq(name_, lgNames_.getAliasValueOf())) {
-                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar())) && list_.size() == 1) {
-                    char[] chars_ = (char[]) argsObj_[0];
-                    result_.setResult(new StringStruct(String.valueOf(chars_)));
-                } else if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(lgNames_.getAliasPrimChar()))) {
-                    char[] chars_ = (char[]) argsObj_[0];
-                    if (chars_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        Integer two_ = (Integer) argsObj_[1];
-                        Integer three_ = (Integer) argsObj_[2];
-                        if (two_ < 0 || three_ < 0 || two_ + three_ > chars_.length) {
-                            result_.setError(lgNames_.getAliasBadIndex());
-                        } else {
-                            result_.setResult(new StringStruct(String.valueOf(chars_, two_, three_)));
-                        }
-                    }
-                } else {
-                    Object obj_ = argsObj_[0];
-                    if (obj_ == null) {
-                        result_.setResult(new StringStruct(lgNames_.getNullString()));
-                    } else if (obj_ instanceof Boolean) {
-                        if ((Boolean)obj_) {
-                            result_.setResult(new StringStruct(lgNames_.getTrueString()));
-                        } else {
-                            result_.setResult(new StringStruct(lgNames_.getFalseString()));
-                        }
-                    } else if (obj_ instanceof Character) {
-                        result_.setResult(new StringStruct(Character.toString((Character) obj_)));
-                    } else {
-                        result_.setResult(new StringStruct(Numbers.toString((Number) obj_)));
-                    }
-                }
             }
         }
         return result_;
@@ -4095,8 +3602,10 @@ public abstract class LgNames {
             return result_;
         }
         if (StringList.quickEq(type_, replType_)) {
-            result_.setResult(new ReplacementStruct(new Replacement()));
-        } else if (StringList.quickEq(type_, stringBuilderType_)) {
+            ReplacementStruct.instantiate(result_);
+            return result_;
+        }
+        if (StringList.quickEq(type_, stringBuilderType_)) {
             if (list_.isEmpty()) {
                 result_.setResult(new StringBuilderStruct(new StringBuilder()));
             } else if (StringList.quickEq(list_.first(), intPrimType_)) {
@@ -4143,9 +3652,6 @@ public abstract class LgNames {
         String booleanType_ = lgNames_.getAliasBoolean();
         String charType_ = lgNames_.getAliasCharacter();
         String stringType_ = lgNames_.getAliasString();
-        String stringBuilderType_ = lgNames_.getAliasStringBuilder();
-        String charPrimType_ = lgNames_.getAliasPrimChar();
-        String bytePrimType_ = lgNames_.getAliasPrimByte();
         String byteType_ = lgNames_.getAliasByte();
         String shortType_ = lgNames_.getAliasShort();
         String intType_ = lgNames_.getAliasInteger();
@@ -4154,12 +3660,7 @@ public abstract class LgNames {
         String doubleType_ = lgNames_.getAliasDouble();
         if (StringList.quickEq(type_, stringType_)) {
             StringStruct.instantiate(_cont, result_, _method, args_);
-            if (result_.getError() != null) {
-                return result_;
-            }
-            if (result_.getResult() != null) {
-                return result_;
-            }
+            return result_;
         }
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
@@ -4289,71 +3790,6 @@ public abstract class LgNames {
             } else {
                 Double one_ = (Double) argsObj_[0];
                 result_.setResult(new DoubleStruct(one_));
-            }
-        } else if (StringList.quickEq(type_, stringType_)) {
-            if (list_.isEmpty()) {
-                result_.setResult(new StringStruct(EMPTY_STRING));
-            } else if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_))) {
-                    byte[] one_ = (byte[]) argsObj_[0];
-                    if (one_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        String dec_ = StringList.decode(one_);
-                        if (dec_ != null) {
-                            result_.setResult(new StringStruct(dec_));
-                        } else {
-                            result_.setError(lgNames_.getAliasBadIndex());
-                        }
-                    }
-                } else if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(charPrimType_))) {
-                    char[] one_ = (char[]) argsObj_[0];
-                    if (one_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        result_.setResult(new StringStruct(new String(one_)));
-                    }
-                } else if (StringList.quickEq(list_.first(), stringBuilderType_)) {
-                    StringBuilder one_ = (StringBuilder) argsObj_[0];
-                    if (one_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        result_.setResult(new StringStruct(new String(one_)));
-                    }
-                }
-            } else {
-                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_))) {
-                    byte[] two_ = (byte[]) argsObj_[0];
-                    if (two_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        Integer three_ = (Integer) argsObj_[1];
-                        Integer four_ = (Integer) argsObj_[2];
-                        if (three_ < 0 || four_ < 0 || three_ > two_.length - four_) {
-                            result_.setError(lgNames_.getAliasBadIndex());
-                        } else {
-                            String dec_ = StringList.decode(two_, three_, four_);
-                            if (dec_ != null) {
-                                result_.setResult(new StringStruct(dec_));
-                            } else {
-                                result_.setError(lgNames_.getAliasBadIndex());
-                            }
-                        }
-                    }
-                } else {
-                    char[] two_ = (char[]) argsObj_[0];
-                    if (two_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        Integer three_ = (Integer) argsObj_[1];
-                        Integer four_ = (Integer) argsObj_[2];
-                        if (three_ < 0 || four_ < 0 || three_ > two_.length - four_) {
-                            result_.setError(lgNames_.getAliasBadIndex());
-                        } else {
-                            result_.setResult(new StringStruct(new String(two_, three_, four_)));
-                        }
-                    }
-                }
             }
         }
         return result_;
@@ -6125,9 +5561,6 @@ public abstract class LgNames {
         return mathRef;
     }
 
-    public void build(LgNames _stds) {
-        mathRef.build(_stds);
-    }
     public String getAliasBinQuot() {
         return mathRef.getAliasBinQuot();
     }
@@ -6241,6 +5674,22 @@ public abstract class LgNames {
     }
     public void setAliasRotateRight(String _aliasRotateRight) {
         mathRef.setAliasRotateRight(_aliasRotateRight);
+    }
+    
+    public String getAliasStackTraceElement() {
+        return stackElt.getAliasStackTraceElement();
+    }
+    public void setAliasStackTraceElement(String _aliasStackTraceElement) {
+        stackElt.setAliasStackTraceElement(_aliasStackTraceElement);
+    }
+    public String getAliasCurrentStack() {
+        return stackElt.getAliasCurrentStack();
+    }
+    public void setAliasCurrentStack(String _aliasCurrentStack) {
+        stackElt.setAliasCurrentStack(_aliasCurrentStack);
+    }
+    public AliasStackTraceElement getStackElt() {
+        return stackElt;
     }
     public StringList getPredefinedClasses() {
         return predefinedClasses;

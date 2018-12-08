@@ -175,7 +175,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_ = new BadInheritedClass();
                 undef_.setClassName(getRooted().getFullName());
                 undef_.setFileName(getFile().getFileName());
-                undef_.setRc(getRowCol(0, 0));
+                undef_.setIndexFile(0);
                 _an.getClasses().addError(undef_);
             }
         } else {
@@ -184,7 +184,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_ = new BadInheritedClass();
                 undef_.setClassName(getRooted().getFullName());
                 undef_.setFileName(getFile().getFileName());
-                undef_.setRc(getRowCol(0, 0));
+                undef_.setIndexFile(0);
                 _an.getClasses().addError(undef_);
             }
         }
@@ -206,7 +206,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    un_.setIndexFile(getOffset().getOffsetTrim());
                     _an.getClasses().addError(un_);
                 }
             }
@@ -228,7 +228,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    un_.setIndexFile(getOffset().getOffsetTrim());
                     _an.getClasses().addError(un_);
                 }
             }

@@ -344,13 +344,13 @@ public final class Navigation {
                         BadFormatNumber badFormat_ = new BadFormatNumber();
                         badFormat_.setNumber(l);
                         badFormat_.setFileName(session.getCurrentFileName());
-                        badFormat_.setRc(session.getCurrentLocation());
+                        badFormat_.setIndexFile(session.getCurrentLocationIndex());
                         session.getClasses().getErrorsDet().add(badFormat_);
                         BadElRender badEl_ = new BadElRender();
                         badEl_.setErrors(session.getClasses().getErrorsDet());
                         badEl_.setFileName(session.getCurrentFileName());
-                        badEl_.setRc(session.getCurrentLocation());
-                        session.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), session.getStandards().getErrorEl()));
+                        badEl_.setIndexFile(session.getCurrentLocationIndex());
+                        session.getContext().setException(new ErrorStruct(new CustomError(badEl_.display(session.getClasses())), session.getStandards().getErrorEl()));
                         return;
                     }
                     args_.add(a_);

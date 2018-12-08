@@ -64,7 +64,7 @@ public final class AffectationOperation extends MethodOperation {
             root_.setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -132,7 +132,7 @@ public final class AffectationOperation extends MethodOperation {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
             return;
         }
@@ -212,7 +212,7 @@ public final class AffectationOperation extends MethodOperation {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
         }
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
@@ -263,7 +263,7 @@ public final class AffectationOperation extends MethodOperation {
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
-                            un_.setRc(_conf.getCurrentLocation());
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(un_);
                         }
                     }
@@ -299,7 +299,7 @@ public final class AffectationOperation extends MethodOperation {
                             firstChild_.setRelativeOffsetPossibleAnalyzable(firstChild_.getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
-                            un_.setRc(_conf.getCurrentLocation());
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(un_);
                         }
                     }
@@ -339,7 +339,7 @@ public final class AffectationOperation extends MethodOperation {
 //                        cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
 //                        UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
 //                        un_.setFileName(_conf.getCurrentFileName());
-//                        un_.setRc(_conf.getCurrentLocation());
+//                        un_.setIndexFile(_conf.getCurrentLocationIndex());
 //                        _conf.getClasses().addError(un_);
 //                    }
 //                }
@@ -354,7 +354,7 @@ public final class AffectationOperation extends MethodOperation {
                     cst_.setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                     UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                     un_.setFileName(_conf.getCurrentFileName());
-                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(un_);
                 }
             }

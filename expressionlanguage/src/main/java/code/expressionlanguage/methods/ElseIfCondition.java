@@ -103,7 +103,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
         if (ch_ == null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }
@@ -112,7 +112,7 @@ public final class ElseIfCondition extends Condition implements BlockCondition, 
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                un_.setIndexFile(getOffset().getOffsetTrim());
                 _an.getClasses().addError(un_);
             }
         }

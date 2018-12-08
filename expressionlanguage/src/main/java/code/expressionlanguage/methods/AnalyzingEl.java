@@ -71,13 +71,14 @@ public final class AnalyzingEl {
         canCompleteNormallyGroup.put(_reach, true);
     }
 
+    public void completeAbruptGroup(Block _reach) {
+        completeAbrupt(_reach);
+        canCompleteNormallyGroup.put(_reach, false);
+    }
     public void completeAbrupt(Block _reach) {
         canCompleteNormally.put(_reach, false);
     }
 
-    public void completeAbruptGroup(Block _reach) {
-        canCompleteNormallyGroup.put(_reach, false);
-    }
     public void unreach(Block _reach) {
         reachable.put(_reach, false);
         canCompleteNormally.put(_reach, false);

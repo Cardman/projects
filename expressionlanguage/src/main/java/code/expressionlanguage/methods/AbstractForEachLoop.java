@@ -184,48 +184,48 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, classIndexNameOffset));
+            cast_.setIndexFile(classIndexNameOffset);
             _cont.getClasses().addError(cast_);
         }
         if (_cont.getAnalyzing().containsVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
         }
         if (!StringList.isWord(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (_cont.getKeyWords().isKeyWordNotVar(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (PrimitiveTypeUtil.isPrimitive(variableName, _cont)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (StringList.quickEq(variableName, _cont.getStandards().getAliasVoid())) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
@@ -234,7 +234,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             if (!variableName.isEmpty() && ContextEl.isDigit(variableName.charAt(0))) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(getFile().getFileName());
-                b_.setRc(getRowCol(0, variableNameOffset));
+                b_.setIndexFile(variableNameOffset);
                 b_.setVarName(variableName);
                 _cont.getClasses().addError(b_);
             }
@@ -244,21 +244,21 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getAnalyzing().containsLocalVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
         }
@@ -299,7 +299,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
-                cast_.setRc(getRowCol(0, expressionOffset));
+                cast_.setIndexFile(expressionOffset);
                 _cont.getClasses().addError(cast_);
             } else {
                 mapping_.setArg(compo_);
@@ -317,7 +317,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());
-                    cast_.setRc(getRowCol(0, expressionOffset));
+                    cast_.setIndexFile(expressionOffset);
                     _cont.getClasses().addError(cast_);
                 }
             }
@@ -331,7 +331,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
         if (Argument.isNullValue(arg_)) {
             StaticAccessError static_ = new StaticAccessError();
             static_.setFileName(_cont.getCurrentFileName());
-            static_.setRc(_cont.getCurrentLocation());
+            static_.setIndexFile(_cont.getCurrentLocationIndex());
             _cont.getClasses().addError(static_);
         } else if (el_.getResultClass().isArray()) {
             inferArrayClass(_cont);
@@ -380,7 +380,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(getFile().getFileName());
-                    cast_.setRc(getRowCol(0, expressionOffset));
+                    cast_.setIndexFile(expressionOffset);
                     _cont.getClasses().addError(cast_);
                 }
             }
@@ -392,7 +392,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
-                cast_.setRc(getRowCol(0, expressionOffset));
+                cast_.setIndexFile(expressionOffset);
                 _cont.getClasses().addError(cast_);
             }
             String iterable_ = _cont.getStandards().getAliasIterable();
@@ -403,7 +403,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(getFile().getFileName());
-                cast_.setRc(getRowCol(0, expressionOffset));
+                cast_.setIndexFile(expressionOffset);
                 _cont.getClasses().addError(cast_);
             }
         }
@@ -442,7 +442,7 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
             super.setAssignmentAfter(_an, _anEl);
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             StringMap<SimpleAssignment> fieldsAfter_;
             fieldsAfter_ = buildAssListFieldAfterLoop(_an, _anEl);
@@ -639,7 +639,6 @@ public abstract class AbstractForEachLoop extends BracedStack implements ForLoop
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }

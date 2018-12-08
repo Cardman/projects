@@ -112,7 +112,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                         BadImplicitCast cast_ = new BadImplicitCast();
                         cast_.setMapping(mapping_);
                         cast_.setFileName(_conf.getCurrentFileName());
-                        cast_.setRc(_conf.getCurrentLocation());
+                        cast_.setIndexFile(_conf.getCurrentLocationIndex());
                         _conf.getClasses().addError(cast_);
                     }
                     continue;
@@ -123,7 +123,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(mapping_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(name_, _conf)) {
@@ -367,7 +367,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(_conf.getCurrentFileName());
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(cast_);
             return true;
         }
@@ -393,7 +393,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
         }

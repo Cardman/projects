@@ -134,7 +134,7 @@ public final class StaticInitOperation extends LeafOperation {
             if (!Classes.canAccessClass(curClassBase_, _base, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(_base);
-                badAccess_.setRc(_conf.getCurrentLocation());
+                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
                 badAccess_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(badAccess_);
             }

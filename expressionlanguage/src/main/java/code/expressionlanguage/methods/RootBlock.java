@@ -13,6 +13,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeUtil;
 import code.expressionlanguage.errors.custom.AbstractMethod;
 import code.expressionlanguage.errors.custom.BadFieldName;
+import code.expressionlanguage.errors.custom.BadIndexInParser;
 import code.expressionlanguage.errors.custom.BadMethodName;
 import code.expressionlanguage.errors.custom.BadParamName;
 import code.expressionlanguage.errors.custom.CyclicInheritingGraph;
@@ -35,7 +36,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.types.PartTypeUtil;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
@@ -141,14 +141,22 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
         _an.getAvailableVariables().clear();
         _an.getAvailableVariables().addAllElts(varsList_);
         _an.setDirectImport(false);
+        Numbers<Integer> bi_ = _an.getCurrentBadIndexes();
+        bi_.clear();
         StringList all_ = new StringList();
         int i_ = 0;
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            RowCol rc_ = getRowCol(0,index_);
-            StringList list_ = PartTypeUtil.processAnalyzeDepends(s, i_,_an, this, true, rc_);
+            StringList list_ = PartTypeUtil.processAnalyzeDepends(s, i_,_an, this, true);
             i_++;
             if (list_ == null) {
+                for (int i : bi_) {
+                    BadIndexInParser bip_ = new BadIndexInParser();
+                    bip_.setIndex(index_+i);
+                    bip_.setIndexFile(_an.getCurrentLocationIndex());
+                    bip_.setFileName(_an.getCurrentFileName());
+                    _an.getClasses().addError(bip_);
+                }
                 return null;
             }
             all_.addAllElts(list_);
@@ -263,7 +271,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
     public void buildMapParamType(ContextEl _analyze) {
         paramTypesMap = new StringMap<TypeVar>();
         for (RootBlock r: getSelfAndParentTypes()) {
-            RowCol rc_ = getRowCol(0, r.idRowCol);
+            int rc_ = r.idRowCol;
             for (TypeVar t: r.paramTypes) {
                 StringList const_ = new StringList();
                 for (String c: t.getConstraints()) {
@@ -442,11 +450,11 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 continue;
             }
             if (!(b instanceof FunctionBlock)) {
-                RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
+                int where_ = b.getOffset().getOffsetTrim();
                 UnexpectedTagName unexp_ = new UnexpectedTagName();
                 unexp_.setFileName(getFullName());
                 unexp_.setFoundTag(EMPTY_STRING);
-                unexp_.setRc(where_);
+                unexp_.setIndexFile(where_);
                 _context.getClasses().addError(unexp_);
             }
         }
@@ -457,21 +465,21 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 }
                 if (b instanceof RootBlock) {
                     if (((RootBlock)b).isStaticType()) {
-                        RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
+                        int where_ = b.getOffset().getOffsetTrim();
                         UnexpectedTagName unexp_ = new UnexpectedTagName();
                         unexp_.setFileName(getFullName());
                         unexp_.setFoundTag(EMPTY_STRING);
-                        unexp_.setRc(where_);
+                        unexp_.setIndexFile(where_);
                         _context.getClasses().addError(unexp_);
                     }
                 }
                 if (b instanceof FunctionBlock) {
                     if (((FunctionBlock)b).isStaticContext()) {
-                        RowCol where_ = b.getRowCol(0, b.getOffset().getOffsetTrim());
+                        int where_ = b.getOffset().getOffsetTrim();
                         UnexpectedTagName unexp_ = new UnexpectedTagName();
                         unexp_.setFileName(getFullName());
                         unexp_.setFoundTag(EMPTY_STRING);
-                        unexp_.setRc(where_);
+                        unexp_.setIndexFile(where_);
                         _context.getClasses().addError(unexp_);
                     }
                 }
@@ -485,34 +493,34 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     MethodBlock m_ = (MethodBlock) method_;
                     m_.buildImportedTypes(_context);
                     if (!StringList.isWord(name_) || m_.isConcreteInstanceDerivableMethod() != m_.isNormalMethod()) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
                     if (_context.getKeyWords().isKeyWordNotVar(name_)) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
                     if (PrimitiveTypeUtil.isPrimitive(name_, _context)) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
                     if (StringList.quickEq(name_, _context.getStandards().getAliasVoid())) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
@@ -521,34 +529,34 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     AnnotationMethodBlock m_ = (AnnotationMethodBlock) method_;
                     m_.buildImportedTypes(_context);
                     if (!StringList.isWord(name_)) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
                     if (_context.getKeyWords().isKeyWordNotVar(name_)) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
                     if (PrimitiveTypeUtil.isPrimitive(name_, _context)) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
                     if (StringList.quickEq(name_, _context.getStandards().getAliasVoid())) {
-                        RowCol r_ = m_.getRowCol(0, m_.getNameOffset());
+                        int r_ = m_.getNameOffset();
                         BadMethodName badMeth_ = new BadMethodName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(name_);
                         _context.getClasses().addError(badMeth_);
                     }
@@ -565,37 +573,37 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         String values_ = _context.getStandards().getAliasValues();
                         String string_ = _context.getStandards().getAliasString();
                         if (id_.eq(new MethodId(false, aliasName_, new StringList()))) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(id_);
                             _context.getClasses().addError(duplicate_);
                         }
                         if (id_.eq(new MethodId(false, ordinal_, new StringList()))) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(id_);
                             _context.getClasses().addError(duplicate_);
                         }
                         if (id_.eq(new MethodId(true, valueOf_, new StringList(string_)))) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(id_);
                             _context.getClasses().addError(duplicate_);
                         }
                         if (id_.eq(new MethodId(true, values_, new StringList()))) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(id_);
                             _context.getClasses().addError(duplicate_);
@@ -603,10 +611,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     }
                     for (MethodId m: idMethods_) {
                         if (m.eq(id_)) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(id_);
                             _context.getClasses().addError(duplicate_);
@@ -618,10 +626,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     String id_ = ((AnnotationMethodBlock) method_).getName();
                     for (String m: idsAnnotMethods_) {
                         if (StringList.quickEq(m,id_)) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateMethod duplicate_;
                             duplicate_ = new DuplicateMethod();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(new MethodId(false, id_, new StringList()));
                             _context.getClasses().addError(duplicate_);
@@ -634,10 +642,10 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     ConstructorId idCt_ = ((ConstructorBlock)method_).getId();
                     for (ConstructorId m: idConstructors_) {
                         if (m.eq(idCt_)) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateConstructor duplicate_;
                             duplicate_ = new DuplicateConstructor();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(idCt_);
                             _context.getClasses().addError(duplicate_);
@@ -652,7 +660,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(v);
                         _context.getClasses().addError(b_);
                     }
@@ -660,7 +668,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(v);
                         _context.getClasses().addError(b_);
                     }
@@ -668,7 +676,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(v);
                         _context.getClasses().addError(b_);
                     }
@@ -678,7 +686,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             BadParamName b_;
                             b_ = new BadParamName();
                             b_.setFileName(className_);
-                            b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                            b_.setIndexFile(method_.getOffset().getOffsetTrim());
                             b_.setParamName(v);
                             _context.getClasses().addError(b_);
                         }
@@ -687,14 +695,14 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(v);
                         _context.getClasses().addError(b_);
                     } else if (seen_.containsStr(v)){
                         DuplicateParamName b_;
                         b_ = new DuplicateParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(v);
                         _context.getClasses().addError(b_);
                     } else {
@@ -712,7 +720,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(n);
                         _context.getClasses().addError(b_);
                     }
@@ -720,7 +728,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(trName_);
                         _context.getClasses().addError(b_);
                     }
@@ -728,35 +736,35 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         BadParamName b_;
                         b_ = new BadParamName();
                         b_.setFileName(className_);
-                        b_.setRc(method_.getRowCol(0, method_.getOffset().getOffsetTrim()));
+                        b_.setIndexFile(method_.getOffset().getOffsetTrim());
                         b_.setParamName(trName_);
                         _context.getClasses().addError(b_);
                     }
                     if (!StringList.isWord(trName_)) {
-                        RowCol r_ = m_.getRowCol(0, m_.getFieldNameOffset());
+                        int r_ = m_.getFieldNameOffset();
                         BadFieldName badMeth_ = new BadFieldName();
                         badMeth_.setFileName(className_);
-                        badMeth_.setRc(r_);
+                        badMeth_.setIndexFile(r_);
                         badMeth_.setName(n);
                         _context.getClasses().addError(badMeth_);
                     }
                     Options opt_ = _context.getOptions();
                     if (opt_.getSuffixVar() == VariableSuffix.NONE) {
                         if (!trName_.isEmpty() && ContextEl.isDigit(trName_.charAt(0))) {
-                            RowCol r_ = m_.getRowCol(0, m_.getFieldNameOffset());
+                            int r_ = m_.getFieldNameOffset();
                             BadFieldName badMeth_ = new BadFieldName();
                             badMeth_.setFileName(className_);
-                            badMeth_.setRc(r_);
+                            badMeth_.setIndexFile(r_);
                             badMeth_.setName(n);
                             _context.getClasses().addError(badMeth_);
                         }
                     }
                     for (String m: idsField_) {
                         if (StringList.quickEq(m, trName_)) {
-                            RowCol r_ = method_.getRowCol(0, method_.getOffset().getOffsetTrim());
+                            int r_ = method_.getOffset().getOffsetTrim();
                             DuplicateField duplicate_;
                             duplicate_ = new DuplicateField();
-                            duplicate_.setRc(r_);
+                            duplicate_.setIndexFile(r_);
                             duplicate_.setFileName(className_);
                             duplicate_.setId(n);
                             _context.getClasses().addError(duplicate_);
@@ -883,7 +891,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                             MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
                             IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                             err_.setFileName(getFullName());
-                            err_.setRc(getRowCol(0, idRowCol));
+                            err_.setIndexFile(idRowCol);
                             err_.setReturnType(mDer_.getImportedReturnType());
                             err_.setMethod(mDer_.getId());
                             err_.setParentClass(s);
@@ -903,7 +911,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFullName());
-                    err_.setRc(getRowCol(0, idRowCol));
+                    err_.setIndexFile(idRowCol);
                     err_.setReturnType(mDer_.getImportedReturnType());
                     err_.setMethod(mDer_.getId());
                     err_.setParentClass(s_);
@@ -918,7 +926,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                     IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                     err_.setFileName(getFullName());
-                    err_.setRc(getRowCol(0, idRowCol));
+                    err_.setIndexFile(idRowCol);
                     err_.setReturnType(mDer_.getImportedReturnType());
                     err_.setMethod(mDer_.getId());
                     err_.setParentClass(s_);
@@ -950,7 +958,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                         MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s, id_).first();
                         IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                         err_.setFileName(getFullName());
-                        err_.setRc(getRowCol(0, idRowCol));
+                        err_.setIndexFile(idRowCol);
                         err_.setReturnType(mDer_.getImportedReturnType());
                         err_.setMethod(mDer_.getId());
                         err_.setParentClass(s);
@@ -971,7 +979,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFullName());
-                err_.setRc(getRowCol(0, idRowCol));
+                err_.setIndexFile(idRowCol);
                 err_.setReturnType(mDer_.getImportedReturnType());
                 err_.setMethod(mDer_.getId());
                 err_.setParentClass(s_);
@@ -986,7 +994,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 MethodBlock mDer_ = Classes.getMethodBodiesById(_context, s_, s.getConstraints()).first();
                 IncompatibilityReturnType err_ = new IncompatibilityReturnType();
                 err_.setFileName(getFullName());
-                err_.setRc(getRowCol(0, idRowCol));
+                err_.setIndexFile(idRowCol);
                 err_.setReturnType(mDer_.getImportedReturnType());
                 err_.setMethod(mDer_.getId());
                 err_.setParentClass(s_);
@@ -1016,7 +1024,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     AbstractMethod err_;
                     err_ = new AbstractMethod();
                     err_.setFileName(getFullName());
-                    err_.setRc(mDer_.getRowCol(0, mDer_.getNameOffset()));
+                    err_.setIndexFile(mDer_.getNameOffset());
                     err_.setSgn(idFor_.getSignature());
                     err_.setClassName(getFullName());
                     classesRef_.addError(err_);
@@ -1031,7 +1039,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     AbstractMethod err_;
                     err_ = new AbstractMethod();
                     err_.setFileName(getFullName());
-                    err_.setRc(((MethodBlock)mDer_).getRowCol(0, ((MethodBlock)mDer_).getNameOffset()));
+                    err_.setIndexFile(((MethodBlock)mDer_).getNameOffset());
                     err_.setSgn(idFor_.getSignature());
                     err_.setClassName(getFullName());
                     classesRef_.addError(err_);
@@ -1069,7 +1077,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_ = new AbstractMethod();
                     err_.setFileName(getFullName());
                     err_.setClassName(m.getClassName());
-                    err_.setRc(getRowCol(0, idRowCol));
+                    err_.setIndexFile(idRowCol);
                     err_.setSgn(m.getConstraints().getSignature());
                     classesRef_.addError(err_);
                 }
@@ -1107,7 +1115,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                     err_ = new AbstractMethod();
                     err_.setFileName(getFullName());
                     err_.setClassName(m.getClassName());
-                    err_.setRc(getRowCol(0, idRowCol));
+                    err_.setIndexFile(idRowCol);
                     err_.setSgn(m.getConstraints().getSignature());
                     classesRef_.addError(err_);
                 }
@@ -1478,7 +1486,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
                 UndefinedSuperConstructor un_ = new UndefinedSuperConstructor();
                 un_.setClassName(((UniqueRootedBlock)this).getImportedDirectGenericSuperClass());
                 un_.setFileName(getFile().getFileName());
-                un_.setRc(c.getRowCol(0, c.getOffset().getOffsetTrim()));
+                un_.setIndexFile(c.getOffset().getOffsetTrim());
                 _cont.getClasses().addError(un_);
             }
         }
@@ -1502,7 +1510,7 @@ public abstract class RootBlock extends BracedBlock implements GeneType, Accessi
             CyclicInheritingGraph cyclic_ = new CyclicInheritingGraph();
             cyclic_.setClassName(cycle_);
             cyclic_.setFileName(getFile().getFileName());
-            cyclic_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            cyclic_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(cyclic_);
         }
     }

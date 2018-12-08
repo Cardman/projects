@@ -1,8 +1,9 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.util.Numbers;
 
-public abstract class NumberStruct implements Struct {
+public abstract class NumberStruct implements DisplayableStruct {
 
     @Override
     public final Struct getParent() {
@@ -36,6 +37,10 @@ public abstract class NumberStruct implements Struct {
         return Numbers.eq(getInstance(), other_.getInstance());
     }
 
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(Numbers.toString(getInstance()));
+    }
     @Override
     public abstract Number getInstance();
 

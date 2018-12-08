@@ -1,5 +1,6 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.util.ObjectMap;
@@ -15,6 +16,11 @@ public final class CharStruct extends NumberStruct {
     @Override
     public boolean isNull() {
         return false;
+    }
+
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(Character.toString(value));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public final class UnknownClassName extends FoundErrorInterpret {
@@ -9,8 +10,8 @@ public final class UnknownClassName extends FoundErrorInterpret {
     private String className;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),CLASS_NAME,SEP_KEY_VAL,className,SEP_INFO);
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),CLASS_NAME,SEP_KEY_VAL,className,SEP_INFO);
     }
 
     public String getClassName() {

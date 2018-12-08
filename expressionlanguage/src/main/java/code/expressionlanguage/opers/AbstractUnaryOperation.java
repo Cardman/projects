@@ -24,7 +24,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
             LgNames stds_ = _conf.getStandards();
             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(un_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;

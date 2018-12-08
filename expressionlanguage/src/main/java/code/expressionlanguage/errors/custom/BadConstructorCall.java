@@ -1,22 +1,22 @@
 package code.expressionlanguage.errors.custom;
 
-import code.sml.RowCol;
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public final class BadConstructorCall extends FoundErrorInterpret {
 
-    private RowCol localOffset;
+    private int localOffset;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),SEP_INFO,localOffset.display());
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),SEP_INFO,Integer.toString(localOffset));
     }
 
-    public RowCol getLocalOffset() {
+    public int getLocalOffset() {
         return localOffset;
     }
 
-    public void setLocalOffset(RowCol _localOffset) {
+    public void setLocalOffset(int _localOffset) {
         localOffset = _localOffset;
     }
 

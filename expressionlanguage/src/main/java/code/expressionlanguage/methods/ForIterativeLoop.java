@@ -192,7 +192,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, classIndexNameOffset));
+            cast_.setIndexFile(classIndexNameOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(classNameOffset);
@@ -206,7 +206,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, classNameOffset));
+            cast_.setIndexFile(classNameOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(variableNameOffset);
@@ -215,41 +215,41 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
         }
         if (_cont.getAnalyzing().containsMutableLoopVar(variableName)) {
             DuplicateVariable d_ = new DuplicateVariable();
             d_.setId(variableName);
             d_.setFileName(getFile().getFileName());
-            d_.setRc(getRowCol(0, variableNameOffset));
+            d_.setIndexFile(variableNameOffset);
             _cont.getClasses().addError(d_);
         }
         if (!StringList.isWord(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (_cont.getKeyWords().isKeyWordNotVar(variableName)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (PrimitiveTypeUtil.isPrimitive(variableName, _cont)) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
         if (StringList.quickEq(variableName, _cont.getStandards().getAliasVoid())) {
             BadVariableName b_ = new BadVariableName();
             b_.setFileName(getFile().getFileName());
-            b_.setRc(getRowCol(0, variableNameOffset));
+            b_.setIndexFile(variableNameOffset);
             b_.setVarName(variableName);
             _cont.getClasses().addError(b_);
         }
@@ -258,7 +258,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             if (!variableName.isEmpty() && ContextEl.isDigit(variableName.charAt(0))) {
                 BadVariableName b_ = new BadVariableName();
                 b_.setFileName(getFile().getFileName());
-                b_.setRc(getRowCol(0, variableNameOffset));
+                b_.setIndexFile(variableNameOffset);
                 b_.setVarName(variableName);
                 _cont.getClasses().addError(b_);
             }
@@ -268,21 +268,21 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getAnalyzing().containsCatchVar(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
             if (_cont.getParameters().contains(variableName)) {
                 DuplicateVariable d_ = new DuplicateVariable();
                 d_.setId(variableName);
                 d_.setFileName(getFile().getFileName());
-                d_.setRc(getRowCol(0, variableNameOffset));
+                d_.setIndexFile(variableNameOffset);
                 _cont.getClasses().addError(d_);
             }
         }
@@ -300,7 +300,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, initOffset));
+            cast_.setIndexFile(initOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(expressionOffset);
@@ -317,7 +317,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, expressionOffset));
+            cast_.setIndexFile(expressionOffset);
             _cont.getClasses().addError(cast_);
         }
         page_.setGlobalOffset(stepOffset);
@@ -334,7 +334,7 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(mapping_);
             cast_.setFileName(getFile().getFileName());
-            cast_.setRc(getRowCol(0, stepOffset));
+            cast_.setIndexFile(stepOffset);
             _cont.getClasses().addError(cast_);
         }
         if (getFirstChild() != null) {
@@ -873,7 +873,6 @@ public final class ForIterativeLoop extends BracedStack implements ForLoop {
     @Override
     public void abruptGroup(Analyzable _an, AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }

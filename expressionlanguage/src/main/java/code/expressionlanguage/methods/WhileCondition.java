@@ -67,7 +67,7 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             super.setAssignmentAfter(_an, _anEl);
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             StringMap<SimpleAssignment> fieldsAfter_;
             fieldsAfter_ =buildAssListFieldAfterLoop(_an, _anEl);
@@ -357,7 +357,6 @@ public final class WhileCondition extends Condition implements Loop, IncrNextGro
             }
         }
         if (abr_) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }

@@ -50,7 +50,7 @@ public final class StaticAccessOperation extends LeafOperation {
                 if (!Classes.canAccessClass(curClassBase_, ext_, _conf)) {
                     BadAccessClass badAccess_ = new BadAccessClass();
                     badAccess_.setId(ext_);
-                    badAccess_.setRc(_conf.getCurrentLocation());
+                    badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
                     badAccess_.setFileName(_conf.getCurrentFileName());
                     _conf.getClasses().addError(badAccess_);
                 }
@@ -69,7 +69,7 @@ public final class StaticAccessOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         String classStr_;
         if (!realCl_.trim().isEmpty()) {
-            classStr_ = _conf.resolveIdType(realCl_);
+            classStr_ = _conf.resolveAccessibleIdType(realCl_);
         } else {
             classStr_ = glClass_;
             if (classStr_ == null) {
@@ -77,7 +77,7 @@ public final class StaticAccessOperation extends LeafOperation {
                 UnknownClassName un_ = new UnknownClassName();
                 un_.setClassName(EMPTY_STRING);
                 un_.setFileName(_conf.getCurrentFileName());
-                un_.setRc(_conf.getCurrentLocation());
+                un_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(un_);
             }
         }
@@ -90,7 +90,7 @@ public final class StaticAccessOperation extends LeafOperation {
             if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(classStr_);
-                badAccess_.setRc(_conf.getCurrentLocation());
+                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
                 badAccess_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(badAccess_);
             }

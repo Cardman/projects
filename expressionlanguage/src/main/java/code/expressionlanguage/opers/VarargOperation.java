@@ -34,7 +34,7 @@ public final class VarargOperation extends LeafOperation {
         if (!(m_ instanceof InvokingOperation)) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setRc(_conf.getCurrentLocation());
+            varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -45,7 +45,7 @@ public final class VarargOperation extends LeafOperation {
         if (!parent_.isCallMethodCtor(_conf)) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setRc(_conf.getCurrentLocation());
+            varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -55,7 +55,7 @@ public final class VarargOperation extends LeafOperation {
         if (!isFirstChild()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setRc(_conf.getCurrentLocation());
+            varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(VAR_ARG);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));

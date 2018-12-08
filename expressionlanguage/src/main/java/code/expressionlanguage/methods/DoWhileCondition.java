@@ -108,7 +108,6 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
             }
         }
         if (abr_) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }
@@ -117,7 +116,7 @@ public final class DoWhileCondition extends Condition implements IncrNextGroup {
         if (getFirstChild() != null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
         }
         IdMap<Block, AssignedVariables> id_;

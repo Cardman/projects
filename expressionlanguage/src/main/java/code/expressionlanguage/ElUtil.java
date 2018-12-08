@@ -68,7 +68,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(d_.getBadOffset());
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badEl_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, null);
             String argClName_ = _conf.getStandards().getAliasObject();
@@ -89,7 +89,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(d_.getBadOffset());
             badEl_.setEl(_el);
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badEl_);
         }
         String fieldName_ = _calcul.getFieldName();
@@ -160,7 +160,7 @@ public final class ElUtil {
                         BadOperandsNumber badNb_ = new BadOperandsNumber();
                         badNb_.setFileName(_context.getCurrentFileName());
                         badNb_.setOperandsNumber(0);
-                        badNb_.setRc(_context.getCurrentLocation());
+                        badNb_.setIndexFile(_context.getCurrentLocationIndex());
                         _context.getClasses().addError(badNb_);
                     } else {
                         PossibleIntermediateDotted possible_ = (PossibleIntermediateDotted) next_;
@@ -238,7 +238,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(offset_);
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
-            badEl_.setRc(_context.getCurrentLocation());
+            badEl_.setIndexFile(_context.getCurrentLocationIndex());
             _context.getClasses().addError(badEl_);
         }
         return op_;
@@ -271,7 +271,7 @@ public final class ElUtil {
             badEl_.setOffsetInEl(offset_);
             badEl_.setEl(value_);
             badEl_.setFileName(_context.getCurrentFileName());
-            badEl_.setRc(_context.getCurrentLocation());
+            badEl_.setIndexFile(_context.getCurrentLocationIndex());
             _context.getClasses().addError(badEl_);
         }
         return op_;

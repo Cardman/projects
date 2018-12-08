@@ -76,7 +76,7 @@ public final class StaticInfoOperation extends LeafOperation {
             if (!Classes.canAccessClass(curClassBase_, classStr_, _conf)) {
                 BadAccessClass badAccess_ = new BadAccessClass();
                 badAccess_.setId(classStr_);
-                badAccess_.setRc(_conf.getCurrentLocation());
+                badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
                 badAccess_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addError(badAccess_);
             }

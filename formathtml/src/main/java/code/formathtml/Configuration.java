@@ -41,9 +41,9 @@ import code.formathtml.util.TranslatorStruct;
 import code.formathtml.util.ValidatorStruct;
 import code.resources.ResourceFiles;
 import code.sml.Document;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -627,11 +627,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public RowCol getCurrentLocation() {
-        return getLastPage().getRowCol();
-    }
-
-    @Override
     public LoopVariable getVar(String _var) {
         return getLastPage().getVars().getVal(_var);
     }
@@ -850,10 +845,6 @@ public class Configuration implements ExecutableCode {
     }
 
     @Override
-    public String resolveIdType(String _in) {
-        return resolveDynamicType(_in, null);
-    }
-    @Override
     public String resolveAccessibleIdType(String _in) {
         return resolveDynamicType(_in, null);
     }
@@ -902,7 +893,7 @@ public class Configuration implements ExecutableCode {
         if (res_.isEmpty()) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName("");
-            un_.setRc(new RowCol());
+            un_.setIndexFile(0);
             un_.setType(_in);
             context.getClasses().addError(un_);
             res_ = standards.getAliasObject();
@@ -1095,5 +1086,15 @@ public class Configuration implements ExecutableCode {
     @Override
     public StringMap<StringList> getCurrentConstraints() {
         return context.getCurrentConstraints();
+    }
+
+    @Override
+    public Numbers<Integer> getCurrentBadIndexes() {
+        return context.getCurrentBadIndexes();
+    }
+
+    @Override
+    public int getCurrentLocationIndex() {
+        return getLastPage().getSum();
     }
 }

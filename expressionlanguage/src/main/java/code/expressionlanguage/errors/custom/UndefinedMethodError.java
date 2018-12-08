@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.StringList;
 
@@ -12,8 +13,8 @@ public final class UndefinedMethodError extends FoundErrorInterpret {
     private MethodId id;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,className.display(),".",id.getSignature(),SEP_INFO);
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,className.display(),".",id.getSignature(),SEP_INFO);
     }
 
     public StringList getClassName() {

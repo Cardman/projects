@@ -199,14 +199,14 @@ public abstract class Block extends Blockable {
                 BadLabelName bad_ = new BadLabelName();
                 bad_.setName(label_);
                 bad_.setFileName(getFile().getFileName());
-                bad_.setRc(getRowCol(0, 0));
+                bad_.setIndexFile(0);
                 _an.getClasses().addError(bad_);
             } else if (!label_.isEmpty()){
                 if (_anEl.getLabels().containsStr(label_)) {
                     DuplicateLabel dup_ = new DuplicateLabel();
                     dup_.setId(label_);
                     dup_.setFileName(getFile().getFileName());
-                    dup_.setRc(getRowCol(0, 0));
+                    dup_.setIndexFile(0);
                     _an.getClasses().addError(dup_);
                 } else {
                     _anEl.getLabels().add(label_);
@@ -232,7 +232,7 @@ public abstract class Block extends Blockable {
                         //error
                         UnassignedInfered un_ = new UnassignedInfered(v);
                         un_.setFileName(getFile().getFileName());
-                        un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                        un_.setIndexFile(getOffset().getOffsetTrim());
                         _an.getClasses().addError(un_);
                     }
                 }
@@ -332,7 +332,7 @@ public abstract class Block extends Blockable {
         }
         UnexpectedTagName un_ = new UnexpectedTagName();
         un_.setFileName(_block.getFile().getFileName());
-        un_.setRc(_block.getRowCol(0, _block.getOffset().getOffsetTrim()));
+        un_.setIndexFile(_block.getOffset().getOffsetTrim());
         _cont.getClasses().addError(un_);
     }
 
@@ -356,10 +356,7 @@ public abstract class Block extends Blockable {
     }
 
     public abstract ExpressionLanguage getEl(ContextEl _context, int _indexProcess);
-    public final RowCol getRowCol(int _offset, int _globalOffset) {
-        int sum_ = _globalOffset + _offset;
-        return getRowCol(sum_);
-    }
+
     public final RowCol getRowCol(int _sum) {
         FileBlock f_ = getFile();
         return f_.getRowColFile(_sum);

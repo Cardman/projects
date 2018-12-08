@@ -104,7 +104,7 @@ public abstract class SettableAbstractFieldOperation extends
                 und_.setClassName(base_);
                 und_.setId(fieldName_);
                 und_.setFileName(_conf.getCurrentFileName());
-                und_.setRc(_conf.getCurrentLocation());
+                und_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(und_);
             }
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -119,7 +119,7 @@ public abstract class SettableAbstractFieldOperation extends
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
             getPreviousResultClass().setCheckOnlyNullPe(true);
@@ -439,7 +439,7 @@ public abstract class SettableAbstractFieldOperation extends
                             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                             UnexpectedOperationAffect un_ = new UnexpectedOperationAffect();
                             un_.setFileName(_conf.getCurrentFileName());
-                            un_.setRc(_conf.getCurrentLocation());
+                            un_.setIndexFile(_conf.getCurrentLocationIndex());
                             _conf.getClasses().addError(un_);
                         }
                     }

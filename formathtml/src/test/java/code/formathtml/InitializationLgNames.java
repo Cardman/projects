@@ -195,6 +195,8 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetGenericVariableOwner("getGenericVariableOwner");
         _lgNames.setAliasGetString("getString");
         _lgNames.setAliasClass("java.lang.$Class");
+        _lgNames.setAliasStackTraceElement("java.lang.$stack");
+        _lgNames.setAliasCurrentStack("current");
         _lgNames.setAliasFct("java.lang.$Fct");
         _lgNames.setAliasCall("call");
         _lgNames.setAliasAnnotation("java.lang.$Annotation");

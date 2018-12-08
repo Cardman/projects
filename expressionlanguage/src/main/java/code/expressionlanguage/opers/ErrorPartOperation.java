@@ -30,7 +30,7 @@ public final class ErrorPartOperation extends AbstractFieldOperation {
         String argClName_;
         EmptyPartError emptyPart_ = new EmptyPartError();
         emptyPart_.setFileName(_conf.getCurrentFileName());
-        emptyPart_.setRc(_conf.getCurrentLocation());
+        emptyPart_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(emptyPart_);
         argClName_ = _conf.getStandards().getAliasObject();
         setResultClass(new ClassArgumentMatching(argClName_));    

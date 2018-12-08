@@ -86,7 +86,7 @@ public final class ConstantOperation extends LeafOperation {
                 BadFormatNumber badFormat_ = new BadFormatNumber();
                 badFormat_.setNumber(str_);
                 badFormat_.setFileName(_conf.getCurrentFileName());
-                badFormat_.setRc(_conf.getCurrentLocation());
+                badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(badFormat_);
             }
             setSimpleArgument(a_);
@@ -99,7 +99,7 @@ public final class ConstantOperation extends LeafOperation {
             BadFormatNumber badFormat_ = new BadFormatNumber();
             badFormat_.setNumber(str_);
             badFormat_.setFileName(_conf.getCurrentFileName());
-            badFormat_.setRc(_conf.getCurrentLocation());
+            badFormat_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badFormat_);
             argClassName_ = stds_.getAliasPrimDouble();
         }

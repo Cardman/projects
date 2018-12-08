@@ -41,7 +41,6 @@ public abstract class Leaf extends Block implements WithEl {
     @Override
     public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
         if (!_anEl.isReachable(this)) {
-            _anEl.completeAbrupt(this);
             _anEl.completeAbruptGroup(this);
         }
     }

@@ -33,7 +33,6 @@ import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.TypeOwnersDepends;
 import code.expressionlanguage.common.TypeUtil;
-import code.expressionlanguage.errors.custom.BadAccessClass;
 import code.expressionlanguage.errors.custom.BadInheritedClass;
 import code.expressionlanguage.errors.custom.IllegalCallCtorByType;
 import code.expressionlanguage.errors.custom.UnexpectedTypeError;
@@ -96,11 +95,11 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.IdList;
+import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.ObjectNotNullMap;
 import code.util.StringList;
@@ -929,6 +928,9 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return importing.isEmpty();
     }
 
+    public AbstractPageEl getCall(int _index) {
+        return importing.get(_index);
+    }
     public int nbPages() {
         return importing.size();
     }
@@ -957,13 +959,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public Block getCurrentBlock() {
         return analyzing.getCurrentBlock();
-    }
-    @Override
-    public RowCol getCurrentLocation() {
-        return analyzing.getTrace();
-    }
-    public String getInfos() {
-        return analyzing.getInfos(this);
     }
 
     @Override
@@ -1325,147 +1320,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         return null;
     }
     @Override
-    public String resolveIdType(String _in) {
-        Block bl_ = getCurrentBlock();
-        RowCol rc_ = getCurrentLocation();
-        String void_ = standards.getAliasVoid();
-        if (StringList.quickEq(_in.trim(), void_)) {
-            UnexpectedTypeError un_ = new UnexpectedTypeError();
-            un_.setFileName(bl_.getFile().getFileName());
-            un_.setRc(rc_);
-            un_.setType(_in);
-            classes.addError(un_);
-            return standards.getAliasObject();
-        }
-        AccessingImportingBlock r_ = bl_.getImporting();
-        String gl_ = getGlobalClass();
-        StringList inners_;
-        if (options.isSingleInnerParts()) {
-            inners_ = Templates.getAllInnerTypesSingleDotted(_in, this);
-        } else {
-            inners_ = Templates.getAllInnerTypes(_in);
-        }
-        String base_ = inners_.first().trim();
-        if (base_.isEmpty()) {
-            if (inners_.size() == 1) {
-                //ERROR
-                UnknownClassName undef_;
-                undef_ = new UnknownClassName();
-                undef_.setClassName(base_);
-                undef_.setFileName(r_.getFile().getFileName());
-                undef_.setRc(rc_);
-                classes.addError(undef_);
-                return standards.getAliasObject();
-            }
-            if (!(r_ instanceof RootBlock)) {
-                UnknownClassName undef_;
-                undef_ = new UnknownClassName();
-                undef_.setClassName(base_);
-                undef_.setFileName(r_.getFile().getFileName());
-                undef_.setRc(rc_);
-                classes.addError(undef_);
-                return standards.getAliasObject();
-            }
-            String baseInn_ = inners_.get(1).trim();
-            CustList<RootBlock> allAncestors_ = new CustList<RootBlock> ();
-            RootBlock p_ = ((RootBlock)r_).getParentType();
-            while (p_ != null) {
-                allAncestors_.add(p_);
-                p_ = p_.getParentType();
-            }
-            String name_ = EMPTY_TYPE;
-            for (RootBlock a: allAncestors_) {
-                String id_ = a.getFullName();
-                StringList builtInners_ = TypeUtil.getInners(true,gl_,id_, baseInn_,false, this);
-                if (builtInners_.size() == 1) {
-                    name_ = builtInners_.first();
-                    break;
-                }
-            }
-            if (name_.isEmpty()) {
-                UnknownClassName undef_;
-                undef_ = new UnknownClassName();
-                undef_.setClassName(base_);
-                undef_.setFileName(r_.getFile().getFileName());
-                undef_.setRc(rc_);
-                classes.addError(undef_);
-                return standards.getAliasObject();
-            }
-            for (String i: inners_.mid(2)) {
-                StringList builtInners_ = TypeUtil.getInners(true, gl_,name_, i.trim(), false, this);
-                if (builtInners_.size() != 1) {
-                    //ERROR
-                    UnknownClassName undef_;
-                    undef_ = new UnknownClassName();
-                    undef_.setClassName(base_);
-                    undef_.setFileName(r_.getFile().getFileName());
-                    undef_.setRc(rc_);
-                    classes.addError(undef_);
-                    return standards.getAliasObject();
-                }
-                name_ = builtInners_.first();
-            }
-            return name_;
-        }
-        String res_ = removeDottedSpaces(base_);
-        if (standards.getStandards().contains(res_)) {
-            return res_;
-        }
-        RootBlock b_ = classes.getClassBody(res_);
-        if (b_ != null) {
-            if (!r_.canAccessClass(res_, this)) {
-                BadAccessClass err_ = new BadAccessClass();
-                err_.setFileName(r_.getFile().getFileName());
-                err_.setRc(rc_);
-                err_.setId(_in);
-                classes.addError(err_);
-            }
-        } else {
-            String id_ = lookupImportType(base_, r_);
-            if (id_.isEmpty()) {
-                UnknownClassName undef_;
-                undef_ = new UnknownClassName();
-                undef_.setClassName(base_);
-                undef_.setFileName(r_.getFile().getFileName());
-                undef_.setRc(rc_);
-                classes.addError(undef_);
-                return standards.getAliasObject();
-            }
-            res_ = id_;
-            b_ = classes.getClassBody(id_);
-            if (!r_.canAccessClass(id_, this)) {
-                BadAccessClass err_ = new BadAccessClass();
-                err_.setFileName(r_.getFile().getFileName());
-                err_.setRc(rc_);
-                err_.setId(_in);
-                classes.addError(err_);
-            }
-        }
-        for (String i: inners_.mid(1)) {
-            StringList builtInners_ = TypeUtil.getInners(true,gl_,res_, i.trim(), false, this);
-            if (builtInners_.size() != 1) {
-                //ERROR
-                UnknownClassName undef_;
-                undef_ = new UnknownClassName();
-                undef_.setClassName(base_);
-                undef_.setFileName(r_.getFile().getFileName());
-                undef_.setRc(rc_);
-                classes.addError(undef_);
-                return standards.getAliasObject();
-            }
-            res_ = builtInners_.first();
-        }
-        return res_;
-    }
-    @Override
     public String resolveAccessibleIdType(String _in) {
         Block bl_ = getCurrentBlock();
-        RowCol rc_ = getCurrentLocation();
+        int rc_ = getCurrentLocationIndex();
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(bl_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             un_.setType(_in);
             classes.addError(un_);
             return EMPTY_TYPE;
@@ -1490,7 +1352,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 undef_ = new UnknownClassName();
                 undef_.setClassName(base_);
                 undef_.setFileName(r_.getFile().getFileName());
-                undef_.setRc(rc_);
+                undef_.setIndexFile(rc_);
                 classes.addError(undef_);
                 return EMPTY_TYPE;
             }
@@ -1506,7 +1368,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 undef_ = new UnknownClassName();
                 undef_.setClassName(base_);
                 undef_.setFileName(r_.getFile().getFileName());
-                undef_.setRc(rc_);
+                undef_.setIndexFile(rc_);
                 classes.addError(undef_);
                 return EMPTY_TYPE;
             }
@@ -1522,12 +1384,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public String resolveCorrectAccessibleType(String _in, String _fromType) {
         Block bl_ = getCurrentBlock();
-        RowCol rc_ = getCurrentLocation();
+        int rc_ = getCurrentLocationIndex();
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(bl_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             un_.setType(_in);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1540,7 +1402,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (from_ == null) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(bl_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             un_.setType(_in);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1557,7 +1419,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(r_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
         }
@@ -1565,7 +1427,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(r_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
         }
@@ -1575,12 +1437,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public String resolveCorrectType(String _in, boolean _exact) {
         Block bl_ = getCurrentBlock();
-        RowCol rc_ = getCurrentLocation();
+        int rc_ = getCurrentLocationIndex();
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(bl_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             un_.setType(_in);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1610,12 +1472,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().addAllElts(varsList_);
         setDirectImport(false);
         String gl_ = getGlobalClass();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact, true, rc_);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, r_, _exact);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(r_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
         }
@@ -1623,7 +1485,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(r_.getFile().getFileName());
-            un_.setRc(rc_);
+            un_.setIndexFile(rc_);
             classes.addError(un_);
             return standards.getAliasObject();
         }
@@ -1734,7 +1596,6 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 enum_ = new BadInheritedClass();
                 enum_.setClassName(c.getClassField());
                 enum_.setFileName(c.getClassField());
-                enum_.setRc(new RowCol());
                 classes.addError(enum_);
             }
             return null;
@@ -1755,12 +1616,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     /**Used at building mapping constraints*/
     public String resolveTypeMapping(String _in, RootBlock _currentBlock,
-            RowCol _location) {
+            int _location) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setRc(_location);
+            un_.setIndexFile(_location);
             un_.setType(_in);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1776,12 +1637,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().addAllElts(variables_);
         setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
-        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true, true, _location);
+        String resType_ = PartTypeUtil.processAnalyze(_in, gl_, this, _currentBlock, true);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setRc(_location);
+            un_.setIndexFile(_location);
             classes.addError(un_);
             return standards.getAliasObject();
         }
@@ -1789,12 +1650,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     }
     /**Used at building mapping constraints*/
     public String resolveTypeInherits(String _in, RootBlock _currentBlock,
-            RowCol _location, int _index) {
+            int _location, int _index) {
         String void_ = standards.getAliasVoid();
         if (StringList.quickEq(_in.trim(), void_)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setRc(_location);
+            un_.setIndexFile(_location);
             un_.setType(_in);
             classes.addError(un_);
             return standards.getAliasObject();
@@ -1810,12 +1671,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         getAvailableVariables().addAllElts(variables_);
         setDirectImport(false);
         String gl_ = _currentBlock.getGenericString();
-        String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _index, gl_, this, _currentBlock, true, false, _location);
+        String resType_ = PartTypeUtil.processAnalyzeInherits(_in, _index, gl_, this, _currentBlock, true, false);
         if (resType_.trim().isEmpty()) {
             UnknownClassName un_ = new UnknownClassName();
             un_.setClassName(_in);
             un_.setFileName(_currentBlock.getFile().getFileName());
-            un_.setRc(_location);
+            un_.setIndexFile(_location);
             classes.addError(un_);
             return standards.getAliasObject();
         }
@@ -1824,14 +1685,14 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(resType_);
                 call_.setFileName(_currentBlock.getFile().getFileName());
-                call_.setRc(_location);
+                call_.setIndexFile(_location);
                 classes.addError(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 IllegalCallCtorByType call_ = new IllegalCallCtorByType();
                 call_.setType(resType_);
                 call_.setFileName(_currentBlock.getFile().getFileName());
-                call_.setRc(_location);
+                call_.setIndexFile(_location);
                 classes.addError(call_);
             }
         }
@@ -3184,6 +3045,16 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
     @Override
     public void setOkNumOp(boolean _okNumOp) {
         analyzing.setOkNumOp(_okNumOp);
+    }
+
+    @Override
+    public Numbers<Integer> getCurrentBadIndexes() {
+        return analyzing.getCurrentBadIndexes();
+    }
+
+    @Override
+    public int getCurrentLocationIndex() {
+        return analyzing.getTraceIndex();
     }
 
     @Override

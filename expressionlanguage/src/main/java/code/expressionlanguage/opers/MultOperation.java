@@ -54,7 +54,7 @@ public final class MultOperation extends NumericOperation {
         if (oa_ <= 0 || ob_ <= 0) {
             String exp_ = _cont.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_cont.getCurrentLocation());
+            un_.setIndexFile(_cont.getCurrentLocationIndex());
             un_.setFileName(_cont.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(_a,_b);

@@ -39,7 +39,7 @@ public final class BitXorOperation extends NumericOperation {
         _cont.setOkNumOp(false);
         String exp_ = _cont.getStandards().getAliasNumber();
         UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-        un_.setRc(_cont.getCurrentLocation());
+        un_.setIndexFile(_cont.getCurrentLocationIndex());
         un_.setFileName(_cont.getCurrentFileName());
         un_.setExpectedResult(exp_);
         un_.setOperands(_a,_b);

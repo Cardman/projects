@@ -52,6 +52,7 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         return new ConstructorId(_genericClass, pTypes_, isVararg());
     }
 
+    @Override
     public String getSignature() {
         String suf_ = EMPTY;
         if (vararg) {

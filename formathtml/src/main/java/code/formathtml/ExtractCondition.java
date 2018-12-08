@@ -48,8 +48,8 @@ final class ExtractCondition {
             BadElRender badEl_ = new BadElRender();
             badEl_.setErrors(_conf.getClasses().getErrorsDet());
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
-            _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+            _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display(_conf.getClasses())), _conf.getStandards().getErrorEl()));
             return false;
         }
         if (StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_IF_DEF_PARAM)) || StringList.quickEq(_en.getTagName(), StringList.concat(prefix_,TAG_ELSE_IF_DEF_PARAM))) {
@@ -169,13 +169,13 @@ final class ExtractCondition {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().getErrorsDet().add(cast_);
                 BadElRender badEl_ = new BadElRender();
                 badEl_.setErrors(_conf.getClasses().getErrorsDet());
                 badEl_.setFileName(_conf.getCurrentFileName());
-                badEl_.setRc(_conf.getCurrentLocation());
-                _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display(_conf.getClasses())), _conf.getStandards().getErrorEl()));
                 return false;
             }
             Boolean b_ = (Boolean) o_;

@@ -38,7 +38,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation {
         if (!clMatch_.isBoolType(_conf)) {
             ClassArgumentMatching cl_ = child_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);

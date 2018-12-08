@@ -92,7 +92,7 @@ public abstract class QuickOperation extends PrimitiveBoolOperation {
             if (!clMatch_.isBoolType(_conf)) {
                 ClassArgumentMatching cl_ = o.getResultClass();
                 UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-                un_.setRc(_conf.getCurrentLocation());
+                un_.setIndexFile(_conf.getCurrentLocationIndex());
                 un_.setFileName(_conf.getCurrentFileName());
                 un_.setExpectedResult(booleanType_);
                 un_.setOperands(cl_);

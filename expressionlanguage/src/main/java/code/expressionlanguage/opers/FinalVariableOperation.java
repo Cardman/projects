@@ -55,7 +55,7 @@ public final class FinalVariableOperation extends LeafOperation {
             UndefinedVariableError und_ = new UndefinedVariableError();
             und_.setId(variableName);
             und_.setFileName(_conf.getCurrentFileName());
-            und_.setRc(_conf.getCurrentLocation());
+            und_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -70,7 +70,7 @@ public final class FinalVariableOperation extends LeafOperation {
             UndefinedVariableError und_ = new UndefinedVariableError();
             und_.setId(variableName);
             und_.setFileName(_conf.getCurrentFileName());
-            und_.setRc(_conf.getCurrentLocation());
+            und_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -85,7 +85,7 @@ public final class FinalVariableOperation extends LeafOperation {
             UndefinedVariableError und_ = new UndefinedVariableError();
             und_.setId(variableName);
             und_.setFileName(_conf.getCurrentFileName());
-            und_.setRc(_conf.getCurrentLocation());
+            und_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(und_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -99,7 +99,7 @@ public final class FinalVariableOperation extends LeafOperation {
         UndefinedVariableError und_ = new UndefinedVariableError();
         und_.setId(variableName);
         und_.setFileName(_conf.getCurrentFileName());
-        und_.setRc(_conf.getCurrentLocation());
+        und_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }

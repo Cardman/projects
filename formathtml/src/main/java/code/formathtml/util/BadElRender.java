@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.expressionlanguage.errors.custom.ErrorList;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public final class BadElRender extends FoundErrorInterpret {
@@ -9,8 +10,8 @@ public final class BadElRender extends FoundErrorInterpret {
     private ErrorList errors;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),SEP_INFO,errors.display());
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),SEP_INFO,errors.display(_classes));
     }
 
     public ErrorList getErrors() {

@@ -150,7 +150,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements GeneMetho
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
                 //error
                 MissingReturnMethod miss_ = new MissingReturnMethod();
-                miss_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 miss_.setId(getSignature());
                 miss_.setReturning(getImportedReturnType());

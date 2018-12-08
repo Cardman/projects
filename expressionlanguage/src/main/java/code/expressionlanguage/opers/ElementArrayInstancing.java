@@ -35,7 +35,7 @@ public final class ElementArrayInstancing extends AbstractArrayElementOperation 
         className_ = _conf.resolveCorrectType(className_);
         if (!className_.startsWith(ARR)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(className_));
@@ -66,7 +66,7 @@ public final class ElementArrayInstancing extends AbstractArrayElementOperation 
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(eltType_, _conf)) {

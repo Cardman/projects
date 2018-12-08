@@ -6,7 +6,6 @@ import code.expressionlanguage.OffsetAccessInfo;
 import code.expressionlanguage.OffsetsBlock;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.common.GeneInterface;
-import code.sml.RowCol;
 import code.util.NatTreeMap;
 import code.util.StringList;
 
@@ -118,8 +117,7 @@ public final class InterfaceBlock extends RootBlock implements GeneInterface {
         importedDirectSuperInterfaces.clear();
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
-            RowCol rc_ = getRowCol(0,index_);
-            String s_ = _classes.resolveTypeInherits(s, this,rc_, i_);
+            String s_ = _classes.resolveTypeInherits(s, this,index_, i_);
             i_++;
             String base_ = Templates.getIdFromAllTypes(s_);
             RootBlock r_ = _classes.getClasses().getClassBody(base_);

@@ -2,8 +2,8 @@ package code.expressionlanguage;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.CharStruct;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -14,7 +14,6 @@ import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.Numbers;
 
 public final class Argument {
 
@@ -63,24 +62,8 @@ public final class Argument {
         return object.isNull();
     }
 
-    public CharSequence getString(Analyzable _cont) {
-        if (object instanceof CharStruct) {
-            return Character.toString(((CharStruct)object).getChar());
-        }
-        if (object instanceof BooleanStruct) {
-            BooleanStruct b_ = (BooleanStruct) object;
-            if (b_.getInstance()) {
-                return _cont.getStandards().getTrueString();
-            }
-            return _cont.getStandards().getFalseString();
-        }
-        if (object instanceof NumberStruct) {
-            return Numbers.toString(((NumberStruct)object).getInstance());
-        }
-        if (object instanceof CharSequenceStruct) {
-            return ((CharSequenceStruct)object).getInstance();
-        }
-        return _cont.getStandards().getNullString();
+    public String getString(Analyzable _cont) {
+        return ((DisplayableStruct)object).getDisplayedString(_cont).getInstance();
     }
     public Number getNumber() {
         return ((NumberStruct)object).getInstance();

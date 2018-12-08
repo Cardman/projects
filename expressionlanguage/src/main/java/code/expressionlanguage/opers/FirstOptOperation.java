@@ -37,7 +37,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         if (!(m_ instanceof InvokingOperation)) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setRc(_conf.getCurrentLocation());
+            varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(FIRST_OPT);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -48,7 +48,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         if (!parent_.isCallMethodCtor(_conf)) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setRc(_conf.getCurrentLocation());
+            varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(FIRST_OPT);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -58,7 +58,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         if (isFirstChild()) {
             VarargError varg_ = new VarargError();
             varg_.setFileName(_conf.getCurrentFileName());
-            varg_.setRc(_conf.getCurrentLocation());
+            varg_.setIndexFile(_conf.getCurrentLocationIndex());
             varg_.setMethodName(FIRST_OPT);
             _conf.getClasses().addError(varg_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));

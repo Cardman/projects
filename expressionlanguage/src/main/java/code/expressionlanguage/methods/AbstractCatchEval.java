@@ -103,7 +103,7 @@ public abstract class AbstractCatchEval extends BracedStack implements Eval,
             if (!(pBlock_ instanceof TryEval)) {
                 UnexpectedTagName un_ = new UnexpectedTagName();
                 un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+                un_.setIndexFile(getOffset().getOffsetTrim());
                 _an.getClasses().addError(un_);
             }
         }

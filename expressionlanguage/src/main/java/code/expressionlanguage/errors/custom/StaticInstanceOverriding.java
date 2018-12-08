@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.ClassName;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.StringList;
@@ -20,14 +21,14 @@ public class StaticInstanceOverriding extends FoundErrorInterpret {
     private boolean staticBaseMethod;
 
     @Override
-    public String display() {
+    public String display(Classes _classes) {
         if (staticBaseMethod) {
-            return StringList.concat(super.display(),INSTANCE_SUBCLASS,SEP_LOC_INFO,
+            return StringList.concat(super.display(_classes),INSTANCE_SUBCLASS,SEP_LOC_INFO,
                     STATIC_BASE,
                     SEP_KEY_VAL,baseClass.getName(),
                     SEP_CLASS_PATH,methodeId.getSignature(),SEP_INFO);
         }
-        return StringList.concat(super.display(),STATIC_SUBCLASS,SEP_LOC_INFO,
+        return StringList.concat(super.display(_classes),STATIC_SUBCLASS,SEP_LOC_INFO,
                 INSTANCE_BASE,
                 SEP_KEY_VAL,baseClass.getName(),
                 SEP_CLASS_PATH,methodeId.getSignature(),SEP_INFO);

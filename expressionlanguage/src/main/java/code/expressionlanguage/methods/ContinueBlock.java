@@ -57,7 +57,7 @@ public final class ContinueBlock extends AbruptBlock implements CallingFinally {
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
         }
     }

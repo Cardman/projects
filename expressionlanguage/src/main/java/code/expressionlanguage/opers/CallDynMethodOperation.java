@@ -86,7 +86,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             undefined_.setNbTypes(param_.size());
             undefined_.setId(fct_);
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -112,7 +112,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                     BadImplicitCast cast_ = new BadImplicitCast();
                     cast_.setMapping(m_);
                     cast_.setFileName(_conf.getCurrentFileName());
-                    cast_.setRc(_conf.getCurrentLocation());
+                    cast_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().addError(cast_);
                 }
                 if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {

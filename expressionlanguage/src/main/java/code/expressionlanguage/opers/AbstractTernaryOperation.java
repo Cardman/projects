@@ -105,7 +105,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setOperandsNumber(chidren_.size());
             badNb_.setFileName(_conf.getCurrentFileName());
-            badNb_.setRc(_conf.getCurrentLocation());
+            badNb_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -116,7 +116,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
             ClassArgumentMatching cl_ = chidren_.first().getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
@@ -148,7 +148,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(opTwo_.getIndexInEl(), _conf);
             ClassArgumentMatching cl_ = opTwo_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
@@ -158,7 +158,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(opThree_.getIndexInEl(), _conf);
             ClassArgumentMatching cl_ = opThree_.getResultClass();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(booleanType_);
             un_.setOperands(cl_);
@@ -224,7 +224,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             setResultClass(new ClassArgumentMatching(type_));
             if (opOne_.getArgument() != null) {
                 DeadCodeTernary d_ = new DeadCodeTernary();
-                d_.setRc(_conf.getCurrentLocation());
+                d_.setIndexFile(_conf.getCurrentLocationIndex());
                 d_.setFileName(_conf.getCurrentFileName());
                 _conf.getClasses().addWarning(d_);
             }
@@ -240,7 +240,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         setResultClass(new ClassArgumentMatching(res_.getTypes()));
         if (opOne_.getArgument() != null) {
             DeadCodeTernary d_ = new DeadCodeTernary();
-            d_.setRc(_conf.getCurrentLocation());
+            d_.setIndexFile(_conf.getCurrentLocationIndex());
             d_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addWarning(d_);
         }

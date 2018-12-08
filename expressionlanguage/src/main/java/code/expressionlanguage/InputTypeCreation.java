@@ -1,17 +1,16 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.methods.FileBlock;
-import code.sml.RowCol;
+import code.util.Numbers;
 
 public final class InputTypeCreation {
 
     private FileBlock fileBlock;
 
-    private RowCol nextRowCol;
-
     private int nextIndex;
 
     private EnablingSpaces enabledSpaces;
+    private Numbers<Integer> badIndexes = new Numbers<Integer>();
 
     public FileBlock getFileBlock() {
         return fileBlock;
@@ -19,14 +18,6 @@ public final class InputTypeCreation {
 
     public void setFileBlock(FileBlock _fileBlock) {
         fileBlock = _fileBlock;
-    }
-
-    public RowCol getNextRowCol() {
-        return nextRowCol;
-    }
-
-    public void setNextRowCol(RowCol _nextRowCol) {
-        nextRowCol = _nextRowCol;
     }
 
     public int getNextIndex() {
@@ -43,5 +34,8 @@ public final class InputTypeCreation {
 
     public void setEnabledSpaces(EnablingSpaces _enabledSpaces) {
         enabledSpaces = _enabledSpaces;
+    }
+    public Numbers<Integer> getBadIndexes() {
+        return badIndexes;
     }
 }

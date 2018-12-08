@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public class DuplicateParamMethod extends FoundErrorInterpret {
@@ -13,8 +14,8 @@ public class DuplicateParamMethod extends FoundErrorInterpret {
     private String otherType;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),SEP_INFO,COMMON_SIGNATURE,SEP_KEY_VAL,commonSignature,
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),SEP_INFO,COMMON_SIGNATURE,SEP_KEY_VAL,commonSignature,
                 SEP_INFO,LOCATION,SEP_KEY_VAL,otherType);
     }
 

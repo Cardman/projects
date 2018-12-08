@@ -40,7 +40,7 @@ public final class InternGlobalOperation extends LeafOperation {
             StaticAccessThisError static_ = new StaticAccessThisError();
             static_.setClassName(arg_);
             static_.setFileName(_conf.getCurrentFileName());
-            static_.setRc(_conf.getCurrentLocation());
+            static_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(static_);
         }
         setResultClass(new ClassArgumentMatching(arg_));

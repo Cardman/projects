@@ -21,7 +21,6 @@ import code.expressionlanguage.opers.DotOperation;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.opers.OperationNode;
 import code.expressionlanguage.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.opers.StaticAccessOperation;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.stacks.SwitchBlockStack;
@@ -80,7 +79,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
             page_.setOffset(0);
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _cont.getClasses().addError(un_);
             return;
         }
@@ -125,7 +124,7 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
                 }
                 UnexpectedTypeError un_ = new UnexpectedTypeError();
                 un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, valueOffset));
+                un_.setIndexFile(valueOffset);
                 un_.setType(opValue.last().getResultClass());
                 _cont.getClasses().addError(un_);
                 return;
@@ -138,64 +137,22 @@ public final class CaseCondition extends SwitchPartBlock implements IncrCurrentG
         if (opValue.last().isVoidArg(_cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, valueOffset));
+            un_.setIndexFile(valueOffset);
             un_.setType(opValue.last().getResultClass());
             _cont.getClasses().addError(un_);
         }
         if (opValue.last().getArgument() == null) {
-            OperationNode last_ = opValue.last();
-            if (!(last_ instanceof SettableAbstractFieldOperation)) {
-                if (!(last_ instanceof DotOperation)) {
-                    UnexpectedTypeError un_ = new UnexpectedTypeError();
-                    un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().addError(un_);
-                    return;
-                }
-                DotOperation d_ = (DotOperation) last_;
-                if (!(d_.getFirstChild() instanceof StaticAccessOperation)) {
-                    UnexpectedTypeError un_ = new UnexpectedTypeError();
-                    un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().addError(un_);
-                    return;
-                }
-                if (!(d_.getFirstChild().getNextSibling() instanceof SettableAbstractFieldOperation)) {
-                    UnexpectedTypeError un_ = new UnexpectedTypeError();
-                    un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0, valueOffset));
-                    un_.setType(opValue.last().getResultClass());
-                    _cont.getClasses().addError(un_);
-                    return;
-                }
-                last_ = d_.getFirstChild().getNextSibling();
-            }
-            SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation) last_;
-            ClassField clField_ = cst_.getFieldId();
-            if (clField_ == null) {
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
-                un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, valueOffset));
-                un_.setType(opValue.last().getResultClass());
-                _cont.getClasses().addError(un_);
-                return;
-            }
-            if (!cst_.getFieldMetaInfo().isEnumField()) {
-                UnexpectedTypeError un_ = new UnexpectedTypeError();
-                un_.setFileName(getFile().getFileName());
-                un_.setRc(getRowCol(0, valueOffset));
-                un_.setType(opValue.last().getResultClass());
-                _cont.getClasses().addError(un_);
-                return;
-            }
+            UnexpectedTypeError un_ = new UnexpectedTypeError();
+            un_.setFileName(getFile().getFileName());
+            un_.setIndexFile(valueOffset);
+            un_.setType(opValue.last().getResultClass());
+            _cont.getClasses().addError(un_);
         }
         ClassArgumentMatching resCase_ = opValue.last().getResultClass();
         if (!PrimitiveTypeUtil.canBeUseAsArgument(false, resSwitch_, resCase_, _cont)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, valueOffset));
+            un_.setIndexFile(valueOffset);
             un_.setType(opValue.last().getResultClass());
             _cont.getClasses().addError(un_);
         }

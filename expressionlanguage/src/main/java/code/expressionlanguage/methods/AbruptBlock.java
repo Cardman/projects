@@ -13,7 +13,6 @@ public abstract class AbruptBlock extends Leaf {
 
     @Override
     public void abrupt(Analyzable _an, AnalyzingEl _anEl) {
-        _anEl.completeAbrupt(this);
         _anEl.completeAbruptGroup(this);
     }
     @Override

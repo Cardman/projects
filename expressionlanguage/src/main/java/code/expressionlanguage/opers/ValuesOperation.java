@@ -46,12 +46,12 @@ public final class ValuesOperation extends LeafOperation {
         String glClass_ = _conf.getGlobalClass();
         Classes classes_ = _conf.getClasses();
         String clName_;
-        clName_ = _conf.resolveIdType(className);
+        clName_ = _conf.resolveAccessibleIdType(className);
         RootBlock r_ = classes_.getClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             UnexpectedTypeError un_ = new UnexpectedTypeError();
             un_.setFileName(_conf.getCurrentFileName());
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setType(clName_);
             _conf.getClasses().addError(un_);
             String argClName_ = _conf.getStandards().getAliasObject();
@@ -65,7 +65,7 @@ public final class ValuesOperation extends LeafOperation {
         if (!Classes.canAccessClass(curClassBase_, clName_, _conf)) {
             BadAccessClass badAccess_ = new BadAccessClass();
             badAccess_.setId(clName_);
-            badAccess_.setRc(_conf.getCurrentLocation());
+            badAccess_.setIndexFile(_conf.getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(badAccess_);
         }

@@ -43,7 +43,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
             cl_.setCheckOnlyNullPe(true);
@@ -54,7 +54,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         und_.setClassName(cl_.getNames().join(""));
         und_.setFileName(str_);
         und_.setFileName(_conf.getCurrentFileName());
-        und_.setRc(_conf.getCurrentLocation());
+        und_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(und_);
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
     }

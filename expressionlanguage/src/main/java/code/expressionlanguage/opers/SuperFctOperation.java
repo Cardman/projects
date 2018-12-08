@@ -93,7 +93,7 @@ public final class SuperFctOperation extends InvokingOperation {
         if (!Templates.isCorrect(map_, _conf)) {
             BadImplicitCast cast_ = new BadImplicitCast();
             cast_.setMapping(map_);
-            cast_.setRc(_conf.getCurrentLocation());
+            cast_.setIndexFile(_conf.getCurrentLocationIndex());
             cast_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(cast_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -133,7 +133,7 @@ public final class SuperFctOperation extends InvokingOperation {
             AbstractMethod abs_ = new AbstractMethod();
             abs_.setClassName(clMeth_.getRealClass());
             abs_.setSgn(clMeth_.getRealId().getSignature());
-            abs_.setRc(_conf.getCurrentLocation());
+            abs_.setIndexFile(_conf.getCurrentLocationIndex());
             abs_.setFileName(_conf.getCurrentFileName());
             _conf.getClasses().addError(abs_);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
@@ -157,7 +157,7 @@ public final class SuperFctOperation extends InvokingOperation {
             if (Argument.isNullValue(arg_)) {
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
         }

@@ -1,10 +1,9 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.Analyzable;
 import code.util.CustList;
 
-public abstract class CharSequenceStruct implements Struct {
+public abstract class CharSequenceStruct implements DisplayableStruct {
     @Override
     public final Struct getParent() {
         return NullStruct.NULL_VALUE;
@@ -37,8 +36,11 @@ public abstract class CharSequenceStruct implements Struct {
         }
         return true;
     }
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        return new StringStruct(getInstance().toString());
+    }
 
     @Override
     public abstract CharSequence getInstance();
-    protected abstract void toStringStruct(LgNames _stds, ResultErrorStd _res);
 }

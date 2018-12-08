@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public final class UndefinedVariableError extends FoundErrorInterpret {
@@ -9,8 +10,8 @@ public final class UndefinedVariableError extends FoundErrorInterpret {
     private String id;
 
     @Override
-    public String display() {
-        return StringList.concat(super.display(),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,id,SEP_INFO);
+    public String display(Classes _classes) {
+        return StringList.concat(super.display(_classes),SEP_INFO,CLASS_NAME,SEP_KEY_VAL,id,SEP_INFO);
     }
 
     public String getId() {

@@ -505,7 +505,7 @@ public abstract class OperationNode {
         access_.setClassName(_class.getNames().join(""));
         access_.setId(_name);
         access_.setFileName(_cont.getCurrentFileName());
-        access_.setRc(_cont.getCurrentLocation());
+        access_.setIndexFile(_cont.getCurrentLocationIndex());
         _cont.getClasses().addError(access_);
         FieldResult res_ = new FieldResult();
         res_.setStatus(SearchingMemberStatus.ZERO);
@@ -767,7 +767,7 @@ public abstract class OperationNode {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
         }
@@ -822,7 +822,7 @@ public abstract class OperationNode {
             undefined_.setClassName(clCurName_);
             undefined_.setId(new ConstructorId(clCurName_, classesNames_,false));
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
@@ -849,7 +849,7 @@ public abstract class OperationNode {
             undefined_.setClassName(clCurName_);
             undefined_.setId(new ConstructorId(clCurName_, classesNames_, false));
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             ConstrustorIdVarArg out_;
             out_ = new ConstrustorIdVarArg();
@@ -895,7 +895,7 @@ public abstract class OperationNode {
             undefined_.setClassName(_classes);
             undefined_.setId(new MethodId(mod_, _name, classesNames_));
             undefined_.setFileName(_conf.getCurrentFileName());
-            undefined_.setRc(_conf.getCurrentLocation());
+            undefined_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(undefined_);
             ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
             return_.setId(new ClassMethodId(_classes.first(), new MethodId(mod_, _name, classesNames_)));
@@ -920,7 +920,7 @@ public abstract class OperationNode {
         undefined_.setClassName(_classes);
         undefined_.setId(new MethodId(mod_, _name, classesNames_));
         undefined_.setFileName(_conf.getCurrentFileName());
-        undefined_.setRc(_conf.getCurrentLocation());
+        undefined_.setIndexFile(_conf.getCurrentLocationIndex());
         _conf.getClasses().addError(undefined_);
         return_.setId(new ClassMethodId(_classes.first(), new MethodId(mod_, _name, classesNames_)));
         return_.setRealId(new MethodId(mod_, _name, classesNames_));

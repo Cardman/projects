@@ -96,7 +96,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (type_.isEmpty() || StringList.quickEq(type_, keyWordVar_)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(EMPTY_STRING));
@@ -109,7 +109,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         String cp_ = PrimitiveTypeUtil.getQuickComponentType(n_, nbParentsInfer_);
         if (cp_ == null) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(EMPTY_STRING));
@@ -121,7 +121,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
         String classNameFinal_ = PrimitiveTypeUtil.getQuickComponentType(cp_);
         if (classNameFinal_ == null) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(new StringList(EMPTY_STRING));
@@ -150,7 +150,7 @@ public final class InferArrayInstancing extends AbstractArrayElementOperation {
                 BadImplicitCast cast_ = new BadImplicitCast();
                 cast_.setMapping(mapping_);
                 cast_.setFileName(_conf.getCurrentFileName());
-                cast_.setRc(_conf.getCurrentLocation());
+                cast_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(cast_);
             }
             if (PrimitiveTypeUtil.isPrimitive(classNameFinal_, _conf)) {

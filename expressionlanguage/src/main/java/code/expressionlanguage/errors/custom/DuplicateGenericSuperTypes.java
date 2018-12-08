@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors.custom;
 
+import code.expressionlanguage.methods.Classes;
 import code.util.StringList;
 
 public class DuplicateGenericSuperTypes extends FoundErrorInterpret {
@@ -9,8 +10,8 @@ public class DuplicateGenericSuperTypes extends FoundErrorInterpret {
     private StringList genericSuperTypes;
 
     @Override
-    public String display() {
-        StringBuilder str_ = new StringBuilder(super.display());
+    public String display(Classes _classes) {
+        StringBuilder str_ = new StringBuilder(super.display(_classes));
         str_.append(CLASS_NAME);
         str_.append(SEP_KEY_VAL);
         str_.append(genericSuperTypes.display());

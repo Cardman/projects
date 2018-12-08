@@ -4,7 +4,6 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.Templates;
 import code.expressionlanguage.methods.AccessingImportingBlock;
 import code.expressionlanguage.methods.RootBlock;
-import code.sml.RowCol;
 import code.util.CustList;
 import code.util.NatTreeMap;
 import code.util.StringList;
@@ -42,7 +41,7 @@ final class InnerPartType extends ParentPartType {
     @Override
     public void analyzeDepends(Analyzable _an,
             int _index, CustList<NatTreeMap<Integer, String>> _dels,
-            RootBlock _rooted, boolean _exact, RowCol _location) {
+            RootBlock _rooted, boolean _exact) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {
@@ -61,19 +60,7 @@ final class InnerPartType extends ParentPartType {
     public void analyzeInherits(Analyzable _an, int _index,
             CustList<NatTreeMap<Integer, String>> _dels, String _globalType,
             RootBlock _rooted, boolean _exact,
-            boolean _protected, RowCol _location) {
-        CustList<PartType> ch_ = new CustList<PartType>();
-        PartType f_ = getFirstChild();
-        while (f_ != null) {
-            ch_.add(f_);
-            f_ = f_.getNextSibling();
-        }
-        String t_ = ch_.last().getAnalyzedType();
-        setAnalyzedType(t_);
-    }
-    @Override
-    public void analyze(Analyzable _an, CustList<NatTreeMap<Integer, String>> _dels, String _globalType, AccessingImportingBlock _rooted,
-            boolean _exact, boolean _protected, RowCol _location) {
+            boolean _protected) {
         CustList<PartType> ch_ = new CustList<PartType>();
         PartType f_ = getFirstChild();
         while (f_ != null) {

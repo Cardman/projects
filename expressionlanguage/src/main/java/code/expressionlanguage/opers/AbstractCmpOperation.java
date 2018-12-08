@@ -420,7 +420,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
-            badNb_.setRc(_conf.getCurrentLocation());
+            badNb_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badNb_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
@@ -452,7 +452,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
                 _conf.setOkNumOp(false);
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
             arg_ = chidren_.last().getArgument();
@@ -460,7 +460,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
                 _conf.setOkNumOp(false);
                 StaticAccessError static_ = new StaticAccessError();
                 static_.setFileName(_conf.getCurrentFileName());
-                static_.setRc(_conf.getCurrentLocation());
+                static_.setIndexFile(_conf.getCurrentLocationIndex());
                 _conf.getClasses().addError(static_);
             }
             first_.setCheckOnlyNullPe(true);
@@ -472,7 +472,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasString());
             un_.setOperands(first_,second_);
@@ -493,7 +493,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
             un_.setOperands(classFirst_,classSecond_);
@@ -506,7 +506,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
             String res_ = stds_.getAliasPrimBoolean();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(stds_.getAliasPrimDouble());
             un_.setOperands(classFirst_,classSecond_);
@@ -520,7 +520,7 @@ public abstract class AbstractCmpOperation extends PrimitiveBoolOperation {
         expectedTypes_.add(stds_.getAliasString());
         String res_ = _conf.getStandards().getAliasPrimBoolean();
         UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-        un_.setRc(_conf.getCurrentLocation());
+        un_.setIndexFile(_conf.getCurrentLocationIndex());
         un_.setFileName(_conf.getCurrentFileName());
         un_.setExpectedResult(expectedTypes_.join(";"));
         un_.setOperands(classFirst_,classSecond_);

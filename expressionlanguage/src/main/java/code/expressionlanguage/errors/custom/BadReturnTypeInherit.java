@@ -1,4 +1,5 @@
 package code.expressionlanguage.errors.custom;
+import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.opers.util.MethodId;
 import code.util.StringList;
 
@@ -13,9 +14,9 @@ public class BadReturnTypeInherit extends FoundErrorInterpret {
     private String parentClass;
 
     @Override
-    public String display() {
+    public String display(Classes _classes) {
         String for_ = StringList.simpleStringsFormat(CLASS_NAME, returnType, method.getSignature(), parentClass);
-        return StringList.concat(super.display(),for_,SEP_INFO);
+        return StringList.concat(super.display(_classes),for_,SEP_INFO);
     }
 
     public String getReturnType() {

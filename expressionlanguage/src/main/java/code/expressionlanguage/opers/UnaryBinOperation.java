@@ -53,7 +53,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
             _conf.setOkNumOp(false);
             String exp_ = _conf.getStandards().getAliasNumber();
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(exp_);
             un_.setOperands(clMatch_);

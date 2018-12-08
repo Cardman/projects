@@ -107,13 +107,13 @@ final class HtmlRequest {
                     UnknownClassName un_ = new UnknownClassName();
                     un_.setClassName(className_);
                     un_.setFileName(_conf.getCurrentFileName());
-                    un_.setRc(_conf.getCurrentLocation());
+                    un_.setIndexFile(_conf.getCurrentLocationIndex());
                     _conf.getClasses().getErrorsDet().add(un_);
                     BadElRender badEl_ = new BadElRender();
                     badEl_.setErrors(_conf.getClasses().getErrorsDet());
                     badEl_.setFileName(_conf.getCurrentFileName());
-                    badEl_.setRc(_conf.getCurrentLocation());
-                    _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display()), _conf.getStandards().getErrorEl()));
+                    badEl_.setIndexFile(_conf.getCurrentLocationIndex());
+                    _conf.getContext().setException(new ErrorStruct(new CustomError(badEl_.display(_conf.getClasses())), _conf.getStandards().getErrorEl()));
                     return;
                 }
                 className_ = res_;

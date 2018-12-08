@@ -1,10 +1,11 @@
 package code.expressionlanguage.structs;
 
+import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.util.ObjectMap;
 
-public final class BooleanStruct implements Struct {
+public final class BooleanStruct implements DisplayableStruct {
 
     private final boolean value;
 
@@ -26,6 +27,13 @@ public final class BooleanStruct implements Struct {
         return _context.getStandards().getAliasPrimBoolean();
     }
 
+    @Override
+    public StringStruct getDisplayedString(Analyzable _an) {
+        if (value) {
+            return new StringStruct(_an.getStandards().getTrueString());
+        }
+        return new StringStruct(_an.getStandards().getFalseString());
+    }
     @Override
     public Boolean getInstance() {
         return value;

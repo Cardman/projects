@@ -46,7 +46,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
             BadOperandsNumber badNb_ = new BadOperandsNumber();
             badNb_.setFileName(_conf.getCurrentFileName());
             badNb_.setOperandsNumber(chidren_.size());
-            badNb_.setRc(_conf.getCurrentLocation());
+            badNb_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badNb_);
             setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
             return;
@@ -69,7 +69,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         if (!convertNumber_ && !indexClass_.isNumericInt(_conf)) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(_conf.getStandards().getAliasPrimInteger());
             un_.setOperands(indexClass_);
@@ -81,7 +81,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {
             UnexpectedTypeOperationError un_ = new UnexpectedTypeOperationError();
-            un_.setRc(_conf.getCurrentLocation());
+            un_.setIndexFile(_conf.getCurrentLocationIndex());
             un_.setFileName(_conf.getCurrentFileName());
             un_.setExpectedResult(PrimitiveTypeUtil.getPrettyArrayType(_conf.getStandards().getAliasObject()));
             un_.setOperands(class_);

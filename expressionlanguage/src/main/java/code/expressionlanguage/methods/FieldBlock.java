@@ -177,7 +177,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         if (!(getParent() instanceof RootBlock)) {
             UnexpectedTagName un_ = new UnexpectedTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }

@@ -74,7 +74,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    un_.setIndexFile(getOffset().getOffsetTrim());
                     _an.getClasses().addError(un_);
                 }
             }
@@ -96,7 +96,7 @@ public abstract class InitBlock extends MemberCallingsBlock implements AloneBloc
                     //error
                     UnassignedFinalField un_ = new UnassignedFinalField(key_);
                     un_.setFileName(getFile().getFileName());
-                    un_.setRc(getRowCol(0,getOffset().getOffsetTrim()));
+                    un_.setIndexFile(getOffset().getOffsetTrim());
                     _an.getClasses().addError(un_);
                 }
             }

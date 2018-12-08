@@ -41,7 +41,7 @@ public final class EqOperation extends PrimitiveBoolOperation {
             _conf.setOkNumOp(false);
             UnexpectedOperationAffect badEl_ = new UnexpectedOperationAffect();
             badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setRc(_conf.getCurrentLocation());
+            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
             _conf.getClasses().addError(badEl_);
         }
         String custOp_ = oper.trim();

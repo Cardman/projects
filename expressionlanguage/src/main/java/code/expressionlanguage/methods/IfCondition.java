@@ -80,7 +80,7 @@ public final class IfCondition extends Condition implements BlockCondition, Incr
         if (ch_ == null) {
             EmptyTagName un_ = new EmptyTagName();
             un_.setFileName(getFile().getFileName());
-            un_.setRc(getRowCol(0, getOffset().getOffsetTrim()));
+            un_.setIndexFile(getOffset().getOffsetTrim());
             _an.getClasses().addError(un_);
             return;
         }
