@@ -5,7 +5,7 @@ import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
 import code.util.ObjectMap;
 
-public final class BooleanStruct implements DisplayableStruct {
+public final class BooleanStruct implements DisplayableStruct, ExportableStringStruct {
 
     private final boolean value;
 
@@ -33,6 +33,13 @@ public final class BooleanStruct implements DisplayableStruct {
             return new StringStruct(_an.getStandards().getTrueString());
         }
         return new StringStruct(_an.getStandards().getFalseString());
+    }
+    @Override
+    public StringStruct exportValue() {
+        if (value) {
+            return new StringStruct("1");
+        }
+        return new StringStruct("0");
     }
     @Override
     public Boolean getInstance() {

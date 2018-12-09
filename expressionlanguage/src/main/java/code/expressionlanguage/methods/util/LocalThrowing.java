@@ -13,6 +13,7 @@ import code.expressionlanguage.methods.TryEval;
 import code.expressionlanguage.stacks.RemovableVars;
 import code.expressionlanguage.stacks.TryBlockStack;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 
@@ -57,7 +58,7 @@ public final class LocalThrowing implements CallingFinally {
                     if (n_ instanceof CatchEval) {
                         CatchEval ca_ = (CatchEval) n_;
                         String name_ = ca_.getImportedClassName();
-                        if (custCause_.isNull()) {
+                        if (custCause_ == NullStruct.NULL_VALUE) {
                             n_ = n_.getNextSibling();
                             continue;
                         }
@@ -70,7 +71,7 @@ public final class LocalThrowing implements CallingFinally {
                         }
                     } else {
                         NullCatchEval ca_ = (NullCatchEval) n_;
-                        if (custCause_.isNull()) {
+                        if (custCause_ == NullStruct.NULL_VALUE) {
                             catchElt_ = ca_;
                             try_.setCurrentBlock(ca_);
                             break;

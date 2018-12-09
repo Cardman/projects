@@ -8,54 +8,50 @@ import code.expressionlanguage.calls.AbstractPageEl;
 import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.FunctionBlock;
-import code.expressionlanguage.methods.InitBlock;
 import code.expressionlanguage.methods.NamedFunctionBlock;
-import code.expressionlanguage.methods.RootBlock;
 import code.expressionlanguage.opers.util.ClassField;
 import code.expressionlanguage.opers.util.Identifiable;
 import code.util.Numbers;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public class StackTraceElementStruct implements DisplayableStruct {
+public final class StackTraceElementStruct implements DisplayableStruct {
 
-    private String fileName;
-    private int row;
-    private int col;
-    private int indexFileType;
-    private String currentClassName;
-    private String signature;
+    private final String fileName;
+    private final int row;
+    private final int col;
+    private final int indexFileType;
+    private final String currentClassName;
+    private final String signature;
 
     private StackTraceElementStruct(AbstractPageEl _page) {
-        Block bl_ = _page.getCurrentBlock();
-        if (bl_ == null) {
-            fileName = "";
-            currentClassName = "";
-            signature = "";
-            return;
-        }
-        FileBlock f_ = bl_.getFile();
-        fileName = f_.getFileName();
         indexFileType = _page.getTraceIndex();
-        row = f_.getRowFile(indexFileType);
-        col = f_.getColFile(indexFileType);
-        RootBlock r_ = bl_.getRooted();
+        FileBlock f_ = _page.getFile();
+        if (f_ != null) {
+            fileName = f_.getFileName();
+            row = f_.getRowFile(indexFileType);
+            col = f_.getColFile(indexFileType,row);
+        } else {
+            fileName = "";
+            row = 0;
+            col = 0;
+        }
+        String r_ = _page.getGlobalClass();
         if (r_ != null) {
-            currentClassName = r_.getFullName();
+            currentClassName = r_;
         } else {
             currentClassName = "";
         }
-        FunctionBlock fct_ = bl_.getFunction();
-        if (fct_ == null) {
-            signature = "";
-            return;
+        Block bl_ = _page.getBlockRoot();
+        if (bl_ != null) {
+            FunctionBlock fct_ = bl_.getFunction();
+            if (fct_ instanceof NamedFunctionBlock) {
+                Identifiable id_ = ((NamedFunctionBlock)fct_).getId();
+                signature =id_.getSignature();
+                return;
+            }
         }
-        if (fct_ instanceof NamedFunctionBlock) {
-            Identifiable id_ = ((NamedFunctionBlock)fct_).getId();
-            signature =id_.getSignature();
-        } else if (fct_ instanceof InitBlock) {
-            signature = "";
-        }
+        signature = "";
     }
 
     public static ArrayStruct newStackTraceElementArray(ContextEl _context) {

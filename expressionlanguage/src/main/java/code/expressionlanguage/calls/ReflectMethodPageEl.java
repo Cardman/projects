@@ -6,6 +6,7 @@ import code.expressionlanguage.opers.InvokingOperation;
 import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
@@ -65,14 +66,14 @@ public final class ReflectMethodPageEl extends AbstractReflectPageEl {
             }
             CustList<Argument> args_ = new CustList<Argument>();
             Struct struct_ = getArguments().last().getStruct();
-            if (struct_.isNull()) {
+            if (!(struct_ instanceof ArrayStruct)) {
                 LgNames stds_ = _context.getStandards();
                 String null_;
                 null_ = stds_.getAliasNullPe();
                 _context.setException(new ErrorStruct(_context,null_));
                 return false;
             }
-            for (Struct a: ((Struct[])struct_.getInstance())) {
+            for (Struct a: ((ArrayStruct)struct_).getInstance()) {
                 Argument a_ = new Argument();
                 a_.setStruct(a);
                 args_.add(a_);

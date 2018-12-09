@@ -26,7 +26,6 @@ import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.util.CustList;
@@ -479,9 +478,6 @@ public final class VariableOperation extends LeafOperation implements
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
         }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-        }
         locVar_.setStruct(res_.getStruct());
         return res_;
     }
@@ -501,9 +497,6 @@ public final class VariableOperation extends LeafOperation implements
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
-        }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         locVar_.setStruct(res_.getStruct());
         if (_post) {

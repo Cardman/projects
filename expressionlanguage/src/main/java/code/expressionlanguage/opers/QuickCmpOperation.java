@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.OperationsSequence;
 import code.expressionlanguage.methods.util.ArgumentsPair;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -61,9 +62,9 @@ public final class QuickCmpOperation extends AbstractCmpOperation {
         }
         Argument arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = quickCalculateLower(_one, isStringCompare(), _two);
+            arg_ = new Argument(NumberStruct.quickCalculateLower(_one.getStruct(), isStringCompare(), _two.getStruct()));
         } else {
-            arg_ = quickCalculateGreater(_one, isStringCompare(), _two);
+            arg_ = new Argument(NumberStruct.quickCalculateGreater(_one.getStruct(), isStringCompare(), _two.getStruct()));
         }
         Boolean b_ = (Boolean) arg_.getObject();
         if (complement_) {

@@ -144,52 +144,7 @@ public final class StringStruct extends CharSequenceStruct {
         StringBuilderStruct arg_ = (StringBuilderStruct) _arg;
         _res.setResult(new StringStruct(arg_.getInstance().toString()));
     }
-    /*
-    
-            if (list_.size() == 1) {
-                if (StringList.quickEq(list_.first(), stringBuilderType_)) {
-                    StringBuilder one_ = (StringBuilder) argsObj_[0];
-                    if (one_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        result_.setResult(new StringStruct(new String(one_)));
-                    }
-                }
-            } else {
-                if (StringList.quickEq(list_.first(), PrimitiveTypeUtil.getPrettyArrayType(bytePrimType_))) {
-                    byte[] two_ = (byte[]) argsObj_[0];
-                    if (two_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        Integer three_ = (Integer) argsObj_[1];
-                        Integer four_ = (Integer) argsObj_[2];
-                        if (three_ < 0 || four_ < 0 || three_ > two_.length - four_) {
-                            result_.setError(lgNames_.getAliasBadIndex());
-                        } else {
-                            String dec_ = StringList.decode(two_, three_, four_);
-                            if (dec_ != null) {
-                                result_.setResult(new StringStruct(dec_));
-                            } else {
-                                result_.setError(lgNames_.getAliasBadIndex());
-                            }
-                        }
-                    }
-                } else {
-                    char[] two_ = (char[]) argsObj_[0];
-                    if (two_ == null) {
-                        result_.setError(lgNames_.getAliasNullPe());
-                    } else {
-                        Integer three_ = (Integer) argsObj_[1];
-                        Integer four_ = (Integer) argsObj_[2];
-                        if (three_ < 0 || four_ < 0 || three_ > two_.length - four_) {
-                            result_.setError(lgNames_.getAliasBadIndex());
-                        } else {
-                            result_.setResult(new StringStruct(new String(two_, three_, four_)));
-                        }
-                    }
-                }
-            }
-        */
+
     public static void calculate(Analyzable _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             ((StringStruct)_struct).calculate(_cont, _res, _method, _args);

@@ -65,8 +65,13 @@ public final class StringList extends AbEqList<String> implements Equallable<Str
         super(_capacity);
     }
 
-    public static byte[] encode(String _input) {
-        return encode(_input.toCharArray());
+    public static byte[] encode(CharSequence _input) {
+        int len_ = _input.length();
+        char[] chs_ = new char[len_];
+        for (int i = 0; i < len_; i++) {
+            chs_[i] = _input.charAt(i);
+        }
+        return encode(chs_);
     }
     public static byte[] encode(char[] _input) {
         Numbers<Byte> expBytes_ = encodeList(_input);

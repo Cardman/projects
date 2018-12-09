@@ -290,9 +290,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasSetCharAt("setCharAt");
         _lgNames.setAliasSetLength("setLength");
         _lgNames.setAliasTrimToSize("trimToSize");
-        _lgNames.setAliasGet("get");
-        _lgNames.setAliasSize("size");
-        _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasErrorInitClass("$core.DefErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasValues("values");
@@ -407,6 +404,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasOr("or");
         _lgNames.setAliasXor("xor");
         _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasNeg("neg");
         _lgNames.setAliasLt("lt");
         _lgNames.setAliasGt("gt");
         _lgNames.setAliasLe("le");
@@ -540,9 +538,6 @@ public final class KeyWordsMap {
         _lgNames.setAliasSetCharAt("majCaractere");
         _lgNames.setAliasSetLength("majLongueur");
         _lgNames.setAliasTrimToSize("trimmerTaille");
-        _lgNames.setAliasGet("obtenir");
-        _lgNames.setAliasSize("taille");
-        _lgNames.setAliasSimpleIterator("iterateur");
         _lgNames.setAliasErrorInitClass("$coeur.ErrorDefClasse");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasValues("valeurs");
@@ -657,6 +652,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasOr("ou");
         _lgNames.setAliasXor("ouExc");
         _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasNeg("neg");
         _lgNames.setAliasLt("pq");
         _lgNames.setAliasGt("gq");
         _lgNames.setAliasLe("pqe");

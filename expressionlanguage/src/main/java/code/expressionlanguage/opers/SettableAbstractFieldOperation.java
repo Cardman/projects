@@ -31,7 +31,6 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -622,9 +621,6 @@ public abstract class SettableAbstractFieldOperation extends
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 return res_;
             }
-            if (res_.getStruct() instanceof NumberStruct) {
-                res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-            }
             if (classes_.isCustomType(className_)) {
                 if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                     _conf.getContextEl().failInitEnums();
@@ -651,9 +647,6 @@ public abstract class SettableAbstractFieldOperation extends
         res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
-        }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         if (previous_.getStruct() instanceof FieldableStruct) {
             if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {
@@ -693,9 +686,6 @@ public abstract class SettableAbstractFieldOperation extends
             if (_conf.getContextEl().hasExceptionOrFailInit()) {
                 return res_;
             }
-            if (res_.getStruct() instanceof NumberStruct) {
-                res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
-            }
             if (classes_.isCustomType(className_)) {
                 if (_conf.getContextEl().isSensibleField(fieldId_.getClassName())) {
                     _conf.getContextEl().failInitEnums();
@@ -728,9 +718,6 @@ public abstract class SettableAbstractFieldOperation extends
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
             return res_;
-        }
-        if (res_.getStruct() instanceof NumberStruct) {
-            res_.setStruct(PrimitiveTypeUtil.convertObject(cl_, res_.getStruct(), _conf));
         }
         if (previous_.getStruct() instanceof FieldableStruct) {
             if (_conf.getContextEl().isContainedSensibleFields(previous_.getStruct())) {

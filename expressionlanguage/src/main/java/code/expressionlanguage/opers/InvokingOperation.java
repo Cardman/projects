@@ -304,9 +304,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return setElement(_array, _index, _element.getStruct(), _conf);
     }
     private static boolean setElement(ArrayStruct _struct, Object _index, Struct _value, Analyzable _conf) {
-        if (_struct.isNull()) {
-            return false;
-        }
         if (_index == null) {
             return false;
         }
@@ -318,7 +315,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         if (index_ < 0 || index_ >= len_) {
             return false;
         }
-        if (!_value.isNull()) {
+        if (_value != NullStruct.NULL_VALUE) {
             String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
             String elementType_ = valClass_;
             Mapping mapping_ = new Mapping();
@@ -328,14 +325,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 return false;
             }
         }
-        Struct value_;
-        if (_value instanceof NumberStruct) {
-            String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
-            value_ = PrimitiveTypeUtil.convertObject(cl_, _value, _conf);
-        } else {
-            value_ = _value;
-        }
+        String componentType_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
+        ClassArgumentMatching cl_ = new ClassArgumentMatching(componentType_);
+        LgNames stds_ = _conf.getStandards();
+        Struct value_ = PrimitiveTypeUtil.convertObject(cl_, _value, stds_);
         instance_[index_] = value_;
         return true;
     }
@@ -911,7 +904,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     if (type_.withoutInstance()) {
                         par_ = NullStruct.NULL_VALUE;
                     } else {
-                        if (par_.isNull()) {
+                        if (par_ == NullStruct.NULL_VALUE) {
                             String null_;
                             null_ = stds_.getAliasNullPe();
                             cont_.setException(new ErrorStruct(_conf,null_));

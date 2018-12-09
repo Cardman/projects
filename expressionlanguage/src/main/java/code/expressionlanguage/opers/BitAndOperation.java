@@ -8,6 +8,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
+import code.expressionlanguage.structs.NumberStruct;
 
 public final class BitAndOperation extends NumericOperation {
 
@@ -52,7 +53,7 @@ public final class BitAndOperation extends NumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
             ExecutableCode _cont) {
-        return calculateAnd(_a, _b, _cont, getResultClass());
+        return new Argument(NumberStruct.calculateAnd(_a.getStruct(), _b.getStruct(), _cont, getResultClass()));
     }
 
     @Override
@@ -61,7 +62,7 @@ public final class BitAndOperation extends NumericOperation {
         if (_a.isNull() || _b.isNull()) {
             return Argument.createVoid();
         }
-        return calculateAnd(_a, _b, _an, getResultClass());
+        return new Argument(NumberStruct.calculateAnd(_a.getStruct(), _b.getStruct(), _an.getContextEl(), getResultClass()));
     }
 
     @Override

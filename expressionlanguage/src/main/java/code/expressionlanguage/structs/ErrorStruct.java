@@ -4,12 +4,13 @@ import code.expressionlanguage.Analyzable;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ExecutableCode;
 import code.expressionlanguage.opers.util.ClassField;
+import code.util.CollCapacity;
 import code.util.ObjectMap;
 import code.util.StringList;
 
-public class ErrorStruct implements DisplayableStruct {
+public final class ErrorStruct implements DisplayableStruct {
 
-    private final ArrayStruct instance;
+    private final ArrayStruct stack;
 
     private final String className;
 
@@ -21,7 +22,7 @@ public class ErrorStruct implements DisplayableStruct {
 
     public ErrorStruct(ExecutableCode _context, String _message, String _className) {
         ContextEl cont_ = _context.getContextEl();
-        instance = StackTraceElementStruct.newStackTraceElementArray(cont_);
+        stack = StackTraceElementStruct.newStackTraceElementArray(cont_);
         className = _className;
         message = _message;
     }
@@ -31,7 +32,7 @@ public class ErrorStruct implements DisplayableStruct {
     }
 
     public ArrayStruct getStack() {
-        return instance;
+        return stack;
     }
     @Override
     public boolean isArray() {
@@ -68,13 +69,19 @@ public class ErrorStruct implements DisplayableStruct {
 
     @Override
     public StringStruct getDisplayedString(Analyzable _an) {
-        StringList str_ = new StringList();
-        for (Struct s: instance.getInstance()) {
-            str_.add(((StackTraceElementStruct)s).getStringRep());
-        }
-        return new StringStruct(str_.join("\n"));
+        return new StringStruct(getStringRep());
     }
 
+    String getStringRep() {
+        Struct[] calls_ = stack.getInstance();
+        StringList str_ = new StringList(new CollCapacity(calls_.length+2));
+        str_.add(className);
+        str_.add(message);
+        for (Struct s: calls_) {
+            str_.add(((StackTraceElementStruct)s).getStringRep());
+        }
+        return str_.join("\n");
+    }
     public Struct getMessage() {
         return new StringStruct(message);
     }

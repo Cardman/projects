@@ -7,6 +7,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.StringList;
 
 
@@ -27,18 +28,18 @@ public final class MultOperation extends NumericOperation {
             return Argument.createVoid();
         }
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return calculateMult(_a, _b, _an, getResultClass());
+            return new Argument(NumberStruct.calculateMult((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
-            return calculateDiv(_a, _b, _an, getResultClass());
+            return new Argument(NumberStruct.calculateDiv((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
         }
-        return calculateMod(_a, _b, _an, getResultClass());
+        return new Argument(NumberStruct.calculateMod((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
     }
 
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b, ExecutableCode _cont) {
         if (StringList.quickEq(_op.trim(), MULT)) {
-            return calculateMult(_a, _b, _cont, getResultClass());
+            return new Argument(NumberStruct.calculateMult((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
             return calculateDivEx(_a, _cont, _b, getResultClass());

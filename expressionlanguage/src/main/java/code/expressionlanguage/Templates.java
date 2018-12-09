@@ -14,6 +14,7 @@ import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.types.PartTypeUtil;
@@ -877,7 +878,7 @@ public final class Templates {
     public static boolean checkObject(String _param, Argument _arg, boolean _convert,ExecutableCode _context, boolean _arr) {
         Struct str_ = _arg.getStruct();
         LgNames stds_ = _context.getStandards();
-        if (!str_.isNull() && !_convert) {
+        if (str_ != NullStruct.NULL_VALUE && !_convert) {
             String a_ = stds_.getStructClassName(str_, _context.getContextEl());
             if (!Templates.isCorrectExecute(a_, _param, _context)) {
                 if (_arr) {
@@ -897,7 +898,7 @@ public final class Templates {
         }
         if (str_ instanceof NumberStruct) {
             ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
-            _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, _context));
+            _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
         }
         return true;
     }

@@ -16,7 +16,7 @@ import code.util.ObjectNotNullMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ClassMetaInfo implements Struct {
+public final class ClassMetaInfo implements Struct, ExportableStringStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -317,5 +317,10 @@ public final class ClassMetaInfo implements Struct {
     @Override
     public ObjectMap<ClassField, Struct> getFields() {
         return null;
+    }
+
+    @Override
+    public StringStruct exportValue() {
+        return new StringStruct(getName());
     }
 }

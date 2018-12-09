@@ -167,9 +167,6 @@ public final class InitializationLgNames {
         _lgNames.setAliasSetCharAt("setCharAt");
         _lgNames.setAliasSetLength("setLength");
         _lgNames.setAliasTrimToSize("trimToSize");
-        _lgNames.setAliasGet("get");
-        _lgNames.setAliasSize("size");
-        _lgNames.setAliasSimpleIterator("iterator");
         _lgNames.setAliasErrorInitClass("java.lang.$defErrorClass");
         _lgNames.setAliasClone("clone");
         _lgNames.setAliasValues("values");
@@ -284,6 +281,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasOr("or");
         _lgNames.setAliasXor("xor");
         _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasNeg("neg");
         _lgNames.setAliasLt("lt");
         _lgNames.setAliasGt("gt");
         _lgNames.setAliasLe("le");

@@ -24,6 +24,7 @@ import code.expressionlanguage.structs.FloatStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -269,7 +270,7 @@ public final class PrimitiveTypeUtil {
         LgNames lgNames_ = _an.getStandards();
         Argument arg_ = new Argument();
         String cast_ = lgNames_.getAliasCast();
-        if (!_current.isNull()) {
+        if (_current != NullStruct.NULL_VALUE) {
             String className_ = lgNames_.getStructClassName(_current, _an.getContextEl());
             String cl_ = Templates.getIdFromAllTypes(className_);
             String cls_ = cl_;
@@ -305,7 +306,7 @@ public final class PrimitiveTypeUtil {
             }
             list_.add(cl_);
             Struct par_ = current_.getParent();
-            if (par_.isNull()) {
+            if (par_ == NullStruct.NULL_VALUE) {
                 _an.setException(new ErrorStruct(_an,cast_));
                 break;
             }
@@ -330,7 +331,7 @@ public final class PrimitiveTypeUtil {
         if (!isPrimitive(_className, _stds)) {
             return false;
         }
-        return _instance.isNull();
+        return _instance == NullStruct.NULL_VALUE;
     }
 
     public static boolean isExistentPrimitive(String _className, Analyzable _context) {
@@ -596,79 +597,39 @@ public final class PrimitiveTypeUtil {
         return className_;
     }
 
-    public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, Analyzable _context) {
-        return convertObject(_match, _obj, _context.getStandards());
+    public static Struct convertObject(ClassArgumentMatching _match, Struct _obj, LgNames _context) {
+        if (_obj instanceof NumberStruct) {
+            return convertObject(_match, (NumberStruct)_obj, _context);
+        }
+        return _obj;
     }
-    static Struct convertObject(ClassArgumentMatching _match, Struct _obj, LgNames _stds) {
-        Object obj_ = _obj.getInstance();
+    static Struct convertObject(ClassArgumentMatching _match, NumberStruct _obj, LgNames _stds) {
+        Number obj_ = _obj.getInstance();
         if (_match.matchClass(_stds.getAliasPrimDouble()) || _match.matchClass(_stds.getAliasDouble())) {
-            return new DoubleStruct(((Number)obj_).doubleValue());
+            return new DoubleStruct(obj_.doubleValue());
         }
         if (_match.matchClass(_stds.getAliasPrimFloat()) || _match.matchClass(_stds.getAliasFloat())) {
-            return new FloatStruct(((Number)obj_).floatValue());
+            return new FloatStruct(obj_.floatValue());
         }
         if (_match.matchClass(_stds.getAliasPrimLong()) || _match.matchClass(_stds.getAliasLong())) {
-            return new LongStruct(((Number)obj_).longValue());
+            return new LongStruct(obj_.longValue());
         }
         if (_match.matchClass(_stds.getAliasPrimInteger()) || _match.matchClass(_stds.getAliasInteger())) {
-            return new IntStruct(((Number)obj_).intValue());
+            return new IntStruct(obj_.intValue());
         }
         if (_match.matchClass(_stds.getAliasPrimShort()) || _match.matchClass(_stds.getAliasShort())) {
-            return new ShortStruct(((Number)obj_).shortValue());
+            return new ShortStruct(obj_.shortValue());
         }
         if (_match.matchClass(_stds.getAliasPrimByte()) || _match.matchClass(_stds.getAliasByte())) {
-            return new ByteStruct(((Number)obj_).byteValue());
+            return new ByteStruct(obj_.byteValue());
         }
         if (_match.matchClass(_stds.getAliasPrimChar()) || _match.matchClass(_stds.getAliasCharacter())) {
-            return new CharStruct((char)((Number)obj_).intValue());
+            return new CharStruct((char)obj_.intValue());
         }
         return _obj;
     }
     public static Struct unwrapObject(String _match, Struct _obj, LgNames _stds) {
-        Object obj_ = _obj.getInstance();
-        if (StringList.quickEq(_match,_stds.getAliasPrimDouble())) {
-            if (obj_ instanceof Character) {
-                return new DoubleStruct(((Character)obj_).charValue());
-            }
-            return new DoubleStruct(((Number)obj_).doubleValue());
-        }
-        if (StringList.quickEq(_match,_stds.getAliasPrimFloat())) {
-            if (obj_ instanceof Character) {
-                return new FloatStruct(((Character)obj_).charValue());
-            }
-            return new FloatStruct(((Number)obj_).floatValue());
-        }
-        if (StringList.quickEq(_match,_stds.getAliasPrimLong())) {
-            if (obj_ instanceof Character) {
-                return new LongStruct(((Character)obj_).charValue());
-            }
-            return new LongStruct(((Number)obj_).longValue());
-        }
-        if (StringList.quickEq(_match,_stds.getAliasPrimInteger())) {
-            if (obj_ instanceof Character) {
-                return new IntStruct(((Character)obj_).charValue());
-            }
-            return new IntStruct(((Number)obj_).intValue());
-        }
-        if (StringList.quickEq(_match,_stds.getAliasPrimShort())) {
-            if (obj_ instanceof Character) {
-                return new ShortStruct((short) ((Character)obj_).charValue());
-            }
-            return new ShortStruct(((Number)obj_).shortValue());
-        }
-        if (StringList.quickEq(_match,_stds.getAliasPrimByte())) {
-            if (obj_ instanceof Character) {
-                return new ByteStruct((byte) ((Character)obj_).charValue());
-            }
-            return new ByteStruct(((Number)obj_).byteValue());
-        }
-        if (StringList.quickEq(_match,_stds.getAliasPrimChar())) {
-            if (obj_ instanceof Character) {
-                return new CharStruct(((Character)obj_).charValue());
-            }
-            return new CharStruct((char) ((Number)obj_).longValue());
-        }
-        return _obj;
+        return convertObject(new ClassArgumentMatching(_match), _obj, _stds);
     }
 
     public static boolean canBeUseAsArgument(boolean _noWrapper, ClassArgumentMatching _param, ClassArgumentMatching _arg, Analyzable _context) {

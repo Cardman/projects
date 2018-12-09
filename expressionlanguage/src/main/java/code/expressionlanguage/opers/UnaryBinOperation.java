@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -105,27 +106,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
         if (arg_.isNull()) {
             return;
         }
-        LgNames stds_ = _conf.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
         ClassArgumentMatching res_ = getResultClass();
-        if (res_.matchClass(int_)) {
-            int left_ = arg_.getInt();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toInt(bits_));
-        } else {
-            long left_ = arg_.getLong();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toLong(bits_));
-        }
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
+        out_.setStruct(NumberStruct.negBinNumber((NumberStruct)arg_.getStruct(), _conf, res_));
         setSimpleArgumentAna(out_, _conf);
     }
     @Override
@@ -156,27 +138,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation {
             Argument _in) {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
-        String int_ = stds_.getAliasPrimInteger();
         ClassArgumentMatching res_ = getResultClass();
-        if (res_.matchClass(int_)) {
-            int left_ = _in.getInt();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toInt(bits_));
-        } else {
-            long left_ = _in.getLong();
-            boolean[] bits_ = LgNames.toBits(left_);
-            int len_ = bits_.length;
-            for (int i = 0; i<len_; i++) {
-                bits_[i] = !bits_[i];
-            }
-            out_.setObject(LgNames.toLong(bits_));
-        }
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
+        out_.setStruct(NumberStruct.negBinNumber((NumberStruct)_in.getStruct(), _conf, res_));
         return out_;
     }
     @Override

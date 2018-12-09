@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.util.ConstructorId;
 import code.expressionlanguage.opers.util.SortedClassField;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.variables.LocalVariable;
 import code.expressionlanguage.variables.LoopVariable;
 import code.util.CustList;
@@ -166,7 +167,10 @@ public final class FinalVariableOperation extends LeafOperation {
             LoopVariable locVar_ = ip_.getVars().getVal(variableName);
             a_ = new Argument();
             ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
-            a_.setStruct(PrimitiveTypeUtil.convertObject(clArg_, new LongStruct(locVar_.getIndex()), _conf));
+            LgNames stds_ = _conf.getStandards();
+            LongStruct str_ = new LongStruct(locVar_.getIndex());
+            Struct value_ = PrimitiveTypeUtil.convertObject(clArg_, str_, stds_);
+            a_.setStruct(value_);
             return a_;
         }
         LoopVariable locVar_ = ip_.getVars().getVal(variableName);

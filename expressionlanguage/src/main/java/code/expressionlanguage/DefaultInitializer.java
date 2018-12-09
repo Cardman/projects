@@ -12,6 +12,7 @@ import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.CustStruct;
 import code.expressionlanguage.structs.EnumStruct;
 import code.expressionlanguage.structs.InnerCustStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.ObjectMap;
 import code.util.StringList;
@@ -122,7 +123,7 @@ public class DefaultInitializer implements Initializer {
     protected Struct init(ContextEl _context, Struct _parent,
             String _className, String _fieldName, int _ordinal, ObjectMap<ClassField,Struct> _fields) {
         if (_fieldName.isEmpty()) {
-            if (!_parent.isNull()) {
+            if (_parent != NullStruct.NULL_VALUE) {
                 return new InnerCustStruct(_className, _fields, _parent);
             }
             return new CustStruct(_className, _fields);

@@ -713,7 +713,7 @@ public final class AliasReflection {
                     return result_;
                 }
                 MethodMetaInfo method_ = (MethodMetaInfo) _struct;
-                Boolean poly_ = (Boolean) args_[0].getInstance();
+                Boolean poly_ = ((BooleanStruct) args_[0]).getInstance();
                 method_.setPolymorph(poly_);
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
@@ -740,11 +740,11 @@ public final class AliasReflection {
                 Struct isUpper_ = args_[0];
                 String varOwn_ = class_.getVariableOwner();
                 String nameCl_ = class_.getName();
-                if (isUpper_.isNull()) {
+                if (!(isUpper_ instanceof BooleanStruct)) {
                     result_.setResult(_cont.getExtendedClassMetaInfo(Templates.SUB_TYPE, varOwn_));
                     return result_;
                 }
-                Boolean isUpperValue_ = (Boolean) isUpper_.getInstance();
+                Boolean isUpperValue_ = ((BooleanStruct) isUpper_).getInstance();
                 if (isUpperValue_) {
                     result_.setResult(_cont.getExtendedClassMetaInfo(StringList.concat(Templates.SUB_TYPE,nameCl_), varOwn_));
                 } else {
@@ -890,9 +890,9 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                String methodName_ = (String) args_[0].getInstance();
+                String methodName_ = ((StringStruct) args_[0]).getInstance();
                 StringList classesNames_ = new StringList();
-                for (Struct s: ((Struct[])args_[1].getInstance())) {
+                for (Struct s: ((ArrayStruct)args_[1]).getInstance()) {
                     classesNames_.add(((ClassMetaInfo)s).getName());
                 }
                 CustList<MethodMetaInfo> candidates_;
@@ -949,7 +949,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasGetClass)) {
                 Struct str_ = args_[0];
-                if (str_.isNull()) {
+                if (str_ == NullStruct.NULL_VALUE) {
                     result_.setResult(NullStruct.NULL_VALUE);
                 } else {
                     String className_ = lgNames_.getStructClassName(str_, _cont);
@@ -973,9 +973,9 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                Boolean vararg_ = (Boolean) args_[0].getInstance();
+                Boolean vararg_ = ((BooleanStruct) args_[0]).getInstance();
                 StringList classesNames_ = new StringList();
-                for (Struct s: ((Struct[])args_[1].getInstance())) {
+                for (Struct s: (((ArrayStruct)args_[1]).getInstance())) {
                     classesNames_.add(((ClassMetaInfo)s).getName());
                 }
                 CustList<ConstructorMetaInfo> candidates_;
@@ -1044,11 +1044,11 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                String methodName_ = (String) args_[0].getInstance();
-                Boolean static_ = (Boolean) args_[1].getInstance();
-                Boolean vararg_ = (Boolean) args_[2].getInstance();
+                String methodName_ = ((StringStruct) args_[0]).getInstance();
+                Boolean static_ = ((BooleanStruct) args_[1]).getInstance();
+                Boolean vararg_ = ((BooleanStruct) args_[2]).getInstance();
                 StringList classesNames_ = new StringList();
-                for (Struct s: ((Struct[])args_[3].getInstance())) {
+                for (Struct s: ((ArrayStruct)args_[3]).getInstance()) {
                     classesNames_.add(((ClassMetaInfo)s).getName());
                 }
                 if (cl_.isTypeArray()) {
@@ -1115,7 +1115,7 @@ public final class AliasReflection {
                     result_.setResult(str_);
                     return result_;
                 }
-                String fieldName_ = (String) args_[0].getInstance();
+                String fieldName_ = ((StringStruct) args_[0]).getInstance();
                 FieldMetaInfo meta_ = fields_.getVal(fieldName_);
                 Struct[] ctorsArr_;
                 if (meta_ != null) {
@@ -1310,7 +1310,7 @@ public final class AliasReflection {
             if (StringList.quickEq(name_, ref_.aliasMakeGeneric)) {
                 ClassMetaInfo cl_ = (ClassMetaInfo) _struct;
                 StringList classesNames_ = new StringList();
-                for (Struct s: ((Struct[])args_[0].getInstance())) {
+                for (Struct s: ((ArrayStruct)args_[0]).getInstance()) {
                     classesNames_.add(((ClassMetaInfo)s).getName());
                 }
                 String res_ = Templates.getMadeVarTypes(cl_.getName(), classesNames_, _cont);
@@ -1335,11 +1335,11 @@ public final class AliasReflection {
                 String size_;
                 size_ = lgNames_.getAliasBadSize();
                 Struct inst_ = args_[0];
-                if (inst_.isNull()) {
+                if (!(inst_ instanceof ArrayStruct)) {
                     result_.setError(lgNames_.getAliasNullPe());
                     return result_;
                 }
-                for (Struct s: ((Struct[])inst_.getInstance())) {
+                for (Struct s: ((ArrayStruct)inst_).getInstance()) {
                     int dim_ = ((NumberStruct)s).getInstance().intValue();
                     if (dim_ < 0) {
                         result_.setError(size_);
@@ -1368,7 +1368,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGet)) {
                 Struct inst_ = args_[0];
-                int index_ = (Integer)args_[1].getInstance();
+                int index_ = ((NumberStruct)args_[1]).getInstance().intValue();
                 Struct out_ = InvokingOperation.getElement(inst_, index_, _cont);
                 if (_cont.hasExceptionOrFailInit()) {
                     return result_;
@@ -1378,7 +1378,7 @@ public final class AliasReflection {
             }
             if (StringList.quickEq(name_, ref_.aliasArraySet)) {
                 Struct inst_ = args_[0];
-                int index_ = (Integer)args_[1].getInstance();
+                int index_ = ((NumberStruct)args_[1]).getInstance().intValue();
                 Struct value_ = args_[2];
                 InvokingOperation.setElement(inst_, index_, value_, _cont, false);
                 if (_cont.hasExceptionOrFailInit()) {

@@ -55,11 +55,11 @@ public final class Argument {
         if (_arg == null) {
             return false;
         }
-        return _arg.isNull();
+        return _arg.object == NullStruct.NULL_VALUE;
     }
 
     public boolean isNull() {
-        return object.isNull();
+        return object == NullStruct.NULL_VALUE;
     }
 
     public String getString(Analyzable _cont) {
@@ -133,7 +133,7 @@ public final class Argument {
     }
 
     public boolean isIntegerType(ContextEl _context) {
-        if (object.isNull()) {
+        if (object == NullStruct.NULL_VALUE) {
             return false;
         }
         return PrimitiveTypeUtil.isIntegerType(getArgClass(_context), _context);

@@ -416,7 +416,9 @@ public final class AffectationOperation extends MethodOperation {
         SortedClassField sort_ = _conf.getCurrentInitizedField();
         FieldInfo fm_ = _conf.getFieldInfo(id_);
         Struct str_ = value_.getStruct();
-        str_ = PrimitiveTypeUtil.convertObject(new ClassArgumentMatching(fm_.getType()), str_, _conf);
+        LgNames stds_ = _conf.getStandards();
+        String to_ = fm_.getType();
+        str_ = PrimitiveTypeUtil.unwrapObject(to_, str_, stds_);
         if (sort_ != null) {
             sort_.setStruct(str_);
         }

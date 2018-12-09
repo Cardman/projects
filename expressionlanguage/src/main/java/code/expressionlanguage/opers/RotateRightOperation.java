@@ -8,6 +8,7 @@ import code.expressionlanguage.PrimitiveTypeUtil;
 import code.expressionlanguage.errors.custom.UnexpectedTypeOperationError;
 import code.expressionlanguage.opers.util.ClassArgumentMatching;
 import code.expressionlanguage.opers.util.ResultOperand;
+import code.expressionlanguage.structs.NumberStruct;
 
 public final class RotateRightOperation extends NumericOperation {
 
@@ -45,7 +46,7 @@ public final class RotateRightOperation extends NumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
             ExecutableCode _cont) {
-        return calculateRotateRight(_a, _b, _cont, getResultClass());
+        return new Argument(NumberStruct.calculateRotateRight((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _cont, getResultClass()));
     }
 
     @Override
@@ -54,7 +55,7 @@ public final class RotateRightOperation extends NumericOperation {
         if (_a.isNull() || _b.isNull()) {
             return Argument.createVoid();
         }
-        return calculateRotateRight(_a, _b, _an, getResultClass());
+        return new Argument(NumberStruct.calculateRotateRight((NumberStruct)_a.getStruct(),(NumberStruct) _b.getStruct(), _an, getResultClass()));
     }
 
     @Override

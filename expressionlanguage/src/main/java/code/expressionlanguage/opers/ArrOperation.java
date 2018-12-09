@@ -394,16 +394,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         Argument left_ = new Argument();
         left_.setStruct(_stored);
-        String clForm_ = EMPTY_STRING;
-        ClassArgumentMatching clArg_;
-        if (!_array.isNull()) {
-            LgNames stds_ = _conf.getStandards();
-            String strClass_ = stds_.getStructClassName(_array, _conf.getContextEl());
-            clForm_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-            clArg_ = new ClassArgumentMatching(clForm_);
-        } else {
-            clArg_ = getResultClass();
-        }
+        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = NumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {
@@ -420,16 +411,7 @@ public final class ArrOperation extends MethodOperation implements SettableElRes
         }
         Argument left_ = new Argument();
         left_.setStruct(_stored);
-        String clForm_ = EMPTY_STRING;
-        ClassArgumentMatching clArg_;
-        if (!_array.isNull()) {
-            LgNames stds_ = _conf.getStandards();
-            String strClass_ = stds_.getStructClassName(_array, _conf.getContextEl());
-            clForm_ = PrimitiveTypeUtil.getQuickComponentType(strClass_);
-            clArg_ = new ClassArgumentMatching(clForm_);
-        } else {
-            clArg_ = getResultClass();
-        }
+        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = NumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
         if (_conf.getContextEl().hasExceptionOrFailInit()) {

@@ -15,6 +15,7 @@ import code.expressionlanguage.opers.util.ClassMethodId;
 import code.expressionlanguage.opers.util.ClassMethodIdReturn;
 import code.expressionlanguage.opers.util.MethodId;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.NatTreeMap;
@@ -119,21 +120,13 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         if (arg_.isNull()) {
             return;
         }
+        ClassArgumentMatching to_ = getResultClass();
         String oper_ = getOperations().getOperators().firstValue();
         if (StringList.quickEq(oper_, PLUS)) {
-            out_.setStruct(arg_.getStruct());
+            out_.setStruct(NumberStruct.idNumber((NumberStruct) arg_.getStruct(), _conf, to_));
         } else {
-            Number b_ = arg_.getNumber();
-            int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
-            String longPrim_ = _conf.getStandards().getAliasPrimLong();
-            if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {
-                out_.setObject(-b_.longValue());
-            } else {
-                out_.setObject(-b_.doubleValue());
-            }
+            out_.setStruct(NumberStruct.opposite((NumberStruct) arg_.getStruct(), _conf, to_));
         }
-        ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
         setSimpleArgumentAna(out_, _conf);
     }
     @Override
@@ -165,20 +158,12 @@ public final class UnaryOperation extends AbstractUnaryOperation {
         Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         String oper_ = getOperations().getOperators().firstValue();
+        ClassArgumentMatching to_ = getResultClass();
         if (StringList.quickEq(oper_, PLUS)) {
-            out_.setStruct(_in.getStruct());
+            out_.setStruct(NumberStruct.idNumber((NumberStruct) _in.getStruct(), _conf, to_));
         } else {
-            Number b_ = _in.getNumber();
-            int order_ = PrimitiveTypeUtil.getOrderClass(getResultClass(), _conf);
-            String longPrim_ = _conf.getStandards().getAliasPrimLong();
-            if (order_ <= PrimitiveTypeUtil.getOrderClass(longPrim_, _conf)) {
-                out_.setObject(-b_.longValue());
-            } else {
-                out_.setObject(-b_.doubleValue());
-            }
+            out_.setStruct(NumberStruct.opposite((NumberStruct) _in.getStruct(), _conf, to_));
         }
-        ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(PrimitiveTypeUtil.convertObject(res_, out_.getStruct(), _conf));
         return out_;
     }
     @Override

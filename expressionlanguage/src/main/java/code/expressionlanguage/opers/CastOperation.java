@@ -104,7 +104,7 @@ public final class CastOperation extends AbstractUnaryOperation {
                 if (PrimitiveTypeUtil.getOrderClass(argClassName_, _conf) == 0) {
                     return;
                 }
-                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
+                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), stds_));
             } else {
                 if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     return;
@@ -172,7 +172,7 @@ public final class CastOperation extends AbstractUnaryOperation {
                     Argument a_ = new Argument();
                     return a_;
                 }
-                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), _conf));
+                arg_.setStruct(PrimitiveTypeUtil.convertObject(resCl_, objArg_.getStruct(), stds_));
             } else {
                 if (!StringList.quickEq(argClassName_, stds_.getAliasBoolean())) {
                     setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);

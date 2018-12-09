@@ -251,6 +251,7 @@ public final class DefaultInitialization {
         _lgNames.setAliasOr("or");
         _lgNames.setAliasXor("xor");
         _lgNames.setAliasNegBin("negBin");
+        _lgNames.setAliasNeg("neg");
         _lgNames.setAliasLt("lt");
         _lgNames.setAliasGt("gt");
         _lgNames.setAliasLe("le");

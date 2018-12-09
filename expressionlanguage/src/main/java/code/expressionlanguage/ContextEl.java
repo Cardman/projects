@@ -46,6 +46,7 @@ import code.expressionlanguage.methods.Block;
 import code.expressionlanguage.methods.Classes;
 import code.expressionlanguage.methods.ConstructorBlock;
 import code.expressionlanguage.methods.ElementBlock;
+import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.ForLoopPart;
 import code.expressionlanguage.methods.FunctionBlock;
 import code.expressionlanguage.methods.InfoBlock;
@@ -233,7 +234,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (!initEnums) {
             return;
         }
-        if (_container.isNull()) {
+        if (_container == NullStruct.NULL_VALUE) {
             return;
         }
         if (_container instanceof BooleanStruct) {
@@ -257,7 +258,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         if (!initEnums) {
             return;
         }
-        if (_owned.isNull()) {
+        if (_owned == NullStruct.NULL_VALUE) {
             return;
         }
         if (_owned instanceof BooleanStruct) {
@@ -284,7 +285,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             return;
         }
         for (Struct s: _cloned.getInstance()) {
-            if (s.isNull()) {
+            if (s == NullStruct.NULL_VALUE) {
                 continue;
             }
             if (s instanceof BooleanStruct) {
@@ -441,6 +442,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
             }
             firstChild_ = firstChild_.getNextSibling();
         }
+        page_.setFile(class_.getFile());
         return page_;
     }
 
@@ -480,6 +482,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         rwLoc_.setBlock(methodLoc_.getFirstChild());
         pageLoc_.setReadWrite(rwLoc_);
         pageLoc_.setBlockRoot(methodLoc_);
+        pageLoc_.setFile(methodLoc_.getFile());
         return pageLoc_;
     }
     private AbstractPageEl createInstancing(CustomFoundConstructor _e) {
@@ -496,6 +499,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         NewInstancingPageEl page_;
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
+        FileBlock file_ = getFile(_class);
         CustList<GeneConstructor> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
         ConstructorBlock method_ = null;
         Argument argGl_ = new Argument();
@@ -529,6 +533,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         page_.setReadWrite(rw_);
         page_.setBlockRoot(method_);
+        page_.setFile(file_);
         return page_;
     }
     public NewAnnotationPageEl createAnnotation(String _class,
@@ -537,6 +542,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         setCallAnnot(null);
         NewAnnotationPageEl page_;
         ConstructorBlock method_ = null;
+        FileBlock file_ = getFile(_class);
         Argument argGl_ = new Argument();
         page_ = new NewAnnotationPageEl();
         page_.setArgs(_args);
@@ -548,11 +554,13 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         ReadWrite rw_ = new ReadWrite();
         page_.setReadWrite(rw_);
         page_.setBlockRoot(method_);
+        page_.setFile(file_);
         return page_;
     }
     public AbstractPageEl createInstancing(String _class, CallConstructor _call, InstancingStep _in,CustList<Argument> _args) {
         setCallCtor(null);
         AbstractPageEl page_;
+        FileBlock file_ = getFile(_class);
         Argument global_ = _call.getArgument();
         ConstructorId id_ = _call.getId();
         CustList<GeneConstructor> methods_ = Classes.getConstructorBodiesById(this, _class, id_);
@@ -588,6 +596,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         page_.setReadWrite(rw_);
         page_.setBlockRoot(method_);
+        page_.setFile(file_);
         return page_;
     }
     public FieldInitPageEl createInitFields(String _class, Argument _current) {
@@ -609,10 +618,12 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         }
         page_.setReadWrite(rw_);
         page_.setBlockRoot(class_);
+        page_.setFile(class_.getFile());
         return page_;
     }
     public BlockPageEl createBlockPageEl(String _class, Argument _current, InitBlock _block) {
         setFoundBlock(null);
+        FileBlock file_ = getFile(_class);
         BlockPageEl page_ = new BlockPageEl();
         page_.setTabWidth(tabWidth);
         page_.setGlobalClass(_class);
@@ -622,6 +633,7 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         rw_.setBlock(firstChild_);
         page_.setReadWrite(rw_);
         page_.setBlockRoot(_block);
+        page_.setFile(file_);
         return page_;
     }
     private AbstractReflectPageEl createReflectMethod(CustomReflectMethod _e) {
@@ -653,6 +665,17 @@ public final class ContextEl implements FieldableStruct, EnumerableStruct,Runnab
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;
+    }
+    private FileBlock getFile(String _class) {
+        String idCl_= Templates.getIdFromAllTypes(_class);
+        FileBlock file_ = null;
+        for (RootBlock c: classes.getClassBodies()) {
+            if (StringList.quickEq(c.getFullName(), idCl_)) {
+                file_ = c.getFile();
+                break;
+            }
+        }
+        return file_;
     }
     @Override
     public String getClassName(ExecutableCode _contextEl) {

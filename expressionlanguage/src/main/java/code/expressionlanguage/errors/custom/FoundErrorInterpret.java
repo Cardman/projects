@@ -23,8 +23,9 @@ public abstract class FoundErrorInterpret {
         if (f_ == null) {
             str_.append(LINE_COL).append(SEP_KEY_VAL).append(SEP_INFO);
         } else {
-            str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(f_.getRowFile(indexFile)));
-            str_.append(SEP_KEY_VAL).append(Integer.toString(f_.getColFile(indexFile))).append(SEP_INFO);
+            int row_ = f_.getRowFile(indexFile);
+            str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(row_));
+            str_.append(SEP_KEY_VAL).append(Integer.toString(f_.getColFile(indexFile,row_))).append(SEP_INFO);
         }
         str_.append(LINE_COL).append(SEP_KEY_VAL).append(Integer.toString(indexFile)).append(SEP_INFO);
         return str_.toString();

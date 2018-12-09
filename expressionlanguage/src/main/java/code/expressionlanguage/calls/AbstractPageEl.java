@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.ReadWrite;
 import code.expressionlanguage.methods.Block;
+import code.expressionlanguage.methods.FileBlock;
 import code.expressionlanguage.methods.util.ParentStackBlock;
 import code.expressionlanguage.opers.ExpressionLanguage;
 import code.expressionlanguage.stacks.LoopBlockStack;
@@ -36,6 +37,7 @@ public abstract class AbstractPageEl extends PageEl {
 
     private int offset;
     private StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
+    private FileBlock file;
 
     public boolean receive(Argument _argument, ContextEl _context) {
         getLastEl().setArgument(_argument, _context);
@@ -191,4 +193,13 @@ public abstract class AbstractPageEl extends PageEl {
     public StringMap<LocalVariable> getInternVars() {
         return internVars;
     }
+
+    public FileBlock getFile() {
+        return file;
+    }
+
+    public void setFile(FileBlock _file) {
+        file = _file;
+    }
+    
 }
